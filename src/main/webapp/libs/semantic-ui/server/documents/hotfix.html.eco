@@ -1,0 +1,71 @@
+---
+layout : 'default'
+css    : 'hotfix'
+
+title  : 'Test Page'
+type   : 'Library'
+---
+<%- @partial('header') %>
+
+<script type='text/javascript'>
+$(document).ready(function() {
+
+$(document).ready(function () {
+    var settings = {
+        inline : true,
+        on : 'blur'
+    };
+
+    var consultantRules = {
+        required : {
+            identifier : 'required',
+            rules : [{
+                type : 'empty',
+                prompt : 'Please enter value.'
+            }]
+        }
+
+    };
+    $('.form').form(consultantRules, settings);
+});
+
+});
+</script>
+<div class="main container">
+without form :
+    <div class="inline field">
+                <label class="email optional" for="landing_user_Votre email">Votre email</label>
+                <div class="ui input left icon">
+                  <input id="landing_user_email" name="landing_user[email]" required="required" type="text">
+                  <i class="icon mail outline"></i>
+                </div>
+
+              </div>
+ <br/>   <br/>
+with ui form and with input icon:
+
+<form class='ui form'>
+    <div class="inline field">
+                <label class="email optional" for="landing_user_Votre email">Votre email</label>
+                <div class="ui input left icon">
+                  <input id="landing_user_email" name="landing_user[email]" required="required" type="text">
+                  <i class="icon mail outline"></i>
+                </div>
+
+              </div>
+</form>
+    <br/>
+     <br/>
+with ui form and without input icon
+<form class='ui form'>
+    <div class="inline field">
+                <label class="email optional" for="landing_user_Votre email">Votre email</label>
+                <input id="landing_user_email" name="landing_user[email]" required="required" type="text">
+
+
+    </div>
+</form>
+
+
+
+</div>
