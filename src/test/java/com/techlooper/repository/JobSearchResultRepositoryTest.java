@@ -1,6 +1,6 @@
-package com.techlooper.repositories;
+package com.techlooper.repository;
 
-import com.techlooper.entities.Job;
+import com.techlooper.entity.Job;
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;

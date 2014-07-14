@@ -1102,8 +1102,8 @@ var _EncodeCode = function(text) {
 // The point is that in code, these characters are literals,
 // and lose their special Markdown meanings.
 //
-	// Encode all ampersands; HTML entities are not
-	// entities within a Markdown code span.
+	// Encode all ampersands; HTML entity are not
+	// entity within a Markdown code span.
 	text = text.replace(/&/g,"&amp;");
 
 	// Do the angle bracket song and dance:

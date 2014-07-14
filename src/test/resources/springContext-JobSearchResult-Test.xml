@@ -12,7 +12,7 @@
     </bean>
 
 
-    <elasticsearch:repositories base-package="com.techlooper.repositories" />
+    <elasticsearch:repositories base-package="com.techlooper.repository" />
 
 
 </beans>

@@ -1,6 +1,6 @@
-package com.techlooper.repositories;
+package com.techlooper.repository;
 
-import com.techlooper.entities.Job;
+import com.techlooper.entity.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
