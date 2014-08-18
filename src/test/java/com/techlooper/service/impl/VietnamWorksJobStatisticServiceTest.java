@@ -39,7 +39,17 @@ public class VietnamWorksJobStatisticServiceTest {
     }
 
     @Test
-    public void count() {
+    public void countJava() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
+    }
+
+    @Test
+    public void countPhp() {
+        assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
+    }
+
+    @Test
+    public void countNet() {
+        assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
     }
 }
