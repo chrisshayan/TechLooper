@@ -103,6 +103,6 @@ public class Job {
      */
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this).toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }
