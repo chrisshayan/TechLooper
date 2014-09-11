@@ -6,7 +6,7 @@ package com.techlooper.model;
  */
 public enum TechnicalTermEnum {
     /**
-     * QA refers to the job which is hiring QA
+     * QA refers to the job which is hiring Quality Assurance
      */
     QA("qa"),
 
