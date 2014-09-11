@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TechLooper:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="techlooper.war">
+      <element id="artifact" artifact-name="TechLooper:war exploded" />
+    </root>
+  </artifact>
+</component>
