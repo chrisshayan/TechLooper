@@ -2,6 +2,10 @@ package com.techlooper.service.impl;
 
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
+
+import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -17,39 +21,59 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @Service
 public class VietnamWorksJobStatisticService implements JobStatisticService {
 
-    @Resource
-    private ElasticsearchTemplate elasticsearchTemplate;
+   @Resource
+   private ElasticsearchTemplate elasticsearchTemplate;
 
-    public Long countPhpJobs() {
-        return count(TechnicalTermEnum.PHP);
-    }
+   private Logger LOG = LoggerFactory.getLogger(VietnamWorksJobStatisticService.class);
 
-    public Long countJavaJobs() {
-        return count(TechnicalTermEnum.JAVA);
-    }
+   public Long countPhpJobs() {
+      return count(TechnicalTermEnum.PHP);
+   }
 
-    public Long countDotNetJobs() {
-        return count(TechnicalTermEnum.DOTNET);
-    }
+   public Long countJavaJobs() {
+      return count(TechnicalTermEnum.JAVA);
+   }
 
-    /**
-     * Counts the matching jobs to relevant {@code TechnicalTermEnum}
-     * @param technicalTermEnum a {@code TechnicalTermEnum} to determine which technology search must happen.
-     * @return a {@code Long} that represents number of matching jobs.
-     */
-    public Long count(final TechnicalTermEnum technicalTermEnum) {
-        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(
-                        technicalTermEnum,
-                        "jobTitle",
-                        "jobDescription",
-                        "skillExperience"
-                ))
-                .withTypes("job")
-                .withIndices("vietnamworks")
-                .build();
+   public Long countDotNetJobs() {
+      return count(TechnicalTermEnum.DOTNET);
+   }
 
-        return elasticsearchTemplate.count(searchQuery);
-    }
+   public Long countProjectManagerJobs() {
+      return count(TechnicalTermEnum.PROJECT_MANAGER);
+   }
 
+   public Long countBAJobs() {
+      return count(TechnicalTermEnum.BA);
+   }
+
+   public Long countQAJobs() {
+      return count(TechnicalTermEnum.QA);
+   }
+
+   public Long countDBAJobs() {
+      return count(TechnicalTermEnum.QA);
+   }
+
+   public Long countPythonJobs() {
+      return count(TechnicalTermEnum.PYTHON);
+   }
+
+   public Long countRubyJobs() {
+      return count(TechnicalTermEnum.RUBY);
+   }
+
+   /**
+    * Counts the matching jobs to relevant {@code TechnicalTermEnum}
+    * 
+    * @param technicalTermEnum
+    *           a {@code TechnicalTermEnum} to determine which technology search
+    *           must happen.
+    * @return a {@code Long} that represents number of matching jobs.
+    */
+   public Long count(final TechnicalTermEnum technicalTermEnum) {
+      final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+            .withQuery(multiMatchQuery(technicalTermEnum, "jobTitle", "jobDescription", "skillExperience"))
+            .withTypes("job").withIndices("vietnamworks").build();
+      return elasticsearchTemplate.count(searchQuery);
+   }
 }
