@@ -20,4 +20,10 @@ public class LoggingAspect {
     public void logServiceResult(final JoinPoint joinPoint, final Object returnValue) {
         LOGGER.info(String.format("Result for searching [%s] is [%s]", joinPoint.getArgs()[0], returnValue));
     }
+    
+    @AfterReturning(pointcut = "execution(* com.techlooper.service.JobStatisticService.count*())",
+          returning = "returnValue")
+    public void logServiceCountResult(final JoinPoint joinPoint, final Object returnValue) {
+       LOGGER.info(String.format("Result for searching by [%s] is [%s]", joinPoint.getSignature().getName(), returnValue));
+    }
 }
