@@ -1,4 +1,8 @@
 # Created by .gitignore support plugin (hsz.mobi)
 .idea
-bower_components
+/bower_components/
 *.iml
+/target/
+/.settings/
+.project
+.classpath
