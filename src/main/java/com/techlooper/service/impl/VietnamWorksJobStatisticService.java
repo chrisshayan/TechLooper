@@ -1,19 +1,16 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.model.TechnicalTermEnum;
-import com.techlooper.service.JobStatisticService;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
-import org.apache.commons.logging.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.annotation.Resource;
+
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.service.JobStatisticService;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -23,8 +20,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
    @Resource
    private ElasticsearchTemplate elasticsearchTemplate;
-
-   private Logger LOG = LoggerFactory.getLogger(VietnamWorksJobStatisticService.class);
 
    public Long countPhpJobs() {
       return count(TechnicalTermEnum.PHP);
