@@ -49,12 +49,32 @@ public interface JobStatisticService {
      */
     Long count(final TechnicalTermEnum technicalTermEnum);
 
-   public abstract Long countRubyJobs();
+    /**
+     * Counting Ruby jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countRubyJobs();
 
-   public abstract Long countPythonJobs();
+    /**
+     * Counting Python jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countPythonJobs();
 
-   public abstract Long countDBAJobs();
+    /**
+     * Counting DBA jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countDBAJobs();
 
-   public abstract Long countQAJobs();
+    /**
+     * Counting QA jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countQAJobs();
 
 }
