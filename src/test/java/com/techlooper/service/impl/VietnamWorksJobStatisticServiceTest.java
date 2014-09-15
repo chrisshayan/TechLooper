@@ -21,7 +21,37 @@ import static org.junit.Assert.assertThat;
 public class VietnamWorksJobStatisticServiceTest {
 
     @Autowired
-    JobStatisticService jobStatisticService;
+    private JobStatisticService jobStatisticService;
+    
+    @Test
+    public void countQAJobs() {
+       assertThat(jobStatisticService.countQAJobs(), IsNot.not(IsNull.nullValue()));
+    }
+    
+    @Test
+    public void countBAJobs() {
+       assertThat(jobStatisticService.countBAJobs(), IsNot.not(IsNull.nullValue()));
+    }
+    
+    @Test
+    public void countDBAJobs() {
+       assertThat(jobStatisticService.countDBAJobs(), IsNot.not(IsNull.nullValue()));
+    }
+    
+    @Test
+    public void countPythonJobs() {
+       assertThat(jobStatisticService.countPythonJobs(), IsNot.not(IsNull.nullValue()));
+    }
+    
+    @Test
+    public void countRubyJobs() {
+       assertThat(jobStatisticService.countRubyJobs(), IsNot.not(IsNull.nullValue()));
+    }
+    
+    @Test
+    public void countProjectManagerJobs() {
+       assertThat(jobStatisticService.countProjectManagerJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
     @Test
     public void countPhpJobs() {
@@ -37,18 +67,26 @@ public class VietnamWorksJobStatisticServiceTest {
     public void countDotNetJobs() {
         assertThat(jobStatisticService.countDotNetJobs(), IsNot.not(IsNull.nullValue()));
     }
-
+    
     @Test
+    public void testCountSomething() {
+       assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
+       assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
+       assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
+    }
+
+//*** remove functions countJava , countPhp, countNet because we have others to cover them
+//    @Test
     public void countJava() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
     }
 
-    @Test
+//    @Test
     public void countPhp() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
     }
 
-    @Test
+//    @Test
     public void countNet() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
     }
