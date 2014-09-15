@@ -11,7 +11,7 @@
 
     <aop:aspectj-autoproxy/>
 
-    <elasticsearch:transport-client id="client" cluster-name="staging-es-w-chef" cluster-nodes="es-staging.vietnamworks.com:9300"/>
+    <elasticsearch:transport-client id="client" cluster-name="staging-es-w-chef" cluster-nodes="172.16.22.27:9300"/>
     <elasticsearch:repositories base-package="com.techlooper.repository" />
 
     <context:component-scan base-package="com.techlooper.service, com.techlooper.aspect" />
