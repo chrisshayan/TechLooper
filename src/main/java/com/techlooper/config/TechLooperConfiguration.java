@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 
 import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +24,6 @@ public class TechLooperConfiguration {
 
    @Resource
    private Environment environment;
-
-   @Value("${elasticsearch.host}")
-   private String elasticsearchHost;
-
-   @Value("${elasticsearch.cluster.name}")
-   private String elasticsearchClusterName;
 
    @Resource
    private TransportClient transportClient;
