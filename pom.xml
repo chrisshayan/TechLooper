@@ -84,6 +84,7 @@
                 <version>2.6</version>
                 <configuration>
                     <argLine>-XX:-UseSplitVerifier</argLine>
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>
