@@ -69,24 +69,16 @@ public class VietnamWorksJobStatisticServiceTest {
     }
     
     @Test
-    public void testCountSomething() {
-       assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
-       assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
-       assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
-    }
-
-//*** remove functions countJava , countPhp, countNet because we have others to cover them
-//    @Test
     public void countJava() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
     }
 
-//    @Test
+    @Test
     public void countPhp() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
     }
 
-//    @Test
+    @Test
     public void countNet() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
     }
