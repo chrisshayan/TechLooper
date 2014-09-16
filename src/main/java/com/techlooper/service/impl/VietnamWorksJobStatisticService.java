@@ -67,8 +67,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     */
    public Long count(final TechnicalTermEnum technicalTermEnum) {
       final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-            .withQuery(multiMatchQuery(technicalTermEnum, "jobTitle", "jobDescription", "skillExperience", "companyDesc","companyProfile"))
-            .withTypes("job").withIndices("vietnamworks").build();
+            .withQuery(multiMatchQuery(technicalTermEnum, "jobTitle", "jobDescription", "skillExperience"))
+            .withIndices("vietnamworks").build();
       return elasticsearchTemplate.count(searchQuery);
    }
 }
