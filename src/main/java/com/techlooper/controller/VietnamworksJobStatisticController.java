@@ -1,32 +1,30 @@
 package com.techlooper.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.stereotype.Controller;
 
-import com.techlooper.model.JobStatistic;
+import com.techlooper.model.JobStatisticResponse;
+import com.techlooper.model.JobStatisticResquest;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 
-@RestController
+@Controller
 public class VietnamworksJobStatisticController {
 
-   @Resource(name = "vietnamWorksJobStatisticService")
+   @Resource
    private JobStatisticService vietnamWorksJobStatisticService;
 
-   @RequestMapping("/technical-job")
-   @ResponseBody
-   public List<JobStatistic> countTechnicalJobs() {
-      List<JobStatistic> result = new ArrayList<JobStatistic>();
-      for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-         result.add(new JobStatistic.Builder().withTerm(term).withCount(vietnamWorksJobStatisticService.count(term))
-               .build());
-      }
-      return result;
+   @Resource
+   private SimpMessageSendingOperations messagingTemplate;
+
+   @SendTo("/topic/technical-job")
+   @MessageMapping("/technical-job")
+   public JobStatisticResponse countJobs(JobStatisticResquest requestTerm) {
+      return new JobStatisticResponse.Builder().withCount(
+            vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(requestTerm.getTerm()))).build();
    }
 }

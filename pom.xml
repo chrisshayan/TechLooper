@@ -48,8 +48,16 @@
             </configuration>
          </plugin>
          <plugin>
-            <groupId>org.mortbay.jetty</groupId>
+            <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
+            <version>9.2.2.v20140723</version>
+            <!-- <dependencies> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.eclipse.jetty</groupId> -->
+            <!-- <artifactId>jetty-websocket</artifactId> -->
+            <!-- <version>8.1.15.v20140411</version> -->
+            <!-- </dependency> -->
+            <!-- </dependencies> -->
          </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -57,6 +65,16 @@
             <version>2.4</version>
             <configuration>
                <failOnMissingWebXml>false</failOnMissingWebXml>
+               <configuration>
+                  <webResources>
+                     <resource>
+                        <directory>src/main/resource/static</directory>
+                        <includes>
+                           <include>**/*</include>
+                        </includes>
+                     </resource>
+                  </webResources>
+               </configuration>
             </configuration>
          </plugin>
       </plugins>
@@ -130,6 +148,16 @@
       </plugins>
    </reporting>
    <dependencies>
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-websocket</artifactId>
+         <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-messaging</artifactId>
+         <version>${spring.version}</version>
+      </dependency>
       <dependency>
          <groupId>org.skyscreamer</groupId>
          <artifactId>jsonassert</artifactId>
@@ -264,7 +292,7 @@
          <groupId>org.springframework</groupId>
          <artifactId>spring-test</artifactId>
          <version>${spring.version}</version>
-         <scope>test</scope>
+         <!-- <scope>test</scope> -->
       </dependency>
       <dependency>
          <groupId>org.hamcrest</groupId>
