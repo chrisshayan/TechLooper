@@ -1,10 +1,8 @@
 package com.techlooper.model;
 
-public class JobStatistic {
+public class JobStatisticResponse {
 
    private Long count;
-
-   private TechnicalTermEnum term;
 
    public Long getCount() {
       return count;
@@ -14,28 +12,15 @@ public class JobStatistic {
       this.count = count;
    }
 
-   public TechnicalTermEnum getTerm() {
-      return term;
-   }
-
-   public void setTerm(TechnicalTermEnum term) {
-      this.term = term;
-   }
-
    public static Builder createBuilder() {
       return new Builder();
    }
 
    public static class Builder {
-      private JobStatistic jobStatistic;
+      private JobStatisticResponse jobStatistic;
 
       public Builder() {
-         jobStatistic = new JobStatistic();
-      }
-
-      public Builder withTerm(TechnicalTermEnum term) {
-         jobStatistic.setTerm(term);
-         return this;
+         jobStatistic = new JobStatisticResponse();
       }
 
       public Builder withCount(Long count) {
@@ -43,7 +28,7 @@ public class JobStatistic {
          return this;
       }
 
-      public JobStatistic build() {
+      public JobStatisticResponse build() {
          return jobStatistic;
       }
    }
