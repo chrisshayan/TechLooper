@@ -1,0 +1,239 @@
+ #left {
+    float:left;
+    width:555px;
+    margin-top: 50px;
+}
+#right {
+    float:right;
+    width:415px;
+    margin-top: 50px;
+}
+#right a, #right a:visited {
+    display:block;
+    color:#FF5800;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+#right a:hover, #right a.active {
+    text-decoration:none;
+    color:#003359;
+}
+#right p {
+    color:#19337F;
+    margin-top: 35px;
+    font-size: 20px;
+}
+#box {
+    position:relative;
+    left:120px;
+}
+#box .circle {
+    position:relative;
+    cursor:pointer;
+    text-align:center;
+    width: 1000px;
+    height: 1000px;
+}
+#box .active {
+    width:340px;
+    height:340px;
+    cursor:pointer;
+}
+#box .circle span {
+    width:125px;
+    font-size:18px;
+    position:relative;
+    top:-70%;
+    color:#ffffff;
+}
+#box .circle strong{
+    display: block;
+    clear: both;
+    font-size: 24px;
+    font-weight: 400;
+}
+#box #pmTech span {
+    top:-68%;
+}
+#box .circle .circle-content {
+    background: #f00;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    width:150px;
+    height:150px;
+}
+#box .circle .redColor{
+    background: #f00;
+}
+#box .circle .blueColor{
+    background: #106da4;
+}
+#box .circle .yellowColor{
+    background: #d7c500;
+}
+#box .circle .pinkColor{
+    background: #cc21a0;
+}
+#box .circle .greenColor{
+    background: #11a06c;
+}
+#box .circle .orangeColor{
+    background: #d26e03;
+}
+#box .circle .lightSalmonColor{
+    background: #ffa07a;
+}
+#box .circle .indigoColor{
+    background: #4B0082;
+}
+#box .circle .oliveColor{
+    background: #808000;
+}
+#box .circle .saddleBrownColor{
+    background: #8B4513;
+}
+#box #javaTech {
+    position:absolute;
+    top:10px;
+    left:25px;
+    z-index:1;
+}
+#box #phpTech {
+    position:absolute;
+    top:90px;
+    left:-120px;
+    z-index:2;
+}
+#box #qcTech {
+    position:absolute;
+    top:210px;
+    left:-210px;
+    z-index:3;
+}
+#box #pmTech {
+    position:absolute;
+    top:10px;
+    left:-80px;
+    z-index:4;
+}
+#box #dotnetTech {
+    position:absolute;
+    top:0;
+    left:200px;
+    z-index:5;
+}
+#box #dbaTech {
+    position:absolute;
+    top:40px;
+    left:-200px;
+    z-index:6;
+}
+#box #baTech {
+    position:absolute;
+    top:150px;
+    left:250px;
+    z-index:7;
+}
+#box #rubyTech {
+    position:absolute;
+    top:90px;
+    left:85px;
+    z-index:8;
+}
+#box #pythonTech {
+    position:absolute;
+    top:250px;
+    left:10px;
+    z-index:9;
+}
+#box #dbTech {
+    position:absolute;
+    top:250px;
+    left:180px;
+    z-index:9;
+}
+#box .fivepc,
+#box .fivepc .circle-content{
+    width:50px;
+    height:50px; 
+}
+#box .fivepc span{
+    font-size: 10px;
+    line-height: 12px;
+    top: -35px !important;
+    width: 50px;
+}
+#box .fivepc strong{
+    font-size: 12px;
+}
+#box .tenpc,
+#box .tenpc .circle-content{
+    width:100px;
+    height:100px; 
+}
+#box .tenpc span{
+    font-size: 15px;
+    line-height: 16px;
+    top: -65px !important;
+    width: 100px;
+}
+#box .tenpc strong{
+    font-size: 20px;
+}
+#box .fifteenpc,
+#box .fifteenpc .circle-content{
+    width:150px;
+    height:150px; 
+}
+#box .fifteenpc span{
+    font-size: 18px;
+    line-height:22px;
+    top: -95px !important;
+}
+#box .fifteenpc strong{
+    font-size: 25px;
+}
+#box .twentypc,
+#box .twentypc .circle-content{
+    width:200px;
+    height:200px; 
+}
+#box .twentypc span{
+    top: -130px !important;
+}
+#box .twentyfivepc,
+#box .twentyfivepc .circle-content{
+    width:250px;
+    height:250px; 
+}
+#box .twentyfivepc span{
+    top: -130px !important;
+}
+#box .thirtypc,
+#box .thirtypc .circle-content{
+    width:300px;
+    height:300px; 
+}
+#box .intro {
+    display:none;
+    width:250px;
+    color:#ffffff;
+    position:absolute;
+    bottom:100px;
+    left:35px;
+    line-height:15px;
+}
+
+#box .active span{
+    font-size:35px;
+    line-height:40px;
+    top: -220px !important;
+    text-align: center;
+    width:320px;
+    height: 320px;
+}
+#box .active strong{
+    font-size: 45px;
+}
