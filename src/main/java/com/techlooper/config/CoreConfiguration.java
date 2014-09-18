@@ -19,7 +19,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
 @EnableElasticsearchRepositories(basePackages = "com.techlooper.repository")
-@PropertySource("classpath:techlooper.properties")
+// The envTarget variable can be set in the OS/environment or as a parameter to
+// the JVM command line: -DenvTarget=dev
+@PropertySource("classpath:${envTarget:techlooper}.properties")
 @EnableScheduling
 public class CoreConfiguration {
 
