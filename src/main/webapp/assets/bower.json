@@ -5,7 +5,6 @@
 		"angular": "latest",
 		"angular-resource": "latest",
 		"jquery": "latest",
-		"semantic-ui": "latest",
 		"sockjs": "latest",
 		"stomp-websocket": "latest",
 		"showdown": "latest"
