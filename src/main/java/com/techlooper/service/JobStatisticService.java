@@ -6,6 +6,21 @@ import com.techlooper.model.TechnicalTermEnum;
  * Created by chrisshayan on 7/14/14.
  */
 public interface JobStatisticService {
+   /**
+    * Counting BA jobs
+    * @return number of jobs
+    * @see com.techlooper.model.TechnicalTermEnum
+    */
+   Long countBAJobs();
+   
+   /**
+    * Counting Project Manager jobs
+    * @return number of jobs
+    * @see com.techlooper.model.TechnicalTermEnum
+    */
+   Long countProjectManagerJobs();
+   
+   
     /**
      * Counting PHP jobs
      * @return number of jobs
@@ -33,5 +48,33 @@ public interface JobStatisticService {
      * @return a {@code Long} that represents number of matching jobs.
      */
     Long count(final TechnicalTermEnum technicalTermEnum);
+
+    /**
+     * Counting Ruby jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countRubyJobs();
+
+    /**
+     * Counting Python jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countPythonJobs();
+
+    /**
+     * Counting DBA jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countDBAJobs();
+
+    /**
+     * Counting QA jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countQAJobs();
 
 }
