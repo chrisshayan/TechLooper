@@ -17,11 +17,8 @@ public class JobStatisticResponse {
    }
 
    public static class Builder {
-      private JobStatisticResponse jobStatistic;
 
-      public Builder() {
-         jobStatistic = new JobStatisticResponse();
-      }
+      private JobStatisticResponse jobStatistic = new JobStatisticResponse();
 
       public Builder withCount(Long count) {
          jobStatistic.setCount(count);
