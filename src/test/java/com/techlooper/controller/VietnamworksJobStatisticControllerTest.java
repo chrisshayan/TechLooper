@@ -35,4 +35,13 @@ public class VietnamworksJobStatisticControllerTest {
       controller.countTechnicalJobs(requestTerm);
       Mockito.verify(vietnamWorksJobStatisticService, Mockito.times(1)).count(TechnicalTermEnum.JAVA);
    }
+
+   @Test
+   public void testCountAllTechnicalJobs() throws Exception {
+      for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+         Mockito.when(vietnamWorksJobStatisticService.count(term)).thenReturn(2L);
+      }
+      controller.countTechnicalJobs();
+      Mockito.verify(vietnamWorksJobStatisticService, Mockito.times(1)).countTechnicalJobs();
+   }
 }

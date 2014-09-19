@@ -21,7 +21,7 @@
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/topic/technical-job', function(greeting){
-                    showGreeting(JSON.parse(greeting.body).count);
+                    showGreeting(JSON.parse(greeting.body));
                 });
             });
         }
