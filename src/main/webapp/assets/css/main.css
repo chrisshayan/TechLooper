@@ -16,6 +16,9 @@ ul{
     padding: 0;
 }
 /* -- style for header -- */
+.fa-bars{
+    display: none;
+}
 .setting-label{
     
 }
@@ -87,11 +90,56 @@ ul.setting-items{
 .bubble-chart-block{
     display: block;
     clear: both;
-    padding-top:50px;
+    /*padding-top:50px;*/
+    width: 100%;
+    float: left;
+    height: 500px;
+    text-align: center;
 }
 .bubble-chart-container{
     width: 400px;
     margin: auto;   
+}
+
+.analystic-find-jobs-block{
+    float: left;
+    clear: both;
+    width: 100%;
+    text-align: center;
+}
+.button-management{
+    width: 600px;
+    background-color: #282225;
+    border: 1px solid #3a3537;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
+    display: inline-block;
+}
+.career-analystics{
+    width: 50%;
+    float: left;
+    border-right: 1px solid #3a3537;
+}
+.find-jobs{
+    width: 50%;
+    float: left;   
+    height: 40px;
+}
+.button-management a{
+    display: block;
+    width: 100%;
+    vertical-align: middle;
+    height: 40px;
+    font-size: 16px;
+    text-transform: capitalize;
+    line-height: 40px;
+    color: #999999;
+}
+.button-management a:hover{
+    background-color: #3a3537;
+    text-decoration: none;
+    color: #ebebeb;
 }
 /* --- Style for footer --- */
 footer{

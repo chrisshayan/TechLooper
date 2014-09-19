@@ -11,19 +11,4 @@ public class JobStatisticResquest {
    public void setTerm(String term) {
       this.term = term;
    }
-   
-   public static class Builder {
-      
-      private JobStatisticResquest instance = new JobStatisticResquest();
-      
-      public Builder withTerm(String term) {
-         instance.setTerm(term);;
-         return this;
-      }
-      
-      public JobStatisticResquest build() {
-         return instance;
-      }
-   }
-
 }
