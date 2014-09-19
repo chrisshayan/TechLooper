@@ -2,7 +2,6 @@ package com.techlooper.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,10 +20,6 @@ public class VietnamworksJobStatisticController {
 
    @Resource
    private SimpMessagingTemplate messagingTemplate;
-
-   public static void main(String[] a) {
-      System.out.println(TechnicalTermEnum.PROJECT_MANAGER.name().toLowerCase());
-   }
 
    @Scheduled(cron = "${scheduled.cron}")
    public void countTechnicalJobs() {
