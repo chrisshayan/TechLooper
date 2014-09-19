@@ -27,4 +27,14 @@ public class VietnamworksJobStatisticController {
       return new JobStatisticResponse.Builder().withCount(
             vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(requestTerm.getTerm()))).build();
    }
+
+   // @Scheduled(c)
+   @SendTo("/topic/technical-job/count-all")
+   @MessageMapping("/technical-job/count-all")
+   public JobStatisticResponse count() {
+      return new JobStatisticResponse.Builder().withCount(vietnamWorksJobStatisticService.countTechnicalJobs()).build();
+      // messagingTemplate.convertAndSend("/topic/technical-job/all", new
+      // JobStatisticResponse.Builder().withCount(
+      // vietnamWorksJobStatisticService.countTechnicalJobs()).build());
+   }
 }
