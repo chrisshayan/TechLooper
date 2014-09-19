@@ -30,7 +30,7 @@ public class VietnamworksJobStatisticControllerTest {
    @Test
    public void testCountBAJobs() throws Exception {
       Mockito.when(vietnamWorksJobStatisticService.countBAJobs()).thenReturn(2L);
-      controller.countJavaJobs();
+      controller.countBAJobs();
       Mockito.verify(vietnamWorksJobStatisticService, Mockito.times(1)).countBAJobs();
    }
 
