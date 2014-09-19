@@ -24,8 +24,9 @@ public class VietnamworksJobStatisticController {
    @SendTo("/topic/technical-job")
    @MessageMapping("/technical-job")
    public JobStatisticResponse countTechnicalJobs(JobStatisticResquest requestTerm) {
-      return new JobStatisticResponse.Builder().withCount(
-            vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(requestTerm.getTerm()))).build();
+      TechnicalTermEnum term = TechnicalTermEnum.valueOf(requestTerm.getTerm());
+      return new JobStatisticResponse.Builder().withTerm(term).withCount(
+            vietnamWorksJobStatisticService.count(term)).build();
    }
 
    // @Scheduled(c)
