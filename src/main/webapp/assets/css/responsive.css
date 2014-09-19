@@ -1,0 +1,173 @@
+@media (min-width: 320px) and (max-width: 767px) {
+    .setting-block{
+        width: 60px;
+        float: left;
+        padding-top: 10px;
+    }
+    .setting-content{
+        width: 100%;
+        height: 100%;
+    }
+    .fa-bars{
+        display: block;
+    }
+    .logo-block{
+        width: 240px;
+        float: left;
+    }
+    .logo{
+        width: 100%;
+        padding: 5px 5px 5px 0;
+    }
+    .logo img{
+        width: 100%;
+        max-width:259px;
+    }
+    .logo h1{
+        line-height: 0;
+        margin: 0;
+        padding: 0;
+    }
+    .bubble-chart-container {
+        width: 320px;
+    }
+    #box #javaTech {
+        position: absolute;
+        top: 30px;
+        left: -50px;
+        z-index: 1;
+    }
+    #box #phpTech {
+        position: absolute;
+        top: 110px;
+        left: -30px;
+        z-index: 2;
+    }
+    #box #qcTech {
+        position: absolute;
+        top: 200px;
+        left: -100px;
+        z-index: 3;
+    }
+    #box #pmTech {
+        position: absolute;
+        top: 130px;
+        left: 100px;
+        z-index: 4;
+    }
+    #box #dotnetTech {
+        position: absolute;
+        top: 200px;
+        left: 100px;
+        z-index: 5;
+    }
+    #box #dbaTech {
+        position: absolute;
+        top: 100px;
+        left: -120px;
+        z-index: 6;
+    }
+    #box #baTech {
+        position: absolute;
+        top: 0px;
+        left: -120px;
+        z-index: 7;
+    }
+    #box #rubyTech {
+        position: absolute;
+        top: 10px;
+        left:70px;
+        z-index: 8;
+    }
+    #box #pythonTech {
+        position: absolute;
+        top: 240px;
+        left: -20px;
+        z-index: 9;
+    }
+    #box #dbTech {
+        position: absolute;
+        top: 270px;
+        left: 180px;
+        z-index: 9;
+    }
+    #box .fivepc, #box .fivepc .circle-content {
+        width: 45px;
+        height: 45px;
+    }
+    #box .fivepc span {
+        font-size: 10px;
+        line-height: 100%;
+        top: -38px !important;
+        width: 45px;
+    }
+    #box .fivepc strong {
+        font-size: 12px;
+    }
+    #box .tenpc, #box .tenpc .circle-content {
+        width: 70px;
+        height: 70px;
+    }
+    #box .tenpc span {
+        font-size: 15px;
+        line-height: 16px;
+        top: -53px !important;
+        width: 70px;
+    }
+    #box .tenpc strong {
+        font-size: 20px;
+    }
+    #box .fifteenpc, #box .fifteenpc .circle-content {
+        width: 90px;
+        height: 90px;
+    }
+    #box .fifteenpc span {
+        font-size: 18px;
+        line-height: 22px;
+        top: -70px !important;
+        width: 90px;
+    }
+    #box .fifteenpc strong {
+        font-size: 25px;
+    }
+    #box .twentypc, #box .twentypc .circle-content {
+        width: 105px;
+        height: 105px;
+    }
+    #box .twentypc span {
+        top: -90px !important;
+        width: 110px;
+    }
+    #box .twentyfivepc, #box .twentyfivepc .circle-content {
+        width: 150px;
+        height: 150px;
+    }
+    #box .twentyfivepc span {
+        top: -90px !important;
+        width: 175px;
+    }
+    #box .thirtypc, #box .thirtypc .circle-content {
+        width: 175px;
+        height: 175px;
+    }
+    #box .intro {
+        display: none;
+        width: 250px;
+        color: #ffffff;
+        position: absolute;
+        bottom: 100px;
+        left: 35px;
+        line-height: 15px;
+    }
+
+    #box .active span {
+        font-size: 35px;
+        line-height: 40px;
+        top: -155px !important;
+        text-align: center;
+        width: 220px;
+    }
+    #box .active strong {
+        font-size: 45px;
+    }
+}

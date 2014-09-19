@@ -72,7 +72,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             .withQuery(
                   multiMatchQuery(technicalTermEnum, "jobTitle", "jobDescription", "skillExperience").operator(
                         Operator.AND)).withIndices("vietnamworks").withSearchType(SearchType.COUNT).build();
-      System.out.println(searchQuery.toString());
       return elasticsearchTemplate.count(searchQuery);
    }
 
