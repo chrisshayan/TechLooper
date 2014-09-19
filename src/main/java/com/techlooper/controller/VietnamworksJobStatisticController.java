@@ -44,8 +44,9 @@ public class VietnamworksJobStatisticController {
    }
 
    @Scheduled(cron = "${scheduled.cron}")
-   public void countAllTechnicalJobs() {
-      messagingTemplate.convertAndSend("/topic/technical-job/all",
+   @MessageMapping("/technical-job/total")
+   public void totalTechnicalJobs() {
+      messagingTemplate.convertAndSend("/topic/technical-job/total",
             new JobStatisticResponse.Builder().withCount(vietnamWorksJobStatisticService.countTechnicalJobs()).build());
    }
 }
