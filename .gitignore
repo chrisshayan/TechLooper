@@ -6,3 +6,5 @@ bower_components
 /.settings/
 .project
 .classpath
+/target/
+/target/
