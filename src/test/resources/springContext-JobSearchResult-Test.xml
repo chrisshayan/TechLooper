@@ -5,7 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/data/elasticsearch http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <elasticsearch:transport-client id="client" cluster-name="staging-es-w-chef" cluster-nodes="es-staging.vietnamworks.com:9300"/>
+<!-- es-staging.vietnamworks.com is internal dns -->
+    <elasticsearch:transport-client id="client" cluster-name="staging-es-w-chef" cluster-nodes="172.16.22.27:9300"/>
 
     <bean name="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
         <constructor-arg name="client" ref="client"/>
