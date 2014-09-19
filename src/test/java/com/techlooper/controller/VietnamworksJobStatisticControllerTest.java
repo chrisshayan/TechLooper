@@ -28,13 +28,17 @@ public class VietnamworksJobStatisticControllerTest {
    }
 
    @Test
-   public void testCountTechnicalJobs() throws Exception {
-      // JobStatisticResquest requestTerm = new
-      // JobStatisticResquest.Builder().withTerm("JAVA").build();
-      // Mockito.when(vietnamWorksJobStatisticService.count(TechnicalTermEnum.JAVA)).thenReturn(2L);
-      // controller.countTechnicalJobs(requestTerm);
-      // Mockito.verify(vietnamWorksJobStatisticService,
-      // Mockito.times(1)).count(TechnicalTermEnum.JAVA);
+   public void testCountBAJobs() throws Exception {
+      Mockito.when(vietnamWorksJobStatisticService.countBAJobs()).thenReturn(2L);
+      controller.countJavaJobs();
+      Mockito.verify(vietnamWorksJobStatisticService, Mockito.times(1)).countBAJobs();
+   }
+
+   @Test
+   public void testCountJavaJobs() throws Exception {
+      Mockito.when(vietnamWorksJobStatisticService.countJavaJobs()).thenReturn(2L);
+      controller.countJavaJobs();
+      Mockito.verify(vietnamWorksJobStatisticService, Mockito.times(1)).countJavaJobs();
    }
 
    @Test
