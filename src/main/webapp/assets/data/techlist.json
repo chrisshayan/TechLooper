@@ -1,0 +1,65 @@
+[
+	{
+		"idName":"javaTech",
+		"jobs": 100,
+		"percent":"tenpc",
+		"techName":"Java",
+		"color":"redColor"
+	},
+	{
+		"idName":"phpTech",
+		"jobs": 200,
+		"percent":"twentypc",
+		"techName":"PHP",
+		"color":"oliveColor"
+	},
+	{
+		"idName":"dotnetTech",
+		"jobs": 120,
+		"percent":"tenpc",
+		"techName":".Net",
+		"color":"saddleBrownColor"
+	},
+	{
+		"idName":"rubyTech",
+		"jobs": 140,
+		"percent":"fifteenpc",
+		"techName":"Ruby",
+		"color":"yellowColor"
+	},
+	{
+		"idName":"pythonTech",
+		"jobs": 180,
+		"percent":"twentypc",
+		"techName":"Python",
+		"color":"blueColor"
+	},
+	{
+		"idName":"pmTech",
+		"jobs":50,
+		"percent":"fivepc",
+		"techName":"PM",
+		"color":"greenColor"
+	},
+	{
+		"idName":"qcTech",
+		"jobs":100,
+		"percent":"tenpc",
+		"techName":"QC",
+		"color":"pinkColor"
+	},
+	{
+		"idName":"dbaTech",
+		"jobs":100,
+		"percent":"tenpc",
+		"techName":"DB",
+		"color":"lightSalmonColor"
+	},
+	{
+		"idName":"baTech",
+		"jobs":100,
+		"percent":"tenpc",
+		"techName":"BA",
+		"color":"indigoColor"
+	}
+]

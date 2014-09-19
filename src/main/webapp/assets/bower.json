@@ -1,0 +1,15 @@
+{
+	"name": "techlooper",
+	"version": "0.0.1-SNAPSHOT",
+	"dependencies": {
+        "bootstrap" : "latest",
+        "components-font-awesome": "latest",
+		"angular": "latest",
+		"angular-resource": "latest",
+        "angular-route" : "latest",
+		"jquery": "latest",
+		"sockjs": "latest",
+		"stomp-websocket": "latest",
+		"showdown": "latest"
+	}
+}

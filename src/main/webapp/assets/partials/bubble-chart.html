@@ -1,0 +1,17 @@
+<div class="bubble-chart-block" ng-controller="loadTech">
+    <div id="box" class="bubble-chart-container" ng-controller="setPercent">
+        <div ng-repeat="tech in techlist" ng-controller="bubble-ctrl">
+            <div id='{{tech.idName}}' class="circle {{tech.percent}}">
+                <div class="circle-content {{tech.color}}"></div>
+                <span><strong>{{tech.jobs}}</strong>{{tech.techName}}</span>
+                <!-- <div class="intro">
+                    <ul>
+                        <li ng-repeat = "skill in tech.skillList">
+                            {{skill.skillName}}
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
