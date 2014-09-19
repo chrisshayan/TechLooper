@@ -44,7 +44,7 @@ public class VietnamworksJobStatisticController {
 
    @Scheduled(cron = "${scheduled.cron}")
    public void countProjectManagerJobs() {
-      messagingTemplate.convertAndSend("/topic/technical-job/project_manager", new JobStatisticResponse.Builder()
+      messagingTemplate.convertAndSend("/topic/technical-job/pm", new JobStatisticResponse.Builder()
             .withCount(vietnamWorksJobStatisticService.countProjectManagerJobs()).build());
    }
 
