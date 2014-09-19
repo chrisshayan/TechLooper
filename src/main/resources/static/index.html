@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Hello WebSocket</title>
-    <script src="static/sockjs-0.3.4.js"></script>
-    <script src="static/stomp.js"></script>
+    <script src="sockjs-0.3.4.js"></script>
+    <script src="stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
         
@@ -20,8 +20,8 @@
             stompClient.connect({}, function(frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/technical-job', function(greeting){
-                    showGreeting(JSON.parse(greeting.body).count);
+                stompClient.subscribe('/topic/technical-job/all', function(greeting){
+                    showGreeting(greeting.body);
                 });
             });
         }
@@ -33,8 +33,8 @@
         }
         
         function sendName() {
-            var name = document.getElementById('name').value;
-            stompClient.send("/app/technical-job", {}, JSON.stringify({ "term": name }));
+//             var name = document.getElementById('name').value;
+//             stompClient.send("/app/technical-job", {}, JSON.stringify({ "term": name }));
         }
         
         function showGreeting(message) {
