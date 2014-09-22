@@ -1,65 +1,56 @@
 [
 	{
 		"idName":"javaTech",
-		"jobs": 100,
 		"percent":"tenpc",
-		"techName":"Java",
+		"uri":"java",
 		"color":"redColor"
 	},
 	{
 		"idName":"phpTech",
-		"jobs": 200,
 		"percent":"twentypc",
-		"techName":"PHP",
+		"uri":"php",
 		"color":"oliveColor"
 	},
 	{
 		"idName":"dotnetTech",
-		"jobs": 120,
 		"percent":"tenpc",
-		"techName":".Net",
+		"uri":"dotnet",
 		"color":"saddleBrownColor"
 	},
 	{
 		"idName":"rubyTech",
-		"jobs": 140,
 		"percent":"fifteenpc",
-		"techName":"Ruby",
+		"uri":"ruby",
 		"color":"yellowColor"
 	},
 	{
 		"idName":"pythonTech",
-		"jobs": 180,
 		"percent":"twentypc",
-		"techName":"Python",
+		"uri":"python",
 		"color":"blueColor"
 	},
 	{
 		"idName":"pmTech",
-		"jobs":50,
 		"percent":"fivepc",
-		"techName":"PM",
+		"uri":"pm",
 		"color":"greenColor"
 	},
 	{
 		"idName":"qcTech",
-		"jobs":100,
 		"percent":"tenpc",
-		"techName":"QC",
+		"uri":"qc",
 		"color":"pinkColor"
 	},
 	{
 		"idName":"dbaTech",
-		"jobs":100,
 		"percent":"tenpc",
-		"techName":"DB",
+		"uri":"dba",
 		"color":"lightSalmonColor"
 	},
 	{
 		"idName":"baTech",
-		"jobs":100,
 		"percent":"tenpc",
-		"techName":"BA",
+		"uri":"ba",
 		"color":"indigoColor"
 	}
 ]
