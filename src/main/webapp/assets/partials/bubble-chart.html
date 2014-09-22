@@ -1,4 +1,5 @@
 <div ng-controller="loadTech">
+	<div class="alert bg-danger bubble-chart-error"><strong>Error!</strong> Can not get data from server</div>
     <div id="box" class="bubble-chart-container" ng-controller="bubble-ctrl">
         <div ng-repeat="tech in techlist">
             <div id='{{tech.idName}}' class="circle {{tech.percent}}">

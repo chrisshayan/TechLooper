@@ -1,4 +1,11 @@
 @media (min-width: 320px) and (max-width: 767px) {
+    .fa-cog{
+        display: none;
+    }
+    .fa-bars{
+        display: block;
+    }
+
     .setting-block{
         width: 60px;
         float: left;
@@ -169,5 +176,10 @@
     }
     #box .active strong {
         font-size: 45px;
+    }
+}
+@media (min-width: 778px){
+    .fa-bars{
+        display: none;
     }
 }
