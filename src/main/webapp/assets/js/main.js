@@ -190,7 +190,7 @@ app.controller("loadTech", function($scope, $http) {
                 $('#baTech').find('strong').text(JSON.parse(techName.body).count);
             });
         });
-        $scope.techlist = data;   
+        $scope.techlist = data;
         // console.log(jaPercent)
         // if(jaPercent > 0 && jaPercent < 11){
         //     console.log(10);
@@ -225,7 +225,7 @@ app.controller("loadTech", function($scope, $http) {
 
     }).
     error(function(data, status, headers, config) {
-        // log error
+        console.logError("Error in Loading techlist.json", status);
     });
 });
 
