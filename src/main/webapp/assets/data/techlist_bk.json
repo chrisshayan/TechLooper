@@ -1,0 +1,146 @@
+[
+	{
+		"id": 1,
+		"jobs": 200,
+		"percent":20,
+		"idName":"javaTech",
+		"name": "Java", 
+		"skillList": [
+			{"skillName":"Jenkins", "value":200},
+			{"skillName":"Maven", "value":200},
+			{"skillName":"HTML 5", "value":200},
+			{"skillName":"Ant", "value":100},
+			{"skillName":"JPA", "value":200},
+			{"skillName":"EJP", "value":80},
+			{"skillName":"Spring", "value":150}
+		]
+	},
+	{
+		"id": 2,
+		"jobs": 150,
+		"percent":15,
+		"idName":"dotnetTech",
+		"name": ".Net", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 3,
+		"jobs": 150,
+		"percent":15,
+		"idName":"phpTech",
+		"name": "PHP", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 4,
+		"jobs": 150,
+		"percent":5,
+		"idName":"rubyTech",
+		"name": "Rupy", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 5,
+		"jobs": 150,
+		"percent":10,
+		"idName":"pythonTech",
+		"name": "Python", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 6,
+		"jobs": 150,
+		"percent":5,
+		"idName":"pmTech",
+		"name": "PM", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 7,
+		"jobs": 150,
+		"percent":5,
+		"idName":"baTech",
+		"name": "BA", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 8,
+		"jobs": 150,
+		"percent":10,
+		"idName":"qcTech",
+		"name": "QC", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	},
+	{
+		"id": 9,
+		"jobs": 150,
+		"percent":15,
+		"idName":"dbaTech",
+		"name": "DBA", 
+		"skillList": [
+			{"skillName":"ABC", "value":150},
+			{"skillName":"CDE", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150},
+			{"skillName":"EFG", "value":150}
+		]
+	}
+]

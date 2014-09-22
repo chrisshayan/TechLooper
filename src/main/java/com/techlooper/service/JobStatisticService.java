@@ -77,4 +77,10 @@ public interface JobStatisticService {
      */
     Long countQAJobs();
 
+    /**
+     * Counting all technical jobs
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countTechnicalJobs();
 }

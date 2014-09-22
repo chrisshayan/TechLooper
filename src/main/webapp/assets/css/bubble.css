@@ -1,0 +1,243 @@
+ #left {
+    float:left;
+    width:555px;
+    margin-top: 50px;
+}
+#right {
+    float:right;
+    width:415px;
+    margin-top: 50px;
+}
+#right a, #right a:visited {
+    display:block;
+    color:#FF5800;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+#right a:hover, #right a.active {
+    text-decoration:none;
+    color:#003359;
+}
+#right p {
+    color:#19337F;
+    margin-top: 35px;
+    font-size: 20px;
+}
+#box {
+    position:relative;
+    left:120px;
+}
+#box .circle {
+    position:relative;
+    cursor:pointer;
+    text-align:center;
+    width: 1000px;
+    height: 1000px;
+}
+#box .active {
+    width:340px;
+    height:340px;
+    cursor:pointer;
+    z-index: 0 !important;
+}
+#box .circle span {
+    width:125px;
+    font-size:18px;
+    position:relative;
+    top:-70%;
+    color:#ffffff;
+    text-transform: capitalize;
+}
+#box .circle strong{
+    display: block;
+    clear: both;
+    font-size: 24px;
+    font-weight: 400;
+}
+#box #pmTech span {
+    top:-68%;
+}
+#box .circle .circle-content {
+    background: #f00;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    width:150px;
+    height:150px;
+}
+#box .circle .redColor{
+    background: #f00;
+}
+#box .circle .blueColor{
+    background: #106da4;
+}
+#box .circle .yellowColor{
+    background: #d7c500;
+}
+#box .circle .pinkColor{
+    background: #cc21a0;
+}
+#box .circle .greenColor{
+    background: #11a06c;
+}
+#box .circle .orangeColor{
+    background: #d26e03;
+}
+#box .circle .lightSalmonColor{
+    background: #ffa07a;
+}
+#box .circle .indigoColor{
+    background: #4B0082;
+}
+#box .circle .oliveColor{
+    background: #808000;
+}
+#box .circle .saddleBrownColor{
+    background: #8B4513;
+}
+#box #javaTech {
+    position:absolute;
+    top:30px;
+    left:25px;
+    z-index:1;
+}
+#box #phpTech {
+    position:absolute;
+    top:110px;
+    left:-30px;
+    z-index:2;
+}
+#box #qcTech {
+    position:absolute;
+    top:230px;
+    left:-80px;
+    z-index:3;
+}
+#box #pmTech {
+    position:absolute;
+    top:100px;
+    left:200px;
+    z-index:4;
+}
+#box #dotnetTech {
+    position:absolute;
+    top:200px;
+    left:150px;
+    z-index:5;
+}
+#box #dbaTech {
+    position:absolute;
+    top:100px;
+    left:-150px;
+    z-index:6;
+}
+#box #baTech {
+    position:absolute;
+    top:170px;
+    left:250px;
+    z-index:7;
+}
+#box #rubyTech {
+    position:absolute;
+    top:110px;
+    left:85px;
+    z-index:8;
+}
+#box #pythonTech {
+    position:absolute;
+    top:270px;
+    left:10px;
+    z-index:9;
+}
+#box #dbTech {
+    position:absolute;
+    top:270px;
+    left:180px;
+    z-index:9;
+}
+#box .fivepc,
+#box .fivepc .circle-content{
+    width:50px;
+    height:50px; 
+}
+#box .fivepc span{
+    font-size: 10px;
+    line-height: 100%;
+    top: -38px !important;
+    width: 50px;
+}
+#box .fivepc strong{
+    font-size: 12px;
+}
+#box .tenpc,
+#box .tenpc .circle-content{
+    width:75px;
+    height:75px; 
+}
+#box .tenpc span{
+    font-size: 15px;
+    line-height: 16px;
+    top: -53px !important;
+    width: 75px;
+}
+#box .tenpc strong{
+    font-size: 20px;
+}
+#box .fifteenpc,
+#box .fifteenpc .circle-content{
+    width:100px;
+    height:100px; 
+}
+#box .fifteenpc span{
+    font-size: 18px;
+    line-height:22px;
+    top: -70px !important;
+    width: 100px;
+}
+#box .fifteenpc strong{
+    font-size: 25px;
+}
+#box .twentypc,
+#box .twentypc .circle-content{
+    width:125px;
+    height:125px; 
+}
+#box .twentypc span{
+    top: -90px !important;
+    width: 125px;
+}
+#box .twentyfivepc,
+#box .twentyfivepc .circle-content{
+    width:175px;
+    height:175px; 
+}
+#box .twentyfivepc span{
+    top: -90px !important;
+    width: 175px;
+}
+#box .thirtypc,
+#box .thirtypc .circle-content{
+    width:200px;
+    height:200px; 
+}
+#box .intro {
+    display:none;
+    width:250px;
+    color:#ffffff;
+    position:absolute;
+    bottom:100px;
+    left:35px;
+    line-height:15px;
+}
+
+#box .active span{
+    font-size:35px;
+    line-height:40px;
+    top: -220px !important;
+    text-align: center;
+    width:320px;
+}
+#box .active strong{
+    font-size: 45px;
+}
