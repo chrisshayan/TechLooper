@@ -241,3 +241,9 @@
 #box .active strong{
     font-size: 45px;
 }
+.bubble-chart-error{
+    display: none;
+    width: 300px;
+    color: red;
+    margin: auto;
+}
