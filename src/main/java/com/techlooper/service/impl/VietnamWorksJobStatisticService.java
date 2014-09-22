@@ -5,6 +5,7 @@ import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 import javax.annotation.Resource;
 
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -68,8 +69,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     */
    public Long count(final TechnicalTermEnum technicalTermEnum) {
       final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-            .withQuery(multiMatchQuery(technicalTermEnum, "jobTitle", "jobDescription", "skillExperience"))
-            .withIndices("vietnamworks").withSearchType(SearchType.COUNT).build();
+            .withQuery(
+                  multiMatchQuery(technicalTermEnum, "jobTitle", "jobDescription", "skillExperience").operator(
+                        Operator.AND)).withIndices("vietnamworks").withSearchType(SearchType.COUNT).build();
       return elasticsearchTemplate.count(searchQuery);
    }
 
