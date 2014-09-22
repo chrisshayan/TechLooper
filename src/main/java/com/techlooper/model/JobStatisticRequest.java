@@ -1,6 +1,6 @@
 package com.techlooper.model;
 
-public class JobStatisticResquest {
+public class JobStatisticRequest {
 
    private String term;
 
