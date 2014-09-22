@@ -94,7 +94,7 @@ app.controller("loadCompanies", function($scope, $http) {
 });
 
 app.controller("loadTech", function($scope, $http) {
-    var socket = new SockJS('/ws');
+    var socket = new SockJS('ws');
         stompClient = Stomp.over(socket),
         totalJobs = "",
         jan=0, 
@@ -1454,10 +1454,3 @@ app.controller("bubble-ctrl", function($scope, $http) {
         // log error
     });
 });
-
-
-var percent = function(t, m){
-    var p= 0;
-    p = (m*100)/t;
-    return p;
-}
