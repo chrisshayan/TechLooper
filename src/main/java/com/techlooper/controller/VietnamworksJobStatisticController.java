@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import com.techlooper.model.JobStatisticResponse;
-import com.techlooper.model.JobStatisticResquest;
+import com.techlooper.model.JobStatisticRequest;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 
@@ -48,7 +48,7 @@ public class VietnamworksJobStatisticController {
    }
 
    @MessageMapping("/technical-job")
-   public void countTechnicalJobs(JobStatisticResquest request) {
+   public void countTechnicalJobs(JobStatisticRequest request) {
       messagingTemplate.convertAndSend(
             "/topic/technical-job/" + request.getTerm().toLowerCase(),
             new JobStatisticResponse.Builder().withCount(
