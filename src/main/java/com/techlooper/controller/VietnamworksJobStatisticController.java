@@ -1,5 +1,8 @@
 package com.techlooper.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -22,14 +25,22 @@ public class VietnamworksJobStatisticController {
    @Resource
    private SimpMessagingTemplate messagingTemplate;
 
+   private Map<String, Long> termMap = new HashMap<String, Long>();
+
    @Scheduled(cron = "${scheduled.cron}")
    public void countTechnicalJobs() {
       for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+         Long count = vietnamWorksJobStatisticService.count(term);
+         if (termMap.containsKey(term.name()) && termMap.get(term.name()) == count) {
+            continue;
+         }
+         termMap.put(term.name(), count);
          messagingTemplate.convertAndSend("/topic/technical-job/" + term.name(), new JobStatisticResponse.Builder()
-               .withCount(vietnamWorksJobStatisticService.count(term)).build());
+               .withCount(count).build());
       }
    }
 
+   /** need to think a way how fetch TechnicalTerms dynamic, we might rework on business model */
    @SendTo("/topic/technical-job/terms")
    @MessageMapping("/technical-job/terms")
    public TechnicalTermEnum[] countTechnicalTerms() {
