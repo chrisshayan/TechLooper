@@ -94,7 +94,7 @@ app.controller("loadCompanies", function($scope, $http) {
 });
 
 app.controller("loadTech", function($scope, $http) {
-    var socket = new SockJS('/ws');
+    var socket = new SockJS('ws');
         stompClient = Stomp.over(socket),
         totalJobs = "",
         jan=0, 
@@ -190,7 +190,7 @@ app.controller("loadTech", function($scope, $http) {
                 $('#baTech').find('strong').text(JSON.parse(techName.body).count);
             });
         });
-        $scope.techlist = data;   
+        $scope.techlist = data;
         // console.log(jaPercent)
         // if(jaPercent > 0 && jaPercent < 11){
         //     console.log(10);
@@ -225,7 +225,7 @@ app.controller("loadTech", function($scope, $http) {
 
     }).
     error(function(data, status, headers, config) {
-        // log error
+        console.logError("Error in Loading techlist.json", status);
     });
 });
 
@@ -1454,10 +1454,3 @@ app.controller("bubble-ctrl", function($scope, $http) {
         // log error
     });
 });
-
-
-var percent = function(t, m){
-    var p= 0;
-    p = (m*100)/t;
-    return p;
-}
