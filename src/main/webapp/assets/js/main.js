@@ -94,38 +94,10 @@ app.controller("loadCompanies", function($scope, $http) {
 });
 
 app.controller("loadTech", function($scope, $http) {
-    var socket = new SockJS('/ws');
+    var socket = new SockJS('ws');
         stompClient = Stomp.over(socket),
         totalJobs = "",
-        jan=0, 
-        jaPercent=0,
-
-        don=0,
-        doPercent=0,  
-
-        phn=0, 
-        phPercent =0, 
-
-        pmn =0, 
-        pmPercent=0, 
-
-        pyn=0, 
-        pyPercent=0,
-
-        rbn=0, 
-        rbPercent=0, 
-
-        qan=0,
-        qaPercent=0, 
-
-        dbn=0,
-        dbPercent=0, 
-
-        qan=0,
-        qaPercent=0, 
-
-        ban=0,
-        baPercent=0;
+        jan=0,jaPercent=0, don=0,doPercent=0, phn=0,phPercent =0, pmn =0,pmPercent=0, pyn=0,pyPercent=0, rbn=0,rbPercent=0, qan=0,qaPercent=0, dbn=0,dbPercent=0, qan=0,qaPercent=0, ban=0,baPercent=0;
 
         stompClient.debug = function(){};
 
@@ -137,95 +109,100 @@ app.controller("loadTech", function($scope, $http) {
             });
             stompClient.subscribe('/topic/technical-job/java', function(techName){
                 jan = JSON.parse(techName.body).count;
-                jaPercent = parseInt(jan)*100/parseInt(totalJobs);
+                jaPercent = Math.round(parseInt(jan)*100/parseInt(totalJobs)) +40;
 
-                $('#javaTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.javaTech').find('.circle-content').animate({
+                    'width':jaPercent,
+                    'height': jaPercent
+                });
+                $('.javaTech').find('strong').text(jan);
             });
             stompClient.subscribe('/topic/technical-job/dotnet', function(techName){
                 don = JSON.parse(techName.body).count;
-                doPercent = parseInt(don)*100/parseInt(totalJobs);
+                doPercent = Math.round(parseInt(don)*100/parseInt(totalJobs)) +40;
 
-                $('#dotnetTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.dotnetTech').find('.circle-content').animate({
+                    'width':doPercent,
+                    'height': doPercent
+                });
+                $('.dotnetTech').find('strong').text(don);
             });
             stompClient.subscribe('/topic/technical-job/php', function(techName){
                 phn = JSON.parse(techName.body).count;
-                phPercent = parseInt(phn)*100/parseInt(totalJobs);
+                phPercent = Math.round(parseInt(phn)*100/parseInt(totalJobs)) +40;
 
-                $('#phpTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.phpTech').find('.circle-content').animate({
+                    'width':phPercent,
+                    'height': phPercent
+                });
+                $('.phpTech').find('strong').text(phn);
             });
             stompClient.subscribe('/topic/technical-job/python', function(techName){
                 pyn = JSON.parse(techName.body).count;
-                pyPercent = parseInt(pyn)*100/parseInt(totalJobs);
+                pyPercent = Math.round(parseInt(pyn)*100/parseInt(totalJobs)) +40;
 
-                $('#pythonTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.pythonTech').find('.circle-content').animate({
+                    'width':pyPercent,
+                    'height': pyPercent
+                });
+                $('.pythonTech').find('strong').text(pyn);
             });
             stompClient.subscribe('/topic/technical-job/ruby', function(techName){
                 rbn = JSON.parse(techName.body).count;
-                rbPercent = parseInt(rbn)*100/parseInt(totalJobs);
+                rbPercent = Math.round(parseInt(rbn)*100/parseInt(totalJobs)) +40;
 
-                $('#rubyTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.rubyTech').find('.circle-content').animate({
+                    'width':rbPercent,
+                    'height': rbPercent
+                });
+                $('.rubyTech').find('strong').text(rbn);
             });
             stompClient.subscribe('/topic/technical-job/project_manager', function(techName){
                 pmn = JSON.parse(techName.body).count;
-                pmPercent = parseInt(pmn)*100/parseInt(totalJobs);
+                pmPercent = Math.round(parseInt(pmn)*100/parseInt(totalJobs)) +40;
 
-                $('#pmTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.pmTech').find('.circle-content').animate({
+                    'width':pmPercent,
+                    'height': pmPercent
+                });
+                $('.pmTech').find('strong').text(pmn);
             });
             stompClient.subscribe('/topic/technical-job/qa', function(techName){
                 qan = JSON.parse(techName.body).count;
-                qaPercent = parseInt(qan)*100/parseInt(totalJobs);
+                qaPercent = Math.round(parseInt(qan)*100/parseInt(totalJobs)) +40;
 
-                $('#qcTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.qcTech').find('.circle-content').animate({
+                    'width':qaPercent,
+                    'height': qaPercent
+                });
+                $('.qcTech').find('strong').text(qan);
             });
             stompClient.subscribe('/topic/technical-job/dba', function(techName){
                 dbn = JSON.parse(techName.body).count;
-                dbPercent = parseInt(dbn)*100/parseInt(totalJobs);
+                dbPercent = Math.round(parseInt(dbn)*100/parseInt(totalJobs)) +40;
 
-                $('#dbaTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.dbaTech').find('.circle-content').animate({
+                    'width':dbPercent,
+                    'height': dbPercent
+                });
+                $('.dbaTech').find('strong').text(dbn);
             });
             stompClient.subscribe('/topic/technical-job/ba', function(techName){
                 ban = JSON.parse(techName.body).count;
-                baPercent = parseInt(ban)*100/parseInt(totalJobs);
+                baPercent = Math.round(parseInt(ban)*100/parseInt(totalJobs)) +40;
 
-                $('#baTech').find('strong').text(JSON.parse(techName.body).count);
+                $('.baTech').find('.circle-content').animate({
+                    'width':baPercent,
+                    'height': baPercent
+                });
+                $('.baTech').find('strong').text(ban);
             });
         });
-        $scope.techlist = data;   
-        // console.log(jaPercent)
-        // if(jaPercent > 0 && jaPercent < 11){
-        //     console.log(10);
-        // }
-        // else if(jaPercent > 10 && jaPercent <21){
-        //     console.log(20);
-        // }
-        // else if(jaPercent > 20 && jaPercent <31){
-        //     console.log(30);
-        // }
-        // else if(jaPercent > 30 && jaPercent <41){
-        //     console.log(40);
-        // }
-        // else if(jaPercent > 40 && jaPercent <51){
-        //     console.log(50);
-        // }
-        // else if(jaPercent > 50 && jaPercent <61){
-        //     console.log(60);
-        // }
-        // else if(jaPercent > 60 && jaPercent <71){
-        //     console.log(70);
-        // }
-        // else if(jaPercent > 70 && jaPercent <81){
-        //     console.log(80);
-        // }
-        // else if(jaPercent > 80 && jaPercent <91){
-        //     console.log(90);
-        // }
-        // else{
-        //     console.log(100);
-        // }
-
+        $scope.techlist = data;
+        
     }).
     error(function(data, status, headers, config) {
-        // log error
+        $('.bubble-chart-error').show();
     });
 });
 
