@@ -1,32 +1,47 @@
 package com.techlooper.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Controller;
 
-import com.techlooper.model.JobStatistic;
+import com.techlooper.model.JobStatisticResponse;
+import com.techlooper.model.JobStatisticRequest;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 
-@RestController
+@Controller
 public class VietnamworksJobStatisticController {
 
-   @Resource(name = "vietnamWorksJobStatisticService")
+   @Resource
    private JobStatisticService vietnamWorksJobStatisticService;
 
-   @RequestMapping("/technical-job")
-   @ResponseBody
-   public List<JobStatistic> countTechnicalJobs() {
-      List<JobStatistic> result = new ArrayList<JobStatistic>();
+   @Resource
+   private SimpMessagingTemplate messagingTemplate;
+
+   @Scheduled(cron = "${scheduled.cron}")
+   public void countTechnicalJobs() {
       for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-         result.add(new JobStatistic.Builder().withTerm(term).withCount(vietnamWorksJobStatisticService.count(term))
-               .build());
+         messagingTemplate.convertAndSend("/topic/technical-job/" + term.name().toLowerCase(),
+               new JobStatisticResponse.Builder().withCount(vietnamWorksJobStatisticService.count(term)).build());
       }
-      return result;
+   }
+
+   @MessageMapping("/technical-job")
+   public void countTechnicalJobs(JobStatisticRequest request) {
+      messagingTemplate.convertAndSend(
+            "/topic/technical-job/" + request.getTerm().toLowerCase(),
+            new JobStatisticResponse.Builder().withCount(
+                  vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(request.getTerm().toUpperCase())))
+                  .build());
+   }
+
+   @Scheduled(cron = "${scheduled.cron}")
+   @MessageMapping("/technical-job/total")
+   public void totalTechnicalJobs() {
+      messagingTemplate.convertAndSend("/topic/technical-job/total",
+            new JobStatisticResponse.Builder().withCount(vietnamWorksJobStatisticService.countTechnicalJobs()).build());
    }
 }
