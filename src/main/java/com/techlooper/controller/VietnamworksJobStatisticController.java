@@ -31,10 +31,10 @@ public class VietnamworksJobStatisticController {
    public void countTechnicalJobs() {
       for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
          Long count = vietnamWorksJobStatisticService.count(term);
-         if (termMap.containsKey(term.name()) && termMap.get(term.name()) == count) {
-            continue;
-         }
-         termMap.put(term.name(), count);
+//         if (termMap.containsKey(term.name()) && termMap.get(term.name()) == count) {
+//            continue;
+//         }
+//         termMap.put(term.name(), count);
          messagingTemplate.convertAndSend("/topic/technical-job/" + term.name(), new JobStatisticResponse.Builder()
                .withCount(count).build());
       }
