@@ -77,7 +77,6 @@
             <configuration>
                <webApp>
                   <contextPath>/${project.build.finalName}</contextPath>
-                  <stopPort>8001</stopPort>
                </webApp>
             </configuration>
          </plugin>
