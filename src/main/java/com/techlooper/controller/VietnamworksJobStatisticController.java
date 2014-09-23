@@ -1,5 +1,8 @@
 package com.techlooper.controller;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import com.techlooper.model.JobStatisticRequest;
 import com.techlooper.model.JobStatisticResponse;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.model.TechnicalTermResponse;
 import com.techlooper.service.JobStatisticService;
 
 @Controller
@@ -36,8 +40,12 @@ public class VietnamworksJobStatisticController {
     */
    @SendTo("/topic/technical-job/terms")
    @MessageMapping("/technical-job/terms")
-   public TechnicalTermEnum[] countTechnicalTerms() {
-      return TechnicalTermEnum.values();
+   public List<TechnicalTermResponse> countTechnicalTerms() {
+      List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
+      for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+         terms.add(new TechnicalTermResponse.Builder().withName(term.name()).withTerm(term).build());
+      }
+      return terms;
    }
 
    @MessageMapping("/technical-job")
