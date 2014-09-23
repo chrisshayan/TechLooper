@@ -29,6 +29,38 @@ app.controller('PageCtrl', ['$scope',
     }
 ]);
 
+
+
+app.controller('openKeyboardShortcuts', ['$scope',
+    function($scope) {
+        var key = $('.keyboard');
+        key.on('click', function() {
+            if ($(".keyboard-shortcuts-items:first").is(":hidden")) {
+                $(".keyboard-shortcuts-items").slideDown("slow");
+            } else {
+                $(".keyboard-shortcuts-items").hide();
+            }
+        });
+    }
+]);
+
+app.controller('settingStyle', ['$scope',
+    function($scope) {
+        var set = $('.setting-content');
+        set.on('click', function() {
+            set.find('ul.setting-items').css("display", "block");
+            set.stop().animate({
+                width: '125'
+            });
+        }).mouseleave(function() {
+            set.find('ul.setting-items').css("display", "none");
+            set.stop().animate({
+                width: '28px'
+            });
+            $(".keyboard-shortcuts-items").hide();
+        });
+    }
+]);
 app.controller('openCompaniesBar', ['$scope',
     function($scope) {
         var cp = $('.companies-bar'),
@@ -50,183 +82,121 @@ app.controller('openCompaniesBar', ['$scope',
             }
         });
     }
-])
-
-app.controller('openKeyboardShortcuts', ['$scope',
-    function($scope) {
-        var key = $('.keyboard');
-        key.on('click', function() {
-            if ($(".keyboard-shortcuts-items:first").is(":hidden")) {
-                $(".keyboard-shortcuts-items").slideDown("slow");
-            } else {
-                $(".keyboard-shortcuts-items").hide();
-            }
-        });
-    }
-])
-
-app.controller('settingStyle', ['$scope',
-    function($scope) {
-        var set = $('.setting-content');
-        set.on('click', function() {
-            set.find('ul.setting-items').css("display", "block");
-            set.stop().animate({
-                width: '125'
-            });
-        }).mouseleave(function() {
-            set.find('ul.setting-items').css("display", "none");
-            set.stop().animate({
-                width: '28px'
-            });
-            $(".keyboard-shortcuts-items").hide();
-        });
-    }
-])
-
+]);
 app.controller("loadCompanies", function($scope, $http) {
     $http.get('data/companies.json').
     success(function(data, status, headers, config) {
         $scope.companies = data;
     }).
     error(function(data, status, headers, config) {
-        // log error
+        console.logError("Error in Loading companies.json", status);
     });
 });
 
-app.controller("loadTech", function($scope, $http) {
+app.controller("loadTech", function($scope) {
     var socket = new SockJS('ws');
         stompClient = Stomp.over(socket),
-        totalJobs = "",
-        jan=0, 
-        jaPercent=0,
+        totalTerms = 0,
+        totalJobs = 0,
+        rColor = 0;
 
-        don=0,
-        doPercent=0,  
-
-        phn=0, 
-        phPercent =0, 
-
-        pmn =0, 
-        pmPercent=0, 
-
-        pyn=0, 
-        pyPercent=0,
-
-        rbn=0, 
-        rbPercent=0, 
-
-        qan=0,
-        qaPercent=0, 
-
-        dbn=0,
-        dbPercent=0, 
-
-        qan=0,
-        qaPercent=0, 
-
-        ban=0,
-        baPercent=0;
-
-        stompClient.debug = function(){};
-
-    $http.get('data/techlist.json').
-    success(function(data, status, headers, config) {
-        stompClient.connect({}, function(frame) {
-           
-            stompClient.subscribe('/topic/technical-job/total', function(techName){
-                totalJobs =JSON.parse(techName.body).count;
-            });
-            stompClient.subscribe('/topic/technical-job/java', function(techName){
-                jan = JSON.parse(techName.body).count;
-                jaPercent = parseInt(jan)*100/parseInt(totalJobs);
-
-                $('#javaTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/dotnet', function(techName){
-                don = JSON.parse(techName.body).count;
-                doPercent = parseInt(don)*100/parseInt(totalJobs);
-
-                $('#dotnetTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/php', function(techName){
-                phn = JSON.parse(techName.body).count;
-                phPercent = parseInt(phn)*100/parseInt(totalJobs);
-
-                $('#phpTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/python', function(techName){
-                pyn = JSON.parse(techName.body).count;
-                pyPercent = parseInt(pyn)*100/parseInt(totalJobs);
-
-                $('#pythonTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/ruby', function(techName){
-                rbn = JSON.parse(techName.body).count;
-                rbPercent = parseInt(rbn)*100/parseInt(totalJobs);
-
-                $('#rubyTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/project_manager', function(techName){
-                pmn = JSON.parse(techName.body).count;
-                pmPercent = parseInt(pmn)*100/parseInt(totalJobs);
-
-                $('#pmTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/qa', function(techName){
-                qan = JSON.parse(techName.body).count;
-                qaPercent = parseInt(qan)*100/parseInt(totalJobs);
-
-                $('#qcTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/dba', function(techName){
-                dbn = JSON.parse(techName.body).count;
-                dbPercent = parseInt(dbn)*100/parseInt(totalJobs);
-
-                $('#dbaTech').find('strong').text(JSON.parse(techName.body).count);
-            });
-            stompClient.subscribe('/topic/technical-job/ba', function(techName){
-                ban = JSON.parse(techName.body).count;
-                baPercent = parseInt(ban)*100/parseInt(totalJobs);
-
-                $('#baTech').find('strong').text(JSON.parse(techName.body).count);
-            });
+    stompClient.debug = function(){};
+    $scope.$on('terms-coming', function(event, terms) {
+       $.each(terms, function(index, value) {
+          $scope.$emit('term', value);
         });
-        $scope.techlist = data;
-        // console.log(jaPercent)
-        // if(jaPercent > 0 && jaPercent < 11){
-        //     console.log(10);
-        // }
-        // else if(jaPercent > 10 && jaPercent <21){
-        //     console.log(20);
-        // }
-        // else if(jaPercent > 20 && jaPercent <31){
-        //     console.log(30);
-        // }
-        // else if(jaPercent > 30 && jaPercent <41){
-        //     console.log(40);
-        // }
-        // else if(jaPercent > 40 && jaPercent <51){
-        //     console.log(50);
-        // }
-        // else if(jaPercent > 50 && jaPercent <61){
-        //     console.log(60);
-        // }
-        // else if(jaPercent > 60 && jaPercent <71){
-        //     console.log(70);
-        // }
-        // else if(jaPercent > 70 && jaPercent <81){
-        //     console.log(80);
-        // }
-        // else if(jaPercent > 80 && jaPercent <91){
-        //     console.log(90);
-        // }
-        // else{
-        //     console.log(100);
-        // }
+    });
+    $scope.$on('term', function(event, term) {
+       stompClient.send("/app/technical-job" + term);
+       stompClient.subscribe('/topic/technical-job/' + term, function(response) {
+            rColor = rColor + 1;
+            if(rColor == 9){
+                rColor = 0;
+            }
+            $scope.$emit('draw-bubble', {'colorID': rColor,'term' : term, 'count' : JSON.parse(response.body).count, 'termName': term}); //todo title
+       });
+       stompClient.subscribe('/topic/technical-job/total', function(response) {
+            $scope.$emit('get-total-jobs', JSON.parse(response.body).count);
+        });
+    });
+    $scope.$on('get-total-jobs', function(event, jobs) {
+       totalJobs = jobs;
+    });
 
-    }).
-    error(function(data, status, headers, config) {
-        console.logError("Error in Loading techlist.json", status);
+    stompClient.connect({}, function(frame) {
+        
+        stompClient.send("/app/technical-job/terms", {});
+        
+        stompClient.subscribe('/topic/technical-job/terms', function(response) {
+            $scope.$emit('terms-coming', JSON.parse(response.body));
+            totalTerms = JSON.parse(response.body).length;
+        });
+        
+    });
+
+    $scope.$on('draw-bubble', function(event, bubbleItem){
+        var html ='',
+            clColor = '',
+            fSize = '';
+
+        var n = Math.round(parseInt(bubbleItem.count)*100/parseInt(totalJobs)),
+            diameter = n+75;
+        if( n < 11){
+            fSize = 'textSize1';
+        }else if(n > 10 && n < 21){
+            fSize = 'textSize2';
+        }else if(n > 20 && n < 31){
+            fSize = 'textSize3';
+        }else if(n > 30 && n < 41){
+            fSize = 'textSize4';
+        }else if(n > 40 && n < 51){
+            fSize = 'textSize5';
+        }else if(n > 50 && n < 61){
+            fSize = 'textSize6';
+        }else if(n > 60 && n < 71){
+            fSize = 'textSize7';
+        }else if(n > 70 && n < 81){
+            fSize = 'textSize8';
+        }else if(n > 80 && n < 91){
+            fSize = 'textSize9';
+        }else{
+            fSize = 'bigText';
+        }
+
+        switch (bubbleItem.colorID) {
+            case 0:
+                clColor = "redColor";
+                break;
+            case 1:
+                clColor = "blueColor";
+                break;
+            case 2:
+                clColor = "yellowColor";
+                break;
+            case 3:
+                clColor = "pinkColor";
+                break;
+            case 4:
+                clColor = "greenColor";
+                break;
+            case 5:
+                clColor = "orangeColor";
+                break;
+            case 6:
+                clColor = "lightSalmonColor";
+                break;
+            case 7:
+                clColor = "indigoColor";
+                break;
+            case 8:
+                clColor = "oliveColor";
+                break;
+        };
+
+        html ='<div class="circle '+ bubbleItem.term +'Tech '+ fSize +' style="width:' + diameter + 'px; height:' + diameter + 'px">';
+        html = html + '<div class="circle-content '+ clColor +'" style="width:' + diameter + 'px; height:' + diameter + 'px">';
+        html = html + '<span><strong>'+ bubbleItem.count +'</strong>'+ bubbleItem.termName +'</span></div></div>';
+        $('.bubble-chart-container').append(html);
     });
 });
 
@@ -317,35 +287,35 @@ app.controller("bubble-ctrl", function($scope, $http) {
         $('.circle').click(function(e) {
             e.preventDefault();
 
-            var hDotnet = $('#dotnetTech').height(),
-                wDotnet = $('#dotnetTech').width(),
+            var hDotnet = $('.dotnetTech').height(),
+                wDotnet = $('.dotnetTech').width(),
 
-                hJava   = $('#javaTech').height(),
-                wJava   = $('#javaTech').width(),
+                hJava   = $('.javaTech').height(),
+                wJava   = $('.javaTech').width(),
 
-                hPhp = $('#phpTech').height(),
-                wPhp = $('#phpTech').width(),
+                hPhp = $('.phpTech').height(),
+                wPhp = $('.phpTech').width(),
 
-                hRuby   = $('#rubyTech').height(),
-                wRuby   = $('#rubyTech').width(),
+                hRuby   = $('.rubyTech').height(),
+                wRuby   = $('.rubyTech').width(),
 
-                hPython = $('#pythonTech').height(),
-                wPython = $('#pythonTech').width(),
+                hPython = $('.pythonTech').height(),
+                wPython = $('.pythonTech').width(),
 
-                hQc   = $('#qcTech').height(),
-                wQc   = $('#qcTech').width(),
+                hQc   = $('.qcTech').height(),
+                wQc   = $('.qcTech').width(),
 
-                hPm = $('#pmTech').height(),
-                wPm = $('#pmTech').width(),
+                hPm = $('.pmTech').height(),
+                wPm = $('.pmTech').width(),
 
-                hDba   = $('#dbaTech').height(),
-                wDba   = $('#dbaTech').width(),
+                hDba   = $('.dbaTech').height(),
+                wDba   = $('.dbaTech').width(),
 
-                hBa = $('#baTech').height(),
-                wBa = $('#baTech').width();
+                hBa = $('.baTech').height(),
+                wBa = $('.baTech').width();
 
             var circle = $(this);
-            var circle_id = this.id;
+            var circle_id = $(this).attr('data-techTerm');
 
             if (!circle.hasClass('active')) {
                 $(this).children(':not(".circle-content")').hide();
@@ -353,7 +323,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                 $('.inactive span, .inactive .intro').hide(); // hides the intro on the main circle before it is animated away
 
                 // move the new circle and increase size to center
-                $('#' + circle_id).addClass('active').removeClass('small').animate({
+                $('.' + circle_id).addClass('active').removeClass('small').animate({
                     'top': tPosition,
                     'left': lPosition
                 }).children('.circle-content').animate({
@@ -366,7 +336,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
 
                 // add the title and content once the circle has resized itself
                 setTimeout((function() {
-                    $('#' + circle_id).children(':not(".circle-content")').slideDown('fast');
+                    $('.' + circle_id).children(':not(".circle-content")').slideDown('fast');
                 }), 500);
 
                 /*
@@ -374,7 +344,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'javaTech') {
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'left': pm_locations[0][1],
                         'top': pm_locations[0][0]
                     }, {
@@ -388,7 +358,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'left': php_locations[0][1],
                         'top': php_locations[0][0]
                     }, {
@@ -402,7 +372,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'left': dotnet_locations[0][1],
                         'top': dotnet_locations[0][0]
                     }, {
@@ -416,7 +386,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'left': ruby_locations[0][1],
                         'top': ruby_locations[0][0]
                     }, {
@@ -431,7 +401,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'left': python_locations[0][1],
                         'top': python_locations[0][0]
                     }, {
@@ -445,7 +415,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'left': dba_locations[0][1],
                         'top': dba_locations[0][0]
                     }, {
@@ -459,7 +429,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'left': ba_locations[0][1],
                         'top': ba_locations[0][0]
                     }, {
@@ -473,7 +443,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'left': qc_locations[0][1],
                         'top': qc_locations[0][0]
                     }, {
@@ -492,7 +462,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'dotnetTech') {
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[1][0],
                         'left': pm_locations[1][1]
                     }, {
@@ -506,7 +476,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[1][0],
                         'left': php_locations[1][1]
                     }, {
@@ -520,7 +490,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[1][0],
                         'left': java_locations[1][1]
                     }, {
@@ -534,7 +504,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[1][0],  
                         'left': ruby_locations[1][1]
                     }, {
@@ -549,7 +519,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[1][0],
                         'left': python_locations[1][1]
                     }, {
@@ -563,7 +533,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[1][0],
                         'left': dba_locations[1][1]
                     }, {
@@ -577,7 +547,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[1][0],
                         'left': ba_locations[1][1]
                     }, {
@@ -591,7 +561,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[1][0],
                         'left': qc_locations[1][1]
                     }, {
@@ -611,7 +581,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'phpTech') {
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[2][0],
                         'left': pm_locations[2][1]
                     }, {
@@ -625,7 +595,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[2][0],
                         'left': java_locations[2][1]
                     }, {
@@ -639,7 +609,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[2][0],
                         'left': dotnet_locations[2][1]
                     }, {
@@ -653,7 +623,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[2][0],
                         'left': ruby_locations[2][1]
                     }, {
@@ -668,7 +638,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[2][0],
                         'left': python_locations[2][1]
                     }, {
@@ -682,7 +652,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[2][0],
                         'left': dba_locations[2][1]
                     }, {
@@ -696,7 +666,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[2][0],
                         'left': ba_locations[2][1]
                     }, {
@@ -710,7 +680,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[2][0],
                         'left': qc_locations[2][1]
                     }, {
@@ -730,7 +700,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'rubyTech') {
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[3][0],
                         'left': pm_locations[3][1]
                     }, {
@@ -744,7 +714,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[3][0],
                         'left': java_locations[3][1]
                     }, {
@@ -758,7 +728,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[3][0],
                         'left': dotnet_locations[3][1]
                     }, {
@@ -772,7 +742,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[3][0],
                         'left': php_locations[3][1]
                     }, {
@@ -787,7 +757,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[3][0],
                         'left': python_locations[3][1]
                     }, {
@@ -801,7 +771,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[3][0],
                         'left': dba_locations[3][1]
                     }, {
@@ -815,7 +785,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[3][0],
                         'left': ba_locations[3][1]
                     }, {
@@ -829,7 +799,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[3][0],
                         'left': qc_locations[3][1]
                     }, {
@@ -849,7 +819,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'pythonTech') {
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[4][0],
                         'left': pm_locations[4][1]
                     }, {
@@ -863,7 +833,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[4][0],
                         'left': java_locations[4][1]
                     }, {
@@ -877,7 +847,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[4][0],
                         'left': dotnet_locations[4][1]
                     }, {
@@ -891,7 +861,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[4][0],
                         'left': php_locations[4][1]
                     }, {
@@ -906,7 +876,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[4][0],
                         'left': ruby_locations[4][1]
                     }, {
@@ -920,7 +890,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[4][0],
                         'left': dba_locations[4][1]
                     }, {
@@ -934,7 +904,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[4][0],
                         'left': ba_locations[4][1]
                     }, {
@@ -948,7 +918,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[4][0],
                         'left': qc_locations[4][1]
                     }, {
@@ -968,7 +938,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'pmTech') {
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[5][0],
                         'left': python_locations[5][1]
                     }, {
@@ -982,7 +952,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[5][0],
                         'left': java_locations[5][1]
                     }, {
@@ -996,7 +966,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[5][0],
                         'left': dotnet_locations[5][1]
                     }, {
@@ -1010,7 +980,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[5][0],
                         'left': php_locations[5][1]
                     }, {
@@ -1025,7 +995,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[5][0],
                         'left': ruby_locations[5][1]
                     }, {
@@ -1039,7 +1009,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[5][0],
                         'left': dba_locations[5][1]
                     }, {
@@ -1053,7 +1023,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[5][0],
                         'left': ba_locations[5][1]
                     }, {
@@ -1067,7 +1037,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[5][0],
                         'left': qc_locations[5][1]
                     }, {
@@ -1087,7 +1057,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'qcTech') {
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[6][0],
                         'left': python_locations[6][1]
                     }, {
@@ -1101,7 +1071,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[6][0],
                         'left': java_locations[6][1]
                     }, {
@@ -1115,7 +1085,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[6][0],
                         'left': dotnet_locations[6][1]
                     }, {
@@ -1129,7 +1099,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[6][0],
                         'left': php_locations[6][1]
                     }, {
@@ -1144,7 +1114,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[6][0],
                         'left': ruby_locations[6][1]
                     }, {
@@ -1158,7 +1128,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[6][0],
                         'left': dba_locations[6][1]
                     }, {
@@ -1172,7 +1142,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[6][0],
                         'left': ba_locations[6][1]
                     }, {
@@ -1186,7 +1156,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[6][0],
                         'left': pm_locations[6][1]
                     }, {
@@ -1206,7 +1176,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'dbaTech') {
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[7][0],
                         'left': python_locations[7][1]
                     }, {
@@ -1220,7 +1190,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[7][0],
                         'left': java_locations[7][1]
                     }, {
@@ -1234,7 +1204,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[7][0],
                         'left': dotnet_locations[7][1]
                     }, {
@@ -1248,7 +1218,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[7][0],
                         'left': php_locations[7][1]
                     }, {
@@ -1263,7 +1233,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[7][0],
                         'left': ruby_locations[7][1]
                     }, {
@@ -1277,7 +1247,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[7][0],
                         'left': qc_locations[7][1]
                     }, {
@@ -1291,7 +1261,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#baTech').animate({
+                    $('.baTech').animate({
                         'top': ba_locations[7][0],
                         'left': ba_locations[7][1]
                     }, {
@@ -1305,7 +1275,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[7][0],
                         'left': pm_locations[7][1]
                     }, {
@@ -1325,7 +1295,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                  **/
                 if (circle_id == 'baTech') {
 
-                    $('#pythonTech').animate({
+                    $('.pythonTech').animate({
                         'top': python_locations[8][0],
                         'left': python_locations[8][1]
                     }, {
@@ -1339,7 +1309,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#javaTech').animate({
+                    $('.javaTech').animate({
                         'top': java_locations[8][0],
                         'left': java_locations[8][1]
                     }, {
@@ -1353,7 +1323,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dotnetTech').animate({
+                    $('.dotnetTech').animate({
                         'top': dotnet_locations[8][0],
                         'left': dotnet_locations[8][1]
                     }, {
@@ -1367,7 +1337,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#phpTech').animate({
+                    $('.phpTech').animate({
                         'top': php_locations[8][0],
                         'left': php_locations[8][1]
                     }, {
@@ -1382,7 +1352,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                     });
 
 
-                    $('#rubyTech').animate({
+                    $('.rubyTech').animate({
                         'top': ruby_locations[8][0],
                         'left': ruby_locations[8][1]
                     }, {
@@ -1396,7 +1366,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#qcTech').animate({
+                    $('.qcTech').animate({
                         'top': qc_locations[8][0],
                         'left': qc_locations[8][1]
                     }, {
@@ -1410,7 +1380,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#dbaTech').animate({
+                    $('.dbaTech').animate({
                         'top': dba_locations[8][0],
                         'left': dba_locations[8][1]
                     }, {
@@ -1424,7 +1394,7 @@ app.controller("bubble-ctrl", function($scope, $http) {
                         easing: 'easeOutQuad'
                     });
 
-                    $('#pmTech').animate({
+                    $('.pmTech').animate({
                         'top': pm_locations[8][0],
                         'left': pm_locations[8][1]
                     }, {
