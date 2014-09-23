@@ -43,7 +43,8 @@ public class VietnamworksJobStatisticController {
    public List<TechnicalTermResponse> countTechnicalTerms() {
       List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
       for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-         terms.add(new TechnicalTermResponse.Builder().withName(term.name()).withTerm(term).build());
+         terms.add(new TechnicalTermResponse.Builder().withTerm(term)
+               .withCount(vietnamWorksJobStatisticService.count(term)).build());
       }
       return terms;
    }
@@ -55,12 +56,5 @@ public class VietnamworksJobStatisticController {
             new JobStatisticResponse.Builder().withCount(
                   vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(request.getTerm().toUpperCase())))
                   .build());
-   }
-
-   @Scheduled(cron = "${scheduled.cron}")
-   @MessageMapping("/technical-job/total")
-   public void totalTechnicalJobs() {
-      messagingTemplate.convertAndSend("/topic/technical-job/total",
-            new JobStatisticResponse.Builder().withCount(vietnamWorksJobStatisticService.countTechnicalJobs()).build());
    }
 }
