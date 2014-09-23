@@ -54,6 +54,7 @@
          <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
+             <version>1.3.2</version>
             <executions>
                <execution>
                   <phase>generate-sources</phase>
@@ -82,6 +83,34 @@
             <configuration>
                <failOnMissingWebXml>false</failOnMissingWebXml>
             </configuration>
+         </plugin>
+         <plugin>
+             <groupId>org.codehaus.cargo</groupId>
+             <artifactId>cargo-maven2-plugin</artifactId>
+             <version>1.4.9</version>
+             <configuration>
+                 <container>
+                     <containerId>tomcat8x</containerId>
+                     <home>${env.CATALINA_HOME}</home>
+                 </container>
+                 <configuration>
+                     <type>existing</type>
+                     <home>${env.CATALINA_HOME}</home>
+                 </configuration>
+                 <deployables>
+                     <deployable>
+                         <groupId>com.looper.tech</groupId>
+                         <artifactId>TechLooper</artifactId>
+                         <type>war</type>
+                         <properties>
+                             <context>${project.build.finalName}</context>
+                         </properties>
+                     </deployable>
+                 </deployables>
+                 <deployer>
+                     <type>installed</type>
+                 </deployer>
+             </configuration>
          </plugin>
       </plugins>
    </build>
