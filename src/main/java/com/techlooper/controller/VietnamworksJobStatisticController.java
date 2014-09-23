@@ -1,7 +1,7 @@
 package com.techlooper.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -11,9 +11,10 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
+import com.techlooper.model.JobStatisticRequest;
 import com.techlooper.model.JobStatisticResponse;
-import com.techlooper.model.JobStatisticResquest;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.model.TechnicalTermResponse;
 import com.techlooper.service.JobStatisticService;
 
 @Controller
@@ -25,30 +26,30 @@ public class VietnamworksJobStatisticController {
    @Resource
    private SimpMessagingTemplate messagingTemplate;
 
-   private Map<String, Long> termMap = new HashMap<String, Long>();
-
    @Scheduled(cron = "${scheduled.cron}")
    public void countTechnicalJobs() {
       for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-         Long count = vietnamWorksJobStatisticService.count(term);
-         if (termMap.containsKey(term.name()) && termMap.get(term.name()) == count) {
-            continue;
-         }
-         termMap.put(term.name(), count);
          messagingTemplate.convertAndSend("/topic/technical-job/" + term.name(), new JobStatisticResponse.Builder()
-               .withCount(count).build());
+               .withCount(vietnamWorksJobStatisticService.count(term)).build());
       }
    }
 
-   /** need to think a way how fetch TechnicalTerms dynamic, we might rework on business model */
+   /**
+    * need to think a way how fetch TechnicalTerms dynamic, we might rework on
+    * business model
+    */
    @SendTo("/topic/technical-job/terms")
    @MessageMapping("/technical-job/terms")
-   public TechnicalTermEnum[] countTechnicalTerms() {
-      return TechnicalTermEnum.values();
+   public List<TechnicalTermResponse> countTechnicalTerms() {
+      List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
+      for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+         terms.add(new TechnicalTermResponse.Builder().withName(term.name()).withTerm(term).build());
+      }
+      return terms;
    }
 
    @MessageMapping("/technical-job")
-   public void countTechnicalJobs(JobStatisticResquest request) {
+   public void countTechnicalJobs(JobStatisticRequest request) {
       messagingTemplate.convertAndSend(
             "/topic/technical-job/" + request.getTerm().toLowerCase(),
             new JobStatisticResponse.Builder().withCount(
