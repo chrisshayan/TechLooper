@@ -4,5 +4,4 @@ jdk:
 before_install:
   - npm install -g grunt-cli
   - npm install -g bower
-  - bower install
 install: mvn clean package -Dmaven.test.skip=true
