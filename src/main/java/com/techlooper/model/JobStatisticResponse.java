@@ -12,10 +12,6 @@ public class JobStatisticResponse {
       this.count = count;
    }
 
-   public static Builder createBuilder() {
-      return new Builder();
-   }
-
    public static class Builder {
 
       private JobStatisticResponse jobStatistic = new JobStatisticResponse();
