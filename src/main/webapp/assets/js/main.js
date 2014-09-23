@@ -107,13 +107,14 @@ app.controller("loadTech", function($scope) {
         });
     });
     $scope.$on('term', function(event, term) {
-       stompClient.send("/app/technical-job" + term);
-       stompClient.subscribe('/topic/technical-job/' + term, function(response) {
+       //stompClient.send("/app/technical-job" + term);
+       $scope.$emit('draw-bubble', {'colorID': 1, 'count' : term.count, 'termName': term.name});
+       stompClient.subscribe('/topic/technical-job/' + term.term, function(response) {
             rColor = rColor + 1;
             if(rColor == 9){
                 rColor = 0;
             }
-            $scope.$emit('draw-bubble', {'colorID': rColor,'term' : term, 'count' : JSON.parse(response.body).count, 'termName': term}); //todo title
+            $scope.$emit('draw-bubble', {'colorID': rColor, 'count' : JSON.parse(response.body).count, 'termName': term.name}); //todo title
        });
        stompClient.subscribe('/topic/technical-job/total', function(response) {
             $scope.$emit('get-total-jobs', JSON.parse(response.body).count);
@@ -124,12 +125,15 @@ app.controller("loadTech", function($scope) {
     });
 
     stompClient.connect({}, function(frame) {
-        
-        stompClient.send("/app/technical-job/terms", {});
-        
+        stompClient.send("/app/technical-job/terms");
         stompClient.subscribe('/topic/technical-job/terms', function(response) {
-            $scope.$emit('terms-coming', JSON.parse(response.body));
-            totalTerms = JSON.parse(response.body).length;
+           $scope.termList = JSON.parse(response.body);
+            $.each($scope.termList, function(index, value) {
+                totalJobs += value.count;
+            });
+            $.each($scope.termList, function(index, value) {
+                $scope.$emit('draw-bubble', {'colorID': 1, 'count' : value.count, 'termName': value.name});
+            });
         });
         
     });
