@@ -41,6 +41,11 @@
    </properties>
    <build>
       <finalName>techlooper</finalName>
+      <resources>
+        <resource>
+            <directory>src/main/resources/common</directory>
+        </resource>
+      </resources>
       <plugins>
          <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -118,7 +123,102 @@
          </plugin>
       </plugins>
    </build>
-   <reporting>
+     <profiles>
+         <profile>
+             <id>local</id>
+             <activation>
+                 <activeByDefault>true</activeByDefault>
+             </activation>
+             <properties>
+                 <env>local</env>
+             </properties>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.codehaus.mojo</groupId>
+                         <artifactId>build-helper-maven-plugin</artifactId>
+                         <version>1.9</version>
+                         <executions>
+                             <execution>
+                                 <phase>generate-resources</phase>
+                                 <goals>
+                                     <goal>add-resource</goal>
+                                 </goals>
+                                 <configuration>
+                                     <resources>
+                                         <resource>
+                                             <directory>src/main/resources/local</directory>
+                                         </resource>
+                                     </resources>
+                                 </configuration>
+                             </execution>
+                         </executions>
+                     </plugin>
+                 </plugins>
+             </build>
+         </profile>
+         <profile>
+             <id>dev</id>
+             <properties>
+                 <env>dev</env>
+             </properties>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.codehaus.mojo</groupId>
+                         <artifactId>build-helper-maven-plugin</artifactId>
+                         <version>1.9</version>
+                         <executions>
+                             <execution>
+                                 <phase>generate-resources</phase>
+                                 <goals>
+                                     <goal>add-resource</goal>
+                                 </goals>
+                                 <configuration>
+                                     <resources>
+                                         <resource>
+                                             <directory>src/main/resources/dev</directory>
+                                         </resource>
+                                     </resources>
+                                 </configuration>
+                             </execution>
+                         </executions>
+                     </plugin>
+                 </plugins>
+             </build>
+         </profile>
+         <profile>
+             <id>staging</id>
+             <properties>
+                 <env>staging</env>
+             </properties>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.codehaus.mojo</groupId>
+                         <artifactId>build-helper-maven-plugin</artifactId>
+                         <version>1.9</version>
+                         <executions>
+                             <execution>
+                                 <phase>generate-resources</phase>
+                                 <goals>
+                                     <goal>add-resource</goal>
+                                 </goals>
+                                 <configuration>
+                                     <resources>
+                                         <resource>
+                                             <directory>src/main/resources/staging</directory>
+                                         </resource>
+                                     </resources>
+                                 </configuration>
+                             </execution>
+                         </executions>
+                     </plugin>
+                 </plugins>
+             </build>
+         </profile>
+     </profiles>
+     <reporting>
       <plugins>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
