@@ -18,9 +18,9 @@
 		"data":[
 			{"top":"420px","left":"110px"},
 			{"top":"150px","left":"250px"},
-			{"top":"380px","left":"-50px"},
+			{"top":"60px","left":"-100px"},
 			{"top":"380px","left":"200px"},
-			{"top":"40px","left":"-80px"},
+			{"top":"10px","left":"80px"},
 			{"top":"50px","left":"230px"},
 			{"top":"10px","left":"200px"},
 			{"top":"350px","left":"-80px"},
@@ -30,28 +30,28 @@
 	{
 		"name":"php_locations",
 		"data":[
-			{"top":"40px","left":"-220px"},
+			{"top":"40px","left":"-60px"},
 			{"top":"10px","left":"250px"},
 			{"top":"-240px","left":"10px"},
 			{"top":"230px","left":"280px"},
 			{"top":"230px","left":"-190px"},
-			{"top":"115px","left":"-260px"},
+			{"top":"115px","left":"-180px"},
 			{"top":"230px","left":"280px"},
-			{"top":"230px","left":"-220px"},
-			{"top":"125px","left":"-240px"}
+			{"top":"230px","left":"-130px"},
+			{"top":"205px","left":"-130px"}
 		]
 	},
 	{
 		"name":"ruby_locations",
 		"data":[
 			{"top":"340px","left":"-150px"},
-			{"top":"50px","left":"-200px"},
+			{"top":"30px","left":"30px"},
 			{"top":"360px","left":"200px"},
 			{"top":"0px","left":"50px"},
 			{"top":"0px","left":"190px"},
 			{"top":"410px","left":"-90px"},
-			{"top":"5px","left":"-130px"},
-			{"top":"135px","left":"-200px"},
+			{"top":"55px","left":"-70px"},
+			{"top":"165px","left":"290px"},
 			{"top":"20px","left":"250px"}
 		]
 	},
@@ -60,11 +60,11 @@
 		"data":[
 			{"top":"100px","left":"290px"},
 			{"top":"235px","left":"280px"},
-			{"top":"50px","left":"-230px"},
-			{"top":"-10px","left":"-200px"},
+			{"top":"30px","left":"30px"},
+			{"top":"80px","left":"-110px"},
 			{"top":"150px","left":"200px"},
 			{"top":"150px","left":"295px"},
-			{"top":"290px","left":"-240px"},
+			{"top":"220px","left":"-110px"},
 			{"top":"60px","left":"260px"},
 			{"top":"180px","left":"290px"}
 		]
@@ -73,7 +73,7 @@
 		"name":"dba_locations",
 		"data":[
 			{"top":"295px","left":"270px"},
-			{"top":"10px","left":"210px"},
+			{"top":"50px","left":"200px"},
 			{"top":"240px","left":"290px"},
 			{"top":"50px","left":"240px"},
 			{"top":"320px","left":"260px"},
@@ -86,15 +86,15 @@
 	{
 		"name":"pm_locations",
 		"data":[
-			{"top":"60px","left":"160px"},
+			{"top":"-5px","left":"160px"},
 			{"top":"380px","left":"250px"},
 			{"top":"350px","left":"-90px"},
-			{"top":"200px","left":"290px"},
+			{"top":"120px","left":"290px"},
 			{"top":"15px","left":"-100px"},
 			{"top":"-50px","left":"210px"},
-			{"top":"430px","left":"60px"},
-			{"top":"410px","left":"180px"},
-			{"top":"400px","left":"-10px"}
+			{"top":"330px","left":"-110px"},
+			{"top":"10px","left":"-80px"},
+			{"top":"300px","left":"-140px"}
 		]
 	},
 	{
@@ -104,7 +104,7 @@
 			{"top":"40px","left":"-110px"},
 			{"top":"250px","left":"-160px"},
 			{"top":"250px","left":"-150px"},
-			{"top":"70px","left":"-200px"},
+			{"top":"110px","left":"-150px"},
 			{"top":"60px","left":"-100px"},
 			{"top":"100px","left":"280px"},
 			{"top":"100px","left":"-100px"},
@@ -117,12 +117,12 @@
 			{"top":"60px","left":"245px"},
 			{"top":"420px","left":"110px"},
 			{"top":"40px","left":"210px"},
-			{"top":"-12px","left":"10px"},
+			{"top":"20px","left":"10px"},
 			{"top":"150px","left":"290px"},
 			{"top":"-10px","left":"-30px"},
 			{"top":"250px","left":"130px"},
 			{"top":"25px","left":"190px"},
-			{"top":"20px","left":"-150px"}
+			{"top":"80px","left":"-80px"}
 		]
 	}
 ]
