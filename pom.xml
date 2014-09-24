@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>com.looper.tech</groupId>
@@ -39,7 +39,6 @@
       <hamcrest-core.version>1.3</hamcrest-core.version>
       <mockito-core.version>1.9.5</mockito-core.version>
    </properties>
-
    <build>
       <finalName>techlooper</finalName>
       <plugins>
@@ -75,6 +74,11 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
             <version>9.2.2.v20140723</version>
+            <configuration>
+               <webApp>
+                  <contextPath>/${project.build.finalName}</contextPath>
+               </webApp>
+            </configuration>
          </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
