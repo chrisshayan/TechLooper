@@ -157,8 +157,8 @@
 }
 #box .textSize1 span{
     font-size: 10px;
-    line-height: 100%;
-    top: -38px !important;
+    line-height:5px;
+    top:18px !important;
     width: 50px;
 }
 #box .textSize1 strong{
@@ -172,7 +172,7 @@
 #box .textSize2 span{
     font-size: 15px;
     line-height: 16px;
-    top: -53px !important;
+    top: 20px !important;
     width: 75px;
 }
 #box .textSize2 strong{
@@ -186,7 +186,7 @@
 #box .textSize3 span{
     font-size: 18px;
     line-height:22px;
-    top: -70px !important;
+    top: 18px !important;
     width: 100px;
 }
 #box .textSize3 strong{
