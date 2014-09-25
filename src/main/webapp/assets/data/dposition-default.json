@@ -1,47 +1,15 @@
 [
-	{
-		"top": "20",
-		"left": "160",
-		"z-index":"1"
-	},
-	{
-		"top":"100",
-    	"left":"200",
-    	"z-index":"2"
-	},
-	{
-		"top":"100",
-    	"left":"-100",
-    	"z-index":"3"
-	},
-	{
-		"top":"180",
-    	"left":"45",
-    	"z-index":"4"
-	},
-	{
-		"top":"270",
-    	"left":"10",
-    	"z-index":"5"
-	},
-	{
-		"top":"110",
-    	"left":"85",
-    	"z-index":"6"
-	},
-	{
-		"top":"110",
-    	"left":"-30",
-    	"z-index":"7"
-	},
-	{
-		"top":"30",
-    	"left":"25",
-    	"z-index":"8"
-	},
-	{
-		"top":"200",
-    	"left":"150",
-    	"z-index":"9"
+	  {
+	  	"data":[
+			{"top":"5px","left":"50px"},
+			{"top":"190px","left":"280px"},
+			{"top":"75px","left":"260px"},
+			{"top":"340px","left":"-100px"},
+			{"top":"330px","left":"-100px"},
+			{"top":"260px","left":"-140px"},
+			{"top":"150px","left":"-150px"},
+			{"top":"305px","left":"250px"},
+			{"top":"390px","left":"190px"}
+		]
 	}
 ]
