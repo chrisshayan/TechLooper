@@ -1,4 +1,11 @@
 @media (min-width: 320px) and (max-width: 767px) {
+    .fa-cog{
+        display: none;
+    }
+    .fa-bars{
+        display: block;
+    }
+
     .setting-block{
         width: 60px;
         float: left;
@@ -31,66 +38,7 @@
     .bubble-chart-container {
         width: 320px;
     }
-    #box #javaTech {
-        position: absolute;
-        top: 30px;
-        left: -50px;
-        z-index: 1;
-    }
-    #box #phpTech {
-        position: absolute;
-        top: 110px;
-        left: -30px;
-        z-index: 2;
-    }
-    #box #qcTech {
-        position: absolute;
-        top: 200px;
-        left: -100px;
-        z-index: 3;
-    }
-    #box #pmTech {
-        position: absolute;
-        top: 130px;
-        left: 100px;
-        z-index: 4;
-    }
-    #box #dotnetTech {
-        position: absolute;
-        top: 200px;
-        left: 100px;
-        z-index: 5;
-    }
-    #box #dbaTech {
-        position: absolute;
-        top: 100px;
-        left: -120px;
-        z-index: 6;
-    }
-    #box #baTech {
-        position: absolute;
-        top: 0px;
-        left: -120px;
-        z-index: 7;
-    }
-    #box #rubyTech {
-        position: absolute;
-        top: 10px;
-        left:70px;
-        z-index: 8;
-    }
-    #box #pythonTech {
-        position: absolute;
-        top: 240px;
-        left: -20px;
-        z-index: 9;
-    }
-    #box #dbTech {
-        position: absolute;
-        top: 270px;
-        left: 180px;
-        z-index: 9;
-    }
+
     #box .fivepc, #box .fivepc .circle-content {
         width: 45px;
         height: 45px;
@@ -163,11 +111,16 @@
     #box .active span {
         font-size: 35px;
         line-height: 40px;
-        top: -155px !important;
+        top: 65px !important;
         text-align: center;
         width: 220px;
     }
     #box .active strong {
         font-size: 45px;
+    }
+}
+@media (min-width: 778px){
+    .fa-bars{
+        display: none;
     }
 }
