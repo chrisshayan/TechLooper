@@ -1,47 +1,47 @@
 [
 	{
-		"top": "20px",
-		"left": "160px",
+		"top": "20",
+		"left": "160",
 		"z-index":"1"
 	},
 	{
-		"top":"100px",
-    	"left":"200px",
+		"top":"100",
+    	"left":"200",
     	"z-index":"2"
 	},
 	{
-		"top":"100px",
-    	"left":"-100px",
+		"top":"100",
+    	"left":"-100",
     	"z-index":"3"
 	},
 	{
-		"top":"180px",
-    	"left":"45px",
+		"top":"180",
+    	"left":"45",
     	"z-index":"4"
 	},
 	{
-		"top":"270px",
-    	"left":"10px",
+		"top":"270",
+    	"left":"10",
     	"z-index":"5"
 	},
 	{
-		"top":"110px",
-    	"left":"85px",
+		"top":"110",
+    	"left":"85",
     	"z-index":"6"
 	},
 	{
-		"top":"110px",
-    	"left":"-30px",
+		"top":"110",
+    	"left":"-30",
     	"z-index":"7"
 	},
 	{
-		"top":"30px",
-    	"left":"25px",
+		"top":"30",
+    	"left":"25",
     	"z-index":"8"
 	},
 	{
-		"top":"200px",
-    	"left":"150px",
+		"top":"200",
+    	"left":"150",
     	"z-index":"9"
 	}
 ]
