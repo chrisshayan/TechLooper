@@ -1,4 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
+before_install:
+  - npm install -g grunt-cli
+  - npm install -g bower
 install: mvn clean package -Dmaven.test.skip=true
+script: mvn clean package -Dmaven.test.skip=true
