@@ -4,7 +4,17 @@ app.controller("loadTech", function($scope, $http) {
     currentTerms = new Array,
     totalTerms = 0,
     totalJobs = 0,
-    rColor = 0;
+    rColor = 0,
+    mT = "70px",
+    mL = "-85px",
+    dT = "80px",
+    dL = "-50px",
+    lPosition = "",
+    tPosition = "",
+    mSize = "220px",
+    dSize = "340px",
+    sActive = "";
+
     var _isNotMobile = (function() {
             var check = false;
             (function(a) {
@@ -26,7 +36,6 @@ app.controller("loadTech", function($scope, $http) {
             }
             $.each(currentTerms, function(index, value) {
                 if (data.term == value.term && data.count != value.count) {
-                    console.log(data.term + ';' + value.term + ';' + data.count + ';' + value.count)
                     $('.' + value.term).remove();
                     $scope.$emit('draw-bubble', {
                         'colorID': rColor,
@@ -144,32 +153,19 @@ app.controller("loadTech", function($scope, $http) {
         $('.bubble-chart-container').append(html);
     });
 
-    //console.log($scope);
     $scope.$on('bubble-ctrl', function(event, data) {
-        var jsonPath = "",
-            mT = "70px",
-            mL = "-85px",
-            dT = "80px",
-            dL = "-50px",
-            lPosition = "",
-            tPosition = "",
-            mSize = "220px",
-            dSize = "340px",
-            wActive = "",
-            hActive = "";
-        
+        var jsonPath = "";
+
         if (_isNotMobile) {
             jsonPath = "data/dBubble-position.json";
             lPosition = dL;
             tPosition = dT;
-            wActive = dSize;
-            hActive = dSize;
+            sActive = dSize;
         } else {
             jsonPath = "data/mBubble-position.json";
             lPosition = mL;
             tPosition = mT;
-            wActive = mSize;
-            hActive = mSize;
+            sActive = mSize;
         }
         $http.get(jsonPath).
         success(function(data, status, headers, config) {
@@ -226,32 +222,23 @@ app.controller("loadTech", function($scope, $http) {
             $('.circle').click(function(e) {
                 e.preventDefault();
 
-                var hDotnet = $('.DOTNETTech').height(),
-                    wDotnet = $('.DOTNETTech').width(),
+                var sDotnet = $('.DOTNETTech').height(),
 
-                    hJava = $('.JAVATech').height(),
-                    wJava = $('.JAVATech').width(),
+                    sJava = $('.JAVATech').height(),
 
-                    hPhp = $('.PHPTech').height(),
-                    wPhp = $('.PHPTech').width(),
+                    sPhp = $('.PHPTech').height(),
 
-                    hRuby = $('.RUBYTech').height(),
-                    wRuby = $('.RUBYTech').width(),
+                    sRuby = $('.RUBYTech').height(),
 
-                    hPython = $('.PYTHONTech').height(),
-                    wPython = $('.PYTHONTech').width(),
+                    sPython = $('.PYTHONTech').height(),
 
-                    hQc = $('.QATech').height(),
-                    wQc = $('.QATech').width(),
+                    sQc = $('.QATech').height(),
 
-                    hPm = $('.PROJECT_MANAGERTech').height(),
-                    wPm = $('.PROJECT_MANAGERTech').width(),
+                    sPm = $('.PROJECT_MANAGERTech').height(),
 
-                    hDba = $('.DBATech').height(),
-                    wDba = $('.DBATech').width(),
+                    sDba = $('.DBATech').height(),
 
-                    hBa = $('.BATech').height(),
-                    wBa = $('.BATech').width();
+                    sBa = $('.BATech').height();
 
                 var circle = $(this);
                 var circle_id = $(this).attr('data-techTerm');
@@ -266,8 +253,8 @@ app.controller("loadTech", function($scope, $http) {
                         'top': tPosition,
                         'left': lPosition
                     }).children('.circle-content').animate({
-                        'width': wActive,
-                        'height': hActive
+                        'width': sActive,
+                        'height': sActive
                     }, {
                         duration: '4000',
                         easing: 'easeOutQuad'
@@ -290,8 +277,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -304,8 +291,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -318,8 +305,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -332,8 +319,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -347,8 +334,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -361,8 +348,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -375,8 +362,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -389,8 +376,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -408,8 +395,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -422,8 +409,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -436,8 +423,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -450,8 +437,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -465,8 +452,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -479,8 +466,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -493,8 +480,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -507,8 +494,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -527,8 +514,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -541,8 +528,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -555,8 +542,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -569,8 +556,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -584,8 +571,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -598,8 +585,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -612,8 +599,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -626,8 +613,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -646,8 +633,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -660,8 +647,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -674,8 +661,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -688,8 +675,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -703,8 +690,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -717,8 +704,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -731,8 +718,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -745,8 +732,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -765,8 +752,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -779,8 +766,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -793,8 +780,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -807,8 +794,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -822,8 +809,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -836,8 +823,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -850,8 +837,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -864,8 +851,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -884,8 +871,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -898,8 +885,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -912,8 +899,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -926,8 +913,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -941,8 +928,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -955,8 +942,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -969,8 +956,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -983,8 +970,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1003,8 +990,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1017,8 +1004,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1031,8 +1018,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1045,8 +1032,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1060,8 +1047,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1074,8 +1061,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1088,8 +1075,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1102,8 +1089,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1122,8 +1109,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1136,8 +1123,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1150,8 +1137,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1164,8 +1151,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1179,8 +1166,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1193,8 +1180,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1207,8 +1194,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wBa,
-                            'height': hBa
+                            'width': sBa,
+                            'height': sBa
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1221,8 +1208,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1241,8 +1228,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPython,
-                            'height': hPython
+                            'width': sPython,
+                            'height': sPython
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1255,8 +1242,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wJava,
-                            'height': hJava
+                            'width': sJava,
+                            'height': sJava
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1269,8 +1256,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDotnet,
-                            'height': hDotnet
+                            'width': sDotnet,
+                            'height': sDotnet
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1283,8 +1270,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPhp,
-                            'height': hPhp
+                            'width': sPhp,
+                            'height': sPhp
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1298,8 +1285,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wRuby,
-                            'height': hRuby
+                            'width': sRuby,
+                            'height': sRuby
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1312,8 +1299,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wQc,
-                            'height': hQc
+                            'width': sQc,
+                            'height': sQc
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1326,8 +1313,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wDba,
-                            'height': hDba
+                            'width': sDba,
+                            'height': sDba
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1340,8 +1327,8 @@ app.controller("loadTech", function($scope, $http) {
                             duration: '4000',
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
-                            'width': wPm,
-                            'height': hPm
+                            'width': sPm,
+                            'height': sPm
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1365,29 +1352,86 @@ app.controller("loadTech", function($scope, $http) {
         });
     });
 
+    // $scope.$on('first-position', function(event, bubbleItem){
+    //     var jsonPath ="";
+    //     if (_isNotMobile) {
+    //         jsonPath = "data/dposition-default.json";
+    //     } else {
+    //         jsonPath = "data/mposition-default.json";
+    //     }
+    //     $http.get(jsonPath).
+    //     success(function(data, status, headers, config) {
+    //         $scope.positionData = data;
+    //         for(var i = 0; i < bubbleItem.length; i++){
+    //             var itemName =  bubbleItem[i].term+'Tech';
+    //             $('.'+ itemName).css({
+    //                 top: $scope.positionData[i].top +'px',
+    //                 left: $scope.positionData[i].left + 'px',
+    //                 'z-index': i,
+    //                 opacity: 0.8
+    //             });
+    //         }
+    //     }).
+    //     error(function(data, status, headers, config) {
+    //         // log error
+    //     });
+    // }) 
+
     $scope.$on('first-position', function(event, bubbleItem){
-        var jsonPath ="";
+        var biggestDiameter = 0,
+            biggestName = "",
+            jsonPath ="",
+            locations = new Array();
+
         if (_isNotMobile) {
             jsonPath = "data/dposition-default.json";
+            sActive = dSize;
+            lPosition = dL;
+            tPosition = dT;
         } else {
             jsonPath = "data/mposition-default.json";
+            sActive = mSize;
+            lPosition = mL;
+            tPosition = mT;
         }
+
         $http.get(jsonPath).
         success(function(data, status, headers, config) {
-            $scope.positionData = data;
-            for(var i = 0; i < bubbleItem.length; i++){
-                var itemName =  bubbleItem[i].term+'Tech';
-                $('.'+ itemName).css({
-                    top: $scope.positionData[i].top +'px',
-                    left: $scope.positionData[i].left + 'px',
-                    'z-index': i,
-                    opacity: 0.8
-                });
+            $scope.bubblePosition = data;
+            for (var i = 0; i < 9; i++) {
+                var t = $scope.bubblePosition[0].data[i].top,
+                    l = $scope.bubblePosition[0].data[i].left;
+                    locations[i] = new Array(t, l);
             }
+            for(var i = 0; i < bubbleItem.length; i++){
+                if(bubbleItem[i].count > biggestDiameter){
+                    biggestDiameter = bubbleItem[i].count;
+                    biggestName = bubbleItem[i].term+'Tech';
+                }
+            }
+             for(var i = 0; i < bubbleItem.length; i++){
+                if(bubbleItem[i].count < biggestDiameter){
+                    $('.' + bubbleItem[i].term +'Tech').css({
+                        'top': locations[i][0],
+                        'left': locations[i][1],
+                        'opacity': 0.8,
+                        'z-index': i
+                    });
+                }
+             }
+            $('.' +biggestName).css({
+                'top': tPosition,
+                'left': lPosition
+            });
+            $('.' +biggestName).addClass('active').children('.circle-content').css({
+                'width': sActive,
+                'height': sActive
+            });
         }).
         error(function(data, status, headers, config) {
             // log error
         });
-    }) 
+    });
 
 });
+
