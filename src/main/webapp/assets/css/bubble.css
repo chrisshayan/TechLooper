@@ -29,11 +29,11 @@
     left:120px;
 }
 #box .circle {
-    position:relative;
     cursor:pointer;
     text-align:center;
     width: 1000px;
     height: 1000px;
+    position: absolute;;
 }
 #box .active {
     width:340px;
@@ -96,128 +96,68 @@
 #box .circle .saddleBrownColor{
     background: #8B4513;
 }
-#box #javaTech {
-    position:absolute;
-    top:30px;
-    left:25px;
-    z-index:1;
-}
-#box #phpTech {
-    position:absolute;
-    top:110px;
-    left:-30px;
-    z-index:2;
-}
-#box #qcTech {
-    position:absolute;
-    top:230px;
-    left:-80px;
-    z-index:3;
-}
-#box #pmTech {
-    position:absolute;
-    top:100px;
-    left:200px;
-    z-index:4;
-}
-#box #dotnetTech {
-    position:absolute;
-    top:200px;
-    left:150px;
-    z-index:5;
-}
-#box #dbaTech {
-    position:absolute;
-    top:100px;
-    left:-150px;
-    z-index:6;
-}
-#box #baTech {
-    position:absolute;
-    top:170px;
-    left:250px;
-    z-index:7;
-}
-#box #rubyTech {
-    position:absolute;
-    top:110px;
-    left:85px;
-    z-index:8;
-}
-#box #pythonTech {
-    position:absolute;
-    top:270px;
-    left:10px;
-    z-index:9;
-}
-#box #dbTech {
-    position:absolute;
-    top:270px;
-    left:180px;
-    z-index:9;
-}
-#box .fivepc,
-#box .fivepc .circle-content{
+#box .textSize1,
+#box .textSize1 .circle-content{
     width:50px;
     height:50px; 
 }
-#box .fivepc span{
+#box .textSize1 span{
     font-size: 10px;
-    line-height: 100%;
-    top: -38px !important;
+    line-height:5px;
+    top:18px !important;
     width: 50px;
 }
-#box .fivepc strong{
+#box .textSize1 strong{
     font-size: 12px;
 }
-#box .tenpc,
-#box .tenpc .circle-content{
+#box .textSize2,
+#box .textSize2 .circle-content{
     width:75px;
     height:75px; 
 }
-#box .tenpc span{
+#box .textSize2 span{
     font-size: 15px;
     line-height: 16px;
-    top: -53px !important;
+    top: 20px !important;
     width: 75px;
 }
-#box .tenpc strong{
+#box .textSize2 strong{
     font-size: 20px;
 }
-#box .fifteenpc,
-#box .fifteenpc .circle-content{
+#box .textSize3,
+#box .textSize3 .circle-content{
     width:100px;
     height:100px; 
 }
-#box .fifteenpc span{
+#box .textSize3 span{
     font-size: 18px;
     line-height:22px;
-    top: -70px !important;
+    top: 18px !important;
     width: 100px;
 }
-#box .fifteenpc strong{
+#box .textSize3 strong{
     font-size: 25px;
 }
-#box .twentypc,
-#box .twentypc .circle-content{
+#box .textSize4,
+#box .textSize4 .circle-content{
     width:125px;
     height:125px; 
 }
-#box .twentypc span{
+#box .textSize4 span{
     top: -90px !important;
     width: 125px;
 }
-#box .twentyfivepc,
-#box .twentyfivepc .circle-content{
+#box .textSize5,
+#box .textSize5 .circle-content{
     width:175px;
     height:175px; 
 }
-#box .twentyfivepc span{
+#box .textSize5 span{
     top: -90px !important;
     width: 175px;
 }
-#box .thirtypc,
-#box .thirtypc .circle-content{
+#box .textSize6,
+#box .textSize6 .circle-content{
     width:200px;
     height:200px; 
 }
@@ -234,10 +174,16 @@
 #box .active span{
     font-size:35px;
     line-height:40px;
-    top: -220px !important;
+    top: 120px !important;
     text-align: center;
     width:320px;
 }
 #box .active strong{
     font-size: 45px;
+}
+.bubble-chart-error{
+    display: none;
+    width: 300px;
+    color: red;
+    margin: auto;
 }
