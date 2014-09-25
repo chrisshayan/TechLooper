@@ -72,38 +72,40 @@ app.controller("loadTech", function($scope, $http) {
             fSize = '';
 
         var n = Math.round(parseInt(bubbleItem.count) * 100 / parseInt(totalJobs)),
-            diameter = 0;
+            // These numbers are in pixel
+            diameter = 0,
+            diameterPlus = 25;
 
         if (n < 11) {
             fSize = 'textSize1';
-            diameter = 55;
+            diameter = 55 + diameterPlus;
         } else if (n > 10 && n < 21) {
             fSize = 'textSize2';
-            diameter = 75;
+            diameter = 75 + diameterPlus;
         } else if (n > 20 && n < 31) {
             fSize = 'textSize3';
-            diameter = 100;
+            diameter = 100 + diameterPlus;
         } else if (n > 30 && n < 41) {
             fSize = 'textSize4';
-            diameter = 125;
+            diameter = 125 + diameterPlus;
         } else if (n > 40 && n < 51) {
             fSize = 'textSize5';
-            diameter = 150;
+            diameter = 150 + diameterPlus;
         } else if (n > 50 && n < 61) {
             fSize = 'textSize6';
-            diameter = 175;
+            diameter = 175 + diameterPlus;
         } else if (n > 60 && n < 71) {
             fSize = 'textSize7';
-            diameter = 200;
+            diameter = 200 + diameterPlus;
         } else if (n > 70 && n < 81) {
             fSize = 'textSize8';
-            diameter = 225;
+            diameter = 225 + diameterPlus;
         } else if (n > 80 && n < 91) {
             fSize = 'textSize9';
-            diameter = 250;
+            diameter = 250 + diameterPlus;
         } else {
             fSize = 'bigText';
-            diameter = 275;
+            diameter = 275 + diameterPlus;
         }
 
         switch (bubbleItem.colorID) {
@@ -1376,9 +1378,10 @@ app.controller("loadTech", function($scope, $http) {
             for(var i = 0; i < bubbleItem.length; i++){
                 var itemName =  bubbleItem[i].term+'Tech';
                 $('.'+ itemName).css({
-                    top: $scope.positionData[i].top,
-                    left: $scope.positionData[i].left,
-                    'z-index': i
+                    top: $scope.positionData[i].top +'px',
+                    left: $scope.positionData[i].left + 'px',
+                    'z-index': i,
+                    opacity: 0.8
                 });
             }
         }).
