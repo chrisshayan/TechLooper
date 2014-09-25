@@ -1,6 +1,6 @@
 [
 	{
-		"name":"java_locations",
+		"name":"java",
 		"data":[
 			{"top":"75px","left":"50px"},  
 			{"top":"230px","left":"-130px"},
@@ -14,7 +14,7 @@
 		]	
 	},
 	{
-		"name":"dotnet_locations",
+		"name":".net",
 		"data":[
 			{"top":"10px","left":"10px"},
 			{"top":"150px","left":"250px"},
@@ -28,7 +28,7 @@
 		]
 	},
 	{
-		"name":"php_locations",
+		"name":"php",
 		"data":[
 			{"top":"0px","left":"-130px"},
 			{"top":"280px","left":"-45px"},
@@ -42,7 +42,7 @@
 		]
 	},
 	{
-		"name":"ruby_locations",
+		"name":"ruby",
 		"data":[
 			{"top":"310px","left":"-80px"},
 			{"top":"10px","left":"-10px"},
@@ -56,11 +56,11 @@
 		]
 	},
 	{
-		"name":"python_locations",
+		"name":"python",
 		"data":[
 			{"top":"290px","left":"20px"},
 			{"top":"220px","left":"120px"},
-			{"top":"0px","left":"-130px"},
+			{"top":"40px","left":"-120px"},
 			{"top":"150px","left":"-130px"},
 			{"top":"290px","left":"15px"},
 			{"top":"285px","left":"25px"},
@@ -70,7 +70,7 @@
 		]
 	},
 	{
-		"name":"dba_locations",
+		"name":"dba",
 		"data":[
 			{"top":"50px","left":"100px"},
 			{"top":"10px","left":"-90px"},
@@ -84,7 +84,7 @@
 		]
 	},
 	{
-		"name":"pm_locations",
+		"name":"pm",
 		"data":[
 			{"top":"110px","left":"-120px"},
 			{"top":"260px","left":"50px"},
@@ -98,7 +98,7 @@
 		]
 	},
 	{
-		"name":"ba_locations",
+		"name":"ba",
 		"data":[
 			{"top":"210px","left":"-130px"},
 			{"top":"80px","left":"-135px"},
@@ -112,7 +112,7 @@
 		]
 	},
 	{
-		"name":"qc_locations",
+		"name":"qa",
 		"data":[
 			{"top":"230px","left":"100px"},
 			{"top":"60px","left":"110px"},
