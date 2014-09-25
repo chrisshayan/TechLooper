@@ -38,60 +38,7 @@
     .bubble-chart-container {
         width: 320px;
     }
-    #box .JAVATech {
-        position: absolute;
-        top: 30px;
-        left: -50px;
-        z-index: 1;
-    }
-    #box .PHPTech {
-        position: absolute;
-        top: 110px;
-        left: -30px;
-        z-index: 2;
-    }
-    #box .QATech {
-        position: absolute;
-        top: 200px;
-        left: -100px;
-        z-index: 3;
-    }
-    #box .PROJECT_MANAGERTech {
-        position: absolute;
-        top: 130px;
-        left: 50px;
-        z-index: 4;
-    }
-    #box .DOTNETTech {
-        position: absolute;
-        top: 250px;
-        left: 50px;
-        z-index: 5;
-    }
-    #box .DBATech {
-        position: absolute;
-        top: 100px;
-        left: -120px;
-        z-index: 6;
-    }
-    #box .BATech {
-        position: absolute;
-        top: 30px;
-        left: 60px;
-        z-index: 7;
-    }
-    #box .RUBYTech {
-        position: absolute;
-        top: 180px;
-        left:-45px;
-        z-index: 8;
-    }
-    #box .PYTHONTech {
-        position: absolute;
-        top: 240px;
-        left: -20px;
-        z-index: 9;
-    }
+
     #box .fivepc, #box .fivepc .circle-content {
         width: 45px;
         height: 45px;
