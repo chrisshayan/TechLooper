@@ -10,7 +10,10 @@ techlooper.config(function($stateProvider, $urlRouterProvider, $locationProvider
       url : '/',
       views : {
          "" : {
-            templateUrl : "modules/home/home.template.html"
+            templateUrl : "modules/home/home.template.html",
+            controller : function($scope) {
+               
+            }
          },
          "find-jobs@home" : {
             templateUrl : "modules/find-jobs/findjobs.template.html"
@@ -22,7 +25,7 @@ techlooper.config(function($stateProvider, $urlRouterProvider, $locationProvider
       }
    }).state('home.bubble', {
       url : 'bubble',
-      templateUrl: "modules/bubble/bubble.template.html"
+      templateUrl : "modules/bubble/bubble.template.html"
    });
    $locationProvider.html5Mode(true);
 });
