@@ -1,4 +1,4 @@
-angular.module('Bubble').service('DrawingService', function () {
+angular.module('Bubble').service('drawingService', function () {
    return {
       draw: function() {
          return "Drawing bubble";
