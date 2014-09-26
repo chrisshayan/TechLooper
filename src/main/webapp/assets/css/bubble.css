@@ -187,3 +187,6 @@
     color: red;
     margin: auto;
 }
+.small{
+    z-index: 5 !important;
+}
