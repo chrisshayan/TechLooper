@@ -3,7 +3,7 @@
 		"name":"java",
 		"data":[
 			{"top":"75px","left":"50px"},  
-			{"top":"230px","left":"-130px"},
+			{"top":"230px","left":"-120px"},
 			{"top":"5px","left":"-40px"},
 			{"top":"75px","left":"115px"},
 			{"top":"270px","left":"-100px"},
@@ -21,7 +21,7 @@
 			{"top":"300px","left":"-10px"},
 			{"top":"245px","left":"105px"},
 			{"top":"280px","left":"100px"},
-			{"top":"5px","left":"-90px"},
+			{"top":"5px","left":"-60px"},
 			{"top":"-10px","left":"-20px"},
 			{"top":"300px","left":"-10px"},
 			{"top":"5px","left":"-10px"}
@@ -30,13 +30,13 @@
 	{
 		"name":"php",
 		"data":[
-			{"top":"0px","left":"-130px"},
+			{"top":"20px","left":"-100px"},
 			{"top":"280px","left":"-45px"},
 			{"top":"-240px","left":"10px"},
 			{"top":"290px","left":"10px"},
 			{"top":"10px","left":"70px"},
 			{"top":"5px","left":"70px"},
-			{"top":"260px","left":"-130px"},
+			{"top":"260px","left":"-120px"},
 			{"top":"50px","left":"100px"},
 			{"top":"230px","left":"105px"}
 		]
@@ -44,14 +44,14 @@
 	{
 		"name":"ruby",
 		"data":[
-			{"top":"310px","left":"-80px"},
+			{"top":"100px","left":"120px"},
 			{"top":"10px","left":"-10px"},
 			{"top":"250px","left":"-120px"},
 			{"top":"0px","left":"50px"},
 			{"top":"200px","left":"115px"},
-			{"top":"240px","left":"-130px"},
-			{"top":"150px","left":"-130px"},
-			{"top":"220px","left":"-130px"},
+			{"top":"240px","left":"-115px"},
+			{"top":"150px","left":"-120px"},
+			{"top":"200px","left":"130px"},
 			{"top":"260px","left":"-120px"}
 		]
 	},
@@ -61,7 +61,7 @@
 			{"top":"290px","left":"20px"},
 			{"top":"220px","left":"120px"},
 			{"top":"40px","left":"-120px"},
-			{"top":"150px","left":"-130px"},
+			{"top":"150px","left":"-120px"},
 			{"top":"290px","left":"15px"},
 			{"top":"285px","left":"25px"},
 			{"top":"290px","left":"-30px"},
@@ -73,7 +73,7 @@
 		"name":"dba",
 		"data":[
 			{"top":"50px","left":"100px"},
-			{"top":"10px","left":"-90px"},
+			{"top":"30px","left":"-70px"},
 			{"top":"280px","left":"50px"},
 			{"top":"15px","left":"75px"},
 			{"top":"315px","left":"-45px"},
@@ -86,28 +86,28 @@
 	{
 		"name":"pm",
 		"data":[
-			{"top":"110px","left":"-120px"},
+			{"top":"280px","left":"-80px"},
 			{"top":"260px","left":"50px"},
 			{"top":"110px","left":"-125px"},
-			{"top":"10px","left":"-135px"},
+			{"top":"10px","left":"-120px"},
 			{"top":"-5px","left":"-100px"},
 			{"top":"-50px","left":"210px"},
 			{"top":"30px","left":"60px"},
-			{"top":"280px","left":"-130px"},
-			{"top":"150px","left":"-120px"}
+			{"top":"250px","left":"-110px"},
+			{"top":"20px","left":"-120px"}
 		]
 	},
 	{
 		"name":"ba",
 		"data":[
-			{"top":"210px","left":"-130px"},
-			{"top":"80px","left":"-135px"},
+			{"top":"210px","left":"-115px"},
+			{"top":"100px","left":"-120px"},
 			{"top":"20px","left":"60px"},
-			{"top":"225px","left":"-130px"},
-			{"top":"80px","left":"-135px"},
-			{"top":"70px","left":"-130px"},
+			{"top":"225px","left":"-120px"},
+			{"top":"80px","left":"-120px"},
+			{"top":"70px","left":"-120px"},
 			{"top":"300px","left":"80px"},
-			{"top":"100px","left":"-130px"},
+			{"top":"55px","left":"-110px"},
 			{"top":"-50px","left":"150px"}
 		]
 	},
@@ -121,8 +121,8 @@
 			{"top":"290px","left":"30px"},
 			{"top":"110px","left":"125px"},
 			{"top":"250px","left":"130px"},
-			{"top":"20px","left":"-80px"},
-			{"top":"20px","left":"-110px"}
+			{"top":"20px","left":"50px"},
+			{"top":"140px","left":"130px"}
 		]
 	}
 ]

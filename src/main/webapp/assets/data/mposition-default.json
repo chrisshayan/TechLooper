@@ -3,12 +3,12 @@
 		"data":[
 			{"top":"290px","left":"20px"},
 			{"top":"220px","left":"120px"},
-			{"top":"40px","left":"-120px"},
+			{"top":"40px","left":"-100px"},
 			{"top":"150px","left":"-130px"},
-			{"top":"290px","left":"15px"},
-			{"top":"285px","left":"25px"},
-			{"top":"290px","left":"-30px"},
-			{"top":"20px","left":"-10px"},
+			{"top":"220px","left":"-115px"},
+			{"top":"105px","left":"125px"},
+			{"top":"290px","left":"-90px"},
+			{"top":"10px","left":"-10px"},
 			{"top":"290px","left":"70px"}
 		]
 	}
