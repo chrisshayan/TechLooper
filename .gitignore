@@ -2,6 +2,7 @@
 .idea
 bower_components/
 static/
+node_modules/
 *.iml
 /target/
 /.settings/
