@@ -78,13 +78,18 @@ app.controller("loadTech", function($scope, $http) {
     $scope.$on('draw-bubble', function(event, bubbleItem) {
         var html = '',
             clColor = '',
-            fSize = '';
+            fSize = '',
+            diameterPlus = 0;
 
+        if (_isNotMobile) {
+            diameterPlus = 25;
+        } else {
+            diameterPlus = -10;
+        }
         var n = Math.round(parseInt(bubbleItem.count) * 100 / parseInt(totalJobs)),
             // These numbers are in pixel
-            diameter = 0,
-            diameterPlus = 25;
-
+            diameter = 0;
+        
         if (n < 11) {
             fSize = 'textSize1';
             diameter = 55 + diameterPlus;
@@ -251,7 +256,8 @@ app.controller("loadTech", function($scope, $http) {
                     // move the new circle and increase size to center
                     $('.' + circle_id).addClass('active').removeClass('small').animate({
                         'top': tPosition,
-                        'left': lPosition
+                        'left': lPosition,
+                        'z-index': 0
                     }).children('.circle-content').animate({
                         'width': sActive,
                         'height': sActive
@@ -292,7 +298,7 @@ app.controller("loadTech", function($scope, $http) {
                             easing: 'easeOutQuad'
                         }).addClass('small').removeClass('active').children('.circle-content').animate({
                             'width': sPhp,
-                            'height': sPhp
+                            'height': sPhp,
                         }, {
                             duration: '4000',
                             easing: 'easeOutQuad'
@@ -1352,47 +1358,27 @@ app.controller("loadTech", function($scope, $http) {
         });
     });
 
-    // $scope.$on('first-position', function(event, bubbleItem){
-    //     var jsonPath ="";
-    //     if (_isNotMobile) {
-    //         jsonPath = "data/dposition-default.json";
-    //     } else {
-    //         jsonPath = "data/mposition-default.json";
-    //     }
-    //     $http.get(jsonPath).
-    //     success(function(data, status, headers, config) {
-    //         $scope.positionData = data;
-    //         for(var i = 0; i < bubbleItem.length; i++){
-    //             var itemName =  bubbleItem[i].term+'Tech';
-    //             $('.'+ itemName).css({
-    //                 top: $scope.positionData[i].top +'px',
-    //                 left: $scope.positionData[i].left + 'px',
-    //                 'z-index': i,
-    //                 opacity: 0.8
-    //             });
-    //         }
-    //     }).
-    //     error(function(data, status, headers, config) {
-    //         // log error
-    //     });
-    // }) 
-
     $scope.$on('first-position', function(event, bubbleItem){
         var biggestDiameter = 0,
             biggestName = "",
+            count = 0,
             jsonPath ="",
-            locations = new Array();
-
+            locations = new Array(),
+            sBubble = 0,
+            resize = 0;
+       
         if (_isNotMobile) {
             jsonPath = "data/dposition-default.json";
             sActive = dSize;
             lPosition = dL;
             tPosition = dT;
+            resize = 25;
         } else {
             jsonPath = "data/mposition-default.json";
             sActive = mSize;
             lPosition = mL;
             tPosition = mT;
+            resize = -10;
         }
 
         $http.get(jsonPath).
@@ -1409,19 +1395,58 @@ app.controller("loadTech", function($scope, $http) {
                     biggestName = bubbleItem[i].term+'Tech';
                 }
             }
-             for(var i = 0; i < bubbleItem.length; i++){
+            
+            for(var i = 0; i < bubbleItem.length; i++){
                 if(bubbleItem[i].count < biggestDiameter){
+                    var n = Math.round(parseInt(bubbleItem[i].count) * 100 / parseInt(totalJobs)),
+                        fSize ='';
+
+                    if (n < 11) {
+                        fSize = 'textSize1';
+                        sBubble = 55 + resize;
+                    } else if (n > 10 && n < 21) {
+                        fSize = 'textSize2';
+                        sBubble = 75 + resize;
+                    } else if (n > 20 && n < 31) {
+                        fSize = 'textSize3';
+                        sBubble = 100 + resize;
+                    } else if (n > 30 && n < 41) {
+                        fSize = 'textSize4';
+                        sBubble = 125 + resize;
+                    } else if (n > 40 && n < 51) {
+                        fSize = 'textSize5';
+                        sBubble = 150 + resize;
+                    } else if (n > 50 && n < 61) {
+                        fSize = 'textSize6';
+                        sBubble = 175 + resize;
+                    } else if (n > 60 && n < 71) {
+                        fSize = 'textSize7';
+                        sBubble = 200 + resize;
+                    } else if (n > 70 && n < 81) {
+                        fSize = 'textSize8';
+                        sBubble = 225 + resize;
+                    } else if (n > 80 && n < 91) {
+                        fSize = 'textSize9';
+                        sBubble = 250 + resize;
+                    } else {
+                        fSize = 'bigText';
+                        sBubble = 275 - resize;
+                    }
                     $('.' + bubbleItem[i].term +'Tech').css({
                         'top': locations[i][0],
                         'left': locations[i][1],
                         'opacity': 0.8,
-                        'z-index': i
+                        'z-index': i + 1
+                    }).addClass('small').removeClass('active').children('.circle-content').css({
+                        'width': sBubble,
+                        'height': sBubble
                     });
                 }
-             }
+            }
             $('.' +biggestName).css({
                 'top': tPosition,
-                'left': lPosition
+                'left': lPosition,
+                'z-index': 1
             });
             $('.' +biggestName).addClass('active').children('.circle-content').css({
                 'width': sActive,
