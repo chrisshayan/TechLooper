@@ -1,8 +1,11 @@
 <div class="row">
    <!--    <div class="col-md-12 bubble-chart-block" ng-include='"partials/bubble-chart.html"'></div> -->
-   <div class="col-md-12 bubble-chart-block" ui-view="chart"></div>
+   <div class="col-md-12 bubble-chart-block"><div ui-view="chart" /></div>
 </div>
 <div class="row">
-   <div class="col-md-12 analystic-find-jobs-block" ui-view="analystic-find-jobs"></div>
+   <div class="col-md-12 analystic-find-jobs-block"><div ui-view="find_jobs" /></div>
    <!--    <div class="col-md-12 analystic-find-jobs-block" ng-include='"partials/analystic-find-jobs.html"'></div> -->
 </div>
+
+<a ui-sref=".bubble" class="btn btn-primary">Bubble</a>
+<div ui-view></div>
