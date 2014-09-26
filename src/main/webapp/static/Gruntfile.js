@@ -6,13 +6,12 @@ module.exports = function(grunt) {
       includeSource : {
          options : {
             basePath : ".",
-            baseUrl : "static/",
             duplicates : false,
             debug : true
          },
          target : {
             files : {
-               'default.target.html' : 'default.tpl.html'
+               'default.html' : 'default.tpl.html'
             }
          }
       },
