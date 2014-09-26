@@ -1,7 +1,7 @@
 # Created by .gitignore support plugin (hsz.mobi)
 .idea
 bower_components/
-static/
+node_modules/
 *.iml
 /target/
 /.settings/
