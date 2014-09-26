@@ -1,36 +1,35 @@
 @media (min-width: 320px) and (max-width: 767px) {
-    .fa-cog{
+    .fa-cog {
         display: none;
     }
-    .fa-bars{
+    .fa-bars {
         display: block;
     }
-
-    .setting-block{
+    .setting-block {
         width: 60px;
         float: left;
         padding-top: 10px;
     }
-    .setting-content{
+    .setting-content {
         width: 100%;
         height: 100%;
     }
-    .fa-bars{
+    .fa-bars {
         display: block;
     }
-    .logo-block{
+    .logo-block {
         width: 240px;
         float: left;
     }
-    .logo{
+    .logo {
         width: 100%;
         padding: 5px 5px 5px 0;
     }
-    .logo img{
+    .logo img {
         width: 100%;
-        max-width:259px;
+        max-width: 259px;
     }
-    .logo h1{
+    .logo h1 {
         line-height: 0;
         margin: 0;
         padding: 0;
@@ -38,65 +37,60 @@
     .bubble-chart-container {
         width: 320px;
     }
-
-    #box .fivepc, #box .fivepc .circle-content {
-        width: 45px;
-        height: 45px;
-    }
-    #box .fivepc span {
+    #box .textSize1 span {
         font-size: 10px;
-        line-height: 100%;
-        top: -38px !important;
-        width: 45px;
+        line-height: 5px;
+        top: 15px !important;
+        width: 50px;
     }
-    #box .fivepc strong {
+    #box .textSize1 strong {
         font-size: 12px;
     }
-    #box .tenpc, #box .tenpc .circle-content {
-        width: 70px;
-        height: 70px;
+    #box .textSize2, #box .textSize2 .circle-content {
+        width: 75px;
+        height: 75px;
     }
-    #box .tenpc span {
+    #box .textSize2 span {
         font-size: 15px;
         line-height: 16px;
-        top: -53px !important;
-        width: 70px;
+        top: 15px !important;
+        width: 75px;
     }
-    #box .tenpc strong {
+    #box .textSize2 strong {
         font-size: 20px;
     }
-    #box .fifteenpc, #box .fifteenpc .circle-content {
-        width: 90px;
-        height: 90px;
+    #box .textSize3, #box .textSize3 .circle-content {
+        width: 100px;
+        height: 100px;
     }
-    #box .fifteenpc span {
+    #box .textSize3 span {
         font-size: 18px;
         line-height: 22px;
-        top: -70px !important;
-        width: 90px;
+        top: 18px !important;
+        width: 100px;
     }
-    #box .fifteenpc strong {
+    #box .textSize3 strong {
         font-size: 25px;
     }
-    #box .twentypc, #box .twentypc .circle-content {
-        width: 105px;
-        height: 105px;
+    #box .textSize4, #box .textSize4 .circle-content {
+        width: 125px;
+        height: 125px;
     }
-    #box .twentypc span {
+    #box .textSize4 span {
         top: -90px !important;
-        width: 110px;
+        width: 125px;
     }
-    #box .twentyfivepc, #box .twentyfivepc .circle-content {
-        width: 150px;
-        height: 150px;
-    }
-    #box .twentyfivepc span {
-        top: -90px !important;
-        width: 175px;
-    }
-    #box .thirtypc, #box .thirtypc .circle-content {
+    #box .textSize5, #box .textSize5 .circle-content {
         width: 175px;
         height: 175px;
+    }
+    #box .textSize5 span {
+        top: -90px !important;
+        width: 175px;
+    }
+    #box .textSize6, #box .textSize6 .circle-content {
+        width: 200px;
+        height: 200px;
     }
     #box .intro {
         display: none;
@@ -107,11 +101,10 @@
         left: 35px;
         line-height: 15px;
     }
-
     #box .active span {
         font-size: 35px;
         line-height: 40px;
-        top: 65px !important;
+        top: 45px !important;
         text-align: center;
         width: 220px;
     }
@@ -119,8 +112,8 @@
         font-size: 45px;
     }
 }
-@media (min-width: 778px){
-    .fa-bars{
+@media (min-width: 778px) {
+    .fa-bars {
         display: none;
     }
 }
