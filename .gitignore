@@ -1,13 +1,11 @@
 # Created by .gitignore support plugin (hsz.mobi)
 .idea
 bower_components/
-static/
+node_modules/
 *.iml
-/target/
-/.settings/
+target/
+.settings/
 .project
 .classpath
-/target/
-/target/
-/target/
-/target/
+target/
+static/

@@ -26,13 +26,8 @@
 <!--     <link rel="stylesheet" href="css/bubble.css"> -->
 <!--     <link rel="stylesheet" href="css/responsive.css"> -->
     
-    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="bower_components/stomp-websocket/example/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/bubble.css" rel="stylesheet" type="text/css">
-    <link href="css/main.css" rel="stylesheet" type="text/css">
-    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <!-- include: "type": "css", "files": "bower_components/**/*.min.css" -->
+    <!-- include: "type": "css", "files": "css/**/*.css" -->
 </head>
 
 <body ng-app="Techlooper">
@@ -54,13 +49,6 @@
     <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="bower_components/sockjs/sockjs.min.js"></script>
     <script type="text/javascript" src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
-   <script type="text/javascript" src="custom-js/bubble-animation.js"></script>
-   <script type="text/javascript" src="modules/app.js"></script>
-   <script type="text/javascript" src="modules/bubble/bubble.srv.js"></script>
-   <script type="text/javascript" src="modules/collection/chart.ctrl.js"></script>
-   <script type="text/javascript" src="modules/common/json.ftr.js"></script>
-   <script type="text/javascript" src="modules/footer/footer.ctrl.js"></script>
-   <script type="text/javascript" src="modules/header/header.ctrl.js"></script>
-   <script type="text/javascript" src="modules/home/home.ctrl.js"></script>
-   <script type="text/javascript" src="modules/home/home.mod.js"></script>
+   <!-- include: "type": "js", "files": "custom-js/**/*.js" -->
+   <!-- include: "type": "js", "files": "modules/**/*.js" -->
 </html>
