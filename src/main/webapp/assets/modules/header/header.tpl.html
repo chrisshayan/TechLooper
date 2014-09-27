@@ -1,8 +1,9 @@
-<nav class="navbar navbar-inverse" role="navigation" ng-controller="loadKeyboard">
+<nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
-        <div class="col-md-4 setting-block" ng-controller="settingStyle">
-            <div class="setting-content" ng-controller="openKeyboardShortcuts">
+        <div class="col-md-4 setting-block">
+            <div class="setting-content">
                 <div class="setting-label">
+                    <!-- TODO: refactor later, dont bind event directly in view -->
                     <i class="fa fa-cog" ng-click="settingStyle()"></i>
                     <i class="fa fa-bars" ng-click="settingStyle()"></i>
                 </div>
