@@ -1,8 +1,10 @@
 angular.module("Common", []);
 angular.module("Bubble", []);
+angular.module("Home", []);
+angular.module("Header", [ "Common" ]);
 angular.module("Chart", [ "Bubble" ]);
 
-var techlooper = angular.module("Techlooper", [ "Common", "Chart", "ui.router" ]);
+var techlooper = angular.module("Techlooper", [ "Home", "Header", "Common", "Chart", "ui.router" ]);
 
 techlooper.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
    $urlRouterProvider.otherwise('/');
@@ -10,28 +12,30 @@ techlooper.config(function($stateProvider, $urlRouterProvider, $locationProvider
       url : '/',
       views : {
          "" : {
-            templateUrl : "modules/home/home.template.html",
-            controller : function($scope) {
-               
-            }
+            templateUrl : "modules/home/home.tpl.html",
+            controller : "homeController"
          },
          "find-jobs@home" : {
-            templateUrl : "modules/find-jobs/findjobs.template.html"
+            templateUrl : "modules/find-jobs/find-jobs.tpl.html"
          },
          "chart@home" : {
-            templateUrl : "modules/collection/chart.template.html",
+            templateUrl : "modules/collection/chart.tpl.html",
             controller : "chartController"
+         },
+         "header@home" : {
+            templateUrl : "modules/header/header.tpl.html",
+            controller : "headerController"
          }
       }
-   }).state('home.bubble', {
-      url : 'bubble',
-      templateUrl : "modules/bubble/bubble.template.html"
    });
-   $locationProvider.html5Mode(true);
+   // $locationProvider.html5Mode(true);
 });
 
-// techlooper.controller("defaultController", ["$scope", "connectionService",
-// function($scope, connectionService) {
-// $scope.technicalTerms = connectionService.fetchTerms();
-// console.log($scope.technicalTerms);
-// }]);
+techlooper.directive('header', function () {
+   return {
+       restrict: 'A', //This menas that it will be used as an attribute and NOT as an element.
+       replace: true,
+       templateUrl: "modules/header/header.tpl.html",
+       controller: "headerController"
+   }
+});
