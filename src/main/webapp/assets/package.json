@@ -1,0 +1,14 @@
+{
+    "name": "techlooper",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-contrib-connect": "latest",
+        "grunt-contrib-watch": "latest",
+        "grunt-include-source": "latest"
+    },
+    "folders": {
+        "build": "target/",
+        "wwwRoot": "src/main/",
+        "jsSource": "src/main/webapp/modules/"
+    }
+}   
