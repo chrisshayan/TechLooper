@@ -3,19 +3,16 @@
     "main": "index.html",
     "ignore": ["**/.*", "libs"],
     "dependencies": {
-        "bootstrap": "latest",
+        "bootstrap" : "latest",
         "components-font-awesome": "latest",
         "angular": "latest",
         "angular-resource": "latest",
-        "angular-route": "latest",
+        "angular-route" : "latest",
         "jquery": "latest",
         "sockjs": "latest",
         "stomp-websocket": "latest",
         "showdown": "latest",
-        "angular-ui-router": "latest"
-    },
-    "sources": {
-    "js": [ "**/*.min.js" ],
-    "css": [ "css/**/*.css" ]
-  }
+        "angular-ui-router": "latest",
+        "angular-resource": "latest"
+    }
 }

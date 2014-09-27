@@ -1,6 +1,6 @@
 angular.module("Header").controller("headerController", function($scope, $http, jsonFactory) {
 
-   $scope.keyList = jsonFactory.createShortcut();
+   $scope.keyList = jsonFactory.shortcuts();
    
    
    // TODO: refactor later
@@ -34,4 +34,4 @@ angular.module("Header").controller("headerController", function($scope, $http, 
    // }).error(function(data, status, headers, config) {
    // // log error
    // });
-}).controller();
+});

@@ -11,7 +11,7 @@ module.exports = function(grunt) {
          },
          target : {
             files : {
-               'default.html' : 'default.tpl.html'
+               'index.html' : 'default.tpl.html'
             }
          }
       },
