@@ -1,7 +1,7 @@
-angular.module("Common", []).factory("jsonFactory", function() {
+angular.module("Common").factory("jsonFactory", function() {
 
    return {
-      createShortcut : function() {
+      shortcuts : function() {
          return [ {
             "id" : 1,
             "name" : "Career Analytics",
@@ -19,6 +19,9 @@ angular.module("Common", []).factory("jsonFactory", function() {
             "name" : "Function Name 2",
             "keyShort" : "Ctrl + Alt + 2"
          } ];
+      },
+      companies : function() {
+
       }
    }
 });
