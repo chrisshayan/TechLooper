@@ -3,6 +3,12 @@ module.exports = function(grunt) {
    grunt.initConfig({
       pkg : grunt.file.readJSON("package.json"),
 
+      wiredep : {
+         target : {
+            src : [ "index.html" ]
+         }
+      },
+
       includeSource : {
          options : {
             basePath : ".",
@@ -11,7 +17,7 @@ module.exports = function(grunt) {
          },
          target : {
             files : {
-               'index.html' : 'index.tpl.html'
+               "index.html" : "index.tpl.html"
             }
          }
       },
@@ -54,7 +60,8 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks("grunt-contrib-watch");
    grunt.loadNpmTasks("grunt-contrib-connect");
    grunt.loadNpmTasks("grunt-include-source");
+   grunt.loadNpmTasks("grunt-wiredep")
 
-   grunt.registerTask("build", [ "includeSource:target" ]);
+   grunt.registerTask("build", [ "includeSource:target", "wiredep:target" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
 };
