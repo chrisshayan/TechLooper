@@ -174,7 +174,7 @@ angular.module('Chart').controller('chartController', function ($scope, jsonFact
         }
 
 
-        $scope.bubblePosition = _isNotMobile ? jsonFactory.dBubblePosition() : jsonFactory.mBubblePosition();
+        $scope.bubblePosition = _isNotMobile ? jsonFactory.dBubblePosition : jsonFactory.mBubblePosition;
         var n = $scope.bubblePosition.length,
             nameTech = new Array(),
             java_locations = new Array(),
@@ -1377,7 +1377,7 @@ angular.module('Chart').controller('chartController', function ($scope, jsonFact
             resize = -10;
         }
 
-        $scope.bubblePosition = _isNotMobile ? jsonFactory.dPositionDefault() : jsonFactory.mPositionDefault()
+        $scope.bubblePosition = _isNotMobile ? jsonFactory.dPositionDefault : jsonFactory.mPositionDefault
         for (var i = 0; i < 9; i++) {
             var t = $scope.bubblePosition[0].data[i].top,
                 l = $scope.bubblePosition[0].data[i].left;
