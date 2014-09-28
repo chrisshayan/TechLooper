@@ -23,10 +23,6 @@ module.exports = function(grunt) {
       },
 
       watch : {
-         includeSource : {
-            files : [ "default.tpl.html" ],
-            tasks : [ "includeSource:target" ]
-         },
          scripts : {
             files : [ "*.js" ],
             options : {
