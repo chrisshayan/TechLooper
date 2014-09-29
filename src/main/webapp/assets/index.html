@@ -18,43 +18,42 @@
     <meta name="description" content="Techlooper.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
-    <!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Our Website CSS Styles -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bubble.css">
-    <link rel="stylesheet" href="css/responsive.css">
-
-
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/stomp-websocket/example/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bubble.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
 </head>
 
-<body ng-app="app">
+<body ng-app="Techlooper">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<header ng-include='"templates/header.html"'></header>
-<div ng-view></div>    
-<footer ng-include='"templates/footer.html"'></footer>
+<div header></div>
+<div ng-view></div>
+<div footer></div>
 </body>
-<!-- Vendor: Javascripts -->
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Vendor: Angular, followed by our custom Javascripts -->
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-    <script type="text/javascript" src="bower_components/sockjs/sockjs.min.js"></script>
-    <script type="text/javascript" src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
-    <!-- Our Website Javascripts -->
-    <script type="text/javascript" src="app/app.js"></script>
-    <script type="text/javascript" src="app/controllers/bubble-animation.js"></script>
-    <script type="text/javascript" src="app/controllers/keyboard-shortcuts.js"></script>
-    <script type="text/javascript" src="app/controllers/companies-bar.js"></script>
-    <script type="text/javascript" src="app/controllers/draw-bubbles.js"></script>
+   <!-- bower:js -->
+   <script src="bower_components/jquery/dist/jquery.js"></script>
+   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+   <script src="bower_components/angular/angular.js"></script>
+   <script src="bower_components/angular-resource/angular-resource.js"></script>
+   <script src="bower_components/angular-route/angular-route.js"></script>
+   <script src="bower_components/sockjs/sockjs.js"></script>
+   <script src="bower_components/stomp-websocket/lib/stomp.js"></script>
+   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+   <!-- endbower -->
+   <script type="text/javascript" src="custom-js/bubble-animation.js"></script>
+   <script type="text/javascript" src="modules/app.js"></script>
+   <script type="text/javascript" src="modules/bubble/bubble.srv.js"></script>
+   <script type="text/javascript" src="modules/collection/chart.ctrl.js"></script>
+   <script type="text/javascript" src="modules/common/json.ftr.js"></script>
+   <script type="text/javascript" src="modules/footer/footer.ctrl.js"></script>
+   <script type="text/javascript" src="modules/header/header.ctrl.js"></script>
+   <script type="text/javascript" src="modules/home/home.ctrl.js"></script>
+   <script type="text/javascript" src="modules/home/home.mod.js"></script>
 </html>
