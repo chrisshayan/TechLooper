@@ -1,3 +1,5 @@
 {
-   "techlooper.slogan" : "Career Analytics. Open Source. Awesome!"
+   "techlooper" : {
+      "slogan" : "Career Analytics. Open Source. Awesome!"
+   }
 }
