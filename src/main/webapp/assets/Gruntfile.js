@@ -3,6 +3,12 @@ module.exports = function(grunt) {
    grunt.initConfig({
       pkg : grunt.file.readJSON("package.json"),
 
+      bower : {
+          install : {
+
+          }
+      },
+
       wiredep : {
          target : {
             src : [ "index.html" ]
@@ -56,8 +62,9 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks("grunt-contrib-watch");
    grunt.loadNpmTasks("grunt-contrib-connect");
    grunt.loadNpmTasks("grunt-include-source");
-   grunt.loadNpmTasks("grunt-wiredep")
+   grunt.loadNpmTasks("grunt-wiredep");
+   grunt.loadNpmTasks("grunt-bower-task");
 
-   grunt.registerTask("build", [ "includeSource:target", "wiredep:target" ]);
+   grunt.registerTask("build", [ "bower:install", "includeSource:target", "wiredep:target" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
 };
