@@ -17,7 +17,7 @@ techlooper.config(function($routeProvider, $translateProvider, $locationProvider
    $translateProvider.fallbackLanguage("en-US");
    $translateProvider.preferredLanguage("en-US");
    $translateProvider.useLocalStorage();
-   $translateProvider.useCookieStorage();
+//   $translateProvider.useCookieStorage();
    $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
 
    $routeProvider.when("/", {
