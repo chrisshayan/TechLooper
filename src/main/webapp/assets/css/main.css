@@ -11,14 +11,14 @@ body {
 ul{
     list-style: none;
 }
+a:hover{
+    text-decoration: none;
+}
 .container{
     width: 100%;
     padding: 0;
 }
 /* -- style for header -- */
-.setting-label{
-    
-}
 .fa-bubble-chart{
     background: url(../images/ic-small.png) left 3px no-repeat;
     height: 20px;   
@@ -28,7 +28,6 @@ ul{
     background:url(../images/line-header.png) #2e272a center bottom no-repeat;
     border: 0;
 }
-.tagline{}
 .setting-content{
     background-color: #323232;
     border: 1px solid #3d373a;
@@ -55,6 +54,11 @@ ul.setting-items{
 .setting-content li{
     float: left;
     padding-left: 10px; 
+}
+.langKey{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
 .keyboard-shortcuts-items{
     background: #000000;
@@ -83,6 +87,9 @@ ul.setting-items{
 .keyboard-shortcuts-items li span{
     float: left;
 }
+
+.logo-block{}
+.logo-block h1{margin: 0; padding: 0;}
 /* --- Style for bubble chart --- */
 .bubble-chart-block{
     display: block;
@@ -98,45 +105,34 @@ ul.setting-items{
     margin: auto;   
 }
 
-.analystic-find-jobs-block{
+.find-jobs-block{
     float: left;
     clear: both;
     width: 100%;
     text-align: center;
 }
-.button-management{
+.find-jobs-container{
     width: 600px;
-    background-color: #282225;
-    border: 1px solid #3a3537;
-    border-radius: 5px;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+.find-jobs-button {
     margin: auto;
     text-align: center;
-    display: inline-block;
 }
-.career-analystics{
-    width: 50%;
-    float: left;
-    border-right: 1px solid #3a3537;
-}
-.find-jobs{
-    width: 50%;
-    float: left;   
-    height: 40px;
-}
-.button-management a{
+.find-jobs-button a{
+    background: url(../images/ic-find-jobs.png) center 20px no-repeat;
+    width:150px;
     display: block;
-    width: 100%;
-    vertical-align: middle;
-    height: 40px;
-    font-size: 16px;
-    text-transform: capitalize;
-    line-height: 40px;
-    color: #999999;
+    height:48px;
+    color: #727272;
+    margin: auto;
 }
-.button-management a:hover{
-    background-color: #3a3537;
-    text-decoration: none;
-    color: #ebebeb;
+.find-jobs-button a:hover{
+    background-position: center 22px;
+    color: #afafaf;
+    padding-top: 2px;
 }
 /* --- Style for footer --- */
 footer{
@@ -203,8 +199,6 @@ footer{
     zoom:1;
     -webkit-filter: grayscale(0%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
-
-
 .discussion-board-block{
     position: absolute;
     right: 10px; top: -13px;
@@ -213,3 +207,4 @@ footer{
 .discussion-board-block i{
     font-size: 30px;
 }
+

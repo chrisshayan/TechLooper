@@ -1,5 +1,6 @@
 angular.module('Common').controller('translationController', function($scope, $translate) {
-   $scope.setLang = function(langKey) {
-      $translate.use(langKey);
-   };
+   $(".langKey").on('click', function() {
+   	    var lang = $translate.use();
+   		$translate.use(lang == "vi" ? "en-US":"vi");
+   });
 });
