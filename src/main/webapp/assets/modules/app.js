@@ -19,7 +19,8 @@ techlooper.config(function($routeProvider, $translateProvider, $locationProvider
     $translateProvider.preferredLanguage("en-US");
     $translateProvider.useLocalStorage();
     //   $translateProvider.useCookieStorage();
-    $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
+    var browerLang = window.navigator.userLanguage || window.navigator.language;
+    $translateProvider.use(browerLang.search("vi") === 0 ? "vi" : "en-US");
 
     $routeProvider.when("/", {
         templateUrl: "modules/home/home.tpl.html",
@@ -27,7 +28,7 @@ techlooper.config(function($routeProvider, $translateProvider, $locationProvider
     }).otherwise({
         redirectTo: "/"
     });
-    $locationProvider.html5Mode(true);
+//    $locationProvider.html5Mode(true);
 });
 
 techlooper.directive("header", function() {
