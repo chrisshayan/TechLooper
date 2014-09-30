@@ -1,6 +1,19 @@
 angular.module("Common").factory("jsonFactory", function() {
 
    return {
+      availableLanguageKeys : (function() {
+         return [
+            {
+               "name" : "EN",
+               "value" : "en-US"
+            },
+            {
+               "name" : "VI",
+               "value" : "vi"
+            }
+         ];
+      })(),
+
       mPositionDefault : (function() {
          return [ {
             "data" : [ {
