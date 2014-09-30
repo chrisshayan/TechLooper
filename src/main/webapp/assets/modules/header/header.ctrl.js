@@ -1,6 +1,6 @@
 angular.module("Header").controller("headerController", function($scope, $http, jsonFactory) {
 
-   $scope.keyList = jsonFactory.shortcuts();
+   $scope.keyList = jsonFactory.shortcuts;
    
    
    // TODO: refactor later
