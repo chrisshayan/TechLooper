@@ -27,7 +27,6 @@ techlooper.config(function($routeProvider, $translateProvider, $locationProvider
     }).otherwise({
         redirectTo: "/"
     });
-    $locationProvider.html5Mode(true);
 });
 
 techlooper.directive("header", function() {
