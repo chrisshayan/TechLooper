@@ -1,13 +1,30 @@
 # Created by .gitignore support plugin (hsz.mobi)
-.idea
+
+# nodejs
 bower_components/
 node_modules/
+
+# sass
+.sass-cache/
+*.map
+
+# IntelliJ files
 *.iml
-target/
+.idea
+
+# eclipse files
 .settings/
 .project
 .classpath
+
+# maven build
 target/
-static/
-.log
+
+# files to be excluded from source code
 index.html
+
+# other custom rules
+static/
+*.log
+
+
