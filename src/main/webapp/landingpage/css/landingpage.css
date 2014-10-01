@@ -69,6 +69,11 @@ body {
   display: block;
   position: fixed;
   bottom: 0; }
+  .landingpage-terms ul {
+    display: block; }
+    .landingpage-terms ul li {
+      width: 100%;
+      clear: both; }
   .landingpage-terms .term {
     border-radius: 50%;
     width: 100px;
