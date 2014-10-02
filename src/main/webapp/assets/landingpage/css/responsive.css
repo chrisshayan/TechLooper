@@ -3,6 +3,10 @@
     padding-top: 0;
     width: 300px; }
 
+  .bg-block {
+    width: 100%;
+    left: -80px; }
+
   .bg-landingpage {
     background: #2e272a url(../images/bg-mobile.png) center top repeat; }
 
