@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 	var h = $(window).height() - 80,
-		w = $(window).width() - 80;
+		w = $(window).width();
 	$('.bg-landingpage').css({
 		height:h
 	});
