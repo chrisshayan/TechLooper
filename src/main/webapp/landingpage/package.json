@@ -1,0 +1,8 @@
+{
+    "name": "techlooper",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-contrib-connect": "latest",
+        "grunt-contrib-watch": "latest"
+    }
+}   
