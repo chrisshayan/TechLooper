@@ -1,9 +1,10 @@
 $bg: #2e272a
 $blueColor: #007cdc
+$grayColor: #a4a4a4
 $fontText: Roboto
-
+  
 body
-   background: $bg url(../images/bg.png) center top no-repeat
+   background: $bg
    font-size: 12px
    font-family: $fontText
    -webkit-box-sizing: content-box
@@ -13,17 +14,35 @@ body
 .landingpage-webapp
    width: 100%
    text-align: center
-
+.fb-like-block
+   position: fixed
+   top: 0
+   left: 0
+   z-index: 999
+   padding: 10px
+iframe 
+   span#u_0_3
+      display: none
+.bg-landingpage
+   background: $bg url(../images/bg.png) fixed no-repeat
+   width: 100%
 .landingpage-main
-   width: 410px
+   width: 600px
    margin: auto
    position: relative
    text-align: center
 .big-bubble
    position: relative
+   width: 600px
+#main-page
+   position: absolute
+   width: 100%
+   top: 0
+ul#main-page
+   list-style: none
 .bubble-logo
-   width: 410px
-   height: 310px
+   width: 600px
+   height: 390px
    text-align: center
    vertical-align: middle
    position: relative
@@ -37,29 +56,31 @@ body
       bottom: 0
 .join-us
    width: 300px
-   height: 44px
+   height: 60px
    position: absolute
-   bottom: 30px
+   bottom: 10px
    margin: auto
    left: 0
    right: 0
    a
       width: 100%
       display: block
-      height: 50px
+      height: 60px
       border: 1px solid $blueColor
-      border-radius: 10px
+      border-radius: 15px
       color: #fff
-      line-height: 50px
+      line-height: 60px
       text-decoration: none
       text-transform: uppercase
       font-size: 22px
       font-weight: 300
+      background-color: $blueColor
       text-align: center
    a:hover
-      background-color: $blueColor
+      background-color: $grayColor
+      border: 1px solid #000
    span.ic-github
-      background: url(../images/ic-github.png) right 7px no-repeat
+      background: url(../images/ic-github.png) right 15px no-repeat
       width: 215px
       display: block
       margin: auto
@@ -94,32 +115,20 @@ body
    .term.java
       background-color: #332e32
       bottom: 20px
-      width: 80px
-      height: 80px
-      left: -5%
+      width: 120px
+      height: 120px
+      left: 10%
       z-index: 99
-      animation: playJava 5s linear 1s infinite
-      -moz-animation: playJava 5s linear 1s infinite
-      -webkit-animation: playJava 5s linear 1s infinite
-      -o-animation: playJava 5s linear 1s infinite
    .term.php
       background-color: #4c494e
       bottom: 10px
-      left: 28%
-      animation: playPhp 3s linear 1s infinite
-      -moz-animation: playPhp 3s linear 1s infinite
-      -webkit-animation: playPhp 3s linear 1s infinite
-      -o-animation: playPhp 3s linear 1s infinite
+      left: 29%
    .term.dotnet
       background-color: #231f20
       width: 180px
       height: 180px
       bottom: 30px
       left: 34%
-      animation: playDotnet 3s linear 1s infinite
-      -moz-animation: playDotnet 3s linear 1s infinite
-      -webkit-animation: playDotnet 3s linear 1s infinite
-      -o-animation: playDotnet 3s linear 1s infinite
 
    .term.python
       background-color: #585657
@@ -127,10 +136,6 @@ body
       width: 150px
       height: 150px
       left: 53%
-      animation: playPython 3s linear 1s infinite
-      -moz-animation: playPython 3s linear 1s infinite
-      -webkit-animation: playPython 3s linear 1s infinite
-      -o-animation: playPython 3s linear 1s infinite
 
    .term.jenkins
       background-color: #231f20
@@ -138,10 +143,6 @@ body
       width: 180px
       height: 180px
       left: 70%
-      animation: playJenkins 3s linear 1s infinite
-      -moz-animation: playJenkins 3s linear 1s infinite
-      -webkit-animation: playJenkins 3s linear 1s infinite
-      -o-animation: playJenkins 3s linear 1s infinite
 
    .term.html
       background-color: #262324
@@ -149,21 +150,13 @@ body
       width: 70px
       height: 70px
       left: 94%
-      animation: playHtml 3s linear 1s infinite
-      -moz-animation: playHtml 3s linear 1s infinite
-      -webkit-animation: playHtml 3s linear 1s infinite
-      -o-animation: playHtml 3s linear 1s infinite
 
    .term.css
       background-color: #4c494e
       bottom: 130px
-      width: 60px
-      height: 60px
+      width: 120px
+      height: 120px
       left: 55%
-      animation: playCss 3s linear 1s infinite
-      -moz-animation: playCss 3s linear 1s infinite
-      -webkit-animation: playCss 3s linear 1s infinite
-      -o-animation: playCss 3s linear 1s infinite
 
    .term.angularjs
       background-color: #454143
@@ -171,87 +164,51 @@ body
       width: 160px
       height: 160px
       left: 85%
-      animation: playAngularjs 3s linear 1s infinite
-      -moz-animation: playAngularjs 3s linear 1s infinite
-      -webkit-animation: playAngularjs 3s linear 1s infinite
-      -o-animation: playAngularjs 3s linear 1s infinite
    .term.backbonejs
       background-color: #454143
       bottom: 30px
       width: 110px
       height: 110px
       left: 80%
-      animation: playBackbonejs 3s linear 1s infinite
-      -moz-animation: playBackbonejs 3s linear 1s infinite
-      -webkit-animation: playBackbonejs 3s linear 1s infinite
-      -o-animation: playBackbonejs 3s linear 1s infinite
    .term.grunt
       background-color: #231f20
       bottom: -10px
       width: 200px
       height: 200px
-      left: 3%
-      animation: playGrunt 3s linear 1s infinite
-      -moz-animation: playGrunt 3s linear 1s infinite
-      -webkit-animation: playGrunt 3s linear 1s infinite
-      -o-animation: playGrunt 3s linear 1s infinite
-   .term.github
+      left: -1%
+   .term.spring
       background-color: #464247
       bottom: 130px
-      width: 60px
-      height: 60px
+      width: 80px
+      height: 80px
       left: 15%
-      animation: playGithub 3s linear 1s infinite
-      -moz-animation: playGithub 3s linear 1s infinite
-      -webkit-animation: playGithub 3s linear 1s infinite
-      -o-animation: playGithub 3s linear 1s infinite
    .term.cplusplus
       background-color: #464247
       bottom: 110px
       width: 120px
       height: 120px
       left: 65%
-      animation: playCplusplus 3s linear 1s infinite
-      -moz-animation: playCplusplus 3s linear 1s infinite
-      -webkit-animation: playCplusplus 3s linear 1s infinite
-      -o-animation: playCplusplus 3s linear 1s infinite
    .term.js
       background-color: #262223
       bottom: 90px
       width: 110px
       height: 110px
       left: 25%
-      animation: playJs 3s linear 1s infinite
-      -moz-animation: playJs 3s linear 1s infinite
-      -webkit-animation: playJs 3s linear 1s infinite
-      -o-animation: playJs 3s linear 1s infinite
    .term.notejs
       background-color: #4c494e
       bottom: -10px
       width: 160px
       height: 160px
       left: 17%
-      animation: playNotejs 3s linear 1s infinite
-      -moz-animation: playNotejs 3s linear 1s infinite
-      -webkit-animation: playNotejs 3s linear 1s infinite
-      -o-animation: playNotejs 3s linear 1s infinite
    .term.bower
       background-color: #585657
       bottom: 10px
       width: 100px
       height: 100px
       left: 46%
-      animation: playBower 3s linear 1s infinite
-      -moz-animation: playBower 3s linear 1s infinite
-      -webkit-animation: playBower 3s linear 1s infinite
-      -o-animation: playBower 3s linear 1s infinite
    .term.yeoman
       background-color: #464247
       bottom: 10px
       width: 110px
       height: 110px
       left: 63%
-      animation: playYeoman 3s linear 1s infinite
-      -moz-animation: playYeoman 3s linear 1s infinite
-      -webkit-animation: playYeoman 3s linear 1s infinite
-      -o-animation: playYeoman 3s linear 1s infinite
