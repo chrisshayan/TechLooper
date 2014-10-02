@@ -8,6 +8,7 @@
         "grunt-contrib-watch": "latest",
         "grunt-include-source": "latest",
         "grunt-wiredep": "latest",
-        "grunt-bower-task" : "latest"
-    }
-}   
+        "grunt-bower-install-simple" : "latest"
+    },
+   "assets" : "src/main/webapp/assets/"
+}
