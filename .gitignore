@@ -3,6 +3,9 @@
 # nodejs
 bower_components/
 node_modules/
+node_tmp/
+node/
+npm.tar.gz
 
 # sass
 .sass-cache/
