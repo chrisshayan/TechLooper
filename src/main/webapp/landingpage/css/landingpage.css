@@ -18,7 +18,12 @@ body {
   text-align: center; }
 
 .main-bubble {
-  position: relative; }
+  position: relative;
+  animation: myAnimation 5s linear 1s infinite;
+  -moz-animation: myAnimation 5s linear 1s infinite;
+  -webkit-animation: myAnimation 5s linear 1s infinite;
+  -o-animation: myAnimation 5s linear 1s infinite;
+  transition-delay: 0.5s; }
 
 .bg-landingpage {
   width: 100%;
@@ -100,109 +105,778 @@ body {
     height: 80px;
     background-position: center top;
     left: -5%;
-    z-index: 99; }
+    z-index: 99;
+    animation: playJava 5s linear 1s infinite;
+    -moz-animation: playJava 5s linear 1s infinite;
+    -webkit-animation: playJava 5s linear 1s infinite;
+    -o-animation: playJava 5s linear 1s infinite; }
   .landingpage-terms .term.php {
     background-color: #4c494e;
     background-position: center -98px;
     bottom: 0;
-    left: 28%; }
+    left: 28%;
+    animation: playPhp 3s linear 1s infinite;
+    -moz-animation: playPhp 3s linear 1s infinite;
+    -webkit-animation: playPhp 3s linear 1s infinite;
+    -o-animation: playPhp 3s linear 1s infinite; }
   .landingpage-terms .term.dotnet {
     background-color: #231f20;
     background-position: center -170px;
     width: 180px;
     height: 180px;
     bottom: 20px;
-    left: 34%; }
+    left: 34%;
+    animation: playDotnet 3s linear 1s infinite;
+    -moz-animation: playDotnet 3s linear 1s infinite;
+    -webkit-animation: playDotnet 3s linear 1s infinite;
+    -o-animation: playDotnet 3s linear 1s infinite; }
   .landingpage-terms .term.python {
     background-color: #585657;
     background-position: center -340px;
     bottom: -30px;
     width: 150px;
     height: 150px;
-    left: 53%; }
+    left: 53%;
+    animation: playPython 3s linear 1s infinite;
+    -moz-animation: playPython 3s linear 1s infinite;
+    -webkit-animation: playPython 3s linear 1s infinite;
+    -o-animation: playPython 3s linear 1s infinite; }
   .landingpage-terms .term.jenkins {
     background-color: #231f20;
     background-position: center -510px;
     bottom: -15px;
     width: 180px;
     height: 180px;
-    left: 70%; }
+    left: 70%;
+    animation: playJenkins 3s linear 1s infinite;
+    -moz-animation: playJenkins 3s linear 1s infinite;
+    -webkit-animation: playJenkins 3s linear 1s infinite;
+    -o-animation: playJenkins 3s linear 1s infinite; }
   .landingpage-terms .term.html {
     background-color: #262324;
     background-position: center -730px;
     bottom: 40px;
     width: 70px;
     height: 70px;
-    left: 94%; }
+    left: 94%;
+    animation: playHtml 3s linear 1s infinite;
+    -moz-animation: playHtml 3s linear 1s infinite;
+    -webkit-animation: playHtml 3s linear 1s infinite;
+    -o-animation: playHtml 3s linear 1s infinite; }
   .landingpage-terms .term.css {
     background-color: #4c494e;
     background-position: center -860px;
     bottom: 120px;
     width: 60px;
     height: 60px;
-    left: 55%; }
+    left: 55%;
+    animation: playCss 3s linear 1s infinite;
+    -moz-animation: playCss 3s linear 1s infinite;
+    -webkit-animation: playCss 3s linear 1s infinite;
+    -o-animation: playCss 3s linear 1s infinite; }
   .landingpage-terms .term.angularjs {
     background-color: #454143;
     background-position: center -960px;
     bottom: -50px;
     width: 160px;
     height: 160px;
-    left: 85%; }
+    left: 85%;
+    animation: playAngularjs 3s linear 1s infinite;
+    -moz-animation: playAngularjs 3s linear 1s infinite;
+    -webkit-animation: playAngularjs 3s linear 1s infinite;
+    -o-animation: playAngularjs 3s linear 1s infinite; }
   .landingpage-terms .term.backbonejs {
     background-color: #454143;
     background-position: center -1198px;
     bottom: 20px;
     width: 110px;
     height: 110px;
-    left: 80%; }
+    left: 80%;
+    animation: playBackbonejs 3s linear 1s infinite;
+    -moz-animation: playBackbonejs 3s linear 1s infinite;
+    -webkit-animation: playBackbonejs 3s linear 1s infinite;
+    -o-animation: playBackbonejs 3s linear 1s infinite; }
   .landingpage-terms .term.grunt {
     background-color: #231f20;
     background-position: center -1390px;
     bottom: -20px;
     width: 200px;
     height: 200px;
-    left: 3%; }
+    left: 3%;
+    animation: playGrunt 3s linear 1s infinite;
+    -moz-animation: playGrunt 3s linear 1s infinite;
+    -webkit-animation: playGrunt 3s linear 1s infinite;
+    -o-animation: playGrunt 3s linear 1s infinite; }
   .landingpage-terms .term.github {
     background-color: #464247;
     background-position: center -1643px;
     bottom: 120px;
     width: 60px;
     height: 60px;
-    left: 15%; }
+    left: 15%;
+    animation: playGithub 3s linear 1s infinite;
+    -moz-animation: playGithub 3s linear 1s infinite;
+    -webkit-animation: playGithub 3s linear 1s infinite;
+    -o-animation: playGithub 3s linear 1s infinite; }
   .landingpage-terms .term.cplusplus {
     background-color: #464247;
     background-position: center -2230px;
     bottom: 100px;
     width: 120px;
     height: 120px;
-    left: 65%; }
+    left: 65%;
+    animation: playCplusplus 3s linear 1s infinite;
+    -moz-animation: playCplusplus 3s linear 1s infinite;
+    -webkit-animation: playCplusplus 3s linear 1s infinite;
+    -o-animation: playCplusplus 3s linear 1s infinite; }
   .landingpage-terms .term.js {
     background-color: #262223;
     background-position: center -1942px;
     bottom: 80px;
     width: 110px;
     height: 110px;
-    left: 25%; }
+    left: 25%;
+    animation: playJs 3s linear 1s infinite;
+    -moz-animation: playJs 3s linear 1s infinite;
+    -webkit-animation: playJs 3s linear 1s infinite;
+    -o-animation: playJs 3s linear 1s infinite; }
   .landingpage-terms .term.notejs {
     background-color: #4c494e;
     background-position: center -1750px;
     bottom: -20px;
     width: 160px;
     height: 160px;
-    left: 17%; }
+    left: 17%;
+    animation: playNotejs 3s linear 1s infinite;
+    -moz-animation: playNotejs 3s linear 1s infinite;
+    -webkit-animation: playNotejs 3s linear 1s infinite;
+    -o-animation: playNotejs 3s linear 1s infinite; }
   .landingpage-terms .term.bower {
     background-color: #585657;
     background-position: center -2092px;
     bottom: 0;
     width: 100px;
     height: 100px;
-    left: 46%; }
+    left: 46%;
+    animation: playBower 3s linear 1s infinite;
+    -moz-animation: playBower 3s linear 1s infinite;
+    -webkit-animation: playBower 3s linear 1s infinite;
+    -o-animation: playBower 3s linear 1s infinite; }
   .landingpage-terms .term.yeoman {
     background-color: #464247;
     background-position: center -2400px;
     bottom: 0;
     width: 110px;
     height: 110px;
-    left: 63%; }
+    left: 63%;
+    animation: playYeoman 3s linear 1s infinite;
+    -moz-animation: playYeoman 3s linear 1s infinite;
+    -webkit-animation: playYeoman 3s linear 1s infinite;
+    -o-animation: playYeoman 3s linear 1s infinite; }
+
+@keyframes myAnimation {
+  0% {
+    left: 0px; }
+  50% {
+    left: 50px; }
+  100% {
+    left: 0px; } }
+@-webkit-keyframes myAnimation {
+  0% {
+    left: 0px; }
+  50% {
+    left: 50px; }
+  100% {
+    left: 0px; } }
+@-moz-keyframes myAnimation {
+  0% {
+    left: 0px; }
+  50% {
+    left: 50px; }
+  100% {
+    left: 0px; } }
+@-o-keyframes myAnimation {
+  0% {
+    left: 0px; }
+  50% {
+    left: 50px; }
+  100% {
+    left: 0px; } }
+@keyframes playJava {
+  0% {
+    bottom: 10px; }
+  25% {
+    bottom: 15px; }
+  75% {
+    bottom: 5px; }
+  100% {
+    bottom: 10px; } }
+@-webkit-keyframes playJava {
+  0% {
+    bottom: 10px; }
+  25% {
+    bottom: 15px; }
+  75% {
+    bottom: 5px; }
+  100% {
+    bottom: 10px; } }
+@-moz-keyframes playJava {
+  0% {
+    bottom: 10px; }
+  25% {
+    bottom: 15px; }
+  75% {
+    bottom: 5px; }
+  100% {
+    bottom: 10px; } }
+@-o-keyframes playJava {
+  0% {
+    bottom: 10px; }
+  25% {
+    bottom: 15px; }
+  75% {
+    bottom: 5px; }
+  100% {
+    bottom: 10px; } }
+@keyframes playPhp {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-webkit-keyframes playPhp {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-moz-keyframes playPhp {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-o-keyframes playPhp {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@keyframes playDotnet {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@-webkit-keyframes playDotnet {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@-moz-keyframes playDotnet {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@-o-keyframes playDotnet {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@keyframes playPython {
+  0% {
+    bottom: -30px; }
+  25% {
+    bottom: -25px; }
+  75% {
+    bottom: -35px; }
+  100% {
+    bottom: -30px; } }
+@-webkit-keyframes playPython {
+  0% {
+    bottom: -30px; }
+  25% {
+    bottom: -25px; }
+  75% {
+    bottom: -35px; }
+  100% {
+    bottom: -30px; } }
+@-moz-keyframes playPython {
+  0% {
+    bottom: -30px; }
+  25% {
+    bottom: -25px; }
+  75% {
+    bottom: -35px; }
+  100% {
+    bottom: -30px; } }
+@-o-keyframes playPython {
+  0% {
+    bottom: -30px; }
+  25% {
+    bottom: -25px; }
+  75% {
+    bottom: -35px; }
+  100% {
+    bottom: -30px; } }
+@keyframes playJenkins {
+  0% {
+    bottom: -15px; }
+  25% {
+    bottom: -10px; }
+  75% {
+    bottom: -20px; }
+  100% {
+    bottom: -15px; } }
+@-webkit-keyframes playJenkins {
+  0% {
+    bottom: -15px; }
+  25% {
+    bottom: -10px; }
+  75% {
+    bottom: -20px; }
+  100% {
+    bottom: -15px; } }
+@-moz-keyframes playJenkins {
+  0% {
+    bottom: -15px; }
+  25% {
+    bottom: -10px; }
+  75% {
+    bottom: -20px; }
+  100% {
+    bottom: -15px; } }
+@-o-keyframes playJenkins {
+  0% {
+    bottom: -15px; }
+  25% {
+    bottom: -10px; }
+  75% {
+    bottom: -20px; }
+  100% {
+    bottom: -15px; } }
+@keyframes playHtml {
+  0% {
+    bottom: 40px; }
+  25% {
+    bottom: 45px; }
+  75% {
+    bottom: 35px; }
+  100% {
+    bottom: 40px; } }
+@-webkit-keyframes playHtml {
+  0% {
+    bottom: 40px; }
+  25% {
+    bottom: 45px; }
+  75% {
+    bottom: 35px; }
+  100% {
+    bottom: 40px; } }
+@-moz-keyframes playHtml {
+  0% {
+    bottom: 40px; }
+  25% {
+    bottom: 45px; }
+  75% {
+    bottom: 35px; }
+  100% {
+    bottom: 40px; } }
+@-o-keyframes playHtml {
+  0% {
+    bottom: 40px; }
+  25% {
+    bottom: 45px; }
+  75% {
+    bottom: 35px; }
+  100% {
+    bottom: 40px; } }
+@keyframes playCss {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@-webkit-keyframes playCss {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@-moz-keyframes playCss {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@-o-keyframes playCss {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@keyframes playAngularjs {
+  0% {
+    bottom: -50px; }
+  25% {
+    bottom: -45px; }
+  75% {
+    bottom: -55px; }
+  100% {
+    bottom: -50px; } }
+@-webkit-keyframes playAngularjs {
+  0% {
+    bottom: -50px; }
+  25% {
+    bottom: -45px; }
+  75% {
+    bottom: -55px; }
+  100% {
+    bottom: -50px; } }
+@-moz-keyframes playAngularjs {
+  0% {
+    bottom: -50px; }
+  25% {
+    bottom: -45px; }
+  75% {
+    bottom: -55px; }
+  100% {
+    bottom: -50px; } }
+@-o-keyframes playAngularjs {
+  0% {
+    bottom: -50px; }
+  25% {
+    bottom: -45px; }
+  75% {
+    bottom: -55px; }
+  100% {
+    bottom: -50px; } }
+@keyframes playBackbonejs {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@-webkit-keyframes playBackbonejs {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@-moz-keyframes playBackbonejs {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@-o-keyframes playBackbonejs {
+  0% {
+    bottom: 20px; }
+  25% {
+    bottom: 25px; }
+  75% {
+    bottom: 15px; }
+  100% {
+    bottom: 20px; } }
+@keyframes playGrunt {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@-webkit-keyframes playGrunt {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@-moz-keyframes playGrunt {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@-o-keyframes playGrunt {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@keyframes playGithub {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@-webkit-keyframes playGithub {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@-moz-keyframes playGithub {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@-o-keyframes playGithub {
+  0% {
+    bottom: 120px; }
+  25% {
+    bottom: 125px; }
+  75% {
+    bottom: 115px; }
+  100% {
+    bottom: 120px; } }
+@keyframes playCplusplus {
+  0% {
+    bottom: 100px; }
+  25% {
+    bottom: 105px; }
+  75% {
+    bottom: 95px; }
+  100% {
+    bottom: 100px; } }
+@-webkit-keyframes playCplusplus {
+  0% {
+    bottom: 100px; }
+  25% {
+    bottom: 105px; }
+  75% {
+    bottom: 95px; }
+  100% {
+    bottom: 100px; } }
+@-moz-keyframes playCplusplus {
+  0% {
+    bottom: 100px; }
+  25% {
+    bottom: 105px; }
+  75% {
+    bottom: 95px; }
+  100% {
+    bottom: 100px; } }
+@-o-keyframes playCplusplus {
+  0% {
+    bottom: 100px; }
+  25% {
+    bottom: 105px; }
+  75% {
+    bottom: 95px; }
+  100% {
+    bottom: 100px; } }
+@keyframes playJs {
+  0% {
+    bottom: 80px; }
+  25% {
+    bottom: 85px; }
+  75% {
+    bottom: 75px; }
+  100% {
+    bottom: 80px; } }
+@-webkit-keyframes playJs {
+  0% {
+    bottom: 80px; }
+  25% {
+    bottom: 85px; }
+  75% {
+    bottom: 75px; }
+  100% {
+    bottom: 80px; } }
+@-moz-keyframes playJs {
+  0% {
+    bottom: 80px; }
+  25% {
+    bottom: 85px; }
+  75% {
+    bottom: 75px; }
+  100% {
+    bottom: 80px; } }
+@-o-keyframes playJs {
+  0% {
+    bottom: 80px; }
+  25% {
+    bottom: 85px; }
+  75% {
+    bottom: 75px; }
+  100% {
+    bottom: 80px; } }
+@keyframes playNotejs {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@-webkit-keyframes playNotejs {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@-moz-keyframes playNotejs {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@-o-keyframes playNotejs {
+  0% {
+    bottom: -20px; }
+  25% {
+    bottom: -15px; }
+  75% {
+    bottom: -25px; }
+  100% {
+    bottom: -20px; } }
+@keyframes playBower {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-webkit-keyframes playBower {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-moz-keyframes playBower {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-o-keyframes playBower {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@keyframes playYeoman {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-webkit-keyframes playYeoman {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-moz-keyframes playYeoman {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
+@-o-keyframes playYeoman {
+  0% {
+    bottom: 0; }
+  25% {
+    bottom: 5px; }
+  75% {
+    bottom: -5px; }
+  100% {
+    bottom: 0; } }
 
 /*# sourceMappingURL=landingpage.css.map */
