@@ -4,6 +4,10 @@
 bower_components/
 node_modules/
 
+# sass
+.sass-cache/
+*.map
+
 # IntelliJ files
 *.iml
 .idea
