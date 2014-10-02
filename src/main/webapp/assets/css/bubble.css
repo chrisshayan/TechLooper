@@ -1,174 +1,220 @@
 #left {
   float: left;
   width: 555px;
-  margin-top: 50px; }
+  margin-top: 50px;
+}
 
 #right {
   float: right;
   width: 415px;
-  margin-top: 50px; }
-  #right a {
-    display: block;
-    color: #FF5800;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-top: 10px; }
-    #right a:visited {
-      display: block;
-      color: #FF5800;
-      font-size: 12px;
-      text-transform: uppercase;
-      margin-top: 10px; }
-    #right a:hover, #right a.active {
-      text-decoration: none;
-      color: #003359; }
-  #right p {
-    color: #19337F;
-    margin-top: 35px;
-    font-size: 20px; }
+  margin-top: 50px;
+}
+#right a {
+  display: block;
+  color: #ff5800;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+#right a:visited {
+  display: block;
+  color: #ff5800;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+#right a:hover, #right a.active {
+  text-decoration: none;
+  color: #003359;
+}
+#right p {
+  color: #19337f;
+  margin-top: 35px;
+  font-size: 20px;
+}
 
 #box {
   position: relative;
-  left: 120px; }
-  #box .circle {
-    cursor: pointer;
-    text-align: center;
-    width: 1000px;
-    height: 1000px;
-    position: absolute; }
-  #box .active {
-    width: 340px;
-    height: 340px;
-    cursor: pointer;
-    z-index: 0 !important; }
-  #box .circle span {
-    width: 125px;
-    font-size: 18px;
-    position: relative;
-    top: -70%;
-    color: #ffffff;
-    text-transform: capitalize; }
-  #box .circle strong {
-    display: block;
-    clear: both;
-    font-size: 24px;
-    font-weight: 400; }
-  #box #pmTech span {
-    top: -68%; }
-  #box .circle .circle-content {
-    background: #f00;
-    width: 1000px;
-    height: 1000px;
-    border-radius: 50%;
-    width: 150px;
-    height: 150px; }
-  #box .circle .redColor {
-    background: #f00; }
-  #box .circle .blueColor {
-    background: #106da4; }
-  #box .circle .yellowColor {
-    background: #d7c500; }
-  #box .circle .pinkColor {
-    background: #cc21a0; }
-  #box .circle .greenColor {
-    background: #11a06c; }
-  #box .circle .orangeColor {
-    background: #d26e03; }
-  #box .circle .lightSalmonColor {
-    background: #ffa07a; }
-  #box .circle .indigoColor {
-    background: #4B0082; }
-  #box .circle .oliveColor {
-    background: #808000; }
-  #box .circle .saddleBrownColor {
-    background: #8B4513; }
-  #box .textSize1 {
-    width: 50px;
-    height: 50px; }
-    #box .textSize1 .circle-content {
-      width: 50px;
-      height: 50px; }
-    #box .textSize1 span {
-      font-size: 10px;
-      line-height: 5px;
-      top: 25px !important;
-      width: 50px; }
-    #box .textSize1 strong {
-      font-size: 12px; }
-  #box .textSize2 {
-    width: 75px;
-    height: 75px; }
-    #box .textSize2 .circle-content {
-      width: 75px;
-      height: 75px; }
-    #box .textSize2 span {
-      font-size: 15px;
-      line-height: 16px;
-      top: 30px !important;
-      width: 75px; }
-    #box .textSize2 strong {
-      font-size: 20px; }
-  #box .textSize3 {
-    width: 100px;
-    height: 100px; }
-    #box .textSize3 .circle-content {
-      width: 100px;
-      height: 100px; }
-    #box .textSize3 span {
-      font-size: 18px;
-      line-height: 22px;
-      top: 18px !important;
-      width: 100px; }
-    #box .textSize3 strong {
-      font-size: 25px; }
-  #box .textSize4 {
-    width: 125px;
-    height: 125px; }
-    #box .textSize4 .circle-content {
-      width: 125px;
-      height: 125px; }
-    #box .textSize4 span {
-      top: -90px !important;
-      width: 125px; }
-  #box .textSize5 {
-    width: 175px;
-    height: 175px; }
-    #box .textSize5 .circle-content {
-      width: 175px;
-      height: 175px; }
-    #box .textSize5 span {
-      top: -90px !important;
-      width: 175px; }
-  #box .textSize6 {
-    width: 200px;
-    height: 200px; }
-    #box .textSize6 .circle-content {
-      width: 200px;
-      height: 200px; }
-  #box .intro {
-    display: none;
-    width: 250px;
-    color: #ffffff;
-    position: absolute;
-    bottom: 100px;
-    left: 35px;
-    line-height: 15px; }
-  #box .active span {
-    font-size: 35px;
-    line-height: 40px;
-    top: 120px !important;
-    text-align: center;
-    width: 320px; }
-  #box .active strong {
-    font-size: 45px; }
+  left: 120px;
+}
+#box .circle {
+  cursor: pointer;
+  text-align: center;
+  width: 1000px;
+  height: 1000px;
+  position: absolute;
+}
+#box .active {
+  width: 340px;
+  height: 340px;
+  cursor: pointer;
+  z-index: 0 !important;
+}
+#box .circle span {
+  width: 125px;
+  font-size: 18px;
+  position: relative;
+  top: -70%;
+  color: white;
+  text-transform: capitalize;
+}
+#box .circle strong {
+  display: block;
+  clear: both;
+  font-size: 24px;
+  font-weight: 400;
+}
+#box #pmTech span {
+  top: -68%;
+}
+#box .circle .circle-content {
+  background: red;
+  width: 1000px;
+  height: 1000px;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+#box .circle .redColor {
+  background: red;
+}
+#box .circle .blueColor {
+  background: #106da4;
+}
+#box .circle .yellowColor {
+  background: #d7c500;
+}
+#box .circle .pinkColor {
+  background: #cc21a0;
+}
+#box .circle .greenColor {
+  background: #11a06c;
+}
+#box .circle .orangeColor {
+  background: #d26e03;
+}
+#box .circle .lightSalmonColor {
+  background: lightsalmon;
+}
+#box .circle .indigoColor {
+  background: indigo;
+}
+#box .circle .oliveColor {
+  background: olive;
+}
+#box .circle .saddleBrownColor {
+  background: saddlebrown;
+}
+#box .textSize1 {
+  width: 50px;
+  height: 50px;
+}
+#box .textSize1 .circle-content {
+  width: 50px;
+  height: 50px;
+}
+#box .textSize1 span {
+  font-size: 10px;
+  line-height: 5px;
+  top: 25px !important;
+  width: 50px;
+}
+#box .textSize1 strong {
+  font-size: 12px;
+}
+#box .textSize2 {
+  width: 75px;
+  height: 75px;
+}
+#box .textSize2 .circle-content {
+  width: 75px;
+  height: 75px;
+}
+#box .textSize2 span {
+  font-size: 15px;
+  line-height: 16px;
+  top: 30px !important;
+  width: 75px;
+}
+#box .textSize2 strong {
+  font-size: 20px;
+}
+#box .textSize3 {
+  width: 100px;
+  height: 100px;
+}
+#box .textSize3 .circle-content {
+  width: 100px;
+  height: 100px;
+}
+#box .textSize3 span {
+  font-size: 18px;
+  line-height: 22px;
+  top: 18px !important;
+  width: 100px;
+}
+#box .textSize3 strong {
+  font-size: 25px;
+}
+#box .textSize4 {
+  width: 125px;
+  height: 125px;
+}
+#box .textSize4 .circle-content {
+  width: 125px;
+  height: 125px;
+}
+#box .textSize4 span {
+  top: -90px !important;
+  width: 125px;
+}
+#box .textSize5 {
+  width: 175px;
+  height: 175px;
+}
+#box .textSize5 .circle-content {
+  width: 175px;
+  height: 175px;
+}
+#box .textSize5 span {
+  top: -90px !important;
+  width: 175px;
+}
+#box .textSize6 {
+  width: 200px;
+  height: 200px;
+}
+#box .textSize6 .circle-content {
+  width: 200px;
+  height: 200px;
+}
+#box .intro {
+  display: none;
+  width: 250px;
+  color: white;
+  position: absolute;
+  bottom: 100px;
+  left: 35px;
+  line-height: 15px;
+}
+#box .active span {
+  font-size: 35px;
+  line-height: 40px;
+  top: 120px !important;
+  text-align: center;
+  width: 320px;
+}
+#box .active strong {
+  font-size: 45px;
+}
 
 .bubble-chart-error {
   display: none;
   width: 300px;
   color: red;
-  margin: auto; }
+  margin: auto;
+}
 
 .small {
-  z-index: 5 !important; }
-
-/*# sourceMappingURL=bubble.css.map */
+  z-index: 5 !important;
+}
