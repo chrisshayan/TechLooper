@@ -14,7 +14,16 @@ body {
   width: 300px;
   margin: auto;
   padding-top: 50px;
+  position: relative;
+  text-align: center; }
+
+.main-bubble {
   position: relative; }
+
+.bg-landingpage {
+  width: 100%;
+  height: 100%;
+  display: block; }
 
 .bubble-logo {
   border-radius: 50%;
@@ -24,9 +33,9 @@ body {
   text-align: center;
   vertical-align: middle;
   position: relative;
-  -webkit-box-shadow: 0px 0px 59px 15px rgba(0, 123, 220, 0.2);
-  -moz-box-shadow: 0px 0px 59px 15px rgba(0, 123, 220, 0.2);
-  box-shadow: 0px 0px 59px 15px rgba(0, 123, 220, 0.2); }
+  -webkit-box-shadow: 0px 0px 59px 15px rgba(255, 255, 255, 0.2);
+  -moz-box-shadow: 0px 0px 59px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px 59px 15px rgba(255, 255, 255, 0.2); }
   .bubble-logo img {
     width: 80%;
     margin: auto;
@@ -37,18 +46,21 @@ body {
     bottom: 0; }
 
 .join-us {
-  width: 300px;
+  width: 250px;
   height: 44px;
   position: absolute;
-  bottom: 0; }
+  bottom: 0;
+  margin: auto;
+  left: 0;
+  right: 0; }
   .join-us a {
     width: 100%;
     display: block;
-    height: 44px;
+    height: 50px;
     border: 1px solid #007cdc;
     border-radius: 10px;
     color: #fff;
-    line-height: 44px;
+    line-height: 50px;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 22px;
@@ -87,7 +99,7 @@ body {
     width: 80px;
     height: 80px;
     background-position: center top;
-    left: 0;
+    left: -5%;
     z-index: 99; }
   .landingpage-terms .term.php {
     background-color: #4c494e;
