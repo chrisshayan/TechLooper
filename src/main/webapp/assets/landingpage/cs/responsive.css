@@ -1,0 +1,72 @@
+@media (min-width: 320px) and (max-width: 767px) {
+  .landingpage-main {
+    padding-top: 0;
+    width: 300px; }
+
+  .bubble-logo {
+    width: 300px;
+    height: 250px; }
+    .bubble-logo img {
+      max-width: 300px; }
+
+  .join-us {
+    width: 300px;
+    height: 36px; }
+    .join-us a {
+      height: 36px;
+      line-height: 36px;
+      font-size: 18px; }
+      .join-us a span.ic-github {
+        padding-right: 30px;
+        background-position: right 2px; }
+
+  .landingpage-terms .term.java {
+    width: 80px;
+    height: 80px; }
+  .landingpage-terms .term.php {
+    width: 100px;
+    height: 100px; }
+  .landingpage-terms .term.dotnet {
+    width: 90px;
+    height: 90px; }
+  .landingpage-terms .term.python {
+    width: 50px;
+    height: 50px; }
+  .landingpage-terms .term.jenkins {
+    width: 80px;
+    height: 80px; }
+  .landingpage-terms .term.html {
+    width: 70px;
+    height: 70px; }
+  .landingpage-terms .term.css {
+    width: 60px;
+    height: 60px; }
+  .landingpage-terms .term.angularjs {
+    width: 60px;
+    height: 60px; }
+  .landingpage-terms .term.backbonejs {
+    width: 50px;
+    height: 50px; }
+  .landingpage-terms .term.grunt {
+    width: 80px;
+    height: 80px; }
+  .landingpage-terms .term.github {
+    width: 70px;
+    height: 70px; }
+  .landingpage-terms .term.cplusplus {
+    width: 90px;
+    height: 90px; }
+  .landingpage-terms .term.js {
+    width: 50px;
+    height: 50px; }
+  .landingpage-terms .term.notejs {
+    width: 100px;
+    height: 100px; }
+  .landingpage-terms .term.bower {
+    width: 50px;
+    height: 50px; }
+  .landingpage-terms .term.yeoman {
+    width: 70px;
+    height: 70px; } }
+
+/*# sourceMappingURL=responsive.css.map */
