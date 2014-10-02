@@ -1,10 +1,10 @@
 $( document ).ready(function() {
-	var h = $(window).height();
+	var h = $(window).height() - 80,
+		w = $(window).width() - 80;
 	$('.bg-landingpage').css({
-		height:h - 30
+		height:h
 	});
-
+	$('#main-page').css('max-width',w);
 	$('#bubble').parallax();
 	$('#main-page').parallax();
-	$("iframe").contents().find("#u_0_3").css("display", "none");
 });
