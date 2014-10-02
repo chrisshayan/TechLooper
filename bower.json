@@ -16,6 +16,8 @@
       "angular-translate-loader-static-files" : "latest"
    },
    "overrides": {
-      "stomp-websocket": { "main": "lib/stomp.min.js" }
+      "stomp-websocket": {
+          "main": "lib/stomp.min.js"
+      }
    }
 }

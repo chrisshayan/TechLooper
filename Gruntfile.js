@@ -5,21 +5,18 @@ module.exports = function(grunt) {
 
       bower : {
           install : {
-              options : {
-                  targetDir : 'src/main/webapp/assets/bower_components'
-              }
           }
       },
 
       wiredep : {
          target : {
-            src : [ "index.html" ]
+            src : [ "src/main/webapp/assets/index.html" ]
          }
       },
 
       includeSource : {
          options : {
-            basePath : ".",
+            basePath : "src/main/webapp/assets",
             duplicates : false,
             debug : true
          },
