@@ -5,7 +5,9 @@ module.exports = function(grunt) {
 
       bower : {
           install : {
-
+              options : {
+                  targetDir : 'src/main/webapp/assets/bower_components'
+              }
           }
       },
 
@@ -23,7 +25,7 @@ module.exports = function(grunt) {
          },
          target : {
             files : {
-               "index.html" : "index.tpl.html"
+               "src/main/webapp/assets/index.html" : "src/main/webapp/assets/index.tpl.html"
             }
          }
       },
