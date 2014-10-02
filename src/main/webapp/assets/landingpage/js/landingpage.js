@@ -19,4 +19,5 @@ $( document ).ready(function() {
 	  originY: 1.0
 	});
 	$('#main-page').parallax();
+	$("iframe").contents().find("#u_0_3").css("display", "none");
 });
