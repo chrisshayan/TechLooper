@@ -1,5 +1,5 @@
 body {
-  background: #2e272a;
+  background: #2e272a url(../images/bg.png) center top no-repeat;
   font-size: 12px;
   font-family: Roboto;
   -webkit-box-sizing: content-box;
@@ -10,31 +10,21 @@ body {
   width: 100%;
   text-align: center; }
 
-.bg-landingpage {
-  background: #2e272a url(../images/bg.png) fixed no-repeat;
-  width: 100%; }
-
 .landingpage-main {
-  width: 600px;
+  width: 410px;
   margin: auto;
   position: relative;
   text-align: center; }
 
 .big-bubble {
-  position: relative;
-  width: 600px; }
+  position: relative; }
 
-#main-page {
-  position: absolute;
-  width: 100%;
-  top: 0; }
-
-ul#main-page {
+.main-page ul {
   list-style: none; }
 
 .bubble-logo {
-  width: 600px;
-  height: 390px;
+  width: 410px;
+  height: 310px;
   text-align: center;
   vertical-align: middle;
   position: relative; }
@@ -48,31 +38,29 @@ ul#main-page {
 
 .join-us {
   width: 300px;
-  height: 60px;
+  height: 44px;
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   margin: auto;
   left: 0;
   right: 0; }
   .join-us a {
     width: 100%;
     display: block;
-    height: 60px;
+    height: 50px;
     border: 1px solid #007cdc;
-    border-radius: 15px;
+    border-radius: 10px;
     color: #fff;
-    line-height: 60px;
+    line-height: 50px;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 22px;
     font-weight: 300;
-    background-color: #007cdc;
     text-align: center; }
   .join-us a:hover {
-    background-color: #a4a4a4;
-    border: 1px solid #000; }
+    background-color: #007cdc; }
   .join-us span.ic-github {
-    background: url(../images/ic-github.png) right 15px no-repeat;
+    background: url(../images/ic-github.png) right 7px no-repeat;
     width: 215px;
     display: block;
     margin: auto;
