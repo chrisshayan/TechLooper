@@ -15,32 +15,20 @@ body
    text-align: center
 
 .landingpage-main
-   width: 300px
+   width: 410px
    margin: auto
-   padding-top: 50px
    position: relative
    text-align: center
 .big-bubble
    position: relative
-   animation: myAnimation 5s linear 1s infinite
-   -moz-animation: myAnimation 5s linear 1s infinite
-   -webkit-animation: myAnimation 5s linear 1s infinite
-   -o-animation: myAnimation 5s linear 1s infinite
-   transition-delay: 0.5s
 .bubble-logo
-   border-radius: 50%
-   background: #2f2c2f
-   width: 300px
-   height: 300px
+   width: 410px
+   height: 310px
    text-align: center
    vertical-align: middle
    position: relative
-   -webkit-box-shadow: 0px 0px 59px 15px rgba(255,255,255,0.2)
-   -moz-box-shadow: 0px 0px 59px 15px rgba(255,255,255,0.2)
-   box-shadow: 0px 0px 59px 15px rgba(255,255,255,0.2)
 
    img
-      width: 80%
       margin: auto
       position: absolute
       left: 0
@@ -48,10 +36,10 @@ body
       right: 0
       bottom: 0
 .join-us
-   width: 250px
+   width: 300px
    height: 44px
    position: absolute
-   bottom: 0
+   bottom: 30px
    margin: auto
    left: 0
    right: 0
@@ -72,7 +60,7 @@ body
       background-color: $blueColor
    span.ic-github
       background: url(../images/ic-github.png) right 7px no-repeat
-      width: 90px
+      width: 215px
       display: block
       margin: auto
       padding-right: 45px
@@ -105,7 +93,7 @@ body
          bottom: 0
    .term.java
       background-color: #332e32
-      bottom: 10px
+      bottom: 20px
       width: 80px
       height: 80px
       left: -5%
@@ -116,7 +104,7 @@ body
       -o-animation: playJava 5s linear 1s infinite
    .term.php
       background-color: #4c494e
-      bottom: 0
+      bottom: 10px
       left: 28%
       animation: playPhp 3s linear 1s infinite
       -moz-animation: playPhp 3s linear 1s infinite
@@ -126,7 +114,7 @@ body
       background-color: #231f20
       width: 180px
       height: 180px
-      bottom: 20px
+      bottom: 30px
       left: 34%
       animation: playDotnet 3s linear 1s infinite
       -moz-animation: playDotnet 3s linear 1s infinite
@@ -135,7 +123,7 @@ body
 
    .term.python
       background-color: #585657
-      bottom: -30px
+      bottom: -20px
       width: 150px
       height: 150px
       left: 53%
@@ -146,7 +134,7 @@ body
 
    .term.jenkins
       background-color: #231f20
-      bottom: -15px
+      bottom: -5px
       width: 180px
       height: 180px
       left: 70%
@@ -157,7 +145,7 @@ body
 
    .term.html
       background-color: #262324
-      bottom: 40px
+      bottom: 50px
       width: 70px
       height: 70px
       left: 94%
@@ -168,7 +156,7 @@ body
 
    .term.css
       background-color: #4c494e
-      bottom: 120px
+      bottom: 130px
       width: 60px
       height: 60px
       left: 55%
@@ -179,7 +167,7 @@ body
 
    .term.angularjs
       background-color: #454143
-      bottom: -50px
+      bottom: -40px
       width: 160px
       height: 160px
       left: 85%
@@ -189,7 +177,7 @@ body
       -o-animation: playAngularjs 3s linear 1s infinite
    .term.backbonejs
       background-color: #454143
-      bottom: 20px
+      bottom: 30px
       width: 110px
       height: 110px
       left: 80%
@@ -199,7 +187,7 @@ body
       -o-animation: playBackbonejs 3s linear 1s infinite
    .term.grunt
       background-color: #231f20
-      bottom: -20px
+      bottom: -10px
       width: 200px
       height: 200px
       left: 3%
@@ -209,7 +197,7 @@ body
       -o-animation: playGrunt 3s linear 1s infinite
    .term.github
       background-color: #464247
-      bottom: 120px
+      bottom: 130px
       width: 60px
       height: 60px
       left: 15%
@@ -219,7 +207,7 @@ body
       -o-animation: playGithub 3s linear 1s infinite
    .term.cplusplus
       background-color: #464247
-      bottom: 100px
+      bottom: 110px
       width: 120px
       height: 120px
       left: 65%
@@ -229,7 +217,7 @@ body
       -o-animation: playCplusplus 3s linear 1s infinite
    .term.js
       background-color: #262223
-      bottom: 80px
+      bottom: 90px
       width: 110px
       height: 110px
       left: 25%
@@ -239,7 +227,7 @@ body
       -o-animation: playJs 3s linear 1s infinite
    .term.notejs
       background-color: #4c494e
-      bottom: -20px
+      bottom: -10px
       width: 160px
       height: 160px
       left: 17%
@@ -249,7 +237,7 @@ body
       -o-animation: playNotejs 3s linear 1s infinite
    .term.bower
       background-color: #585657
-      bottom: 0
+      bottom: 10px
       width: 100px
       height: 100px
       left: 46%
@@ -259,7 +247,7 @@ body
       -o-animation: playBower 3s linear 1s infinite
    .term.yeoman
       background-color: #464247
-      bottom: 0
+      bottom: 10px
       width: 110px
       height: 110px
       left: 63%
@@ -268,631 +256,595 @@ body
       -webkit-animation: playYeoman 3s linear 1s infinite
       -o-animation: playYeoman 3s linear 1s infinite
 
-@keyframes myAnimation
-   0%
-      left: 0px
-   25% 
-      left: 60px
-   75%
-      left: -60px
-   100%
-      left: 0
-@-webkit-keyframes myAnimation
-   0%
-      left: 0px
-   25% 
-      left: 60px
-   75%
-      left: -60px
-   100%
-      left: 0
-@-moz-keyframes myAnimation
-   0%
-      left: 0px
-   25% 
-      left: 60px
-   75%
-      left: -60px
-   100%
-      left: 0
-@-o-keyframes myAnimation
-   0%
-      left: 0px
-   25% 
-      left: 60px
-   75%
-      left: -60px
-   100%
-      left: 0
 // for Java
 @keyframes playJava
    0%
-      bottom: 10px
+      bottom: 20px
    25% 
-      bottom: 15px
+      bottom: 25px
    75%
-      bottom: 5px
+      bottom: 15px
    100%
-      bottom: 10px
+      bottom: 20px
 @-webkit-keyframes playJava
    0%
-      bottom: 10px
+      bottom: 20px
    25% 
-      bottom: 15px
+      bottom: 25px
    75%
-      bottom: 5px
+      bottom: 15px
    100%
-      bottom: 10px
+      bottom: 20px
 @-moz-keyframes playJava
    0%
-      bottom: 10px
+      bottom: 20px
    25% 
-      bottom: 15px
+      bottom: 25px
    75%
-      bottom: 5px
+      bottom: 15px
    100%
-      bottom: 10px
+      bottom: 20px
 @-o-keyframes playJava
    0%
-      bottom: 10px
+      bottom: 20px
    25% 
-      bottom: 15px
+      bottom: 25px
    75%
-      bottom: 5px
+      bottom: 15px
    100%
-      bottom: 10px
+      bottom: 20px
 // for php
 @keyframes playPhp
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-webkit-keyframes playPhp
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-moz-keyframes playPhp
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-o-keyframes playPhp
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 // for dotnet
 @keyframes playDotnet
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 @-webkit-keyframes playDotnet
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 @-moz-keyframes playDotnet
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 @-o-keyframes playDotnet
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 // for python
 @keyframes playPython
    0%
-      bottom: -30px
+      bottom: -20px
    25% 
-      bottom: -25px
+      bottom: -15px
    75%
-      bottom: -35px
+      bottom: -25px
    100%
-      bottom: -30px
+      bottom: -20px
 @-webkit-keyframes playPython
    0%
-      bottom: -30px
+      bottom: -20px
    25% 
-      bottom: -25px
+      bottom: -15px
    75%
-      bottom: -35px
+      bottom: -25px
    100%
-      bottom: -30px
+      bottom: -20px
 @-moz-keyframes playPython
    0%
-      bottom: -30px
+      bottom: -20px
    25% 
-      bottom: -25px
+      bottom: -15px
    75%
-      bottom: -35px
+      bottom: -25px
    100%
-      bottom: -30px
+      bottom: -20px
 @-o-keyframes playPython
    0%
-      bottom: -30px
+      bottom: -20px
    25% 
-      bottom: -25px
+      bottom: -15px
    75%
-      bottom: -35px
+      bottom: -25px
    100%
-      bottom: -30px
+      bottom: -20px
 // for jenkins
 @keyframes playJenkins
    0%
-      bottom: -15px
+      bottom: -5px
    25% 
-      bottom: -10px
+      bottom: 0
    75%
-      bottom: -20px
+      bottom: -10px
    100%
-      bottom: -15px
+      bottom: -5px
 @-webkit-keyframes playJenkins
    0%
-      bottom: -15px
+      bottom: -5px
    25% 
-      bottom: -10px
+      bottom: 0
    75%
-      bottom: -20px
+      bottom: -10px
    100%
-      bottom: -15px
+      bottom: -5px
 @-moz-keyframes playJenkins
    0%
-      bottom: -15px
+      bottom: -5px
    25% 
-      bottom: -10px
+      bottom: 0
    75%
-      bottom: -20px
+      bottom: -10px
    100%
-      bottom: -15px
+      bottom: -5px
 @-o-keyframes playJenkins
    0%
-      bottom: -15px
+      bottom: -5px
    25% 
-      bottom: -10px
+      bottom: 0
    75%
-      bottom: -20px
+      bottom: -10px
    100%
-      bottom: -15px
+      bottom: -5px
 // for Html
 @keyframes playHtml
    0%
-      bottom: 40px
+      bottom: 50px
    25% 
-      bottom: 45px
+      bottom: 55px
    75%
-      bottom: 35px
+      bottom: 45px
    100%
-      bottom: 40px
+      bottom: 50px
 @-webkit-keyframes playHtml
    0%
-      bottom: 40px
+      bottom: 50px
    25% 
-      bottom: 45px
+      bottom: 55px
    75%
-      bottom: 35px
+      bottom: 45px
    100%
-      bottom: 40px
+      bottom: 50px
 @-moz-keyframes playHtml
    0%
-      bottom: 40px
+      bottom: 50px
    25% 
-      bottom: 45px
+      bottom: 55px
    75%
-      bottom: 35px
+      bottom: 45px
    100%
-      bottom: 40px
+      bottom: 50px
 @-o-keyframes playHtml
    0%
-      bottom: 40px
+      bottom: 50px
    25% 
-      bottom: 45px
+      bottom: 55px
    75%
-      bottom: 35px
+      bottom: 45px
    100%
-      bottom: 40px
+      bottom: 50px
 // for Css
 @keyframes playCss
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 @-webkit-keyframes playCss
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 @-moz-keyframes playCss
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 @-o-keyframes playCss
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 // for Angular Js
 @keyframes playAngularjs
    0%
-      bottom: -50px
+      bottom: -40px
    25% 
-      bottom: -45px
+      bottom: -35px
    75%
-      bottom: -55px
+      bottom: -45px
    100%
-      bottom: -50px
+      bottom: -40px
 @-webkit-keyframes playAngularjs
    0%
-      bottom: -50px
+      bottom: -40px
    25% 
-      bottom: -45px
+      bottom: -35px
    75%
-      bottom: -55px
+      bottom: -45px
    100%
-      bottom: -50px
+      bottom: -40px
 @-moz-keyframes playAngularjs
    0%
-      bottom: -50px
+      bottom: -40px
    25% 
-      bottom: -45px
+      bottom: -35px
    75%
-      bottom: -55px
+      bottom: -45px
    100%
-      bottom: -50px
+      bottom: -40px
 @-o-keyframes playAngularjs
    0%
-      bottom: -50px
+      bottom: -40px
    25% 
-      bottom: -45px
+      bottom: -35px
    75%
-      bottom: -55px
+      bottom: -45px
    100%
-      bottom: -50px
+      bottom: -40px
 // for Backbonejs
 @keyframes playBackbonejs
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 @-webkit-keyframes playBackbonejs
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 @-moz-keyframes playBackbonejs
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 @-o-keyframes playBackbonejs
    0%
-      bottom: 20px
+      bottom: 30px
    25% 
-      bottom: 25px
+      bottom: 35px
    75%
-      bottom: 15px
+      bottom: 25px
    100%
-      bottom: 20px
+      bottom: 30px
 // for Grunt
 @keyframes playGrunt
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 @-webkit-keyframes playGrunt
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 @-moz-keyframes playGrunt
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 @-o-keyframes playGrunt
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 // for Github
 @keyframes playGithub
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 @-webkit-keyframes playGithub
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 @-moz-keyframes playGithub
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 @-o-keyframes playGithub
    0%
-      bottom: 120px
+      bottom: 130px
    25% 
-      bottom: 125px
+      bottom: 135px
    75%
-      bottom: 115px
+      bottom: 125px
    100%
-      bottom: 120px
+      bottom: 130px
 // for Cplusplus
 @keyframes playCplusplus
    0%
-      bottom: 100px
+      bottom: 110px
    25% 
-      bottom: 105px
+      bottom: 115px
    75%
-      bottom: 95px
+      bottom: 105px
    100%
-      bottom: 100px
+      bottom: 110px
 @-webkit-keyframes playCplusplus
    0%
-      bottom: 100px
+      bottom: 110px
    25% 
-      bottom: 105px
+      bottom: 115px
    75%
-      bottom: 95px
+      bottom: 105px
    100%
-      bottom: 100px
+      bottom: 110px
 @-moz-keyframes playCplusplus
    0%
-      bottom: 100px
+      bottom: 110px
    25% 
-      bottom: 105px
+      bottom: 115px
    75%
-      bottom: 95px
+      bottom: 105px
    100%
-      bottom: 100px
+      bottom: 110px
 @-o-keyframes playCplusplus
    0%
-      bottom: 100px
+      bottom: 110px
    25% 
-      bottom: 105px
+      bottom: 115px
    75%
-      bottom: 95px
+      bottom: 105px
    100%
-      bottom: 100px
+      bottom: 110px
 // for Js
 @keyframes playJs
    0%
-      bottom: 80px
+      bottom: 90px
    25% 
-      bottom: 85px
+      bottom: 95px
    75%
-      bottom: 75px
+      bottom: 85px
    100%
-      bottom: 80px
+      bottom: 90px
 @-webkit-keyframes playJs
    0%
-      bottom: 80px
+      bottom: 90px
    25% 
-      bottom: 85px
+      bottom: 95px
    75%
-      bottom: 75px
+      bottom: 85px
    100%
-      bottom: 80px
+      bottom: 90px
 @-moz-keyframes playJs
    0%
-      bottom: 80px
+      bottom: 90px
    25% 
-      bottom: 85px
+      bottom: 95px
    75%
-      bottom: 75px
+      bottom: 85px
    100%
-      bottom: 80px
+      bottom: 90px
 @-o-keyframes playJs
    0%
-      bottom: 80px
+      bottom: 90px
    25% 
-      bottom: 85px
+      bottom: 95px
    75%
-      bottom: 75px
+      bottom: 85px
    100%
-      bottom: 80px
+      bottom: 90px
 // for Notejs
 @keyframes playNotejs
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 @-webkit-keyframes playNotejs
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 @-moz-keyframes playNotejs
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 @-o-keyframes playNotejs
    0%
-      bottom: -20px
+      bottom: -10px
    25% 
-      bottom: -15px
+      bottom: -5px
    75%
-      bottom: -25px
+      bottom: -15px
    100%
-      bottom: -20px
+      bottom: -10px
 // for Bower
 @keyframes playBower
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-webkit-keyframes playBower
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-moz-keyframes playBower
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-o-keyframes playBower
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 // for Yeoman
 @keyframes playYeoman
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-webkit-keyframes playYeoman
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-moz-keyframes playYeoman
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
 @-o-keyframes playYeoman
    0%
-      bottom: 0
+      bottom: 10px
    25% 
-      bottom: 5px
+      bottom: 15px
    75%
-      bottom: -5px
+      bottom: 5px
    100%
-      bottom: 0
+      bottom: 10px
