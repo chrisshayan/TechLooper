@@ -3,10 +3,25 @@ module.exports = function(grunt) {
    grunt.initConfig({
       pkg : grunt.file.readJSON("package.json"),
 
+      useminPrepare: {
+         html: "<%=pkg.assets%>index.html",
+         options: {
+             dest: "<%=pkg.assets%>"
+         }
+     },
+
+      usemin : {
+         html : [ "<%=pkg.assets%>index.html" ],
+         options: {
+            assetsDirs: ['<%=pkg.assets%>css']
+          }
+      },
+      
+
       "bower-install-simple" : {
          options : {
             color : true,
-            directory : "<%=pkg.assets%>" + "bower_components"
+            directory : "<%=pkg.assets%>bower_components"
          },
          prod : {
             options : {
@@ -18,10 +33,10 @@ module.exports = function(grunt) {
       wiredep : {
          options : {
             color : true,
-            directory : "<%=pkg.assets%>" + "bower_components"
+            directory : "<%=pkg.assets%>bower_components"
          },
          target : {
-            src : [ "<%=pkg.assets%>" + "index.html" ]
+            src : [ "<%=pkg.assets%>index.html" ]
          }
       },
 
@@ -32,13 +47,9 @@ module.exports = function(grunt) {
             debug : true
          },
          target : {
-            files : [ {
-               expand : true,
-               cwd : "<%=pkg.assets%>",
-               src : [ "index.tpl.html" ],
-               dest : "<%=pkg.assets%>",
-               ext : ".html"
-            } ]
+            files : {
+               "<%=pkg.assets%>index.html" : "<%=pkg.assets%>index.tpl.html"
+            }
          }
       },
 
@@ -78,7 +89,12 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks("grunt-include-source");
    grunt.loadNpmTasks("grunt-wiredep");
    grunt.loadNpmTasks("grunt-bower-install-simple");
+   grunt.loadNpmTasks("grunt-contrib-uglify");
+   grunt.loadNpmTasks("grunt-contrib-concat");
+   grunt.loadNpmTasks("grunt-contrib-cssmin");
+   grunt.loadNpmTasks("grunt-usemin");
 
-   grunt.registerTask("build", [ "bower-install-simple", "includeSource:target", "wiredep:target" ]);
+   grunt.registerTask("default", [ "bower-install-simple", "includeSource:target", "wiredep:target" ]);
+   grunt.registerTask("build", [ "bower-install-simple", "includeSource:target", "wiredep:target", "useminPrepare", 'concat', 'uglify', 'cssmin', 'usemin']);
    grunt.registerTask("run", [ "connect", "watch" ]);
 };

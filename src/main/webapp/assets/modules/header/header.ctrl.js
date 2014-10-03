@@ -1,4 +1,4 @@
-angular.module("Header").controller("headerController", function($scope, $http, $translate, jsonFactory) {
+angular.module("Header").controller("headerController", ["$scope", "jsonFactory", function($scope, jsonFactory) {
 
    
    
@@ -30,4 +30,4 @@ angular.module("Header").controller("headerController", function($scope, $http, 
    }
    $scope.langKeys = jsonFactory.availableLanguageKeys;
 
-});
+}]);
