@@ -1,3 +1,3 @@
-angular.module('Home').controller('homeController', function($scope) {
-   $scope.tagline = 'Career Analytics. Open Source. Awesome!';
-});
+angular.module('Home').controller('homeController', ["$scope", function($scope) {
+  
+}]);

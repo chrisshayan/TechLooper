@@ -1,0 +1,205 @@
+html
+  height: 100%
+
+body
+  height: 100%
+  background-color: #2e272a
+  color: #727272
+  font-family: 'roboto', arial
+  font-weight: 300
+
+ul
+  list-style: none
+
+a:hover
+  text-decoration: none
+
+.container
+  width: 100%
+  padding: 0
+
+/* -- style for header --*/
+
+.fa-bubble-chart
+  background: url(../images/ic-small.png) left 3px no-repeat
+  height: 20px
+  width: 20px
+
+.navbar-inverse
+  background: url(../images/line-header.png) #2e272a center bottom no-repeat
+  border: 0
+
+.setting-content
+  background-color: #323232
+  border: 1px solid #3d373a
+  padding: 4px
+  border-radius: 5px
+  max-height: 30px
+  height: 30px
+  width: 28px
+  position: relative
+  i
+    font-size: 20px
+    cursor: pointer
+
+.setting-label
+  width: 20px
+  float: left
+  cursor: pointer
+
+.setting-content ul
+  margin: 0
+  padding: 0
+
+ul.setting-items
+  display: none
+
+.setting-content li
+  float: left
+  padding-left: 10px
+
+.langKey
+  width: 25px
+  height: 25px
+  cursor: pointer
+
+.keyboard-shortcuts-items
+  background: #000000
+  padding: 10px
+  width: 240px
+  height: auto
+  display: none
+  position: absolute
+  left: -1px
+  top: 28px
+  border: 1px solid #3d373a
+  border-radius: 5px
+  li
+    display: block
+    clear: both
+    border-top: 1px solid #2d2d2d
+    padding: 5px 0
+    width: 100%
+    text-align: right
+    &:first-child
+      border-top: 0
+      padding-top: 0
+    span
+      float: left
+
+.logo-block h1
+  margin: 0
+  padding: 0
+
+/* --- Style for bubble chart ---*/
+
+.bubble-chart-block
+  display: block
+  clear: both
+  /*padding-top:50px;*/
+  width: 100%
+  float: left
+  height: 500px
+  text-align: center
+
+.bubble-chart-container
+  width: 400px
+  margin: auto
+
+.find-jobs-block
+  float: left
+  clear: both
+  width: 100%
+  text-align: center
+
+.find-jobs-container
+  width: 600px
+  margin: auto
+  position: relative
+  text-align: center
+
+.find-jobs-button
+  margin: auto
+  text-align: center
+  a
+    background: url(../images/ic-find-jobs.png) center 20px no-repeat
+    width: 150px
+    display: block
+    height: 48px
+    color: #727272
+    margin: auto
+    &:hover
+      background-position: center 22px
+      color: #afafaf
+      padding-top: 2px
+
+/* --- Style for footer ---*/
+
+footer
+  position: fixed
+  bottom: 0
+  width: 100%
+  z-index: 22
+
+.companies-block h2
+  font-size: 16px
+  text-transform: uppercase
+  font-weight: 300
+  background-color: #000000
+  border-radius: 5px 5px 0 0
+  width: auto
+  padding: 5px 10px
+  display: inline
+  cursor: pointer
+  z-index: 99
+
+.companies-list
+  background-color: #000000
+  width: 100%
+  height: 0
+  padding: 5px 10px
+  clear: both
+  position: relative
+  bottom: 0
+  ul
+    padding: 0
+    margin: 0
+    text-align: center
+  li
+    display: inline-block
+    padding: 0 5px
+  a
+    width: 180px
+    height: 100px
+    cursor: pointer
+    display: block
+  img
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
+    /* Firefox 10+, Firefox on Android*/
+    filter: grayscale(100%)
+    -moz-filter: grayscale(100%)
+    -ms-filter: grayscale(100%)
+    -o-filter: grayscale(100%)
+    filter: gray
+    /* IE6-9*/
+    -webkit-filter: grayscale(100%)
+    /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
+  a:hover img
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale")
+    filter: grayscale(0%)
+    -moz-filter: grayscale(0%)
+    -ms-filter: grayscale(0%)
+    -o-filter: grayscale(0%)
+    filter: none
+    /* IE6-9*/
+    zoom: 1
+    -webkit-filter: grayscale(0%)
+    /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
+
+.discussion-board-block
+  position: absolute
+  right: 10px
+  top: -13px
+  cursor: pointer
+  i
+    font-size: 30px

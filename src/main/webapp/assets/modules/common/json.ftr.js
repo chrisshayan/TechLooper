@@ -1,7 +1,20 @@
 angular.module("Common").factory("jsonFactory", function() {
 
    return {
-      mPositionDefault : function() {
+      availableLanguageKeys : (function() {
+         return [
+            {
+               "name" : "EN",
+               "value" : "en-US"
+            },
+            {
+               "name" : "VI",
+               "value" : "vi"
+            }
+         ];
+      })(),
+
+      mPositionDefault : (function() {
          return [ {
             "data" : [ {
                "top" : "290px",
@@ -32,8 +45,8 @@ angular.module("Common").factory("jsonFactory", function() {
                "left" : "70px"
             } ]
          } ]
-      },
-      dPositionDefault : function() {
+      })(),
+      dPositionDefault : (function() {
          return [ {
             "data" : [ {
                "top" : "5px",
@@ -64,8 +77,8 @@ angular.module("Common").factory("jsonFactory", function() {
                "left" : "190px"
             } ]
          } ]
-      },
-      mBubblePosition : function() {
+      })(),
+      mBubblePosition : (function() {
          return [ {
             "name" : "java",
             "data" : [ {
@@ -337,8 +350,8 @@ angular.module("Common").factory("jsonFactory", function() {
                "left" : "130px"
             } ]
          } ]
-      },
-      dBubblePosition : function() {
+      })(),
+      dBubblePosition : (function() {
          return [ {
             "name" : "java",
             "data" : [ {
@@ -610,8 +623,8 @@ angular.module("Common").factory("jsonFactory", function() {
                "left" : "-80px"
             } ]
          } ]
-      },
-      shortcuts : function() {
+      })(),
+      shortcuts : (function() {
          return [ {
             "id" : 1,
             "name" : "Career Analytics",
@@ -629,9 +642,9 @@ angular.module("Common").factory("jsonFactory", function() {
             "name" : "Function Name 2",
             "keyShort" : "Ctrl + Alt + 2"
          } ];
-      },
+      })(),
 
-      companies : function() {
+      companies : (function() {
          return [ {
             "id" : 1,
             "img" : "images/cp-logo-atlassian.png",
@@ -657,6 +670,6 @@ angular.module("Common").factory("jsonFactory", function() {
             "img" : "images/cp-logo-vtv.png",
             "url" : "https://www.vtv.vn/"
          } ];
-      }
+      })()
    }
 });

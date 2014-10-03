@@ -15,19 +15,18 @@
     <title>Techlooper | Career Analytics. Open Source. Awesome!</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="images/icon.ico" type="image/x-icon" />
     <meta name="description" content="Techlooper.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'> -->
-<!--     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
-<!--     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"> -->
-<!--     <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
-<!--     <link rel="stylesheet" href="css/main.css"> -->
-<!--     <link rel="stylesheet" href="css/bubble.css"> -->
-<!--     <link rel="stylesheet" href="css/responsive.css"> -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
-    <!-- include: "type": "css", "files": "bower_components/**/*.min.css" -->
+    <!-- build:css generate-resources/techlooper.min.css -->
     <!-- include: "type": "css", "files": "css/**/*.css" -->
+    <!-- endbuild -->
 </head>
 
 <body ng-app="Techlooper">
@@ -35,20 +34,15 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
+
 <div header></div>
 <div ng-view></div>
 <div footer></div>
 </body>
-
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Vendor: Angular, followed by our custom Javascripts -->
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-    <script type="text/javascript" src="bower_components/sockjs/sockjs.min.js"></script>
-    <script type="text/javascript" src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
+   <!-- build:js generate-resources/techlooper.min.js -->
+   <!-- bower:js -->
+   <!-- endbower -->
    <!-- include: "type": "js", "files": "custom-js/**/*.js" -->
    <!-- include: "type": "js", "files": "modules/**/*.js" -->
+   <!-- endbuild -->
 </html>
