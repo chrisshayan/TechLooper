@@ -1,4 +1,4 @@
-angular.module("Footer").controller("footerController", function($scope, $http, jsonFactory) {
+angular.module("Footer").controller("footerController", ["$scope", "jsonFactory", function($scope, jsonFactory) {
    $scope.companies = jsonFactory.companies;
 
    var cp = $('.companies-bar'), list = $('.companies-list');
@@ -19,4 +19,4 @@ angular.module("Footer").controller("footerController", function($scope, $http, 
          });
       }
    });
-});
+}]);

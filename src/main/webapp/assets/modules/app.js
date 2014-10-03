@@ -8,7 +8,7 @@ angular.module("Jobs", []);
 
 var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Home", "Header", "Footer", "Common", "Chart", "Jobs"]);
 
-techlooper.config(function($routeProvider, $translateProvider, $locationProvider) {
+techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", function($routeProvider, $translateProvider, $locationProvider) {
     $translateProvider.useStaticFilesLoader({
         prefix: "modules/translation/messages_",
         suffix: ".json"
@@ -27,7 +27,7 @@ techlooper.config(function($routeProvider, $translateProvider, $locationProvider
     }).otherwise({
         redirectTo: "/"
     });
-});
+}]);
 
 techlooper.directive("header", function() {
     return {

@@ -31,4 +31,6 @@ css/
 static/
 *.log
 
-
+#Gruntfile.js
+generate-resources/
+.tmp/

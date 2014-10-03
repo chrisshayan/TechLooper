@@ -1,4 +1,4 @@
-angular.module('Chart').controller('chartController', function ($scope, jsonFactory) {
+angular.module('Chart').controller('chartController', ["$scope", "jsonFactory", function ($scope, jsonFactory) {
     var socket = new SockJS('ws');
     stompClient = Stomp.over(socket),
     currentTerms = new Array,
@@ -1448,4 +1448,4 @@ angular.module('Chart').controller('chartController', function ($scope, jsonFact
         });
     });
 
-});
+}]);
