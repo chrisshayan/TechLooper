@@ -3,26 +3,9 @@ module.exports = function(grunt) {
    grunt.initConfig({
       pkg : grunt.file.readJSON("package.json"),
 
-      includeSource : {
-         options : {
-            basePath : ".",
-            duplicates : false,
-            debug : true
-         },
-         target : {
-            files : {
-               'index.html' : 'index.tpl.html'
-            }
-         }
-      },
-
       watch : {
-         includeSource : {
-            files : [ "default.tpl.html" ],
-            tasks : [ "includeSource:target" ]
-         },
          scripts : {
-            files : [ "*.js" ],
+            files : [ "*.js", "*.json" ],
             options : {
                livereload : true
             }
@@ -43,7 +26,7 @@ module.exports = function(grunt) {
       connect : {
          server : {
             options : {
-               port : 8080,
+               port : 8081,
                base : ".",
                keepalive : true
             }
@@ -53,8 +36,5 @@ module.exports = function(grunt) {
 
    grunt.loadNpmTasks("grunt-contrib-watch");
    grunt.loadNpmTasks("grunt-contrib-connect");
-   grunt.loadNpmTasks("grunt-include-source");
-
-   grunt.registerTask("build", [ "includeSource:target" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
 };

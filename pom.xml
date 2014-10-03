@@ -38,6 +38,9 @@
       <slf4j-simple.version>1.7.7</slf4j-simple.version>
       <hamcrest-core.version>1.3</hamcrest-core.version>
       <mockito-core.version>1.9.5</mockito-core.version>
+      <frontend-maven-plugin.nodeVersion>v0.10.31</frontend-maven-plugin.nodeVersion>
+      <frontend-maven-plugin.npmVersion>1.4.26</frontend-maven-plugin.npmVersion>
+       <sass-maven-plugin.version>1.1.1</sass-maven-plugin.version>
    </properties>
    <build>
       <finalName>techlooper</finalName>
@@ -46,6 +49,15 @@
             <directory>src/main/resources/common</directory>
         </resource>
       </resources>
+     <pluginManagement>
+         <plugins>
+             <plugin>
+                 <groupId>org.jasig.maven</groupId>
+                 <artifactId>sass-maven-plugin</artifactId>
+                 <version>${sass-maven-plugin.version}</version>
+             </plugin>
+         </plugins>
+     </pluginManagement>
       <plugins>
          <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -55,25 +67,64 @@
                <target>1.8</target>
             </configuration>
          </plugin>
+          <plugin>
+              <groupId>org.jasig.maven</groupId>
+              <artifactId>sass-maven-plugin</artifactId>
+              <version>${sass-maven-plugin.version}</version>
+              <executions>
+                  <execution>
+                      <id>Generate CSS files</id>
+                      <goals>
+                          <goal>update-stylesheets</goal>
+                      </goals>
+                      <phase>generate-sources</phase>
+                  </execution>
+              </executions>
+              <configuration>
+                  <resources>
+                      <resource>
+                          <source>
+                              <directory>${project.basedir}/src/main/webapp/assets/sass</directory>
+                          </source>
+                          <destination>${project.basedir}/src/main/webapp/assets/css</destination>
+                      </resource>
+                  </resources>
+              </configuration>
+          </plugin>
          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-             <version>1.3.2</version>
-            <executions>
-               <execution>
-                  <phase>generate-sources</phase>
-                  <goals>
-                     <goal>exec</goal>
-                  </goals>
-               </execution>
-            </executions>
-            <configuration>
-               <executable>bower</executable>
-               <arguments>
-                  <argument>install</argument>
-               </arguments>
-               <workingDirectory>${basedir}/src/main/webapp/assets</workingDirectory>
-            </configuration>
+             <groupId>com.github.eirslett</groupId>
+             <artifactId>frontend-maven-plugin</artifactId>
+             <version>0.0.16</version>
+             <executions>
+                 <execution>
+                     <id>install node and npm</id>
+                     <goals>
+                         <goal>install-node-and-npm</goal>
+                     </goals>
+                     <phase>generate-resources</phase>
+                     <configuration>
+                         <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+                         <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
+                     </configuration>
+                 </execution>
+                 <execution>
+                     <id>npm install</id>
+                     <goals>
+                         <goal>npm</goal>
+                     </goals>
+                     <phase>generate-resources</phase>
+                 </execution>
+                 <execution>
+                     <id>grunt build</id>
+                     <goals>
+                         <goal>grunt</goal>
+                     </goals>
+                     <phase>generate-resources</phase>
+                     <configuration>
+                         <arguments>build</arguments>
+                     </configuration>
+                 </execution>
+             </executions>
          </plugin>
          <plugin>
             <groupId>org.eclipse.jetty</groupId>
@@ -91,6 +142,7 @@
             <version>2.4</version>
             <configuration>
                <failOnMissingWebXml>false</failOnMissingWebXml>
+               <excludes>**/*.sass</excludes>
             </configuration>
          </plugin>
          <plugin>

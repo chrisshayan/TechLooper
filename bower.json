@@ -1,0 +1,23 @@
+{
+   "name": "TechLooper",
+   "dependencies": {
+      "jquery": "latest",
+      "bootstrap" : "latest",
+      "components-font-awesome": "latest",
+      "sockjs": "latest",
+      "stomp-websocket": "latest",
+      "angular": "latest",
+      "angular-resource": "latest",
+      "angular-route" : "latest",
+      "angular-cookies": "latest",
+      "angular-translate": "latest",
+      "angular-translate-storage-local": "latest",
+      "angular-translate-storage-cookie": "latest",
+      "angular-translate-loader-static-files" : "latest"
+   },
+   "overrides": {
+      "stomp-websocket": {
+          "main": "lib/stomp.min.js"
+      }
+   }
+}

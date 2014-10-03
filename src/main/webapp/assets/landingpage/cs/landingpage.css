@@ -1,0 +1,192 @@
+body {
+  background: #2e272a url(../images/bg.png) center top no-repeat;
+  font-size: 12px;
+  font-family: Roboto;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box; }
+
+.landingpage-webapp {
+  width: 100%;
+  text-align: center; }
+
+.landingpage-main {
+  width: 410px;
+  margin: auto;
+  position: relative;
+  text-align: center; }
+
+.big-bubble {
+  position: relative; }
+
+.main-page ul {
+  list-style: none; }
+
+.bubble-logo {
+  width: 410px;
+  height: 310px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative; }
+  .bubble-logo img {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0; }
+
+.join-us {
+  width: 300px;
+  height: 44px;
+  position: absolute;
+  bottom: 30px;
+  margin: auto;
+  left: 0;
+  right: 0; }
+  .join-us a {
+    width: 100%;
+    display: block;
+    height: 50px;
+    border: 1px solid #007cdc;
+    border-radius: 10px;
+    color: #fff;
+    line-height: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 300;
+    text-align: center; }
+  .join-us a:hover {
+    background-color: #007cdc; }
+  .join-us span.ic-github {
+    background: url(../images/ic-github.png) right 7px no-repeat;
+    width: 215px;
+    display: block;
+    margin: auto;
+    padding-right: 45px; }
+
+.landingpage-terms {
+  width: 100%;
+  clear: both;
+  display: block;
+  position: fixed;
+  bottom: 0; }
+  .landingpage-terms ul {
+    display: block; }
+    .landingpage-terms ul li {
+      width: 100%;
+      clear: both; }
+  .landingpage-terms .term {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    position: absolute;
+    opacity: 0.8;
+    text-align: center; }
+    .landingpage-terms .term img {
+      width: 50%;
+      margin: auto;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0; }
+  .landingpage-terms .term.java {
+    background-color: #332e32;
+    bottom: 20px;
+    width: 80px;
+    height: 80px;
+    left: -5%;
+    z-index: 99; }
+  .landingpage-terms .term.php {
+    background-color: #4c494e;
+    bottom: 10px;
+    left: 28%; }
+  .landingpage-terms .term.dotnet {
+    background-color: #231f20;
+    width: 180px;
+    height: 180px;
+    bottom: 30px;
+    left: 34%; }
+  .landingpage-terms .term.python {
+    background-color: #585657;
+    bottom: -20px;
+    width: 150px;
+    height: 150px;
+    left: 53%; }
+  .landingpage-terms .term.jenkins {
+    background-color: #231f20;
+    bottom: -5px;
+    width: 180px;
+    height: 180px;
+    left: 70%; }
+  .landingpage-terms .term.html {
+    background-color: #262324;
+    bottom: 50px;
+    width: 70px;
+    height: 70px;
+    left: 94%; }
+  .landingpage-terms .term.css {
+    background-color: #4c494e;
+    bottom: 130px;
+    width: 60px;
+    height: 60px;
+    left: 55%; }
+  .landingpage-terms .term.angularjs {
+    background-color: #454143;
+    bottom: -40px;
+    width: 160px;
+    height: 160px;
+    left: 85%; }
+  .landingpage-terms .term.backbonejs {
+    background-color: #454143;
+    bottom: 30px;
+    width: 110px;
+    height: 110px;
+    left: 80%; }
+  .landingpage-terms .term.grunt {
+    background-color: #231f20;
+    bottom: -10px;
+    width: 200px;
+    height: 200px;
+    left: 3%; }
+  .landingpage-terms .term.github {
+    background-color: #464247;
+    bottom: 130px;
+    width: 60px;
+    height: 60px;
+    left: 15%; }
+  .landingpage-terms .term.cplusplus {
+    background-color: #464247;
+    bottom: 110px;
+    width: 120px;
+    height: 120px;
+    left: 65%; }
+  .landingpage-terms .term.js {
+    background-color: #262223;
+    bottom: 90px;
+    width: 110px;
+    height: 110px;
+    left: 25%; }
+  .landingpage-terms .term.notejs {
+    background-color: #4c494e;
+    bottom: -10px;
+    width: 160px;
+    height: 160px;
+    left: 17%; }
+  .landingpage-terms .term.bower {
+    background-color: #585657;
+    bottom: 10px;
+    width: 100px;
+    height: 100px;
+    left: 46%; }
+  .landingpage-terms .term.yeoman {
+    background-color: #464247;
+    bottom: 10px;
+    width: 110px;
+    height: 110px;
+    left: 63%; }
+
+/*# sourceMappingURL=landingpage.css.map */
