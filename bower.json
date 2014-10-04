@@ -2,55 +2,55 @@
    "name": "TechLooper",
    "dependencies": {
       "jquery": "latest",
-      "bootstrap" : "latest",
+      "bootstrap": "latest",
       "components-font-awesome": "latest",
       "sockjs": "latest",
       "stomp-websocket": "latest",
       "angular": "latest",
       "angular-resource": "latest",
-      "angular-route" : "latest",
+      "angular-route": "latest",
       "angular-cookies": "latest",
       "angular-translate": "latest",
       "angular-translate-storage-local": "latest",
       "angular-translate-storage-cookie": "latest",
-      "angular-translate-loader-static-files" : "latest"
+      "angular-translate-loader-static-files": "latest"
    },
    "overrides": {
       "jquery": {
-          "main": "dist/jquery.min.js"
+         "main": "dist/jquery.min.js"
       },
       "bootstrap": {
-          "main": "dist/js/bootstrap.min.js"
+         "main": "dist/js/bootstrap.min.js"
       },
       "sockjs": {
-          "main": "sockjs.min.js"
+         "main": "sockjs.min.js"
       },
       "stomp-websocket": {
-          "main": "lib/stomp.min.js"
+         "main": "lib/stomp.min.js"
       },
       "angular": {
-          "main": "angular.min.js"
+         "main": "angular.min.js"
       },
       "angular-resource": {
-          "main": "angular-resource.min.js"
+         "main": "angular-resource.min.js"
       },
       "angular-route": {
-          "main": "angular-route.min.js"
+         "main": "angular-route.min.js"
       },
       "angular-cookies": {
-          "main": "angular-cookies.min.js"
+         "main": "angular-cookies.min.js"
       },
       "angular-translate": {
-          "main": "angular-translate.min.js"
+         "main": "angular-translate.min.js"
       },
       "angular-translate-storage-local": {
-          "main": "angular-translate-storage-local.min.js"
+         "main": "angular-translate-storage-local.min.js"
       },
       "angular-translate-storage-cookie": {
-          "main": "angular-translate-storage-cookie.min.js"
+         "main": "angular-translate-storage-cookie.min.js"
       },
       "angular-translate-loader-static-files": {
-          "main": "angular-translate-loader-static-files.min.js"
+         "main": "angular-translate-loader-static-files.min.js"
       }
    }
 }

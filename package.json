@@ -12,7 +12,10 @@
     "grunt-contrib-concat": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-clean": "latest",
     "grunt-bower-install-simple": "latest"
   },
-  "assets": "src/main/webapp/assets/"
+  "assets": "src/main/webapp/assets/",
+  "public": "src/main/webapp/public/"
 }

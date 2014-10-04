@@ -23,6 +23,9 @@ npm.tar.gz
 # maven build
 target/
 
+# build folder
+public/
+
 # files to be excluded from source code
 index.html
 css/
