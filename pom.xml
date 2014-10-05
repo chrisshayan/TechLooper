@@ -132,9 +132,7 @@
             <artifactId>compressor</artifactId>
             <version>1.0</version>
             <configuration>
-               <outputExt>gz</outputExt>
                <workingDirectory>src/main/webapp/public</workingDirectory>
-               <includeSubDirectories>true</includeSubDirectories>
             </configuration>
             <executions>
                <execution>
