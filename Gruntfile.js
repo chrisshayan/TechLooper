@@ -5,17 +5,24 @@ module.exports = function(grunt) {
 
       clean : {
          build : [ "<%=pkg.public%>" ],
-         dev : ["<%=pkg.public%>index.tpl.html", "<%=pkg.public%>sass", "<%=pkg.assets%>css"],
          release : ["<%=pkg.public%>index.tpl.html", "<%=pkg.public%>sass", "<%=pkg.public%>custom-js", "<%=pkg.assets%>css"]
       },
 
       copy : {
-         main : {
+         build : {
             files : [ {
                cwd : "<%=pkg.assets%>",
                expand : true,
                src : [ "**" ],
                dest : "<%=pkg.public%>"
+            } ]
+         },
+         dev : {
+            files : [ {
+               cwd : "<%=pkg.public%>",
+               expand : true,
+               src : [ "css/**", "bower_components/**", "index.html" ],
+               dest : "<%=pkg.assets%>"
             } ]
          }
       },
@@ -113,10 +120,10 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks("grunt-contrib-clean");
 
    grunt.registerTask("html", [ "clean:build", "bower-install-simple", "includeSource:target", "wiredep:target" ]);
-   grunt.registerTask("build", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
+   grunt.registerTask("build", [ "clean:build", "copy:build", "bower-install-simple", "includeSource:target", 
                                  "wiredep:target", "useminPrepare", "concat", "uglify", "cssmin", "usemin", "clean:release" ]);
    grunt.registerTask("dev", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
-                                 "wiredep:target", "clean:dev" ]);
+                                 "wiredep:target", "copy:dev" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
    grunt.registerTask("default", [ "clean:build", "copy" ]);
 };
