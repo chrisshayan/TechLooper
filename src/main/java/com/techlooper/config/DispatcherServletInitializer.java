@@ -16,15 +16,17 @@
 
 package com.techlooper.config;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-   // protected Filter[] getServletFilters() {
-   // return new Filter[] { new ShallowEtagHeaderFilter() };
-   // }
+   protected Filter[] getServletFilters() {
+      return new Filter[] { new ShallowEtagHeaderFilter() };
+   }
 
    protected Class<?>[] getRootConfigClasses() {
       return new Class<?>[] { CoreConfiguration.class };
@@ -35,7 +37,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
    }
 
    protected String[] getServletMappings() {
-      return new String[] { "/" };
+      return new String[] { "/*.html", "/*.css", "/*.js", "/*.ico", "/*.png" };
    }
 
    protected void customizeRegistration(Dynamic registration) {
