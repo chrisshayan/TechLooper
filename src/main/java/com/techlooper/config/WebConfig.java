@@ -1,8 +1,6 @@
 package com.techlooper.config;
 
-import javax.annotation.Resource;
-
-import org.springframework.cache.CacheManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,15 +13,15 @@ import org.springframework.web.servlet.resource.GzipResourceResolver;
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-   @Resource
-   private CacheManager cacheManager;
+   @Value("${webapp.uri}")
+   private String uri;
 
    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
       configurer.enable();
    }
 
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-      registry.addResourceHandler("/**").addResourceLocations("/assets/**").resourceChain(true)
+      registry.addResourceHandler("/**").addResourceLocations("/" + uri + "/**").resourceChain(true)
       /* .addResolver(new CachingResourceResolver(cacheManager, "default")) */.addResolver(new GzipResourceResolver())
       // .addTransformer(new CachingResourceTransformer(cacheManager,
       // "default"))
