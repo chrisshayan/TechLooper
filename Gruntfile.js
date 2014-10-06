@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
       clean : {
          build : [ "<%=pkg.public%>" ],
-         release : ["<%=pkg.public%>index.tpl.html", "<%=pkg.public%>sass", "<%=pkg.public%>custom-js"]
+         release : ["<%=pkg.public%>index.tpl.html", "<%=pkg.public%>sass", "<%=pkg.public%>custom-js", "<%=pkg.assets%>css"]
       },
 
       copy : {
@@ -114,6 +114,8 @@ module.exports = function(grunt) {
    grunt.registerTask("html", [ "clean:build", "bower-install-simple", "includeSource:target", "wiredep:target" ]);
    grunt.registerTask("build", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
                                  "wiredep:target", "useminPrepare", "concat", "uglify", "cssmin", "usemin", "clean:release" ]);
+   grunt.registerTask("dev", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
+                                 "wiredep:target", "clean:release" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
    grunt.registerTask("default", [ "clean:build", "copy" ]);
 };
