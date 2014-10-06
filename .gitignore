@@ -19,6 +19,7 @@ npm.tar.gz
 .settings/
 .project
 .classpath
+.externalToolBuilders/
 
 # maven build
 target/
