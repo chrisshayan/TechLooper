@@ -8,8 +8,6 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.resource.CachingResourceResolver;
-import org.springframework.web.servlet.resource.CachingResourceTransformer;
 import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 
@@ -25,9 +23,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
    }
 
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-      registry.addResourceHandler("/**").addResourceLocations("/public/**").resourceChain(true)
-            /*.addResolver(new CachingResourceResolver(cacheManager, "default"))*/.addResolver(new GzipResourceResolver())
-//            .addTransformer(new CachingResourceTransformer(cacheManager, "default"))
+      registry.addResourceHandler("/**").addResourceLocations("/assets/**").resourceChain(true)
+      /* .addResolver(new CachingResourceResolver(cacheManager, "default")) */.addResolver(new GzipResourceResolver())
+      // .addTransformer(new CachingResourceTransformer(cacheManager,
+      // "default"))
             .addTransformer(new CssLinkResourceTransformer());
       // registry.addResourceHandler("/index.html").addResourceLocations("classpath:/static/index.html");
    }
