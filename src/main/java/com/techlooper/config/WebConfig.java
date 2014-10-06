@@ -26,8 +26,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
       registry.addResourceHandler("/**").addResourceLocations("/public/**").resourceChain(true)
-            .addResolver(new CachingResourceResolver(cacheManager, "default")).addResolver(new GzipResourceResolver())
-            .addTransformer(new CachingResourceTransformer(cacheManager, "default"))
+            /*.addResolver(new CachingResourceResolver(cacheManager, "default"))*/.addResolver(new GzipResourceResolver())
+//            .addTransformer(new CachingResourceTransformer(cacheManager, "default"))
             .addTransformer(new CssLinkResourceTransformer());
       // registry.addResourceHandler("/index.html").addResourceLocations("classpath:/static/index.html");
    }

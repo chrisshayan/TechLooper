@@ -430,6 +430,11 @@
          <artifactId>commons-lang3</artifactId>
          <version>${commons-lang3.version}</version>
       </dependency>
+      <dependency>
+         <groupId>net.eusashead.hateoas</groupId>
+         <artifactId>spring-spring-conditional-response</artifactId>
+         <version>1.1.0.RELEASE</version>
+      </dependency>
 
       <!-- Test -->
       <dependency>
