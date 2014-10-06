@@ -23,6 +23,10 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
    // protected Filter[] getServletFilters() {
+   // DelegatingFilterProxy filterChain = new
+   // DelegatingFilterProxy("springSecurityFilterChain");
+   // filterChain.
+   //
    // return new Filter[] { new ShallowEtagHeaderFilter() };
    // }
 
