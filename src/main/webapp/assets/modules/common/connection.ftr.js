@@ -6,6 +6,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
    var scope;
    var connected = false;
    var terms = [];
+   var stompClient;
 
    return {
       initialize : function($scope) {
@@ -13,8 +14,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
       },
 
       connectSocket : function() {
-         var socket = new SockJS(sockketUri.sockjs);
-         stompClient = Stomp.over(socket);
+         stompClient = Stomp.over(new SockJS(sockketUri.sockjs));
          // stompClient.debug = function() {};
 
          stompClient.connect({}, function() {
@@ -27,7 +27,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
       },
 
       getTechnicalTerms : function() {
-         if (!connected) {
+         if (!stompClient.connected) {
             callbacks.push({
                fn : this.getTechnicalTerms,
                args : undefined
@@ -42,7 +42,10 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
       },
 
       isConnected : function() {
-         return connected;
+         if (stompClient != undefined) {
+            return stompClient.connected;
+         }
+         return false;
       },
 
       getStompClient : function() {
