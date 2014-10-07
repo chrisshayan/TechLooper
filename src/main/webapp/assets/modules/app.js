@@ -22,14 +22,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", 
     $translateProvider.useLocalStorage();
     $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
 
-    $routeProvider.when("/", {
+    $routeProvider.when("/bubbleChart", {
         templateUrl: "modules/home/home.tpl.html",
         controller: "homeController"
     }).when("/pieChart", {
-        templateUrl: "modules/home/pie-chart.tpl.html",
-        controller: "homeController"
+        templateUrl: "modules/pie-chart/pie-chart.tpl.html",
+        controller: "pieController"
     }).otherwise({
-        redirectTo: "/"
+        redirectTo: "/bubbleChart"
     });
 }]);
 

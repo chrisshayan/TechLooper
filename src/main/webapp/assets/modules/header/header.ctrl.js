@@ -1,22 +1,15 @@
 
-angular.module("Header").controller("headerController", ["$scope", "jsonValue", "headerService", function($scope, jsonValue, headerService) {
-   $scope.settingStyle = function() {
-      var set = $(".setting-content");
-      set.on("click", function() {
-         set.find("ul.setting-items").css("display", "block");
-         set.stop().animate({
-            width : "125" // 125
-         });
-      }).mouseleave(function() {
-         set.find("ul.setting-items").css("display", "none");
-         set.stop().animate({
-            width : "28px"
-         });
-         $(".keyboard-shortcuts-items").hide();
-      });
+angular.module("Header").controller("headerController", ["$scope", "jsonValue", "headerService", "$location", function($scope, jsonValue, headerService, $location) {
+   var path = $location.path();
+   if(path == '/pieChart'){
+   		$('.fa-pie-chart').addClass('active');
+   		$('.fa-bubble-chart').removeClass('active');
+   }else{
+   		$('.fa-bubble-chart').addClass('active');
+   		$('.fa-pie-chart').removeClass('active');
    }
-   $scope.langKeys = jsonValue.availableLanguageKeys;
-
+   $('.btn-setting').click(headerService.showSetting);
    $('.fa-pie-chart').click(headerService.changeView);
    $('.fa-bubble-chart').click(headerService.changeView);
+   $scope.langKeys = jsonValue.availableLanguageKeys;
 }]);
