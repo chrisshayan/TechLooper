@@ -42,7 +42,6 @@
       <frontend-maven-plugin.nodeVersion>v0.10.31</frontend-maven-plugin.nodeVersion>
       <frontend-maven-plugin.npmVersion>1.4.26</frontend-maven-plugin.npmVersion>
       <sass-maven-plugin.version>1.1.1</sass-maven-plugin.version>
-      <grunt.task>build</grunt.task>
    </properties>
    <build>
       <finalName>techlooper</finalName>
@@ -201,6 +200,7 @@
          </activation>
          <properties>
             <env>local</env>
+            <grunt.task>local</grunt.task>
          </properties>
          <build>
             <plugins>
@@ -231,6 +231,7 @@
          <id>dev</id>
          <properties>
             <env>dev</env>
+            <grunt.task>build</grunt.task>
          </properties>
          <build>
             <plugins>
