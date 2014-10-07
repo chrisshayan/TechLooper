@@ -5,8 +5,10 @@ angular.module("Header", []);
 angular.module("Footer", []);
 angular.module("Chart", []);
 angular.module("Jobs", []);
+angular.module("PieChart", []);
+angular.module("BubbleChart", []);
 
-var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Home", "Header", "Footer", "Common", "Chart", "Jobs"]);
+var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "PieChart", "BubbleChart"]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", function($routeProvider, $translateProvider, $locationProvider) {
     $translateProvider.useStaticFilesLoader({
