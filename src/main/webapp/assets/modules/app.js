@@ -18,11 +18,13 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", 
     $translateProvider.fallbackLanguage("en-US");
     $translateProvider.preferredLanguage("en-US");
     $translateProvider.useLocalStorage();
-    //   $translateProvider.useCookieStorage();
     $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
 
     $routeProvider.when("/", {
         templateUrl: "modules/home/home.tpl.html",
+        controller: "homeController"
+    }).when("/pieChart", {
+        templateUrl: "modules/home/pie-chart.tpl.html",
         controller: "homeController"
     }).otherwise({
         redirectTo: "/"

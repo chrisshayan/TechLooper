@@ -1,18 +1,4 @@
-angular.module("Header").controller("headerController", ["$scope", "jsonFactory", function($scope, jsonFactory) {
-
-   
-   
-   
-   // TODO: refactor later
-   //$scope.keyList = jsonFactory.shortcuts;
-   // var key = $(".keyboard");
-   // key.on("click", function() {
-   //     if ($(".keyboard-shortcuts-items:first").is(":hidden")) {
-   //         $(".keyboard-shortcuts-items").slideDown("slow");
-   //     } else {
-   //         $(".keyboard-shortcuts-items").hide();
-   //     }
-   // });
+angular.module("Header").controller("headerController", ["$scope", "jsonFactory", "headerService", function($scope, jsonFactory, headerService) {
    $scope.settingStyle = function() {
       var set = $(".setting-content");
       set.on("click", function() {
@@ -30,4 +16,6 @@ angular.module("Header").controller("headerController", ["$scope", "jsonFactory"
    }
    $scope.langKeys = jsonFactory.availableLanguageKeys;
 
+   $('.fa-pie-chart').click(headerService.changeView);
+   $('.fa-bubble-chart').click(headerService.changeView);
 }]);
