@@ -1,7 +1,8 @@
-angular.module('Chart').controller('chartController', ["$scope", "jsonValue", function ($scope, jsonValue) {
-    var socket = new SockJS('ws');
-    stompClient = Stomp.over(socket),
-    currentTerms = new Array,
+angular.module('Chart').controller('chartController', ["$scope", "jsonValue", "connectionFactory", "bubbleFactory", "utils", function ($scope, jsonValue, connectionFactory, bubbleFactory, utils) {
+//    var socket = new SockJS('ws');
+   
+//    stompClient = Stomp.over(socket),
+    var currentTerms = new Array,
     totalTerms = 0,
     totalJobs = 0,
     rColor = 0,
@@ -14,6 +15,34 @@ angular.module('Chart').controller('chartController', ["$scope", "jsonValue", fu
     mSize = "220px",
     dSize = "340px",
     sActive = "";
+    
+    connectionFactory.initialize($scope);
+    var events = jsonValue.events;
+    
+    var stompClient = connectionFactory.getStompClient();
+    
+    $scope.$on(events.terms, function(event, terms) {
+       bubbleFactory.setTerms(terms);
+       $.each(terms, function (index, value) {
+          rColor = rColor + 1;
+          if (rColor == 9) {
+             rColor = 0;
+          }
+          
+          bubbleFactory.draw({
+             'colorID': rColor,
+             'count': value.count,
+             'termName': value.name,
+             'termID': value.term
+          });
+          $scope.$emit('term', value);
+       });
+       $scope.$emit('bubble-ctrl');
+       $scope.$emit('first-position', terms);
+    });
+    connectionFactory.getTechnicalTerms();
+    
+    
 
     var _isNotMobile = (function () {
         var check = false;
@@ -22,12 +51,12 @@ angular.module('Chart').controller('chartController', ["$scope", "jsonValue", fu
         })(navigator.userAgent || navigator.vendor || window.opera);
         return !check;
     })();
-    stompClient.debug = function () {};
-    $scope.$on('terms-coming', function (event, terms) {
-        $.each(terms, function (index, value) {
-            $scope.$emit('term', value);
-        });
-    });
+//    stompClient.debug = function () {};
+//    $scope.$on('terms-coming', function (event, terms) {
+//        $.each(terms, function (index, value) {
+//            $scope.$emit('term', value);
+//        });
+//    });
     $scope.$on('term', function (event, data) {
         stompClient.subscribe('/topic/technical-job/' + data.term, function (response) {
             rColor = rColor + 1;
@@ -37,126 +66,26 @@ angular.module('Chart').controller('chartController', ["$scope", "jsonValue", fu
             $.each(currentTerms, function (index, value) {
                 if (data.term == value.term && data.count != value.count) {
                     $('.' + value.term).remove();
-                    $scope.$emit('draw-bubble', {
-                        'colorID': rColor,
-                        'count': data.count,
-                        'termName': data.name,
-                        'termID': data.term
-                    });
+//                    $scope.$emit('draw-bubble', {
+//                        'colorID': rColor,
+//                        'count': data.count,
+//                        'termName': data.name,
+//                        'termID': data.term
+//                    });
+                    bubbleFactory.draw({
+                       'colorID': rColor,
+                       'count': data.count,
+                       'termName': data.name,
+                       'termID': data.term
+                   });
                 }
             });
         });
     });
 
-    stompClient.connect({}, function (frame) {
-        var abc = stompClient.subscribe('/topic/technical-job/terms', function (response) {
-            currentTerms = JSON.parse(response.body);
-            $scope.termList = JSON.parse(response.body);
-            $.each($scope.termList, function (index, value) {
-                totalJobs += value.count;
-            });
-            $.each($scope.termList, function (index, value) {
-                rColor = rColor + 1;
-                if (rColor == 9) {
-                    rColor = 0;
-                }
-                $scope.$emit('draw-bubble', {
-                    'colorID': rColor,
-                    'count': value.count,
-                    'termName': value.name,
-                    'termID': value.term
-                });
-            });
-            $scope.$emit('bubble-ctrl');
-            $scope.$emit('first-position', $scope.termList);
-            $scope.$emit('terms-coming', $scope.termList);
-            abc.unsubscribe();
-        });
-        stompClient.send("/app/technical-job/terms");
-    });
-
-    $scope.$on('draw-bubble', function (event, bubbleItem) {
-        var html = '',
-            clColor = '',
-            fSize = '',
-            diameterPlus = 0;
-
-        if (_isNotMobile) {
-            diameterPlus = 25;
-        } else {
-            diameterPlus = -10;
-        }
-        var n = Math.round(parseInt(bubbleItem.count) * 100 / parseInt(totalJobs)),
-            // These numbers are in pixel
-            diameter = 0;
-
-        if (n < 11) {
-            fSize = 'textSize1';
-            diameter = 55 + diameterPlus;
-        } else if (n > 10 && n < 21) {
-            fSize = 'textSize2';
-            diameter = 75 + diameterPlus;
-        } else if (n > 20 && n < 31) {
-            fSize = 'textSize3';
-            diameter = 100 + diameterPlus;
-        } else if (n > 30 && n < 41) {
-            fSize = 'textSize4';
-            diameter = 125 + diameterPlus;
-        } else if (n > 40 && n < 51) {
-            fSize = 'textSize5';
-            diameter = 150 + diameterPlus;
-        } else if (n > 50 && n < 61) {
-            fSize = 'textSize6';
-            diameter = 175 + diameterPlus;
-        } else if (n > 60 && n < 71) {
-            fSize = 'textSize7';
-            diameter = 200 + diameterPlus;
-        } else if (n > 70 && n < 81) {
-            fSize = 'textSize8';
-            diameter = 225 + diameterPlus;
-        } else if (n > 80 && n < 91) {
-            fSize = 'textSize9';
-            diameter = 250 + diameterPlus;
-        } else {
-            fSize = 'bigText';
-            diameter = 275 + diameterPlus;
-        }
-
-        switch (bubbleItem.colorID) {
-        case 0:
-            clColor = "redColor";
-            break;
-        case 1:
-            clColor = "blueColor";
-            break;
-        case 2:
-            clColor = "yellowColor";
-            break;
-        case 3:
-            clColor = "pinkColor";
-            break;
-        case 4:
-            clColor = "greenColor";
-            break;
-        case 5:
-            clColor = "orangeColor";
-            break;
-        case 6:
-            clColor = "lightSalmonColor";
-            break;
-        case 7:
-            clColor = "indigoColor";
-            break;
-        case 8:
-            clColor = "oliveColor";
-            break;
-        };
-
-        html = '<div data-techTerm="' + bubbleItem.termID + 'Tech" class="circle ' + bubbleItem.termID + 'Tech ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
-        html = html + '<div class="circle-content ' + clColor + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
-        html = html + '<span><strong>' + bubbleItem.count + '</strong>' + bubbleItem.termName + '</span></div></div>';
-        $('.bubble-chart-container').append(html);
-    });
+//    $scope.$on('draw-bubble', function (event, bubbleItem) {
+//        
+//    });
 
     $scope.$on('bubble-ctrl', function (event, data) {
         var jsonPath = "";
@@ -1392,7 +1321,7 @@ angular.module('Chart').controller('chartController', ["$scope", "jsonValue", fu
 
         for (var i = 0; i < bubbleItem.length; i++) {
             if (bubbleItem[i].count < biggestDiameter) {
-                var n = Math.round(parseInt(bubbleItem[i].count) * 100 / parseInt(totalJobs)),
+                var n = Math.round(parseInt(bubbleItem[i].count) * 100 / bubbleFactory.getTotalJobs()),
                     fSize = '';
 
                 if (n < 11) {
