@@ -1,4 +1,14 @@
-angular.module("Common").value("jsonValue", {
+angular.module("Common").constant("jsonValue", {
+   events : {
+      terms : "Terms"
+   },
+   
+   socketUri : {
+      sockjs : "ws",
+      sendTerms : "/app/technical-job/terms",
+      subscribeTerms : "/topic/technical-job/terms"
+   },
+   
    availableLanguageKeys : [ {
       "name" : "EN",
       "value" : "en-US"
