@@ -1,4 +1,5 @@
 {
    "language" : "VI",
-   "findjobs" : "Find Jobs"
+   "findjobs" : "Find Jobs",
+   "note":      "The digits are number of jobs."
 }

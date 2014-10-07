@@ -1,6 +1,7 @@
 {
    "language" : "EN",
-   "findjobs" : "Tìm việc"
+   "findjobs" : "Tìm việc",
+   "note":      "Số lượng công việc được tìm thấy."
 }
 
 
