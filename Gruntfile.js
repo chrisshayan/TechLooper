@@ -100,7 +100,7 @@ module.exports = function(grunt) {
          server : {
             options : {
                port : 8080,
-               base : ".",
+               base : "src/main/webapp/assets",
                keepalive : true
             }
          }
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
    grunt.registerTask("html", [ "clean:build", "bower-install-simple", "includeSource:target", "wiredep:target" ]);
    grunt.registerTask("build", [ "clean:build", "copy:build", "bower-install-simple", "includeSource:target", 
                                  "wiredep:target", "useminPrepare", "concat", "uglify", "cssmin", "usemin", "clean:release" ]);
-   grunt.registerTask("dev", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
+   grunt.registerTask("local", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
                                  "wiredep:target", "copy:dev" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
    grunt.registerTask("default", [ "clean:build", "copy" ]);
