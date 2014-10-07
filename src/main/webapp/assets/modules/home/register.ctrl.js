@@ -1,3 +1,5 @@
 angular.module("Home").controller('registerController', [ "connectionFactory", function(connectionFactory) {
-   connectionFactory.connectSocket();
+   if (!connectionFactory.isConnected()) {
+      connectionFactory.connectSocket();
+   }
 } ]);
