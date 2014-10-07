@@ -1314,8 +1314,8 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
          return totalJobs;
       },
 
-      draw: function (bubbleItem) {
-         if (termsMap[bubbleItem.termID] !== undefined) {
+      draw: function (bubbleItem, force) {
+         if (force !== true && termsMap[bubbleItem.termID] !== undefined) {
             var currentTerm = termsMap[bubbleItem.termID];
             if (currentTerm.count === bubbleItem.count) {
                return false;

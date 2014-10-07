@@ -16,7 +16,7 @@ angular.module('Chart', ["Bubble", "Common"]).controller('chartController', ["$s
             'count': term.count,
             'termName': term.name,
             'termID': term.term
-         });
+         }, true);
 
          $scope.$on(events.term + term.term, function (event, data) {
             rColor = rColor + 1;

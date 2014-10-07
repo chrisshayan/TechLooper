@@ -31,7 +31,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
 
       connectSocket : function() {
          stompClient = Stomp.over(new SockJS(sockketUri.sockjs));
-          stompClient.debug = function() {};
+//         stompClient.debug = function() {};
 
          stompClient.connect({}, function() {
             connected = true;
@@ -60,7 +60,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
       },
 
       isConnected : function() {
-         if (stompClient != undefined) {
+         if (stompClient !== undefined) {
             return stompClient.connected;
          }
          return false;
