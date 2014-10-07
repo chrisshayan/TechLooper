@@ -1,5 +1,4 @@
 angular.module("Common").factory("connectionFactory", [ "jsonValue", function(jsonValue) {
-   var _this = this;
    var sockketUri = jsonValue.socketUri;
    var events = jsonValue.events;
    var callbacks = [];
@@ -7,15 +6,32 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
    var connected = false;
    var terms = [];
    var stompClient;
+   var subscriptions = "";
 
-   return {
+   var instance = {
       initialize : function($scope) {
          scope = $scope;
       },
 
+      registerTermsSubscription : function() {
+         $.each(terms, function(index, term) {
+            var uri = sockketUri.subscribeTerm + term.term;
+            if (subscriptions[uri] !== undefined) {
+               return true;
+            }
+            subscriptions[uri] = stompClient.subscribe(uri, function(response) {
+               var data = {};
+               data.count = JSON.parse(response.body).count;
+               data.term = term.term;
+               data.termName = term.name;
+               scope.$emit(events.term + term.term, data);
+            });
+         });
+      },
+
       connectSocket : function() {
          stompClient = Stomp.over(new SockJS(sockketUri.sockjs));
-         // stompClient.debug = function() {};
+          stompClient.debug = function() {};
 
          stompClient.connect({}, function() {
             connected = true;
@@ -26,17 +42,19 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
          });
       },
 
-      getTechnicalTerms : function() {
+      receiveTechnicalTerms : function() {
          if (!stompClient.connected) {
             callbacks.push({
-               fn : this.getTechnicalTerms,
+               fn : this.receiveTechnicalTerms,
                args : undefined
             });
             return;
          }
-         var client = stompClient.subscribe(sockketUri.subscribeTerms, function(response) {
-            scope.$emit(events.terms, JSON.parse(response.body));
-            client.unsubscribe();
+         var subscribeTerms = stompClient.subscribe(sockketUri.subscribeTerms, function(response) {
+            terms = JSON.parse(response.body);
+            scope.$emit(events.terms, terms);
+            instance.registerTermsSubscription();
+            stompClient.unsubscribe(subscribeTerms);
          });
          stompClient.send(sockketUri.sendTerms);
       },
@@ -52,4 +70,5 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
          return stompClient;
       }
    }
+   return instance;
 } ]);
