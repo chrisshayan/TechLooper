@@ -1,10 +1,10 @@
-angular.module("Header").controller("headerController", ["$scope", "jsonFactory", function($scope, jsonFactory) {
+angular.module("Header").controller("headerController", ["$scope", "jsonValue", function($scope, jsonValue) {
 
    
    
    
    // TODO: refactor later
-   //$scope.keyList = jsonFactory.shortcuts;
+   //$scope.keyList = jsonValue.shortcuts;
    // var key = $(".keyboard");
    // key.on("click", function() {
    //     if ($(".keyboard-shortcuts-items:first").is(":hidden")) {
@@ -28,6 +28,6 @@ angular.module("Header").controller("headerController", ["$scope", "jsonFactory"
          $(".keyboard-shortcuts-items").hide();
       });
    }
-   $scope.langKeys = jsonFactory.availableLanguageKeys;
+   $scope.langKeys = jsonValue.availableLanguageKeys;
 
 }]);

@@ -1,4 +1,4 @@
-angular.module('Chart').controller('chartController', ["$scope", "jsonFactory", function ($scope, jsonFactory) {
+angular.module('Chart').controller('chartController', ["$scope", "jsonValue", function ($scope, jsonValue) {
     var socket = new SockJS('ws');
     stompClient = Stomp.over(socket),
     currentTerms = new Array,
@@ -174,7 +174,7 @@ angular.module('Chart').controller('chartController', ["$scope", "jsonFactory", 
         }
 
 
-        $scope.bubblePosition = _isNotMobile ? jsonFactory.dBubblePosition : jsonFactory.mBubblePosition;
+        $scope.bubblePosition = _isNotMobile ? jsonValue.dBubblePosition : jsonValue.mBubblePosition;
         var n = $scope.bubblePosition.length,
             nameTech = new Array(),
             java_locations = new Array(),
@@ -1377,7 +1377,7 @@ angular.module('Chart').controller('chartController', ["$scope", "jsonFactory", 
             resize = -10;
         }
 
-        $scope.bubblePosition = _isNotMobile ? jsonFactory.dPositionDefault : jsonFactory.mPositionDefault
+        $scope.bubblePosition = _isNotMobile ? jsonValue.dPositionDefault : jsonValue.mPositionDefault
         for (var i = 0; i < 9; i++) {
             var t = $scope.bubblePosition[0].data[i].top,
                 l = $scope.bubblePosition[0].data[i].left;
