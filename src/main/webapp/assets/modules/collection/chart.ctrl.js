@@ -1,4 +1,4 @@
-angular.module('Chart').controller('chartController', ["$scope", "jsonValue", "connectionFactory", "bubbleFactory", "utils", function ($scope, jsonValue, connectionFactory, bubbleFactory, utils) {
+angular.module('Chart', ["Bubble", "Common"]).controller('chartController', ["$scope", "jsonValue", "connectionFactory", "bubbleFactory", "utils", function ($scope, jsonValue, connectionFactory, bubbleFactory, utils) {
 //    var socket = new SockJS('ws');
    
 //    stompClient = Stomp.over(socket),
