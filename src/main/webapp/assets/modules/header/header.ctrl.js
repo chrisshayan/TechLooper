@@ -12,4 +12,7 @@ angular.module("Header").controller("headerController", ["$scope", "jsonValue", 
    $('.fa-pie-chart').click(headerService.changeChart);
    $('.fa-bubble-chart').click(headerService.changeChart);
    $scope.langKeys = jsonValue.availableLanguageKeys;
+
+   headerService.setChart(jsonValue.charts.bubble);
+
 }]);

@@ -1,16 +1,18 @@
-angular.module("Header",["Common"]).factory("headerService",['jsonValue', function($sonValue) {
-	var chart;
+angular.module("Header").factory("headerService",['jsonValue', '$rootScope', function(jsonValue, $rootScope) {
+	var chartStyle;
     return {
         changeChart: function(event) {
             var item = $(event.target).parent().parent().find('i');
             item.removeClass('active');
         	if($(event.target).hasClass('fa-pie-chart')){
-        		chart = jsonValue.pie;
+        		chartStyle = jsonValue.charts.pie;
                 $(event.target).addClass('active');
         	}else{
-        		chart = jsonValue.bubble;
+        		chartStyle = jsonValue.charts.bubble;
                 $(event.target).addClass('active');
         	}
+
+            $rootScope.$emit(jsonValue.events.changeChart, chartStyle);
         },
         showSetting: function(){
             var set = $(".setting-content");
@@ -30,10 +32,10 @@ angular.module("Header",["Common"]).factory("headerService",['jsonValue', functi
             }           
         },
         getChart: function(){
-            return chart;
+            return chartStyle;
         },
         setChart: function($chart) {
-            chart = $chart;
+            chartStyle = $chart;
         }
     }
 }]);
