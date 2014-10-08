@@ -1,7 +1,7 @@
 angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(utils, jsonValue) {
     var terms = [];
     var totalJobs = 0;
-    var pieJson = [];//[ ["PHP", 59] , ["JAVA", 90] ]
+    var pieJson = [];
     
     // TODO: use jsonValue
     var colorJson = [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ];
@@ -17,10 +17,10 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        },
 
        generateChartData : function() {
+          pieJson.length = 0;
           $.each(terms, function(index, term) {
-             pieJson.push([term.name, term.count]);
+             pieJson.push([angular.uppercase(term.name), term.count]);
           });
-         console.log(pieJson)
        },
        
        initializeAnimation : function() {
@@ -51,7 +51,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
               }
            },
            tooltip : {
-              pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+              pointFormat : '{series.name} <b>: {point.percentage:.1f}%</b>'
            },
            plotOptions : {
               pie : {
@@ -59,7 +59,9 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
                  cursor : 'pointer',
                  dataLabels : {
                     enabled : true,
-                    format : '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    //distance: -30,
+                    inside: true,
+                    format : '<b>{point.name}</b>: {point.y}',
                     style : {
                        color : (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                     }
@@ -67,7 +69,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
               },
               series : {
                  dataLabels : {
-                    color : '#B0B0B3'
+                    color : '#fff'
                  },
                  marker : {
                     lineColor : '#333'
@@ -91,6 +93,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
               data : pieJson
            } ]
         });
+        $('tspan[dx=0]').css('font-size', '14px');
         $('text[text-anchor=end]').css('display', 'none');
        }
     }

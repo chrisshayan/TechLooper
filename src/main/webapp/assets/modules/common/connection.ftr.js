@@ -3,7 +3,6 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
    var events = jsonValue.events;
    var callbacks = [];
    var scope;
-   var connected = false;
    var terms = [];
    var stompClient;
    var subscriptions = "";
@@ -34,7 +33,6 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
          stompClient.debug = function() {};
 
          stompClient.connect({}, function() {
-            connected = true;
             $.each(callbacks, function(index, callback) {
                callback.fn.call(callback.args);
             });
