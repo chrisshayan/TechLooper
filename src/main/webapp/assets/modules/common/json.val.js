@@ -3,7 +3,10 @@ angular.module("Common").constant("jsonValue", {
       terms : "Terms",
       term : "Term"
    },
-   
+   charts: {
+      pie : "pie",
+      bubble : "bubble"
+   },
    socketUri : {
       sockjs : "ws",
       sendTerms : "/app/technical-job/terms",

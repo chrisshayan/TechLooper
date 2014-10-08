@@ -9,7 +9,7 @@ angular.module("Header").controller("headerController", ["$scope", "jsonValue", 
    		$('.fa-pie-chart').removeClass('active');
    }
    $('.btn-setting').click(headerService.showSetting);
-   $('.fa-pie-chart').click(headerService.changeView);
-   $('.fa-bubble-chart').click(headerService.changeView);
+   $('.fa-pie-chart').click(headerService.changeChart);
+   $('.fa-bubble-chart').click(headerService.changeChart);
    $scope.langKeys = jsonValue.availableLanguageKeys;
 }]);
