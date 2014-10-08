@@ -53,5 +53,7 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller(
          }
          $rootScope.$doChart = doChart;
          
+         
+         console.log("chart controller doChart");
          doChart();
       } ]);
