@@ -1,18 +1,16 @@
-angular.module("Header").factory("headerService",['$location','$rootScope', function($location, $rootScope) {
-	var hash;
+angular.module("Header",["Common"]).factory("headerService",['jsonValue', function($sonValue) {
+	var chart;
     return {
-        changeView: function(event) {
+        changeChart: function(event) {
             var item = $(event.target).parent().parent().find('i');
             item.removeClass('active');
         	if($(event.target).hasClass('fa-pie-chart')){
-        		hash = 'pieChart';
+        		chart = jsonValue.pie;
                 $(event.target).addClass('active');
         	}else{
-        		hash = 'bubbleChart';
+        		chart = jsonValue.bubble;
                 $(event.target).addClass('active');
         	}
-        	$location.path(hash);
-            $rootScope.$apply();
         },
         showSetting: function(){
             var set = $(".setting-content");
@@ -20,16 +18,22 @@ angular.module("Header").factory("headerService",['$location','$rootScope', func
                 set.removeClass('hideContent').addClass('showContent');
                 set.find("ul.setting-items").css("display", "block");
                 set.stop().animate({
-                    width : "125" // 125
+                    width : "125"
                 });
                 
             }else{
                 set.removeClass('showContent').addClass('hideContent');
                 set.find("ul.setting-items").css("display", "none");
                 set.stop().animate({
-                    width : "28" // 125
+                    width : "28"
                 });               
             }           
+        },
+        getChart: function(){
+            return chart;
+        },
+        setChart: function($chart) {
+            chart = $chart;
         }
     }
 }]);
