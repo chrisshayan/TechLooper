@@ -1,7 +1,8 @@
 angular.module("Common").constant("jsonValue", {
    events : {
       terms : "Terms",
-      term : "Term"
+      term : "Term",
+      changeChart : "Change Chart"
    },
    charts: {
       pie : "pie",
