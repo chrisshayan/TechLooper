@@ -20,11 +20,11 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
                return true;
             }
             subscriptions[uri] = stompClient.subscribe(uri, function(response) {
-               var data = {};
-               data.count = JSON.parse(response.body).count;
-               data.term = term.term;
-               data.termName = term.name;
-               scope.$emit(events.term + term.term, data);
+               scope.$emit(events.term + term.term, {
+                  count : JSON.parse(response.body).count,
+                  term : term.term,
+                  termName : term.name
+               });
             });
          });
       },

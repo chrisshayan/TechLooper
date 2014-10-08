@@ -1,13 +1,20 @@
 angular.module("Common").constant("jsonValue", {
+   ui : {
+      bubble : '<div id="box" class="bubble-chart-container"></div>',
+      pie : '<div class="pie-Chart-Container" style="min-width: 310px; height: 500px; max-width: 800px; margin: 0 auto"></div>'
+   },
+   
    events : {
       terms : "Terms",
       term : "Term",
       changeChart : "Change Chart"
    },
+   
    charts: {
       pie : "pie",
       bubble : "bubble"
    },
+   
    socketUri : {
       sockjs : "ws",
       sendTerms : "/app/technical-job/terms",
