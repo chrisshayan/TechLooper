@@ -1,7 +1,10 @@
 angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(utils, jsonValue) {
     var terms = [];
     var totalJobs = 0;
-    var pieJson = [];
+    var pieJson = [];//[ ["PHP", 59] , ["JAVA", 90] ]
+    
+    // TODO: use jsonValue
+    var colorJson = [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ];
     
     var instance =  {
        setTerms : function($terms) {
@@ -15,10 +18,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
 
        generateChartData : function() {
           $.each(terms, function(index, term) {
-              pieJson.push({
-               term : term.name,
-               percent : Math.round(parseInt(term.count) * 100 / totalJobs)
-             });
+             pieJson.push([term.name, term.count]);
           });
          console.log(pieJson)
        },
@@ -26,7 +26,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        initializeAnimation : function() {
         instance.generateChartData();
         $('.pie-Chart-Container').highcharts({
-           colors : [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ],
+           colors : colorJson,
            chart : {
               backgroundColor : '#2e272a',
               plotBorderColor : '#606063'
