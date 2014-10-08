@@ -5,11 +5,10 @@ angular.module("Header", []);
 angular.module("Footer", []);
 angular.module("Chart", ["Common", "Bubble"]);
 angular.module("Jobs", []);
-angular.module("PieChart", []);
-angular.module("BubbleChart", []);
+angular.module("Pie", []);
 
-var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Bubble",
-                                               "Home", "Header", "Footer", "Common", "Chart", "Jobs", "PieChart", "BubbleChart"]);
+var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Bubble","Pie",
+                                               "Home", "Header", "Footer", "Common", "Chart", "Jobs"]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", function($routeProvider, $translateProvider, $locationProvider) {
     $translateProvider.useStaticFilesLoader({
@@ -26,9 +25,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", 
     $routeProvider.when("/bubbleChart", {
         templateUrl: "modules/home/home.tpl.html",
         controller: "registerController"
-    }).when("/pieChart", {
-        templateUrl: "modules/pie-chart/pie-chart.tpl.html",
-        controller: "pieController"
     }).otherwise({
         redirectTo: "/bubbleChart"
     });
