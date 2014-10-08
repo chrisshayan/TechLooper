@@ -22,6 +22,14 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+   // protected Filter[] getServletFilters() {
+   // DelegatingFilterProxy filterChain = new
+   // DelegatingFilterProxy("springSecurityFilterChain");
+   // filterChain.
+   //
+   // return new Filter[] { new ShallowEtagHeaderFilter() };
+   // }
+
    protected Class<?>[] getRootConfigClasses() {
       return new Class<?>[] { CoreConfiguration.class };
    }
@@ -37,5 +45,4 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
    protected void customizeRegistration(Dynamic registration) {
       registration.setInitParameter("dispatchOptionsRequest", "true");
    }
-
 }

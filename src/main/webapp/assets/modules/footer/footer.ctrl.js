@@ -1,5 +1,5 @@
-angular.module("Footer").controller("footerController", ["$scope", "jsonFactory", function($scope, jsonFactory) {
-   $scope.companies = jsonFactory.companies;
+angular.module("Footer").controller("footerController", ["$scope", "jsonValue", function($scope, jsonValue) {
+   $scope.companies = jsonValue.companies;
 
    var cp = $('.companies-bar'), list = $('.companies-list');
    cp.click(function() {
