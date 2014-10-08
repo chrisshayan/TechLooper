@@ -3,10 +3,12 @@ angular.module("Bubble", []);
 angular.module("Home", []);
 angular.module("Header", []);
 angular.module("Footer", []);
-angular.module("Chart", []);
+angular.module("Chart", ["Common", "Bubble"]);
 angular.module("Jobs", []);
+angular.module("Pie", []);
 
-var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Home", "Header", "Footer", "Common", "Chart", "Jobs"]);
+var techlooper = angular.module("Techlooper", ["pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Bubble","Pie",
+                                               "Home", "Header", "Footer", "Common", "Chart", "Jobs"]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", function($routeProvider, $translateProvider, $locationProvider) {
     $translateProvider.useStaticFilesLoader({
@@ -18,12 +20,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", 
     $translateProvider.fallbackLanguage("en-US");
     $translateProvider.preferredLanguage("en-US");
     $translateProvider.useLocalStorage();
-    //   $translateProvider.useCookieStorage();
     $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
 
     $routeProvider.when("/", {
         templateUrl: "modules/home/home.tpl.html",
-        controller: "homeController"
+        controller: "registerController"
     }).otherwise({
         redirectTo: "/"
     });
