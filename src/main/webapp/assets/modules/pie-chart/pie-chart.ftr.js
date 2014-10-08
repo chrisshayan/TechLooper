@@ -24,8 +24,6 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        },
        
        initializeAnimation : function() {
-        console.log("pie initializeAnimation");
-
         instance.generateChartData();
         $('.pie-Chart-Container').highcharts({
            colors : [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ],

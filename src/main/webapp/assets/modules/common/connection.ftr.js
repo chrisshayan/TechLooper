@@ -54,7 +54,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
             terms = JSON.parse(response.body);
             scope.$emit(events.terms, terms);
             instance.registerTermsSubscription();
-            stompClient.unsubscribe(subscribeTerms);
+            subscribeTerms.unsubscribe();
          });
          stompClient.send(sockketUri.sendTerms);
       },
