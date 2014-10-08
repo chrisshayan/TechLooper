@@ -1,5 +1,8 @@
-<div>
-    <div id="box" class="bubble-chart-container">
-        
+<div ng-switch="switchChart">
+	<div ng-switch-when="bubbleView">
+    	<div class="bubble-chart-container" id="box"></div>
+    </div>
+    <div ng-switch-when="pieView">
+    	<div class="pie-Chart-Container" style="min-width: 310px; height: 500px; max-width: 800px; margin: 0 auto"></div>
     </div>
 </div>
