@@ -1308,8 +1308,6 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
       setTerms: function ($terms) {
          terms = $terms;
          totalJobs = utils.sum(terms, "count");
-         // need to clean views because new terms
-         $('#box').empty();
       },
 
       getTotalJobs: function () {

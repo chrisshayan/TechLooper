@@ -1,17 +1,32 @@
 angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(utils, jsonValue) {
     var terms = [];
+    var totalJobs = 0;
+    var pieJson = [];
     
-    return {
+    var instance =  {
        setTerms : function($terms) {
           terms = $terms;
+          totalJobs = utils.sum(terms, "count");
        },
        
        draw : function(item) {
-          console.log("draw");
+          
+       },
+
+       generateChartData : function() {
+          $.each(terms, function(index, term) {
+              pieJson.push({
+               term : term.name,
+               percent : Math.round(parseInt(term.count) * 100 / totalJobs)
+             });
+          });
+         console.log(pieJson)
        },
        
        initializeAnimation : function() {
-//        $('.chart-contrainer').append(pieHTML);
+        console.log("pie initializeAnimation");
+
+        instance.generateChartData();
         $('.pie-Chart-Container').highcharts({
            colors : [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ],
            chart : {
@@ -71,14 +86,16 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
               }
            },
            series : [ {
-              type : 'pie',
+              type : jsonValue.charts.pie,
               name : 'Jobs',
               size : '100%',
               innerSize : '30%',
-              data : [ [ 'Java', 10.0 ], [ '.Net', 20.8 ], [ 'Php', 8.5 ], [ 'Python', 11.5 ], [ 'Ruby', 10.7 ], [ 'PM', 4.3 ], [ 'DBA', 6.0 ], [ 'BA', 10.2 ], [ 'QA', 9.8 ] ]
+              data : pieJson
            } ]
         });
         $('text[text-anchor=end]').css('display', 'none');
        }
     }
+
+    return instance;
 }]);
