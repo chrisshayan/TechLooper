@@ -22,11 +22,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider", 
     $translateProvider.useLocalStorage();
     $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
 
-    $routeProvider.when("/bubbleChart", {
+    $routeProvider.when("/", {
         templateUrl: "modules/home/home.tpl.html",
         controller: "registerController"
     }).otherwise({
-        redirectTo: "/bubbleChart"
+        redirectTo: "/"
     });
 }]);
 
