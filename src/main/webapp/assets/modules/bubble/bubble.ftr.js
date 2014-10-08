@@ -1327,8 +1327,6 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
             }
          }
          
-         console.log("Bubble drawing");
-         
          termsMap[bubbleItem.termID] = bubbleItem;
          var html = '',
             clColor = '',
