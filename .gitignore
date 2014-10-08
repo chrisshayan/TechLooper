@@ -34,6 +34,7 @@ css/
 # other custom rules
 static/
 *.log
+.brackets.json
 
 #Gruntfile.js
 generate-resources/
