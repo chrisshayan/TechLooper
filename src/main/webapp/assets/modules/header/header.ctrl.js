@@ -3,6 +3,6 @@ angular.module("Header").controller("headerController", [ "$scope", "jsonValue",
    var chart = headerService.getChart();
    $('.btn-setting').click(headerService.showSetting);
    $("i[techlooper='chartsMenu']").click(headerService.changeChart);
-   headerService.reflectChart();
+   headerService.changeChart();
    $scope.langKeys = jsonValue.availableLanguageKeys;
 } ]);
