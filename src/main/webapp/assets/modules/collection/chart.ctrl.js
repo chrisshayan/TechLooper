@@ -3,7 +3,7 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller(
    [ "$scope", "jsonValue", "connectionFactory", "bubbleFactory", "pieFactory", "utils", "headerService", "$rootScope",
       function($scope, jsonValue, connectionFactory, bubbleFactory, pieFactory, utils, headerService, $rootScope) {
          $rootScope.$on(jsonValue.events.changeChart, function(event, data) {
-            $rootScope.$doChart();
+            $rootScope.$doChart(data);
          });
 
          var events = jsonValue.events;
@@ -12,10 +12,23 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller(
          var chartFactory;
          
          connectionFactory.initialize($scope);
-         $rootScope.$doChart = function() {
-            var chart = headerService.getChart();
-            $('.chart-contrainer').empty().append((chart === jsonValue.charts.pie) ? jsonValue.ui.pie : jsonValue.ui.bubble);
-            chartFactory = (chart === jsonValue.charts.pie) ? pieFactory : bubbleFactory;
+         $rootScope.$doChart = function(chart) {
+            if (chart === undefined) {
+               chart = headerService.getChart();
+            }
+            
+            var chartDiv = "";
+            switch (chart) {
+            case jsonValue.charts.pie :
+               chartDiv = jsonValue.ui.pie;
+               chartFactory = pieFactory;
+               break;
+            case jsonValue.charts.bubble :
+               chartDiv = jsonValue.ui.bubble;
+               chartFactory = bubbleFactory;
+               break;
+            }
+            $('.chart-contrainer').empty().append(chartDiv);
             connectionFactory.receiveTechnicalTerms();
          }
          
