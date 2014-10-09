@@ -18,7 +18,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
       lPosition = "",
       tPosition = "",
       mSize = "220px",
-      dSize = "340px",
+      dSize = "320px",
       sActive = "";
    
    var termsMap = {};
@@ -1321,7 +1321,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
                return false;
             }
             currentTerm.count = bubbleItem.count;
-            $("div[data-techTerm='" + bubbleItem.termID +"Tech']").find("span.termcount strong").text(bubbleItem.count);
+            var bItem =  $("div[data-techTerm='" + bubbleItem.termID +"Tech']").find("span.termcount strong");
+            bItem.text(bubbleItem.count);
+            bItem.parent().parent().parent().effect( "bounce", {times:3}, 300 );
             return;
          }
          
@@ -1402,7 +1404,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
             clColor = "oliveColor";
             break;
          };
-
+         var rota = diameter - 17;
          html = '<div data-techTerm="' + bubbleItem.termID + 'Tech" class="circle ' + bubbleItem.termID + 'Tech ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
          html = html + '<div class="circle-content ' + clColor + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
          html = html + '<span class="termcount"><strong>' + bubbleItem.count + '</strong>' + bubbleItem.termName + '</span></div></div>';
