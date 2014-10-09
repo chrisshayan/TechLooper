@@ -6,6 +6,7 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
    var terms = [];
    var stompClient;
    var subscriptions = "";
+   var onEvents = [];
 
    var instance = {
       initialize : function($scope) {
