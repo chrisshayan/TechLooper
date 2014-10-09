@@ -10,9 +10,6 @@ angular.module("Common").factory("connectionFactory", [ "jsonValue", function(js
 
    var instance = {
       initialize : function($scope) {
-         if (scope !== undefined) {
-            scope.$destroy();
-         }
          scope = $scope;
       },
 

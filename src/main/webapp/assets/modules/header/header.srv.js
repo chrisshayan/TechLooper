@@ -1,19 +1,11 @@
 angular.module("Header").factory("headerService", [ 'jsonValue', '$rootScope', "$location", function(jsonValue, $rootScope, $location) {
    var instance = {
       changeChart : function(event) {
-//         console.log($location.path());
          $("i[techlooper='chartsMenu']").removeClass('active');
          $(event.target).addClass("active");
-         
-//         var chart = instance.getClickedChartStyle($(event.target));
-//         if (chart === chartStyle) {
-//            return;
-//         }
-//
-//         var item = $(event.target).parent().parent().find('i');
-//         item.removeClass('active');
-//         $(event.target).addClass('active');
-//         chartStyle = chart;
+         if (event.notEmit === true) {
+            return;
+         }
          $rootScope.$emit(jsonValue.events.changeChart, $location.path());
       },
       
