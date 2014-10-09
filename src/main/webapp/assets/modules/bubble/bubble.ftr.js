@@ -1320,12 +1320,13 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
             if (currentTerm.count === bubbleItem.count) {
                return false;
             }
-            else {
-               $('.' + bubbleItem.termID).remove();
-            }
+            currentTerm.count = bubbleItem.count;
+            $("div[data-techTerm='" + bubbleItem.termID +"Tech']").find("span.termcount strong").text(bubbleItem.count);
+            return;
          }
          
          termsMap[bubbleItem.termID] = bubbleItem;
+
          var html = '',
             clColor = '',
             fSize = '',
@@ -1404,7 +1405,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
 
          html = '<div data-techTerm="' + bubbleItem.termID + 'Tech" class="circle ' + bubbleItem.termID + 'Tech ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
          html = html + '<div class="circle-content ' + clColor + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
-         html = html + '<span><strong>' + bubbleItem.count + '</strong>' + bubbleItem.termName + '</span></div></div>';
+         html = html + '<span class="termcount"><strong>' + bubbleItem.count + '</strong>' + bubbleItem.termName + '</span></div></div>';
          $('.bubble-chart-container').append(html);
       }
    }
