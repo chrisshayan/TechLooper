@@ -26,11 +26,11 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        
        initializeAnimation : function() {
         instance.generateChartData();
-        var currentTerm = termsMap[terms.termID];
-        if (currentTerm.count === terms.count) {
-        }else{
-          console.log(1)
-        }
+        // var currentTerm = termsMap[terms.termID];
+        // if (currentTerm.count === terms.count) {
+        // }else{
+        //   console.log(1)
+        // }
         $('.pie-Chart-Container').highcharts({
            colors : colorJson,
            chart : {
