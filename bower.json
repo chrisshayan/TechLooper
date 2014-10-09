@@ -2,6 +2,7 @@
    "name": "TechLooper",
    "dependencies": {
       "jquery": "latest",
+      "jquery-ui": "latest",
       "bootstrap": "latest",
       "components-font-awesome": "latest",
       "sockjs": "latest",
@@ -19,6 +20,9 @@
    "overrides": {
       "jquery": {
          "main": "dist/jquery.min.js"
+      },
+      "jquery-ui": {
+         "main": "jquery-ui.min.js"
       },
       "bootstrap": {
          "main": "dist/js/bootstrap.min.js"
@@ -52,9 +56,6 @@
       },
       "angular-translate-loader-static-files": {
          "main": "angular-translate-loader-static-files.min.js"
-      },
-      "highcharts-release": {
-         "main": "highcharts.js"
       }
    }
 }
