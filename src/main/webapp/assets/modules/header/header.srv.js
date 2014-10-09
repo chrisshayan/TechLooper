@@ -5,16 +5,6 @@ angular.module("Header").factory("headerService",
 
       var instance = {
          changeChart : function(event) {
-//            instance.getChart().$element.addClass("active");
-//            if (event !== undefined) {
-//               $("i[techlooper='chartsMenu']").removeClass('active');
-//               instance.getChart().$element.addClass("active");
-//            }
-            instance.reflectChart(event);
-            $rootScope.$emit(jsonValue.events.changeChart);
-         },
-         
-         reflectChart : function(event) {
             $("i[techlooper='chartsMenu']").removeClass('active');
             var $element = (event !== undefined) ? $(event.target) : instance.getChart($location.path()).$element;
             $element.addClass("active");

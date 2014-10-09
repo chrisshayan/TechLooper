@@ -1,19 +1,11 @@
 angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller('chartController',
    [ "$scope", "jsonValue", "connectionFactory", "utils", "headerService", "$rootScope", function($scope, jsonValue, connectionFactory, utils, headerService, $rootScope) {
-      $rootScope.$on(jsonValue.events.changeChart, function(event, data) {
-         $rootScope.$doChart(data);
-      });
-
       var events = jsonValue.events;
       var rColor = 0;
       var terms = [];
       var chartFactory = headerService.getChart().factory;
 
       connectionFactory.initialize($scope);
-      $rootScope.$doChart = function() {
-         connectionFactory.receiveTechnicalTerms();
-      }
-
       $scope.$on(events.terms, function(event, data) {
          terms = data;
          chartFactory.setTerms(terms);
@@ -47,5 +39,5 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller('cha
          chartFactory.initializeAnimation();
       });
 
-       $rootScope.$doChart();
+      connectionFactory.receiveTechnicalTerms();
    } ]);
