@@ -22,14 +22,20 @@ techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider",
    $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
 
    $routeProvider.when("/bubble-chart", {
-      templateUrl : "modules/home/home.tpl.html",
-      controller : "registerController"
+      templateUrl : "modules/bubble-chart/bubble-chart.tpl.html",
+      controller : "chartController"
    }).when("/pie-chart", {
-      templateUrl : "modules/home/home.tpl.html",
-      controller : "registerController"
+      templateUrl : "modules/pie-chart/pie-chart.tpl.html",
+      controller : "chartController"
    }).otherwise({
       redirectTo : "/bubble-chart"
    });
+} ]);
+
+techlooper.controller('registerController', [ "connectionFactory", "$scope", function(connectionFactory, $scope) {
+   if (!connectionFactory.isConnected()) {
+      connectionFactory.connectSocket();
+   }
 } ]);
 
 techlooper.directive("header", function() {
@@ -45,5 +51,12 @@ techlooper.directive("header", function() {
       replace : true,
       templateUrl : "modules/footer/footer.tpl.html"
    // controller : "footerController"
+   }
+}).directive("findjobs", function() {
+   return {
+      restrict : "A", // This mens that it will be used as an attribute and NOT as an element.
+      replace : true,
+      templateUrl : "modules/job/findJobs.tpl.html",
+      controller: 'findJobsController'
    }
 });
