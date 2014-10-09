@@ -11,8 +11,8 @@ angular.module("Common").constant("jsonValue", {
    },
    
    charts: {
-      pie : "pie",
-      bubble : "bubble"
+      pie : "/pie-chart",
+      bubble : "/bubble-chart"
    },
    
    socketUri : {

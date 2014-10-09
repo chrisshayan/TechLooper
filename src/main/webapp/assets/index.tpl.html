@@ -30,14 +30,31 @@
 <!-- endbuild -->
 </head>
 
-<body ng-app="Techlooper">
+<body ng-app="Techlooper" ng-controller="registerController">
    <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
    <div header></div>
-   <div ng-view></div>
+
+
+   <div class="row">
+      <div class="col-md-12 bubble-chart-block">
+         <div ng-view></div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="note">
+         <div translate>note</div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12 analystic-find-jobs-block">
+         <div findjobs></div>
+      </div>
+   </div>
+
    <div footer></div>
 </body>
 <!-- bower:js -->

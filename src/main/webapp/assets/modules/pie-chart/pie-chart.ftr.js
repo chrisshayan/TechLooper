@@ -26,11 +26,6 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        
        initializeAnimation : function() {
         instance.generateChartData();
-        // var currentTerm = termsMap[terms.termID];
-        // if (currentTerm.count === terms.count) {
-        // }else{
-        //   console.log(1)
-        // }
         $('.pie-Chart-Container').highcharts({
            colors : colorJson,
            chart : {
@@ -92,7 +87,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
               }
            },
            series : [ {
-              type : jsonValue.charts.pie,
+              type : 'pie',
               name : 'Jobs',
               size : '100%',
               innerSize : '30%',
