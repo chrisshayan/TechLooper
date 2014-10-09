@@ -1,17 +1,24 @@
-angular.module("Header").factory("headerService", [ 'jsonValue', '$rootScope', function(jsonValue, $rootScope) {
-   var chartStyle;
+angular.module("Header").factory("headerService", [ 'jsonValue', '$rootScope', "$location", function(jsonValue, $rootScope, $location) {
    var instance = {
       changeChart : function(event) {
-         var chart = instance.getClickedChartStyle($(event.target));
-         if (chart === chartStyle) {
-            return;
-         }
-
-         var item = $(event.target).parent().parent().find('i');
-         item.removeClass('active');
-         $(event.target).addClass('active');
-         chartStyle = chart;
-         $rootScope.$emit(jsonValue.events.changeChart, chartStyle);
+//         console.log($location.path());
+         $("i[techlooper='chartsMenu']").removeClass('active');
+         $(event.target).addClass("active");
+         
+//         var chart = instance.getClickedChartStyle($(event.target));
+//         if (chart === chartStyle) {
+//            return;
+//         }
+//
+//         var item = $(event.target).parent().parent().find('i');
+//         item.removeClass('active');
+//         $(event.target).addClass('active');
+//         chartStyle = chart;
+         $rootScope.$emit(jsonValue.events.changeChart, $location.path());
+      },
+      
+      getChart : function() {
+         return $location.path();
       },
 
       getClickedChartStyle : function($target) {
@@ -41,12 +48,6 @@ angular.module("Header").factory("headerService", [ 'jsonValue', '$rootScope', f
                width : "28"
             });
          }
-      },
-      getChart : function() {
-         return chartStyle;
-      },
-      setChart : function($chart) {
-         chartStyle = $chart;
       }
    }
 

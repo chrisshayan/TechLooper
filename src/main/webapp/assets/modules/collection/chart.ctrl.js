@@ -17,18 +17,15 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller(
                chart = headerService.getChart();
             }
             
-            var chartDiv = "";
             switch (chart) {
             case jsonValue.charts.pie :
-               chartDiv = jsonValue.ui.pie;
                chartFactory = pieFactory;
                break;
             case jsonValue.charts.bubble :
-               chartDiv = jsonValue.ui.bubble;
                chartFactory = bubbleFactory;
                break;
             }
-            $('.chart-contrainer').empty().append(chartDiv);
+            $("#box").empty();
             connectionFactory.receiveTechnicalTerms();
          }
          
