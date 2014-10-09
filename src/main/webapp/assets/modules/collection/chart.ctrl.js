@@ -37,7 +37,7 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller(
             chartFactory.setTerms(terms);
             $.each(terms, function(index, term) {
                rColor = rColor + 1;
-               if (rColor == 9) {
+               if (rColor == terms.length) {
                   rColor = 0;
                }
                chartFactory.draw({
@@ -49,7 +49,7 @@ angular.module('Chart', [ "Bubble", "Pie", "Common", "Header" ]).controller(
 
                $scope.$on(events.term + term.term, function(event, data) {
                   rColor = rColor + 1;
-                  if (rColor == 9) {
+                  if (rColor == terms.length) {
                      rColor = 0;
                   }
                   chartFactory.draw({
