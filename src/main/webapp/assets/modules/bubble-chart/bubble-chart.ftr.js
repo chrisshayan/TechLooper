@@ -1306,6 +1306,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
       },
 
       setTerms: function ($terms) {
+         $("#box").empty();
          terms = $terms;
          totalJobs = utils.sum(terms, "count");
       },
