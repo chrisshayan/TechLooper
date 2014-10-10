@@ -12,9 +12,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
    var totalJobs = 0;
 
    var mT = "70px",
-      mL = "-85px",
+      mL = "20px",
       dT = "80px",
-      dL = "-50px",
+      dL = "50px",
       lPosition = "",
       tPosition = "",
       mSize = "220px",
