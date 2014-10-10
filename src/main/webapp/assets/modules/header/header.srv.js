@@ -32,16 +32,6 @@ angular.module("Header").factory("headerService",
             return chart;
          },
 
-         getClickedChartStyle : function($target) {
-            if ($target.hasClass('fa-pie-chart')) {
-               return jsonValue.charts.pie;
-            }
-            else if ($target.hasClass('fa-bubble-chart')) {
-               return jsonValue.charts.bubble;
-            }
-            return undefined;
-         },
-
          showSetting : function() {
             var set = $(".setting-content");
             if (set.hasClass('hideContent')) {
