@@ -60,8 +60,6 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
                  cursor : 'pointer',
                  dataLabels : {
                     enabled : true,
-                    //distance: -30,
-                    inside: true,
                     format : '<b>{point.name}</b>: {point.y}',
                     style : {
                        color : (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
@@ -89,7 +87,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
            series : [ {
               type : 'pie',
               name : 'Jobs',
-              size : '100%',
+              size : '90%',
               innerSize : '30%',
               data : pieJson
            } ]

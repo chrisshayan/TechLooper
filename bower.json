@@ -56,6 +56,9 @@
       },
       "angular-translate-loader-static-files": {
          "main": "angular-translate-loader-static-files.min.js"
+      },
+      "highcharts-release": {
+         "main": "highcharts.js"
       }
    }
 }
