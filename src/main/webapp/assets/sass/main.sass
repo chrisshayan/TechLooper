@@ -19,6 +19,8 @@ a:hover
   padding: 0
 .row
   margin: 0
+.col-md-12
+  padding: 0
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
@@ -46,8 +48,9 @@ a:hover
   max-height: 30px
   height: 30px
   width: 28px
-  position: relative
-  left: 0
+  position: absolute
+  left: 5px
+  z-index: 999
   i
     font-size: 20px
     cursor: pointer
@@ -106,6 +109,15 @@ ul.setting-items
   color: #727272
   font-size: 11px
   padding-bottom: 5px
+.chart-block
+  width: 100%
+  clear: both
+  min-height: 550px
+.chart-contrainer
+  width: 100%
+  clear: both
+  display: block
+  text-align: center
 /* --- Style for bubble chart ---*/
 
 .bubble-chart-block
@@ -119,6 +131,10 @@ ul.setting-items
 .bubble-chart-container
   width: 400px
   margin: auto
+  position: relative
+  left: 0
+  right: 0
+  min-height: 500px
 
 .find-jobs-block
   float: left
@@ -152,9 +168,10 @@ ul.setting-items
       background-color: #007bdc
 .pie-Chart-Container
   padding-top: 50px
+  min-height: 450px
 
 .analystic-find-jobs-block
-  position: fixed
+  position: relative
   bottom: 15px
   left: 0
   right: 0

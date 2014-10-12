@@ -35,89 +35,89 @@ angular.module("Common").constant("jsonValue", {
          "left" : "20px"
       }, {
          "top" : "220px",
-         "left" : "120px"
+         "left" : "215px"
       }, {
-         "top" : "40px",
-         "left" : "-100px"
+         "top" : "25px",
+         "left" : "100px"
       }, {
          "top" : "150px",
          "left" : "-130px"
       }, {
          "top" : "220px",
-         "left" : "-115px"
+         "left" : "-10px"
       }, {
          "top" : "105px",
-         "left" : "125px"
+         "left" : "230px"
       }, {
          "top" : "290px",
-         "left" : "-90px"
+         "left" : "90px"
       }, {
          "top" : "10px",
          "left" : "-10px"
       }, {
-         "top" : "290px",
-         "left" : "70px"
+         "top" : "20px",
+         "left" : "190px"
       } ]
    } ],
    dPositionDefault : [ {
       "data" : [ {
          "top" : "5px",
-         "left" : "50px"
+         "left" : "150px"
       }, {
          "top" : "190px",
-         "left" : "280px"
+         "left" : "370px"
       }, {
          "top" : "75px",
-         "left" : "260px"
+         "left" : "360px"
       }, {
          "top" : "340px",
-         "left" : "-100px"
+         "left" : "0"
       }, {
          "top" : "330px",
-         "left" : "-100px"
+         "left" : "0"
       }, {
          "top" : "260px",
-         "left" : "-140px"
+         "left" : "-40px"
       }, {
          "top" : "150px",
-         "left" : "-150px"
+         "left" : "-50px"
       }, {
          "top" : "305px",
-         "left" : "250px"
+         "left" : "350px"
       }, {
          "top" : "390px",
-         "left" : "190px"
+         "left" : "290px"
       } ]
    } ],
    mBubblePosition : [ {
       "name" : "java",
       "data" : [ {
          "top" : "75px",
+         "left" : "150px"
+      }, {
+         "top" : "280px",
          "left" : "50px"
       }, {
-         "top" : "230px",
-         "left" : "-120px"
-      }, {
          "top" : "5px",
-         "left" : "-40px"
-      }, {
-         "top" : "75px",
-         "left" : "115px"
-      }, {
-         "top" : "270px",
-         "left" : "-100px"
-      }, {
-         "top" : "300px",
-         "left" : "-55px"
-      }, {
-         "top" : "50px",
-         "left" : "-120px"
-      }, {
-         "top" : "260px",
          "left" : "80px"
       }, {
-         "top" : "300px",
-         "left" : "-30px"
+         "top" : "75px",
+         "left" : "215px"
+      }, {
+         "top" : "270px",
+         "left" : "100px"
+      }, {
+         "top" : "265px",
+         "left" : "-5px"
+      }, {
+         "top" : "280px",
+         "left" : "180px"
+      }, {
+         "top" : "260px",
+         "left" : "180px"
+      }, {
+         "top" : "280px",
+         "left" : "170px"
       } ]
    }, {
       "name" : ".net",
@@ -128,35 +128,35 @@ angular.module("Common").constant("jsonValue", {
          "top" : "150px",
          "left" : "250px"
       }, {
-         "top" : "300px",
-         "left" : "-10px"
+         "top" : "290px",
+         "left" : "180px"
       }, {
-         "top" : "245px",
+         "top" : "290px",
          "left" : "105px"
       }, {
+         "top" : "230px",
+         "left" : "70px"
+      }, {
+         "top" : "25px",
+         "left" : "-10px"
+      }, {
+         "top" : "40px",
+         "left" : "0px"
+      }, {
          "top" : "280px",
-         "left" : "100px"
+         "left" : "70px"
       }, {
          "top" : "5px",
-         "left" : "-60px"
-      }, {
-         "top" : "-10px",
-         "left" : "-20px"
-      }, {
-         "top" : "300px",
-         "left" : "-10px"
-      }, {
-         "top" : "5px",
-         "left" : "-10px"
+         "left" : "50px"
       } ]
    }, {
       "name" : "php",
       "data" : [ {
-         "top" : "20px",
-         "left" : "-100px"
+         "top" : "10px",
+         "left" : "80px"
       }, {
-         "top" : "280px",
-         "left" : "-45px"
+         "top" : "250px",
+         "left" : "-15px"
       }, {
          "top" : "-240px",
          "left" : "10px"
@@ -170,44 +170,44 @@ angular.module("Common").constant("jsonValue", {
          "top" : "5px",
          "left" : "70px"
       }, {
-         "top" : "260px",
-         "left" : "-120px"
+         "top" : "255px",
+         "left" : "-10px"
       }, {
          "top" : "50px",
-         "left" : "100px"
+         "left" : "210px"
       }, {
-         "top" : "230px",
-         "left" : "105px"
+         "top" : "200px",
+         "left" : "-25px"
       } ]
    }, {
       "name" : "ruby",
       "data" : [ {
          "top" : "100px",
-         "left" : "120px"
+         "left" : "220px"
       }, {
          "top" : "10px",
          "left" : "-10px"
       }, {
          "top" : "250px",
-         "left" : "-120px"
+         "left" : "0"
       }, {
          "top" : "0px",
          "left" : "50px"
       }, {
          "top" : "200px",
-         "left" : "115px"
-      }, {
-         "top" : "240px",
-         "left" : "-115px"
-      }, {
-         "top" : "150px",
-         "left" : "-120px"
+         "left" : "230px"
       }, {
          "top" : "200px",
+         "left" : "-15px"
+      }, {
+         "top" : "150px",
+         "left" : "-20px"
+      }, {
+         "top" : "30px",
          "left" : "130px"
       }, {
          "top" : "260px",
-         "left" : "-120px"
+         "left" : "10px"
       } ]
    }, {
       "name" : "python",
@@ -215,26 +215,26 @@ angular.module("Common").constant("jsonValue", {
          "top" : "290px",
          "left" : "20px"
       }, {
-         "top" : "220px",
-         "left" : "120px"
+         "top" : "280px",
+         "left" : "180px"
       }, {
-         "top" : "40px",
-         "left" : "-120px"
+         "top" : "140px",
+         "left" : "-20px"
       }, {
          "top" : "150px",
-         "left" : "-120px"
+         "left" : "-20px"
       }, {
          "top" : "290px",
          "left" : "15px"
       }, {
          "top" : "285px",
-         "left" : "25px"
+         "left" : "80px"
       }, {
-         "top" : "290px",
-         "left" : "-30px"
+         "top" : "90px",
+         "left" : "230px"
       }, {
-         "top" : "20px",
-         "left" : "-10px"
+         "top" : "140px",
+         "left" : "-20px"
       }, {
          "top" : "290px",
          "left" : "70px"
@@ -243,88 +243,88 @@ angular.module("Common").constant("jsonValue", {
       "name" : "dba",
       "data" : [ {
          "top" : "50px",
-         "left" : "100px"
+         "left" : "210px"
       }, {
-         "top" : "30px",
-         "left" : "-70px"
+         "top" : "50px",
+         "left" : "20px"
       }, {
          "top" : "280px",
          "left" : "50px"
       }, {
          "top" : "15px",
-         "left" : "75px"
+         "left" : "175px"
       }, {
-         "top" : "315px",
-         "left" : "-45px"
+         "top" : "80px",
+         "left" : "215px"
       }, {
          "top" : "240px",
-         "left" : "110px"
+         "left" : "220px"
       }, {
          "top" : "220px",
-         "left" : "110px"
+         "left" : "215px"
       }, {
          "top" : "65px",
          "left" : "-125px"
       }, {
          "top" : "70px",
-         "left" : "110px"
+         "left" : "10px"
       } ]
    }, {
       "name" : "pm",
       "data" : [ {
-         "top" : "280px",
-         "left" : "-80px"
+         "top" : "270px",
+         "left" : "80px"
       }, {
-         "top" : "260px",
-         "left" : "50px"
+         "top" : "0",
+         "left" : "180px"
       }, {
-         "top" : "110px",
-         "left" : "-125px"
+         "top" : "0",
+         "left" : "-15px"
       }, {
          "top" : "10px",
-         "left" : "-120px"
+         "left" : "20px"
       }, {
-         "top" : "-5px",
-         "left" : "-100px"
+         "top" : "280px",
+         "left" : "180px"
       }, {
          "top" : "-50px",
          "left" : "210px"
       }, {
-         "top" : "30px",
+         "top" : "0",
          "left" : "60px"
       }, {
          "top" : "250px",
-         "left" : "-110px"
+         "left" : "-20px"
       }, {
          "top" : "20px",
-         "left" : "-120px"
+         "left" : "190px"
       } ]
    }, {
       "name" : "ba",
       "data" : [ {
          "top" : "210px",
-         "left" : "-115px"
+         "left" : "-25px"
       }, {
          "top" : "100px",
-         "left" : "-120px"
+         "left" : "-20px"
       }, {
          "top" : "20px",
-         "left" : "60px"
+         "left" : "160px"
       }, {
          "top" : "225px",
-         "left" : "-120px"
+         "left" : "220px"
       }, {
          "top" : "80px",
-         "left" : "-120px"
+         "left" : "-20px"
       }, {
          "top" : "70px",
-         "left" : "-120px"
+         "left" : "220px"
       }, {
          "top" : "300px",
          "left" : "80px"
       }, {
          "top" : "55px",
-         "left" : "-110px"
+         "left" : "-10px"
       }, {
          "top" : "-50px",
          "left" : "150px"
@@ -333,22 +333,22 @@ angular.module("Common").constant("jsonValue", {
       "name" : "qa",
       "data" : [ {
          "top" : "230px",
-         "left" : "100px"
+         "left" : "210px"
       }, {
-         "top" : "60px",
+         "top" : "0",
          "left" : "110px"
       }, {
          "top" : "220px",
-         "left" : "110px"
+         "left" : "210px"
       }, {
-         "top" : "-12px",
-         "left" : "10px"
+         "top" : "70px",
+         "left" : "-20px"
       }, {
          "top" : "290px",
          "left" : "30px"
       }, {
-         "top" : "110px",
-         "left" : "125px"
+         "top" : "30px",
+         "left" : "155px"
       }, {
          "top" : "250px",
          "left" : "130px"
@@ -357,278 +357,278 @@ angular.module("Common").constant("jsonValue", {
          "left" : "50px"
       }, {
          "top" : "140px",
-         "left" : "130px"
+         "left" : "230px"
       } ]
    } ],
    dBubblePosition : [ {
       "name" : "java",
       "data" : [ {
          "top" : "75px",
-         "left" : "50px"
+         "left" : "150px"
       }, {
          "top" : "340px",
-         "left" : "-100px"
+         "left" : "0"
       }, {
-         "top" : "75px",
-         "left" : "260px"
+         "top" : "115px",
+         "left" : "350px"
       }, {
          "top" : "340px",
-         "left" : "-100px"
+         "left" : "0"
       }, {
          "top" : "330px",
-         "left" : "-100px"
+         "left" : "-30px"
       }, {
          "top" : "300px",
-         "left" : "-140px"
+         "left" : "-40px"
       }, {
          "top" : "150px",
-         "left" : "-150px"
+         "left" : "-50px"
       }, {
-         "top" : "355px",
-         "left" : "250px"
+         "top" : "305px",
+         "left" : "350px"
       }, {
-         "top" : "390px",
-         "left" : "190px"
+         "top" : "320px",
+         "left" : "0"
       } ]
    }, {
       "name" : ".net",
       "data" : [ {
-         "top" : "420px",
-         "left" : "110px"
-      }, {
-         "top" : "150px",
-         "left" : "250px"
-      }, {
-         "top" : "60px",
-         "left" : "-100px"
-      }, {
-         "top" : "380px",
-         "left" : "200px"
-      }, {
-         "top" : "10px",
-         "left" : "80px"
-      }, {
-         "top" : "50px",
+         "top" : "390px",
          "left" : "230px"
       }, {
+         "top" : "150px",
+         "left" : "300px"
+      }, {
+         "top" : "60px",
+         "left" : "0"
+      }, {
+         "top" : "380px",
+         "left" : "300px"
+      }, {
+         "top" : "35px",
+         "left" : "0"
+      }, {
+         "top" : "50px",
+         "left" : "310px"
+      }, {
          "top" : "10px",
-         "left" : "200px"
+         "left" : "300px"
       }, {
          "top" : "350px",
-         "left" : "-80px"
+         "left" : "20px"
       }, {
-         "top" : "0px",
-         "left" : "100px"
+         "top" : "20px",
+         "left" : "280px"
       } ]
    }, {
       "name" : "php",
       "data" : [ {
          "top" : "40px",
-         "left" : "-60px"
-      }, {
-         "top" : "10px",
-         "left" : "250px"
-      }, {
-         "top" : "-240px",
          "left" : "10px"
       }, {
-         "top" : "230px",
-         "left" : "280px"
+         "top" : "110px",
+         "left" : "350px"
+      }, {
+         "top" : "-240px",
+         "left" : "160px"
+      }, {
+         "top" : "250px",
+         "left" : "360px"
+      }, {
+         "top" : "390px",
+         "left" : "140px"
+      }, {
+         "top" : "165px",
+         "left" : "-40px"
       }, {
          "top" : "230px",
-         "left" : "-190px"
+         "left" : "360px"
       }, {
-         "top" : "115px",
-         "left" : "-180px"
+         "top" : "250px",
+         "left" : "-40px"
       }, {
-         "top" : "230px",
-         "left" : "280px"
-      }, {
-         "top" : "230px",
-         "left" : "-130px"
-      }, {
-         "top" : "205px",
-         "left" : "-130px"
+         "top" : "225px",
+         "left" : "-35px"
       } ]
    }, {
       "name" : "ruby",
       "data" : [ {
-         "top" : "340px",
-         "left" : "-150px"
+         "top" : "400px",
+         "left" : "120px"
       }, {
-         "top" : "30px",
-         "left" : "30px"
+         "top" : "130px",
+         "left" : "-20px"
       }, {
          "top" : "380px",
-         "left" : "210px"
+         "left" : "310px"
       }, {
          "top" : "0px",
-         "left" : "50px"
-      }, {
-         "top" : "0px",
-         "left" : "190px"
-      }, {
-         "top" : "410px",
-         "left" : "-90px"
-      }, {
-         "top" : "55px",
-         "left" : "-70px"
-      }, {
-         "top" : "165px",
-         "left" : "290px"
+         "left" : "150px"
       }, {
          "top" : "20px",
-         "left" : "250px"
+         "left" : "290px"
+      }, {
+         "top" : "390px",
+         "left" : "190px"
+      }, {
+         "top" : "5px",
+         "left" : "170px"
+      }, {
+         "top" : "370px",
+         "left" : "280px"
+      }, {
+         "top" : "70px",
+         "left" : "10px"
       } ]
    }, {
       "name" : "python",
       "data" : [ {
-         "top" : "100px",
-         "left" : "290px"
+         "top" : "150px",
+         "left" : "360px"
       }, {
          "top" : "235px",
-         "left" : "280px"
+         "left" : "380px"
       }, {
-         "top" : "30px",
-         "left" : "30px"
+         "top" : "20px",
+         "left" : "130px"
       }, {
          "top" : "80px",
-         "left" : "-110px"
+         "left" : "20px"
       }, {
          "top" : "150px",
-         "left" : "200px"
+         "left" : "300px"
       }, {
          "top" : "150px",
-         "left" : "295px"
+         "left" : "395px"
       }, {
-         "top" : "220px",
-         "left" : "-110px"
+         "top" : "250px",
+         "left" : "-20px"
       }, {
-         "top" : "60px",
-         "left" : "260px"
+         "top" : "200px",
+         "left" : "360px"
       }, {
          "top" : "180px",
-         "left" : "290px"
+         "left" : "390px"
       } ]
    }, {
       "name" : "dba",
       "data" : [ {
          "top" : "295px",
-         "left" : "270px"
+         "left" : "370px"
       }, {
          "top" : "50px",
-         "left" : "200px"
+         "left" : "300px"
       }, {
          "top" : "240px",
-         "left" : "290px"
+         "left" : "390px"
       }, {
          "top" : "50px",
-         "left" : "240px"
+         "left" : "340px"
+      }, {
+         "top" : "280px",
+         "left" : "360px"
       }, {
          "top" : "320px",
-         "left" : "260px"
-      }, {
-         "top" : "320px",
-         "left" : "250px"
+         "left" : "350px"
       }, {
          "top" : "380px",
-         "left" : "210px"
+         "left" : "310px"
       }, {
          "top" : "130px",
-         "left" : "190px"
+         "left" : "290px"
       }, {
-         "top" : "120px",
-         "left" : "-140px"
+         "top" : "20px",
+         "left" : "90px"
       } ]
    }, {
       "name" : "pm",
       "data" : [ {
          "top" : "-5px",
-         "left" : "160px"
-      }, {
-         "top" : "380px",
-         "left" : "250px"
+         "left" : "260px"
       }, {
          "top" : "350px",
-         "left" : "-90px"
+         "left" : "300px"
+      }, {
+         "top" : "350px",
+         "left" : "190px"
       }, {
          "top" : "120px",
-         "left" : "290px"
+         "left" : "350px"
       }, {
-         "top" : "15px",
-         "left" : "-100px"
+         "top" : "325px",
+         "left" : "260px"
       }, {
          "top" : "-50px",
-         "left" : "210px"
+         "left" : "310px"
       }, {
          "top" : "330px",
-         "left" : "-110px"
+         "left" : "-10px"
       }, {
          "top" : "10px",
-         "left" : "-80px"
+         "left" : "10px"
       }, {
-         "top" : "300px",
-         "left" : "-140px"
+         "top" : "330px",
+         "left" : "300px"
       } ]
    }, {
       "name" : "ba",
       "data" : [ {
-         "top" : "230px",
-         "left" : "-160px"
+         "top" : "280px",
+         "left" : "-50px"
       }, {
-         "top" : "40px",
-         "left" : "-110px"
-      }, {
-         "top" : "250px",
-         "left" : "-160px"
+         "top" : "0",
+         "left" : "110px"
       }, {
          "top" : "250px",
-         "left" : "-150px"
+         "left" : "-60px"
       }, {
-         "top" : "110px",
-         "left" : "-150px"
+         "top" : "200px",
+         "left" : "-40px"
+      }, {
+         "top" : "150px",
+         "left" : "-35px"
       }, {
          "top" : "60px",
-         "left" : "-100px"
+         "left" : "-10px"
       }, {
          "top" : "100px",
-         "left" : "280px"
+         "left" : "380px"
       }, {
-         "top" : "100px",
-         "left" : "-100px"
+         "top" : "0",
+         "left" : "140px"
       }, {
-         "top" : "-50px",
-         "left" : "150px"
+         "top" : "95px",
+         "left" : "360px"
       } ]
    }, {
       "name" : "qa",
       "data" : [ {
-         "top" : "60px",
-         "left" : "245px"
+         "top" : "160px",
+         "left" : "-35px"
       }, {
          "top" : "420px",
-         "left" : "110px"
-      }, {
-         "top" : "40px",
          "left" : "210px"
       }, {
+         "top" : "40px",
+         "left" : "310px"
+      }, {
          "top" : "20px",
-         "left" : "10px"
+         "left" : "110px"
       }, {
          "top" : "150px",
-         "left" : "290px"
+         "left" : "390px"
       }, {
          "top" : "-10px",
-         "left" : "-30px"
-      }, {
-         "top" : "250px",
          "left" : "130px"
       }, {
-         "top" : "25px",
-         "left" : "190px"
+         "top" : "250px",
+         "left" : "230px"
       }, {
-         "top" : "80px",
-         "left" : "-80px"
+         "top" : "25px",
+         "left" : "290px"
+      }, {
+         "top" : "260px",
+         "left" : "360px"
       } ]
    } ],
    shortcuts : [ {

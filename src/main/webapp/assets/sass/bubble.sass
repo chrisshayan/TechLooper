@@ -1,35 +1,7 @@
-#left
-  float: left
-  width: 555px
-  margin-top: 50px
-
-#right
-  float: right
-  width: 415px
-  margin-top: 50px
-  a
-    display: block
-    color: #FF5800
-    font-size: 12px
-    text-transform: uppercase
-    margin-top: 10px
-    &:visited
-      display: block
-      color: #FF5800
-      font-size: 12px
-      text-transform: uppercase
-      margin-top: 10px
-    &:hover, &.active
-      text-decoration: none
-      color: #003359
-  p
-    color: #19337F
-    margin-top: 35px
-    font-size: 20px
-
+.bubble-chart-container
+  min-height: 380
 #box
   position: relative
-  left: 80px
   .circle
     cursor: pointer
     text-align: center
@@ -119,7 +91,7 @@
     span
       font-size: 18px
       line-height: 22px
-      top: 18px !important
+      top: 25px !important
       width: 100px
     strong
       font-size: 25px
@@ -164,25 +136,6 @@
       width: 320px
     strong
       font-size: 45px
-.border-line
-  background: url(../images/border-line.png) #fff left top no-repeat
-  display: block
-  border-radius: 50%
-  // -webkit-animation: spin 4s linear infinite
-  // -moz-animation: spin 4s linear infinite
-  // animation: spin 4s linear infinite
-
-@-moz-keyframes spin
-  100% 
-    -moz-transform: rotate(360deg)
-
-@-webkit-keyframes spin
-  100% 
-    -webkit-transform: rotate(360deg)
-@keyframes spin 
-  100% 
-    -webkit-transform: rotate(360deg) 
-    transform: rotate(360deg)
 .bubble-chart-error
   display: none
   width: 300px
@@ -191,3 +144,40 @@
 
 .small
   z-index: 5 !important
+
+.ball-highlight
+  border: 5px solid rgba(255,255,255,0.9)
+  opacity: 1
+  border-top: 5px solid rgba(0,0,0,0)
+  border-left: 5px solid rgba(0,0,0,0)
+  border-right: 5px solid rgba(0,0,0,0)
+  border-radius: 50%
+  width: 100px
+  height: 100px
+  margin: 0 auto
+  -moz-animation: spin 3s infinite linear
+  -webkit-animation: spin 3s infinite linear
+  display: none
+  position: absolute
+  left: 0
+  top: 0
+@-moz-keyframes spin
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(360deg)
+@-moz-keyframes spinoff
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(-360deg)
+@-webkit-keyframes spin
+  0%
+    -webkit-transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(360deg)
+@-webkit-keyframes spinoff
+  0%
+    -webkit-transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(-360deg)
