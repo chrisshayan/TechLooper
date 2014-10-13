@@ -29,7 +29,7 @@
 
 #box
   position: relative
-  left: 120px
+  left: 80px
   .circle
     cursor: pointer
     text-align: center
@@ -47,7 +47,7 @@
       font-size: 18px
       position: relative
       top: -70%
-      color: #ffffff
+      color: #efefef
       text-transform: capitalize
     strong
       display: block
@@ -93,7 +93,7 @@
     span
       font-size: 10px
       line-height: 5px
-      top: 25px !important
+      top: 30px !important
       width: 50px
     strong
       font-size: 12px
@@ -150,7 +150,7 @@
   .intro
     display: none
     width: 250px
-    color: #ffffff
+    color: #727272
     position: absolute
     bottom: 100px
     left: 35px
@@ -164,7 +164,25 @@
       width: 320px
     strong
       font-size: 45px
+.border-line
+  background: url(../images/border-line.png) #fff left top no-repeat
+  display: block
+  border-radius: 50%
+  // -webkit-animation: spin 4s linear infinite
+  // -moz-animation: spin 4s linear infinite
+  // animation: spin 4s linear infinite
 
+@-moz-keyframes spin
+  100% 
+    -moz-transform: rotate(360deg)
+
+@-webkit-keyframes spin
+  100% 
+    -webkit-transform: rotate(360deg)
+@keyframes spin 
+  100% 
+    -webkit-transform: rotate(360deg) 
+    transform: rotate(360deg)
 .bubble-chart-error
   display: none
   width: 300px

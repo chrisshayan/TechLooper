@@ -3,25 +3,48 @@ module.exports = function(grunt) {
    grunt.initConfig({
       pkg : grunt.file.readJSON("package.json"),
 
-      useminPrepare: {
-         html: "<%=pkg.assets%>index.html",
-         options: {
-             dest: "<%=pkg.assets%>"
+      clean : {
+         build : [ "<%=pkg.public%>" ],
+         release : ["<%=pkg.public%>index.tpl.html", "<%=pkg.public%>sass", "<%=pkg.public%>custom-js", "<%=pkg.assets%>css"]
+      },
+
+      copy : {
+         build : {
+            files : [ {
+               cwd : "<%=pkg.assets%>",
+               expand : true,
+               src : [ "**" ],
+               dest : "<%=pkg.public%>"
+            } ]
+         },
+         dev : {
+            files : [ {
+               cwd : "<%=pkg.public%>",
+               expand : true,
+               src : [ "css/**", "bower_components/**", "index.html" ],
+               dest : "<%=pkg.assets%>"
+            } ]
          }
-     },
+      },
+
+      useminPrepare : {
+         html : "<%=pkg.public%>index.html",
+         options : {
+            dest : "<%=pkg.public%>"
+         }
+      },
 
       usemin : {
-         html : [ "<%=pkg.assets%>index.html" ],
-         options: {
-            assetsDirs: ['<%=pkg.assets%>css']
-          }
+         html : [ "<%=pkg.public%>index.html" ],
+         options : {
+            publicDirs : [ "<%=pkg.public%>css" ]
+         }
       },
-      
 
       "bower-install-simple" : {
          options : {
             color : true,
-            directory : "<%=pkg.assets%>bower_components"
+            directory : "<%=pkg.public%>bower_components"
          },
          prod : {
             options : {
@@ -33,22 +56,22 @@ module.exports = function(grunt) {
       wiredep : {
          options : {
             color : true,
-            directory : "<%=pkg.assets%>bower_components"
+            directory : "<%=pkg.public%>bower_components"
          },
          target : {
-            src : [ "<%=pkg.assets%>index.html" ]
+            src : [ "<%=pkg.public%>index.html" ]
          }
       },
 
       includeSource : {
          options : {
-            basePath : "<%=pkg.assets%>",
+            basePath : "<%=pkg.public%>",
             duplicates : false,
             debug : true
          },
          target : {
             files : {
-               "<%=pkg.assets%>index.html" : "<%=pkg.assets%>index.tpl.html"
+               "<%=pkg.public%>index.html" : "<%=pkg.public%>index.tpl.html"
             }
          }
       },
@@ -77,7 +100,7 @@ module.exports = function(grunt) {
          server : {
             options : {
                port : 8080,
-               base : ".",
+               base : "src/main/webapp/assets",
                keepalive : true
             }
          }
@@ -93,8 +116,14 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks("grunt-contrib-concat");
    grunt.loadNpmTasks("grunt-contrib-cssmin");
    grunt.loadNpmTasks("grunt-usemin");
+   grunt.loadNpmTasks("grunt-contrib-copy");
+   grunt.loadNpmTasks("grunt-contrib-clean");
 
-   grunt.registerTask("default", [ "bower-install-simple", "includeSource:target", "wiredep:target" ]);
-   grunt.registerTask("build", [ "bower-install-simple", "includeSource:target", "wiredep:target", "useminPrepare", 'concat', 'uglify', 'cssmin', 'usemin']);
+   grunt.registerTask("html", [ "clean:build", "bower-install-simple", "includeSource:target", "wiredep:target" ]);
+   grunt.registerTask("build", [ "clean:build", "copy:build", "bower-install-simple", "includeSource:target", 
+                                 "wiredep:target", "useminPrepare", "concat", "uglify", "cssmin", "usemin", "clean:release" ]);
+   grunt.registerTask("local", [ "clean:build", "copy", "bower-install-simple", "includeSource:target", 
+                                 "wiredep:target", "copy:dev" ]);
    grunt.registerTask("run", [ "connect", "watch" ]);
+   grunt.registerTask("default", [ "clean:build", "copy" ]);
 };

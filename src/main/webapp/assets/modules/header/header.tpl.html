@@ -1,32 +1,30 @@
 <nav class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="col-md-4 setting-block">
-            <div class="setting-content">
-                <div class="setting-label">
-                    <!-- TODO: refactor later, dont bind event directly in view -->
-                    <i class="fa fa-cog" ng-click="settingStyle()"></i>
-                    <i class="fa fa-bars" ng-click="settingStyle()"></i>
-                </div>
-                <ul class="setting-items">
-                    <li><i class="fa fa-pie-chart" title="Pie Chart"></i>
-                    </li>
-                    <li><i class="fa fa-bubble-chart" title="Bubble Chart"></i>
-                    </li>
-                    <li translation></li>
-                </ul>
+   <div class="container">
+      <div class="col-md-4 setting-block">
+         <div class="setting-content hideContent">
+            <div class="setting-label">
+               <!-- TODO: refactor later, dont bind event directly in view -->
+               <i class="fa btn-setting fa-cog"></i> <i class="fa btn-setting fa-bars"></i>
             </div>
-        </div>
-        <div class="col-md-4 logo-block text-center">
-            <div class="logo">
-                <h1>
-                    <a href="#/">
-                        <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!">
-                    </a>
-                </h1>
-            </div>
-            <!-- <p class="tagline">{{tagline}}</p> -->
-        </div>
-        <div class="col-md-4 search-bar"></div>
-    </div>
-    <!-- /.container -->
+            <ul class="setting-items">
+               <li><a href="#/pie-chart"><i techlooper="chartsMenu" class="fa fa-pie-chart" title="Pie Chart"></i></a>
+               </li>
+               <li><a href="#/bubble-chart"><i techlooper="chartsMenu" class="fa fa-bubble-chart"
+                     title="Bubble Chart"></i></a></li>
+               <li translation></li>
+            </ul>
+         </div>
+      </div>
+      <div class="col-md-4 logo-block text-center">
+         <div class="logo">
+            <h1>
+               <a href="#/"> <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"
+                  title="Career Analytics. Open Source. Awesome!">
+               </a>
+            </h1>
+         </div>
+      </div>
+      <div class="col-md-4 search-bar"></div>
+   </div>
+   <!-- /.container -->
 </nav>

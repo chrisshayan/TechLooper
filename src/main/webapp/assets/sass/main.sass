@@ -17,13 +17,22 @@ a:hover
 .container
   width: 100%
   padding: 0
-
+.row
+  margin: 0
 /* -- style for header --*/
-
+.setting-block
+  padding-top: 10px
+  a
+    color: #727272
 .fa-bubble-chart
-  background: url(../images/ic-small.png) left 3px no-repeat
+  background: url(../images/ic-small.png) left -30px no-repeat
   height: 20px
   width: 20px
+.fa-bubble-chart.active
+  background-position: left top
+  color: #a4a4a4
+.fa-pie-chart.active
+  color: #428bca
 
 .navbar-inverse
   background: url(../images/line-header.png) #2e272a center bottom no-repeat
@@ -38,6 +47,7 @@ a:hover
   height: 30px
   width: 28px
   position: relative
+  left: 0
   i
     font-size: 20px
     cursor: pointer
@@ -90,13 +100,17 @@ ul.setting-items
 .logo-block h1
   margin: 0
   padding: 0
-
+.note
+  width: 100%
+  text-align: center
+  color: #727272
+  font-size: 11px
+  padding-bottom: 5px
 /* --- Style for bubble chart ---*/
 
 .bubble-chart-block
   display: block
   clear: both
-  /*padding-top:50px;*/
   width: 100%
   float: left
   height: 500px
@@ -122,17 +136,28 @@ ul.setting-items
   margin: auto
   text-align: center
   a
-    background: url(../images/ic-find-jobs.png) center 20px no-repeat
-    width: 150px
+    width: 340px
     display: block
-    height: 48px
-    color: #727272
+    height: 50px
+    line-height: 50px
+    color: #fff
     margin: auto
+    border: 1px solid #575757
+    background-color#282225
+    padding: 0 20px
+    border-radius: 15px
+    font-size: 22px
+    font-weight: 300
     &:hover
-      background-position: center 22px
-      color: #afafaf
-      padding-top: 2px
+      background-color: #007bdc
+.pie-Chart-Container
+  padding-top: 50px
 
+.analystic-find-jobs-block
+  position: fixed
+  bottom: 15px
+  left: 0
+  right: 0
 /* --- Style for footer ---*/
 
 footer
