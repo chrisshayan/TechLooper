@@ -18,9 +18,9 @@ import static freemarker.template.Configuration.VERSION_2_3_21;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
-// The envTarget variable can be set in the OS/environment or as a parameter to
-// the JVM command line: -DenvTarget=dev
-@PropertySource("classpath:${envTarget:techlooper}.properties")
+@PropertySources({
+  @PropertySource("classpath:techlooper.properties"),
+  @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching

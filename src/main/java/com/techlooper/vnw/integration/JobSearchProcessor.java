@@ -7,6 +7,7 @@ import freemarker.template.TemplateException;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,10 +26,16 @@ public class JobSearchProcessor implements Processor {
   @Resource
   private Configuration freemarkerConfiguration;
 
+  @Value("${vnw.api.key.name}")
+  private String apiKeyName;
+
+  @Value("${vnw.api.key.value}")
+  private String apiKeyValue;
+
   public void process(Exchange exchange) throws Exception {
     Message message = exchange.getIn();
     message.setHeader(Exchange.HTTP_METHOD, "POST");
-    message.setHeader("CONTENT-MD5", "4c443c7e2c515d6b4b4d693c2f63434a7773226a614846733c4c4d4348");
+    message.setHeader(apiKeyName, apiKeyValue);
     message.setBody(json(message));
   }
 

@@ -3,13 +3,13 @@ package com.techlooper.config;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import javax.annotation.Resource;
 
@@ -24,6 +24,9 @@ public class IntegrationConfiguration extends SingleRouteCamelConfiguration impl
 
   @Resource(name = "vnwJobSearchDataFormat")
   private DataFormat vnwJobSearchDataFormat;
+
+  @Resource
+  private Environment environment;
 
   protected CamelContext createCamelContext() throws Exception {
     return new SpringCamelContext(getApplicationContext());
@@ -45,7 +48,7 @@ public class IntegrationConfiguration extends SingleRouteCamelConfiguration impl
         // TODO: use Aggregator to support get result from multiple source, such as: vietnamworks, github...
         from("direct:jobs/search").
           process(vnwJobSearchProcessor).
-          to("https4://api.vietnamworks.com/jobs/search").unmarshal(vnwJobSearchDataFormat).
+          to("https4://" + environment.getProperty("vnw.api.uri")).unmarshal(vnwJobSearchDataFormat).
           to("direct:jobs/search/vnw");
 
 //        from("direct:jobs/search")
