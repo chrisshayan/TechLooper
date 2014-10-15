@@ -1,4 +1,4 @@
-package com.techlooper.config;
+package com.techlooper.config.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

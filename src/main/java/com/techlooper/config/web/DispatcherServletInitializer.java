@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.techlooper.config;
+package com.techlooper.config.web;
 
 import javax.servlet.ServletRegistration.Dynamic;
 
+import com.techlooper.config.CoreConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

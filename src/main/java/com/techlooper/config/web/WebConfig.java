@@ -1,4 +1,4 @@
-package com.techlooper.config;
+package com.techlooper.config.web;
 
 import javax.annotation.Resource;
 

@@ -3,25 +3,25 @@ angular.module("Common").constant("jsonValue", {
       bubble : '<div id="box" class="bubble-chart-container"></div>',
       pie : '<div class="pie-Chart-Container" style="min-width: 310px; height: 500px; max-width: 800px; margin: 0 auto"></div>'
    },
-   
+
    events : {
       terms : "Terms",
       term : "Term",
       changeChart : "Change Chart"
    },
-   
+
    charts: {
       pie : "/pie-chart",
       bubble : "/bubble-chart"
    },
-   
+
    socketUri : {
       sockjs : "ws",
-      sendTerms : "/app/technical-job/terms",
-      subscribeTerms : "/topic/technical-job/terms",
-      subscribeTerm : "/topic/technical-job/"
+      sendTerms : "/app/jobs/terms",
+      subscribeTerms : "/topic/jobs/terms",
+      subscribeTerm : "/topic/jobs/"
    },
-   
+
    availableLanguageKeys : [ {
       "name" : "EN",
       "value" : "en-US"
