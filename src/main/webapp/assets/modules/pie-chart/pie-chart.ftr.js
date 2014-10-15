@@ -13,17 +13,25 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
           totalJobs = utils.sum(terms, "count");
        },
        
-       draw : function(item) {
-          
-       },
-
        generateChartData : function() {
           pieJson.length = 0;
           $.each(terms, function(index, term) {
              pieJson.push([angular.uppercase(term.name), term.count]);
           });
        },
-       
+
+       draw : function(bubbleItem, force) {
+          // if (force !== true && termsMap[bubbleItem.termID] !== undefined) {
+          //   var currentTerm = termsMap[bubbleItem.termID];
+          //   if (currentTerm.count === bubbleItem.count) {
+          //      return false;
+          //   }
+          //   console.log(1)
+          //   return;
+          // }
+          // termsMap[bubbleItem.termID] = bubbleItem;
+       },
+              
        initializeAnimation : function() {
         instance.generateChartData();
         $('.pie-Chart-Container').highcharts({
