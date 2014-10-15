@@ -6,8 +6,9 @@ angular.module("Footer", []);
 angular.module("Chart", [ "Common", "Bubble" ]);
 angular.module("Jobs", []);
 angular.module("Pie", []);
+angular.module("SearchForm", []);
 
-var techlooper = angular.module("Techlooper", [ "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs" ]);
+var techlooper = angular.module("Techlooper", [ "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "SearchForm"]);
 
 techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider", function($routeProvider, $translateProvider, $locationProvider) {
    $translateProvider.useStaticFilesLoader({
@@ -27,6 +28,8 @@ techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider",
    }).when("/pie-chart", {
       templateUrl : "modules/pie-chart/pie-chart.tpl.html",
       controller : "chartController"
+   }).when("/search-jobs", {
+      templateUrl : "modules/job/search.tpl.html"
    }).otherwise({
       redirectTo : "/bubble-chart"
    });
@@ -44,13 +47,6 @@ techlooper.directive("header", function() {
       replace : true,
       templateUrl : "modules/header/header.tpl.html",
       controller : "headerController"
-   }
-}).directive("footer", function() {
-   return {
-      restrict : "A", // This mens that it will be used as an attribute and NOT as an element.
-      replace : true,
-      templateUrl : "modules/footer/footer.tpl.html"
-   // controller : "footerController"
    }
 }).directive("findjobs", function() {
    return {
