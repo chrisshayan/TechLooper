@@ -631,6 +631,97 @@ angular.module("Common").constant("jsonValue", {
          "left" : "360px"
       } ]
    } ],
+   technicalSkill :[
+      {
+         'name': 'Java',
+         'logo': 'lg-java.png'
+      },
+      {
+         'name': 'DotNet',
+         'logo': 'lg-dotnet.png'
+      },
+      {
+         'name': 'Php',
+         'logo': 'lg-php.png'
+      },
+      {
+         'name': 'Ruby',
+         'logo': 'lg-ruby.png'
+      },
+      {
+         'name': 'Python',
+         'logo': 'lg-python.png'
+      },
+      {
+         'name': 'C++',
+         'logo': 'lg-cplusplus.png'
+      },
+      {
+         'name': 'Html5',
+         'logo': 'lg-html5.png'
+      },
+      {
+         'name': 'Bootstrap',
+         'logo': 'lg-bootstrap.png'
+      },
+      {
+         'name': 'AngularJS',
+         'logo': 'lg-angularjs.png'
+      },
+      {
+         'name': 'Jquery',
+         'logo': 'lg-jquery.png'
+      },
+      {
+         'name': 'Sass',
+         'logo': 'lg-sass.png'
+      },
+      {
+         'name': 'Magento',
+         'logo': 'lg-magento.png'
+      },
+      {
+         'name': 'Notejs',
+         'logo': 'lg-notejs.png'
+      },
+      {
+         'name': 'Photoshop',
+         'logo': 'lg-photoshop.png'
+      },
+      {
+         'name': 'Less',
+         'logo': 'lg-less.png'
+      },
+      {
+         'name': 'Joomla',
+         'logo': 'lg-joomla.png'
+      },
+      {
+         'name': 'Responsive Design',
+         'logo': 'lg-responsive-design.png'
+      },
+      {
+         'name': 'Css3',
+         'logo': 'lg-css3.png'
+      },
+      {
+         'name': 'Drupal',
+         'logo': 'lg-drupal.png'
+      },
+      {
+         'name': 'Ajax',
+         'logo': 'lg-ajax.png'
+      },
+      {
+         'name': 'Backbone',
+         'logo': 'lg-backbone.png'
+      },
+      {
+         'name': 'Illustrator',
+         'logo': 'lg-illustrator.png'
+      }
+
+   ],
    shortcuts : [ {
       "id" : 1,
       "name" : "Career Analytics",
