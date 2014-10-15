@@ -35,6 +35,9 @@ css/
 static/
 *.log
 .brackets.json
+sample/
+Main.java
+job-search-response.json.ftl
 
 #Gruntfile.js
 generate-resources/
