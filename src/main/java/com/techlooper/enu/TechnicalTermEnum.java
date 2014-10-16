@@ -1,4 +1,4 @@
-package com.techlooper.model;
+package com.techlooper.enu;
 
 /**
  * Created by chrisshayan on 7/14/14.

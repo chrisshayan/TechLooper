@@ -1,5 +1,7 @@
 package com.techlooper.controller;
 
+import com.techlooper.enu.RouterContant;
+import com.techlooper.enu.TechnicalTermEnum;
 import com.techlooper.model.*;
 import com.techlooper.service.JobStatisticService;
 import org.apache.camel.Consume;
@@ -32,11 +34,11 @@ public class JobsController {
 
   @MessageMapping("/jobs/search")
   public void searchJobs(JobSearchRequest searchJobsRequest) {
-    jobsSearchProducer.sendBody(searchJobsRequest);
+    jobsSearchProducer.sendBodyAndHeader(searchJobsRequest, RouterContant.TO, RouterContant.VIETNAMWORKS);
   }
 
   @SendTo("/topic/jobs/search")
-  @Consume(uri = "direct:jobs/search/vnw")
+  @Consume(uri = "direct:jobs/search/response")
   @RecipientList
   public void replySearchJobs(JobSearchResponse jobSearchResponse) {
     messagingTemplate.convertAndSend("/topic/jobs/search", jobSearchResponse);
