@@ -35,12 +35,6 @@ techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider",
    });
 } ]);
 
-techlooper.controller('registerController', [ "connectionFactory", "$scope", function(connectionFactory, $scope) {
-   if (!connectionFactory.isConnected()) {
-      connectionFactory.connectSocket();
-   }
-} ]);
-
 techlooper.directive("header", function() {
    return {
       restrict : "A", // This mens that it will be used as an attribute and NOT as an element.

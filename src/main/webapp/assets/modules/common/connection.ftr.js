@@ -4,21 +4,41 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   var callbacks = [];
   var scope;
   var terms = [];
-  var stompClient;
-  var cache = $cacheFactory("subscriptions");
+  var subscriptions = {};
+  var isConnecting = false;
+
+  var stompClient = Stomp.over(new SockJS(socketUri.sockjs));
+  stompClient.debug = function () {};
 
   var instance = {
-    initialize: function ($scope) {
-      scope = $scope;
 
-      // TODO : stop all subscriptions
-      
+    findJobs : function(json) {
+      if (!stompClient.connected) {
+        callbacks.push({
+          fn: instance.findJobs,
+          args: json
+        });
+        return instance.connectSocket();
+      }
+
+      var subscription = stompClient.subscribe(socketUri.subscribeJobsSearch, function (response) {
+        scope.$emit(events.foundJobs, JSON.parse(response.body));
+        subscription.unsubscribe();
+      });
+      stompClient.send(socketUri.sendJobsSearch);
+    },
+
+    initialize: function ($scope) {
+      for (var uri in subscriptions) {
+        subscriptions[uri].unsubscribe();
+      }
+      scope = $scope;
     },
 
     registerTermsSubscription: function () {
       $.each(terms, function (index, term) {
         var uri = socketUri.subscribeTerm + term.term;
-        var subscription = cache.get(uri);
+        var subscription = subscriptions[uri];
         if (subscription !== undefined) {
           return true;
         }
@@ -29,30 +49,33 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
             termName: term.name
           });
         });
-        cache.put(uri, subscription);
+        subscriptions[uri] = subscription;
       });
     },
 
     connectSocket: function () {
-      stompClient = Stomp.over(new SockJS(socketUri.sockjs));
-      stompClient.debug = function () {};
+      if (isConnecting) {
+        return;
+      }
       stompClient.connect({}, function (frame) {
         $.each(callbacks, function (index, callback) {
           callback.fn.call(callback.args);
         });
+        isConnecting = false;
         callbacks.length = 0;
       }, function (errorFrame) {
         console.log("Erorr: " + errorFrame);
       });
+      isConnecting = true;
     },
-    
+
     receiveTechnicalTerms: function () {
       if (!stompClient.connected) {
         callbacks.push({
-          fn: this.receiveTechnicalTerms,
+          fn: instance.receiveTechnicalTerms,
           args: undefined
         });
-        return;
+        return instance.connectSocket();
       }
       var subscribeTerms = stompClient.subscribe(socketUri.subscribeTerms, function (response) {
         terms = JSON.parse(response.body);
