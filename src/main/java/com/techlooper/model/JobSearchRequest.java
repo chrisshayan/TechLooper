@@ -1,9 +1,11 @@
 package com.techlooper.model;
 
+import java.io.Serializable;
+
 /**
  * Created by phuonghqh on 10/14/14.
  */
-public class JobSearchRequest {
+public class JobSearchRequest implements Serializable {
 
   private String terms;
 

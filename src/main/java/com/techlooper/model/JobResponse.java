@@ -5,21 +5,63 @@ package com.techlooper.model;
  */
 public class JobResponse {
 
+  private String url;
+
   private String title;
 
-  private String detailUrl;
+  private String location;
+
+  private String level;
+
+  private String postedOn;
+
+  private String company;
+
+  private String videoUrl;
+
+  private String logoUrl;
 
   public static class Builder {
 
     private JobResponse instance = new JobResponse();
+
+    public Builder withUrl(String url) {
+      instance.url = url;
+      return this;
+    }
 
     public Builder withTitle(String title) {
       instance.title = title;
       return this;
     }
 
-    public Builder withDetailUrl(String detailUrl) {
-      instance.detailUrl = detailUrl;
+    public Builder withLocation(String location) {
+      instance.location = location;
+      return this;
+    }
+
+    public Builder withLevel(String level) {
+      instance.level = level;
+      return this;
+    }
+
+    public Builder withPostedOn(String postedOn) {
+      instance.postedOn = postedOn;
+      return this;
+    }
+
+    public Builder withCompany(String company) {
+      instance.company = company;
+      return this;
+    }
+
+    public Builder withVideoUrl(String videoUrl) {
+      instance.videoUrl = videoUrl;
+      return this;
+    }
+
+    public Builder withLogoUrl(String logoUrl) {
+      instance.logoUrl = logoUrl;
       return this;
     }
 
@@ -34,21 +76,21 @@ public class JobResponse {
 
     JobResponse that = (JobResponse) o;
 
-    if (detailUrl != null ? !detailUrl.equals(that.detailUrl) : that.detailUrl != null) return false;
+    if (url != null ? !url.equals(that.url) : that.url != null) return false;
 
     return true;
   }
 
   public int hashCode() {
-    return detailUrl != null ? detailUrl.hashCode() : 0;
+    return url != null ? url.hashCode() : 0;
   }
 
-  public String getDetailUrl() {
-    return detailUrl;
+  public String getUrl() {
+    return url;
   }
 
-  public void setDetailUrl(String detailUrl) {
-    this.detailUrl = detailUrl;
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   public String getTitle() {
@@ -57,5 +99,53 @@ public class JobResponse {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public String getLevel() {
+    return level;
+  }
+
+  public void setLevel(String level) {
+    this.level = level;
+  }
+
+  public String getPostedOn() {
+    return postedOn;
+  }
+
+  public void setPostedOn(String postedOn) {
+    this.postedOn = postedOn;
+  }
+
+  public String getCompany() {
+    return company;
+  }
+
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  public String getVideoUrl() {
+    return videoUrl;
+  }
+
+  public void setVideoUrl(String videoUrl) {
+    this.videoUrl = videoUrl;
+  }
+
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
   }
 }

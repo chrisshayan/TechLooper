@@ -2,6 +2,7 @@ package com.techlooper.config.web;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.resource.GzipResourceResolver;
 
 @Configuration
 @EnableWebMvc
+@ComponentScan(basePackages = {"com.techlooper.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
    @Resource

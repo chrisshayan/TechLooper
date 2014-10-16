@@ -1,6 +1,5 @@
 package com.techlooper.vnw.integration;
 
-import com.techlooper.model.JobSearchRequest;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -36,15 +35,15 @@ public class JobSearchProcessor implements Processor {
     Message message = exchange.getIn();
     message.setHeader(Exchange.HTTP_METHOD, "POST");
     message.setHeader(apiKeyName, apiKeyValue);
-    message.setBody(json(message));
+    message.setBody(json(message.getBody(JobSearchModel.class)));
   }
 
-  private String json(Message message) throws IOException, TemplateException {
-    JobSearchRequest request = message.getBody(JobSearchRequest.class);
+  private String json(JobSearchModel model) throws IOException, TemplateException {
     Template template = freemarkerConfiguration.getTemplate("vnw/job-search-request.json.ftl");
     Map<String, String> valueMap = new HashMap<String, String>();
-    valueMap.put("jobTitle", request.getTerms());
-    valueMap.put("pageNumber", request.getPageNumber());
+    valueMap.put("jobTitle", model.getRequest().getTerms());
+    valueMap.put("pageNumber", model.getRequest().getPageNumber());
+    valueMap.put("category", (String) model.getConfiguration().get("categoryId"));
     StringWriter jsonWriter = new StringWriter();
     template.process(valueMap, jsonWriter);
     return jsonWriter.toString();

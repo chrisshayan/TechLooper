@@ -1,5 +1,5 @@
 {
   "job_title":"${jobTitle}",
-  "category":"35",
+  "category":"${category}",
   "page_number":"${pageNumber}"
 }
