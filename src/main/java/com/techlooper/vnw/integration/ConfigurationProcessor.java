@@ -1,5 +1,6 @@
 package com.techlooper.vnw.integration;
 
+import com.techlooper.enu.RouterContant;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -20,6 +21,7 @@ public class ConfigurationProcessor implements Processor {
 
   public void process(Exchange exchange) throws Exception {
     Message message = exchange.getIn();
+    exchange.setProperty(RouterContant.VNW_MODEL, message.getBody());
     message.setHeader(Exchange.HTTP_METHOD, "GET");
     message.setHeader(apiKeyName, apiKeyValue);
     message.setBody(null);

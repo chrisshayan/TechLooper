@@ -1,8 +1,9 @@
 package com.techlooper.vnw.integration;
 
+import com.techlooper.enu.RouterContant;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import net.minidev.json.JSONArray;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -31,21 +32,28 @@ public class JobSearchProcessor implements Processor {
   @Value("${vnw.api.key.value}")
   private String apiKeyValue;
 
+  @Value("${vnw.api.configuration.category.it.software.en}")
+  private String category;
+
   public void process(Exchange exchange) throws Exception {
     Message message = exchange.getIn();
     message.setHeader(Exchange.HTTP_METHOD, "POST");
     message.setHeader(apiKeyName, apiKeyValue);
-    message.setBody(json(message.getBody(JobSearchModel.class)));
+    JobSearchModel model = exchange.getProperty(RouterContant.VNW_MODEL, JobSearchModel.class);
+    message.setBody(json(model));
   }
 
   private String json(JobSearchModel model) throws IOException, TemplateException {
-    Template template = freemarkerConfiguration.getTemplate("vnw/job-search-request.json.ftl");
-    Map<String, String> valueMap = new HashMap<String, String>();
-    valueMap.put("jobTitle", model.getRequest().getTerms());
-    valueMap.put("pageNumber", model.getRequest().getPageNumber());
-    valueMap.put("category", (String) model.getConfiguration().get("categoryId"));
+    Map<String, String> values = new HashMap<String, String>();
+
+    values.put("jobTitle", model.getRequest().getTerms());
+    values.put("pageNumber", model.getRequest().getPageNumber());
+
+    JSONArray categoryIds = model.getConfiguration().read("$.categories[?(@.lang_en=='" + category + "')].category_id");
+    values.put("category", (String) categoryIds.get(0));
+
     StringWriter jsonWriter = new StringWriter();
-    template.process(valueMap, jsonWriter);
+    freemarkerConfiguration.getTemplate("vnw/job-search-request.json.ftl").process(values, jsonWriter);
     return jsonWriter.toString();
   }
 }

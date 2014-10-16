@@ -1,5 +1,6 @@
 package com.techlooper.vnw.integration;
 
+import com.jayway.jsonpath.ReadContext;
 import com.techlooper.model.JobSearchRequest;
 import net.minidev.json.JSONObject;
 
@@ -10,12 +11,12 @@ public class JobSearchModel {
 
   private JobSearchRequest request;
 
-  private JSONObject configuration;
+  private ReadContext configuration;
 
   public static class Builder {
     private JobSearchModel instance = new JobSearchModel();
 
-    public Builder withConfiguration(JSONObject configuration) {
+    public Builder withConfiguration(ReadContext configuration) {
       instance.configuration = configuration;
       return this;
     }
@@ -30,11 +31,11 @@ public class JobSearchModel {
     }
   }
 
-  public JSONObject getConfiguration() {
+  public ReadContext getConfiguration() {
     return configuration;
   }
 
-  public void setConfiguration(JSONObject configuration) {
+  public void setConfiguration(ReadContext configuration) {
     this.configuration = configuration;
   }
 

@@ -8,4 +8,6 @@ public interface RouterContant {
   final String TO = "to";
 
   final String VIETNAMWORKS = "vietnamworks";
+  
+  final String VNW_MODEL = "vnwModel";
 }

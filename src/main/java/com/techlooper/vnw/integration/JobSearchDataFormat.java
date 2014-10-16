@@ -2,9 +2,11 @@ package com.techlooper.vnw.integration;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
+import com.techlooper.enu.RouterContant;
 import com.techlooper.model.JobResponse;
 import com.techlooper.model.JobSearchResponse;
 import freemarker.template.Configuration;
+import net.minidev.json.JSONArray;
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.DataFormat;
 import org.apache.commons.io.IOUtils;
@@ -22,9 +24,6 @@ import java.util.List;
 @Component("vnwJobSearchDataFormat")
 public class JobSearchDataFormat implements DataFormat {
 
-  @Resource
-  private Configuration freemarkerConfiguration;
-
   public void marshal(Exchange exchange, Object graph, OutputStream stream) throws Exception {
   }
 
@@ -38,6 +37,7 @@ public class JobSearchDataFormat implements DataFormat {
     JobSearchResponse.Builder responseBuilder = new JobSearchResponse.Builder();
     responseBuilder.withTotal(JsonPath.read(json, "$.data.total"));
 
+    // TODO: find new way to make code shorten
     String[] urls = ((List<String>) jsonPath.read("$.data.jobs[*].job_detail_url")).toArray(new String[]{});
     String[] titles = ((List<String>) jsonPath.read("$.data.jobs[*].job_title")).toArray(new String[]{});
     String[] locations = ((List<String>) jsonPath.read("$.data.jobs[*].job_location")).toArray(new String[]{});
@@ -46,6 +46,10 @@ public class JobSearchDataFormat implements DataFormat {
     String[] companies = ((List<String>) jsonPath.read("$.data.jobs[*].job_company")).toArray(new String[]{});
     String[] videoUrls = ((List<String>) jsonPath.read("$.data.jobs[*].job_video_url")).toArray(new String[]{});
     String[] logoUrls = ((List<String>) jsonPath.read("$.data.jobs[*].job_logo_url")).toArray(new String[]{});
+
+    ReadContext configuration = exchange.getProperty(RouterContant.VNW_MODEL, JobSearchModel.class).getConfiguration();
+    translateIds(locations, configuration, "$.locations[?(@.location_id=='%s')].lang_en");
+    translateIds(levels, configuration, "$.degree[?(@.degree_id=='%s')].lang_en");
 
     for (int i = 0; i < urls.length; i++) {
       responseBuilder.withJob(new JobResponse.Builder()
@@ -61,5 +65,17 @@ public class JobSearchDataFormat implements DataFormat {
     }
 
     return responseBuilder.build();
+  }
+
+  private void translateIds(String[] values, ReadContext configuration, String jsonPathTemplate) {
+    for (int i = 0; i < values.length; i++) {
+      String value = values[i];
+      String[] subs = value.split(",");
+      for (String sub : subs) {
+        String lang = (String)((JSONArray)configuration.read(String.format(jsonPathTemplate, sub))).get(0);
+        value = value.replaceAll(sub, lang);
+      }
+      values[i] = value;
+    }
   }
 }
