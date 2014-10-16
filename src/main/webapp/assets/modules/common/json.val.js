@@ -10,16 +10,21 @@ angular.module("Common").constant("jsonValue", {
       changeChart : "Change Chart"
    },
 
-   charts: {
+   routerUris: {
       pie : "/pie-chart",
-      bubble : "/bubble-chart"
+      bubble : "/bubble-chart",
+      searchJobs: "/search-jobs"
    },
 
    socketUri : {
       sockjs : "ws",
+
       sendTerms : "/app/jobs/terms",
       subscribeTerms : "/topic/jobs/terms",
-      subscribeTerm : "/topic/jobs/"
+      subscribeTerm : "/topic/jobs/",
+
+      sendJobsSearch : "/jobs/search",
+      subscribeJobsSearch : "/topic/jobs/search"
    },
 
    availableLanguageKeys : [ {

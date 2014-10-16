@@ -19,11 +19,11 @@ angular.module("Header").factory("headerService",
                location : $location.path()
             };
             switch (chart.location) {
-            case jsonValue.charts.pie:
+            case jsonValue.routerUris.pie:
                chart.$element = $($("i[techlooper='chartsMenu'].fa-pie-chart")[0]);
                chart.factory = pieFactory;
                break;
-            case jsonValue.charts.bubble:
+            case jsonValue.routerUris.bubble:
                chart.$element = $($("i[techlooper='chartsMenu'].fa-bubble-chart")[0]);
                chart.factory = bubbleFactory;
                break;
