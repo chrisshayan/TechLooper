@@ -10,6 +10,9 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   var instance = {
     initialize: function ($scope) {
       scope = $scope;
+
+      // TODO : stop all subscriptions
+      
     },
 
     registerTermsSubscription: function () {
@@ -42,7 +45,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         console.log("Erorr: " + errorFrame);
       });
     },
-
+    
     receiveTechnicalTerms: function () {
       if (!stompClient.connected) {
         callbacks.push({

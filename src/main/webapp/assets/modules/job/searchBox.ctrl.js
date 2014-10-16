@@ -7,7 +7,7 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
 
     function openSearchForm(h){
         $('.search-block').animate({
-            height: h,
+            'height': h,
             bottom: 0
         }, {
             duration: '10000',
@@ -16,13 +16,12 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
     }
     $('.btn-close').click(function(){
         $('.search-block').animate({
-            height: 0,
-            bottom: 0
+            'height': 0,
+            'bottom': '50%'
         }, {
             duration: '10000',
             easing: 'easeOutQuad'
         });
-        $location.path('#/bubble-chart');
     });
     // load data for auto dropdown list and show technical skill
     var data = jsonValue.technicalSkill,
@@ -344,7 +343,7 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
                             e.preventDefault();
                             e.stopPropagation();
                             var nameSkill = $button_remove_element.prev().text();
-                            $('.technical-Skill-List ul').find('img[title='+ nameSkill +']').parent().removeClass('active');
+                            $('.technical-Skill-List ul').find('img[title="'+ nameSkill +'"]').parent().removeClass('active');
                         });
                         $button_remove_element.bind('mouseup', function(e) {
                             e.preventDefault();
@@ -569,9 +568,9 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
                 if (!plugin.settings.keepOpen) {
                     hideOptions();
                 }
-                var h = $('.selectator').height();
-                $('.btn-search').height(h);
-                $('.search-form-container').css('min-height', h);
+                // var h = $('.selectator').height();
+                // $('.btn-search').height(h);
+                // $('.search-form-container').css('height', h);
             };
 
 
@@ -613,4 +612,80 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
         showAllOptionsOnFocus: true
     });
 	
+
+    // search result .... 
+    $('.btn-search').click(function(){
+        if(!$('.selectator_chosen_items').is(':empty')){
+            showDataResult();
+            loadingMore();
+        }
+    });
+    function showDataResult(){
+        var sForm = $('.search-form-container');
+        sForm.parent().animate({
+            'padding': '20px 40px'
+        },{
+            duration: '10000',
+            easing: 'easeOutQuad'
+        });
+
+        sForm.animate({
+            'width': '100%'
+        },{
+            duration: '10000',
+            easing: 'easeOutQuad'
+        });
+        sForm.find('.jobs-total').show();
+        $('.technical-Skill-List').hide();
+        addDataResult();
+        $('.search-block').css({
+            "position":"inherit",
+            "height": "auto"
+        });
+        
+    }
+    function addDataResult(){
+        var jobItems = '';
+        jobItems = jobItems + '<div class="job-item"><div class="job-infor"><div class="job-title">';
+        jobItems = jobItems + '<a href="#">Java EE 5 Software Engineer (subsidiary Of Singapore HQ) (accept Trainee)</a></div>';
+        jobItems = jobItems + '<ul><li class="salary"> Negotiable</li><li class="location">Ha Noi</li><li class="level">New Grad/Entry Level/Internship';
+        jobItems = jobItems + '</li><li class="date-post">Posted: 26/09/2014</li></ul></div>';
+        jobItems = jobItems + '<div class="company-logo"><img src="images/cp-logo-fpt.png" title="company name"></div>';
+        jobItems = jobItems + '<div class="view-more"><a href="http://www.vietnamworks.com/web-developer-php-1-1-513736-jd" target="_blank">View More</a></div></div></div>';
+        for(var i = 0; i< 5; i++){
+            $('.search-result-container-block').append(jobItems);
+            $('.view-more').height($('.job-item').height());
+            hWin = hWin + $('.job-item').height();
+        }
+    }
+
+    function loadingMore(){
+       $('#content').scrollPagination({
+            'contentPage': 'modules/job/jobResults.html', // the url you are fetching the results
+            'contentData': {}, // these are the variables you can pass to the request, for example: children().size() to know which page you are
+            'scrollTarget': $(window), // who gonna scroll? in this example, the full window
+            'heightOffset': 10, // it gonna request when scroll is 10 pixels before the page ends
+            // 'beforeLoad': function(){ // before load function, you can display a preloader div
+            //     $('#loading').show(); 
+            // },
+            'afterLoad': function(elementsLoaded){ // after loading content, you can use this function to animate your new elements
+                 //$('#loading').hide(300);
+                 var i = 0;
+                 $(elementsLoaded).fadeInWithDelay();
+                 if ($('#content').children().size() > 100){ // if more than 100 results already loaded, then stop pagination (only for testing)
+                    //$('#nomoreresults').fadeIn();
+                    $('#content').stopScrollPagination();
+                 }
+            }
+        });
+        
+        // code for fade in element by element
+        $.fn.fadeInWithDelay = function(){
+            var delay = 0;
+            return this.each(function(){
+                $(this).delay(delay).animate({opacity:1}, 200);
+                delay += 100;
+            });
+        }; 
+    }
 }]);
