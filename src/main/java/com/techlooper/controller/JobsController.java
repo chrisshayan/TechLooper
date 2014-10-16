@@ -1,6 +1,6 @@
 package com.techlooper.controller;
 
-import com.techlooper.enu.RouterContant;
+import com.techlooper.enu.RouterConstant;
 import com.techlooper.enu.TechnicalTermEnum;
 import com.techlooper.model.*;
 import com.techlooper.service.JobStatisticService;
@@ -34,7 +34,7 @@ public class JobsController {
 
   @MessageMapping("/jobs/search")
   public void searchJobs(JobSearchRequest searchJobsRequest) {
-    jobsSearchProducer.sendBodyAndHeader(searchJobsRequest, RouterContant.TO, RouterContant.VIETNAMWORKS);
+    jobsSearchProducer.sendBodyAndHeader(searchJobsRequest, RouterConstant.TO, RouterConstant.VIETNAMWORKS);
   }
 
   @SendTo("/topic/jobs/search")

@@ -1,6 +1,6 @@
 package com.techlooper.config;
 
-import com.techlooper.enu.RouterContant;
+import com.techlooper.enu.RouterConstant;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -53,7 +53,7 @@ public class IntegrationConfiguration extends SingleRouteCamelConfiguration impl
       public void configure() throws Exception {
 
         from("direct:jobs/search").choice()
-          .when(header(RouterContant.TO).isEqualTo(RouterContant.VIETNAMWORKS))
+          .when(header(RouterConstant.TO).isEqualTo(RouterConstant.VIETNAMWORKS))
           .process(vnwConfigurationProcessor)
           .to(environment.getProperty("vnw.api.configuration.url")).unmarshal(vnwConfigurationDataFormat)
           .process(vnwJobSearchProcessor)

@@ -1,6 +1,6 @@
 package com.techlooper.vnw.integration;
 
-import com.techlooper.enu.RouterContant;
+import com.techlooper.enu.RouterConstant;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import net.minidev.json.JSONArray;
@@ -39,7 +39,7 @@ public class JobSearchProcessor implements Processor {
     Message message = exchange.getIn();
     message.setHeader(Exchange.HTTP_METHOD, "POST");
     message.setHeader(apiKeyName, apiKeyValue);
-    JobSearchModel model = exchange.getProperty(RouterContant.VNW_MODEL, JobSearchModel.class);
+    JobSearchModel model = exchange.getProperty(RouterConstant.VNW_MODEL, JobSearchModel.class);
     message.setBody(json(model));
   }
 

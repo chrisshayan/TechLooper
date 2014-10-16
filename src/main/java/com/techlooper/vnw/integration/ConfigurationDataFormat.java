@@ -2,7 +2,7 @@ package com.techlooper.vnw.integration;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
-import com.techlooper.enu.RouterContant;
+import com.techlooper.enu.RouterConstant;
 import com.techlooper.model.JobSearchRequest;
 import net.minidev.json.JSONObject;
 import org.apache.camel.Exchange;
@@ -32,8 +32,8 @@ public class ConfigurationDataFormat implements DataFormat {
 
     JobSearchModel.Builder model = new JobSearchModel.Builder()
       .withConfiguration(JsonPath.parse(((JSONObject) jsonPath.read("$.data")).toJSONString()))
-      .withRequest(exchange.getProperty(RouterContant.VNW_MODEL, JobSearchRequest.class));
-    exchange.setProperty(RouterContant.VNW_MODEL, model.build());
+      .withRequest(exchange.getProperty(RouterConstant.VNW_MODEL, JobSearchRequest.class));
+    exchange.setProperty(RouterConstant.VNW_MODEL, model.build());
     return null;
   }
 }

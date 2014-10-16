@@ -2,17 +2,15 @@ package com.techlooper.vnw.integration;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
-import com.techlooper.enu.RouterContant;
+import com.techlooper.enu.RouterConstant;
 import com.techlooper.model.JobResponse;
 import com.techlooper.model.JobSearchResponse;
-import freemarker.template.Configuration;
 import net.minidev.json.JSONArray;
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.DataFormat;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -47,7 +45,7 @@ public class JobSearchDataFormat implements DataFormat {
     String[] videoUrls = ((List<String>) jsonPath.read("$.data.jobs[*].job_video_url")).toArray(new String[]{});
     String[] logoUrls = ((List<String>) jsonPath.read("$.data.jobs[*].job_logo_url")).toArray(new String[]{});
 
-    ReadContext configuration = exchange.getProperty(RouterContant.VNW_MODEL, JobSearchModel.class).getConfiguration();
+    ReadContext configuration = exchange.getProperty(RouterConstant.VNW_MODEL, JobSearchModel.class).getConfiguration();
     translateIds(locations, configuration, "$.locations[?(@.location_id=='%s')].lang_en");
     translateIds(levels, configuration, "$.degree[?(@.degree_id=='%s')].lang_en");
 
