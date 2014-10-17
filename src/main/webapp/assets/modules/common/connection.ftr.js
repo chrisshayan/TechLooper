@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFactory", function (jsonValue, $cacheFactory) {
+angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFactory", "$location", function (jsonValue, $cacheFactory, $location) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -7,17 +7,19 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   var subscriptions = {};
   var isConnecting = false;
 
-  var stompClient = Stomp.over(new SockJS(socketUri.sockjs));
-  stompClient.debug = function () {};
+  // TODO: find a way to extract base url, example : http://localhost:8080/techlooper/
+  var stompUrl = $location.absUrl().substring(0, $location.absUrl().lastIndexOf("index.html")) + socketUri.sockjs;
+  var stompClient = Stomp.over(new SockJS(stompUrl));
+  //stompClient.debug = function () {};
 
-  var clearCache = function() {
+  var clearCache = function () {
     for (var uri in subscriptions) {
       subscriptions[uri].unsubscribe();
     }
     callbacks.length = 0;
   }
 
-  var runCallbacks = function() {
+  var runCallbacks = function () {
     $.each(callbacks, function (index, callback) {
       callback.fn.call(callback.args);
     });
@@ -27,7 +29,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   var instance = {
 
     // json = { "terms": "java .net", "pageNumber" : "3" }
-    findJobs : function(json) {
+    findJobs: function (json) {
       if (!stompClient.connected) {
         callbacks.push({
           fn: instance.findJobs,
@@ -40,7 +42,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         scope.$emit(events.foundJobs, JSON.parse(response.body));
         subscription.unsubscribe();
       });
-      stompClient.send(socketUri.sendJobsSearch, '{ "terms": "java .net", "pageNumber" : "3" }');
+      stompClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
     },
 
     /** must to call when controller initialized */
@@ -71,6 +73,10 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
       if (isConnecting) {
         return;
       }
+
+      stompClient = Stomp.over(new SockJS(stompUrl));
+      //stompClient.debug = function () {};
+
       stompClient.connect({}, function (frame) {
         isConnecting = false;
         runCallbacks();

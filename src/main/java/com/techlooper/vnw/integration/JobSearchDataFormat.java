@@ -39,6 +39,10 @@ public class JobSearchDataFormat implements DataFormat {
     JobSearchResponse.Builder responseBuilder = new JobSearchResponse.Builder();
     responseBuilder.withTotal(JsonPath.read(json, "$.data.total"));
 
+    if (responseBuilder.build().getTotal() == 0) {
+      return responseBuilder.build();
+    }
+
     // TODO: find new way to make code shorten
     String[] urls = ((List<String>) jsonPath.read("$.data.jobs[*].job_detail_url")).toArray(new String[]{});
     String[] titles = ((List<String>) jsonPath.read("$.data.jobs[*].job_title")).toArray(new String[]{});
