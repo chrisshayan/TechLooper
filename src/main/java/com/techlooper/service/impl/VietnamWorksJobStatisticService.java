@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.enu.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 
 /**
@@ -61,7 +61,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
    /**
     * Counts the matching jobs to relevant {@code TechnicalTermEnum}
-    * 
+    *
     * @param technicalTermEnum
     *           a {@code TechnicalTermEnum} to determine which technology search
     *           must happen.

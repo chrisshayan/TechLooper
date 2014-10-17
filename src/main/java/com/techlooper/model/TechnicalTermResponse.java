@@ -1,6 +1,8 @@
 package com.techlooper.model;
 
 
+import com.techlooper.enu.TechnicalTermEnum;
+
 public class TechnicalTermResponse {
 
    private String name;
@@ -8,22 +10,22 @@ public class TechnicalTermResponse {
    private TechnicalTermEnum term;
 
    private Long count;
-   
+
    public static class Builder {
-      
+
       private TechnicalTermResponse instance = new TechnicalTermResponse();
-      
+
       public Builder withCount(Long count) {
          instance.count = count;
          return this;
       }
-      
+
       public Builder withTerm(TechnicalTermEnum term) {
          instance.term = term;
          instance.name = term.toString();
          return this;
       }
-      
+
       public TechnicalTermResponse build() {
          return instance;
       }

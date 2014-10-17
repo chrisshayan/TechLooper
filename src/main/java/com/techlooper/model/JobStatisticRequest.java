@@ -1,5 +1,7 @@
 package com.techlooper.model;
 
+import java.io.Serializable;
+
 public class JobStatisticRequest {
 
    private String term;
