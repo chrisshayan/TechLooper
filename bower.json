@@ -18,47 +18,11 @@
       "highcharts-release": "latest"
    },
    "overrides": {
-      "jquery": {
-         "main": "dist/jquery.min.js"
-      },
-      "jquery-ui": {
-         "main": "jquery-ui.min.js"
-      },
-      "bootstrap": {
-         "main": "dist/js/bootstrap.min.js"
-      },
       "sockjs": {
          "main": "sockjs.min.js"
       },
       "stomp-websocket": {
          "main": "lib/stomp.min.js"
-      },
-      "angular": {
-         "main": "angular.min.js"
-      },
-      "angular-resource": {
-         "main": "angular-resource.min.js"
-      },
-      "angular-route": {
-         "main": "angular-route.min.js"
-      },
-      "angular-cookies": {
-         "main": "angular-cookies.min.js"
-      },
-      "angular-translate": {
-         "main": "angular-translate.min.js"
-      },
-      "angular-translate-storage-local": {
-         "main": "angular-translate-storage-local.min.js"
-      },
-      "angular-translate-storage-cookie": {
-         "main": "angular-translate-storage-cookie.min.js"
-      },
-      "angular-translate-loader-static-files": {
-         "main": "angular-translate-loader-static-files.min.js"
-      },
-      "highcharts-release": {
-         "main": "highcharts.js"
       }
    }
 }

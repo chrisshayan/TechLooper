@@ -24,11 +24,13 @@ angular.module('Jobs').controller('searchBoxController',
             duration: '10000',
             easing: 'easeOutQuad'
         });
+        $('body').css("background-color","#2e272a");
+        
     });
     // load data for auto dropdown list and show technical skill
-    var data = jsonValue.technicalSkill,
+    var dataSkill = jsonValue.technicalSkill,
     	options = '', skills = '';
-    $.each(data, function(index, skill){
+    $.each(dataSkill, function(index, skill){
     	options = options + '<option value="'+ index +'" data-left="<img src=images/'+ skill.logo +'>">'+ skill.name +'</option>';
         skills = skills +'<li><img src=images/'+ skill.logo +' title="'+ skill.name +'">';
     });
@@ -98,7 +100,7 @@ angular.module('Jobs').controller('searchBoxController',
                     $box_element.addClass('disable_search');
                 }
                 $box_element.css({
-                    width: '100%',//$source_element.css('width'),
+                    width: '80%',//$source_element.css('width'),
                     minHeight: '43px',//$source_element.css('height'),
                     padding: $source_element.css('padding'),
                     position: 'relative'
@@ -613,98 +615,101 @@ angular.module('Jobs').controller('searchBoxController',
     $select.selectator({
         showAllOptionsOnFocus: true
     });
-	
-
-    $scope.$on(jsonValue.events.foundJobs, function(event, data){
-        console.log(data)
-    });
-
-    // search result ....   { "terms": name, "pageNumber" : "3" }
+    // search result .... 
+    var pageNumber = 0,
+        termKeys = {},
+        oldKeys ="",
+        newKeys = "",
+        totalPage = 0,
+        countItems = 0,
+        jobItems = '';
     $('.btn-search').click(function(){
         if(!$('.selectator_chosen_items').is(':empty')){
+            newKeys = "";
+            pageNumber = 0;
             getKeyWords();
-            connectionFactory.findJobs(termKeys);
-            //showDataResult();
+            oldKeys = newKeys;
+            if(newKeys != ''){
+                $('.search-result-container-block').empty();
+                showSearchResult();
+            }
             //loadingMore();
         }
     });
-
-    var pageNumber = 0;
-    var termKeys = {};//{"terms":"", "pageNumber": '"'+ pageNumber +'"'},
-        keys = "";
+    $scope.$on(jsonValue.events.foundJobs, function(event, data){
+        $('.jobs-total').show().find('strong').text(data.total);
+        addDataResult(data);
+        totalPage = Math.ceil(data.total/countItems);
+        $('.loading-paging').fadeOut();
+    });
     function getKeyWords(){
         var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
         $this.each(function(){
-             keys = keys + $(this).text() + ' ';
+             newKeys = newKeys + $(this).text() + ' ';
         });
-        termKeys["terms"] = keys;
+        if(newKeys == oldKeys){
+            newKeys ='';
+        }
+        termKeys["terms"] = newKeys;
         termKeys["pageNumber"] = '' + (++pageNumber);
     }
-    function showDataResult(){
-        var sForm = $('.search-form-container');
-        sForm.parent().animate({
-            'padding': '20px 40px'
-        },{
-            duration: '10000',
-            easing: 'easeOutQuad'
-        });
-
-        sForm.animate({
-            'width': '100%'
-        },{
-            duration: '10000',
-            easing: 'easeOutQuad'
-        });
-        sForm.find('.jobs-total').show();
-        $('.technical-Skill-List').hide();
-        addDataResult();
-        $('.search-block').css({
-            "position":"inherit",
-            "height": "auto"
-        });     
-    }
-    function addDataResult(){
-        var jobItems = '';
-        jobItems = jobItems + '<div class="job-item"><div class="job-infor"><div class="job-title">';
-        jobItems = jobItems + '<a href="#">Java EE 5 Software Engineer (subsidiary Of Singapore HQ) (accept Trainee)</a></div>';
-        jobItems = jobItems + '<ul><li class="salary"> Negotiable</li><li class="location">Ha Noi</li><li class="level">New Grad/Entry Level/Internship';
-        jobItems = jobItems + '</li><li class="date-post">Posted: 26/09/2014</li></ul></div>';
-        jobItems = jobItems + '<div class="company-logo"><img src="images/cp-logo-fpt.png" title="company name"></div>';
-        jobItems = jobItems + '<div class="view-more"><a href="http://www.vietnamworks.com/web-developer-php-1-1-513736-jd" target="_blank">View More</a></div></div></div>';
-        for(var i = 0; i< 5; i++){
-            $('.search-result-container-block').append(jobItems);
-            $('.view-more').height($('.job-item').height());
-            hWin = hWin + $('.job-item').height();
-        }
-    }
-
-    function loadingMore(){
-       $('#content').scrollPagination({
-            'contentPage': 'modules/job/jobResults.html', // the url you are fetching the results
-            'contentData': {}, // these are the variables you can pass to the request, for example: children().size() to know which page you are
-            'scrollTarget': $(window), // who gonna scroll? in this example, the full window
-            'heightOffset': 10, // it gonna request when scroll is 10 pixels before the page ends
-            // 'beforeLoad': function(){ // before load function, you can display a preloader div
-            //     $('#loading').show(); 
-            // },
-            'afterLoad': function(elementsLoaded){ // after loading content, you can use this function to animate your new elements
-                 //$('#loading').hide(300);
-                 var i = 0;
-                 $(elementsLoaded).fadeInWithDelay();
-                 if ($('#content').children().size() > 100){ // if more than 100 results already loaded, then stop pagination (only for testing)
-                    //$('#nomoreresults').fadeIn();
-                    $('#content').stopScrollPagination();
-                 }
-            }
-        });
-        
-        // code for fade in element by element
-        $.fn.fadeInWithDelay = function(){
-            var delay = 0;
-            return this.each(function(){
-                $(this).delay(delay).animate({opacity:1}, 200);
-                delay += 100;
+    function showSearchResult(){
+        if(!$('.technical-Skill-List').hasClass('hide')){
+            var sForm = $('.search-form-container');
+            sForm.parent().animate({
+                'padding': '20px 40px'
+            },{
+                duration: '10000',
+                easing: 'easeOutQuad'
             });
-        }; 
+
+            sForm.animate({
+                'width': '100%'
+            },{
+                duration: '10000',
+                easing: 'easeOutQuad'
+            });
+            $('.technical-Skill-List').addClass('hide');
+            $('body').css("background-color","#201d1e");
+            $('.search-block').css({
+                "position":"inherit",
+                "height": "auto"
+            });
+            $('.search-form-container').css("max-width","100%");
+        }
+        connectionFactory.findJobs(termKeys);
+    }
+    function addDataResult(json){
+        countItems = 0;
+        jobItems ="";
+        $.each(json.jobs, function(index, job){
+            if(job.logoUrl ==''){
+                companyInfo = job.company;
+            }else{
+                companyInfo = '<img src="'+ job.logoUrl +'" title="'+ job.company +'">';
+            }
+            jobItems = jobItems + '<div class="job-item"><div class="job-infor"><div class="job-title">';
+            jobItems = jobItems + '<a href="'+ job.url +'" target="_blank">'+ job.title +'</a></div>';
+            jobItems = jobItems + '<ul><li class="salary">Negotiable</li><li class="location">'+ job.location +'</li><li class="level">'+ job.level +'';
+            jobItems = jobItems + '</li><li class="date-post">Posted: '+ job.postedOn +'</li></ul></div>';
+            jobItems = jobItems + '<div class="company-logo">'+ companyInfo +'</div>';
+            jobItems = jobItems + '<div class="view-more"><a href="'+ job.url +'" target="_blank">View More</a></div></div></div>';
+            countItems = ++countItems;
+        });
+        $('.search-result-container-block').append(jobItems);
+    }
+     $(window).scroll(function() {
+       if($(window).scrollTop() + $(window).height() == $(document).height()) {
+           addMoreData();
+       }
+    });
+    function addMoreData(){
+        if (pageNumber >= totalPage) {
+            $('.loading-paging').addClass('hide');
+            return;
+        }
+        $('.loading-paging').fadeIn();
+        termKeys["pageNumber"] = '' + (++pageNumber);
+        connectionFactory.findJobs(termKeys);
     }
 }]);
