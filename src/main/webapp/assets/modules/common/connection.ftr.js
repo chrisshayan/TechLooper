@@ -76,6 +76,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         runCallbacks();
       }, function (errorFrame) {
         console.log("Erorr: " + errorFrame);
+        isConnecting = false;
       });
       isConnecting = true;
     },
