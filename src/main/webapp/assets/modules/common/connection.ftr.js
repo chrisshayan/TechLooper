@@ -10,7 +10,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   // TODO: find a way to extract base url, example : http://localhost:8080/techlooper/
   var stompUrl = $location.absUrl().substring(0, $location.absUrl().lastIndexOf("index.html")) + socketUri.sockjs;
   var stompClient = Stomp.over(new SockJS(stompUrl));
-  //stompClient.debug = function () {};
+  stompClient.debug = function () {};
 
   var clearCache = function () {
     for (var uri in subscriptions) {
@@ -21,7 +21,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
 
   var runCallbacks = function () {
     $.each(callbacks, function (index, callback) {
-      callback.fn.call(callback.args);
+      callback.fn(callback.args);
     });
     callbacks.length = 0;
   }
@@ -75,7 +75,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
       }
 
       stompClient = Stomp.over(new SockJS(stompUrl));
-      //stompClient.debug = function () {};
+      stompClient.debug = function () {};
 
       stompClient.connect({}, function (frame) {
         isConnecting = false;
