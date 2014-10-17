@@ -10,6 +10,20 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   var stompClient = Stomp.over(new SockJS(socketUri.sockjs));
   stompClient.debug = function () {};
 
+  var clearCache = function() {
+    for (var uri in subscriptions) {
+      subscriptions[uri].unsubscribe();
+    }
+    callbacks.length = 0;
+  }
+
+  var runCallbacks = function() {
+    $.each(callbacks, function (index, callback) {
+      callback.fn.call(callback.args);
+    });
+    callbacks.length = 0;
+  }
+
   var instance = {
 
     findJobs : function(json) {
@@ -29,9 +43,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
     },
 
     initialize: function ($scope) {
-      for (var uri in subscriptions) {
-        subscriptions[uri].unsubscribe();
-      }
+      clearCache();
       scope = $scope;
     },
 
@@ -58,11 +70,8 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         return;
       }
       stompClient.connect({}, function (frame) {
-        $.each(callbacks, function (index, callback) {
-          callback.fn.call(callback.args);
-        });
         isConnecting = false;
-        callbacks.length = 0;
+        runCallbacks();
       }, function (errorFrame) {
         console.log("Erorr: " + errorFrame);
       });
