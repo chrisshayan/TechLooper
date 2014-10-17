@@ -26,6 +26,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
 
   var instance = {
 
+    // json = { "terms": name, "pageNumber" : "3" }
     findJobs : function(json) {
       if (!stompClient.connected) {
         callbacks.push({
@@ -39,9 +40,10 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         scope.$emit(events.foundJobs, JSON.parse(response.body));
         subscription.unsubscribe();
       });
-      stompClient.send(socketUri.sendJobsSearch);
+      stompClient.send(socketUri.sendJobsSearch, JSON.stringify(json));
     },
 
+    /** must to call when controller initialized */
     initialize: function ($scope) {
       clearCache();
       scope = $scope;
