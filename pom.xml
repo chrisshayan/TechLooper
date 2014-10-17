@@ -153,20 +153,7 @@
           <webApp>
             <contextPath>/${project.build.finalName}</contextPath>
           </webApp>
-        <!--<systemProperties>-->
-        <!--<systemProperty>-->
-          <!--<name>log4j.configuration</name>-->
-          <!--<value>file:///${basedir}/src/main/resources/local/log4j.properties</value>-->
-        <!--</systemProperty>-->
-          <!--</systemProperties>-->
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -429,7 +416,7 @@
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
+      <artifactId>slf4j-simple</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
 
