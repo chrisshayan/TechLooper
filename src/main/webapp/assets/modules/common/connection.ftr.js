@@ -26,7 +26,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
 
   var instance = {
 
-    // json = { "terms": name, "pageNumber" : "3" }
+    // json = { "terms": "java .net", "pageNumber" : "3" }
     findJobs : function(json) {
       if (!stompClient.connected) {
         callbacks.push({

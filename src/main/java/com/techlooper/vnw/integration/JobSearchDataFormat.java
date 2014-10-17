@@ -9,6 +9,8 @@ import net.minidev.json.JSONArray;
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.DataFormat;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -21,6 +23,8 @@ import java.util.List;
 
 @Component("vnwJobSearchDataFormat")
 public class JobSearchDataFormat implements DataFormat {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(JobSearchDataFormat.class);
 
   public void marshal(Exchange exchange, Object graph, OutputStream stream) throws Exception {
   }
@@ -70,7 +74,12 @@ public class JobSearchDataFormat implements DataFormat {
       String value = values[i];
       String[] subs = value.split(",");
       for (String sub : subs) {
-        String lang = (String)((JSONArray)configuration.read(String.format(jsonPathTemplate, sub))).get(0);
+        JSONArray jsonArray = configuration.read(String.format(jsonPathTemplate, sub));
+        if (jsonArray.size() == 0) {
+          LOGGER.debug("Not found key [{}] from Configuration, jsonpath = {}", sub, String.format(jsonPathTemplate, sub));
+          continue;
+        }
+        String lang = (String)(jsonArray).get(0);
         value = value.replaceAll(sub, lang);
       }
       values[i] = value;
