@@ -21,7 +21,6 @@ public class ConfigurationProcessor implements Processor {
 
   public void process(Exchange exchange) throws Exception {
     Message message = exchange.getIn();
-    exchange.setProperty(RouterConstant.VNW_MODEL, message.getBody());
     message.setHeader(Exchange.HTTP_METHOD, "GET");
     message.setHeader(apiKeyName, apiKeyValue);
     message.setBody(null);

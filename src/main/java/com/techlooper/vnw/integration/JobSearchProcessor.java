@@ -1,6 +1,7 @@
 package com.techlooper.vnw.integration;
 
 import com.techlooper.enu.RouterConstant;
+import com.techlooper.model.JobSearchRequest;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import net.minidev.json.JSONArray;
@@ -39,17 +40,18 @@ public class JobSearchProcessor implements Processor {
     Message message = exchange.getIn();
     message.setHeader(Exchange.HTTP_METHOD, "POST");
     message.setHeader(apiKeyName, apiKeyValue);
-    JobSearchModel model = exchange.getProperty(RouterConstant.VNW_MODEL, JobSearchModel.class);
-    message.setBody(json(model));
+    JobSearchRequest request = message.getBody(JobSearchRequest.class);
+    ConfigurationModel configuration = exchange.getProperty(RouterConstant.VNW_CONFIG, ConfigurationModel.class);
+    message.setBody(json(request, configuration));
   }
 
-  private String json(JobSearchModel model) throws IOException, TemplateException {
+  private String json(JobSearchRequest request, ConfigurationModel configuration) throws IOException, TemplateException {
     Map<String, String> values = new HashMap<String, String>();
 
-    values.put("jobTitle", model.getRequest().getTerms());
-    values.put("pageNumber", model.getRequest().getPageNumber());
+    values.put("jobTitle", request.getTerms());
+    values.put("pageNumber", request.getPageNumber());
 
-    JSONArray categoryIds = model.getConfiguration().read("$.categories[?(@.lang_en=='" + category + "')].category_id");
+    JSONArray categoryIds = configuration.getConfiguration().read("$.categories[?(@.lang_en=='" + category + "')].category_id");
     values.put("category", (String) categoryIds.get(0));
 
     StringWriter jsonWriter = new StringWriter();

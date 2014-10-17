@@ -43,7 +43,7 @@ public class JobSearchDataFormat implements DataFormat {
       return responseBuilder.build();
     }
 
-    // TODO: find new way to make code shorten
+    // TODO: find new way to make code shorten, and cache the configuration data
     String[] urls = ((List<String>) jsonPath.read("$.data.jobs[*].job_detail_url")).toArray(new String[]{});
     String[] titles = ((List<String>) jsonPath.read("$.data.jobs[*].job_title")).toArray(new String[]{});
     String[] locations = ((List<String>) jsonPath.read("$.data.jobs[*].job_location")).toArray(new String[]{});
@@ -53,7 +53,7 @@ public class JobSearchDataFormat implements DataFormat {
     String[] videoUrls = ((List<String>) jsonPath.read("$.data.jobs[*].job_video_url")).toArray(new String[]{});
     String[] logoUrls = ((List<String>) jsonPath.read("$.data.jobs[*].job_logo_url")).toArray(new String[]{});
 
-    ReadContext configuration = exchange.getProperty(RouterConstant.VNW_MODEL, JobSearchModel.class).getConfiguration();
+    ReadContext configuration = exchange.getProperty(RouterConstant.VNW_CONFIG, ConfigurationModel.class).getConfiguration();
     translateIds(locations, configuration, "$.locations[?(@.location_id=='%s')].lang_en");
     translateIds(levels, configuration, "$.degree[?(@.degree_id=='%s')].lang_en");
 
@@ -73,6 +73,7 @@ public class JobSearchDataFormat implements DataFormat {
     return responseBuilder.build();
   }
 
+  // TODO: very slow
   private void translateIds(String[] values, ReadContext configuration, String jsonPathTemplate) {
     for (int i = 0; i < values.length; i++) {
       String value = values[i];
@@ -89,4 +90,6 @@ public class JobSearchDataFormat implements DataFormat {
       values[i] = value;
     }
   }
+
+
 }

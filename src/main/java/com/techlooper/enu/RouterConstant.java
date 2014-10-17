@@ -9,5 +9,5 @@ public interface RouterConstant {
 
   final String VIETNAMWORKS = "vietnamworks";
 
-  final String VNW_MODEL = "vnwModel";
+  final String VNW_CONFIG = "vnwConfig";
 }

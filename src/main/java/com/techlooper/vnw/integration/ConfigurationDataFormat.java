@@ -3,7 +3,6 @@ package com.techlooper.vnw.integration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import com.techlooper.enu.RouterConstant;
-import com.techlooper.model.JobSearchRequest;
 import net.minidev.json.JSONObject;
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.DataFormat;
@@ -30,10 +29,9 @@ public class ConfigurationDataFormat implements DataFormat {
       throw new Exception("Invalid Vietnamworks Configuration.");
     }
 
-    JobSearchModel.Builder model = new JobSearchModel.Builder()
-      .withConfiguration(JsonPath.parse(((JSONObject) jsonPath.read("$.data")).toJSONString()))
-      .withRequest(exchange.getProperty(RouterConstant.VNW_MODEL, JobSearchRequest.class));
-    exchange.setProperty(RouterConstant.VNW_MODEL, model.build());
-    return null;
+    ConfigurationModel.Builder configuration = new ConfigurationModel.Builder()
+      .withConfiguration(JsonPath.parse(((JSONObject) jsonPath.read("$.data")).toJSONString()));
+//    exchange.setProperty(RouterConstant.VNW_CONFIG, configuration.build());
+    return configuration.build();
   }
 }
