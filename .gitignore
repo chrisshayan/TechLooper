@@ -38,7 +38,7 @@ static/
 sample/
 Main.java
 job-search-response.json.ftl
-secret.properties
+#secret.properties
 
 #Gruntfile.js
 generate-resources/
