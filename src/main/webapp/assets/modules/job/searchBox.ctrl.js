@@ -1,4 +1,6 @@
-angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", "$location", function($scope, jsonValue, $location) {
+angular.module('Jobs').controller('searchBoxController',
+    ["$scope", "jsonValue", "$location", "connectionFactory", function($scope, jsonValue, $location, connectionFactory) {
+    connectionFactory.initialize($scope);
     var hWin = $(window).height();
     openSearchForm($(window).height());
     $(window).resize(function() {
@@ -613,13 +615,31 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
     });
 	
 
-    // search result .... 
+    $scope.$on(jsonValue.events.foundJobs, function(event, data){
+        console.log(data)
+    });
+
+    // search result ....   { "terms": name, "pageNumber" : "3" }
     $('.btn-search').click(function(){
         if(!$('.selectator_chosen_items').is(':empty')){
-            showDataResult();
-            loadingMore();
+            getKeyWords();
+            connectionFactory.findJobs(termKeys);
+            //showDataResult();
+            //loadingMore();
         }
     });
+
+    var pageNumber = 0;
+    var termKeys = {};//{"terms":"", "pageNumber": '"'+ pageNumber +'"'},
+        keys = "";
+    function getKeyWords(){
+        var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
+        $this.each(function(){
+             keys = keys + $(this).text() + ' ';
+        });
+        termKeys["terms"] = keys;
+        termKeys["pageNumber"] = '' + (++pageNumber);
+    }
     function showDataResult(){
         var sForm = $('.search-form-container');
         sForm.parent().animate({
@@ -641,8 +661,7 @@ angular.module('Jobs').controller('searchBoxController',["$scope", "jsonValue", 
         $('.search-block').css({
             "position":"inherit",
             "height": "auto"
-        });
-        
+        });     
     }
     function addDataResult(){
         var jobItems = '';

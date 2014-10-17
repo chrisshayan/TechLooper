@@ -40,7 +40,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         scope.$emit(events.foundJobs, JSON.parse(response.body));
         subscription.unsubscribe();
       });
-      stompClient.send(socketUri.sendJobsSearch, JSON.stringify(json));
+      stompClient.send(socketUri.sendJobsSearch, '{ "terms": "java .net", "pageNumber" : "3" }');
     },
 
     /** must to call when controller initialized */
