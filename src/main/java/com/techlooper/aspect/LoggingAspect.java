@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 @Service
 @Aspect
 public class LoggingAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
-    @AfterReturning(pointcut = "execution(* com.techlooper.service.JobStatisticService.count(..))",
-                    returning = "returnValue")
-    public void logServiceResult(final JoinPoint joinPoint, final Object returnValue) {
-        LOGGER.info(String.format("Result for searching [%s] is [%s]", joinPoint.getArgs()[0], returnValue));
-    }
-    
-    @AfterReturning(pointcut = "execution(* com.techlooper.service.JobStatisticService.count*())",
-          returning = "returnValue")
-    public void logServiceCountResult(final JoinPoint joinPoint, final Object returnValue) {
-       LOGGER.info(String.format("Result for searching by [%s] is [%s]", joinPoint.getSignature().getName(), returnValue));
-    }
+  @AfterReturning(pointcut = "execution(* com.techlooper.service.JobStatisticService.count(..))",
+    returning = "returnValue")
+  public void logServiceResult(final JoinPoint joinPoint, final Object returnValue) {
+    LOGGER.info("Result for searching [{}] is [{}]", joinPoint.getArgs()[0], returnValue);
+  }
+
+  @AfterReturning(pointcut = "execution(* com.techlooper.service.JobStatisticService.count*())",
+    returning = "returnValue")
+  public void logServiceCountResult(final JoinPoint joinPoint, final Object returnValue) {
+    LOGGER.info("Result for searching by [{}] is [{}]", joinPoint.getSignature().getName(), returnValue);
+  }
 }

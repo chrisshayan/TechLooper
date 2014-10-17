@@ -1,3 +1,3 @@
-angular.module('Jobs').controller('findJobsController', ["$scope", function($scope) {
-   //alert('abc')
+angular.module('Jobs',['Common']).controller('findJobsController', ["$scope", "jsonValue", "$location", "connectionFactory", function($scope, jsonValue, $location, connectionFactory) {
+	
 }]);

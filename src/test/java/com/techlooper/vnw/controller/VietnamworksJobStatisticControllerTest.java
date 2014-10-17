@@ -1,14 +1,13 @@
-package com.techlooper.controller;
+package com.techlooper.vnw.controller;
 
+import com.techlooper.controller.JobsController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
-import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 
 public class VietnamworksJobStatisticControllerTest {
@@ -17,7 +16,7 @@ public class VietnamworksJobStatisticControllerTest {
    private JobStatisticService vietnamWorksJobStatisticService;
 
    @InjectMocks
-   private VietnamworksJobStatisticController controller;
+   private JobsController controller;
 
    @Mock
    private SimpMessagingTemplate messagingTemplate;
