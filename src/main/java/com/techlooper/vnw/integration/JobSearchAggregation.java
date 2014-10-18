@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component("vnwJobSearchAggregation")
 public class JobSearchAggregation implements AggregationStrategy {
 
-  public Exchange aggregate(Exchange original, Exchange resource) {//resource.getIn().getBody()
+  public Exchange aggregate(Exchange original, Exchange resource) {
     original.setProperty(RouterConstant.VNW_CONFIG, resource.getIn().getBody());
-    return original;//original.getIn().getBody()//JobSearchRequest
+    return original;
   }
 }

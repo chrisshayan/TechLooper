@@ -74,7 +74,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         return;
       }
 
-      if (stompClient.connected) {
+      if (instance.isConnected()) {
         stompClient.disconnect();
       }
       stompClient = Stomp.over(new SockJS(stompUrl));
