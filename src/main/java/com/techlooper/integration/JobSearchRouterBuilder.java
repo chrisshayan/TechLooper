@@ -6,7 +6,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cache.CacheConstants;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.camel.spi.DataFormat;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,8 +33,11 @@ public class JobSearchRouterBuilder extends RouteBuilder {
   @Resource(name = "vnwJobSearchAggregation")
   private AggregationStrategy vnwJobSearchAggregation;
 
-  @Resource
-  private Environment environment;
+  @Value("${vnw.api.job.search.url}")
+  private String searchUrl;
+
+  @Value("${vnw.api.configuration.url}")
+  private String configurationUrl;
 
   public void configure() throws Exception {
     from("cache://vnwConfiguration" +
@@ -55,7 +58,7 @@ public class JobSearchRouterBuilder extends RouteBuilder {
       .choice()
       .when(header(CacheConstants.CACHE_ELEMENT_WAS_FOUND).isNull())
       .process(vnwConfigurationProcessor)
-      .to(environment.getProperty("vnw.api.configuration.url")).unmarshal(vnwConfigurationDataFormat)
+      .to(configurationUrl).unmarshal(vnwConfigurationDataFormat)
       .setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_ADD))
       .setHeader(CacheConstants.CACHE_KEY, constant(RouterConstant.VNW_CONFIG))
       .to("cache://vnwConfiguration")
@@ -66,7 +69,7 @@ public class JobSearchRouterBuilder extends RouteBuilder {
       .when(header(RouterConstant.TO).isEqualTo(RouterConstant.VIETNAMWORKS))
       .enrich("direct:jobs/search/vnw/configuration", vnwJobSearchAggregation)
       .process(vnwJobSearchProcessor)
-      .to(environment.getProperty("vnw.api.job.search.url")).unmarshal(vnwJobSearchDataFormat)
+      .to(searchUrl).unmarshal(vnwJobSearchDataFormat)
       .end()
       .to("direct:jobs/search/response");
   }
