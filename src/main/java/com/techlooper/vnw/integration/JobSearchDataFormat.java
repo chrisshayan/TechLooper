@@ -90,6 +90,4 @@ public class JobSearchDataFormat implements DataFormat {
       values[i] = value;
     }
   }
-
-
 }
