@@ -13,7 +13,7 @@ import java.util.List;
  * Created by phuonghqh on 10/13/14.
  */
 @Configuration
-@ComponentScan("com.techlooper.integration")
+@ComponentScan({"com.techlooper.integration", "com.techlooper.vnw.integration"})
 public class IntegrationConfiguration extends CamelConfiguration {
 
   @Resource
