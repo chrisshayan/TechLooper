@@ -18,7 +18,7 @@ angular.module("Common").constant("jsonValue", {
 
     sendTerms: "/app/jobs/terms",
     subscribeTerms: "/topic/jobs/terms",
-    subscribeTerm: "/topic/jobs/",
+    subscribeTerm: "/topic/jobs/term/",
 
     sendJobsSearch: "/app/jobs/search",
     subscribeJobsSearch: "/topic/jobs/search"
