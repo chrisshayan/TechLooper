@@ -48,7 +48,7 @@ public class JobsController {
   @Scheduled(cron = "${scheduled.cron}")
   public void countTechnicalJobs() {
     for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-      messagingTemplate.convertAndSend("/topic/technical-job/" + term.name(), new JobStatisticResponse.Builder()
+      messagingTemplate.convertAndSend("/topic/jobs/" + term.name(), new JobStatisticResponse.Builder()
         .withCount(vietnamWorksJobStatisticService.count(term)).build());
     }
   }
