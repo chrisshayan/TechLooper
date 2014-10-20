@@ -16,11 +16,11 @@ techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider",
       suffix : ".json"
    });
 
-   $translateProvider.registerAvailableLanguageKeys([ 'en-US', 'vi' ]);
-   $translateProvider.fallbackLanguage("en-US");
-   $translateProvider.preferredLanguage("en-US");
+   $translateProvider.registerAvailableLanguageKeys([ 'en', 'vi' ]);
+   $translateProvider.fallbackLanguage("en");
+   $translateProvider.preferredLanguage("en");
    $translateProvider.useLocalStorage();
-   $translateProvider.use(window.navigator.userLanguage || window.navigator.language);
+   $translateProvider.use((window.navigator.userLanguage || window.navigator.language).substring(0, 2));
 
    $routeProvider.when("/bubble-chart", {
       templateUrl : "modules/bubble-chart/bubble-chart.tpl.html",
