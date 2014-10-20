@@ -42,34 +42,32 @@ public class JobSearchRouterBuilder extends RouteBuilder {
   public void configure() throws Exception {
     from("cache://vnwConfiguration" +
       "?maxElementsInMemory=1000" +
-      "&memoryStoreEvictionPolicy=" +
-      "MemoryStoreEvictionPolicy.LFU" +
+      "&memoryStoreEvictionPolicy=MemoryStoreEvictionPolicy.LFU" +
       "&overflowToDisk=true" +
-      "&eternal=true" +
+      "&eternal=false" +
       "&timeToLiveSeconds=86400" +
       "&timeToIdleSeconds=3600" +
-      "&diskPersistent=true" +
       "&diskExpiryThreadIntervalSeconds=86400").to("direct:donothing");
 
     from("direct:jobs/search/vnw/configuration")
-      .setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_GET))
-      .setHeader(CacheConstants.CACHE_KEY, constant(RouterConstant.VNW_CONFIG))
+        .setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_GET))
+        .setHeader(CacheConstants.CACHE_KEY, constant(RouterConstant.VNW_CONFIG))
       .to("cache://vnwConfiguration")
       .choice()
       .when(header(CacheConstants.CACHE_ELEMENT_WAS_FOUND).isNull())
-      .process(vnwConfigurationProcessor)
-      .to(configurationUrl).unmarshal(vnwConfigurationDataFormat)
-      .setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_ADD))
-      .setHeader(CacheConstants.CACHE_KEY, constant(RouterConstant.VNW_CONFIG))
-      .to("cache://vnwConfiguration")
+        .process(vnwConfigurationProcessor)
+        .to(configurationUrl).unmarshal(vnwConfigurationDataFormat)
+          .setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_ADD))
+          .setHeader(CacheConstants.CACHE_KEY, constant(RouterConstant.VNW_CONFIG))
+        .to("cache://vnwConfiguration")
       .end();
 
     from("direct:jobs/search")
       .choice()
       .when(header(RouterConstant.TO).isEqualTo(RouterConstant.VIETNAMWORKS))
-      .enrich("direct:jobs/search/vnw/configuration", vnwJobSearchAggregation)
-      .process(vnwJobSearchProcessor)
-      .to(searchUrl).unmarshal(vnwJobSearchDataFormat)
+        .enrich("direct:jobs/search/vnw/configuration", vnwJobSearchAggregation)
+        .process(vnwJobSearchProcessor)
+        .to(searchUrl).unmarshal(vnwJobSearchDataFormat)
       .end()
       .to("direct:jobs/search/response");
   }

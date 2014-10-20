@@ -1,7 +1,11 @@
 package com.techlooper.vnw.integration;
 
+import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -10,6 +14,22 @@ import java.io.Serializable;
 public class ConfigurationModel implements Serializable {
 
   private ReadContext configuration;
+
+  private void writeObject(ObjectOutputStream o) throws IOException {
+    o.writeObject(configuration.json());
+  }
+
+  private void readObject(ObjectInputStream o) throws IOException, ClassNotFoundException {
+    configuration = JsonPath.parse(o.readObject());
+  }
+
+  public ReadContext getConfiguration() {
+    return configuration;
+  }
+
+  public void setConfiguration(ReadContext configuration) {
+    this.configuration = configuration;
+  }
 
   public static class Builder {
     private ConfigurationModel instance = new ConfigurationModel();
@@ -22,13 +42,5 @@ public class ConfigurationModel implements Serializable {
     public ConfigurationModel build() {
       return instance;
     }
-  }
-
-  public ReadContext getConfiguration() {
-    return configuration;
-  }
-
-  public void setConfiguration(ReadContext configuration) {
-    this.configuration = configuration;
   }
 }
