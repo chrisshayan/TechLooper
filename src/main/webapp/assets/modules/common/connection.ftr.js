@@ -3,7 +3,6 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
   var events = jsonValue.events;
   var callbacks = [];
   var scope;
-  var terms = [];
   var subscriptions = {};
   var isConnecting = false;
 
@@ -51,7 +50,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
       scope = $scope;
     },
 
-    registerTermsSubscription: function () {
+    registerTermsSubscription: function(terms) {
       $.each(terms, function (index, term) {
         var uri = socketUri.subscribeTerm + term.term;
         var subscription = subscriptions[uri];
@@ -99,9 +98,9 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         return instance.connectSocket();
       }
       var subscribeTerms = stompClient.subscribe(socketUri.subscribeTerms, function (response) {
-        terms = JSON.parse(response.body);
-        scope.$emit(events.terms, terms);
-        instance.registerTermsSubscription();
+        //terms = JSON.parse(response.body);
+        scope.$emit(events.terms, JSON.parse(response.body));
+        instance.registerTermsSubscription(JSON.parse(response.body));
         subscribeTerms.unsubscribe();
       });
       stompClient.send(socketUri.sendTerms);
