@@ -110,8 +110,9 @@
     min-height: 380px
   .pie-Chart-Container
     padding-top: 0
-    width: 320px
+    width: 90%
     min-height: 380px
+    max-width: 320px
   .find-jobs-container
     width: 100%
   .find-jobs-block
@@ -123,14 +124,54 @@
     border-top: 2px solid rgba(0,0,0,0)
     border-left: 2px solid rgba(0,0,0,0)
     border-right: 2px solid rgba(0,0,0,0)
+  .search-container-block
+    padding: 20px 0 0 0 !important
   .search-form-container
     width: 100%
+    text-align: center
+    padding: 0 10px
+    position: relative
+  .selectator.multiple
+    padding-right: 0 !important
+  .technical-Skill-List ul
+    margin: auto
+    width: auto
+    padding: 0
+    
   .technical-Skill-List
     width: 100%
     li 
+      padding: 5px 10px
       img
-        max-width: 50px
-
+        max-width: 40px
+  .selectator
+    left: 0
+    width: 100% !important
+  .selectator:after
+    left: 0
+  button.btn-search
+    right: 10px
+    top: 0
+  .selectator_option_title
+    text-align: left
+  .jobs-total
+    width: 100%
+    text-align: center
+    clear: both
+  .search-result-container-block
+    width: 100%
+    padding: 10px
+  .job-item 
+    width: 100%
+    .job-title 
+      a
+        font-size: 16px
+  .job-infor
+    width: 100%
+  .company-logo
+    display: none
+  .view-more
+    display: none
 @media (min-width: 778px)
   .fa-bars
     display: none

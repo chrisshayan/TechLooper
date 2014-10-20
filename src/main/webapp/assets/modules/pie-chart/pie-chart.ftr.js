@@ -3,10 +3,10 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
     var totalJobs = 0;
     var pieJson = [];
     var termsMap = {};
+    var innertDonut = utils.isMobile() ?  '0%' : '30%';
     
     // TODO: use jsonValue
     var colorJson = [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ];
-    
     var instance =  {
        setTerms : function($terms) {
           terms = $terms;
@@ -35,8 +35,8 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        initializeAnimation : function() {
         instance.generateChartData();
         $('.pie-Chart-Container').highcharts({
-           colors : colorJson,
-           chart : {
+            colors : colorJson,
+            chart : {
               backgroundColor : '#2e272a',
               plotBorderColor : '#606063'
            },
@@ -92,11 +92,10 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
                  color : 'white'
               }
            },
-           series : [ {
+            series : [ {
               type : 'pie',
               name : 'Jobs',
-              size : '90%',
-              innerSize : '30%',
+              innerSize :innertDonut,
               data : pieJson
            } ]
         });
