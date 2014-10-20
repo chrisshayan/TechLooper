@@ -1,34 +1,28 @@
 package com.techlooper.config;
 
-import freemarker.cache.MruCacheStorage;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeansException;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCache;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static freemarker.template.Configuration.VERSION_2_3_21;
 
+
+/**
+ * Created by phuonghqh on 10/20/14.
+ */
+
 @Configuration
-@ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
   @PropertySource("classpath:techlooper.properties"),
   @PropertySource("classpath:secret.properties")})
-@EnableScheduling
-@EnableAspectJAutoProxy
-@EnableCaching
-@Import({ElasticsearchConfiguration.class, IntegrationConfiguration.class})
-public class CoreConfiguration implements ApplicationContextAware {
+@ComponentScan({"com.techlooper.consumer"})
+public class ConfigurationTest implements ApplicationContextAware {
 
   private ApplicationContext applicationContext;
 
@@ -38,10 +32,13 @@ public class CoreConfiguration implements ApplicationContextAware {
   }
 
   @Bean
-  public CacheManager cacheManager() {
-    SimpleCacheManager cacheManager = new SimpleCacheManager();
-    cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("default")));
-    return cacheManager;
+  public String vnwConfigurationJson() throws IOException {
+    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-configuration.json").getInputStream(), "UTF-8");
+  }
+
+  @Bean
+  public String vnwJobSearchJson() throws IOException {
+    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs.json").getInputStream(), "UTF-8");
   }
 
   @Bean
@@ -49,7 +46,6 @@ public class CoreConfiguration implements ApplicationContextAware {
     freemarker.template.Configuration configuration = new freemarker.template.Configuration(VERSION_2_3_21);
     configuration.setDirectoryForTemplateLoading(applicationContext.getResource("classpath:template").getFile());
     configuration.setDefaultEncoding("UTF-8");
-    configuration.setCacheStorage(new MruCacheStorage(100, 100));
     configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     return configuration;
   }
