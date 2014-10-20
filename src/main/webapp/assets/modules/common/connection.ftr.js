@@ -13,9 +13,12 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
 
   var clearCache = function () {
     for (var uri in subscriptions) {
-      subscriptions[uri].unsubscribe();
+      if ($.type(subscriptions[uri]) !== "number") {
+        subscriptions[uri].unsubscribe();
+      }
     }
     callbacks.length = 0;
+    subscriptions = {};
   }
 
   var runCallbacks = function () {

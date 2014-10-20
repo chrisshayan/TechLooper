@@ -24,13 +24,14 @@ angular.module("Common").constant("jsonValue", {
     subscribeJobsSearch: "/topic/jobs/search"
   },
 
-  availableLanguageKeys: [{
-    "name": "EN",
-    "value": "en-US"
-  }, {
-    "name": "VI",
-    "value": "vi"
-  }],
+  //availableLanguageKeys: [{
+  //  "name": "EN",
+  //  "value": "en"
+  //}, {
+  //  "name": "VI",
+  //  "value": "vi"
+  //}],
+  //
   mPositionDefault: [{
     "data": [{
       "top": "290px",
