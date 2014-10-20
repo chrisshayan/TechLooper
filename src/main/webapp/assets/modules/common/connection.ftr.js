@@ -80,7 +80,7 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
         stompClient.disconnect();
       }
       stompClient = Stomp.over(new SockJS(stompUrl));
-      //stompClient.debug = function () {};
+      stompClient.debug = function () {};
 
       stompClient.connect({}, function (frame) {
         isConnecting = false;
