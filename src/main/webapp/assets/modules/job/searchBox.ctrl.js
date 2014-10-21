@@ -682,21 +682,32 @@ angular.module('Jobs').controller('searchBoxController',
     function addDataResult(json){
         countItems = 0;
         jobItems ="";
+        var video = "";
         $.each(json.jobs, function(index, job){
             if(job.logoUrl ==''){
                 companyInfo = job.company;
             }else{
                 companyInfo = '<img src="'+ job.logoUrl +'" title="'+ job.company +'">';
             }
+            if(job.videoUrl == null){
+                video = '';
+            }else{
+                video = '<p><a class="play-video" href="'+ job.videoUrl +'" data-toggle="modal" data-target="#myModal"><i class="fa fa-play-circle"></i></a></p>';
+            }
             jobItems = jobItems + '<div class="job-item"><div class="job-infor"><div class="job-title">';
             jobItems = jobItems + '<a href="'+ job.url +'" target="_blank">'+ job.title +'</a></div>';
-            jobItems = jobItems + '<ul><li class="salary">Negotiable</li><li class="location">'+ job.location +'</li><li class="level">'+ job.level +'';
-            jobItems = jobItems + '</li><li class="date-post">Posted: '+ job.postedOn +'</li></ul></div>';
-            jobItems = jobItems + '<div class="company-logo">'+ companyInfo +'</div>';
+            jobItems = jobItems + '<ul><li><i class="fa fa-money"></i>Negotiable</li><li><i class="fa fa-map-marker"></i>'+ job.location +'</li><li><i class="fa fa-male"></i>'+ job.level +'';
+            jobItems = jobItems + '</li><li><i class="fa fa-calendar"></i>Posted: '+ job.postedOn +'</li></ul></div>';
+            jobItems = jobItems + '<div class="company-logo">'+ companyInfo + video +'</div>';
             jobItems = jobItems + '<div class="view-more"><a href="'+ job.url +'" target="_blank">View More</a></div></div></div>';
             countItems = ++countItems;
         });
         $('.search-result-container-block').append(jobItems);
+        $('.play-video').on("click",function(){
+            var url = '//www.youtube.com/embed/' + $(this).attr('href').substr($(this).attr('href').indexOf("=") + 1) + '?autoplay=1';
+            
+            $('.modal-body').find('iframe').attr('src',url);
+        });
     }
      $(window).scroll(function() {
        if($(window).scrollTop() + $(window).height() == $(document).height()) {
