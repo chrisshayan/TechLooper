@@ -28,16 +28,13 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
         
         if (force !== true && termsMap[pieItem.termID] !== undefined) {
             newJson.push([pieItem.termName, pieItem.count]);
-            console.log(newJson) 
             var chart = $('.pie-Chart-Container').highcharts();
-             chart.series[0].update({
-                data : newJson
+            $.each(newJson, function(index, item){
+                chart.series[0].data[index].update(item);
              });
-             chart.series[0].setData(newJson, true);
             return;
          }
          termsMap[pieItem.termID] = pieItem;
-         console.log(pieJson)
          
        }, 
        initializeAnimation : function() {
