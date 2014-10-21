@@ -2,8 +2,9 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
     var terms = [];
     var totalJobs = 0;
     var pieJson = [];
-    var termsMap = {};
     var innertDonut = utils.isMobile() ?  '0%' : '30%';
+    var termsMap = {};
+    var newJson =[];
     
     // TODO: use jsonValue
     var colorJson = [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ];
@@ -20,18 +21,25 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
           });
        },
 
-       draw : function(bubbleItem, force) {
-          // if (force !== true && termsMap[bubbleItem.termID] !== undefined) {
-          //   var currentTerm = termsMap[bubbleItem.termID];
-          //   if (currentTerm.count === bubbleItem.count) {
-          //      return false;
-          //   }
-          //   console.log(1)
-          //   return;
-          // }
-          // termsMap[bubbleItem.termID] = bubbleItem;
-       },
-              
+       draw : function(pieItem, force) {
+        if(newJson.length > 8){
+          newJson.length = 0;
+        }
+        
+        if (force !== true && termsMap[pieItem.termID] !== undefined) {
+            newJson.push([pieItem.termName, pieItem.count]);
+            console.log(newJson) 
+            var chart = $('.pie-Chart-Container').highcharts();
+             chart.series[0].update({
+                data : newJson
+             });
+             chart.series[0].setData(newJson, true);
+            return;
+         }
+         termsMap[pieItem.termID] = pieItem;
+         console.log(pieJson)
+         
+       }, 
        initializeAnimation : function() {
         instance.generateChartData();
         $('.pie-Chart-Container').highcharts({
