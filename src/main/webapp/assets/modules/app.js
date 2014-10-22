@@ -28,9 +28,14 @@ techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider",
    }).when("/pie-chart", {
       templateUrl : "modules/pie-chart/pie-chart.tpl.html",
       controller : "chartController"
-   }).when("/search-jobs", {
-      templateUrl : "modules/job/search.tpl.html"
-   }).otherwise({
+   }).when("/jobs/search", {
+      templateUrl : "modules/job/searchForm.tpl.html",
+      controller : "searchFormController"
+   }).when("/jobs/:text", {
+      templateUrl : "modules/job/searchResult.tpl.html",
+      controller : "searchResultController"
+   })
+   .otherwise({
       redirectTo : "/bubble-chart"
    });
 } ]);
@@ -46,7 +51,6 @@ techlooper.directive("header", function() {
    return {
       restrict : "A", // This mens that it will be used as an attribute and NOT as an element.
       replace : true,
-      templateUrl : "modules/job/findJobs.tpl.html",
-      controller: 'findJobsController'
+      templateUrl : "modules/job/findJobs.tpl.html"
    }
 });
