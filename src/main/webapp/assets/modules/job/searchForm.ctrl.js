@@ -1,4 +1,5 @@
-angular.module('Jobs').controller('searchFormController', ["$scope", "$location", "jsonValue", function($scope, $location, jsonValue) {
+angular.module('Jobs').controller('searchFormController', 
+	["$scope", "$location", "jsonValue", function($scope, $location, jsonValue) {
     var hWin = $(window).height();
     var keyWords = '';
     openSearchForm($(window).height());
@@ -99,8 +100,8 @@ angular.module('Jobs').controller('searchFormController', ["$scope", "$location"
                     $box_element.addClass('disable_search');
                 }
                 $box_element.css({
-                    width: '80%',//$source_element.css('width'),
-                    minHeight: '43px',//$source_element.css('height'),
+                    width: '80%', //$source_element.css('width'),
+                    minHeight: '43px', //$source_element.css('height'),
                     padding: $source_element.css('padding'),
                     position: 'relative'
                 });
@@ -346,7 +347,7 @@ angular.module('Jobs').controller('searchFormController', ["$scope", "$location"
                             e.preventDefault();
                             e.stopPropagation();
                             var nameSkill = $button_remove_element.prev().text();
-                            $('.technical-Skill-List ul').find('img[title="'+ nameSkill +'"]').parent().removeClass('active');
+                            $('.technical-Skill-List ul').find('img[title="' + nameSkill + '"]').parent().removeClass('active');
                         });
                         $button_remove_element.bind('mouseup', function(e) {
                             e.preventDefault();
@@ -521,7 +522,7 @@ angular.module('Jobs').controller('searchFormController', ["$scope", "$location"
 
             // SHOW OPTIONS AND DIMMER
             var showOptions = function() {
-                $box_element.removeClass('options-hidden').addClass('options-visible');  // add title... default
+                $box_element.removeClass('options-hidden').addClass('options-visible'); // add title... default
                 if (plugin.settings.useDimmer) {
                     $('#' + plugin.settings.prefix + 'dimmer').show();
                 }
@@ -563,7 +564,7 @@ angular.module('Jobs').controller('searchFormController', ["$scope", "$location"
             var selectOption = function() {
                 $options_element.find('.' + plugin.settings.prefix + 'option').eq(selected_index).data('element').selected = true;
                 var nameSkill = $options_element.find('.' + plugin.settings.prefix + 'option').eq(selected_index).find('.selectator_option_title').text();
-                $('.technical-Skill-List ul').find('img[title="'+ nameSkill +'"]').parent().addClass('active');
+                $('.technical-Skill-List ul').find('img[title="' + nameSkill + '"]').parent().addClass('active');
                 $source_element.trigger('change');
                 refreshSelectedOptions();
                 $input_element.val('');
@@ -608,25 +609,26 @@ angular.module('Jobs').controller('searchFormController', ["$scope", "$location"
             });
         };
     }(jQuery));
-	var select = $('.termsList');
+    var select = $('.termsList');
     select.selectator({
-       showAllOptionsOnFocus: true
+        showAllOptionsOnFocus: true
     });
-    $('.btn-search').click(function(){
-    	if(!$('.selectator_chosen_items').is(':empty')){
+    $('.btn-search').click(function() {
+        if (!$('.selectator_chosen_items').is(':empty')) {
             keyWords = "";
             getKeyWords();
-            if(keyWords != ''){
+            if (keyWords != '') {
                 $location.path("/jobs/" + keyWords);
-    			$scope.$apply();
+                $scope.$apply();
             }
         }
-    	
+
     });
-    function getKeyWords(){
+
+    function getKeyWords() {
         var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
-        $this.each(function(){
-             keyWords = keyWords + $(this).text() + ' ';
+        $this.each(function() {
+            keyWords = keyWords + $(this).text() + ' ';
         });
         keyWords = keyWords + $('input.selectator_input').val();
         return keyWords;
