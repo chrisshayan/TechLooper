@@ -15,7 +15,14 @@
       <button class="btn-search">Search</button>
       <div class="jobs-total"><strong></strong> Jobs</div>
     </div>
-    <div class="search-result-container-block"></div>
+    <div class="search-result-container-block">
+        <div infinite-scroll="search.nextPage()" infinite-scroll-disabled="search.busy" infinite-scroll-distance='1'>
+            <div ng-repeat='job in search.jobs'>
+                {{job.title}}
+            </div>
+            <div ng-show='search.busy'>Loading data...</div>
+        </div>
+    </div>
     <div class="loading-paging"></div>
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
