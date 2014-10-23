@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFactory", "$location", function (jsonValue, $cacheFactory, $location) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, $cacheFactory, $location) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -121,4 +121,4 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
     }
   }
   return instance;
-}]);
+});
