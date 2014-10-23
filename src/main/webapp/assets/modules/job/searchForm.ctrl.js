@@ -1,5 +1,4 @@
-angular.module('Jobs').controller('searchFormController', ["$scope", "searchBoxService", "jsonValue",
-  function ($scope, searchBoxService, jsonValue) {
+angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue) {
   searchBoxService.initializeIntelligent($scope);
   $scope.skills = jsonValue.technicalSkill;
-}]);
+});
