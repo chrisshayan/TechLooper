@@ -27,4 +27,4 @@ angular.module('Jobs').controller('searchResultController',
 
     transferKeyWords();
 
-}]);
+});
