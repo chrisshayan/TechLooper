@@ -11,9 +11,9 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       scope = $scope;
       var hWin = $(window).height();
       var keyWords = '';
-      openSearchForm($(window).height());
+      //openSearchForm($(window).height());
       $(window).resize(function () {
-        openSearchForm($(window).height());
+        //openSearchForm($(window).height());
       });
 
       function openSearchForm(h) {

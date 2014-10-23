@@ -23,17 +23,17 @@
                         <a target="_blank" href="{{job.url}}">{{job.title}}</a>
                     </div>
                     <ul>
-                        <li class="salary">Negotiable</li>
-                        <li class="location">{{job.location}}</li>
-                        <li class="level">{{job.level}}</li>
-                        <li class="date-post">{{job.postedOn}}</li>
+                        <li><i class="fa fa-money"></i>Negotiable</li>
+                        <li><i class="fa fa-map-marker"></i>{{job.location}}</li>
+                        <li><i class="fa fa-male"></i>{{job.level}}</li>
+                        <li><i class="fa fa-calendar"></i>{{job.postedOn}}</li>
                     </ul>
                 </div>
                 <div class="company-logo">
                     <p ng-show="{{!job.logoUrl.length}}">{{job.company}}</p>
                     <img title="{{job.company}}" ng-src="{{job.logoUrl}}" ng-show="{{job.logoUrl.length}}">
                     <p ng-show="{{job.videoUrl.length}}">
-                        <a class="play-video" href="{{job.videoUrl}}" data-toggle="modal"
+                        <a class="play-video" ng-click="playVideo($event)" ng-href="{{job.videoUrl}}" data-toggle="modal"
                             data-target="#myModal"><i class="fa fa-play-circle"></i></a>
                     </p>
                 </div>
