@@ -17,8 +17,29 @@
     </div>
     <div class="search-result-container-block">
         <div infinite-scroll="search.nextPage()" infinite-scroll-disabled="search.busy" infinite-scroll-distance='1'>
-            <div ng-repeat='job in search.jobs'>
-                {{job.title}}
+            <div class="job-item" ng-repeat="job in search.jobs">
+                <div class="job-infor">
+                    <div class="job-title">
+                        <a target="_blank" href="{{job.url}}">{{job.title}}</a>
+                    </div>
+                    <ul>
+                        <li class="salary">Negotiable</li>
+                        <li class="location">{{job.location}}</li>
+                        <li class="level">{{job.level}}</li>
+                        <li class="date-post">{{job.postedOn}}</li>
+                    </ul>
+                </div>
+                <div class="company-logo">
+                    <p ng-show="{{!job.logoUrl.length}}">{{job.company}}</p>
+                    <img title="{{job.company}}" ng-src="{{job.logoUrl}}" ng-show="{{job.logoUrl.length}}">
+                    <p ng-show="{{job.videoUrl.length}}">
+                        <a class="play-video" href="{{job.videoUrl}}" data-toggle="modal"
+                            data-target="#myModal"><i class="fa fa-play-circle"></i></a>
+                    </p>
+                </div>
+                <div class="view-more">
+                    <a target="_blank" href="{{job.url}}">View More</a>
+                </div>
             </div>
             <div ng-show='search.busy'>Loading data...</div>
         </div>
