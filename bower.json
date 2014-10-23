@@ -23,6 +23,9 @@
       },
       "stomp-websocket": {
          "main": "lib/stomp.min.js"
+      },
+      "ngInfiniteScroll": {
+           "main": "build/ng-infinite-scroll.min.js"
       }
    }
 }
