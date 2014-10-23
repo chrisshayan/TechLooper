@@ -1,8 +1,8 @@
-angular.module("Jobs").directive("searchbox",function() {
+angular.module("Jobs").directive("searchForm",function() {
    return {
       restrict : "A",
       replace : false,
-      templateUrl : "modules/job/searchBox.tpl.html",
-      controller : "searchBoxController"
+      templateUrl : "modules/job/search.tpl.html",
+      controller : "searchFormController"
    }
 });
