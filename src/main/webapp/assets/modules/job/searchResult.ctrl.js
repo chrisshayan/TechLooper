@@ -1,6 +1,13 @@
 angular.module('Jobs', ['infinite-scroll']).controller('searchResultController',
-  ["$scope", "$routeParams", "connectionFactory", "jsonValue",
-    function ($scope, $routeParams, connectionFactory, jsonValue) {
+  ["$scope", "$routeParams", "connectionFactory", "jsonValue", "searchBoxService",
+    function ($scope, $routeParams, connectionFactory, jsonValue, searchBoxService) {
+    searchBoxService.initializeIntelligent($scope);
+
+    function transferKeyWords(){
+        var skills = $routeParams.text.split(" ");
+        console.log(skills);
+    }
+    transferKeyWords();
       connectionFactory.initialize($scope);
       $scope.search = {
         jobs: [],
