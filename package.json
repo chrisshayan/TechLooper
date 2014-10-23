@@ -14,7 +14,8 @@
     "grunt-contrib-cssmin": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-clean": "latest",
-    "grunt-bower-install-simple": "latest"
+    "grunt-bower-install-simple": "latest",
+    "grunt-ng-annotate": "latest"
   },
   "assets": "src/main/webapp/assets/",
   "public": "src/main/webapp/public/"

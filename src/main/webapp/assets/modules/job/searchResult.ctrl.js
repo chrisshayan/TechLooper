@@ -1,8 +1,7 @@
 angular.module('Jobs').controller('searchResultController',
-  ["$scope", "$routeParams", "connectionFactory", "jsonValue", "searchBoxService", 
+  ["$scope", "$routeParams", "connectionFactory", "jsonValue", "searchBoxService",
     function ($scope, $routeParams, connectionFactory, jsonValue, searchBoxService) {
-    	searchBoxService.initializeIntelligent($scope);
-
+      searchBoxService.initializeIntelligent($scope);
  	function transferKeyWords(){
     	var skills = $routeParams.text.split(" ");
     	$('.selectator_chosen_items').css('display', 'block');
