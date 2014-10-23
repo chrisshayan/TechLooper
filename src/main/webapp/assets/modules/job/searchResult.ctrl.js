@@ -1,20 +1,17 @@
-// angular.module('Jobs', ['infinite-scroll']).controller('searchResultController',
-//   ["$scope", "$routeParams", "connectionFactory", "jsonValue",
-//     function ($scope, $routeParams, connectionFactory, jsonValue) {
- angular.module('Jobs').controller('searchResultController',
+angular.module('Jobs').controller('searchResultController',
   ["$scope", "$routeParams", "connectionFactory", "jsonValue",
     function ($scope, $routeParams, connectionFactory, jsonValue) {
 
   console.log($routeParams.text);
-//   // load data for auto dropdown list and show technical skill
-//     var dataSkill = jsonValue.technicalSkill,
-//         options = '',
-//         skills = '';
-//     $.each(dataSkill, function(index, skill) {
-//         options = options + '<option value="' + index + '" data-left="<img src=images/' + skill.logo + '>">' + skill.name + '</option>';
-//         skills = skills + '<li><img src=images/' + skill.logo + ' title="' + skill.name + '">';
-//     });
-//     $('.termsList').append(options);
+  // load data for auto dropdown list and show technical skill
+    var dataSkill = jsonValue.technicalSkill,
+        options = '',
+        skills = '';
+    $.each(dataSkill, function(index, skill) {
+        options = options + '<option value="' + index + '" data-left="<img src=images/' + skill.logo + '>">' + skill.name + '</option>';
+        skills = skills + '<li><img src=images/' + skill.logo + ' title="' + skill.name + '">';
+    });
+    $('.termsList').append(options);
 
 // //console.log($routeParams.text);
 //       connectionFactory.initialize($scope);

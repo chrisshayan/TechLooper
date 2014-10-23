@@ -618,7 +618,7 @@ angular.module('Jobs').controller('searchFormController',
             keyWords = "";
             getKeyWords();
             if (keyWords != '') {
-                $location.path("/jobs/" + keyWords);
+                $location.path("/jobs/search/" + keyWords);
                 $scope.$apply();
             }
         }
