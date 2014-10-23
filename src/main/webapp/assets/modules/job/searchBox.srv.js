@@ -1,6 +1,5 @@
-angular.module("Jobs").factory("searchBoxService", ["$location", "jsonValue", function ($location, jsonValue) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue) {
   var scope;
-
 
   return {
     initializeIntelligent: function ($scope) {
@@ -44,7 +43,7 @@ angular.module("Jobs").factory("searchBoxService", ["$location", "jsonValue", fu
       var select = $('.termsList');
       select.selectator({
         showAllOptionsOnFocus: true,
-        $selectorsList : $('.technical-Skill-List ul')
+        $selectorsList: $('.technical-Skill-List ul')
       });
       $('.btn-search').click(function () {
         if (!$('.selectator_chosen_items').is(':empty')) {
@@ -67,4 +66,4 @@ angular.module("Jobs").factory("searchBoxService", ["$location", "jsonValue", fu
       }
     }
   }
-}]);
+});
