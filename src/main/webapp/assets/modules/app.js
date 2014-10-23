@@ -31,7 +31,7 @@ techlooper.config([ "$routeProvider", "$translateProvider", "$locationProvider",
    }).when("/jobs/search", {
       templateUrl : "modules/job/searchForm.tpl.html",
       controller : "searchFormController"
-   }).when("/jobs/:text", {
+   }).when("/jobs/search/:text", {
       templateUrl : "modules/job/searchResult.tpl.html",
       controller : "searchResultController"
    })
