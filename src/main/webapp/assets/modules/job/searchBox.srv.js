@@ -4,7 +4,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
   return {
     refresh : function() {
-      abc.refresh();
+      selectBox.refresh();
     },
 
     initializeIntelligent: function ($scope) {
@@ -46,11 +46,11 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $('.termsList').append(options);
 
       var select = $('.termsList');
-      abc = select.selectator({
+      selectBox = select.selectator({
         showAllOptionsOnFocus: true,
         $selectorsList: $('.technical-Skill-List ul')
       });
-      $('.btn-search').click(function () {
+      $('.search-form').click(function () {
         if (!$('.selectator_chosen_items').is(':empty') || $('input.selectator_input').val() != '') {
           keyWords = "";
           getKeyWords();
@@ -70,7 +70,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         if(val != ''){
           keyWords = keyWords + ' ' + $('input.selectator_input').val();
         }
-        keyWords = angular.lowercase(keyWords.substring(1));
+        keyWords = keyWords.substring(1);
         return keyWords;
       }
     }
