@@ -1,5 +1,7 @@
 angular.module("Jobs").factory("searchBoxService", ["$location", "jsonValue", function ($location, jsonValue) {
   var scope;
+
+
   return {
     initializeIntelligent: function ($scope) {
       scope = $scope;
