@@ -2,7 +2,6 @@
    "name": "TechLooper",
    "dependencies": {
       "jquery": "latest",
-      "jquery-ui": "latest",
       "bootstrap": "latest",
       "components-font-awesome": "latest",
       "sockjs": "latest",

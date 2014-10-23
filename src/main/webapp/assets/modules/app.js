@@ -4,7 +4,7 @@ angular.module("Home", []);
 angular.module("Header", []);
 angular.module("Footer", []);
 angular.module("Chart", [ "Common", "Bubble" ]);
-angular.module("Jobs", []);
+angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
 
