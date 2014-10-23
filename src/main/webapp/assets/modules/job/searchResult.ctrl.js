@@ -1,40 +1,33 @@
 angular.module('Jobs').controller('searchResultController',
-  ["$scope", "$routeParams", "connectionFactory", "jsonValue",
-    function ($scope, $routeParams, connectionFactory, jsonValue) {
+  ["$scope", "$routeParams", "connectionFactory", "jsonValue", "searchBoxService", 
+    function ($scope, $routeParams, connectionFactory, jsonValue, searchBoxService) {
+    	searchBoxService.initializeIntelligent($scope);
 
-  console.log($routeParams.text);
-  // load data for auto dropdown list and show technical skill
-    var dataSkill = jsonValue.technicalSkill,
-        options = '',
-        skills = '';
-    $.each(dataSkill, function(index, skill) {
-        options = options + '<option value="' + index + '" data-left="<img src=images/' + skill.logo + '>">' + skill.name + '</option>';
-        skills = skills + '<li><img src=images/' + skill.logo + ' title="' + skill.name + '">';
-    });
-    $('.termsList').append(options);
+ 	function transferKeyWords(){
+    	var skills = $routeParams.text.split(" ");;
+    	console.log(skills)
+    }
+    transferKeyWords();
 
 // //console.log($routeParams.text);
-//       connectionFactory.initialize($scope);
-//       $scope.search = {
-//         jobs: [],
-//         busy: false,
-//         nextPage: function () {
-//           if (this.busy) return;
-//           this.busy = true;
-//           console.log("scrolling me");
-//           //for (var i = 0; i < 20; i++) {
-//           //  $scope.search.jobs.push({title: "sample job " + i});
-//           //}
-//           connectionFactory.findJobs({"terms": "java", "pageNumber": "1"});
-//         }
-//       };
+      connectionFactory.initialize($scope);
+      $scope.search = {
+        jobs: [],
+        busy: false,
+        nextPage: function () {
+          if (this.busy) return;
+          this.busy = true;
+          console.log("scrolling me");
+          connectionFactory.findJobs({"terms": $routeParams.text, "pageNumber": "1"});
+        }
+      };
 
 
-//       $scope.$on(jsonValue.events.foundJobs, function (event, data) {
-//         $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
-//         $scope.search.busy = false;
-//         $scope.$apply();
-//       });
+      $scope.$on(jsonValue.events.foundJobs, function (event, data) {
+        $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
+        $scope.search.busy = false;
+        $scope.$apply();
+      });
 
   // var pageNumber = 0,
   //       termKeys = {},
