@@ -1,7 +1,12 @@
 angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue) {
   var scope;
+  var abc;
 
   return {
+    refresh : function() {
+      abc.refresh();
+    },
+
     initializeIntelligent: function ($scope) {
       scope = $scope;
       var hWin = $(window).height();
@@ -41,7 +46,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $('.termsList').append(options);
 
       var select = $('.termsList');
-      select.selectator({
+      abc = select.selectator({
         showAllOptionsOnFocus: true,
         $selectorsList: $('.technical-Skill-List ul')
       });

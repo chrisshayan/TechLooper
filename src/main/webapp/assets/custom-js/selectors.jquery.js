@@ -557,11 +557,13 @@
 
     // Initialize plugin
     plugin.init();
+
+    return plugin;
   };
 
   $.fn.selectator = function (options) {
     options = options !== undefined ? options : {};
-    return this.each(function () {
+    //this.each(function () {
       if (typeof(options) === 'object') {
         if (undefined === $(this).data('selectator')) {
           var plugin = new $.selectator(this, options);
@@ -574,6 +576,8 @@
       else {
         $.error('Method ' + options + ' does not exist in $.selectator');
       }
-    });
+    //});
+
+    return plugin;
   };
 }(jQuery));
