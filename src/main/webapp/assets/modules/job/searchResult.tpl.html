@@ -1,12 +1,10 @@
 <div class="row search-block">
     <div class="row search-logo-block">
         <div class="col-md-6 logo-block">
-            <a href="#/">
                 <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!">
-            </a>
         </div>
         <div class="col-md-6 close-button">
-            <a href="#/bubble-chart" class="btn-close" title="Close">X</a>
+            <a href="#/jobs/search" class="btn-close" title="Close">X</a>
         </div>
     </div>
     <div class="search-page">
@@ -31,8 +29,9 @@
                         </ul>
                     </div>
                     <div class="company-video" ng-show="{{job.videoUrl.length}}">
+                        <span>
                         <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal"
-                                data-target="#myModal"></i>
+                                data-target="#myModal"></i></span>
                     </div>
                     <div class="company-logo">
                         <span class="company-name" ng-show="{{!job.logoUrl.length}}">{{job.company}}</span>

@@ -5,10 +5,11 @@
 .search-block
     width: 100%
     height: 0
-    // position: fixed
+    position: fixed
     z-index: 999
     left: 0
     bottom: 50%
+    background-color: #fff
 .search-container-block
     width: 100%
     text-align: center
@@ -338,6 +339,7 @@ a.btn-search
     right: 1px
     top: 1px
     text-align: center
+    cursor: pointer
 .search-form-container:hover
     a.btn-search
         color: #000
@@ -497,6 +499,14 @@ a.btn-search
     float: left
     position: relative
     text-align: right
+    vertical-align: middle
+.job-item
+    .company-video span
+        width: auto
+        margin: auto
+        position: absolute
+        top: 0
+        bottom: 0
 .job-item 
     .company-video 
         .fa-play-circle-o
@@ -506,6 +516,10 @@ a.btn-search
             cursor: position
             padding-top: 30px
             cursor: pointer
+.job-item:hover 
+    .company-video 
+        .fa-play-circle-o
+            color: #2286de
 .job-item:hover .view-more a
     background-color: #2286de
     color: #fff
