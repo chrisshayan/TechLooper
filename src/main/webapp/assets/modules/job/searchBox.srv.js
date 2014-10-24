@@ -18,12 +18,13 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       function openSearchForm(h) {
         $('.search-block').animate({
-          'height': h,
+          'min-height': h,
           bottom: 0
         }, {
           duration: '10000',
           easing: 'easeOutQuad'
         });
+        $('body').css("background-color", "#fff");
       }
 
       $('.btn-close').click(function () {
