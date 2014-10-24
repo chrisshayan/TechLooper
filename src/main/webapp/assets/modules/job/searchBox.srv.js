@@ -11,22 +11,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       scope = $scope;
       var hWin = $(window).height();
       var keyWords = '';
-      openSearchForm($(window).height());
-      $(window).resize(function () {
-        openSearchForm($(window).height());
-      });
-
-      function openSearchForm(h) {
-        $('.search-block').animate({
-          'height': h,
-          bottom: 0
-        }, {
-          duration: '10000',
-          easing: 'easeOutQuad'
-        });
-        //$('body').css("background-color", "#fff");
-      }
-
       $('.btn-close').click(function () {
         $('.search-block').animate({
           'height': 0,
@@ -61,7 +45,16 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         }
       });
-
+      $('.selectator_input').bind('keyup', function (e) {
+        if (e.keyCode == 13 && !$('.selectator_chosen_items').is(':empty') && $('.selectator').hasClass('options-visible') == false) {
+          keyWords = "";
+          getKeyWords();
+          if (keyWords != '') {
+            $location.path("/jobs/search/" + keyWords);
+            scope.$apply();
+          }
+        }
+      });
       function getKeyWords() {
         var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
         $this.each(function () {
@@ -74,6 +67,15 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         keyWords = keyWords.substring(1);
         return keyWords;
       }
+    },
+    openSearchForm: function(h){
+      $('.search-block').animate({
+        'height': h,
+        bottom: 0
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
+      });
     }
   }
 });

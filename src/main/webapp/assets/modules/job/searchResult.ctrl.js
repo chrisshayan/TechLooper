@@ -58,7 +58,6 @@ angular.module('Jobs').controller('searchResultController',
       search.total = data.total;
       $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
       $scope.$apply();
-      resetHeight();
       alignLogo();
     });
 
@@ -89,12 +88,5 @@ angular.module('Jobs').controller('searchResultController',
       $('.company-logo').css('height', h);
       $('.company-video').css('height', h);
       $('.job-infor').css('height', h);
-    }
-
-    function resetHeight() {
-      $('.search-block').css({
-        'height': 'auto',
-        position: 'inherit'
-      });
     }
   });
