@@ -56,11 +56,13 @@ angular.module('Jobs').controller('searchResultController',
     $scope.$on(jsonValue.events.foundJobs, function (event, data) {
       var search = $scope.search;
       search.total = data.total;
-      $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
-      $scope.search.busy = false;
+      search.jobs = search.jobs.concat(data.jobs);
+      search.busy = false;
       $scope.$apply();
       alignLogo();
       $('.search-block').css('min-height',$(window).height());
+      $('.jobs-total strong').text(search.total);
+      $('.jobs-total').show();
     });
 
     $scope.playVideo = function (event) {
