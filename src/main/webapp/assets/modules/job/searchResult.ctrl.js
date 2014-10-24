@@ -8,7 +8,7 @@ angular.module('Jobs').controller('searchResultController',
       $("select.termsList option:contains('" + skill + "')").attr("selected", "selected");
       searchBoxService.refresh();
     });
-
+    var txtInput = '';
     $('.search-result').click(function () {
       if (!$('.selectator_chosen_items').is(':empty') || $('input.selectator_input').val() != '') {
         keyWords = "";
@@ -16,6 +16,7 @@ angular.module('Jobs').controller('searchResultController',
         if (keyWords != '') {
           $location.path("/jobs/search/" + keyWords);
           $scope.$apply();
+          $('input.selectator_input').val(txtInput).css('width', 'auto');
         }
       }
     });
@@ -24,9 +25,9 @@ angular.module('Jobs').controller('searchResultController',
       $this.each(function () {
         keyWords = keyWords + ' ' + $(this).text();
       });
-      var val = $('input.selectator_input').val();
-      if (val != '') {
-        keyWords = keyWords + ' ' + $('input.selectator_input').val();
+      txtInput = $('input.selectator_input').val();
+      if (txtInput != '') {
+        keyWords = keyWords + ' ' + txtInput;
       }
       keyWords = keyWords.substring(1);
       return keyWords;
@@ -89,7 +90,10 @@ angular.module('Jobs').controller('searchResultController',
     function alignLogo() {
       var list = $('.job-item'),
         h = list.height();
-      $('.company-logo').css('height', h);
+      $('.company-logo').css({
+        'height': h,
+        'line-height': h+'px'
+      });
       $('.company-video').css('height', h);
       $('.job-infor').css('height', h);
     }
