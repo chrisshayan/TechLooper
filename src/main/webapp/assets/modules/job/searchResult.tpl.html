@@ -1,6 +1,6 @@
 <div class="row search-block search-result-block" infinite-scroll="search.nextPage()"
      infinite-scroll-disabled="search.busy"
-     infinite-scroll-distance='1'>
+     infinite-scroll-distance='0'>
   <div class="row search-logo-block">
     <div class="col-md-6 logo-block">
       <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"
@@ -56,8 +56,8 @@
       </div>
     </div>
   </div>
-  <div class="loading-more">
-    <span><i class="fa fa-arrow-down"></i> Scroll Down to See More</span>
+  <div class="loading-more" ng-show='search.jobs.length < search.total '>
+    <span><i class="fa fa-arrow-down"></i> Scroll Down to Load More</span>
   </div>
 </div>
 

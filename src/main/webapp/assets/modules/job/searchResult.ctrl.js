@@ -60,6 +60,7 @@ angular.module('Jobs').controller('searchResultController',
       $scope.search.busy = false;
       $scope.$apply();
       alignLogo();
+      $('.search-block').css('min-height',$(window).height());
     });
 
     $scope.playVideo = function (event) {
