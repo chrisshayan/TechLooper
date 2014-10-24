@@ -15,7 +15,10 @@
       "angular-translate-storage-cookie": "latest",
       "angular-translate-loader-static-files": "latest",
       "highcharts-release": "latest",
-      "ngInfiniteScroll" : "latest"
+      "ngInfiniteScroll" : "latest",
+      "angular-sanitize" : "latest",
+      "angular-ui-select" : "latest",
+      "select2" : "latest"
    },
    "overrides": {
       "sockjs": {
@@ -25,7 +28,13 @@
          "main": "lib/stomp.min.js"
       },
       "ngInfiniteScroll": {
-           "main": "build/ng-infinite-scroll.min.js"
+         "main": "build/ng-infinite-scroll.min.js"
+      },
+      "angular-ui-select" : {
+         "main" : "dist/select.min.js"
+      },
+      "select2" : {
+         "main" : ""
       }
    }
 }

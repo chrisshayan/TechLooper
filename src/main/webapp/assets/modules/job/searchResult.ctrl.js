@@ -42,7 +42,7 @@ angular.module('Jobs').controller('searchResultController',
       busy: false,
       total: 1,
       nextPage: function () {
-        if (this.jobs.length === this.total || this.busy) {
+        if (this.busy || this.jobs.length === this.total) {
           return;
         }
         this.busy = true;
@@ -61,7 +61,7 @@ angular.module('Jobs').controller('searchResultController',
       search.busy = false;
       $scope.$apply();
       alignLogo();
-      $('.search-block').css('min-height',$(window).height());
+      $('.search-block').css('min-height', $(window).height());
       $('.jobs-total strong').text(search.total);
       $('.jobs-total').show();
     });
@@ -92,9 +92,33 @@ angular.module('Jobs').controller('searchResultController',
         h = list.height();
       $('.company-logo').css({
         'height': h,
-        'line-height': h+'px'
+        'line-height': h + 'px'
       });
       $('.company-video').css('height', h);
       $('.job-infor').css('height', h);
     }
+
+
+
+
+    $scope.people = [
+      { name: 'Adam',      email: 'adam@email.com',      age: 12, country: 'United States' },
+      { name: 'Amalie',    email: 'amalie@email.com',    age: 12, country: 'Argentina' },
+      { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
+      { name: 'Adrian',    email: 'adrian@email.com',    age: 21, country: 'Ecuador' },
+      { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30, country: 'Ecuador' },
+      { name: 'Samantha',  email: 'samantha@email.com',  age: 30, country: 'United States' },
+      { name: 'Nicole',    email: 'nicole@email.com',    age: 43, country: 'Colombia' },
+      { name: 'Natasha',   email: 'natasha@email.com',   age: 54, country: 'Ecuador' },
+      { name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
+      { name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
+    ];
+
+    $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
+
+    $scope.multipleDemo = {};
+    $scope.multipleDemo.colors = ['Blue','Red'];
+    $scope.multipleDemo.selectedPeople = [$scope.people[5], $scope.people[4]];
+    $scope.multipleDemo.selectedPeopleWithGroupBy = [$scope.people[8], $scope.people[6]];
+    $scope.multipleDemo.selectedPeopleSimple = ['samantha@email.com','wladimir@email.com'];
   });
