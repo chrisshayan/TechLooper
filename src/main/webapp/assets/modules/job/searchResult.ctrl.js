@@ -41,14 +41,14 @@ angular.module('Jobs').controller('searchResultController',
       busy: false,
       total: 1,
       nextPage: function () {
-        if (this.busy) {
+        if (this.jobs.length === this.total || this.busy) {
           return;
         }
         this.busy = true;
-
-        if (this.jobs.length < this.total) {
-          connectionFactory.findJobs({"terms": $routeParams.text, "pageNumber": ++this.pageNumber});
-        }
+        connectionFactory.findJobs({
+          "terms": $routeParams.text,
+          "pageNumber": ++this.pageNumber
+        });
       }
     };
 
@@ -57,6 +57,7 @@ angular.module('Jobs').controller('searchResultController',
       var search = $scope.search;
       search.total = data.total;
       $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
+      $scope.search.busy = false;
       $scope.$apply();
       alignLogo();
     });
