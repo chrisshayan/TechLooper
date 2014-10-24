@@ -1,6 +1,6 @@
 package com.techlooper.service;
 
-import com.techlooper.enu.TechnicalTermEnum;
+import com.techlooper.model.TechnicalTermEnum;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -9,14 +9,14 @@ public interface JobStatisticService {
    /**
     * Counting BA jobs
     * @return number of jobs
-    * @see com.techlooper.enu.TechnicalTermEnum
+    * @see com.techlooper.model.TechnicalTermEnum
     */
    Long countBAJobs();
 
    /**
     * Counting Project Manager jobs
     * @return number of jobs
-    * @see com.techlooper.enu.TechnicalTermEnum
+    * @see com.techlooper.model.TechnicalTermEnum
     */
    Long countProjectManagerJobs();
 
@@ -24,21 +24,21 @@ public interface JobStatisticService {
     /**
      * Counting PHP jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countPhpJobs();
 
     /**
      * Counting Java jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countJavaJobs();
 
     /**
      * Counting .NET jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countDotNetJobs();
 
@@ -52,35 +52,35 @@ public interface JobStatisticService {
     /**
      * Counting Ruby jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countRubyJobs();
 
     /**
      * Counting Python jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countPythonJobs();
 
     /**
      * Counting DBA jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countDBAJobs();
 
     /**
      * Counting QA jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countQAJobs();
 
     /**
      * Counting all technical jobs
      * @return number of jobs
-     * @see com.techlooper.enu.TechnicalTermEnum
+     * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countTechnicalJobs();
 }

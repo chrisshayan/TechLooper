@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import com.techlooper.enu.TechnicalTermEnum;
+import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 
 /**

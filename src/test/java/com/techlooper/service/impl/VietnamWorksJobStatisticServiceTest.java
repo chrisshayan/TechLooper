@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.enu.TechnicalTermEnum;
+import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;

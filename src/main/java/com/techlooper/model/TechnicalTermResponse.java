@@ -1,8 +1,6 @@
 package com.techlooper.model;
 
 
-import com.techlooper.enu.TechnicalTermEnum;
-
 public class TechnicalTermResponse {
 
    private String name;
