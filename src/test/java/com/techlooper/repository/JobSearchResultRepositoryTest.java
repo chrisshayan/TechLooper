@@ -1,6 +1,6 @@
 package com.techlooper.repository;
 
-import com.techlooper.entity.Job;
+import com.techlooper.model.JobEntity;
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,12 +48,12 @@ public class JobSearchResultRepositoryTest {
                 .withTypes("job")
                 .build();
 
-        FacetedPage<Job> jobSearchResultEntities = repository.search(searchQuery);
+        FacetedPage<JobEntity> jobSearchResultEntities = repository.search(searchQuery);
         assertNotNull(jobSearchResultEntities);
 
-        jobSearchResultEntities.forEach(new Consumer<Job>() {
+        jobSearchResultEntities.forEach(new Consumer<JobEntity>() {
             @Override
-            public void accept(Job job) {
+            public void accept(JobEntity job) {
                 System.out.println("job = " + job);
             }
         });

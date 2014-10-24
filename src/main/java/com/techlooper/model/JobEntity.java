@@ -1,4 +1,4 @@
-package com.techlooper.entity;
+package com.techlooper.model;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
  * Created by chrisshayan on 7/10/14.
  */
 @Document(indexName = "vietnamworks")
-public class Job {
+public class JobEntity {
 
    @Id
    private String id;
