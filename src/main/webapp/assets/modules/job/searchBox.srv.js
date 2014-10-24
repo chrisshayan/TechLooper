@@ -11,19 +11,20 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       scope = $scope;
       var hWin = $(window).height();
       var keyWords = '';
-      //openSearchForm($(window).height());
+      openSearchForm($(window).height());
       $(window).resize(function () {
-        //openSearchForm($(window).height());
+        openSearchForm($(window).height());
       });
 
       function openSearchForm(h) {
         $('.search-block').animate({
-          'height': h,
+          'min-height': h,
           bottom: 0
         }, {
           duration: '10000',
           easing: 'easeOutQuad'
         });
+        $('body').css("background-color", "#fff");
       }
 
       $('.btn-close').click(function () {

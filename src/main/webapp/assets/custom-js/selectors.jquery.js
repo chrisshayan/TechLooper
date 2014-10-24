@@ -59,7 +59,7 @@
         $box_element.addClass('disable_search');
       }
       $box_element.css({
-        width: '80%', //$source_element.css('width'),
+        width: '100%', //$source_element.css('width'),
         minHeight: '43px', //$source_element.css('height'),
         padding: $source_element.css('padding'),
         position: 'relative'

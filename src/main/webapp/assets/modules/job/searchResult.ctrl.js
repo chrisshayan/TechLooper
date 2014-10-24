@@ -64,20 +64,18 @@ angular.module('Jobs').controller('searchResultController',
       $scope.$apply();
     });
 	$scope.playVideo = function(event) {
-		//var url = '//www.youtube.com/embed/' + $(event.currentTarget).attr('href').substr($(event.currentTarget).attr('href').indexOf("=") + 1) + '?autoplay=1';
 		var url = $(event.currentTarget).attr('href');
-		var myUrl = '//www.youtube.com/embed/'+ getId(url) + '?autoplay=1';
-
+		var myUrl = '//www.youtube.com/embed/'+ getURL(url) + '?autoplay=1';
 		$('.modal-body').find('iframe').attr('src',myUrl);
 	}
-	function getId(url) {
+	function getURL(url) {
 	    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 	    var match = url.match(regExp);
-
 	    if (match && match[2].length == 11) {
 	        return match[2];
 	    } else {
 	        return 'error';
 	    }
 	}
+	
 });
