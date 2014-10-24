@@ -61,10 +61,11 @@ angular.module('Jobs').controller('searchResultController',
       $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
       $scope.search.busy = false;
       $scope.search.pageNumber++;
+      alignContent();
       $scope.$apply();
     });
 	$scope.playVideo = function(event) {
-		var url = $(event.currentTarget).attr('href');
+		var url = $(event.currentTarget).attr('ng-url');
 		var myUrl = '//www.youtube.com/embed/'+ getURL(url) + '?autoplay=1';
 		$('.modal-body').find('iframe').attr('src',myUrl);
 	}
@@ -77,5 +78,16 @@ angular.module('Jobs').controller('searchResultController',
 	        return 'error';
 	    }
 	}
-	
+	function alignContent(){
+		var list = $('.job-item'),
+			h = list.height();
+		$('.company-logo').css('height',h);
+		$('.company-video').css('height',h);
+		$('.job-infor').css('height',h);
+		
+	}
+	$scope.openDetail =function(event){
+		var url = $(event.currentTarget).attr('data-url');
+		window.open(url);
+	}
 });
