@@ -1546,7 +1546,6 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
             
             return;
          }
-         
          termsMap[bubbleItem.termID] = bubbleItem;
 
          var html = '',

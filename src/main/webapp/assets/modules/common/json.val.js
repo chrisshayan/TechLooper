@@ -676,6 +676,10 @@ angular.module("Common").constant("jsonValue", {
       'logo': 'lg-jquery.png'
     },
     {
+      'name': 'Spring',
+      'logo': 'lg-spring.png'
+    },
+    {
       'name': 'Sass',
       'logo': 'lg-sass.png'
     },

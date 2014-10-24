@@ -1,11 +1,18 @@
+.search-page
+    display: block
+    clear: both
+    padding-top: 40px
 .search-block
     width: 100%
     height: 0
     position: fixed
-    background-color: #201d1e
     z-index: 999
     left: 0
     bottom: 50%
+    background-color: #fff
+.search-result-block
+    position: inherit
+    height: auto !important
 .search-container-block
     width: 100%
     text-align: center
@@ -18,6 +25,7 @@
     text-align: left
     max-height: 43px
     max-width: 600px
+    position: relative
 .search-logo-block
     padding: 5px
     background: url(../images/line-li.png) left bottom repeat-x
@@ -31,7 +39,7 @@
         padding-top: 10px 
 .search-logo-block 
     .close-button a
-        background: #474747
+        background: #cccccc
         border-radius: 50%
         display: block
         width: 45px
@@ -44,7 +52,7 @@
         text-align: center
 .search-logo-block 
     .close-button a:hover
-        background: #4c4c4c
+        background: #9d9d9d
 /* reset */
 .termsList
     width: 80%
@@ -63,19 +71,13 @@
 /* Main box */
 
 .selectator
-    border: 1px solid #373737
-    border-right: 0
-    background-color: #282727
+    border: 1px solid #a4a4a4
     display: inline-block
     text-decoration: none
     color: #fff
-    -webkit-border-top-left-radius: 5px
-    -webkit-border-bottom-left-radius: 5px
-    -moz-border-radius-topleft: 5px
-    -moz-border-radius-bottomleft: 5px
-    border-top-left-radius: 5px
-    border-bottom-left-radius: 5px
-    padding-bottom: 0
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
 .selectator.multiple
     padding-right: 20px !important
 .selectator.single
@@ -98,7 +100,7 @@
 
 .selectator_chosen_item
     display: inline-block
-    background-color: #a9a9a9
+    background-color: #e2e2e2
     border-radius: 2px
     color: #000
     padding: 4px 20px 4px 4px
@@ -204,6 +206,7 @@
         margin: 0
         height: 36px
         padding-left: 5px
+        color: #000
 .selectator_input,
 .selectator_textlength
     border: 0
@@ -227,6 +230,7 @@
         background-color: #f6f6f6
         color: #333
         font-size: inherit
+        color: #000
 .single.options-hidden 
     .selectator_input
         opacity: 0
@@ -239,17 +243,18 @@
     .selectator_input
         opacity: 0
         padding: 0 1px 1px 0 !important
+        color: #000
 /* options holder */
 
 .selectator_options
     margin: 0
     padding: 0
-    border: 1px solid #373737
+    border: 1px solid #a4a4a4
     border-radius: 0 0 3px 3px
     font-family: sans-serif
     position: absolute
     z-index: 101
-    background-color: #000
+    background-color: #f3f2f2
     overflow-y: scroll
     max-height: 250px
     list-style: none
@@ -285,11 +290,11 @@
 .selectator_option
     padding: 5px
     cursor: pointer
-    color: #fff
+    color: #000
     font-size: 18px
 .selectator_option.active
-    background-color: #282727
-    color: #fff
+    background-color: #eefaff
+    color: #000
 .selectator_group 
     .selectator_option
         padding: 5px 5px 5px 20px
@@ -322,15 +327,13 @@
     text-align: center
     border-radius: 3px
     padding: 6px
-button.btn-search
+a.btn-search
     outline: none
-    width: 70px
-    height: 43px
-    min-height: 43px
-    border: 0
-    background: url(../images/ic-search.png) #297abe center 3px no-repeat
-    font-size: 0
-    text-indent: -999999px
+    width: 50px
+    height: 41px
+    min-height: 41px
+    font-size: 26px
+    color: #c5c5c5
     -webkit-border-top-right-radius: 5px
     -webkit-border-bottom-right-radius: 5px
     -moz-border-radius-topright: 5px
@@ -338,8 +341,14 @@ button.btn-search
     border-top-right-radius: 5px
     border-bottom-right-radius: 5px
     position: absolute
-    border: 1px solid #297abe
-    border-left: 0
+    border: 0
+    right: 1px
+    top: 1px
+    text-align: center
+    cursor: pointer
+.search-form-container:hover
+    a.btn-search
+        color: #000
 .technical-Skill-List
     display: block
     clear: both
@@ -377,11 +386,12 @@ button.btn-search
             -webkit-filter: grayscale(0%)
 .jobs-total
     float: right
+    clear: both
     display: none
+    width: 100%
 .jobs-total strong
-    font-size: 30px
+    font-size: 16px
     font-weight: 400
-    color: #2286de
 .search-result-container-block
     display: block
     clear: both
@@ -391,51 +401,49 @@ button.btn-search
     margin: auto
 .job-item
     display: block
-    padding: 15px 0
-    border-bottom: 1px solid #373737
     float: left
     width: 100%
-    min-height: 95px
-.job-item:last-child
-    border-bottom: 0
+    color: #000
+    padding: 0 15px
+
+.job-item:nth-child(odd)
+    background-color: #f9f9f9
+
 .job-infor
-    width: 70%
+    padding: 15px 0
+    width: 75%
     float: left
+    cursor: pointer
 .job-item .job-title
-    background-color: #282727
-    padding: 6px 15px
+    padding: 6px 0
     clear: both
     width: auto
-    display: inline-blockv
-.job-item .job-title a
-    font-weight: 300
+    display: inline-block
+    font-weight: 400
     font-size: 16px
     text-transform: capitalize
     color: #2286de
+
 .job-item ul
     margin: 0
-    padding: 10px 0 0 0
+    padding: 0
 .job-item li
-    background: url(../images/ic-small.png) left top no-repeat
     display: inline-block
-    padding: 5px 15px 5px 0
+    padding: 0 25px 5px 0
     font-size: 14px
-.job-item li.salary
-    background-position: 0px -134px
-    padding-left: 30px
-.job-item li.location
-    background-position: 0px -100px
-    padding-left: 20px
-.job-item li.level
-    background-position: 0px -66px
-    padding-left: 35px
-.job-item li.date-post
-    background-position: 0px -172px
-    padding-left: 30px
+.job-item li i
+    padding-right: 10px
+    font-size: 16px
 .company-logo
-    width: 15%
-    float: left
-    text-align: center
+    width: 20%
+    float: right
+    text-align: right
+    position: relative
+    vertical-align: middle
+    min-height: 80px
+    cursor: pointer
+.logo-img
+    padding: 15px 0
 .company-logo img
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
     /* Firefox 10+, Firefox on Android*/
@@ -449,6 +457,10 @@ button.btn-search
     /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
     width: 120px
     margin: auto
+    right: 0
+    top: 0
+    bottom: 0
+    position: absolute
 .view-more
     width: 15%
     float: left
@@ -458,8 +470,7 @@ button.btn-search
 .view-more a
     display: block
     padding: 10px 20px
-    color: #d7d7d7
-    background-color: #282727
+    color: #000
     border-radius: 5px
     margin: auto
     position: absolute
@@ -468,17 +479,55 @@ button.btn-search
     left: 0 
     right: 0
     height: 40px
-.job-item:hover  .company-logo img
-    filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
-    filter: grayscale(0%)
-    -moz-filter: grayscale(0%)
-    -ms-filter: grayscale(0%)
-    -o-filter: grayscale(0%)
-    filter: none
-    zoom: 1
-    -webkit-filter: grayscale(0%)
+    border: 1px solid #a4a4a4
+.job-item:hover
+    background-color: #eefaff
+.job-item:hover  
+    .company-logo 
+        img
+            filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
+            filter: grayscale(0%)
+            -moz-filter: grayscale(0%)
+            -ms-filter: grayscale(0%)
+            -o-filter: grayscale(0%)
+            filter: none
+            zoom: 1
+            -webkit-filter: grayscale(0%)
+.company-logo
+    span.company-name
+        display: inline-block
+        vertical-align: middle
+        line-height: normal
+        text-align: center
+.company-video
+    width: 5%
+    float: left
+    position: relative
+    text-align: center
+    vertical-align: middle
+.job-item
+    .company-video span
+        width: auto
+        margin: auto
+        position: absolute
+        top: 0
+        bottom: 0
+.job-item 
+    .company-video 
+        .fa-play-circle-o
+            font-size: 35px
+            font-weight: 300
+            color: #a3a3a3
+            cursor: position
+            padding-top: 30px
+            cursor: pointer
+.job-item:hover 
+    .company-video 
+        .fa-play-circle-o
+            color: #2286de
 .job-item:hover .view-more a
     background-color: #2286de
+    color: #fff
 .loading
     background-color: #8ba5bc
     color: #000
@@ -494,3 +543,23 @@ button.btn-search
     bottom: 0
     left: 0
     right: 0
+.modal-content
+    background-color: #282727
+.modal-body
+    padding: 5px 7px 0px 5px
+.loading-more
+    width: 100%
+    height: 30px
+    line-height: 30px
+    position: fixed
+    bottom: 0
+    text-align: center
+    opacity: 0.8
+.loading-more
+    span
+        display: block
+        color: #fff
+        background-color: #201d1e
+        height: 30px
+        width: auto
+        padding: 0 15px
