@@ -1,3 +1,7 @@
+.search-page
+    display: block
+    clear: both
+    padding-top: 40px
 .search-block
     width: 100%
     height: 0
@@ -316,15 +320,13 @@
     text-align: center
     border-radius: 3px
     padding: 6px
-button.btn-search
+a.btn-search
     outline: none
-    width: 70px
+    width: 50px
     height: 41px
     min-height: 41px
-    border: 0
-    background: url(../images/ic-search.png) #fff center 3px no-repeat
-    font-size: 0
-    text-indent: -999999px
+    font-size: 26px
+    color: #c5c5c5
     -webkit-border-top-right-radius: 5px
     -webkit-border-bottom-right-radius: 5px
     -moz-border-radius-topright: 5px
@@ -335,6 +337,10 @@ button.btn-search
     border: 0
     right: 1px
     top: 1px
+    text-align: center
+.search-form-container:hover
+    a.btn-search
+        color: #000
 .technical-Skill-List
     display: block
     clear: both
@@ -386,41 +392,48 @@ button.btn-search
     margin: auto
 .job-item
     display: block
-    padding: 15px 10px
     float: left
     width: 100%
     color: #000
+    padding: 0 15px
+
 .job-item:nth-child(odd)
-    background-color: #f3f2f2
+    background-color: #f9f9f9
 
 .job-infor
+    padding: 15px 0
     width: 70%
     float: left
+    cursor: pointer
 .job-item .job-title
     padding: 6px 0
     clear: both
     width: auto
-    display: inline-blockv
-.job-item .job-title a
+    display: inline-block
     font-weight: 400
     font-size: 16px
     text-transform: capitalize
     color: #2286de
+
 .job-item ul
     margin: 0
-    padding: 10px 0 0 0
+    padding: 0
 .job-item li
     display: inline-block
-    padding: 5px 25px 5px 0
+    padding: 0 25px 5px 0
     font-size: 14px
 .job-item li i
     padding-right: 10px
     font-size: 16px
 .company-logo
-    width: 15%
-    float: left
-    text-align: center
+    width: 20%
+    float: right
+    text-align: right
     position: relative
+    vertical-align: middle
+    min-height: 80px
+    padding: 15px 0
+    cursor: pointer
 .company-logo img
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
     /* Firefox 10+, Firefox on Android*/
@@ -434,12 +447,10 @@ button.btn-search
     /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
     width: 120px
     margin: auto
-    left: 0
     right: 0
     top: 0
     bottom: 0
     position: absolute
-    border: 1px solid #d2d2d2
 .view-more
     width: 15%
     float: left
@@ -461,15 +472,40 @@ button.btn-search
     border: 1px solid #a4a4a4
 .job-item:hover
     background-color: #eefaff
-.job-item:hover  .company-logo img
-    filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
-    filter: grayscale(0%)
-    -moz-filter: grayscale(0%)
-    -ms-filter: grayscale(0%)
-    -o-filter: grayscale(0%)
-    filter: none
-    zoom: 1
-    -webkit-filter: grayscale(0%)
+.job-item:hover  
+    .company-logo 
+        img
+            filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
+            filter: grayscale(0%)
+            -moz-filter: grayscale(0%)
+            -ms-filter: grayscale(0%)
+            -o-filter: grayscale(0%)
+            filter: none
+            zoom: 1
+            -webkit-filter: grayscale(0%)
+.company-logo
+    span.company-name
+        margin: auto
+        position: absolute
+        right: 0
+        top: 0
+        bottom: 0
+        text-align: center
+        padding: 15px 0
+.company-video
+    width: 10%
+    float: left
+    position: relative
+    text-align: right
+.job-item 
+    .company-video 
+        .fa-play-circle-o
+            font-size: 35px
+            font-weight: 300
+            color: #a3a3a3
+            cursor: position
+            padding-top: 30px
+            cursor: pointer
 .job-item:hover .view-more a
     background-color: #2286de
     color: #fff
