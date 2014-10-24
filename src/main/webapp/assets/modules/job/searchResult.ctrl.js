@@ -64,7 +64,7 @@ angular.module('Jobs').controller('searchResultController',
       
       $scope.$apply();
       alignLogo();
-      resetHeight();
+      //resetHeight();
     });
 	$scope.playVideo = function(event) {
 		var url = $(event.currentTarget).attr('ng-url');
