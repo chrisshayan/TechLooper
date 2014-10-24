@@ -61,8 +61,20 @@ angular.module('Jobs').controller('searchResultController',
       $scope.search.jobs = $scope.search.jobs.concat(data.jobs);
       $scope.search.busy = false;
       $scope.search.pageNumber++;
-      alignContent();
+      
       $scope.$apply();
+
+      $scope.$apply(function(){
+        var list = $('.job-item'),
+        h = list.height();
+        $('.company-logo').css('height',h);
+        $('.company-video').css('height',h);
+        $('.job-infor').css('height',h);
+      });
+      $('.search-block').css({
+         'height':'auto',
+         position: 'inherit'
+      });
     });
 	$scope.playVideo = function(event) {
 		var url = $(event.currentTarget).attr('ng-url');
@@ -77,14 +89,6 @@ angular.module('Jobs').controller('searchResultController',
 	    } else {
 	        return 'error';
 	    }
-	}
-	function alignContent(){
-		var list = $('.job-item'),
-			h = list.height();
-		$('.company-logo').css('height',h);
-		$('.company-video').css('height',h);
-		$('.job-infor').css('height',h);
-		
 	}
 	$scope.openDetail =function(event){
 		var url = $(event.currentTarget).attr('data-url');
