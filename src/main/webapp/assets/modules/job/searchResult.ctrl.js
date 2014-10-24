@@ -43,7 +43,6 @@ angular.module('Jobs').controller('searchResultController',
         this.busy = true;
         if ($scope.search.pageNumber == 1 || $scope.search.pageNumber <= $scope.search.totalPages) {
           connectionFactory.findJobs({"terms": $routeParams.text, "pageNumber": $scope.search.pageNumber});
-          console.log("scrolling me : " + $routeParams.text + $scope.search.pageNumber);
         } else {
           $scope.search.busy = false;
         }
@@ -52,11 +51,7 @@ angular.module('Jobs').controller('searchResultController',
 
 
     $scope.$on(jsonValue.events.foundJobs, function (event, data) {
-      // count total pages at the first time
       if ($scope.search.pageNumber == 1) {
-        console.log("Total : " + data.total);
-        console.log("Item/Page : " + data.jobs.length);
-        //TODO : move this total page calculation to util
         if (data.total % data.jobs.length == 0) {
           $scope.search.totalPages = Math.floor(data.total / data.jobs.length);
         } else {
@@ -68,4 +63,19 @@ angular.module('Jobs').controller('searchResultController',
       $scope.search.pageNumber++;
       $scope.$apply();
     });
+	$scope.playVideo = function(event) {
+		var url = $(event.currentTarget).attr('href');
+		var myUrl = '//www.youtube.com/embed/'+ getURL(url) + '?autoplay=1';
+		$('.modal-body').find('iframe').attr('src',myUrl);
+	}
+	function getURL(url) {
+	    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+	    var match = url.match(regExp);
+	    if (match && match[2].length == 11) {
+	        return match[2];
+	    } else {
+	        return 'error';
+	    }
+	}
+	
 });
