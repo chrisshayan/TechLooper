@@ -1,9 +1,7 @@
-<div class="row search-block search-result-block" infinite-scroll="search.nextPage()"
-     infinite-scroll-disabled="search.busy" infinite-scroll-distance='0'>
+<div class="row search-block search-result-block" infinite-scroll="search.nextPage()" infinite-scroll-disabled="search.busy" infinite-scroll-distance='0'>
   <div class="row search-logo-block">
     <div class="col-md-6 logo-block">
-      <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"
-           title="Career Analytics. Open Source. Awesome!">
+      <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!">
     </div>
     <div class="col-md-6 close-button">
       <a href="#/jobs/search" class="btn-close" title="Close">X</a>
@@ -11,38 +9,29 @@
   </div>
 
 
+
+  <ui-select multiple ng-model="searchText.selectedTerms" theme="select2" ng-disabled="disabled" style="width: 800px;">
+    <ui-select-match placeholder="Enter to search...">{{$item.name}}</ui-select-match>
+    <ui-select-choices repeat="term in searchText.terms | propsFilter: {name: $select.search}">
+      <div ng-bind-html="term.name | highlight: $select.search"></div>
+      <small>
+        name: {{term.name}}
+      </small>
+    </ui-select-choices>
+  </ui-select>
+  <p>Selected: {{searchText.selectedTerms}}</p>
+
+
   <div class="search-page">
     <div class="search-form-container">
       <select class="termsList" multiple>
       </select>
+
+
       <a class="btn-search search-result"><i class="fa fa-search"></i></a>
 
-      <div class="jobs-total">About<strong></strong>results
-      </div>
+      <div class="jobs-total">About <strong></strong> results</div>
     </div>
-
-
-    <ui-select multiple ng-model="multipleDemo.colors" theme="select2" ng-disabled="disabled" style="width: 300px;">
-      <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
-      <ui-select-choices repeat="color in availableColors">
-        {{color}}
-      </ui-select-choices>
-    </ui-select>
-    <p>Selected: {{multipleDemo.colors}}</p>
-
-
-    <ui-select multiple ng-model="multipleDemo.selectedPeople" theme="select2" ng-disabled="disabled" style="width: 800px;">
-      <ui-select-match placeholder="Select person...">{{$item.name}} &lt; {{$item.email}}&gt;</ui-select-match>
-      <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-        <div ng-bind-html="person.name | highlight: $select.search"></div>
-        <small>
-          email: {{person.email}}
-          age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-        </small>
-      </ui-select-choices>
-    </ui-select>
-    <p>Selected: {{multipleDemo.selectedPeople}}</p>
-
     <div class="search-result-container-block">
       <div class="job-item" ng-repeat="job in search.jobs">
         <div class="job-infor" data-url="{{job.url}}" ng-click="openDetail($event)">
@@ -58,16 +47,12 @@
         </div>
         <div class="company-video" ng-show="{{job.videoUrl.length}}">
                     <span>
-                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)"
-                           ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#myModal"></i>
+                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#myModal"></i>
                     </span>
         </div>
         <div class="company-logo">
           <span class="company-name" ng-show="{{!job.logoUrl.length}}">{{job.company}}</span>
-
-          <div class="logo-img" ng-show="{{job.logoUrl.length}}"><img title="{{job.company}}" ng-src="{{job.logoUrl}}"
-                                                                      data-url="{{job.url}}"
-                                                                      ng-click="openDetail($event)"></div>
+          <div class="logo-img" ng-show="{{job.logoUrl.length}}"><img title="{{job.company}}" ng-src="{{job.logoUrl}}" data-url="{{job.url}}" ng-click="openDetail($event)"></div>
         </div>
       </div>
       <div ng-show='search.busy'>Loading data...</div>
