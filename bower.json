@@ -32,9 +32,6 @@
       },
       "angular-ui-select" : {
          "main" : "dist/select.min.js"
-      },
-      "select2" : {
-         "main" : ""
       }
    }
 }

@@ -636,95 +636,95 @@ angular.module("Common").constant("jsonValue", {
   }],
   technicalSkill: [
     {
-      'name': 'Java',
+      'text': 'Java',
       'logo': 'lg-java.png'
     },
     {
-      'name': 'DotNet',
+      'text': '.Net',
       'logo': 'lg-dotnet.png'
     },
     {
-      'name': 'Php',
+      'text': 'Php',
       'logo': 'lg-php.png'
     },
     {
-      'name': 'Ruby',
+      'text': 'Ruby',
       'logo': 'lg-ruby.png'
     },
     {
-      'name': 'Python',
+      'text': 'Python',
       'logo': 'lg-python.png'
     },
     {
-      'name': 'C++',
+      'text': 'C++',
       'logo': 'lg-cplusplus.png'
     },
     {
-      'name': 'Html5',
+      'text': 'Html5',
       'logo': 'lg-html5.png'
     },
     {
-      'name': 'Bootstrap',
+      'text': 'Bootstrap',
       'logo': 'lg-bootstrap.png'
     },
     {
-      'name': 'AngularJS',
+      'text': 'AngularJS',
       'logo': 'lg-angularjs.png'
     },
     {
-      'name': 'Jquery',
+      'text': 'Jquery',
       'logo': 'lg-jquery.png'
     },
     {
-      'name': 'Spring',
+      'text': 'Spring',
       'logo': 'lg-spring.png'
     },
     {
-      'name': 'Sass',
+      'text': 'Sass',
       'logo': 'lg-sass.png'
     },
     {
-      'name': 'Magento',
+      'text': 'Magento',
       'logo': 'lg-magento.png'
     },
     {
-      'name': 'Notejs',
+      'text': 'Node',
       'logo': 'lg-notejs.png'
     },
     {
-      'name': 'Photoshop',
+      'text': 'Photoshop',
       'logo': 'lg-photoshop.png'
     },
     {
-      'name': 'Less',
+      'text': 'Less',
       'logo': 'lg-less.png'
     },
     {
-      'name': 'Joomla',
+      'text': 'Joomla',
       'logo': 'lg-joomla.png'
     },
     {
-      'name': 'Responsive Design',
+      'text': 'Responsive Design',
       'logo': 'lg-responsive-design.png'
     },
     {
-      'name': 'Css3',
+      'text': 'Css3',
       'logo': 'lg-css3.png'
     },
     {
-      'name': 'Drupal',
+      'text': 'Drupal',
       'logo': 'lg-drupal.png'
     },
     {
-      'name': 'Ajax',
+      'text': 'Ajax',
       'logo': 'lg-ajax.png'
     },
     {
-      'name': 'Backbone',
+      'text': 'Backbone',
       'logo': 'lg-backbone.png'
     },
     {
-      'name': 'Illustrator',
+      'text': 'Illustrator',
       'logo': 'lg-illustrator.png'
     }
 

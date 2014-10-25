@@ -1,37 +1,37 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService) {
-    searchBoxService.initializeIntelligent($scope);
-    var keyWords = '';
-    var skills = $routeParams.text.split(" ");
-    $('.selectator_chosen_items').css('display', 'block');
-    $.each(skills, function (index, skill) {
-      $("select.termsList option:contains('" + skill + "')").attr("selected", "selected");
-      searchBoxService.refresh();
-    });
-    var txtInput = '';
-    $('.search-result').click(function () {
-      if (!$('.selectator_chosen_items').is(':empty') || $('input.selectator_input').val() != '') {
-        keyWords = "";
-        getKeyWords();
-        if (keyWords != '') {
-          $location.path("/jobs/search/" + keyWords);
-          $scope.$apply();
-          $('input.selectator_input').val(txtInput).css('width', 'auto');
-        }
-      }
-    });
-    function getKeyWords() {
-      var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
-      $this.each(function () {
-        keyWords = keyWords + ' ' + $(this).text();
-      });
-      txtInput = $('input.selectator_input').val();
-      if (txtInput != '') {
-        keyWords = keyWords + ' ' + txtInput;
-      }
-      keyWords = keyWords.substring(1);
-      return keyWords;
-    }
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
+    //searchBoxService.initializeIntelligent($scope);
+    //var keyWords = '';
+    //var skills = $routeParams.text.split(" ");
+    //$('.selectator_chosen_items').css('display', 'block');
+    //$.each(skills, function (index, skill) {
+    //  $("select.termsList option:contains('" + skill + "')").attr("selected", "selected");
+    //  searchBoxService.refresh();
+    //});
+    //var txtInput = '';
+    //$('.search-result').click(function () {
+    //  if (!$('.selectator_chosen_items').is(':empty') || $('input.selectator_input').val() != '') {
+    //    keyWords = "";
+    //    getKeyWords();
+    //    if (keyWords != '') {
+    //      $location.path("/jobs/search/" + keyWords);
+    //      $scope.$apply();
+    //      $('input.selectator_input').val(txtInput).css('width', 'auto');
+    //    }
+    //  }
+    //});
+    //function getKeyWords() {
+    //  var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
+    //  $this.each(function () {
+    //    keyWords = keyWords + ' ' + $(this).text();
+    //  });
+    //  txtInput = $('input.selectator_input').val();
+    //  if (txtInput != '') {
+    //    keyWords = keyWords + ' ' + txtInput;
+    //  }
+    //  keyWords = keyWords.substring(1);
+    //  return keyWords;
+    //}
 
     connectionFactory.initialize($scope);
 
@@ -99,12 +99,45 @@ angular.module('Jobs').controller('searchResultController',
     }
 
 
-
-
     $scope.searchText = {
       terms: jsonValue.technicalSkill,
       selectedTerms: []
     }
+
+    //$('#searchText').selectize({
+    //  delimiter: ',',
+    //  persist: false,
+    //  create: function (input) {
+    //    return {
+    //      value: input,
+    //      text: input
+    //    }
+    //  }
+    //});
+
+    var tags = utils.setIds(jsonValue.technicalSkill);
+    var select2 = $("#e1").select2({
+      tags: tags,
+      tokenSeparators: [","],
+      formatSelection: format,
+      formatResult: format,
+      createSearchChoice: function(text) {
+        var tag = utils.findBy(tags, "text", text);
+        if (tag === undefined) {
+          tag = {id: text, text: text};
+        }
+        // return a csv string (ids)
+        //http://ivaynberg.github.io/select2/#doc-tokenSeparators
+        console.log(select2.val());
+        return tag;
+      }
+    });
+
+    function format(item) {
+      if (item.id === item.text) return item.text; // optgroup
+      return "<img style='width: 16px; height: 16px;' src='images/" + item.logo + "'> " + item.text + " </img>";
+    }
+
     //$scope.terms = jsonValue.technicalSkill;
     //$scope.selectedTerms = [];
 
