@@ -3,6 +3,11 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   var abc;
 
   return {
+    format : function(item) {
+      if (item.id === item.text) return item.text; // optgroup
+      return "<img style='width: 16px; height: 16px;' src='images/" + item.logo + "'> " + item.text + " </img>";
+    },
+
     refresh : function() {
       selectBox.refresh();
     },

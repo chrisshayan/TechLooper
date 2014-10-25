@@ -104,48 +104,38 @@ angular.module('Jobs').controller('searchResultController',
       selectedTerms: []
     }
 
-    //$('#searchText').selectize({
-    //  delimiter: ',',
-    //  persist: false,
-    //  create: function (input) {
-    //    return {
-    //      value: input,
-    //      text: input
-    //    }
-    //  }
-    //});
-
     var tags = utils.setIds(jsonValue.technicalSkill);
-    var select2 = $("#e1").select2({
+    var select2 = $(".termsList2").select2({
+      width: "100%",
       tags: tags,
-      tokenSeparators: [","],
-      formatSelection: format,
-      formatResult: format,
-      createSearchChoice: function(text) {
+      //tokenSeparators: [","],
+      formatSelection: searchBoxService.format,
+      formatResult: searchBoxService.format,
+      createSearchChoice: function (text) {
         var tag = utils.findBy(tags, "text", text);
         if (tag === undefined) {
           tag = {id: text, text: text};
         }
         // return a csv string (ids)
         //http://ivaynberg.github.io/select2/#doc-tokenSeparators
-        console.log(select2.val());
+        //console.log(select2.val());
+        console.log($("#e1").select2("data"));
         return tag;
+      },
+      createSearchChoicePosition: "bottom",
+      placeholder: "Enter to search...",
+      //allowClear: true,
+      openOnEnter: false,
+      containerCssClass: "test",
+      escapeMarkup: function (markup) { return markup; }
+    });
+
+    $('.termsList2 > ul > li > input.select2-input').on('keyup', function (event) {
+      if (event.keyCode === 13) {//Enter event
+        console.log(13);
       }
     });
 
-    function format(item) {
-      if (item.id === item.text) return item.text; // optgroup
-      return "<img style='width: 16px; height: 16px;' src='images/" + item.logo + "'> " + item.text + " </img>";
-    }
+    //$(".select2-choices").height(30);
 
-    //$scope.terms = jsonValue.technicalSkill;
-    //$scope.selectedTerms = [];
-
-    //$scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
-    //
-    //$scope.multipleDemo = {};
-    //$scope.multipleDemo.colors = ['Blue','Red'];
-    //$scope.multipleDemo.selectedPeople = [$scope.people[5], $scope.people[4]];
-    //$scope.multipleDemo.selectedPeopleWithGroupBy = [$scope.people[8], $scope.people[6]];
-    //$scope.multipleDemo.selectedPeopleSimple = ['samantha@email.com','wladimir@email.com'];
   });
