@@ -57,17 +57,17 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         //console.log($(".searchText"));
       }
 
-      var fireChangeEvent = false;
+      //var fireChangeEvent = false;
       $('.searchText > ul > li > input.select2-input').on('keyup', function (event) {
         if (event.keyCode === 13) {
-          if (!fireChangeEvent) { // Enter event (not from changeEvent)
+          //if (!fireChangeEvent) { // Enter event (not from changeEvent)
             instance.doSearch();
-          }
-          fireChangeEvent = false;
+          //}
+          //fireChangeEvent = false;
         }
       });
       $(".searchText").on("change", function (event) {
-        fireChangeEvent = true;
+        //fireChangeEvent = true;
         //Support highlight selected term
         //console.log(event.val);
         console.log(event.added);
