@@ -47,7 +47,7 @@ angular.module('Jobs').controller('searchResultController',
         }
         this.busy = true;
         connectionFactory.findJobs({
-          "terms": $routeParams.text,
+          "terms": $routeParams.text.replace(/,/g, " "),
           "pageNumber": ++this.pageNumber
         });
       }
@@ -98,44 +98,6 @@ angular.module('Jobs').controller('searchResultController',
       $('.job-infor').css('height', h);
     }
 
-
-    $scope.searchText = {
-      terms: jsonValue.technicalSkill,
-      selectedTerms: []
-    }
-
-    var tags = utils.setIds(jsonValue.technicalSkill);
-    var select2 = $(".termsList2").select2({
-      width: "100%",
-      tags: tags,
-      //tokenSeparators: [","],
-      formatSelection: searchBoxService.format,
-      formatResult: searchBoxService.format,
-      createSearchChoice: function (text) {
-        var tag = utils.findBy(tags, "text", text);
-        if (tag === undefined) {
-          tag = {id: text, text: text};
-        }
-        // return a csv string (ids)
-        //http://ivaynberg.github.io/select2/#doc-tokenSeparators
-        //console.log(select2.val());
-        console.log($("#e1").select2("data"));
-        return tag;
-      },
-      createSearchChoicePosition: "bottom",
-      placeholder: "Enter to search...",
-      //allowClear: true,
-      openOnEnter: false,
-      containerCssClass: "test",
-      escapeMarkup: function (markup) { return markup; }
-    });
-
-    $('.termsList2 > ul > li > input.select2-input').on('keyup', function (event) {
-      if (event.keyCode === 13) {//Enter event
-        console.log(13);
-      }
-    });
-
-    //$(".select2-choices").height(30);
+    searchBoxService.initSearchTextbox($scope, $routeParams.text.split(","));
 
   });
