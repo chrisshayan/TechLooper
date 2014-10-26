@@ -10,7 +10,7 @@ angular.module("Common").constant("jsonValue", {
   routerUris: {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
-    searchJobs: "/search-jobs"
+    jobsSearch: "/jobs/search/"
   },
 
   socketUri: {

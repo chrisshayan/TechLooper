@@ -9,12 +9,12 @@ angular.module("Pie", []);
 angular.module("SearchForm", []);
 
 var techlooper = angular.module("Techlooper", [
-  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", 'ngSanitize',
+  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute",
   "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
-  function ($routeProvider, $translateProvider, $locationProvider) {
+  function ($routeProvider, $translateProvider, $locationProvider, jsonVal) {
     //uiSelectConfig.theme = 'select2';
 
     $translateProvider.useStaticFilesLoader({
@@ -34,7 +34,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/pie-chart", {
       templateUrl: "modules/pie-chart/pie-chart.tpl.html",
       controller: "chartController"
-    }).when("/jobs/search", {
+    }).when("/jobs/search/", {
       templateUrl: "modules/job/searchForm.tpl.html",
       controller: "searchFormController"
     }).when("/jobs/search/:text", {

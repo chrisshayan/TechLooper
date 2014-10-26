@@ -16,8 +16,6 @@
       "angular-translate-loader-static-files": "latest",
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
-      "angular-sanitize" : "latest",
-      "angular-ui-select" : "latest",
       "select2" : "latest"
    },
    "overrides": {
@@ -30,8 +28,8 @@
       "ngInfiniteScroll": {
          "main": "build/ng-infinite-scroll.min.js"
       },
-      "angular-ui-select" : {
-         "main" : "dist/select.min.js"
+      "select2" : {
+         "main": "select2.min.js"
       }
    }
 }
