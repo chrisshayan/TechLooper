@@ -41,7 +41,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         placeholder: "Enter to search...",
         //allowClear: true,
         openOnEnter: false,
-        containerCssClass: "test",
+        //containerCssClass: "test",
         escapeMarkup: function (markup) { return markup; }
       });
 
