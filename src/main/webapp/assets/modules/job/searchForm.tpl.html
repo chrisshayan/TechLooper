@@ -1,26 +1,23 @@
 <div class="row search-block">
   <div class="row search-logo-block">
     <div class="col-md-6 logo-block">
-      <a href="#/">
         <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"
              title="Career Analytics. Open Source. Awesome!">
-      </a>
     </div>
     <div class="col-md-6 close-button">
       <a href="#/bubble-chart" class="btn-close" title="Close">X</a>
     </div>
   </div>
 
-
+  <div class="search-page">
   <div class="search-form-container">
-    <select class="termsList" multiple>
-    </select>
-    <button class="btn-search search-form">Search</button>
-    <div class="jobs-total"><strong></strong> Jobs</div>
+    <input class="searchText" type="text" />
+    <a class="btn-search search-form"><i class="fa fa-search"></i></a>
   </div>
   <div class="technical-Skill-List">
     <ul>
-      <li ng-repeat="skill in skills"><img ng-src="images/{{skill.logo}}" title="{{skill.name}}"></li>
+      <li ng-repeat="skill in skills"><img ng-src="images/{{skill.logo}}" title="{{skill.text}}"></li>
     </ul>
   </div>
+</div>
 </div>

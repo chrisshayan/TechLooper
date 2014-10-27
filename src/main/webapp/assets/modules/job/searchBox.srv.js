@@ -1,79 +1,80 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils) {
   var scope;
-  var abc;
 
-  return {
-    refresh : function() {
-      selectBox.refresh();
+  var instance = {
+    initSearchTextbox: function ($scope, textArray) {
+      scope = $scope;
+      var tags = utils.setIds(jsonValue.technicalSkill);
+      $(".searchText").select2({
+        width: "100%",
+        tags: tags,
+        tokenSeparators: [" "],
+        formatSelection: instance.formatItem,
+        formatResult: instance.formatItem,
+        createSearchChoice: function (text) {
+          var tag = utils.findBy(tags, "text", text);
+          if (tag === undefined) {
+            tag = {id: text, text: text};
+          }
+          return tag;
+        },
+        createSearchChoicePosition: "bottom",
+        placeholder: "Enter to search...",
+        //allowClear: true,
+        openOnEnter: false,
+        //containerCssClass: "test",
+        escapeMarkup: function (markup) { return markup; }
+      });
+
+      if (textArray !== undefined) {
+        var data = [];
+        $.each(textArray, function (i, text) {
+          var tag = utils.findBy(tags, "text", text);
+          data.push(tag !== undefined ? tag : {id: text, text: text});
+        });
+        $(".searchText").select2("data", data);
+      }
+
+      //var fireChangeEvent = false;
+      $('.searchText > ul > li > input.select2-input').on('keyup', function (event) {
+        if (event.keyCode === 13) {
+          instance.doSearch();
+        }
+      });
+      $(".searchText").on("change", function (event) {
+        //Support highlight selected term
+        //console.log(event.val);
+        console.log(event.added);
+        console.log(event.removed);
+      });
+
+      $('.btn-search').click(instance.doSearch);
     },
 
-    initializeIntelligent: function ($scope) {
-      scope = $scope;
-      var hWin = $(window).height();
-      var keyWords = '';
-      openSearchForm($(window).height());
-      $(window).resize(function () {
-        openSearchForm($(window).height());
-      });
+    doSearch: function () {
+      var tags = $(".searchText").select2("data").map(function (value) {return value.text;});
+      //$location.path("/jobs/search").search("text", tags.join());
+      $location.path(jsonValue.routerUris.jobsSearch + tags.join());
+      scope.$apply();
+    },
 
-      function openSearchForm(h) {
-        $('.search-block').animate({
-          'min-height': h,
-          bottom: 0
-        }, {
-          duration: '10000',
-          easing: 'easeOutQuad'
-        });
-        $('body').css("background-color", "#fff");
+    formatItem: function (item) {
+      if (item.id === item.text) {
+        return "<div style='height: 16px;'>" + item.text + "</div>";
       }
+      return "<img style='width: 16px; height: 16px;' src='images/" + item.logo + "'> " + item.text + " </img>";
+    },
 
-      $('.btn-close').click(function () {
-        $('.search-block').animate({
-          'height': 0,
-          'bottom': '50%'
-        }, {
-          duration: '10000',
-          easing: 'easeOutQuad'
-        });
-        $('body').css("background-color", "#2e272a");
+    openSearchForm: function (h) {
+      $('.search-block').animate({
+        'height': h,
+        bottom: 0
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
       });
-
-      // load data for auto dropdown list and show technical skill
-      var dataSkill = jsonValue.technicalSkill,
-        options = '';
-      $.each(dataSkill, function (index, skill) {
-        options = options + '<option value="' + index + '" data-left="<img src=images/' + skill.logo + '>">' + skill.name + '</option>';
-      });
-      $('.termsList').append(options);
-
-      var select = $('.termsList');
-      selectBox = select.selectator({
-        showAllOptionsOnFocus: true,
-        $selectorsList: $('.technical-Skill-List ul')
-      });
-      $('.search-form').click(function () {
-        if (!$('.selectator_chosen_items').is(':empty') || $('input.selectator_input').val() != '') {
-          keyWords = "";
-          getKeyWords();
-          if (keyWords != '') {
-            $location.path("/jobs/search/" + keyWords);
-            scope.$apply();
-          }
-        }
-      });
-
-      function getKeyWords() {
-        var $this = $('.selectator_chosen_items').find('.selectator_chosen_item_title');
-        $this.each(function () {
-          keyWords = keyWords + ' ' + $(this).text();
-        });
-        var val = $('input.selectator_input').val();
-        if(val != ''){
-          keyWords = keyWords + ' ' + $('input.selectator_input').val();
-        }
-        keyWords = keyWords.substring(1);
-        return keyWords;
-      }
     }
   }
+
+  return instance;
 });
