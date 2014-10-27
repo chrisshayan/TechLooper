@@ -1,8 +1,10 @@
 package com.techlooper.model.vnw;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,7 +14,10 @@ public class VNWJobSearchResponseData {
     private Integer total;
 
     @JsonProperty(value = "jobs")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<VNWJobSearchResponseDataItem> jobs;
+
+    private static VNWJobSearchResponseData defaultObject;
 
     public Integer getTotal() {
         return total;
@@ -28,5 +33,15 @@ public class VNWJobSearchResponseData {
 
     public void setJobs(Set<VNWJobSearchResponseDataItem> jobs) {
         this.jobs = jobs;
+    }
+
+    public static VNWJobSearchResponseData getDefaultObject() {
+        if (defaultObject != null) {
+            return defaultObject;
+        }
+        defaultObject = new VNWJobSearchResponseData();
+        defaultObject.setTotal(0);
+        defaultObject.setJobs(Collections.emptySet());
+        return defaultObject;
     }
 }

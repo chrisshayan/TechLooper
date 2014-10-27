@@ -60,7 +60,12 @@ public class VietnamWorksJobSearchService implements JobSearchService {
 
         String jobSearchResult = responseEntity.getBody();
         VNWJobSearchResponse jobSearchResponse = JsonUtils.toPOJO(jobSearchResult, VNWJobSearchResponse.class);
-        mergeSearchResultWithConfiguration(jobSearchResponse, getConfiguration());
+
+        if (jobSearchResponse != null) {
+            mergeSearchResultWithConfiguration(jobSearchResponse, getConfiguration());
+        } else {
+            jobSearchResponse = VNWJobSearchResponse.getDefaultObject();
+        }
         return jobSearchResponse;
     }
 
