@@ -42,9 +42,18 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       });
       $(".searchText").on("change", function (event) {
-        //Support highlight selected term
-        console.log(event.added);
-        console.log(event.removed);
+        
+        var imgs = $('.technical-Skill-List').find('img');
+        imgs.each(function(){
+          var title = $(this).attr('title');
+          if(event.added  && title == event.added.text){
+            $(this).addClass('active');
+          }
+          if(event.removed  && title == event.removed.text){
+            $(this).removeClass('active');
+          }
+
+        });
       });
 
       $('.btn-search').click(instance.doSearch);
