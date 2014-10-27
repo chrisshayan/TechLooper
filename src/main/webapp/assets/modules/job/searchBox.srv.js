@@ -85,6 +85,13 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         duration: '10000',
         easing: 'easeOutQuad'
       });
+    },
+    changeBodyColor: function(){
+      var tags = $(".searchText").select2("data").map(function (value) {return value.text;});
+      var url = jsonValue.routerUris.jobsSearch + tags.join();
+      if($location.path() == url){
+        $('body').css("background-color", "#eeeeee");
+      }
     }
   }
 
