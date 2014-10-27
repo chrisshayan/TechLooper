@@ -62,6 +62,9 @@ techlooper.directive("header", function () {
 
 $(document).keydown(function (event) {
   if (event.keyCode == 27) {
+    if ($("#myModal").is(":visible")) {// VIDEO
+      return;
+    }
     if ($(".btn-close").is(":visible")) {
       $('.btn-close').click();
     }
