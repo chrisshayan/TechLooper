@@ -14,7 +14,6 @@
       "angular-translate-storage-local": "latest",
       "angular-translate-storage-cookie": "latest",
       "angular-translate-loader-static-files": "latest",
-      "keymaster": "latest",
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
       "select2" : "latest"
