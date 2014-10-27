@@ -430,7 +430,7 @@ a.btn-search
     background-color: #f4f4f4
     border-bottom: 1px solid #d2d2d2
 .job-item:last-child
-    bottom: 0
+    border-bottom: 0
 .job-infor
     padding: 15px 0
     width: 75%
@@ -596,6 +596,9 @@ a.btn-search
     .select2-choices 
         .select2-search-choice
             padding: 3px 20px 3px 3px
+            background: #f4f4f4
+            box-shadow: inherit
+            border: 1px solid #eeeeee
 .select2-container-multi 
     .select2-choices 
         .select2-search-choice
@@ -608,7 +611,7 @@ a.btn-search
         -webkit-border-radius: 5px
         -moz-border-radius: 5px
         border-radius: 5px
-        background-color: #fff
+        background: #fff
 
 .select2-container-multi.select2-container-active 
     .select2-choices
@@ -619,5 +622,8 @@ a.btn-search
         -moz-border-radius-topright: 5px
         border-top-left-radius: 5px
         border-top-right-radius: 5px
+.select2-dropdown-open 
+    .select2-choice
+        box-shadow: inherit
 .select2-drop-active
     border: 1px solid #a4a4a4
