@@ -1,4 +1,4 @@
-package com.techlooper.service.impl;
+package com.techlooper.search;
 
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
