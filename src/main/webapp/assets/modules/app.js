@@ -59,3 +59,11 @@ techlooper.directive("header", function () {
     templateUrl: "modules/job/findJobs.tpl.html"
   }
 });
+
+$(document).keydown(function (event) {
+  if (event.keyCode == 27) {
+    if ($(".btn-close").is(":visible")) {
+      $('.btn-close').click();
+    }
+  }
+});
