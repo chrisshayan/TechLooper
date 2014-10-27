@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.model.vnw.VNWJobSearchRequest;
-import com.techlooper.model.vnw.VNWJobSearchResponse;
+import com.techlooper.model.VNWJobSearchRequest;
+import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
@@ -9,7 +9,6 @@ import org.hamcrest.core.Is;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

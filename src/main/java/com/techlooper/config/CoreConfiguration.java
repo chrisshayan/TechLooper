@@ -11,8 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import static freemarker.template.Configuration.VERSION_2_3_21;
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching
-@Import({ElasticsearchConfiguration.class, IntegrationConfiguration.class})
+@Import({ElasticsearchConfiguration.class})
 public class CoreConfiguration implements ApplicationContextAware {
 
   private ApplicationContext applicationContext;
@@ -52,6 +52,11 @@ public class CoreConfiguration implements ApplicationContextAware {
     configuration.setCacheStorage(new MruCacheStorage(100, 100));
     configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     return configuration;
+  }
+
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
   }
 
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

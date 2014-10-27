@@ -1,8 +1,8 @@
 package com.techlooper.service;
 
-import com.techlooper.model.vnw.VNWConfigurationResponse;
-import com.techlooper.model.vnw.VNWJobSearchRequest;
-import com.techlooper.model.vnw.VNWJobSearchResponse;
+import com.techlooper.model.VNWConfigurationResponse;
+import com.techlooper.model.VNWJobSearchRequest;
+import com.techlooper.model.VNWJobSearchResponse;
 
 /**
  * Created by NguyenDangKhoa on 10/24/14.
