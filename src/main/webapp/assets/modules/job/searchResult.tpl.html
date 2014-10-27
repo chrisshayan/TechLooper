@@ -1,20 +1,21 @@
 <div class="row search-block search-result-block" infinite-scroll="search.nextPage()" infinite-scroll-disabled="search.busy" infinite-scroll-distance='0'>
     <div class="row search-logo-block">
-        <div class="col-md-6 logo-block">
-            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!">
+        <div class="col-md-4 logo-block">
+            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!">
         </div>
-        <div class="col-md-6 close-button">
+        <div class="col-md-4 tech-line">
+            <h2>Career Analytics. Open Source. Awesome!</h2>
+        </div>
+        <div class="col-md-4 close-button">
             <a href="#/jobs/search" class="btn-close" title="Close">X</a>
         </div>
     </div>
     <div class="search-page">
         <div class="search-form-container">
-            <select class="termsList" multiple>
-            </select>
+            <input class="searchText" type="text" />
             <a class="btn-search search-result"><i class="fa fa-search"></i></a>
 
-            <div class="jobs-total">About
-                <strong></strong>results</div>
+            <div class="jobs-total"><strong></strong> results</div>
         </div>
         <div class="search-result-container-block">
             <div class="job-item" ng-repeat="job in search.jobs">
@@ -36,7 +37,9 @@
                 </div>
                 <div class="company-logo">
                     <span class="company-name" ng-show="{{!job.logoUrl.length}}">{{job.company}}</span>
-                    <div class="logo-img" ng-show="{{job.logoUrl.length}}"><img title="{{job.company}}" ng-src="{{job.logoUrl}}" data-url="{{job.url}}" ng-click="openDetail($event)"></div>
+                    <div class="logo-img" ng-show="{{job.logoUrl.length}}">
+                        <img title="{{job.company}}" ng-src="{{job.logoUrl}}" data-url="{{job.url}}" ng-click="openDetail($event)">
+                    </div>
                 </div>
             </div>
             <div ng-show='search.busy'>Loading data...</div>
