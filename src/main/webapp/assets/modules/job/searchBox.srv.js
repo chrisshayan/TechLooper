@@ -43,17 +43,20 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
       $(".searchText").on("change", function (event) {
         //Support highlight selected term
-        //console.log(event.val);
         console.log(event.added);
         console.log(event.removed);
       });
 
       $('.btn-search').click(instance.doSearch);
+
+      $('.btn-close').click(function(){
+        $('body').css("background-color", "#2e272a");
+      });
     },
 
     doSearch: function () {
+      $('body').css("background-color", "#eeeeee");
       var tags = $(".searchText").select2("data").map(function (value) {return value.text;});
-      //$location.path("/jobs/search").search("text", tags.join());
       $location.path(jsonValue.routerUris.jobsSearch + tags.join());
       scope.$apply();
     },
@@ -67,7 +70,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
     openSearchForm: function (h) {
       $('.search-block').animate({
-        'height': h,
+        'min-height': h,
         bottom: 0
       }, {
         duration: '10000',

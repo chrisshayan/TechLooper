@@ -1,7 +1,10 @@
-.search-page
-    display: block
-    clear: both
-    padding-top: 40px
+.abc
+    width: 100%
+    height: 100%
+    position: absolute
+    top: 0
+    bottom: 0
+    background-color: #eeeeee
 .search-block
     width: 100%
     height: 0
@@ -9,7 +12,14 @@
     z-index: 999
     left: 0
     bottom: 50%
-    background-color: #fff
+    background-color: #eeeeee
+.search-page
+    display: block
+    clear: both
+    padding-top: 40px
+    float: left
+    width: 100%
+
 .search-result-block
     position: inherit
     height: auto !important
@@ -28,7 +38,19 @@
     position: relative
 .search-logo-block
     padding: 5px
-    background: url(../images/line-li.png) left bottom repeat-x
+    background: url(../images/line-li.png) left top repeat-x
+    height: 65px
+.logo-block
+    padding-top: 3px
+.tech-line
+    text-align: center
+    h2
+        font-weight: 300
+        font-size: 16px
+        color: #a4a4a4
+        margin: 0
+        padding: 0
+        line-height: 55px
 .search-logo-block 
     .logo-block img
         width: 100%
@@ -36,7 +58,7 @@
 .search-logo-block 
     .close-button
         text-align: right
-        padding-top: 10px 
+        padding-top: 5px 
 .search-logo-block 
     .close-button a
         background: #cccccc
@@ -330,9 +352,9 @@
 a.btn-search
     outline: none
     width: 50px
-    height: 41px
-    min-height: 41px
-    font-size: 26px
+    height: 32px
+    min-height: 32px
+    font-size: 20px
     color: #c5c5c5
     -webkit-border-top-right-radius: 5px
     -webkit-border-bottom-right-radius: 5px
@@ -397,7 +419,7 @@ a.btn-search
     clear: both
     padding: 20px 40px 0 40px
     width: 100%
-    max-width: 1300px
+    max-width: 1100px
     margin: auto
 .job-item
     display: block
@@ -405,9 +427,8 @@ a.btn-search
     width: 100%
     color: #000
     padding: 0 15px
-
-.job-item:nth-child(odd)
-    background-color: #f9f9f9
+    background-color: #f4f4f4
+    border-bottom: 1px solid #d2d2d2
 
 .job-infor
     padding: 15px 0
@@ -481,7 +502,7 @@ a.btn-search
     height: 40px
     border: 1px solid #a4a4a4
 .job-item:hover
-    background-color: #eefaff
+    background-color: #fff
 .job-item:hover  
     .company-logo 
         img
@@ -554,7 +575,7 @@ a.btn-search
     position: fixed
     bottom: 0
     text-align: center
-    opacity: 0.8
+    opacity: 0.6
 .loading-more
     span
         display: block
@@ -563,5 +584,38 @@ a.btn-search
         height: 30px
         width: auto
         padding: 0 15px
-.select2-search-choice div
-    float: left
+        font-size: 12px
+.select2-container-multi 
+    .select2-search-choice-close
+        right: 3px
+        top: 6px
+        left: auto
+.select2-container-multi 
+    .select2-choices 
+        .select2-search-choice
+            padding: 3px 20px 3px 3px
+.select2-container-multi 
+    .select2-choices 
+        .select2-search-choice
+            line-height: 15px
+.select2-container-multi 
+    .select2-choices
+        border: 1px solid #a4a4a4
+        text-decoration: none
+        color: #fff
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        background-color: #fff
+
+.select2-container-multi.select2-container-active 
+    .select2-choices
+        border: 1px solid #a4a4a4
+        -webkit-border-top-left-radius: 5px
+        -webkit-border-top-right-radius: 5px
+        -moz-border-radius-topleft: 5px
+        -moz-border-radius-topright: 5px
+        border-top-left-radius: 5px
+        border-top-right-radius: 5px
+.select2-drop-active
+    border: 1px solid #a4a4a4
