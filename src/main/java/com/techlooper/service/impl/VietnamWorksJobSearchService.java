@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.model.vnw.*;
+import com.techlooper.model.*;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
@@ -22,10 +22,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     @Resource
     private RestTemplate restTemplate;
 
-    @Value("${vnw.api.configuration.httpUrl}")
+    @Value("${vnw.api.configuration.url}")
     private String configurationUrl;
 
-    @Value("${vnw.api.job.search.httpUrl}")
+    @Value("${vnw.api.job.search.url}")
     private String searchUrl;
 
     @Value("${vnw.api.key.name}")

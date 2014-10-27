@@ -1,4 +1,4 @@
-package com.techlooper.model.vnw;
+package com.techlooper.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
