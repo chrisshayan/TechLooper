@@ -22,7 +22,7 @@
         <div class="search-result-container-block">
             <div class="job-item" ng-repeat="job in search.jobs">
                 <div class="job-infor" data-url="{{job.url}}" ng-click="openDetail($event)">
-                    <div class="job-title">
+                    <div class="job-title" title="{{job.title}}">
                         {{job.title}}
                     </div>
                     <ul>
