@@ -6,12 +6,17 @@ import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Arrays;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Created by NguyenDangKhoa on 10/24/14.
@@ -69,59 +74,46 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         return jobSearchResponse;
     }
 
-    //TODO : find a generic and good way to merge search result into configuration later
     private void mergeSearchResultWithConfiguration(
             VNWJobSearchResponse jobSearchResponse, VNWConfigurationResponse configuration) {
+        BiFunction<String, String, String> idTranslator = (itemId, idType) -> {
+            return mergeConfigurationItem(configuration, itemId, idType);
+        };
+
         for (VNWJobSearchResponseDataItem responseDataItem : jobSearchResponse.getData().getJobs()) {
-            String location = responseDataItem.getLocation();
-            String mergeLocation = mergeConfigurationItem(configuration, location, "location");
-            responseDataItem.setLocation(mergeLocation);
-            String level = responseDataItem.getLevel();
-            String mergeLevel = mergeConfigurationItem(configuration, level, "degree");
-            responseDataItem.setLevel(mergeLevel);
+            responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), "location"));
+            responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), "degree"));
         }
 
     }
 
     private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
-        String[] itemIds = StringUtils.split(itemId, ',');
-        for(int i = 0; i < itemIds.length; i++) {
-            String itemValue = translateConfigurationId(itemIds[i], idType, configuration);
-            if (StringUtils.isNotEmpty(itemValue)) {
-                itemId = itemId.replaceAll(itemIds[i], itemValue);
-            } else {
-                itemId = itemId.replaceAll(itemIds[i], StringUtils.EMPTY);
-            }
-        }
-        return itemId;
+        final char COMMA = ',';
+        String[] itemIds = StringUtils.split(itemId, COMMA);
+        Function<String, String> translateConfigurationFunc = (id) -> {
+            return translateConfigurationId(id, idType, configuration);
+        };
+
+        String[] translatedIds = Arrays.stream(itemIds).distinct().map(
+                translateConfigurationFunc).toArray(size -> new String[size]);
+        return StringUtils.join(translatedIds, COMMA);
     }
 
     private String translateConfigurationId(String id, String itemType, VNWConfigurationResponse configuration) {
-        List<? extends VNWConfigurationResponseData.ConfigurationItem> configurationItems;
-
         switch (itemType) {
             case "location":
-                configurationItems = configuration.getData().getLocations();
-                for (VNWConfigurationResponseData.ConfigurationItem locationItem : configurationItems) {
-                    VNWConfigurationResponseData.ConfigurationLocation location =
-                            (VNWConfigurationResponseData.ConfigurationLocation) locationItem;
-                    if (location.getLocationId().equals(id)) {
-                        return location.getEnglish();
-                    }
-                }
-                break;
-            case "level":
-                configurationItems = configuration.getData().getDegrees();
-                for (VNWConfigurationResponseData.ConfigurationItem degreeItem : configurationItems) {
-                    VNWConfigurationResponseData.ConfigurationLocation degree =
-                            (VNWConfigurationResponseData.ConfigurationLocation) degreeItem;
-                    if (degree.getLocationId().equals(id)) {
-                        return degree.getEnglish();
-                    }
-                }
-                break;
+                VNWConfigurationResponseData.ConfigurationLocation locationValue =
+                        configuration.getData().getLocations().stream()
+                                .filter(item -> item.getLocationId().equals(id))
+                                .findFirst().orElse(null);
+                return locationValue != null ? locationValue.getEnglish() : StringUtils.EMPTY;
+            case "degree":
+                VNWConfigurationResponseData.ConfigurationDegree degreeValue =
+                        configuration.getData().getDegrees().stream()
+                                .filter(item -> item.getDegreeId().equals(id))
+                                .findFirst().orElse(null);
+                return degreeValue != null ? degreeValue.getEnglish() : StringUtils.EMPTY;
         }
-
         return StringUtils.EMPTY;
     }
 }
