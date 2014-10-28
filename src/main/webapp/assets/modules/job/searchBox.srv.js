@@ -41,7 +41,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       })[0].selectize;
 
-      if (textArray !== undefined) {
+      if ($.isArray(textArray)) {
         var options = [];
         $.each(textArray, function (i, text) {
           var tag = utils.findBy(jsonValue.technicalSkill, "text", text);
