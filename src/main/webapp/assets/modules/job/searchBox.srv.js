@@ -108,14 +108,14 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     alignButtonSeatch: function(){
       searchText.on("item_add", function (value, item) {
         $('.btn-search').css({
-            'height': $('.selectize-input').height(),
-            'line-height': $('.selectize-input').height() +'px'
-          });
+          'height': $('.selectize-control').height() - 9,
+          'line-height': ($('.selectize-control').height() - 9) +'px'
+        });
       });
       searchText.on("item_remove", function (value) {
         $('.btn-search').css({
-            'height': $('.selectize-input').height(),
-            'line-height': $('.selectize-input').height() +'px'
+            'height': $('.selectize-control').height() - 9,
+            'line-height': ($('.selectize-control').height() - 9) +'px'
           });
       });
     }
