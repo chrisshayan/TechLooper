@@ -47,14 +47,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
 
 techlooper.directive("header", function () {
   return {
-    restrict: "A", // This mens that it will be used as an attribute and NOT as an element.
+    restrict: "A", // This means that it will be used as an attribute and NOT as an element.
     replace: true,
     templateUrl: "modules/header/header.tpl.html",
     controller: "headerController"
   }
 }).directive("findjobs", function () {
   return {
-    restrict: "A", // This mens that it will be used as an attribute and NOT as an element.
+    restrict: "A", // This means that it will be used as an attribute and NOT as an element.
     replace: true,
     templateUrl: "modules/job/findJobs.tpl.html"
   }
