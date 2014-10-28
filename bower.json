@@ -17,7 +17,7 @@
       "keymaster": "latest",
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
-      "select2" : "latest"
+      "selectize" : "latest"
    },
    "overrides": {
       "sockjs": {
@@ -29,8 +29,8 @@
       "ngInfiniteScroll": {
          "main": "build/ng-infinite-scroll.min.js"
       },
-      "select2" : {
-         "main": "select2.min.js"
+      "selectize": {
+         "main": "dist/js/standalone/selectize.min.js"
       }
    }
 }
