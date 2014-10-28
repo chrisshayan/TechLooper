@@ -59,8 +59,8 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         $('body').css("background-color", "#2e272a");
       });
       $('.btn-search').css({
-        'height': $('.selectize-input').height(),
-        'line-height': $('.selectize-input').height() +'px'
+        'height': $('.selectize-control').height() - 9,
+        'line-height': ($('.selectize-control').height() - 9) +'px'
       });
     },
 
