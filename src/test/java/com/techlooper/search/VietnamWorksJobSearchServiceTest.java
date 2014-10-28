@@ -1,53 +1,76 @@
 package com.techlooper.search;
 
+import com.techlooper.config.ConfigurationTest;
+import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
-import org.apache.commons.io.IOUtils;
-import org.hamcrest.core.Is;
-import org.junit.Ignore;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.IOException;
+import javax.annotation.Resource;
 
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/springContext-VietnamWorksJobSearchService-Test.xml")
+@ContextConfiguration(classes = {ConfigurationTest.class})
 public class VietnamWorksJobSearchServiceTest {
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Autowired
+    @Resource
     private JobSearchService jobSearchService;
 
-    @Ignore
-    public void testGetConfiguration() {
-        jobSearchService.getConfiguration();
+    @Resource
+    private String vnwJobSearchRequestJson;
+
+    private VNWJobSearchRequest vnwJobSearchRequest;
+
+    @Before
+    public void setUp() {
+        assertNotNull(jobSearchService);
+        vnwJobSearchRequest = JsonUtils.toPOJO(vnwJobSearchRequestJson, VNWJobSearchRequest.class);
     }
 
     @Test
-    public void testSearchJob() throws IOException {
-        Resource requestResource = applicationContext.getResource("classpath:expect/vnw-jobs-request.json");
-        Resource responseResource = applicationContext.getResource("classpath:expect/vnw-jobs.json");
-        String requestJson = IOUtils.toString(requestResource.getInputStream());
-        String responseJson = IOUtils.toString(responseResource.getInputStream());
-        VNWJobSearchRequest vnwJobSearchRequest = JsonUtils.toPOJO(requestJson, VNWJobSearchRequest.class);
-        VNWJobSearchResponse vnwJobSearchResponse = JsonUtils.toPOJO(responseJson, VNWJobSearchResponse.class);
+    public void testGetConfiguration() {
+        VNWConfigurationResponse vnwConfigurationResponse = jobSearchService.getConfiguration();
 
-        JobSearchService jobSearchServiceMock = Mockito.mock(jobSearchService.getClass());
-        when(jobSearchServiceMock.searchJob(vnwJobSearchRequest)).thenReturn(vnwJobSearchResponse);
-        
-        assertThat(jobSearchServiceMock.searchJob(vnwJobSearchRequest).getData().getTotal(), Is.is(new Integer(100)));
+        assertNotNull(vnwConfigurationResponse);
+
+        assertNotEquals("Number Of Locations : " + vnwConfigurationResponse.getData().getLocations().size(),
+                0, vnwConfigurationResponse.getData().getLocations().size());
+
+        assertNotEquals("Number Of Degrees : " + vnwConfigurationResponse.getData().getDegrees().size(),
+                0, vnwConfigurationResponse.getData().getDegrees().size());
+    }
+
+    @Test
+    public void testSearchJob() {
+        VNWJobSearchResponse vnwConfigurationResponse = jobSearchService.searchJob(vnwJobSearchRequest);
+
+        assertNotNull(vnwConfigurationResponse);
+
+        int totalJob = vnwConfigurationResponse.getData().getTotal();
+        assertNotEquals("Total Jobs : " + totalJob, 0, totalJob);
+    }
+
+    @Test
+    public void testSearchJobEmptyData() {
+        vnwJobSearchRequest.setJobTitle("AngularJS,Java");
+        VNWJobSearchResponse vnwConfigurationResponse = jobSearchService.searchJob(vnwJobSearchRequest);
+
+        assertNotNull(vnwConfigurationResponse);
+
+        Integer totalJob = vnwConfigurationResponse.getData().getTotal();
+        assertEquals("Total Jobs : " + totalJob.longValue(), 0, totalJob.longValue());
+    }
+
+    @After
+    public void tearDown() {
+        vnwJobSearchRequest = null;
     }
 }
