@@ -1,4 +1,5 @@
-angular.module("Common").factory("utils", function () {
+angular.module("Common").factory("utils", function (jsonValue) {
+
   return {
     sum: function (array, prop) {
       var total = 0;
@@ -16,16 +17,16 @@ angular.module("Common").factory("utils", function () {
       return isMobile;
     },
 
-    setIds : function(array) {
-      $.each(array, function(index, value) {
+    setIds: function (array) {
+      $.each(array, function (index, value) {
         value.id = index;
       })
       return array;
     },
 
-    findBy: function(array, attr, value) {
+    findBy: function (array, attr, value) {
       var val = undefined;
-      $.each(array, function(index, item) {
+      $.each(array, function (index, item) {
         if (item[attr].toLowerCase() === value.toLowerCase()) {
           val = item;
           return false;

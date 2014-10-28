@@ -7,4 +7,6 @@ angular.module('Jobs').controller('searchFormController', function ($scope, sear
   $(window).resize(function () {
     searchBoxService.openSearchForm($(window).height());
   });
+  searchBoxService.hightlightSKill();
+  searchBoxService.alignButtonSeatch();
 });

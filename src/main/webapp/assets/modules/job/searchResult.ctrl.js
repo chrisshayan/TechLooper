@@ -65,4 +65,7 @@ angular.module('Jobs').controller('searchResultController',
     }
 
     searchBoxService.initSearchTextbox($scope, $routeParams.text.split(","));
+
+    searchBoxService.changeBodyColor();
+    searchBoxService.alignButtonSeatch();
   });
