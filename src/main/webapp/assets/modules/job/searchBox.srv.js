@@ -10,6 +10,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           "restore_on_backspace": {},
           "techlooper": {onReturn: instance.doSearch}
         },
+        mode: "multi",
         persist: false,
         createOnBlur: false,
         create: true,
@@ -51,8 +52,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         searchText.addOption(options);
         searchText.setValue(textArray);
       }
-
-      $("div.searchText .selectize-input").click(searchText.open);
 
       $('.btn-search').click(instance.doSearch);
 
