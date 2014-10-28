@@ -74,13 +74,14 @@ $(document).keyup(function (event) {
       lastEvent["27"] = undefined;
       return;
     }
+    console.log("ok 27");
 
     if ($("#myModal").is(":visible")) {// VIDEO
       return;
     }
 
-    if (eventHandler.keyEsc !== undefined) {
-      eventHandler.keyEsc();
+    if (eventHandler["27"] !== undefined) {
+      eventHandler["27"]();
     }
   }
 });
