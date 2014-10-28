@@ -73,4 +73,11 @@ angular.module('Jobs').controller('searchResultController',
 
     searchBoxService.changeBodyColor();
     searchBoxService.alignButtonSeatch();
+
+    $scope.closeSearchForm = function () {
+      var isVideoHide = $("#myModal").attr("aria-hidden");
+      if ($(".btn-close").is(":visible") && (isVideoHide == undefined || isVideoHide == "true")) {
+          $('.btn-close').click();
+      }
+    };
   });

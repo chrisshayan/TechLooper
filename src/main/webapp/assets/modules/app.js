@@ -58,30 +58,14 @@ techlooper.directive("header", function () {
     replace: true,
     templateUrl: "modules/job/findJobs.tpl.html"
   }
-});
-
-var lastEvent = {
-  "27": undefined
-};
-
-var eventHandler = {
-  "27": undefined
-}
-
-$(document).keyup(function (event) {
-  if (event.keyCode == 27) {
-    if (lastEvent["27"] !== undefined) {
-      lastEvent["27"] = undefined;
-      return;
-    }
-    console.log("ok 27");
-
-    if ($("#myModal").is(":visible")) {// VIDEO
-      return;
-    }
-
-    if (eventHandler["27"] !== undefined) {
-      eventHandler["27"]();
-    }
-  }
+}).directive('keybinding', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            invoke: '&'
+        },
+        link: function (scope, el, attr) {
+            Mousetrap.bind(attr.on, scope.invoke);
+        }
+    };
 });
