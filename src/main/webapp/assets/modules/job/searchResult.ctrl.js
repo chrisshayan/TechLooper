@@ -25,6 +25,9 @@ angular.module('Jobs').controller('searchResultController',
       search.jobs = search.jobs.concat(data.jobs);
       search.busy = false;
       $scope.$apply();
+      $(".job-title").dotdotdot({
+        height    : 23
+      });
 
       alignLogo();
       $('.search-block').css('min-height', $(window).height());
@@ -51,7 +54,6 @@ angular.module('Jobs').controller('searchResultController',
     $scope.checkPLayVideo = function(){
       var video = $(".playerVideo").attr("src");
       $(".playerVideo").attr("src","");
-      // $(".playerVideo").attr("src",video);
     }
 
     $scope.openDetail = function (event) {

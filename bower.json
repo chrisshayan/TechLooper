@@ -14,9 +14,11 @@
       "angular-translate-storage-local": "latest",
       "angular-translate-storage-cookie": "latest",
       "angular-translate-loader-static-files": "latest",
+      "jQuery.dotdotdot": "latest",
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
       "selectize" : "latest"
+      
    },
    "overrides": {
       "sockjs": {
@@ -30,6 +32,9 @@
       },
       "selectize": {
          "main": "dist/js/standalone/selectize.min.js"
+      },
+      "jQuery.dotdotdot": {
+         "main": "src/js/jquery.dotdotdot.js"
       }
    }
 }
