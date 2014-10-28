@@ -48,6 +48,6 @@ public class VietnamWorksJobSearchServiceTest {
         JobSearchService jobSearchServiceMock = Mockito.mock(jobSearchService.getClass());
         when(jobSearchServiceMock.searchJob(vnwJobSearchRequest)).thenReturn(vnwJobSearchResponse);
         
-        assertThat(jobSearchServiceMock.searchJob(vnwJobSearchRequest).getData().getTotal(), Is.is(new Integer(100)));
+        assertThat(jobSearchServiceMock.searchJob(vnwJobSearchRequest).getData().getTotal(), Is.is(100));
     }
 }
