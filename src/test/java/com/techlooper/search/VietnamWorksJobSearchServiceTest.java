@@ -42,10 +42,10 @@ public class VietnamWorksJobSearchServiceTest {
         assertNotNull(vnwConfigurationResponse);
 
         assertNotEquals("Number Of Locations : " + vnwConfigurationResponse.getData().getLocations().size(),
-                0, vnwConfigurationResponse.getData().getLocations().size());
+          0, vnwConfigurationResponse.getData().getLocations().size());
 
         assertNotEquals("Number Of Degrees : " + vnwConfigurationResponse.getData().getDegrees().size(),
-                0, vnwConfigurationResponse.getData().getDegrees().size());
+          0, vnwConfigurationResponse.getData().getDegrees().size());
     }
 
     @Test

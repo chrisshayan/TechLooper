@@ -5,7 +5,11 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     initSearchTextbox: function ($scope, textArray) {
       scope = $scope;
       searchText = $('.searchText').selectize({
-        plugins: ['remove_button', "restore_on_backspace"],
+        plugins: {
+          "remove_button": {},
+          "restore_on_backspace": {},
+          "techlooper": {onReturn: instance.doSearch}
+        },
         persist: false,
         createOnBlur: false,
         create: true,
@@ -14,9 +18,9 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         searchField: ['text'],
         labelField: "text",
         placeholder: "Enter to search...",
-        createFilter: function(input) {
+        createFilter: function (input) {
           var ok = true;
-          $.each(this.options, function(index, value) {
+          $.each(this.options, function (index, value) {
             if (value.text.toLowerCase() === input) {
               ok = false;
               return false;
@@ -48,29 +52,17 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         searchText.setValue(textArray);
       }
 
-      $( "div.searchText > div.selectize-input > input[type=text]").on('keyup', function (event) {
-        if (event.keyCode === 13) {
-          if (!$( "div.searchText .selectize-dropdown").is(":visible")) {
-            instance.doSearch();
-          }
-        }
-      });
-      searchText.on("dropdown_close", function (dropdown) {
-        lastEvent["27"] = dropdown;
-      });
+      $("div.searchText .selectize-input").click(searchText.open);
 
       $('.btn-search').click(instance.doSearch);
-
-      eventHandler["27"] = function() {
-        $('.btn-close').click();
-      }
 
       $('.btn-close').click(function () {
         $('body').css("background-color", "#2e272a");
       });
+
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
-        'line-height': ($('.selectize-control').height() - 9) +'px'
+        'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
     },
 
@@ -89,13 +81,13 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         easing: 'easeOutQuad'
       });
     },
-    changeBodyColor: function(){
+    changeBodyColor: function () {
       var url = jsonValue.routerUris.jobsSearch + searchText.getValue();
-      if($location.path() == url){
+      if ($location.path() == url) {
         $('body').css("background-color", "#eeeeee");
       }
     },
-    hightlightSKill: function(){
+    hightlightSKill: function () {
       searchText.on("item_add", function (value, item) {
         $('.technical-Skill-List').find('img').each(function () {
           var title = $(this).attr('title');
@@ -115,18 +107,18 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         });
       });
     },
-    alignButtonSeatch: function(){
+    alignButtonSeatch: function () {
       searchText.on("item_add", function (value, item) {
         $('.btn-search').css({
           'height': $('.selectize-control').height() - 9,
-          'line-height': ($('.selectize-control').height() - 9) +'px'
+          'line-height': ($('.selectize-control').height() - 9) + 'px'
         });
       });
       searchText.on("item_remove", function (value) {
         $('.btn-search').css({
-            'height': $('.selectize-control').height() - 9,
-            'line-height': ($('.selectize-control').height() - 9) +'px'
-          });
+          'height': $('.selectize-control').height() - 9,
+          'line-height': ($('.selectize-control').height() - 9) + 'px'
+        });
       });
     }
   }
