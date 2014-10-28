@@ -1,5 +1,6 @@
 Selectize.define('techlooper', function (options) {
   var self = this;
+
   var onReturn =  options.onReturn;
   self.onKeyDown = (function (e) {
     var original = self.onKeyDown;
