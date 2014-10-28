@@ -9,8 +9,19 @@ import com.techlooper.model.VNWJobSearchResponse;
  */
 public interface JobSearchService {
 
+    /**
+     * Loads the configuration of the VietnamWorks search
+     *
+     * @return See more at {@link com.techlooper.model.VNWConfigurationResponse}
+     */
     VNWConfigurationResponse getConfiguration();
 
+    /**
+     * This method executes the search VietnamWorks search API
+     *
+     * @param jobSearchRequest See more at {@link com.techlooper.model.VNWJobSearchRequest}
+     * @return Response of the search in format of {@link com.techlooper.model.VNWJobSearchResponse}
+     */
     VNWJobSearchResponse searchJob(VNWJobSearchRequest jobSearchRequest);
 
 }
