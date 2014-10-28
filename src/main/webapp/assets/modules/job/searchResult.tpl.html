@@ -46,11 +46,11 @@
             <div ng-show='search.busy'>Loading data...</div>
         </div>
         <div class="loading-paging"></div>
-        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <iframe width="590" height="450" src="" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="590" height="450" src="" frameborder="0" allowfullscreen class="playerVideo"></iframe>
                     </div>
                 </div>
             </div>
