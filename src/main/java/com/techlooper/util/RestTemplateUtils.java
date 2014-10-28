@@ -13,9 +13,9 @@ public class RestTemplateUtils {
 
     public static HttpEntity<String> configureHttpRequestEntity(
             MediaType mediaType, String apiKey, String apiValue, String requestBody) {
-        HttpHeaders requestHeaders = new HttpHeaders();
+        final HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setAccept(Arrays.asList(mediaType));
         requestHeaders.set(apiKey, apiValue);
-        return new HttpEntity<String>(requestBody, requestHeaders);
+        return new HttpEntity<>(requestBody, requestHeaders);
     }
 }

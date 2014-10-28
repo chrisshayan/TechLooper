@@ -26,6 +26,15 @@ public class VNWJobSearchRequest {
     @JsonProperty(value = "page_number")
     private String pageNumber;
 
+    public VNWJobSearchRequest() {
+    }
+
+    public VNWJobSearchRequest(String jobTitle, String jobCategory, String pageNumber) {
+        this.jobTitle = jobTitle;
+        this.jobCategory = jobCategory;
+        this.pageNumber = pageNumber;
+    }
+
     public String getJobTitle() {
         return jobTitle;
     }

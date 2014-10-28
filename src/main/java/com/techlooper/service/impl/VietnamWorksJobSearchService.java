@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +16,9 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  * Created by NguyenDangKhoa on 10/24/14.
@@ -46,24 +48,24 @@ public class VietnamWorksJobSearchService implements JobSearchService {
             return this.configurationResponse;
         }
 
-        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(MediaType.APPLICATION_JSON,
-                apiKeyName, apiKeyValue, StringUtils.EMPTY);
+        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON,
+                apiKeyName, apiKeyValue, EMPTY);
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange(configurationUrl, HttpMethod.GET, requestEntity, String.class);
-        String configuration = responseEntity.getBody();
+        final String configuration = responseEntity.getBody();
         this.configurationResponse = JsonUtils.toPOJO(configuration, VNWConfigurationResponse.class);
         return this.configurationResponse;
     }
 
     public VNWJobSearchResponse searchJob(VNWJobSearchRequest jobSearchRequest) {
-        String searchParameters = JsonUtils.toJSON(jobSearchRequest);
-        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(MediaType.APPLICATION_JSON,
+        final String searchParameters = JsonUtils.toJSON(jobSearchRequest);
+        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON,
                 apiKeyName, apiKeyValue, searchParameters);
 
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange(searchUrl, HttpMethod.POST, requestEntity, String.class);
 
-        String jobSearchResult = responseEntity.getBody();
+        final String jobSearchResult = responseEntity.getBody();
         VNWJobSearchResponse jobSearchResponse = JsonUtils.toPOJO(jobSearchResult, VNWJobSearchResponse.class);
 
         if (jobSearchResponse != null) {
@@ -76,9 +78,7 @@ public class VietnamWorksJobSearchService implements JobSearchService {
 
     private void mergeSearchResultWithConfiguration(
             VNWJobSearchResponse jobSearchResponse, VNWConfigurationResponse configuration) {
-        BiFunction<String, String, String> idTranslator = (itemId, idType) -> {
-            return mergeConfigurationItem(configuration, itemId, idType);
-        };
+        BiFunction<String, String, String> idTranslator = (itemId, idType) -> mergeConfigurationItem(configuration, itemId, idType);
 
         for (VNWJobSearchResponseDataItem responseDataItem : jobSearchResponse.getData().getJobs()) {
             responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), "location"));
@@ -90,12 +90,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
         final char COMMA = ',';
         String[] itemIds = StringUtils.split(itemId, COMMA);
-        Function<String, String> translateConfigurationFunc = (id) -> {
-            return translateConfigurationId(id, idType, configuration);
-        };
+        Function<String, String> translateConfigurationFunc = (id) -> translateConfigurationId(id, idType, configuration);
 
         String[] translatedIds = Arrays.stream(itemIds).distinct().map(
-                translateConfigurationFunc).toArray(size -> new String[size]);
+                translateConfigurationFunc).toArray(String[]::new);
         return StringUtils.join(translatedIds, COMMA);
     }
 
@@ -106,14 +104,14 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                         configuration.getData().getLocations().stream()
                                 .filter(item -> item.getLocationId().equals(id))
                                 .findFirst().orElse(null);
-                return locationValue != null ? locationValue.getEnglish() : StringUtils.EMPTY;
+                return locationValue != null ? locationValue.getEnglish() : EMPTY;
             case "degree":
                 VNWConfigurationResponseData.ConfigurationDegree degreeValue =
                         configuration.getData().getDegrees().stream()
                                 .filter(item -> item.getDegreeId().equals(id))
                                 .findFirst().orElse(null);
-                return degreeValue != null ? degreeValue.getEnglish() : StringUtils.EMPTY;
+                return degreeValue != null ? degreeValue.getEnglish() : EMPTY;
         }
-        return StringUtils.EMPTY;
+        return EMPTY;
     }
 }

@@ -19,22 +19,22 @@ import javax.annotation.Resource;
 @EnableElasticsearchRepositories(basePackages = "com.techlooper.repository")
 public class ElasticsearchConfiguration {
 
-  @Resource
-  private Environment environment;
+    @Resource
+    private Environment environment;
 
-  @Resource
-  private TransportClient transportClient;
+    @Resource
+    private TransportClient transportClient;
 
-  @Bean
-  public FactoryBean<TransportClient> transportClient() throws Exception {
-    TransportClientFactoryBean factory = new TransportClientFactoryBean();
-    factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
-    factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
-    return factory;
-  }
+    @Bean
+    public FactoryBean<TransportClient> transportClient() throws Exception {
+        TransportClientFactoryBean factory = new TransportClientFactoryBean();
+        factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
+        factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
+        return factory;
+    }
 
-  @Bean
-  public ElasticsearchOperations elasticsearchTemplate() {
-    return new ElasticsearchTemplate(transportClient);
-  }
+    @Bean
+    public ElasticsearchOperations elasticsearchTemplate() {
+        return new ElasticsearchTemplate(transportClient);
+    }
 }
