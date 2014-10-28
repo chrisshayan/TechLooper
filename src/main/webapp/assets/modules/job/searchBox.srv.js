@@ -45,27 +45,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         }
       });
-
-      searchText.on("item_add", function (value, item) {
-        $('.technical-Skill-List').find('img').each(function () {
-          var title = $(this).attr('title');
-          if (title === value) {
-            $(this).addClass('active');
-            return false;
-          }
-        });
-      });
-
-      searchText.on("item_remove", function (value) {
-        $('.technical-Skill-List').find('img').each(function () {
-          var title = $(this).attr('title');
-          if (title === value) {
-            $(this).removeClass('active');
-            return false;
-          }
-        });
-      });
-
       searchText.on("dropdown_close", function (dropdown) {
         lastEvent["27"] = dropdown;
       });
@@ -79,11 +58,14 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $('.btn-close').click(function () {
         $('body').css("background-color", "#2e272a");
       });
+      $('.btn-search').css({
+        'height': $('.selectize-input').height(),
+        'line-height': $('.selectize-input').height() +'px'
+      });
     },
 
     doSearch: function () {
       $('body').css("background-color", "#eeeeee");
-      var tags = $(".searchText").select2("data").map(function (value) {return value.text;});
       $location.path(jsonValue.routerUris.jobsSearch + searchText.getValue());
       scope.$apply();
     },
@@ -98,34 +80,45 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     },
     changeBodyColor: function(){
-      var tags = $(".searchText").select2("data").map(function (value) {return value.text;});
-      var url = jsonValue.routerUris.jobsSearch + tags.join();
+      var url = jsonValue.routerUris.jobsSearch + searchText.getValue();
       if($location.path() == url){
         $('body').css("background-color", "#eeeeee");
       }
+    },
+    hightlightSKill: function(){
+      searchText.on("item_add", function (value, item) {
+        $('.technical-Skill-List').find('img').each(function () {
+          var title = $(this).attr('title');
+          if (title === value) {
+            $(this).addClass('active');
+            return false;
+          }
+        });
+      });
+      searchText.on("item_remove", function (value) {
+        $('.technical-Skill-List').find('img').each(function () {
+          var title = $(this).attr('title');
+          if (title === value) {
+            $(this).removeClass('active');
+            return false;
+          }
+        });
+      });
+    },
+    alignButtonSeatch: function(){
+      searchText.on("item_add", function (value, item) {
+        $('.btn-search').css({
+            'height': $('.selectize-input').height(),
+            'line-height': $('.selectize-input').height() +'px'
+          });
+      });
+      searchText.on("item_remove", function (value) {
+        $('.btn-search').css({
+            'height': $('.selectize-input').height(),
+            'line-height': $('.selectize-input').height() +'px'
+          });
+      });
     }
-    //hightlightSKill: function(){
-    //  $(".searchText").on("change", function (event) {
-    //    var imgs = $('.technical-Skill-List').find('img');
-    //    imgs.each(function(){
-    //      var title = $(this).attr('title');
-    //      if(event.added  && title == event.added.text){
-    //        $(this).addClass('active');
-    //      }
-    //      if(event.removed  && title == event.removed.text){
-    //        $(this).removeClass('active');
-    //      }
-    //    });
-    //  });
-    //},
-    //alignButtonSeatch: function(){
-    //  $(".searchText").on("change", function (event) {
-    //    $('.btn-search').css({
-    //      'height': $('.select2-choices').height(),
-    //      'line-height': $('.select2-choices').height() +'px'
-    //    });
-    //  });
-    //}
   }
 
   return instance;
