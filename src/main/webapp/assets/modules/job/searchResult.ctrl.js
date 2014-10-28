@@ -1,6 +1,7 @@
 angular.module('Jobs').controller('searchResultController',
   function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
     connectionFactory.initialize($scope);
+
     $scope.search = {
       jobs: [],
       pageNumber: 0,
@@ -36,7 +37,6 @@ angular.module('Jobs').controller('searchResultController',
       var myUrl = '//www.youtube.com/embed/' + getURL(url) + '?autoplay=1';
       $('.modal-body').find('iframe').attr('src', myUrl);
     }
-
     function getURL(url) {
       var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
       var match = url.match(regExp);
@@ -48,6 +48,11 @@ angular.module('Jobs').controller('searchResultController',
       }
     }
 
+    $scope.checkPLayVideo = function(){
+      var video = $(".playerVideo").attr("src");
+      $(".playerVideo").attr("src","");
+      // $(".playerVideo").attr("src",video);
+    }
 
     $scope.openDetail = function (event) {
       var url = $(event.currentTarget).attr('data-url');
