@@ -1,5 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
+  keyCode: {
+    RETURN: 13,
+    ESC: 27
+  },
+
   events: {
     terms: "Terms",
     term: "Term",

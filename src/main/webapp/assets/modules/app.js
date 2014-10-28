@@ -60,13 +60,27 @@ techlooper.directive("header", function () {
   }
 });
 
-$(document).keydown(function (event) {
+var lastEvent = {
+  "27": undefined
+};
+
+var eventHandler = {
+  "27": undefined
+}
+
+$(document).keyup(function (event) {
   if (event.keyCode == 27) {
+    if (lastEvent["27"] !== undefined) {
+      lastEvent["27"] = undefined;
+      return;
+    }
+
     if ($("#myModal").is(":visible")) {// VIDEO
       return;
     }
-    if ($(".btn-close").is(":visible")) {
-      $('.btn-close').click();
+
+    if (eventHandler.keyEsc !== undefined) {
+      eventHandler.keyEsc();
     }
   }
 });
