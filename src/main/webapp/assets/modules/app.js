@@ -79,8 +79,8 @@ $(document).keyup(function (event) {
       return;
     }
 
-    if (eventHandler.keyEsc !== undefined) {
-      eventHandler.keyEsc();
+    if (eventHandler["27"] !== undefined) {
+      eventHandler["27"]();
     }
   }
 });
