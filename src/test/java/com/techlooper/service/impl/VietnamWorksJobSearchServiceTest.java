@@ -1,4 +1,4 @@
-package com.techlooper.search;
+package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.model.VNWConfigurationResponse;

@@ -5,14 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.StringWriter;
 
 /**
  * Created by NguyenDangKhoa on 10/24/14.
  */
 public class JsonUtils {
 
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
@@ -20,7 +19,7 @@ public class JsonUtils {
     }
 
     public static ObjectMapper getObjectMapper() {
-        return objectMapper;
+        return OBJECT_MAPPER;
     }
 
     public static <T> T toPOJO(String json, Class<T> objectType) {
@@ -32,7 +31,7 @@ public class JsonUtils {
         return null;
     }
 
-    public static <T extends Object> String toJSON(T object) {
+    public static <T> String toJSON(T object) {
         try {
             return getObjectMapper().writeValueAsString(object);
         } catch (IOException e) {
