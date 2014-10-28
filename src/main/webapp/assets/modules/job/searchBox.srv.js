@@ -104,6 +104,28 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         $('body').css("background-color", "#eeeeee");
       }
     }
+    //hightlightSKill: function(){
+    //  $(".searchText").on("change", function (event) {
+    //    var imgs = $('.technical-Skill-List').find('img');
+    //    imgs.each(function(){
+    //      var title = $(this).attr('title');
+    //      if(event.added  && title == event.added.text){
+    //        $(this).addClass('active');
+    //      }
+    //      if(event.removed  && title == event.removed.text){
+    //        $(this).removeClass('active');
+    //      }
+    //    });
+    //  });
+    //},
+    //alignButtonSeatch: function(){
+    //  $(".searchText").on("change", function (event) {
+    //    $('.btn-search').css({
+    //      'height': $('.select2-choices').height(),
+    //      'line-height': $('.select2-choices').height() +'px'
+    //    });
+    //  });
+    //}
   }
 
   return instance;
