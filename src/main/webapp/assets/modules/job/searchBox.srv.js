@@ -14,6 +14,16 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         searchField: ['text'],
         labelField: "text",
         placeholder: "Enter to search...",
+        createFilter: function(input) {
+          var ok = true;
+          $.each(this.options, function(index, value) {
+            if (value.text.toLowerCase() === input) {
+              ok = false;
+              return false;
+            }
+          });
+          return ok;
+        },
         render: {
           item: function (item, escape) {
             var img = item.logo === undefined ? "" : "<img style='width: 16px; height: 16px;' src='images/" + item.logo + "'/> ";

@@ -74,6 +74,7 @@ $(document).keyup(function (event) {
       lastEvent["27"] = undefined;
       return;
     }
+    console.log("ok 27");
 
     if ($("#myModal").is(":visible")) {// VIDEO
       return;
