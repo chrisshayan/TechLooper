@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -36,12 +37,11 @@ public class VNWJobSearchResponseData {
     }
 
     public static VNWJobSearchResponseData getDefaultObject() {
-        if (defaultObject != null) {
+        return Optional.ofNullable(defaultObject).orElseGet(() -> {
+            defaultObject = new VNWJobSearchResponseData();
+            defaultObject.setTotal(0);
+            defaultObject.setJobs(Collections.emptySet());
             return defaultObject;
-        }
-        defaultObject = new VNWJobSearchResponseData();
-        defaultObject.setTotal(0);
-        defaultObject.setJobs(Collections.emptySet());
-        return defaultObject;
+        });
     }
 }
