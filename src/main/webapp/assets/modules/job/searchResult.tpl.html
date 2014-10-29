@@ -35,7 +35,7 @@
                 </div>
                 <div class="company-video" ng-show="{{job.videoUrl.length}}">
                     <span>
-                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#myModal"></i>
+                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#companyVideoInfor"></i>
                     </span>
                 </div>
                 <div class="company-logo">
@@ -48,7 +48,7 @@
             <div ng-show='search.busy'>Loading data...</div>
         </div>
         <div class="loading-paging"></div>
-        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
+        <div id="companyVideoInfor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">

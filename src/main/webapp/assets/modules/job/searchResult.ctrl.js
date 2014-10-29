@@ -77,7 +77,7 @@ angular.module('Jobs').controller('searchResultController',
     searchBoxService.alignButtonSeatch();
 
     $scope.closeSearchForm = function () {
-      var isVideoHide = $("#myModal").attr("aria-hidden");
+      var isVideoHide = $("#companyVideoInfor").attr("aria-hidden");
       if ($(".btn-close").is(":visible") && (isVideoHide == undefined || isVideoHide == "true")) {
           $('.btn-close').click();
       }
