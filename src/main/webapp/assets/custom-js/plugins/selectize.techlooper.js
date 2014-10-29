@@ -1,11 +1,26 @@
 Selectize.define('techlooper', function (options) {
   var self = this;
+  var triggeredOptionSelect = false;
+
+  self.open = (function () {
+    var original = self.open;
+    return function() {
+      if (triggeredOptionSelect) {
+        triggeredOptionSelect = false;
+        return;
+      }
+
+      var fn = original.apply(this, arguments);
+      return fn;
+    };
+  })();
 
   self.onOptionSelect = (function (e) {
     var original = self.onOptionSelect;
     return function (e) {
       var fn = original.apply(this, arguments);
       self.close();
+      triggeredOptionSelect = true;
       return fn;
     };
   })();
