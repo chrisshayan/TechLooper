@@ -28,6 +28,9 @@
       "stomp-websocket": {
          "main": "lib/stomp.min.js"
       },
+      "highcharts-release": {
+         "main": "highcharts.js"
+      },
       "ngInfiniteScroll": {
          "main": "build/ng-infinite-scroll.min.js"
       },

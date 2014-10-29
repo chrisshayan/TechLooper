@@ -16,4 +16,8 @@ angular.module('Jobs').controller('searchFormController', function ($scope, sear
         $('.btn-close').click();
       }
   };
+  $scope.backPage = function(){
+    history.back();
+    return false;    
+  }
 });
