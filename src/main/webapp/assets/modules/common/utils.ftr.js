@@ -1,6 +1,26 @@
-angular.module("Common").factory("utils", function (jsonValue) {
+angular.module("Common").factory("utils", function (jsonValue, $location) {
+
+  var historyStack = {max: 0, items: {}};
 
   return {
+    trackHistory: function() {
+      historyStack.items[$location.path()] = ++historyStack.max;
+    },
+
+    clearHistory: function() {
+      historyStack = {max: 0, items: {}};
+    },
+
+    popHistory: function() {
+      if (historyStack.max === 0) return undefined;
+      for (var path in historyStack.items) {
+        if (historyStack.items[path] === historyStack.max) {
+          return path;
+        }
+      }
+      return undefined;
+    },
+
     sum: function (array, prop) {
       var total = 0;
       $.each(array, function (index, value) {
