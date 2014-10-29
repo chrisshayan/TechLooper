@@ -11,9 +11,13 @@ angular.module('Jobs').controller('searchFormController', function ($scope, sear
   searchBoxService.alignButtonSeatch();
 
   $scope.closeSearchForm = function () {
-      var isVideoHide = $("#myModal").attr("aria-hidden");
+      var isVideoHide = $("#companyVideoInfor").attr("aria-hidden");
       if ($(".btn-close").is(":visible") && (isVideoHide == undefined || isVideoHide == "true")) {
         $('.btn-close').click();
       }
   };
+  $scope.backPage = function(){
+    history.back();
+    return false;    
+  }
 });
