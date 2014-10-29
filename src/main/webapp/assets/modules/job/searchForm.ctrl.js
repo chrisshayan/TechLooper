@@ -1,4 +1,4 @@
-angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue) {
+angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue, shortcutFactory) {
   searchBoxService.initSearchTextbox($scope);
 
   $scope.skills = jsonValue.technicalSkill;
@@ -20,4 +20,6 @@ angular.module('Jobs').controller('searchFormController', function ($scope, sear
     history.back();
     return false;    
   }
+
+  shortcutFactory.initialize([{key: "esc", fn: $scope.closeSearchForm}]);
 });

@@ -1,5 +1,5 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, shortcutFactory) {
     connectionFactory.initialize($scope);
 
     $scope.search = {
@@ -26,7 +26,7 @@ angular.module('Jobs').controller('searchResultController',
       search.busy = false;
       $scope.$apply();
       $(".job-title").dotdotdot({
-        height    : 23
+        height: 23
       });
 
       alignLogo();
@@ -51,9 +51,9 @@ angular.module('Jobs').controller('searchResultController',
       }
     }
 
-    $scope.checkPLayVideo = function(){
+    $scope.checkPLayVideo = function () {
       var video = $(".playerVideo").attr("src");
-      $(".playerVideo").attr("src","");
+      $(".playerVideo").attr("src", "");
     }
 
     $scope.openDetail = function (event) {
@@ -79,11 +79,13 @@ angular.module('Jobs').controller('searchResultController',
     $scope.closeSearchForm = function () {
       var isVideoHide = $("#myModal").attr("aria-hidden");
       if ($(".btn-close").is(":visible") && (isVideoHide == undefined || isVideoHide == "true")) {
-          $('.btn-close').click();
+        $('.btn-close').click();
       }
     };
-    $scope.backPage = function(){
+    $scope.backPage = function () {
       history.back();
-      return false;    
+      return false;
     }
+
+    shortcutFactory.initialize([{key: "esc", fn: $scope.closeSearchForm}]);
   });

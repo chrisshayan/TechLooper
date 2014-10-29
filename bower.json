@@ -18,7 +18,8 @@
       "jQuery.dotdotdot": "latest",
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
-      "selectize" : "latest"
+      "selectize" : "latest",
+      "mousetrap": "latest"
       
    },
    "overrides": {
@@ -39,6 +40,9 @@
       },
       "jQuery.dotdotdot": {
          "main": "src/js/jquery.dotdotdot.js"
+      },
+      "mousetrap": {
+         "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
       }
    }
 }
