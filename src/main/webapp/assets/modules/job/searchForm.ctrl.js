@@ -1,4 +1,4 @@
-angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue) {
+angular.module('Jobs').controller('searchFormController', function ($scope, $location, searchBoxService, jsonValue) {
   searchBoxService.initSearchTextbox($scope);
 
   $scope.skills = jsonValue.technicalSkill;
@@ -17,7 +17,12 @@ angular.module('Jobs').controller('searchFormController', function ($scope, sear
       }
   };
   $scope.backPage = function(){
-    history.back();
-    return false;    
+    if (history.length > 1) {
+      history.back();
+      return false; 
+    } else {
+      $('body').css("background-color", "#2e272a");
+      $location.path('/');
+    }
   }
 });

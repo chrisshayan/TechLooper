@@ -83,7 +83,17 @@ angular.module('Jobs').controller('searchResultController',
       }
     };
     $scope.backPage = function(){
-      history.back();
-      return false;    
+      console.log($location.path());
+      if(history.length == 1){
+        $('body').css("background-color", "#2e272a");
+        $location.path('/');
+      }
+      if(history.length > 3){
+        $location.path('/jobs/search');
+      }else{
+        history.back();
+        return false;
+      } 
+      
     }
   });
