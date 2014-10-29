@@ -1,15 +1,42 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils) {
-  var scope, searchText;
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, shortcutFactory) {
+  var scope, searchText, textArray;
+
+  var $$ = {
+    doSearch: function () {
+      // TODO: change body background
+      $('body').css("background-color", "#eeeeee");
+      $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
+      scope.$apply();
+    },
+
+    alignButtonSearch: function () {
+      searchText.on("item_add", function (value, item) {
+        $('.btn-search').css({
+          'height': $('.selectize-control').height() - 9,
+          'line-height': ($('.selectize-control').height() - 9) + 'px'
+        });
+      });
+      searchText.on("item_remove", function (value) {
+        $('.btn-search').css({
+          'height': $('.selectize-control').height() - 9,
+          'line-height': ($('.selectize-control').height() - 9) + 'px'
+        });
+      });
+    }
+  }
 
   var instance = {
-    initSearchTextbox: function ($scope, textArray) {
+    initSearchTextbox: function ($scope, $textArray) {
       scope = $scope;
+      textArray = $textArray;
+
       searchText = $('.searchText').selectize({
         plugins: {
           "remove_button": {},
           "restore_on_backspace": {},
-          "techlooper": {onReturn: instance.doSearch}
+          "techlooper": {onReturn: $$.doSearch}
         },
+        sortField: "text",
         mode: "multi",
         persist: false,
         createOnBlur: false,
@@ -53,22 +80,16 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         searchText.setValue(textArray);
       }
 
-      $('.btn-search').click(instance.doSearch);
+      $('.btn-search').click($$.doSearch);
 
-      $('.btn-close').click(function () {
-        $('body').css("background-color", "#2e272a");
-      });
+      $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
-    },
 
-    doSearch: function () {
-      $('body').css("background-color", "#eeeeee");
-      $location.path(jsonValue.routerUris.jobsSearch + searchText.getValue());
-      scope.$apply();
+      $$.alignButtonSearch();
     },
 
     openSearchForm: function (h) {
@@ -103,20 +124,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
             $(this).removeClass('active');
             return false;
           }
-        });
-      });
-    },
-    alignButtonSeatch: function () {
-      searchText.on("item_add", function (value, item) {
-        $('.btn-search').css({
-          'height': $('.selectize-control').height() - 9,
-          'line-height': ($('.selectize-control').height() - 9) + 'px'
-        });
-      });
-      searchText.on("item_remove", function (value) {
-        $('.btn-search').css({
-          'height': $('.selectize-control').height() - 9,
-          'line-height': ($('.selectize-control').height() - 9) + 'px'
         });
       });
     }

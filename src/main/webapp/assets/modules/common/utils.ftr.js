@@ -1,4 +1,4 @@
-angular.module("Common").factory("utils", function (jsonValue) {
+angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
     sum: function (array, prop) {

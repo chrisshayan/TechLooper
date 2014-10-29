@@ -34,7 +34,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/pie-chart", {
       templateUrl: "modules/pie-chart/pie-chart.tpl.html",
       controller: "chartController"
-    }).when("/jobs/search/", {
+    }).when("/jobs/search", {
       templateUrl: "modules/job/searchForm.tpl.html",
       controller: "searchFormController"
     }).when("/jobs/search/:text", {
@@ -58,14 +58,4 @@ techlooper.directive("header", function () {
     replace: true,
     templateUrl: "modules/job/findJobs.tpl.html"
   }
-}).directive('keybinding', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            invoke: '&'
-        },
-        link: function (scope, el, attr) {
-            Mousetrap.bind(attr.on, scope.invoke);
-        }
-    };
 });

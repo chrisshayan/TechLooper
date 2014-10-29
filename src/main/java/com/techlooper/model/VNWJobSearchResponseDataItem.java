@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class VNWJobSearchResponseDataItem {
 
+    public static final String JOB_LOCATION = "job_location";
+
+    public static final String JOB_LEVEL = "top_level";
+
     @JsonProperty(value = "job_detail_url")
     private String url;
 

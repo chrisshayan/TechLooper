@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class})
@@ -32,7 +33,8 @@ public class VietnamWorksJobSearchServiceTest {
     @Before
     public void setUp() {
         assertNotNull(jobSearchService);
-        vnwJobSearchRequest = JsonUtils.toPOJO(vnwJobSearchRequestJson, VNWJobSearchRequest.class);
+        vnwJobSearchRequest = JsonUtils.toPOJO(vnwJobSearchRequestJson, VNWJobSearchRequest.class).get();
+        assertNotNull(vnwJobSearchRequest);
     }
 
     @Test
