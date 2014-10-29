@@ -8,7 +8,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
     },
 
     popHistory: function() {
-      if (historyStack.length > 0) {
+      if (historyStack.length > 1) {
         return historyStack.pop();
       }
       return undefined;
