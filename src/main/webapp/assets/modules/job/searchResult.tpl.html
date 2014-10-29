@@ -1,11 +1,11 @@
 <div class="row search-block search-result-block" infinite-scroll="search.nextPage()" infinite-scroll-disabled="search.busy" infinite-scroll-distance='0'>
     <div class="row search-logo-block">
         <div class="col-md-4 logo-block">
-            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!" class="desktop">
-            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!" class="mobile">
+            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="desktop">
+            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="mobile">
         </div>
         <div class="col-md-4 tech-line">
-            <h2>Career Analytics. Open Source. Awesome!</h2>
+            <h2 translate>tagLine</h2>
         </div>
         <div class="col-md-4 close-button">
             <a class="btn-close" title="Close" ng-click="backPage()">X</a>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="company-video" ng-show="{{job.videoUrl.length}}">
                     <span>
-                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#myModal"></i>
+                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#companyVideoInfor"></i>
                     </span>
                 </div>
                 <div class="company-logo">
@@ -44,10 +44,10 @@
                     </div>
                 </div>
             </div>
-            <div ng-show='search.busy'>Loading data...</div>
+            <div ng-show='search.busy' translate>loading</div>
         </div>
         <div class="loading-paging"></div>
-        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
+        <div id="companyVideoInfor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -58,6 +58,6 @@
         </div>
     </div>
     <div class="loading-more" ng-show='search.jobs.length < search.total '>
-        <span><i class="fa fa-arrow-down"></i> Scroll Down to Load More</span>
+        <span translate><i class="fa fa-arrow-down"></i>loadMore</span>
     </div>
 </div>
