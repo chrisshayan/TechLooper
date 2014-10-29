@@ -82,4 +82,8 @@ angular.module('Jobs').controller('searchResultController',
           $('.btn-close').click();
       }
     };
+    $scope.backPage = function(){
+      history.back();
+      return false;    
+    }
   });
