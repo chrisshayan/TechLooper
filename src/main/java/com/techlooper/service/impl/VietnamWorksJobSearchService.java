@@ -1,6 +1,9 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.model.*;
+import com.techlooper.model.VNWConfigurationResponse;
+import com.techlooper.model.VNWJobSearchRequest;
+import com.techlooper.model.VNWJobSearchResponse;
+import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
@@ -14,9 +17,14 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationDegree;
+import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLocation;
+import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LEVEL;
+import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LOCATION;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -44,48 +52,46 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     private VNWConfigurationResponse configurationResponse;
 
     public VNWConfigurationResponse getConfiguration() {
-        if (this.configurationResponse != null) {
-            return this.configurationResponse;
-        }
+        return Optional.ofNullable(configurationResponse).orElseGet(() -> {
+            HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON, apiKeyName, apiKeyValue, EMPTY);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(configurationUrl, HttpMethod.GET, requestEntity, String.class);
+            final Optional<String> configuration = Optional.ofNullable(responseEntity.getBody());
 
-        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON,
-                apiKeyName, apiKeyValue, EMPTY);
-        ResponseEntity<String> responseEntity =
-                restTemplate.exchange(configurationUrl, HttpMethod.GET, requestEntity, String.class);
-        final String configuration = responseEntity.getBody();
-        this.configurationResponse = JsonUtils.toPOJO(configuration, VNWConfigurationResponse.class);
-        return this.configurationResponse;
+            if (configuration.isPresent()) {
+                configurationResponse = JsonUtils.toPOJO(configuration.get(), VNWConfigurationResponse.class).
+                        orElseGet(VNWConfigurationResponse::new);
+            }
+            return configurationResponse;
+        });
     }
 
     public VNWJobSearchResponse searchJob(VNWJobSearchRequest jobSearchRequest) {
-        final String searchParameters = JsonUtils.toJSON(jobSearchRequest);
-        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON,
-                apiKeyName, apiKeyValue, searchParameters);
+        final String searchParameters = JsonUtils.toJSON(jobSearchRequest).orElse(EMPTY);
+        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON, apiKeyName, apiKeyValue, searchParameters);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(searchUrl, HttpMethod.POST, requestEntity, String.class);
 
-        ResponseEntity<String> responseEntity =
-                restTemplate.exchange(searchUrl, HttpMethod.POST, requestEntity, String.class);
+        final Optional<String> jobSearchResponseJson = Optional.ofNullable(responseEntity.getBody());
 
-        final String jobSearchResult = responseEntity.getBody();
-        VNWJobSearchResponse jobSearchResponse = null;
-        if (StringUtils.isNotEmpty(jobSearchResult)) {
-            jobSearchResponse = JsonUtils.toPOJO(jobSearchResult, VNWJobSearchResponse.class);
+        if (jobSearchResponseJson.isPresent()) {
+            final VNWJobSearchResponse actualResult = JsonUtils.toPOJO(jobSearchResponseJson.get(), VNWJobSearchResponse.class)
+                    .orElse(VNWJobSearchResponse.getDefaultObject());
+
+            if (actualResult.hasData()) {
+                mergeSearchResultWithConfiguration(actualResult, getConfiguration());
+                return actualResult;
+            }
         }
-
-        if (jobSearchResponse != null && jobSearchResponse.getData().getTotal() > 0) {
-            mergeSearchResultWithConfiguration(jobSearchResponse, getConfiguration());
-        } else {
-            jobSearchResponse = VNWJobSearchResponse.getDefaultObject();
-        }
-        return jobSearchResponse;
+        return VNWJobSearchResponse.getDefaultObject();
     }
 
-    private void mergeSearchResultWithConfiguration(
-            VNWJobSearchResponse jobSearchResponse, VNWConfigurationResponse configuration) {
-        BiFunction<String, String, String> idTranslator = (itemId, idType) -> mergeConfigurationItem(configuration, itemId, idType);
+    private void mergeSearchResultWithConfiguration(VNWJobSearchResponse jobSearchResponse,
+                                                    VNWConfigurationResponse configuration) {
+        BiFunction<String, String, String> idTranslator = (itemId, idType) ->
+                mergeConfigurationItem(configuration, itemId, idType);
 
         for (VNWJobSearchResponseDataItem responseDataItem : jobSearchResponse.getData().getJobs()) {
-            responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), "location"));
-            responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), "degree"));
+            responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), JOB_LOCATION));
+            responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), JOB_LEVEL));
         }
 
     }
@@ -102,18 +108,17 @@ public class VietnamWorksJobSearchService implements JobSearchService {
 
     private String translateConfigurationId(String id, String itemType, VNWConfigurationResponse configuration) {
         switch (itemType) {
-            case "location":
-                VNWConfigurationResponseData.ConfigurationLocation locationValue =
-                        configuration.getData().getLocations().stream()
-                                .filter(item -> item.getLocationId().equals(id))
-                                .findFirst().orElse(null);
-                return locationValue != null ? locationValue.getEnglish() : EMPTY;
-            case "degree":
-                VNWConfigurationResponseData.ConfigurationDegree degreeValue =
+            case JOB_LOCATION:
+                Optional<ConfigurationLocation> locationOptional = configuration.getData().getLocations().stream()
+                        .filter(item -> item.getLocationId().equals(id))
+                        .findFirst();
+                return locationOptional.isPresent() ? locationOptional.get().getEnglish() : EMPTY;
+            case JOB_LEVEL:
+                Optional<ConfigurationDegree> degreeOptional =
                         configuration.getData().getDegrees().stream()
                                 .filter(item -> item.getDegreeId().equals(id))
-                                .findFirst().orElse(null);
-                return degreeValue != null ? degreeValue.getEnglish() : EMPTY;
+                                .findFirst();
+                return degreeOptional.isPresent() ? degreeOptional.get().getEnglish() : EMPTY;
         }
         return EMPTY;
     }

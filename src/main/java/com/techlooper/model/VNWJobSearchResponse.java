@@ -32,4 +32,8 @@ public class VNWJobSearchResponse {
         defaultObject.setData(VNWJobSearchResponseData.getDefaultObject());
         return defaultObject;
     }
+
+    public boolean hasData() {
+        return data.getJobs() != null && data.getJobs().size() > 0;
+    }
 }
