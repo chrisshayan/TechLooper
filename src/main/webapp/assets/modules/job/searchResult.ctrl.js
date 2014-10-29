@@ -83,18 +83,20 @@ angular.module('Jobs').controller('searchResultController',
       }
     };
 
-    $scope.backPage = function(){
+    $scope.backPage = function() {
       console.log($location.path());
-      if(history.length == 1){
+      if (history.length == 1) {
         $('body').css("background-color", "#2e272a");
         $location.path('/');
       }
-      if(history.length > 3){
+      if (history.length > 3) {
         $location.path('/jobs/search');
-      }else{
+      }
+      else {
         history.back();
         return false;
       }
+    }
 
       shortcutFactory.initialize([{key: "esc", fn: $scope.closeSearchForm}]);
   });
