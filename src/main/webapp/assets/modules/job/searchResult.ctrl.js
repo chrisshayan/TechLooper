@@ -12,10 +12,7 @@ angular.module('Jobs').controller('searchResultController',
           return;
         }
         this.busy = true;
-        connectionFactory.findJobs({
-          "terms": $routeParams.text.replace(/,/g, " "),
-          "pageNumber": ++this.pageNumber
-        });
+        connectionFactory.findJobs({terms: $routeParams.text.replace(/,/g, " "), pageNumber: ++this.pageNumber});
       }
     };
 

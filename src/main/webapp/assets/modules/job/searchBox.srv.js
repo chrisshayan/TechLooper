@@ -17,7 +17,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
     pressEsc: function (event) {
       if ($$.preventEsc()) {
-        console.log("prevent from service");
         return false;
       }
       var path = textArray === undefined ? utils.popHistory() : jsonValue.routerUris.jobsSearch;
@@ -53,6 +52,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           "restore_on_backspace": {},
           "techlooper": {onReturn: $$.doSearch}
         },
+        sortField: "text",
         mode: "multi",
         persist: false,
         createOnBlur: false,
