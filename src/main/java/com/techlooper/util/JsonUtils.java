@@ -1,5 +1,6 @@
 package com.techlooper.util;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ public class JsonUtils {
     }
 
     public static ObjectMapper getObjectMapper() {
+        OBJECT_MAPPER.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
         return OBJECT_MAPPER;
     }
 

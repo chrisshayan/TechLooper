@@ -66,9 +66,12 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                 restTemplate.exchange(searchUrl, HttpMethod.POST, requestEntity, String.class);
 
         final String jobSearchResult = responseEntity.getBody();
-        VNWJobSearchResponse jobSearchResponse = JsonUtils.toPOJO(jobSearchResult, VNWJobSearchResponse.class);
+        VNWJobSearchResponse jobSearchResponse = null;
+        if (StringUtils.isNotEmpty(jobSearchResult)) {
+            jobSearchResponse = JsonUtils.toPOJO(jobSearchResult, VNWJobSearchResponse.class);
+        }
 
-        if (jobSearchResponse != null) {
+        if (jobSearchResponse != null && jobSearchResponse.getData().getTotal() > 0) {
             mergeSearchResultWithConfiguration(jobSearchResponse, getConfiguration());
         } else {
             jobSearchResponse = VNWJobSearchResponse.getDefaultObject();
