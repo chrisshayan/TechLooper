@@ -1,25 +1,32 @@
-angular.module("Common").factory("shortcutFactory", function (jsonValue) {
-  var traps = [];
-
-  var instance = {
-    initialize: function($traps) {
-      traps = $traps;
-      $.each(traps, function(index, trap) {
-        Mousetrap.bindGlobal(trap.key, function(event) {
-          if (event.defaultPrevented) {
-            return;
-          }
-          if (trap.fn(event)) {
-            event.preventDefault();
-          }
-        });
-      });
-    },
-
-    clear: function() {
-      Mousetrap.reset();
+angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory) {
+  var traps = {
+    esc: function (e) {
+      var path = $location.path();
+      if (/\/jobs\/search\//i.test(path)) {
+        if ($("#companyVideoInfor").is(":visible")) {// ESC from others, such as: Video dialog, ...
+          return;
+        }
+        $location.path(jsonValue.routerUris.jobsSearch);
+        $rootScope.$apply();
+      }
+      else if (/\/jobs\/search/i.test(path)) {
+        var path = historyFactory.popHistory();
+        $location.path(path === undefined ? "/" : path);
+        $rootScope.$apply();
+      }
     }
   }
 
-  return instance;
+  Mousetrap.bindGlobal("esc", function (e) {
+    if (e.defaultPrevented) {
+      return;
+    }
+    traps.esc(e);
+  });
+
+  return {
+    trigger: function(key) {
+      Mousetrap.trigger(key);
+    }
+  };
 });
