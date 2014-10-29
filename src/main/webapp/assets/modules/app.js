@@ -45,22 +45,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     });
   }]);
 
-techlooper.run(function ($rootScope, utils, shortcutFactory, $location, jsonValue) {
-  $rootScope.$on('$routeChangeSuccess', function() {
-    switch ($location.path()) {
-      case jsonValue.routerUris.bubble:
-      case jsonValue.routerUris.pie:
-        $("body").css("background-color", "#2e272a");
-        utils.trackHistory();
-        break;
-      default:
-        break;
-    }
-
-    shortcutFactory.clear();
-  });
-});
-
 techlooper.directive("header", function () {
   return {
     restrict: "A", // This means that it will be used as an attribute and NOT as an element.
