@@ -2,27 +2,11 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   var scope, searchText, textArray;
 
   var $$ = {
-    preventEsc: function () {
-      var isVideoShown = $("#companyVideoInfor").is(":visible");
-      return isVideoShown;
-    },
-
-
     doSearch: function () {
       // TODO: change body background
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
       scope.$apply();
-    },
-
-    pressEsc: function (event) {
-      if ($$.preventEsc()) {
-        return false;
-      }
-      var path = textArray === undefined ? utils.popHistory() : jsonValue.routerUris.jobsSearch;
-      $location.path(path === undefined ? "/" : path);
-      scope.$apply();
-      return true;
     },
 
     alignButtonSearch: function () {
@@ -98,7 +82,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       $('.btn-search').click($$.doSearch);
 
-      $('.btn-close').click($$.pressEsc);
+      $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
@@ -106,7 +90,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
 
       $$.alignButtonSearch();
-      shortcutFactory.initialize([{key: "esc", fn: $$.pressEsc}]);
     },
 
     openSearchForm: function (h) {
