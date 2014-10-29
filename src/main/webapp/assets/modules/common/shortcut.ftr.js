@@ -7,7 +7,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue) {
       $.each(traps, function(index, trap) {
         Mousetrap.bindGlobal(trap.key, function(event) {
           if (event.defaultPrevented) {
-            console.log("prevent from mousestrap");
             return;
           }
           if (trap.fn(event)) {
