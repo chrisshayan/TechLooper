@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Optional;
+
 /**
  * Created by NguyenDangKhoa on 10/25/14.
  */
@@ -25,11 +27,14 @@ public class VNWJobSearchResponse {
     }
 
     public static VNWJobSearchResponse getDefaultObject() {
-        if (defaultObject != null) {
+        return Optional.ofNullable(defaultObject).orElseGet(() -> {
+            defaultObject = new VNWJobSearchResponse();
+            defaultObject.setData(VNWJobSearchResponseData.getDefaultObject());
             return defaultObject;
-        }
-        defaultObject = new VNWJobSearchResponse();
-        defaultObject.setData(VNWJobSearchResponseData.getDefaultObject());
-        return defaultObject;
+        });
+    }
+
+    public boolean hasData() {
+        return data.getJobs() != null && data.getJobs().size() > 0;
     }
 }
