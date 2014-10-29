@@ -85,19 +85,18 @@ public class JobsController {
         final JobSearchResponse jobSearchResponse = new JobSearchResponse();
         jobSearchResponse.setTotal(vnwJobSearchResponse.getData().getTotal());
         final Set<JobResponse> jobs = new HashSet<>();
-        JobResponse jobResponse;
-        for (VNWJobSearchResponseDataItem item : vnwJobSearchResponse.getData().getJobs()) {
-            jobResponse = new JobResponse();
-            jobResponse.setUrl(item.getUrl());
-            jobResponse.setCompany(item.getCompany());
-            jobResponse.setLevel(item.getLevel());
-            jobResponse.setLocation(item.getLocation());
-            jobResponse.setLogoUrl(item.getLogoUrl());
-            jobResponse.setTitle(item.getTitle());
-            jobResponse.setPostedOn(item.getPostedOn());
-            jobResponse.setVideoUrl(item.getVideoUrl());
-            jobs.add(jobResponse);
-        }
+        vnwJobSearchResponse.getData().getJobs().stream().forEach(item -> {
+            final JobResponse.Builder builder = new JobResponse.Builder();
+            jobs.add(builder.withCompany(item.getCompany())
+                            .withLevel(item.getLevel())
+                            .withLocation(item.getLocation())
+                            .withLogoUrl(item.getLogoUrl())
+                            .withPostedOn(item.getPostedOn())
+                            .withTitle(item.getTitle())
+                            .withUrl(item.getUrl())
+                            .withVideoUrl(item.getVideoUrl())
+                            .build());
+        });
         jobSearchResponse.setJobs(jobs);
         return jobSearchResponse;
     }
