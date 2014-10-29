@@ -1,9 +1,9 @@
 angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, shortcutFactory) {
-  var scope, searchText;
+  var scope, searchText, textArray;
 
   var $$ = {
-    preventEsc: function() {
-      var isVideoShown = $("#companyVideoInfor").is(":visible");;
+    preventEsc: function () {
+      var isVideoShown = $("#companyVideoInfor").is(":visible");
       return isVideoShown;
     },
 
@@ -11,7 +11,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     doSearch: function () {
       // TODO: change body background
       $('body').css("background-color", "#eeeeee");
-      $location.path(jsonValue.routerUris.jobsSearch + searchText.getValue());
+      $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
       scope.$apply();
     },
 
@@ -20,7 +20,8 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         console.log("prevent from service");
         return false;
       }
-      utils.popHistory() === undefined ? $location.path("/") : history.back();
+      var path = textArray === undefined ? utils.popHistory() : jsonValue.routerUris.jobsSearch;
+      $location.path(path === undefined ? "/" : path);
       scope.$apply();
       return true;
     },
@@ -42,8 +43,10 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   }
 
   var instance = {
-    initSearchTextbox: function ($scope, textArray) {
+    initSearchTextbox: function ($scope, $textArray) {
       scope = $scope;
+      textArray = $textArray;
+
       searchText = $('.searchText').selectize({
         plugins: {
           "remove_button": {},

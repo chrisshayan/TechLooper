@@ -1,15 +1,22 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
 
-  var historyStack = [];
+  var historyStack = {max: 0, items: {}};
 
   return {
     trackHistory: function() {
-      historyStack.push($location.path);
+      historyStack.items[$location.path()] = ++historyStack.max;
+    },
+
+    clearHistory: function() {
+      historyStack = {max: 0, items: {}};
     },
 
     popHistory: function() {
-      if (historyStack.length > 1) {
-        return historyStack.pop();
+      if (historyStack.max === 0) return undefined;
+      for (var path in historyStack.items) {
+        if (historyStack.items[path] === historyStack.max) {
+          return path;
+        }
       }
       return undefined;
     },

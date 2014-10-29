@@ -34,26 +34,30 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/pie-chart", {
       templateUrl: "modules/pie-chart/pie-chart.tpl.html",
       controller: "chartController"
-    }).when("/jobs/search/", {
+    }).when("/jobs/search", {
       templateUrl: "modules/job/searchForm.tpl.html",
       controller: "searchFormController"
     }).when("/jobs/search/:text", {
       templateUrl: "modules/job/searchResult.tpl.html",
       controller: "searchResultController"
     }).otherwise({
-
       redirectTo: "/bubble-chart"
     });
   }]);
 
 techlooper.run(function ($rootScope, utils, shortcutFactory, $location, jsonValue) {
   $rootScope.$on('$routeChangeSuccess', function() {
-    utils.trackHistory();
-    shortcutFactory.clear();
-    if ($location.path() === jsonValue.routerUris.bubble) {
-      // TODO: change body background
-      $("body").css("background-color", "#2e272a");
+    switch ($location.path()) {
+      case jsonValue.routerUris.bubble:
+      case jsonValue.routerUris.pie:
+        $("body").css("background-color", "#2e272a");
+        utils.trackHistory();
+        break;
+      default:
+        break;
     }
+
+    shortcutFactory.clear();
   });
 });
 
@@ -70,14 +74,4 @@ techlooper.directive("header", function () {
     replace: true,
     templateUrl: "modules/job/findJobs.tpl.html"
   }
-}).directive('keybinding', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            invoke: '&'
-        },
-        link: function (scope, el, attr) {
-            Mousetrap.bind(attr.on, scope.invoke);
-        }
-    };
 });
