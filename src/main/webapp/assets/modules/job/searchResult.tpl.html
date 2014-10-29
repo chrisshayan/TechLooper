@@ -6,7 +6,7 @@
             <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" title="Career Analytics. Open Source. Awesome!" class="mobile">
         </div>
         <div class="col-md-4 tech-line">
-            <h2>Career Analytics. Open Source. Awesome!</h2>
+            <h2 translate>tagLine</h2>
         </div>
         <div class="col-md-4 close-button">
             <a class="btn-close" title="Close" ng-click="backPage()">X</a>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-show='search.busy'>Loading data...</div>
+            <div ng-show='search.busy' translate>loading</div>
         </div>
         <div class="loading-paging"></div>
         <div id="companyVideoInfor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
@@ -59,6 +59,6 @@
         </div>
     </div>
     <div class="loading-more" ng-show='search.jobs.length < search.total '>
-        <span><i class="fa fa-arrow-down"></i> Scroll Down to Load More</span>
+        <span translate><i class="fa fa-arrow-down"></i>loadMore</span>
     </div>
 </div>
