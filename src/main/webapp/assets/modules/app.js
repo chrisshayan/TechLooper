@@ -41,9 +41,21 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
       templateUrl: "modules/job/searchResult.tpl.html",
       controller: "searchResultController"
     }).otherwise({
+
       redirectTo: "/bubble-chart"
     });
   }]);
+
+techlooper.run(function ($rootScope, utils, shortcutFactory, $location, jsonValue) {
+  $rootScope.$on('$routeChangeSuccess', function() {
+    utils.trackHistory();
+    shortcutFactory.clear();
+    if ($location.path() === jsonValue.routerUris.bubble) {
+      // TODO: change body background
+      $("body").css("background-color", "#2e272a");
+    }
+  });
+});
 
 techlooper.directive("header", function () {
   return {

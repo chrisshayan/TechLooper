@@ -1,6 +1,19 @@
-angular.module("Common").factory("utils", function (jsonValue) {
+angular.module("Common").factory("utils", function (jsonValue, $location) {
+
+  var historyStack = [];
 
   return {
+    trackHistory: function() {
+      historyStack.push($location.path);
+    },
+
+    popHistory: function() {
+      if (historyStack.length > 0) {
+        return historyStack.pop();
+      }
+      return undefined;
+    },
+
     sum: function (array, prop) {
       var total = 0;
       $.each(array, function (index, value) {

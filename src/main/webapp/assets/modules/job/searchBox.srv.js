@@ -1,5 +1,45 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, shortcutFactory) {
   var scope, searchText;
+
+  var $$ = {
+    preventEsc: function() {
+      var isVideoShown = $("#companyVideoInfor").is(":visible");;
+      return isVideoShown;
+    },
+
+
+    doSearch: function () {
+      // TODO: change body background
+      $('body').css("background-color", "#eeeeee");
+      $location.path(jsonValue.routerUris.jobsSearch + searchText.getValue());
+      scope.$apply();
+    },
+
+    pressEsc: function (event) {
+      if ($$.preventEsc()) {
+        console.log("prevent from service");
+        return false;
+      }
+      utils.popHistory() === undefined ? $location.path("/") : history.back();
+      scope.$apply();
+      return true;
+    },
+
+    alignButtonSearch: function () {
+      searchText.on("item_add", function (value, item) {
+        $('.btn-search').css({
+          'height': $('.selectize-control').height() - 9,
+          'line-height': ($('.selectize-control').height() - 9) + 'px'
+        });
+      });
+      searchText.on("item_remove", function (value) {
+        $('.btn-search').css({
+          'height': $('.selectize-control').height() - 9,
+          'line-height': ($('.selectize-control').height() - 9) + 'px'
+        });
+      });
+    }
+  }
 
   var instance = {
     initSearchTextbox: function ($scope, textArray) {
@@ -8,7 +48,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         plugins: {
           "remove_button": {},
           "restore_on_backspace": {},
-          "techlooper": {onReturn: instance.doSearch}
+          "techlooper": {onReturn: $$.doSearch}
         },
         mode: "multi",
         persist: false,
@@ -53,22 +93,17 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         searchText.setValue(textArray);
       }
 
-      $('.btn-search').click(instance.doSearch);
+      $('.btn-search').click($$.doSearch);
 
-      $('.btn-close').click(function () {
-        $('body').css("background-color", "#2e272a");
-      });
+      $('.btn-close').click($$.pressEsc);
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
-    },
 
-    doSearch: function () {
-      $('body').css("background-color", "#eeeeee");
-      $location.path(jsonValue.routerUris.jobsSearch + searchText.getValue());
-      scope.$apply();
+      $$.alignButtonSearch();
+      shortcutFactory.initialize([{key: "esc", fn: $$.pressEsc}]);
     },
 
     openSearchForm: function (h) {
@@ -103,20 +138,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
             $(this).removeClass('active');
             return false;
           }
-        });
-      });
-    },
-    alignButtonSeatch: function () {
-      searchText.on("item_add", function (value, item) {
-        $('.btn-search').css({
-          'height': $('.selectize-control').height() - 9,
-          'line-height': ($('.selectize-control').height() - 9) + 'px'
-        });
-      });
-      searchText.on("item_remove", function (value) {
-        $('.btn-search').css({
-          'height': $('.selectize-control').height() - 9,
-          'line-height': ($('.selectize-control').height() - 9) + 'px'
         });
       });
     }
