@@ -3,7 +3,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
   var $$ = {
     doSearch: function () {
-      // TODO: change body background
+      // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
       scope.$apply();
@@ -49,7 +49,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         createFilter: function (input) {
           var ok = true;
           $.each(this.options, function (index, value) {
-            if (value.text.toLowerCase() === input) {
+            if (value.text.toLowerCase() === input.toLowerCase()) {
               ok = false;
               return false;
             }
@@ -70,14 +70,19 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       if ($.isArray(textArray)) {
         var options = [];
+        var values = [];
         $.each(textArray, function (i, text) {
           var tag = utils.findBy(jsonValue.technicalSkill, "text", text);
           if (tag === undefined) {
             options.push({text: text});
+            values.push(text)
+          }
+          else {
+            values.push(tag.text)
           }
         });
         searchText.addOption(options);
-        searchText.setValue(textArray);
+        searchText.setValue(values);
       }
 
       $('.btn-search').click($$.doSearch);
@@ -89,6 +94,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
 
+      searchText.focusNoDropdown();
       $$.alignButtonSearch();
     },
 

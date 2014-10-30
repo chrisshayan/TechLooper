@@ -1,15 +1,25 @@
 Selectize.define('techlooper', function (options) {
   var self = this;
-  var triggeredOptionSelect = false;
+  var triggeredOn = {};
+
+  self.focusNoDropdown = (function () {
+    return function() {
+      triggeredOn.focusNoDropdown = true;
+      self.focus();
+    };
+  })();
 
   self.open = (function () {
     var original = self.open;
     return function() {
-      if (triggeredOptionSelect) {
-        triggeredOptionSelect = false;
+      if (triggeredOn.onOptionSelect) {
+        triggeredOn.onOptionSelect = false;
         return;
       }
-
+      if (triggeredOn.focusNoDropdown) {
+        triggeredOn.focusNoDropdown = false;
+        return;
+      }
       var fn = original.apply(this, arguments);
       return fn;
     };
@@ -20,7 +30,7 @@ Selectize.define('techlooper', function (options) {
     return function (e) {
       var fn = original.apply(this, arguments);
       self.close();
-      triggeredOptionSelect = true;
+      triggeredOn.onOptionSelect = true;
       return fn;
     };
   })();
