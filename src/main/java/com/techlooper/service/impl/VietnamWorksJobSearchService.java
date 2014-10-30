@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationDegree;
 import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLocation;
@@ -97,13 +99,11 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     }
 
     private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
-        final char COMMA = ',';
-        String[] itemIds = StringUtils.split(itemId, COMMA);
+        final String COMMA = ",";
         Function<String, String> translateConfigurationFunc = (id) -> translateConfigurationId(id, idType, configuration);
 
-        String[] translatedIds = Arrays.stream(itemIds).distinct().map(
-                translateConfigurationFunc).toArray(String[]::new);
-        return StringUtils.join(translatedIds, COMMA);
+        return Stream.of(itemId.split(COMMA)).distinct()
+                .map(translateConfigurationFunc).collect(Collectors.joining(COMMA));
     }
 
     private String translateConfigurationId(String id, String itemType, VNWConfigurationResponse configuration) {
