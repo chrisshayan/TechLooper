@@ -3,7 +3,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
   var $$ = {
     doSearch: function () {
-      // TODO: change body background
+      // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
       scope.$apply();
@@ -94,6 +94,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
 
+      searchText.focusNoDropdown();
       $$.alignButtonSearch();
     },
 
