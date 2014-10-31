@@ -99,4 +99,17 @@ public class VNWJobSearchResponseDataItem {
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
+    public JobResponse toJobResponse() {
+        final JobResponse.Builder builder = new JobResponse.Builder();
+        return builder.withCompany(getCompany())
+                .withLevel(getLevel())
+                .withLocation(getLocation())
+                .withLogoUrl(getLogoUrl())
+                .withPostedOn(getPostedOn())
+                .withTitle(getTitle())
+                .withUrl(getUrl())
+                .withVideoUrl(getVideoUrl())
+                .build();
+    }
 }

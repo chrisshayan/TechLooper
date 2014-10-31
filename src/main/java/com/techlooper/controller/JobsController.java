@@ -11,10 +11,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class JobsController {
@@ -43,10 +44,10 @@ public class JobsController {
 
     @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
-        for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+        Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
             messagingTemplate.convertAndSend("/topic/jobs/term/" + term.name(), new JobStatisticResponse.Builder()
                     .withCount(vietnamWorksJobStatisticService.count(term)).build());
-        }
+        });
     }
 
     /**
@@ -57,10 +58,10 @@ public class JobsController {
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
-        for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+        Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
             terms.add(new TechnicalTermResponse.Builder().withTerm(term)
                     .withCount(vietnamWorksJobStatisticService.count(term)).build());
-        }
+        });
         return terms;
     }
 
@@ -84,20 +85,8 @@ public class JobsController {
     private JobSearchResponse convertToJobSearchResponse(VNWJobSearchResponse vnwJobSearchResponse) {
         final JobSearchResponse jobSearchResponse = new JobSearchResponse();
         jobSearchResponse.setTotal(vnwJobSearchResponse.getData().getTotal());
-        final Set<JobResponse> jobs = new HashSet<>();
-        vnwJobSearchResponse.getData().getJobs().stream().forEach(item -> {
-            final JobResponse.Builder builder = new JobResponse.Builder();
-            jobs.add(builder.withCompany(item.getCompany())
-                            .withLevel(item.getLevel())
-                            .withLocation(item.getLocation())
-                            .withLogoUrl(item.getLogoUrl())
-                            .withPostedOn(item.getPostedOn())
-                            .withTitle(item.getTitle())
-                            .withUrl(item.getUrl())
-                            .withVideoUrl(item.getVideoUrl())
-                            .build());
-        });
-        jobSearchResponse.setJobs(jobs);
+        final Stream<VNWJobSearchResponseDataItem> responseDataItemStream = vnwJobSearchResponse.getData().getJobs().stream();
+        jobSearchResponse.setJobs(responseDataItemStream.map(item -> item.toJobResponse()).collect(Collectors.toSet()));
         return jobSearchResponse;
     }
 }

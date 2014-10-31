@@ -5,6 +5,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     switch ($location.path()) {
       case jsonValue.routerUris.bubble:
       case jsonValue.routerUris.pie:
+        // TODO: #1 - change the body background to black
         $("body").css("background-color", "#2e272a");
         instance.trackHistory();
         break;
