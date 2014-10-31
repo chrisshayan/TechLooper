@@ -3,6 +3,7 @@ package com.techlooper.config;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -14,8 +15,8 @@ import java.util.Arrays;
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
-        @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties")})
+  @PropertySource("classpath:techlooper.properties"),
+  @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching
@@ -29,9 +30,7 @@ public class CoreConfiguration {
 
     @Bean
     public CacheManager cacheManager() {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("default")));
-        return cacheManager;
+        return new ConcurrentMapCacheManager();
     }
 
     @Bean
