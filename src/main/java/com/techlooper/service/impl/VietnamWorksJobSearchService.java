@@ -7,7 +7,6 @@ import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -31,7 +29,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
- * Created by NguyenDangKhoa on 10/24/14.
+ * @author  khoa-nd
+ * @see     JobSearchService
  */
 @Service
 public class VietnamWorksJobSearchService implements JobSearchService {
@@ -53,6 +52,11 @@ public class VietnamWorksJobSearchService implements JobSearchService {
 
     private VNWConfigurationResponse configurationResponse;
 
+    /**
+     * Get the configuration from Vietnamworks API such as job locations, categories, degree, etc
+     *
+     * @return The configuration from the API {@link com.techlooper.model.VNWConfigurationResponse}
+     */
     public VNWConfigurationResponse getConfiguration() {
         return Optional.ofNullable(configurationResponse).orElseGet(() -> {
             HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON, apiKeyName, apiKeyValue, EMPTY);
@@ -67,6 +71,12 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         });
     }
 
+    /**
+     * Get the job search result from Vietnamworks API which matches the criteria terms
+     *
+     * @param jobSearchRequest The job search request which contains the criteria terms and page number
+     * @return The job search result from the API {@link com.techlooper.model.VNWJobSearchResponse}
+     */
     public VNWJobSearchResponse searchJob(VNWJobSearchRequest jobSearchRequest) {
         final String searchParameters = JsonUtils.toJSON(jobSearchRequest).orElse(EMPTY);
         HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON, apiKeyName, apiKeyValue, searchParameters);
@@ -86,18 +96,32 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         return VNWJobSearchResponse.getDefaultObject();
     }
 
+    /**
+     * Merge the search result with configuration in order to get its meaningful name
+     *
+     * @param jobSearchResponse The job search response
+     * @param configuration The job configuration
+     */
     private void mergeSearchResultWithConfiguration(VNWJobSearchResponse jobSearchResponse,
                                                     VNWConfigurationResponse configuration) {
         BiFunction<String, String, String> idTranslator = (itemId, idType) ->
                 mergeConfigurationItem(configuration, itemId, idType);
 
-        for (VNWJobSearchResponseDataItem responseDataItem : jobSearchResponse.getData().getJobs()) {
+        Stream<VNWJobSearchResponseDataItem> responseDataItemStream = jobSearchResponse.getData().getJobs().stream();
+        responseDataItemStream.forEach(responseDataItem -> {
             responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), JOB_LOCATION));
             responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), JOB_LEVEL));
-        }
-
+        });
     }
 
+    /**
+     * Merge the search result with configuration in order to get its meaningful name
+     *
+     * @param configuration The job configuration
+     * @param itemId List of item IDs should be merged
+     * @param idType The kind of id such as location, level or category
+     * @return The item name value after merging, separated by comma
+     */
     private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
         final String COMMA = ",";
         Function<String, String> translateConfigurationFunc = (id) -> translateConfigurationId(id, idType, configuration);
@@ -106,6 +130,14 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                 .map(translateConfigurationFunc).collect(Collectors.joining(COMMA));
     }
 
+    /**
+     * Merge the search result with configuration in order to get its meaningful name
+     *
+     * @param id Unique ID value
+     * @param itemType The kind of id such as location, level or category
+     * @param configuration The job configuration
+     * @return The unique item name value after merging
+     */
     private String translateConfigurationId(String id, String itemType, VNWConfigurationResponse configuration) {
         switch (itemType) {
             case JOB_LOCATION:
