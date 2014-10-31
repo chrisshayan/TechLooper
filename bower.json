@@ -2,7 +2,6 @@
    "name": "TechLooper",
    "dependencies": {
       "jquery": "latest",
-      "jquery-ui": "latest",
       "bootstrap": "latest",
       "components-font-awesome": "latest",
       "sockjs": "latest",
@@ -15,7 +14,13 @@
       "angular-translate-storage-local": "latest",
       "angular-translate-storage-cookie": "latest",
       "angular-translate-loader-static-files": "latest",
-      "highcharts-release": "latest"
+      "angular-mousetrap": "latest",
+      "jQuery.dotdotdot": "latest",
+      "highcharts-release": "latest",
+      "ngInfiniteScroll" : "latest",
+      "selectize" : "latest",
+      "mousetrap": "latest"
+      
    },
    "overrides": {
       "sockjs": {
@@ -23,6 +28,21 @@
       },
       "stomp-websocket": {
          "main": "lib/stomp.min.js"
+      },
+      "highcharts-release": {
+         "main": "highcharts.js"
+      },
+      "ngInfiniteScroll": {
+         "main": "build/ng-infinite-scroll.min.js"
+      },
+      "selectize": {
+         "main": "dist/js/standalone/selectize.min.js"
+      },
+      "jQuery.dotdotdot": {
+         "main": "src/js/jquery.dotdotdot.js"
+      },
+      "mousetrap": {
+         "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
       }
    }
 }

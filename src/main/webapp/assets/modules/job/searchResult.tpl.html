@@ -1,0 +1,63 @@
+<div class="row search-block search-result-block" infinite-scroll="search.nextPage()" infinite-scroll-disabled="search.busy" infinite-scroll-distance='0'>
+    <div class="row search-logo-block">
+        <div class="col-md-4 logo-block">
+            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="desktop">
+            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="mobile">
+        </div>
+        <div class="col-md-4 tech-line">
+            <h2 translate>tagLine</h2>
+        </div>
+        <div class="col-md-4 close-button">
+            <a class="btn-close" title="Close">X</a>
+        </div>
+    </div>
+    <div class="search-page">
+        <div class="search-form-container">
+            <!--<input class="searchText" type="text" />-->
+            <input type="text" class="searchText"  />
+            <a class="btn-search search-result"><i class="fa fa-search"></i></a>
+
+            <div class="jobs-total"><strong></strong> results</div>
+        </div>
+        <div class="search-result-container-block">
+            <div class="job-item" ng-repeat="job in search.jobs">
+                <div class="job-infor" data-url="{{job.url}}" ng-click="openDetail($event)">
+                    <div class="job-title" title="{{job.title}}">
+                        {{job.title}}
+                    </div>
+                    <ul>
+                        <li><i class="fa fa-money"></i>Negotiable</li>
+                        <li><i class="fa fa-map-marker"></i>{{job.location}}</li>
+                        <li><i class="fa fa-male"></i>{{job.level}}</li>
+                        <li><i class="fa fa-calendar"></i>{{job.postedOn}}</li>
+                    </ul>
+                </div>
+                <div class="company-video" ng-show="{{job.videoUrl.length}}">
+                    <span>
+                        <i class="fa fa-play-circle-o" class="play-video" ng-click="playVideo($event)" ng-url="{{job.videoUrl}}" data-toggle="modal" data-target="#companyVideoInfor"></i>
+                    </span>
+                </div>
+                <div class="company-logo">
+                    <span class="company-name" ng-show="{{!job.logoUrl.length}}">{{job.company}}</span>
+                    <div class="logo-img" ng-show="{{job.logoUrl.length}}">
+                        <img title="{{job.company}}" ng-src="{{job.logoUrl}}" data-url="{{job.url}}" ng-click="openDetail($event)">
+                    </div>
+                </div>
+            </div>
+            <div ng-show='search.busy' translate>loading</div>
+        </div>
+        <div class="loading-paging"></div>
+        <div id="companyVideoInfor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-click="checkPLayVideo()">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <iframe width="590" height="450" src="" frameborder="0" allowfullscreen class="playerVideo"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading-more" ng-show='search.jobs.length < search.total '>
+        <span translate><i class="fa fa-arrow-down"></i>loadMore</span>
+    </div>
+</div>

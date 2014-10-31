@@ -1,57 +1,55 @@
 package com.techlooper.model;
 
 
-import com.techlooper.enu.TechnicalTermEnum;
-
 public class TechnicalTermResponse {
 
-   private String name;
+    private String name;
 
-   private TechnicalTermEnum term;
+    private TechnicalTermEnum term;
 
-   private Long count;
+    private Long count;
 
-   public static class Builder {
+    public static class Builder {
 
-      private TechnicalTermResponse instance = new TechnicalTermResponse();
+        private TechnicalTermResponse instance = new TechnicalTermResponse();
 
-      public Builder withCount(Long count) {
-         instance.count = count;
-         return this;
-      }
+        public Builder withCount(Long count) {
+            instance.count = count;
+            return this;
+        }
 
-      public Builder withTerm(TechnicalTermEnum term) {
-         instance.term = term;
-         instance.name = term.toString();
-         return this;
-      }
+        public Builder withTerm(TechnicalTermEnum term) {
+            instance.term = term;
+            instance.name = term.toString();
+            return this;
+        }
 
-      public TechnicalTermResponse build() {
-         return instance;
-      }
-   }
+        public TechnicalTermResponse build() {
+            return instance;
+        }
+    }
 
-   public String getName() {
-      return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public TechnicalTermEnum getTerm() {
-      return term;
-   }
+    public TechnicalTermEnum getTerm() {
+        return term;
+    }
 
-   public void setTerm(TechnicalTermEnum term) {
-      this.term = term;
-   }
+    public void setTerm(TechnicalTermEnum term) {
+        this.term = term;
+    }
 
-   public Long getCount() {
-      return count;
-   }
+    public Long getCount() {
+        return count;
+    }
 
-   public void setCount(Long count) {
-      this.count = count;
-   }
+    public void setCount(Long count) {
+        this.count = count;
+    }
 }

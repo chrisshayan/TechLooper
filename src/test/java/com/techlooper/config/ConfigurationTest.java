@@ -1,16 +1,19 @@
 package com.techlooper.config;
 
-import freemarker.template.TemplateExceptionHandler;
+import com.techlooper.service.JobSearchService;
+import com.techlooper.service.impl.VietnamWorksJobSearchService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-
-import static freemarker.template.Configuration.VERSION_2_3_21;
 
 
 /**
@@ -21,7 +24,6 @@ import static freemarker.template.Configuration.VERSION_2_3_21;
 @PropertySources({
   @PropertySource("classpath:techlooper.properties"),
   @PropertySource("classpath:secret.properties")})
-@ComponentScan({"com.techlooper.consumer"})
 public class ConfigurationTest implements ApplicationContextAware {
 
   private ApplicationContext applicationContext;
@@ -42,12 +44,18 @@ public class ConfigurationTest implements ApplicationContextAware {
   }
 
   @Bean
-  public freemarker.template.Configuration freemarkerConfiguration() throws IOException {
-    freemarker.template.Configuration configuration = new freemarker.template.Configuration(VERSION_2_3_21);
-    configuration.setDirectoryForTemplateLoading(applicationContext.getResource("classpath:template").getFile());
-    configuration.setDefaultEncoding("UTF-8");
-    configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-    return configuration;
+  public String vnwJobSearchRequestJson() throws IOException {
+    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs-request.json").getInputStream(), "UTF-8");
+  }
+
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
+
+  @Bean
+  public JobSearchService jobSearchService() {
+    return new VietnamWorksJobSearchService();
   }
 
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

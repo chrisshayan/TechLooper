@@ -1,13 +1,15 @@
-angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFactory", "$location", function (jsonValue, $cacheFactory, $location) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, $cacheFactory, $location) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
   var scope;
   var subscriptions = {};
   var isConnecting = false;
-
-  // TODO: find a way to extract base url, example : http://localhost:8080/techlooper/
-  var stompUrl = $location.absUrl().substring(0, $location.absUrl().lastIndexOf("index.html")) + socketUri.sockjs;
+    
+  var paths = window.location.pathname.split('/');
+  paths.pop();
+  var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
+  var stompUrl = contextUrl + '/' + socketUri.sockjs;
   var stompClient = Stomp.over(new SockJS(stompUrl));
   stompClient.debug = function () {};
 
@@ -121,4 +123,4 @@ angular.module("Common").factory("connectionFactory", ["jsonValue", "$cacheFacto
     }
   }
   return instance;
-}]);
+});

@@ -1,7 +1,5 @@
 package com.techlooper.config.web;
 
-import javax.annotation.Resource;
-
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -12,28 +10,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 
+import javax.annotation.Resource;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.techlooper.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-   @Resource
-   private Environment environment;
+    @Resource
+    private Environment environment;
 
-   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-      configurer.enable();
-   }
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 
-   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-      registry.addResourceHandler("/**").addResourceLocations(environment.getProperty("webapp.resource.location"))
-            .resourceChain(true)
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations(environment.getProperty("webapp.resource.location"))
+                .resourceChain(true)
             /*
              * .addResolver(new CachingResourceResolver(cacheManager,
              * "default"))
              */.addResolver(new GzipResourceResolver())
-            // .addTransformer(new CachingResourceTransformer(cacheManager,
-            // "default"))
-            .addTransformer(new CssLinkResourceTransformer());
-      // registry.addResourceHandler("/index.html").addResourceLocations("classpath:/static/index.html");
-   }
+                // .addTransformer(new CachingResourceTransformer(cacheManager,
+                // "default"))
+                .addTransformer(new CssLinkResourceTransformer());
+        // registry.addResourceHandler("/index.html").addResourceLocations("classpath:/static/index.html");
+    }
 }

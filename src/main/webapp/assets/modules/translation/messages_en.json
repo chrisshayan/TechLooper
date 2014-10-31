@@ -1,5 +1,8 @@
 {
-   "language" : "VI",
-   "findjobs" : "Find Jobs",
-   "note":      "The digits are number of jobs."
+  "language": "VI",
+  "findjobs": "Find Jobs",
+  "note": "The digits are number of jobs.",
+  "tagLine": "Career Analytics. Open Source. Awesome!",
+  "loadMore": "Scroll Down to Load More",
+  "loading": "Loading data..."
 }
