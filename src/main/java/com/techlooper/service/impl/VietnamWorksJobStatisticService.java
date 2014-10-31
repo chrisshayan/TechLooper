@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.stream.Stream;
+
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
@@ -74,10 +76,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     public Long countTechnicalJobs() {
-        Long count = 0L;
-        for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-            count += count(term);
-        }
-        return count;
+        return Stream.of(TechnicalTermEnum.values()).mapToLong(term -> count(term)).sum();
     }
 }
