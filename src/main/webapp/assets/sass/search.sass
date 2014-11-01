@@ -1,637 +1,713 @@
-.abc
-    width: 100%
-    height: 100%
-    position: absolute
-    top: 0
-    bottom: 0
-    background-color: #eeeeee
 .search-block
-    width: 100%
-    height: 0
-    position: fixed
-    z-index: 999
-    left: 0
-    bottom: 50%
-    background-color: #eeeeee
+  width: 100%
+  height: 0
+  position: fixed
+  z-index: 999
+  left: 0
+  bottom: 50%
+  background-color: #eeeeee
+
 .search-page
-    display: block
-    clear: both
-    padding-top: 40px
-    float: left
-    width: 100%
+  display: block
+  clear: both
+  padding-top: 40px
+  float: left
+  width: 100%
 
 .search-result-block
-    position: inherit
-    height: auto !important
+  position: inherit
+  height: auto !important
+
 .search-container-block
-    width: 100%
-    text-align: center
-    padding-top: 10%
-    margin: auto
-    max-width: 1300px
+  width: 100%
+  text-align: center
+  padding-top: 10%
+  margin: auto
+  max-width: 1300px
+
 .search-form-container
-    width: 60%
-    margin: auto
-    text-align: left
-    max-height: 43px
-    max-width: 600px
-    position: relative
+  width: 60%
+  margin: auto
+  text-align: left
+  max-height: 43px
+  max-width: 600px
+  position: relative
+
 .search-logo-block
-    padding: 5px
-    background: url(../images/line-li.png) left top repeat-x
-    height: 65px
+  padding: 5px
+  background: url(../images/line-li.png) left top repeat-x
+  height: 65px
+
 .logo-block
-    padding-top: 3px
+  padding-top: 3px
+
 .tech-line
+  text-align: center
+  h2
+    font-weight: 300
+    font-size: 16px
+    color: #777
+    margin: 0
+    padding: 0
+    line-height: 55px
+
+.search-logo-block
+  .logo-block img
+    width: 100%
+    max-width: 220px
+
+.search-logo-block
+  .close-button
+    text-align: right
+    padding-top: 5px
+
+.search-logo-block
+  .close-button a
+    background: #cccccc
+    border-radius: 50%
+    display: block
+    width: 45px
+    height: 45px
+    float: right
+    color: #fff
+    font-weight: 300
+    font-size: 20px
+    line-height: 45px
     text-align: center
-    h2
-        font-weight: 300
-        font-size: 16px
-        color: #777
-        margin: 0
-        padding: 0
-        line-height: 55px
-.search-logo-block 
-    .logo-block img
-        width: 100%
-        max-width: 220px
-.search-logo-block 
-    .close-button
-        text-align: right
-        padding-top: 5px 
-.search-logo-block 
-    .close-button a
-        background: #cccccc
-        border-radius: 50%
-        display: block
-        width: 45px
-        height: 45px
-        float: right
-        color: #fff
-        font-weight: 300
-        font-size: 20px
-        line-height: 45px
-        text-align: center
-        cursor: pointer
-.search-logo-block 
-    .close-button a:hover
-        background: #9d9d9d
+    cursor: pointer
+
+.search-logo-block
+  .close-button a:hover
+    background: #9d9d9d
 /* reset */
 .termsList
-    width: 80%
-    max-width: 600px
-    height: 30px
+  width: 80%
+  max-width: 600px
+  height: 30px
+
 .selectator img
-    display: block
+  display: block
 /* dimmer */
 
 #selectator_dimmer
-    background-color: rgba(0, 0, 0, .1)
-    width: 100%
-    height: 100%
-    position: fixed
-    z-index: 100
+  background-color: rgba(0, 0, 0, .1)
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: 100
 /* Main box */
 
 .selectator
-    border: 1px solid #a4a4a4
+  border: 1px solid #a4a4a4
+  display: inline-block
+  text-decoration: none
+  color: #fff
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+
+.selectator.multiple
+  padding-right: 20px !important
+
+.selectator.single
+  /*height: 36px*/
+  padding: 7px 10px !important
+
+.selectator:after
+  position: absolute
+  font-size: 90%
+  right: 4px
+  color: #aaa
+  top: 50%
+  line-height: 0
+
+.selectator_chosen_items
+  display: inline-block
+  float: left
+
+.single
+  .selectator_chosen_items
+    display: block
+
+.selectator_chosen_item
+  display: inline-block
+  background-color: #e2e2e2
+  border-radius: 2px
+  color: #000
+  padding: 4px 20px 4px 4px
+  font-size: 13px
+  margin: 2px
+  position: relative
+  vertical-align: top
+
+.single
+  .selectator_chosen_item
+    background-color: transparent
+    color: #000
+    display: block
+    text-decoration: none
+    padding: 0
+    margin: 0
+    font-size: inherit
+
+.multiple
+  .selectator_chosen_item
+    margin: 8px 0 0 5px
+    padding: 3px 20px 2px 5px
+/* chosen item - left */
+
+.selectator_chosen_item_left
+  float: left
+  width: 25px
+
+.selectator_chosen_item_left img
+  height: 23px
+
+.multiple
+  .selectator_chosen_item_left
+    float: left
+    width: 22px
+
+.multiple .selectator_chosen_item_left img
+  max-height: 18px
+  max-width: 18px
+/* chosen item - title */
+
+.selectator_chosen_item_titl
+  .single .selectator_chosen_item_title
+    height: auto
+
+.multiple
+  .selectator_chosen_item_title
+    float: left
+    padding-bottom: 2px
+/* chosen item - subtitle */
+
+.selectator_chosen_item_subtitle
+  display: none
+/* chosen item - right */
+
+.selectator_chosen_item_right
+  float: right
+  width: 20px
+  background-color: #ccc
+  font-size: 15px
+  color: #fff
+  text-align: center
+  border-radius: 3px
+  padding: 3px
+  margin-right: 20px
+
+.multiple
+  .selectator_chosen_item_right
+    display: none
+
+.selectator_chosen_item_remove
+  display: inline-block
+  font-weight: bold
+  color: #000
+  margin: 0 0 0 5px
+  padding: 6px 5px 4px 5px
+  cursor: pointer
+  font-size: 11px
+  line-height: 10px
+  vertical-align: top
+  border-radius: 0 2px 2px 0
+  position: absolute
+  right: 0
+  top: 0
+  bottom: 0
+
+.selectator_chosen_item_remove:hover
+  color: #000
+  background-color: #cdcdcd
+
+.single
+  .selectator_chosen_item_remove
+    display: none
+
+.multiple
+  .selectator_chosen_item_remove
+    padding: 7px 5px 4px 5px
+
+.multiple
+  .selectator_chosen_item_remove:hove
+    .multiple
+      .selectator_input
+        padding: 1px 0 0 0
+        margin: 7px 0 2px 5px
+
+.multiple
+  .selectator_textlength
+    padding: 1px 0 0 0
+    margin: 7px 0 2px 5px
+/* input box */
+.multiple
+  .selectator_input
+    float: left
+    margin: 0
+    height: 36px
+    padding-left: 5px
+    color: #000
+
+.selectator_input,
+.selectator_textlength
+  border: 0
+  display: inline-block
+  margin: 0
+  background-color: transparent
+  font-size: 13px
+  outline: none
+  padding: 6px 0 0 0
+
+.single
+  .selectator_input
+    border: 1px solid #7f9db9
+    position: absolute
+    bottom: -40px
+    left: -1px
+    z-index: 101
+    padding: 10px 25px
+    width: 100%
+    width: calc(100% + 2px)
+    border-bottom: 0
+    background-color: #f6f6f6
+    color: #333
+    font-size: inherit
+    color: #000
+
+.single.options-hidden
+  .selectator_input
+    opacity: 0
+    position: absolute
+    left: -10000px
+
+.single.options-visible
+  .selectator_input
+    opacity: 1
+
+.disable_search
+  .selectator_input
+    opacity: 0
+    padding: 0 1px 1px 0 !important
+    color: #000
+/* options holder */
+
+.selectator_options
+  margin: 0
+  padding: 0
+  border: 1px solid #a4a4a4
+  border-radius: 0 0 3px 3px
+  font-family: sans-serif
+  position: absolute
+  z-index: 101
+  background-color: #f3f2f2
+  overflow-y: scroll
+  max-height: 250px
+  list-style: none
+  left: -1px
+  right: -1px
+  z-index: 999
+
+.single
+  .selectator_options
+    padding-top: 0
+    border-top: 0
+
+.disable_search
+  .selectator_options
+    border-top: 1px solid #7f9db9
+
+.single.disable_search
+  .selectator_options
+    padding-top: 0
+
+.selectator.options-hidden
+  .selectator_options
+    display: none
+/* option item group header */
+
+.selectator_group_header
+  padding: 5px
+  font-weight: bold
+/* option item group holder */
+
+.selectator_group
+  margin: 0
+  padding: 0
+  list-style: none
+/* option item */
+
+.selectator_option
+  padding: 5px
+  cursor: pointer
+  color: #000
+  font-size: 18px
+
+.selectator_option.active
+  background-color: #eefaff
+  color: #000
+
+.selectator_group
+  .selectator_option
+    padding: 5px 5px 5px 20px
+/* option item - left */
+
+.selectator_option_left
+  float: left
+  width: 40px
+
+.selectator_option_left img
+  max-width: 30px
+  max-height: 30px
+/* option item - title */
+
+.selectator_option_title
+  margin-left: 35px
+/* option item - subtitle */
+
+.selectator_option_subtitle
+  font-size: 75%
+  color: #888
+  margin-left: 35px
+/* option item - right */
+
+.selectator_option_right
+  float: right
+  width: 30px
+  background-color: #ccc
+  font-size: 15px
+  color: #fff
+  text-align: center
+  border-radius: 3px
+  padding: 6px
+
+a.btn-search
+  outline: none
+  width: 50px
+  height: 32px
+  min-height: 32px
+  font-size: 20px
+  color: #c5c5c5
+  -webkit-border-top-right-radius: 5px
+  -webkit-border-bottom-right-radius: 5px
+  -moz-border-radius-topright: 5px
+  -moz-border-radius-bottomright: 5px
+  border-top-right-radius: 5px
+  border-bottom-right-radius: 5px
+  position: absolute
+  border: 0
+  right: 1px
+  top: 1px
+  text-align: center
+  cursor: pointer
+  z-index: 99
+
+.search-form-container:hover
+  a.btn-search
+    color: #000
+
+.technical-Skill-List
+  display: block
+  clear: both
+  padding-top: 30px
+  width: 80%
+  text-align: center
+  margin: auto
+
+.technical-Skill-List li
+  display: inline-block
+  padding: 15px 10px
+
+.technical-Skill-List
+  li
+    img
+      width: 60px
+      filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
+      /* Firefox 10+, Firefox on Android*/
+      filter: grayscale(100%)
+      -moz-filter: grayscale(100%)
+      -ms-filter: grayscale(100%)
+      -o-filter: grayscale(100%)
+      filter: gray
+      /* IE6-9*/
+      -webkit-filter: grayscale(100%)
+/* Chrome 19+, Safari 6+, Safari 6+ iOS*/
+.technical-Skill-List
+  li
+    img.active
+      filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
+      filter: grayscale(0%)
+      -moz-filter: grayscale(0%)
+      -ms-filter: grayscale(0%)
+      -o-filter: grayscale(0%)
+      filter: none
+      zoom: 1
+      -webkit-filter: grayscale(0%)
+
+.jobs-total
+  float: right
+  clear: both
+  display: none
+  width: 100%
+
+.jobs-total strong
+  font-size: 16px
+  font-weight: 400
+
+.search-result-container-block
+  display: block
+  clear: both
+  padding: 20px 40px 0 40px
+  width: 100%
+  max-width: 1100px
+  margin: auto
+
+.job-item
+  display: block
+  float: left
+  width: 100%
+  color: #000
+  padding: 0 15px
+  background-color: #f4f4f4
+  border-bottom: 1px solid #d2d2d2
+
+.job-item:last-child
+  border-bottom: 0
+
+.job-infor
+  padding: 15px 0
+  width: 75%
+  float: left
+  cursor: pointer
+
+.job-item .job-title
+  padding: 6px 0
+  clear: both
+  width: auto
+  display: inline-block
+  font-weight: 400
+  font-size: 16px
+  text-transform: capitalize
+  color: #2286de
+
+.job-item ul
+  margin: 0
+  padding: 0
+
+.job-item li
+  display: inline-block
+  padding: 0 25px 5px 0
+  font-size: 14px
+
+.job-item li i
+  padding-right: 10px
+  font-size: 16px
+
+.company-logo
+  width: 20%
+  float: right
+  text-align: right
+  position: relative
+  vertical-align: middle
+  min-height: 80px
+  cursor: pointer
+
+.logo-img
+  padding: 15px 0
+
+.company-logo img
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
+  /* Firefox 10+, Firefox on Android*/
+  filter: grayscale(100%)
+  -moz-filter: grayscale(100%)
+  -ms-filter: grayscale(100%)
+  -o-filter: grayscale(100%)
+  filter: gray
+  /* IE6-9*/
+  -webkit-filter: grayscale(100%)
+  /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
+  width: 120px
+  margin: auto
+  right: 0
+  top: 0
+  bottom: 0
+  position: absolute
+  max-height: 90%
+
+.view-more
+  width: 15%
+  float: left
+  vertical-align: middle
+  text-align: center
+  position: relative
+
+.view-more a
+  display: block
+  padding: 10px 20px
+  color: #000
+  border-radius: 5px
+  margin: auto
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  height: 40px
+  border: 1px solid #a4a4a4
+
+.job-item:hover
+  background-color: #fff
+
+.job-item:hover
+  .company-logo
+    img
+      filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
+      filter: grayscale(0%)
+      -moz-filter: grayscale(0%)
+      -ms-filter: grayscale(0%)
+      -o-filter: grayscale(0%)
+      filter: none
+      zoom: 1
+      -webkit-filter: grayscale(0%)
+
+.company-logo
+  span.company-name
     display: inline-block
+    vertical-align: middle
+    line-height: normal
+    text-align: center
+
+.company-video
+  width: 5%
+  float: left
+  position: relative
+  text-align: center
+  vertical-align: middle
+
+.job-item
+  .company-video span
+    width: auto
+    margin: auto
+    position: absolute
+    top: 0
+    bottom: 0
+
+.job-item
+  .company-video
+    .fa-play-circle-o
+      font-size: 35px
+      font-weight: 300
+      color: #a3a3a3
+      cursor: position
+      padding-top: 30px
+      cursor: pointer
+
+.job-item:hover
+  .company-video
+    .fa-play-circle-o
+      color: #2286de
+
+.job-item:hover .view-more a
+  background-color: #2286de
+  color: #fff
+
+.loading
+  background-color: #8ba5bc
+  color: #000
+  border: 1px solid #373737
+  padding: 5px 10px
+  text-align:center
+  width: 90%
+  margin: 0px auto
+  display: none
+  border-radius: 5px
+  font-size: 16px
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+
+.modal-content
+  background-color: #282727
+
+.modal-body
+  padding: 5px 7px 0px 5px
+
+.loading-more
+  width: 100%
+  height: 30px
+  line-height: 30px
+  position: fixed
+  bottom: 0
+  text-align: center
+  opacity: 0.6
+
+.loading-more
+  span
+    display: block
+    color: #fff
+    background-color: #201d1e
+    height: 30px
+    width: auto
+    padding: 0 15px
+    font-size: 12px
+
+.select2-container-multi
+  .select2-search-choice-close
+    right: 3px
+    top: 6px
+    left: auto
+
+.select2-container-multi
+  .select2-choices
+    .select2-search-choice
+      padding: 3px 20px 3px 3px
+      background: #f4f4f4
+      box-shadow: inherit
+      border: 1px solid #eeeeee
+
+.select2-container-multi
+  .select2-choices
+    .select2-search-choice
+      line-height: 15px
+
+.select2-container-multi
+  .select2-choices
+    border: 1px solid #a4a4a4
     text-decoration: none
     color: #fff
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-.selectator.multiple
-    padding-right: 20px !important
-.selectator.single
-    /*height: 36px*/
-    padding: 7px 10px !important
-.selectator:after
-    position: absolute
-    font-size: 90%
-    right: 4px
-    color: #aaa
-    top: 50%
-    line-height: 0
+    background: #fff
+    z-index: 98
+    padding-right: 50px
 
-.selectator_chosen_items
-    display: inline-block
-    float: left
-.single 
-    .selectator_chosen_items
-        display: block
-
-.selectator_chosen_item
-    display: inline-block
-    background-color: #e2e2e2
-    border-radius: 2px
-    color: #000
-    padding: 4px 20px 4px 4px
-    font-size: 13px
-    margin: 2px
-    position: relative
-    vertical-align: top
-.single 
-    .selectator_chosen_item
-        background-color: transparent
-        color: #000
-        display: block
-        text-decoration: none
-        padding: 0
-        margin: 0
-        font-size: inherit
-.multiple 
-    .selectator_chosen_item
-        margin: 8px 0 0 5px
-        padding: 3px 20px 2px 5px
-/* chosen item - left */
-
-.selectator_chosen_item_left
-    float: left
-    width: 25px
-.selectator_chosen_item_left img
-    height: 23px
-.multiple 
-    .selectator_chosen_item_left
-        float: left
-        width: 22px
-.multiple .selectator_chosen_item_left img
-    max-height: 18px
-    max-width: 18px
-/* chosen item - title */
-
-.selectator_chosen_item_titl 
-    .single .selectator_chosen_item_title
-        height: auto
-.multiple 
-    .selectator_chosen_item_title
-        float: left
-        padding-bottom: 2px
-/* chosen item - subtitle */
-
-.selectator_chosen_item_subtitle
-    display: none
-/* chosen item - right */
-
-.selectator_chosen_item_right
-    float: right
-    width: 20px
-    background-color: #ccc
-    font-size: 15px
-    color: #fff
-    text-align: center
-    border-radius: 3px
-    padding: 3px
-    margin-right: 20px
-.multiple 
-    .selectator_chosen_item_right
-        display: none
-
-.selectator_chosen_item_remove
-    display: inline-block
-    font-weight: bold
-    color: #000
-    margin: 0 0 0 5px
-    padding: 6px 5px 4px 5px
-    cursor: pointer
-    font-size: 11px
-    line-height: 10px
-    vertical-align: top
-    border-radius: 0 2px 2px 0
-    position: absolute
-    right: 0
-    top: 0
-    bottom: 0
-.selectator_chosen_item_remove:hover
-    color: #000
-    background-color: #cdcdcd
-.single 
-    .selectator_chosen_item_remove
-        display: none
-.multiple 
-    .selectator_chosen_item_remove
-        padding: 7px 5px 4px 5px
-
-.multiple 
-    .selectator_chosen_item_remove:hove 
-        .multiple 
-            .selectator_input
-                padding: 1px 0 0 0
-                margin: 7px 0 2px 5px
-.multiple 
-    .selectator_textlength
-        padding: 1px 0 0 0
-        margin: 7px 0 2px 5px
-/* input box */
-.multiple 
-    .selectator_input
-        float: left
-        margin: 0
-        height: 36px
-        padding-left: 5px
-        color: #000
-.selectator_input,
-.selectator_textlength
-    border: 0
-    display: inline-block
-    margin: 0
-    background-color: transparent
-    font-size: 13px
-    outline: none
-    padding: 6px 0 0 0
-.single 
-    .selectator_input
-        border: 1px solid #7f9db9
-        position: absolute
-        bottom: -40px
-        left: -1px
-        z-index: 101
-        padding: 10px 25px
-        width: 100%
-        width: calc(100% + 2px)
-        border-bottom: 0
-        background-color: #f6f6f6
-        color: #333
-        font-size: inherit
-        color: #000
-.single.options-hidden 
-    .selectator_input
-        opacity: 0
-        position: absolute
-        left: -10000px
-.single.options-visible 
-    .selectator_input
-        opacity: 1
-.disable_search 
-    .selectator_input
-        opacity: 0
-        padding: 0 1px 1px 0 !important
-        color: #000
-/* options holder */
-
-.selectator_options
-    margin: 0
-    padding: 0
+.select2-container-multi.select2-container-active
+  .select2-choices
     border: 1px solid #a4a4a4
-    border-radius: 0 0 3px 3px
-    font-family: sans-serif
-    position: absolute
-    z-index: 101
-    background-color: #f3f2f2
-    overflow-y: scroll
-    max-height: 250px
-    list-style: none
-    left: -1px
-    right: -1px
-    z-index: 999
-.single 
-    .selectator_options
-        padding-top: 0
-        border-top: 0
-.disable_search 
-    .selectator_options
-        border-top: 1px solid #7f9db9
-.single.disable_search 
-    .selectator_options
-        padding-top: 0
-.selectator.options-hidden 
-    .selectator_options
-        display: none
-/* option item group header */
-
-.selectator_group_header
-    padding: 5px
-    font-weight: bold
-/* option item group holder */
-
-.selectator_group
-    margin: 0
-    padding: 0
-    list-style: none
-/* option item */
-
-.selectator_option
-    padding: 5px
-    cursor: pointer
-    color: #000
-    font-size: 18px
-.selectator_option.active
-    background-color: #eefaff
-    color: #000
-.selectator_group 
-    .selectator_option
-        padding: 5px 5px 5px 20px
-/* option item - left */
-
-.selectator_option_left
-    float: left
-    width: 40px
-.selectator_option_left img
-    max-width: 30px
-    max-height: 30px
-/* option item - title */
-
-.selectator_option_title
-    margin-left: 35px
-/* option item - subtitle */
-
-.selectator_option_subtitle
-    font-size: 75%
-    color: #888
-    margin-left: 35px
-/* option item - right */
-
-.selectator_option_right
-    float: right
-    width: 30px
-    background-color: #ccc
-    font-size: 15px
-    color: #fff
-    text-align: center
-    border-radius: 3px
-    padding: 6px
-a.btn-search
-    outline: none
-    width: 50px
-    height: 32px
-    min-height: 32px
-    font-size: 20px
-    color: #c5c5c5
+    -webkit-border-top-left-radius: 5px
     -webkit-border-top-right-radius: 5px
-    -webkit-border-bottom-right-radius: 5px
+    -moz-border-radius-topleft: 5px
     -moz-border-radius-topright: 5px
-    -moz-border-radius-bottomright: 5px
+    border-top-left-radius: 5px
     border-top-right-radius: 5px
-    border-bottom-right-radius: 5px
-    position: absolute
-    border: 0
-    right: 1px
-    top: 1px
-    text-align: center
-    cursor: pointer
-    z-index: 99
-.search-form-container:hover
-    a.btn-search
-        color: #000
-.technical-Skill-List
-    display: block
-    clear: both
-    padding-top: 30px
-    width: 80%
-    text-align: center
-    margin: auto
-.technical-Skill-List li
-    display: inline-block
-    padding: 15px 10px
-.technical-Skill-List 
-    li 
-        img
-            width: 60px
-            filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
-            /* Firefox 10+, Firefox on Android*/
-            filter: grayscale(100%)
-            -moz-filter: grayscale(100%)
-            -ms-filter: grayscale(100%)
-            -o-filter: grayscale(100%)
-            filter: gray
-            /* IE6-9*/
-            -webkit-filter: grayscale(100%)
-            /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
-.technical-Skill-List 
-    li
-        img.active 
-            filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
-            filter: grayscale(0%)
-            -moz-filter: grayscale(0%)
-            -ms-filter: grayscale(0%)
-            -o-filter: grayscale(0%)
-            filter: none
-            zoom: 1
-            -webkit-filter: grayscale(0%)
-.jobs-total
-    float: right
-    clear: both
-    display: none
-    width: 100%
-.jobs-total strong
-    font-size: 16px
-    font-weight: 400
-.search-result-container-block
-    display: block
-    clear: both
-    padding: 20px 40px 0 40px
-    width: 100%
-    max-width: 1100px
-    margin: auto
-.job-item
-    display: block
-    float: left
-    width: 100%
-    color: #000
-    padding: 0 15px
-    background-color: #f4f4f4
-    border-bottom: 1px solid #d2d2d2
-.job-item:last-child
-    border-bottom: 0
-.job-infor
-    padding: 15px 0
-    width: 75%
-    float: left
-    cursor: pointer
-.job-item .job-title
-    padding: 6px 0
-    clear: both
-    width: auto
-    display: inline-block
-    font-weight: 400
-    font-size: 16px
-    text-transform: capitalize
-    color: #2286de
 
-.job-item ul
-    margin: 0
-    padding: 0
-.job-item li
-    display: inline-block
-    padding: 0 25px 5px 0
-    font-size: 14px
-.job-item li i
-    padding-right: 10px
-    font-size: 16px
-.company-logo
-    width: 20%
-    float: right
-    text-align: right
-    position: relative
-    vertical-align: middle
-    min-height: 80px
-    cursor: pointer
-.logo-img
-    padding: 15px 0
-.company-logo img
-    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
-    /* Firefox 10+, Firefox on Android*/
-    filter: grayscale(100%)
-    -moz-filter: grayscale(100%)
-    -ms-filter: grayscale(100%)
-    -o-filter: grayscale(100%)
-    filter: gray
-    /* IE6-9*/
-    -webkit-filter: grayscale(100%)
-    /* Chrome 19+, Safari 6+, Safari 6+ iOS*/
-    width: 120px
-    margin: auto
-    right: 0
-    top: 0
-    bottom: 0
-    position: absolute
-    max-height: 90%
-.view-more
-    width: 15%
-    float: left
-    vertical-align: middle
-    text-align: center
-    position: relative
-.view-more a
-    display: block
-    padding: 10px 20px
-    color: #000
-    border-radius: 5px
-    margin: auto
-    position: absolute
-    top: 0
-    bottom: 0 
-    left: 0 
-    right: 0
-    height: 40px
-    border: 1px solid #a4a4a4
-.job-item:hover
-    background-color: #fff
-.job-item:hover  
-    .company-logo 
-        img
-            filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
-            filter: grayscale(0%)
-            -moz-filter: grayscale(0%)
-            -ms-filter: grayscale(0%)
-            -o-filter: grayscale(0%)
-            filter: none
-            zoom: 1
-            -webkit-filter: grayscale(0%)
-.company-logo
-    span.company-name
-        display: inline-block
-        vertical-align: middle
-        line-height: normal
-        text-align: center
-.company-video
-    width: 5%
-    float: left
-    position: relative
-    text-align: center
-    vertical-align: middle
-.job-item
-    .company-video span
-        width: auto
-        margin: auto
-        position: absolute
-        top: 0
-        bottom: 0
-.job-item 
-    .company-video 
-        .fa-play-circle-o
-            font-size: 35px
-            font-weight: 300
-            color: #a3a3a3
-            cursor: position
-            padding-top: 30px
-            cursor: pointer
-.job-item:hover 
-    .company-video 
-        .fa-play-circle-o
-            color: #2286de
-.job-item:hover .view-more a
-    background-color: #2286de
-    color: #fff
-.loading
-    background-color: #8ba5bc
-    color: #000
-    border: 1px solid #373737
-    padding: 5px 10px
-    text-align:center
-    width: 90%
-    margin: 0px auto
-    display: none
-    border-radius: 5px
-    font-size: 16px
-    position: fixed
-    bottom: 0
-    left: 0
-    right: 0
-.modal-content
-    background-color: #282727
-.modal-body
-    padding: 5px 7px 0px 5px
-.loading-more
-    width: 100%
-    height: 30px
-    line-height: 30px
-    position: fixed
-    bottom: 0
-    text-align: center
-    opacity: 0.6
-.loading-more
-    span
-        display: block
-        color: #fff
-        background-color: #201d1e
-        height: 30px
-        width: auto
-        padding: 0 15px
-        font-size: 12px
-.select2-container-multi 
-    .select2-search-choice-close
-        right: 3px
-        top: 6px
-        left: auto
-.select2-container-multi 
-    .select2-choices 
-        .select2-search-choice
-            padding: 3px 20px 3px 3px
-            background: #f4f4f4
-            box-shadow: inherit
-            border: 1px solid #eeeeee
-.select2-container-multi 
-    .select2-choices 
-        .select2-search-choice
-            line-height: 15px
-.select2-container-multi 
-    .select2-choices
-        border: 1px solid #a4a4a4
-        text-decoration: none
-        color: #fff
-        -webkit-border-radius: 5px
-        -moz-border-radius: 5px
-        border-radius: 5px
-        background: #fff
-        z-index: 98
-        padding-right: 50px
+.select2-dropdown-open
+  .select2-choice
+    box-shadow: inherit
 
-.select2-container-multi.select2-container-active 
-    .select2-choices
-        border: 1px solid #a4a4a4
-        -webkit-border-top-left-radius: 5px
-        -webkit-border-top-right-radius: 5px
-        -moz-border-radius-topleft: 5px
-        -moz-border-radius-topright: 5px
-        border-top-left-radius: 5px
-        border-top-right-radius: 5px
-.select2-dropdown-open 
-    .select2-choice
-        box-shadow: inherit
 .select2-drop-active
-    border: 1px solid #a4a4a4
+  border: 1px solid #a4a4a4
 
-.selectize-control.multi 
-    .selectize-input.has-items
-        padding-right: 50px
+.selectize-control.multi
+  .selectize-input.has-items
+    padding-right: 50px
+
+.selectize-control.plugin-remove_button [data-value] .remove
+  color: #808080
+  font-weight: normal
+
+.selectize-control.multi .selectize-input > div
+  border: solid 1px #CCC
