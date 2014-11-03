@@ -18,7 +18,7 @@ import java.util.Arrays;
         @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
-@EnableCaching
+@EnableCaching(proxyTargetClass = true)
 @Import({ElasticsearchConfiguration.class})
 public class CoreConfiguration {
 

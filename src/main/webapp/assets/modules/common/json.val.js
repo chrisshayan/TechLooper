@@ -19,6 +19,11 @@ angular.module("Common").constant("jsonValue", {
     analyticsTechnical: "/analytics/technical"
   },
 
+  views: {
+    jobsSearch: "jobSearch",
+    jobsSearchText: "jobSearchText"
+  },
+
   socketUri: {
     sockjs: "ws",
 

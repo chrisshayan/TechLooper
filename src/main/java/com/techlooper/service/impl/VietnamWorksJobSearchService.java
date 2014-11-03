@@ -29,8 +29,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
- * @author  khoa-nd
- * @see     JobSearchService
+ * @author khoa-nd
+ * @see JobSearchService
  */
 @Service
 public class VietnamWorksJobSearchService implements JobSearchService {
@@ -100,7 +100,7 @@ public class VietnamWorksJobSearchService implements JobSearchService {
      * Merge the search result with configuration in order to get its meaningful name
      *
      * @param jobSearchResponse The job search response
-     * @param configuration The job configuration
+     * @param configuration     The job configuration
      */
     private void mergeSearchResultWithConfiguration(VNWJobSearchResponse jobSearchResponse,
                                                     VNWConfigurationResponse configuration) {
@@ -118,8 +118,8 @@ public class VietnamWorksJobSearchService implements JobSearchService {
      * Merge the search result with configuration in order to get its meaningful name
      *
      * @param configuration The job configuration
-     * @param itemId List of item IDs should be merged
-     * @param idType The kind of id such as location, level or category
+     * @param itemId        List of item IDs should be merged
+     * @param idType        The kind of id such as location, level or category
      * @return The item name value after merging, separated by comma
      */
     private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
@@ -133,8 +133,8 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     /**
      * Merge the search result with configuration in order to get its meaningful name
      *
-     * @param id Unique ID value
-     * @param itemType The kind of id such as location, level or category
+     * @param id            Unique ID value
+     * @param itemType      The kind of id such as location, level or category
      * @param configuration The job configuration
      * @return The unique item name value after merging
      */

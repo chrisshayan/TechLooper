@@ -13,26 +13,27 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
   var stompClient = Stomp.over(new SockJS(stompUrl));
   stompClient.debug = function () {};
 
-  var clearCache = function () {
-    for (var uri in subscriptions) {
-      if ($.type(subscriptions[uri]) !== "number") {
-        subscriptions[uri].unsubscribe();
+  // private functions
+  var $$ = {
+    clearCache: function () {
+      for (var uri in subscriptions) {
+        if ($.type(subscriptions[uri]) !== "number") {
+          subscriptions[uri].unsubscribe();
+        }
       }
-    }
-    callbacks.length = 0;
-    subscriptions = {};
-  }
+      callbacks.length = 0;
+      subscriptions = {};
+    },
 
-  var runCallbacks = function () {
-    $.each(callbacks, function (index, callback) {
-      callback.fn(callback.args);
-    });
-    callbacks.length = 0;
+    runCallbacks: function () {
+      $.each(callbacks, function (index, callback) {
+        callback.fn(callback.args);
+      });
+      callbacks.length = 0;
+    }
   }
 
   var instance = {
-
-    // json = { "terms": "java .net", "pageNumber" : "3" }
     findJobs: function (json) {
       if (!stompClient.connected) {
         callbacks.push({
@@ -51,7 +52,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
     /** must to call when controller initialized */
     initialize: function ($scope) {
-      clearCache();
+      $$.clearCache();
       scope = $scope;
     },
 
@@ -86,7 +87,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
       stompClient.connect({}, function (frame) {
         isConnecting = false;
-        runCallbacks();
+        $$.runCallbacks();
       }, function (errorFrame) {
         console.log("Erorr: " + errorFrame);
         isConnecting = false;
@@ -103,7 +104,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
         return instance.connectSocket();
       }
       var subscribeTerms = stompClient.subscribe(socketUri.subscribeTerms, function (response) {
-        //terms = JSON.parse(response.body);
         scope.$emit(events.terms, JSON.parse(response.body));
         instance.registerTermsSubscription(JSON.parse(response.body));
         subscribeTerms.unsubscribe();
