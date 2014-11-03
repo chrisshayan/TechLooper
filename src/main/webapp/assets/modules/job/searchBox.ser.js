@@ -26,6 +26,10 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   }
 
   var instance = {
+    getSearchText: function() {
+      return searchText;
+    },
+
     initSearchTextbox: function ($scope, $textArray) {
       scope = $scope;
       textArray = $textArray;
