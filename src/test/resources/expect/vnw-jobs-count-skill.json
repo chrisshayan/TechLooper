@@ -1,0 +1,16 @@
+{
+    "job_term": "java",
+    "total_data": "200",
+    "period": "week",
+    "job_skills": [
+        {
+            "skill_id": "Spring",
+            "current_count": "60",
+            "previous_count": "120"
+        }, {
+            "skill_id": "Maven",
+            "current_count": "60",
+            "previous_count": "10"
+        }
+    ]
+}
