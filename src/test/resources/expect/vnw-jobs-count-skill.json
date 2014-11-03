@@ -4,11 +4,11 @@
     "period": "week",
     "jobSkills": [
         {
-            "skillId": "Spring",
+            "skill": "Spring",
             "currentCount": "60",
             "previousCount": "120"
         }, {
-            "skillId": "Maven",
+            "skill": "Maven",
             "currentCount": "60",
             "previousCount": "10"
         }
