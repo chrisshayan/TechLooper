@@ -1,16 +1,16 @@
 {
-    "job_term": "java",
-    "total_data": "200",
+    "jobTerm": "java",
+    "totalData": "200",
     "period": "week",
-    "job_skills": [
+    "jobSkills": [
         {
-            "skill_id": "Spring",
-            "current_count": "60",
-            "previous_count": "120"
+            "skillId": "Spring",
+            "currentCount": "60",
+            "previousCount": "120"
         }, {
-            "skill_id": "Maven",
-            "current_count": "60",
-            "previous_count": "10"
+            "skillId": "Maven",
+            "currentCount": "60",
+            "previousCount": "10"
         }
     ]
 }
