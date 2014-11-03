@@ -15,7 +15,8 @@ angular.module("Common").constant("jsonValue", {
   routerUris: {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
-    jobsSearch: "/jobs/search"
+    jobsSearch: "/jobs/search",
+    analyticsTechnical: "/analytics/technical"
   },
 
   socketUri: {
