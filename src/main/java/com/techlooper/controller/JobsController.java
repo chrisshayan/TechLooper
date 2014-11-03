@@ -56,7 +56,7 @@ public class JobsController {
     @SendTo("/topic/jobs/terms")
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
-        List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
+        List<TechnicalTermResponse> terms = new LinkedList<>();
         for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
             terms.add(new TechnicalTermResponse.Builder().withTerm(term)
                     .withCount(vietnamWorksJobStatisticService.count(term)).build());
