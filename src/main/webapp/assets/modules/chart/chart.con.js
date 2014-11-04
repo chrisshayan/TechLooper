@@ -33,11 +33,12 @@ angular.module('Chart').controller('chartController',
             'termID': data.term
           });
         });
-
       });
 
-      chartFactory.initializeAnimation();
+      chartFactory.initializeAnimation($scope);
+
     });
 
     connectionFactory.receiveTechnicalTerms();
+     
   });

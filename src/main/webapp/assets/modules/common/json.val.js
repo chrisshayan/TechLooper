@@ -16,7 +16,7 @@ angular.module("Common").constant("jsonValue", {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
-    analyticsTechnical: "/analytics/technical"
+    analyticsTechnical: "/analytics/skill"
   },
 
   views: {

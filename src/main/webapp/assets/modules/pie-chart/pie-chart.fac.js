@@ -1,10 +1,11 @@
-angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(utils, jsonValue) {
+angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",function(utils, jsonValue, $location){
     var terms = [];
     var totalJobs = 0;
     var pieJson = [];
     var innertDonut = utils.isMobile() ?  '0%' : '30%';
     var termsMap = {};
     var newJson =[];
+    var scope;
     
     // TODO: use jsonValue
     var colorJson = [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ];
@@ -17,7 +18,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
        generateChartData : function() {
           pieJson.length = 0;
           $.each(terms, function(index, term) {
-             pieJson.push([angular.uppercase(term.name), term.count]);
+             pieJson.push([angular.uppercase(term.name), term.count, "abc"]);
           });
        },
 
@@ -37,8 +38,9 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
          termsMap[pieItem.termID] = pieItem;
          
        }, 
-       initializeAnimation : function() {
+       initializeAnimation : function($scope) {
         instance.generateChartData();
+        scope = $scope;
         $('.pie-Chart-Container').highcharts({
             colors : colorJson,
             chart : {
@@ -101,6 +103,16 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", function(util
               type : 'pie',
               name : 'Jobs',
               innerSize :innertDonut,
+              point: {
+                events: {
+                  click: function(e) {
+                    var path = jsonValue.routerUris.analyticsTechnical + '/' + this.options.name;
+                    $location.path(path);
+                    scope.$apply();
+                    e.preventDefault();
+                  }
+                }
+              },
               data : pieJson
            } ]
         });
