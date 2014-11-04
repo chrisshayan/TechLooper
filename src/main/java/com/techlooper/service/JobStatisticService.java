@@ -2,6 +2,8 @@ package com.techlooper.service;
 
 import com.techlooper.model.TechnicalTermEnum;
 
+import java.time.LocalDate;
+
 /**
  * Created by chrisshayan on 7/14/14.
  */
@@ -94,4 +96,15 @@ public interface JobStatisticService {
      * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countTechnicalJobs();
+
+    /**
+     * Counting number of jobs by technical term and its skill
+     *
+     * @param technicalTermEnum
+     * @param skill
+     * @param untilApprovedDate
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate untilApprovedDate);
 }
