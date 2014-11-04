@@ -106,7 +106,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
               point: {
                 events: {
                   click: function(e) {
-                    var path = jsonValue.routerUris.analyticsTechnical + '/' + this.options.name;
+                    var path = jsonValue.routerUris.analyticsSkill + '/' + this.options.name;
                     $location.path(path);
                     scope.$apply();
                     e.preventDefault();

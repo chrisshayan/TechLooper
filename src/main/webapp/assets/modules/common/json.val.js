@@ -9,19 +9,21 @@ angular.module("Common").constant("jsonValue", {
     terms: "Terms",
     term: "Term",
     changeChart: "Change Chart",
-    foundJobs : "Found Jobs"
+    foundJobs : "Found Jobs",
+    analyticsSkill: "Analytics Skill"
   },
 
   routerUris: {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
-    analyticsTechnical: "/analytics/skill"
+    analyticsSkill: "/analytics/skill"
   },
 
   views: {
     jobsSearch: "jobSearch",
-    jobsSearchText: "jobSearchText"
+    jobsSearchText: "jobSearchText",
+    analyticsSkill: "analyticsSkill"
   },
 
   socketUri: {
@@ -32,7 +34,10 @@ angular.module("Common").constant("jsonValue", {
     subscribeTerm: "/topic/jobs/term/",
 
     sendJobsSearch: "/app/jobs/search",
-    subscribeJobsSearch: "/topic/jobs/search"
+    subscribeJobsSearch: "/topic/jobs/search",
+
+    analyticsSkill: "/app/analytics/skill",
+    subscribeAnalyticsSkill: "/topic/analytics/skill"
   },
 
   //availableLanguageKeys: [{

@@ -84,7 +84,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
 
             if($(this).hasClass('active')){
                var termName =  $(this).find('.termcount').text().replace(/[0-9]/g, '');
-               var path = jsonValue.routerUris.analyticsTechnical + '/'+ termName;
+               var path = jsonValue.routerUris.analyticsSkill + '/'+ termName;
                $location.path(path);
                scope.$apply();
             }   

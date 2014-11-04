@@ -1,16 +1,8 @@
-angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory) {
-  var view = function (path) {
-    if (/\/jobs\/search\//i.test(path)) {
-      return jsonValue.views.jobsSearch;
-    }
-    else if (/\/jobs\/search/i.test(path)) {
-      return jsonValue.views.jobsSearchText;
-    }
-  }
+angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils) {
 
   var traps = {
     esc: function (e) {
-      switch (view($location.path())) {
+      switch (utils.getView($location.path())) {
         case jsonValue.views.jobsSearch:
           if ($("#companyVideoInfor").is(":visible")) {// ESC from others, such as: Video dialog, ...
             return;

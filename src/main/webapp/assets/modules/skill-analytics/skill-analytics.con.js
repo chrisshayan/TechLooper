@@ -1,5 +1,8 @@
-angular.module('Skill').controller('skillAnalyticsController', function($scope, skillFactory) {
+angular.module('Skill').controller('skillAnalyticsController', function($scope, skillFactory, jsonValue, connectionFactory) {
+  connectionFactory.initialize($scope);
+  connectionFactory.analyticsSkill();
 
+  //Animation page
   initTechnicalPage($(window).height());
   $(window).resize(function () {
     initTechnicalPage($(window).height());
@@ -18,5 +21,7 @@ angular.module('Skill').controller('skillAnalyticsController', function($scope, 
       easing: 'easeOutQuad'
     });
   }
+
   skillFactory.drawCircle($scope);
 });
+

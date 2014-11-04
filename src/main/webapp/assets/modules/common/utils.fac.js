@@ -1,6 +1,15 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
+    getView: function(path) {
+      if (/\/jobs\/search\//i.test(path)) {
+        return jsonValue.views.jobsSearch;
+      }
+      else if (/\/jobs\/search/i.test(path)) {
+        return jsonValue.views.jobsSearchText;
+      }
+    },
+
     sum: function (array, prop) {
       var total = 0;
       $.each(array, function (index, value) {
@@ -35,18 +44,4 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return val;
     }
   }
-
-  function centerModal() {
-    $(this).css('display', 'block');
-    var $dialog = $(this).find(".modal-dialog");
-    var offset = ($(window).height() - $dialog.height()) / 2;
-    $dialog.css("margin-top", offset);
-  }
-
-  $('.modal').on('show.bs.modal', centerModal);
-  $(window).on("resize", function () {
-    $('.modal:visible').each(centerModal);
-  });
-
-
 });
