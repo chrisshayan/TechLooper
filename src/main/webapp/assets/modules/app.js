@@ -49,6 +49,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     });
   }]);
 
+techlooper.run(function(shortcutFactory, animationFactory) {
+  shortcutFactory.initialize();
+});
+
 techlooper.directive("header", function () {
   return {
     restrict: "A",
