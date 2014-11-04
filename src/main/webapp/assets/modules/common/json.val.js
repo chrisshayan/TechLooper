@@ -9,7 +9,8 @@ angular.module("Common").constant("jsonValue", {
     terms: "Terms",
     term: "Term",
     changeChart: "Change Chart",
-    foundJobs : "Found Jobs"
+    foundJobs : "Found Jobs",
+    analyticsByTerm: "Analytics By Term"
   },
 
   routerUris: {
@@ -32,7 +33,10 @@ angular.module("Common").constant("jsonValue", {
     subscribeTerm: "/topic/jobs/term/",
 
     sendJobsSearch: "/app/jobs/search",
-    subscribeJobsSearch: "/topic/jobs/search"
+    subscribeJobsSearch: "/topic/jobs/search",
+
+    analyticsByTerm: "/app/analytics/term",
+    subscribeAnalyticsByTerm: "/topic/analytics/term"
   },
 
   //availableLanguageKeys: [{

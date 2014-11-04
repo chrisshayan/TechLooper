@@ -34,6 +34,24 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
   }
 
   var instance = {
+
+    // TODO: handshake with backend
+    analyticsByTerm: function(term) {
+      if (!stompClient.connected) {
+        callbacks.push({
+          fn: instance.analyticsByTerm,
+          args: json
+        });
+        return instance.connectSocket();
+      }
+
+      var subscription = stompClient.subscribe(socketUri.subscribeAnalyticsByTerm, function (response) {
+        scope.$emit(events.analyticsByTerm, JSON.parse(response.body));
+        subscription.unsubscribe();
+      });
+      stompClient.send(socketUri.analyticsByTerm, {}, {term: term});
+    },
+
     findJobs: function (json) {
       if (!stompClient.connected) {
         callbacks.push({
