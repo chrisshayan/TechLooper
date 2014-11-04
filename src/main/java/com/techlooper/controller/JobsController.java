@@ -11,9 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -72,6 +71,43 @@ public class JobsController {
                 new JobStatisticResponse.Builder().withCount(
                         vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(request.getTerm().toUpperCase())))
                         .build());
+    }
+
+    /**
+     * need to think a way how fetch TechnicalTerms dynamic, we might rework on
+     * business model
+     */
+    @SendTo("/topic/analytics/skill")
+    @MessageMapping("/analytics/skill")
+    public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
+        TechnicalTermEnum term = skillStatisticRequest.getTerm();
+        String period = skillStatisticRequest.getPeriod();
+        long dayGapOfPeriod = getDayGapOfPeriod(period);
+        LocalDate currentPeriod = LocalDate.now();
+        LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
+
+        Long totalJobs = vietnamWorksJobStatisticService.count(term);
+
+        List<SkillStatisticItem> items = new ArrayList<>();
+        TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
+            Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
+            Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
+            items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
+        });
+
+        return new SkillStatisticResponse(term, totalJobs, period, items);
+    }
+
+    private long getDayGapOfPeriod(String period) {
+        Calendar calendar = Calendar.getInstance();
+        switch (period) {
+            case "quarter":
+                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
+            case "month":
+                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            default:
+                return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
+        }
     }
 
     private VNWJobSearchRequest convertToVNWJobSearchRequest(JobSearchRequest jobSearchRequest) {
