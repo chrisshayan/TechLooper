@@ -1,6 +1,7 @@
-angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", function(utils, jsonValue) {
+angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$location', function(utils, jsonValue, $location) {
    var terms = [];
    var totalJobs = 0;
+   var scope;
 
    var mT = "70px",
       mL = "20px",
@@ -16,7 +17,8 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
 
    return {
 
-      initializeAnimation: function () {
+      initializeAnimation: function ($scope) {
+         scope = $scope;
          if (utils.isMobile()) {
             lPosition = mL;
             tPosition = mT;
@@ -79,6 +81,13 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", functio
 
          $('.circle').click(function (e) {
             e.preventDefault();
+
+            if($(this).hasClass('active')){
+               var termName =  $(this).find('.termcount').text().replace(/[0-9]/g, '');
+               var path = jsonValue.routerUris.analyticsSkill + '/'+ termName;
+               $location.path(path);
+               scope.$apply();
+            }   
 
             var sDotnet = $('.DOTNETTech').height(),
 

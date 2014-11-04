@@ -19,7 +19,8 @@
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
       "selectize" : "latest",
-      "mousetrap": "latest"
+      "mousetrap": "latest",
+      "d3": "latest"
       
    },
    "overrides": {
@@ -43,6 +44,9 @@
       },
       "mousetrap": {
          "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
+      },
+      "d3": {
+         "main": "d3.min.js"
       }
    }
 }

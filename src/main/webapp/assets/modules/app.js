@@ -7,15 +7,16 @@ angular.module("Chart", ["Common", "Bubble", "Pie", "Common", "Header"]);
 angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
+angular.module("Skill", []);
+
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute",
-  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs"
+  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
   function ($routeProvider, $translateProvider, $locationProvider, jsonVal) {
-    //uiSelectConfig.theme = 'select2';
 
     $translateProvider.useStaticFilesLoader({
       prefix: "modules/translation/messages_",
@@ -40,6 +41,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/jobs/search/:text", {
       templateUrl: "modules/job/searchResult.tem.html",
       controller: "searchResultController"
+    }).when("/analytics/skill/:term", {
+      templateUrl: "modules/skill-analytics/skill-analytics.tem.html",
+      controller: "skillAnalyticsController"
     }).otherwise({
       redirectTo: "/bubble-chart"
     });
@@ -47,14 +51,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
 
 techlooper.directive("header", function () {
   return {
-    restrict: "A", // This means that it will be used as an attribute and NOT as an element.
+    restrict: "A",
     replace: true,
     templateUrl: "modules/header/header.tem.html",
     controller: "headerController"
   }
 }).directive("findjobs", function () {
   return {
-    restrict: "A", // This means that it will be used as an attribute and NOT as an element.
+    restrict: "A",
     replace: true,
     templateUrl: "modules/job/findJobs.tem.html"
   }
