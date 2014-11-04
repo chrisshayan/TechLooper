@@ -5,7 +5,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
   var scope;
   var subscriptions = {};
   var isConnecting = false;
-    
+
   var paths = window.location.pathname.split('/');
   paths.pop();
   var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
@@ -35,21 +35,27 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
   var instance = {
 
-    // TODO: handshake with backend
-    analyticsSkill: function(term) {
-      //if (!stompClient.connected) {
-      //  callbacks.push({
-      //    fn: instance.analyticsSkill,
-      //    args: json
-      //  });
-      //  return instance.connectSocket();
-      //}
-      //
+    analyticsSkill: function (term) {
+      if (!stompClient.connected) {
+        callbacks.push({
+          fn: instance.analyticsSkill,
+          args: term
+        });
+        return instance.connectSocket();
+      }
+
+      // TODO: sample code
+      $http.get('_/vnw-jobs-count-skill.json').then(function (res) {
+        scope.$emit(events.analyticsSkill, res.data);
+      });
+
+
+
       //var subscription = stompClient.subscribe(socketUri.subscribeAnalyticsSkill, function (response) {
       //  scope.$emit(events.analyticsSkill, JSON.parse(response.body));
       //  subscription.unsubscribe();
       //});
-      //stompClient.send(socketUri.analyticsSkill, {}, {term: term});
+      //stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term}));
     },
 
     findJobs: function (json) {
@@ -74,7 +80,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
       scope = $scope;
     },
 
-    registerTermsSubscription: function(terms) {
+    registerTermsSubscription: function (terms) {
       $.each(terms, function (index, term) {
         var uri = socketUri.subscribeTerm + term.term;
         var subscription = subscriptions[uri];

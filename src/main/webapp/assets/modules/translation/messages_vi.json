@@ -4,7 +4,8 @@
   "note": "Số lượng công việc được tìm thấy.",
   "tagLine": "Career Analytics. Open Source. Awesome!",
   "loadMore": "Scroll Down to Load More",
-  "loading": "Loading data..."
+  "loading": "Loading data...",
+  "searchTextPlaceholder": "Nhập từ cần tìm và nhấn Enter..."
 }
 
 

@@ -1,10 +1,5 @@
 angular.module("Common").constant("jsonValue", {
 
-  keyCode: {
-    RETURN: 13,
-    ESC: 27
-  },
-
   events: {
     terms: "Terms",
     term: "Term",
@@ -23,7 +18,9 @@ angular.module("Common").constant("jsonValue", {
   views: {
     jobsSearch: "jobSearch",
     jobsSearchText: "jobSearchText",
-    analyticsSkill: "analyticsSkill"
+    analyticsSkill: "analyticsSkill",
+    bubbleChart: "bubbleChart",
+    pieChart: "pieChart"
   },
 
   socketUri: {
@@ -40,14 +37,6 @@ angular.module("Common").constant("jsonValue", {
     subscribeAnalyticsSkill: "/topic/analytics/skill"
   },
 
-  //availableLanguageKeys: [{
-  //  "name": "EN",
-  //  "value": "en"
-  //}, {
-  //  "name": "VI",
-  //  "value": "vi"
-  //}],
-  //
   mPositionDefault: [{
     "data": [{
       "top": "290px",
