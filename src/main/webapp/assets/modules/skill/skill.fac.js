@@ -1,12 +1,11 @@
 angular.module('Skill').factory('skillFactory', function(){
-
-	start();
-    function start() {
-       skillChart($('.skill-item-block'))
-        .label("RADIAL 1")
+	return {
+		drawCircle: function($scope) {
+        skillChart($('.skill-item-container'))
+        .label("Java")
         .diameter(150)
         .value(78)
         .render();
-    }
-
+	    }
+	}
 });

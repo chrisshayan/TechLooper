@@ -1,4 +1,4 @@
-angular.module('Skill').controller('skillAnalyticsController', function() {
+angular.module('Skill').controller('skillAnalyticsController', function($scope, skillFactory) {
 
   initTechnicalPage($(window).height());
   $(window).resize(function () {
@@ -18,4 +18,5 @@ angular.module('Skill').controller('skillAnalyticsController', function() {
       easing: 'easeOutQuad'
     });
   }
+  skillFactory.drawCircle($scope);
 });
