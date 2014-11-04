@@ -9,7 +9,4 @@ angular.module('Skill').controller('skillAnalyticsController',
     connectionFactory.analyticsSkill($routeParams.term);
 
     animationFactory.animatePage();
-
-    //skillFactory.drawCircle($scope);
-  });
-
+});
