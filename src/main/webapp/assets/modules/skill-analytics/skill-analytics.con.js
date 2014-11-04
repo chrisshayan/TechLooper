@@ -1,4 +1,4 @@
-angular.module('Skill').controller('skillAnalyticsController', function($scope, skillFactory, jsonValue, connectionFactory) {
+angular.module('Skill').controller('skillAnalyticsController', function($scope, jsonValue, connectionFactory) {
   connectionFactory.initialize($scope);
   connectionFactory.analyticsSkill();
 
@@ -21,7 +21,5 @@ angular.module('Skill').controller('skillAnalyticsController', function($scope, 
       easing: 'easeOutQuad'
     });
   }
-
-  skillFactory.drawCircle($scope);
 });
 

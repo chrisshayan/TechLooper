@@ -1,8 +1,11 @@
-angular.module("Skill").directive("skillcircle", function () {
+angular.module("Skill").directive("skillcircle", function (skillCircleFactory) {
   return {
     restrict: "A",
     replace: false,
-    templateUrl: "modules/skill-circle/skill-circle.tem.html"
+    templateUrl: "modules/skill-circle/skill-circle.tem.html",
+    link: function(){
+      skillCircleFactory.drawCircle();
+    }
   }
 }).directive("skillchart", function () {
   return {
