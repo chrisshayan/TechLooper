@@ -45,17 +45,17 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
       }
 
       // TODO: sample code
-      $http.get('_/vnw-jobs-count-skill.json').then(function (res) {
-        scope.$emit(events.analyticsSkill, res.data);
-      });
-
-
-
-      //var subscription = stompClient.subscribe(socketUri.subscribeAnalyticsSkill, function (response) {
-      //  scope.$emit(events.analyticsSkill, JSON.parse(response.body));
-      //  subscription.unsubscribe();
+      //$http.get('_/vnw-jobs-count-skill.json').then(function (res) {
+      //  scope.$emit(events.analyticsSkill, res.data);
       //});
-      //stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term}));
+
+
+
+      var subscription = stompClient.subscribe(socketUri.subscribeAnalyticsSkill, function (response) {
+        scope.$emit(events.analyticsSkill, JSON.parse(response.body));
+        subscription.unsubscribe();
+      });
+      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term}));
     },
 
     findJobs: function (json) {
