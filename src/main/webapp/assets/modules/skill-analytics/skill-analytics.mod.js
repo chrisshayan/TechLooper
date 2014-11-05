@@ -1,4 +1,4 @@
-angular.module("Skill").directive("skillcircle", function (skillCircleFactory) {
+angular.module("Skill").directive("skillcircle", function () {
   return {
     restrict: "E",
     templateUrl: "modules/skill-circle/skill-circle.tem.html",
@@ -7,7 +7,6 @@ angular.module("Skill").directive("skillcircle", function (skillCircleFactory) {
       term: "=",
       top10: "="
     }
-
   }
 }).directive("skillchart", function () {
   return {
