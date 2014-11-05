@@ -19,8 +19,8 @@
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
       "selectize" : "latest",
-      "mousetrap": "latest"
-      
+      "mousetrap": "latest",
+      "JSONPath": "latest"
    },
    "overrides": {
       "sockjs": {

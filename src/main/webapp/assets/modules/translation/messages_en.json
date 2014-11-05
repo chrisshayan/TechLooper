@@ -4,5 +4,6 @@
   "note": "The digits are number of jobs.",
   "tagLine": "Career Analytics. Open Source. Awesome!",
   "loadMore": "Scroll Down to Load More",
-  "loading": "Loading data..."
+  "loading": "Loading data...",
+  "searchTextPlaceholder": "Enter text to search..."
 }

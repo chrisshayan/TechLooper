@@ -1,5 +1,9 @@
 # Created by .gitignore support plugin (hsz.mobi)
 
+# generated coffee srcipt
+.coffee.js
+.js.map
+
 # nodejs
 bower_components/
 node_modules/
@@ -36,9 +40,7 @@ static/
 *.log
 .brackets.json
 sample/
-Main.java
-job-search-response.json.ftl
-#secret.properties
+_
 
 #Gruntfile.js
 generate-resources/

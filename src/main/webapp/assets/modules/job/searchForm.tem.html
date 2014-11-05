@@ -21,7 +21,7 @@
     <div class="technical-Skill-List">
       <ul>
         <li ng-repeat="skill in skills">
-          <img ng-src="images/{{skill.logo}}" title="{{skill.text}}">
+          <img ng-src="images/{{skill.logo}}" title="{{skill.text}}" ng-click="selectSKill(skill.text)">
         </li>
       </ul>
     </div>

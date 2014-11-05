@@ -1,21 +1,26 @@
 angular.module("Common").constant("jsonValue", {
 
-  keyCode: {
-    RETURN: 13,
-    ESC: 27
-  },
-
   events: {
     terms: "Terms",
     term: "Term",
     changeChart: "Change Chart",
-    foundJobs : "Found Jobs"
+    foundJobs : "Found Jobs",
+    analyticsSkill: "Analytics Skill"
   },
 
   routerUris: {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
-    jobsSearch: "/jobs/search"
+    jobsSearch: "/jobs/search",
+    analyticsSkill: "/analytics/skill"
+  },
+
+  views: {
+    jobsSearch: "jobSearch",
+    jobsSearchText: "jobSearchText",
+    analyticsSkill: "analyticsSkill",
+    bubbleChart: "bubbleChart",
+    pieChart: "pieChart"
   },
 
   socketUri: {
@@ -26,17 +31,12 @@ angular.module("Common").constant("jsonValue", {
     subscribeTerm: "/topic/jobs/term/",
 
     sendJobsSearch: "/app/jobs/search",
-    subscribeJobsSearch: "/topic/jobs/search"
+    subscribeJobsSearch: "/topic/jobs/search",
+
+    analyticsSkill: "/app/analytics/skill",
+    subscribeAnalyticsSkill: "/topic/analytics/skill"
   },
 
-  //availableLanguageKeys: [{
-  //  "name": "EN",
-  //  "value": "en"
-  //}, {
-  //  "name": "VI",
-  //  "value": "vi"
-  //}],
-  //
   mPositionDefault: [{
     "data": [{
       "top": "290px",

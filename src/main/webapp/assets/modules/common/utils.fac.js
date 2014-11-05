@@ -1,6 +1,35 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
+    getTopItems: function(array, attr, n) {
+      var clone = array.slice(0);
+      clone.sort(function(x, y) {
+        if (x[prop] === y[prop]) return 0;
+        else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
+        else return -1;
+      });
+      return clone.slice(0, n || 1);
+    },
+
+    getView: function($path) {
+      var path = ($path === undefined) ? $location.path() : $path;
+      if (/\/jobs\/search\//i.test(path)) {
+        return jsonValue.views.jobsSearchText;
+      }
+      else if (/\/jobs\/search/i.test(path)) {
+        return jsonValue.views.jobsSearch;
+      }
+      else if (/\/bubble-chart/.test(path)) {
+        return jsonValue.views.bubbleChart;
+      }
+      else if (/\/pie-chart/.test(path)) {
+        return jsonValue.views.pieChart;
+      }
+      else if (/\/analytics\/skill/.test(path)) {
+        return jsonValue.views.analyticsSkill;
+      }
+    },
+
     sum: function (array, prop) {
       var total = 0;
       $.each(array, function (index, value) {
@@ -35,18 +64,4 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return val;
     }
   }
-
-  function centerModal() {
-    $(this).css('display', 'block');
-    var $dialog = $(this).find(".modal-dialog");
-    var offset = ($(window).height() - $dialog.height()) / 2;
-    $dialog.css("margin-top", offset);
-  }
-
-  $('.modal').on('show.bs.modal', centerModal);
-  $(window).on("resize", function () {
-    $('.modal:visible').each(centerModal);
-  });
-
-
 });

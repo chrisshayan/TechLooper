@@ -11,10 +11,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class JobsController {
@@ -43,10 +43,10 @@ public class JobsController {
 
     @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
-        for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+        Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
             messagingTemplate.convertAndSend("/topic/jobs/term/" + term.name(), new JobStatisticResponse.Builder()
                     .withCount(vietnamWorksJobStatisticService.count(term)).build());
-        }
+        });
     }
 
     /**
@@ -56,11 +56,11 @@ public class JobsController {
     @SendTo("/topic/jobs/terms")
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
-        List<TechnicalTermResponse> terms = new LinkedList<>();
-        for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
+        List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
+        Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
             terms.add(new TechnicalTermResponse.Builder().withTerm(term)
                     .withCount(vietnamWorksJobStatisticService.count(term)).build());
-        }
+        });
         return terms;
     }
 
@@ -71,6 +71,43 @@ public class JobsController {
                 new JobStatisticResponse.Builder().withCount(
                         vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(request.getTerm().toUpperCase())))
                         .build());
+    }
+
+    /**
+     * need to think a way how fetch TechnicalTerms dynamic, we might rework on
+     * business model
+     */
+    @SendTo("/topic/analytics/skill")
+    @MessageMapping("/analytics/skill")
+    public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
+        TechnicalTermEnum term = skillStatisticRequest.getTerm();
+        String period = skillStatisticRequest.getPeriod();
+        long dayGapOfPeriod = getDayGapOfPeriod(period);
+        LocalDate currentPeriod = LocalDate.now();
+        LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
+
+        Long totalJobs = vietnamWorksJobStatisticService.count(term);
+
+        List<SkillStatisticItem> items = new ArrayList<>();
+        TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
+            Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
+            Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
+            items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
+        });
+
+        return new SkillStatisticResponse(term, totalJobs, period, items);
+    }
+
+    private long getDayGapOfPeriod(String period) {
+        Calendar calendar = Calendar.getInstance();
+        switch (period) {
+            case "quarter":
+                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
+            case "month":
+                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            default:
+                return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
+        }
     }
 
     private VNWJobSearchRequest convertToVNWJobSearchRequest(JobSearchRequest jobSearchRequest) {
@@ -84,20 +121,8 @@ public class JobsController {
     private JobSearchResponse convertToJobSearchResponse(VNWJobSearchResponse vnwJobSearchResponse) {
         final JobSearchResponse jobSearchResponse = new JobSearchResponse();
         jobSearchResponse.setTotal(vnwJobSearchResponse.getData().getTotal());
-        final Set<JobResponse> jobs = new HashSet<>();
-        vnwJobSearchResponse.getData().getJobs().stream().forEach(item -> {
-            final JobResponse.Builder builder = new JobResponse.Builder();
-            jobs.add(builder.withCompany(item.getCompany())
-                            .withLevel(item.getLevel())
-                            .withLocation(item.getLocation())
-                            .withLogoUrl(item.getLogoUrl())
-                            .withPostedOn(item.getPostedOn())
-                            .withTitle(item.getTitle())
-                            .withUrl(item.getUrl())
-                            .withVideoUrl(item.getVideoUrl())
-                            .build());
-        });
-        jobSearchResponse.setJobs(jobs);
+        final Stream<VNWJobSearchResponseDataItem> responseDataItemStream = vnwJobSearchResponse.getData().getJobs().stream();
+        jobSearchResponse.setJobs(responseDataItemStream.map(item -> item.toJobResponse()).collect(Collectors.toSet()));
         return jobSearchResponse;
     }
 }

@@ -1,9 +1,9 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, shortcutFactory) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory) {
   var scope, searchText, textArray;
 
   var $$ = {
     doSearch: function () {
-      // TODO: change body background
+      // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
       scope.$apply();
@@ -26,6 +26,10 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   }
 
   var instance = {
+    getSearchText: function() {
+      return searchText;
+    },
+
     initSearchTextbox: function ($scope, $textArray) {
       scope = $scope;
       textArray = $textArray;
@@ -45,11 +49,11 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         valueField: "text",
         searchField: ['text'],
         labelField: "text",
-        placeholder: "Enter to search...",
+        //placeholder: "Enter to search...",
         createFilter: function (input) {
           var ok = true;
           $.each(this.options, function (index, value) {
-            if (value.text.toLowerCase() === input) {
+            if (value.text.toLowerCase() === input.toLowerCase()) {
               ok = false;
               return false;
             }
@@ -68,16 +72,25 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       })[0].selectize;
 
+      $translate("searchTextPlaceholder").then(function(translation){
+        searchText.setPlaceholder(translation);
+      });
+
       if ($.isArray(textArray)) {
         var options = [];
+        var values = [];
         $.each(textArray, function (i, text) {
           var tag = utils.findBy(jsonValue.technicalSkill, "text", text);
           if (tag === undefined) {
             options.push({text: text});
+            values.push(text);
+          }
+          else {
+            values.push(tag.text);
           }
         });
         searchText.addOption(options);
-        searchText.setValue(textArray);
+        searchText.setValue(values);
       }
 
       $('.btn-search').click($$.doSearch);
@@ -89,24 +102,17 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
 
+      searchText.focusNoDropdown();
       $$.alignButtonSearch();
     },
 
-    openSearchForm: function (h) {
-      $('.search-block').animate({
-        'min-height': h,
-        bottom: 0
-      }, {
-        duration: '10000',
-        easing: 'easeOutQuad'
-      });
-    },
     changeBodyColor: function () {
       var url = jsonValue.routerUris.jobsSearch + searchText.getValue();
       if ($location.path() == url) {
         $('body').css("background-color", "#eeeeee");
       }
     },
+
     hightlightSKill: function () {
       searchText.on("item_add", function (value, item) {
         $('.technical-Skill-List').find('img').each(function () {

@@ -15,7 +15,8 @@
     "grunt-contrib-copy": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-bower-install-simple": "latest",
-    "grunt-ng-annotate": "latest"
+    "grunt-ng-annotate": "latest",
+    "grunt-contrib-coffee": "latest"
   },
   "assets": "src/main/webapp/assets/",
   "public": "src/main/webapp/public/"

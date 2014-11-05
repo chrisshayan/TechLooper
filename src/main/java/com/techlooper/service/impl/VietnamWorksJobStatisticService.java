@@ -3,14 +3,21 @@ package com.techlooper.service.impl;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.util.stream.Stream;
 
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
@@ -74,10 +81,29 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     public Long countTechnicalJobs() {
-        Long count = 0L;
-        for (TechnicalTermEnum term : TechnicalTermEnum.values()) {
-            count += count(term);
-        }
-        return count;
+        return Stream.of(TechnicalTermEnum.values()).mapToLong(term -> count(term)).sum();
+    }
+
+    /**
+     * Counting number of jobs by technical term and its skill
+     *
+     * @param technicalTermEnum
+     * @param skill
+     * @param approvedDate
+     * @return number of jobs
+     * @see com.techlooper.model.TechnicalTermEnum
+     */
+    @Override
+    public Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate approvedDate) {
+        final FilterBuilder periodQueryFilter = FilterBuilders.rangeFilter("approvedDate").lte(approvedDate.toString());
+        final QueryBuilder skillQuery = multiMatchQuery(technicalTermEnum + " " + skill,
+                "jobTitle", "jobDescription", "skillExperience")
+                .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS)
+                .operator(Operator.AND);
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(filteredQuery(skillQuery, periodQueryFilter))
+                .withIndices("vietnamworks")
+                .withSearchType(SearchType.COUNT).build();
+        return elasticsearchTemplate.count(searchQuery);
     }
 }
