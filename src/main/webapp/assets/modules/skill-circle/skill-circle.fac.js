@@ -2,11 +2,11 @@ angular.module('Skill').factory('skillCircleFactory', function() {
     return {
         drawCircle: function(data) {
             var colors = [
-                    ['#D3B6C6', '#4B253A'],
-                    ['#FCE6A4', '#EFB917'],
-                    ['#BEE3F7', '#45AEEA'],
-                    ['#F8F9B6', '#D2D558'],
-                    ['#F4BCBF', '#D43A43']
+                    ['#ccc', '#4B253A'],
+                    ['#ccc', '#EFB917'],
+                    ['#ccc', '#45AEEA'],
+                    ['#ccc', '#D2D558'],
+                    ['#ccc', '#D43A43']
                 ];
             $.each(data, function(index, value){
                 var child = document.getElementById(value.skill);
