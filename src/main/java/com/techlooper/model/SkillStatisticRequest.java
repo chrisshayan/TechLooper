@@ -5,7 +5,7 @@ package com.techlooper.model;
  */
 public class SkillStatisticRequest {
 
-    private TechnicalTermEnum term;
+    private String term;
 
     private String period;
 
@@ -17,11 +17,11 @@ public class SkillStatisticRequest {
         this.period = period;
     }
 
-    public TechnicalTermEnum getTerm() {
+    public String getTerm() {
         return term;
     }
 
-    public void setTerm(TechnicalTermEnum term) {
+    public void setTerm(String term) {
         this.term = term;
     }
 }

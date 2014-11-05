@@ -80,32 +80,42 @@ public class JobsController {
     @SendTo("/topic/analytics/skill")
     @MessageMapping("/analytics/skill")
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
-        TechnicalTermEnum term = skillStatisticRequest.getTerm();
-        String period = skillStatisticRequest.getPeriod();
-        int dayGapOfPeriod = getDayGapOfPeriod(period);
-        LocalDate currentPeriod = LocalDate.now();
-        LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
+        Optional<TechnicalTermEnum> termOptional = Optional.ofNullable(
+                TechnicalTermEnum.lookUp(skillStatisticRequest.getTerm().toUpperCase()));
+        TechnicalTermEnum term = termOptional.get();
 
-        Long totalJobs = vietnamWorksJobStatisticService.count(term);
+        if (termOptional.isPresent() && TechnicalSkillEnumMap.containsKey(term)) {
+            PeriodEnum period = PeriodEnum.lookUp(skillStatisticRequest.getPeriod().toUpperCase());
 
-        List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
-        TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
-            Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
-            Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
-            items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
-        });
+            int dayGapOfPeriod = getDayGapOfPeriod(period);
+            LocalDate currentPeriod = LocalDate.now();
+            LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
 
-        return new SkillStatisticResponse(term, totalJobs, period, items);
+            Long totalJobs = vietnamWorksJobStatisticService.count(term);
+
+            List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
+            TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
+                Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
+                Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
+                items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
+            });
+
+            return new SkillStatisticResponse(skillStatisticRequest.getTerm(), totalJobs, period.value(), items);
+        }
+
+        SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();
+        defaultObject.setJobTerm(skillStatisticRequest.getTerm());
+        return SkillStatisticResponse.getDefaultObject();
     }
 
-    private int getDayGapOfPeriod(String period) {
+    private int getDayGapOfPeriod(PeriodEnum period) {
         Calendar calendar = Calendar.getInstance();
         Optional periodOptional = Optional.ofNullable(period);
         if (periodOptional.isPresent()) {
             switch (period) {
-                case "quarter":
+                case QUARTER:
                     return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
-                case "month":
+                case MONTH:
                     return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
                 default:
                     return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);

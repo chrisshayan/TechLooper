@@ -22,4 +22,8 @@ public class TechnicalSkillEnumMap {
         return technicalSkill.get(term);
     }
 
+    public static boolean containsKey(Object key) {
+        return technicalSkill.containsKey(key);
+    }
+
 }
