@@ -1,16 +1,6 @@
-angular.module('Skill').directive('onFinishRender', function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function () {
-                    scope.$emit(attr.onFinishRender);
-                });
-            }
-        }
-    }
-}).controller('skillCircleController', function ($scope, skillCircleFactory) {
-  var data = {
+angular.module('Skill').controller('skillCircleController', 
+	function ($scope, skillCircleFactory) {
+    var data = {
 	    "jobTerm": "java",
 	    "count": "200",
 	    "period": "week",
