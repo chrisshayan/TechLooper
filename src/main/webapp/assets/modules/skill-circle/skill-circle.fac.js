@@ -8,14 +8,14 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
         colorIndex = (index >= jsonValue.skillColors.length) ? 0 : colorIndex + 1;
         var circle = Circles.create({
           id: "circle-" + skill.skill,
-          radius: 30,
+          radius: 40,
           value: skill.currentCount,
           maxValue: term.count,
-          width: 5,
+          width: 13,
           text: function (value) {
             return value;
           },
-          colors: ["#D3B6C6", jsonValue.skillColors[colorIndex]],
+          colors: ["#343233", jsonValue.skillColors[colorIndex]],
           duration: 400
         });
         circles.push(circle);

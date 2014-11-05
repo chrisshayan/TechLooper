@@ -5,7 +5,9 @@
   </div>
   <div class="term-item">
     <div id="canvas" class="top10Circles">
-      <div class="circle" ng-repeat="item in top10" id="circle-{{item.skill}}"></div>
+      <div class="circle" ng-repeat="item in top10" id="circle-{{item.skill}}">
+      	<div class="skill-name">{{item.skill}}</div>
+      </div>
     </div>
   </div>
 </div>

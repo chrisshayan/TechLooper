@@ -1,6 +1,6 @@
 angular.module("Common").constant("jsonValue", {
 
-  skillColors: ["#EFB917", "#45AEEA", "#D2D558", "#D43A43", "#4B253A", "#EFB917", "#45AEEA", "#D2D558", "#D43A43"],
+  skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "00eaff"],
 
   events: {
     terms: "Terms",
