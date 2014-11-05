@@ -111,8 +111,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             final FilterBuilder periodQueryFilter = FilterBuilders.rangeFilter("approvedDate").lte(approvedDate.toString());
             final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
 
+            FilterBuilder filterBuilder = periodQueryFilter;
+            if (approvedDate.isEqual(LocalDate.now())) {
+                filterBuilder = FilterBuilders.andFilter(periodQueryFilter, isActiveJobFilter);
+            }
             final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                    .withQuery(filteredQuery(skillSearchQuery, FilterBuilders.andFilter(periodQueryFilter, isActiveJobFilter)))
+                    .withQuery(filteredQuery(skillSearchQuery, filterBuilder))
                     .withIndices(ES_VIETNAMWORKS_INDEX)
                     .withSearchType(SearchType.COUNT).build();
             return elasticsearchTemplate.count(searchQuery);
