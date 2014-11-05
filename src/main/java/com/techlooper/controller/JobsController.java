@@ -28,6 +28,9 @@ public class JobsController {
     @Resource
     private SimpMessagingTemplate messagingTemplate;
 
+    @Resource
+    private TechnicalSkillEnumMap technicalSkillEnumMap;
+
     @Value("${vnw.api.configuration.category.it.software.en}")
     private String category;
 
@@ -84,7 +87,7 @@ public class JobsController {
                 TechnicalTermEnum.lookUp(skillStatisticRequest.getTerm().toUpperCase()));
         TechnicalTermEnum term = termOptional.get();
 
-        if (termOptional.isPresent() && TechnicalSkillEnumMap.containsKey(term)) {
+        if (termOptional.isPresent() && technicalSkillEnumMap.containsKey(term)) {
             PeriodEnum period = PeriodEnum.lookUp(skillStatisticRequest.getPeriod().toUpperCase());
 
             int dayGapOfPeriod = getDayGapOfPeriod(period);
@@ -94,7 +97,7 @@ public class JobsController {
             Long totalJobs = vietnamWorksJobStatisticService.count(term);
 
             List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
-            TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
+            technicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
                 Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
                 Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
                 items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));

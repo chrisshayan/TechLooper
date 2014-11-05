@@ -15,7 +15,8 @@ import java.util.Arrays;
 @ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
         @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties")})
+        @PropertySource("classpath:secret.properties"),
+        @PropertySource("classpath:jobSkill.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)

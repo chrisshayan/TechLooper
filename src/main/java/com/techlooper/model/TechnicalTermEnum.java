@@ -25,7 +25,7 @@ public enum TechnicalTermEnum {
     /**
      * PROJECT_MANAGER refers to the job which is hiring Project Managers
      */
-    PROJECT_MANAGER("project manager"),
+    PROJECT_MANAGER("project_manager"),
 
     /**
      * PYTHON refers to the job which is hiring Python developers
