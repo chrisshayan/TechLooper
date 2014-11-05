@@ -1,9 +1,17 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
-    getTopItems: function(array, attr, n) {
+    getTopItems: function(array, prop, n) {
       var clone = array.slice(0);
       clone.sort(function(x, y) {
+
+        if ($.isArray(prop)) {
+
+        }
+        else {
+
+        }
+
         if (x[prop] === y[prop]) return 0;
         else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
         else return -1;
