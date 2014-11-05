@@ -1,20 +1,15 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
-    getTopItems: function(array, prop, n) {
+    getTopItems: function(array, props, n) {
       var clone = array.slice(0);
       clone.sort(function(x, y) {
-
-        if ($.isArray(prop)) {
-
-        }
-        else {
-
-        }
-
-        if (x[prop] === y[prop]) return 0;
-        else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
-        else return -1;
+        var dx = 0, dy = 0;
+        $.each(props, function(i, p) {
+          dx = Math.abs(dx - x[p]);
+          dy = Math.abs(dy - y[p]);
+        });
+        return dy - dx;
       });
       return clone.slice(0, n || 1);
     },
