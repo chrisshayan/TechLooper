@@ -83,20 +83,25 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
     /* @subscription */
     registerTermsSubscription: function (terms) {
       $.each(terms, function (index, term) {
-        var uri = socketUri.subscribeTerm + term.term;
-        var subscription = subscriptions[uri];
-        if (subscription !== undefined) {
-          return true;
-        }
-        subscription = stompClient.subscribe(uri, function (response) {
-          scope.$emit(events.term + term.term, {
-            count: JSON.parse(response.body).count,
-            term: term.term,
-            termName: term.name
-          });
-        });
-        subscriptions[uri] = subscription;
+        instance.subscribeTerm(term);
       });
+    },
+
+    // {term: "JAVA", name: "java"}
+    subscribeTerm: function(term) {
+      var uri = socketUri.subscribeTerm + term.term;
+      var subscription = subscriptions[uri];
+      if (subscription !== undefined) {
+        return true;
+      }
+      subscription = stompClient.subscribe(uri, function (response) {
+        scope.$emit(events.term + term.term, {
+          count: JSON.parse(response.body).count,
+          term: term.term,
+          termName: term.name
+        });
+      });
+      subscriptions[uri] = subscription;
     },
 
     connectSocket: function () {

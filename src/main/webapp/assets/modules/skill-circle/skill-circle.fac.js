@@ -1,24 +1,39 @@
-angular.module('Skill').factory('skillCircleFactory', function() {
-    return {
-        drawCircle: function(data) {
-            var colors = [
-                    ['#ccc', '#4B253A'],
-                    ['#ccc', '#EFB917'],
-                    ['#ccc', '#45AEEA'],
-                    ['#ccc', '#D2D558'],
-                    ['#ccc', '#D43A43']
-                ];
-            $.each(data, function(index, value){
-                var child = document.getElementById(value.skill);
-                percentage = 31.42 + (index * 9.84),  //% number
-                circle = Circles.create({
-                    id: child.id,
-                    value: percentage,
+angular.module("Skill").factory("skillCircleFactory", function(jsonValue) {
+    var circles = [];
+    var $$ = {
+        initialize: function(term, skills) {
+            circles.length = 0;
+            var colorIndex = 0;
+            $.each(skills, function(index, skill) {
+                colorIndex = (index >= jsonValue.skillColors.length) ? 0 : colorIndex + 1;
+                var circle = Circles.create({
+                    id: "circle-" + skill.skill,
                     radius: 30,
+                    value: skill.currentCount,
+                    maxValue: term.count,
                     width: 5,
-                    colors: colors[index - 1]
+                    text: function(value) {
+                        return value;
+                    },
+                    colors: ["#D3B6C6", jsonValue.skillColors[colorIndex]],
+                    duration: 400
                 });
+                circles.push(circle);
             });
+        }
+    }
+
+    return {
+        /*
+         @param term
+         @see src/test/resources/expect/vnw-jobs-count-skill.json
+         */
+        draw: function(term, skills) {
+            if (circles.length === 0) {
+                return $$.initialize(term, skills);
+            }
+
+            //update
         }
 
     }
