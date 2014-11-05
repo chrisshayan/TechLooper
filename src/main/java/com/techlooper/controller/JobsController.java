@@ -82,13 +82,13 @@ public class JobsController {
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
         TechnicalTermEnum term = skillStatisticRequest.getTerm();
         String period = skillStatisticRequest.getPeriod();
-        long dayGapOfPeriod = getDayGapOfPeriod(period);
+        int dayGapOfPeriod = getDayGapOfPeriod(period);
         LocalDate currentPeriod = LocalDate.now();
         LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
 
         Long totalJobs = vietnamWorksJobStatisticService.count(term);
 
-        List<SkillStatisticItem> items = new ArrayList<>();
+        List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
         TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
             Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
             Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
@@ -98,15 +98,20 @@ public class JobsController {
         return new SkillStatisticResponse(term, totalJobs, period, items);
     }
 
-    private long getDayGapOfPeriod(String period) {
+    private int getDayGapOfPeriod(String period) {
         Calendar calendar = Calendar.getInstance();
-        switch (period) {
-            case "quarter":
-                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
-            case "month":
-                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            default:
-                return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
+        Optional periodOptional = Optional.ofNullable(period);
+        if (periodOptional.isPresent()) {
+            switch (period) {
+                case "quarter":
+                    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
+                case "month":
+                    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                default:
+                    return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
+            }
+        } else {
+            return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
         }
     }
 
