@@ -1,4 +1,4 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory) {
   var scope, searchText, textArray;
 
   var $$ = {
@@ -75,7 +75,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $translate("searchTextPlaceholder").then(function(translation){
         searchText.setPlaceholder(translation);
       });
-      //setPlaceholder
 
       if ($.isArray(textArray)) {
         var options = [];
@@ -107,21 +106,13 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $$.alignButtonSearch();
     },
 
-    //openSearchForm: function (h) {
-    //  $('.search-block').animate({
-    //    'min-height': h,
-    //    bottom: 0
-    //  }, {
-    //    duration: '10000',
-    //    easing: 'easeOutQuad'
-    //  });
-    //},
     changeBodyColor: function () {
       var url = jsonValue.routerUris.jobsSearch + searchText.getValue();
       if ($location.path() == url) {
         $('body').css("background-color", "#eeeeee");
       }
     },
+
     hightlightSKill: function () {
       searchText.on("item_add", function (value, item) {
         $('.technical-Skill-List').find('img').each(function () {
