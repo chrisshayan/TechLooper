@@ -53,7 +53,9 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
       });
       subscriptions[uri] = subscription;
-      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "week"}));
+
+      //TODO "quarter" is used to test only, need to be changed to "week" later
+      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "quarter"}));
     },
 
     /* @subscription */

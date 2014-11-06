@@ -22,43 +22,44 @@ import java.io.IOException;
 
 @Configuration
 @PropertySources({
-  @PropertySource("classpath:techlooper.properties"),
-  @PropertySource("classpath:secret.properties")})
+        @PropertySource("classpath:techlooper.properties"),
+        @PropertySource("classpath:secret.properties"),
+        @PropertySource("classpath:jobSkill.properties")})
 public class ConfigurationTest implements ApplicationContextAware {
 
-  private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-  @Bean
-  public String vnwConfigurationJson() throws IOException {
-    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-configuration.json").getInputStream(), "UTF-8");
-  }
+    @Bean
+    public String vnwConfigurationJson() throws IOException {
+        return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-configuration.json").getInputStream(), "UTF-8");
+    }
 
-  @Bean
-  public String vnwJobSearchJson() throws IOException {
-    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs.json").getInputStream(), "UTF-8");
-  }
+    @Bean
+    public String vnwJobSearchJson() throws IOException {
+        return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs.json").getInputStream(), "UTF-8");
+    }
 
-  @Bean
-  public String vnwJobSearchRequestJson() throws IOException {
-    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs-request.json").getInputStream(), "UTF-8");
-  }
+    @Bean
+    public String vnwJobSearchRequestJson() throws IOException {
+        return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs-request.json").getInputStream(), "UTF-8");
+    }
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-  @Bean
-  public JobSearchService jobSearchService() {
-    return new VietnamWorksJobSearchService();
-  }
+    @Bean
+    public JobSearchService jobSearchService() {
+        return new VietnamWorksJobSearchService();
+    }
 
-  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
-  }
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

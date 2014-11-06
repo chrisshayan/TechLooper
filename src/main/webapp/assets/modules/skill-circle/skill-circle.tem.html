@@ -1,11 +1,12 @@
 <div class="skill-items-block">
-  <div class="term-infor">
-    <span class="percent"></span>
-    <span class="number"><strong>{{term.count}}</strong> {{term.jobTerm}}</span>
-  </div>
-  <div class="term-item">
-    <div id="canvas" class="top10Circles">
-      <div ng-repeat="item in top10" data-index="{{$index}}" class="circle"  id="circle-{{$index}}"></div>
+  <div class="top10Circles">
+    <div class="term-infor">
+      <span class="percent"></span>
+                <span class="number">
+                    <strong>{{term.count}}</strong>{{term.jobTerm}}</span>
+    </div>
+    <div class="circle" ng-repeat="item in top10" id="circle-{{$index}}" data-index="{{$index}}">
+      <div class="skill-name">{{item.skill}}</div>
     </div>
   </div>
 </div>

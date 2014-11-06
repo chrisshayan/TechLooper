@@ -1,5 +1,5 @@
 angular.module('Skill').controller('skillAnalyticsController',
-    function($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory, skillCircleFactory) {
+    function($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory, skillCircleFactory, skillChartFactory) {
         connectionFactory.initialize($scope);
         $scope.$on(jsonValue.events.analyticsSkill, function(event, data) {
             var top10 = utils.getTopItems(data.jobSkills, ["currentCount"], 10);
@@ -12,9 +12,12 @@ angular.module('Skill').controller('skillAnalyticsController',
             $scope.$apply();
             skillCircleFactory.draw(data, top10);
 
+            skillChartFactory.draw(top3);
+
         });
 
         connectionFactory.analyticsSkill($routeParams.term);
         animationFactory.animatePage();
+        
 
     });
