@@ -20,7 +20,8 @@
       "ngInfiniteScroll" : "latest",
       "selectize" : "latest",
       "mousetrap": "latest",
-      "JSONPath": "latest"
+      "JSONPath": "latest",
+      "DateJS": "latest"
    },
    "overrides": {
       "sockjs": {
@@ -43,6 +44,9 @@
       },
       "mousetrap": {
          "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
+      },
+      "DateJS": {
+         "main": "index.js"
       }
    }
 }

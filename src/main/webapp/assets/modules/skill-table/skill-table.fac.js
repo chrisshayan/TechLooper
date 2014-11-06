@@ -3,11 +3,12 @@ angular.module('Skill').factory('skillTableFactory', function() {
 	return {
 		initData: function(data){
 			$.each(data, function(index, value){
+				var per = ((parseInt(value.currentCount) - parseInt(value.previousCount))*100)/parseInt(value.previousCount);
 				skillItem.push({
 					'name': value.skill,
 					'current': value.currentCount,
 					'previous': value.previousCount,
-					'change': ((parseInt(value.previousCount) - parseInt(value.currentCount))*100)/parseInt(value.previousCount)
+					'change': per.toFixed(2)
 				});
 			});
 			var html = '';
@@ -27,6 +28,14 @@ angular.module('Skill').factory('skillTableFactory', function() {
 				html = html + '<div class="col-md-1 colEdit"><i class="fa fa-edit"></i></div></li>';
 				$('.ctrl-lineChart-block ul').append(html);
 			});
+			formatDate();
 		}
+	};
+	function formatDate(){
+		var current = Date.today().toString("d-MMM") + '-' + Date.today().add(-7).days().toString("d-MMM");
+		var previous = Date.today().add(-8).toString("d-MMM") + '-' + Date.today().add(-15).days().toString("d-MMM");
+		$('span.curDate').text(current);
+		$('span.preDate').text(previous);
+		
 	}
 });
