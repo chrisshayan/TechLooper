@@ -12,14 +12,18 @@ public class SkillStatisticResponse {
     private String jobTerm;
     private Long count;
     private String period;
+    private Long totalTechnicalJobs;
+
     private List<SkillStatisticItem> jobSkills;
 
     private static SkillStatisticResponse defaultObject;
 
-    public SkillStatisticResponse(String jobTerm, Long count, String period, List<SkillStatisticItem> jobSkills) {
+    public SkillStatisticResponse(String jobTerm, Long count, String period,
+                                  Long totalTechnicalJobs, List<SkillStatisticItem> jobSkills) {
         this.jobTerm = jobTerm;
         this.count = count;
         this.period = period;
+        this.totalTechnicalJobs = totalTechnicalJobs;
         this.jobSkills = jobSkills;
     }
 
@@ -55,9 +59,17 @@ public class SkillStatisticResponse {
         this.jobSkills = jobSkills;
     }
 
+    public Long getTotalTechnicalJobs() {
+        return totalTechnicalJobs;
+    }
+
+    public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
+        this.totalTechnicalJobs = totalTechnicalJobs;
+    }
+
     public static SkillStatisticResponse getDefaultObject() {
         return Optional.ofNullable(defaultObject).orElseGet(() -> {
-            defaultObject = new SkillStatisticResponse(null, 0L, PeriodEnum.EMPTY.toString(), Collections.emptyList());
+            defaultObject = new SkillStatisticResponse(null, 0L, PeriodEnum.EMPTY.toString(), 0L, Collections.emptyList());
             return defaultObject;
         });
     }

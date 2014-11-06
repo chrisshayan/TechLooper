@@ -61,7 +61,7 @@ public class JobsController {
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
         Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
-            if (!TechnicalTermEnum.EMPTY.equals(term)) {
+            if (TechnicalTermEnum.EMPTY != term) {
                 terms.add(new TechnicalTermResponse.Builder().withTerm(term)
                         .withCount(vietnamWorksJobStatisticService.count(term)).build());
             }
@@ -96,7 +96,8 @@ public class JobsController {
             LocalDate currentPeriod = LocalDate.now();
             LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
 
-            Long totalJobs = vietnamWorksJobStatisticService.count(term);
+            Long countTermJobs = vietnamWorksJobStatisticService.count(term);
+            Long totalTechnicalJobs = vietnamWorksJobStatisticService.countTechnicalJobs();
 
             List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
             technicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
@@ -105,7 +106,7 @@ public class JobsController {
                 items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
             });
 
-            return new SkillStatisticResponse(skillStatisticRequest.getTerm(), totalJobs, period.value(), items);
+            return new SkillStatisticResponse(skillStatisticRequest.getTerm(), countTermJobs, period.value(), totalTechnicalJobs, items);
         }
 
         SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();

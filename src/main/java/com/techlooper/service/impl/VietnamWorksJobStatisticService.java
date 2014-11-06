@@ -80,8 +80,11 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
      * @return a {@code Long} that represents number of matching jobs.
      */
     public Long count(final TechnicalTermEnum technicalTermEnum) {
+        final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
         final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND))
+                .withQuery(filteredQuery(
+                        multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND),
+                        isActiveJobFilter))
                 .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT).build();
         return elasticsearchTemplate.count(searchQuery);
     }
@@ -104,7 +107,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         final Optional term = Optional.ofNullable(technicalTermEnum);
 
         if (term.isPresent()) {
-            final String searchCriteria = StringUtils.join(Arrays.asList(term.get(), skill), ' ');
+            final String searchCriteria = StringUtils.join(Arrays.asList(term.get(), skill), ' ').trim();
             final QueryBuilder skillSearchQuery = multiMatchQuery(searchCriteria, SEARCH_JOB_FIELDS)
                     .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS)
                     .operator(Operator.AND);
