@@ -28,6 +28,9 @@ public class JobsController {
     @Resource
     private SimpMessagingTemplate messagingTemplate;
 
+    @Resource
+    private TechnicalSkillEnumMap technicalSkillEnumMap;
+
     @Value("${vnw.api.configuration.category.it.software.en}")
     private String category;
 
@@ -58,8 +61,10 @@ public class JobsController {
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
         Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
-            terms.add(new TechnicalTermResponse.Builder().withTerm(term)
-                    .withCount(vietnamWorksJobStatisticService.count(term)).build());
+            if (TechnicalTermEnum.EMPTY != term) {
+                terms.add(new TechnicalTermResponse.Builder().withTerm(term)
+                        .withCount(vietnamWorksJobStatisticService.count(term)).build());
+            }
         });
         return terms;
     }
@@ -80,33 +85,49 @@ public class JobsController {
     @SendTo("/topic/analytics/skill")
     @MessageMapping("/analytics/skill")
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
-        TechnicalTermEnum term = skillStatisticRequest.getTerm();
-        String period = skillStatisticRequest.getPeriod();
-        long dayGapOfPeriod = getDayGapOfPeriod(period);
-        LocalDate currentPeriod = LocalDate.now();
-        LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
+        Optional<TechnicalTermEnum> termOptional = Optional.ofNullable(
+                TechnicalTermEnum.lookUp(skillStatisticRequest.getTerm().toUpperCase()));
+        TechnicalTermEnum term = termOptional.get();
 
-        Long totalJobs = vietnamWorksJobStatisticService.count(term);
+        if (termOptional.isPresent() && technicalSkillEnumMap.containsKey(term)) {
+            PeriodEnum period = PeriodEnum.lookUp(skillStatisticRequest.getPeriod().toUpperCase());
 
-        List<SkillStatisticItem> items = new ArrayList<>();
-        TechnicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
-            Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
-            Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
-            items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
-        });
+            int dayGapOfPeriod = getDayGapOfPeriod(period);
+            LocalDate currentPeriod = LocalDate.now();
+            LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
 
-        return new SkillStatisticResponse(term, totalJobs, period, items);
+            Long countTermJobs = vietnamWorksJobStatisticService.count(term);
+            Long totalTechnicalJobs = vietnamWorksJobStatisticService.countTechnicalJobs();
+
+            List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
+            technicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
+                Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
+                Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
+                items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
+            });
+
+            return new SkillStatisticResponse(skillStatisticRequest.getTerm(), countTermJobs, period.value(), totalTechnicalJobs, items);
+        }
+
+        SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();
+        defaultObject.setJobTerm(skillStatisticRequest.getTerm());
+        return SkillStatisticResponse.getDefaultObject();
     }
 
-    private long getDayGapOfPeriod(String period) {
+    private int getDayGapOfPeriod(PeriodEnum period) {
         Calendar calendar = Calendar.getInstance();
-        switch (period) {
-            case "quarter":
-                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
-            case "month":
-                return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            default:
-                return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
+        Optional periodOptional = Optional.ofNullable(period);
+        if (periodOptional.isPresent()) {
+            switch (period) {
+                case QUARTER:
+                    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
+                case MONTH:
+                    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                default:
+                    return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
+            }
+        } else {
+            return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
         }
     }
 

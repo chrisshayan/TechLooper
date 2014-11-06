@@ -1,18 +1,13 @@
-<div class="skill-items-block">
-	<div class="term-infor">
-		<span class="percent"></span>
-		<span class="number"><strong>240</strong>Java</span>
-	</div>
-	<div class="term-item">
-		<div id="canvas">
-			<!-- <div class="skill-item" ng-repeat="skill in skills">
-				<div class="circle" id="{{circles.id}}"></div>
-			</div> -->
-			<div class="circle" id="circles-1"></div>
-			<div class="circle" id="circles-2"></div>
-			<div class="circle" id="circles-3"></div>
-			<div class="circle" id="circles-4"></div>
-			<div class="circle" id="circles-5"></div>
-		</div>
-	</div>
+<div class="top10Circles">
+    <div class="term-infor">
+        <div class="term-infor-chart">
+            <span class="percent"></span>
+            <span class="number">
+            <strong>{{term.count}}</strong>{{term.jobTerm}}</span>
+        </div>
+    </div>
+    <div class="skill-circle-item" ng-repeat="item in top10">
+        <div class="circle" id="circle-{{$index}}" data-index="{{$index}}"></div>
+        <div class="skill-name">{{item.skill}}</div>
+    </div>
 </div>

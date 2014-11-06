@@ -83,29 +83,29 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
             e.preventDefault();
 
             if($(this).hasClass('active')){
-               var termName =  $(this).find('.termcount').text().replace(/[0-9]/g, '');
+               var termName =  $(this).attr('data-techterm');
                var path = jsonValue.routerUris.analyticsSkill + '/'+ termName;
                $location.path(path);
                scope.$apply();
             }   
 
-            var sDotnet = $('.DOTNETTech').height(),
+            var sDotnet = $('.DOTNET').height(),
 
-               sJava = $('.JAVATech').height(),
+               sJava = $('.JAVA').height(),
 
-               sPhp = $('.PHPTech').height(),
+               sPhp = $('.PHP').height(),
 
-               sRuby = $('.RUBYTech').height(),
+               sRuby = $('.RUBY').height(),
 
-               sPython = $('.PYTHONTech').height(),
+               sPython = $('.PYTHON').height(),
 
-               sQc = $('.QATech').height(),
+               sQc = $('.QA').height(),
 
-               sPm = $('.PROJECT_MANAGERTech').height(),
+               sPm = $('.PROJECT_MANAGER').height(),
 
-               sDba = $('.DBATech').height(),
+               sDba = $('.DBA').height(),
 
-               sBa = $('.BATech').height();
+               sBa = $('.BA').height();
 
             var circle = $(this);
             var circle_id = $(this).attr('data-techTerm');
@@ -139,9 +139,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 1 Java is active
                 **/
-               if (circle_id == 'JAVATech') {
+               if (circle_id == 'JAVA') {
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'left': pm_locations[0][1],
                      'top': pm_locations[0][0]
                   }, {
@@ -158,7 +158,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPm
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'left': php_locations[0][1],
                      'top': php_locations[0][0]
                   }, {
@@ -175,7 +175,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPhp
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'left': dotnet_locations[0][1],
                      'top': dotnet_locations[0][0]
                   }, {
@@ -192,7 +192,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'left': ruby_locations[0][1],
                      'top': ruby_locations[0][0]
                   }, {
@@ -210,7 +210,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'left': python_locations[0][1],
                      'top': python_locations[0][0]
                   }, {
@@ -227,7 +227,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'left': dba_locations[0][1],
                      'top': dba_locations[0][0]
                   }, {
@@ -244,7 +244,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'left': ba_locations[0][1],
                      'top': ba_locations[0][0]
                   }, {
@@ -261,7 +261,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'left': qa_locations[0][1],
                      'top': qa_locations[0][0]
                   }, {
@@ -281,9 +281,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 2 .Net is active
                 **/
-               if (circle_id == 'DOTNETTech') {
+               if (circle_id == 'DOTNET') {
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[1][0],
                      'left': pm_locations[1][1]
                   }, {
@@ -300,7 +300,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPm
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[1][0],
                      'left': php_locations[1][1]
                   }, {
@@ -317,7 +317,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPhp
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[1][0],
                      'left': java_locations[1][1]
                   }, {
@@ -334,7 +334,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[1][0],
                      'left': ruby_locations[1][1]
                   }, {
@@ -352,7 +352,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[1][0],
                      'left': python_locations[1][1]
                   }, {
@@ -369,7 +369,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[1][0],
                      'left': dba_locations[1][1]
                   }, {
@@ -386,7 +386,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[1][0],
                      'left': ba_locations[1][1]
                   }, {
@@ -403,7 +403,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[1][0],
                      'left': qa_locations[1][1]
                   }, {
@@ -424,9 +424,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 3 PHP is active
                 **/
-               if (circle_id == 'PHPTech') {
+               if (circle_id == 'PHP') {
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[2][0],
                      'left': pm_locations[2][1]
                   }, {
@@ -443,7 +443,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPm
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[2][0],
                      'left': java_locations[2][1]
                   }, {
@@ -460,7 +460,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[2][0],
                      'left': dotnet_locations[2][1]
                   }, {
@@ -477,7 +477,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[2][0],
                      'left': ruby_locations[2][1]
                   }, {
@@ -495,7 +495,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[2][0],
                      'left': python_locations[2][1]
                   }, {
@@ -512,7 +512,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[2][0],
                      'left': dba_locations[2][1]
                   }, {
@@ -529,7 +529,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[2][0],
                      'left': ba_locations[2][1]
                   }, {
@@ -546,7 +546,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[2][0],
                      'left': qa_locations[2][1]
                   }, {
@@ -567,9 +567,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 4 Ruby is active
                 **/
-               if (circle_id == 'RUBYTech') {
+               if (circle_id == 'RUBY') {
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[3][0],
                      'left': pm_locations[3][1]
                   }, {
@@ -586,7 +586,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPm
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[3][0],
                      'left': java_locations[3][1]
                   }, {
@@ -603,7 +603,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[3][0],
                      'left': dotnet_locations[3][1]
                   }, {
@@ -620,7 +620,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[3][0],
                      'left': php_locations[3][1]
                   }, {
@@ -638,7 +638,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[3][0],
                      'left': python_locations[3][1]
                   }, {
@@ -655,7 +655,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[3][0],
                      'left': dba_locations[3][1]
                   }, {
@@ -672,7 +672,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[3][0],
                      'left': ba_locations[3][1]
                   }, {
@@ -689,7 +689,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[3][0],
                      'left': qa_locations[3][1]
                   }, {
@@ -710,9 +710,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 5 Python is active
                 **/
-               if (circle_id == 'PYTHONTech') {
+               if (circle_id == 'PYTHON') {
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[4][0],
                      'left': pm_locations[4][1]
                   }, {
@@ -729,7 +729,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPm
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[4][0],
                      'left': java_locations[4][1]
                   }, {
@@ -746,7 +746,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[4][0],
                      'left': dotnet_locations[4][1]
                   }, {
@@ -763,7 +763,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[4][0],
                      'left': php_locations[4][1]
                   }, {
@@ -781,7 +781,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[4][0],
                      'left': ruby_locations[4][1]
                   }, {
@@ -798,7 +798,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sRuby
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[4][0],
                      'left': dba_locations[4][1]
                   }, {
@@ -815,7 +815,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[4][0],
                      'left': ba_locations[4][1]
                   }, {
@@ -832,7 +832,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[4][0],
                      'left': qa_locations[4][1]
                   }, {
@@ -853,9 +853,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 6 Project Manager is active
                 **/
-               if (circle_id == 'PROJECT_MANAGERTech') {
+               if (circle_id == 'PROJECT_MANAGER') {
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[5][0],
                      'left': python_locations[5][1]
                   }, {
@@ -872,7 +872,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[5][0],
                      'left': java_locations[5][1]
                   }, {
@@ -889,7 +889,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[5][0],
                      'left': dotnet_locations[5][1]
                   }, {
@@ -906,7 +906,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[5][0],
                      'left': php_locations[5][1]
                   }, {
@@ -924,7 +924,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[5][0],
                      'left': ruby_locations[5][1]
                   }, {
@@ -941,7 +941,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sRuby
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[5][0],
                      'left': dba_locations[5][1]
                   }, {
@@ -958,7 +958,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[5][0],
                      'left': ba_locations[5][1]
                   }, {
@@ -975,7 +975,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[5][0],
                      'left': qa_locations[5][1]
                   }, {
@@ -996,9 +996,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 7 Quanity Control is active
                 **/
-               if (circle_id == 'QATech') {
+               if (circle_id == 'QA') {
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[6][0],
                      'left': python_locations[6][1]
                   }, {
@@ -1015,7 +1015,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[6][0],
                      'left': java_locations[6][1]
                   }, {
@@ -1032,7 +1032,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[6][0],
                      'left': dotnet_locations[6][1]
                   }, {
@@ -1049,7 +1049,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[6][0],
                      'left': php_locations[6][1]
                   }, {
@@ -1067,7 +1067,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[6][0],
                      'left': ruby_locations[6][1]
                   }, {
@@ -1084,7 +1084,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sRuby
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[6][0],
                      'left': dba_locations[6][1]
                   }, {
@@ -1101,7 +1101,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[6][0],
                      'left': ba_locations[6][1]
                   }, {
@@ -1118,7 +1118,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[6][0],
                      'left': pm_locations[6][1]
                   }, {
@@ -1139,9 +1139,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 8 DBA is active
                 **/
-               if (circle_id == 'DBATech') {
+               if (circle_id == 'DBA') {
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[7][0],
                      'left': python_locations[7][1]
                   }, {
@@ -1158,7 +1158,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[7][0],
                      'left': java_locations[7][1]
                   }, {
@@ -1175,7 +1175,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[7][0],
                      'left': dotnet_locations[7][1]
                   }, {
@@ -1192,7 +1192,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[7][0],
                      'left': php_locations[7][1]
                   }, {
@@ -1210,7 +1210,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[7][0],
                      'left': ruby_locations[7][1]
                   }, {
@@ -1227,7 +1227,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sRuby
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[7][0],
                      'left': qa_locations[7][1]
                   }, {
@@ -1244,7 +1244,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sQc
                   });
 
-                  $('.BATech').animate({
+                  $('.BA').animate({
                      'top': ba_locations[7][0],
                      'left': ba_locations[7][1]
                   }, {
@@ -1261,7 +1261,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sBa
                   });
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[7][0],
                      'left': pm_locations[7][1]
                   }, {
@@ -1282,9 +1282,9 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                /*
                 * 9 Business Analytics is active
                 **/
-               if (circle_id == 'BATech') {
+               if (circle_id == 'BA') {
 
-                  $('.PYTHONTech').animate({
+                  $('.PYTHON').animate({
                      'top': python_locations[8][0],
                      'left': python_locations[8][1]
                   }, {
@@ -1301,7 +1301,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sPython
                   });
 
-                  $('.JAVATech').animate({
+                  $('.JAVA').animate({
                      'top': java_locations[8][0],
                      'left': java_locations[8][1]
                   }, {
@@ -1318,7 +1318,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sJava
                   });
 
-                  $('.DOTNETTech').animate({
+                  $('.DOTNET').animate({
                      'top': dotnet_locations[8][0],
                      'left': dotnet_locations[8][1]
                   }, {
@@ -1335,7 +1335,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDotnet
                   });
 
-                  $('.PHPTech').animate({
+                  $('.PHP').animate({
                      'top': php_locations[8][0],
                      'left': php_locations[8][1]
                   }, {
@@ -1353,7 +1353,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   });
 
 
-                  $('.RUBYTech').animate({
+                  $('.RUBY').animate({
                      'top': ruby_locations[8][0],
                      'left': ruby_locations[8][1]
                   }, {
@@ -1370,7 +1370,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sRuby
                   });
 
-                  $('.QATech').animate({
+                  $('.QA').animate({
                      'top': qa_locations[8][0],
                      'left': qa_locations[8][1]
                   }, {
@@ -1387,7 +1387,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sQc
                   });
 
-                  $('.DBATech').animate({
+                  $('.DBA').animate({
                      'top': dba_locations[8][0],
                      'left': dba_locations[8][1]
                   }, {
@@ -1404,7 +1404,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                      'height': sDba
                   });
 
-                  $('.PROJECT_MANAGERTech').animate({
+                  $('.PROJECT_MANAGER').animate({
                      'top': pm_locations[8][0],
                      'left': pm_locations[8][1]
                   }, {
@@ -1463,7 +1463,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
          for (var i = 0; i < terms.length; i++) {
             if (terms[i].count > biggestDiameter) {
                biggestDiameter = terms[i].count;
-               biggestName = terms[i].term + 'Tech';
+               biggestName = terms[i].term;
             }
          }
 
@@ -1503,7 +1503,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                   fSize = 'bigText';
                   sBubble = 275 - resize;
                }
-               $('.' + terms[i].term + 'Tech').css({
+               $('.' + terms[i].term).css({
                   'top': locations[i][0],
                   'left': locations[i][1],
                   'opacity': 0.8,
@@ -1545,7 +1545,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
                return false;
             }
             currentTerm.count = bubbleItem.count;
-            var bItem =  $("div[data-techTerm='" + bubbleItem.termID +"Tech']");
+            var bItem =  $("div[data-techTerm='" + bubbleItem.termID +"']");
             bItem.find('.ball-highlight').css('display','block');
             bItem.find("span.termcount strong").text(bubbleItem.count);
 
@@ -1634,7 +1634,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
             break;
          };
          var rota = diameter - 17;
-         html = '<div data-techTerm="' + bubbleItem.termID + 'Tech" class="circle ' + bubbleItem.termID + 'Tech ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
+         html = '<div data-techTerm="' + bubbleItem.termID + '" class="circle ' + bubbleItem.termID + ' ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px" date-color="'+ clColor +'">';
          html = html + '<div class="circle-content ' + clColor + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
          html = html + '<span class="termcount"><strong>' + bubbleItem.count + '</strong>' + bubbleItem.termName + '</span>';
          html = html + '<div class="ball-highlight" style="width:' + diameter + 'px; height:' + diameter + 'px"></div></div></div>';

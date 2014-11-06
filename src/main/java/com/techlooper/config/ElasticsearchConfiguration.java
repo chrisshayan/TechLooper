@@ -1,5 +1,8 @@
 package com.techlooper.config;
 
+import com.techlooper.model.TechnicalSkillEnumMap;
+import com.techlooper.model.TechnicalTermEnum;
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +14,9 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Created by phuonghqh on 10/13/14.
@@ -36,5 +42,21 @@ public class ElasticsearchConfiguration {
     @Bean
     public ElasticsearchOperations elasticsearchTemplate() {
         return new ElasticsearchTemplate(transportClient);
+    }
+
+    @Bean
+    public TechnicalSkillEnumMap technicalSkillEnumMap() {
+        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
+        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
+            if (TechnicalTermEnum.EMPTY != term) {
+                String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+                Optional<String> skillOptional = Optional.ofNullable(termKey);
+                if (skillOptional.isPresent()) {
+                    String[] skills = StringUtils.split(skillOptional.get(), ',');
+                    technicalSkillEnumMap.put(term, Arrays.asList(skills));
+                }
+            }
+        });
+        return technicalSkillEnumMap;
     }
 }

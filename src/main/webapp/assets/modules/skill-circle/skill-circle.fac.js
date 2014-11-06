@@ -1,26 +1,62 @@
-angular.module('Skill').factory('skillCircleFactory', function() {
-	return {
-        drawCircle: function() {
-            var colors = [
-                    ['#D3B6C6', '#4B253A'],
-                    ['#FCE6A4', '#EFB917'],
-                    ['#BEE3F7', '#45AEEA'],
-                    ['#F8F9B6', '#D2D558'],
-                    ['#F4BCBF', '#D43A43']
-                ];
+angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
+  var circles = [];
+  var $$ = {
+    initialize: function (term, skills) {
+      circles.length = 0;
+      var colorIndex = -1;
+      $.each(skills, function (index, skill) {
+        colorIndex = (index >= jsonValue.skillColors.length) ? 0 : colorIndex + 1;
+        var circle = Circles.create({
+          id: "circle-" + index,
+          radius: 40,
+          value: skill.currentCount,
+          maxValue: term.count,
+          width: 13,
+          text: function (value) {
+            return value;
+          },
+          colors: ["#343233", jsonValue.skillColors[colorIndex]],
+          duration: 400
+        });
+        circles.push(circle);
+      });
+    },
 
-            for (var i = 1; i <= 5; i++) {
-                var child = document.getElementById('circles-' + i),
-                    percentage = 31.42 + (i * 9.84);
-
-                Circles.create({
-                    id: child.id,
-                    value: percentage,
-                    radius: 60,
-                    width: 10,
-                    colors: colors[i - 1]
-                })
-            }
-        }
+    update: function(term, skills) {
+      $.each(circles, function(index, circle) {
+        // TODO update skill text & value
+        circle.update(skills[index].currentCount);
+      });
     }
+  }
+
+  return {
+    /*
+     @param term
+     @see src/test/resources/expect/vnw-jobs-count-skill.json
+     */
+    draw: function (term, skills) {
+      if (circles.length === 0) {
+        return $$.initialize(term, skills);
+      }
+      $$.update(term, skills);
+    },
+    setPercentTerm: function(total, number){
+      var per = Math.round((number*100)/total);
+      $('.term-infor-chart .percent').animate({
+        'height': per
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
+      });
+      $('.term-infor-chart .number').animate({
+        'bottom': per + 15 +'px'
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
+      });
+      
+    }
+
+  }
 });

@@ -2,6 +2,7 @@
   "jobTerm": "java",
   "count": "200",
   "period": "week",
+  "totalJobs": "560",
   "jobSkills": [
     {
       "skill": "Spring",

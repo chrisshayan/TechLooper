@@ -3,53 +3,53 @@ package com.techlooper.model;
 
 public class TechnicalTermResponse {
 
-    private String name;
+  private String name;
 
-    private TechnicalTermEnum term;
+  private TechnicalTermEnum term;
 
-    private Long count;
+  private Long count;
 
-    public static class Builder {
+  public String getName() {
+    return name;
+  }
 
-        private TechnicalTermResponse instance = new TechnicalTermResponse();
+  public void setName(String name) {
+    this.name = name;
+  }
 
-        public Builder withCount(Long count) {
-            instance.count = count;
-            return this;
-        }
+  public TechnicalTermEnum getTerm() {
+    return term;
+  }
 
-        public Builder withTerm(TechnicalTermEnum term) {
-            instance.term = term;
-            instance.name = term.toString();
-            return this;
-        }
+  public void setTerm(TechnicalTermEnum term) {
+    this.term = term;
+  }
 
-        public TechnicalTermResponse build() {
-            return instance;
-        }
+  public Long getCount() {
+    return count;
+  }
+
+  public void setCount(Long count) {
+    this.count = count;
+  }
+
+  public static class Builder {
+
+    private TechnicalTermResponse instance = new TechnicalTermResponse();
+
+    public Builder withCount(Long count) {
+      instance.count = count;
+      return this;
     }
 
-    public String getName() {
-        return name;
+    public Builder withTerm(TechnicalTermEnum term) {
+      instance.term = term;
+      instance.name = term.toString();
+      return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public TechnicalTermResponse build() {
+      return instance;
     }
-
-    public TechnicalTermEnum getTerm() {
-        return term;
-    }
-
-    public void setTerm(TechnicalTermEnum term) {
-        this.term = term;
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-    public void setCount(Long count) {
-        this.count = count;
-    }
+  }
 }

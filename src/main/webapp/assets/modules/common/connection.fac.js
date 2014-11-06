@@ -45,16 +45,17 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
         return instance.connectSocket();
       }
 
-      var subscription = subscriptions[socketUri.subscribeAnalyticsSkill];
-      if (subscription !== undefined) {
-        return true;
-      }
+      var uri = socketUri.subscribeAnalyticsSkill;
+      var subscription = subscriptions[uri];
+      if (subscription !== undefined) { return true; }
 
-      subscription = stompClient.subscribe(socketUri.subscribeAnalyticsSkill, function (response) {
+      subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
       });
       subscriptions[uri] = subscription;
-      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term}));
+
+      //TODO "quarter" is used to test only, need to be changed to "week" later
+      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "quarter"}));
     },
 
     /* @subscription */
@@ -83,26 +84,29 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
     /* @subscription */
     registerTermsSubscription: function (terms) {
       $.each(terms, function (index, term) {
-        var uri = socketUri.subscribeTerm + term.term;
-        var subscription = subscriptions[uri];
-        if (subscription !== undefined) {
-          return true;
-        }
-        subscription = stompClient.subscribe(uri, function (response) {
-          scope.$emit(events.term + term.term, {
-            count: JSON.parse(response.body).count,
-            term: term.term,
-            termName: term.name
-          });
-        });
-        subscriptions[uri] = subscription;
+        instance.subscribeTerm(term);
       });
     },
 
-    connectSocket: function () {
-      if (isConnecting) {
-        return;
+    // {term: "JAVA", name: "java"}
+    subscribeTerm: function (term) {
+      var uri = socketUri.subscribeTerm + term.term;
+      var subscription = subscriptions[uri];
+      if (subscription !== undefined) {
+        return true;
       }
+      subscription = stompClient.subscribe(uri, function (response) {
+        scope.$emit(events.term + term.term, {
+          count: JSON.parse(response.body).count,
+          term: term.term,
+          termName: term.name
+        });
+      });
+      subscriptions[uri] = subscription;
+    },
+
+    connectSocket: function () {
+      if (isConnecting) { return; }
 
       if (instance.isConnected()) {
         stompClient.disconnect();
