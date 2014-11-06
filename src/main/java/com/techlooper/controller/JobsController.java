@@ -61,8 +61,10 @@ public class JobsController {
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
         Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
-            terms.add(new TechnicalTermResponse.Builder().withTerm(term)
-                    .withCount(vietnamWorksJobStatisticService.count(term)).build());
+            if (!TechnicalTermEnum.EMPTY.equals(term)) {
+                terms.add(new TechnicalTermResponse.Builder().withTerm(term)
+                        .withCount(vietnamWorksJobStatisticService.count(term)).build());
+            }
         });
         return terms;
     }
