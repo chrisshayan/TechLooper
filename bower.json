@@ -46,7 +46,7 @@
          "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
       },
       "DateJS": {
-         "main": "build/date.js"
+         "main": "index.js"
       }
    }
 }
