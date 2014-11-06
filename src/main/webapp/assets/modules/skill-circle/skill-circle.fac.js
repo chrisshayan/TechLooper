@@ -7,7 +7,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
       $.each(skills, function (index, skill) {
         colorIndex = (index >= jsonValue.skillColors.length) ? 0 : colorIndex + 1;
         var circle = Circles.create({
-          id: "circle-" + skill.skill,
+          id: "circle-" + index,
           radius: 30,
           value: skill.currentCount,
           maxValue: term.count,
@@ -19,6 +19,13 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
           duration: 400
         });
         circles.push(circle);
+      });
+    },
+
+    update: function(term, skills) {
+      $.each(circles, function(index, circle) {
+        // TODO update skill text & value
+        circle.update(skills[index].currentCount);
       });
     }
   }
@@ -32,8 +39,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
       if (circles.length === 0) {
         return $$.initialize(term, skills);
       }
-
-      //update
+      $$.update(term, skills);
     }
 
   }

@@ -5,7 +5,7 @@
   </div>
   <div class="term-item">
     <div id="canvas" class="top10Circles">
-      <div class="circle" ng-repeat="item in top10" id="circle-{{item.skill}}"></div>
+      <div ng-repeat="item in top10" data-index="{{$index}}" class="circle"  id="circle-{{$index}}"></div>
     </div>
   </div>
 </div>

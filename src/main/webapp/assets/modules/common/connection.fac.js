@@ -45,15 +45,14 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
         return instance.connectSocket();
       }
 
-      var subscription = subscriptions[socketUri.subscribeAnalyticsSkill];
-      if (subscription !== undefined) {
-        return true;
-      }
+      var uri = socketUri.subscribeAnalyticsSkill;
+      var subscription = subscriptions[uri];
+      if (subscription !== undefined) { return true; }
 
-      subscription = stompClient.subscribe(socketUri.subscribeAnalyticsSkill, function (response) {
+      subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
       });
-      subscriptions[socketUri.subscribeAnalyticsSkill] = subscription;
+      subscriptions[uri] = subscription;
       stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "week"}));
     },
 
@@ -88,7 +87,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
     },
 
     // {term: "JAVA", name: "java"}
-    subscribeTerm: function(term) {
+    subscribeTerm: function (term) {
       var uri = socketUri.subscribeTerm + term.term;
       var subscription = subscriptions[uri];
       if (subscription !== undefined) {
@@ -105,9 +104,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
     },
 
     connectSocket: function () {
-      if (isConnecting) {
-        return;
-      }
+      if (isConnecting) { return; }
 
       if (instance.isConnected()) {
         stompClient.disconnect();
