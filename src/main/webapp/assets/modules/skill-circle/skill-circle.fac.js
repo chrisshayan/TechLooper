@@ -40,6 +40,22 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
         return $$.initialize(term, skills);
       }
       $$.update(term, skills);
+    },
+    setPercentTerm: function(total, number){
+      var per = Math.round((number*100)/total);
+      $('.term-infor-chart .percent').animate({
+        'height': per
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
+      });
+      $('.term-infor-chart .number').animate({
+        'bottom': per + 15 +'px'
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
+      });
+      
     }
 
   }
