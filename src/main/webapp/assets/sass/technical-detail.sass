@@ -23,10 +23,17 @@
     line-height: 45px
     text-align: center
     cursor: pointer
-
-#canvas .circle
+.term-infor
+  width: 110px
+  float: left
+  height: 200px
+  background-color: #292627
+  border: 1px solid #363334
+  text-align: center
+.top10Circles .circle
   display: inline-block
   margin: 1em
+  color: #b9b9b9
 
 .circles-decimals
   font-size: .4em
@@ -61,10 +68,20 @@
     height: 40px
     text-align: center
     border-right: 1px solid #353233
+    .curDate
+      width: 100%
+      display: block
+      padding-top: 5px
+      clear: both
   .colPrevious
     height: 40px
     text-align: center
     border-right: 1px solid #353233
+    .preDate
+      width: 100%
+      display: block
+      padding-top: 5px
+      clear: both
   .colPercentChange
     height: 40px
     text-align: center
@@ -72,3 +89,12 @@
   .colEdit
     height: 40px
     text-align: center
+  li:first-child
+    line-height: auto
+    .colSkill,
+    .colCurrent,
+    .colPrevious,
+    .colPercentChange,
+    .colEdit
+      height: 80px
+
