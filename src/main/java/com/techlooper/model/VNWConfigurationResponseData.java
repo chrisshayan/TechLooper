@@ -58,6 +58,7 @@ public class VNWConfigurationResponseData {
     public static class ConfigurationItem {
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConfigurationLocation extends ConfigurationItem {
 
         @JsonProperty(value = "location_id")
@@ -94,6 +95,7 @@ public class VNWConfigurationResponseData {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConfigurationCategory {
 
         @JsonProperty(value = "category_id")
@@ -130,6 +132,7 @@ public class VNWConfigurationResponseData {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConfigurationJobLevel {
 
         @JsonProperty(value = "location_id")
@@ -166,6 +169,7 @@ public class VNWConfigurationResponseData {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConfigurationDegree extends ConfigurationItem {
 
         @JsonProperty(value = "degree_id")

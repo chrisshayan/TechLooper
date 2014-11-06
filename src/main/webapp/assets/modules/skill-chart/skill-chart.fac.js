@@ -1,13 +1,18 @@
 angular.module('Skill').factory('skillChartFactory', function() {
-    return {
+    var last30Days = [];
+    
+    return instance = {
         draw: function(data) {
+            var dataChart = instance.getDataForChart(data);
+            instance.getLastDays();
             $('.line-chart-content').highcharts({
             	chart:{
-            		backgroundColor : '#201d1e'
+            		backgroundColor : '#201d1e',
+                    type: 'spline'
             	},
+                colors: ['#f8d303', '#006600', '#dd00d4'],
                 title: {
                     text: '',
-                    x: -20, //center,
                     style: {
 				         color: '#E0E0E3',
 				         textTransform: 'uppercase',
@@ -15,28 +20,28 @@ angular.module('Skill').factory('skillChartFactory', function() {
 				      }
                 },
                 subtitle: {
-                    text: '',
-                    x: -20
+                    text: ''
                 },
                 xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                    ],
+                    categories: last30Days,
                     gridLineColor: '#353233',
 			        labels: {
 			        	style: {
 			            color: '#8a8a8a'
 			        	}
-			        }
+			        },
+                    tickInterval:1,
+                    tickmarkPlacement: 'on',
+                    gridLineWidth: 1
                 },
                 yAxis: {
                     title: {
-                        text: '%'
+                        text: 'Percent (%)'
                     },
                     plotLines: [{
                         value: 0,
                         width: 1,
-                        color: '#353233'
+                        color: '#313131'
                     }],
 			        title: {
 			        	style: {
@@ -47,10 +52,12 @@ angular.module('Skill').factory('skillChartFactory', function() {
 				        style: {
 				        	color: '#8a8a8a'
 				        }
-				    }
+				    },
+                    min: 0, max: 100,
+                    tickInterval: 10,
                 },
                 tooltip: {
-                    // valueSuffix: '°C'
+                     valueSuffix: 'Jobs'
                 },
                 legend: {
                     layout: 'horizontal',
@@ -67,17 +74,38 @@ angular.module('Skill').factory('skillChartFactory', function() {
 				         color: '#606063'
 				      }
                 },
-                series: [{
-                    name: data[0].skill,
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-                }, {
-                    name: data[1].skill,
-                    data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-                }, {
-                    name: data[2].skill,
-                    data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-                }]
+                series: dataChart
             });
+        },
+        getLastDays: function(){
+            var day =  Date.today();
+            last30Days.push(day.toString("MMM d"));
+            for(var i = 1 ; i < 31; i++){
+                day = day.add(-1).days().clone()
+                last30Days.push(day.toString("MMM d"));
+            }
+        },
+        getDataForChart: function(data){
+            var dataItem = [];
+            for(var i = 0; i <3; i++){
+                var numbers = instance.getRandomNumber();
+                dataItem.push(
+                    {   
+                        name: data[i].skill, 
+                        data: numbers
+                    }
+                );
+            }
+            return dataItem;
+            
+        },
+        getRandomNumber: function(){
+            var Numbers = [];
+            for(var j = 0; j < 30; j++){
+                var rdNumber = Math.floor((Math.random() * 100) + 1);
+                Numbers.push(rdNumber);
+            }
+            return Numbers;
         }
     }
 });

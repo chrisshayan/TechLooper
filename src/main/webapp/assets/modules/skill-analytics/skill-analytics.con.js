@@ -6,6 +6,8 @@ angular.module('Skill').controller('skillAnalyticsController',
             $scope.term = data;
             $scope.top10 = top10;
 
+            skillCircleFactory.setPercentTerm(data.totalTechnicalJobs, data.count);
+
             var top3 = utils.getTopItems(data.jobSkills, ["currentCount", "previousCount"], 3);
             skillTableFactory.initData(top3);
 

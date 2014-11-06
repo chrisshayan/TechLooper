@@ -1,6 +1,6 @@
 angular.module('Skill').factory('skillTableFactory', function() {
 	var skillItem = [];
-	return {
+	return $$ = {
 		initData: function(data){
 			$.each(data, function(index, value){
 				var per = ((parseInt(value.currentCount) - parseInt(value.previousCount))*100)/parseInt(value.previousCount);
@@ -28,14 +28,20 @@ angular.module('Skill').factory('skillTableFactory', function() {
 				html = html + '<div class="col-md-1 colEdit"><i class="fa fa-edit"></i></div></li>';
 				$('.ctrl-lineChart-block ul').append(html);
 			});
-			formatDate();
+			$$.formatDate();
+		},
+		formatDate: function(){
+
+			var lCur = Date.today().toString("MMM d"),
+				fCur = Date.today().add(-7).days().toString("MMM d"),
+				current = fCur +' - ' + lCur;
+
+			var lPre = Date.today().add(-8).days().toString("MMM d"),
+				fPre = Date.today().add(-7).days().clone(),
+				previous = fPre.add(-7).days().toString("MMM d") +' - '+ lPre;
+
+			$('span.curDate').text(current);
+			$('span.preDate').text(previous);
 		}
 	};
-	function formatDate(){
-		var current = Date.today().toString("d-MMM") + '-' + Date.today().add(-7).days().toString("d-MMM");
-		var previous = Date.today().add(-8).toString("d-MMM") + '-' + Date.today().add(-15).days().toString("d-MMM");
-		$('span.curDate').text(current);
-		$('span.preDate').text(previous);
-		
-	}
 });

@@ -8,8 +8,15 @@
   width: 0
   height: 0
 .technical-header-block
-  height: 85px
+  height: 70px
+  padding-top: 5px
   background: url(../images/underline-black.png) left bottom repeat-x
+  .logo-block img
+    width: 100%
+    max-width: 250px
+  .close-button
+    text-align: right
+    padding-top: 7px
   .close-button a
     background: #2c2a2a
     border-radius: 50%
@@ -23,17 +30,35 @@
     line-height: 45px
     text-align: center
     cursor: pointer
+  .tech-line
+    text-align: center
+    h2
+      font-weight: 300
+      font-size: 16px
+      color: #777
+      margin: 0
+      padding: 0
+      line-height: 55px
+.technical-contianer-block
+  padding-top: 30px
+  display: block
 .skill-items-block
   padding-top: 40px
 .term-infor
   width: 110px
   float: left
-  height: 200px
+  padding: 0 15px
+.term-infor-chart
+  width: 100%
+  height: 260px
   background-color: #292627
   border: 1px solid #363334
   text-align: center
   position: relative
   vertical-align: middle
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
   .percent
     background-color: #666600
     position: absolute
@@ -46,23 +71,21 @@
     text-transform: uppercase
     position: absolute
     left: 0
-    top: 0
     right: 0
-    bottom: 0
     margin: auto
     strong
       display: block
       clear: both
       width: 100%
-      color: #666600
+      color: #fff
 .skill-circle-item
   width: auto
   float: left
   text-align: center
-  padding-bottom: 10px
+  padding-bottom: 35px
 .top10Circles .circle
   display: inline-block
-  margin: 1em
+  margin: 10px 10px 0 10px
   color: #b9b9b9
 
 .circles-decimals
@@ -72,11 +95,15 @@
   color: #c53046
 .ic-blue
   color: #006600
+.line-chart-block
+  padding-bottom: 20px
+.ctrl-lineChart-block
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
 .ctrl-lineChart-block ul
   margin: 0
   padding: 0
-  border: 1px solid #353233
-  border-radius: 5px
   li
     padding: 0
     width: 100%
@@ -85,54 +112,62 @@
     border: 1px solid #353233
     border-top: 0
     text-align: center
-    line-height: 40px
   li:first-child
     background-color: #1d1b1b
     border-top: 0
     font-weight: 400
+    -webkit-border-top-left-radius: 5px
+    -webkit-border-top-right-radius: 5px
+    -moz-border-radius-topleft: 5px
+    -moz-border-radius-topright: 5px
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+    border-top: 1px solid #353233
+    line-height: auto
+  li div
+    padding: 5px
   .colSkill
-    height: 40px
     text-align: left
     border-right: 1px solid #353233
+    padding-left: 20px
   .colCurrent
-    height: 40px
     text-align: center
     border-right: 1px solid #353233
     .curDate
       width: 100%
       display: block
-      padding-top: 5px
       clear: both
   .colPrevious
-    height: 40px
     text-align: center
     border-right: 1px solid #353233
     .preDate
       width: 100%
       display: block
-      padding-top: 5px
       clear: both
   .colPercentChange
-    height: 40px
     text-align: center
     border-right: 1px solid #353233
   .colEdit
-    height: 40px
     text-align: center
+  li:first-child div
+    height: 52px
   li:first-child
     .colSkill
-      height: 70px
-      line-height: auto
+      line-height: 52px
     .colCurrent
-      height: 70px
       line-height: auto
     .colPrevious
-      height: 70px
       line-height: auto
     .colPercentChange
-      height: 70px
       line-height: auto
     .colEdit
-      height: 70px
       line-height: auto
+      line-height: 42px
+  li:last-child
+    -webkit-border-bottom-right-radius: 5px
+    -webkit-border-bottom-left-radius: 5px
+    -moz-border-radius-bottomright: 5px
+    -moz-border-radius-bottomleft: 5px
+    border-bottom-right-radius: 5px
+    border-bottom-left-radius: 5px
 
