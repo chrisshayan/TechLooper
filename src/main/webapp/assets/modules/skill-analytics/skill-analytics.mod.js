@@ -2,7 +2,6 @@ angular.module("Skill").directive("skillcircle", function () {
   return {
     restrict: "E",
     templateUrl: "modules/skill-circle/skill-circle.tem.html",
-    transclude: true,
     scope: {
       term: "=",
       top10: "="
