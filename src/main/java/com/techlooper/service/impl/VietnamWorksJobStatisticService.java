@@ -4,12 +4,16 @@ import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -132,25 +137,39 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
   }
 
   public void countJobsBySKill(TechnicalTermEnum termEnum) {
-    final List<AggregationBuilder> aggs = new LinkedList<>();
-    technicalSkillEnumMap.skillOf(termEnum).stream().map(skill -> {
+//    final List<AggregationBuilder> aggs = new LinkedList<>();
+    List<List<FilterAggregationBuilder>> filterAggregationBuilders = technicalSkillEnumMap.skillOf(termEnum).stream().map(skill -> {
+
       String termAndSkill = new StringJoiner(" ").add(termEnum.value()).add(skill).toString();
       QueryBuilder termAndSkillQuery = QueryBuilders.multiMatchQuery(termAndSkill, SEARCH_JOB_FIELDS).operator(Operator.AND);
-      QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now");
-      BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
-      return AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery));
+
+      // TODO refactor using jdk8 later
+      List<FilterAggregationBuilder> builders = new LinkedList<>();
+      for (int i = 0; i < 30; ++i) {
+        builders.add(getFilterAggregationBuilder(termAndSkill, termAndSkillQuery, i));
+      }
+
+      return builders;
     }).collect(Collectors.toList());
 
-//    technicalSkillEnumMap.skillOf(termEnum).stream().forEach(skill -> {
-//      String termAndSkill = new StringJoiner(" ").add(termEnum.value()).add(skill).toString();
-//      QueryBuilder termAndSkillQuery = QueryBuilders.multiMatchQuery(termAndSkill, SEARCH_JOB_FIELDS).operator(Operator.AND);
-//      QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now");
-//      BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
-//      aggs.add(AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery)));
-////      query[0] = new NativeSearchQueryBuilder()
-////        .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT)
-////        .addAggregation(AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery)));
-//    });
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+      .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT);
+    filterAggregationBuilders.stream().forEach(builders -> builders.stream().forEach(builder -> queryBuilder.addAggregation(builder)));
+
+    Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), new ResultsExtractor<Aggregations>() {
+      public Aggregations extract(SearchResponse response) {
+        return response.getAggregations();
+      }
+    });
+
+    System.out.println(aggregations.asMap());
+
+  }
+
+  private FilterAggregationBuilder getFilterAggregationBuilder(String termAndSkill, QueryBuilder termAndSkillQuery, Integer interval) {
+    QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + "d");//interval : 0 - 30
+    BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
+    return AggregationBuilders.filter(termAndSkill + interval).filter(FilterBuilders.queryFilter(filterQuery));
   }
 
 }
