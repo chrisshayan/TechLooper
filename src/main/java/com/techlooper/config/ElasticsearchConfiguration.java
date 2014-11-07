@@ -3,7 +3,11 @@ package com.techlooper.config;
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.node.Node;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +21,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 /**
  * Created by phuonghqh on 10/13/14.

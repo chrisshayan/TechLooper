@@ -1,18 +1,20 @@
 {
-  "jobTerm": "java",
-  "count": "200",
-  "period": "week",
-  "totalJobs": "560",
-  "jobSkills": [
-    {
-      "skill": "Spring",
-      "currentCount": "60",
-      "previousCount": "120"
-    },
-    {
-      "skill": "Maven",
-      "currentCount": "60",
-      "previousCount": "10"
-    }
-  ]
+    "jobTerm": "java",
+    "count": "200",
+    "period": "week",
+    "totalTechnicalJobs": "560",
+    "jobSkills": [
+        {
+            "name": "Spring",
+            "currentCount": "60",
+            "previousCount": "120",
+            "histogramData": [52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87]
+        },
+        {
+            "skill": "Maven",
+            "currentCount": "60",
+            "previousCount": "10",
+            "histogramData": [52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87]
+        }
+    ]
 }

@@ -2,12 +2,13 @@
     <div class="term-infor">
         <div class="term-infor-chart">
             <span class="percent"></span>
+            <span class="arrow-up"><i class="fa fa-caret-up"></i></span>
             <span class="number">
-            <strong>{{term.count}}</strong>{{term.jobTerm}}</span>
+            <strong>{{term.count}}</strong></span>
         </div>
     </div>
     <div class="skill-circle-item" ng-repeat="item in top10">
-        <div class="circle" id="circle-{{$index}}" data-index="{{$index}}"></div>
+        <div class="circle" id="circle-{{$index}}" data-index="{{$index}}"  title="{{item.skill}}"></div>
         <div class="skill-name">{{item.skill}}</div>
     </div>
 </div>

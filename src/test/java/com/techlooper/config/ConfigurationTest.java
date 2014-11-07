@@ -1,8 +1,11 @@
 package com.techlooper.config;
 
+import com.techlooper.model.TechnicalSkillEnumMap;
+import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.impl.VietnamWorksJobSearchService;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -11,9 +14,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 
 /**
@@ -28,6 +36,9 @@ import java.io.IOException;
 public class ConfigurationTest implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
+
+    @Resource
+    private Environment environment;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -57,6 +68,23 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public JobSearchService jobSearchService() {
         return new VietnamWorksJobSearchService();
+    }
+
+    // TODO : separate to another config
+    @Bean
+    public TechnicalSkillEnumMap technicalSkillEnumMap() {
+        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
+        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
+            if (TechnicalTermEnum.EMPTY != term) {
+                String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+                Optional<String> skillOptional = Optional.ofNullable(termKey);
+                if (skillOptional.isPresent()) {
+                    String[] skills = StringUtils.split(skillOptional.get(), ',');
+                    technicalSkillEnumMap.put(term, Arrays.asList(skills));
+                }
+            }
+        });
+        return technicalSkillEnumMap;
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

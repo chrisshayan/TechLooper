@@ -1,25 +1,35 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.model.*;
 import com.techlooper.service.JobStatisticService;
+import com.techlooper.util.LookUpUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
@@ -29,12 +39,14 @@ import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 @Service
 public class VietnamWorksJobStatisticService implements JobStatisticService {
 
+    private static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
+    private static final String ES_VIETNAMWORKS_INDEX = "vietnamworks";
+
+    @Resource
+    private TechnicalSkillEnumMap technicalSkillEnumMap;
+
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
-
-    private static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
-
-    private static final String ES_VIETNAMWORKS_INDEX = "vietnamworks";
 
     public Long countPhpJobs() {
         return count(TechnicalTermEnum.PHP);
@@ -127,4 +139,62 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             return 0L;
         }
     }
+
+    public SkillStatisticResponse countJobsBySKill(TechnicalTermEnum term, final PeriodEnum period) {
+        List<List<FilterAggregationBuilder>> filterAggregationBuilders =
+                technicalSkillEnumMap.skillOf(term).stream().map(skill -> {
+
+            String termAndSkill = new StringJoiner(" ").add(term.value()).add(skill).toString();
+            QueryBuilder termAndSkillQuery = QueryBuilders.multiMatchQuery(termAndSkill, SEARCH_JOB_FIELDS).operator(Operator.AND);
+
+            // TODO refactor using jdk8 later
+            List<FilterAggregationBuilder> builders = new LinkedList<>();
+            for (int i = 0; i < 30; ++i) {
+                builders.add(getFilterAggregationBuilder(skill, termAndSkillQuery, "d", i));
+            }
+
+            builders.add(getFilterAggregationBuilder(skill, termAndSkillQuery, "w", 0));
+            builders.add(getFilterAggregationBuilder(skill, termAndSkillQuery, "w", 1));
+
+            return builders;
+        }).collect(toList());
+
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+                .withIndices(ES_VIETNAMWORKS_INDEX).withTypes("job");
+        filterAggregationBuilders.stream().forEach(
+                builders -> builders.stream().forEach(
+                        builder -> queryBuilder.addAggregation(builder)));
+
+        // TODO: * Support current & last week query
+        //       * filter by termAndSkillQuery before do aggregation
+        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), new ResultsExtractor<Aggregations>() {
+            public Aggregations extract(SearchResponse response) {
+                return response.getAggregations();
+            }
+        });
+
+        Function<InternalFilter,String> getSkillNameFunc = bucket -> bucket.getName().split("-")[0];
+        Function<InternalFilter,Long> mapToSkillStatisticResponseFunc = bucket -> bucket.getDocCount();
+        Collector<InternalFilter, ?, List<Long>> skillCountCollector = mapping(mapToSkillStatisticResponseFunc, toList());
+
+        final List<SkillStatisticItem> jobSkills = new LinkedList<>();
+        aggregations.asList().stream().map(agg -> (InternalFilter) agg)
+                .sorted((bucket1,bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
+                .collect(Collectors.groupingBy(getSkillNameFunc, skillCountCollector))
+                .forEach((skillName, docCounts) -> {
+                    jobSkills.add(new SkillStatisticItem(skillName,docCounts.get(30),docCounts.get(31),docCounts));
+                });
+
+        return new SkillStatisticResponse(
+                term.value(), count(term), "w", countTechnicalJobs(), jobSkills);
+    }
+
+    private FilterAggregationBuilder getFilterAggregationBuilder(String skill, QueryBuilder termAndSkillQuery,
+                                                                 String period, Integer interval) {
+        String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
+        QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + period);
+        BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
+        return AggregationBuilders.filter(skill.replaceAll(" ", "_") + "-" + period + "-" + intervalDate).filter(FilterBuilders.queryFilter(filterQuery));
+    }
+
 }

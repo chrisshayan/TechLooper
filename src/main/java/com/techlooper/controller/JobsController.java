@@ -93,44 +93,12 @@ public class JobsController {
 
         if (termOptional.isPresent() && technicalSkillEnumMap.containsKey(term)) {
             PeriodEnum period = lookUp(skillStatisticRequest.getPeriod().toUpperCase());
-
-            int dayGapOfPeriod = getDayGapOfPeriod(period);
-            LocalDate currentPeriod = LocalDate.now();
-            LocalDate previousPeriod = LocalDate.now().minusDays(dayGapOfPeriod);
-
-            Long countTermJobs = vietnamWorksJobStatisticService.count(term);
-            Long totalTechnicalJobs = vietnamWorksJobStatisticService.countTechnicalJobs();
-
-            List<SkillStatisticItem> items = new ArrayList<>();
-            technicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
-                Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
-                Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
-                items.add(new SkillStatisticItem(skill, currentSkill, previousSkill));
-            });
-
-            return new SkillStatisticResponse(skillStatisticRequest.getTerm(), countTermJobs, period.value(), totalTechnicalJobs, items);
+            return vietnamWorksJobStatisticService.countJobsBySKill(term, period);
         }
 
         SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();
         defaultObject.setJobTerm(skillStatisticRequest.getTerm());
         return SkillStatisticResponse.getDefaultObject();
-    }
-
-    private int getDayGapOfPeriod(PeriodEnum period) {
-        Calendar calendar = Calendar.getInstance();
-        Optional periodOptional = Optional.ofNullable(period);
-        if (periodOptional.isPresent()) {
-            switch (period) {
-                case QUARTER:
-                    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH) * 3;
-                case MONTH:
-                    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                default:
-                    return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
-            }
-        } else {
-            return calendar.getActualMaximum(Calendar.DAY_OF_WEEK);
-        }
     }
 
     private VNWJobSearchRequest convertToVNWJobSearchRequest(JobSearchRequest jobSearchRequest) {
