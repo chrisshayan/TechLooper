@@ -90,7 +90,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     public Long countTechnicalJobs() {
-        return Stream.of(TechnicalTermEnum.values()).mapToLong(term -> count(term)).sum();
+        return Stream.of(TechnicalTermEnum.values()).mapToLong(this::count).sum();
     }
 
     /**
