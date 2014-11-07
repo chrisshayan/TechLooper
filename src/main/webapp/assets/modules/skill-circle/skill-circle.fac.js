@@ -24,7 +24,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
 
     update: function(term, skills) {
       $.each(circles, function(index, circle) {
-        // circle labels are auto-update due to angular.$apply()
+        // TODO update skill text & value
         circle.update(skills[index].currentCount);
       });
     },
@@ -52,7 +52,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
     },
     renameTerm: function(name){
       var newName ='';
-      var rename = name.split("_");
+      var rename = name.split(" ");
       if(name.length > 6){
         for(var i = 0; i < rename.length; i++){
           newName =  newName + rename[i].charAt(0);
