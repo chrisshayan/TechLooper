@@ -1,5 +1,8 @@
 package com.techlooper.service;
 
+import com.techlooper.model.PeriodEnum;
+import com.techlooper.model.SkillStatisticRequest;
+import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTermEnum;
 
 import java.time.LocalDate;
@@ -108,5 +111,5 @@ public interface JobStatisticService {
      */
     Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate untilApprovedDate);
 
-    void countJobsBySKill(TechnicalTermEnum termEnum);
+    SkillStatisticResponse countJobsBySKill(TechnicalTermEnum term, PeriodEnum period);
 }
