@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.model.PeriodEnum;
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
@@ -133,8 +134,8 @@ public class VietnamWorksJobStatisticServiceTest {
     assertTrue(jobStatisticService.countJavaJobs().longValue() >= count.longValue());
   }
 
-  @Test
-  public void testCountJobsBySkills() {
-    jobStatisticService.countJobsBySKill(TechnicalTermEnum.JAVA);
-  }
+//  @Test
+//  public void testCountJobsBySkills() {
+//    jobStatisticService.countJobsBySKill(TechnicalTermEnum.JAVA, PeriodEnum.WEEK);
+//  }
 }
