@@ -113,6 +113,12 @@ angular.module('Skill').factory('skillChartFactory', function() {
             }
             return dataItem;
 
+        },
+        checkGridLine: function(){
+            var min= 0,
+                max = 0;
+            // if()
+            yAxis.setExtremes(min,max);
         }
     }
 });
