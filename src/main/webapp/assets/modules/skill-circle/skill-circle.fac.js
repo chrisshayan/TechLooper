@@ -24,7 +24,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
 
     update: function(term, skills) {
       $.each(circles, function(index, circle) {
-        // TODO update skill text & value
+        // circle labels are auto-update due to angular.$apply()
         circle.update(skills[index].currentCount);
       });
     }
