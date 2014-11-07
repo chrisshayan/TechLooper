@@ -16,7 +16,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
             return value;
           },
           colors: ["#343233", jsonValue.skillColors[colorIndex]],
-          duration: 1200
+          duration: 1300
         });
         circles.push(circle);
       });

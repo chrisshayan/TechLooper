@@ -82,7 +82,7 @@ angular.module('Skill').factory('skillChartFactory', function() {
                         lineWidth: 1,
                         states: {
                             hover: {
-                                lineWidth: 2
+                                lineWidth: 3
                             }
                         }
                     }
