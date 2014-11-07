@@ -137,7 +137,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
   }
 
   public void countJobsBySKill(TechnicalTermEnum termEnum) {
-//    final List<AggregationBuilder> aggs = new LinkedList<>();
     List<List<FilterAggregationBuilder>> filterAggregationBuilders = technicalSkillEnumMap.skillOf(termEnum).stream().map(skill -> {
 
       String termAndSkill = new StringJoiner(" ").add(termEnum.value()).add(skill).toString();
@@ -146,16 +145,17 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
       // TODO refactor using jdk8 later
       List<FilterAggregationBuilder> builders = new LinkedList<>();
       for (int i = 0; i < 30; ++i) {
-        builders.add(getFilterAggregationBuilder(termAndSkill, termAndSkillQuery, i));
+        builders.add(getFilterAggregationBuilder(skill, termAndSkillQuery, i));
       }
 
       return builders;
     }).collect(Collectors.toList());
 
-    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
-      .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT);
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(ES_VIETNAMWORKS_INDEX).withTypes("job");
     filterAggregationBuilders.stream().forEach(builders -> builders.stream().forEach(builder -> queryBuilder.addAggregation(builder)));
 
+    // TODO: * Support current & last week query
+    //       * filter by termAndSkillQuery before do aggregation
     Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), new ResultsExtractor<Aggregations>() {
       public Aggregations extract(SearchResponse response) {
         return response.getAggregations();
@@ -166,10 +166,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   }
 
-  private FilterAggregationBuilder getFilterAggregationBuilder(String termAndSkill, QueryBuilder termAndSkillQuery, Integer interval) {
+  private FilterAggregationBuilder getFilterAggregationBuilder(String skill, QueryBuilder termAndSkillQuery, Integer interval) {
     QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + "d");//interval : 0 - 30
     BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
-    return AggregationBuilders.filter(termAndSkill + interval).filter(FilterBuilders.queryFilter(filterQuery));
+    return AggregationBuilders.filter(skill.replaceAll(" ", "_") + "_" + interval).filter(FilterBuilders.queryFilter(filterQuery));
   }
 
 }
