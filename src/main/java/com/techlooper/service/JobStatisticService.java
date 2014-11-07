@@ -107,4 +107,6 @@ public interface JobStatisticService {
      * @see com.techlooper.model.TechnicalTermEnum
      */
     Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate untilApprovedDate);
+
+    void countJobsBySKill(TechnicalTermEnum termEnum);
 }
