@@ -11,12 +11,12 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
           radius: 40,
           value: skill.currentCount,
           maxValue: term.count,
-          width: 13,
+          width: 10,
           text: function (value) {
             return value;
           },
           colors: ["#343233", jsonValue.skillColors[colorIndex]],
-          duration: 400
+          duration: 1300
         });
         circles.push(circle);
       });
@@ -42,7 +42,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
       $$.update(term, skills);
     },
     setPercentTerm: function(total, number){
-      var per = Math.round((number*100)/total);
+      var per = Math.round((number*260)/total);
       $('.term-infor-chart .percent').animate({
         'height': per
       }, {
@@ -55,7 +55,13 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
         duration: '10000',
         easing: 'easeOutQuad'
       });
-      
+      $('.term-infor-chart .arrow-up').animate({
+        'bottom': (per - 8) +'px'
+      }, {
+        duration: '10000',
+        easing: 'easeOutQuad'
+      });
+      $('i.fa-caret-up').show();  
     }
 
   }
