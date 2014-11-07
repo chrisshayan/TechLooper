@@ -16,6 +16,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.techlooper.model.PeriodEnum.lookUp;
+
 @Controller
 public class JobsController {
 
@@ -59,7 +61,7 @@ public class JobsController {
     @SendTo("/topic/jobs/terms")
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
-        List<TechnicalTermResponse> terms = new LinkedList<TechnicalTermResponse>();
+        List<TechnicalTermResponse> terms = new LinkedList<>();
         Arrays.stream(TechnicalTermEnum.values()).forEach(term -> {
             if (TechnicalTermEnum.EMPTY != term) {
                 terms.add(new TechnicalTermResponse.Builder().withTerm(term)
@@ -90,7 +92,7 @@ public class JobsController {
         TechnicalTermEnum term = termOptional.get();
 
         if (termOptional.isPresent() && technicalSkillEnumMap.containsKey(term)) {
-            PeriodEnum period = PeriodEnum.lookUp(skillStatisticRequest.getPeriod().toUpperCase());
+            PeriodEnum period = lookUp(skillStatisticRequest.getPeriod().toUpperCase());
 
             int dayGapOfPeriod = getDayGapOfPeriod(period);
             LocalDate currentPeriod = LocalDate.now();
@@ -99,7 +101,7 @@ public class JobsController {
             Long countTermJobs = vietnamWorksJobStatisticService.count(term);
             Long totalTechnicalJobs = vietnamWorksJobStatisticService.countTechnicalJobs();
 
-            List<SkillStatisticItem> items = new ArrayList<SkillStatisticItem>();
+            List<SkillStatisticItem> items = new ArrayList<>();
             technicalSkillEnumMap.skillOf(term).stream().forEach(skill -> {
                 Long currentSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, currentPeriod);
                 Long previousSkill = vietnamWorksJobStatisticService.countTechnicalJobsBySkill(term, skill, previousPeriod);
@@ -143,7 +145,7 @@ public class JobsController {
         final JobSearchResponse jobSearchResponse = new JobSearchResponse();
         jobSearchResponse.setTotal(vnwJobSearchResponse.getData().getTotal());
         final Stream<VNWJobSearchResponseDataItem> responseDataItemStream = vnwJobSearchResponse.getData().getJobs().stream();
-        jobSearchResponse.setJobs(responseDataItemStream.map(item -> item.toJobResponse()).collect(Collectors.toSet()));
+        jobSearchResponse.setJobs(responseDataItemStream.map(VNWJobSearchResponseDataItem::toJobResponse).collect(Collectors.toSet()));
         return jobSearchResponse;
     }
 }

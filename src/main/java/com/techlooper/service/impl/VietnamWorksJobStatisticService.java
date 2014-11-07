@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -90,7 +93,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
   }
 
   public Long countTechnicalJobs() {
-    return Stream.of(TechnicalTermEnum.values()).mapToLong(term -> count(term)).sum();
+    return Stream.of(TechnicalTermEnum.values()).mapToLong(this::count).sum();
   }
 
   /**
@@ -123,24 +126,31 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         .withIndices(ES_VIETNAMWORKS_INDEX)
         .withSearchType(SearchType.COUNT).build();
       return elasticsearchTemplate.count(searchQuery);
-    }
-    else {
+    } else {
       return 0L;
     }
   }
 
   public void countJobsBySKill(TechnicalTermEnum termEnum) {
-    final List<NativeSearchQueryBuilder> query = new LinkedList<>();
-    technicalSkillEnumMap.skillOf(termEnum).stream().forEach(skill -> {
+    final List<AggregationBuilder> aggs = new LinkedList<>();
+    technicalSkillEnumMap.skillOf(termEnum).stream().map(skill -> {
       String termAndSkill = new StringJoiner(" ").add(termEnum.value()).add(skill).toString();
       QueryBuilder termAndSkillQuery = QueryBuilders.multiMatchQuery(termAndSkill, SEARCH_JOB_FIELDS).operator(Operator.AND);
       QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now");
       BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
-      AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery))
-//      query[0] = new NativeSearchQueryBuilder()
-//        .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT)
-//        .addAggregation(AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery)));
-    });
+      return AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery));
+    }).collect(Collectors.toList());
+
+//    technicalSkillEnumMap.skillOf(termEnum).stream().forEach(skill -> {
+//      String termAndSkill = new StringJoiner(" ").add(termEnum.value()).add(skill).toString();
+//      QueryBuilder termAndSkillQuery = QueryBuilders.multiMatchQuery(termAndSkill, SEARCH_JOB_FIELDS).operator(Operator.AND);
+//      QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now");
+//      BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
+//      aggs.add(AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery)));
+////      query[0] = new NativeSearchQueryBuilder()
+////        .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT)
+////        .addAggregation(AggregationBuilders.filter(termAndSkill).filter(FilterBuilders.queryFilter(filterQuery)));
+//    });
   }
 
 }
