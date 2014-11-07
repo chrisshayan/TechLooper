@@ -15,8 +15,11 @@ angular.module("Skill").directive("skillcircle", function () {
   }
 }).directive("skilltable", function () {
   return {
-    restrict: "A",
+    restrict: "E",
     replace: false,
-    templateUrl: "modules/skill-table/skill-table.tem.html"
+    templateUrl: "modules/skill-table/skill-table.tem.html",
+    scope: {
+      top3: "="
+    }
   }
 });

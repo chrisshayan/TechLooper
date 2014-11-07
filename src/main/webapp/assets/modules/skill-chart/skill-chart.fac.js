@@ -55,6 +55,8 @@ angular.module('Skill').factory('skillChartFactory', function() {
                     min: 0,
                     max: 100,
                     tickInterval: 10,
+                    gridLineWidth: 1,
+                    gridLineColor: '#353233'
                 },
                 tooltip: {
                     valueSuffix: ' Jobs'
@@ -65,10 +67,10 @@ angular.module('Skill').factory('skillChartFactory', function() {
                     verticalAlign: 'top',
                     borderWidth: 0,
                     itemStyle: {
-                        color: '#E0E0E3'
+                        color: '#636363'
                     },
                     itemHoverStyle: {
-                        color: '#8a8a8a'
+                        color: '#E0E0E3'
                     },
                     itemHiddenStyle: {
                         color: '#606063'
@@ -89,6 +91,7 @@ angular.module('Skill').factory('skillChartFactory', function() {
                 },
                 series: dataChart
             });
+            $('text[text-anchor=end]').css('display', 'none');
         },
         getLastDays: function() {
             var day = Date.today();
@@ -98,28 +101,18 @@ angular.module('Skill').factory('skillChartFactory', function() {
                 day = day.add(-1).days().clone()
                 arDays.push(day.toString("MMM d"));
             }
-            console.log(arDays)
             return arDays.reverse();
         },
         getDataForChart: function(data) {
             var dataItem = [];
             for (var i = 0; i < 3; i++) {
-                var numbers = instance.getRandomNumber();
                 dataItem.push({
                     name: data[i].skill,
-                    data: numbers
+                    data: data[i].histogramData
                 });
             }
             return dataItem;
 
-        },
-        getRandomNumber: function() {
-            var Numbers = [];
-            for (var j = 0; j < 30; j++) {
-                var rdNumber = Math.floor((Math.random() * 100) + 1);
-                Numbers.push(rdNumber);
-            }
-            return Numbers;
         }
     }
 });

@@ -1,11 +1,19 @@
 <div class="col-md-12 ctrl-lineChart-block">
-	<ul>
-	 	<li>
-	 		<div class="col-md-5 colSkill">Skill</div>
-			<div class="col-md-2 colCurrent">Current <span class="curDate"></span></div>
-			<div class="col-md-2 colPrevious">Previous <span class="preDate"></span></div>
-			<div class="col-md-2 colPercentChange">% Changed Prev to Current</div>
-			<div class="col-md-1 colEdit"><i class="fa fa-edit"></i></div>
-	 	</li>
-	</ul>
+	<table class="rwd-table">
+      <tr>
+        <th>Skill</th>
+        <th>Current <span class="curDate"></span></th>
+        <th>Previous <span class="preDate"></span></th>
+        <th>% Changed Prev to Current</th>
+        <th><i class="fa fa-edit"></i></th>
+      </tr>
+      <tr ng-repeat="item in top3">
+        <td data-th="Skill">{{item.name}}</td>
+        <td data-th="Current">{{item.current}}</td>
+        <td data-th="Previous">{{item.previous}}</td>
+        <td data-th="Changed Prev to Current"><i class="fa {{item.icon}}"></i> {{item.change}} %</td>
+        <td data-th="Edit"><i class="fa fa-edit"></i></td>
+      </tr>
+    </table>
+	
 </div>

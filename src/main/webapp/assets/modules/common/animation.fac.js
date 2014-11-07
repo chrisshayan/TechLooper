@@ -23,8 +23,8 @@ angular.module("Common").factory("animationFactory", function (jsonValue, utils)
               'width': '100%',
               top: 0,
               botom: 0,
-              left: 0,
-              position: 'fixed'
+              left: 0
+              //position: 'fixed'
             }, {
               duration: '10000',
               easing: 'easeOutQuad'
