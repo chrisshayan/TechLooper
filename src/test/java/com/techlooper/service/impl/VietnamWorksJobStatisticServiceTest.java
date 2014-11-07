@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobStatisticService;
 import org.hamcrest.core.Is;
@@ -32,10 +33,14 @@ public class VietnamWorksJobStatisticServiceTest {
   @Resource
   private ElasticsearchTemplate elasticsearchTemplate;
 
+  @Resource
+  private TechnicalSkillEnumMap technicalSkillEnumMap;
+
   @Before
   public void before() {
     jobStatisticService = new VietnamWorksJobStatisticService();
     ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
+    ReflectionTestUtils.setField(jobStatisticService, "technicalSkillEnumMap", technicalSkillEnumMap);
   }
 
   @Test
