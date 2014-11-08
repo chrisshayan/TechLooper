@@ -55,7 +55,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
   }
 
   public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills) {
-    return skills.stream().parallel().map(skill -> {
+    return skills.stream().map(skill -> {
       QueryBuilder skillQuery = this.getTechnicalSkillQuery(skill);
 
       // TODO * refactor loop n times using jdk8 later

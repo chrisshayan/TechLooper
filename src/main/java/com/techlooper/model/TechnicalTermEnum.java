@@ -50,12 +50,12 @@ public enum TechnicalTermEnum {
   /**
    * DOTNET refers to the job which is hiring .net developers
    */
-  DOTNET(".net"),
+  DOTNET(".net");
 
   /**
    * Default is empty technical term
    */
-  EMPTY("");
+//  EMPTY("");
 
   private String value;
 
@@ -64,7 +64,7 @@ public enum TechnicalTermEnum {
   }
 
   public static TechnicalTermEnum lookUp(String value) {
-    return LookUpUtils.lookup(TechnicalTermEnum.class, value, TechnicalTermEnum.EMPTY);
+    return LookUpUtils.lookup(TechnicalTermEnum.class, value, null);
   }
 
   public String value() {
