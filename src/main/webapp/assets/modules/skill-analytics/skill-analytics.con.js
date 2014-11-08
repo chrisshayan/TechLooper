@@ -12,7 +12,6 @@ angular.module('Skill').controller('skillAnalyticsController',
             $scope.top3 = skillTableFactory.reformatData(top3);
             skillTableFactory.formatDate();
 
-
             $scope.$apply();
             skillCircleFactory.draw(data, top10);
 

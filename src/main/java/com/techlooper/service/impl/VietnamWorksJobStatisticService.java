@@ -1,12 +1,14 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.model.*;
+import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
@@ -46,6 +48,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   @Resource
   private ElasticsearchTemplate elasticsearchTemplate;
+
+  @Resource
+  private JobQueryBuilder jobQueryBuilder;
 
   public Long countPhpJobs() {
     return count(TechnicalTermEnum.PHP);
@@ -113,7 +118,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
    * @return number of jobs
    * @see com.techlooper.model.TechnicalTermEnum
    */
-  @Override
   public Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate approvedDate) {
     final Optional term = Optional.ofNullable(technicalTermEnum);
 
@@ -140,59 +144,67 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
   }
 
-  public SkillStatisticResponse countJobsBySKill(TechnicalTermEnum term, final PeriodEnum period) {
-    List<List<FilterAggregationBuilder>> filterAggregationBuilders = technicalSkillEnumMap.skillOf(term).stream().map(skill -> {
-      String termAndSkill = new StringJoiner(" ").add(term.value()).add(skill).toString();
-      QueryBuilder termAndSkillQuery = QueryBuilders.multiMatchQuery(termAndSkill, SEARCH_JOB_FIELDS).operator(Operator.AND);
+
+  // TODO extract common query to reuse
+  public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, final PeriodEnum period) {
+    NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
+    queryBuilder.withQuery(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
+    AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
+    queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
+
+    List<List<FilterAggregationBuilder>> skillAggregations = technicalSkillEnumMap.skillOf(term).stream().parallel().map(skill -> {
+      QueryBuilder skillQuery = jobQueryBuilder.getTechnicalSkillQuery(skill);
 
       // TODO * refactor loop n times using jdk8 later
       //      * consider to extract 30 to properties file ?
       List<FilterAggregationBuilder> builders = new LinkedList<>();
       for (int i = 0; i < 30; ++i) {// 30 days
-        builders.add(intervalAggregation(skill, termAndSkillQuery, "d", i));
+        builders.add(getIntervalAggregation(skill, skillQuery, "d", i));
       }
 
-      builders.add(intervalAggregation(skill, termAndSkillQuery, "w", 0));// current week
-      builders.add(intervalAggregation(skill, termAndSkillQuery, "w", 1));// previous week
-
+      builders.add(getIntervalAggregation(skill, skillQuery, "w", 0));// current week
+      builders.add(getIntervalAggregation(skill, skillQuery, "w", 1));// previous week
       return builders;
     }).collect(toList());
 
-    // TODO create an other aggregation to count all technical jobs
+    skillAggregations.stream().forEach(aggs -> aggs.stream().forEach(agg -> technicalTermAggregation.subAggregation(agg)));
 
-    QueryBuilder termQuery = QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(Operator.AND);
-    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
-      .withQuery(termQuery).withIndices(ES_VIETNAMWORKS_INDEX).withTypes("job");
-    filterAggregationBuilders.stream().forEach(builders -> builders.stream().forEach(builder -> queryBuilder.addAggregation(builder)));
-
-    // TODO: * filter by termAndSkillQuery before do aggregation
-    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder();
+    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
     Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), new ResultsExtractor<Aggregations>() {
       public Aggregations extract(SearchResponse response) {
-        skillStatisticResponse.withCount(response.getHits().getTotalHits());
+        skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
         return response.getAggregations();
       }
     });
+
+    //term aggregation
+    InternalFilter termAggregation = (InternalFilter) aggregations.get(term.name());
+    skillStatisticResponse.withCount(((InternalFilter) aggregations.get(term.name())).getDocCount());
 
     Function<InternalFilter, String> getSkillNameFunc = bucket -> bucket.getName().split("-")[0];
     Function<InternalFilter, Long> mapToSkillStatisticResponseFunc = bucket -> bucket.getDocCount();
     Collector<InternalFilter, ?, List<Long>> skillCountCollector = mapping(mapToSkillStatisticResponseFunc, toList());
 
     final List<SkillStatisticItem> jobSkills = new LinkedList<>();
-    aggregations.asList().stream().map(agg -> (InternalFilter) agg)
+    termAggregation.getAggregations().asList().stream().parallel().map(agg -> (InternalFilter) agg)
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
       .collect(Collectors.groupingBy(getSkillNameFunc, skillCountCollector))
       .forEach((skillName, docCounts) -> {
-        jobSkills.add(new SkillStatisticItem(skillName, docCounts.get(30), docCounts.get(31), docCounts));
+        jobSkills.add(new SkillStatisticItem.Builder()
+          .withSkill(skillName.replaceAll("_", " "))
+          .withHistogramData(docCounts)
+          .withCurrentCount(docCounts.get(30))
+          .withPreviousCount(docCounts.get(31))
+          .build());
       });
 
-    return skillStatisticResponse.withJobTerm(term).withJobSkills(jobSkills).build();// new SkillStatisticResponse(term.value(), count(term), "w", countTechnicalJobs(), jobSkills);
+    return skillStatisticResponse.withJobSkills(jobSkills).build();
   }
 
-  private FilterAggregationBuilder intervalAggregation(String skill, QueryBuilder termAndSkillQuery, String period, Integer interval) {
+  private FilterAggregationBuilder getIntervalAggregation(String skill, QueryBuilder skillQuery, String period, Integer interval) {
     String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
     QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + period);
-    BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(termAndSkillQuery).must(approveDateQuery);
+    BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(skillQuery).must(approveDateQuery);
     return AggregationBuilders.filter(skill.replaceAll(" ", "_") + "-" + period + "-" + intervalDate).filter(FilterBuilders.queryFilter(filterQuery));
   }
 

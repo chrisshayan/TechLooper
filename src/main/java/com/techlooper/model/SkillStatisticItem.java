@@ -7,48 +7,69 @@ import java.util.List;
  */
 public class SkillStatisticItem {
 
-    private String skill;
-    private Long currentCount;
-    private Long previousCount;
-    private List<Long> histogramData;
+  private String skill;
+  private Long currentCount;
+  private Long previousCount;
+  private List<Long> histogramData;
 
-    public SkillStatisticItem(String skill, Long currentCount, Long previousCount, List<Long> histogramData) {
-        this.skill = skill;
-        this.currentCount = currentCount;
-        this.previousCount = previousCount;
-        this.histogramData = histogramData;
+  public String getSkill() {
+    return skill;
+  }
+
+  public void setSkill(String skill) {
+    this.skill = skill;
+  }
+
+  public Long getCurrentCount() {
+    return currentCount;
+  }
+
+  public void setCurrentCount(Long currentCount) {
+    this.currentCount = currentCount;
+  }
+
+  public Long getPreviousCount() {
+    return previousCount;
+  }
+
+  public void setPreviousCount(Long previousCount) {
+    this.previousCount = previousCount;
+  }
+
+  public List<Long> getHistogramData() {
+    return histogramData;
+  }
+
+  public void setHistogramData(List<Long> histogramData) {
+    this.histogramData = histogramData;
+  }
+
+  public static class Builder {
+    private SkillStatisticItem instance = new SkillStatisticItem();
+
+    public Builder withPreviousCount(Long previousCount) {
+      instance.previousCount = previousCount;
+      return this;
     }
 
-    public String getSkill() {
-        return skill;
+    public Builder withCurrentCount(Long currentCount) {
+      instance.currentCount = currentCount;
+      return this;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public Builder withHistogramData(List<Long> histogramData) {
+      instance.histogramData = histogramData;
+      return this;
     }
 
-    public Long getCurrentCount() {
-        return currentCount;
+    public Builder withSkill(String skill) {
+      instance.skill = skill;
+      return this;
     }
 
-    public void setCurrentCount(Long currentCount) {
-        this.currentCount = currentCount;
+    public SkillStatisticItem build() {
+      return instance;
     }
-
-    public Long getPreviousCount() {
-        return previousCount;
-    }
-
-    public void setPreviousCount(Long previousCount) {
-        this.previousCount = previousCount;
-    }
-
-    public List<Long>  getHistogramData() {
-        return histogramData;
-    }
-
-    public void setHistogramData(List<Long> histogramData) {
-        this.histogramData = histogramData;
-    }
+  }
 
 }

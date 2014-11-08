@@ -2,7 +2,9 @@ package com.techlooper.config;
 
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
+import com.techlooper.service.impl.JobQueryBuilderImpl;
 import com.techlooper.service.impl.VietnamWorksJobSearchService;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -68,6 +70,11 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public JobSearchService jobSearchService() {
         return new VietnamWorksJobSearchService();
+    }
+
+    @Bean
+    public JobQueryBuilder jobQueryBuilder() {
+        return new JobQueryBuilderImpl();
     }
 
     // TODO : separate to another config

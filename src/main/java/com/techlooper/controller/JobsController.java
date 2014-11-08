@@ -93,11 +93,11 @@ public class JobsController {
 
         if (termOptional.isPresent() && technicalSkillEnumMap.containsKey(term)) {
             PeriodEnum period = lookUp(skillStatisticRequest.getPeriod().toUpperCase());
-            return vietnamWorksJobStatisticService.countJobsBySKill(term, period);
+            return vietnamWorksJobStatisticService.countJobsBySkill(term, period);
         }
 
         SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();
-        defaultObject.setJobTerm(skillStatisticRequest.getTerm());
+        defaultObject.setJobTerm(TechnicalTermEnum.lookUp(skillStatisticRequest.getTerm()));
         return SkillStatisticResponse.getDefaultObject();
     }
 

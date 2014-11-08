@@ -5,6 +5,7 @@ import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.model.PeriodEnum;
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
@@ -37,11 +38,15 @@ public class VietnamWorksJobStatisticServiceTest {
   @Resource
   private TechnicalSkillEnumMap technicalSkillEnumMap;
 
+  @Resource
+  private JobQueryBuilder jobQueryBuilder;
+
   @Before
   public void before() {
     jobStatisticService = new VietnamWorksJobStatisticService();
     ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
     ReflectionTestUtils.setField(jobStatisticService, "technicalSkillEnumMap", technicalSkillEnumMap);
+    ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
   }
 
   @Test
@@ -136,6 +141,6 @@ public class VietnamWorksJobStatisticServiceTest {
 
 //  @Test
 //  public void testCountJobsBySkills() {
-//    jobStatisticService.countJobsBySKill(TechnicalTermEnum.JAVA, PeriodEnum.WEEK);
+//    jobStatisticService.countJobsBySkill(TechnicalTermEnum.JAVA, PeriodEnum.WEEK);
 //  }
 }

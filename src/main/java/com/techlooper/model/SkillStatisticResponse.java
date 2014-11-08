@@ -69,6 +69,11 @@ public class SkillStatisticResponse {
 
     private SkillStatisticResponse instance = new SkillStatisticResponse();
 
+    public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
+      instance.totalTechnicalJobs = totalTechnicalJobs;
+      return this;
+    }
+
     public Builder withJobSkills(List<SkillStatisticItem> jobSkills) {
       instance.jobSkills = jobSkills;
       return this;
