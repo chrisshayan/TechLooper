@@ -168,9 +168,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     skillStatisticResponse.withCount(termAggregation.getDocCount());
 
     final List<SkillStatisticItem> jobSkills = new LinkedList<>();
-    termAggregation.getAggregations().asList().parallelStream().map(agg -> (InternalFilter) agg)
+    termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
-      .collect(Collectors.groupingByConcurrent(bucket -> bucket.getName().split("-")[0], mapping(bucket -> bucket.getDocCount(), toList())))
+      .collect(Collectors.groupingBy(bucket -> bucket.getName().split("-")[0], mapping(bucket -> bucket.getDocCount(), toList())))
       .forEach((skillName, docCounts) -> {
         // TODO remove item 30, 31 in docCounts
         jobSkills.add(new SkillStatisticItem.Builder()
