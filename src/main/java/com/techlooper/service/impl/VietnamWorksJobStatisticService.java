@@ -148,6 +148,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
   public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, PeriodEnum period) {
     NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
     queryBuilder.withQuery(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
+
     AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
     jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term)).stream()
       .forEach(aggs -> aggs.stream().forEach(agg -> technicalTermAggregation.subAggregation(agg)));
@@ -169,7 +170,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     final List<SkillStatisticItem> jobSkills = new LinkedList<>();
     termAggregation.getAggregations().asList().parallelStream().map(agg -> (InternalFilter) agg)
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
-      .collect(Collectors.groupingBy(bucket -> bucket.getName().split("-")[0], mapping(bucket -> bucket.getDocCount(), toList())))
+      .collect(Collectors.groupingByConcurrent(bucket -> bucket.getName().split("-")[0], mapping(bucket -> bucket.getDocCount(), toList())))
       .forEach((skillName, docCounts) -> {
         // TODO remove item 30, 31 in docCounts
         jobSkills.add(new SkillStatisticItem.Builder()

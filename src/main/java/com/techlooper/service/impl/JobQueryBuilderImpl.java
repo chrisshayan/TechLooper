@@ -51,7 +51,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
     QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + period);
     BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(skillQuery).must(approveDateQuery);
-    return AggregationBuilders.filter(skill.replaceAll(" ", "_") + "-" + period + "-" + intervalDate).filter(FilterBuilders.queryFilter(filterQuery));
+    return AggregationBuilders.filter(skill.replaceAll(" ", "_") + "-" + period + "-" + intervalDate)
+      .filter(FilterBuilders.queryFilter(filterQuery));
   }
 
   public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills) {
@@ -61,7 +62,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
       // TODO * refactor loop n times using jdk8 later
       //      * consider to extract 30 to properties file ?
       List<FilterAggregationBuilder> builders = new LinkedList<>();
-      for (int i = 0; i < 30; ++i) {// 30 days
+      for (int i = 0; i < 30; ++i) { // 30 days
         builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "d", i));
       }
 
