@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.util.EncryptionUtils;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -51,7 +52,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
         QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + period);
         BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(skillQuery).must(approveDateQuery);
-        return AggregationBuilders.filter(skill.replaceAll(" ", "_") + "-" + period + "-" + intervalDate)
+        return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill) + "-" + period + "-" + intervalDate)
                 .filter(FilterBuilders.queryFilter(filterQuery));
     }
 

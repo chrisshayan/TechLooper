@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.model.*;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
+import com.techlooper.util.EncryptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
@@ -168,7 +169,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 .collect(Collectors.groupingBy(bucket -> bucket.getName().split("-")[0], mapping(InternalFilter::getDocCount, toList())))
                 .forEach((skillName, docCounts) -> {
                     jobSkills.add(new SkillStatisticItem.Builder()
-                            .withSkill(skillName.replaceAll("_", " "))
+                            .withSkill(EncryptionUtils.decodeHexa(skillName))
                             .withHistogramData(docCounts)
                             .withCurrentCount(docCounts.get(30))
                             .withPreviousCount(docCounts.get(31))
