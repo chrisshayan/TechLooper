@@ -32,69 +32,69 @@ import java.util.stream.Stream;
 
 @Configuration
 @PropertySources({
-  @PropertySource("classpath:techlooper.properties"),
-  @PropertySource("classpath:secret.properties"),
-  @PropertySource("classpath:jobSkill.properties")})
+        @PropertySource("classpath:techlooper.properties"),
+        @PropertySource("classpath:secret.properties"),
+        @PropertySource("classpath:jobSkill.properties")})
 public class ConfigurationTest implements ApplicationContextAware {
 
-  private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
-  @Resource
-  private Environment environment;
+    @Resource
+    private Environment environment;
 
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-  @Bean
-  public String vnwConfigurationJson() throws IOException {
-    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-configuration.json").getInputStream(), "UTF-8");
-  }
+    @Bean
+    public String vnwConfigurationJson() throws IOException {
+        return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-configuration.json").getInputStream(), "UTF-8");
+    }
 
-  @Bean
-  public String vnwJobSearchJson() throws IOException {
-    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs.json").getInputStream(), "UTF-8");
-  }
+    @Bean
+    public String vnwJobSearchJson() throws IOException {
+        return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs.json").getInputStream(), "UTF-8");
+    }
 
-  @Bean
-  public String vnwJobSearchRequestJson() throws IOException {
-    return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs-request.json").getInputStream(), "UTF-8");
-  }
+    @Bean
+    public String vnwJobSearchRequestJson() throws IOException {
+        return IOUtils.toString(applicationContext.getResource("classpath:expect/vnw-jobs-request.json").getInputStream(), "UTF-8");
+    }
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-  @Bean
-  public JobSearchService jobSearchService() {
-    return new VietnamWorksJobSearchService();
-  }
+    @Bean
+    public JobSearchService jobSearchService() {
+        return new VietnamWorksJobSearchService();
+    }
 
-  @Bean
-  public JobQueryBuilder jobQueryBuilder() {
-    return new JobQueryBuilderImpl();
-  }
+    @Bean
+    public JobQueryBuilder jobQueryBuilder() {
+        return new JobQueryBuilderImpl();
+    }
 
-  // TODO : separate to another config
-  @Bean
-  public TechnicalSkillEnumMap technicalSkillEnumMap() {
-    TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
-    Stream.of(TechnicalTermEnum.values()).forEach(term -> {
+    // TODO : separate to another config
+    @Bean
+    public TechnicalSkillEnumMap technicalSkillEnumMap() {
+        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
+        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
 //            if (TechnicalTermEnum.EMPTY != term) {
-      String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
-      Optional<String> skillOptional = Optional.ofNullable(termKey);
-      if (skillOptional.isPresent()) {
-        String[] skills = StringUtils.split(skillOptional.get(), ',');
-        technicalSkillEnumMap.put(term, Arrays.asList(skills));
-      }
+            String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+            Optional<String> skillOptional = Optional.ofNullable(termKey);
+            if (skillOptional.isPresent()) {
+                String[] skills = StringUtils.split(skillOptional.get(), ',');
+                technicalSkillEnumMap.put(term, Arrays.asList(skills));
+            }
 //            }
-    });
-    return technicalSkillEnumMap;
-  }
+        });
+        return technicalSkillEnumMap;
+    }
 
-  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
-  }
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }
