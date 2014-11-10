@@ -170,7 +170,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
       .collect(Collectors.groupingBy(bucket -> bucket.getName().split("-")[0], mapping(InternalFilter::getDocCount, toList())))
       .forEach((skillName, docCounts) -> {
-        // TODO remove item 30, 31 in docCounts
         jobSkills.add(new SkillStatisticItem.Builder()
           .withSkill(skillName.replaceAll("_", " "))
           .withHistogramData(docCounts)
