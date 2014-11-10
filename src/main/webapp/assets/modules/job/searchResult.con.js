@@ -1,7 +1,6 @@
 angular.module('Jobs').controller('searchResultController',
   function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, shortcutFactory) {
-    connectionFactory.initialize($scope);
-
+    observer.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.search = {
       jobs: [],
       pageNumber: 0,
