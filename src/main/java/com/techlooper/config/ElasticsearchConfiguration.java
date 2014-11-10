@@ -3,11 +3,7 @@ package com.techlooper.config;
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.node.Node;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +18,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
-
 /**
  * Created by phuonghqh on 10/13/14.
  */
@@ -31,38 +25,38 @@ import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 @EnableElasticsearchRepositories(basePackages = "com.techlooper.repository")
 public class ElasticsearchConfiguration {
 
-    @Resource
-    private Environment environment;
+  @Resource
+  private Environment environment;
 
-    @Resource
-    private TransportClient transportClient;
+  @Resource
+  private TransportClient transportClient;
 
-    @Bean
-    public FactoryBean<TransportClient> transportClient() throws Exception {
-        TransportClientFactoryBean factory = new TransportClientFactoryBean();
-        factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
-        factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
-        return factory;
-    }
+  @Bean
+  public FactoryBean<TransportClient> transportClient() throws Exception {
+    TransportClientFactoryBean factory = new TransportClientFactoryBean();
+    factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
+    factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
+    return factory;
+  }
 
-    @Bean
-    public ElasticsearchOperations elasticsearchTemplate() {
-        return new ElasticsearchTemplate(transportClient);
-    }
+  @Bean
+  public ElasticsearchOperations elasticsearchTemplate() {
+    return new ElasticsearchTemplate(transportClient);
+  }
 
-    @Bean
-    public TechnicalSkillEnumMap technicalSkillEnumMap() {
-        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
-        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
-            if (TechnicalTermEnum.EMPTY != term) {
-                String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
-                Optional<String> skillOptional = Optional.ofNullable(termKey);
-                if (skillOptional.isPresent()) {
-                    String[] skills = StringUtils.split(skillOptional.get(), ',');
-                    technicalSkillEnumMap.put(term, Arrays.asList(skills));
-                }
-            }
-        });
-        return technicalSkillEnumMap;
-    }
+  @Bean
+  public TechnicalSkillEnumMap technicalSkillEnumMap() {
+    TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
+    Stream.of(TechnicalTermEnum.values()).forEach(term -> {
+//            if (TechnicalTermEnum.EMPTY != term) {
+      String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+      Optional<String> skillOptional = Optional.ofNullable(termKey);
+      if (skillOptional.isPresent()) {
+        String[] skills = StringUtils.split(skillOptional.get(), ',');
+        technicalSkillEnumMap.put(term, Arrays.asList(skills));
+      }
+//            }
+    });
+    return technicalSkillEnumMap;
+  }
 }

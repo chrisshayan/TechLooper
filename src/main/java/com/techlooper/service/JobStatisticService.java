@@ -111,5 +111,5 @@ public interface JobStatisticService {
      */
     Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate untilApprovedDate);
 
-    SkillStatisticResponse countJobsBySKill(TechnicalTermEnum term, PeriodEnum period);
+    SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, PeriodEnum period);
 }
