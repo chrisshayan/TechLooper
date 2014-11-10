@@ -136,7 +136,7 @@ public class VietnamWorksJobStatisticServiceTest {
     //When
     Long count = jobStatisticService.countTechnicalJobsBySkill(term, "", LocalDate.now());
     //If input skill is empty, Then return the total of jobs matching its term (ex : JAVA)
-    assertTrue(jobStatisticService.countJavaJobs().longValue() >= count.longValue());
+    assertTrue(jobStatisticService.countJavaJobs() >= count);
   }
 
 //  @Test

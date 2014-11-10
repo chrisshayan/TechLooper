@@ -52,11 +52,8 @@ public class JobSearchResultRepositoryTest {
     FacetedPage<JobEntity> jobSearchResultEntities = repository.search(searchQuery);
     assertNotNull(jobSearchResultEntities);
 
-    jobSearchResultEntities.forEach(new Consumer<JobEntity>() {
-      @Override
-      public void accept(JobEntity job) {
-        System.out.println("job = " + job);
-      }
+    jobSearchResultEntities.forEach(job -> {
+      System.out.println("job = " + job);
     });
 
     final long count = elasticsearchTemplate.count(searchQuery);

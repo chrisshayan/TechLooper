@@ -151,26 +151,24 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
     jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term)).stream()
-      .forEach(aggs -> aggs.stream().forEach(agg -> technicalTermAggregation.subAggregation(agg)));
+      .forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
 
     queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
 
     final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
-    Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), new ResultsExtractor<Aggregations>() {
-      public Aggregations extract(SearchResponse response) {
-        skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
-        return response.getAggregations();
-      }
+    Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
+      skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
+      return response.getAggregations();
     });
 
     // term aggregation
-    InternalFilter termAggregation = (InternalFilter) aggregations.get(term.name());
+    InternalFilter termAggregation = aggregations.get(term.name());
     skillStatisticResponse.withCount(termAggregation.getDocCount());
 
     final List<SkillStatisticItem> jobSkills = new LinkedList<>();
     termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
-      .collect(Collectors.groupingBy(bucket -> bucket.getName().split("-")[0], mapping(bucket -> bucket.getDocCount(), toList())))
+      .collect(Collectors.groupingBy(bucket -> bucket.getName().split("-")[0], mapping(InternalFilter::getDocCount, toList())))
       .forEach((skillName, docCounts) -> {
         // TODO remove item 30, 31 in docCounts
         jobSkills.add(new SkillStatisticItem.Builder()

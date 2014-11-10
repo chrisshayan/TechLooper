@@ -27,7 +27,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     final BoolQueryBuilder technicalTermsQuery = QueryBuilders.boolQuery();
     Stream.of(TechnicalTermEnum.values())
       .map(term -> QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
-      .forEach(query -> technicalTermsQuery.should(query));
+      .forEach(technicalTermsQuery::should);
     return technicalTermsQuery;
   }
 
