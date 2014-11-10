@@ -48,7 +48,7 @@ public class ElasticsearchConfiguration {
     public TechnicalSkillEnumMap technicalSkillEnumMap() {
         TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
         Stream.of(TechnicalTermEnum.values()).forEach(term -> {
-            final String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+            final String termKey = environment.getProperty(term.name());
             Optional<String> skillOptional = Optional.ofNullable(termKey);
             if (skillOptional.isPresent()) {
                 String[] skills = StringUtils.split(skillOptional.get(), ',');
