@@ -6,17 +6,18 @@ angular.module('Skill').controller('skillAnalyticsController',
             $scope.term = data;
             $scope.top10 = top10;
 
-            skillCircleFactory.renderTermChart(data.totalTechnicalJobs, data.count, data.jobTerm);
-
             var top3 = utils.getTopItems(data.jobSkills, ["currentCount", "previousCount"], 3);
             $scope.top3 = skillTableFactory.reformatData(top3);
-            skillTableFactory.formatDate();
 
             $scope.$apply();
+
+            // render left circle chart
+            skillCircleFactory.renderTermChart(data.totalTechnicalJobs, data.count, data.jobTerm);
             skillCircleFactory.draw(data, top10);
 
+            // render bottom-right table & top-right line-chart
+            skillTableFactory.formatDate();
             skillChartFactory.draw(top3);
-
         });
 
         connectionFactory.analyticsSkill($routeParams.term);

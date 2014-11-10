@@ -1,6 +1,9 @@
 angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
   var circles = [];
   var $$ = {
+    clear: function() {
+      circles.length = 0;
+    },
     draw: function (term, skills, indexFrom) {
       var colorIndex = -1;
       $.each(skills, function (index, skill) {
@@ -73,7 +76,13 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
     }
   }
 
+  observer.registerNotification(jsonValue.notifications.goBack, $$.clear);
+
   return {
+    onReset: function() {
+
+    },
+
     /*
      @param term
      @see src/test/resources/expect/vnw-jobs-count-skill.json
