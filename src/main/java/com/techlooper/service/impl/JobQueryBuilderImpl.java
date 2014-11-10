@@ -23,15 +23,6 @@ import static java.util.stream.Collectors.toList;
 @Component
 public class JobQueryBuilderImpl implements JobQueryBuilder {
 
-<<<<<<< HEAD
-  public QueryBuilder getTechnicalTermsQuery() {
-    final BoolQueryBuilder technicalTermsQuery = QueryBuilders.boolQuery();
-    Stream.of(TechnicalTermEnum.values())
-      .map(term -> this.getTechnicalTermQuery(term))
-      .forEach(query -> technicalTermsQuery.should(query));
-    return technicalTermsQuery;
-  }
-=======
     public QueryBuilder getTechnicalTermsQuery() {
         final BoolQueryBuilder technicalTermsQuery = QueryBuilders.boolQuery();
         Stream.of(TechnicalTermEnum.values())
@@ -39,7 +30,6 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
                 .forEach(technicalTermsQuery::should);
         return technicalTermsQuery;
     }
->>>>>>> cea90fd1d4a00ba3e5b0dced8206e83a3981984e
 
     public QueryBuilder getTechnicalTermQuery(TechnicalTermEnum term) {
         return QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND);
