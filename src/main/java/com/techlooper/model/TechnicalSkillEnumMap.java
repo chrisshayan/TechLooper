@@ -9,7 +9,7 @@ import java.util.List;
 public class TechnicalSkillEnumMap {
 
     private EnumMap<TechnicalTermEnum, List<String>> technicalSkill =
-            new EnumMap<TechnicalTermEnum, List<String>>(TechnicalTermEnum.class);
+            new EnumMap<>(TechnicalTermEnum.class);
 
     public List<String> skillOf(TechnicalTermEnum term) {
         return technicalSkill.get(term);
