@@ -2,8 +2,13 @@ package com.techlooper.config;
 
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.service.impl.ConfigurableJobQueryBuilder;
+import com.techlooper.service.impl.MonthlyJobQueryBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.client.transport.TransportClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +36,8 @@ public class ElasticsearchConfiguration {
     @Resource
     private TransportClient transportClient;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
+
     @Bean
     public FactoryBean<TransportClient> transportClient() throws Exception {
         TransportClientFactoryBean factory = new TransportClientFactoryBean();
@@ -56,5 +63,16 @@ public class ElasticsearchConfiguration {
             }
         });
         return technicalSkillEnumMap;
+    }
+
+    @Bean
+    public JobQueryBuilder jobQueryBuilder() {
+        try {
+            final int lastNumberOfDays = Integer.valueOf(environment.getProperty("skill.chart.lastNumberOfDays"));
+            return new ConfigurableJobQueryBuilder(lastNumberOfDays);
+        } catch (NumberFormatException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+        return new MonthlyJobQueryBuilder();
     }
 }

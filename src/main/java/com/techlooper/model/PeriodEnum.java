@@ -10,31 +10,37 @@ public enum PeriodEnum {
     /**
      * Date Range : Last 7 days
      */
-    WEEK("week"),
+    WEEK("week", 7),
 
     /**
      * Date Range : Last 30 days
      */
-    MONTH("month"),
+    MONTH("month", 30),
 
     /**
      * Date Range : Last 90 days
      */
-    QUARTER("quarter"),
+    QUARTER("quarter", 90),
 
     /**
      * Default is empty value
      */
-    EMPTY("");
+    EMPTY("", 0);
 
     private String value;
+    private long numberOfDays;
 
-    PeriodEnum(String value) {
+    PeriodEnum(String value, long numberOfDays) {
         this.value = value;
+        this.numberOfDays = numberOfDays;
     }
 
     public String value() {
         return value;
+    }
+
+    public long numberOfDays() {
+        return numberOfDays;
     }
 
     public String toString() {

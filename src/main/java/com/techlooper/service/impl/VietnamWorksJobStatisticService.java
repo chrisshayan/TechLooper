@@ -171,6 +171,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                     jobSkills.add(new SkillStatisticItem.Builder()
                             .withSkill(EncryptionUtils.decodeHexa(skillName))
                             .withHistogramData(docCounts)
+                            //TODO : At the moment, we assume 30 days because front-end still isn't available for data scale
                             .withCurrentCount(docCounts.get(30))
                             .withPreviousCount(docCounts.get(31))
                             .build());
