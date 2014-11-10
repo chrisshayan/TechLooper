@@ -77,7 +77,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
     }
   }
 
-  observer.registerNotification(jsonValue.notifications.changeView, $$.clear);
+  utils.registerNotification(jsonValue.notifications.changeView, $$.clear);
 
   return {
 

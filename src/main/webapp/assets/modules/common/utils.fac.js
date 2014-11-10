@@ -1,6 +1,25 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
+  var notification = {};
 
   return {
+    registerNotification: function(name, fn) {
+      if (notification[name] === undefined) {
+        notification[name] = [];
+      }
+      return notification[name].push(fn);
+    },
+
+    sendNotification: function() {
+      var notifies  = notification[arguments[0]];
+      if (notifies === undefined) {
+        return false;
+      }
+      var args = Array.prototype.slice.call(arguments, 1);
+      $.each(notifies, function(index, notify) {
+        notify.apply(null, args);
+      });
+    },
+
     getTopItems: function(array, props, n) {
       var clone = array.slice(0);
       clone.sort(function(x, y) {
