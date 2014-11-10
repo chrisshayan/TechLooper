@@ -5,8 +5,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       var path = historyFactory.popHistory();
       $location.path(path === undefined ? "/" : path);
       $rootScope.$apply();
-
-      observer.sendNotification(jsonValue.notifications.goBack);
     }
   }
 

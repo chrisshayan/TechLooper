@@ -15,6 +15,12 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
   // private functions
   var $$ = {
+    /** must to call when controller initialized */
+    initialize: function ($scope) {
+      $$.clearCache();
+      scope = $scope;
+    },
+
     clearCache: function () {
       for (var uri in subscriptions) {
         if ($.type(subscriptions[uri]) !== "number") {
@@ -74,12 +80,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
         subscription.unsubscribe();
       });
       stompClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
-    },
-
-    /** must to call when controller initialized */
-    initialize: function ($scope) {
-      $$.clearCache();
-      scope = $scope;
     },
 
     /* @subscription */
@@ -151,7 +151,10 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
     getStompClient: function () {
       return stompClient;
-    }
+    },
+
+    initialize: function() {}
   }
+  observer.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
   return instance;
 });

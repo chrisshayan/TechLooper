@@ -4,6 +4,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
     clear: function() {
       circles.length = 0;
     },
+
     draw: function (term, skills, indexFrom) {
       var colorIndex = -1;
       $.each(skills, function (index, skill) {
@@ -76,12 +77,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
     }
   }
 
-  observer.registerNotification(jsonValue.notifications.goBack, $$.clear);
+  observer.registerNotification(jsonValue.notifications.changeView, $$.clear);
 
   return {
-    initialize: function() {
-      return $$.clear();
-    },
 
     /*
      @param term

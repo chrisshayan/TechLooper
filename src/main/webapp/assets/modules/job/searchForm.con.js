@@ -1,6 +1,6 @@
 angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue, animationFactory) {
   searchBoxService.initSearchTextbox($scope);
-
+  //observer.sendNotification(jsonValue.notifications.switchScope, $scope);
   $scope.skills = jsonValue.technicalSkill;
 
   searchBoxService.hightlightSKill();

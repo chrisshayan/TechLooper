@@ -1,11 +1,11 @@
 angular.module('Chart').controller('chartController',
-  function ($scope, jsonValue, connectionFactory, utils, headerService, $rootScope) {
+  function ($scope, jsonValue, connectionFactory, utils, headerService) {
     var events = jsonValue.events;
     var rColor = 0;
     var terms = [];
     var chartFactory = headerService.getChart().factory;
 
-    connectionFactory.initialize($scope);
+    observer.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(events.terms, function (event, data) {
       terms = data;
       chartFactory.setTerms(terms);

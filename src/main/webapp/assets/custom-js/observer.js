@@ -14,7 +14,7 @@ var observer = new function() {
       return false;
     }
     $.each(notifies, function(index, notify) {
-      notify.apply(null, object);
+      notify(object);
     });
     return true;
   }
