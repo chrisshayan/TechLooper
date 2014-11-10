@@ -1,5 +1,9 @@
 angular.module("Common").constant("jsonValue", {
 
+  notifications: {
+    goBack: "go back"
+  },
+
   skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "#00eaff"],
 
   events: {
