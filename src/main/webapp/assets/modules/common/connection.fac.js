@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", function (jsonValue, $cacheFactory, $location) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, utils) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -155,6 +155,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
     initialize: function() {}
   }
-  observer.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
   return instance;
 });

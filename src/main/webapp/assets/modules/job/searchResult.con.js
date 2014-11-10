@@ -1,6 +1,6 @@
 angular.module('Jobs').controller('searchResultController',
   function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, shortcutFactory) {
-    observer.sendNotification(jsonValue.notifications.switchScope, $scope);
+    utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
     $scope.search = {
       jobs: [],
       pageNumber: 0,
@@ -67,7 +67,8 @@ angular.module('Jobs').controller('searchResultController',
       $('.job-infor').css('height', h);
     }
 
-    searchBoxService.initSearchTextbox($scope, $routeParams.text.split(","));
+    // TODO use observer later
+    //searchBoxService.initSearchTextbox($scope, $routeParams.text.split(","));
 
     searchBoxService.changeBodyColor();
   });

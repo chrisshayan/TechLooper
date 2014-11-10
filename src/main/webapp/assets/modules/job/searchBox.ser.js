@@ -134,6 +134,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     }
   }
-  //observer.registerNotification(jsonValue.notifications.switchScope, );
+  utils.registerNotification(jsonValue.notifications.switchScope, instance.initSearchTextbox);
   return instance;
 });

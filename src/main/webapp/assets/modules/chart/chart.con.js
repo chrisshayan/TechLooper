@@ -5,7 +5,7 @@ angular.module('Chart').controller('chartController',
     var terms = [];
     var chartFactory = headerService.getChart().factory;
 
-    observer.sendNotification(jsonValue.notifications.switchScope, $scope);
+    utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(events.terms, function (event, data) {
       terms = data;
       chartFactory.setTerms(terms);

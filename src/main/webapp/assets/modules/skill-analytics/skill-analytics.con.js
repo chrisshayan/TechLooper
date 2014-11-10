@@ -1,7 +1,7 @@
 angular.module('Skill').controller('skillAnalyticsController',
   function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
             skillCircleFactory, skillChartFactory, shortcutFactory) {
-    observer.sendNotification(jsonValue.notifications.switchScope, $scope);
+    utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
       var top10 = utils.getTopItems(data.jobSkills, ["currentCount"], 10);
