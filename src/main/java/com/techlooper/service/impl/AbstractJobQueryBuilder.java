@@ -63,9 +63,6 @@ public abstract class AbstractJobQueryBuilder implements JobQueryBuilder {
                 builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "d", i));
             }
 
-            //TODO : At the moment, we assume 30 days because front-end still isn't available for data scale
-            builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 0));// current week
-            builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 1));// previous week
             return builders;
         }).collect(toList());
     }
