@@ -1,7 +1,6 @@
 package com.techlooper.service;
 
 import com.techlooper.model.PeriodEnum;
-import com.techlooper.model.SkillStatisticRequest;
 import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTermEnum;
 

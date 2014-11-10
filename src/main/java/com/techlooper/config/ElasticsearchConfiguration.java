@@ -25,38 +25,38 @@ import java.util.stream.Stream;
 @EnableElasticsearchRepositories(basePackages = "com.techlooper.repository")
 public class ElasticsearchConfiguration {
 
-  @Resource
-  private Environment environment;
+    @Resource
+    private Environment environment;
 
-  @Resource
-  private TransportClient transportClient;
+    @Resource
+    private TransportClient transportClient;
 
-  @Bean
-  public FactoryBean<TransportClient> transportClient() throws Exception {
-    TransportClientFactoryBean factory = new TransportClientFactoryBean();
-    factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
-    factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
-    return factory;
-  }
+    @Bean
+    public FactoryBean<TransportClient> transportClient() throws Exception {
+        TransportClientFactoryBean factory = new TransportClientFactoryBean();
+        factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
+        factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
+        return factory;
+    }
 
-  @Bean
-  public ElasticsearchOperations elasticsearchTemplate() {
-    return new ElasticsearchTemplate(transportClient);
-  }
+    @Bean
+    public ElasticsearchOperations elasticsearchTemplate() {
+        return new ElasticsearchTemplate(transportClient);
+    }
 
-  @Bean
-  public TechnicalSkillEnumMap technicalSkillEnumMap() {
-    TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
-    Stream.of(TechnicalTermEnum.values()).forEach(term -> {
+    @Bean
+    public TechnicalSkillEnumMap technicalSkillEnumMap() {
+        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
+        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
 //            if (TechnicalTermEnum.EMPTY != term) {
-      String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
-      Optional<String> skillOptional = Optional.ofNullable(termKey);
-      if (skillOptional.isPresent()) {
-        String[] skills = StringUtils.split(skillOptional.get(), ',');
-        technicalSkillEnumMap.put(term, Arrays.asList(skills));
-      }
+            String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+            Optional<String> skillOptional = Optional.ofNullable(termKey);
+            if (skillOptional.isPresent()) {
+                String[] skills = StringUtils.split(skillOptional.get(), ',');
+                technicalSkillEnumMap.put(term, Arrays.asList(skills));
+            }
 //            }
-    });
-    return technicalSkillEnumMap;
-  }
+        });
+        return technicalSkillEnumMap;
+    }
 }

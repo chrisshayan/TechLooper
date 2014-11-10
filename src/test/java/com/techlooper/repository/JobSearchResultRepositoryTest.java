@@ -16,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.function.Consumer;
 
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.junit.Assert.assertNotNull;
@@ -29,36 +28,36 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
 public class JobSearchResultRepositoryTest {
 
-  @Resource
-  private JobSearchResultRepository repository;
+    @Resource
+    private JobSearchResultRepository repository;
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
-  @Before
-  public void empty() {
-    assertNotNull(repository);
-    assertNotNull(elasticsearchTemplate);
-  }
+    @Before
+    public void empty() {
+        assertNotNull(repository);
+        assertNotNull(elasticsearchTemplate);
+    }
 
-  @Test
-  public void doTest() {
-    final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-      .withQuery(matchAllQuery())
-      .withPageable(new PageRequest(0, 10))
-      .withTypes("job")
-      .build();
+    @Test
+    public void doTest() {
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(matchAllQuery())
+                .withPageable(new PageRequest(0, 10))
+                .withTypes("job")
+                .build();
 
-    FacetedPage<JobEntity> jobSearchResultEntities = repository.search(searchQuery);
-    assertNotNull(jobSearchResultEntities);
+        FacetedPage<JobEntity> jobSearchResultEntities = repository.search(searchQuery);
+        assertNotNull(jobSearchResultEntities);
 
-    jobSearchResultEntities.forEach(job -> {
-      System.out.println("job = " + job);
-    });
+        jobSearchResultEntities.forEach(job -> {
+            System.out.println("job = " + job);
+        });
 
-    final long count = elasticsearchTemplate.count(searchQuery);
-    assertThat(count > 0, Is.is(Boolean.TRUE));
-  }
+        final long count = elasticsearchTemplate.count(searchQuery);
+        assertThat(count > 0, Is.is(Boolean.TRUE));
+    }
 
 
 }

@@ -11,20 +11,20 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import java.util.List;
 
 public interface JobQueryBuilder {
-  static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
-  static final String ES_VIETNAMWORKS_INDEX = "vietnamworks";
+    static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
+    static final String ES_VIETNAMWORKS_INDEX = "vietnamworks";
 
-  QueryBuilder getTechnicalTermsQuery();
+    QueryBuilder getTechnicalTermsQuery();
 
-  QueryBuilder getTechnicalTermQuery(TechnicalTermEnum term);
+    QueryBuilder getTechnicalTermQuery(TechnicalTermEnum term);
 
-  QueryBuilder getTechnicalSkillQuery(String skill);
+    QueryBuilder getTechnicalSkillQuery(String skill);
 
-  NativeSearchQueryBuilder getVietnamworksJobQuery();
+    NativeSearchQueryBuilder getVietnamworksJobQuery();
 
-  AggregationBuilder getTechnicalTermAggregation(TechnicalTermEnum term);
+    AggregationBuilder getTechnicalTermAggregation(TechnicalTermEnum term);
 
-  FilterAggregationBuilder getSkillIntervalAggregation(String skill, QueryBuilder skillQuery, String period, Integer interval);
+    FilterAggregationBuilder getSkillIntervalAggregation(String skill, QueryBuilder skillQuery, String period, Integer interval);
 
-  List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills);
+    List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills);
 }
