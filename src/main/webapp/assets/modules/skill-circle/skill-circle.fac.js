@@ -79,8 +79,8 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
   observer.registerNotification(jsonValue.notifications.goBack, $$.clear);
 
   return {
-    onReset: function() {
-
+    initialize: function() {
+      return $$.clear();
     },
 
     /*

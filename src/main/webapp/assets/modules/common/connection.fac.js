@@ -46,13 +46,14 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
       }
 
       var uri = socketUri.subscribeAnalyticsSkill;
-      var subscription = subscriptions[uri];
-      if (subscription !== undefined) { return true; }
+      //var subscription = subscriptions[uri];
+      //if (subscription !== undefined) { return true; }
 
-      subscription = stompClient.subscribe(uri, function (response) {
+      var subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
+        subscription.unsubscribe(); // no need to support real-time now
       });
-      subscriptions[uri] = subscription;
+      //subscriptions[uri] = subscription;
 
       //TODO "quarter" is used to test only, need to be changed to "week" later
       stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "quarter"}));

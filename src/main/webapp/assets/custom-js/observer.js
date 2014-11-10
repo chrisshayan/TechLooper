@@ -16,5 +16,6 @@ var observer = new function() {
     $.each(notifies, function(index, notify) {
       notify.apply(null, object);
     });
+    return true;
   }
 }
