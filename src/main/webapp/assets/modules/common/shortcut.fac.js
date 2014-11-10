@@ -6,7 +6,7 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       $location.path(path === undefined ? "/" : path);
       $rootScope.$apply();
 
-      observer.sendNotification(jsonValue.notifications.goBack)
+      observer.sendNotification(jsonValue.notifications.goBack);
     }
   }
 
@@ -37,6 +37,7 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
 
   return {
     initialize: function () {},
+
     trigger: function (key) {
       Mousetrap.trigger(key);
     }
