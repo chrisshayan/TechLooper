@@ -91,7 +91,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       var webName = '';
       switch(serName){
         case 'PROJECT_MANAGER':
-          webName = 'PROJECT MANAGER'
+          webName = 'Project Manager'
           break;
         case 'QA':
           webName = 'QA'
@@ -100,19 +100,19 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
           webName = 'DBA'
           break;
         case 'PYTHON':
-          webName = 'PYTHON'
+          webName = 'Python'
           break;
         case 'BA':
           webName = 'BA'
           break;
         case 'RUBY':
-          webName = 'RUBY'
+          webName = 'Ruby'
           break;
         case 'PHP':
-          webName = 'PHP'
+          webName = 'Php'
           break;
         case 'JAVA':
-          webName = 'JAVA'
+          webName = 'Java'
           break;
         case 'DOTNET':
           webName = '.NET'
