@@ -145,7 +145,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
         queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
 
-        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.value());
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
             skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
             return response.getAggregations();
