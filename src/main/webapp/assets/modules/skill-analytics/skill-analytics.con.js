@@ -26,5 +26,6 @@ angular.module('Skill').controller('skillAnalyticsController',
     //animationFactory.animatePage();  TODO
 
     $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
+    $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
 
   });

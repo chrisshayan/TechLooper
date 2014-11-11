@@ -1,4 +1,4 @@
-angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue, animationFactory) {
+angular.module('Jobs').controller('searchFormController', function (utils, $scope, searchBoxService, jsonValue, animationFactory) {
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
   $scope.skills = jsonValue.technicalSkill;
 
