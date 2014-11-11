@@ -68,12 +68,6 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         newName = name;
       }
       $('.term-infor-chart .number').append(newName);
-    },
-
-    handlingLongSkillName: function () {
-      $(".skill-name").dotdotdot({
-        height: 23
-      });
     }
   }
 
@@ -86,7 +80,6 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
      @see src/test/resources/expect/vnw-jobs-count-skill.json
      */
     draw: function (term, skills) {
-      $$.handlingLongSkillName();
       $$.renderCircles(term, skills);
     },
 
