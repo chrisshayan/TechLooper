@@ -13,6 +13,7 @@ import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -136,13 +137,17 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
   }
 
-  public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, PeriodEnum period) {
+  public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
     NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
     queryBuilder.withQuery(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
 
     AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
-    jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term)).stream()
-      .forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
+
+    List<List<FilterAggregationBuilder>> list = new ArrayList<>();
+    for (HistogramEnum histogramEnum : histogramEnums) {
+      list.addAll(jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term), histogramEnum));
+    }
+    list.stream().forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
 
     queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
 
@@ -171,6 +176,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
 
         String type = skillName.split("-")[1];
+        // TODO support do histogram by type: w, M, d base on histogram-enum
         if ("w".equalsIgnoreCase(type)) {
           skill.withPreviousCount(docCounts.get(0));
           skill.withCurrentCount(docCounts.get(1));
