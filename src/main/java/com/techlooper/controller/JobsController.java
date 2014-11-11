@@ -18,8 +18,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.techlooper.model.PeriodEnum.lookUp;
-
 @Controller
 public class JobsController {
 
@@ -94,8 +92,9 @@ public class JobsController {
         TechnicalTermEnum term = termOptional.get();
 
         if (termOptional.isPresent() && technicalSkillEnumMap.containsKey(term)) {
-            PeriodEnum period = lookUp(skillStatisticRequest.getPeriod().toUpperCase());
-            return vietnamWorksJobStatisticService.countJobsBySkill(term, period);
+//            PeriodEnum period = lookUp(skillStatisticRequest.getPeriod().toUpperCase());
+            // TODO might support period later
+            return vietnamWorksJobStatisticService.countJobsBySkill(term, HistogramEnum.TWO_WEEK, HistogramEnum.THIRTY_DAY);
         }
 
         SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();

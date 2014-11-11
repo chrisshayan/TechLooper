@@ -1,7 +1,7 @@
 angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope, utils) {
   var historyStack = {max: 0, items: {}};
 
-  $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
+  $rootScope.$on('$routeChangeSuccess', function(event, route) {
     switch (utils.getView()) {
       case jsonValue.views.bubbleChart:
       case jsonValue.views.pieChart:

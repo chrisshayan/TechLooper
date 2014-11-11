@@ -77,19 +77,16 @@ public class ConfigurationTest implements ApplicationContextAware {
         return new JobQueryBuilderImpl();
     }
 
-    // TODO : separate to another config
     @Bean
     public TechnicalSkillEnumMap technicalSkillEnumMap() {
         TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
         Stream.of(TechnicalTermEnum.values()).forEach(term -> {
-//            if (TechnicalTermEnum.EMPTY != term) {
-            String termKey = environment.getProperty(term.value().replaceAll(" ", "_"));
+            String termKey = environment.getProperty(term.name());
             Optional<String> skillOptional = Optional.ofNullable(termKey);
             if (skillOptional.isPresent()) {
                 String[] skills = StringUtils.split(skillOptional.get(), ',');
                 technicalSkillEnumMap.put(term, Arrays.asList(skills));
             }
-//            }
         });
         return technicalSkillEnumMap;
     }

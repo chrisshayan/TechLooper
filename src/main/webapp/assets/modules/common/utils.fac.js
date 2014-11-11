@@ -1,6 +1,27 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
+  var notification = {};
 
   return {
+
+    //TODO allow auto scan observable objects
+    registerNotification: function(name, fn) {
+      if (notification[name] === undefined) {
+        notification[name] = [];
+      }
+      return notification[name].push(fn);
+    },
+
+    sendNotification: function() {
+      var notifies  = notification[arguments[0]];
+      if (notifies === undefined) {
+        return false;
+      }
+      var args = Array.prototype.slice.call(arguments, 1);
+      $.each(notifies, function(index, notify) {
+        notify.apply(null, args);
+      });
+    },
+
     getTopItems: function(array, props, n) {
       var clone = array.slice(0);
       clone.sort(function(x, y) {
@@ -65,6 +86,39 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
         }
       });
       return val;
+    },
+    mappingData: function(serName){
+      var webName = '';
+      switch(serName){
+        case 'PROJECT_MANAGER':
+          webName = 'Project Manager'
+          break;
+        case 'QA':
+          webName = 'QA'
+          break;
+        case 'DBA':
+          webName = 'DBA'
+          break;
+        case 'PYTHON':
+          webName = 'Python'
+          break;
+        case 'BA':
+          webName = 'BA'
+          break;
+        case 'RUBY':
+          webName = 'Ruby'
+          break;
+        case 'PHP':
+          webName = 'Php'
+          break;
+        case 'JAVA':
+          webName = 'Java'
+          break;
+        case 'DOTNET':
+          webName = '.NET'
+          break;
+      }
+      return webName;
     }
   }
 });

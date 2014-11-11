@@ -5,7 +5,6 @@
   left: 0
   top: 0
   right: 0
-  bottom: 0
   z-index: 999
   background-color: #201d1e
   width: 100%
@@ -17,6 +16,7 @@
   .logo-block img
     width: 100%
     max-width: 250px
+    cursor: pointer
   .close-button
     text-align: right
     padding-top: 7px
@@ -49,7 +49,7 @@
   padding: 0 20px 0 0
 
 .skill-items-block
-  padding: 40px 20px 0 20px
+  padding: 40px 10px 0 10px
   max-width: 360px
 .term-infor
   width: 80px
@@ -103,12 +103,21 @@
       clear: both
       width: 100%
       color: #f8d303
+  .small
+    font-size: 14px
 .skill-circle-item
   width: auto
   float: left
   text-align: center
   padding-bottom: 35px
-  max-width: 78px
+  min-height: 120px
+  
+.skill-circle-item .skill-name
+  text-transform: capitalize
+  width: 78px
+  text-align: center
+  position: absolute
+  line-height: 14px
 .top10Circles .circle
   display: inline-block
   margin: 10px 10px 0 10px
@@ -221,6 +230,7 @@
     display: block 
     border-left: 1px solid #353233
     border-right: 1px solid #353233
+    text-transform: capitalize
 
     &:first-child
       padding-top: .5em
@@ -240,6 +250,9 @@
       // end options
   th, td
     text-align: left
+    text-transform: capitalize
+  th:first-child, td:first-child
+    text-align: left
 
 // presentational styling
 
@@ -255,3 +268,5 @@
     background-color: #1d1b1b
   th, td:before
     color: #636363
+text[text-anchor='start']
+  text-transform: capitalize

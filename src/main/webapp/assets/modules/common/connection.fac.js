@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", function (jsonValue, $cacheFactory, $location) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, utils) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -15,6 +15,12 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
   // private functions
   var $$ = {
+    /** must to call when controller initialized */
+    initialize: function ($scope) {
+      $$.clearCache();
+      scope = $scope;
+    },
+
     clearCache: function () {
       for (var uri in subscriptions) {
         if ($.type(subscriptions[uri]) !== "number") {
@@ -46,16 +52,17 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
       }
 
       var uri = socketUri.subscribeAnalyticsSkill;
-      var subscription = subscriptions[uri];
-      if (subscription !== undefined) { return true; }
+      //var subscription = subscriptions[uri];
+      //if (subscription !== undefined) { return true; }
 
-      subscription = stompClient.subscribe(uri, function (response) {
+      var subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
+        subscription.unsubscribe(); // no need to support real-time now
       });
-      subscriptions[uri] = subscription;
+      //subscriptions[uri] = subscription;
 
       //TODO "quarter" is used to test only, need to be changed to "week" later
-      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "quarter"}));
+      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "week"}));
     },
 
     /* @subscription */
@@ -73,12 +80,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
         subscription.unsubscribe();
       });
       stompClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
-    },
-
-    /** must to call when controller initialized */
-    initialize: function ($scope) {
-      $$.clearCache();
-      scope = $scope;
     },
 
     /* @subscription */
@@ -150,7 +151,10 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, $cach
 
     getStompClient: function () {
       return stompClient;
-    }
+    },
+
+    initialize: function() {}
   }
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
   return instance;
 });

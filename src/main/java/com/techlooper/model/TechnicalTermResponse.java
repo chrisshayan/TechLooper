@@ -3,19 +3,9 @@ package com.techlooper.model;
 
 public class TechnicalTermResponse {
 
-    private String name;
-
     private TechnicalTermEnum term;
 
     private Long count;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public TechnicalTermEnum getTerm() {
         return term;
@@ -44,7 +34,6 @@ public class TechnicalTermResponse {
 
         public Builder withTerm(TechnicalTermEnum term) {
             instance.term = term;
-            instance.name = term.toString();
             return this;
         }
 

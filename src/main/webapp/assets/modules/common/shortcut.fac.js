@@ -1,5 +1,13 @@
 angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils) {
 
+  var $$ = {
+    goBack: function () {
+      var path = historyFactory.popHistory();
+      $location.path(path === undefined ? "/" : path);
+      $rootScope.$apply();
+    }
+  }
+
   var traps = {
     esc: function (e) {
       switch (utils.getView()) {
@@ -10,10 +18,9 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           $location.path(jsonValue.routerUris.jobsSearch);
           $rootScope.$apply();
           break;
+        case jsonValue.views.analyticsSkill:
         case jsonValue.views.jobsSearch:
-          var path = historyFactory.popHistory();
-          $location.path(path === undefined ? "/" : path);
-          $rootScope.$apply();
+          $$.goBack();
           break;
       }
     }
@@ -27,7 +34,8 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
   });
 
   return {
-    initialize: function(){},
+    initialize: function () {},
+
     trigger: function (key) {
       Mousetrap.trigger(key);
     }
