@@ -62,7 +62,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       //subscriptions[uri] = subscription;
 
       //TODO "quarter" is used to test only, need to be changed to "week" later
-      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "quarter"}));
+      stompClient.send(socketUri.analyticsSkill, {}, JSON.stringify({term: term, period: "week"}));
     },
 
     /* @subscription */
