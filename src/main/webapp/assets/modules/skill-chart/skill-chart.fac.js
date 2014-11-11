@@ -91,7 +91,8 @@ angular.module('Skill').factory('skillChartFactory', function() {
                 },
                 series: dataChart
             });
-            $('text[text-anchor=end]').css('display', 'none');
+
+            instance.checkGridLine(data);
         },
         getLastDays: function() {
             var day = Date.today();
@@ -114,11 +115,17 @@ angular.module('Skill').factory('skillChartFactory', function() {
             return dataItem;
 
         },
-        checkGridLine: function(){
-            var min= 0,
-                max = 0;
-            // if()
-            yAxis.setExtremes(min,max);
+        checkGridLine: function(data){
+            // var gridLine = [];
+            // var max = 0 min = 0;
+            // for (var i = 0; i < 3; i++) {
+            //     gridLine.push({
+            //         data: data[i].histogramData
+            //     });
+            // }
+            // max = gridLine.max();
+            // min = gridLine.min();
+            // console.log(max + ':' + min);
         }
     }
 });

@@ -19,10 +19,10 @@ angular.module('Skill').factory('skillTableFactory', function() {
 				var per = ((parseInt(value.currentCount) - parseInt(value.previousCount))*100)/parseInt(value.previousCount);
 				if(per > 0){
 					icStock = 'fa-arrow-up ic-blue';
-					per = per.toFixed(2);
+					per = per.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
 				}else if(per < 0){
 					icStock = 'fa-arrow-down ic-red';
-					per = per.toFixed(2);
+					per = per.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
 				}else{
 					icStock = '';
 					per = 0;

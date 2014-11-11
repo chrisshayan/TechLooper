@@ -5,7 +5,6 @@
   left: 0
   top: 0
   right: 0
-  bottom: 0
   z-index: 999
   background-color: #201d1e
   width: 100%
@@ -252,6 +251,9 @@
   th, td
     text-align: left
     text-transform: capitalize
+    text-align: center
+  th:first-child, td:first-child
+    text-align: left
 
 // presentational styling
 
@@ -267,3 +269,5 @@
     background-color: #1d1b1b
   th, td:before
     color: #636363
+text[text-anchor=start]
+  text-transform: capitalize
