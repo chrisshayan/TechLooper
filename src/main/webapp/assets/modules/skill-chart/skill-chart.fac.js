@@ -2,7 +2,16 @@ angular.module('Skill').factory('skillChartFactory', function() {
     return instance = {
         draw: function(data) {
             var dataChart = instance.getDataForChart(data);
-            var last30Days = instance.getLastDays();
+            var last30Days = instance.getLastDays(data);
+            var max = 0, min = 0;
+            for (var i = 0; i < 3; i++) {
+                number =  Math.max.apply(null, data[i].histogramData);
+                if(number > max){
+                    max = number;
+                }else{
+                    min = number;
+                }
+            }
             $('.line-chart-content').highcharts({
                 chart: {
                     backgroundColor: '#201d1e',
@@ -91,13 +100,14 @@ angular.module('Skill').factory('skillChartFactory', function() {
                 },
                 series: dataChart
             });
-            $('text[text-anchor=end]').css('display', 'none');
+            console.log(min + '   '+max)
         },
-        getLastDays: function() {
+        getLastDays: function(data) {
             var day = Date.today();
             var arDays = [];
+            var NumberDays = data[0].histogramData.length;
             arDays.push(day.toString("MMM d"));
-            for (var i = 1; i < 31; i++) {
+            for (var i = 0; i < NumberDays; i++) {
                 day = day.add(-1).days().clone()
                 arDays.push(day.toString("MMM d"));
             }
@@ -113,12 +123,6 @@ angular.module('Skill').factory('skillChartFactory', function() {
             }
             return dataItem;
 
-        },
-        checkGridLine: function(){
-            var min= 0,
-                max = 0;
-            // if()
-            yAxis.setExtremes(min,max);
         }
     }
 });

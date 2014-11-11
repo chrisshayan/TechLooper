@@ -23,7 +23,7 @@ angular.module('Skill').controller('skillAnalyticsController',
     });
 
     connectionFactory.analyticsSkill($routeParams.term);
-    //animationFactory.animatePage();  TODO
+    animationFactory.animatePage();  //TODO
 
     $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
     $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
