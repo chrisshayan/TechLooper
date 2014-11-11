@@ -67,8 +67,5 @@ angular.module('Jobs').controller('searchResultController',
       $('.job-infor').css('height', h);
     }
 
-    // TODO use observer later
-    //searchBoxService.initSearchTextbox($scope, $routeParams.text.split(","));
-
     searchBoxService.changeBodyColor();
   });

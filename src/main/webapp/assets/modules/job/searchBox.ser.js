@@ -22,12 +22,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           'line-height': ($('.selectize-control').height() - 9) + 'px'
         });
       });
-    }
-  }
-
-  var instance = {
-    getSearchText: function() {
-      return searchText;
     },
 
     initSearchTextbox: function ($scope, $textArray) {
@@ -104,6 +98,12 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       searchText.focusNoDropdown();
       $$.alignButtonSearch();
+    }
+  }
+
+  var instance = {
+    getSearchText: function() {
+      return searchText;
     },
 
     changeBodyColor: function () {
@@ -134,6 +134,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     }
   }
-  utils.registerNotification(jsonValue.notifications.switchScope, instance.initSearchTextbox);
+
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.initSearchTextbox);
   return instance;
 });

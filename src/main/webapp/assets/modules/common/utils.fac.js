@@ -2,6 +2,8 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+
+    //TODO allow auto scan observable objects
     registerNotification: function(name, fn) {
       if (notification[name] === undefined) {
         notification[name] = [];

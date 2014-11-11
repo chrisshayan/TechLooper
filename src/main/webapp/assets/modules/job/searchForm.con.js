@@ -1,6 +1,4 @@
 angular.module('Jobs').controller('searchFormController', function ($scope, searchBoxService, jsonValue, animationFactory) {
-  // TODO use observer later
-  //searchBoxService.initSearchTextbox($scope);
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
   $scope.skills = jsonValue.technicalSkill;
 

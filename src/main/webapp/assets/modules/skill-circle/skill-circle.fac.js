@@ -1,4 +1,4 @@
-angular.module("Skill").factory("skillCircleFactory", function (jsonValue) {
+angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils) {
   var circles = [];
   var $$ = {
     clear: function() {
