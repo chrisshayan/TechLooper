@@ -61,8 +61,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       var rename = name.split("_");
       if (name.length > 6) {
         for (var i = 0; i < rename.length; i++) {
-          newName = newName + rename[i].charAt(0);
+          newName = newName + ' ' + rename[i];
         }
+        $('.term-infor-chart .number').addClass('small');
       }
       else {
         newName = name;
