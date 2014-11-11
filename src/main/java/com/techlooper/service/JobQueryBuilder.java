@@ -2,6 +2,7 @@ package com.techlooper.service;/**
  * Created by phuonghqh on 11/8/14.
  */
 
+import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.TechnicalTermEnum;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -30,5 +31,5 @@ public interface JobQueryBuilder {
 
     FilterAggregationBuilder getSkillIntervalAggregation(String skill, QueryBuilder skillQuery, String period, Integer interval);
 
-    List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills);
+    List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum);
 }

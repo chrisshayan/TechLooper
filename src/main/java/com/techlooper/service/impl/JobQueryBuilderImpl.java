@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
@@ -58,17 +59,15 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
       .filter(FilterBuilders.queryFilter(filterQuery));
   }
 
-  public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills) {
+  public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum) {
+    Integer length = histogramEnum.getLength();
+    String period = histogramEnum.getPeriod();
     return skills.stream().map(skill -> {
       QueryBuilder skillQuery = this.getTechnicalSkillQuery(skill);
-
       List<FilterAggregationBuilder> builders = new LinkedList<>();
-      for (int i = 0; i < 30; ++i) {
-        builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "d", i));
+      for (int i = 0; i < length; ++i) {
+        builders.add(this.getSkillIntervalAggregation(skill, skillQuery, period, i));
       }
-      builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 0));
-      builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 1));
-
       return builders;
     }).collect(toList());
   }
