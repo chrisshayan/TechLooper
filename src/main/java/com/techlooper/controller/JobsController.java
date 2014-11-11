@@ -99,7 +99,7 @@ public class JobsController {
         }
 
         SkillStatisticResponse defaultObject = SkillStatisticResponse.getDefaultObject();
-        defaultObject.setJobTerm(TechnicalTermEnum.lookUp(skillStatisticRequest.getTerm()));
+        defaultObject.setJobTerm(skillStatisticRequest.getTerm());
         return SkillStatisticResponse.getDefaultObject();
     }
 
