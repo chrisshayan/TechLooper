@@ -1,5 +1,5 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, shortcutFactory) {
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
     $scope.search = {
       jobs: [],
