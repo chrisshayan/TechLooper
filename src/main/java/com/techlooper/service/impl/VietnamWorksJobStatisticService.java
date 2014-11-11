@@ -96,11 +96,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
      * @return a {@code Long} that represents number of matching jobs.
      */
     public Long count(final TechnicalTermEnum technicalTermEnum) {
-        final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
         final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(filteredQuery(
-                        multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND),
-                        isActiveJobFilter))
+                .withQuery(multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND))
                 .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT).build();
         return elasticsearchTemplate.count(searchQuery);
     }
@@ -127,14 +124,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                     .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS)
                     .operator(Operator.AND);
             final FilterBuilder periodQueryFilter = FilterBuilders.rangeFilter("approvedDate").lte(approvedDate.toString());
-            final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
 
-            FilterBuilder filterBuilder = periodQueryFilter;
-            if (approvedDate.isEqual(LocalDate.now())) {
-                filterBuilder = FilterBuilders.andFilter(periodQueryFilter, isActiveJobFilter);
-            }
             final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                    .withQuery(filteredQuery(skillSearchQuery, filterBuilder))
+                    .withQuery(filteredQuery(skillSearchQuery, periodQueryFilter))
                     .withIndices(ES_VIETNAMWORKS_INDEX)
                     .withSearchType(SearchType.COUNT).build();
             return elasticsearchTemplate.count(searchQuery);

@@ -24,11 +24,8 @@ public abstract class AbstractJobQueryBuilder implements JobQueryBuilder {
 
     public QueryBuilder getTechnicalTermsQuery() {
         final BoolQueryBuilder technicalTermsQuery = QueryBuilders.boolQuery();
-        final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
         Stream.of(TechnicalTermEnum.values())
-                .map(term -> QueryBuilders.filteredQuery(
-                        QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND),
-                        isActiveJobFilter))
+                .map(term -> QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
                 .forEach(technicalTermsQuery::should);
         return technicalTermsQuery;
     }
