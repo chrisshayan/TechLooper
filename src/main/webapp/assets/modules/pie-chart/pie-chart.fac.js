@@ -18,7 +18,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
        generateChartData : function() {
           pieJson.length = 0;
           $.each(terms, function(index, term) {
-             pieJson.push([angular.uppercase(term.term), term.count, "abc"]);
+             pieJson.push([angular.uppercase(term.term), term.count]);
           });
        },
 

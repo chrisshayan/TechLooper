@@ -17,7 +17,6 @@ angular.module('Chart').controller('chartController',
         chartFactory.draw({
           'colorID': rColor,
           'count': term.count,
-          'termName': term.name,
           'termID': term.term
         }, true);
 
