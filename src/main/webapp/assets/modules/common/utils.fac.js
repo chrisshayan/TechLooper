@@ -86,6 +86,39 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
         }
       });
       return val;
+    },
+    mappingData: function(serName){
+      var webName = '';
+      switch(serName){
+        case 'PROJECT_MANAGER':
+          webName = 'PROJECT MANAGER'
+          break;
+        case 'QA':
+          webName = 'QA'
+          break;
+        case 'DBA':
+          webName = 'DBA'
+          break;
+        case 'PYTHON':
+          webName = 'PYTHON'
+          break;
+        case 'BA':
+          webName = 'BA'
+          break;
+        case 'RUBY':
+          webName = 'RUBY'
+          break;
+        case 'PHP':
+          webName = 'PHP'
+          break;
+        case 'JAVA':
+          webName = 'JAVA'
+          break;
+        case 'DOTNET':
+          webName = '.NET'
+          break;
+      }
+      return webName;
     }
   }
 });

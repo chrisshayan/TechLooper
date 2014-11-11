@@ -58,17 +58,11 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
 
     renameTerm: function (name) {
       var newName = '';
-      var rename = name.split("_");
-      if (name.length > 5) {
-        for (var i = 0; i < rename.length; i++) {
-          newName = newName + ' ' + rename[i];
-        }
+      var rename = utils.mappingData(name);
+      if (rename.length > 5) {
         $('.term-infor-chart .number').addClass('small');
       }
-      else {
-        newName = name;
-      }
-      $('.term-infor-chart .number').append(newName);
+      $('.term-infor-chart .number').append(rename);
     }
   }
 
