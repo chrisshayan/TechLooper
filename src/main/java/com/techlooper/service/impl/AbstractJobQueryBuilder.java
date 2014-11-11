@@ -8,7 +8,6 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,8 +20,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * Created by phuonghqh on 11/8/14.
  */
-@Component
-public class JobQueryBuilderImpl implements JobQueryBuilder {
+public abstract class AbstractJobQueryBuilder implements JobQueryBuilder {
 
     public QueryBuilder getTechnicalTermsQuery() {
         final BoolQueryBuilder technicalTermsQuery = QueryBuilders.boolQuery();
@@ -60,16 +58,15 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         return skills.stream().map(skill -> {
             QueryBuilder skillQuery = this.getTechnicalSkillQuery(skill);
 
-            // TODO * refactor loop n times using jdk8 later
-            //      * consider to extract 30 to properties file ?
             List<FilterAggregationBuilder> builders = new LinkedList<>();
-            for (int i = 0; i < 30; ++i) { // 30 days
+            for (int i = 0; i < getLastNumberOfDays(); ++i) {
                 builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "d", i));
             }
 
-            builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 0));// current week
-            builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 1));// previous week
             return builders;
         }).collect(toList());
     }
+
+    public abstract int getLastNumberOfDays();
+
 }

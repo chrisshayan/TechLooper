@@ -171,8 +171,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                     jobSkills.add(new SkillStatisticItem.Builder()
                             .withSkill(EncryptionUtils.decodeHexa(skillName))
                             .withHistogramData(docCounts)
-                            .withCurrentCount(docCounts.get(30))
-                            .withPreviousCount(docCounts.get(31))
+                            .withCurrentCount(countTechnicalJobsBySkill(term, EncryptionUtils.decodeHexa(skillName), LocalDate.now()))
+                            .withPreviousCount(countTechnicalJobsBySkill(term, EncryptionUtils.decodeHexa(skillName),
+                                    LocalDate.now().minusDays(period.numberOfDays())))
                             .build());
                 });
 
