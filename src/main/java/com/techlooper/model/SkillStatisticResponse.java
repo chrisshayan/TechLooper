@@ -11,7 +11,7 @@ public class SkillStatisticResponse {
 
     private static SkillStatisticResponse defaultObject;
 
-    private String jobTerm;
+    private TechnicalTermEnum jobTerm;
     private Long count;
     private Long totalTechnicalJobs;
     private List<SkillStatisticItem> jobSkills;
@@ -19,7 +19,7 @@ public class SkillStatisticResponse {
     public SkillStatisticResponse() {
     }
 
-    public SkillStatisticResponse(String jobTerm, Long count, Long totalTechnicalJobs, List<SkillStatisticItem> jobSkills) {
+    public SkillStatisticResponse(TechnicalTermEnum jobTerm, Long count, Long totalTechnicalJobs, List<SkillStatisticItem> jobSkills) {
         this.jobTerm = jobTerm;
         this.count = count;
         this.totalTechnicalJobs = totalTechnicalJobs;
@@ -33,11 +33,11 @@ public class SkillStatisticResponse {
         });
     }
 
-    public String getJobTerm() {
+    public TechnicalTermEnum getJobTerm() {
         return jobTerm;
     }
 
-    public void setJobTerm(String jobTerm) {
+    public void setJobTerm(TechnicalTermEnum jobTerm) {
         this.jobTerm = jobTerm;
     }
 
@@ -79,7 +79,7 @@ public class SkillStatisticResponse {
             return this;
         }
 
-        public Builder withJobTerm(String jobTerm) {
+        public Builder withJobTerm(TechnicalTermEnum jobTerm) {
             instance.jobTerm = jobTerm;
             return this;
         }
