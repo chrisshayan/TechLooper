@@ -90,11 +90,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
    * @return a {@code Long} that represents number of matching jobs.
    */
   public Long count(final TechnicalTermEnum technicalTermEnum) {
-    final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
     final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-      .withQuery(filteredQuery(
-        multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND),
-        isActiveJobFilter))
+      .withQuery(multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND))
       .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT).build();
     return elasticsearchTemplate.count(searchQuery);
   }
@@ -148,7 +145,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
 
-    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+//    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.value());
     Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
       skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
       return response.getAggregations();

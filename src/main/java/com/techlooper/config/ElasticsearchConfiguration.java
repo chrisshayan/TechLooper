@@ -65,14 +65,14 @@ public class ElasticsearchConfiguration {
         return technicalSkillEnumMap;
     }
 
-    @Bean
-    public JobQueryBuilder jobQueryBuilder() {
-        try {
-            final int lastNumberOfDays = Integer.valueOf(environment.getProperty("skill.chart.lastNumberOfDays"));
-            return new ConfigurableJobQueryBuilder(lastNumberOfDays);
-        } catch (NumberFormatException ex) {
-            LOGGER.error(ex.getMessage(), ex);
-        }
-        return new MonthlyJobQueryBuilder();
-    }
+//    @Bean
+//    public JobQueryBuilder jobQueryBuilder() {
+//        try {
+//            final int lastNumberOfDays = Integer.valueOf(environment.getProperty("skill.chart.lastNumberOfDays"));
+//            return new ConfigurableJobQueryBuilder(lastNumberOfDays);
+//        } catch (NumberFormatException ex) {
+//            LOGGER.error(ex.getMessage(), ex);
+//        }
+//        return new MonthlyJobQueryBuilder();
+//    }
 }

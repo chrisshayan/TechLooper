@@ -59,7 +59,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
     renameTerm: function (name) {
       var newName = '';
       var rename = name.split("_");
-      if (name.length > 6) {
+      if (name.length > 5) {
         for (var i = 0; i < rename.length; i++) {
           newName = newName + ' ' + rename[i];
         }
