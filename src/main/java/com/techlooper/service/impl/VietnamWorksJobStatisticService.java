@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.model.*;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
+import com.techlooper.util.EncryptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
@@ -145,7 +146,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
 
-//    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+    // TODO remove term.value() later
     final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.value());
     Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
       skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
@@ -158,19 +159,17 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     Map<String, SkillStatisticItem.Builder> jobSkillsMap = new HashMap<>();
     termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
-      .sorted((bucket1, bucket2) -> {
-        String intervalDate1 = bucket1.getName().split("-")[2];
-        String intervalDate2 = bucket2.getName().split("-")[2];
-        return intervalDate1.compareTo(intervalDate2);
-      })
+      .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
       .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
         Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())))
       .forEach((skillName, docCounts) -> {
-        SkillStatisticItem.Builder skill = jobSkillsMap.get(skillName);
+        String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
+        SkillStatisticItem.Builder skill = jobSkillsMap.get(name);
         if (skill == null) {
-          skill = new SkillStatisticItem.Builder();
-          jobSkillsMap.put(skillName, skill);
+          skill = new SkillStatisticItem.Builder().withSkill(name);
+          jobSkillsMap.put(name, skill);
         }
+
         String type = skillName.split("-")[1];
         if ("w".equalsIgnoreCase(type)) {
           skill.withPreviousCount(docCounts.get(0));

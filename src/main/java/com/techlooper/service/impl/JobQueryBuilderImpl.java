@@ -63,7 +63,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
       QueryBuilder skillQuery = this.getTechnicalSkillQuery(skill);
 
       List<FilterAggregationBuilder> builders = new LinkedList<>();
-      for (int i = 0; i < 32; ++i) {
+      for (int i = 0; i < 30; ++i) {
         builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "d", i));
       }
       builders.add(this.getSkillIntervalAggregation(skill, skillQuery, "w", 0));

@@ -2,9 +2,6 @@ package com.techlooper.config;
 
 import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
-import com.techlooper.service.JobQueryBuilder;
-import com.techlooper.service.impl.ConfigurableJobQueryBuilder;
-import com.techlooper.service.impl.MonthlyJobQueryBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.client.transport.TransportClient;
 import org.slf4j.Logger;
