@@ -4,13 +4,8 @@ import com.techlooper.model.*;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
@@ -21,12 +16,13 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
@@ -100,41 +96,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   public Long countTechnicalJobs() {
     return Stream.of(TechnicalTermEnum.values()).mapToLong(this::count).sum();
-  }
-
-  /**
-   * Counting number of jobs by technical term and its skill
-   *
-   * @param technicalTermEnum
-   * @param skill
-   * @param approvedDate
-   * @return number of jobs
-   * @see com.techlooper.model.TechnicalTermEnum
-   */
-  public Long countTechnicalJobsBySkill(TechnicalTermEnum technicalTermEnum, String skill, LocalDate approvedDate) {
-    final Optional term = Optional.ofNullable(technicalTermEnum);
-
-    if (term.isPresent()) {
-      final String searchCriteria = StringUtils.join(Arrays.asList(term.get(), skill), ' ').trim();
-      final QueryBuilder skillSearchQuery = multiMatchQuery(searchCriteria, SEARCH_JOB_FIELDS)
-        .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS)
-        .operator(Operator.AND);
-      final FilterBuilder periodQueryFilter = FilterBuilders.rangeFilter("approvedDate").lte(approvedDate.toString());
-      final FilterBuilder isActiveJobFilter = FilterBuilders.termFilter("isActive", 1);
-
-      FilterBuilder filterBuilder = periodQueryFilter;
-      if (approvedDate.isEqual(LocalDate.now())) {
-        filterBuilder = FilterBuilders.andFilter(periodQueryFilter, isActiveJobFilter);
-      }
-      final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-        .withQuery(filteredQuery(skillSearchQuery, filterBuilder))
-        .withIndices(ES_VIETNAMWORKS_INDEX)
-        .withSearchType(SearchType.COUNT).build();
-      return elasticsearchTemplate.count(searchQuery);
-    }
-    else {
-      return 0L;
-    }
   }
 
   public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {

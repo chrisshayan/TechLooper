@@ -107,39 +107,4 @@ public class VietnamWorksJobStatisticServiceTest {
     public void countNet() {
         assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
     }
-
-    @Test
-    public void shouldReturnZeroIfNotExistTechnicalTerm() {
-        //Given
-        TechnicalTermEnum term = null;
-        //When
-        Long count = jobStatisticService.countTechnicalJobsBySkill(term, "skill", LocalDate.now());
-        //Then
-        assertEquals(0, count.longValue());
-    }
-
-    @Test
-    public void shouldReturnNumberOfSkillJobIfExistTechnicalTermAndCorrectSkill() {
-        //Given
-        TechnicalTermEnum term = TechnicalTermEnum.JAVA;
-        //When
-        Long count = jobStatisticService.countTechnicalJobsBySkill(term, "Spring", LocalDate.now());
-        //Then
-        assertNotEquals(0, count.longValue());
-    }
-
-    @Test
-    public void shouldReturnNumberOfTechnicalJobIfExistTechnicalTermAndEmptySkill() {
-        //Given
-        TechnicalTermEnum term = TechnicalTermEnum.JAVA;
-        //When
-        Long count = jobStatisticService.countTechnicalJobsBySkill(term, "", LocalDate.now());
-        //If input skill is empty, Then return the total of jobs matching its term (ex : JAVA)
-        assertTrue(jobStatisticService.countJavaJobs() >= count);
-    }
-
-//  @Test
-//  public void testCountJobsBySkills() {
-//    jobStatisticService.countJobsBySkill(TechnicalTermEnum.JAVA, PeriodEnum.WEEK);
-//  }
 }
