@@ -57,6 +57,9 @@ angular.module('Skill').factory('skillChartFactory', function() {
                         text: 'Percent (%)'
                     },
                     labels: {
+                        formatter: function() {
+                            return this.value +' %';
+                        },
                         style: {
                             color: '#8a8a8a'
                         }
@@ -100,7 +103,12 @@ angular.module('Skill').factory('skillChartFactory', function() {
                 },
                 series: dataChart
             });
-            console.log(min + '   '+max)
+            $('text[text-anchor=end]').each(function(){
+                if($(this).text() == 'Highcharts.com'){
+                    $(this).hide();
+                }
+            });
+            
         },
         getLastDays: function(data) {
             var day = Date.today();
