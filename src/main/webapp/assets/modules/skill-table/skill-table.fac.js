@@ -16,7 +16,7 @@ angular.module('Skill').factory('skillTableFactory', function() {
 			var newData = [];
 			var icStock = '';
 			$.each(data, function(index, value){
-				var per = ((parseInt(value.currentCount) - parseInt(value.previousCount))*100)/parseInt(value.previousCount);
+				var per = ((value.currentCount - value.previousCount)*100)/value.previousCount;
 				if(per > 0){
 					icStock = 'fa-arrow-up ic-blue';
 					per = per.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
@@ -28,7 +28,7 @@ angular.module('Skill').factory('skillTableFactory', function() {
 					per = 0;
 				}
 				newData.push({
-					'name': value.skill,
+					'name': value.skillName,
 					'current': value.currentCount,
 					'previous': value.previousCount,
 					'change': per,
