@@ -100,7 +100,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
     NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
-    queryBuilder.withQuery(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
+    queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
 
     AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
 
@@ -123,33 +123,28 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     InternalFilter termAggregation = aggregations.get(term.name());
     skillStatisticResponse.withCount(termAggregation.getDocCount());
 
-    Map<String, SkillStatisticItem.Builder> jobSkillsMap = new HashMap<>();
+    Map<String, SkillStatistic.Builder> jobSkillsMap = new HashMap<>();
     termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
       .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
         Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())))
       .forEach((skillName, docCounts) -> {
         String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
-        SkillStatisticItem.Builder skill = jobSkillsMap.get(name);
+        SkillStatistic.Builder skill = jobSkillsMap.get(name);
         if (skill == null) {
-          skill = new SkillStatisticItem.Builder().withSkill(name);
+          skill = new SkillStatistic.Builder().withSkillName(name);
           jobSkillsMap.put(name, skill);
         }
 
-        String type = skillName.split("-")[1];
-        // TODO support do histogram by type: w, M, d base on histogram-enum
-        if ("w".equalsIgnoreCase(type)) {
-          skill.withPreviousCount(docCounts.get(0));
-          skill.withCurrentCount(docCounts.get(1));
-        }
-        else if ("d".equalsIgnoreCase(type)) {
-          skill.withHistogramData(docCounts);
-        }
+        String histogramName = skillName.split("-")[1];
+        skill.withHistogram(new Histogram.Builder()
+          .withName(HistogramEnum.valueOf(histogramName))
+          .withValues(docCounts).build());
       });
 
-    List<SkillStatisticItem> jobSkills = jobSkillsMap.keySet().stream()
+    List<SkillStatistic> skills = jobSkillsMap.keySet().stream()
       .map(key -> jobSkillsMap.get(key).build()).collect(Collectors.toList());
 
-    return skillStatisticResponse.withJobSkills(jobSkills).build();
+    return skillStatisticResponse.withSkills(skills).build();
   }
 }

@@ -1,27 +1,29 @@
 package com.techlooper.model;
 
+import java.util.List;
+
 /**
  * Created by NguyenDangKhoa on 11/4/14.
  */
 public class SkillStatisticRequest {
 
-    private String term;
+    private TechnicalTermEnum term;
 
-    private String period;
+    private HistogramEnum[] histograms;
 
-    public String getPeriod() {
-        return period;
+    public HistogramEnum[] getHistograms() {
+        return histograms;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setHistograms(HistogramEnum[] histograms) {
+        this.histograms = histograms;
     }
 
-    public String getTerm() {
+    public TechnicalTermEnum getTerm() {
         return term;
     }
 
-    public void setTerm(String term) {
+    public void setTerm(TechnicalTermEnum term) {
         this.term = term;
     }
 }

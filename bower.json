@@ -20,6 +20,7 @@
       "ngInfiniteScroll" : "latest",
       "selectize" : "latest",
       "mousetrap": "latest",
+      "JSONPath": "latest",
       "DateJS": "latest"
    },
    "overrides": {

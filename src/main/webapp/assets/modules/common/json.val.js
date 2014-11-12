@@ -1,5 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
+  histograms: {
+    thirtyDays: "THIRTY_DAY",
+    twoWeeks: "TWO_WEEK"
+  },
+
   notifications: {
     switchScope: "switch to other scope"
   },
@@ -87,8 +92,8 @@ angular.module("Common").constant("jsonValue", {
       "top": "340px",
       "left": "0"
     }, {
-      "top": "330px",
-      "left": "0"
+      "top": "200px",
+      "left": "370px"
     }, {
       "top": "260px",
       "left": "-40px"
