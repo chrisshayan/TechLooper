@@ -1,96 +1,75 @@
 package com.techlooper.model;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by NguyenDangKhoa on 11/4/14.
  */
 public class SkillStatisticResponse {
 
-    private static SkillStatisticResponse defaultObject;
+  private TechnicalTermEnum jobTerm;
+  private Long count;
+  private Long totalTechnicalJobs;
+  private List<SkillStatistic> skills;
 
-    private TechnicalTermEnum jobTerm;
-    private Long count;
-    private Long totalTechnicalJobs;
-    private List<SkillStatisticItem> jobSkills;
+  public static class Builder {
 
-    public SkillStatisticResponse() {
+    private SkillStatisticResponse instance = new SkillStatisticResponse();
+
+    public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
+      instance.totalTechnicalJobs = totalTechnicalJobs;
+      return this;
     }
 
-    public SkillStatisticResponse(TechnicalTermEnum jobTerm, Long count, Long totalTechnicalJobs, List<SkillStatisticItem> jobSkills) {
-        this.jobTerm = jobTerm;
-        this.count = count;
-        this.totalTechnicalJobs = totalTechnicalJobs;
-        this.jobSkills = jobSkills;
+    public Builder withSkills(List<SkillStatistic> skills) {
+      instance.skills = skills;
+      return this;
     }
 
-    public static SkillStatisticResponse getDefaultObject() {
-        return Optional.ofNullable(defaultObject).orElseGet(() -> {
-            defaultObject = new SkillStatisticResponse(null, 0L, 0L, Collections.emptyList());
-            return defaultObject;
-        });
+    public Builder withJobTerm(TechnicalTermEnum jobTerm) {
+      instance.jobTerm = jobTerm;
+      return this;
     }
 
-    public TechnicalTermEnum getJobTerm() {
-        return jobTerm;
+    public Builder withCount(Long count) {
+      instance.count = count;
+      return this;
     }
 
-    public void setJobTerm(TechnicalTermEnum jobTerm) {
-        this.jobTerm = jobTerm;
+    public SkillStatisticResponse build() {
+      return instance;
     }
+  }
 
-    public Long getCount() {
-        return count;
-    }
+  public TechnicalTermEnum getJobTerm() {
+    return jobTerm;
+  }
 
-    public void setCount(Long count) {
-        this.count = count;
-    }
+  public void setJobTerm(TechnicalTermEnum jobTerm) {
+    this.jobTerm = jobTerm;
+  }
 
-    public List<SkillStatisticItem> getJobSkills() {
-        return jobSkills;
-    }
+  public Long getCount() {
+    return count;
+  }
 
-    public void setJobSkills(List<SkillStatisticItem> jobSkills) {
-        this.jobSkills = jobSkills;
-    }
+  public void setCount(Long count) {
+    this.count = count;
+  }
 
-    public Long getTotalTechnicalJobs() {
-        return totalTechnicalJobs;
-    }
+  public List<SkillStatistic> getSkills() {
+    return skills;
+  }
 
-    public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
-        this.totalTechnicalJobs = totalTechnicalJobs;
-    }
+  public void setSkills(List<SkillStatistic> skills) {
+    this.skills = skills;
+  }
 
-    public static class Builder {
+  public Long getTotalTechnicalJobs() {
+    return totalTechnicalJobs;
+  }
 
-        private SkillStatisticResponse instance = new SkillStatisticResponse();
-
-        public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
-            instance.totalTechnicalJobs = totalTechnicalJobs;
-            return this;
-        }
-
-        public Builder withJobSkills(List<SkillStatisticItem> jobSkills) {
-            instance.jobSkills = jobSkills;
-            return this;
-        }
-
-        public Builder withJobTerm(TechnicalTermEnum jobTerm) {
-            instance.jobTerm = jobTerm;
-            return this;
-        }
-
-        public Builder withCount(Long count) {
-            instance.count = count;
-            return this;
-        }
-
-        public SkillStatisticResponse build() {
-            return instance;
-        }
-    }
+  public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
+    this.totalTechnicalJobs = totalTechnicalJobs;
+  }
 }

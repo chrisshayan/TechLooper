@@ -3,30 +3,21 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
 
-    //TODO allow auto scan observable objects
-    registerNotification: function(name, fn) {
-      if (notification[name] === undefined) {
-        notification[name] = [];
-      }
-      return notification[name].push(fn);
-    },
-
-    sendNotification: function() {
-      var notifies  = notification[arguments[0]];
-      if (notifies === undefined) {
-        return false;
-      }
-      var args = Array.prototype.slice.call(arguments, 1);
-      $.each(notifies, function(index, notify) {
-        notify.apply(null, args);
+    flatMap: function (items, ats, tos) {
+      var clone = items.slice(0);
+      $.each(clone, function (index, item) {
+        $.each(ats, function (index, at) {
+          item[tos[index]] = jsonPath.eval(item, at)[0];
+        });
       });
+      return clone;
     },
 
-    getTopItems: function(array, props, n) {
+    getTopItems: function (array, props, n) {
       var clone = array.slice(0);
-      clone.sort(function(x, y) {
+      clone.sort(function (x, y) {
         var dx = 0, dy = 0;
-        $.each(props, function(i, p) {
+        $.each(props, function (i, p) {
           dx = Math.abs(dx - x[p]);
           dy = Math.abs(dy - y[p]);
         });
@@ -35,7 +26,39 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return clone.slice(0, n || 1);
     },
 
-    getView: function($path) {
+    getTopItemsAt: function (array, atPaths, n) {
+      var clone = array.slice(0);
+      clone.sort(function (x, y) {
+        var dx = 0, dy = 0;
+        $.each(atPaths, function (i, at) {
+          dx = Math.abs(dx - jsonPath.eval(x, at)[0]);
+          dy = Math.abs(dy - jsonPath.eval(y, at)[0]);
+        });
+        return dy - dx;
+      });
+      return clone.slice(0, n || 1);
+    },
+
+    //TODO allow auto scan observable objects
+    registerNotification: function (name, fn) {
+      if (notification[name] === undefined) {
+        notification[name] = [];
+      }
+      return notification[name].push(fn);
+    },
+
+    sendNotification: function () {
+      var notifies = notification[arguments[0]];
+      if (notifies === undefined) {
+        return false;
+      }
+      var args = Array.prototype.slice.call(arguments, 1);
+      $.each(notifies, function (index, notify) {
+        notify.apply(null, args);
+      });
+    },
+
+    getView: function ($path) {
       var path = ($path === undefined) ? $location.path() : $path;
       if (/\/jobs\/search\//i.test(path)) {
         return jsonValue.views.jobsSearchText;
@@ -87,9 +110,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       });
       return val;
     },
-    mappingData: function(serName){
+    mappingData: function (serName) {
       var webName = '';
-      switch(serName){
+      switch (serName) {
         case 'PROJECT_MANAGER':
           webName = 'Project Manager'
           break;

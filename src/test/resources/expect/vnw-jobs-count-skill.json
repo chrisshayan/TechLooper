@@ -1,20 +1,33 @@
 {
     "jobTerm": "java",
     "count": "200",
-    "period": "week",
     "totalTechnicalJobs": "560",
-    "jobSkills": [
+    "skills": [
         {
-            "name": "Spring",
-            "currentCount": "60",
-            "previousCount": "120",
-            "histogramData": [52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87]
+            "skillName": "Spring",
+            "histograms": [
+                {
+                    "name": "TWO_WEEKS",
+                    "values": [30, 32]
+                },
+                {
+                    "name": "THIRTY_DAY",
+                    "values": [52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87]
+                }
+            ]
         },
         {
-            "skill": "Maven",
-            "currentCount": "60",
-            "previousCount": "10",
-            "histogramData": [52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87, 52, 56, 98, 09, 89, 87]
+            "skillName": "Maven",
+            "histograms": [
+                {
+                    "name": "TWO_WEEKS",
+                    "values": [30, 32]
+                },
+                {
+                    "name": "THIRTY_DAY",
+                    "values": [52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87, 52, 56, 98, 9, 89, 87]
+                }
+            ]
         }
     ]
 }
