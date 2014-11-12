@@ -1525,6 +1525,8 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
          }).find('.ball-highlight').css({
             'width': sActive,
             'height': sActive
+         }).prev().css({
+            'width': sActive
          });
       },
 
@@ -1636,7 +1638,7 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
          var rota = diameter - 17;
          html = '<div data-techTerm="' + bubbleItem.termID + '" class="circle ' + bubbleItem.termID + ' ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px" date-color="'+ clColor +'">';
          html = html + '<div class="circle-content ' + clColor + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
-         html = html + '<span class="termcount"><strong>' + bubbleItem.count + '</strong>' + utils.mappingData(bubbleItem.termID) + '</span>';
+         html = html + '<span class="termcount"><strong>' + bubbleItem.count + '</strong>' + utils.mappingData(bubbleItem.termID) + '<i>(Click here more detail.)</i></span>';
          html = html + '<div class="ball-highlight" style="width:' + diameter + 'px; height:' + diameter + 'px"></div></div></div>';
          $('.bubble-chart-container').append(html);
       }
