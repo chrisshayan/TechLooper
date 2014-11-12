@@ -5,13 +5,19 @@ angular.module('Skill').factory('skillChartFactory', function() {
             var last30Days = instance.getLastDays(data);
             var max = 0, min = 0;
             for (var i = 0; i < 3; i++) {
-                number =  Math.max.apply(null, data[i].histogramData);
-                if(number > max){
-                    max = number;
-                }else{
-                    min = number;
+                nMax =  Math.max.apply(null, data[i].histogramData);
+                nMin =  Math.min.apply(null, data[i].histogramData);
+                if(nMax > max){
+                    max = nMax;
+                }
+                if(nMin < min){
+                    min = nMin;
+                }
+                if(i == 0){
+                    min = nMin;
                 }
             }
+
             $('.line-chart-content').highcharts({
                 chart: {
                     backgroundColor: '#201d1e',
@@ -54,18 +60,18 @@ angular.module('Skill').factory('skillChartFactory', function() {
                         style: {
                             color: '#8a8a8a'
                         },
-                        text: 'Percent (%)'
+                        text: 'Numbers of Job' 
                     },
                     labels: {
                         formatter: function() {
-                            return this.value +' %';
+                            return this.value;
                         },
                         style: {
                             color: '#8a8a8a'
                         }
                     },
-                    min: 0,
-                    max: 100,
+                    min: min,
+                    max: max,
                     tickInterval: 10,
                     gridLineWidth: 1,
                     gridLineColor: '#353233'
@@ -108,6 +114,8 @@ angular.module('Skill').factory('skillChartFactory', function() {
                     $(this).hide();
                 }
             });
+
+            console.log(min + ' : '+ max)
             
         },
         getLastDays: function(data) {

@@ -5,14 +5,12 @@
         <th>Current: <span class="curDate"></span></th>
         <th>Previous: <span class="preDate"></span></th>
         <th>% Changed Prev to Current</th>
-        <th><i class="fa fa-edit"></i></th>
       </tr>
       <tr ng-repeat="item in top3">
         <td data-th="Skill">{{item.name}}</td>
         <td data-th="Current">{{item.current}}</td>
         <td data-th="Previous">{{item.previous}}</td>
         <td data-th="Changed Prev to Current"><i class="fa {{item.icon}}"></i> {{item.change}} %</td>
-        <td data-th="Edit"><i class="fa fa-edit"></i></td>
       </tr>
     </table>
 	
