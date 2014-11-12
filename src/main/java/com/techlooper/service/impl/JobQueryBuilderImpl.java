@@ -37,39 +37,38 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
   public FilterBuilder getTechnicalSkillQuery(String skill) {
     return FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND));
-
-//    return QueryBuilders.multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND);
   }
 
-  public NativeSearchQueryBuilder getVietnamworksJobQuery() {
-    return new NativeSearchQueryBuilder().withIndices(ES_VIETNAMWORKS_INDEX).withTypes("job");
-  }
+    public NativeSearchQueryBuilder getVietnamworksJobQuery() {
+        return new NativeSearchQueryBuilder().withIndices(ES_VIETNAMWORKS_INDEX).withTypes("job");
+    }
 
   public AggregationBuilder getTechnicalTermAggregation(TechnicalTermEnum term) {
     return AggregationBuilders.filter(term.name()).filter(this.getTechnicalTermQuery(term));
   }
 
+  /**
+   * Constructs a query based on a specific period.
+   * @param skill is the detail of term, for example Java is a term and spring is a skill
+   * @param skillQuery {@link org.elasticsearch.index.query.QueryBuilder}
+   * @param histogramEnum {@link com.techlooper.model.HistogramEnum}
+   * @param interval {@link com.techlooper.model.HistogramEnum#getLength()}
+   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
   private FilterAggregationBuilder getSkillIntervalAggregation(String skill, FilterBuilder skillQuery, HistogramEnum histogramEnum, Integer interval) {
     String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
     RangeFilterBuilder approveDateQuery = FilterBuilders.rangeFilter("approvedDate").to("now-" + interval + histogramEnum.getPeriod());
-
-//    QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + histogramEnum.getPeriod());
-
     BoolFilterBuilder filterQuery = FilterBuilders.boolFilter().must(skillQuery, approveDateQuery);
-
-//    BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(skillQuery).must(approveDateQuery);
-    return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill) + "-" + histogramEnum + "-" + intervalDate)
-      .filter(filterQuery);
+    return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill) + "-" + histogramEnum + "-" + intervalDate).filter(filterQuery);
   }
 
   public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum) {
     Integer length = histogramEnum.getLength();
-//    String period = histogramEnum.getPeriod();
     return skills.stream().map(skill -> {
       FilterBuilder skillQuery = this.getTechnicalSkillQuery(skill);
       List<FilterAggregationBuilder> builders = new LinkedList<>();
-      for (int i = 0; i < length; ++i) {
-        builders.add(this.getSkillIntervalAggregation(skill, skillQuery, histogramEnum, i));
+      for (int histogramEnumLengthCounter = 0; histogramEnumLengthCounter < length; ++histogramEnumLengthCounter) {
+        builders.add(this.getSkillIntervalAggregation(skill, skillQuery, histogramEnum, histogramEnumLengthCounter));
       }
       return builders;
     }).collect(toList());

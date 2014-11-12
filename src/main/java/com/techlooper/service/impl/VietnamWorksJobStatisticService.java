@@ -100,7 +100,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
     NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
-    queryBuilder.withQuery(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
+    queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
 
     AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
 
