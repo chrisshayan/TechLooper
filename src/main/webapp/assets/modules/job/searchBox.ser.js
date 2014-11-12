@@ -25,6 +25,10 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     },
 
     initSearchTextbox: function ($scope, $textArray) {
+      if ($('.searchText').is(":visible") === false) {
+        return false;
+      }
+
       scope = $scope;
       textArray = $textArray;
 
