@@ -63,24 +63,34 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         $('.term-infor-chart .number').addClass('small');
       }
       $('.term-infor-chart .number').append(rename);
+    },
+    getSkillName: function(nSkill){
+      var oj = $('.rwd-table').find('tr');
+      oj.removeClass('active');
+      oj.each(function(){
+        if($(this).find('td[data-th=Skill]').text() == nSkill){
+           $(this).addClass('active'); 
+        }
+      });
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.clear);
 
   return {
-
-    /*
-     @param term
-     @see src/test/resources/expect/vnw-jobs-count-skill.json
-     */
     draw: function (term, skills) {
       $$.renderCircles(term, skills);
-    },
 
+    },
     renderTermChart: function (total, number, name) {
       $$.percentTerm(total, number);
       $$.renameTerm(name);
+    },
+    highLightSkill: function (){
+      $('.skill-circle-item').on('click mouseover', function(){
+        var skillName = $(this).find('.skill-name').text();
+        $$.getSkillName(skillName);
+      });
     }
   }
 });
