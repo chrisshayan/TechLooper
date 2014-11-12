@@ -26,6 +26,24 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return clone.slice(0, n || 1);
     },
 
+    zeroDataFilter : function(array, atPaths, n) {
+        var clone = array.slice(0);
+        for(var i = clone.length - 1; i >= 0 ; i--){
+            var isAllZero = true;
+            for(var j = 0; j < atPaths.length; j++) {
+                var count = jsonPath.eval(clone[i], atPaths[j])[0];
+                if (count != 0) {
+                    isAllZero = false;
+                    break;
+                }
+            }
+            if (isAllZero) {
+                clone.splice(i, 1);
+            }
+        }
+        return clone.slice(0, n || 1);
+    },
+
     getTopItemsAt: function (array, atPaths, n) {
       var clone = array.slice(0);
       clone.sort(function (x, y) {
