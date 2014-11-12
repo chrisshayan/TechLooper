@@ -114,9 +114,6 @@ angular.module('Skill').factory('skillChartFactory', function() {
                     $(this).hide();
                 }
             });
-
-            console.log(min + ' : '+ max)
-            
         },
         getLastDays: function(data) {
             var day = Date.today();
@@ -138,7 +135,6 @@ angular.module('Skill').factory('skillChartFactory', function() {
                 });
             }
             return dataItem;
-
         }
     }
 });
