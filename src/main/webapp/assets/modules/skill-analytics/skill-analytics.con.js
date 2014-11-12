@@ -1,6 +1,7 @@
 angular.module('Skill').controller('skillAnalyticsController',
     function($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
         skillCircleFactory, skillChartFactory, shortcutFactory) {
+        $('.loading-data').show();
         utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
         $scope.$on(jsonValue.events.analyticsSkill, function(event, data) {
@@ -22,13 +23,11 @@ angular.module('Skill').controller('skillAnalyticsController',
             // render left circle chart
             skillCircleFactory.renderTermChart(data.totalTechnicalJobs, data.count, data.jobTerm);
             skillCircleFactory.draw(data, $scope.top10);
-
+            skillCircleFactory.highLightSkill();
             // render bottom-right table & top-right line-chart
             skillTableFactory.formatDate();
             skillChartFactory.draw(top3);
-
-            skillCircleFactory.highLightSkill();
-            
+            $('.loading-data').hide();
         });
 
         connectionFactory.analyticsSkill($routeParams.term);
