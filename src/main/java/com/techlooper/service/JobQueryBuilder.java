@@ -4,7 +4,9 @@ package com.techlooper.service;/**
 
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.TechnicalTermEnum;
+import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryFilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -19,11 +21,11 @@ public interface JobQueryBuilder {
     static final String ES_DATE_FORMAT_DAY = "d";
     static final String ES_DATE_PATTERN = "YYYYMMdd";
 
-    QueryBuilder getTechnicalTermsQuery();
+    FilterBuilder getTechnicalTermsQuery();
 
-    QueryBuilder getTechnicalTermQuery(TechnicalTermEnum term);
+    FilterBuilder getTechnicalTermQuery(TechnicalTermEnum term);
 
-    QueryBuilder getTechnicalSkillQuery(String skill);
+    FilterBuilder getTechnicalSkillQuery(String skill);
 
     NativeSearchQueryBuilder getVietnamworksJobQuery();
 
