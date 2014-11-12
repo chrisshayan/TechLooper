@@ -29,7 +29,5 @@ public interface JobQueryBuilder {
 
     AggregationBuilder getTechnicalTermAggregation(TechnicalTermEnum term);
 
-    FilterAggregationBuilder getSkillIntervalAggregation(String skill, QueryBuilder skillQuery, String period, Integer interval);
-
     List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum);
 }

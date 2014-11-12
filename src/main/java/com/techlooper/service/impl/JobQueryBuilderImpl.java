@@ -27,9 +27,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
   public QueryBuilder getTechnicalTermsQuery() {
     final BoolQueryBuilder technicalTermsQuery = QueryBuilders.boolQuery();
-    Stream.of(TechnicalTermEnum.values())
-      .map(term -> QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
-      .forEach(technicalTermsQuery::should);
+    Stream.of(TechnicalTermEnum.values()).map(this::getTechnicalTermQuery).forEach(technicalTermsQuery::should);
     return technicalTermsQuery;
   }
 
@@ -49,27 +47,24 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     return AggregationBuilders.filter(term.name()).filter(FilterBuilders.queryFilter(this.getTechnicalTermQuery(term)));
   }
 
-  public FilterAggregationBuilder getSkillIntervalAggregation(String skill, QueryBuilder skillQuery, String period, Integer interval) {
+  private FilterAggregationBuilder getSkillIntervalAggregation(String skill, QueryBuilder skillQuery, HistogramEnum histogramEnum, Integer interval) {
     String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
-    QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + period);
+    QueryBuilder approveDateQuery = QueryBuilders.rangeQuery("approvedDate").to("now-" + interval + histogramEnum.getPeriod());
     BoolQueryBuilder filterQuery = QueryBuilders.boolQuery().must(skillQuery).must(approveDateQuery);
-    return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill) + "-" + period + "-" + intervalDate)
+    return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill) + "-" + histogramEnum.name() + "-" + intervalDate)
       .filter(FilterBuilders.queryFilter(filterQuery));
   }
 
   public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum) {
     Integer length = histogramEnum.getLength();
-    String period = histogramEnum.getPeriod();
+//    String period = histogramEnum.getPeriod();
     return skills.stream().map(skill -> {
       QueryBuilder skillQuery = this.getTechnicalSkillQuery(skill);
       List<FilterAggregationBuilder> builders = new LinkedList<>();
       for (int i = 0; i < length; ++i) {
-        builders.add(this.getSkillIntervalAggregation(skill, skillQuery, period, i));
+        builders.add(this.getSkillIntervalAggregation(skill, skillQuery, histogramEnum, i));
       }
       return builders;
     }).collect(toList());
   }
-
-//  public abstract int getLastNumberOfDays();
-
 }

@@ -133,7 +133,7 @@ angular.module('Skill').factory('skillChartFactory', function() {
             var dataItem = [];
             for (var i = 0; i < 3; i++) {
                 dataItem.push({
-                    name: data[i].skill,
+                    name: data[i].skillName,
                     data: data[i].histogramData
                 });
             }

@@ -4,18 +4,25 @@ angular.module('Skill').controller('skillAnalyticsController',
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
-      var top10 = utils.getTopItems(data.jobSkills, ["currentCount"], 10);
-      $scope.term = data;
-      $scope.top10 = top10;
+      var path = "$.histograms[?(@.name=='$PERIOD')].values[$INDEX]";
+      var atCurrentCount = path.replace('$PERIOD', jsonValue.histograms.twoWeeks).replace('$INDEX', '1');
 
-      var top3 = utils.getTopItems(data.jobSkills, ["currentCount", "previousCount"], 3);
+      var top10 = utils.getTopItemsAt(data.skills, [atCurrentCount], 10);
+      $scope.term = data;
+      $scope.top10 = utils.flatMap(top10, [atCurrentCount], ["currentCount"]);
+
+      var atPreviousCount = path.replace('$PERIOD', jsonValue.histograms.twoWeeks).replace('$INDEX', '0');
+      var top3 = utils.getTopItemsAt(data.skills, [atPreviousCount, atCurrentCount], 3);
+
+      var atHistogramData = "$.histograms[?(@.name=='$PERIOD')].values".replace('$PERIOD', jsonValue.histograms.thirtyDays);
+      top3 = utils.flatMap(top3, [atPreviousCount, atCurrentCount, atHistogramData], ["previousCount", "currentCount", "histogramData"]);
       $scope.top3 = skillTableFactory.reformatData(top3);
 
       $scope.$apply();
 
       // render left circle chart
       skillCircleFactory.renderTermChart(data.totalTechnicalJobs, data.count, data.jobTerm);
-      skillCircleFactory.draw(data, top10);
+      skillCircleFactory.draw(data, $scope.top10);
 
       // render bottom-right table & top-right line-chart
       skillTableFactory.formatDate();
