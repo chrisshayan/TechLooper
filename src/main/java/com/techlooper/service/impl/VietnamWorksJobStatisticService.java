@@ -84,13 +84,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     return count(TechnicalTermEnum.RUBY);
   }
 
-  /**
-   * Counts the matching jobs to relevant {@code TechnicalTermEnum}
-   *
-   * @param technicalTermEnum a {@code TechnicalTermEnum} to determine which technology search
-   *                          must happen.
-   * @return a {@code Long} that represents number of matching jobs.
-   */
   public Long count(final TechnicalTermEnum technicalTermEnum) {
     final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
       .withSearchType(SearchType.COUNT)
@@ -100,7 +93,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
   }
 
   public Long countTechnicalJobs() {
-    NativeSearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
+    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
       .withSearchType(SearchType.COUNT)
       .withFilter(jobQueryBuilder.getTechnicalTermsQueryNotExpired())
       .build();
