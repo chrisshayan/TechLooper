@@ -4,8 +4,11 @@ import com.techlooper.model.*;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
+import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
@@ -88,8 +91,14 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
      * @return a {@code Long} that represents number of matching jobs.
      */
     public Long count(final TechnicalTermEnum technicalTermEnum) {
+        RangeFilterBuilder expiredDateQuery = FilterBuilders.rangeFilter("expiredDate").gte("now").cache(true);
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
-                .withFilter(jobQueryBuilder.getTechnicalTermQuery(technicalTermEnum)).build();
+                .withFilter(
+                        FilterBuilders.boolFilter().must(expiredDateQuery, jobQueryBuilder.getTechnicalTermQuery(technicalTermEnum))
+                )
+                .withSearchType(SearchType.COUNT)
+                .build();
+
         return elasticsearchTemplate.count(searchQuery);
     }
 
@@ -113,14 +122,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
         // TODO remove term.value() later
         final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
-        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
-            skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
-            return response.getAggregations();
-        });
+        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
 
         // term aggregation
         InternalFilter termAggregation = aggregations.get(term.name());
-        skillStatisticResponse.withCount(termAggregation.getDocCount());
+        skillStatisticResponse.withTotalTechnicalJobs(countTechnicalJobs());
+        skillStatisticResponse.withCount(this.count(term));
 
         Map<String, SkillStatistic.Builder> jobSkillsMap = new HashMap<>();
         termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
