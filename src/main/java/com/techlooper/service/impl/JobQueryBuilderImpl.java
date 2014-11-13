@@ -61,10 +61,13 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
      * @param interval      {@link com.techlooper.model.HistogramEnum#getLength()}
      * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
      */
-    private FilterAggregationBuilder getSkillIntervalAggregation(String skill, FilterBuilder skillQuery, HistogramEnum histogramEnum, Integer interval) {
+    private FilterAggregationBuilder getSkillIntervalAggregation(String skill, FilterBuilder skillQuery,
+                                                                 HistogramEnum histogramEnum, Integer interval) {
         String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
-        RangeFilterBuilder approveDateQuery = FilterBuilders.rangeFilter("approvedDate").to("now-" + interval + histogramEnum.getPeriod());
-        BoolFilterBuilder filterQuery = FilterBuilders.boolFilter().must(skillQuery, approveDateQuery);
+        String to = "now-" + interval + histogramEnum.getPeriod();
+        RangeFilterBuilder approveDateQuery = FilterBuilders.rangeFilter("approvedDate").to(to).cache(true);
+        RangeFilterBuilder expiredDateQuery = FilterBuilders.rangeFilter("expiredDate").gte(to).cache(true);
+        BoolFilterBuilder filterQuery = FilterBuilders.boolFilter().must(skillQuery, approveDateQuery, expiredDateQuery);
         return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill) + "-" + histogramEnum + "-" + intervalDate).filter(filterQuery);
     }
 
