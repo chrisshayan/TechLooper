@@ -88,9 +88,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
      * @return a {@code Long} that represents number of matching jobs.
      */
     public Long count(final TechnicalTermEnum technicalTermEnum) {
-        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(technicalTermEnum, JobQueryBuilder.SEARCH_JOB_FIELDS).operator(Operator.AND))
-                .withIndices(elasticSearchIndexName).withSearchType(SearchType.COUNT).build();
+        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
+                .withFilter(jobQueryBuilder.getTechnicalTermQuery(technicalTermEnum)).build();
         return elasticsearchTemplate.count(searchQuery);
     }
 
