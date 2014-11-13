@@ -59,8 +59,8 @@ angular.module("Common").constant("jsonValue", {
       "top": "25px",
       "left": "100px"
     }, {
-      "top": "150px",
-      "left": "-130px"
+      "top": "250px",
+      "left": "180px"
     }, {
       "top": "220px",
       "left": "-10px"

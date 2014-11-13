@@ -39,10 +39,17 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         return FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND));
     }
 
+<<<<<<< HEAD
     public FilterBuilder getTechnicalSkillQuery(String skill) {
         return FilterBuilders.queryFilter(
                 QueryBuilders.multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND)).cache(true);
     }
+=======
+  public FilterBuilder getTechnicalSkillQuery(String skill) {
+    return FilterBuilders.queryFilter(
+      QueryBuilders.multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND)).cache(true);
+  }
+>>>>>>> 61d24e6ec521ae0958cb2f4db556307e08183393
 
     public NativeSearchQueryBuilder getVietnamworksJobQuery() {
         return new NativeSearchQueryBuilder().withIndices(elasticSearchIndexName).withTypes("job");
