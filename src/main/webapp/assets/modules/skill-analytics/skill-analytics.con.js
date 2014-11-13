@@ -13,7 +13,7 @@ angular.module('Skill').controller('skillAnalyticsController',
             $scope.top10 = utils.flatMap(top10, [atCurrentCount], ["currentCount"]);
 
             var atPreviousCount = path.replace('$PERIOD', jsonValue.histograms.twoWeeks).replace('$INDEX', '0');
-            var nonZeroSkills = utils.zeroDataFilter(data.skills, [atPreviousCount, atCurrentCount], 3);
+            var nonZeroSkills = utils.zeroDataFilter(data.skills, [atPreviousCount, atCurrentCount]);
             var top3 = utils.getTopItemsAt(nonZeroSkills, [atPreviousCount, atCurrentCount], 3);
 
             var atHistogramData = "$.histograms[?(@.name=='$PERIOD')].values".replace('$PERIOD', jsonValue.histograms.thirtyDays);

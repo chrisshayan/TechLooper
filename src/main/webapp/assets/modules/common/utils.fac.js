@@ -26,7 +26,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return clone.slice(0, n || 1);
     },
 
-    zeroDataFilter : function(array, atPaths, n) {
+    zeroDataFilter : function(array, atPaths) {
         var clone = array.slice(0);
         for(var i = clone.length - 1; i >= 0 ; i--){
             var isAllZero = true;
@@ -41,7 +41,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
                 clone.splice(i, 1);
             }
         }
-        return clone.slice(0, n || 1);
+        return clone;
     },
 
     getTopItemsAt: function (array, atPaths, n) {
