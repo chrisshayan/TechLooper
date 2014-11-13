@@ -1,0 +1,210 @@
+.technical-detail-page
+  display: block
+  background-color: #201d1e
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
+  z-index: 999
+  background-color: #201d1e
+  width: 100%
+  padding-bottom: 10px
+.technical-header-block
+  height: 70px
+  padding-top: 5px
+  background: url(../images/underline-black.png) left bottom repeat-x
+  .logo-block img
+    width: 100%
+    max-width: 250px
+    cursor: pointer
+  .close-button
+    text-align: right
+    padding-top: 7px
+  .close-button a
+    background: #2c2a2a
+    border-radius: 50%
+    display: block
+    width: 45px
+    height: 45px
+    float: right
+    color: #fff
+    font-weight: 300
+    font-size: 20px
+    line-height: 45px
+    text-align: center
+    cursor: pointer
+  .tech-line
+    text-align: center
+    h2
+      font-weight: 300
+      font-size: 16px
+      color: #777
+      margin: 0
+      padding: 0
+      line-height: 55px
+.technical-contianer-block
+  padding-top: 30px
+  display: block
+.trending-block
+  padding: 0 20px 0 0
+
+.skill-items-block
+  padding: 40px 10px 0 10px
+  max-width: 360px
+.term-infor
+  width: 80px
+  float: left
+  padding: 0 5px
+.term-infor-chart
+  width: 100%
+  height: 220px
+  background-color: #292627
+  border: 1px solid #363334
+  text-align: center
+  position: relative
+  vertical-align: middle
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  .percent
+    background-color: #f8d303
+    position: absolute
+    left: 0
+    bottom: 0
+    width: 100%
+    -webkit-border-bottom-right-radius: 5px
+    -webkit-border-bottom-left-radius: 5px
+    -moz-border-radius-bottomright: 5px
+    -moz-border-radius-bottomleft: 5px
+    border-bottom-right-radius: 5px
+    border-bottom-left-radius: 5px
+  .arrow-up
+    position: absolute
+    left: 0
+    right: 0
+    width: 100%
+    z-index: 99
+    bottom: 0
+    
+  .arrow-up i.fa-caret-up
+    color: #f8d303
+    font-size: 20px
+    display: none
+  .number
+    font-size: 20px
+    font-weight: 400
+    text-transform: uppercase
+    position: absolute
+    left: 0
+    right: 0
+    margin: auto
+    strong
+      display: block
+      clear: both
+      width: 100%
+      color: #f8d303
+  .small
+    font-size: 14px
+.skill-circle-item
+  width: auto
+  float: left
+  text-align: center
+  padding-bottom: 35px
+  min-height: 120px
+  cursor: pointer
+  
+.skill-circle-item .skill-name
+  text-transform: capitalize
+  width: 78px
+  text-align: center
+  position: absolute
+  line-height: 14px
+.top10Circles .circle
+  display: inline-block
+  margin: 10px 10px 0 10px
+  color: #b9b9b9
+
+.circles-decimals
+  font-size: .4em
+
+.ic-red
+  color: #c53046
+.ic-blue
+  color: #006600
+.line-chart-block
+  padding-bottom: 20px
+  width: 100%
+  height: 400px
+.line-chart-content
+  position: absolute
+  width: 100%
+  padding-right: 10px
+  height: 400px
+.ctrl-lineChart-block
+  padding-left: 25px
+.circles-text
+  font-size: 16px !important
+.fa-edit
+  cursor: pointer
+// table responsive
+.rwd-table
+  margin: 1em 0
+  width: 100%
+  
+  tr
+    border-top: 1px solid #353233
+    border-bottom: 1px solid #353233
+  tr.active
+    background-color: #211d1e
+    color: #fff
+  th
+    display: none // for accessibility, use a visually hidden method here instead! Thanks, reddit!  
+    border-left: 1px solid #353233
+    border-right: 1px solid #353233 
+  
+  td
+    display: block 
+    border-left: 1px solid #353233
+    border-right: 1px solid #353233
+    text-transform: capitalize
+
+    &:first-child
+      padding-top: .5em
+
+    &:last-child
+      padding-bottom: .5em
+
+
+    &:before
+      content: attr(data-th)": " // who knew you could do this? The internet, that's who.
+      font-weight: bold
+
+      // optional stuff to make it look nicer
+      width: 50% // magic number :( adjust according to your own content
+      display: inline-block
+      padding-left: 10px
+      // end options
+  th, td
+    text-align: left
+    text-transform: capitalize
+  th:first-child, td:first-child
+    text-align: left
+  th:first-child, td:first-child
+    cursor: pointer
+
+// presentational styling
+
+.rwd-table
+  background: #262223
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  overflow: hidden
+  tr
+    border-color: #353233
+  th
+    background-color: #1d1b1b
+  th, td:before
+    color: #636363
+text[text-anchor='start']
+  text-transform: capitalize

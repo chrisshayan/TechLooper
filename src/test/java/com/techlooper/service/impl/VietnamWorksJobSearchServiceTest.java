@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class})
@@ -44,10 +43,10 @@ public class VietnamWorksJobSearchServiceTest {
         assertNotNull(vnwConfigurationResponse);
 
         assertNotEquals("Number Of Locations : " + vnwConfigurationResponse.getData().getLocations().size(),
-          0, vnwConfigurationResponse.getData().getLocations().size());
+                0, vnwConfigurationResponse.getData().getLocations().size());
 
         assertNotEquals("Number Of Degrees : " + vnwConfigurationResponse.getData().getDegrees().size(),
-          0, vnwConfigurationResponse.getData().getDegrees().size());
+                0, vnwConfigurationResponse.getData().getDegrees().size());
     }
 
     @Test

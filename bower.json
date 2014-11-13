@@ -19,8 +19,9 @@
       "highcharts-release": "latest",
       "ngInfiniteScroll" : "latest",
       "selectize" : "latest",
-      "mousetrap": "latest"
-      
+      "mousetrap": "latest",
+      "JSONPath": "latest",
+      "DateJS": "latest"
    },
    "overrides": {
       "sockjs": {
@@ -43,6 +44,9 @@
       },
       "mousetrap": {
          "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
+      },
+      "DateJS": {
+         "main": "build/date.js"
       }
    }
 }

@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     clean: {
       build: ["<%=pkg.public%>"],
       release: [
-        "<%=pkg.public%>index.tpl.html",
+        "<%=pkg.public%>index.tem.html",
         "<%=pkg.public%>**/*.coffee",
         "<%=pkg.public%>sass",
         "<%=pkg.assets%>css",
@@ -122,7 +122,7 @@ module.exports = function (grunt) {
       },
       target: {
         files: {
-          "<%=pkg.public%>index.html": "<%=pkg.public%>index.tpl.html"
+          "<%=pkg.public%>index.html": "<%=pkg.public%>index.tem.html"
         }
       }
     },

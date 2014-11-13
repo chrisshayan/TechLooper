@@ -2,6 +2,11 @@ Selectize.define('techlooper', function (options) {
   var self = this;
   var triggeredOn = {};
 
+  self.setPlaceholder = function(placeholder) {
+    self.settings.placeholder = placeholder;
+    self.updatePlaceholder();
+  }
+
   self.focusNoDropdown = (function () {
     return function() {
       triggeredOn.focusNoDropdown = true;

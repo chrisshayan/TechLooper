@@ -1,4 +1,4 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, shortcutFactory) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory) {
   var scope, searchText, textArray;
 
   var $$ = {
@@ -22,11 +22,13 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           'line-height': ($('.selectize-control').height() - 9) + 'px'
         });
       });
-    }
-  }
+    },
 
-  var instance = {
     initSearchTextbox: function ($scope, $textArray) {
+      if ($('.searchText').is(":visible") === false) {
+        return false;
+      }
+
       scope = $scope;
       textArray = $textArray;
 
@@ -45,7 +47,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         valueField: "text",
         searchField: ['text'],
         labelField: "text",
-        placeholder: "Enter to search...",
+        //placeholder: "Enter to search...",
         createFilter: function (input) {
           var ok = true;
           $.each(this.options, function (index, value) {
@@ -68,6 +70,10 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       })[0].selectize;
 
+      $translate("searchTextPlaceholder").then(function(translation){
+        searchText.setPlaceholder(translation);
+      });
+
       if ($.isArray(textArray)) {
         var options = [];
         var values = [];
@@ -75,10 +81,10 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           var tag = utils.findBy(jsonValue.technicalSkill, "text", text);
           if (tag === undefined) {
             options.push({text: text});
-            values.push(text)
+            values.push(text);
           }
           else {
-            values.push(tag.text)
+            values.push(tag.text);
           }
         });
         searchText.addOption(options);
@@ -96,23 +102,21 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       searchText.focusNoDropdown();
       $$.alignButtonSearch();
+    }
+  }
+
+  var instance = {
+    getSearchText: function() {
+      return searchText;
     },
 
-    openSearchForm: function (h) {
-      $('.search-block').animate({
-        'min-height': h,
-        bottom: 0
-      }, {
-        duration: '10000',
-        easing: 'easeOutQuad'
-      });
-    },
     changeBodyColor: function () {
       var url = jsonValue.routerUris.jobsSearch + searchText.getValue();
       if ($location.path() == url) {
         $('body').css("background-color", "#eeeeee");
       }
     },
+
     hightlightSKill: function () {
       searchText.on("item_add", function (value, item) {
         $('.technical-Skill-List').find('img').each(function () {
@@ -135,5 +139,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     }
   }
 
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.initSearchTextbox);
   return instance;
 });

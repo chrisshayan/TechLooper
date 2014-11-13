@@ -1,10 +1,10 @@
-angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope) {
+angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope, utils) {
   var historyStack = {max: 0, items: {}};
 
-  $rootScope.$on('$routeChangeSuccess', function() {
-    switch ($location.path()) {
-      case jsonValue.routerUris.bubble:
-      case jsonValue.routerUris.pie:
+  $rootScope.$on('$routeChangeSuccess', function(event, route) {
+    switch (utils.getView()) {
+      case jsonValue.views.bubbleChart:
+      case jsonValue.views.pieChart:
         // TODO: #1 - change the body background to black
         $("body").css("background-color", "#2e272a");
         instance.trackHistory();

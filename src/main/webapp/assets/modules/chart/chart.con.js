@@ -1,11 +1,11 @@
 angular.module('Chart').controller('chartController',
-  function ($scope, jsonValue, connectionFactory, utils, headerService, $rootScope) {
+  function ($scope, jsonValue, connectionFactory, utils, headerService) {
     var events = jsonValue.events;
     var rColor = 0;
     var terms = [];
     var chartFactory = headerService.getChart().factory;
 
-    connectionFactory.initialize($scope);
+    utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(events.terms, function (event, data) {
       terms = data;
       chartFactory.setTerms(terms);
@@ -17,7 +17,6 @@ angular.module('Chart').controller('chartController',
         chartFactory.draw({
           'colorID': rColor,
           'count': term.count,
-          'termName': term.name,
           'termID': term.term
         }, true);
 
@@ -33,11 +32,12 @@ angular.module('Chart').controller('chartController',
             'termID': data.term
           });
         });
-
       });
 
-      chartFactory.initializeAnimation();
+      chartFactory.initializeAnimation($scope);
+
     });
 
     connectionFactory.receiveTechnicalTerms();
+     
   });

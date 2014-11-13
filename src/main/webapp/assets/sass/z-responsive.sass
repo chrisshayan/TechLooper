@@ -15,10 +15,28 @@
     max-height: inherit
   .fa-bars
     display: block
+  .technical-header-block
+    height: auto
   .logo-block
     width: 50%
+  .logo-block img
+    width: 100%
   .close-button
     width: 50%
+  
+  .technical-header-block 
+    .close-button
+      padding-top: 0 !important
+      padding-bottom: 10px !important
+  .search-logo-block 
+    .close-button a
+      width: 40px
+      height: 40px
+      line-height: 40px
+  .technical-header-block 
+    .close-button a
+      width: 40px
+      height: 40px
   .logo
     width: 100%
     padding: 5px 5px 5px 0
@@ -42,7 +60,7 @@
         top: 15px !important
         width: 50px
       strong
-        font-size: 12px
+        font-size: 11px
     .textSize2
       width: 75px
       height: 75px
@@ -50,12 +68,12 @@
         width: 75px
         height: 75px
       span
-        font-size: 15px
+        font-size: 11px
         line-height: 16px
-        top: 15px !important
+        top: 18px !important
         width: 75px
       strong
-        font-size: 20px
+        font-size: 12px
     .textSize3
       width: 100px
       height: 100px
@@ -63,12 +81,12 @@
         width: 100px
         height: 100px
       span
-        font-size: 17px
+        font-size: 12px
         line-height: 22px
-        top: 18px !important
+        top: 20px !important
         width: 100px
       strong
-        font-size: 23px
+        font-size: 13px
     .textSize4
       width: 125px
       height: 125px
@@ -76,8 +94,12 @@
         width: 125px
         height: 125px
       span
-        top: -90px !important
+        top: 24px !important
         width: 125px
+        line-height: 12px
+        font-size: 13px
+      strong
+        font-size: 14px
     .textSize5
       width: 175px
       height: 175px
@@ -113,6 +135,7 @@
   .bubble-chart-container
     width: 80%
     min-height: 380px
+    max-width: 320px
   .pie-Chart-Container
     padding-top: 0
     width: 90%
@@ -183,6 +206,34 @@
       padding: 0
     .company-video
       display: none
+  //style for technical page
+
+  .skill-items-block
+    width: 100%
+    margin: auto
+    clear: both
+    padding: 20px 0 0 0
+  .line-chart-content
+    padding-right: 0
+  .trending-block
+    width: 100%
+    float: left
+    clear: both
+    padding: 10px 0 0 0
+
+  .ctrl-lineChart-block
+    padding-left: 0
+  
 @media (min-width: 778px)
   .fa-bars
     display: none
+@media (min-width: 640px)
+  .rwd-table
+    margin: auto
+    td
+      &:before
+        display: none
+    td, th
+      display: table-cell
+      padding: 5px 10px
+      text-align: center

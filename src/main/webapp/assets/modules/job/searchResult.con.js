@@ -1,7 +1,6 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, shortcutFactory) {
-    connectionFactory.initialize($scope);
-
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
+    utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
     $scope.search = {
       jobs: [],
       pageNumber: 0,
@@ -68,32 +67,5 @@ angular.module('Jobs').controller('searchResultController',
       $('.job-infor').css('height', h);
     }
 
-    searchBoxService.initSearchTextbox($scope, $routeParams.text.split(","));
-
     searchBoxService.changeBodyColor();
-    //searchBoxService.alignButtonSeatch();
-
-    //$scope.closeSearchForm = function () {
-    //  var isVideoHide = $("#companyVideoInfor").attr("aria-hidden");
-    //  if ($(".btn-close").is(":visible") && (isVideoHide == undefined || isVideoHide == "true")) {
-    //    $('.btn-close').click();
-    //  }
-    //};
-    //
-    //$scope.backPage = function () {
-    //  console.log($location.path());
-    //  if (history.length == 1) {
-    //    $('body').css("background-color", "#2e272a");
-    //    $location.path('/');
-    //  }
-    //  if (history.length > 3) {
-    //    $location.path('/jobs/search');
-    //  }
-    //  else {
-    //    history.back();
-    //    return false;
-    //  }
-    //}
-
-    //shortcutFactory.initialize([{key: "esc", fn: $scope.closeSearchForm}]);
   });

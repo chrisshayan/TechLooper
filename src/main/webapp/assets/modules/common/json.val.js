@@ -1,21 +1,37 @@
 angular.module("Common").constant("jsonValue", {
 
-  keyCode: {
-    RETURN: 13,
-    ESC: 27
+  histograms: {
+    thirtyDays: "THIRTY_DAY",
+    twoWeeks: "TWO_WEEK"
   },
+
+  notifications: {
+    switchScope: "switch to other scope"
+  },
+
+  skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "#00eaff"],
 
   events: {
     terms: "Terms",
     term: "Term",
     changeChart: "Change Chart",
-    foundJobs : "Found Jobs"
+    foundJobs : "Found Jobs",
+    analyticsSkill: "Analytics Skill"
   },
 
   routerUris: {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
-    jobsSearch: "/jobs/search"
+    jobsSearch: "/jobs/search",
+    analyticsSkill: "/analytics/skill"
+  },
+
+  views: {
+    jobsSearch: "jobSearch",
+    jobsSearchText: "jobSearchText",
+    analyticsSkill: "analyticsSkill",
+    bubbleChart: "bubbleChart",
+    pieChart: "pieChart"
   },
 
   socketUri: {
@@ -26,17 +42,12 @@ angular.module("Common").constant("jsonValue", {
     subscribeTerm: "/topic/jobs/term/",
 
     sendJobsSearch: "/app/jobs/search",
-    subscribeJobsSearch: "/topic/jobs/search"
+    subscribeJobsSearch: "/topic/jobs/search",
+
+    analyticsSkill: "/app/analytics/skill",
+    subscribeAnalyticsSkill: "/topic/analytics/skill"
   },
 
-  //availableLanguageKeys: [{
-  //  "name": "EN",
-  //  "value": "en"
-  //}, {
-  //  "name": "VI",
-  //  "value": "vi"
-  //}],
-  //
   mPositionDefault: [{
     "data": [{
       "top": "290px",
@@ -48,8 +59,8 @@ angular.module("Common").constant("jsonValue", {
       "top": "25px",
       "left": "100px"
     }, {
-      "top": "150px",
-      "left": "-130px"
+      "top": "250px",
+      "left": "180px"
     }, {
       "top": "220px",
       "left": "-10px"
@@ -81,8 +92,8 @@ angular.module("Common").constant("jsonValue", {
       "top": "340px",
       "left": "0"
     }, {
-      "top": "330px",
-      "left": "0"
+      "top": "380px",
+      "left": "70px"
     }, {
       "top": "260px",
       "left": "-40px"

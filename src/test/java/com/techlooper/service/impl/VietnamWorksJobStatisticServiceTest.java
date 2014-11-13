@@ -2,7 +2,9 @@ package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.model.TechnicalSkillEnumMap;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
@@ -10,14 +12,16 @@ import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -26,74 +30,86 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
 public class VietnamWorksJobStatisticServiceTest {
 
-  private JobStatisticService jobStatisticService;
+    private JobStatisticService jobStatisticService;
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
-  @Before
-  public void before() {
-    jobStatisticService = new VietnamWorksJobStatisticService();
-    ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
-  }
+    @Resource
+    private TechnicalSkillEnumMap technicalSkillEnumMap;
 
-  @Test
-  public void countQAJobs() {
-    assertThat(jobStatisticService.countQAJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Resource
+    private JobQueryBuilder jobQueryBuilder;
 
-  @Test
-  public void countBAJobs() {
-    assertThat(jobStatisticService.countBAJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Value("${elasticsearch.index.name}")
+    private String elasticSearchIndexName;
 
-  @Test
-  public void countDBAJobs() {
-    assertThat(jobStatisticService.countDBAJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Before
+    public void before() {
+        jobStatisticService = new VietnamWorksJobStatisticService();
+        ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
+        ReflectionTestUtils.setField(jobStatisticService, "technicalSkillEnumMap", technicalSkillEnumMap);
+        ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
+        ReflectionTestUtils.setField(jobStatisticService, "elasticSearchIndexName", elasticSearchIndexName);
+    }
 
-  @Test
-  public void countPythonJobs() {
-    assertThat(jobStatisticService.countPythonJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Test
+    public void countQAJobs() {
+        assertThat(jobStatisticService.countQAJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countRubyJobs() {
-    assertThat(jobStatisticService.countRubyJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Test
+    public void countBAJobs() {
+        assertThat(jobStatisticService.countBAJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countProjectManagerJobs() {
-    assertThat(jobStatisticService.countProjectManagerJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Test
+    public void countDBAJobs() {
+        assertThat(jobStatisticService.countDBAJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countPhpJobs() {
-    assertThat(jobStatisticService.countPhpJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Test
+    public void countPythonJobs() {
+        assertThat(jobStatisticService.countPythonJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countJavaJobs() {
-    assertThat(jobStatisticService.countJavaJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Test
+    public void countRubyJobs() {
+        assertThat(jobStatisticService.countRubyJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countDotNetJobs() {
-    assertThat(jobStatisticService.countDotNetJobs(), IsNot.not(IsNull.nullValue()));
-  }
+    @Test
+    public void countProjectManagerJobs() {
+        assertThat(jobStatisticService.countProjectManagerJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countJava() {
-    assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
-  }
+    @Test
+    public void countPhpJobs() {
+        assertThat(jobStatisticService.countPhpJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countPhp() {
-    assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
-  }
+    @Test
+    public void countJavaJobs() {
+        assertThat(jobStatisticService.countJavaJobs(), IsNot.not(IsNull.nullValue()));
+    }
 
-  @Test
-  public void countNet() {
-    assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
-  }
+    @Test
+    public void countDotNetJobs() {
+        assertThat(jobStatisticService.countDotNetJobs(), IsNot.not(IsNull.nullValue()));
+    }
+
+    @Test
+    public void countJava() {
+        assertThat(jobStatisticService.count(TechnicalTermEnum.JAVA), Is.is(jobStatisticService.countJavaJobs()));
+    }
+
+    @Test
+    public void countPhp() {
+        assertThat(jobStatisticService.count(TechnicalTermEnum.PHP), Is.is(jobStatisticService.countPhpJobs()));
+    }
+
+    @Test
+    public void countNet() {
+        assertThat(jobStatisticService.count(TechnicalTermEnum.DOTNET), Is.is(jobStatisticService.countDotNetJobs()));
+    }
 }
