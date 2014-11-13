@@ -3,6 +3,15 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
 
+    //removeDuplications: function(array, at) {
+    //  var clone = array.clone();
+    //  var dups = [];
+    //  $.each(clone, function(index, item) {
+    //    var value = jsonPath.eval(item, at);
+    //  });
+    //  return clone;
+    //},
+
     flatMap: function (items, ats, tos) {
       var clone = items.slice(0);
       $.each(clone, function (index, item) {
