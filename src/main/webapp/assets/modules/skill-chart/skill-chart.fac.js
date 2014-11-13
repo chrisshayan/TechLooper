@@ -4,7 +4,7 @@ angular.module('Skill').factory('skillChartFactory', function(jsonValue) {
             var dataChart = instance.getDataForChart(data);
             var last30Days = instance.getLastDays(data);
             var max = 0, min = 0;
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < data.length; i++) {
                 nMax =  Math.max.apply(null, data[i].histogramData);
                 nMin =  Math.min.apply(null, data[i].histogramData);
                 if(nMax > max){
