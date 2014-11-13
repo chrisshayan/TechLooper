@@ -1,4 +1,4 @@
-angular.module('Skill').factory('skillChartFactory', function() {
+angular.module('Skill').factory('skillChartFactory', function(jsonValue) {
     return instance = {
         draw: function(data) {
             var dataChart = instance.getDataForChart(data);
@@ -23,7 +23,7 @@ angular.module('Skill').factory('skillChartFactory', function() {
                     backgroundColor: '#201d1e',
                     type: 'spline'
                 },
-                colors: ['#f8d303', '#006600', '#dd00d4'],
+                colors: jsonValue.skillColors,
                 title: {
                     text: '',
                     style: {
@@ -128,7 +128,7 @@ angular.module('Skill').factory('skillChartFactory', function() {
         },
         getDataForChart: function(data) {
             var dataItem = [];
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < data.length; i++) {
                 dataItem.push({
                     name: data[i].skillName,
                     data: data[i].histogramData
