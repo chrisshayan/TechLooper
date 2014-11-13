@@ -119,7 +119,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
 
-    InternalFilter allTermsResponse = (InternalFilter) aggregations.get("allTerms");
+    InternalFilter allTermsResponse = aggregations.get("allTerms");
     final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
     skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
     skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.name())).getDocCount());
