@@ -6,7 +6,7 @@ angular.module("Common").factory("animationFactory", function (jsonValue, utils)
         case jsonValue.views.jobsSearch:
           $(window).resize(function () {
             $('.search-block').animate({
-              'min-height': $(window).height(),
+              top: 0,
               bottom: 0
             }, {
               duration: '10000',

@@ -8,7 +8,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
     var scope;
     
     // TODO: use jsonValue
-    var colorJson = [ "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee" ];
+    var colorJson = jsonValue.skillColors;
     var instance =  {
        setTerms : function($terms) {
           terms = $terms;
