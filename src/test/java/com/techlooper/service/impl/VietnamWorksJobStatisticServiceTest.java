@@ -12,6 +12,7 @@ import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -40,12 +41,16 @@ public class VietnamWorksJobStatisticServiceTest {
     @Resource
     private JobQueryBuilder jobQueryBuilder;
 
+    @Value("${elasticsearch.index.name}")
+    private String elasticSearchIndexName;
+
     @Before
     public void before() {
         jobStatisticService = new VietnamWorksJobStatisticService();
         ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
         ReflectionTestUtils.setField(jobStatisticService, "technicalSkillEnumMap", technicalSkillEnumMap);
         ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
+        ReflectionTestUtils.setField(jobStatisticService, "elasticSearchIndexName", elasticSearchIndexName);
     }
 
     @Test

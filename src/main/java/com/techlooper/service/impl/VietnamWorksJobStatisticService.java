@@ -10,6 +10,7 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -31,120 +32,119 @@ import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 @Service
 public class VietnamWorksJobStatisticService implements JobStatisticService {
 
-  private static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
+    @Resource
+    private TechnicalSkillEnumMap technicalSkillEnumMap;
 
-  private static final String ES_VIETNAMWORKS_INDEX = "vietnamworks";
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
-  @Resource
-  private TechnicalSkillEnumMap technicalSkillEnumMap;
+    @Resource
+    private JobQueryBuilder jobQueryBuilder;
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
+    @Value("${elasticsearch.index.name}")
+    private String elasticSearchIndexName;
 
-  @Resource
-  private JobQueryBuilder jobQueryBuilder;
-
-  public Long countPhpJobs() {
-    return count(TechnicalTermEnum.PHP);
-  }
-
-  public Long countJavaJobs() {
-    return count(TechnicalTermEnum.JAVA);
-  }
-
-  public Long countDotNetJobs() {
-    return count(TechnicalTermEnum.DOTNET);
-  }
-
-  public Long countProjectManagerJobs() {
-    return count(TechnicalTermEnum.PROJECT_MANAGER);
-  }
-
-  public Long countBAJobs() {
-    return count(TechnicalTermEnum.BA);
-  }
-
-  public Long countQAJobs() {
-    return count(TechnicalTermEnum.QA);
-  }
-
-  public Long countDBAJobs() {
-    return count(TechnicalTermEnum.QA);
-  }
-
-  public Long countPythonJobs() {
-    return count(TechnicalTermEnum.PYTHON);
-  }
-
-  public Long countRubyJobs() {
-    return count(TechnicalTermEnum.RUBY);
-  }
-
-  /**
-   * Counts the matching jobs to relevant {@code TechnicalTermEnum}
-   *
-   * @param technicalTermEnum a {@code TechnicalTermEnum} to determine which technology search
-   *                          must happen.
-   * @return a {@code Long} that represents number of matching jobs.
-   */
-  public Long count(final TechnicalTermEnum technicalTermEnum) {
-    final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-      .withQuery(multiMatchQuery(technicalTermEnum, SEARCH_JOB_FIELDS).operator(Operator.AND))
-      .withIndices(ES_VIETNAMWORKS_INDEX).withSearchType(SearchType.COUNT).build();
-    return elasticsearchTemplate.count(searchQuery);
-  }
-
-  public Long countTechnicalJobs() {
-    return Stream.of(TechnicalTermEnum.values()).mapToLong(this::count).sum();
-  }
-
-  public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
-    NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
-    queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
-
-    AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
-
-    List<List<FilterAggregationBuilder>> list = new ArrayList<>();
-    for (HistogramEnum histogramEnum : histogramEnums) {
-      list.addAll(jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term), histogramEnum));
+    public Long countPhpJobs() {
+        return count(TechnicalTermEnum.PHP);
     }
-    list.stream().forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
 
-    queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
+    public Long countJavaJobs() {
+        return count(TechnicalTermEnum.JAVA);
+    }
 
-    // TODO remove term.value() later
-    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
-    Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
-      skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
-      return response.getAggregations();
-    });
+    public Long countDotNetJobs() {
+        return count(TechnicalTermEnum.DOTNET);
+    }
 
-    // term aggregation
-    InternalFilter termAggregation = aggregations.get(term.name());
-    skillStatisticResponse.withCount(termAggregation.getDocCount());
+    public Long countProjectManagerJobs() {
+        return count(TechnicalTermEnum.PROJECT_MANAGER);
+    }
 
-    Map<String, SkillStatistic.Builder> jobSkillsMap = new HashMap<>();
-    termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
-      .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
-      .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
-        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())))
-      .forEach((skillName, docCounts) -> {
-        String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
-        SkillStatistic.Builder skill = jobSkillsMap.get(name);
-        if (skill == null) {
-          skill = new SkillStatistic.Builder().withSkillName(name);
-          jobSkillsMap.put(name, skill);
+    public Long countBAJobs() {
+        return count(TechnicalTermEnum.BA);
+    }
+
+    public Long countQAJobs() {
+        return count(TechnicalTermEnum.QA);
+    }
+
+    public Long countDBAJobs() {
+        return count(TechnicalTermEnum.QA);
+    }
+
+    public Long countPythonJobs() {
+        return count(TechnicalTermEnum.PYTHON);
+    }
+
+    public Long countRubyJobs() {
+        return count(TechnicalTermEnum.RUBY);
+    }
+
+    /**
+     * Counts the matching jobs to relevant {@code TechnicalTermEnum}
+     *
+     * @param technicalTermEnum a {@code TechnicalTermEnum} to determine which technology search
+     *                          must happen.
+     * @return a {@code Long} that represents number of matching jobs.
+     */
+    public Long count(final TechnicalTermEnum technicalTermEnum) {
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(multiMatchQuery(technicalTermEnum, JobQueryBuilder.SEARCH_JOB_FIELDS).operator(Operator.AND))
+                .withIndices(elasticSearchIndexName).withSearchType(SearchType.COUNT).build();
+        return elasticsearchTemplate.count(searchQuery);
+    }
+
+    public Long countTechnicalJobs() {
+        return Stream.of(TechnicalTermEnum.values()).mapToLong(this::count).sum();
+    }
+
+    public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
+        queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
+
+        AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);
+
+        List<List<FilterAggregationBuilder>> list = new ArrayList<>();
+        for (HistogramEnum histogramEnum : histogramEnums) {
+            list.addAll(jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term), histogramEnum));
         }
+        list.stream().forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
 
-        String histogramName = skillName.split("-")[1];
-        skill.withHistogram(new Histogram.Builder()
-          .withName(HistogramEnum.valueOf(histogramName))
-          .withValues(docCounts).build());
-      });
+        queryBuilder.addAggregation(technicalTermAggregation);// technical term aggregation
 
-    List<SkillStatistic> skills = jobSkillsMap.keySet().stream()
-      .map(key -> jobSkillsMap.get(key).build()).collect(Collectors.toList());
+        // TODO remove term.value() later
+        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), response -> {
+            skillStatisticResponse.withTotalTechnicalJobs(response.getHits().getTotalHits());
+            return response.getAggregations();
+        });
 
-    return skillStatisticResponse.withSkills(skills).build();
-  }
+        // term aggregation
+        InternalFilter termAggregation = aggregations.get(term.name());
+        skillStatisticResponse.withCount(termAggregation.getDocCount());
+
+        Map<String, SkillStatistic.Builder> jobSkillsMap = new HashMap<>();
+        termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
+                .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
+                .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
+                        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())))
+                .forEach((skillName, docCounts) -> {
+                    String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
+                    SkillStatistic.Builder skill = jobSkillsMap.get(name);
+                    if (skill == null) {
+                        skill = new SkillStatistic.Builder().withSkillName(name);
+                        jobSkillsMap.put(name, skill);
+                    }
+
+                    String histogramName = skillName.split("-")[1];
+                    skill.withHistogram(new Histogram.Builder()
+                            .withName(HistogramEnum.valueOf(histogramName))
+                            .withValues(docCounts).build());
+                });
+
+        List<SkillStatistic> skills = jobSkillsMap.keySet().stream()
+                .map(key -> jobSkillsMap.get(key).build()).collect(Collectors.toList());
+
+        return skillStatisticResponse.withSkills(skills).build();
+    }
 }

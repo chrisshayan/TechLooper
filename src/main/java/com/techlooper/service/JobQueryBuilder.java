@@ -16,10 +16,6 @@ import java.util.List;
 public interface JobQueryBuilder {
 
   static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
-  static final String ES_VIETNAMWORKS_INDEX = "vietnamworks";
-  static final String ES_VIETNAMWORKS_TYPE = "job";
-  static final String ES_DATE_FORMAT_DAY = "d";
-  static final String ES_DATE_PATTERN = "YYYYMMdd";
 
   /**
    * This method will construct that needed to be executed on ES
