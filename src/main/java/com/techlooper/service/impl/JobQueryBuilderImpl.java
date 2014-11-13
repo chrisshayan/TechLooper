@@ -94,7 +94,6 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
   }
 
   public FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTermEnum technicalTermEnum) {
-    BoolFilterBuilder allTerms = (BoolFilterBuilder) this.getTechnicalTermQuery(technicalTermEnum);
-    return allTerms.must(this.getExpiredDateQuery("now"));
+    return FilterBuilders.boolFilter().must(this.getTechnicalTermQuery(technicalTermEnum), this.getExpiredDateQuery("now"));
   }
 }
