@@ -94,12 +94,12 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $('.btn-search').click($$.doSearch);
 
       $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
+      $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
-
       searchText.focusNoDropdown();
       $$.alignButtonSearch();
     }
