@@ -1,8 +1,6 @@
 package com.techlooper.model;
 
 
-import org.elasticsearch.Build;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,22 @@ public class SkillStatistic {
   private String skillName;
 
   private List<Histogram> histograms = new ArrayList<>();
+
+  public List<Histogram> getHistograms() {
+    return histograms;
+  }
+
+  public void setHistograms(List<Histogram> histograms) {
+    this.histograms = histograms;
+  }
+
+  public String getSkillName() {
+    return skillName;
+  }
+
+  public void setSkillName(String skillName) {
+    this.skillName = skillName;
+  }
 
   public static class Builder {
 
@@ -32,21 +46,5 @@ public class SkillStatistic {
     public SkillStatistic build() {
       return instance;
     }
-  }
-
-  public List<Histogram> getHistograms() {
-    return histograms;
-  }
-
-  public void setHistograms(List<Histogram> histograms) {
-    this.histograms = histograms;
-  }
-
-  public String getSkillName() {
-    return skillName;
-  }
-
-  public void setSkillName(String skillName) {
-    this.skillName = skillName;
   }
 }

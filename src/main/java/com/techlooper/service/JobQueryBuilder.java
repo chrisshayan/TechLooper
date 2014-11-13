@@ -46,7 +46,7 @@ public interface JobQueryBuilder {
    *
    * @return {@link org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder}
    */
-  NativeSearchQueryBuilder getVietnamworksJobQuery();
+  NativeSearchQueryBuilder getVietnamworksJobCountQuery();
 
   /**
    * Creates a bucket for aggregation of each {@link com.techlooper.model.TechnicalTermEnum}

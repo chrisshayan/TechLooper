@@ -4,6 +4,7 @@ import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.TechnicalTermEnum;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -44,8 +45,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
       QueryBuilders.multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND)).cache(true);
   }
 
-  public NativeSearchQueryBuilder getVietnamworksJobQuery() {
-    return new NativeSearchQueryBuilder().withIndices(elasticSearchIndexName).withTypes("job");
+  public NativeSearchQueryBuilder getVietnamworksJobCountQuery() {
+    return new NativeSearchQueryBuilder().withIndices(elasticSearchIndexName).withTypes("job").withSearchType(SearchType.COUNT);
   }
 
   public AggregationBuilder getTechnicalTermAggregation(TechnicalTermEnum term) {

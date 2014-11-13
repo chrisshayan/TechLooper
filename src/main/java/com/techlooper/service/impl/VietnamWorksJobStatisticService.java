@@ -6,10 +6,6 @@ import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -17,24 +13,21 @@ import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuil
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by chrisshayan on 7/14/14.
  */
 @Service
 public class VietnamWorksJobStatisticService implements JobStatisticService {
+
+  private static final String ALL_TERMS = "allTerms";
 
   @Resource
   private TechnicalSkillEnumMap technicalSkillEnumMap;
@@ -85,24 +78,22 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
   }
 
   public Long count(final TechnicalTermEnum technicalTermEnum) {
-    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
-      .withSearchType(SearchType.COUNT)
+    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
       .withFilter(jobQueryBuilder.getTechnicalTermQueryNotExpired(technicalTermEnum))
       .build();
     return elasticsearchTemplate.count(searchQuery);
   }
 
   public Long countTechnicalJobs() {
-    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobQuery()
-      .withSearchType(SearchType.COUNT)
+    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
       .withFilter(jobQueryBuilder.getTechnicalTermsQueryNotExpired())
       .build();
     return elasticsearchTemplate.count(searchQuery);
   }
 
   public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
-    NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobQuery();
-    queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery()).withSearchType(SearchType.COUNT);// all technical terms query
+    NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
+    queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery());// all technical terms query
 
     queryBuilder.addAggregation(allTermsAggregation(term));// technical terms agg which has expiredDate from now on
 
@@ -112,7 +103,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
 
-    InternalFilter allTermsResponse = aggregations.get("allTerms");
+    InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
     final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
     skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
     skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.name())).getDocCount());
@@ -133,20 +124,14 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   private void toSkillStatistic(Map<String, SkillStatistic.Builder> jobSkillsMap, String skillName, List<Long> docCounts) {
     String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
-    SkillStatistic.Builder skill = jobSkillsMap.get(name);
-    if (skill == null) {
-      skill = new SkillStatistic.Builder().withSkillName(name);
-      jobSkillsMap.put(name, skill);
-    }
-
+    SkillStatistic.Builder skill = Optional.ofNullable(jobSkillsMap.get(name)).orElseGet(SkillStatistic.Builder::new);
+    jobSkillsMap.put(name, skill.withSkillName(name));
     String histogramName = skillName.split("-")[1];
-    skill.withHistogram(new Histogram.Builder()
-      .withName(HistogramEnum.valueOf(histogramName))
-      .withValues(docCounts).build());
+    skill.withHistogram(new Histogram.Builder().withName(HistogramEnum.valueOf(histogramName)).withValues(docCounts).build());
   }
 
   private FilterAggregationBuilder allTermsAggregation(TechnicalTermEnum term) {
-    FilterAggregationBuilder allTermsAgg = AggregationBuilders.filter("allTerms").filter(jobQueryBuilder.getTechnicalTermsQueryNotExpired());
+    FilterAggregationBuilder allTermsAgg = AggregationBuilders.filter(ALL_TERMS).filter(jobQueryBuilder.getTechnicalTermsQueryNotExpired());
     allTermsAgg.subAggregation(jobQueryBuilder.getTechnicalTermAggregation(term));
     return allTermsAgg;
   }
