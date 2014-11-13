@@ -6,6 +6,7 @@ package com.techlooper.service;
 
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.TechnicalTermEnum;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
@@ -61,4 +62,10 @@ public interface JobQueryBuilder {
    * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
    */
   List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum);
+
+  FilterBuilder getExpiredDateQuery(String from);
+
+  FilterBuilder getTechnicalTermsQueryNotExpired();
+
+  FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTermEnum technicalTermEnum);
 }
