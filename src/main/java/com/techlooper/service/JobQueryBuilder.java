@@ -63,9 +63,20 @@ public interface JobQueryBuilder {
    */
   List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum);
 
+  /**
+   * @param from joda time value, ex: now-1d , now-1w , now-1M
+   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
   FilterBuilder getExpiredDateQuery(String from);
 
+  /**
+   * @return  {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
   FilterBuilder getTechnicalTermsQueryNotExpired();
 
+  /**
+   * @param technicalTermEnum {@link com.techlooper.model.TechnicalTermEnum}
+   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
   FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTermEnum technicalTermEnum);
 }
