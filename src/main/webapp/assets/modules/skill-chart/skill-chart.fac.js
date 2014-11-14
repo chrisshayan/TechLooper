@@ -104,6 +104,11 @@ angular.module('Skill').factory('skillChartFactory', function(jsonValue) {
                             hover: {
                                 lineWidth: 3
                             }
+                        },
+                        events: {
+                           mouseOver: function (){
+                                instance.getSkillName(this.name);
+                            } 
                         }
                     }
                 },
@@ -121,7 +126,7 @@ angular.module('Skill').factory('skillChartFactory', function(jsonValue) {
             var NumberDays = data[0].histogramData.length;
             arDays.push(day.toString("MMM d"));
             for (var i = 0; i < NumberDays; i++) {
-                day = day.add(-1).days().clone()
+                day = day.add(-1).days().clone();
                 arDays.push(day.toString("MMM d"));
             }
             return arDays.reverse();
@@ -135,6 +140,15 @@ angular.module('Skill').factory('skillChartFactory', function(jsonValue) {
                 });
             }
             return dataItem;
+        },
+        getSkillName: function(nSkill){
+          var oj = $('.rwd-table').find('tr');
+          oj.removeClass('active');
+          oj.each(function(){
+            if($(this).find('td[data-th=Skill]').text() == nSkill){
+               $(this).addClass('active');
+            }
+          });
         }
     }
 });
