@@ -4,7 +4,7 @@ angular.module("Skill").directive("skillcircle", function () {
     templateUrl: "modules/skill-circle/skill-circle.tem.html",
     scope: {
       term: "=",
-      top10: "="
+      circleItems: "="
     }
   }
 }).directive("skillchart", function () {
@@ -19,7 +19,7 @@ angular.module("Skill").directive("skillcircle", function () {
     replace: false,
     templateUrl: "modules/skill-table/skill-table.tem.html",
     scope: {
-      top3: "="
+      tableAndChartItems: "="
     }
   }
 });

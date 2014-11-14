@@ -48,7 +48,6 @@ angular.module('Jobs').controller('searchResultController',
     }
 
     $scope.checkPLayVideo = function () {
-      var video = $(".playerVideo").attr("src");
       $(".playerVideo").attr("src", "");
     }
 

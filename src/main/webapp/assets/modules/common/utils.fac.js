@@ -2,6 +2,16 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+    getNonZeroItems: function(items, props) {
+      return $.grep(items.slice(0), function (item, i) {
+        var zeroCounter = 0;
+        $.each(props, function(j, prop) {
+          item[prop] === 0 && (++zeroCounter);
+        });
+        return zeroCounter !== props.length;
+      });
+    },
+
     flatMap: function (items, ats, tos) {
       var clone = items.slice(0);
       $.each(clone, function (index, item) {
@@ -25,37 +35,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return clone.slice(0, n || 1);
     },
 
-    zeroDataFilter: function (array, atPaths) {
-      var clone = array.slice(0);
-      for (var i = clone.length - 1; i >= 0; i--) {
-        var isAllZero = true;
-        for (var j = 0; j < atPaths.length; j++) {
-          var count = jsonPath.eval(clone[i], atPaths[j])[0];
-          if (count != 0) {
-            isAllZero = false;
-            break;
-          }
-        }
-        if (isAllZero) {
-          clone.splice(i, 1);
-        }
-      }
-      return clone;
-    },
-
-    getTopItemsAt: function (array, atPaths, n) {
-      var clone = array.slice(0);
-      clone.sort(function (x, y) {
-        var dx = 0, dy = 0;
-        $.each(atPaths, function (i, at) {
-          dx = Math.abs(dx - jsonPath.eval(x, at)[0]);
-          dy = Math.abs(dy - jsonPath.eval(y, at)[0]);
-        });
-        return dy - dx;
-      });
-      return clone.slice(0, n || 1);
-    },
-
     //TODO allow auto scan observable objects
     registerNotification: function (name, fn, ableToReceiveFn) {
       if (notification[name] === undefined) {
@@ -71,8 +50,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       }
       var args = Array.prototype.slice.call(arguments, 1);
       $.each(notifies, function (index, notify) {
-        var ok = notify.ableToReceiveFn === undefined ||
-          ($.type(notify.ableToReceiveFn) === "function" && notify.ableToReceiveFn.apply(null, args));
+        var ok = notify.ableToReceiveFn === undefined || notify.ableToReceiveFn.apply(null, args);
         ok && notify.fn.apply(null, args);
       });
     },
