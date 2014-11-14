@@ -11,6 +11,22 @@ public class Histogram {
 
   private List<Long> values;
 
+  public HistogramEnum getName() {
+    return name;
+  }
+
+  public void setName(HistogramEnum name) {
+    this.name = name;
+  }
+
+  public List<Long> getValues() {
+    return values;
+  }
+
+  public void setValues(List<Long> values) {
+    this.values = values;
+  }
+
   public static class Builder {
 
     private Histogram instance = new Histogram();
@@ -28,21 +44,5 @@ public class Histogram {
     public Histogram build() {
       return instance;
     }
-  }
-
-  public HistogramEnum getName() {
-    return name;
-  }
-
-  public void setName(HistogramEnum name) {
-    this.name = name;
-  }
-
-  public List<Long> getValues() {
-    return values;
-  }
-
-  public void setValues(List<Long> values) {
-    this.values = values;
   }
 }

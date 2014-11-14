@@ -23,6 +23,15 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           $$.goBack();
           break;
       }
+    },
+
+    enter: function(e) {
+      switch (utils.getView()) {
+        case jsonValue.views.jobsSearchText:
+        case jsonValue.views.jobsSearch:
+          utils.sendNotification(jsonValue.notifications.defaultAction);
+          break;
+      }
     }
   }
 
@@ -31,6 +40,13 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       return;
     }
     traps.esc(e);
+  });
+
+  Mousetrap.bindGlobal("enter", function (e) {
+    if (e.defaultPrevented) {
+      return;
+    }
+    traps.enter(e);
   });
 
   return {

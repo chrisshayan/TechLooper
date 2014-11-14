@@ -2,16 +2,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
-
-    //removeDuplications: function(array, at) {
-    //  var clone = array.clone();
-    //  var dups = [];
-    //  $.each(clone, function(index, item) {
-    //    var value = jsonPath.eval(item, at);
-    //  });
-    //  return clone;
-    //},
-
     flatMap: function (items, ats, tos) {
       var clone = items.slice(0);
       $.each(clone, function (index, item) {
@@ -35,22 +25,22 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       return clone.slice(0, n || 1);
     },
 
-    zeroDataFilter : function(array, atPaths) {
-        var clone = array.slice(0);
-        for(var i = clone.length - 1; i >= 0 ; i--){
-            var isAllZero = true;
-            for(var j = 0; j < atPaths.length; j++) {
-                var count = jsonPath.eval(clone[i], atPaths[j])[0];
-                if (count != 0) {
-                    isAllZero = false;
-                    break;
-                }
-            }
-            if (isAllZero) {
-                clone.splice(i, 1);
-            }
+    zeroDataFilter: function (array, atPaths) {
+      var clone = array.slice(0);
+      for (var i = clone.length - 1; i >= 0; i--) {
+        var isAllZero = true;
+        for (var j = 0; j < atPaths.length; j++) {
+          var count = jsonPath.eval(clone[i], atPaths[j])[0];
+          if (count != 0) {
+            isAllZero = false;
+            break;
+          }
         }
-        return clone;
+        if (isAllZero) {
+          clone.splice(i, 1);
+        }
+      }
+      return clone;
     },
 
     getTopItemsAt: function (array, atPaths, n) {
@@ -67,11 +57,11 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
     },
 
     //TODO allow auto scan observable objects
-    registerNotification: function (name, fn) {
+    registerNotification: function (name, fn, ableToReceiveFn) {
       if (notification[name] === undefined) {
         notification[name] = [];
       }
-      return notification[name].push(fn);
+      return notification[name].push({fn: fn, ableToReceiveFn: ableToReceiveFn});
     },
 
     sendNotification: function () {
@@ -81,7 +71,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       }
       var args = Array.prototype.slice.call(arguments, 1);
       $.each(notifies, function (index, notify) {
-        notify.apply(null, args);
+        var ok = notify.ableToReceiveFn === undefined ||
+          ($.type(notify.ableToReceiveFn) === "function" && notify.ableToReceiveFn.apply(null, args));
+        ok && notify.fn.apply(null, args);
       });
     },
 

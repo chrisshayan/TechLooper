@@ -24,11 +24,11 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     },
 
-    initSearchTextbox: function ($scope, $textArray) {
-      if ($('.searchText').is(":visible") === false) {
-        return false;
-      }
+    able2InitializeSearchTextbox: function() {
+      return $('.searchText').is(":visible");
+    },
 
+    initializeSearchTextbox: function ($scope, $textArray) {
       scope = $scope;
       textArray = $textArray;
 
@@ -94,12 +94,12 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       $('.btn-search').click($$.doSearch);
 
       $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
+      $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
         'line-height': ($('.selectize-control').height() - 9) + 'px'
       });
-
       searchText.focusNoDropdown();
       $$.alignButtonSearch();
     }
@@ -139,6 +139,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     }
   }
 
-  utils.registerNotification(jsonValue.notifications.switchScope, $$.initSearchTextbox);
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.able2InitializeSearchTextbox);
+  utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.able2InitializeSearchTextbox);
   return instance;
 });

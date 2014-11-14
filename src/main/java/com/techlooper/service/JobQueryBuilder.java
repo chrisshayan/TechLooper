@@ -6,6 +6,7 @@ package com.techlooper.service;
 
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.TechnicalTermEnum;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
@@ -45,7 +46,7 @@ public interface JobQueryBuilder {
    *
    * @return {@link org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder}
    */
-  NativeSearchQueryBuilder getVietnamworksJobQuery();
+  NativeSearchQueryBuilder getVietnamworksJobCountQuery();
 
   /**
    * Creates a bucket for aggregation of each {@link com.techlooper.model.TechnicalTermEnum}
@@ -61,4 +62,21 @@ public interface JobQueryBuilder {
    * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
    */
   List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum);
+
+  /**
+   * @param from joda time value, ex: now-1d , now-1w , now-1M
+   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
+  FilterBuilder getExpiredDateQuery(String from);
+
+  /**
+   * @return  {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
+  FilterBuilder getTechnicalTermsQueryNotExpired();
+
+  /**
+   * @param technicalTermEnum {@link com.techlooper.model.TechnicalTermEnum}
+   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+   */
+  FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTermEnum technicalTermEnum);
 }
