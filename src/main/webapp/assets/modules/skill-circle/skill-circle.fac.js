@@ -1,14 +1,13 @@
 angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils) {
   var circles = [];
+
   var $$ = {
     clear: function() {
       circles.length = 0;
     },
 
     draw: function (term, skills, indexFrom) {
-      var colorIndex = -1;
       $.each(skills, function (index, skill) {
-        colorIndex = (index + indexFrom >= jsonValue.skillColors.length) ? 0 : colorIndex + 1;
         var circle = Circles.create({
           id: "circle-" + (index + indexFrom),
           radius: 30,
@@ -18,7 +17,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
           text: function (value) {
             return value;
           },
-          colors: ["#343233", jsonValue.skillColors[colorIndex]],
+          colors: ["#343233", skill.color],
           duration: 1300
         });
         circles.push(circle);
@@ -33,8 +32,8 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       $$.draw(term, newSkills, circles.length);
     },
 
-    percentTerm: function (total, number) {
-      var per = Math.round((number * 260) / total);
+    renderTermBox: function (term) {
+      var per = Math.round((term.count * 260) / term.totalTechnicalJobs);
       $('.term-infor-chart .percent').animate({
         'height': per
       }, {
@@ -54,16 +53,15 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         easing: 'easeOutQuad'
       });
       $('i.fa-caret-up').show();
-    },
 
-    renameTerm: function (name) {
-      var newName = '';
-      var rename = utils.mappingData(name);
+      // TODO: find other way to map term's labels
+      var rename = utils.mappingData(term.name);
       if (rename.length > 5) {
         $('.term-infor-chart .number').addClass('small');
       }
       $('.term-infor-chart .number').append(rename);
     },
+
     getSkillName: function(nSkill){
       var oj = $('.rwd-table').find('tr');
       oj.removeClass('active');
@@ -78,15 +76,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
   utils.registerNotification(jsonValue.notifications.switchScope, $$.clear);
 
   return {
-    draw: function (term, skills) {
+    renderView: function (term, skills) {
       $$.renderCircles(term, skills);
-
-    },
-    renderTermChart: function (total, number, name) {
-      $$.percentTerm(total, number);
-      $$.renameTerm(name);
-    },
-    highLightSkill: function (){
+      $$.renderTermBox(term);
       $('.skill-circle-item').on('click mouseover', function(){
         var skillName = $(this).find('.skill-name').text();
         $$.getSkillName(skillName);
