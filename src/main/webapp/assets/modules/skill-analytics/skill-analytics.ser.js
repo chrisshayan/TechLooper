@@ -20,7 +20,9 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
 
     getTableAndChartJson: function(viewJson, mergeItems) {
       var topItems = utils.getTopItems(viewJson.skills, ["previousCount", "currentCount"], 3);
-      topItems = $.merge(mergeItems, utils.getNonZeroItems(topItems, ["previousCount", "currentCount"]));
+      var abc = utils.getNonZeroItems(mergeItems, ["previousCount", "currentCount"]);
+      topItems = $.merge(abc,
+        utils.getNonZeroItems(topItems, ["previousCount", "currentCount"]));
       return $.unique(topItems);
     },
 

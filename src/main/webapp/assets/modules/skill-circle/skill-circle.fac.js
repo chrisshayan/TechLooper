@@ -55,7 +55,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       $('i.fa-caret-up').show();
 
       // TODO: find other way to map term's labels
-      var rename = utils.mappingData(term.name);
+      var rename = utils.mappingData(term.jobTerm);
       if (rename.length > 5) {
         $('.term-infor-chart .number').addClass('small');
       }

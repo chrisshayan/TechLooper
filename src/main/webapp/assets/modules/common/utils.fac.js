@@ -3,15 +3,13 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
     getNonZeroItems: function(items, props) {
-      var clone = items.slice(0);
-      $.grep(clone, function (item, i) {
+      return $.grep(items.slice(0), function (item, i) {
         var zeroCounter = 0;
         $.each(props, function(j, prop) {
           item[prop] === 0 && (++zeroCounter);
         });
         return zeroCounter !== props.length;
       });
-      return clone;
     },
 
     flatMap: function (items, ats, tos) {
