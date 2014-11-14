@@ -94,10 +94,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
     queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery());// all technical terms query
 
-    queryBuilder.addAggregation(allTermsAggregationNotExpired(term));// technical terms agg which has not expired
+    queryBuilder.addAggregation(getTermsAggregationNotExpired(term));// technical terms agg which has not expired
 
     AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);// technical term agg including expired jobs
-    subAggregationsSkillsNotExpired(term, histogramEnums).stream()
+    getAggregationsSkillNotExpired(term, histogramEnums).stream()
       .forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
     queryBuilder.addAggregation(technicalTermAggregation);
 
@@ -131,13 +131,13 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     return jobSkillsMap.keySet().stream().map(key -> jobSkillsMap.get(key).build()).collect(Collectors.toList());
   }
 
-  private FilterAggregationBuilder allTermsAggregationNotExpired(TechnicalTermEnum term) {
+  private FilterAggregationBuilder getTermsAggregationNotExpired(TechnicalTermEnum term) {
     FilterAggregationBuilder allTermsAgg = AggregationBuilders.filter(ALL_TERMS).filter(jobQueryBuilder.getTechnicalTermsQueryNotExpired());
     allTermsAgg.subAggregation(jobQueryBuilder.getTechnicalTermAggregation(term));
     return allTermsAgg;
   }
 
-  private List<List<FilterAggregationBuilder>> subAggregationsSkillsNotExpired(TechnicalTermEnum term, HistogramEnum[] histogramEnums) {
+  private List<List<FilterAggregationBuilder>> getAggregationsSkillNotExpired(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
     List<List<FilterAggregationBuilder>> list = new ArrayList<>();
     Arrays.stream(histogramEnums)
       .forEach(histogramEnum -> list.addAll(jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term), histogramEnum)));
