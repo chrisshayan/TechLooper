@@ -1,5 +1,5 @@
-angular.module('Skill').factory('skillTableFactory', function () {
-  return instance = {
+angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils) {
+  var instance = {
     formatDate: function () {
       var lCur = Date.today().toString("MMM d"),
         fCur = Date.today().add(-7).days().toString("MMM d"),
@@ -39,6 +39,24 @@ angular.module('Skill').factory('skillTableFactory', function () {
         });
       });
       return newData;
+    },
+
+    highLightRow: function (skillName) {
+      var oj = $('.rwd-table').find('tr');
+      oj.removeClass('active');
+      oj.each(function () {
+        if ($(this).find('td[data-th=Skill]').text() == skillName) {
+          $(this).addClass('active');
+        }
+      });
+    },
+
+    registerEvents: function() {
+      $("tr.skillItem").on('click mouseover', function(){
+        utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find("td:first").text());
+      });
     }
   };
+
+  return instance;
 });

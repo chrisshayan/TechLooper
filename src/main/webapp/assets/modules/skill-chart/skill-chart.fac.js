@@ -1,4 +1,5 @@
-angular.module('Skill').factory('skillChartFactory', function (jsonValue) {
+var chart;
+angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
   var instance = {
     renderView: function (skills) {
       var dataChart = instance.getDataForChart(skills);
@@ -20,7 +21,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue) {
 
       var skillColors = [];
       $.each(skills, function(i, skill){skillColors.push(skill.color);});
-      $('.line-chart-content').highcharts({
+      chart = $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
           type: 'spline'
@@ -109,7 +110,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue) {
             },
             events: {
               mouseOver: function () {
-                instance.getSkillName(this.name);
+                utils.sendNotification(jsonValue.notifications.mouseHover, this.name);
               }
             }
           }
@@ -143,13 +144,11 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue) {
       }
       return dataItem;
     },
-    getSkillName: function (nSkill) {
-      var oj = $('.rwd-table').find('tr');
-      oj.removeClass('active');
-      oj.each(function () {
-        if ($(this).find('td[data-th=Skill]').text() == nSkill) {
-          $(this).addClass('active');
-        }
+
+    highLight: function(skillName) {
+      var chart = Highcharts.charts[0];
+      $.each(chart.series, function(i, line) {
+        line.setState(line.name === skillName ? "hover" : "");
       });
     }
   }

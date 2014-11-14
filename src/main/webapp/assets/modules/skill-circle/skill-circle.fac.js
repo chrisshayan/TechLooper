@@ -60,16 +60,6 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         $('.term-infor-chart .number').addClass('small');
       }
       $('.term-infor-chart .number').append(rename);
-    },
-
-    getSkillName: function(nSkill){
-      var oj = $('.rwd-table').find('tr');
-      oj.removeClass('active');
-      oj.each(function(){
-        if($(this).find('td[data-th=Skill]').text() == nSkill){
-           $(this).addClass('active'); 
-        }
-      });
     }
   }
 
@@ -79,9 +69,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
     renderView: function (term, skills) {
       $$.renderCircles(term, skills);
       $$.renderTermBox(term);
+
       $('.skill-circle-item').on('click mouseover', function(){
-        var skillName = $(this).find('.skill-name').text();
-        $$.getSkillName(skillName);
+        utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
       });
     }
   }

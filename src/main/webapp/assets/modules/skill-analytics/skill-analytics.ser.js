@@ -1,4 +1,11 @@
-angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils) {
+angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils, skillTableFactory, skillChartFactory) {
+
+  var $$ = {
+    highLight: function(skillName) {
+      skillTableFactory.highLightRow(skillName);
+      skillChartFactory.highLight(skillName);
+    }
+  }
 
   var instance =  {
     getCirclesJson: function(viewJson) {
@@ -28,8 +35,14 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
         delete skill.histograms;
       });
       return viewJson;
+    },
+
+    registerEvents: function() {
+      skillTableFactory.registerEvents();
     }
   }
+
+  utils.registerNotification(jsonValue.notifications.mouseHover, $$.highLight, function(){return $("div.technical-detail-page").is(":visible");});
 
   return instance;
 });
