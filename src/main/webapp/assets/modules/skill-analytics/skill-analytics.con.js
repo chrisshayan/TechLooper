@@ -22,6 +22,7 @@ angular.module('Skill').controller('skillAnalyticsController',
       skillChartFactory.renderView(tableAndChartItems);
 
       $('.loading-data').hide();
+      skillAnalyticsService.registerEvents();
     });
 
     connectionFactory.analyticsSkill($routeParams.term);
