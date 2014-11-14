@@ -101,33 +101,34 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
       .forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
     queryBuilder.addAggregation(technicalTermAggregation);
 
-    Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
+    return toSkillStatisticResponse(term, elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations));
+  }
 
-    InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
+  private SkillStatisticResponse toSkillStatisticResponse(TechnicalTermEnum term, Aggregations aggregations) {
     final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+    InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
     skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
     skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.name())).getDocCount());
 
     InternalFilter termAggregation = aggregations.get(term.name());
-    Map<String, SkillStatistic.Builder> jobSkillsMap = new HashMap<>();
-    termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
+    Map<String, List<Long>> skillHistogramsMap = termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
       .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
       .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
-        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())))
-      .forEach((skillName, docCounts) -> toSkillStatistic(jobSkillsMap, skillName, docCounts));
+        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())));
 
-    List<SkillStatistic> skills = jobSkillsMap.keySet().stream()
-      .map(key -> jobSkillsMap.get(key).build()).collect(Collectors.toList());
-
-    return skillStatisticResponse.withSkills(skills).build();
+    return skillStatisticResponse.withSkills(toSkillStatistic(skillHistogramsMap)).build();
   }
 
-  private void toSkillStatistic(Map<String, SkillStatistic.Builder> jobSkillsMap, String skillName, List<Long> docCounts) {
-    String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
-    SkillStatistic.Builder skill = Optional.ofNullable(jobSkillsMap.get(name)).orElseGet(SkillStatistic.Builder::new);
-    jobSkillsMap.put(name, skill.withSkillName(name));
-    String histogramName = skillName.split("-")[1];
-    skill.withHistogram(new Histogram.Builder().withName(HistogramEnum.valueOf(histogramName)).withValues(docCounts).build());
+  private List<SkillStatistic> toSkillStatistic(Map<String, List<Long>> skillHistogramsMap) {
+    Map<String, SkillStatistic.Builder> jobSkillsMap = new HashMap<>();
+    skillHistogramsMap.forEach((skillName, docCounts) -> {
+      String name = EncryptionUtils.decodeHexa(skillName.split("-")[0]);
+      SkillStatistic.Builder skill = Optional.ofNullable(jobSkillsMap.get(name)).orElseGet(SkillStatistic.Builder::new);
+      jobSkillsMap.put(name, skill.withSkillName(name));
+      String histogramName = skillName.split("-")[1];
+      skill.withHistogram(new Histogram.Builder().withName(HistogramEnum.valueOf(histogramName)).withValues(docCounts).build());
+    });
+    return jobSkillsMap.keySet().stream().map(key -> jobSkillsMap.get(key).build()).collect(Collectors.toList());
   }
 
   private FilterAggregationBuilder allTermsAggregationNotExpired(TechnicalTermEnum term) {
