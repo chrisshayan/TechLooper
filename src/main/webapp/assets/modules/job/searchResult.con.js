@@ -48,7 +48,7 @@ angular.module('Jobs').controller('searchResultController',
     }
 
     $scope.checkPLayVideo = function () {
-      utils.closeVideoDialog();
+      $(".playerVideo").attr("src", "");
     }
 
     $scope.openDetail = function (event) {

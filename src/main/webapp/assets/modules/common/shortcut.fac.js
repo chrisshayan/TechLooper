@@ -13,7 +13,7 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       switch (utils.getView()) {
         case jsonValue.views.jobsSearchText:
           if ($("#companyVideoInfor").is(":visible")) {// ESC from others, such as: Video dialog, ...
-            utils.closeVideoDialog();
+            $(".playerVideo").attr("src", "");
             return;
           }
           $location.path(jsonValue.routerUris.jobsSearch);

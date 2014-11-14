@@ -141,12 +141,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
           break;
       }
       return webName;
-    },
-
-    closeVideoDialog: function () {
-      if ($(".playerVideo")) {
-        $(".playerVideo").attr("src", "");
-      }
     }
   }
 });
