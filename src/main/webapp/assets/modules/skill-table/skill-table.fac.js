@@ -35,7 +35,7 @@ angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils)
         item.icon = icStock;
       });
     },
-    
+
     highLightRow: function (skillName) {
       var oj = $('.rwd-table').find('tr');
       oj.removeClass('active');

@@ -1,4 +1,3 @@
-var chart;
 angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
   var instance = {
     renderView: function (viewJson) {
@@ -22,7 +21,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
 
       var skillColors = [];
       $.each(skills, function(i, skill){skillColors.push(skill.color);});
-      chart = $('.line-chart-content').highcharts({
+      $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
           type: 'spline'

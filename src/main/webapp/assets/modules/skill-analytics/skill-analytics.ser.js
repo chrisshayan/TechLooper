@@ -1,5 +1,5 @@
 angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory) {
-  var viewJson = undefined;
+  var viewJson;
 
   var $$ = {
     extractCirclesJson: function() {
@@ -22,13 +22,15 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
       return viewJson.tableAndChartJson;
     },
 
-    map: function(rawJson) {
+    map: function(rawJson, skillStatisticRequest) {
       viewJson = $.extend(true, {}, rawJson);
+      //TODO collect data base on period: 2w, 2m, 2quarters...
       $.each(viewJson.skills, function(index, skill) {
-        var twoWeek = jsonPath.eval(skill, "$.histograms[?(@.name=='" + jsonValue.histograms.twoWeeks + "')].values")[0];
-        skill.previousCount = twoWeek[0];
-        skill.currentCount = twoWeek[1];
-        skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + jsonValue.histograms.thirtyDays + "')].values")[0];
+        var histograms = skillStatisticRequest.histograms;
+        var prevAndCurr = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[0] + "')].values")[0];
+        skill.previousCount = prevAndCurr[0];
+        skill.currentCount = prevAndCurr[1];
+        skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[1] + "')].values")[0];
         delete skill.histograms;
       });
       return viewJson;
@@ -38,6 +40,7 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
       skillTableFactory.highLightRow(skillName);
       skillChartFactory.highLight(skillName);
     },
+
     setActiveChartType: function(){
       var type = $('.chart-management ul').find('li');
       type.on('click', function(){
@@ -50,9 +53,21 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
   }
 
   var instance =  {
-    extractViewJson: function(termJson) {
-      $$.map(termJson);
+    getHistograms: function(period) {
+      var histograms = [jsonValue.histograms.twoWeeks, jsonValue.histograms.thirtyDays];
+      switch (period) {
+        case "month":
+          break;
+        case "quarter":
+          break;
+      }
+      return histograms;
+    },
+
+    extractViewJson: function(termJson, skillStatisticRequest) {
+      $$.map(termJson, skillStatisticRequest);
       $$.extractTableAndChartJson($$.extractCirclesJson());
+      $$.setActiveChartType();
       return viewJson;
     },
 
@@ -62,15 +77,12 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
         shortcutFactory.trigger('esc');
       });
       $('.btn-logo').click(function() {
-          shortcutFactory.trigger('esc');
+        shortcutFactory.trigger('esc');
       });
     },
 
     getViewJson: function() {
       return viewJson;
-    },
-    chartManagement: function(){
-      $$.setActiveChartType();
     }
   }
 
