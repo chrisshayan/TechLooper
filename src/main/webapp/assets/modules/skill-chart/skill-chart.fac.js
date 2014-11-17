@@ -1,7 +1,7 @@
-var chart;
 angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
   var instance = {
-    renderView: function (skills) {
+    renderView: function (viewJson) {
+      var skills = viewJson.tableAndChartJson;
       var dataChart = instance.getDataForChart(skills);
       var last30Days = instance.getLastDays(skills);
       var max = 0, min = 0;
@@ -21,7 +21,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
 
       var skillColors = [];
       $.each(skills, function(i, skill){skillColors.push(skill.color);});
-      chart = $('.line-chart-content').highcharts({
+      $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
           type: 'spline'

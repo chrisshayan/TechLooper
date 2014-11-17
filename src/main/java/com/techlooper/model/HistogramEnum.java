@@ -5,9 +5,10 @@ package com.techlooper.model;
  */
 public enum HistogramEnum {
 
-  THIRTY_DAY(30, "d"),
-  TWO_WEEK(2, "w"),
-  TWO_MONTH(2, "M");
+  THIRTY_DAYS(30, "d"),
+  TWO_WEEKS(2, "w"),
+  TWO_MONTHS(2, "M"),
+  TWO_QUARTERS(6, "M");
 
   private Integer length;
 
