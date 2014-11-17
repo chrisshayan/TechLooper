@@ -21,7 +21,8 @@
       "selectize" : "latest",
       "mousetrap": "latest",
       "JSONPath": "latest",
-      "DateJS": "latest"
+      "DateJS": "latest",
+      "immutable": "latest"
    },
    "overrides": {
       "sockjs": {
@@ -47,6 +48,9 @@
       },
       "DateJS": {
          "main": "build/date.js"
+      },
+      "immutable": {
+         "main": "dist/immutable.min.js"
       }
    }
 }
