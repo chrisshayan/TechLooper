@@ -51,7 +51,7 @@ angular.module("Skill").factory("skillAnalyticsService",
       setActiveChartType: function () {
         var type = $('.chart-management ul').find('li');
         type.on('click', function () {
-          $location.search("period", $(this).data("period"));
+          $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
           scope.$apply();
         });
       },

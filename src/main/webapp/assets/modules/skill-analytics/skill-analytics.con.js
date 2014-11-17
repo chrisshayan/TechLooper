@@ -3,9 +3,7 @@ angular.module('Skill').controller('skillAnalyticsController',
             skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location) {
     var skillStatisticRequest = {
       term: $routeParams.term,
-      period: $routeParams.period &&
-          ($routeParams.period === "week" || $routeParams.period === "month" || $routeParams.period === "quarter") ?
-           $routeParams.period : "month",
+      period: $routeParams.period,
       histograms: skillAnalyticsService.getHistograms(this.period)
     };
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
