@@ -8,8 +8,6 @@ angular.module('Skill').controller('skillAnalyticsController',
            $routeParams.period : "month",
       histograms: skillAnalyticsService.getHistograms(this.period)
     };
-
-    $('.loading-data').show();
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
       var viewJson = skillAnalyticsService.extractViewJson(data, skillStatisticRequest);
@@ -20,8 +18,6 @@ angular.module('Skill').controller('skillAnalyticsController',
       skillCircleFactory.renderView(viewJson);
       skillTableFactory.renderView(viewJson);
       skillChartFactory.renderView(viewJson);
-
-      $('.loading-data').hide();
       skillAnalyticsService.registerEvents();
     });
 

@@ -29,6 +29,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     },
 
     initializeSearchTextbox: function ($scope, $textArray) {
+      utils.sendNotification(jsonValue.notifications.gotData);
       scope = $scope;
       textArray = $textArray;
 
