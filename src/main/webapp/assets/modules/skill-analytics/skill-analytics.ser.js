@@ -2,14 +2,7 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
   var viewJson = undefined;
 
   var $$ = {
-    highLight: function(skillName) {
-      skillTableFactory.highLightRow(skillName);
-      skillChartFactory.highLight(skillName);
-    }
-  }
-
-  var instance =  {
-    getCirclesJson: function() {
+    extractCirclesJson: function() {
       var skills = utils.getTopItems(viewJson.skills, ["currentCount"], 10);
       var colorIndex = -1;
       $.each(skills, function(index, skill) {
@@ -20,7 +13,7 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
       return viewJson.circles;
     },
 
-    getTableAndChartJson: function(mergeItems) {
+    extractTableAndChartJson: function(mergeItems) {
       var topItems = utils.getTopItems(viewJson.skills, ["previousCount", "currentCount"], 3);
       var nonZeroMergeItems = utils.getNonZeroItems(mergeItems, ["previousCount", "currentCount"]);
       topItems = $.merge(nonZeroMergeItems,
@@ -38,6 +31,19 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
         skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + jsonValue.histograms.thirtyDays + "')].values")[0];
         delete skill.histograms;
       });
+      return viewJson;
+    },
+
+    highLight: function(skillName) {
+      skillTableFactory.highLightRow(skillName);
+      skillChartFactory.highLight(skillName);
+    }
+  }
+
+  var instance =  {
+    extractViewJson: function(termJson) {
+      $$.map(termJson);
+      $$.extractTableAndChartJson($$.extractCirclesJson());
       return viewJson;
     },
 

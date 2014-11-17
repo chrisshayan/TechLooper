@@ -18,7 +18,7 @@ angular.module("Skill").directive("skillcircle", function () {
     replace: false,
     templateUrl: "modules/skill-table/skill-table.tem.html",
     scope: {
-      tableAndChartItems: "="
+      viewJson: "="
     }
   }
 });

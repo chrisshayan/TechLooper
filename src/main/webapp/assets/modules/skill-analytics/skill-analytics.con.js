@@ -5,21 +5,14 @@ angular.module('Skill').controller('skillAnalyticsController',
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
-      var viewJson = skillAnalyticsService.map(data);
-      var circleItems = skillAnalyticsService.getCirclesJson();
-      var tableAndChartItems = skillAnalyticsService.getTableAndChartJson(circleItems);
-
+      var viewJson = skillAnalyticsService.extractViewJson(data);
       $scope.viewJson = viewJson;
-      //$scope.circleItems = circleItems;
-      $scope.tableAndChartItems = skillTableFactory.reformatData(tableAndChartItems);
+      skillTableFactory.calculatePercentage(viewJson);
       $scope.$apply();
 
-      // render left circle chart
       skillCircleFactory.renderView(viewJson);
-
-      // render bottom-right table & top-right line-chart
-      skillTableFactory.formatDate();
-      skillChartFactory.renderView(tableAndChartItems);
+      skillTableFactory.renderView(viewJson);
+      skillChartFactory.renderView(viewJson);
 
       $('.loading-data').hide();
       skillAnalyticsService.registerEvents();
