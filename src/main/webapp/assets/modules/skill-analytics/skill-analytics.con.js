@@ -15,7 +15,7 @@ angular.module('Skill').controller('skillAnalyticsController',
 
         $('.loading-data').hide();
         skillAnalyticsService.registerEvents();
-        chartManagement();
+        skillAnalyticsService.chartManagement();
     });
 
     connectionFactory.analyticsSkill($routeParams.term);
@@ -27,16 +27,4 @@ angular.module('Skill').controller('skillAnalyticsController',
     $('.btn-logo').click(function() {
         shortcutFactory.trigger('esc');
     });
-    function chartManagement(){
-      setActiveChartType();
-    }
-    function setActiveChartType(){
-      var type = $('.chart-management ul').find('li');
-      type.on('click', function(){
-        type.removeClass('active').find('i').removeClass('fa-dot-circle-o');
-        if(!$(this).hasClass('active')){
-          $(this).addClass('active').find('i').addClass('fa-dot-circle-o');
-        }
-      });
-    }
 });
