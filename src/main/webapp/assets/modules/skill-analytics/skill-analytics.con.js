@@ -1,6 +1,11 @@
 angular.module('Skill').controller('skillAnalyticsController',
-  function($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
-    skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService) {
+  function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
+            skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location) {
+    var period = $location.search();
+    //console.log(param.period);
+    //$location.search("period", "month");
+    //$scope.$apply();
+
     $('.loading-data').show();
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
@@ -13,18 +18,11 @@ angular.module('Skill').controller('skillAnalyticsController',
       skillTableFactory.renderView(viewJson);
       skillChartFactory.renderView(viewJson);
 
-        $('.loading-data').hide();
-        skillAnalyticsService.registerEvents();
-        skillAnalyticsService.chartManagement();
+      $('.loading-data').hide();
+      skillAnalyticsService.registerEvents();
+      skillAnalyticsService.chartManagement();
     });
 
-    connectionFactory.analyticsSkill($routeParams.term);
-    animationFactory.animatePage(); //TODO
-
-    $('.btn-close').click(function() {
-        shortcutFactory.trigger('esc');
-    });
-    $('.btn-logo').click(function() {
-        shortcutFactory.trigger('esc');
-    });
-});
+    connectionFactory.analyticsSkill({term: $routeParams.term, histograms: skillAnalyticsService.getHistograms(period)});
+    animationFactory.animatePage();
+  });

@@ -42,11 +42,11 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
   var instance = {
 
     /* @subscription */
-    analyticsSkill: function (term) {
+    analyticsSkill: function (analyticJson) {
       if (!stompClient.connected) {
         callbacks.push({
           fn: instance.analyticsSkill,
-          args: term
+          args: analyticJson
         });
         return instance.connectSocket();
       }
@@ -57,13 +57,12 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
       var subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
-        subscription.unsubscribe(); // no need to support real-time now
+        subscription.unsubscribe(); // TODO no need to support real-time now
       });
       //subscriptions[uri] = subscription;
 
-      //TODO "quarter" is used to test only, need to be changed to "week" later
       stompClient.send(socketUri.analyticsSkill, {},
-        JSON.stringify({term: term, histograms: [jsonValue.histograms.twoWeeks, jsonValue.histograms.thirtyDays]}));
+        JSON.stringify({term: analyticJson.term, histograms: analyticJson.histograms}));
     },
 
     /* @subscription */

@@ -1,4 +1,4 @@
-angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils, skillTableFactory, skillChartFactory) {
+angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory) {
   var viewJson = undefined;
 
   var $$ = {
@@ -50,6 +50,17 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
   }
 
   var instance =  {
+    getHistograms: function(period) {
+      var histograms = [jsonValue.histograms.twoWeeks, jsonValue.histograms.thirtyDays];
+      switch (period) {
+        case "month":
+          break;
+        case "quarter":
+          break;
+      }
+      return histograms;
+    },
+
     extractViewJson: function(termJson) {
       $$.map(termJson);
       $$.extractTableAndChartJson($$.extractCirclesJson());
@@ -58,6 +69,12 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
 
     registerEvents: function() {
       skillTableFactory.registerEvents();
+      $('.btn-close').click(function() {
+        shortcutFactory.trigger('esc');
+      });
+      $('.btn-logo').click(function() {
+        shortcutFactory.trigger('esc');
+      });
     },
 
     getViewJson: function() {

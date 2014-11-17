@@ -1,8 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
   histograms: {
-    thirtyDays: "THIRTY_DAY",
-    twoWeeks: "TWO_WEEK"
+    thirtyDays: "THIRTY_DAYS",
+    twoWeeks: "TWO_WEEKS",
+    twoMonths: "TWO_MONTHS",
+    twoQuarters: "TWO_QUARTERS"
   },
 
   notifications: {
