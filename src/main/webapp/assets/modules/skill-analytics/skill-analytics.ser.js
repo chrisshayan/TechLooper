@@ -51,17 +51,35 @@ angular.module("Skill").factory("skillAnalyticsService",
       setActiveChartType: function () {
         var type = $('.chart-management ul').find('li');
         type.on('click', function () {
-          type.removeClass('active').find('i').removeClass('fa-dot-circle-o');
-          if (!$(this).hasClass('active')) {
-            $(this).addClass('active').find('i').addClass('fa-dot-circle-o');
-            $location.search("period", $(this).data("period"));
-            scope.$apply();
-          }
+          //$location.path("/analytics/skill/PHP");
+          $location.search("period", $(this).data("period"));
+          scope.$apply();
+          //type.removeClass('active').find('i').removeClass('fa-dot-circle-o');
+          //if (!$(this).hasClass('active')) {
+          //  $(this).addClass('active').find('i').addClass('fa-dot-circle-o');
+          //  $location.search("period", $(this).data("period"));
+          //  scope.$apply();
+          //}
         });
+      },
+
+      renderView: function() {
+        switch (skillStatisticRequest.period) {
+          case "month":
+            $("li[data-period=month]").addClass("active").find('i').addClass('fa-dot-circle-o');
+            break;
+          case "quarter":
+            $("li[data-period=quarter]").addClass("active").find('i').addClass('fa-dot-circle-o');
+            break;
+          default:
+            $("li[data-period=week]").addClass("active").find('i').addClass('fa-dot-circle-o');
+            break;
+        }
       }
     }
 
     var instance = {
+
       getHistograms: function (period) {
         var histograms = [jsonValue.histograms.twoWeeks, jsonValue.histograms.thirtyDays];
         switch (period) {
@@ -80,6 +98,7 @@ angular.module("Skill").factory("skillAnalyticsService",
         $$.map(termJson);
         $$.extractTableAndChartJson($$.extractCirclesJson());
         $$.setActiveChartType();
+        $$.renderView();
         return viewJson;
       },
 
