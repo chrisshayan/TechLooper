@@ -35,36 +35,7 @@ angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils)
         item.icon = icStock;
       });
     },
-    //
-    //reformatData: function (data) {
-    //  var newData = [];
-    //  var icStock = '';
-    //  $.each(data, function (index, value) {
-    //    var per = (value.previousCount !== 0 ? (value.currentCount - value.previousCount) / value.previousCount
-    //        : value.currentCount - value.previousCount) * 100;
-    //    if (per > 0) {
-    //      icStock = 'fa-arrow-up ic-blue';
-    //      per = per.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
-    //    }
-    //    else if (per < 0) {
-    //      icStock = 'fa-arrow-down ic-red';
-    //      per = per.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
-    //    }
-    //    else {
-    //      icStock = '';
-    //      per = 0;
-    //    }
-    //    newData.push({
-    //      'name': value.skillName,
-    //      'current': value.currentCount,
-    //      'previous': value.previousCount,
-    //      'change': per,
-    //      'icon': icStock
-    //    });
-    //  });
-    //  return newData;
-    //},
-
+    
     highLightRow: function (skillName) {
       var oj = $('.rwd-table').find('tr');
       oj.removeClass('active');
