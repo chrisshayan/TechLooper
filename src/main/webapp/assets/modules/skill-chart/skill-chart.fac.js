@@ -1,7 +1,8 @@
 var chart;
 angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
   var instance = {
-    renderView: function (skills) {
+    renderView: function (viewJson) {
+      var skills = viewJson.tableAndChartJson;
       var dataChart = instance.getDataForChart(skills);
       var last30Days = instance.getLastDays(skills);
       var max = 0, min = 0;

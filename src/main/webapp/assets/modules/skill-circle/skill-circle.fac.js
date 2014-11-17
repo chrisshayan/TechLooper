@@ -6,13 +6,13 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       circles.length = 0;
     },
 
-    draw: function (term, skills, indexFrom) {
-      $.each(skills, function (index, skill) {
+    draw: function (viewJson, newSkills, indexFrom) {
+      $.each(newSkills, function (index, skill) {
         var circle = Circles.create({
           id: "circle-" + (index + indexFrom),
           radius: 30,
           value: skill.currentCount,
-          maxValue: term.count,
+          maxValue: viewJson.count,
           width: 10,
           text: function (value) {
             return value;
@@ -24,16 +24,16 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       });
     },
 
-    renderCircles: function (term, skills) {
+    renderCircles: function (viewJson) {
       $.each(circles, function (index, circle) {
-        circle.update(skills[index].currentCount);
+        circle.update(viewJson.circles[index].currentCount);
       });
-      var newSkills = skills.slice(circles.length);
-      $$.draw(term, newSkills, circles.length);
+      var newSkills = viewJson.circles.slice(circles.length);
+      $$.draw(viewJson, newSkills, circles.length);
     },
 
-    renderTermBox: function (term) {
-      var per = Math.round((term.count * 260) / term.totalTechnicalJobs);
+    renderTermBox: function (viewJson) {
+      var per = Math.round((viewJson.count * 260) / viewJson.totalTechnicalJobs);
       $('.term-infor-chart .percent').animate({
         'height': per
       }, {
@@ -55,7 +55,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       $('i.fa-caret-up').show();
 
       // TODO: find other way to map term's labels
-      var rename = utils.mappingData(term.jobTerm);
+      var rename = utils.mappingData(viewJson.jobTerm);
       if (rename.length > 5) {
         $('.term-infor-chart .number').addClass('small');
       }
@@ -66,9 +66,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
   utils.registerNotification(jsonValue.notifications.switchScope, $$.clear);
 
   return {
-    renderView: function (term, skills) {
-      $$.renderCircles(term, skills);
-      $$.renderTermBox(term);
+    renderView: function (viewJson) {
+      $$.renderCircles(viewJson);
+      $$.renderTermBox(viewJson);
 
       $('.skill-circle-item').on('click mouseover', function(){
         utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
