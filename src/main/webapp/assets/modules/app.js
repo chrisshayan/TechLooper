@@ -41,7 +41,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/jobs/search/:text", {
       templateUrl: "modules/job/searchResult.tem.html",
       controller: "searchResultController"
-    }).when("/analytics/skill/:term", {
+    }).when("/analytics/skill/:term/:period?", {
       templateUrl: "modules/skill-analytics/skill-analytics.tem.html",
       controller: "skillAnalyticsController"
     }).otherwise({

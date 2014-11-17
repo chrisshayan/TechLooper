@@ -1,11 +1,12 @@
 angular.module('Skill').controller('skillAnalyticsController',
   function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
             skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location) {
-    var period = $location.search().period;
     var skillStatisticRequest = {
       term: $routeParams.term,
-      histograms: skillAnalyticsService.getHistograms(period),
-      period: period
+      period: $routeParams.period &&
+          ($routeParams.period === "week" || $routeParams.period === "month" || $routeParams.period === "quarter") ?
+           $routeParams.period : "month",
+      histograms: skillAnalyticsService.getHistograms(this.period)
     };
 
     $('.loading-data').show();
