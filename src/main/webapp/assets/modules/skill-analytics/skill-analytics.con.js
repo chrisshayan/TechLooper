@@ -1,6 +1,6 @@
 angular.module('Skill').controller('skillAnalyticsController',
   function($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
-    skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService) {
+    skillCircleFactory, skillChartFactory, skillAnalyticsService) {
     $('.loading-data').show();
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
@@ -20,11 +20,4 @@ angular.module('Skill').controller('skillAnalyticsController',
 
     connectionFactory.analyticsSkill($routeParams.term);
     animationFactory.animatePage(); //TODO
-
-    $('.btn-close').click(function() {
-        shortcutFactory.trigger('esc');
-    });
-    $('.btn-logo').click(function() {
-        shortcutFactory.trigger('esc');
-    });
 });

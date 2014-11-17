@@ -1,4 +1,4 @@
-angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils, skillTableFactory, skillChartFactory) {
+angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory) {
   var viewJson = undefined;
 
   var $$ = {
@@ -58,6 +58,12 @@ angular.module("Skill").factory("skillAnalyticsService", function (jsonValue, ut
 
     registerEvents: function() {
       skillTableFactory.registerEvents();
+      $('.btn-close').click(function() {
+        shortcutFactory.trigger('esc');
+      });
+      $('.btn-logo').click(function() {
+          shortcutFactory.trigger('esc');
+      });
     },
 
     getViewJson: function() {
