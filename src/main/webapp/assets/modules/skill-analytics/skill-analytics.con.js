@@ -5,11 +5,12 @@ angular.module('Skill').controller('skillAnalyticsController',
     //console.log(param.period);
     //$location.search("period", "month");
     //$scope.$apply();
+    var skillStatisticRequest = {term: $routeParams.term, histograms: skillAnalyticsService.getHistograms(period)};
 
     $('.loading-data').show();
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
-      var viewJson = skillAnalyticsService.extractViewJson(data);
+      var viewJson = skillAnalyticsService.extractViewJson(data, skillStatisticRequest);
       $scope.viewJson = viewJson;
       skillTableFactory.calculatePercentage(viewJson);
       $scope.$apply();
@@ -20,9 +21,8 @@ angular.module('Skill').controller('skillAnalyticsController',
 
       $('.loading-data').hide();
       skillAnalyticsService.registerEvents();
-      skillAnalyticsService.chartManagement();
     });
 
-    connectionFactory.analyticsSkill({term: $routeParams.term, histograms: skillAnalyticsService.getHistograms(period)});
+    connectionFactory.analyticsSkill(skillStatisticRequest);
     animationFactory.animatePage();
   });
