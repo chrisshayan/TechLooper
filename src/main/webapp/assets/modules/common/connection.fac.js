@@ -58,6 +58,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       var subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
         subscription.unsubscribe(); // TODO no need to support real-time now
+        utils.sendNotification(jsonValue.notifications.gotData);
       });
       //subscriptions[uri] = subscription;
 
@@ -78,6 +79,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       var subscription = stompClient.subscribe(socketUri.subscribeJobsSearch, function (response) {
         scope.$emit(events.foundJobs, JSON.parse(response.body));
         subscription.unsubscribe();
+        utils.sendNotification(jsonValue.notifications.gotData);
       });
       stompClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
     },
@@ -121,7 +123,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       }, function (errorFrame) {
         console.log("Erorr: " + errorFrame);
         isConnecting = false;
-      });
+      });//onreceipt
       isConnecting = true;
     },
 
@@ -138,6 +140,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         scope.$emit(events.terms, JSON.parse(response.body));
         instance.registerTermsSubscription(JSON.parse(response.body));
         subscribeTerms.unsubscribe();
+        utils.sendNotification(jsonValue.notifications.gotData);
       });
       stompClient.send(socketUri.sendTerms);
     },
