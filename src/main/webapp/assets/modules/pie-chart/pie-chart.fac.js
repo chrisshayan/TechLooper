@@ -36,7 +36,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
             return;
          }
          termsMap[pieItem.termID] = pieItem;
-         
+         $('.loading-data').hide();
        }, 
        initializeAnimation : function($scope) {
         instance.generateChartData();
