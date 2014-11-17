@@ -3,6 +3,7 @@ angular.module("Skill").factory("skillAnalyticsService",
     var viewJson;
     var scope;
     var skillStatisticRequest;
+    var currentHeight = 0;
 
     var $$ = {
       initialize: function($scope) {
@@ -53,6 +54,7 @@ angular.module("Skill").factory("skillAnalyticsService",
         type.on('click', function () {
           $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
           scope.$apply();
+          $('.technical-detail-page').css('height',currentHeight);
         });
       },
 
@@ -103,6 +105,7 @@ angular.module("Skill").factory("skillAnalyticsService",
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
         });
+        currentHeight = $('.technical-detail-page').height();
       },
 
       getViewJson: function () {
