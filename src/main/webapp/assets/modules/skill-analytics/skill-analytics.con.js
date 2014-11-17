@@ -6,16 +6,16 @@ angular.module('Skill').controller('skillAnalyticsController',
 
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {
       var viewJson = skillAnalyticsService.map(data);
-      var circleItems = skillAnalyticsService.getCirclesJson(viewJson);
-      var tableAndChartItems = skillAnalyticsService.getTableAndChartJson(viewJson, circleItems);
+      var circleItems = skillAnalyticsService.getCirclesJson();
+      var tableAndChartItems = skillAnalyticsService.getTableAndChartJson(circleItems);
 
-      $scope.term = viewJson;
-      $scope.circleItems = circleItems;
+      $scope.viewJson = viewJson;
+      //$scope.circleItems = circleItems;
       $scope.tableAndChartItems = skillTableFactory.reformatData(tableAndChartItems);
       $scope.$apply();
 
       // render left circle chart
-      skillCircleFactory.renderView(viewJson, circleItems);
+      skillCircleFactory.renderView(viewJson);
 
       // render bottom-right table & top-right line-chart
       skillTableFactory.formatDate();

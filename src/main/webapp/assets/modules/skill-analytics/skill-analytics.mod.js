@@ -3,8 +3,7 @@ angular.module("Skill").directive("skillcircle", function () {
     restrict: "E",
     templateUrl: "modules/skill-circle/skill-circle.tem.html",
     scope: {
-      term: "=",
-      circleItems: "="
+      viewJson: "="
     }
   }
 }).directive("skillchart", function () {
