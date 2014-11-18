@@ -1,26 +1,48 @@
 angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
+  var $$ = {
+    getXAxisLabels: function (viewJson) {
+      var oneSkill = viewJson.tableAndChartJson[0];
+      var labels = [];
+      for (var i = oneSkill.histogramData.length - 1; i >= 0; --i) {
+        labels.push((i).months().ago().toString("MMM d"));
+      }
+      return labels;
+    },
+
+    getSeries: function (viewJson) {
+      var series = [];
+      $.each(viewJson.tableAndChartJson, function (i, skill) {
+        series.push({name: skill.skillName, data: skill.histogramData});
+      });
+      return series;
+    },
+
+    getMinMax: function (viewJson) {
+      var skills = viewJson.tableAndChartJson;
+      var max = 0;
+      var min = skills[0].histogramData[0];
+      $.each(skills, function (i, skill) {
+        max = Math.max(max, skill.histogramData.max());
+        min = Math.min(min, skill.histogramData.min());
+      });
+      return {min: min, max: max};
+    },
+
+    getSkillColors: function (viewJson) {
+      var skillColors = [];
+      $.each(viewJson.tableAndChartJson, function (i, skill) {skillColors.push(skill.color);});
+      return skillColors;
+    }
+  }
+
   var instance = {
     renderView: function (viewJson) {
       var skills = viewJson.tableAndChartJson;
-      var dataChart = instance.getDataForChart(skills);
-      var last30Days = instance.getLastDays(skills);
-      var max = 0, min = 0;
-      for (var i = 0; i < skills.length; i++) {
-        nMax = Math.max.apply(null, skills[i].histogramData);
-        nMin = Math.min.apply(null, skills[i].histogramData);
-        if (nMax > max) {
-          max = nMax;
-        }
-        if (nMin < min) {
-          min = nMin;
-        }
-        if (i == 0) {
-          min = nMin;
-        }
-      }
+      var series = $$.getSeries(viewJson);// render line
+      var xAxisLabels = $$.getXAxisLabels(viewJson);//render lables in Ox
+      var minMax = $$.getMinMax(viewJson);
+      var skillColors = $$.getSkillColors(viewJson);
 
-      var skillColors = [];
-      $.each(skills, function(i, skill){skillColors.push(skill.color);});
       $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
@@ -39,7 +61,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
           text: ''
         },
         xAxis: {
-          categories: last30Days,
+          categories: xAxisLabels,
           gridLineColor: '#353233',
           labels: {
             style: {
@@ -73,8 +95,8 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
               color: '#8a8a8a'
             }
           },
-          min: min,
-          max: max,
+          min: minMax.min,
+          max: minMax.max,
           tickInterval: 10,
           gridLineWidth: 1,
           gridLineColor: '#353233'
@@ -115,7 +137,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
             }
           }
         },
-        series: dataChart
+        series: series
       });
       $('text[text-anchor=end]').each(function () {
         if ($(this).text() == 'Highcharts.com') {
@@ -123,31 +145,10 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
         }
       });
     },
-    getLastDays: function (data) {
-      var day = Date.today();
-      var arDays = [];
-      var NumberDays = data[0].histogramData.length;
-      arDays.push(day.toString("MMM d"));
-      for (var i = 0; i < NumberDays; i++) {
-        day = day.add(-1).days().clone();
-        arDays.push(day.toString("MMM d"));
-      }
-      return arDays.reverse();
-    },
-    getDataForChart: function (data) {
-      var dataItem = [];
-      for (var i = 0; i < data.length; i++) {
-        dataItem.push({
-          name: data[i].skillName,
-          data: data[i].histogramData
-        });
-      }
-      return dataItem;
-    },
 
-    highLight: function(skillName) {
+    highLight: function (skillName) {
       var chart = Highcharts.charts[0];
-      $.each(chart.series, function(i, line) {
+      $.each(chart.series, function (i, line) {
         line.setState(line.name === skillName ? "hover" : "");
       });
     }

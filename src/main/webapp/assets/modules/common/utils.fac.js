@@ -2,6 +2,13 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+    getHistogramPeriod: function(histogram) {
+      //switch (histogram) {
+      //  case jsonValue.histograms.
+      //}
+      return 1;
+    },
+
     getNonZeroItems: function(items, props) {
       return $.grep(items.slice(0), function (item, i) {
         var zeroCounter = 0;

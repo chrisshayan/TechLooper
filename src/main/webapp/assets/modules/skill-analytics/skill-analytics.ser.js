@@ -39,6 +39,7 @@ angular.module("Skill").factory("skillAnalyticsService",
           skill.previousCount = prevAndCurr[0];
           skill.currentCount = prevAndCurr[1];
           skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[1] + "')].values")[0];
+          skill.histogramDataPeriod = utils.getHistogramPeriod(histograms[1]);
           delete skill.histograms;
         });
         return viewJson;
