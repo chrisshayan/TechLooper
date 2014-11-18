@@ -2,6 +2,16 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+    getDatePeriods: function(number, period) {
+      switch (period) {
+        case "month":
+          return (number).months();
+        case "quarter":
+          return (number*3).months();
+      }
+      return (number).weeks();
+    },
+
     getHistogramPeriod: function(histogram) {
       switch (histogram) {
         case jsonValue.histograms.sixBlocksOfFiveDays:

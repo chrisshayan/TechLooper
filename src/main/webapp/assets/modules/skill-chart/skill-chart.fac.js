@@ -90,7 +90,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
           },
           tickInterval: 1,
           tickmarkPlacement: 'on',
-          gridLineWidth: 1,
+          gridLineWidth: 1
         },
         yAxis: {
           plotLines: [{
