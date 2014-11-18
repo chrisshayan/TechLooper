@@ -5,9 +5,9 @@ package com.techlooper.model;
  */
 public enum HistogramEnum {
 
-  DAY_PER_WEEK(7, 1, "d"),
-  FIVE_DAYS_PER_MONTH(30, 5, "d"),
-  FIFTEEN_DAYS_PER_QUARTER(90, 15, "d"),
+  ONE_WEEK(7, 1, "d"),
+  SIX_BLOCKS_OF_FIVE_DAYS(6, 5, "d"),
+  SIX_BLOCKS_OF_FIFTEEN_DAYS(6, 15, "d"),
   TWO_WEEKS(2, 1, "w"),
   TWO_MONTHS(2, 1, "M"),
   TWO_QUARTERS(2, 3, "M");
