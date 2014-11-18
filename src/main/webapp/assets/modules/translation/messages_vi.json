@@ -7,7 +7,11 @@
   "loading": "Loading data...",
   "searchTextPlaceholder": "Nhập từ cần tìm và nhấn Enter...",
   "skillLineChartXAxis": "Dòng thời gian",
-  "skillLineChartYAxis": "Số lượng công việc"
+  "skillLineChartYAxis": "Số lượng công việc",
+  "skill": "Kỹ năng",
+  "current": "Hiện thời",
+  "previous": "Trước đây",
+  "percentageChange": "Phần trăm thay đổi"
 }
 
 
