@@ -14,19 +14,8 @@ angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils)
       var icStock = '';
       $.each(tableAndChartJson, function (i, item) {
         var percent = (item.currentCount - item.previousCount) / Math.max(item.previousCount, 1) * 100;
-        // TODO find way to remove if
-        if (percent > 0) {
-          icStock = 'fa-arrow-up ic-blue';
-          percent = percent.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
-        }
-        else if (percent < 0) {
-          icStock = 'fa-arrow-down ic-red';
-          percent = percent.toFixed(2).replace(/(\.[0-9]*?)0+$/, "$1").replace(/\.$/, "");
-        }
-        else {
-          icStock = '';
-          percent = 0;
-        }
+        percent = percent !== 0  && (percent.toFixed(2) / percent) !== 1 ? percent.toFixed(2) : percent;
+        icStock = percent > 0 ? 'fa-arrow-up ic-blue' : (percent < 0 ? 'fa-arrow-down ic-red' : '');
         item.percent = percent;
         item.icon = icStock;
       });
