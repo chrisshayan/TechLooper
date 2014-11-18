@@ -2,8 +2,11 @@ angular.module('Skill').controller('skillAnalyticsController',
   function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
             skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location) {
     var period = $location.search().period;
-    console.log(period);
-    var skillStatisticRequest = {term: $routeParams.term, histograms: skillAnalyticsService.getHistograms(period)};
+    var skillStatisticRequest = {
+      term: $routeParams.term,
+      histograms: skillAnalyticsService.getHistograms(period),
+      period: period
+    };
 
     $('.loading-data').show();
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
