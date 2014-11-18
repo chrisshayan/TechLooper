@@ -1,16 +1,24 @@
 angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils) {
   var instance = {
-    renderView: function () {
-      var lCur = Date.today().toString("MMM d"),
-        fCur = Date.today().add(-7).days().toString("MMM d"),
-        current = fCur + ' - ' + lCur;
+    renderView: function (viewJson) {
+      var oneSkill = viewJson.tableAndChartJson[0];
+      var currentPeriod = Date.today();
+      var previousPeriod = Date.today().last().week();
+      var doublePreviousPeriod = Date.today().last().week().last().week();
 
-      var lPre = Date.today().add(-8).days().toString("MMM d"),
-        fPre = Date.today().add(-7).days().clone(),
-        previous = fPre.add(-7).days().toString("MMM d") + ' - ' + lPre;
+      switch (oneSkill.preAndCurrCountPeriod) {
+          case "month":
+              previousPeriod = Date.today().last().month();
+              doublePreviousPeriod = Date.today().last().month().last().month();
+              break;
+          case "quarter":
+              previousPeriod = Date.today().last().quarter();
+              doublePreviousPeriod = previousPeriod.last().quarter().last().quarter();
+              break;
+      }
 
-      $('span.curDate').text(current);
-      $('span.preDate').text(previous);
+      $('span.curDate').text(previousPeriod.toString("MMM d") + ' - ' + currentPeriod.toString("MMM d"));
+      $('span.preDate').text(doublePreviousPeriod.toString("MMM d") + ' - ' + previousPeriod.toString("MMM d"));
     },
 
     calculatePercentage: function(viewJson) {

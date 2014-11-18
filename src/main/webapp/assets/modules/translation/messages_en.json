@@ -7,5 +7,12 @@
   "loading": "Loading data...",
   "searchTextPlaceholder": "Enter text to search...",
   "skillLineChartXAxis": "Timeline",
-  "skillLineChartYAxis": "Number of jobs"
+  "skillLineChartYAxis": "Number of jobs",
+  "skill": "Skill",
+  "current": "Current",
+  "previous": "Previous",
+  "percentageChange": "Percentage Change",
+  "week": "Week",
+  "month": "Month",
+  "quarter": "Quarter"
 }
