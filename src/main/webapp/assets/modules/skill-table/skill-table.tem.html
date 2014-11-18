@@ -1,10 +1,10 @@
 <div class="col-md-12 ctrl-lineChart-block">
 	<table class="rwd-table">
       <tr>
-        <th>Skill</th>
-        <th>Current: <span class="curDate"></span></th>
-        <th>Previous: <span class="preDate"></span></th>
-        <th>% Changed Prev to Current</th>
+        <th><span translate>skill</span></th>
+        <th><span translate>current</span> <span class="curDate"></span></th>
+        <th><span translate>previous</span> <span class="preDate"></span></th>
+        <th><span translate>percentageChange</span></th>
       </tr>
       <tr ng-repeat="item in viewJson.tableAndChartJson" class="skillItem">
         <td data-th="Skill">{{item.skillName}}</td>
