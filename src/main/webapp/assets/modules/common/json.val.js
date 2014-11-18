@@ -1,11 +1,12 @@
 angular.module("Common").constant("jsonValue", {
 
   histograms: {
-    thirtyDays: "THIRTY_DAYS",
+    dayPerWeek: "DAY_PER_WEEK",
+    fiveDaysPerMonth: "FIVE_DAYS_PER_MONTH",
+    fifteenDaysPerQuarter: "FIFTEEN_DAYS_PER_QUARTER",
     twoWeeks: "TWO_WEEKS",
     twoMonths: "TWO_MONTHS",
-    twoQuarters: "TWO_QUARTERS",
-    lineChart: "LINE_CHART"
+    twoQuarters: "TWO_QUARTERS"
   },
 
   notifications: {

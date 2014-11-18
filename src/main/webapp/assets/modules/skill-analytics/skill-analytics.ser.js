@@ -77,13 +77,13 @@ angular.module("Skill").factory("skillAnalyticsService",
     var instance = {
 
       getHistograms: function (period) {
-        var histograms = [jsonValue.histograms.twoWeeks, jsonValue.histograms.thirtyDays];
+        var histograms = [jsonValue.histograms.twoWeeks, jsonValue.histograms.dayPerWeek];
         switch (period) {
           case "month":
-            histograms = [jsonValue.histograms.twoMonths, jsonValue.histograms.lineChart];
+            histograms = [jsonValue.histograms.twoMonths, jsonValue.histograms.fiveDaysPerMonth];
             break;
           case "quarter":
-            histograms = [jsonValue.histograms.twoQuarters, jsonValue.histograms.thirtyDays]
+            histograms = [jsonValue.histograms.twoQuarters, jsonValue.histograms.fifteenDaysPerQuarter]
             break;
         }
         return histograms;
