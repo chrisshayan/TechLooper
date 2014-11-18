@@ -3,7 +3,6 @@ angular.module("Skill").factory("skillAnalyticsService",
     var viewJson;
     var scope;
     var skillStatisticRequest;
-    var currentHeight = 0;
 
     var $$ = {
       initialize: function($scope) {
@@ -32,7 +31,6 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       map: function (rawJson) {
         viewJson = $.extend(true, {}, rawJson);
-        //TODO collect data base on period: 2w, 2m, 2quarters...
         $.each(viewJson.skills, function (index, skill) {
           var histograms = skillStatisticRequest.histograms;
           var prevAndCurr = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[0] + "')].values")[0];
@@ -51,16 +49,7 @@ angular.module("Skill").factory("skillAnalyticsService",
         skillChartFactory.highLight(skillName);
       },
 
-      setActiveChartType: function () {
-        var type = $('.chart-management ul').find('li');
-        type.on('click', function () {
-          $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
-          scope.$apply();
-          $('.technical-detail-page').css('height',currentHeight);
-        });
-      },
-
-      renderView: function() {
+      renderPeriodRadios: function () {
         switch (skillStatisticRequest.period) {
           case "month":
             $("li[data-period=month]").addClass("active").find('i').addClass('fa-dot-circle-o');
@@ -72,6 +61,10 @@ angular.module("Skill").factory("skillAnalyticsService",
             $("li[data-period=week]").addClass("active").find('i').addClass('fa-dot-circle-o');
             break;
         }
+      },
+
+      renderView: function() {
+        $$.renderPeriodRadios();
       }
     }
 
@@ -99,7 +92,6 @@ angular.module("Skill").factory("skillAnalyticsService",
         skillStatisticRequest = $skillStatisticRequest;
         $$.map(termJson);
         $$.extractTableAndChartJson($$.extractCirclesJson());
-        $$.setActiveChartType();
         $$.renderView();
         return viewJson;
       },
@@ -112,7 +104,14 @@ angular.module("Skill").factory("skillAnalyticsService",
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
         });
-        currentHeight = $('.technical-detail-page').height();
+
+        var type = $('.chart-management ul').find('li');
+        type.unbind("click");
+        type.bind('click', function () {
+          $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
+          scope.$apply();
+          //$('.technical-detail-page').css('height', $('.technical-detail-page').height());
+        });
       },
 
       getViewJson: function () {
