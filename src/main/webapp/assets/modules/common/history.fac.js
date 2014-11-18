@@ -6,7 +6,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
       case jsonValue.views.bubbleChart:
       case jsonValue.views.pieChart:
         // TODO: #1 - change the body background to black
-        $("body").css("background-color", "#2e272a");
+        $("body").css("background-color", "#201d1e");
         instance.trackHistory();
         break;
     }

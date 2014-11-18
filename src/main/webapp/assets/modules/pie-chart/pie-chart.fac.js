@@ -44,7 +44,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
         $('.pie-Chart-Container').highcharts({
             colors : colorJson,
             chart : {
-              backgroundColor : '#2e272a',
+              backgroundColor : '#201d1e',
               plotBorderColor : '#606063'
            },
            title : {
