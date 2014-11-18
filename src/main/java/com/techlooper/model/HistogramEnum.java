@@ -8,7 +8,7 @@ public enum HistogramEnum {
   ONE_WEEK(7, 1, "d"),
   SIX_BLOCKS_OF_FIVE_DAYS(6, 5, "d"),
   SIX_BLOCKS_OF_FIFTEEN_DAYS(6, 15, "d"),
-  THIRTY_BLOCKS_OF_ONE_DAY(30, 1, "d"),
+  ONE_MONTH(30, 1, "d"),
   EIGHTEEN_BLOCKS_OF_FIVE_DAYS(18, 5, "d"),
   TWO_WEEKS(2, 1, "w"),
   TWO_MONTHS(2, 1, "M"),
