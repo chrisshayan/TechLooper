@@ -32,12 +32,17 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
       var skillColors = [];
       $.each(viewJson.tableAndChartJson, function (i, skill) {skillColors.push(skill.color);});
       return skillColors;
+    },
+
+    chartMetadata: function() {
+      var chartMetadata = {
+
+      }
     }
   }
 
   var instance = {
     renderView: function (viewJson) {
-      //var skills = viewJson.tableAndChartJson;
       var series = $$.getSeries(viewJson);// render line
       var xAxisLabels = $$.getXAxisLabels(viewJson);//render lables in Ox
       var minMax = $$.getMinMax(viewJson);
