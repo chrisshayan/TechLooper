@@ -1,9 +1,9 @@
-angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
+angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils, $translate) {
   var $$ = {
     getXAxisLabels: function (viewJson) {
       var oneSkill = viewJson.tableAndChartJson[0];
       var labels = [];
-      $.each(oneSkill.histogramData, function(i, item) {
+      $.each(oneSkill.histogramData, function (i, item) {
         labels.unshift((i * oneSkill.histogramDataPeriod).days().ago().toString("MMM d"));
       });
       return labels;
@@ -34,26 +34,41 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
       return skillColors;
     },
 
-    chartMetadata: function() {
-      var chartMetadata = {
-
+    getChartMetadata: function (viewJson) {
+      return {
+        series: $$.getSeries(viewJson),
+        xAxisLabels: $$.getXAxisLabels(viewJson),
+        minMax: $$.getMinMax(viewJson),
+        skillColors: $$.getSkillColors(viewJson),
+        xAxisTitle: {},
+        yAxisTitle: {
+          style: {color: '#8a8a8a'}
+        }
       }
+    },
+
+    translate: function(chartMetadata) {
+      var chart = Highcharts.charts[0];
+      $translate("skillLineChartXAxis").then(function(translation){
+        chartMetadata.xAxisTitle.text = translation;
+        chart.xAxis[0].setTitle(chartMetadata.xAxisTitle);
+      });
+      $translate("skillLineChartYAxis").then(function(translation){
+        chartMetadata.yAxisTitle.text = translation;
+        chart.yAxis[0].setTitle(chartMetadata.yAxisTitle);
+      });
     }
   }
 
   var instance = {
     renderView: function (viewJson) {
-      var series = $$.getSeries(viewJson);// render line
-      var xAxisLabels = $$.getXAxisLabels(viewJson);//render lables in Ox
-      var minMax = $$.getMinMax(viewJson);
-      var skillColors = $$.getSkillColors(viewJson);
-
+      var chartMetadata = $$.getChartMetadata(viewJson);
       $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
           type: 'spline'
         },
-        colors: skillColors,
+        colors: chartMetadata.skillColors,
         title: {
           text: '',
           style: {
@@ -66,7 +81,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
           text: ''
         },
         xAxis: {
-          categories: xAxisLabels,
+          categories: chartMetadata.xAxisLabels,
           gridLineColor: '#353233',
           labels: {
             style: {
@@ -76,9 +91,6 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
           tickInterval: 1,
           tickmarkPlacement: 'on',
           gridLineWidth: 1,
-          title: {
-            text: 'Last 30 Days'
-          }
         },
         yAxis: {
           plotLines: [{
@@ -86,12 +98,6 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
             width: 1,
             color: '#313131'
           }],
-          title: {
-            style: {
-              color: '#8a8a8a'
-            },
-            text: 'Numbers of Job'
-          },
           labels: {
             formatter: function () {
               return this.value;
@@ -100,8 +106,8 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
               color: '#8a8a8a'
             }
           },
-          min: minMax.min,
-          max: minMax.max,
+          min: chartMetadata.minMax.min,
+          max: chartMetadata.minMax.max,
           tickInterval: 10,
           gridLineWidth: 1,
           gridLineColor: '#353233'
@@ -142,13 +148,14 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
             }
           }
         },
-        series: series
+        series: chartMetadata.series
       });
       $('text[text-anchor=end]').each(function () {
-        if ($(this).text() == 'Highcharts.com') {
+        if ($(this).text() === 'Highcharts.com') {
           $(this).hide();
         }
       });
+      $$.translate(chartMetadata);
     },
 
     highLight: function (skillName) {
