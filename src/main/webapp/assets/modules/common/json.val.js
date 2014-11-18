@@ -4,6 +4,8 @@ angular.module("Common").constant("jsonValue", {
     oneWeek: "ONE_WEEK",
     sixBlocksOfFiveDays: "SIX_BLOCKS_OF_FIVE_DAYS",
     sixBlocksOfFifteenDays: "SIX_BLOCKS_OF_FIFTEEN_DAYS",
+    thirtyBlocksOfOneDay: "THIRTY_BLOCKS_OF_ONE_DAY",
+    eighteenBlocksOfFiveDays: "EIGHTEEN_BLOCKS_OF_FIVE_DAYS",
     twoWeeks: "TWO_WEEKS",
     twoMonths: "TWO_MONTHS",
     twoQuarters: "TWO_QUARTERS"
