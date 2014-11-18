@@ -44,26 +44,26 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
         $('.pie-Chart-Container').highcharts({
             colors : colorJson,
             chart : {
-              backgroundColor : '#2e272a',
-              plotBorderColor : '#606063'
+              backgroundColor : '#201d1e',
+              plotBorderColor : '#efefef'
            },
            title : {
               text : ''
            },
            legend : {
               itemStyle : {
-                 color : '#fff'
+                 color : '#efefef'
               },
               itemHoverStyle : {
-                 color : '#FFF'
+                 color : '#efefef'
               },
               itemHiddenStyle : {
-                 color : '#fff'
+                 color : '#efefef'
               }
            },
            labels : {
               style : {
-                 color : '#fff'
+                 color : '#efefef'
               }
            },
            tooltip : {
@@ -83,7 +83,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
               },
               series : {
                  dataLabels : {
-                    color : '#fff'
+                    color : '#efefef'
                  },
                  marker : {
                     lineColor : '#333'

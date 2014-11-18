@@ -1,11 +1,20 @@
 {
   "language": "EN",
   "findjobs": "Tìm việc",
-  "note": "Số lượng công việc được tìm thấy.",
+  "note": "Số lượng công việc",
   "tagLine": "Career Analytics. Open Source. Awesome!",
   "loadMore": "Scroll Down to Load More",
   "loading": "Loading data...",
-  "searchTextPlaceholder": "Nhập từ cần tìm và nhấn Enter..."
+  "searchTextPlaceholder": "Nhập từ cần tìm và nhấn Enter...",
+  "skillLineChartXAxis": "Dòng thời gian",
+  "skillLineChartYAxis": "Số lượng công việc",
+  "skill": "Kỹ năng",
+  "current": "Hiện thời",
+  "previous": "Trước đây",
+  "percentageChange": "Phần trăm thay đổi",
+  "week": "Tuần",
+  "month": "Tháng",
+  "quarter": "Quý"
 }
 
 

@@ -1,10 +1,11 @@
 angular.module('Skill').controller('skillAnalyticsController',
   function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
             skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location) {
+    var histogramsAndPeriod = skillAnalyticsService.getHistogramsAndPeriod($routeParams.period);
     var skillStatisticRequest = {
       term: $routeParams.term,
-      period: $routeParams.period,
-      histograms: skillAnalyticsService.getHistograms(this.period)
+      period: histogramsAndPeriod.period,
+      histograms: histogramsAndPeriod.histograms
     };
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {

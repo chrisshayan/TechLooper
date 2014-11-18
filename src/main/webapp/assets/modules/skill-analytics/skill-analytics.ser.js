@@ -39,6 +39,8 @@ angular.module("Skill").factory("skillAnalyticsService",
           skill.previousCount = prevAndCurr[0];
           skill.currentCount = prevAndCurr[1];
           skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[1] + "')].values")[0];
+          skill.histogramDataPeriod = utils.getHistogramPeriod(histograms[1]);
+          skill.preAndCurrCountPeriod = skillStatisticRequest.period;
           delete skill.histograms;
         });
         return viewJson;
@@ -75,17 +77,22 @@ angular.module("Skill").factory("skillAnalyticsService",
 
     var instance = {
 
-      getHistograms: function (period) {
-        var histograms = [jsonValue.histograms.twoWeeks, jsonValue.histograms.thirtyDays];
+      getHistogramsAndPeriod: function (period) {
+        var histogramsAndPeriod = {
+          histograms: [jsonValue.histograms.twoWeeks, jsonValue.histograms.oneWeek],
+          period: period
+        };
         switch (period) {
           case "month":
-            histograms = [jsonValue.histograms.twoMonths, jsonValue.histograms.thirtyDays];
+            histogramsAndPeriod.histograms = [jsonValue.histograms.twoMonths, jsonValue.histograms.oneMonth];
             break;
           case "quarter":
-            histograms = [jsonValue.histograms.twoQuarters, jsonValue.histograms.thirtyDays]
+            histogramsAndPeriod.histograms = [jsonValue.histograms.twoQuarters, jsonValue.histograms.eighteenBlocksOfFiveDays]
             break;
+          default:
+            histogramsAndPeriod.period = "week"
         }
-        return histograms;
+        return histogramsAndPeriod;
       },
 
       extractViewJson: function (termJson, $skillStatisticRequest) {

@@ -2,6 +2,30 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+    getDatePeriods: function(number, period) {
+      switch (period) {
+        case "month":
+          return (number).months();
+        case "quarter":
+          return (number*3).months();
+      }
+      return (number).weeks();
+    },
+
+    getHistogramPeriod: function(histogram) {
+      switch (histogram) {
+        case jsonValue.histograms.sixBlocksOfFiveDays:
+          return 5;
+        case jsonValue.histograms.sixBlocksOfFifteenDays:
+          return 15;
+        case jsonValue.histograms.oneMonth:
+          return 1;
+        case jsonValue.histograms.eighteenBlocksOfFiveDays:
+          return 5;
+      }
+      return 1;
+    },
+
     getNonZeroItems: function(items, props) {
       return $.grep(items.slice(0), function (item, i) {
         var zeroCounter = 0;

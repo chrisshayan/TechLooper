@@ -49,10 +49,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     });
   }]);
 
-techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory) {
+techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
+  cleanupFactory.initialize();
 });
 
 techlooper.directive("header", function () {

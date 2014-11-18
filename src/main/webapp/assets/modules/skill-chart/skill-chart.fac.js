@@ -1,32 +1,74 @@
-angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils) {
-  var instance = {
-    renderView: function (viewJson) {
+angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils, $translate) {
+  var $$ = {
+    getXAxisLabels: function (viewJson) {
+      var oneSkill = viewJson.tableAndChartJson[0];
+      var labels = [];
+      $.each(oneSkill.histogramData, function (i, item) {
+        labels.unshift((i * oneSkill.histogramDataPeriod).days().ago().toString("MMM d"));
+      });
+      return labels;
+    },
+
+    getSeries: function (viewJson) {
+      var series = [];
+      $.each(viewJson.tableAndChartJson, function (i, skill) {
+        series.push({name: skill.skillName, data: skill.histogramData});
+      });
+      return series;
+    },
+
+    getMinMax: function (viewJson) {
       var skills = viewJson.tableAndChartJson;
-      var dataChart = instance.getDataForChart(skills);
-      var last30Days = instance.getLastDays(skills);
-      var max = 0, min = 0;
-      for (var i = 0; i < skills.length; i++) {
-        nMax = Math.max.apply(null, skills[i].histogramData);
-        nMin = Math.min.apply(null, skills[i].histogramData);
-        if (nMax > max) {
-          max = nMax;
-        }
-        if (nMin < min) {
-          min = nMin;
-        }
-        if (i == 0) {
-          min = nMin;
+      var max = 0;
+      var min = skills[0].histogramData[0];
+      $.each(skills, function (i, skill) {
+        max = Math.max(max, skill.histogramData.max());
+        min = Math.min(min, skill.histogramData.min());
+      });
+      return {min: min, max: max};
+    },
+
+    getSkillColors: function (viewJson) {
+      var skillColors = [];
+      $.each(viewJson.tableAndChartJson, function (i, skill) {skillColors.push(skill.color);});
+      return skillColors;
+    },
+
+    getChartMetadata: function (viewJson) {
+      return {
+        series: $$.getSeries(viewJson),
+        xAxisLabels: $$.getXAxisLabels(viewJson),
+        minMax: $$.getMinMax(viewJson),
+        skillColors: $$.getSkillColors(viewJson),
+        xAxisTitle: {},
+        yAxisTitle: {
+          style: {color: '#8a8a8a'}
         }
       }
+    },
 
-      var skillColors = [];
-      $.each(skills, function(i, skill){skillColors.push(skill.color);});
+    translate: function(chartMetadata) {
+      var chart = Highcharts.charts[0];
+      $translate("skillLineChartXAxis").then(function(translation){
+        chartMetadata.xAxisTitle.text = translation;
+        chart.xAxis[0].setTitle(chartMetadata.xAxisTitle);
+      });
+      $translate("skillLineChartYAxis").then(function(translation){
+        chartMetadata.yAxisTitle.text = translation;
+        chart.yAxis[0].setTitle(chartMetadata.yAxisTitle);
+      });
+    }
+  }
+
+  var instance = {
+    renderView: function (viewJson) {
+      var chartMetadata = $$.getChartMetadata(viewJson);
       $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
           type: 'spline'
         },
-        colors: skillColors,
+        colors: chartMetadata.skillColors,
         title: {
           text: '',
           style: {
@@ -39,7 +81,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
           text: ''
         },
         xAxis: {
-          categories: last30Days,
+          categories: chartMetadata.xAxisLabels,
           gridLineColor: '#353233',
           labels: {
             style: {
@@ -48,10 +90,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
           },
           tickInterval: 1,
           tickmarkPlacement: 'on',
-          gridLineWidth: 1,
-          title: {
-            text: 'Last 30 Days'
-          }
+          gridLineWidth: 1
         },
         yAxis: {
           plotLines: [{
@@ -59,12 +98,6 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
             width: 1,
             color: '#313131'
           }],
-          title: {
-            style: {
-              color: '#8a8a8a'
-            },
-            text: 'Numbers of Job'
-          },
           labels: {
             formatter: function () {
               return this.value;
@@ -73,8 +106,8 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
               color: '#8a8a8a'
             }
           },
-          min: min,
-          max: max,
+          min: chartMetadata.minMax.min,
+          max: chartMetadata.minMax.max,
           tickInterval: 10,
           gridLineWidth: 1,
           gridLineColor: '#353233'
@@ -115,39 +148,19 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
             }
           }
         },
-        series: dataChart
+        series: chartMetadata.series
       });
       $('text[text-anchor=end]').each(function () {
-        if ($(this).text() == 'Highcharts.com') {
+        if ($(this).text() === 'Highcharts.com') {
           $(this).hide();
         }
       });
-    },
-    getLastDays: function (data) {
-      var day = Date.today();
-      var arDays = [];
-      var NumberDays = data[0].histogramData.length;
-      arDays.push(day.toString("MMM d"));
-      for (var i = 0; i < NumberDays; i++) {
-        day = day.add(-1).days().clone();
-        arDays.push(day.toString("MMM d"));
-      }
-      return arDays.reverse();
-    },
-    getDataForChart: function (data) {
-      var dataItem = [];
-      for (var i = 0; i < data.length; i++) {
-        dataItem.push({
-          name: data[i].skillName,
-          data: data[i].histogramData
-        });
-      }
-      return dataItem;
+      $$.translate(chartMetadata);
     },
 
-    highLight: function(skillName) {
+    highLight: function (skillName) {
       var chart = Highcharts.charts[0];
-      $.each(chart.series, function(i, line) {
+      $.each(chart.series, function (i, line) {
         line.setState(line.name === skillName ? "hover" : "");
       });
     }
