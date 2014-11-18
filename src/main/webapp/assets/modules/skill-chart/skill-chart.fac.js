@@ -3,9 +3,13 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
     getXAxisLabels: function (viewJson) {
       var oneSkill = viewJson.tableAndChartJson[0];
       var labels = [];
-      for (var i = oneSkill.histogramData.length - 1; i >= 0; --i) {
-        labels.push((i).months().ago().toString("MMM d"));
-      }
+      $.each(oneSkill.histogramData, function(i, item) {
+        labels.push((i * oneSkill.histogramDataPeriod).days().ago().toString("MMM d"));
+      });
+      //for (var i = oneSkill.histogramData.length - 1; i >= 0; --i) {
+      ////for (var i = oneSkill.histogramData.length - oneSkill.histogramDataPeriod; i >= 0; i = i - oneSkill.histogramDataPeriod) {
+      //  labels.push((i).months().ago().toString("MMM d"));
+      //}
       return labels;
     },
 
@@ -37,7 +41,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils)
 
   var instance = {
     renderView: function (viewJson) {
-      var skills = viewJson.tableAndChartJson;
+      //var skills = viewJson.tableAndChartJson;
       var series = $$.getSeries(viewJson);// render line
       var xAxisLabels = $$.getXAxisLabels(viewJson);//render lables in Ox
       var minMax = $$.getMinMax(viewJson);

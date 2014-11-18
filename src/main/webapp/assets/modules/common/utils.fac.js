@@ -3,9 +3,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
 
   return {
     getHistogramPeriod: function(histogram) {
-      //switch (histogram) {
-      //  case jsonValue.histograms.
-      //}
+      switch (histogram) {
+        case jsonValue.histograms.fiveDaysPerMonth:
+          return 5;
+        case jsonValue.histograms.fifteenDaysPerQuarter:
+          return 15;
+      }
       return 1;
     },
 
