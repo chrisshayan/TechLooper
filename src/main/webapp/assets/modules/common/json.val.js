@@ -4,7 +4,8 @@ angular.module("Common").constant("jsonValue", {
     thirtyDays: "THIRTY_DAYS",
     twoWeeks: "TWO_WEEKS",
     twoMonths: "TWO_MONTHS",
-    twoQuarters: "TWO_QUARTERS"
+    twoQuarters: "TWO_QUARTERS",
+    lineChart: "LINE_CHART"
   },
 
   notifications: {

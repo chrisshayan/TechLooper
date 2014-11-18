@@ -79,7 +79,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       var subscription = stompClient.subscribe(socketUri.subscribeJobsSearch, function (response) {
         scope.$emit(events.foundJobs, JSON.parse(response.body));
         subscription.unsubscribe();
-        utils.sendNotification(jsonValue.notifications.gotData);
       });
       stompClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
     },

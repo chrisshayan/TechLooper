@@ -5,35 +5,42 @@ package com.techlooper.model;
  */
 public enum HistogramEnum {
 
-  THIRTY_DAYS(30, "d"),
-  TWO_WEEKS(2, "w"),
-  TWO_MONTHS(2, "M"),
-  TWO_QUARTERS(6, "M");
+  THIRTY_DAYS(30, 1, "d"),
+  LINE_CHART(12, 5, "d"),
+  TWO_WEEKS(2, 1, "w"),
+  TWO_MONTHS(2, 1, "M"),
+  TWO_QUARTERS(2, 3, "M");
 
-  private Integer length;
+  private Integer range;
 
-  private String period;
+  private Integer period;
 
-  private HistogramEnum(Integer length, String period) {
-    this.length = length;
+  private String unit;
+
+  private HistogramEnum(Integer length, Integer period, String unit) {
+    this.range = length;
     this.period = period;
-  }
-
-  public String toRange() {
-    return length + period;
+    this.unit = unit;
   }
 
   /**
-   * @return the length of each {@link #getPeriod()}
+   * @return the range of each {@link #getUnit and #getPeriod}
    */
-  public Integer getLength() {
-    return length;
+  public Integer getRange() {
+    return range;
+  }
+
+  /**
+   * @return period
+   */
+  public Integer getPeriod() {
+    return period;
   }
 
   /**
    * @return d as a day, w as a week and M as a month.
    */
-  public String getPeriod() {
-    return period;
+  public String getUnit() {
+    return unit;
   }
 }

@@ -4,7 +4,7 @@ angular.module('Skill').controller('skillAnalyticsController',
     var skillStatisticRequest = {
       term: $routeParams.term,
       period: $routeParams.period,
-      histograms: skillAnalyticsService.getHistograms(this.period)
+      histograms: skillAnalyticsService.getHistograms($routeParams.period)
     };
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(jsonValue.events.analyticsSkill, function (event, data) {

@@ -59,13 +59,13 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
    * @param skill         is the detail of term, for example Java is a term and spring is a skill
    * @param skillQuery    {@link org.elasticsearch.index.query.QueryBuilder}
    * @param histogramEnum {@link com.techlooper.model.HistogramEnum}
-   * @param interval      {@link com.techlooper.model.HistogramEnum#getLength()}
+   * @param interval      {@link com.techlooper.model.HistogramEnum#getRange()}
    * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
    */
   private FilterAggregationBuilder getSkillIntervalAggregation(String skill, FilterBuilder skillQuery,
                                                                HistogramEnum histogramEnum, Integer interval) {
     String intervalDate = LocalDate.now().minusDays(interval).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
-    String to = "now-" + interval + histogramEnum.getPeriod();
+    String to = "now-" + (interval * histogramEnum.getPeriod()) + histogramEnum.getUnit();
     RangeFilterBuilder approveDateQuery = FilterBuilders.rangeFilter("approvedDate").to(to).cache(true);
     RangeFilterBuilder expiredDateQuery = FilterBuilders.rangeFilter("expiredDate").gte(to).cache(true);
     BoolFilterBuilder filterQuery = FilterBuilders.boolFilter().must(skillQuery, approveDateQuery, expiredDateQuery);
@@ -73,11 +73,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
   }
 
   public List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum) {
-    Integer length = histogramEnum.getLength();
+    Integer range = histogramEnum.getRange();
     return skills.stream().map(skill -> {
       FilterBuilder skillQuery = this.getTechnicalSkillQuery(skill);
       List<FilterAggregationBuilder> builders = new LinkedList<>();
-      for (int histogramEnumLengthCounter = 0; histogramEnumLengthCounter < length; ++histogramEnumLengthCounter) {
+      for (int histogramEnumLengthCounter = 0; histogramEnumLengthCounter < range; ++histogramEnumLengthCounter) {
         builders.add(this.getSkillIntervalAggregation(skill, skillQuery, histogramEnum, histogramEnumLengthCounter));
       }
       return builders;
