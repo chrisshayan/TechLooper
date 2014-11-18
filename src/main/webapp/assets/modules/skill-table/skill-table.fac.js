@@ -1,30 +1,18 @@
 angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils) {
   var instance = {
     renderView: function (viewJson) {
-      var oneSkill = viewJson.tableAndChartJson[0];
-      var currentPeriod = Date.today();
-      var previousPeriod = Date.today().last().week();
-      var doublePreviousPeriod = Date.today().last().week().last().week();
-
-      switch (oneSkill.preAndCurrCountPeriod) {
-          case "month":
-              previousPeriod = Date.today().last().month();
-              doublePreviousPeriod = Date.today().last().month().last().month();
-              break;
-          case "quarter":
-              previousPeriod = Date.today().last().quarter();
-              doublePreviousPeriod = previousPeriod.last().quarter().last().quarter();
-              break;
-      }
-
-      $('span.curDate').text(previousPeriod.toString("MMM d") + ' - ' + currentPeriod.toString("MMM d"));
-      $('span.preDate').text(doublePreviousPeriod.toString("MMM d") + ' - ' + previousPeriod.toString("MMM d"));
+      var period = viewJson.tableAndChartJson[0].preAndCurrCountPeriod;
+      var from = utils.getDatePeriods(2, period).ago().toString("MMM d");
+      var to = (0).days().fromNow().toString("MMM d");
+      var between = utils.getDatePeriods(1, period).ago().toString("MMM d");
+      $('span.curDate').text([between, to].join(" - "));
+      $('span.preDate').text([from, between].join(" - "));
     },
 
-    calculatePercentage: function(viewJson) {
+    calculatePercentage: function (viewJson) {
       var tableAndChartJson = viewJson.tableAndChartJson;
       var icStock = '';
-      $.each(tableAndChartJson, function(i, item) {
+      $.each(tableAndChartJson, function (i, item) {
         var percent = (item.currentCount - item.previousCount) / Math.max(item.previousCount, 1) * 100;
         // TODO find way to remove if
         if (percent > 0) {
