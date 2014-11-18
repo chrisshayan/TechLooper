@@ -11,5 +11,8 @@
   "skill": "Skill",
   "current": "Current",
   "previous": "Previous",
-  "percentageChange": "Percentage Change"
+  "percentageChange": "Percentage Change",
+  "week": "Week",
+  "month": "Month",
+  "quarter": "Quarter"
 }

@@ -11,7 +11,10 @@
   "skill": "Kỹ năng",
   "current": "Hiện thời",
   "previous": "Trước đây",
-  "percentageChange": "Phần trăm thay đổi"
+  "percentageChange": "Phần trăm thay đổi",
+  "week": "",
+  "month": "Tháng",
+  "quarter": "Quý"
 }
 
 
