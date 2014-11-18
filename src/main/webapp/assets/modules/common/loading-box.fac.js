@@ -3,7 +3,7 @@ angular.module("Common").factory("loadingBoxFactory", function (jsonValue, utils
     $('.loading-data').show();
   });
   utils.registerNotification(jsonValue.notifications.gotData, function(){
-    $('.loading-data').hide();
+    $('.loading-data').fadeOut(500);
   });
 
   return {
