@@ -21,5 +21,5 @@ angular.module('Skill').controller('skillAnalyticsController',
     });
 
     connectionFactory.analyticsSkill(skillStatisticRequest);
-    animationFactory.animatePage();
+    //animationFactory.animatePage();
   });
