@@ -1,15 +1,24 @@
 angular.module("Common").constant("jsonValue", {
 
   histograms: {
-    thirtyDays: "THIRTY_DAY",
-    twoWeeks: "TWO_WEEK"
+    oneWeek: "ONE_WEEK",
+    sixBlocksOfFiveDays: "SIX_BLOCKS_OF_FIVE_DAYS",
+    sixBlocksOfFifteenDays: "SIX_BLOCKS_OF_FIFTEEN_DAYS",
+    oneMonth: "ONE_MONTH",
+    eighteenBlocksOfFiveDays: "EIGHTEEN_BLOCKS_OF_FIVE_DAYS",
+    twoWeeks: "TWO_WEEKS",
+    twoMonths: "TWO_MONTHS",
+    twoQuarters: "TWO_QUARTERS"
   },
 
   notifications: {
-    switchScope: "switch to other scope"
+    switchScope: "switch to other scope",
+    defaultAction: "default action",
+    mouseHover: "Mouse Hover",
+    gotData: "Got Data"
   },
 
-  skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "#00eaff"],
+  skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "#00eaff", "#10F4FB", "#2404FB", "#35E811"],
 
   events: {
     terms: "Terms",

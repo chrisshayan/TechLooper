@@ -1,40 +1,39 @@
 angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils) {
   var circles = [];
+
   var $$ = {
     clear: function() {
       circles.length = 0;
     },
 
-    draw: function (term, skills, indexFrom) {
-      var colorIndex = -1;
-      $.each(skills, function (index, skill) {
-        colorIndex = (index + indexFrom >= jsonValue.skillColors.length) ? 0 : colorIndex + 1;
+    draw: function (viewJson, newSkills, indexFrom) {
+      $.each(newSkills, function (index, skill) {
         var circle = Circles.create({
           id: "circle-" + (index + indexFrom),
           radius: 30,
           value: skill.currentCount,
-          maxValue: term.count,
+          maxValue: viewJson.count,
           width: 10,
           text: function (value) {
             return value;
           },
-          colors: ["#343233", jsonValue.skillColors[colorIndex]],
+          colors: ["#343233", skill.color],
           duration: 1300
         });
         circles.push(circle);
       });
     },
 
-    renderCircles: function (term, skills) {
+    renderCircles: function (viewJson) {
       $.each(circles, function (index, circle) {
-        circle.update(skills[index].currentCount);
+        circle.update(viewJson.circles[index].currentCount);
       });
-      var newSkills = skills.slice(circles.length);
-      $$.draw(term, newSkills, circles.length);
+      var newSkills = viewJson.circles.slice(circles.length);
+      $$.draw(viewJson, newSkills, circles.length);
     },
 
-    percentTerm: function (total, number) {
-      var per = Math.round((number * 260) / total);
+    renderTermBox: function (viewJson) {
+      var per = Math.round((viewJson.count * 260) / viewJson.totalTechnicalJobs);
       $('.term-infor-chart .percent').animate({
         'height': per
       }, {
@@ -54,42 +53,25 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         easing: 'easeOutQuad'
       });
       $('i.fa-caret-up').show();
-    },
 
-    renameTerm: function (name) {
-      var newName = '';
-      var rename = utils.mappingData(name);
+      // TODO: find other way to map term's labels
+      var rename = utils.mappingData(viewJson.jobTerm);
       if (rename.length > 5) {
         $('.term-infor-chart .number').addClass('small');
       }
       $('.term-infor-chart .number').append(rename);
-    },
-    getSkillName: function(nSkill){
-      var oj = $('.rwd-table').find('tr');
-      oj.removeClass('active');
-      oj.each(function(){
-        if($(this).find('td[data-th=Skill]').text() == nSkill){
-           $(this).addClass('active'); 
-        }
-      });
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.clear);
 
   return {
-    draw: function (term, skills) {
-      $$.renderCircles(term, skills);
+    renderView: function (viewJson) {
+      $$.renderCircles(viewJson);
+      $$.renderTermBox(viewJson);
 
-    },
-    renderTermChart: function (total, number, name) {
-      $$.percentTerm(total, number);
-      $$.renameTerm(name);
-    },
-    highLightSkill: function (){
       $('.skill-circle-item').on('click mouseover', function(){
-        var skillName = $(this).find('.skill-name').text();
-        $$.getSkillName(skillName);
+        utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
       });
     }
   }

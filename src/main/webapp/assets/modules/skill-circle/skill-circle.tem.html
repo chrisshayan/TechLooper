@@ -5,11 +5,11 @@
       <span class="arrow-up"><i class="fa fa-caret-up"></i>
       </span>
       <span class="number">
-        <strong>{{term.count}}</strong>
+        <strong>{{viewJson.count}}</strong>
       </span>
     </div>
   </div>
-  <div class="skill-circle-item" ng-repeat="item in top10">
+  <div class="skill-circle-item" ng-repeat="item in viewJson.circles">
     <div class="circle" id="circle-{{$index}}" data-index="{{$index}}" title="{{item.skillName}}"></div>
     <div class="skill-name">{{item.skillName}}</div>
   </div>

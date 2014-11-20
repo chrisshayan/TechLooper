@@ -1,12 +1,10 @@
 .technical-detail-page
   display: block
-  background-color: #201d1e
   position: absolute
   left: 0
   top: 0
   right: 0
   z-index: 999
-  background-color: #201d1e
   width: 100%
   padding-bottom: 10px
 .technical-header-block
@@ -142,6 +140,7 @@
   height: 400px
 .ctrl-lineChart-block
   padding-left: 25px
+  padding-top: 20px
 .circles-text
   font-size: 16px !important
 .fa-edit
@@ -208,3 +207,46 @@
     color: #636363
 text[text-anchor='start']
   text-transform: capitalize
+
+.chart-management
+  display: block
+  width: 100%
+  text-align: center
+.chart-management ul
+  margin: auto
+  width: 270px
+  padding: 0
+.chart-management li
+  background-color: #262223
+  float: left
+  border: 1px solid #353233
+  color: #727272
+  cursor: pointer
+  padding: 8px 15px
+.chart-management li:first-child
+  border-right: 0
+  -webkit-border-top-left-radius: 5px
+  -webkit-border-bottom-left-radius: 5px
+  -moz-border-radius-topleft: 5px
+  -moz-border-radius-bottomleft: 5px
+  border-top-left-radius: 5px
+  border-bottom-left-radius: 5px
+.chart-management li:last-child
+  border-left: 0
+  -webkit-border-top-right-radius: 5px
+  -webkit-border-bottom-right-radius: 5px
+  -moz-border-radius-topright: 5px
+  -moz-border-radius-bottomright: 5px
+  border-top-right-radius: 5px
+  border-bottom-right-radius: 5px
+.chart-management li a
+  color: #727272
+.chart-management li i
+  margin-right: 2px
+.chart-management li:hover,
+.chart-management li.active
+  background-color: #1d1b1b
+  color: #337ab7
+.chart-management li:hover a,
+.chart-management li.active a
+  color: #337ab7

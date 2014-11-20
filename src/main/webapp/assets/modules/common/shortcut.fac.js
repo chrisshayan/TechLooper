@@ -13,6 +13,7 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       switch (utils.getView()) {
         case jsonValue.views.jobsSearchText:
           if ($("#companyVideoInfor").is(":visible")) {// ESC from others, such as: Video dialog, ...
+            $(".playerVideo").attr("src", "");
             return;
           }
           $location.path(jsonValue.routerUris.jobsSearch);
@@ -23,6 +24,15 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           $$.goBack();
           break;
       }
+    },
+
+    enter: function(e) {
+      switch (utils.getView()) {
+        case jsonValue.views.jobsSearchText:
+        case jsonValue.views.jobsSearch:
+          utils.sendNotification(jsonValue.notifications.defaultAction);
+          break;
+      }
     }
   }
 
@@ -31,6 +41,13 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       return;
     }
     traps.esc(e);
+  });
+
+  Mousetrap.bindGlobal("enter", function (e) {
+    if (e.defaultPrevented) {
+      return;
+    }
+    traps.enter(e);
   });
 
   return {
