@@ -32,7 +32,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   @Bean
   public ViewResolver viewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-    viewResolver.setViewClass(JstlView.class);
     viewResolver.setSuffix(".html");
     return viewResolver;
   }
