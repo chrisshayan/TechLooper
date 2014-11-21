@@ -1576,68 +1576,41 @@ angular.module('Bubble').factory('bubbleFactory', ["utils", "jsonValue", '$locat
 
          if (n < 11) {
             fSize = 'textSize1';
-            diameter = 55 + diameterPlus;
+            diameter = 55;
          } else if (n > 10 && n < 21) {
             fSize = 'textSize2';
-            diameter = 75 + diameterPlus;
+            diameter = 75;
          } else if (n > 20 && n < 31) {
             fSize = 'textSize3';
-            diameter = 100 + diameterPlus;
+            diameter = 100;
          } else if (n > 30 && n < 41) {
             fSize = 'textSize4';
-            diameter = 125 + diameterPlus;
+            diameter = 125;
          } else if (n > 40 && n < 51) {
             fSize = 'textSize5';
-            diameter = 150 + diameterPlus;
+            diameter = 150;
          } else if (n > 50 && n < 61) {
             fSize = 'textSize6';
-            diameter = 175 + diameterPlus;
+            diameter = 175;
          } else if (n > 60 && n < 71) {
             fSize = 'textSize7';
-            diameter = 200 + diameterPlus;
+            diameter = 200;
          } else if (n > 70 && n < 81) {
             fSize = 'textSize8';
-            diameter = 225 + diameterPlus;
+            diameter = 225;
          } else if (n > 80 && n < 91) {
             fSize = 'textSize9';
-            diameter = 250 + diameterPlus;
+            diameter = 250;
          } else {
             fSize = 'bigText';
-            diameter = 275 + diameterPlus;
+            diameter = 275;
          }
+         diameter =  diameter + diameterPlus;
 
-         switch (bubbleItem.colorID) {
-         case 0:
-            clColor = "redColor";
-            break;
-         case 1:
-            clColor = "blueColor";
-            break;
-         case 2:
-            clColor = "yellowColor";
-            break;
-         case 3:
-            clColor = "pinkColor";
-            break;
-         case 4:
-            clColor = "greenColor";
-            break;
-         case 5:
-            clColor = "orangeColor";
-            break;
-         case 6:
-            clColor = "lightSalmonColor";
-            break;
-         case 7:
-            clColor = "indigoColor";
-            break;
-         case 8:
-            clColor = "oliveColor";
-            break;
-         };
-         var rota = diameter - 17;
+         clColor = utils.getTermColor(bubbleItem.termID); 
+
          html = '<div data-techTerm="' + bubbleItem.termID + '" class="circle ' + bubbleItem.termID + ' ' + fSize + '" style="width:' + diameter + 'px; height:' + diameter + 'px" date-color="'+ clColor +'">';
-         html = html + '<div class="circle-content ' + clColor + '" style="width:' + diameter + 'px; height:' + diameter + 'px">';
+         html = html + '<div class="circle-content" style="width:' + diameter + 'px; height:' + diameter + 'px; background-color:'+ clColor +'">';
          html = html + '<span class="termcount"><strong>' + bubbleItem.count + '</strong>' + utils.mappingData(bubbleItem.termID) + '<i>(Click here more detail.)</i></span>';
          html = html + '<div class="ball-highlight" style="width:' + diameter + 'px; height:' + diameter + 'px"></div></div></div>';
          $('.bubble-chart-container').append(html);

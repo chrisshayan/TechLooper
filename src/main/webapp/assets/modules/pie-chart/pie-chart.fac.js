@@ -8,7 +8,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
     var scope;
     
     // TODO: use jsonValue
-    var colorJson = jsonValue.skillColors;
+    var colorJson = [];
     var instance =  {
        setTerms : function($terms) {
           terms = $terms;
@@ -19,6 +19,10 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
           pieJson.length = 0;
           $.each(terms, function(index, term) {
              pieJson.push([angular.uppercase(term.term), term.count]);
+          });
+          $.each(pieJson, function(index, item){
+            var clColor = utils.getTermColor(item[0]);
+            colorJson.push(clColor);
           });
        },
 
@@ -41,6 +45,7 @@ angular.module('Pie').factory('pieFactory', ["utils", "jsonValue", "$location",f
        initializeAnimation : function($scope) {
         instance.generateChartData();
         scope = $scope;
+
         $('.pie-Chart-Container').highcharts({
             colors : colorJson,
             chart : {
