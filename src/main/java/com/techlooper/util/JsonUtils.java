@@ -2,10 +2,12 @@ package com.techlooper.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,6 +41,18 @@ public class JsonUtils {
         Optional<String> result = Optional.empty();
         try {
             result = Optional.ofNullable(getObjectMapper().writeValueAsString(object));
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    public static <T> Optional<List<T>> toList(String jsonArray, Class<T> objectType) {
+        Optional<List<T>> result = Optional.empty();
+        try {
+            final CollectionType collectionType =
+                    getObjectMapper().getTypeFactory().constructCollectionType(List.class, objectType);
+            result = Optional.ofNullable(getObjectMapper().readValue(jsonArray, collectionType));
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
