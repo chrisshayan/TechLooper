@@ -12,10 +12,10 @@ module.exports = function (grunt) {
         cwd: "<%=pkg.assets%>",
         src: ['custom-js/**/*.coffee', 'modules/**/*.coffee'],
         dest: '<%=pkg.assets%>',
-        rename  : function (dest, src) {
-          var folder    = src.substring(0, src.lastIndexOf('/'));
-          var filename  = src.substring(src.lastIndexOf('/'), src.length);
-          filename  = filename.substring(0, filename.lastIndexOf('.'));
+        rename: function (dest, src) {
+          var folder = src.substring(0, src.lastIndexOf('/'));
+          var filename = src.substring(src.lastIndexOf('/'), src.length);
+          filename = filename.substring(0, filename.lastIndexOf('.'));
           return dest + folder + filename + '.coffee.js';
         }
       },
@@ -27,10 +27,10 @@ module.exports = function (grunt) {
         cwd: "<%=pkg.public%>",
         src: ['custom-js/**/*.coffee', 'modules/**/*.coffee'],
         dest: '<%=pkg.public%>',
-        rename  : function (dest, src) {
-          var folder    = src.substring(0, src.lastIndexOf('/'));
-          var filename  = src.substring(src.lastIndexOf('/'), src.length);
-          filename  = filename.substring(0, filename.lastIndexOf('.'));
+        rename: function (dest, src) {
+          var folder = src.substring(0, src.lastIndexOf('/'));
+          var filename = src.substring(src.lastIndexOf('/'), src.length);
+          filename = filename.substring(0, filename.lastIndexOf('.'));
           return dest + folder + filename + '.coffee.js';
         }
       }
@@ -107,7 +107,20 @@ module.exports = function (grunt) {
     wiredep: {
       options: {
         color: true,
-        directory: "<%=pkg.public%>bower_components"
+        directory: "<%=pkg.public%>bower_components",
+        fileTypes: {
+          html: {
+            block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
+            detect: {
+              js: /<script.*src=['"]([^'"]+)/gi,
+              css: /<link.*href=['"]([^'"]+)/gi
+            },
+            replace: {
+              js: '<script src="{{filePath}}" charset="utf-8"></script>',
+              css: '<link rel="stylesheet" href="{{filePath}}" />'
+            }
+          }
+        }
       },
       target: {
         src: ["<%=pkg.public%>index.html"]
