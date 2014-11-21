@@ -40,7 +40,6 @@ static/
 *.log
 .brackets.json
 sample/
-_
 
 #Gruntfile.js
 generate-resources/

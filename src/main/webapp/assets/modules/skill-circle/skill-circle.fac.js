@@ -73,6 +73,10 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       $('.skill-circle-item').on('click mouseover', function(){
         utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
       });
+
+      var termColor = utils.getTermColor(viewJson.jobTerm);
+      $('.term-infor-chart').find('.percent').css('background-color',termColor).next().find('i').css('color',termColor);
+
     }
   }
 });
