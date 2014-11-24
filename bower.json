@@ -21,7 +21,8 @@
       "selectize" : "latest",
       "mousetrap": "latest",
       "JSONPath": "latest",
-      "DateJS": "latest"
+      "DateJS": "latest",
+      "d3": "latest"
    },
    "overrides": {
       "jquery": {
@@ -77,6 +78,9 @@
       },
       "DateJS": {
          "main": "build/date.js"
+      },
+      "d3": {
+         "main": "d3.min.js"
       }
    }
 }
