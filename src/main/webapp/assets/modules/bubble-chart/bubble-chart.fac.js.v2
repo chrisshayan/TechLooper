@@ -12,7 +12,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 45,
+        radiusMin: 45,//change this to support mobile 320x640
         radiusMax: 60,
         fontMin: 10,
         fontMax: 20
@@ -29,6 +29,8 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       //console.log(termCountMax);
       //var minTermCount = terms.minBy("count");
 
+      if (utils.isMobile()) {box.radiusMin = 30;}
+      var triedTimes = 0;
       while (randomCircles.length < terms.length) {
         var value = terms[randomCircles.length].count;//243 => radiusMax
         var radius = Math.max((value * box.radiusMax) / termCountMax, box.radiusMin);
@@ -42,13 +44,13 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
           var dx = circle.cx - cx;
           var dy = circle.cy - cy;
           var r = circle.radius + radius;
-          if (dx * dx + dy * dy < r * r) {
+          if (dx * dx + dy * dy < Math.pow(r, 2)) {
             hit = true;
             return false;
           }
         });
-
-        if (!hit) {
+        triedTimes = !hit ? 0 : triedTimes + 1;
+        if (!hit ) {//support mobile
           var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
           //console.log()
           randomCircles.push({
@@ -252,15 +254,16 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
   return {
 
     initializeAnimation: function () {
+      //var width = 320;
+      //var height = 640;
       var width = $(".chart-contrainer").width();
       var height = $(".chart-contrainer").height();
       var box = $$.getBox(width, height);
       var randomCircles = $$.getCircles(box);
 
       var svg = d3.select(".bubble-chart-container").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("class", "bubble");
+        .attr({preserveAspectRatio: "xMidYMid", width: width, height: height, class: "bubbleChart"})
+        .attr("viewBox", function(d) {return ["0 0", width, height].join(" ")});
       //.style("background", "white");
 
       var node = svg.selectAll(".node")
