@@ -29,6 +29,67 @@
                     }
                 ]
 
+            },
+            {
+                "name" : "Hibernate",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            }
+        ]
+    },
+    {
+        "name" : "PHP",
+        "logoUrl" : "php-logo.png",
+        "webSite" : "www.php.org",
+        "usefulLinks" : [
+            {
+                "name" : "PHP",
+                "url" : "php.abc.com"
+            }
+        ],
+        "skills" : [
+            {
+                "name" : "Symfony",
+                "logoUrl" : "Symfony.png",
+                "webSite" : "Symfony.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            },
+            {
+                "name" : "Zend Framework",
+                "logoUrl" : "zend.png",
+                "webSite" : "zend.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
             }
         ]
     }

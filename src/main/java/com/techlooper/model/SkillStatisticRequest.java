@@ -5,7 +5,7 @@ package com.techlooper.model;
  */
 public class SkillStatisticRequest {
 
-    private TechnicalTerm term;
+    private String term;
 
     private HistogramEnum[] histograms;
 
@@ -17,11 +17,11 @@ public class SkillStatisticRequest {
         this.histograms = histograms;
     }
 
-    public TechnicalTerm getTerm() {
+    public String getTerm() {
         return term;
     }
 
-    public void setTerm(TechnicalTerm term) {
+    public void setTerm(String term) {
         this.term = term;
     }
 }

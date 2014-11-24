@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class SkillStatisticResponse {
 
-    private TechnicalTerm jobTerm;
+    private String jobTerm;
     private Long count;
     private Long totalTechnicalJobs;
     private List<SkillStatistic> skills;
@@ -26,7 +26,7 @@ public class SkillStatisticResponse {
             return this;
         }
 
-        public Builder withJobTerm(TechnicalTerm jobTerm) {
+        public Builder withJobTerm(String jobTerm) {
             instance.jobTerm = jobTerm;
             return this;
         }
@@ -41,11 +41,11 @@ public class SkillStatisticResponse {
         }
     }
 
-    public TechnicalTerm getJobTerm() {
+    public String getJobTerm() {
         return jobTerm;
     }
 
-    public void setJobTerm(TechnicalTerm jobTerm) {
+    public void setJobTerm(String jobTerm) {
         this.jobTerm = jobTerm;
     }
 

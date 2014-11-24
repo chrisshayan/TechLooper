@@ -3,15 +3,15 @@ package com.techlooper.model;
 
 public class TechnicalTermResponse {
 
-    private TechnicalTerm term;
+    private String term;
 
     private Long count;
 
-    public TechnicalTerm getTerm() {
+    public String getTerm() {
         return term;
     }
 
-    public void setTerm(TechnicalTerm term) {
+    public void setTerm(String term) {
         this.term = term;
     }
 
@@ -32,7 +32,7 @@ public class TechnicalTermResponse {
             return this;
         }
 
-        public Builder withTerm(TechnicalTerm term) {
+        public Builder withTerm(String term) {
             instance.term = term;
             return this;
         }

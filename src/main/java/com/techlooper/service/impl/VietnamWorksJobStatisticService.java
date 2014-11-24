@@ -66,7 +66,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     private SkillStatisticResponse toSkillStatisticResponse(TechnicalTerm term, Aggregations aggregations) {
-        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
+        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.getName());
         InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
         skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
         skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.getName())).getDocCount());

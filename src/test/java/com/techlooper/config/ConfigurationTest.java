@@ -66,25 +66,6 @@ public class ConfigurationTest implements ApplicationContextAware {
         return new VietnamWorksJobSearchService();
     }
 
-//    @Bean
-//    public JobQueryBuilder jobQueryBuilder() {
-//        return new JobQueryBuilderImpl();
-//    }
-
-//    @Bean
-//    public TechnicalSkillEnumMap technicalSkillEnumMap() {
-//        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
-//        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
-//            String termKey = environment.getProperty(term.name());
-//            Optional<String> skillOptional = Optional.ofNullable(termKey);
-//            if (skillOptional.isPresent()) {
-//                String[] skills = StringUtils.split(skillOptional.get(), ',');
-//                technicalSkillEnumMap.put(term, Arrays.asList(skills));
-//            }
-//        });
-//        return technicalSkillEnumMap;
-//    }
-
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }

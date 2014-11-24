@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class JobStatisticController {
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
         technicalTerms.stream().forEach(term ->
-                        terms.add(new TechnicalTermResponse.Builder().withTerm(term)
+                        terms.add(new TechnicalTermResponse.Builder().withTerm(term.getName())
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
         return terms;
@@ -56,7 +55,8 @@ public class JobStatisticController {
     @SendTo("/topic/analytics/skill")
     @MessageMapping("/analytics/skill")
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
-        return vietnamWorksJobStatisticService.countJobsBySkill(skillStatisticRequest.getTerm(), skillStatisticRequest.getHistograms());
+        return vietnamWorksJobStatisticService.countJobsBySkill(convertToTechnicalTerm(skillStatisticRequest.getTerm()),
+                skillStatisticRequest.getHistograms());
     }
 
     private TechnicalTerm convertToTechnicalTerm(String termName) {

@@ -52,31 +52,6 @@ public class ElasticsearchConfiguration {
         return new ElasticsearchTemplate(transportClient);
     }
 
-//    @Bean
-//    public TechnicalSkillEnumMap technicalSkillEnumMap() {
-//        TechnicalSkillEnumMap technicalSkillEnumMap = new TechnicalSkillEnumMap();
-//        Stream.of(TechnicalTermEnum.values()).forEach(term -> {
-//            final String termKey = environment.getProperty(term.name());
-//            Optional<String> skillOptional = Optional.ofNullable(termKey);
-//            if (skillOptional.isPresent()) {
-//                String[] skills = StringUtils.split(skillOptional.get(), ',');
-//                technicalSkillEnumMap.put(term, Arrays.asList(skills));
-//            }
-//        });
-//        return technicalSkillEnumMap;
-//    }
-
-//    @Bean
-//    public JobQueryBuilder jobQueryBuilder() {
-//        try {
-//            final int lastNumberOfDays = Integer.valueOf(environment.getProperty("skill.chart.lastNumberOfDays"));
-//            return new ConfigurableJobQueryBuilder(lastNumberOfDays);
-//        } catch (NumberFormatException ex) {
-//            LOGGER.error(ex.getMessage(), ex);
-//        }
-//        return new MonthlyJobQueryBuilder();
-//    }
-
     @Bean
     public List<TechnicalTerm> technicalTerms() throws IOException {
         String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
