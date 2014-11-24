@@ -2,6 +2,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+    go2SkillAnalyticPage: function(scope, term) {
+      var path = jsonValue.routerUris.analyticsSkill + '/' + term;
+      $location.path(path);
+      scope.$apply();
+    },
+
     getDatePeriods: function(number, period) {
       switch (period) {
         case "month":

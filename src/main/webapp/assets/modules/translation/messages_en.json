@@ -14,5 +14,6 @@
   "percentageChange": "Percentage Change",
   "week": "Week",
   "month": "Month",
-  "quarter": "Quarter"
+  "quarter": "Quarter",
+  "clickBubbleChartTip": "(See more details)"
 }
