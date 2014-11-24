@@ -25,3 +25,15 @@ Array.prototype.max = function () {
     return ( x > y ? x : y );
   });
 }
+
+Array.prototype.minBy = function (prop) {
+  var values = [];
+  $.each(this, function(i, v){values.push(v[prop]);});
+  return values.min();
+}
+
+Array.prototype.maxBy = function (prop) {
+  var values = [];
+  $.each(this, function(i, v){values.push(v[prop]);});
+  return values.max();
+}

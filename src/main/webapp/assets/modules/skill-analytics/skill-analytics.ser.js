@@ -110,7 +110,6 @@ angular.module("Skill").factory("skillAnalyticsService",
         type.bind('click', function () {
           $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
           scope.$apply();
-          //$('.technical-detail-page').css('height', $('.technical-detail-page').height());
         });
       },
 
