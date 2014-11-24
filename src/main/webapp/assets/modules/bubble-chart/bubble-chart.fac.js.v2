@@ -1,32 +1,32 @@
-angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $location, termService) {
+angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $location, termService, $translate) {
   var terms = [];
   var scope;
 
   var $$ = {
-    getBox: function(width, height) {
+    getBox: function (width, height) {
       var wBox = Math.min(width, height);
-      var box =  {
+      var box = {
         width: wBox,
         pi2: Math.PI * 2,
         xCenter: wBox / 2,
         yCenter: wBox / 2,
-        radiusInner: wBox / 4,
-        radiusOuter: wBox / 2.5,
-        radiusMin: 30,
+        radiusInner: wBox / 3.5,
+        radiusOuter: wBox / 2,
+        radiusMin: 45,
         radiusMax: 60,
         fontMin: 10,
         fontMax: 20
         //fnColor: d3.scale.category20()
       }
-      box.radiusMax = (box.radiusOuter - box.radiusInner) / 2 ;
+      box.radiusMax = (box.radiusOuter - box.radiusInner) / 2;
       return box;
     },
 
     // TODO might be a infinity loop
-    getCircles: function(box) {
+    getCircles: function (box) {
       var randomCircles = [];
       var termCountMax = terms.maxBy("count");
-      console.log(termCountMax);
+      //console.log(termCountMax);
       //var minTermCount = terms.minBy("count");
 
       while (randomCircles.length < terms.length) {
@@ -38,14 +38,13 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         var cy = box.yCenter + distFromCenter * Math.sin(angle);
 
         var hit = false;
-        $.each(randomCircles, function(i, circle) {
+        $.each(randomCircles, function (i, circle) {
           var dx = circle.cx - cx;
           var dy = circle.cy - cy;
           var r = circle.radius + radius;
-          if (Math.abs(dx) + Math.abs(dy) <= r) {
-          //if (dx * dx + dy * dy <= r * r) {
+          if (dx * dx + dy * dy < r * r) {
             hit = true;
-            //return false;
+            return false;
           }
         });
 
@@ -72,7 +71,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       return randomCircles;
     },
 
-    renderCircle: function(node) {
+    renderCircle: function (node) {
       node.append("circle")
         .attr("r", function (d) {return d.radius;})
         .attr("cx", function (d) {return d.cx;})
@@ -81,25 +80,25 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         .attr("opacity", "0.9");
     },
 
-    renderTermCount: function(node) {
+    renderTermCount: function (node) {
       node.append("text")
-        .classed({"termCount": true})
+        .classed({termCount: true})
         .attr("dy", "-5px")
         .style("font-size", function (d) { return d.termCount.fontSize + "px";})
         .style("font-weight", "300")
         .text(function (d) { return d.data.count; });
     },
 
-    calculateTextSize: function(d, i) {
+    calculateTextSize: function (d, i) {
       var width = this.getBBox().width;
       while ((width = this.getBBox().width + 5) > 2 * d.radius) {
-        d3.select(this).style("font-size", function(d){return --d.termLabel.fontSize +  "px";});
+        d3.select(this).style("font-size", function (d) {return --d.termLabel.fontSize + "px";});
       }
     },
 
-    renderTermLabel: function(node, box) {
+    renderTermLabel: function (node, box) {
       node.append("text")
-        .classed({"termLabel": true})
+        .classed({termLabel: true})
         //.each(function(d, i) {
         //  var text = d3.select(this);
         //  var labels = d.termLabel.labels;
@@ -114,15 +113,15 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         //  d.termLabel.fontSize = Math.max(fontSize, box.fontMin);
         //})
         .text(function (d) {return d.termLabel.label;})
-        .attr("dy", function(d){return d.termLabel.dy + "px";})
+        .attr("dy", function (d) {return d.termLabel.dy + "px";})
         .attr("x", function (d) {return d.cx;})
         .attr("y", function (d) {return d.cy;})
-        .style("font-size", function(d) { return d.termLabel.fontSize +  "px"; })
+        .style("font-size", function (d) { return d.termLabel.fontSize + "px"; })
         .each($$.calculateTextSize)
-        .style("font-size", function(d) { return d.termLabel.fontSize +  "px"; });
+        .style("font-size", function (d) { return d.termLabel.fontSize + "px"; });
     },
 
-    setStyleText: function(node) {
+    setStyleText: function (node) {
       node.selectAll("text")
         .attr("x", function (d) {return d.cx;})
         .attr("y", function (d) {return d.cy;})
@@ -131,7 +130,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         .style("fill", "white");
     },
 
-    moveToCenter: function(node, box) {
+    moveToCenter: function (node, box) {
       var toCenterPoint = d3.svg.transform()
         .translate(function (d) {
           var cx = d3.select(this).select('circle').attr("cx");
@@ -140,24 +139,40 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
           return [dx, dy];
         });
 
-      node.classed({"node": true, "active": true})
+      node.classed({node: true, active: true})
         .transition().duration(1000)
         .attr('transform', toCenterPoint)
         .select("circle")
         .attr('r', function (d) {
           return box.radiusInner;
+        })
+        .each("end", function () {
+          node.append("text").classed({clickMe: true}).transition().duration(300).style("opacity", "0.8")
+            .attr("dy", function (d) {return "60px";})
+            .style({
+              "font-size": "12px",
+              "font-style": "italic",
+              "font-family": "roboto,arial",
+              "text-anchor": "middle",
+              "fill": "white"
+            })
+            .attr("x", function (d) {return node.select("text.termLabel").attr("x");})
+            .attr("y", function (d) {return node.select("text.termLabel").attr("y");});
+          $translate("clickBubbleChartTip").then(function (translation) {
+            node.select(".clickMe").text(translation);
+          });
         });
 
       node.selectAll("text.termCount").transition().duration(1000)
         .style("font-size", function (d) { return "45px";});
 
       node.selectAll("text.termLabel").transition().duration(1000)
-        .attr("dy", function(d){return "40px";})
+        .attr("dy", function (d) {return "40px";})
         .style("font-size", function (d) { return "30px";})
         .selectAll("tspan").attr({x: "", y: "", dy: ""});
     },
 
-    moveToReflection: function(node, box, swapped) {
+    moveToReflection: function (node, box, swapped) {
       var toReflectionPoint = d3.svg.transform()
         .translate(function (d) {
           var dx = 2 * (box.xCenter - d.cx);
@@ -175,32 +190,39 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         });
     },
 
-    reset: function(node) {
-      node.classed({"active": false});
+    reset: function (node) {
+      node.classed({active: false});
+      node.selectAll("text.clickMe").remove();
 
       node.selectAll("text.termCount").transition().duration(1000)
         .style("font-size", function (d) { return d.termCount.fontSize + "px";});
 
       node.selectAll("text.termLabel").transition().duration(1000)
-        .attr("dy", function(d){return d.termLabel.dy;})
+        .attr("dy", function (d) {return d.termLabel.dy;})
         .style("font-size", function (d) { return d.termLabel.fontSize + "px";});
     },
 
-    registerClickEvent: function(box, svg) {
+    registerClickEvent: function (box, svg) {
       var swapped = false;
       var node = svg.selectAll(".node");
       node.style("cursor", "pointer").on("click", function (d) {
+        var d3Node = d3.select(this);
+        if (d3Node.selectAll("text.clickMe")[0].length === 1) {
+          //console.log(d3Node.attr("class"));
+          utils.go2SkillAnalyticPage(scope, d3Node.attr("class").split(" ")[1]);
+          return false;
+        }
         $$.reset(node);
-        $$.moveToCenter(d3.select(this), box);
+        $$.moveToCenter(d3Node, box);
         $$.moveToReflection(svg.selectAll(".node:not(.active)"), box, swapped);
         swapped = !swapped;
       });
     },
 
-    selectBiggest: function(box) {
+    selectBiggest: function (box) {
       var max = terms.maxBy("count");
       var termName = 0;
-      $.each(terms, function(i, term) {
+      $.each(terms, function (i, term) {
         if (max === term.count) {
           termName = term.term;
           return false;
@@ -209,16 +231,23 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.moveToCenter(d3.select([".node", ".", termName].join("")), box);
     },
 
-    setScope: function($scope) {
+    setScope: function ($scope) {
       scope = $scope;
     },
 
-    able2SwitchScope: function() {
+    able2SwitchScope: function () {
       return $(".chart-contrainer").is(":visible");
+    },
+
+    changeLang: function () {
+      $translate("clickBubbleChartTip").then(function (translation) {
+        d3.select(".clickMe").text(translation);
+      });
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.setScope, $$.able2SwitchScope);
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.able2SwitchScope);
 
   return {
 
@@ -237,7 +266,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       var node = svg.selectAll(".node")
         .data(randomCircles)
         .enter().append("g")
-        .attr("class", function(d){return ["node", d.data.term].join(" ");});
+        .attr("class", function (d) {return ["node", d.data.term].join(" ");});
 
       $$.renderCircle(node);
       $$.renderTermCount(node);
