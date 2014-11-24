@@ -29,13 +29,12 @@ angular.module('Chart').controller('chartController',
             'colorID': rColor,
             'count': data.count,
             'termName': data.termName,
-            'termID': data.term
+            'termID': data.term,
+            data: data
           });
         });
       });
-
       chartFactory.initializeAnimation($scope);
-
     });
 
     connectionFactory.receiveTechnicalTerms();

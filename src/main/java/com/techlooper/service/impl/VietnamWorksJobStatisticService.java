@@ -26,122 +26,75 @@ import java.util.stream.Collectors;
 @Service
 public class VietnamWorksJobStatisticService implements JobStatisticService {
 
-  private static final String ALL_TERMS = "allTerms";
+    private static final String ALL_TERMS = "allTerms";
 
-  @Resource
-  private TechnicalSkillEnumMap technicalSkillEnumMap;
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
+    @Resource
+    private JobQueryBuilder jobQueryBuilder;
 
-  @Resource
-  private JobQueryBuilder jobQueryBuilder;
+    @Value("${elasticsearch.index.name}")
+    private String elasticSearchIndexName;
 
-  @Value("${elasticsearch.index.name}")
-  private String elasticSearchIndexName;
-  private String readableName;
+    public Long count(final TechnicalTerm term) {
+        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
+                .withFilter(jobQueryBuilder.getTechnicalTermQueryNotExpired(term))
+                .build();
+        return elasticsearchTemplate.count(searchQuery);
+    }
 
-  public Long countPhpJobs() {
-    return count(TechnicalTermEnum.PHP);
-  }
+    public SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
+        queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery());// all technical terms query
 
-  public Long countJavaJobs() {
-    return count(TechnicalTermEnum.JAVA);
-  }
+        queryBuilder.addAggregation(getTermsAggregationNotExpired(term));// technical terms agg which has not expired
 
-  public Long countDotNetJobs() {
-    return count(TechnicalTermEnum.DOTNET);
-  }
+        AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);// technical term agg including expired jobs
+        getAggregationsSkillNotExpired(term, histogramEnums).stream()
+                .forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
+        queryBuilder.addAggregation(technicalTermAggregation);
 
-  public Long countProjectManagerJobs() {
-    return count(TechnicalTermEnum.PROJECT_MANAGER);
-  }
+        return toSkillStatisticResponse(term, elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations));
+    }
 
-  public Long countBAJobs() {
-    return count(TechnicalTermEnum.BA);
-  }
+    private SkillStatisticResponse toSkillStatisticResponse(TechnicalTerm term, Aggregations aggregations) {
+        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.getName());
+        InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
+        skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
+        skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.getName())).getDocCount());
 
-  public Long countQAJobs() {
-    return count(TechnicalTermEnum.QA);
-  }
+        InternalFilter termAggregation = aggregations.get(term.getName());
+        Map<String, List<Long>> skillHistogramsMap = termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
+                .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
+                .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
+                        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())));
 
-  public Long countDBAJobs() {
-    return count(TechnicalTermEnum.QA);
-  }
+        return skillStatisticResponse.withSkills(toSkillStatistic(skillHistogramsMap)).build();
+    }
 
-  public Long countPythonJobs() {
-    return count(TechnicalTermEnum.PYTHON);
-  }
+    private List<SkillStatistic> toSkillStatistic(Map<String, List<Long>> skillHistogramsMap) {
+        Map<String, SkillStatistic.Builder> skillStatisticMap = new HashMap<>();
+        skillHistogramsMap.forEach((bucketName, docCounts) -> {
+            String[] skillNameParts = bucketName.split("-");
+            String readableSkillName = EncryptionUtils.decodeHexa(skillNameParts[0]);
+            SkillStatistic.Builder skill = Optional.ofNullable(skillStatisticMap.get(readableSkillName)).orElseGet(SkillStatistic.Builder::new);
+            skillStatisticMap.put(readableSkillName, skill.withSkillName(readableSkillName));
+            skill.withHistogram(new Histogram.Builder().withName(HistogramEnum.valueOf(skillNameParts[1])).withValues(docCounts).build());
+        });
+        return skillStatisticMap.keySet().stream().map(key -> skillStatisticMap.get(key).build()).collect(Collectors.toList());
+    }
 
-  public Long countRubyJobs() {
-    return count(TechnicalTermEnum.RUBY);
-  }
+    private FilterAggregationBuilder getTermsAggregationNotExpired(TechnicalTerm term) {
+        FilterAggregationBuilder aggregation = AggregationBuilders.filter(ALL_TERMS).filter(jobQueryBuilder.getTechnicalTermsQueryNotExpired());
+        aggregation.subAggregation(jobQueryBuilder.getTechnicalTermAggregation(term));
+        return aggregation;
+    }
 
-  public Long count(final TechnicalTermEnum technicalTermEnum) {
-    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
-      .withFilter(jobQueryBuilder.getTechnicalTermQueryNotExpired(technicalTermEnum))
-      .build();
-    return elasticsearchTemplate.count(searchQuery);
-  }
-
-  public Long countTechnicalJobs() {
-    final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
-      .withFilter(jobQueryBuilder.getTechnicalTermsQueryNotExpired())
-      .build();
-    return elasticsearchTemplate.count(searchQuery);
-  }
-
-  public SkillStatisticResponse countJobsBySkill(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
-    NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
-    queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery());// all technical terms query
-
-    queryBuilder.addAggregation(getTermsAggregationNotExpired(term));// technical terms agg which has not expired
-
-    AggregationBuilder technicalTermAggregation = jobQueryBuilder.getTechnicalTermAggregation(term);// technical term agg including expired jobs
-    getAggregationsSkillNotExpired(term, histogramEnums).stream()
-      .forEach(aggs -> aggs.stream().forEach(technicalTermAggregation::subAggregation));
-    queryBuilder.addAggregation(technicalTermAggregation);
-
-    return toSkillStatisticResponse(term, elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations));
-  }
-
-  private SkillStatisticResponse toSkillStatisticResponse(TechnicalTermEnum term, Aggregations aggregations) {
-    final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term);
-    InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
-    skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
-    skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.name())).getDocCount());
-
-    InternalFilter termAggregation = aggregations.get(term.name());
-    Map<String, List<Long>> skillHistogramsMap = termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
-      .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
-      .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
-        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())));
-
-    return skillStatisticResponse.withSkills(toSkillStatistic(skillHistogramsMap)).build();
-  }
-
-  private List<SkillStatistic> toSkillStatistic(Map<String, List<Long>> skillHistogramsMap) {
-    Map<String, SkillStatistic.Builder> skillStatisticMap = new HashMap<>();
-    skillHistogramsMap.forEach((bucketName, docCounts) -> {
-      String[] skillNameParts = bucketName.split("-");
-      String readableSkillName = EncryptionUtils.decodeHexa(skillNameParts[0]);
-      SkillStatistic.Builder skill = Optional.ofNullable(skillStatisticMap.get(readableSkillName)).orElseGet(SkillStatistic.Builder::new);
-      skillStatisticMap.put(readableSkillName, skill.withSkillName(readableSkillName));
-      skill.withHistogram(new Histogram.Builder().withName(HistogramEnum.valueOf(skillNameParts[1])).withValues(docCounts).build());
-    });
-    return skillStatisticMap.keySet().stream().map(key -> skillStatisticMap.get(key).build()).collect(Collectors.toList());
-  }
-
-  private FilterAggregationBuilder getTermsAggregationNotExpired(TechnicalTermEnum term) {
-    FilterAggregationBuilder aggregation = AggregationBuilders.filter(ALL_TERMS).filter(jobQueryBuilder.getTechnicalTermsQueryNotExpired());
-    aggregation.subAggregation(jobQueryBuilder.getTechnicalTermAggregation(term));
-    return aggregation;
-  }
-
-  private List<List<FilterAggregationBuilder>> getAggregationsSkillNotExpired(TechnicalTermEnum term, HistogramEnum... histogramEnums) {
-    List<List<FilterAggregationBuilder>> list = new ArrayList<>();
-    Arrays.stream(histogramEnums)
-      .forEach(histogramEnum -> list.addAll(jobQueryBuilder.toSkillAggregations(technicalSkillEnumMap.skillOf(term), histogramEnum)));
-    return list;
-  }
+    private List<List<FilterAggregationBuilder>> getAggregationsSkillNotExpired(TechnicalTerm term, HistogramEnum... histogramEnums) {
+        List<List<FilterAggregationBuilder>> list = new ArrayList<>();
+        Arrays.stream(histogramEnums)
+                .forEach(histogramEnum -> list.addAll(jobQueryBuilder.toSkillAggregations(term.getSkills(), histogramEnum)));
+        return list;
+    }
 }

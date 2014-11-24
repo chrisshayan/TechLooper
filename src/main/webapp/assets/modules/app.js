@@ -8,11 +8,13 @@ angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
 angular.module("Skill", []);
+angular.module("SignIn", []);
+angular.module("Register", []);
 
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute",
-  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill"
+  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
@@ -44,6 +46,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/analytics/skill/:term/:period?", {
       templateUrl: "modules/skill-analytics/skill-analytics.tem.html",
       controller: "skillAnalyticsController"
+    }).when("/signin", {
+      templateUrl: "modules/signin/signin.tem.html",
+      controller: "signInController"
+    }).when("/register", {
+      templateUrl: "modules/register/register.tem.html",
+      controller: "registerController"
     }).otherwise({
       redirectTo: "/bubble-chart"
     });

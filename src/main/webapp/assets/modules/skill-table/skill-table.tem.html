@@ -1,17 +1,17 @@
 <div class="col-md-12 ctrl-lineChart-block">
-	<table class="rwd-table">
-      <tr>
-        <th><span translate>skill</span></th>
-        <th><span translate>current</span> <br><span class="curDate"></span></th>
-        <th><span translate>previous</span> <br><span class="preDate"></span></th>
-        <th><span translate>percentageChange</span></th>
-      </tr>
-      <tr ng-repeat="item in viewJson.tableAndChartJson" class="skillItem">
-        <td data-th="Skill">{{item.skillName}}</td>
-        <td data-th="Current">{{item.currentCount}}</td>
-        <td data-th="Previous">{{item.previousCount}}</td>
-        <td data-th="Changed Prev to Current"><i class="fa {{item.icon}}"></i> {{item.percent}} %</td>
-      </tr>
-    </table>
-	
+  <table class="rwd-table">
+    <tr>
+      <th>{{ 'skill' | translate }}</th>
+      <th>{{ 'current' | translate }}<br><span class="curDate subText"></span></th>
+      <th>{{ 'previous' | translate }}<br><span class="preDate subText"></span></th>
+      <th>{{ 'percentageChange' | translate }}</th>
+    </tr>
+    <tr ng-repeat="item in viewJson.tableAndChartJson" class="skillItem">
+      <td data-th="{{ 'skill' | translate }}">{{item.skillName}}</td>
+      <td data-th="{{ 'current' | translate }}">{{item.currentCount}}</td>
+      <td data-th="{{ 'previous' | translate }}">{{item.previousCount}}</td>
+      <td data-th="{{ 'percentageChange' | translate }}"><i class="fa {{item.icon}}"></i> {{item.percent}} %</td>
+    </tr>
+  </table>
+
 </div>
