@@ -3,15 +3,15 @@ package com.techlooper.model;
 
 public class TechnicalTermResponse {
 
-    private TechnicalTermEnum term;
+    private TechnicalTerm term;
 
     private Long count;
 
-    public TechnicalTermEnum getTerm() {
+    public TechnicalTerm getTerm() {
         return term;
     }
 
-    public void setTerm(TechnicalTermEnum term) {
+    public void setTerm(TechnicalTerm term) {
         this.term = term;
     }
 
@@ -32,7 +32,7 @@ public class TechnicalTermResponse {
             return this;
         }
 
-        public Builder withTerm(TechnicalTermEnum term) {
+        public Builder withTerm(TechnicalTerm term) {
             instance.term = term;
             return this;
         }

@@ -1,13 +1,11 @@
 package com.techlooper.model;
 
-import java.util.List;
-
 /**
  * Created by NguyenDangKhoa on 11/4/14.
  */
 public class SkillStatisticRequest {
 
-    private TechnicalTermEnum term;
+    private TechnicalTerm term;
 
     private HistogramEnum[] histograms;
 
@@ -19,11 +17,11 @@ public class SkillStatisticRequest {
         this.histograms = histograms;
     }
 
-    public TechnicalTermEnum getTerm() {
+    public TechnicalTerm getTerm() {
         return term;
     }
 
-    public void setTerm(TechnicalTermEnum term) {
+    public void setTerm(TechnicalTerm term) {
         this.term = term;
     }
 }

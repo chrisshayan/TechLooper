@@ -22,10 +22,13 @@ public class JobStatisticController {
     @Resource
     private SimpMessagingTemplate messagingTemplate;
 
+    @Resource
+    private List<TechnicalTerm> technicalTerms;
+
     @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
-        Arrays.stream(TechnicalTermEnum.values()).forEach(term ->
-                        messagingTemplate.convertAndSend("/topic/jobs/term/" + term.name(), new JobStatisticResponse.Builder()
+        technicalTerms.stream().forEach(term ->
+                        messagingTemplate.convertAndSend("/topic/jobs/term/" + term.getName(), new JobStatisticResponse.Builder()
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
     }
@@ -34,7 +37,7 @@ public class JobStatisticController {
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
-        Arrays.stream(TechnicalTermEnum.values()).forEach(term ->
+        technicalTerms.stream().forEach(term ->
                         terms.add(new TechnicalTermResponse.Builder().withTerm(term)
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
@@ -46,7 +49,7 @@ public class JobStatisticController {
         messagingTemplate.convertAndSend(
                 "/topic/jobs/" + request.getTerm().toLowerCase(),
                 new JobStatisticResponse.Builder().withCount(
-                        vietnamWorksJobStatisticService.count(TechnicalTermEnum.valueOf(request.getTerm().toUpperCase())))
+                        vietnamWorksJobStatisticService.count(convertToTechnicalTerm(request.getTerm().toUpperCase())))
                         .build());
     }
 
@@ -54,5 +57,9 @@ public class JobStatisticController {
     @MessageMapping("/analytics/skill")
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
         return vietnamWorksJobStatisticService.countJobsBySkill(skillStatisticRequest.getTerm(), skillStatisticRequest.getHistograms());
+    }
+
+    private TechnicalTerm convertToTechnicalTerm(String termName) {
+        return technicalTerms.stream().filter(term -> term.getName().equals(termName)).findFirst().get();
     }
 }

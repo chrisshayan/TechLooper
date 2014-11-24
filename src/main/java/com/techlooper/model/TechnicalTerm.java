@@ -56,4 +56,8 @@ public class TechnicalTerm {
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+
+    public String toString() {
+        return name;
+    }
 }
