@@ -1,12 +1,16 @@
 package com.techlooper.config;
 
 import com.techlooper.model.TechnicalSkillEnumMap;
+import com.techlooper.model.TechnicalTerm;
 import com.techlooper.model.TechnicalTermEnum;
+import com.techlooper.util.JsonUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.client.transport.TransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -16,7 +20,9 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -32,6 +38,9 @@ public class ElasticsearchConfiguration {
 
     @Resource
     private TransportClient transportClient;
+
+    @Value("classpath:skill.json")
+    private org.springframework.core.io.Resource skillJsonResource;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
 
@@ -72,4 +81,11 @@ public class ElasticsearchConfiguration {
 //        }
 //        return new MonthlyJobQueryBuilder();
 //    }
+
+    @Bean
+    public List<TechnicalTerm> technicalTerms() throws IOException {
+        String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
+        Optional<List<TechnicalTerm>> termOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
+        return termOptional.get();
+    }
 }
