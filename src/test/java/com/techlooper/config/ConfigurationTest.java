@@ -1,11 +1,14 @@
 package com.techlooper.config;
 
+import com.techlooper.model.TechnicalTerm;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
 import com.techlooper.service.impl.VietnamWorksJobSearchService;
+import com.techlooper.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -35,6 +40,9 @@ public class ConfigurationTest implements ApplicationContextAware {
 
     @Resource
     private Environment environment;
+
+    @Value("classpath:skill.json")
+    private org.springframework.core.io.Resource skillJsonResource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -64,6 +72,18 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public JobSearchService jobSearchService() {
         return new VietnamWorksJobSearchService();
+    }
+
+    @Bean
+    public List<TechnicalTerm> technicalTerms() throws IOException {
+        String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
+        Optional<List<TechnicalTerm>> termOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
+        return termOptional.get();
+    }
+
+    @Bean
+    public JobQueryBuilder jobQueryBuilder() {
+        return new JobQueryBuilderImpl();
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
