@@ -1,8 +1,8 @@
-angular.module('Register').controller('registerController', function (jsonValue, utils, $scope, shortcutFactory) {
-	
-	$scope.accounts = jsonValue.accountSignin;
+angular.module('Register').controller('registerController', function (shortcutFactory) {
 
-	$('.signin-accounts').parallax();
+	$('input[type="checkbox"]').checkbox();
+
+	$("#salary").slider({});
 	
     $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
     $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});

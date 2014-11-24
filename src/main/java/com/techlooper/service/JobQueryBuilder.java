@@ -5,8 +5,8 @@ package com.techlooper.service;
  */
 
 import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.TechnicalTermEnum;
-import org.elasticsearch.index.query.BoolFilterBuilder;
+import com.techlooper.model.Skill;
+import com.techlooper.model.TechnicalTerm;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
@@ -16,67 +16,67 @@ import java.util.List;
 
 public interface JobQueryBuilder {
 
-  static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
+    static final String[] SEARCH_JOB_FIELDS = new String[]{"jobTitle", "jobDescription", "skillExperience"};
 
-  /**
-   * This method will construct that needed to be executed on ES
-   *
-   * @return {@link org.elasticsearch.index.query.QueryBuilder}
-   */
-  FilterBuilder getTechnicalTermsQuery();
+    /**
+     * This method will construct that needed to be executed on ES
+     *
+     * @return {@link org.elasticsearch.index.query.QueryBuilder}
+     */
+    FilterBuilder getTechnicalTermsQuery();
 
-  /**
-   * Constructs the search query based on parameter
-   *
-   * @param term {@link com.techlooper.model.TechnicalTermEnum}
-   * @return {@link org.elasticsearch.index.query.QueryBuilder}
-   */
-  FilterBuilder getTechnicalTermQuery(TechnicalTermEnum term);
+    /**
+     * Constructs the search query based on parameter
+     *
+     * @param term {@link com.techlooper.model.TechnicalTerm}
+     * @return {@link org.elasticsearch.index.query.QueryBuilder}
+     */
+    FilterBuilder getTechnicalTermQuery(TechnicalTerm term);
 
-  /**
-   * Constructs the search query based on parameter
-   *
-   * @param skill is the detail of term, for example Java is a term and spring is a skill
-   * @return {@link org.elasticsearch.index.query.QueryBuilder}
-   */
-  FilterBuilder getTechnicalSkillQuery(String skill);
+    /**
+     * Constructs the search query based on parameter
+     *
+     * @param skill is the detail of term, for example Java is a term and spring is a skill {@link com.techlooper.model.Skill}
+     * @return {@link org.elasticsearch.index.query.QueryBuilder}
+     */
+    FilterBuilder getTechnicalSkillQuery(Skill skill);
 
-  /**
-   * Creates a query on VietnamWorks ES
-   *
-   * @return {@link org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder}
-   */
-  NativeSearchQueryBuilder getVietnamworksJobCountQuery();
+    /**
+     * Creates a query on VietnamWorks ES
+     *
+     * @return {@link org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder}
+     */
+    NativeSearchQueryBuilder getVietnamworksJobCountQuery();
 
-  /**
-   * Creates a bucket for aggregation of each {@link com.techlooper.model.TechnicalTermEnum}
-   *
-   * @param term {@link com.techlooper.model.TechnicalTermEnum}
-   * @return {@link org.elasticsearch.search.aggregations.AggregationBuilder}
-   */
-  AggregationBuilder getTechnicalTermAggregation(TechnicalTermEnum term);
+    /**
+     * Creates a bucket for aggregation of each {@link com.techlooper.model.TechnicalTerm}
+     *
+     * @param term {@link com.techlooper.model.TechnicalTerm}
+     * @return {@link org.elasticsearch.search.aggregations.AggregationBuilder}
+     */
+    AggregationBuilder getTechnicalTermAggregation(TechnicalTerm term);
 
-  /**
-   * @param skills        List of skills which each skill is the detail of term, for example Java is a term and spring is a skill
-   * @param histogramEnum {@link com.techlooper.model.HistogramEnum}
-   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
-   */
-  List<List<FilterAggregationBuilder>> toSkillAggregations(List<String> skills, HistogramEnum histogramEnum);
+    /**
+     * @param skills        List of skills which each skill is the detail of term, for example Java is a term and spring is a skill
+     * @param histogramEnum {@link com.techlooper.model.HistogramEnum}
+     * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+     */
+    List<List<FilterAggregationBuilder>> toSkillAggregations(List<Skill> skills, HistogramEnum histogramEnum);
 
-  /**
-   * @param from joda time value, ex: now-1d , now-1w , now-1M
-   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
-   */
-  FilterBuilder getExpiredDateQuery(String from);
+    /**
+     * @param from joda time value, ex: now-1d , now-1w , now-1M
+     * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+     */
+    FilterBuilder getExpiredDateQuery(String from);
 
-  /**
-   * @return  {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
-   */
-  FilterBuilder getTechnicalTermsQueryNotExpired();
+    /**
+     * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+     */
+    FilterBuilder getTechnicalTermsQueryNotExpired();
 
-  /**
-   * @param technicalTermEnum {@link com.techlooper.model.TechnicalTermEnum}
-   * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
-   */
-  FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTermEnum technicalTermEnum);
+    /**
+     * @param term {@link com.techlooper.model.TechnicalTerm}
+     * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
+     */
+    FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTerm term);
 }

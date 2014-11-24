@@ -1,6 +1,6 @@
 [
     {
-        "name" : "Java",
+        "name" : "JAVA",
         "logoUrl" : "java-logo.png",
         "webSite" : "www.java.com",
         "usefulLinks" : [
@@ -29,6 +29,110 @@
                     }
                 ]
 
+            },
+            {
+                "name" : "Hibernate",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            }
+        ]
+    },
+    {
+        "name" : "PHP",
+        "skills" : [
+            {
+                "name" : "Symfony"
+            },
+            {
+                "name" : "Zend Framework"
+            }
+        ]
+    },
+    {
+        "name" : "DOTNET",
+        "skills" : [
+            {
+                "name" : "ASP.NET"
+            },
+            {
+                "name" : "SQL Server"
+            }
+        ]
+    },
+    {
+        "name" : "RUBY",
+        "skills" : [
+            {
+                "name" : "Rails"
+            },
+            {
+                "name" : "grape"
+            }
+        ]
+    },
+    {
+        "name" : "PYTHON",
+        "skills" : [
+            {
+                "name" : "django"
+            },
+            {
+                "name" : "pylons"
+            }
+        ]
+    },
+    {
+        "name" : "PROJECT_MANAGER",
+        "skills" : [
+            {
+                "name" : "scrum"
+            },
+            {
+                "name" : "program manager"
+            }
+        ]
+    },
+    {
+        "name" : "DBA",
+        "skills" : [
+            {
+                "name" : "mysql"
+            },
+            {
+                "name" : "oracle"
+            }
+        ]
+    },
+    {
+        "name" : "QA",
+        "skills" : [
+            {
+                "name" : "selenium"
+            },
+            {
+                "name" : "casperjs"
+            }
+        ]
+    },
+    {
+        "name" : "BA",
+        "skills" : [
+            {
+                "name" : "business analyst"
+            },
+            {
+                "name" : "SAP"
             }
         ]
     }
