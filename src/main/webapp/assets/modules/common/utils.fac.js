@@ -96,6 +96,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       else if (/\/analytics\/skill/.test(path)) {
         return jsonValue.views.analyticsSkill;
       }
+      else if (/\/signin/.test(path)) {
+        return jsonValue.views.signIn;
+      }
+      else if (/\/register/.test(path)) {
+        return jsonValue.views.register;
+      }
     },
 
     sum: function (array, prop) {
