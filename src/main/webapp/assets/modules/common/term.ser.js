@@ -5,12 +5,24 @@ angular.module("Common").factory("termService", function (jsonValue, utils) {
       var fnColor = d3.scale.category20c();
       $.each(terms, function(i, term) {
         term.color = fnColor(term.term);
-        $.each(jsonValue.viewTerms, function(j, viewTerm) {
+        var notHit = true;
+        $.each(jsonValue.viewTerms.mappedItems, function(j, viewTerm) {
           if (viewTerm.term === term.term) {
-            term.label = viewTerm.label;
-            return false;
+            terms[i] = $.extend({}, term, viewTerm);
+            return notHit = false;
           }
         });
+        if (notHit) {
+          for (var prop in jsonValue.viewTerms.unmappedItems) {
+            var value = jsonValue.viewTerms.unmappedItems[prop];
+            if (typeof value === "function") {
+              term[prop] = value(term);
+            }
+            else {
+              term[prop] = value;
+            }
+          }
+        }
       });
       return terms;
     }
