@@ -107,7 +107,8 @@ angular.module("Common").constant("jsonValue", {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
-    analyticsSkill: "/analytics/skill"
+    analyticsSkill: "/analytics/skill",
+    signIn: "signin"
   },
 
   views: {
@@ -870,5 +871,56 @@ angular.module("Common").constant("jsonValue", {
     "id": 6,
     "img": "images/cp-logo-vtv.png",
     "url": "https://www.vtv.vn/"
-  }]
+  }],
+  accountSignin: [
+    {
+      "site": "VietnamWork",
+      "urlSignin": "http://www.vietnamworks.com/",
+      "logo": "images/vietnamwork.png",
+      "magnitude": "level1",
+      "bgcolor": "#1fbaec"
+    },
+    {
+      "site": "Linkedin",
+      "urlSignin": "http://linkedin.com/",
+      "logo": "images/linkedin.png",
+      "magnitude": "level2",
+      "bgcolor": "#007bb6"
+    },
+    {
+      "site": "Facebook",
+      "urlSignin": "http://facebook.com/",
+      "logo": "images/facebook.png",
+      "magnitude": "level3",
+      "bgcolor": "#3b5a9b"
+    },
+    {
+      "site": "Stackoverflow",
+      "urlSignin": "http://stackoverflow.com/",
+      "logo": "images/stackoverflow.png",
+      "magnitude": "level4",
+      "bgcolor": "#fda428"
+    },
+    {
+      "site": "Gmail",
+      "urlSignin": "https://mail.google.com/",
+      "logo": "images/gmail.png",
+      "magnitude": "level5",
+      "bgcolor": "#ac2e25"
+    },
+    {
+      "site": "Github",
+      "urlSignin": "https://github.com/",
+      "logo": "images/github.png",
+      "magnitude": "level6",
+      "bgcolor": "#333333"
+    },
+    {
+      "site": "Bitbucket",
+      "urlSignin": "https://bitbucket.org/",
+      "logo": "images/bitbucket.png",
+      "magnitude": "level7",
+      "bgcolor": "#fff"
+    }
+  ]
 });
