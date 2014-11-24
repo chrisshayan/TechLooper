@@ -18,6 +18,42 @@ angular.module("Common").constant("jsonValue", {
     gotData: "Got Data"
   },
 
+  viewTerms: [
+    {
+      term: "JAVA", label: "Java"
+    },
+    {
+      term: "DOTNET", label: ".Net"
+    },
+    {
+      term: "PHP", label: "Php"
+    },
+    {
+      term: "RUBY", label: "Ruby"
+    },
+    {
+      term: "PYTHON", label: "Python"
+    },
+    {
+      term: "PROJECT_MANAGER", label: "Project Manager"
+    },
+    {
+      term: "DBA", label: "DBA"
+    },
+    {
+      term: "QA", label: "QA"
+    },
+    {
+      term: "BA", label: "BA"
+    },
+    {
+      term: "WEB", label: "Web Development"
+    },
+    {
+      term: "MOBILE", label: "Mobile Development"
+    }
+  ],
+
   termColor: [
     {
       "Name": "JAVA",
@@ -63,7 +99,7 @@ angular.module("Common").constant("jsonValue", {
     terms: "Terms",
     term: "Term",
     changeChart: "Change Chart",
-    foundJobs : "Found Jobs",
+    foundJobs: "Found Jobs",
     analyticsSkill: "Analytics Skill"
   },
 
