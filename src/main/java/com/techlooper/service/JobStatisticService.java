@@ -18,12 +18,11 @@ public interface JobStatisticService {
     public Long count(final TechnicalTerm term);
 
     /**
-     * Counting all technical jobs
+     * Counting jobs by each skill within a certain period in the past
      *
-     * @return number of jobs
-     * @see com.techlooper.model.TechnicalTerm
+     * @return the skill statistic {@link com.techlooper.model.SkillStatisticResponse}
+     * @param term See more at {@link com.techlooper.model.TechnicalTerm}
+     * @param histogramEnums See more at {@link com.techlooper.model.HistogramEnum}
      */
-    Long countTechnicalJobs();
-
     SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums);
 }

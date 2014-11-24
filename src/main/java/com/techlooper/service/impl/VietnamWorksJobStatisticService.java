@@ -44,13 +44,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         return elasticsearchTemplate.count(searchQuery);
     }
 
-    public Long countTechnicalJobs() {
-        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
-                .withFilter(jobQueryBuilder.getTechnicalTermsQueryNotExpired())
-                .build();
-        return elasticsearchTemplate.count(searchQuery);
-    }
-
     public SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
         queryBuilder.withFilter(jobQueryBuilder.getTechnicalTermsQuery());// all technical terms query
