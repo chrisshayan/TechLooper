@@ -116,7 +116,8 @@ angular.module("Common").constant("jsonValue", {
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
     analyticsSkill: "/analytics/skill",
-    signIn: "signin"
+    signIn: "signin",
+    register: "register"
   },
 
   views: {
@@ -124,7 +125,9 @@ angular.module("Common").constant("jsonValue", {
     jobsSearchText: "jobSearchText",
     analyticsSkill: "analyticsSkill",
     bubbleChart: "bubbleChart",
-    pieChart: "pieChart"
+    pieChart: "pieChart",
+    signIn: "signin",
+    register: "register"
   },
 
   socketUri: {

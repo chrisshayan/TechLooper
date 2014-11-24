@@ -20,6 +20,8 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           $rootScope.$apply();
           break;
         case jsonValue.views.analyticsSkill:
+        case jsonValue.views.signIn:
+        case jsonValue.views.register:
         case jsonValue.views.jobsSearch:
           $$.goBack();
           break;
