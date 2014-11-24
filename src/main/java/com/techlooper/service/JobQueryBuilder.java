@@ -36,7 +36,7 @@ public interface JobQueryBuilder {
     /**
      * Constructs the search query based on parameter
      *
-     * @param skill is the detail of term, for example Java is a term and spring is a skill
+     * @param skill is the detail of term, for example Java is a term and spring is a skill {@link com.techlooper.model.Skill}
      * @return {@link org.elasticsearch.index.query.QueryBuilder}
      */
     FilterBuilder getTechnicalSkillQuery(Skill skill);

@@ -20,9 +20,9 @@ public interface JobStatisticService {
     /**
      * Counting jobs by each skill within a certain period in the past
      *
-     * @return the skill statistic {@link com.techlooper.model.SkillStatisticResponse}
-     * @param term See more at {@link com.techlooper.model.TechnicalTerm}
+     * @param term           See more at {@link com.techlooper.model.TechnicalTerm}
      * @param histogramEnums See more at {@link com.techlooper.model.HistogramEnum}
+     * @return the skill statistic {@link com.techlooper.model.SkillStatisticResponse}
      */
     SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums);
 }
