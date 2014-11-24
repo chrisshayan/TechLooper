@@ -1,4 +1,4 @@
-angular.module('SignIn').controller('signInController', function (jsonValue, utils, $scope, shortcutFactory) {
+angular.module('Register').controller('registerController', function (jsonValue, utils, $scope, shortcutFactory) {
 	
 	$scope.accounts = jsonValue.accountSignin;
 
@@ -6,6 +6,4 @@ angular.module('SignIn').controller('signInController', function (jsonValue, uti
 	
     $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
     $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
-
-
 });
