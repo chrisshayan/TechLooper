@@ -2,8 +2,13 @@ package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.model.HistogramEnum;
+import com.techlooper.model.SkillStatisticResponse;
+import com.techlooper.model.TechnicalTerm;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
+import junit.framework.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
+
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -33,6 +42,9 @@ public class VietnamWorksJobStatisticServiceTest {
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
 
+    @Resource
+    private List<TechnicalTerm> technicalTerms;
+
     @Before
     public void before() {
         jobStatisticService = new VietnamWorksJobStatisticService();
@@ -43,6 +55,10 @@ public class VietnamWorksJobStatisticServiceTest {
 
     @Test
     public void testCountJobsBySkill() {
-
+        // Getting the first term from resource file skill.json for testing
+        TechnicalTerm term = technicalTerms.get(0);
+        SkillStatisticResponse skillStatisticResponse =
+                jobStatisticService.countJobsBySkill(term, HistogramEnum.TWO_WEEKS, HistogramEnum.ONE_WEEK);
+        assertNotNull(skillStatisticResponse);
     }
 }
