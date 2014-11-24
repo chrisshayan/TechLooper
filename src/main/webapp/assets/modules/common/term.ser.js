@@ -1,4 +1,4 @@
-angular.module("Common").factory("termService", function (jsonValue, utils) {
+angular.module("Common").factory("termService", function (jsonValue) {
 
   var instance = {
     toViewTerms: function(terms) {

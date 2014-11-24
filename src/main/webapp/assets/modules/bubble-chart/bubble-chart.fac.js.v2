@@ -50,7 +50,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
           }
         });
         triedTimes = !hit ? 0 : triedTimes + 1;
-        if (!hit ) {//support mobile
+        if (!hit) {//support mobile
           var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
           //console.log()
           randomCircles.push({
@@ -95,6 +95,14 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       var width = this.getBBox().width;
       while ((width = this.getBBox().width + 5) > 2 * d.radius) {
         d3.select(this).style("font-size", function (d) {return --d.termLabel.fontSize + "px";});
+      }
+    },
+
+    calculateTextSizeInBigBox: function (d, i) {
+      var fontSize = d.termLabel.fontSize;
+      var width = this.getBBox().width;
+      while ((width = this.getBBox().width + 5) <= 2 * d.radius) {
+        d3.select(this).style("font-size", function (d) {return --fontSize + "px";});
       }
     },
 
@@ -149,7 +157,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
           return box.radiusInner;
         })
         .each("end", function () {
-          node.append("text").classed({clickMe: true}).transition().duration(300).style("opacity", "0.8")
+          node.append("text").classed({clickMe: true})
             .attr("dy", function (d) {return "60px";})
             .style({
               "font-size": "12px",
@@ -161,7 +169,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
             .attr("x", function (d) {return node.select("text.termLabel").attr("x");})
             .attr("y", function (d) {return node.select("text.termLabel").attr("y");});
           $translate("clickBubbleChartTip").then(function (translation) {
-            node.select(".clickMe").text(translation);
+            node.select(".clickMe").text(translation).style("opacity", 0).transition().duration(500).style("opacity", "0.8");
           });
         });
 
@@ -170,8 +178,9 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
 
       node.selectAll("text.termLabel").transition().duration(1000)
         .attr("dy", function (d) {return "40px";})
-        .style("font-size", function (d) { return "30px";})
-        .selectAll("tspan").attr({x: "", y: "", dy: ""});
+        //.each($$.calculateTextSizeInBigBox);
+        .style("font-size", function (d) { return "30px";});
+        //.selectAll("tspan").attr({x: "", y: "", dy: ""});
     },
 
     moveToReflection: function (node, box, swapped) {
@@ -210,7 +219,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       node.style("cursor", "pointer").on("click", function (d) {
         var d3Node = d3.select(this);
         if (d3Node.selectAll("text.clickMe")[0].length === 1) {
-          //console.log(d3Node.attr("class"));
           utils.go2SkillAnalyticPage(scope, d3Node.attr("class").split(" ")[1]);
           return false;
         }
@@ -233,12 +241,8 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.moveToCenter(d3.select([".node", ".", termName].join("")), box);
     },
 
-    setScope: function ($scope) {
-      scope = $scope;
-    },
-
     able2SwitchScope: function () {
-      return $(".chart-contrainer").is(":visible");
+      return $(".bubble-chart-container").is(":visible");
     },
 
     changeLang: function () {
@@ -248,22 +252,24 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     }
   }
 
-  utils.registerNotification(jsonValue.notifications.switchScope, $$.setScope, $$.able2SwitchScope);
+  utils.registerNotification(jsonValue.notifications.switchScope, function ($scope) {scope = $scope}, $$.able2SwitchScope);
   utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.able2SwitchScope);
 
-  return {
+  var instance = {
 
-    initializeAnimation: function () {
-      //var width = 320;
-      //var height = 640;
-      var width = $(".chart-contrainer").width();
-      var height = $(".chart-contrainer").height();
+    renderView: function ($terms) {
+      terms = termService.toViewTerms($terms);
+
+      var width = 500;
+      var height = 500;
+      //var width = $(".bubble-chart-container").width();
+      //var height = $(".bubble-chart-container").height();
       var box = $$.getBox(width, height);
       var randomCircles = $$.getCircles(box);
 
       var svg = d3.select(".bubble-chart-container").append("svg")
         .attr({preserveAspectRatio: "xMidYMid", width: width, height: height, class: "bubbleChart"})
-        .attr("viewBox", function(d) {return ["0 0", width, height].join(" ")});
+        .attr("viewBox", function (d) {return ["0 0", width, height].join(" ")});
       //.style("background", "white");
 
       var node = svg.selectAll(".node")
@@ -299,12 +305,15 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       //  .attr("opacity", "0.2");
     },
 
-    setTerms: function ($terms) {
-      terms = termService.toViewTerms($terms);
-    },
-
-    draw: function (bubbleItem, force) {
-
+    updateViewTerm: function(term) {
+      var node = d3.select(["g.node", term.term].join("."));
+      var nodeTermCount = node.select("text.termCount");
+      if (nodeTermCount.text() === "" + term.count) {
+        return false;
+      }
+      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(500).style("opacity", "1");
     }
   }
+
+  return instance;
 });
