@@ -10,6 +10,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
         instance.trackHistory();
         break;
     }
+    utils.sendNotification(jsonValue.notifications.changeUrl);
   });
 
   var instance = {

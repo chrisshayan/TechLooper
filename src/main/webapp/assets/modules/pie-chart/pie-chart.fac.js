@@ -6,7 +6,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
   var labels = [];
 
   var $$ = {
-    able2SwitchScope: function () {
+    enableNotifications: function () {
       return $(".pie-Chart-Container").is(":visible");
     },
 
@@ -24,8 +24,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       data4PieChart = {colors: [], data: []};
     }
   }
-  utils.registerNotification(jsonValue.notifications.switchScope, $$.switchScope, $$.able2SwitchScope);
-  //utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.able2SwitchScope);
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.switchScope, $$.enableNotifications);
 
   var instance = {
     renderView: function ($terms) {

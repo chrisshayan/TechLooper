@@ -60,6 +60,10 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         $('.term-infor-chart .number').addClass('small');
       }
       $('.term-infor-chart .number').append(rename);
+    },
+
+    enableNotifications: function() {
+      return $(".top10Circles").is(":visible");
     }
   }
 

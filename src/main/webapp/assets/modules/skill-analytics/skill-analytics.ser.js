@@ -65,6 +65,10 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       renderView: function() {
         $$.renderPeriodRadios();
+      },
+
+      enableNotifications: function() {
+        return $("div.technical-detail-page").is(":visible");
       }
     }
 
@@ -118,8 +122,8 @@ angular.module("Skill").factory("skillAnalyticsService",
       }
     }
 
-    utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, function () {return $("div.technical-detail-page").is(":visible");});
-    utils.registerNotification(jsonValue.notifications.mouseHover, $$.highLight, function () {return $("div.technical-detail-page").is(":visible");});
+    utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.mouseHover, $$.highLight, $$.enableNotifications);
 
     return instance;
   });
