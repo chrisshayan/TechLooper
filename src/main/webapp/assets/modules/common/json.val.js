@@ -16,7 +16,8 @@ angular.module("Common").constant("jsonValue", {
     defaultAction: "default action",
     mouseHover: "Mouse Hover",
     gotData: "Got Data",
-    changeLang: "Change language"
+    changeLang: "Change language",
+    changeUrl: "Change URL"
   },
 
   viewTerms: {

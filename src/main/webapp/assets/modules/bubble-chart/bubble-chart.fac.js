@@ -240,10 +240,8 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.moveToCenter(d3.select([".node", ".", termName].join("")), box);
     },
 
-    able2SwitchScope: function () {
-      var visible = $(".bubble-chart-container").is(":visible");
-      !visible && $$.unregisterResponsive();
-      return visible;
+    enableNotifications: function () {
+      return $(".bubble-chart-container").is(":visible");
     },
 
     changeLang: function () {
@@ -254,7 +252,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     registerResponsive: function(svg){
       $(window).resize(function() {
         var width = $(".bubble-chart-container").width();
-        console.log(width);
         svg.attr("width", width);
         svg.attr("height", width);
       });
@@ -265,8 +262,9 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     }
   }
 
-  utils.registerNotification(jsonValue.notifications.switchScope, function ($scope) {scope = $scope}, $$.able2SwitchScope);
-  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.able2SwitchScope);
+  utils.registerNotification(jsonValue.notifications.switchScope, function ($scope) {scope = $scope}, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeUrl, function() {$$.unregisterResponsive();}, $$.enableNotifications);
 
   var instance = {
 
