@@ -204,15 +204,12 @@ Array.prototype.toArray = function (prop) {
 }
 
 Array.prototype.shuffle = function () {
-  var copy = [], n = this.length, i;
-  var clone = this.slice(0);
-  while (n) {
-    i = Math.floor(Math.random() * clone.length);
-    if (i in clone) {
-      copy.push(clone[i]);
-      delete clone[i];
-      n--;
-    }
+  var m = this.length, t, i;
+  while (m) {
+    i = Math.floor(Math.random() * m--);
+    t = this[m];
+    this[m] = this[i];
+    this[i] = t;
   }
-  return copy;
+  return this;
 }
