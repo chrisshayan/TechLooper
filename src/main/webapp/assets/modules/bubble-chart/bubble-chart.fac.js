@@ -12,7 +12,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 33,//change this to support mobile 320x640
+        radiusMin: 33,
         radiusMax: 60,
         fontMin: 10,
         fontMax: 20
@@ -178,7 +178,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
 
       node.selectAll("text.termLabel").transition().duration(1000)
         .attr("dy", function (d) {return "40px";})
-        .style("font-size", function (d) { return utils.isMobile() ? "22px" : "30px";});
+        .style("font-size", function (d) { return utils.isMobile() ? "25px" : "30px";});
       
     },
 
