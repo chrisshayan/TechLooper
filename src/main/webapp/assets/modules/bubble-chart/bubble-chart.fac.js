@@ -269,7 +269,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
   var instance = {
 
     renderView: function ($terms) {
-      terms = termService.toViewTerms($terms);
+      terms = termService.toViewTerms($terms).shuffle();
 
       //var size = utils.isMobile() ? 300 : 500;//  $(".bubble-chart-container").width();
       var size = 500;//  $(".bubble-chart-container").width();
@@ -293,26 +293,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.registerClickEvent(box, svg);
       $$.selectBiggest(box);
       $$.registerResponsive(svg);
-
-      //svg.selectAll(".innerCircle")
-      //  .data([{r: box.innerRadius, cx: box.width / 2, cy: box.width / 2}])
-      //  .enter().append("circle")
-      //  .attr("r", function(d){return box.radiusInner + "px";})
-      //  .attr("cx", function(d){return d.cx;})
-      //  .attr("cy", function(d){return d.cy;})
-      //  .style("stroke", "#000066")
-      //  .style("fill", function (d) { return "red"; })
-      //  .attr("opacity", "0.2");
-      //
-      //svg.selectAll(".outerCircle")
-      //  .data([{r: box.outerRadius,  cx: box.width / 2, cy: box.width / 2}])
-      //  .enter().append("circle")
-      //  .attr("r", function(d){return box.radiusOuter  + "px";})
-      //  .attr("cx", function(d){return box.width / 2;})
-      //  .attr("cy", function(d){return box.width / 2;})
-      //  .style("stroke", "#000066")
-      //  .style("fill", function (d) { return "red"; })
-      //  .attr("opacity", "0.2");
     },
 
     updateViewTerm: function (term) {

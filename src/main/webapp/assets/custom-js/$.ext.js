@@ -202,3 +202,17 @@ Array.prototype.toArray = function (prop) {
   $.each(this, function (i, v) {values.push(v[prop]);});
   return values;
 }
+
+Array.prototype.shuffle = function () {
+  var copy = [], n = this.length, i;
+  var clone = this.slice(0);
+  while (n) {
+    i = Math.floor(Math.random() * clone.length);
+    if (i in clone) {
+      copy.push(clone[i]);
+      delete clone[i];
+      n--;
+    }
+  }
+  return copy;
+}
