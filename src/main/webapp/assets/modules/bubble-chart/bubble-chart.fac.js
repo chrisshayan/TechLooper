@@ -12,7 +12,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 45,//change this to support mobile 320x640
+        radiusMin: 40,//change this to support mobile 320x640
         radiusMax: 60,
         fontMin: 10,
         fontMax: 20
@@ -30,12 +30,12 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       //var minTermCount = terms.minBy("count");
 
       if (utils.isMobile()) {box.radiusMin = 30;}
-      var triedTimes = 0;
-      while (randomCircles.length < terms.length) {
+      var angle = -1;
+      while (randomCircles.length < terms.length && ++angle <= 360) {
         var value = terms[randomCircles.length].count;//243 => radiusMax
         var radius = Math.max((value * box.radiusMax) / termCountMax, box.radiusMin);
         var distFromCenter = box.radiusInner + radius + Math.random() * (box.radiusOuter - box.radiusInner - radius * 2);
-        var angle = Math.random() * box.pi2;
+        //var angle = Math.random() * box.pi2 + triedTimes;
         var cx = box.xCenter + distFromCenter * Math.cos(angle);
         var cy = box.yCenter + distFromCenter * Math.sin(angle);
 
@@ -49,7 +49,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
             return false;
           }
         });
-        triedTimes = !hit ? 0 : triedTimes + 1;
         if (!hit) {//support mobile
           var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
           //console.log()
@@ -69,6 +68,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
             }
           });
         }
+        //triedTimes = !hit ? 0 : triedTimes + 1;
       }
       return randomCircles;
     },
