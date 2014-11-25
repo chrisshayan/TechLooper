@@ -1,6 +1,7 @@
 [
     {
-        "name" : "JAVA",
+        "key" : "JAVA",
+        "name" : "java",
         "logoUrl" : "java-logo.png",
         "webSite" : "www.java.com",
         "usefulLinks" : [
@@ -49,7 +50,8 @@
         ]
     },
     {
-        "name" : "PHP",
+        "key" : "PHP",
+        "name" : "php",
         "skills" : [
             {
                 "name" : "Symfony"
@@ -60,7 +62,8 @@
         ]
     },
     {
-        "name" : "DOTNET",
+        "key" : "DOTNET",
+        "name" : ".net",
         "skills" : [
             {
                 "name" : "ASP.NET"
@@ -71,7 +74,8 @@
         ]
     },
     {
-        "name" : "RUBY",
+        "key" : "RUBY",
+        "name" : "ruby",
         "skills" : [
             {
                 "name" : "Rails"
@@ -82,7 +86,8 @@
         ]
     },
     {
-        "name" : "PYTHON",
+        "key" : "PYTHON",
+        "name" : "python",
         "skills" : [
             {
                 "name" : "django"
@@ -93,7 +98,8 @@
         ]
     },
     {
-        "name" : "PROJECT_MANAGER",
+        "key" : "PROJECT_MANAGER",
+        "name" : "project manager",
         "skills" : [
             {
                 "name" : "scrum"
@@ -104,7 +110,8 @@
         ]
     },
     {
-        "name" : "DBA",
+        "key" : "DBA",
+        "name" : "dba",
         "skills" : [
             {
                 "name" : "mysql"
@@ -115,7 +122,8 @@
         ]
     },
     {
-        "name" : "QA",
+        "key" : "QA",
+        "name" : "qa",
         "skills" : [
             {
                 "name" : "selenium"
@@ -126,7 +134,8 @@
         ]
     },
     {
-        "name" : "BA",
+        "key" :"BA",
+        "name" : "business analyst",
         "skills" : [
             {
                 "name" : "business analyst"
