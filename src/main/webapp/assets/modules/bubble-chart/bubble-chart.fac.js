@@ -12,7 +12,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 40,//change this to support mobile 320x640
+        radiusMin: 33,//change this to support mobile 320x640
         radiusMax: 60,
         fontMin: 10,
         fontMax: 20
