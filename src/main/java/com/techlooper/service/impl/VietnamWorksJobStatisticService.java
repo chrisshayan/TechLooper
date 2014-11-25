@@ -58,6 +58,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         return toSkillStatisticResponse(term, elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations));
     }
 
+    /**
+     *
+     * @param term See more {@link com.techlooper.model.TechnicalTerm}
+     * @param aggregations See more {@link org.elasticsearch.search.aggregations.Aggregations}
+     * @return Returns an instance of {@link com.techlooper.model.SkillStatisticResponse} which is having detail information for each technical term.
+     */
     private SkillStatisticResponse toSkillStatisticResponse(TechnicalTerm term, Aggregations aggregations) {
         final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.getKey());
         InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
@@ -70,10 +76,15 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
                         Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())));
 
-        return skillStatisticResponse.withSkills(toSkillStatistic(skillHistogramsMap)).build();
+        return skillStatisticResponse.withSkills(getSkillStatisticsByName(skillHistogramsMap)).build();
     }
 
-    private List<SkillStatistic> toSkillStatistic(Map<String, List<Long>> skillHistogramsMap) {
+    /**
+     * Loads data for each skill
+     * @param skillHistogramsMap key is skillName like spring and the value list of duration like 7 days or 30 days
+     * @return An instance of {@link com.techlooper.model.SkillStatistic}
+     */
+    private List<SkillStatistic> getSkillStatisticsByName(Map<String, List<Long>> skillHistogramsMap) {
         Map<String, SkillStatistic.Builder> skillStatisticMap = new HashMap<>();
         skillHistogramsMap.forEach((bucketName, docCounts) -> {
             String[] skillNameParts = bucketName.split("-");
@@ -85,12 +96,23 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         return skillStatisticMap.keySet().stream().map(key -> skillStatisticMap.get(key).build()).collect(Collectors.toList());
     }
 
+    /**
+     * Builds a filter to use on Elastic Search
+     * @param term See more at {@link com.techlooper.model.TechnicalTerm}
+     * @return The builder to be used for filtering the data on ES
+     */
     private FilterAggregationBuilder getTermsAggregationNotExpired(TechnicalTerm term) {
         FilterAggregationBuilder aggregation = AggregationBuilders.filter(ALL_TERMS).filter(jobQueryBuilder.getTechnicalTermsQueryNotExpired());
         aggregation.subAggregation(jobQueryBuilder.getTechnicalTermAggregation(term));
         return aggregation;
     }
 
+    /**
+     *
+     * @param term See more at {@link com.techlooper.model.TechnicalTerm}
+     * @param histogramEnums See more at {@link com.techlooper.model.HistogramEnum}
+     * @return List of filters.
+     */
     private List<List<FilterAggregationBuilder>> getAggregationsSkillNotExpired(TechnicalTerm term, HistogramEnum... histogramEnums) {
         List<List<FilterAggregationBuilder>> list = new ArrayList<>();
         Arrays.stream(histogramEnums)
