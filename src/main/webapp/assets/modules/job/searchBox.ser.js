@@ -24,7 +24,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     },
 
-    able2InitializeSearchTextbox: function() {
+    enableNotifications: function() {
       return $('.searchText').is(":visible");
     },
 
@@ -140,7 +140,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     }
   }
 
-  utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.able2InitializeSearchTextbox);
-  utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.able2InitializeSearchTextbox);
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.enableNotifications);
   return instance;
 });
