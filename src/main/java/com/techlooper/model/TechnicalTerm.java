@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class TechnicalTerm {
 
+    private String key;
     private String name;
     private String logoUrl;
     private String webSite;
@@ -15,6 +16,14 @@ public class TechnicalTerm {
 
     public TechnicalTerm() {
 
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {

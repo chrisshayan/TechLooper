@@ -54,7 +54,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     public AggregationBuilder getTechnicalTermAggregation(TechnicalTerm term) {
-        return AggregationBuilders.filter(term.getName()).filter(this.getTechnicalTermQuery(term));
+        return AggregationBuilders.filter(term.getKey()).filter(this.getTechnicalTermQuery(term));
     }
 
     /**
