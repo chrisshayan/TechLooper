@@ -59,12 +59,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     private SkillStatisticResponse toSkillStatisticResponse(TechnicalTerm term, Aggregations aggregations) {
-        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.getName());
+        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.getKey());
         InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
         skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
-        skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.getName())).getDocCount());
+        skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.getKey())).getDocCount());
 
-        InternalFilter termAggregation = aggregations.get(term.getName());
+        InternalFilter termAggregation = aggregations.get(term.getKey());
         Map<String, List<Long>> skillHistogramsMap = termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
                 .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
                 .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
