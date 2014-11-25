@@ -1,5 +1,5 @@
 angular.module('Register').controller('registerController', function (shortcutFactory) {
-
+	utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 	$('input[type="checkbox"]').checkbox();
 
 	$("#salary").slider({});

@@ -3,25 +3,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
   var scope;
 
   var $$ = {
-    getMobileBox: function (width, height) {
-      var wBox = Math.min(width, height);
-      var box = {
-        width: wBox,
-        pi2: Math.PI * 2,
-        xCenter: wBox / 2,
-        yCenter: wBox / 2,
-        radiusInner: wBox / 3.5,
-        radiusOuter: wBox / 2,
-        radiusMin: 45,//change this to support mobile 320x640
-        radiusMax: 60,
-        fontMin: 10,
-        fontMax: 20
-        //fnColor: d3.scale.category20()
-      }
-      box.radiusMax = (box.radiusOuter - box.radiusInner) / 2;
-      return box;
-    },
-
     getBox: function (width, height) {
       var wBox = Math.min(width, height);
       var box = {
@@ -193,13 +174,12 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         });
 
       node.selectAll("text.termCount").transition().duration(1000)
-        .style("font-size", function (d) { return "45px";});
+        .style("font-size", function (d) { return utils.isMobile()? "35px": "45px";});
 
       node.selectAll("text.termLabel").transition().duration(1000)
         .attr("dy", function (d) {return "40px";})
-        //.each($$.calculateTextSizeInBigBox);
-        .style("font-size", function (d) { return "30px";});
-      //.selectAll("tspan").attr({x: "", y: "", dy: ""});
+        .style("font-size", function (d) { return utils.isMobile() ? "22px" : "30px";});
+      
     },
 
     moveToReflection: function (node, box, swapped) {
@@ -261,13 +241,27 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     },
 
     able2SwitchScope: function () {
-      return $(".bubble-chart-container").is(":visible");
+      var visible = $(".bubble-chart-container").is(":visible");
+      !visible && $$.unregisterResponsive();
+      return visible;
     },
 
     changeLang: function () {
       $translate("clickBubbleChartTip").then(function (translation) {
         d3.select(".clickMe").text(translation);
       });
+    },
+    registerResponsive: function(svg){
+      $(window).resize(function() {
+        var width = $(".bubble-chart-container").width();
+        console.log(width);
+        svg.attr("width", width);
+        svg.attr("height", width);
+      });
+      $(window).resize();
+    },
+    unregisterResponsive: function(){
+      $(window).off("resize");
     }
   }
 
@@ -279,16 +273,14 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     renderView: function ($terms) {
       terms = termService.toViewTerms($terms);
 
-      var width = 500;
-      var height = 500;
-      //var width = $(".bubble-chart-container").width();
-      //var height = $(".bubble-chart-container").height();
-      var box = utils.isMobile() ? $$.getMobileBox(width, height) :  $$.getBox(width, height);
+      //var size = utils.isMobile() ? 300 : 500;//  $(".bubble-chart-container").width();
+      var size = 500;//  $(".bubble-chart-container").width();
+      var box = $$.getBox(size, size);
       var randomCircles = $$.getCircles(box);
 
       var svg = d3.select(".bubble-chart-container").append("svg")
-        .attr({preserveAspectRatio: "xMidYMid", width: width, height: height, class: "bubbleChart"})
-        .attr("viewBox", function (d) {return ["0 0", width, height].join(" ")});
+        .attr({preserveAspectRatio: "xMidYMid", width: size, height: size, class: "bubbleChart"})
+        .attr("viewBox", function (d) {return ["0 0", size, size].join(" ")});
       //.style("background", "white");
 
       var node = svg.selectAll(".node")
@@ -302,6 +294,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.setStyleText(node);
       $$.registerClickEvent(box, svg);
       $$.selectBiggest(box);
+      $$.registerResponsive(svg);
 
       //svg.selectAll(".innerCircle")
       //  .data([{r: box.innerRadius, cx: box.width / 2, cy: box.width / 2}])
