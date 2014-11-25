@@ -100,8 +100,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       subscription = stompClient.subscribe(uri, function (response) {
         scope.$emit(events.term + term.term, {
           count: JSON.parse(response.body).count,
-          term: term.term,
-          termName: term.name
+          term: term.term
         });
       });
       subscriptions[uri] = subscription;
