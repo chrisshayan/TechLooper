@@ -1,7 +1,7 @@
 angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils) {
   var instance = {
     renderView: function (viewJson) {
-      var period = viewJson.tableAndChartJson[0].preAndCurrCountPeriod;
+      var period = viewJson.period;
       var from = utils.getDatePeriods(2, period).ago().toString("MMM d");
       var to = (0).days().fromNow().toString("MMM d");
       var between = utils.getDatePeriods(1, period).ago().toString("MMM d");

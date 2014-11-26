@@ -42,7 +42,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     public FilterBuilder getTechnicalTermQuery(TechnicalTerm term) {
-        return FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(term.getName(), SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND));
+        BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+        term.getSearchTexts().stream().map(termName ->
+                FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(termName, SEARCH_JOB_FIELDS)
+                              .operator(MatchQueryBuilder.Operator.AND))).forEach(boolFilter::should);
+        return boolFilter;
     }
 
     public FilterBuilder getTechnicalSkillQuery(Skill skill) {

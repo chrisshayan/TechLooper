@@ -3,39 +3,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
-    coffee: {
-      local: {
-        options: {
-          bare: true
-        },
-        expand: true,
-        cwd: "<%=pkg.assets%>",
-        src: ['custom-js/**/*.coffee', 'modules/**/*.coffee'],
-        dest: '<%=pkg.assets%>',
-        rename: function (dest, src) {
-          var folder = src.substring(0, src.lastIndexOf('/'));
-          var filename = src.substring(src.lastIndexOf('/'), src.length);
-          filename = filename.substring(0, filename.lastIndexOf('.'));
-          return dest + folder + filename + '.coffee.js';
-        }
-      },
-      release: {
-        options: {
-          bare: true
-        },
-        expand: true,
-        cwd: "<%=pkg.public%>",
-        src: ['custom-js/**/*.coffee', 'modules/**/*.coffee'],
-        dest: '<%=pkg.public%>',
-        rename: function (dest, src) {
-          var folder = src.substring(0, src.lastIndexOf('/'));
-          var filename = src.substring(src.lastIndexOf('/'), src.length);
-          filename = filename.substring(0, filename.lastIndexOf('.'));
-          return dest + folder + filename + '.coffee.js';
-        }
-      }
-    },
-
     ngAnnotate: {
       main: {
         files: [{
@@ -51,11 +18,10 @@ module.exports = function (grunt) {
       build: ["<%=pkg.public%>"],
       release: [
         "<%=pkg.public%>index.tem.html",
-        "<%=pkg.public%>**/*.coffee",
         "<%=pkg.public%>sass",
         "<%=pkg.assets%>css",
         "<%=pkg.public%>custom-js",
-        "<%=pkg.assets%>css"
+        "<%=pkg.public%>css"
       ]
     },
 
@@ -184,12 +150,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks('grunt-ng-annotate');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
 
   grunt.registerTask("build", [
     "clean:build",
     "copy:build",
-    "coffee:release",
     "ngAnnotate:main",
     "bower-install-simple",
     "includeSource:target",
@@ -204,7 +168,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask("local", [
     "clean:build",
-    "coffee:local",
     "copy",
     "bower-install-simple",
     "includeSource:target",
