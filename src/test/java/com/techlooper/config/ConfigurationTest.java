@@ -41,9 +41,6 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Resource
     private Environment environment;
 
-    @Value("classpath:skill.json")
-    private org.springframework.core.io.Resource skillJsonResource;
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
@@ -72,13 +69,6 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public JobSearchService jobSearchService() {
         return new VietnamWorksJobSearchService();
-    }
-
-    @Bean
-    public List<TechnicalTerm> technicalTerms() throws IOException {
-        String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
-        Optional<List<TechnicalTerm>> termOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
-        return termOptional.get();
     }
 
     @Bean

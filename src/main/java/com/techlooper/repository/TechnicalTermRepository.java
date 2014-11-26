@@ -50,4 +50,8 @@ public class TechnicalTermRepository {
     public void refresh() {
 
     }
+
+    public Resource getSkillJsonResource() {
+        return skillJsonResource;
+    }
 }

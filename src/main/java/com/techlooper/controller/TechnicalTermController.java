@@ -26,14 +26,11 @@ public class TechnicalTermController {
     @Resource
     private TechnicalTermRepository technicalTermRepository;
 
-    @Value("classpath:skill.json")
-    private org.springframework.core.io.Resource skillJsonResource;
-
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile uploadFile){
         if (!uploadFile.isEmpty()) {
             try {
-                File uploadedFile = skillJsonResource.getFile();
+                File uploadedFile = technicalTermRepository.getSkillJsonResource().getFile();
                 IOUtils.write(uploadFile.getBytes(), new BufferedOutputStream(new FileOutputStream(uploadedFile)));
                 technicalTermRepository.refresh();
                 return "Upload Successfully";

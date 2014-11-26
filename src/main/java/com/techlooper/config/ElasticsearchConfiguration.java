@@ -34,9 +34,6 @@ public class ElasticsearchConfiguration {
     @Resource
     private TransportClient transportClient;
 
-    @Value("classpath:skill.json")
-    private org.springframework.core.io.Resource skillJsonResource;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
 
     @Bean
@@ -50,12 +47,5 @@ public class ElasticsearchConfiguration {
     @Bean
     public ElasticsearchOperations elasticsearchTemplate() {
         return new ElasticsearchTemplate(transportClient);
-    }
-
-    @Bean
-    public List<TechnicalTerm> technicalTerms() throws IOException {
-        String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
-        Optional<List<TechnicalTerm>> termOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
-        return termOptional.get();
     }
 }
