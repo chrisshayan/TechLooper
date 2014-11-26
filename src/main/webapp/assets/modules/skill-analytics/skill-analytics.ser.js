@@ -25,7 +25,7 @@ angular.module("Skill").factory("skillAnalyticsService",
         var nonZeroMergeItems = utils.getNonZeroItems(mergeItems, ["previousCount", "currentCount"]);
         topItems = $.merge(nonZeroMergeItems,
           utils.getNonZeroItems(topItems, ["previousCount", "currentCount"]));
-        viewJson.tableAndChartJson = $.distinct(topItems);
+        viewJson.tableAndChartJson = topItems.distinct();
         return viewJson.tableAndChartJson;
       },
 
