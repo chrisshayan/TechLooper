@@ -176,12 +176,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
     //  }
     //  return webName;
     //},
-    getTermColor: function(termName){
-      for(var i = 0; i < jsonValue.termColor.length; i ++){
-          if(jsonValue.termColor[i].Name == termName){
-             return jsonValue.termColor[i].color;
-          }
-      }
-    }
+    //getTermColor: function(termName){
+    //  for(var i = 0; i < jsonValue.termColor.length; i ++){
+    //      if(jsonValue.termColor[i].Name == termName){
+    //         return jsonValue.termColor[i].color;
+    //      }
+    //  }
+    //}
   }
 });
