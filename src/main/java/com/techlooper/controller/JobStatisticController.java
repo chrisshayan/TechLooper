@@ -37,7 +37,7 @@ public class JobStatisticController {
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
         technicalTerms.stream().forEach(term ->
-                        terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey())
+                        terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey()).withLabel(term.getLabel())
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
         return terms;

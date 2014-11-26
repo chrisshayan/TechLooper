@@ -5,6 +5,8 @@ public class TechnicalTermResponse {
 
     private String term;
 
+    private String label;
+
     private Long count;
 
     public String getTerm() {
@@ -13,6 +15,14 @@ public class TechnicalTermResponse {
 
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public Long getCount() {
@@ -34,6 +44,11 @@ public class TechnicalTermResponse {
 
         public Builder withTerm(String term) {
             instance.term = term;
+            return this;
+        }
+
+        public Builder withLabel(String label) {
+            instance.label = label;
             return this;
         }
 

@@ -1,7 +1,8 @@
 [
     {
         "key" : "JAVA",
-        "name" : "java",
+        "searchTexts" : ["java","j2ee"],
+        "label" : "Java",
         "logoUrl" : "java-logo.png",
         "webSite" : "www.java.com",
         "usefulLinks" : [
@@ -51,7 +52,8 @@
     },
     {
         "key" : "PHP",
-        "name" : "php",
+        "searchTexts" : ["php"],
+        "label" : "PHP",
         "skills" : [
             {
                 "name" : "Symfony"
@@ -63,7 +65,8 @@
     },
     {
         "key" : "DOTNET",
-        "name" : ".net",
+        "searchTexts" : [".net", "asp.net"],
+        "label" : ".NET",
         "skills" : [
             {
                 "name" : "ASP.NET"
@@ -75,7 +78,8 @@
     },
     {
         "key" : "RUBY",
-        "name" : "ruby",
+        "searchTexts" : ["ruby","ruby on rails"],
+        "label" : "Ruby",
         "skills" : [
             {
                 "name" : "Rails"
@@ -87,7 +91,8 @@
     },
     {
         "key" : "PYTHON",
-        "name" : "python",
+        "searchTexts" : ["python"],
+        "label" : "Python",
         "skills" : [
             {
                 "name" : "django"
@@ -99,7 +104,8 @@
     },
     {
         "key" : "PROJECT_MANAGER",
-        "name" : "project manager",
+        "searchTexts" : ["project manager"],
+        "label" : "Project Manager",
         "skills" : [
             {
                 "name" : "scrum"
@@ -111,7 +117,8 @@
     },
     {
         "key" : "DBA",
-        "name" : "dba",
+        "searchTexts" : ["database", "database administrator", "data analyst", "data scientist"],
+        "label" : "DBA",
         "skills" : [
             {
                 "name" : "mysql"
@@ -123,7 +130,8 @@
     },
     {
         "key" : "QA",
-        "name" : "qa",
+        "searchTexts" : ["qa", "qc"],
+        "label" : "QA",
         "skills" : [
             {
                 "name" : "selenium"
@@ -135,7 +143,8 @@
     },
     {
         "key" :"BA",
-        "name" : "business analyst",
+        "searchTexts" : ["business analyst", "business consultant"],
+        "label" : "BA",
         "skills" : [
             {
                 "name" : "business analyst"
@@ -146,102 +155,15 @@
         ]
     },
     {
-        "key" : "MOBILE",
-        "name" : "java",
-        "logoUrl" : "java-logo.png",
-        "webSite" : "www.java.com",
-        "usefulLinks" : [
-            {
-                "name" : "Dzone",
-                "url" : "java.dzone.com"
-            },
-            {
-                "name" : "JavaWorld",
-                "url" : "www.javaworld.com"
-            }
-        ],
+        "key" :"CPLUSPLUS",
+        "searchTexts" : ["C", "C++"],
+        "label" : "C/C++",
         "skills" : [
             {
-                "name" : "Spring",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
-                "usefulLinks" : [
-                    {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
-                    }
-                ]
-
+                "name" : "C"
             },
             {
-                "name" : "Hibernate",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
-                "usefulLinks" : [
-                    {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
-                    }
-                ]
-
-            }
-        ]
-    },
-    {
-        "key" : "WEB",
-        "name" : "java",
-        "logoUrl" : "java-logo.png",
-        "webSite" : "www.java.com",
-        "usefulLinks" : [
-            {
-                "name" : "Dzone",
-                "url" : "java.dzone.com"
-            },
-            {
-                "name" : "JavaWorld",
-                "url" : "www.javaworld.com"
-            }
-        ],
-        "skills" : [
-            {
-                "name" : "Spring",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
-                "usefulLinks" : [
-                    {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
-                    }
-                ]
-
-            },
-            {
-                "name" : "Hibernate",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
-                "usefulLinks" : [
-                    {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
-                    }
-                ]
-
+                "name" : "C++"
             }
         ]
     }
