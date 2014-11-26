@@ -23,7 +23,8 @@
       "JSONPath": "latest",
       "DateJS": "latest",
       "d3": "latest",
-      "d3-transform": "latest"
+      "d3-transform": "latest",
+      "parallax": "latest"
    },
    "overrides": {
       "jquery": {
