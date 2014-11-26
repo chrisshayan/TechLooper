@@ -12,10 +12,10 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 33,
-        radiusMax: 60,
-        fontMin: 10,
-        fontMax: 20
+        radiusMin: 50, //it is in pixel
+        radiusMax: 60, //it is in pixel
+        fontMin: 10, //it is in pixel
+        fontMax: 20 //it is in pixel
         //fnColor: d3.scale.category20()
       }
       box.radiusMax = (box.radiusOuter - box.radiusInner) / 2;
