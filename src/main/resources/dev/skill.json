@@ -52,6 +52,9 @@
                 "name" : "Tomcat"
             },
             {
+                "name" : "REST"
+            },
+            {
                 "name" : "Maven"
             },
             {
@@ -125,7 +128,10 @@
                 "name" : "MySQL"
             },
             {
-                "name" : "MongoDB"
+                "name" : "LAMP"
+            },
+            {
+                "name" : "drupal"
             },
             {
                 "name" : "PostgreSQL"
@@ -166,6 +172,15 @@
             },
             {
                 "name" : "SQL Server"
+            },
+            {
+                "name" : "MVC"
+            },
+            {
+                "name" : "Web Form"
+            },
+            {
+                "name" : "C#"
             },
             {
                 "name" : "SharePoint"
@@ -236,6 +251,9 @@
             },
             {
                 "name" : "NoSQL"
+            },
+            {
+                "name" : "grape"
             },
             {
                 "name" : "Redis"

@@ -12,7 +12,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 50, //it is in pixel
+        radiusMin: 45, //it is in pixel
         radiusMax: 60, //it is in pixel
         fontMin: 14, //it is in pixel
         fontMax: 20 //it is in pixel
