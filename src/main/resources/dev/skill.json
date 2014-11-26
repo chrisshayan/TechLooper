@@ -47,6 +47,51 @@
                     }
                 ]
 
+            },
+            {
+                "name" : "Tomcat"
+            },
+            {
+                "name" : "Maven"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : "JUnit"
+            },
+            {
+                "name" : "Jenkins"
+            },
+            {
+                "name" : "Eclipse"
+            },
+            {
+                "name" : "JSP"
+            },
+            {
+                "name" : "J2EE"
+            },
+            {
+                "name" : "XML"
+            },
+            {
+                "name" : "Web Services"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "JSON"
+            },
+            {
+                "name" : "JMS"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "Continuous Integration"
             }
         ]
     },
@@ -59,7 +104,55 @@
                 "name" : "Symfony"
             },
             {
-                "name" : "Zend Framework"
+                "name" : "Zend"
+            },
+            {
+                "name" : "WordPress"
+            },
+            {
+                "name" : "Drupal"
+            },
+            {
+                "name" : "Magento"
+            },
+            {
+                "name" : "OpenCart"
+            },
+            {
+                "name" : "Joomla"
+            },
+            {
+                "name" : "MySQL"
+            },
+            {
+                "name" : "MongoDB"
+            },
+            {
+                "name" : "PostgreSQL"
+            },
+            {
+                "name" : "PHPUnit"
+            },
+            {
+                "name" : "Ajax"
+            },
+            {
+                "name" : "Linux"
+            },
+            {
+                "name" : "Varnish"
+            },
+            {
+                "name" : "Puppet"
+            },
+            {
+                "name" : "CodeIgniter"
+            },
+            {
+                "name" : "CakePHP"
+            },
+            {
+                "name" : "Yii"
             }
         ]
     },
@@ -73,6 +166,60 @@
             },
             {
                 "name" : "SQL Server"
+            },
+            {
+                "name" : "SharePoint"
+            },
+            {
+                "name" : "Azure"
+            },
+            {
+                "name" : "Dynamics CRM"
+            },
+            {
+                "name" : "Visual Studio"
+            },
+            {
+                "name" : "NUnit"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : ".NET Framework"
+            },
+            {
+                "name" : "LINQ"
+            },
+            {
+                "name" : "ASP.NET Web Forms"
+            },
+            {
+                "name" : "Web Services"
+            },
+            {
+                "name" : "IIS"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "Windows Server"
+            },
+            {
+                "name" : "Active Directory"
+            },
+            {
+                "name" : "Sitecore"
+            },
+            {
+                "name" : "Umbraco"
+            },
+            {
+                "name" : "NHibernate"
+            },
+            {
+                "name" : "Dynamics AX"
             }
         ]
     },
@@ -82,10 +229,34 @@
         "label" : "Ruby",
         "skills" : [
             {
-                "name" : "Rails"
+                "name" : "Ruby on Rails"
             },
             {
-                "name" : "grape"
+                "name" : "nginx"
+            },
+            {
+                "name" : "NoSQL"
+            },
+            {
+                "name" : "Redis"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "JSON"
+            },
+            {
+                "name" : "XML"
+            },
+            {
+                "name" : "Web Service"
             }
         ]
     },
@@ -98,7 +269,22 @@
                 "name" : "django"
             },
             {
-                "name" : "pylons"
+                "name" : "linux"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "JSON"
+            },
+            {
+                "name" : "XML"
             }
         ]
     },
@@ -111,7 +297,34 @@
                 "name" : "scrum"
             },
             {
-                "name" : "program manager"
+                "name" : "Project Management"
+            },
+            {
+                "name" : "PMP"
+            },
+            {
+                "name" : "kanban"
+            },
+            {
+                "name" : "SLA"
+            },
+            {
+                "name" : "Organizational Awareness"
+            },
+            {
+                "name" : "Vendor Management"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "CMMI"
+            },
+            {
+                "name" : "Supplier Management"
+            },
+            {
+                "name" : "itil"
             }
         ]
     },
@@ -121,10 +334,43 @@
         "label" : "DBA",
         "skills" : [
             {
-                "name" : "mysql"
+                "name" : "MySql"
             },
             {
-                "name" : "oracle"
+                "name" : "Oracle"
+            },
+            {
+                "name" : "NoSQL"
+            },
+            {
+                "name" : "Hadoop"
+            },
+            {
+                "name" : "MongoDB"
+            },
+            {
+                "name" : "Cassandra"
+            },
+            {
+                "name" : "Couchbase"
+            },
+            {
+                "name" : "DynamoDB"
+            },
+            {
+                "name" : "SQL Server"
+            },
+            {
+                "name" : "Relational Database"
+            },
+            {
+                "name" : "Database Design"
+            },
+            {
+                "name" : "Database Analysis"
+            },
+            {
+                "name" : "Data Warehouse"
             }
         ]
     },
@@ -164,6 +410,53 @@
             },
             {
                 "name" : "C++"
+            },
+            {
+                "name" : "Embedded Systems"
+            },
+            {
+                "name" : "Linux"
+            },
+            {
+                "name" : "GCC"
+            },
+            {
+                "name" : "TCP/IP"
+            },
+            {
+                "name" : "DirectX"
+            }
+        ]
+    },
+    {
+        "key" :"WEB",
+        "searchTexts" : ["web", "front-end"],
+        "label" : "Web",
+        "skills" : [
+            {
+                "name" : "html"
+            },
+            {
+                "name" : "css"
+            },
+            {
+                "name" : "javascript"
+            }
+        ]
+    },
+    {
+        "key" :"MOBILE",
+        "searchTexts" : ["mobile", "android", "ios"],
+        "label" : "Mobile",
+        "skills" : [
+            {
+                "name" : "android"
+            },
+            {
+                "name" : "ios"
+            },
+            {
+                "name" : "windows phone"
             }
         ]
     }
