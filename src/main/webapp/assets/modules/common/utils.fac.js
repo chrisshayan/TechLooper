@@ -143,39 +143,39 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       });
       return val;
     },
-    mappingData: function (serName) {
-      var webName = '';
-      switch (serName) {
-        case 'PROJECT_MANAGER':
-          webName = 'Project Manager'
-          break;
-        case 'QA':
-          webName = 'QA'
-          break;
-        case 'DBA':
-          webName = 'DBA'
-          break;
-        case 'PYTHON':
-          webName = 'Python'
-          break;
-        case 'BA':
-          webName = 'BA'
-          break;
-        case 'RUBY':
-          webName = 'Ruby'
-          break;
-        case 'PHP':
-          webName = 'Php'
-          break;
-        case 'JAVA':
-          webName = 'Java'
-          break;
-        case 'DOTNET':
-          webName = '.NET'
-          break;
-      }
-      return webName;
-    },
+    //mappingData: function (serName) {
+    //  var webName = '';
+    //  switch (serName) {
+    //    case 'PROJECT_MANAGER':
+    //      webName = 'Project Manager'
+    //      break;
+    //    case 'QA':
+    //      webName = 'QA'
+    //      break;
+    //    case 'DBA':
+    //      webName = 'DBA'
+    //      break;
+    //    case 'PYTHON':
+    //      webName = 'Python'
+    //      break;
+    //    case 'BA':
+    //      webName = 'BA'
+    //      break;
+    //    case 'RUBY':
+    //      webName = 'Ruby'
+    //      break;
+    //    case 'PHP':
+    //      webName = 'Php'
+    //      break;
+    //    case 'JAVA':
+    //      webName = 'Java'
+    //      break;
+    //    case 'DOTNET':
+    //      webName = '.NET'
+    //      break;
+    //  }
+    //  return webName;
+    //},
     getTermColor: function(termName){
       for(var i = 0; i < jsonValue.termColor.length; i ++){
           if(jsonValue.termColor[i].Name == termName){

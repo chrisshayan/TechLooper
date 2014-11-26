@@ -54,12 +54,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       });
       $('i.fa-caret-up').show();
 
-      // TODO: find other way to map term's labels
-      var rename = utils.mappingData(viewJson.jobTerm);
-      if (rename.length > 5) {
+      if ($('span.termLabel').width() > $('span.termLabel').parent().width()) {
         $('.term-infor-chart .number').addClass('small');
       }
-      $('.term-infor-chart .number').append(rename);
     },
 
     enableNotifications: function() {

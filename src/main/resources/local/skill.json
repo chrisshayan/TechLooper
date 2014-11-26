@@ -144,5 +144,105 @@
                 "name" : "SAP"
             }
         ]
+    },
+    {
+        "key" : "MOBILE",
+        "name" : "java",
+        "logoUrl" : "java-logo.png",
+        "webSite" : "www.java.com",
+        "usefulLinks" : [
+            {
+                "name" : "Dzone",
+                "url" : "java.dzone.com"
+            },
+            {
+                "name" : "JavaWorld",
+                "url" : "www.javaworld.com"
+            }
+        ],
+        "skills" : [
+            {
+                "name" : "Spring",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            },
+            {
+                "name" : "Hibernate",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            }
+        ]
+    },
+    {
+        "key" : "WEB",
+        "name" : "java",
+        "logoUrl" : "java-logo.png",
+        "webSite" : "www.java.com",
+        "usefulLinks" : [
+            {
+                "name" : "Dzone",
+                "url" : "java.dzone.com"
+            },
+            {
+                "name" : "JavaWorld",
+                "url" : "www.javaworld.com"
+            }
+        ],
+        "skills" : [
+            {
+                "name" : "Spring",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            },
+            {
+                "name" : "Hibernate",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            }
+        ]
     }
 ]
