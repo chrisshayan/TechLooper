@@ -19,6 +19,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         //fnColor: d3.scale.category20()
       }
       box.radiusMax = (box.radiusOuter - box.radiusInner) / 2;
+      if (utils.isMobile()) {box.radiusMin = 30;}
       return box;
     },
 
@@ -26,10 +27,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     getCircles: function (box) {
       var randomCircles = [];
       var termCountMax = terms.maxBy("count");
-      //console.log(termCountMax);
-      //var minTermCount = terms.minBy("count");
 
-      if (utils.isMobile()) {box.radiusMin = 30;}
       var angle = -1;
       while (randomCircles.length < terms.length && ++angle <= 360) {
         var value = terms[randomCircles.length].count;//243 => radiusMax
@@ -49,7 +47,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
             return false;
           }
         });
-        if (!hit) {//support mobile
+        if (!hit) {
           var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
           //console.log()
           randomCircles.push({
@@ -68,7 +66,9 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
             }
           });
         }
-        //triedTimes = !hit ? 0 : triedTimes + 1;
+      }
+      if (randomCircles.length < terms.length) {
+        console.log("Not enough space for all terms");
       }
       return randomCircles;
     },
