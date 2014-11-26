@@ -14,9 +14,8 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         radiusOuter: wBox / 2,
         radiusMin: 50, //it is in pixel
         radiusMax: 60, //it is in pixel
-        fontMin: 10, //it is in pixel
+        fontMin: 14, //it is in pixel
         fontMax: 20 //it is in pixel
-        //fnColor: d3.scale.category20()
       }
       box.radiusMax = (box.radiusOuter - box.radiusInner) / 2;
       if (utils.isMobile()) {box.radiusMin = 30;}
@@ -27,10 +26,9 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     getCircles: function (box) {
       var randomCircles = [];
       var termCountMax = terms.maxBy("count");
-
       var angle = -1;
       while (randomCircles.length < terms.length && ++angle <= 360) {
-        var value = terms[randomCircles.length].count;//243 => radiusMax
+        var value = terms[randomCircles.length].count;
         var radius = Math.max((value * box.radiusMax) / termCountMax, box.radiusMin);
         var distFromCenter = box.radiusInner + radius + Math.random() * (box.radiusOuter - box.radiusInner - radius * 2);
         //var angle = Math.random() * box.pi2 + triedTimes;
@@ -38,39 +36,40 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         var cy = box.yCenter + distFromCenter * Math.sin(angle);
 
         var hit = false;
+        var closestCircle = {dist2: Number.MAX_VALUE}
         $.each(randomCircles, function (i, circle) {
           var dx = circle.cx - cx;
           var dy = circle.cy - cy;
           var r = circle.radius + radius;
-          if (dx * dx + dy * dy < Math.pow(r, 2)) {
+          if (dx * dx + dy * dy < Math.pow(r - box.radiusMin / 5, 2)) {
             hit = true;
             return false;
           }
         });
         if (!hit) {
-          var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
-          //console.log()
-          randomCircles.push({
-            cx: cx,
-            cy: cy,
-            radius: radius,
-            data: terms[randomCircles.length],
-            color: terms[randomCircles.length].color,
-            termLabel: {
-              fontSize: fontSize,
-              dy: radius / 3,
-              label: terms[randomCircles.length].label
-            },
-            termCount: {
-              fontSize: Math.min(fontSize * 1.5, box.fontMax)
-            }
-          });
+          $$.acceptCircle(cx, cy, radius, value, box, termCountMax, randomCircles);
         }
       }
-      if (randomCircles.length < terms.length) {
-        console.log("Not enough space for all terms");
-      }
       return randomCircles;
+    },
+
+    acceptCircle: function(cx, cy, radius, value, box, termCountMax, randomCircles) {
+      var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
+      randomCircles.push({
+        cx: cx,
+        cy: cy,
+        radius: radius,
+        data: terms[randomCircles.length],
+        color: terms[randomCircles.length].color,
+        termLabel: {
+          fontSize: fontSize,
+          dy: radius / 3,
+          label: terms[randomCircles.length].label
+        },
+        termCount: {
+          fontSize: Math.min(fontSize * 1.5, box.fontMax)
+        }
+      })
     },
 
     renderCircle: function (node) {
@@ -79,7 +78,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         .attr("cx", function (d) {return d.cx;})
         .attr("cy", function (d) {return d.cy;})
         .style("fill", function (d) { return d.color; })
-        .attr("opacity", "0.9");
+        .attr("opacity", "0.8");
     },
 
     renderTermCount: function (node) {
