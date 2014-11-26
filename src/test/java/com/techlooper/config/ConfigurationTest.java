@@ -32,8 +32,7 @@ import java.util.Optional;
 @Configuration
 @PropertySources({
         @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties"),
-        @PropertySource("classpath:jobSkill.properties")})
+        @PropertySource("classpath:secret.properties")})
 public class ConfigurationTest implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
