@@ -1,7 +1,7 @@
 [
     {
         "key" : "JAVA",
-        "name" : "java",
+        "name" : ["java"],
         "logoUrl" : "java-logo.png",
         "webSite" : "www.java.com",
         "usefulLinks" : [
@@ -46,18 +46,36 @@
                     }
                 ]
 
+            },
+            {
+                "name" : "Tomcat"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "JSF"
             }
         ]
     },
     {
         "key" : "PHP",
-        "name" : "php",
+        "name" : "PHP",
         "skills" : [
             {
                 "name" : "Symfony"
             },
             {
                 "name" : "Zend Framework"
+            },
+            {
+                "name" : "MySQL"
+            },
+            {
+                "name" : "LAMP"
+            },
+            {
+                "name" : "drupal"
             }
         ]
     },
@@ -70,6 +88,18 @@
             },
             {
                 "name" : "SQL Server"
+            },
+            {
+                "name" : "MVC"
+            },
+            {
+                "name" : "Web Form"
+            },
+            {
+                "name" : "C#"
+            },
+            {
+                "name" : "Azure"
             }
         ]
     },
@@ -82,12 +112,15 @@
             },
             {
                 "name" : "grape"
+            },
+            {
+                "name" : "ElasticSearch"
             }
         ]
     },
     {
         "key" : "PYTHON",
-        "name" : "python",
+        "name" : "PYTHON",
         "skills" : [
             {
                 "name" : "django"
@@ -99,7 +132,7 @@
     },
     {
         "key" : "PROJECT_MANAGER",
-        "name" : "project manager",
+        "name" : "PROJECT_MANAGER",
         "skills" : [
             {
                 "name" : "scrum"
@@ -111,7 +144,7 @@
     },
     {
         "key" : "DBA",
-        "name" : "dba",
+        "name" : ["dba", "database"],
         "skills" : [
             {
                 "name" : "mysql"

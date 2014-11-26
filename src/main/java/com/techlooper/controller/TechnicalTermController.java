@@ -1,0 +1,46 @@
+package com.techlooper.controller;
+
+import com.techlooper.repository.TechnicalTermRepository;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+@Controller
+public class TechnicalTermController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TechnicalTermController.class);
+
+    @Resource
+    private TechnicalTermRepository technicalTermRepository;
+
+    @Value("classpath:skill.json")
+    private org.springframework.core.io.Resource skillJsonResource;
+
+    @RequestMapping(value="/upload", method=RequestMethod.POST)
+    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile uploadFile){
+        if (!uploadFile.isEmpty()) {
+            try {
+                File uploadedFile = skillJsonResource.getFile();
+                IOUtils.write(uploadFile.getBytes(), new BufferedOutputStream(new FileOutputStream(uploadedFile)));
+                technicalTermRepository.refresh();
+                return "Upload Successfully";
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+        return "You failed to upload because the file was empty.";
+    }
+}

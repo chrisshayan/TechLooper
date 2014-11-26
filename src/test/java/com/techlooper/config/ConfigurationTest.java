@@ -1,6 +1,7 @@
 package com.techlooper.config;
 
 import com.techlooper.model.TechnicalTerm;
+import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
@@ -79,6 +80,11 @@ public class ConfigurationTest implements ApplicationContextAware {
         String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
         Optional<List<TechnicalTerm>> termOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
         return termOptional.get();
+    }
+
+    @Bean
+    public TechnicalTermRepository technicalTermRepository() {
+        return new TechnicalTermRepository();
     }
 
     @Bean
