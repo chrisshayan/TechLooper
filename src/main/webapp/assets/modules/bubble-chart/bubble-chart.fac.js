@@ -36,7 +36,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         var cy = box.yCenter + distFromCenter * Math.sin(angle);
 
         var hit = false;
-        var closestCircle = {dist2: Number.MAX_VALUE}
         $.each(randomCircles, function (i, circle) {
           var dx = circle.cx - cx;
           var dy = circle.cy - cy;
@@ -51,6 +50,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         }
       }
       if (randomCircles.length < terms.length) {
+        ++box.delta;
         return $$.getCircles(box);
       }
       return randomCircles;
