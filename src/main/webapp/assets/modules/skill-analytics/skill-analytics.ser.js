@@ -1,5 +1,5 @@
 angular.module("Skill").factory("skillAnalyticsService",
-  function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory, $location) {
+  function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory, $location, termService) {
     var viewJson;
     var scope;
     var skillStatisticRequest;
@@ -25,20 +25,24 @@ angular.module("Skill").factory("skillAnalyticsService",
         var nonZeroMergeItems = utils.getNonZeroItems(mergeItems, ["previousCount", "currentCount"]);
         topItems = $.merge(nonZeroMergeItems,
           utils.getNonZeroItems(topItems, ["previousCount", "currentCount"]));
-        viewJson.tableAndChartJson = $.distinct(topItems);
+        viewJson.tableAndChartJson = topItems.distinct();
         return viewJson.tableAndChartJson;
       },
 
-      map: function (rawJson) {
-        viewJson = $.extend(true, {}, rawJson);
+      toViewJson: function (rawJson) {
+        //viewJson = $.extend({}, {}, rawJson)
+        viewJson = termService.toViewTerm({term: skillStatisticRequest.term});
+        viewJson = $.extend({}, viewJson, skillStatisticRequest);
+        viewJson = $.extend({}, viewJson, rawJson);
+        var histograms = skillStatisticRequest.histograms;
+        viewJson = $.extend({}, viewJson, {histogramDataPeriod: utils.getHistogramPeriod(histograms[1])})
         $.each(viewJson.skills, function (index, skill) {
-          var histograms = skillStatisticRequest.histograms;
           var prevAndCurr = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[0] + "')].values")[0];
           skill.previousCount = prevAndCurr[0];
           skill.currentCount = prevAndCurr[1];
           skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[1] + "')].values")[0];
-          skill.histogramDataPeriod = utils.getHistogramPeriod(histograms[1]);
-          skill.preAndCurrCountPeriod = skillStatisticRequest.period;
+          //skill.histogramDataPeriod = utils.getHistogramPeriod(histograms[1]);
+          //skill.preAndCurrCountPeriod = skillStatisticRequest.period;
           delete skill.histograms;
         });
         return viewJson;
@@ -94,7 +98,7 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       extractViewJson: function (termJson, $skillStatisticRequest) {
         skillStatisticRequest = $skillStatisticRequest;
-        $$.map(termJson);
+        $$.toViewJson(termJson);
         $$.extractTableAndChartJson($$.extractCirclesJson());
         $$.renderView();
         return viewJson;

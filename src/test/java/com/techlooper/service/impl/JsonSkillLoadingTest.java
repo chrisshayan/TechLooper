@@ -30,12 +30,12 @@ public class JsonSkillLoadingTest {
 
     @Test
     public void testRequiredFieldNotEmpty() {
-        // Term key, name and skills are mandatory fields.
+        // Term key, search texts and skills are mandatory fields.
         terms.stream().forEach(term -> {
             assertNotNull(term.getKey());
             assertNotEquals("Term key shouldn't be empty.", "", term.getKey());
-            assertNotNull(term.getName());
-            assertNotEquals("Term name shouldn't be empty.", "", term.getName());
+            assertNotNull(term.getSearchTexts());
+            assertNotEquals("Each search texts have to contain at least one keyword for search.", 0, term.getSearchTexts().size());
             assertNotNull(term.getSkills());
             assertNotEquals("Each term has to contain at least one skill.", 0, term.getSkills().size());
         });

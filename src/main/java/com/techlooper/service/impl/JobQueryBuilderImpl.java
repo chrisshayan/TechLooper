@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
+import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
 import org.elasticsearch.action.search.SearchType;
@@ -32,16 +33,20 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     private String elasticSearchIndexName;
 
     @Resource
-    private List<TechnicalTerm> technicalTerms;
+    private TechnicalTermRepository technicalTermRepository;
 
     public FilterBuilder getTechnicalTermsQuery() {
         BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
-        technicalTerms.stream().map(this::getTechnicalTermQuery).forEach(boolFilter::should);
+        technicalTermRepository.findAll().stream().map(this::getTechnicalTermQuery).forEach(boolFilter::should);
         return boolFilter;
     }
 
     public FilterBuilder getTechnicalTermQuery(TechnicalTerm term) {
-        return FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(term.getName(), SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND));
+        BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+        term.getSearchTexts().stream().map(termName ->
+                FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(termName, SEARCH_JOB_FIELDS)
+                              .operator(MatchQueryBuilder.Operator.AND))).forEach(boolFilter::should);
+        return boolFilter;
     }
 
     public FilterBuilder getTechnicalSkillQuery(Skill skill) {

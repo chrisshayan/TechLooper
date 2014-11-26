@@ -65,7 +65,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
      * @return Returns an instance of {@link com.techlooper.model.SkillStatisticResponse} which is having detail information for each technical term.
      */
     private SkillStatisticResponse toSkillStatisticResponse(TechnicalTerm term, Aggregations aggregations) {
-        final SkillStatisticResponse.Builder skillStatisticResponse = new SkillStatisticResponse.Builder().withJobTerm(term.getKey());
+        final SkillStatisticResponse.Builder skillStatisticResponse =
+                new SkillStatisticResponse.Builder().withLabel(term.getLabel());
         InternalFilter allTermsResponse = aggregations.get(ALL_TERMS);
         skillStatisticResponse.withTotalTechnicalJobs(allTermsResponse.getDocCount());
         skillStatisticResponse.withCount(((InternalFilter) allTermsResponse.getAggregations().get(term.getKey())).getDocCount());

@@ -1,6 +1,7 @@
 package com.techlooper.config;
 
 import com.techlooper.model.TechnicalTerm;
+import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
@@ -32,17 +33,13 @@ import java.util.Optional;
 @Configuration
 @PropertySources({
         @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties"),
-        @PropertySource("classpath:jobSkill.properties")})
+        @PropertySource("classpath:secret.properties")})
 public class ConfigurationTest implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
     @Resource
     private Environment environment;
-
-    @Value("classpath:skill.json")
-    private org.springframework.core.io.Resource skillJsonResource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -75,10 +72,8 @@ public class ConfigurationTest implements ApplicationContextAware {
     }
 
     @Bean
-    public List<TechnicalTerm> technicalTerms() throws IOException {
-        String jsonSkill = IOUtils.toString(skillJsonResource.getInputStream(), "UTF-8");
-        Optional<List<TechnicalTerm>> termOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
-        return termOptional.get();
+    public TechnicalTermRepository technicalTermRepository() {
+        return new TechnicalTermRepository();
     }
 
     @Bean

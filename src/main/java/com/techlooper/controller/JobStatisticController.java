@@ -1,12 +1,14 @@
 package com.techlooper.controller;
 
 import com.techlooper.model.*;
+import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobStatisticService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -22,11 +24,11 @@ public class JobStatisticController {
     private SimpMessagingTemplate messagingTemplate;
 
     @Resource
-    private List<TechnicalTerm> technicalTerms;
+    private TechnicalTermRepository technicalTermRepository;
 
     @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
-        technicalTerms.stream().forEach(term ->
+        technicalTermRepository.findAll().stream().forEach(term ->
                         messagingTemplate.convertAndSend("/topic/jobs/term/" + term.getKey(), new JobStatisticResponse.Builder()
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
@@ -36,8 +38,8 @@ public class JobStatisticController {
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
-        technicalTerms.stream().forEach(term ->
-                        terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey())
+        technicalTermRepository.findAll().stream().forEach(term ->
+            terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey()).withLabel(term.getLabel())
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
         return terms;
@@ -60,6 +62,6 @@ public class JobStatisticController {
     }
 
     private TechnicalTerm convertToTechnicalTerm(String termKey) {
-        return technicalTerms.stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
+        return technicalTermRepository.findAll().stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
     }
 }

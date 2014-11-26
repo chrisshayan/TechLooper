@@ -8,7 +8,8 @@ import java.util.List;
 public class TechnicalTerm {
 
     private String key;
-    private String name;
+    private List<String> searchTexts;
+    private String label;
     private String logoUrl;
     private String webSite;
     private List<SkillLink> usefulLinks;
@@ -26,12 +27,20 @@ public class TechnicalTerm {
         this.key = key;
     }
 
-    public String getName() {
-        return name;
+    public List<String> getSearchTexts() {
+        return searchTexts;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSearchTexts(List<String> searchTexts) {
+        this.searchTexts = searchTexts;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getLogoUrl() {
@@ -67,6 +76,6 @@ public class TechnicalTerm {
     }
 
     public String toString() {
-        return name;
+        return this.key;
     }
 }
