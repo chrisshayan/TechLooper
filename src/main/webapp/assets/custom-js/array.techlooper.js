@@ -46,3 +46,15 @@ Array.prototype.distinct = function () {
   });
   return result;
 }
+
+Array.prototype.findFirst = function (val, prop) {
+  var index = undefined;
+  $.each(this, function (i, v) {
+    var value = (prop === undefined ? v : v[prop] );
+    if (value === val) {
+      index = i;
+      return false;
+    }
+  });
+  return this[index];
+}
