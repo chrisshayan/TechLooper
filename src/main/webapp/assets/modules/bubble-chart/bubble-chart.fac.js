@@ -12,14 +12,13 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         yCenter: wBox / 2,
         radiusInner: wBox / 3.5,
         radiusOuter: wBox / 2,
-        radiusMin: 45, //it is in pixel
-        radiusMax: 60, //it is in pixel
-        fontMin: 10, //it is in pixel
-        fontMax: 20 //it is in pixel
-        //fnColor: d3.scale.category20()
+        radiusMin: 55, //it is in pixel
+        fontMin: 14, //it is in pixel
+        fontMax: 20, //it is in pixel,
+        delta: 20
       }
-      box.radiusMax = (box.radiusOuter - box.radiusInner) / 2;
-      if (utils.isMobile()) {box.radiusMin = 30;}
+      box.radiusMax = (box.radiusOuter - box.radiusInner) / 2 + box.delta;
+      if (utils.isMobile()) {box.radiusMin = 50;}
       return box;
     },
 
@@ -27,13 +26,12 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     getCircles: function (box) {
       var randomCircles = [];
       var termCountMax = terms.maxBy("count");
-
       var angle = -1;
       while (randomCircles.length < terms.length && ++angle <= 360) {
-        var value = terms[randomCircles.length].count;//243 => radiusMax
+        var value = terms[randomCircles.length].count;
         var radius = Math.max((value * box.radiusMax) / termCountMax, box.radiusMin);
         var distFromCenter = box.radiusInner + radius + Math.random() * (box.radiusOuter - box.radiusInner - radius * 2);
-        //var angle = Math.random() * box.pi2 + triedTimes;
+        //var angle = Math.random() * box.pi2;
         var cx = box.xCenter + distFromCenter * Math.cos(angle);
         var cy = box.yCenter + distFromCenter * Math.sin(angle);
 
@@ -42,35 +40,39 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
           var dx = circle.cx - cx;
           var dy = circle.cy - cy;
           var r = circle.radius + radius;
-          if (dx * dx + dy * dy < Math.pow(r, 2)) {
+          if (dx * dx + dy * dy < Math.pow(r - box.delta, 2)) {
             hit = true;
             return false;
           }
         });
         if (!hit) {
-          var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
-          //console.log()
-          randomCircles.push({
-            cx: cx,
-            cy: cy,
-            radius: radius,
-            data: terms[randomCircles.length],
-            color: terms[randomCircles.length].color,
-            termLabel: {
-              fontSize: fontSize,
-              dy: radius / 3,
-              label: terms[randomCircles.length].label
-            },
-            termCount: {
-              fontSize: Math.min(fontSize * 1.5, box.fontMax)
-            }
-          });
+          $$.acceptCircle(cx, cy, radius, value, box, termCountMax, randomCircles);
         }
       }
       if (randomCircles.length < terms.length) {
-        console.log("Not enough space for all terms");
+        ++box.delta;
+        return $$.getCircles(box);
       }
       return randomCircles;
+    },
+
+    acceptCircle: function(cx, cy, radius, value, box, termCountMax, randomCircles) {
+      var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
+      randomCircles.push({
+        cx: cx - radius < 0 ? radius : (cx + radius) > box.width ? box.width - radius : cx,
+        cy: cy - radius < 0 ? radius : (cy + radius) > box.width ? box.width - radius : cy,
+        radius: radius,
+        data: terms[randomCircles.length],
+        color: terms[randomCircles.length].color,
+        termLabel: {
+          fontSize: fontSize,
+          dy: radius / 3,
+          label: terms[randomCircles.length].label
+        },
+        termCount: {
+          fontSize: Math.min(fontSize * 1.5, box.fontMax)
+        }
+      })
     },
 
     renderCircle: function (node) {
@@ -79,7 +81,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         .attr("cx", function (d) {return d.cx;})
         .attr("cy", function (d) {return d.cy;})
         .style("fill", function (d) { return d.color; })
-        .attr("opacity", "0.9");
+        .attr("opacity", "0.8");
     },
 
     renderTermCount: function (node) {
@@ -272,7 +274,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       terms = termService.toViewTerms($terms).shuffle();
 
       //var size = utils.isMobile() ? 300 : 500;//  $(".bubble-chart-container").width();
-      var size = 500;//  $(".bubble-chart-container").width();
+      var size = 600;//  $(".bubble-chart-container").width();
       var box = $$.getBox(size, size);
       var randomCircles = $$.getCircles(box);
 
@@ -293,16 +295,23 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.registerClickEvent(box, svg);
       $$.selectBiggest(box);
       $$.registerResponsive(svg);
+
+      node.sort(function (a, b) {return b.data.count - a.data.count;});
     },
 
     updateViewTerm: function (term) {
       var node = d3.select(["g.node", term.term].join("."));
       var nodeTermCount = node.select("text.termCount");
+      
       if (nodeTermCount.text() === "" + term.count) {
         return false;
       }
-      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(500).style("opacity", "1");
+      var circleTerm =  node.select("circle");
+      circleTerm.style({"stroke": '#fff', 'stroke-width': 3}).transition().duration(1000).style("stroke-width", 0);
+
+      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1000).style("opacity", "1");
     }
+
   }
 
   return instance;

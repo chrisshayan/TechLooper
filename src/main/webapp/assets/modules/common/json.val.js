@@ -27,33 +27,33 @@ angular.module("Common").constant("jsonValue", {
     },
 
     listedItems: [
-      //{
-      //  term: "JAVA", label: "Java", color: "#bf06b7"
-      //},
-      //{
-      //  term: "DOTNET", label: ".Net", color: "#d50708"
-      //},
-      //{
-      //  term: "PHP", label: "Php", color: "#450770"
-      //},
-      //{
-      //  term: "RUBY", label: "Ruby", color: "#d5876a"
-      //},
-      //{
-      //  term: "PYTHON", label: "Python", color: "#d7c500"
-      //},
-      //{
-      //  term: "PROJECT_MANAGER", label: "Project Manager", color: "#17875f"
-      //},
-      //{
-      //  term: "DBA", label: "DBA", color: "#666600"
-      //},
-      //{
-      //  term: "QA", label: "QA", color: "#0071bb"
-      //},
-      //{
-      //  term: "BA", label: "BA", color: "#996600"
-      //}
+      {
+        term: "JAVA", label: "Java", color: "#bf06b7"
+      },
+      {
+        term: "DOTNET", label: ".Net", color: "#d50708"
+      },
+      {
+        term: "PHP", label: "Php", color: "#450770"
+      },
+      {
+        term: "RUBY", label: "Ruby", color: "#d5876a"
+      },
+      {
+        term: "PYTHON", label: "Python", color: "#d7c500"
+      },
+      {
+        term: "PROJECT_MANAGER", label: "Project Manager", color: "#17875f"
+      },
+      {
+        term: "DBA", label: "DBA", color: "#666600"
+      },
+      {
+        term: "QA", label: "QA", color: "#0071bb"
+      },
+      {
+        term: "BA", label: "BA", color: "#996600"
+      }
       //{
       //  term: "WEB", label: "Web Development"
       //},

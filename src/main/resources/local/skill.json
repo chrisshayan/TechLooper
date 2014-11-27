@@ -398,10 +398,46 @@
         "label" : "QA",
         "skills" : [
             {
-                "name" : "selenium"
+                "name" : "Selenium"
             },
             {
-                "name" : "casperjs"
+                "name" : "Automation Testing"
+            },
+            {
+                "name" : "Test Script"
+            },
+            {
+                "name" : "BDD"
+            },
+            {
+                "name" : "JIRA"
+            },
+            {
+                "name" : "WebDriver"
+            },
+            {
+                "name" : "Cucumber"
+            },
+            {
+                "name" : "QuickTest Pro"
+            },
+            {
+                "name" : "JMeter"
+            },
+            {
+                "name" : "Continuous Integration"
+            },
+            {
+                "name" : "Test Planning"
+            },
+            {
+                "name" : "User Acceptance Testing"
+            },
+            {
+                "name" : "Regression Testing"
+            },
+            {
+                "name" : "Test Strategy"
             }
         ]
     },
@@ -415,6 +451,36 @@
             },
             {
                 "name" : "SAP"
+            },
+            {
+                "name" : "ERP"
+            },
+            {
+                "name" : "prototype"
+            },
+            {
+                "name" : "mockup"
+            },
+            {
+                "name" : "Analytical Skills"
+            },
+            {
+                "name" : "User Experience"
+            },
+            {
+                "name" : "Stakeholder Management"
+            },
+            {
+                "name" : "UML"
+            },
+            {
+                "name" : "User Acceptance Testing"
+            },
+            {
+                "name" : "Business Intelligence"
+            },
+            {
+                "name" : "CRM"
             }
         ]
     },
@@ -459,6 +525,33 @@
             },
             {
                 "name" : "javascript"
+            },
+            {
+                "name" : "saas"
+            },
+            {
+                "name" : "less"
+            },
+            {
+                "name" : "photoshop"
+            },
+            {
+                "name" : "UI/UX"
+            },
+            {
+                "name" : "jQuery"
+            },
+            {
+                "name" : "AngularJS"
+            },
+            {
+                "name" : "BackboneJS"
+            },
+            {
+                "name" : "EmberJS"
+            },
+            {
+                "name" : "NodeJS"
             }
         ]
     },
@@ -468,13 +561,40 @@
         "label" : "Mobile",
         "skills" : [
             {
-                "name" : "android"
+                "name" : "Android"
             },
             {
-                "name" : "ios"
+                "name" : "iOS"
             },
             {
-                "name" : "windows phone"
+                "name" : "Windows phone"
+            },
+            {
+                "name" : "PhoneGap"
+            },
+            {
+                "name" : "Xamarin"
+            },
+            {
+                "name" : "Blackberry"
+            },
+            {
+                "name" : "Cocoa"
+            },
+            {
+                "name" : "Sencha Touch"
+            },
+            {
+                "name" : "Responsive Design"
+            },
+            {
+                "name" : "Swift"
+            },
+            {
+                "name" : "Objective C"
+            },
+            {
+                "name" : "SQLite"
             }
         ]
     }
