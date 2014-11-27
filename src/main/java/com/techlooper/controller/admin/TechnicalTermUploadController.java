@@ -1,10 +1,9 @@
-package com.techlooper.controller;
+package com.techlooper.controller.admin;
 
 import com.techlooper.repository.TechnicalTermRepository;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,15 +18,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Controller
-public class TechnicalTermController {
+public class TechnicalTermUploadController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TechnicalTermController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TechnicalTermUploadController.class);
 
     @Resource
     private TechnicalTermRepository technicalTermRepository;
 
-    @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile uploadFile){
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile uploadFile) {
         if (!uploadFile.isEmpty()) {
             try {
                 File uploadedFile = technicalTermRepository.getSkillJsonResource().getFile();
