@@ -295,16 +295,22 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.registerClickEvent(box, svg);
       $$.selectBiggest(box);
       $$.registerResponsive(svg);
+
     },
 
     updateViewTerm: function (term) {
       var node = d3.select(["g.node", term.term].join("."));
       var nodeTermCount = node.select("text.termCount");
+      
       if (nodeTermCount.text() === "" + term.count) {
         return false;
       }
-      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(500).style("opacity", "1");
+      var circleTerm =  node.select("circle");
+      circleTerm.style({"stroke": '#fff', 'stroke-width': 3}).transition().duration(1000).style("stroke-width", 0);
+
+      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1000).style("opacity", "1");
     }
+
   }
 
   return instance;
