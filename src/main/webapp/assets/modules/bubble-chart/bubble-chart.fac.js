@@ -306,9 +306,9 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         return false;
       }
       var circleTerm =  node.select("circle");
-      circleTerm.style({"stroke": '#fff', 'stroke-width': 3}).transition().duration(1500).style("stroke-width", 0);
+      circleTerm.style({"stroke": '#fff', 'stroke-width': 3}).transition().duration(1000).style("stroke-width", 0);
 
-      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1500).style("opacity", "1");
+      nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1000).style("opacity", "1");
     }
 
   }
