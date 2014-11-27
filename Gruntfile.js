@@ -144,6 +144,22 @@ module.exports = function (grunt) {
           separator: grunt.util.linefeed + ';' + grunt.util.linefeed
         }
       }
+    },
+
+    cssmin: {
+      generated: {
+        options: {
+          keepSpecialComments: 0
+        }
+      }
+    },
+
+    uglify: {
+      generated: {
+        options: {
+          preserveComments: false
+        }
+      }
     }
   });
 
