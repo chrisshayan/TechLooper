@@ -296,6 +296,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       $$.selectBiggest(box);
       $$.registerResponsive(svg);
 
+      node.sort(function (a, b) {return b.data.count - a.data.count;});
     },
 
     updateViewTerm: function (term) {
