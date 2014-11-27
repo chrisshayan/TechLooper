@@ -1,9 +1,9 @@
 angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService) {
   var terms = [];
-  var data4PieChart = {colors: [], data: []};
+  var data4PieChart = {colors: [], data: [], labels: [], terms: []};
   var innerDonut = utils.isMobile() ? '0%' : '30%';
   var scope;
-  var labels = [];
+  //var labels = [];
 
   var $$ = {
     enableNotifications: function () {
@@ -16,12 +16,13 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         data4PieChart.data.push([term.label, term.count]);
         data4PieChart.colors.push(term.color);
       });
-      labels = terms.toArray("label");
+      data4PieChart.terms = terms.toArray("term");
+      data4PieChart.labels = terms.toArray("label");
     },
 
     switchScope: function($scope) {
       scope = $scope;
-      data4PieChart = {colors: [], data: []};
+      data4PieChart = {colors: [], data: [], labels: [], terms: []};
     }
   }
   utils.registerNotification(jsonValue.notifications.switchScope, $$.switchScope, $$.enableNotifications);
@@ -94,7 +95,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           point: {
             events: {
               click: function (e) {
-                utils.go2SkillAnalyticPage(scope, terms[labels.indexOf(this.name)].term);
+                utils.go2SkillAnalyticPage(scope, terms[data4PieChart.labels.indexOf(this.name)].term);
               }
             }
           },
@@ -106,20 +107,8 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
     },
 
     updateViewTerm: function(term) {
-      //if (newJson.length > 8) {
-      //  newJson.length = 0;
-      //}
-      //
-      //if (force !== true && termsMap[pieItem.termID] !== undefined) {
-      //  newJson.push([pieItem.termName, pieItem.count]);
-      //  var chart = $('.pie-Chart-Container').highcharts();
-      //  $.each(newJson, function (index, item) {
-      //    chart.series[0].data[index].update(item);
-      //  });
-      //  return;
-      //}
-      //termsMap[pieItem.termID] = pieItem;
-      //$('.loading-data').hide();
+      Highcharts.charts[0].series[0]
+        .data[data4PieChart.terms.indexOf(term.term)].update([term.term, term.count]);
     }
   }
 
