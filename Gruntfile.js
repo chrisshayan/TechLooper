@@ -28,10 +28,20 @@ module.exports = function (grunt) {
 
     copy: {
       build: {
+        files: [
+          {
+            cwd: "<%=pkg.assets%>",
+            expand: true,
+            src: ["**"],
+            dest: "<%=pkg.public%>"
+          }
+        ]
+      },
+      font: {
         files: [{
           cwd: "<%=pkg.assets%>",
           expand: true,
-          src: ["**"],
+          src: ["bower_components/components-font-awesome/**"],
           dest: "<%=pkg.public%>"
         }]
       },
@@ -188,7 +198,8 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
-    "clean:release"
+    "clean:release",
+    "copy:font"
   ]);
 
   grunt.registerTask("local", [
