@@ -88,7 +88,7 @@
          "main": "src/d3-transform.js"
       },
       "parallax": {
-         "main" : "deploy/parallax.min.js"
+         "main" : "deploy/jquery.parallax.min.js"
       }
    }
 }

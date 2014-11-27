@@ -20,9 +20,9 @@ module.exports = function (grunt) {
         "<%=pkg.public%>index.tem.html",
         "<%=pkg.public%>sass",
         "<%=pkg.assets%>css",
-        "<%=pkg.public%>custom-js",
-        "<%=pkg.public%>css",
-        "<%=pkg.public%>bower_components"
+        "<%=pkg.public%>custom-js"
+        //"<%=pkg.public%>css",
+        //"<%=pkg.public%>bower_components"
       ]
     },
 
@@ -198,8 +198,7 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
-    "clean:release",
-    "copy:font"
+    "clean:release"
   ]);
 
   grunt.registerTask("local", [
