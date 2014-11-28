@@ -265,7 +265,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, function ($scope) {scope = $scope}, $$.enableNotifications);
-  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang);
   utils.registerNotification(jsonValue.notifications.changeUrl, function() {$$.unregisterResponsive();}, $$.enableNotifications);
 
   var instance = {

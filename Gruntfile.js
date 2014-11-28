@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
@@ -20,9 +19,9 @@ module.exports = function (grunt) {
         "<%=pkg.public%>index.tem.html",
         "<%=pkg.public%>sass",
         "<%=pkg.assets%>css",
-        "<%=pkg.public%>custom-js"
-        //"<%=pkg.public%>css",
-        //"<%=pkg.public%>bower_components"
+        "<%=pkg.public%>custom-js",
+        "<%=pkg.public%>css",
+        "<%=pkg.public%>bower_components"
       ]
     },
 
@@ -39,9 +38,9 @@ module.exports = function (grunt) {
       },
       font: {
         files: [{
-          cwd: "<%=pkg.assets%>",
+          cwd: "<%=pkg.assets%>bower_components/components-font-awesome/",
           expand: true,
-          src: ["bower_components/components-font-awesome/**"],
+          src: ["fonts/**"],
           dest: "<%=pkg.public%>"
         }]
       },
@@ -148,19 +147,27 @@ module.exports = function (grunt) {
       }
     },
 
-    concat: {
-      generated: {
-        options: {
-          separator: grunt.util.linefeed + ';' + grunt.util.linefeed
-        }
-      }
-    },
-
     cssmin: {
       generated: {
         options: {
           keepSpecialComments: 0
         }
+      }
+    },
+
+    concat: {
+      generated: {
+        options: {
+          separator: grunt.util.linefeed + ";" + grunt.util.linefeed
+        }
+      }
+    },
+
+    replace: {
+      cssConcat: {
+        src: ["<%=pkg.public%>generate-resources/*.css"],
+        dest: "<%=pkg.public%>generate-resources/",
+        replacements: [{from: "};", to: "}"}]
       }
     },
 
@@ -185,6 +192,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-ng-annotate");
+  grunt.loadNpmTasks('grunt-text-replace');
 
   grunt.registerTask("build", [
     "clean:build",
@@ -198,7 +206,9 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
-    "clean:release"
+    "clean:release",
+    "copy:font",
+    "replace:cssConcat"
   ]);
 
   grunt.registerTask("local", [
