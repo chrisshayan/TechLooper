@@ -1,5 +1,6 @@
 /* ===========================================================
  * bootstrap-checkbox - v.1.0.1
+ * https://github.com/montrezorro/bootstrap-checkbox
  * ===========================================================
  * Copyright 2014 Roberto Montresor
  *
