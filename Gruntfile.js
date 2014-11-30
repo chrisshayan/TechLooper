@@ -41,7 +41,7 @@ module.exports = function (grunt) {
           cwd: "<%=pkg.assets%>bower_components/components-font-awesome/",
           expand: true,
           src: ["fonts/**"],
-          dest: "<%=pkg.public%>"
+          dest: "<%=pkg.public%>/generate-resources"
         }]
       },
       dev: {
@@ -167,7 +167,7 @@ module.exports = function (grunt) {
       cssConcat: {
         src: ["<%=pkg.public%>generate-resources/*.css"],
         dest: "<%=pkg.public%>generate-resources/",
-        replacements: [{from: "};", to: "}"}]
+        replacements: [{from: "};", to: "}"}, {from: "../fonts", to: "fonts"}]
       }
     },
 
