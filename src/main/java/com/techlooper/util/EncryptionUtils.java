@@ -13,10 +13,17 @@ public class EncryptionUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionUtils.class);
 
     public static String encodeHexa(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException();
+        }
         return new String(Hex.encodeHex(value.getBytes()));
     }
 
     public static String decodeHexa(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException();
+        }
+
         try {
             return new String(Hex.decodeHex(value.toCharArray()));
         } catch (DecoderException ex) {
