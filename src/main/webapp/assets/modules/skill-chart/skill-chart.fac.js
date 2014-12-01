@@ -4,7 +4,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
       var oneSkill = viewJson.tableAndChartJson[0];
       var labels = [];
       $.each(oneSkill.histogramData, function (i, item) {
-        labels.unshift((i * oneSkill.histogramDataPeriod).days().ago().toString("MMM d"));
+        labels.unshift((i * viewJson.histogramDataPeriod).days().ago().toString("MMM d"));
       });
       return labels;
     },

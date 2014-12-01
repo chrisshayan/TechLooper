@@ -1,5 +1,5 @@
 angular.module("Skill").factory("skillAnalyticsService",
-  function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory, $location) {
+  function (jsonValue, utils, skillTableFactory, skillChartFactory, shortcutFactory, $location, termService) {
     var viewJson;
     var scope;
     var skillStatisticRequest;
@@ -25,20 +25,24 @@ angular.module("Skill").factory("skillAnalyticsService",
         var nonZeroMergeItems = utils.getNonZeroItems(mergeItems, ["previousCount", "currentCount"]);
         topItems = $.merge(nonZeroMergeItems,
           utils.getNonZeroItems(topItems, ["previousCount", "currentCount"]));
-        viewJson.tableAndChartJson = $.distinct(topItems);
+        viewJson.tableAndChartJson = topItems.distinct();
         return viewJson.tableAndChartJson;
       },
 
-      map: function (rawJson) {
-        viewJson = $.extend(true, {}, rawJson);
+      toViewJson: function (rawJson) {
+        //viewJson = $.extend({}, {}, rawJson)
+        viewJson = termService.toViewTerm({term: skillStatisticRequest.term});
+        viewJson = $.extend({}, viewJson, skillStatisticRequest);
+        viewJson = $.extend({}, viewJson, rawJson);
+        var histograms = skillStatisticRequest.histograms;
+        viewJson = $.extend({}, viewJson, {histogramDataPeriod: utils.getHistogramPeriod(histograms[1])})
         $.each(viewJson.skills, function (index, skill) {
-          var histograms = skillStatisticRequest.histograms;
           var prevAndCurr = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[0] + "')].values")[0];
           skill.previousCount = prevAndCurr[0];
           skill.currentCount = prevAndCurr[1];
           skill.histogramData = jsonPath.eval(skill, "$.histograms[?(@.name=='" + histograms[1] + "')].values")[0];
-          skill.histogramDataPeriod = utils.getHistogramPeriod(histograms[1]);
-          skill.preAndCurrCountPeriod = skillStatisticRequest.period;
+          //skill.histogramDataPeriod = utils.getHistogramPeriod(histograms[1]);
+          //skill.preAndCurrCountPeriod = skillStatisticRequest.period;
           delete skill.histograms;
         });
         return viewJson;
@@ -52,19 +56,23 @@ angular.module("Skill").factory("skillAnalyticsService",
       renderPeriodRadios: function () {
         switch (skillStatisticRequest.period) {
           case "month":
-            $("li[data-period=month]").addClass("active").find('i').addClass('fa-dot-circle-o');
+            $("li[data-period=month]").addClass("active");
             break;
           case "quarter":
-            $("li[data-period=quarter]").addClass("active").find('i').addClass('fa-dot-circle-o');
+            $("li[data-period=quarter]").addClass("active");
             break;
           default:
-            $("li[data-period=week]").addClass("active").find('i').addClass('fa-dot-circle-o');
+            $("li[data-period=week]").addClass("active");
             break;
         }
       },
 
       renderView: function() {
         $$.renderPeriodRadios();
+      },
+
+      enableNotifications: function() {
+        return $("div.technical-detail-page").is(":visible");
       }
     }
 
@@ -90,7 +98,7 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       extractViewJson: function (termJson, $skillStatisticRequest) {
         skillStatisticRequest = $skillStatisticRequest;
-        $$.map(termJson);
+        $$.toViewJson(termJson);
         $$.extractTableAndChartJson($$.extractCirclesJson());
         $$.renderView();
         return viewJson;
@@ -110,7 +118,6 @@ angular.module("Skill").factory("skillAnalyticsService",
         type.bind('click', function () {
           $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
           scope.$apply();
-          //$('.technical-detail-page').css('height', $('.technical-detail-page').height());
         });
       },
 
@@ -119,8 +126,8 @@ angular.module("Skill").factory("skillAnalyticsService",
       }
     }
 
-    utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, function () {return $("div.technical-detail-page").is(":visible");});
-    utils.registerNotification(jsonValue.notifications.mouseHover, $$.highLight, function () {return $("div.technical-detail-page").is(":visible");});
+    utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.mouseHover, $$.highLight, $$.enableNotifications);
 
     return instance;
   });

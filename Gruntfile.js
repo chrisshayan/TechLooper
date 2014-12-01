@@ -3,39 +3,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
-    coffee: {
-      local: {
-        options: {
-          bare: true
-        },
-        expand: true,
-        cwd: "<%=pkg.assets%>",
-        src: ['custom-js/**/*.coffee', 'modules/**/*.coffee'],
-        dest: '<%=pkg.assets%>',
-        rename  : function (dest, src) {
-          var folder    = src.substring(0, src.lastIndexOf('/'));
-          var filename  = src.substring(src.lastIndexOf('/'), src.length);
-          filename  = filename.substring(0, filename.lastIndexOf('.'));
-          return dest + folder + filename + '.coffee.js';
-        }
-      },
-      release: {
-        options: {
-          bare: true
-        },
-        expand: true,
-        cwd: "<%=pkg.public%>",
-        src: ['custom-js/**/*.coffee', 'modules/**/*.coffee'],
-        dest: '<%=pkg.public%>',
-        rename  : function (dest, src) {
-          var folder    = src.substring(0, src.lastIndexOf('/'));
-          var filename  = src.substring(src.lastIndexOf('/'), src.length);
-          filename  = filename.substring(0, filename.lastIndexOf('.'));
-          return dest + folder + filename + '.coffee.js';
-        }
-      }
-    },
-
     ngAnnotate: {
       main: {
         files: [{
@@ -51,20 +18,30 @@ module.exports = function (grunt) {
       build: ["<%=pkg.public%>"],
       release: [
         "<%=pkg.public%>index.tem.html",
-        "<%=pkg.public%>**/*.coffee",
         "<%=pkg.public%>sass",
         "<%=pkg.assets%>css",
-        "<%=pkg.public%>custom-js",
-        "<%=pkg.assets%>css"
+        "<%=pkg.public%>custom-js"
+        //"<%=pkg.public%>css",
+        //"<%=pkg.public%>bower_components"
       ]
     },
 
     copy: {
       build: {
+        files: [
+          {
+            cwd: "<%=pkg.assets%>",
+            expand: true,
+            src: ["**"],
+            dest: "<%=pkg.public%>"
+          }
+        ]
+      },
+      font: {
         files: [{
           cwd: "<%=pkg.assets%>",
           expand: true,
-          src: ["**"],
+          src: ["bower_components/components-font-awesome/**"],
           dest: "<%=pkg.public%>"
         }]
       },
@@ -107,7 +84,20 @@ module.exports = function (grunt) {
     wiredep: {
       options: {
         color: true,
-        directory: "<%=pkg.public%>bower_components"
+        directory: "<%=pkg.public%>bower_components",
+        fileTypes: {
+          html: {
+            block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
+            detect: {
+              js: /<script.*src=['"]([^'"]+)/gi,
+              css: /<link.*href=['"]([^'"]+)/gi
+            },
+            replace: {
+              js: '<script src="{{filePath}}" charset="utf-8"></script>',
+              css: '<link rel="stylesheet" href="{{filePath}}" />'
+            }
+          }
+        }
       },
       target: {
         src: ["<%=pkg.public%>index.html"]
@@ -156,6 +146,30 @@ module.exports = function (grunt) {
           keepalive: true
         }
       }
+    },
+
+    concat: {
+      generated: {
+        options: {
+          separator: grunt.util.linefeed + ';' + grunt.util.linefeed
+        }
+      }
+    },
+
+    cssmin: {
+      generated: {
+        options: {
+          keepSpecialComments: 0
+        }
+      }
+    },
+
+    uglify: {
+      generated: {
+        options: {
+          preserveComments: false
+        }
+      }
     }
   });
 
@@ -170,28 +184,25 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-usemin");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks('grunt-ng-annotate');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks("grunt-ng-annotate");
 
   grunt.registerTask("build", [
     "clean:build",
     "copy:build",
-    "coffee:release",
-    "ngAnnotate:main",
     "bower-install-simple",
     "includeSource:target",
     "wiredep:target",
+    "ngAnnotate:main",
     "useminPrepare",
-    "concat",
-    "uglify",
-    "cssmin",
+    "concat:generated",
+    "uglify:generated",
+    "cssmin:generated",
     "usemin",
     "clean:release"
   ]);
 
   grunt.registerTask("local", [
     "clean:build",
-    "coffee:local",
     "copy",
     "bower-install-simple",
     "includeSource:target",

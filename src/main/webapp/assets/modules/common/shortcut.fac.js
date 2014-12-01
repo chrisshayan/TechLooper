@@ -19,8 +19,7 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           $location.path(jsonValue.routerUris.jobsSearch);
           $rootScope.$apply();
           break;
-        case jsonValue.views.analyticsSkill:
-        case jsonValue.views.jobsSearch:
+        default:
           $$.goBack();
           break;
       }

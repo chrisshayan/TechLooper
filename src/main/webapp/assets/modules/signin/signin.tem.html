@@ -1,0 +1,41 @@
+<div class="signin-page">
+    <div class="signin-header">
+        <div class="col-md-4 logo-block">
+            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
+            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
+        </div>
+        <div class="col-md-4 tech-line">
+            <h2 translate>tagLine</h2>
+        </div>
+        <div class="col-md-4 close-button">
+            <a class="btn-close" title="Close">X</a>
+        </div>
+    </div>
+    <div class="signin-contianer">
+        <ul class="signin-accounts">
+            <li class="layer" data-depth="0.20">
+                <div class="bg1"><img src="images/bg-signin1.png" alt=""></div>
+            </li>
+            <li class="layer" data-depth="0.20">
+                <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
+            </li>
+            <li class="layer" data-depth="0.20">
+                <div class="bg3"><img src="images/sircle-dot1.png" alt=""></div>
+            </li>
+            <li class="layer" data-depth="0.20">
+                <div class="bg4"><img src="images/sircle-dot2.png" alt=""></div>
+            </li>
+            <li class="layer" data-depth="0.20">
+                <div class="bg5"><img src="images/sircle-dot3.png" alt=""></div>
+            </li>
+            <li class="layer" data-depth="0.20">
+                <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
+            </li>
+            <li class="layer" data-depth="0.20" ng-repeat="acount in accounts">
+                <div class="signin-account {{acount.magnitude}}" style="background-color:{{acount.bgcolor}}">
+                    <a ng-href="{{acount.urlSignin}}" target="_blank"><img ng-src="{{acount.logo}}" alt=""></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,601 @@
+[
+    {
+        "key" : "JAVA",
+        "searchTexts" : ["java","j2ee"],
+        "label" : "Java",
+        "logoUrl" : "java-logo.png",
+        "webSite" : "www.java.com",
+        "usefulLinks" : [
+            {
+                "name" : "Dzone",
+                "url" : "java.dzone.com"
+            },
+            {
+                "name" : "JavaWorld",
+                "url" : "www.javaworld.com"
+            }
+        ],
+        "skills" : [
+            {
+                "name" : "Spring",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            },
+            {
+                "name" : "Hibernate",
+                "logoUrl" : "spring.png",
+                "webSite" : "spring.io",
+                "usefulLinks" : [
+                    {
+                        "name" : "Spring Framework - Projects",
+                        "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    }
+                ]
+
+            },
+            {
+                "name" : "Tomcat"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "Maven"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : "JUnit"
+            },
+            {
+                "name" : "Jenkins"
+            },
+            {
+                "name" : "Eclipse"
+            },
+            {
+                "name" : "JSP"
+            },
+            {
+                "name" : "J2EE"
+            },
+            {
+                "name" : "XML"
+            },
+            {
+                "name" : "Web Services"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "JSON"
+            },
+            {
+                "name" : "JMS"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "Continuous Integration"
+            }
+        ]
+    },
+    {
+        "key" : "PHP",
+        "searchTexts" : ["php"],
+        "label" : "PHP",
+        "skills" : [
+            {
+                "name" : "Symfony"
+            },
+            {
+                "name" : "Zend"
+            },
+            {
+                "name" : "WordPress"
+            },
+            {
+                "name" : "Drupal"
+            },
+            {
+                "name" : "Magento"
+            },
+            {
+                "name" : "OpenCart"
+            },
+            {
+                "name" : "Joomla"
+            },
+            {
+                "name" : "MySQL"
+            },
+            {
+                "name" : "LAMP"
+            },
+            {
+                "name" : "drupal"
+            },
+            {
+                "name" : "PostgreSQL"
+            },
+            {
+                "name" : "PHPUnit"
+            },
+            {
+                "name" : "Ajax"
+            },
+            {
+                "name" : "Linux"
+            },
+            {
+                "name" : "Varnish"
+            },
+            {
+                "name" : "Puppet"
+            },
+            {
+                "name" : "CodeIgniter"
+            },
+            {
+                "name" : "CakePHP"
+            },
+            {
+                "name" : "Yii"
+            }
+        ]
+    },
+    {
+        "key" : "DOTNET",
+        "searchTexts" : [".net", "asp.net"],
+        "label" : ".NET",
+        "skills" : [
+            {
+                "name" : "ASP.NET"
+            },
+            {
+                "name" : "SQL Server"
+            },
+            {
+                "name" : "MVC"
+            },
+            {
+                "name" : "Web Form"
+            },
+            {
+                "name" : "C#"
+            },
+            {
+                "name" : "SharePoint"
+            },
+            {
+                "name" : "Azure"
+            },
+            {
+                "name" : "Dynamics CRM"
+            },
+            {
+                "name" : "Visual Studio"
+            },
+            {
+                "name" : "NUnit"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : ".NET Framework"
+            },
+            {
+                "name" : "LINQ"
+            },
+            {
+                "name" : "ASP.NET Web Forms"
+            },
+            {
+                "name" : "Web Services"
+            },
+            {
+                "name" : "IIS"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "Windows Server"
+            },
+            {
+                "name" : "Active Directory"
+            },
+            {
+                "name" : "Sitecore"
+            },
+            {
+                "name" : "Umbraco"
+            },
+            {
+                "name" : "NHibernate"
+            },
+            {
+                "name" : "Dynamics AX"
+            }
+        ]
+    },
+    {
+        "key" : "RUBY",
+        "searchTexts" : ["ruby","ruby on rails"],
+        "label" : "Ruby",
+        "skills" : [
+            {
+                "name" : "Ruby on Rails"
+            },
+            {
+                "name" : "nginx"
+            },
+            {
+                "name" : "NoSQL"
+            },
+            {
+                "name" : "grape"
+            },
+            {
+                "name" : "Redis"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "JSON"
+            },
+            {
+                "name" : "XML"
+            },
+            {
+                "name" : "Web Service"
+            }
+        ]
+    },
+    {
+        "key" : "PYTHON",
+        "searchTexts" : ["python"],
+        "label" : "Python",
+        "skills" : [
+            {
+                "name" : "django"
+            },
+            {
+                "name" : "linux"
+            },
+            {
+                "name" : "Git"
+            },
+            {
+                "name" : "REST"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "JSON"
+            },
+            {
+                "name" : "XML"
+            }
+        ]
+    },
+    {
+        "key" : "PROJECT_MANAGER",
+        "searchTexts" : ["project manager"],
+        "label" : "Project Manager",
+        "skills" : [
+            {
+                "name" : "scrum"
+            },
+            {
+                "name" : "Project Management"
+            },
+            {
+                "name" : "PMP"
+            },
+            {
+                "name" : "kanban"
+            },
+            {
+                "name" : "SLA"
+            },
+            {
+                "name" : "Organizational Awareness"
+            },
+            {
+                "name" : "Vendor Management"
+            },
+            {
+                "name" : "Agile Software Development"
+            },
+            {
+                "name" : "CMMI"
+            },
+            {
+                "name" : "Supplier Management"
+            },
+            {
+                "name" : "itil"
+            }
+        ]
+    },
+    {
+        "key" : "DBA",
+        "searchTexts" : ["database", "database administrator", "data analyst", "data scientist"],
+        "label" : "DBA",
+        "skills" : [
+            {
+                "name" : "MySql"
+            },
+            {
+                "name" : "Oracle"
+            },
+            {
+                "name" : "NoSQL"
+            },
+            {
+                "name" : "Hadoop"
+            },
+            {
+                "name" : "MongoDB"
+            },
+            {
+                "name" : "Cassandra"
+            },
+            {
+                "name" : "Couchbase"
+            },
+            {
+                "name" : "DynamoDB"
+            },
+            {
+                "name" : "SQL Server"
+            },
+            {
+                "name" : "Relational Database"
+            },
+            {
+                "name" : "Database Design"
+            },
+            {
+                "name" : "Database Analysis"
+            },
+            {
+                "name" : "Data Warehouse"
+            }
+        ]
+    },
+    {
+        "key" : "QA",
+        "searchTexts" : ["qa", "qc"],
+        "label" : "QA",
+        "skills" : [
+            {
+                "name" : "Selenium"
+            },
+            {
+                "name" : "Automation Testing"
+            },
+            {
+                "name" : "Test Script"
+            },
+            {
+                "name" : "BDD"
+            },
+            {
+                "name" : "JIRA"
+            },
+            {
+                "name" : "WebDriver"
+            },
+            {
+                "name" : "Cucumber"
+            },
+            {
+                "name" : "QuickTest Pro"
+            },
+            {
+                "name" : "JMeter"
+            },
+            {
+                "name" : "Continuous Integration"
+            },
+            {
+                "name" : "Test Planning"
+            },
+            {
+                "name" : "User Acceptance Testing"
+            },
+            {
+                "name" : "Regression Testing"
+            },
+            {
+                "name" : "Test Strategy"
+            }
+        ]
+    },
+    {
+        "key" :"BA",
+        "searchTexts" : ["business analyst", "business consultant"],
+        "label" : "BA",
+        "skills" : [
+            {
+                "name" : "business analyst"
+            },
+            {
+                "name" : "SAP"
+            },
+            {
+                "name" : "ERP"
+            },
+            {
+                "name" : "prototype"
+            },
+            {
+                "name" : "mockup"
+            },
+            {
+                "name" : "Analytical Skills"
+            },
+            {
+                "name" : "User Experience"
+            },
+            {
+                "name" : "Stakeholder Management"
+            },
+            {
+                "name" : "UML"
+            },
+            {
+                "name" : "User Acceptance Testing"
+            },
+            {
+                "name" : "Business Intelligence"
+            },
+            {
+                "name" : "CRM"
+            }
+        ]
+    },
+    {
+        "key" :"CPLUSPLUS",
+        "searchTexts" : ["C", "C++"],
+        "label" : "C/C++",
+        "skills" : [
+            {
+                "name" : "C"
+            },
+            {
+                "name" : "C++"
+            },
+            {
+                "name" : "Embedded Systems"
+            },
+            {
+                "name" : "Linux"
+            },
+            {
+                "name" : "GCC"
+            },
+            {
+                "name" : "TCP/IP"
+            },
+            {
+                "name" : "DirectX"
+            }
+        ]
+    },
+    {
+        "key" :"WEB",
+        "searchTexts" : ["web", "front-end"],
+        "label" : "Web",
+        "skills" : [
+            {
+                "name" : "html"
+            },
+            {
+                "name" : "css"
+            },
+            {
+                "name" : "javascript"
+            },
+            {
+                "name" : "saas"
+            },
+            {
+                "name" : "less"
+            },
+            {
+                "name" : "photoshop"
+            },
+            {
+                "name" : "UI/UX"
+            },
+            {
+                "name" : "jQuery"
+            },
+            {
+                "name" : "AngularJS"
+            },
+            {
+                "name" : "BackboneJS"
+            },
+            {
+                "name" : "EmberJS"
+            },
+            {
+                "name" : "NodeJS"
+            }
+        ]
+    },
+    {
+        "key" :"MOBILE",
+        "searchTexts" : ["mobile", "android", "ios"],
+        "label" : "Mobile",
+        "skills" : [
+            {
+                "name" : "Android"
+            },
+            {
+                "name" : "iOS"
+            },
+            {
+                "name" : "Windows phone"
+            },
+            {
+                "name" : "PhoneGap"
+            },
+            {
+                "name" : "Xamarin"
+            },
+            {
+                "name" : "Blackberry"
+            },
+            {
+                "name" : "Cocoa"
+            },
+            {
+                "name" : "Sencha Touch"
+            },
+            {
+                "name" : "Responsive Design"
+            },
+            {
+                "name" : "Swift"
+            },
+            {
+                "name" : "Objective C"
+            },
+            {
+                "name" : "SQLite"
+            }
+        ]
+    }
+]

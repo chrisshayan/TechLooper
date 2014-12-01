@@ -21,7 +21,10 @@
       "selectize" : "latest",
       "mousetrap": "latest",
       "JSONPath": "latest",
-      "DateJS": "latest"
+      "DateJS": "latest",
+      "d3": "latest",
+      "d3-transform": "latest",
+      "parallax": "latest"
    },
    "overrides": {
       "jquery": {
@@ -70,13 +73,22 @@
          "main": "dist/js/standalone/selectize.min.js"
       },
       "jQuery.dotdotdot": {
-         "main": "src/js/jquery.dotdotdot.js"
+         "main": "src/js/jquery.dotdotdot.min.js"
       },
       "mousetrap": {
          "main": ["mousetrap.min.js", "plugins/global-bind/mousetrap-global-bind.min.js"]
       },
       "DateJS": {
          "main": "build/date.js"
+      },
+      "d3": {
+         "main": "d3.min.js"
+      },
+      "d3-transform": {
+         "main": "src/d3-transform.js"
+      },
+      "parallax": {
+         "main" : "deploy/jquery.parallax.min.js"
       }
    }
 }

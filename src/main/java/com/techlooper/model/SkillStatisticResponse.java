@@ -7,69 +7,69 @@ import java.util.List;
  */
 public class SkillStatisticResponse {
 
-  private TechnicalTermEnum jobTerm;
-  private Long count;
-  private Long totalTechnicalJobs;
-  private List<SkillStatistic> skills;
+    private String label;
+    private Long count;
+    private Long totalTechnicalJobs;
+    private List<SkillStatistic> skills;
 
-  public static class Builder {
+    public static class Builder {
 
-    private SkillStatisticResponse instance = new SkillStatisticResponse();
+        private SkillStatisticResponse instance = new SkillStatisticResponse();
 
-    public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
-      instance.totalTechnicalJobs = totalTechnicalJobs;
-      return this;
+        public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
+            instance.totalTechnicalJobs = totalTechnicalJobs;
+            return this;
+        }
+
+        public Builder withSkills(List<SkillStatistic> skills) {
+            instance.skills = skills;
+            return this;
+        }
+
+        public Builder withLabel(String label) {
+            instance.label = label;
+            return this;
+        }
+
+        public Builder withCount(Long count) {
+            instance.count = count;
+            return this;
+        }
+
+        public SkillStatisticResponse build() {
+            return instance;
+        }
     }
 
-    public Builder withSkills(List<SkillStatistic> skills) {
-      instance.skills = skills;
-      return this;
+    public String getLabel() {
+        return label;
     }
 
-    public Builder withJobTerm(TechnicalTermEnum jobTerm) {
-      instance.jobTerm = jobTerm;
-      return this;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public Builder withCount(Long count) {
-      instance.count = count;
-      return this;
+    public Long getCount() {
+        return count;
     }
 
-    public SkillStatisticResponse build() {
-      return instance;
+    public void setCount(Long count) {
+        this.count = count;
     }
-  }
 
-  public TechnicalTermEnum getJobTerm() {
-    return jobTerm;
-  }
+    public List<SkillStatistic> getSkills() {
+        return skills;
+    }
 
-  public void setJobTerm(TechnicalTermEnum jobTerm) {
-    this.jobTerm = jobTerm;
-  }
+    public void setSkills(List<SkillStatistic> skills) {
+        this.skills = skills;
+    }
 
-  public Long getCount() {
-    return count;
-  }
+    public Long getTotalTechnicalJobs() {
+        return totalTechnicalJobs;
+    }
 
-  public void setCount(Long count) {
-    this.count = count;
-  }
-
-  public List<SkillStatistic> getSkills() {
-    return skills;
-  }
-
-  public void setSkills(List<SkillStatistic> skills) {
-    this.skills = skills;
-  }
-
-  public Long getTotalTechnicalJobs() {
-    return totalTechnicalJobs;
-  }
-
-  public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
-    this.totalTechnicalJobs = totalTechnicalJobs;
-  }
+    public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
+        this.totalTechnicalJobs = totalTechnicalJobs;
+    }
 }

@@ -2,10 +2,12 @@ package com.techlooper.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,11 +22,22 @@ public class JsonUtils {
     private JsonUtils() {
     }
 
+    /**
+     * Returns an instance of {@link com.fasterxml.jackson.databind.ObjectMapper}
+     * @return Returns an instance of {@link com.fasterxml.jackson.databind.ObjectMapper}
+     */
     public static ObjectMapper getObjectMapper() {
         OBJECT_MAPPER.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
         return OBJECT_MAPPER;
     }
 
+    /**
+     *
+     * @param json It is the JSON content
+     * @param objectType the class that JSON file will parse to.
+     * @param <T> Generic Type of the class
+     * @return An instance of objectType
+     */
     public static <T> Optional<T> toPOJO(String json, Class<T> objectType) {
         Optional<T> result = Optional.empty();
         try {
@@ -35,10 +48,35 @@ public class JsonUtils {
         return result;
     }
 
+    /**
+     * Convert a model to JSON
+     * @param object the model
+     * @param <T> type of object
+     * @return JSON structure
+     */
     public static <T> Optional<String> toJSON(T object) {
         Optional<String> result = Optional.empty();
         try {
             result = Optional.ofNullable(getObjectMapper().writeValueAsString(object));
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     * Convert list of JSON to list of objects
+     * @param jsonArray List of JSONs
+     * @param objectType the model
+     * @param <T> the type of model
+     * @return list of the models
+     */
+    public static <T> Optional<List<T>> toList(String jsonArray, Class<T> objectType) {
+        Optional<List<T>> result = Optional.empty();
+        try {
+            final CollectionType collectionType =
+                    getObjectMapper().getTypeFactory().constructCollectionType(List.class, objectType);
+            result = Optional.ofNullable(getObjectMapper().readValue(jsonArray, collectionType));
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

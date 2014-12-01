@@ -54,12 +54,13 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       });
       $('i.fa-caret-up').show();
 
-      // TODO: find other way to map term's labels
-      var rename = utils.mappingData(viewJson.jobTerm);
-      if (rename.length > 5) {
+      if ($('span.termLabel').width() > $('span.termLabel').parent().width()) {
         $('.term-infor-chart .number').addClass('small');
       }
-      $('.term-infor-chart .number').append(rename);
+    },
+
+    enableNotifications: function() {
+      return $(".top10Circles").is(":visible");
     }
   }
 
@@ -74,9 +75,8 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
       });
 
-      var termColor = utils.getTermColor(viewJson.jobTerm);
-      $('.term-infor-chart').find('.percent').css('background-color',termColor).next().find('i').css('color',termColor);
-
+      //var termColor = utils.getTermColor(viewJson.jobTerm);
+      //$('.term-infor-chart').find('.percent').css('background-color',termColor).next().find('i').css('color',termColor);
     }
   }
 });

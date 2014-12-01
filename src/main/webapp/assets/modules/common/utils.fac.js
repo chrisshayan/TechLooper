@@ -2,6 +2,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
   var notification = {};
 
   return {
+    go2SkillAnalyticPage: function(scope, term) {
+      var path = jsonValue.routerUris.analyticsSkill + '/' + term;
+      $location.path(path);
+      scope.$apply();
+    },
+
     getDatePeriods: function(number, period) {
       switch (period) {
         case "month":
@@ -96,6 +102,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       else if (/\/analytics\/skill/.test(path)) {
         return jsonValue.views.analyticsSkill;
       }
+      else if (/\/signin/.test(path)) {
+        return jsonValue.views.signIn;
+      }
+      else if (/\/register/.test(path)) {
+        return jsonValue.views.register;
+      }
     },
 
     sum: function (array, prop) {
@@ -131,45 +143,45 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       });
       return val;
     },
-    mappingData: function (serName) {
-      var webName = '';
-      switch (serName) {
-        case 'PROJECT_MANAGER':
-          webName = 'Project Manager'
-          break;
-        case 'QA':
-          webName = 'QA'
-          break;
-        case 'DBA':
-          webName = 'DBA'
-          break;
-        case 'PYTHON':
-          webName = 'Python'
-          break;
-        case 'BA':
-          webName = 'BA'
-          break;
-        case 'RUBY':
-          webName = 'Ruby'
-          break;
-        case 'PHP':
-          webName = 'Php'
-          break;
-        case 'JAVA':
-          webName = 'Java'
-          break;
-        case 'DOTNET':
-          webName = '.NET'
-          break;
-      }
-      return webName;
-    },
-    getTermColor: function(termName){
-      for(var i = 0; i < jsonValue.termColor.length; i ++){
-          if(jsonValue.termColor[i].Name == termName){
-             return jsonValue.termColor[i].color;
-          }
-      }
-    }
+    //mappingData: function (serName) {
+    //  var webName = '';
+    //  switch (serName) {
+    //    case 'PROJECT_MANAGER':
+    //      webName = 'Project Manager'
+    //      break;
+    //    case 'QA':
+    //      webName = 'QA'
+    //      break;
+    //    case 'DBA':
+    //      webName = 'DBA'
+    //      break;
+    //    case 'PYTHON':
+    //      webName = 'Python'
+    //      break;
+    //    case 'BA':
+    //      webName = 'BA'
+    //      break;
+    //    case 'RUBY':
+    //      webName = 'Ruby'
+    //      break;
+    //    case 'PHP':
+    //      webName = 'Php'
+    //      break;
+    //    case 'JAVA':
+    //      webName = 'Java'
+    //      break;
+    //    case 'DOTNET':
+    //      webName = '.NET'
+    //      break;
+    //  }
+    //  return webName;
+    //},
+    //getTermColor: function(termName){
+    //  for(var i = 0; i < jsonValue.termColor.length; i ++){
+    //      if(jsonValue.termColor[i].Name == termName){
+    //         return jsonValue.termColor[i].color;
+    //      }
+    //  }
+    //}
   }
 });

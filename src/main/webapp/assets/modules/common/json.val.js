@@ -15,7 +15,52 @@ angular.module("Common").constant("jsonValue", {
     switchScope: "switch to other scope",
     defaultAction: "default action",
     mouseHover: "Mouse Hover",
-    gotData: "Got Data"
+    gotData: "Got Data",
+    changeLang: "Change language",
+    changeUrl: "Change URL"
+  },
+
+  viewTerms: {
+    unlistedItems: {
+      label: function(obj){return obj.label === undefined ? obj.term : obj.label;},
+      color: "white"
+    },
+
+    listedItems: [
+      {
+        term: "JAVA", label: "Java", color: "#bf06b7"
+      },
+      {
+        term: "DOTNET", label: ".Net", color: "#d50708"
+      },
+      {
+        term: "PHP", label: "Php", color: "#450770"
+      },
+      {
+        term: "RUBY", label: "Ruby", color: "#d5876a"
+      },
+      {
+        term: "PYTHON", label: "Python", color: "#d7c500"
+      },
+      {
+        term: "PROJECT_MANAGER", label: "Project Manager", color: "#17875f"
+      },
+      {
+        term: "DBA", label: "DBA", color: "#666600"
+      },
+      {
+        term: "QA", label: "QA", color: "#0071bb"
+      },
+      {
+        term: "BA", label: "BA", color: "#996600"
+      }
+      //{
+      //  term: "WEB", label: "Web Development"
+      //},
+      //{
+      //  term: "MOBILE", label: "Mobile Development"
+      //}
+    ]
   },
 
   termColor: [
@@ -63,7 +108,7 @@ angular.module("Common").constant("jsonValue", {
     terms: "Terms",
     term: "Term",
     changeChart: "Change Chart",
-    foundJobs : "Found Jobs",
+    foundJobs: "Found Jobs",
     analyticsSkill: "Analytics Skill"
   },
 
@@ -71,7 +116,9 @@ angular.module("Common").constant("jsonValue", {
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
-    analyticsSkill: "/analytics/skill"
+    analyticsSkill: "/analytics/skill",
+    signIn: "signin",
+    register: "register"
   },
 
   views: {
@@ -79,7 +126,9 @@ angular.module("Common").constant("jsonValue", {
     jobsSearchText: "jobSearchText",
     analyticsSkill: "analyticsSkill",
     bubbleChart: "bubbleChart",
-    pieChart: "pieChart"
+    pieChart: "pieChart",
+    signIn: "signin",
+    register: "register"
   },
 
   socketUri: {
@@ -834,5 +883,56 @@ angular.module("Common").constant("jsonValue", {
     "id": 6,
     "img": "images/cp-logo-vtv.png",
     "url": "https://www.vtv.vn/"
-  }]
+  }],
+  accountSignin: [
+    {
+      "site": "VietnamWork",
+      "urlSignin": "http://www.vietnamworks.com/",
+      "logo": "images/vietnamwork.png",
+      "magnitude": "level1",
+      "bgcolor": "#1fbaec"
+    },
+    {
+      "site": "Linkedin",
+      "urlSignin": "http://linkedin.com/",
+      "logo": "images/linkedin.png",
+      "magnitude": "level2",
+      "bgcolor": "#007bb6"
+    },
+    {
+      "site": "Facebook",
+      "urlSignin": "http://facebook.com/",
+      "logo": "images/facebook.png",
+      "magnitude": "level3",
+      "bgcolor": "#3b5a9b"
+    },
+    {
+      "site": "Stackoverflow",
+      "urlSignin": "http://stackoverflow.com/",
+      "logo": "images/stackoverflow.png",
+      "magnitude": "level4",
+      "bgcolor": "#fda428"
+    },
+    {
+      "site": "Gmail",
+      "urlSignin": "https://mail.google.com/",
+      "logo": "images/gmail.png",
+      "magnitude": "level5",
+      "bgcolor": "#ac2e25"
+    },
+    {
+      "site": "Github",
+      "urlSignin": "https://github.com/",
+      "logo": "images/github.png",
+      "magnitude": "level6",
+      "bgcolor": "#333333"
+    },
+    {
+      "site": "Bitbucket",
+      "urlSignin": "https://bitbucket.org/",
+      "logo": "images/bitbucket.png",
+      "magnitude": "level7",
+      "bgcolor": "#fff"
+    }
+  ]
 });

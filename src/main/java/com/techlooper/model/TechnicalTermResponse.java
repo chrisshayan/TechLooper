@@ -3,16 +3,26 @@ package com.techlooper.model;
 
 public class TechnicalTermResponse {
 
-    private TechnicalTermEnum term;
+    private String term;
+
+    private String label;
 
     private Long count;
 
-    public TechnicalTermEnum getTerm() {
+    public String getTerm() {
         return term;
     }
 
-    public void setTerm(TechnicalTermEnum term) {
+    public void setTerm(String term) {
         this.term = term;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public Long getCount() {
@@ -32,8 +42,13 @@ public class TechnicalTermResponse {
             return this;
         }
 
-        public Builder withTerm(TechnicalTermEnum term) {
+        public Builder withTerm(String term) {
             instance.term = term;
+            return this;
+        }
+
+        public Builder withLabel(String label) {
+            instance.label = label;
             return this;
         }
 
