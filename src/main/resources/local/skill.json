@@ -226,6 +226,8 @@
         "key" : "PHP",
         "searchTexts" : ["php"],
         "label" : "PHP",
+        "logoUrl" : "",
+        "webSite" : "",
         "skills" : [
             {
                 "name" : "Symfony"
