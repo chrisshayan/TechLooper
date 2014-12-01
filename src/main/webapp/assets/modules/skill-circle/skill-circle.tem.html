@@ -13,4 +13,12 @@
     <div class="circle" id="circle-{{$index}}" data-index="{{$index}}" title="{{item.skillName}}"></div>
     <div class="skill-name">{{item.skillName}}</div>
   </div>
+  <div class="term-useful-links">
+    <h3><img ng-src="images/{{viewJson.logoUrl}}" alt=""> <span>Useful Links</span></h3>
+    <ul>
+      <li ng-repeat="link in viewJson.usefulLinks">
+        <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>
+      </li>
+    </ul>
+  </div>
 </div>
