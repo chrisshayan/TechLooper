@@ -11,6 +11,9 @@ public class SkillStatisticResponse {
     private Long count;
     private Long totalTechnicalJobs;
     private List<SkillStatistic> skills;
+    private String logoUrl;
+    private String webSite;
+    private List<SkillLink> usefulLinks;
 
     public static class Builder {
 
@@ -33,6 +36,21 @@ public class SkillStatisticResponse {
 
         public Builder withCount(Long count) {
             instance.count = count;
+            return this;
+        }
+
+        public Builder withLogoUrl(String logoUrl) {
+            instance.logoUrl = logoUrl;
+            return this;
+        }
+
+        public Builder withWebSite(String webSite) {
+            instance.webSite = webSite;
+            return this;
+        }
+
+        public Builder withUsefulLinks(List<SkillLink> usefulLinks) {
+            instance.usefulLinks = usefulLinks;
             return this;
         }
 
@@ -71,5 +89,29 @@ public class SkillStatisticResponse {
 
     public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
         this.totalTechnicalJobs = totalTechnicalJobs;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    public List<SkillLink> getUsefulLinks() {
+        return usefulLinks;
+    }
+
+    public void setUsefulLinks(List<SkillLink> usefulLinks) {
+        this.usefulLinks = usefulLinks;
     }
 }
