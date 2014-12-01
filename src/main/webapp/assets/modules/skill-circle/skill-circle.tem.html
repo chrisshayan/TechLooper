@@ -12,9 +12,30 @@
   <div class="skill-circle-item" ng-repeat="item in viewJson.circles">
     <div class="circle" id="circle-{{$index}}" data-index="{{$index}}" title="{{item.skillName}}"></div>
     <div class="skill-name">{{item.skillName}}</div>
+    <div class="skill-useful-links">
+      <i class="fa fa-caret-left"></i>
+      <div class="skill-logo">
+        <a ng-href="{{item.webSite}}"  target="_blank">
+          <img ng-src="images/{{item.logoUrl}}" alt="" ng-show="{{item.logoUrl.length}}"> 
+          <img ng-src="images/no-logo.png" alt="" ng-show="{{!item.logoUrl.length}}"> 
+          {{item.skillName}}</a>
+      </div>
+      <h3>Useful Links</h3>
+      <ul>
+        <li ng-repeat="link in item.usefulLinks">
+          <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="term-useful-links">
-    <h3><img ng-src="images/{{viewJson.logoUrl}}" alt=""> <span>Useful Links</span></h3>
+    <div class="logo-term">
+      <a ng-href="{{viewJson.webSite}}" target="_blank">
+        <img ng-src="images/no-logo.png" alt="" ng-show="{{!viewJson.logoUrl.length}}">
+        <img ng-src="images/{{viewJson.logoUrl}}" alt="" ng-show="{{viewJson.logoUrl.length}}"> 
+      </a>
+    </div>
+    <h3>Useful Links</h3>
     <ul>
       <li ng-repeat="link in viewJson.usefulLinks">
         <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>

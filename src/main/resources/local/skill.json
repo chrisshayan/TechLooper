@@ -3,27 +3,39 @@
         "key" : "JAVA",
         "searchTexts" : ["java","j2ee"],
         "label" : "Java",
-        "logoUrl" : "java-logo.png",
-        "webSite" : "www.java.com",
+        "logoUrl" : "lg-java.png",
+        "webSite" : "https://www.java.com",
         "usefulLinks" : [
             {
                 "name" : "Dzone",
-                "url" : "java.dzone.com"
+                "url" : "https://java.dzone.com"
             },
             {
                 "name" : "JavaWorld",
-                "url" : "www.javaworld.com"
+                "url" : "https://www.javaworld.com"
             }
         ],
         "skills" : [
             {
                 "name" : "Spring",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
+                "logoUrl" : "lg-spring.png",
+                "webSite" : "https://spring.io",
                 "usefulLinks" : [
                     {
                         "name" : "Spring Framework - Projects",
                         "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
                     },
                     {
                         "name" : "Spring Framework - GitHub",
@@ -34,19 +46,39 @@
             },
             {
                 "name" : "Hibernate",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "lg-hibernate.png",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
                         "name" : "Hibernate Tutorial",
                         "url" : "http://www.tutorialspoint.com/hibernate"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
                     }
                 ]
 
             },
             {
                 "name" : "Tomcat",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -57,7 +89,7 @@
             },
             {
                 "name" : "REST",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -68,7 +100,7 @@
             },
             {
                 "name" : "Maven",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -79,7 +111,7 @@
             },
             {
                 "name" : "Git",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "lg-git.png",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -90,7 +122,7 @@
             },
             {
                 "name" : "JUnit",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -101,7 +133,7 @@
             },
             {
                 "name" : "Jenkins",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "lg-jenkins.png",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -112,7 +144,7 @@
             },
             {
                 "name" : "Eclipse",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -123,7 +155,7 @@
             },
             {
                 "name" : "JSP",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -134,7 +166,7 @@
             },
             {
                 "name" : "J2EE",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "lg-java.png",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -145,7 +177,7 @@
             },
             {
                 "name" : "XML",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -156,7 +188,7 @@
             },
             {
                 "name" : "Web Services",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -167,7 +199,7 @@
             },
             {
                 "name" : "REST",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -178,7 +210,7 @@
             },
             {
                 "name" : "JSON",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -189,7 +221,7 @@
             },
             {
                 "name" : "JMS",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -200,7 +232,7 @@
             },
             {
                 "name" : "Agile Software Development",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -211,7 +243,7 @@
             },
             {
                 "name" : "Continuous Integration",
-                "logoUrl" : "hibernate.png",
+                "logoUrl" : "",
                 "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
@@ -226,8 +258,51 @@
         "key" : "PHP",
         "searchTexts" : ["php"],
         "label" : "PHP",
-        "logoUrl" : "",
-        "webSite" : "",
+        "logoUrl" : "lg-php.png",
+        "webSite" : "php.net",
+        "usefulLinks" : [
+            {
+                "name" : "First Look at Themosis, a Framework for WordPress Developers.",
+                "url" : "http://www.sitepoint.com/first-look-themosis-framework-wordpress-developers/"
+            },
+            {
+                "name" : "A better PHP testing experience Part I: Moving away from assertion-centric unit testing.",
+                "url" : "http://php-and-symfony.matthiasnoback.nl/2014/07/descriptive-unit-tests/"
+            },
+            {
+                "name" : "10 Essential Sublime Text Plugins for Full-Stack Developers",
+                "url" : "http://www.sitepoint.com/10-essential-sublime-text-plugins-full-stack-developer/"
+            },
+            {
+                "name" : "Automate PHP with Phake – Real World Examples",
+                "url" : "http://www.sitepoint.com/automate-php-phake-real-world-examples/"
+            },
+            {
+                "name" : "How to Customize the WordPress Dashboard to Minimize Confusion",
+                "url" : "http://code.tutsplus.com/tutorials/how-to-customize-the-wordpress-dashboard-to-minimize-confusion--cms-20344"
+            },
+            {
+                "name" : "In The Next Few Years, 90% Of WordPress Development Could Be JavaScript Based",
+                "url" : "http://wptavern.com/in-the-next-few-years-90-of-wordpress-development-could-be-javascript-based"
+            },
+            {
+                "name" : "FlexMovies – Internet Movie Database PHP Script",
+                "url" : "http://www.developerslane.com/flexmovies-internet-movie-database-php-script/"
+            },
+            {
+                "name" : "The Future of WordPress",
+                "url" : "http://inside.envato.com/the-future-of-wordpress/"
+            },
+            {
+                "name" : "Unbreakable Laravel Migrations",
+                "url" : "https://antoniocarlosribeiro.com/technology/articles/unbreakable-laravel-migrations"
+            },
+            {
+                "name" : "Delving into CakePHP with James Watts",
+                "url" : "http://threedevsandamaybe.com/delving-into-cakephp-with-james-watts/"
+            }
+
+        ],
         "skills" : [
             {
                 "name" : "Symfony"
@@ -436,6 +511,8 @@
         "key" : "PROJECT_MANAGER",
         "searchTexts" : ["project manager"],
         "label" : "Project Manager",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "scrum"
@@ -476,6 +553,8 @@
         "key" : "DBA",
         "searchTexts" : ["database", "database administrator", "data analyst", "data scientist"],
         "label" : "DBA",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "MySql"
@@ -522,6 +601,8 @@
         "key" : "QA",
         "searchTexts" : ["qa", "qc"],
         "label" : "QA",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "Selenium"
@@ -571,6 +652,8 @@
         "key" :"BA",
         "searchTexts" : ["business analyst", "business consultant"],
         "label" : "BA",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "business analyst"
@@ -642,6 +725,8 @@
         "key" :"WEB",
         "searchTexts" : ["web", "front-end"],
         "label" : "Web",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "html"
@@ -685,6 +770,8 @@
         "key" :"MOBILE",
         "searchTexts" : ["mobile", "android", "ios"],
         "label" : "Mobile",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "Android"
