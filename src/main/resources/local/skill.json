@@ -34,67 +34,191 @@
             },
             {
                 "name" : "Hibernate",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
                     }
                 ]
 
             },
             {
-                "name" : "Tomcat"
+                "name" : "Tomcat",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Maven"
+                "name" : "Maven",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Git"
+                "name" : "Git",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "JUnit"
+                "name" : "JUnit",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Jenkins"
+                "name" : "Jenkins",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Eclipse"
+                "name" : "Eclipse",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "JSP"
+                "name" : "JSP",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "J2EE"
+                "name" : "J2EE",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "XML"
+                "name" : "XML",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Web Services"
+                "name" : "Web Services",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "JSON"
+                "name" : "JSON",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "JMS"
+                "name" : "JMS",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Agile Software Development"
+                "name" : "Agile Software Development",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             },
             {
-                "name" : "Continuous Integration"
+                "name" : "Continuous Integration",
+                "logoUrl" : "hibernate.png",
+                "webSite" : "http://hibernate.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    }
+                ]
             }
         ]
     },
@@ -102,6 +226,8 @@
         "key" : "PHP",
         "searchTexts" : ["php"],
         "label" : "PHP",
+        "logoUrl" : "",
+        "webSite" : "",
         "skills" : [
             {
                 "name" : "Symfony"
