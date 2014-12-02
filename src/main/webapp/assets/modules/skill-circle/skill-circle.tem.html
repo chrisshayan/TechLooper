@@ -31,8 +31,12 @@
   <div class="term-useful-links">
     <div class="logo-term">
       <a ng-href="{{viewJson.webSite}}" target="_blank">
-        <img ng-src="images/no-logo.png" alt="" ng-show="{{!viewJson.logoUrl.length}}">
-        <img ng-src="images/{{viewJson.logoUrl}}" alt="" ng-show="{{viewJson.logoUrl.length}}"> 
+          <div ng-if="viewJson.logoUrl.length > 0">
+              <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
+          </div>
+          <div ng-if="viewJson.logoUrl.length == 0">
+              <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
+          </div>
       </a>
     </div>
     <h3>Useful Links</h3>
