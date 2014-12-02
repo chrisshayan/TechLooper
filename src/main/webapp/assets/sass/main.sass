@@ -12,7 +12,8 @@ body
   outline: 0
 ul
   list-style: none
-
+a img
+  border: 0
 a:hover
   text-decoration: none
 .hide
@@ -252,6 +253,7 @@ ul.setting-items
   -moz-transition: 1s ease-in-out 
   -o-transition: 1s ease-in-out
   transition: 1s ease-in-out
+  cursor: pointer
 .signin-account:hover
   border: 3px solid #fff
   -webkit-transform: rotate(360deg) scale(1.2)
@@ -816,6 +818,11 @@ label.bootstrap-checkbox.disabled
     max-width: 400px
     margin: auto
     text-align: left
+    h2
+      font-size: 16px
+      font-weight: 300
+      text-transform: uppercase
+      padding-left: 10px
     input[type=text]
       background-color: #251f21
       border: 1px solid #3c3438
@@ -873,3 +880,50 @@ label.bootstrap-checkbox.disabled
       color: #fff
     .submit a:hover
       background-color: #007bdc
+.modal-dialog
+  top: 25%
+.signin-popup
+  width: 100%
+  text-align: center
+  margin: auto
+  min-height: 250px
+.signin-popup-header
+  background: url(../images/underline-black.png) left bottom repeat-x
+  width: 100%
+  clear: both
+  padding: 10px 0
+.signin-form-content
+  width: 100%
+  max-width: 400px
+  clear: both
+  padding: 10px 0
+  margin: auto
+  .signin-field
+    width: 100%
+    padding-bottom: 10px
+    float: left
+  input[type=text],
+  input[type=password]
+    background-color: #251f21
+    border: 1px solid #3c3438
+    border-radius: 5px
+    color: #a4a4a4
+    height: 34px
+    padding: 5px 10px
+    width: 320px
+    float: left
+  label
+    font-size: 14px
+    text-transform: capitalize
+    float: left
+    padding: 5px 5px 0 0
+    width: 80px
+    font-weight: 300
+  button
+    min-width: 80px
+  .signin-field.has-error
+    input[type=text],
+    input[type=password]
+      border: 1px solid #ac0909
+.tooltip.top
+  top: -25px

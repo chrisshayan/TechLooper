@@ -14,7 +14,7 @@
     <div class="signin-contianer">
         <ul class="signin-accounts">
             <li class="layer" data-depth="0.20">
-                <div class="bg1"><img src="images/bg-signin1.png" alt=""></div>
+                <div class="bg1"><img src="images/bg-signin1.png" alt=""</div>
             </li>
             <li class="layer" data-depth="0.20">
                 <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
@@ -33,9 +33,38 @@
             </li>
             <li class="layer" data-depth="0.20" ng-repeat="acount in accounts">
                 <div class="signin-account {{acount.magnitude}}" style="background-color:{{acount.bgcolor}}">
-                    <a ng-href="{{acount.urlSignin}}" target="_blank"><img ng-src="{{acount.logo}}" alt=""></a>
+                    <a data-toggle="modal" data-target="#signin-form"><img ng-src="{{acount.logo}}" alt=""></a>
                 </div>
             </li>
         </ul>
+    </div>
+</div>
+
+<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="signin-popup">
+                    <div class="signin-popup-header">
+                        <a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/logo_thanksgiving.png" alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>
+                    </div>
+                    <div class="signin-form-content">
+                        <div class="signin-field">
+                            <label for="txtUserName">User Name:</label>
+                            <input type="text" id="txtUserName" class="form-control" placeholder="Enter email">
+                        </div>
+                        <div class="signin-field has-error">
+                            <label for="txtPassword">Password:</label>
+                            <input type="password" id="txtUserName" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="signin-field">
+                            <button class="btn btn-primary sign-successful">Ok</button>
+                            <button class="btn btn-primary signin-popup-close">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
     </div>
 </div>
