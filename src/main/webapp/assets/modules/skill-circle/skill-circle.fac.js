@@ -73,6 +73,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
 
       $('.skill-circle-item').on('click mouseover', function(){
         utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
+        $(this).find('.skill-useful-links').show();
+      }).mouseleave(function(){
+        $(this).find('.skill-useful-links').hide();
       });
 
       //var termColor = utils.getTermColor(viewJson.jobTerm);

@@ -7,6 +7,8 @@ import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
+import com.techlooper.util.JsonUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +20,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -48,7 +52,22 @@ public class VietnamWorksJobStatisticServiceTest {
     }
 
     @Test
-    public void testCountJobsBySkill() {
-        // TODO : Because we've changed the logic how to load JSON file. So we should re-implement this test case later
+    public void testCountJobsBySkill() throws Exception {
+        String jsonSkill = IOUtils.toString(getClass().getResourceAsStream("/expect/skill.json"), "UTF-8");
+        Optional<List<TechnicalTerm>> termsOptional = JsonUtils.toList(jsonSkill, TechnicalTerm.class);
+        List<TechnicalTerm> terms = termsOptional.get();
+        TechnicalTerm javaTerm = terms.get(0);
+
+        SkillStatisticResponse skillStatisticResponse = jobStatisticService.countJobsBySkill(
+                javaTerm, new HistogramEnum[]{HistogramEnum.TWO_WEEKS, HistogramEnum.ONE_WEEK});
+
+        assertNotNull(skillStatisticResponse);
+        assertNotEquals(0, skillStatisticResponse.getCount().longValue());
+        assertNotEquals(0, skillStatisticResponse.getTotalTechnicalJobs().longValue());
+        assertNotEquals("", skillStatisticResponse.getLabel());
+        assertNotEquals("", skillStatisticResponse.getLogoUrl());
+        assertNotEquals("", skillStatisticResponse.getWebSite());
+        assertNotEquals(0, skillStatisticResponse.getSkills().size());
+        assertNotEquals(0, skillStatisticResponse.getUsefulLinks().size());
     }
 }

@@ -51,6 +51,10 @@ public class TechnicalTermRepository {
 
     }
 
+    public TechnicalTerm findByKey(String termKey) {
+        return findAll().stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
+    }
+
     public Resource getSkillJsonResource() {
         return skillJsonResource;
     }

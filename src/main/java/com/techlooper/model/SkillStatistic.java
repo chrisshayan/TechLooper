@@ -9,42 +9,84 @@ import java.util.List;
  */
 public class SkillStatistic {
 
-  private String skillName;
+    private String skillName;
+    private String logoUrl;
+    private String webSite;
+    private List<SkillLink> usefulLinks;
 
-  private List<Histogram> histograms = new ArrayList<>();
+    private List<Histogram> histograms = new ArrayList<>();
 
-  public List<Histogram> getHistograms() {
-    return histograms;
-  }
-
-  public void setHistograms(List<Histogram> histograms) {
-    this.histograms = histograms;
-  }
-
-  public String getSkillName() {
-    return skillName;
-  }
-
-  public void setSkillName(String skillName) {
-    this.skillName = skillName;
-  }
-
-  public static class Builder {
-
-    private SkillStatistic instance = new SkillStatistic();
-
-    public Builder withHistogram(Histogram histogram) {
-      instance.histograms.add(histogram);
-      return this;
+    public List<Histogram> getHistograms() {
+        return histograms;
     }
 
-    public Builder withSkillName(String skillName) {
-      instance.skillName = skillName;
-      return this;
+    public void setHistograms(List<Histogram> histograms) {
+        this.histograms = histograms;
     }
 
-    public SkillStatistic build() {
-      return instance;
+    public String getSkillName() {
+        return skillName;
     }
-  }
+
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    public List<SkillLink> getUsefulLinks() {
+        return usefulLinks;
+    }
+
+    public void setUsefulLinks(List<SkillLink> usefulLinks) {
+        this.usefulLinks = usefulLinks;
+    }
+
+    public static class Builder {
+
+        private SkillStatistic instance = new SkillStatistic();
+
+        public Builder withHistogram(Histogram histogram) {
+            instance.histograms.add(histogram);
+            return this;
+        }
+
+        public Builder withSkillName(String skillName) {
+            instance.skillName = skillName;
+            return this;
+        }
+
+        public Builder withLogoUrl(String logoUrl) {
+            instance.logoUrl = logoUrl;
+            return this;
+        }
+
+        public Builder withWebSite(String webSite) {
+            instance.webSite = webSite;
+            return this;
+        }
+
+        public Builder withUsefulLinks(List<SkillLink> usefulLinks) {
+            instance.usefulLinks = usefulLinks;
+            return this;
+        }
+
+        public SkillStatistic build() {
+            return instance;
+        }
+    }
 }
