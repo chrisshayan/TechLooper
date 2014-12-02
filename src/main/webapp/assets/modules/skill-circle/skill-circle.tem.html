@@ -16,8 +16,12 @@
       <i class="fa fa-caret-left"></i>
       <div class="skill-logo">
         <a ng-href="{{item.webSite}}"  target="_blank">
-          <img ng-src="images/{{item.logoUrl}}" alt="" ng-show="{{item.logoUrl.length}}"> 
-          <img ng-src="images/no-logo.png" alt="" ng-show="{{!item.logoUrl.length}}"> 
+          <span ng-if="item.logoUrl.length">
+            <img ng-src="images/{{item.logoUrl}}" alt="" />
+          </span>
+          <span ng-if="!item.logoUrl.length">
+            <img ng-src="images/no-logo.png" alt="" />
+          </span>
           {{item.skillName}}</a>
       </div>
       <h3>Useful Links</h3>
@@ -31,12 +35,12 @@
   <div class="term-useful-links">
     <div class="logo-term">
       <a ng-href="{{viewJson.webSite}}" target="_blank">
-          <div ng-if="viewJson.logoUrl.length > 0">
+          <span ng-if="viewJson.logoUrl.length">
               <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
-          </div>
-          <div ng-if="viewJson.logoUrl.length == 0">
+          </span>
+          <span ng-if="!viewJson.logoUrl.length">
               <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
-          </div>
+          </span>
       </a>
     </div>
     <h3>Useful Links</h3>
