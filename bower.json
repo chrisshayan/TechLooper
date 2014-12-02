@@ -26,7 +26,8 @@
       "d3-transform": "latest",
       "parallax": "latest",
       "seiyria-bootstrap-slider": "latest",
-      "extarray": "latest"
+      "extarray": "latest",
+      "bootstrap-tour": "latest"
    },
    "overrides": {
       "jquery": {
