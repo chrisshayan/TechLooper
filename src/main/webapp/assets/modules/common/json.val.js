@@ -318,7 +318,7 @@ angular.module("Common").constant("jsonValue", {
       },
       {
         element: "#box",
-        placement: "right",
+        placement: "top",
         title: "Bubble Chart",
         content: "In this chart, you can see how many jobs of the Term"
       },
@@ -350,7 +350,7 @@ angular.module("Common").constant("jsonValue", {
       },
       {
         element: ".highcharts-container",
-        placement: "bottom",
+        placement: "top",
         title: "Line chart",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
       },
