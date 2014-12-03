@@ -12,5 +12,4 @@ angular.module('Chart').controller('chartController',
       });
     });
     connectionFactory.receiveTechnicalTerms();
-    bootstrapTourFactory.makeTourGuide();
   });
