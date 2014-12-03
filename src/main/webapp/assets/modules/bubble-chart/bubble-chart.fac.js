@@ -313,7 +313,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
 
       nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1000).style("opacity", "1");
     }
-
   }
 
   return instance;

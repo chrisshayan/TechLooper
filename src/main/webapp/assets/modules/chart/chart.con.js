@@ -1,5 +1,5 @@
 angular.module('Chart').controller('chartController',
-  function ($scope, jsonValue, connectionFactory, utils, headerService, bootstrapTourFactory) {
+  function ($scope, jsonValue, connectionFactory, utils, headerService) {
     var events = jsonValue.events;
     var chartFactory = headerService.getChart().factory;
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
@@ -12,5 +12,4 @@ angular.module('Chart').controller('chartController',
       });
     });
     connectionFactory.receiveTechnicalTerms();
-    bootstrapTourFactory.makeTourGuide();
   });
