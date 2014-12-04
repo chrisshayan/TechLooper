@@ -267,7 +267,7 @@
         "searchTexts" : ["php"],
         "label" : "PHP",
         "logoUrl" : "lg-php.png",
-        "webSite" : "php.net",
+        "webSite" : "http://php.net/",
         "usefulLinks" : [
             {
                 "name" : "First Look at Themosis, a Framework for WordPress Developers.",
@@ -313,61 +313,176 @@
         ],
         "skills" : [
             {
-                "name" : "Symfony"
+                "name" : "Symfony",
+                "logoUrl" : "lg-symfony2.png",
+                "webSite" : "http://symfony.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Creating a blog in Symfony2",
+                        "url" : "http://tutorial.symblog.co.uk/"
+                    },
+                    {
+                        "name" : "Databases and Doctrine",
+                        "url" : "http://symfony.com/doc/current/book/doctrine.html"
+                    },
+                    {
+                        "name" : "Security",
+                        "url" : "http://symfony.com/doc/current/book/security.html"
+                    }
+                ]
             },
             {
-                "name" : "Zend"
+                "name" : "Zend",
+                "logoUrl" : "lg-zend.png",
+                "webSite" : "http://framework.zend.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Zend Framework 2",
+                        "url" : "http://zf2.readthedocs.org/en/latest/ref/overview.html"
+                    }
+                ]
             },
             {
-                "name" : "WordPress"
+                "name" : "WordPress",
+                "logoUrl" : "lg-wordpress.png",
+                "webSite" : "https://wordpress.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Theme Frameworks",
+                        "url" : "http://codex.wordpress.org/Theme_Frameworks"
+                    },
+                    {
+                        "name" : "cherry framework",
+                        "url" : "http://www.cherryframework.com/"
+                    },
+                    {
+                        "name" : "Roots",
+                        "url" : "http://roots.io/"
+                    }
+                ]
             },
             {
-                "name" : "Drupal"
+                "name" : "Drupal",
+                "logoUrl" : "lg-drupal.png",
+                "webSite" : "https://www.drupal.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Drupal Modules",
+                        "url" : "http://drupalmodules.com/"
+                    },
+                    {
+                        "name" : "Drupal Tutorial",
+                        "url" : "http://www.siteground.com/tutorials/drupal/"
+                    }
+                ]
             },
             {
-                "name" : "Magento"
+                "name" : "Magento",
+                "logoUrl" : "lg-magento.png",
+                "webSite" : "http://magento.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Magento Themes",
+                        "url" : "http://www.rockettheme.com/magento/themes"
+                    },
+                    {
+                        "name" : "Magento Tutorial",
+                        "url" : "http://magentotutorial.org/"
+                    }
+                ]
             },
             {
-                "name" : "OpenCart"
+                "name" : "OpenCart",
+                "logoUrl" : "lg-opencart.png",
+                "webSite" : "http://www.opencart.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "OpenCart Training",
+                        "url" : "https://opencart-training.com/"
+                    }
+                ]
             },
             {
-                "name" : "Joomla"
+                "name" : "Joomla",
+                "logoUrl" : "lg-joomla.png",
+                "webSite" : "http://www.joomla.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Joomla Tutorials",
+                        "url" : "http://www.joomlatutorials.com/"
+                    }
+                ]
             },
             {
-                "name" : "MySQL"
+                "name" : "PHPUnit",
+                "logoUrl" : "lg-phpunit.png",
+                "webSite" : "https://phpunit.de/",
+                "usefulLinks" : [
+                    {
+                        "name" : "PHPUnit tests real example",
+                        "url" : "http://stackoverflow.com/questions/6346690/phpunit-tests-real-example"
+                    },
+                    {
+                        "name" : "Codeception",
+                        "url" : "http://codeception.com/"
+                    },
+                    {
+                        "name" : "php the right way",
+                        "url" : "http://www.phptherightway.com/"
+                    },
+                    {
+                        "name" : "Simple Test",
+                        "url" : "http://www.simpletest.org/"
+                    }
+                ]
             },
             {
-                "name" : "LAMP"
+                "name" : "Varnish",
+                "logoUrl" : "lg-varnish.png",
+                "webSite" : "https://www.varnish-cache.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Varnish and Symfony",
+                        "url" : "http://symfony.com/doc/current/cookbook/cache/varnish.html"
+                    }
+                ]
             },
             {
-                "name" : "drupal"
+                "name" : "CodeIgniter",
+                "logoUrl" : "lg-codeigniter.png",
+                "webSite" : "http://www.codeigniter.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "JQuery Ajax POST in Codeigniter",
+                        "url" : "http://stackoverflow.com/questions/17590688/jquery-ajax-post-in-codeigniter"
+                    },
+                    {
+                        "name" : "Tutorial Codeigniter",
+                        "url" : "http://tutorialcodeigniter.com/"
+                    }
+                ]
             },
             {
-                "name" : "PostgreSQL"
+                "name" : "CakePHP",
+                "logoUrl" : "lg-cakephp.png",
+                "webSite" : "http://cakephp.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Tutorials & Examples",
+                        "url" : "http://book.cakephp.org/2.0/en/tutorials-and-examples.html"
+                    }
+                ]
             },
             {
-                "name" : "PHPUnit"
-            },
-            {
-                "name" : "Ajax"
-            },
-            {
-                "name" : "Linux"
-            },
-            {
-                "name" : "Varnish"
-            },
-            {
-                "name" : "Puppet"
-            },
-            {
-                "name" : "CodeIgniter"
-            },
-            {
-                "name" : "CakePHP"
-            },
-            {
-                "name" : "Yii"
+                "name" : "Yii",
+                "logoUrl" : "lg-yii.png",
+                "webSite" : "http://www.yiiframework.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Yiistrap",
+                        "url" : "http://www.getyiistrap.com/"
+                    }
+                ]
             }
         ]
     },
