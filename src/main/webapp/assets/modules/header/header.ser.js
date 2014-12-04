@@ -76,6 +76,23 @@ angular.module("Header").factory("headerService",
           }
 
         }
+      },
+      restartTour: function(){
+        $('.infor-tour').on('click', function(){
+          var dataTour =[];
+          var path = $location.$$path;
+          if(path.indexOf("pie") > 0){
+            dataTour = jsonValue.introTour.pieHomePage;
+          }else if(path.indexOf("bubble") > 0){
+            dataTour = jsonValue.introTour.bubbleHomePage;
+          }
+          var tour = new Tour({
+              steps: dataTour,
+              template: jsonValue.introTour.template
+          });
+          tour.init();
+          tour.restart();
+        });
       }
     }
 
