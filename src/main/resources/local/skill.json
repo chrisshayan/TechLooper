@@ -1,7 +1,7 @@
 [
     {
         "key" : "JAVA",
-        "searchTexts" : ["java","j2ee"],
+        "searchTexts" : ["java","j2ee", "java ee"],
         "label" : "Java",
         "logoUrl" : "lg-java.png",
         "webSite" : "https://www.java.com",
@@ -78,177 +78,185 @@
             },
             {
                 "name" : "Tomcat",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "logoUrl" : "lg-tomcat.png",
+                "webSite" : "http://tomcat.apache.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "Blogs",
+                        "url" : "https://blogs.apache.org/tomcat/"
                     }
                 ]
             },
             {
                 "name" : "REST",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "logoUrl" : "lg-jersey.png",
+                "webSite" : "http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "A RESTful Tutorial",
+                        "url" : "http://www.restapitutorial.com/"
+                    },
+                    {
+                        "name" : "Building a RESTful Web Service",
+                        "url" : "http://spring.io/guides/gs/rest-service/"
                     }
+
                 ]
             },
             {
                 "name" : "Maven",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "logoUrl" : "lg-apache_maven.png",
+                "webSite" : "http://maven.apache.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "Create a Customized Build Process in Maven",
+                        "url" : "http://blog.sonatype.com/2009/08/create-a-customized-build-process-in-maven/"
+                    },
+                    {
+                        "name" : "Repository Manager",
+                        "url" : "http://www.sonatype.com/nexus"
+                    },
+                    {
+                        "name" : "Testing Stages in Maven",
+                        "url" : "http://java.dzone.com/articles/testing-stages-maven"
+                    },
+                    {
+                        "name" : "Server Staging",
+                        "url" : "http://architects.dzone.com/articles/server-staging-maven-and-some"
                     }
                 ]
             },
             {
                 "name" : "Git",
                 "logoUrl" : "lg-git.png",
-                "webSite" : "http://hibernate.org/",
+                "webSite" : "http://git-scm.com/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "GitHub",
+                        "url" : "http://github.com/"
+                    },
+                    {
+                        "name" : "Bitbucket",
+                        "url" : "https://bitbucket.org/"
                     }
                 ]
             },
             {
                 "name" : "JUnit",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "logoUrl" : "lg-junit.png",
+                "webSite" : "http://junit.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "mockito",
+                        "url" : "https://code.google.com/p/mockito/"
+                    },
+                    {
+                        "name" : "EasyMock",
+                        "url" : "http://easymock.org/"
+                    },
+                    {
+                        "name" : "DbUnit",
+                        "url" : "http://dbunit.sourceforge.net/"
                     }
                 ]
             },
             {
                 "name" : "Jenkins",
                 "logoUrl" : "lg-jenkins.png",
-                "webSite" : "http://hibernate.org/",
+                "webSite" : "http://jenkins-ci.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
-                    }
-                ]
-            },
-            {
-                "name" : "Eclipse",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
-                "usefulLinks" : [
+                        "name" : "CI Game",
+                        "url" : "https://wiki.jenkins-ci.org/display/JENKINS/The+Continuous+Integration+Game+plugin"
+                    },
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
-                    }
-                ]
-            },
-            {
-                "name" : "JSP",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
-                "usefulLinks" : [
+                        "name" : "Continuous Delivery",
+                        "url" : "http://continuousdelivery.com/"
+                    },
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "Continuous Delivery Matrix",
+                        "url" : "https://www.linkedin.com/pulse/article/20140602090113-56410746-our-continuous-delivery-matrix"
+                    },
+                    {
+                        "name" : "Four Days Delivery based on Open Source",
+                        "url" : "https://www.linkedin.com/pulse/article/20140723041230-56410746-four-days-delivery-based-on-open-source"
                     }
                 ]
             },
             {
                 "name" : "J2EE",
                 "logoUrl" : "lg-java.png",
-                "webSite" : "http://hibernate.org/",
+                "webSite" : "http://www.oracle.com/technetwork/java/javaee/overview/index.html",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
-                    }
-                ]
-            },
-            {
-                "name" : "XML",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
-                "usefulLinks" : [
+                        "name" : "Core J2EE Patterns",
+                        "url" : "http://www.corej2eepatterns.com/"
+                    },
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "Real World Java EE Patterns",
+                        "url" : "http://realworldpatterns.com/"
                     }
                 ]
             },
             {
                 "name" : "Web Services",
                 "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
-                "usefulLinks" : [
-                    {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
-                    }
-                ]
-            },
-            {
-                "name" : "REST",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
-                "usefulLinks" : [
-                    {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
-                    }
-                ]
+                "webSite" : "http://javabrains.koushik.org/tutorials/javaee_jaxws/Introduction-to-Web-Services.html"
             },
             {
                 "name" : "JSON",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "logoUrl" : "lg-json.png",
+                "webSite" : "http://www.json.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
-                    }
-                ]
-            },
-            {
-                "name" : "JMS",
-                "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
-                "usefulLinks" : [
-                    {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "JSON Validator",
+                        "url" : "http://jsonlint.com/"
                     }
                 ]
             },
             {
                 "name" : "Agile Software Development",
                 "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "webSite" : "http://agilemanifesto.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "Agile Methodology",
+                        "url" : "http://agilemethodology.org/"
+                    },
+                    {
+                        "name" : "Agile Vietnam",
+                        "url" : "http://www.agilevietnam.org/"
                     }
                 ]
             },
             {
                 "name" : "Continuous Integration",
                 "logoUrl" : "",
-                "webSite" : "http://hibernate.org/",
+                "webSite" : "http://www.martinfowler.com/articles/continuousIntegration.html",
                 "usefulLinks" : [
                     {
-                        "name" : "Hibernate Tutorial",
-                        "url" : "http://www.tutorialspoint.com/hibernate"
+                        "name" : "Travis",
+                        "url" : "https://travis-ci.org/"
+                    },
+                    {
+                        "name" : "Jenkins",
+                        "url" : "http://jenkins-ci.org/"
+                    },
+                    {
+                        "name" : "Bamboo",
+                        "url" : "https://www.atlassian.com/software/bamboo"
+                    },
+                    {
+                        "name" : "Teamcity",
+                        "url" : "https://www.jetbrains.com/teamcity/"
+                    },
+                    {
+                        "name" : "CircleCI",
+                        "url" : "https://circleci.com/"
+                    },
+                    {
+                        "name" : "Buildbot",
+                        "url" : "http://buildbot.net/"
                     }
                 ]
             }
