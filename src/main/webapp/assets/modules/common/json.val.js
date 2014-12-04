@@ -297,7 +297,7 @@ angular.module("Common").constant("jsonValue", {
         content: "In this chart, you can see how many jobs of the Term"
       },
       {
-        element: ".find-jobs-button a",
+        element: ".find-jobs-button",
         placement: "top",
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
@@ -323,7 +323,7 @@ angular.module("Common").constant("jsonValue", {
         content: "In this chart, you can see how many jobs of the Term"
       },
       {
-        element: ".find-jobs-button a",
+        element: ".find-jobs-button",
         placement: "top",
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
