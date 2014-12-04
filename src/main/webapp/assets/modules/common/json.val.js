@@ -374,6 +374,26 @@ angular.module("Common").constant("jsonValue", {
         title: "Sign with social account",
         content: "You can choose one account you like to sign in."
       }
+    ],
+    searchForm:[
+      {
+        element: ".selectize-input ",
+        placement: "bottom",
+        title: "Search Box",
+        content: "Enter text to search..."
+      },
+      {
+        element: ".technical-Skill-List",
+        placement: "top",
+        title: "choose Term logo for search box ",
+        content: "You can click to Term logo to selection for the search."
+      },
+      {
+        element: ".btn-close",
+        placement: "left",
+        title: "Close",
+        content: "Click here to close Search page and back to Home page."
+      }
     ]
   }
 });
