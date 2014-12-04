@@ -84,10 +84,12 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       }).mouseleave(function(){
         $(this).find('.skill-useful-links').hide();
       });
-
+      if($(window).width() < 768){
+        $('.term-infor .term-useful-links').addClass('v-mobile');
+      }
       $(window).resize(function () {
         var w = $(window).width();
-        if(w > 766){
+        if(w > 767){
           $('.term-infor .term-useful-links').removeClass('v-mobile');
         }else{
           $('.term-infor .term-useful-links').addClass('v-mobile');
