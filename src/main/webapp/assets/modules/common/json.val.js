@@ -293,7 +293,7 @@ angular.module("Common").constant("jsonValue", {
       {
         element: ".highcharts-container",
         placement: "right",
-        title: "Bubble Chart",
+        title: "Pie Chart",
         content: "In this chart, you can see how many jobs of the Term"
       },
       {
@@ -365,6 +365,14 @@ angular.module("Common").constant("jsonValue", {
         placement: "top",
         title: "Useful link for the Term",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      }
+    ],
+    signIn:[
+      {
+        element: ".signin-contianer",
+        placement: "left",
+        title: "Sign with social account",
+        content: "You can choose one account you like to sign in."
       }
     ]
   }

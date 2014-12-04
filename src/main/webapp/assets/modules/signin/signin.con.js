@@ -1,5 +1,8 @@
 angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, shortcutFactory) {
 	
+  var dataTour = utils.getDataTour();
+  utils.makeTourGuide(dataTour); 
+
 	$scope.accounts = jsonValue.accountSignin;
 	
 	$('.signin-accounts').parallax();

@@ -7,6 +7,27 @@
         <strong>{{viewJson.count}}</strong>
         <span class="termLabel">{{viewJson.label}}</span>
       </span>
+
+      <div class="term-useful-links">
+        <i class="fa fa-caret-left"></i>
+        <div class="logo-term">
+          <a ng-href="{{viewJson.webSite}}" target="_blank">
+              <span ng-if="viewJson.logoUrl.length">
+                  <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
+              </span>
+              <span ng-if="!viewJson.logoUrl.length">
+                  <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
+              </span>
+          </a>
+        </div>
+        <h3>Useful Links</h3>
+        <ul>
+          <li ng-repeat="link in viewJson.usefulLinks">
+            <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
   <div class="skill-circle-item" ng-repeat="item in viewJson.circles">
@@ -32,7 +53,7 @@
       </ul>
     </div>
   </div>
-  <div class="term-useful-links">
+  <div class="term-useful-links v-desktop">
     <div class="logo-term">
       <a ng-href="{{viewJson.webSite}}" target="_blank">
           <span ng-if="viewJson.logoUrl.length">

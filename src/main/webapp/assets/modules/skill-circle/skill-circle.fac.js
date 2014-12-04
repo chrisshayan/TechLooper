@@ -64,14 +64,11 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
     },
 
     hoverTermUseful: function(){
-      if($(window).width() < 768){
-        $('.term-infor-chart').on('click mouseover', function(){
-            $('.term-useful-links').show();
-        });
-        $('.term-useful-links').mouseleave(function(){
-          $(this).hide();
-        });
-      }
+      $('.term-infor').on('click mouseover', function(){
+        $(this).find('.v-mobile').show();
+      }).mouseleave(function(){
+        $(this).find('.v-mobile').hide();
+      });
     }
   }
 
@@ -87,16 +84,17 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       }).mouseleave(function(){
         $(this).find('.skill-useful-links').hide();
       });
-      $$.hoverTermUseful();
 
       $(window).resize(function () {
-        if($(window).width() > 766){
-          $('.term-useful-links').show();
+        var w = $(window).width();
+        if(w > 766){
+          $('.term-infor .term-useful-links').removeClass('v-mobile');
+        }else{
+          $('.term-infor .term-useful-links').addClass('v-mobile');
         }
-        $('.term-useful-links').mouseleave(function(){
-          $(this).show();
-        });
       });
+
+      $$.hoverTermUseful();
     }
   }
 });
