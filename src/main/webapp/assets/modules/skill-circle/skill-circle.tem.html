@@ -68,7 +68,9 @@
           </span> -->
       </a>
     </div>
+    <span ng-if="viewJson.usefulLinks.length">
     <h3>Useful Links</h3>
+  </span>
     <ul>
       <li ng-repeat="link in viewJson.usefulLinks">
         <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>
