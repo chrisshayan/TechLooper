@@ -14,13 +14,15 @@
           <a ng-href="{{viewJson.webSite}}" target="_blank">
               <span ng-if="viewJson.logoUrl.length">
                   <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
-              </span>
+              </span><!-- 
               <span ng-if="!viewJson.logoUrl.length">
                   <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
-              </span>
+              </span> -->
           </a>
         </div>
+        <span ng-if="viewJson.usefulLinks.length">
         <h3>Useful Links</h3>
+        </span>
         <ul>
           <li ng-repeat="link in viewJson.usefulLinks">
             <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>
@@ -40,12 +42,14 @@
           <span ng-if="item.logoUrl.length">
             <img ng-src="images/{{item.logoUrl}}" alt="" />
           </span>
-          <span ng-if="!item.logoUrl.length">
+          <!-- <span ng-if="!item.logoUrl.length">
             <img ng-src="images/no-logo.png" alt="" />
-          </span>
+          </span> -->
           {{item.skillName}}</a>
       </div>
+      <span ng-if="item.usefulLinks.length">
       <h3>Useful Links</h3>
+      </span>
       <ul>
         <li ng-repeat="link in item.usefulLinks">
           <a ng-href="{{link.url}}" target="_blank"><i class="fa fa-book"></i> {{link.name}}</a>
@@ -59,9 +63,9 @@
           <span ng-if="viewJson.logoUrl.length">
               <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
           </span>
-          <span ng-if="!viewJson.logoUrl.length">
+          <!-- <span ng-if="!viewJson.logoUrl.length">
               <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
-          </span>
+          </span> -->
       </a>
     </div>
     <h3>Useful Links</h3>
