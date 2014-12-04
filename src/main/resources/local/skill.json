@@ -1,7 +1,7 @@
 [
     {
         "key" : "JAVA",
-        "searchTexts" : ["java","j2ee"],
+        "searchTexts" : ["java","j2ee", "java ee"],
         "label" : "Java",
         "logoUrl" : "lg-java.png",
         "webSite" : "https://www.java.com",
