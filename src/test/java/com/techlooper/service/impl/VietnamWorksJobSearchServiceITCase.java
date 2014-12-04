@@ -6,6 +6,7 @@ import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,18 +20,18 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class})
-public class VietnamWorksJobSearchServiceTest {
+public class VietnamWorksJobSearchServiceITCase {
 
     @Resource
     private JobSearchService jobSearchService;
 
-    @Resource
     private String vnwJobSearchRequestJson;
 
     private VNWJobSearchRequest vnwJobSearchRequest;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        vnwJobSearchRequestJson = IOUtils.toString(getClass().getResourceAsStream("/expect/vnw-jobs-request.json"), "UTF-8");
         assertNotNull(jobSearchService);
         vnwJobSearchRequest = JsonUtils.toPOJO(vnwJobSearchRequestJson, VNWJobSearchRequest.class).get();
         assertNotNull(vnwJobSearchRequest);

@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
-public class VietnamWorksJobStatisticServiceTest {
+public class VietnamWorksJobStatisticServiceITCase {
 
     private JobStatisticService jobStatisticService;
 
