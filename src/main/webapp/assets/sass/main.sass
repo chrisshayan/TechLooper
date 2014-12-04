@@ -7,9 +7,14 @@ body
   color: #727272
   font-family: 'roboto', arial
   font-weight: 300
-  outline: medium none
+  outline: 0
 *:focus
   outline: 0
+textarea:focus, 
+input:focus,
+span:focus, 
+  outline: 0
+
 ul
   list-style: none
 a img
@@ -82,10 +87,22 @@ ul.setting-items
   padding-left: 10px
 
 .langKey
-  width: 25px
-  height: 25px
+  width: 16px
+  height: 16px
   cursor: pointer
-
+.infor-tour
+  width: 30px
+  height: 30px
+  background-color: #323232
+  border: 1px solid #3d373a
+  border-radius: 5px
+  cursor: pointer
+  padding: 4px
+  position: absolute
+  right: 45px
+  font-size: 20px
+  line-height: 20px
+  text-align: center
 .keyboard-shortcuts-items
   background: #000000
   padding: 10px
@@ -120,7 +137,7 @@ ul.setting-items
 .close-button
   width: 33%
   text-align: right
-  float: left
+  float: right
 .logo-block h1
   margin: 0
   padding: 0
@@ -447,7 +464,7 @@ footer
   right: 0
   bottom: 0
   background-color: #000
-  opacity: 0.6
+  opacity: 0.9
   display: none
 .windows8
   position: absolute

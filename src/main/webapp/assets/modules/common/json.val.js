@@ -293,7 +293,7 @@ angular.module("Common").constant("jsonValue", {
       {
         element: ".highcharts-container",
         placement: "right",
-        title: "Bubble Chart",
+        title: "Pie Chart",
         content: "In this chart, you can see how many jobs of the Term"
       },
       {
@@ -365,6 +365,34 @@ angular.module("Common").constant("jsonValue", {
         placement: "top",
         title: "Useful link for the Term",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      }
+    ],
+    signIn:[
+      {
+        element: ".signin-contianer",
+        placement: "left",
+        title: "Sign with social account",
+        content: "You can choose one account you like to sign in."
+      }
+    ],
+    searchForm:[
+      {
+        element: ".selectize-input ",
+        placement: "bottom",
+        title: "Search Box",
+        content: "Enter text to search..."
+      },
+      {
+        element: ".technical-Skill-List",
+        placement: "top",
+        title: "choose Term logo for search box ",
+        content: "You can click to Term logo to selection for the search."
+      },
+      {
+        element: ".btn-close",
+        placement: "left",
+        title: "Close",
+        content: "Click here to close Search page and back to Home page."
       }
     ]
   }
