@@ -64,14 +64,14 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
     },
 
     hoverTermUseful: function(){
-      $('.term-infor-chart').on('click mouseover', function(){
-        if($(window).width() < 768){
-          $('.term-useful-links').show();
-        }
-      });
-      $('.term-useful-links').mouseleave(function(){
-        $(this).hide();
-      });
+      if($(window).width() < 768){
+        $('.term-infor-chart').on('click mouseover', function(){
+            $('.term-useful-links').show();
+        });
+        $('.term-useful-links').mouseleave(function(){
+          $(this).hide();
+        });
+      }
     }
   }
 
@@ -93,6 +93,9 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
         if($(window).width() > 766){
           $('.term-useful-links').show();
         }
+        $('.term-useful-links').mouseleave(function(){
+          $(this).show();
+        });
       });
     }
   }
