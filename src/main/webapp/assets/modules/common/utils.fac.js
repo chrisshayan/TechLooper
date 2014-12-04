@@ -151,6 +151,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
         return jsonValue.introTour.bubbleHomePage;
       }else if(path.indexOf("skill") > 0){
         return jsonValue.introTour.technicalDetail;
+      }else if(path.indexOf("signin") > 0){
+        return jsonValue.introTour.signIn
+      }else if(path.indexOf("search") > 0){
+        return jsonValue.introTour.searchForm
       }
     },
     makeTourGuide: function (dataTour) {
