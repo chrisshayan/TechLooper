@@ -61,6 +61,17 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
 
     enableNotifications: function() {
       return $(".top10Circles").is(":visible");
+    },
+
+    hoverTermUseful: function(){
+      $('.term-infor-chart').on('click mouseover', function(){
+        if($(window).width() < 768){
+          $('.term-useful-links').show();
+        }
+      });
+      $('.term-useful-links').mouseleave(function(){
+        $(this).hide();
+      });
     }
   }
 
@@ -70,16 +81,19 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
     renderView: function (viewJson) {
       $$.renderCircles(viewJson);
       $$.renderTermBox(viewJson);
-
       $('.skill-circle-item').on('click mouseover', function(){
         utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
         $(this).find('.skill-useful-links').show();
       }).mouseleave(function(){
         $(this).find('.skill-useful-links').hide();
       });
+      $$.hoverTermUseful();
 
-      //var termColor = utils.getTermColor(viewJson.jobTerm);
-      //$('.term-infor-chart').find('.percent').css('background-color',termColor).next().find('i').css('color',termColor);
+      $(window).resize(function () {
+        if($(window).width() > 766){
+          $('.term-useful-links').show();
+        }
+      });
     }
   }
 });
