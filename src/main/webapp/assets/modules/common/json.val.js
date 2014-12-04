@@ -292,7 +292,7 @@ angular.module("Common").constant("jsonValue", {
       },
       {
         element: ".highcharts-container",
-        placement: "right",
+        placement: "top",
         title: "Pie Chart",
         content: "In this chart, you can see how many jobs of the Term"
       },
