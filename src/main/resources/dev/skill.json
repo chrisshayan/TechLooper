@@ -3,27 +3,39 @@
         "key" : "JAVA",
         "searchTexts" : ["java","j2ee"],
         "label" : "Java",
-        "logoUrl" : "java-logo.png",
-        "webSite" : "www.java.com",
+        "logoUrl" : "lg-java.png",
+        "webSite" : "https://www.java.com",
         "usefulLinks" : [
             {
                 "name" : "Dzone",
-                "url" : "java.dzone.com"
+                "url" : "https://java.dzone.com"
             },
             {
                 "name" : "JavaWorld",
-                "url" : "www.javaworld.com"
+                "url" : "https://www.javaworld.com"
             }
         ],
         "skills" : [
             {
                 "name" : "Spring",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
+                "logoUrl" : "lg-spring.png",
+                "webSite" : "https://spring.io",
                 "usefulLinks" : [
                     {
                         "name" : "Spring Framework - Projects",
                         "url" : "projects.spring.io/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
                     },
                     {
                         "name" : "Spring Framework - GitHub",
@@ -34,12 +46,28 @@
             },
             {
                 "name" : "Hibernate",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
+                "logoUrl" : "lg-hibernate.png",
+                "webSite" : "http://hibernate.org/",
                 "usefulLinks" : [
                     {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
+                        "name" : "Hibernate Tutorial",
+                        "url" : "http://www.tutorialspoint.com/hibernate"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
+                    },
+                    {
+                        "name" : "Spring Framework - GitHub",
+                        "url" : "https://github.com/spring-projects/spring-framework"
                     },
                     {
                         "name" : "Spring Framework - GitHub",
@@ -49,52 +77,188 @@
 
             },
             {
-                "name" : "Tomcat"
+                "name" : "Tomcat",
+                "logoUrl" : "lg-tomcat.png",
+                "webSite" : "http://tomcat.apache.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Blogs",
+                        "url" : "https://blogs.apache.org/tomcat/"
+                    }
+                ]
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "lg-jersey.png",
+                "webSite" : "http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming",
+                "usefulLinks" : [
+                    {
+                        "name" : "A RESTful Tutorial",
+                        "url" : "http://www.restapitutorial.com/"
+                    },
+                    {
+                        "name" : "Building a RESTful Web Service",
+                        "url" : "http://spring.io/guides/gs/rest-service/"
+                    }
+
+                ]
             },
             {
-                "name" : "Maven"
+                "name" : "Maven",
+                "logoUrl" : "lg-apache_maven.png",
+                "webSite" : "http://maven.apache.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Create a Customized Build Process in Maven",
+                        "url" : "http://blog.sonatype.com/2009/08/create-a-customized-build-process-in-maven/"
+                    },
+                    {
+                        "name" : "Repository Manager",
+                        "url" : "http://www.sonatype.com/nexus"
+                    },
+                    {
+                        "name" : "Testing Stages in Maven",
+                        "url" : "http://java.dzone.com/articles/testing-stages-maven"
+                    },
+                    {
+                        "name" : "Server Staging",
+                        "url" : "http://architects.dzone.com/articles/server-staging-maven-and-some"
+                    }
+                ]
             },
             {
-                "name" : "Git"
+                "name" : "Git",
+                "logoUrl" : "lg-git.png",
+                "webSite" : "http://git-scm.com/",
+                "usefulLinks" : [
+                    {
+                        "name" : "GitHub",
+                        "url" : "http://github.com/"
+                    },
+                    {
+                        "name" : "Bitbucket",
+                        "url" : "https://bitbucket.org/"
+                    }
+                ]
             },
             {
-                "name" : "JUnit"
+                "name" : "JUnit",
+                "logoUrl" : "lg-junit.png",
+                "webSite" : "http://junit.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "mockito",
+                        "url" : "https://code.google.com/p/mockito/"
+                    },
+                    {
+                        "name" : "EasyMock",
+                        "url" : "http://easymock.org/"
+                    },
+                    {
+                        "name" : "DbUnit",
+                        "url" : "http://dbunit.sourceforge.net/"
+                    }
+                ]
             },
             {
-                "name" : "Jenkins"
+                "name" : "Jenkins",
+                "logoUrl" : "lg-jenkins.png",
+                "webSite" : "http://jenkins-ci.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "CI Game",
+                        "url" : "https://wiki.jenkins-ci.org/display/JENKINS/The+Continuous+Integration+Game+plugin"
+                    },
+                    {
+                        "name" : "Continuous Delivery",
+                        "url" : "http://continuousdelivery.com/"
+                    },
+                    {
+                        "name" : "Continuous Delivery Matrix",
+                        "url" : "https://www.linkedin.com/pulse/article/20140602090113-56410746-our-continuous-delivery-matrix"
+                    },
+                    {
+                        "name" : "Four Days Delivery based on Open Source",
+                        "url" : "https://www.linkedin.com/pulse/article/20140723041230-56410746-four-days-delivery-based-on-open-source"
+                    }
+                ]
             },
             {
-                "name" : "Eclipse"
+                "name" : "J2EE",
+                "logoUrl" : "lg-java.png",
+                "webSite" : "http://www.oracle.com/technetwork/java/javaee/overview/index.html",
+                "usefulLinks" : [
+                    {
+                        "name" : "Core J2EE Patterns",
+                        "url" : "http://www.corej2eepatterns.com/"
+                    },
+                    {
+                        "name" : "Real World Java EE Patterns",
+                        "url" : "http://realworldpatterns.com/"
+                    }
+                ]
             },
             {
-                "name" : "JSP"
+                "name" : "Web Services",
+                "logoUrl" : "",
+                "webSite" : "http://javabrains.koushik.org/tutorials/javaee_jaxws/Introduction-to-Web-Services.html"
             },
             {
-                "name" : "J2EE"
+                "name" : "JSON",
+                "logoUrl" : "lg-json.png",
+                "webSite" : "http://www.json.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "JSON Validator",
+                        "url" : "http://jsonlint.com/"
+                    }
+                ]
             },
             {
-                "name" : "XML"
+                "name" : "Agile Software Development",
+                "logoUrl" : "",
+                "webSite" : "http://agilemanifesto.org/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Agile Methodology",
+                        "url" : "http://agilemethodology.org/"
+                    },
+                    {
+                        "name" : "Agile Vietnam",
+                        "url" : "http://www.agilevietnam.org/"
+                    }
+                ]
             },
             {
-                "name" : "Web Services"
-            },
-            {
-                "name" : "REST"
-            },
-            {
-                "name" : "JSON"
-            },
-            {
-                "name" : "JMS"
-            },
-            {
-                "name" : "Agile Software Development"
-            },
-            {
-                "name" : "Continuous Integration"
+                "name" : "Continuous Integration",
+                "logoUrl" : "",
+                "webSite" : "http://www.martinfowler.com/articles/continuousIntegration.html",
+                "usefulLinks" : [
+                    {
+                        "name" : "Travis",
+                        "url" : "https://travis-ci.org/"
+                    },
+                    {
+                        "name" : "Jenkins",
+                        "url" : "http://jenkins-ci.org/"
+                    },
+                    {
+                        "name" : "Bamboo",
+                        "url" : "https://www.atlassian.com/software/bamboo"
+                    },
+                    {
+                        "name" : "Teamcity",
+                        "url" : "https://www.jetbrains.com/teamcity/"
+                    },
+                    {
+                        "name" : "CircleCI",
+                        "url" : "https://circleci.com/"
+                    },
+                    {
+                        "name" : "Buildbot",
+                        "url" : "http://buildbot.net/"
+                    }
+                ]
             }
         ]
     },
@@ -102,6 +266,51 @@
         "key" : "PHP",
         "searchTexts" : ["php"],
         "label" : "PHP",
+        "logoUrl" : "lg-php.png",
+        "webSite" : "php.net",
+        "usefulLinks" : [
+            {
+                "name" : "First Look at Themosis, a Framework for WordPress Developers.",
+                "url" : "http://www.sitepoint.com/first-look-themosis-framework-wordpress-developers/"
+            },
+            {
+                "name" : "A better PHP testing experience Part I: Moving away from assertion-centric unit testing.",
+                "url" : "http://php-and-symfony.matthiasnoback.nl/2014/07/descriptive-unit-tests/"
+            },
+            {
+                "name" : "10 Essential Sublime Text Plugins for Full-Stack Developers",
+                "url" : "http://www.sitepoint.com/10-essential-sublime-text-plugins-full-stack-developer/"
+            },
+            {
+                "name" : "Automate PHP with Phake – Real World Examples",
+                "url" : "http://www.sitepoint.com/automate-php-phake-real-world-examples/"
+            },
+            {
+                "name" : "How to Customize the WordPress Dashboard to Minimize Confusion",
+                "url" : "http://code.tutsplus.com/tutorials/how-to-customize-the-wordpress-dashboard-to-minimize-confusion--cms-20344"
+            },
+            {
+                "name" : "In The Next Few Years, 90% Of WordPress Development Could Be JavaScript Based",
+                "url" : "http://wptavern.com/in-the-next-few-years-90-of-wordpress-development-could-be-javascript-based"
+            },
+            {
+                "name" : "FlexMovies – Internet Movie Database PHP Script",
+                "url" : "http://www.developerslane.com/flexmovies-internet-movie-database-php-script/"
+            },
+            {
+                "name" : "The Future of WordPress",
+                "url" : "http://inside.envato.com/the-future-of-wordpress/"
+            },
+            {
+                "name" : "Unbreakable Laravel Migrations",
+                "url" : "https://antoniocarlosribeiro.com/technology/articles/unbreakable-laravel-migrations"
+            },
+            {
+                "name" : "Delving into CakePHP with James Watts",
+                "url" : "http://threedevsandamaybe.com/delving-into-cakephp-with-james-watts/"
+            }
+
+        ],
         "skills" : [
             {
                 "name" : "Symfony"
@@ -310,6 +519,8 @@
         "key" : "PROJECT_MANAGER",
         "searchTexts" : ["project manager"],
         "label" : "Project Manager",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "scrum"
@@ -350,6 +561,8 @@
         "key" : "DBA",
         "searchTexts" : ["database", "database administrator", "data analyst", "data scientist"],
         "label" : "DBA",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "MySql"
@@ -396,6 +609,8 @@
         "key" : "QA",
         "searchTexts" : ["qa", "qc"],
         "label" : "QA",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "Selenium"
@@ -445,6 +660,8 @@
         "key" :"BA",
         "searchTexts" : ["business analyst", "business consultant"],
         "label" : "BA",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "business analyst"
@@ -516,6 +733,8 @@
         "key" :"WEB",
         "searchTexts" : ["web", "front-end"],
         "label" : "Web",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "html"
@@ -559,6 +778,8 @@
         "key" :"MOBILE",
         "searchTexts" : ["mobile", "android", "ios"],
         "label" : "Mobile",
+        "logoUrl" : "",
+        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "Android"
