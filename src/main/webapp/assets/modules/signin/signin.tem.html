@@ -33,7 +33,12 @@
             </li>
             <li class="layer" data-depth="0.20" ng-repeat="acount in accounts">
                 <div class="signin-account {{acount.magnitude}}" style="background-color:{{acount.bgcolor}}">
-                    <a data-toggle="modal" data-target="#signin-form"><img ng-src="{{acount.logo}}" alt=""></a>
+                    <span ng-if="acount.site == 'VietnamWork'">
+                        <a data-toggle="modal" data-target="#signin-form"><img ng-src="{{acount.logo}}" alt=""></a>
+                    </span>
+                    <span ng-if="acount.site != 'VietnamWork'">
+                        <a><img ng-src="{{acount.logo}}" alt=""></a>
+                    </span>
                 </div>
             </li>
         </ul>
