@@ -490,9 +490,33 @@
         "key" : "DOTNET",
         "searchTexts" : [".net", "asp.net"],
         "label" : ".NET",
+        "logoUrl" : "lg-dotnet.png",
+        "webSite" : "http://www.microsoft.com/net",
+        "usefulLinks" : [
+            {
+                "name" : ".NET Foundation",
+                "url" : "http://www.dotnetfoundation.org/"
+            },
+            {
+                "name" : "Open Sources in C#",
+                "url" : "http://csharp-source.net/"
+            }
+        ],
         "skills" : [
             {
-                "name" : "ASP.NET"
+                "name" : "ASP.NET",
+                "logoUrl" : "lg-dotnet.png",
+                "webSite" : "http://www.asp.net/",
+                "usefulLinks" : [
+                    {
+                        "name" : "Learn About ASP.NET MVC",
+                        "url" : "http://www.asp.net/mvc"
+                    },
+                    {
+                        "name" : "stackoverflow",
+                        "url" : "http://stackoverflow.com/questions/tagged/asp.net"
+                    }
+                ]
             },
             {
                 "name" : "SQL Server"
@@ -559,6 +583,9 @@
             },
             {
                 "name" : "Dynamics AX"
+            },
+            {
+                "name" : "unity"
             }
         ]
     },
