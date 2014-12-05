@@ -619,22 +619,27 @@
         "logoUrl" : "lg-rupy.png",
         "skills" : [
             {
-                "name" : "Ruby on Rails"
+                "name" : "Ruby on Rails",
+                "logoUrl" : "lg-rails.png"
             },
             {
-                "name" : "nginx"
+                "name" : "nginx",
+                "logoUrl" : "lg-nginx.png"
             },
             {
-                "name" : "NoSQL"
+                "name" : "NoSQL",
+                "logoUrl" : "lg-nosql.png"
             },
             {
                 "name" : "grape"
             },
             {
-                "name" : "Redis"
+                "name" : "Redis",
+                "logoUrl" : "llg-redis.png"
             },
             {
-                "name" : "Git"
+                "name" : "Git",
+                "logoUrl" : "lg-git.png"
             },
             {
                 "name" : "REST"
@@ -643,10 +648,12 @@
                 "name" : "Agile Software Development"
             },
             {
-                "name" : "JSON"
+                "name" : "JSON",
+                "logoUrl" : "lg-json.png"
             },
             {
-                "name" : "XML"
+                "name" : "XML",
+                "logoUrl" : "lg-xml.png"
             },
             {
                 "name" : "Web Service"
@@ -744,7 +751,8 @@
                 "name" : "Hadoop"
             },
             {
-                "name" : "MongoDB"
+                "name" : "MongoDB",
+                "logoUrl" : "lg-mongodb.png"
             },
             {
                 "name" : "Cassandra"
