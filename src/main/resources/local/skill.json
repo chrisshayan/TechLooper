@@ -616,6 +616,7 @@
         "key" : "RUBY",
         "searchTexts" : ["ruby","ruby on rails"],
         "label" : "Ruby",
+        "logoUrl" : "lg-rupy.png",
         "skills" : [
             {
                 "name" : "Ruby on Rails"
@@ -656,6 +657,7 @@
         "key" : "PYTHON",
         "searchTexts" : ["python"],
         "label" : "Python",
+        "logoUrl" : "lg-python.png",
         "skills" : [
             {
                 "name" : "django"
@@ -870,6 +872,7 @@
         "key" :"CPLUSPLUS",
         "searchTexts" : ["C", "C++"],
         "label" : "C/C++",
+        "logoUrl" : "lg-cplusplus.png",
         "skills" : [
             {
                 "name" : "C"
@@ -943,44 +946,56 @@
         "key" :"MOBILE",
         "searchTexts" : ["mobile", "android", "ios"],
         "label" : "Mobile",
-        "logoUrl" : "",
+        "logoUrl" : "lg-mobile.png",
         "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
-                "name" : "Android"
+                "name" : "Android",
+                "logoUrl" : "lg-android.png"
             },
             {
-                "name" : "iOS"
+                "name" : "iOS",
+                "logoUrl" : "lg-ios.png"
             },
             {
-                "name" : "Windows phone"
+                "name" : "Windows phone",
+                "logoUrl" : "lg-windows-phone.png"
             },
             {
-                "name" : "PhoneGap"
+                "name" : "PhoneGap",
+                "logoUrl" : "lg-phonegap.png"
             },
             {
-                "name" : "Xamarin"
+                "name" : "Xamarin",
+                "logoUrl" : "lg-mobile.png"
             },
             {
-                "name" : "Blackberry"
+                "name" : "Blackberry",
+                "logoUrl" : "lg-blackberry.png"
             },
             {
-                "name" : "Cocoa"
+                "name" : "Cocoa",
+                "logoUrl" : "lg-cocoa.png"
             },
             {
-                "name" : "Sencha Touch"
+                "name" : "Sencha Touch",
+                "logoUrl" : "lg-sencha.png"
             },
             {
-                "name" : "Responsive Design"
+                "name" : "Responsive Design",
+                "logoUrl" : "lg-responsive-design.png"
             },
             {
-                "name" : "Swift"
+                "name" : "Swift",
+                "logoUrl" : "lg-mobile.png"
             },
             {
-                "name" : "Objective C"
+                "name" : "Objective C",
+                "logoUrl" : "lg-ios.png"
             },
             {
-                "name" : "SQLite"
+                "name" : "SQLite",
+                "logoUrl" : "lg-sqlite.png"
             }
         ]
     }
