@@ -848,23 +848,28 @@
         "key" :"BA",
         "searchTexts" : ["business analyst", "business consultant"],
         "label" : "BA",
-        "logoUrl" : "",
-        "webSite" : "https://www.vietnamwork.com",
+        "logoUrl" : "lg-ba.png",
+        "webSite" : "http://www.thebusinessanalyst.com/",
         "skills" : [
             {
                 "name" : "business analyst"
             },
             {
-                "name" : "SAP"
+                "name" : "SAP",
+                "logoUrl" : "lg-sap.png",
+                "webSite" : "http://www.thebusinessanalyst.com/"
             },
             {
-                "name" : "ERP"
+                "name" : "ERP",
+                "logoUrl" : "lg-erp.png"
             },
             {
-                "name" : "prototype"
+                "name" : "prototype",
+                "logoUrl" : "lg-prototype.png"
             },
             {
-                "name" : "mockup"
+                "name" : "mockup",
+                "logoUrl" : "lg-mockup.png"
             },
             {
                 "name" : "Analytical Skills"
@@ -873,10 +878,12 @@
                 "name" : "User Experience"
             },
             {
-                "name" : "Stakeholder Management"
+                "name" : "Stakeholder Management",
+                "logoUrl" : "lg-stakeholder-management.png"
             },
             {
-                "name" : "UML"
+                "name" : "UML",
+                "logoUrl" : "lg-uml.png"
             },
             {
                 "name" : "User Acceptance Testing"
@@ -885,7 +892,8 @@
                 "name" : "Business Intelligence"
             },
             {
-                "name" : "CRM"
+                "name" : "CRM",
+                "logoUrl" : "lg-crm.png"
             }
         ]
     },
