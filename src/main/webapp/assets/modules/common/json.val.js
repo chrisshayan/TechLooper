@@ -66,15 +66,19 @@ angular.module("Common").constant("jsonValue", {
               color: "#996600"
           },{
             term: "CPLUSPLUS",
-            label: "CPLUSPLUS",
+            label: "C++",
             color: "#663333"
+          },
+          {
+            term: "WEB", 
+            label: "Web Development",
+            color: "#336666"
+          },
+          {
+            term: "MOBILE", 
+            label: "Mobile Development",
+            color: "#cc6699"
           }
-          //{
-          //  term: "WEB", label: "Web Development"
-          //},
-          //{
-          //  term: "MOBILE", label: "Mobile Development"
-          //}
       ]
   },
 
