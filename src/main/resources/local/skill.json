@@ -905,40 +905,52 @@
         "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
-                "name" : "html"
+                "name" : "html",
+                "logoUrl" : "lg-html5.png"
             },
             {
-                "name" : "css"
+                "name" : "css",
+                "logoUrl" : "lg-css3.png"
             },
             {
-                "name" : "javascript"
+                "name" : "javascript",
+                "logoUrl" : "lg-javascript.png"
             },
             {
-                "name" : "saas"
+                "name" : "saas",
+                "logoUrl" : "lg-saas.png"
             },
             {
-                "name" : "less"
+                "name" : "less",
+                "logoUrl" : "lg-less.png"
             },
             {
-                "name" : "photoshop"
+                "name" : "photoshop",
+                "logoUrl" : "lg-photoshop.png"
             },
             {
-                "name" : "UI/UX"
+                "name" : "UI/UX",
+                "logoUrl" : "lg-ui-ux.png"
             },
             {
-                "name" : "jQuery"
+                "name" : "jQuery",
+                "logoUrl" : "lg-jquery.png"
             },
             {
-                "name" : "AngularJS"
+                "name" : "AngularJS",
+                "logoUrl" : "lg-angularjs.png"
             },
             {
-                "name" : "BackboneJS"
+                "name" : "BackboneJS",
+                "logoUrl" : "lg-backbonejs.png"
             },
             {
-                "name" : "EmberJS"
+                "name" : "EmberJS",
+                "logoUrl" : "lg-emberjs.png"
             },
             {
-                "name" : "NodeJS"
+                "name" : "NodeJS",
+                "logoUrl" : "lg-nodejs.png"
             }
         ]
     },
@@ -975,7 +987,7 @@
             },
             {
                 "name" : "Cocoa",
-                "logoUrl" : "lg-cocoa.png"
+                "logoUrl" : "lg-ios.png"
             },
             {
                 "name" : "Sencha Touch",
