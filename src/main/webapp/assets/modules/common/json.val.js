@@ -59,11 +59,15 @@ angular.module("Common").constant("jsonValue", {
           }, {
               term: "QA",
               label: "QA",
-              color: "#0071bb"
+              color: "#0576cd"
           }, {
               term: "BA",
               label: "BA",
               color: "#996600"
+          },{
+            term: "CPLUSPLUS",
+            label: "CPLUSPLUS",
+            color: "#663333"
           }
           //{
           //  term: "WEB", label: "Web Development"
@@ -97,7 +101,7 @@ angular.module("Common").constant("jsonValue", {
       "color": "#666600"
   }, {
       "Name": "QA",
-      "color": "#0071bb"
+      "color": "#1fb43f"
   }, {
       "Name": "BA",
       "color": "#996600"

@@ -805,7 +805,8 @@
                 "logoUrl" : "lg-selenium.png"
             },
             {
-                "name" : "Automation Testing"
+                "name" : "Automation Testing",
+                "logoUrl" : "lg-automation-testing.png"
             },
             {
                 "name" : "Test Script"
