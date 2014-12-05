@@ -667,13 +667,16 @@
         "logoUrl" : "lg-python.png",
         "skills" : [
             {
-                "name" : "django"
+                "name" : "django",
+                "logoUrl" : "lg-djangocms.png"
             },
             {
-                "name" : "linux"
+                "name" : "linux",
+                "logoUrl" : "lg-linux.png"
             },
             {
-                "name" : "Git"
+                "name" : "Git",
+                "logoUrl" : "lg-git.png"
             },
             {
                 "name" : "REST"
@@ -682,10 +685,12 @@
                 "name" : "Agile Software Development"
             },
             {
-                "name" : "JSON"
+                "name" : "JSON",
+                "logoUrl" : "lg-json.png"
             },
             {
-                "name" : "XML"
+                "name" : "XML",
+                "logoUrl" : "lg-xml.png"
             }
         ]
     },
