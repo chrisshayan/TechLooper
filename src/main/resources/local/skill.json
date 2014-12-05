@@ -896,25 +896,32 @@
         "logoUrl" : "lg-cplusplus.png",
         "skills" : [
             {
-                "name" : "C"
+                "name" : "C",
+                "logoUrl" : "lg-c.png"
             },
             {
-                "name" : "C++"
+                "name" : "C++",
+                "logoUrl" : "lg-cplusplus.png"
             },
             {
-                "name" : "Embedded Systems"
+                "name" : "Embedded Systems",
+                "logoUrl" : "lg-cplusplus.png"
             },
             {
-                "name" : "Linux"
+                "name" : "Linux",
+                "logoUrl" : "lg-linux.png"
             },
             {
-                "name" : "GCC"
+                "name" : "GCC",
+                "logoUrl" : "lg-gcc.png"
             },
             {
-                "name" : "TCP/IP"
+                "name" : "TCP/IP",
+                "logoUrl" : "lg-tcp-ip.png"
             },
             {
-                "name" : "DirectX"
+                "name" : "DirectX",
+                "logoUrl" : "lg-directx.png"
             }
         ]
     },
@@ -963,7 +970,7 @@
             },
             {
                 "name" : "BackboneJS",
-                "logoUrl" : "lg-backbonejs.png"
+                "logoUrl" : "lg-backbone.png"
             },
             {
                 "name" : "EmberJS",
@@ -971,7 +978,7 @@
             },
             {
                 "name" : "NodeJS",
-                "logoUrl" : "lg-nodejs.png"
+                "logoUrl" : "lg-notejs.png"
             }
         ]
     },
@@ -1024,7 +1031,7 @@
             },
             {
                 "name" : "Objective C",
-                "logoUrl" : "lg-ios.png"
+                "logoUrl" : "lg-objective-c.png"
             },
             {
                 "name" : "SQLite",
