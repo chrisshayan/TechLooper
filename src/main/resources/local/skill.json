@@ -616,7 +616,7 @@
         "key" : "RUBY",
         "searchTexts" : ["ruby","ruby on rails"],
         "label" : "Ruby",
-        "logoUrl" : "lg-rupy.png",
+        "logoUrl" : "lg-ruby.png",
         "skills" : [
             {
                 "name" : "Ruby on Rails",
@@ -744,32 +744,40 @@
         "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
-                "name" : "MySql"
+                "name" : "MySql",
+                "logoUrl" : "lg-mysql.png"
             },
             {
-                "name" : "Oracle"
+                "name" : "Oracle",
+                "logoUrl" : "lg-oracle.png"
             },
             {
-                "name" : "NoSQL"
+                "name" : "NoSQL",
+                "logoUrl" : "lg-nosql.png"
             },
             {
-                "name" : "Hadoop"
+                "name" : "Hadoop",
+                "logoUrl" : "lg-hadoop.png"
             },
             {
                 "name" : "MongoDB",
                 "logoUrl" : "lg-mongodb.png"
             },
             {
-                "name" : "Cassandra"
+                "name" : "Cassandra",
+                "logoUrl" : "lg-cassandra.png"
             },
             {
-                "name" : "Couchbase"
+                "name" : "Couchbase",
+                "logoUrl" : "lg-couchbase.png"
             },
             {
-                "name" : "DynamoDB"
+                "name" : "DynamoDB",
+                "logoUrl" : "lg-dynamodb.png"
             },
             {
-                "name" : "SQL Server"
+                "name" : "SQL Server",
+                "logoUrl" : "lg-sqlserver.png"
             },
             {
                 "name" : "Relational Database"
