@@ -635,7 +635,7 @@
             },
             {
                 "name" : "Redis",
-                "logoUrl" : "llg-redis.png"
+                "logoUrl" : "lg-redis.png"
             },
             {
                 "name" : "Git",
@@ -922,7 +922,7 @@
         "key" :"WEB",
         "searchTexts" : ["web", "front-end"],
         "label" : "Web",
-        "logoUrl" : "",
+        "logoUrl" : "lg-web.png",
         "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
