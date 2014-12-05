@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
-public class JobSearchResultRepositoryTest {
+public class JobSearchResultRepositoryITCase {
 
     @Resource
     private JobSearchResultRepository repository;

@@ -59,18 +59,26 @@ angular.module("Common").constant("jsonValue", {
           }, {
               term: "QA",
               label: "QA",
-              color: "#0071bb"
+              color: "#0576cd"
           }, {
               term: "BA",
               label: "BA",
               color: "#996600"
+          },{
+            term: "CPLUSPLUS",
+            label: "C++",
+            color: "#663333"
+          },
+          {
+            term: "WEB", 
+            label: "Web Development",
+            color: "#336666"
+          },
+          {
+            term: "MOBILE", 
+            label: "Mobile Development",
+            color: "#cc6699"
           }
-          //{
-          //  term: "WEB", label: "Web Development"
-          //},
-          //{
-          //  term: "MOBILE", label: "Mobile Development"
-          //}
       ]
   },
 
@@ -97,7 +105,7 @@ angular.module("Common").constant("jsonValue", {
       "color": "#666600"
   }, {
       "Name": "QA",
-      "color": "#0071bb"
+      "color": "#1fb43f"
   }, {
       "Name": "BA",
       "color": "#996600"
@@ -292,12 +300,12 @@ angular.module("Common").constant("jsonValue", {
       },
       {
         element: ".highcharts-container",
-        placement: "right",
+        placement: "top",
         title: "Pie Chart",
         content: "In this chart, you can see how many jobs of the Term"
       },
       {
-        element: ".find-jobs-button a",
+        element: ".find-jobs-button",
         placement: "top",
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
@@ -323,7 +331,7 @@ angular.module("Common").constant("jsonValue", {
         content: "In this chart, you can see how many jobs of the Term"
       },
       {
-        element: ".find-jobs-button a",
+        element: ".find-jobs-button",
         placement: "top",
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
