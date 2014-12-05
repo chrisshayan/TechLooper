@@ -797,11 +797,12 @@
         "key" : "QA",
         "searchTexts" : ["qa", "qc"],
         "label" : "QA",
-        "logoUrl" : "",
+        "logoUrl" : "lg-qa.png",
         "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
-                "name" : "Selenium"
+                "name" : "Selenium",
+                "logoUrl" : "lg-selenium.png"
             },
             {
                 "name" : "Automation Testing"
