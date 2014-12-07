@@ -75,6 +75,10 @@ public class TechnicalTerm {
         this.skills = skills;
     }
 
+    public Skill getSkillByName(String skillName) {
+        return this.skills.stream().filter(skill -> skill.getName().equals(skillName)).findFirst().get();
+    }
+
     public String toString() {
         return this.key;
     }

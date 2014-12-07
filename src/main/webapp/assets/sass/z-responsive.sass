@@ -18,7 +18,8 @@
   .technical-header-block
     height: auto
   .logo-block
-    width: 70%
+    width: 60%
+    padding-top: 0
   .logo-block img
     width: 100%
   .close-button
@@ -26,8 +27,11 @@
   
   .technical-header-block 
     .close-button
-      padding-top: 0 !important
       padding-bottom: 10px !important
+      float: right
+  .search-logo-block 
+    .close-button
+      float: right
   .search-logo-block 
     .close-button a
       width: 40px
@@ -37,6 +41,7 @@
     .close-button a
       width: 40px
       height: 40px
+      line-height: 40px
   .logo
     width: 100%
     padding: 5px 5px 5px 0
@@ -145,6 +150,8 @@
     width: 100%
   .find-jobs-block
     width: 100%
+  .find-jobs-button
+    width: 100%
   .find-jobs-button a
     width: 95%
   .ball-highlight
@@ -213,6 +220,7 @@
     margin: auto
     clear: both
     padding: 20px 0 0 0
+    position: relative
   .line-chart-content
     padding-right: 0
   .trending-block
@@ -306,6 +314,49 @@
         padding: 10px
   .slider.slider-horizontal
     width: 210px
+  .modal-dialog
+    top: 30px
+  .signin-popup
+    min-height: 245px
+  .signin-popup-header img
+    max-width: 250px
+  .signin-form-content 
+    input[type="text"], 
+    input[type="password"]
+      width: 280px
+  .term-useful-links
+    display: none
+  .v-mobile.term-useful-links
+    display: none
+    position: absolute
+    left: 75px
+    z-index: 999
+    width: 220px
+    border: 1px solid #3e3d3d
+    background: -moz-linear-gradient(45deg, rgba(32,29,30,1) 0%, rgba(40,38,39,1) 100%)
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(32,29,30,1)), color-stop(100%, rgba(40,38,39,1)))
+    background: -webkit-linear-gradient(45deg, rgba(32,29,30,1) 0%, rgba(40,38,39,1) 100%)
+    background: -o-linear-gradient(45deg, rgba(32,29,30,1) 0%, rgba(40,38,39,1) 100%)
+    background: -ms-linear-gradient(45deg, rgba(32,29,30,1) 0%, rgba(40,38,39,1) 100%)
+    background: linear-gradient(45deg, rgba(32,29,30,1) 0%, rgba(40,38,39,1) 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#282627', endColorstr='#201d1e',GradientType=1 )
+    padding: 10px
+    position: absolute
+    z-index: 999
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    -webkit-box-shadow: 5px 5px 22px -7px rgba(0,0,0,0.54)
+    -moz-box-shadow: 5px 5px 22px -7px rgba(0,0,0,0.54)
+    box-shadow: 5px 5px 22px -7px rgba(0,0,0,0.54)
+    text-align: left
+  .v-mobile.term-useful-links i.fa-caret-left
+    position: absolute
+    left: -5px
+    top: 50px
+    color: #3e3d3d
+  .v-desktop
+    display: none
 
 @media (min-width: 778px)
   .fa-bars

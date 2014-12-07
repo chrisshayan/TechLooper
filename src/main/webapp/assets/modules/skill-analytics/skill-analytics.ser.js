@@ -123,6 +123,16 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       getViewJson: function () {
         return viewJson;
+      },
+
+      makeTourGuide: function () {
+        var tour = new Tour({
+            steps: jsonValue.introTour.homePage,
+            template: jsonValue.introTour.template
+            
+        });
+        tour.init();
+        tour.start();
       }
     }
 

@@ -26,12 +26,13 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     getCircles: function (box) {
       var randomCircles = [];
       var termCountMax = terms.maxBy("count");
-      var angle = -1;
-      while (randomCircles.length < terms.length && ++angle <= 360) {
+      //var angle = -1;
+      var times = 0;
+      while (randomCircles.length < terms.length && ++times < 5000) {
         var value = terms[randomCircles.length].count;
         var radius = Math.max((value * box.radiusMax) / termCountMax, box.radiusMin);
         var distFromCenter = box.radiusInner + radius + Math.random() * (box.radiusOuter - box.radiusInner - radius * 2);
-        //var angle = Math.random() * box.pi2;
+        var angle = Math.random() * box.pi2;
         var cx = box.xCenter + distFromCenter * Math.cos(angle);
         var cy = box.yCenter + distFromCenter * Math.sin(angle);
 
@@ -265,13 +266,14 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, function ($scope) {scope = $scope}, $$.enableNotifications);
-  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang);
   utils.registerNotification(jsonValue.notifications.changeUrl, function() {$$.unregisterResponsive();}, $$.enableNotifications);
 
   var instance = {
 
     renderView: function ($terms) {
       terms = termService.toViewTerms($terms).shuffle();
+      //terms = terms.slice(3);
 
       //var size = utils.isMobile() ? 300 : 500;//  $(".bubble-chart-container").width();
       var size = 600;//  $(".bubble-chart-container").width();
@@ -311,7 +313,6 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
 
       nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1000).style("opacity", "1");
     }
-
   }
 
   return instance;

@@ -24,7 +24,10 @@
       "DateJS": "latest",
       "d3": "latest",
       "d3-transform": "latest",
-      "parallax": "latest"
+      "parallax": "latest",
+      "seiyria-bootstrap-slider": "latest",
+      "extarray": "latest",
+      "bootstrap-tour": "latest"
    },
    "overrides": {
       "jquery": {
@@ -89,6 +92,9 @@
       },
       "parallax": {
          "main" : "deploy/jquery.parallax.min.js"
+      },
+      "seiyria-bootstrap-slider": {
+         "main": "dist/bootstrap-slider.min.js"
       }
    }
 }

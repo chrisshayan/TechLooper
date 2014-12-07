@@ -143,45 +143,28 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
       });
       return val;
     },
-    //mappingData: function (serName) {
-    //  var webName = '';
-    //  switch (serName) {
-    //    case 'PROJECT_MANAGER':
-    //      webName = 'Project Manager'
-    //      break;
-    //    case 'QA':
-    //      webName = 'QA'
-    //      break;
-    //    case 'DBA':
-    //      webName = 'DBA'
-    //      break;
-    //    case 'PYTHON':
-    //      webName = 'Python'
-    //      break;
-    //    case 'BA':
-    //      webName = 'BA'
-    //      break;
-    //    case 'RUBY':
-    //      webName = 'Ruby'
-    //      break;
-    //    case 'PHP':
-    //      webName = 'Php'
-    //      break;
-    //    case 'JAVA':
-    //      webName = 'Java'
-    //      break;
-    //    case 'DOTNET':
-    //      webName = '.NET'
-    //      break;
-    //  }
-    //  return webName;
-    //},
-    //getTermColor: function(termName){
-    //  for(var i = 0; i < jsonValue.termColor.length; i ++){
-    //      if(jsonValue.termColor[i].Name == termName){
-    //         return jsonValue.termColor[i].color;
-    //      }
-    //  }
-    //}
+    getDataTour: function(){
+      var path = $location.$$path;
+      if(path.indexOf("pie") > 0){
+        return jsonValue.introTour.pieHomePage;
+      }else if(path.indexOf("bubble") > 0){
+        return jsonValue.introTour.bubbleHomePage;
+      }else if(path.indexOf("skill") > 0){
+        return jsonValue.introTour.technicalDetail;
+      }else if(path.indexOf("signin") > 0){
+        return jsonValue.introTour.signIn
+      }else if(path.indexOf("search") > 0){
+        return jsonValue.introTour.searchForm
+      }
+    },
+    makeTourGuide: function (dataTour) {
+      var tour = new Tour({
+          steps: dataTour,
+          template: jsonValue.introTour.template
+          
+      });
+      tour.init();
+      tour.start();
+    }
   }
 });

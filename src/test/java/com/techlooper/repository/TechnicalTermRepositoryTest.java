@@ -1,4 +1,4 @@
-package com.techlooper.service.impl;
+package com.techlooper.repository;
 
 import com.techlooper.model.TechnicalTerm;
 import com.techlooper.util.JsonUtils;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(JUnit4.class)
-public class JsonSkillLoadingTest {
+public class TechnicalTermRepositoryTest {
 
     private List<TechnicalTerm> terms;
 

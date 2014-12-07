@@ -8,7 +8,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -39,7 +38,7 @@ public class JobStatisticController {
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
         technicalTermRepository.findAll().stream().forEach(term ->
-            terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey()).withLabel(term.getLabel())
+                        terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey()).withLabel(term.getLabel())
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
         return terms;
@@ -50,18 +49,17 @@ public class JobStatisticController {
         messagingTemplate.convertAndSend(
                 "/topic/jobs/" + request.getTerm().toLowerCase(),
                 new JobStatisticResponse.Builder().withCount(
-                        vietnamWorksJobStatisticService.count(convertToTechnicalTerm(request.getTerm().toUpperCase())))
+                        vietnamWorksJobStatisticService.count(
+                                technicalTermRepository.findByKey(request.getTerm().toUpperCase())))
                         .build());
     }
 
     @SendTo("/topic/analytics/skill")
     @MessageMapping("/analytics/skill")
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
-        return vietnamWorksJobStatisticService.countJobsBySkill(convertToTechnicalTerm(skillStatisticRequest.getTerm()),
+        return vietnamWorksJobStatisticService.countJobsBySkill(
+                technicalTermRepository.findByKey(skillStatisticRequest.getTerm()),
                 skillStatisticRequest.getHistograms());
     }
 
-    private TechnicalTerm convertToTechnicalTerm(String termKey) {
-        return technicalTermRepository.findAll().stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
-    }
 }

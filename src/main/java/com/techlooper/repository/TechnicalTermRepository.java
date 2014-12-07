@@ -51,6 +51,15 @@ public class TechnicalTermRepository {
 
     }
 
+    /**
+     * This method find the matching technical term
+     * @param termKey the term to look for
+     * @return Correct instance of {@link com.techlooper.model.TechnicalTerm} related to termKey
+     */
+    public TechnicalTerm findByKey(String termKey) {
+        return findAll().stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
+    }
+
     public Resource getSkillJsonResource() {
         return skillJsonResource;
     }

@@ -59,8 +59,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     /**
-     *
-     * @param term See more {@link com.techlooper.model.TechnicalTerm}
+     * @param term         See more {@link com.techlooper.model.TechnicalTerm}
      * @param aggregations See more {@link org.elasticsearch.search.aggregations.Aggregations}
      * @return Returns an instance of {@link com.techlooper.model.SkillStatisticResponse} which is having detail information for each technical term.
      */
@@ -77,11 +76,24 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
                         Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())));
 
-        return skillStatisticResponse.withSkills(getSkillStatisticsByName(skillHistogramsMap)).build();
+        List<SkillStatistic> skillStatistics = getSkillStatisticsByName(skillHistogramsMap);
+        skillStatistics.stream().forEach(skillStat -> {
+            Skill skill = term.getSkillByName(skillStat.getSkillName());
+            skillStat.setLogoUrl(skill.getLogoUrl());
+            skillStat.setWebSite(skill.getWebSite());
+            skillStat.setUsefulLinks(skill.getUsefulLinks());
+        });
+
+        return skillStatisticResponse.withSkills(skillStatistics)
+                .withLogoUrl(term.getLogoUrl())
+                .withWebSite(term.getWebSite())
+                .withUsefulLinks(term.getUsefulLinks())
+                .build();
     }
 
     /**
      * Loads data for each skill
+     *
      * @param skillHistogramsMap key is skillName like spring and the value list of duration like 7 days or 30 days
      * @return An instance of {@link com.techlooper.model.SkillStatistic}
      */
@@ -99,6 +111,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     /**
      * Builds a filter to use on Elastic Search
+     *
      * @param term See more at {@link com.techlooper.model.TechnicalTerm}
      * @return The builder to be used for filtering the data on ES
      */
@@ -109,8 +122,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     /**
-     *
-     * @param term See more at {@link com.techlooper.model.TechnicalTerm}
+     * @param term           See more at {@link com.techlooper.model.TechnicalTerm}
      * @param histogramEnums See more at {@link com.techlooper.model.HistogramEnum}
      * @return List of filters.
      */

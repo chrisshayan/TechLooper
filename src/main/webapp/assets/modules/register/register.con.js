@@ -4,4 +4,6 @@ angular.module('Register').controller('registerController', function (shortcutFa
 	
     $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
     $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
+
+    $('.register-successful').click(function(){shortcutFactory.trigger('esc');});
 });

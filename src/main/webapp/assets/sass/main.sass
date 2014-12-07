@@ -7,12 +7,18 @@ body
   color: #727272
   font-family: 'roboto', arial
   font-weight: 300
-  outline: medium none
+  outline: 0
 *:focus
   outline: 0
+textarea:focus, 
+input:focus,
+span:focus, 
+  outline: 0
+
 ul
   list-style: none
-
+a img
+  border: 0
 a:hover
   text-decoration: none
 .hide
@@ -81,10 +87,22 @@ ul.setting-items
   padding-left: 10px
 
 .langKey
-  width: 25px
-  height: 25px
+  width: 16px
+  height: 16px
   cursor: pointer
-
+.infor-tour
+  width: 30px
+  height: 30px
+  background-color: #323232
+  border: 1px solid #3d373a
+  border-radius: 5px
+  cursor: pointer
+  padding: 4px
+  position: absolute
+  right: 45px
+  font-size: 20px
+  line-height: 20px
+  text-align: center
 .keyboard-shortcuts-items
   background: #000000
   padding: 10px
@@ -119,7 +137,7 @@ ul.setting-items
 .close-button
   width: 33%
   text-align: right
-  float: left
+  float: right
 .logo-block h1
   margin: 0
   padding: 0
@@ -252,6 +270,7 @@ ul.setting-items
   -moz-transition: 1s ease-in-out 
   -o-transition: 1s ease-in-out
   transition: 1s ease-in-out
+  cursor: pointer
 .signin-account:hover
   border: 3px solid #fff
   -webkit-transform: rotate(360deg) scale(1.2)
@@ -338,6 +357,7 @@ ul.setting-items
 .find-jobs-button
   margin: auto
   text-align: center
+  width: 340px
   a
     width: 340px
     display: block
@@ -445,7 +465,7 @@ footer
   right: 0
   bottom: 0
   background-color: #000
-  opacity: 0.6
+  opacity: 0.9
   display: none
 .windows8
   position: absolute
@@ -816,6 +836,11 @@ label.bootstrap-checkbox.disabled
     max-width: 400px
     margin: auto
     text-align: left
+    h2
+      font-size: 16px
+      font-weight: 300
+      text-transform: uppercase
+      padding-left: 10px
     input[type=text]
       background-color: #251f21
       border: 1px solid #3c3438
@@ -873,3 +898,96 @@ label.bootstrap-checkbox.disabled
       color: #fff
     .submit a:hover
       background-color: #007bdc
+.modal-dialog
+  top: 25%
+.signin-popup
+  width: 100%
+  text-align: center
+  margin: auto
+  min-height: 250px
+.signin-popup-header
+  background: url(../images/underline-black.png) left bottom repeat-x
+  width: 100%
+  clear: both
+  padding: 10px 0
+.signin-form-content
+  width: 100%
+  max-width: 400px
+  clear: both
+  padding: 10px 0
+  margin: auto
+  .signin-field
+    width: 100%
+    padding-bottom: 10px
+    float: left
+  input[type=text],
+  input[type=password]
+    background-color: #251f21
+    border: 1px solid #3c3438
+    border-radius: 5px
+    color: #a4a4a4
+    height: 34px
+    padding: 5px 10px
+    width: 320px
+    float: left
+  label
+    font-size: 14px
+    text-transform: capitalize
+    float: left
+    padding: 5px 5px 0 0
+    width: 80px
+    font-weight: 300
+  button
+    min-width: 80px
+  .signin-field.has-error
+    input[type=text],
+    input[type=password]
+      border: 1px solid #ac0909
+.tooltip.top
+  top: -25px
+.tour-tour-element
+  -webkit-box-shadow: 0px 0px 20px -5px rgba(255,255,255,1)
+  -moz-box-shadow: 0px 0px 20px -5px rgba(255,255,255,1)
+  box-shadow: 0px 0px 20px -5px rgba(255,255,255,1)
+  border: 1px solid #828282
+.popover-title
+  background-color: #a4a4a4
+  color: #fff
+  border-bottom: 1px solid #828282
+.popover
+  background-color: #8e8d8d
+  border: 1px solid #828282
+  color: #fff
+.popover.right > .arrow:after,
+.popover.right > .arrow,
+  border-right-color: #828282
+.popover.left > .arrow:after,
+.popover.left > .arrow
+  border-left-color: #828282
+.popover.top > .arrow:after,
+.popover.top > .arrow
+  border-top-color: #828282
+.popover.bottom > .arrow:after,
+.popover.bottom > .arrow
+  border-bottom-color: #828282
+.popover-navigation
+  text-align: center
+.popover
+  padding-bottom: 10px
+  .btn-default
+    background-color: transparent
+    font-size: 35px
+    padding: 0
+    border: 0
+    box-shadow: inherit
+    text-shadow: inherit
+    color: #fff
+    font-weight: 300
+    line-height: 100%
+    float: left
+    margin: 0 10px
+    cursor: pointer
+  .close-tour
+    float: right
+  .prev-tour
+    margin-right: 0
