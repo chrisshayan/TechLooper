@@ -70,12 +70,12 @@ module.exports = function (grunt) {
 
     "bower-install-simple": {
       options: {
-        color: true,
         directory: "<%=pkg.public%>bower_components"
       },
-      prod: {
+      "prod": {
         options: {
-          production: true
+          production: true,
+          forceLatest: true
         }
       }
     },
@@ -197,7 +197,7 @@ module.exports = function (grunt) {
   grunt.registerTask("build", [
     "clean:build",
     "copy:build",
-    "bower-install-simple",
+    "bower-install-simple:prod",
     "includeSource:target",
     "wiredep:target",
     "ngAnnotate:main",
@@ -214,7 +214,7 @@ module.exports = function (grunt) {
   grunt.registerTask("local", [
     "clean:build",
     "copy",
-    "bower-install-simple",
+    "bower-install-simple:build",
     "includeSource:target",
     "wiredep:target",
     "copy:dev"
