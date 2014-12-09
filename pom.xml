@@ -23,7 +23,7 @@
   <properties>
     <spring.version>4.1.0.RELEASE</spring.version>
     <spring-test.version>4.0.7.RELEASE</spring-test.version>
-    <jackson.version>2.4.0</jackson.version>
+    <jackson.version>2.4.4</jackson.version>
     <aspectj.version>1.8.1</aspectj.version>
     <spring-data-jpa.version>1.7.0.RELEASE</spring-data-jpa.version>
     <spring-data-elasticsearch>1.1.0.RELEASE</spring-data-elasticsearch>
@@ -502,7 +502,6 @@
       <version>${spring-social-linkedin.version}</version>
     </dependency>
 
-
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
@@ -533,6 +532,25 @@
       <artifactId>commons-fileupload</artifactId>
       <version>${commons-fileupload.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
