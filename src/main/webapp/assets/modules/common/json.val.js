@@ -127,7 +127,8 @@ angular.module("Common").constant("jsonValue", {
       jobsSearch: "/jobs/search",
       analyticsSkill: "/analytics/skill",
       signIn: "signin",
-      register: "register"
+      register: "register",
+      userProfile: "user"
   },
 
   views: {
@@ -137,7 +138,8 @@ angular.module("Common").constant("jsonValue", {
       bubbleChart: "bubbleChart",
       pieChart: "pieChart",
       signIn: "signin",
-      register: "register"
+      register: "register",
+      userProfile: "userProfile"
   },
 
   socketUri: {
@@ -282,7 +284,7 @@ angular.module("Common").constant("jsonValue", {
       "urlSignin": "https://bitbucket.org/",
       "logo": "images/bitbucket.png",
       "magnitude": "level7",
-      "bgcolor": "#fff"
+      "bgcolor": "#1f5081"
   }, {
       "site": "Twitter",
       "urlSignin": "https://twitter.com/",
