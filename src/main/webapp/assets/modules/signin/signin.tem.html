@@ -14,7 +14,7 @@
     <div class="signin-contianer">
         <ul class="signin-accounts">
             <li class="layer" data-depth="0.20">
-                <div class="bg1"><img src="images/bg-signin1.png" alt=""</div>
+                <div class="bg1"><img src="images/bg-signin1.png" alt=""></div>
             </li>
             <li class="layer" data-depth="0.20">
                 <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
@@ -32,7 +32,7 @@
                 <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
             </li>
             <li class="layer" data-depth="0.20" ng-repeat="item in accounts">
-                <div class="signin-account {{item.magnitude}}" style="background-color:{{item.bgcolor}}">
+                <div class="signin-account {{item.magnitude}}" ng-style="background-color:{{item.bgcolor}}">
                     <span ng-if="item.site == 'VietnamWork'">
                         <a data-toggle="modal" data-target="#signin-form" class="hi-icon"><img ng-src="{{item.logo}}" alt=""></a>
                     </span>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="signin-field has-error">
                             <label for="txtPassword">Password:</label>
-                            <input type="password" id="txtUserName" class="form-control" placeholder="Password">
+                            <input type="password" id="txtPassword" class="form-control" placeholder="Password">
                         </div>
                         <div class="signin-field">
                             <button class="btn btn-primary sign-successful">Ok</button>
