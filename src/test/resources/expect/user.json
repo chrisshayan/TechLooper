@@ -1,0 +1,22 @@
+{
+    "firstName": "Khoa",
+    "lastName": "Nguyen",
+    "emailAddress": "ndkhoa.is@gmail.com",
+    "password" : "",
+    "loginSource" : ["LinkedIn", "G+", "Facebook", "Github", "StackOverflow"],
+    "profiles" : [
+        {
+            "sns" : "LinkedIn",
+            "id": "zJROJ4-vlg",
+            "accessToken" : "b1ce044e-ca68-4fab-9590-f2708ffcd04c",
+            "firstName": "Khoa",
+            "lastName": "Nguyen",
+            "headline": "Software Developer (Java & Open Source Technologies)",
+            "industry": "Information Technology and Services",
+            "location" : "vn",
+            "numConnections": 119,
+            "pictureUrl": "https://media.licdn.com/mpr/mprx/0_H1YHLaclQdd4lEgNot4ULSbPk7jWlupNo-EBLSF8UEdZmHIqkzmXwDPmE3gB-wjZdry9oov8JZik",
+            "publicProfileUrl": "https://www.linkedin.com/in/khoanguyendang"
+        }
+    ]
+}
