@@ -1,5 +1,6 @@
 package com.techlooper.config;
 
+import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
@@ -42,6 +43,11 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public JobSearchAPIConfigurationRepository apiConfiguration() {
+        return new JobSearchAPIConfigurationRepository();
     }
 
     @Bean

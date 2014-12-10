@@ -1,5 +1,5 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
-  var notification = {};
+  var techlooperObserver = $.microObserver.get("techlooper");
 
   return {
     go2SkillAnalyticPage: function(scope, term) {
@@ -66,23 +66,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
     },
 
     //TODO allow auto scan observable objects
-    registerNotification: function (name, fn, ableToReceiveFn) {
-      if (notification[name] === undefined) {
-        notification[name] = [];
-      }
-      return notification[name].push({fn: fn, ableToReceiveFn: ableToReceiveFn});
+    registerNotification: function (notify, handler, able) {
+      return techlooperObserver.on(notify, handler, able);
     },
 
     sendNotification: function () {
-      var notifies = notification[arguments[0]];
-      if (notifies === undefined) {
-        return false;
-      }
-      var args = Array.prototype.slice.call(arguments, 1);
-      $.each(notifies, function (index, notify) {
-        var ok = notify.ableToReceiveFn === undefined || notify.ableToReceiveFn.apply(null, args);
-        ok && notify.fn.apply(null, args);
-      });
+      return techlooperObserver.send.apply(techlooperObserver, arguments);
     },
 
     getView: function ($path) {

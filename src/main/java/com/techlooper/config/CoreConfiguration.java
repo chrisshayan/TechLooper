@@ -13,33 +13,32 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
-        @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties")})
+  @PropertySource("classpath:techlooper.properties"),
+  @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
-@Import({ElasticsearchConfiguration.class})
 public class CoreConfiguration {
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
-    @Bean
-    public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("TECHNICAL_TERM_CACHE");
-    }
+  @Bean
+  public CacheManager cacheManager() {
+    return new ConcurrentMapCacheManager("TECHNICAL_TERM_CACHE");
+  }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
-    @Bean
-    public MultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(500000);
-        return multipartResolver;
-    }
+  @Bean
+  public MultipartResolver multipartResolver() {
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    multipartResolver.setMaxUploadSize(500000);
+    return multipartResolver;
+  }
 }
