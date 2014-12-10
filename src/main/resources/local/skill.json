@@ -610,7 +610,8 @@
                 "logoUrl" : "lg-git.png"
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "lg-jersey.png"
             },
             {
                 "name" : "Agile Software Development"
@@ -647,7 +648,8 @@
                 "logoUrl" : "lg-git.png"
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "lg-jersey.png"
             },
             {
                 "name" : "Agile Software Development"
@@ -669,7 +671,8 @@
         "logoUrl" : "",
         "skills" : [
             {
-                "name" : "scrum"
+                "name" : "Scrum",
+                "logoUrl" : "lg-scrum.png"
             },
             {
                 "name" : "Project Management"
@@ -693,13 +696,15 @@
                 "name" : "Agile Software Development"
             },
             {
-                "name" : "CMMI"
+                "name" : "CMMI",
+                "logoUrl" : "lg-cmmi.png"
             },
             {
                 "name" : "Supplier Management"
             },
             {
-                "name" : "itil"
+                "name" : "Itil",
+                "logoUrl" : "lg-itil.png"
             }
         ]
     },
@@ -755,7 +760,8 @@
                 "name" : "Database Analysis"
             },
             {
-                "name" : "Data Warehouse"
+                "name" : "Data Warehouse",
+                "logoUrl" : "lg-data-warehouse-logo.png"
             }
         ]
     },

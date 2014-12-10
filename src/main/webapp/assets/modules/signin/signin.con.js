@@ -1,5 +1,4 @@
 angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, shortcutFactory, tourService) {
-
   $scope.accounts = jsonValue.accountSignin;
 
   $('.signin-accounts').parallax();
