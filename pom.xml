@@ -27,6 +27,7 @@
     <aspectj.version>1.8.1</aspectj.version>
     <spring-data-jpa.version>1.7.0.RELEASE</spring-data-jpa.version>
     <spring-data-elasticsearch>1.1.0.RELEASE</spring-data-elasticsearch>
+    <spring-data-couchbase>1.2.1.RELEASE</spring-data-couchbase>
     <hibernate-entitymanager.version>4.3.5.Final</hibernate-entitymanager.version>
     <hsqldb.version>2.3.2</hsqldb.version>
     <dozer.version>5.5.1</dozer.version>
@@ -455,6 +456,11 @@
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-elasticsearch</artifactId>
       <version>${spring-data-elasticsearch}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-couchbase</artifactId>
+      <version>${spring-data-couchbase}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
