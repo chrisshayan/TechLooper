@@ -31,13 +31,13 @@
             <li class="layer" data-depth="0.20">
                 <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
             </li>
-            <li class="layer" data-depth="0.20" ng-repeat="acount in accounts">
-                <div class="signin-account {{acount.magnitude}}" style="background-color:{{acount.bgcolor}}">
-                    <span ng-if="acount.site == 'VietnamWork'">
-                        <a data-toggle="modal" data-target="#signin-form"><img ng-src="{{acount.logo}}" alt=""></a>
+            <li class="layer" data-depth="0.20" ng-repeat="item in accounts">
+                <div class="signin-account {{item.magnitude}}" style="background-color:{{item.bgcolor}}">
+                    <span ng-if="item.site == 'VietnamWork'">
+                        <a data-toggle="modal" data-target="#signin-form" class="hi-icon"><img ng-src="{{item.logo}}" alt=""></a>
                     </span>
-                    <span ng-if="acount.site != 'VietnamWork'">
-                        <a><img ng-src="{{acount.logo}}" alt=""></a>
+                    <span ng-if="item.site != 'VietnamWork'">
+                        <a><img ng-src="{{item.logo}}" alt=""></a>
                     </span>
                 </div>
             </li>
