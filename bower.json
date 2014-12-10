@@ -99,6 +99,9 @@
     },
     "seiyria-bootstrap-slider": {
       "main": "dist/bootstrap-slider.min.js"
+    },
+    "bootstrap-tour": {
+      "main": "build/js/bootstrap-tour-standalone.min.js"
     }
   },
   "resolutions": {

@@ -1,21 +1,19 @@
-angular.module('SignIn').controller('signInController', function ($scope, $location, jsonValue, utils, shortcutFactory) {
-	
-  var dataTour = utils.getDataTour();
-  utils.makeTourGuide(dataTour); 
+angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, shortcutFactory, tourService) {
+  $scope.accounts = jsonValue.accountSignin;
 
-	$scope.accounts = jsonValue.accountSignin;
-	
-	$('.signin-accounts').parallax();
-	
-  $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
-  $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
+  $('.signin-accounts').parallax();
 
-  $(".signin-popup-close").on('click', function() {
+  $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
+  $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
+
+  $(".signin-popup-close").on('click', function () {
     $('#signin-form').modal('hide');
   });
 
-  $('.sign-successful').on('click', function(){
-  	$location.path('/register');
-  	$scope.$apply();
+  $('.sign-successful').on('click', function () {
+    $location.path('/register');
+    $scope.$apply();
   });
+
+  tourService.makeTourGuide();
 });

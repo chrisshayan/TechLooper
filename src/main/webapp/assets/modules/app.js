@@ -10,11 +10,11 @@ angular.module("SearchForm", []);
 angular.module("Skill", []);
 angular.module("SignIn", []);
 angular.module("Register", []);
-
+angular.module("UserProfile", []);
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute",
-  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register"
+  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
@@ -54,14 +54,18 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
       controller: "registerController"
     }).otherwise({
       redirectTo: "/bubble-chart"
+    }).when("/user", {
+      templateUrl: "modules/user-profile/user-profile.tem.html",
+      controller: "userProfileController"
     });
   }]);
 
-techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory) {
+techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
+  tourService.initialize();
 });
 
 techlooper.directive("header", function () {
