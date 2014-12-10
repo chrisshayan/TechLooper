@@ -88,7 +88,10 @@ angular.module("Header").factory("headerService",
           }
           var tour = new Tour({
               steps: dataTour,
-              template: jsonValue.introTour.template
+              template: jsonValue.introTour.template,
+              onStart: function (tour) {
+                $('.bg-tour-giude').show();
+              },
           });
           tour.init();
           tour.restart();

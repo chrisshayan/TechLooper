@@ -1,4 +1,4 @@
-angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, shortcutFactory) {
+angular.module('SignIn').controller('signInController', function ($scope, $location, jsonValue, utils, shortcutFactory) {
 	
   var dataTour = utils.getDataTour();
   utils.makeTourGuide(dataTour); 
