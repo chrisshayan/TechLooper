@@ -240,6 +240,7 @@ angular.module("Common").constant("jsonValue", {
       "name": "Function Name 2",
       "keyShort": "Ctrl + Alt + 2"
   }],
+
   accountSignin: [{
       "site": "VietnamWork",
       "urlSignin": "http://www.vietnamworks.com/",
@@ -247,7 +248,7 @@ angular.module("Common").constant("jsonValue", {
       "magnitude": "level1",
       "bgcolor": "#1fbaec"
   }, {
-      "site": "Linkedin",
+      "site": "LinkedIn",
       "urlSignin": "http://linkedin.com/",
       "logo": "images/linkedin.png",
       "magnitude": "level2",
