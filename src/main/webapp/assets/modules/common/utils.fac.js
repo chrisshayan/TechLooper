@@ -131,29 +131,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
         }
       });
       return val;
-    },
-    getDataTour: function(){
-      var path = $location.$$path;
-      if(path.indexOf("pie") > 0){
-        return jsonValue.introTour.pieHomePage;
-      }else if(path.indexOf("bubble") > 0){
-        return jsonValue.introTour.bubbleHomePage;
-      }else if(path.indexOf("skill") > 0){
-        return jsonValue.introTour.technicalDetail;
-      }else if(path.indexOf("signin") > 0){
-        return jsonValue.introTour.signIn
-      }else if(path.indexOf("search") > 0){
-        return jsonValue.introTour.searchForm
-      }
-    },
-    makeTourGuide: function (dataTour) {
-      var tour = new Tour({
-          steps: dataTour,
-          template: jsonValue.introTour.template
-          
-      });
-      tour.init();
-      tour.start();
     }
   }
 });

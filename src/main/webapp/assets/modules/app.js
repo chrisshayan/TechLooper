@@ -57,11 +57,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     });
   }]);
 
-techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory) {
+techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
+  tourService.initialize();
 });
 
 techlooper.directive("header", function () {
