@@ -282,6 +282,12 @@ angular.module("Common").constant("jsonValue", {
       "logo": "images/bitbucket.png",
       "magnitude": "level7",
       "bgcolor": "#fff"
+  }, {
+      "site": "Twitter",
+      "urlSignin": "https://twitter.com/",
+      "logo": "images/twitter.png",
+      "magnitude": "level8",
+      "bgcolor": "#33ccff"
   }],
   introTour:{
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",

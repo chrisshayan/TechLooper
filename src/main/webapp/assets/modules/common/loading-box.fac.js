@@ -8,7 +8,6 @@ angular.module("Common").factory("loadingBoxFactory", function (jsonValue, utils
     $('.loading-data').fadeOut(500);
     utils.makeTourGuide(dataTour);
   });
-
   return {
     initialize: function(){}
   };

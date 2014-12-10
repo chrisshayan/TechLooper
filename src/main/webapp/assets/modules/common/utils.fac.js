@@ -160,11 +160,15 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
     makeTourGuide: function (dataTour) {
       var tour = new Tour({
           steps: dataTour,
-          template: jsonValue.introTour.template
+          template: jsonValue.introTour.template,
+          onEnd: function (tour) {
+            $('.bg-tour-giude').hide();
+          }
           
       });
       tour.init();
       tour.start();
+
     }
   }
 });
