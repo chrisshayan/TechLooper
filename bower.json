@@ -27,7 +27,8 @@
     "parallax": "latest",
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
-    "bootstrap-tour": "latest"
+    "bootstrap-tour": "latest",
+    "hello": "latest"
   },
   "overrides": {
     "jquery": {
