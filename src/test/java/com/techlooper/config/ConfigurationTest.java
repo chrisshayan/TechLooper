@@ -4,7 +4,9 @@ import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
+import com.techlooper.service.UserService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
+import com.techlooper.service.impl.UserServiceImpl;
 import com.techlooper.service.impl.VietnamWorksJobSearchService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -53,6 +55,11 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public JobSearchService jobSearchService() {
         return new VietnamWorksJobSearchService();
+    }
+
+    @Bean
+    public UserService userService() {
+        return new UserServiceImpl();
     }
 
     @Bean
