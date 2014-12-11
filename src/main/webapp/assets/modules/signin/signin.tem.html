@@ -31,46 +31,47 @@
       <li class="layer" data-depth="0.20">
         <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
       </li>
-      <li class="layer" data-depth="0.20" ng-repeat="item in accounts">
-        <div class="signin-account {{item.magnitude}}" ng-style="{'background-color': item.bgcolor}">
-                    <span ng-if="item.site == 'VietnamWork'">
-                        <a data-toggle="modal" data-target="#signin-form" class="hi-icon"><img ng-src="{{item.logo}}"
-                                                                                               alt=""></a>
-                    </span>
-                    <span ng-if="item.site != 'VietnamWork'">
-                        <a><img ng-src="{{item.logo}}" alt=""></a>
-                    </span>
+      <li class="layer" data-depth="0.20" ng-repeat="auth in authSource">
+        <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
+          <!--<span ng-if="auth.site === 'vietnamworks'">-->
+            <!--<a data-toggle="modal" data-target="#signin-form" class="hi-icon">-->
+              <!--<img ng-src="{{auth.logo}}" alt="">-->
+            <!--</a>-->
+          <!--</span>-->
+          <!--<span ng-if="auth.site != 'vietnamworks'">-->
+            <a ng-click="openOathDialog(auth)"><img ng-src="{{auth.logo}}" alt=""></a>
+          <!--</span>-->
         </div>
       </li>
     </ul>
   </div>
 </div>
 
-<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="signin-popup">
-          <div class="signin-popup-header">
-            <a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/jobseekers/logo.png"
-                                                        alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>
-          </div>
-          <div class="signin-form-content">
-            <div class="signin-field">
-              <label for="txtUserName">User Name:</label>
-              <input type="text" id="txtUserName" class="form-control">
-            </div>
-            <div class="signin-field has-error">
-              <label for="txtPassword">Password:</label>
-              <input type="password" id="txtPassword" class="form-control">
-            </div>
-            <div class="signin-field">
-              <button class="btn btn-primary sign-successful">Continues</button>
-            </div>
-          </div>
-        </div>
+<!--<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-body">-->
+        <!--<div class="signin-popup">-->
+          <!--<div class="signin-popup-header">-->
+            <!--<a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/jobseekers/logo.png"-->
+                                                        <!--alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>-->
+          <!--</div>-->
+          <!--<div class="signin-form-content">-->
+            <!--<div class="signin-field">-->
+              <!--<label for="txtUserName">User Name:</label>-->
+              <!--<input type="text" id="txtUserName" class="form-control">-->
+            <!--</div>-->
+            <!--<div class="signin-field has-error">-->
+              <!--<label for="txtPassword">Password:</label>-->
+              <!--<input type="password" id="txtPassword" class="form-control">-->
+            <!--</div>-->
+            <!--<div class="signin-field">-->
+              <!--<button class="btn btn-primary sign-successful">Continues</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
 
-      </div>
-    </div>
-  </div>
-</div>
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
