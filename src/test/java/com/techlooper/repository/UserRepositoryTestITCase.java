@@ -2,8 +2,8 @@ package com.techlooper.repository;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.CouchbaseConfiguration;
-import com.techlooper.model.ProfileEntity;
-import com.techlooper.model.UserEntity;
+import com.techlooper.entity.ProfileEntity;
+import com.techlooper.entity.UserEntity;
 import com.techlooper.repository.couchbase.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

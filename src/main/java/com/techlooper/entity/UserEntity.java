@@ -1,5 +1,6 @@
-package com.techlooper.model;
+package com.techlooper.entity;
 
+import com.techlooper.entity.ProfileEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;

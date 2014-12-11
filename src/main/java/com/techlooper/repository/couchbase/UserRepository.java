@@ -1,6 +1,6 @@
 package com.techlooper.repository.couchbase;
 
-import com.techlooper.model.UserEntity;
+import com.techlooper.entity.UserEntity;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 
 /**
