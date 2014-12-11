@@ -3,7 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
-import com.techlooper.repository.TechnicalTermRepository;
+import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
 import org.elasticsearch.action.search.SearchType;
@@ -33,11 +33,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     private String elasticSearchIndexName;
 
     @Resource
-    private TechnicalTermRepository technicalTermRepository;
+    private JsonConfigRepository jsonConfigRepository;
 
     public FilterBuilder getTechnicalTermsQuery() {
         BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
-        technicalTermRepository.findAll().stream().map(this::getTechnicalTermQuery).forEach(boolFilter::should);
+        jsonConfigRepository.getSkillConfig().stream().map(this::getTechnicalTermQuery).forEach(boolFilter::should);
         return boolFilter;
     }
 
