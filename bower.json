@@ -28,7 +28,8 @@
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
     "bootstrap-tour": "latest",
-    "hello": "latest"
+    "hello": "latest",
+    "jScrollPane": "latest"
   },
   "overrides": {
     "jquery": {
@@ -99,6 +100,12 @@
     },
     "seiyria-bootstrap-slider": {
       "main": "dist/bootstrap-slider.min.js"
+    },
+    "jScrollPane": {
+      "main": [
+        "script/jquery.jscrollpane.js",
+        "script/jquery.mousewheel.js"
+      ]
     }
   },
   "resolutions": {

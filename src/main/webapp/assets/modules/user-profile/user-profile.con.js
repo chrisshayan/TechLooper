@@ -1,3 +1,6 @@
-angular.module('UserProfile').controller('userProfileController', function ($scope, $location, jsonValue, utils, shortcutFactory) {
-
+angular.module('UserProfile').controller('userProfileController', function ($scope, jsonValue, userProfileFactory) {
+  $scope.accounts = jsonValue.accountSignin;
+  userProfileFactory.customScrollBar();
+  userProfileFactory.resizeScreen();
+  userProfileFactory.collapseContent();
 });
