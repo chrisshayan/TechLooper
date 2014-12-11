@@ -1,4 +1,4 @@
-package com.techlooper.model;
+package com.techlooper.entity;
 
 /**
  * Created by NguyenDangKhoa on 12/10/14.
