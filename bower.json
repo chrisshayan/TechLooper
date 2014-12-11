@@ -28,7 +28,7 @@
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
     "bootstrap-tour": "latest",
-    "jScrollPane": "latest"
+    "jScrollPane": "latest",
     "satellizer": "latest"
   },
   "overrides": {
@@ -106,6 +106,7 @@
         "script/jquery.jscrollpane.js",
         "script/jquery.mousewheel.js"
       ]
+    },
     "bootstrap-tour": {
       "main": "build/js/bootstrap-tour-standalone.min.js"
     },
