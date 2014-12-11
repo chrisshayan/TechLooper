@@ -12,7 +12,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     }
     //next.$$route.originalPath;
     //current.$$route.originalPath;
-    utils.sendNotification(jsonValue.notifications.changeUrl, current.$$route.originalPath, next.$$route.originalPath);
+    utils.sendNotification(jsonValue.notifications.changeUrl/*, current.$$route.originalPath, next.$$route.originalPath*/);
   });
 
   var instance = {

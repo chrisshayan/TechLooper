@@ -1,19 +1,8 @@
-angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, shortcutFactory, tourService) {
-  $scope.accounts = jsonValue.accountSignin;
+angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, signInService) {
+  $scope.authSource = jsonValue.authSource;
+  utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
-  $('.signin-accounts').parallax();
+  utils.sendNotification(jsonValue.notifications.gotData);
 
-  $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
-  $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
-
-  $(".signin-popup-close").on('click', function () {
-    $('#signin-form').modal('hide');
-  });
-
-  $('.sign-successful').on('click', function () {
-    $location.path('/register');
-    $scope.$apply();
-  });
-
-  tourService.makeTourGuide();
+  $scope.openOathDialog = signInService.openOathDialog;
 });

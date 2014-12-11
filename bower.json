@@ -28,7 +28,7 @@
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
     "bootstrap-tour": "latest",
-    "hello": "latest"
+    "satellizer": "latest"
   },
   "overrides": {
     "jquery": {
@@ -102,6 +102,9 @@
     },
     "bootstrap-tour": {
       "main": "build/js/bootstrap-tour-standalone.min.js"
+    },
+    "satellizer": {
+      "main": "satellizer.min.js"
     }
   },
   "resolutions": {
