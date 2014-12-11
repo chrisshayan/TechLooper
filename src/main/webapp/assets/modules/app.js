@@ -12,13 +12,25 @@ angular.module("SignIn", []);
 angular.module("Register", []);
 angular.module("UserProfile", []);
 
+var baseUrl = (function() {
+  var paths = window.location.pathname.split('/');
+  paths.pop();
+  return window.location.protocol + '//' + window.location.host + paths.join('/');
+})();
+
 var techlooper = angular.module("Techlooper", [
-  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute",
+  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer",
   "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
-techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
-  function ($routeProvider, $translateProvider, $locationProvider, jsonVal) {
+techlooper.config(["$routeProvider", "$translateProvider", "$authProvider",
+  function ($routeProvider, $translateProvider, $authProvider) {
+
+    $authProvider.linkedin({//@see https://github.com/sahat/satellizer#how-it-works
+      url: baseUrl + "/auth",
+      clientId: '75ukeuo2zr5y3n',
+      redirectUri: baseUrl + "/authentication"
+    });
 
     $translateProvider.useStaticFilesLoader({
       prefix: "modules/translation/messages_",
@@ -60,11 +72,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     });
   }]);
 
-techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory) {
+techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
+  tourService.initialize();
 });
 
 techlooper.directive("header", function () {

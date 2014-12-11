@@ -2,7 +2,8 @@ package com.techlooper.repository;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.model.JobEntity;
+import com.techlooper.entity.JobEntity;
+import com.techlooper.repository.elasticsearch.JobSearchResultRepository;
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;

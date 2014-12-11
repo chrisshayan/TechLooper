@@ -6,10 +6,8 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
   var subscriptions = {};
   var isConnecting = false;
 
-  var paths = window.location.pathname.split('/');
-  paths.pop();
-  var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
-  var stompUrl = contextUrl + '/' + socketUri.sockjs;
+  //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
+  var stompUrl = baseUrl + '/' + socketUri.sockjs;
   var stompClient = Stomp.over(new SockJS(stompUrl));
   stompClient.debug = function () {};
 
