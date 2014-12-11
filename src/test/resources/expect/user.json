@@ -3,7 +3,7 @@
     "lastName": "Nguyen",
     "emailAddress": "ndkhoa.is@gmail.com",
     "password" : "",
-    "loginSource" : ["LinkedIn", "G+", "Facebook", "Github", "StackOverflow"],
+    "loginSources" : ["LinkedIn", "G+", "Facebook", "Github", "StackOverflow"],
     "profiles" : [
         {
             "sns" : "LinkedIn",

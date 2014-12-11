@@ -1,4 +1,4 @@
-package com.techlooper.repository;
+package com.techlooper.repository.elasticsearch;
 
 import com.techlooper.model.JobEntity;
 import org.springframework.data.domain.Page;
