@@ -7,6 +7,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,9 @@ public class SocialController {
   @Resource
   private JsonConfigRepository jsonConfigRepository;
 
+  @Resource
+  private SocialService defaultSocialService;
+
   @RequestMapping("/getSocialConfig")
   @ResponseBody
   public SocialConfig getSocialConfig(@RequestParam SocialProvider provider) {
@@ -35,9 +39,9 @@ public class SocialController {
   @RequestMapping("/auth/{provider}")
   @ResponseBody
   public SocialAccessToken auth(@PathVariable SocialProvider provider, @RequestBody Authentication auth) {
-    SocialAccessToken token = new SocialAccessToken();
-    Optional.ofNullable(applicationContext.getBean(provider + "Service", SocialService.class))
-      .ifPresent(service -> token.setToken(service.getAccessToken(auth.getCode())));
-    return token;
+    SocialService service = Optional.ofNullable(applicationContext.getBean(provider + "Service", SocialService.class)).orElse(defaultSocialService);
+    AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
+    service.persistProfile(accessGrant);
+    return new SocialAccessToken(accessGrant.getAccessToken());
   }
 }

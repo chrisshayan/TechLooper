@@ -28,7 +28,8 @@ public class UserServiceImplTest {
     @Test
     public void testSave() throws Exception {
         String key = "ndkhoa.is2@gmail.com";
-        UserEntity user = new UserEntity(key);
+        UserEntity user = new UserEntity();
+        user.setId(key);
         user.setFirstName("Khoa");
         user.setLastName("Nguyen");
         user.setEmailAddress("ndkhm");

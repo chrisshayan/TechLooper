@@ -2,11 +2,11 @@ angular.module("Common").factory("tourService", function (jsonValue, utils) {
   var tour = {};
 
   var options = {template: jsonValue.introTour.template}
-  tour[jsonValue.views.jobsSearch] = new Tour($.extend(options, {steps: jsonValue.introTour.searchForm}));
-  tour[jsonValue.views.analyticsSkill] = new Tour($.extend(options, {steps: jsonValue.introTour.technicalDetail}));
+  //tour[jsonValue.views.jobsSearch] = new Tour($.extend(options, {steps: jsonValue.introTour.searchForm}));
+  //tour[jsonValue.views.analyticsSkill] = new Tour($.extend(options, {steps: jsonValue.introTour.technicalDetail}));
   tour[jsonValue.views.bubbleChart] = new Tour($.extend(options, {steps: jsonValue.introTour.bubbleHomePage}));
   tour[jsonValue.views.pieChart] = new Tour($.extend(options, {steps: jsonValue.introTour.pieHomePage}));
-  tour[jsonValue.views.signIn] = new Tour($.extend(options, {steps: jsonValue.introTour.signIn}));
+  //tour[jsonValue.views.signIn] = new Tour($.extend(options, {steps: jsonValue.introTour.signIn}));
 
   var currentTour;
   var instance = {

@@ -350,72 +350,72 @@ angular.module("Common").constant("jsonValue", {
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
       }
-    ],
-    technicalDetail: [
-      {
-        element: ".term-infor",
-        placement: "right",
-        title: "Term chart",
-        content: "The number of jobs of The Term, and job percent of term on total jobs."
-      },
-      {
-        element: "#circle-1",
-        placement: "right",
-        title: "Skill chart",
-        content: "The number of jobs of skill"
-      },
-      {
-        element: ".chart-management ul",
-        placement: "bottom",
-        title: "Period of Line chart",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-      },
-      {
-        element: ".highcharts-container",
-        placement: "top",
-        title: "Line chart",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-      },
-      {
-        element: ".rwd-table",
-        placement: "top",
-        title: "table chart",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-      },
-      {
-        element: ".term-useful-links",
-        placement: "top",
-        title: "Useful link for the Term",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-      }
-    ],
-    signIn: [
-      {
-        element: ".signin-contianer",
-        placement: "left",
-        title: "Sign with social account",
-        content: "You can choose one account you like to sign in."
-      }
-    ],
-    searchForm: [
-      {
-        element: ".selectize-input ",
-        placement: "bottom",
-        title: "Search Box",
-        content: "Enter text to search..."
-      },
-      {
-        element: ".technical-Skill-List",
-        placement: "top",
-        title: "choose Term logo for search box ",
-        content: "You can click to Term logo to selection for the search."
-      },
-      {
-        element: ".btn-close",
-        placement: "left",
-        title: "Close",
-        content: "Click here to close Search page and back to Home page."
-      }
     ]
+    //technicalDetail: [
+    //  {
+    //    element: ".term-infor",
+    //    placement: "right",
+    //    title: "Term chart",
+    //    content: "The number of jobs of The Term, and job percent of term on total jobs."
+    //  },
+    //  {
+    //    element: "#circle-1",
+    //    placement: "right",
+    //    title: "Skill chart",
+    //    content: "The number of jobs of skill"
+    //  },
+    //  {
+    //    element: ".chart-management ul",
+    //    placement: "bottom",
+    //    title: "Period of Line chart",
+    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //  },
+    //  {
+    //    element: ".highcharts-container",
+    //    placement: "top",
+    //    title: "Line chart",
+    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //  },
+    //  {
+    //    element: ".rwd-table",
+    //    placement: "top",
+    //    title: "table chart",
+    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //  },
+    //  {
+    //    element: ".term-useful-links",
+    //    placement: "top",
+    //    title: "Useful link for the Term",
+    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //  }
+    //],
+    //signIn: [
+    //  {
+    //    element: ".signin-contianer",
+    //    placement: "left",
+    //    title: "Sign with social account",
+    //    content: "You can choose one account you like to sign in."
+    //  }
+    //],
+    //searchForm: [
+    //  {
+    //    element: ".selectize-input ",
+    //    placement: "bottom",
+    //    title: "Search Box",
+    //    content: "Enter text to search..."
+    //  },
+    //  {
+    //    element: ".technical-Skill-List",
+    //    placement: "top",
+    //    title: "choose Term logo for search box ",
+    //    content: "You can click to Term logo to selection for the search."
+    //  },
+    //  {
+    //    element: ".btn-close",
+    //    placement: "left",
+    //    title: "Close",
+    //    content: "Click here to close Search page and back to Home page."
+    //  }
+    //]
   }
 });
