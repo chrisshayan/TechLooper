@@ -1,11 +1,10 @@
-package com.techlooper.repository;
+package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
-import com.techlooper.config.CouchbaseConfiguration;
 import com.techlooper.entity.ProfileEntity;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.SocialProvider;
-import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,11 +18,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, CouchbaseConfiguration.class})
-public class UserRepositoryTestITCase {
+@ContextConfiguration(classes = {ConfigurationTest.class})
+public class UserServiceImplTest {
 
     @Resource
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Test
     public void testSave() throws Exception {
@@ -50,17 +49,16 @@ public class UserRepositoryTestITCase {
         profileEntityMap.put(SocialProvider.LINKEDIN, profile);
         user.setProfiles(profileEntityMap);
 
-        userRepository.save(user);
+        userService.save(user);
 
-        UserEntity found = userRepository.findOne(key);
+        UserEntity found = userService.findById(key);
         assertEquals(found.getId(), user.getId());
     }
 
     @Test
     public void testFindById() throws Exception {
-        UserEntity userEntity = userRepository.findOne("ndkhoa.is2@gmail.com");
+        UserEntity userEntity = userService.findById("ndkhoa.is2@gmail.com");
         assertNotNull(userEntity);
         assertEquals(userEntity.getFirstName(), "Khoa");
     }
-
 }
