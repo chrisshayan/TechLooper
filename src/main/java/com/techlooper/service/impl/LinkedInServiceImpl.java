@@ -56,12 +56,12 @@ public class LinkedInServiceImpl implements SocialService {
     UserEntity userEntity = Optional.ofNullable(userRepository.findOne(profile.getEmailAddress())).orElse(new UserEntity());
     UserEntity.Builder builder = UserEntity.Builder.get(userEntity).withProfile(SocialProvider.LINKEDIN, profileEntity);
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
-      userRepository.save(builder.withId(profile.getEmailAddress())
+      builder.withId(profile.getEmailAddress())
         .withLoginSource(SocialProvider.LINKEDIN)
         .withFirstName(profile.getFirstName())
         .withLastName(profile.getLastName())
-        .withEmailAddress(profile.getEmailAddress())
-        .build());
+        .withEmailAddress(profile.getEmailAddress());
     }
+    userRepository.save(builder.build());
   }
 }
