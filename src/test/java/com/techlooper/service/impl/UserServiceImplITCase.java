@@ -1,32 +1,25 @@
-package com.techlooper.repository;
+package com.techlooper.service.impl;
 
-import com.couchbase.client.protocol.views.Query;
-import com.techlooper.config.ConfigurationTest;
-import com.techlooper.config.CouchbaseConfiguration;
 import com.techlooper.entity.ProfileEntity;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.service.UserService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, CouchbaseConfiguration.class})
-public class UserRepositoryTestITCase {
+public class UserServiceImplITCase {
 
     @Resource
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Test
     public void testSave() throws Exception {
-        String key = "3";
+        String key = "4";
         UserEntity user = new UserEntity(key);
         user.setFirstName("Khoa");
         user.setLastName("Nguyen");
@@ -48,10 +41,13 @@ public class UserRepositoryTestITCase {
         profile.setPublicProfileUrl("https://www.linkedin.com/in/khoanguyendang");
         user.setProfiles(Arrays.asList(profile));
 
-        userRepository.save(user);
-
-        UserEntity found = userRepository.findOne(key);
-        assertEquals(found.getId(), user.getId());
+        userService.save(user);
     }
 
+    @Test
+    public void testFindByEmail() throws Exception {
+        UserEntity userEntity = userService.findByEmail("ndkhoa.is@gmail.com");
+        assertNotNull(userEntity);
+        assertEquals(userEntity.getFirstName(), "Khoa");
+    }
 }
