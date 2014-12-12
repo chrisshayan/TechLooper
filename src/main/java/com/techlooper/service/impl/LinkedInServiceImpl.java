@@ -1,11 +1,11 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.UserEntity;
+import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.service.SocialService;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
@@ -28,6 +28,9 @@ public class LinkedInServiceImpl implements SocialService {
   private LinkedInConnectionFactory linkedInConnectionFactory;
 
   private String redirectUri;
+
+  @Resource
+  private UserRepository userRepository;
 
   @Inject
   public LinkedInServiceImpl(JsonConfigRepository jsonConfigRepository) {
@@ -56,6 +59,8 @@ public class LinkedInServiceImpl implements SocialService {
   public void persistProfile(AccessGrant accessGrant) {
     Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(accessGrant);
     LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
-
+    UserEntity.Builder builder = new UserEntity.Builder().withLoginSource(SocialProvider.LINKEDIN);
+    builder.withFirstName(profile.getFirstName()).withLastName(profile.getLastName()).withEmailAddress(profile.getEmailAddress());
+    userRepository.save(builder.build());
   }
 }
