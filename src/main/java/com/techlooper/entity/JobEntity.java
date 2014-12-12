@@ -1,4 +1,4 @@
-package com.techlooper.model;
+package com.techlooper.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;

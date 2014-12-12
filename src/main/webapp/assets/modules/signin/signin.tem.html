@@ -1,75 +1,77 @@
 <div class="signin-page">
-    <div class="signin-header">
-        <div class="col-md-4 logo-block">
-            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
-            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
-        </div>
-        <div class="col-md-4 tech-line">
-            <h2 translate>tagLine</h2>
-        </div>
-        <div class="col-md-4 close-button">
-            <a class="btn-close" title="Close">X</a>
-        </div>
+  <div class="signin-header">
+    <div class="col-md-4 logo-block">
+      <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
+      <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
     </div>
-    <div class="signin-contianer">
-        <ul class="signin-accounts">
-            <li class="layer" data-depth="0.20">
-                <div class="bg1"><img src="images/bg-signin1.png" alt=""</div>
-            </li>
-            <li class="layer" data-depth="0.20">
-                <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
-            </li>
-            <li class="layer" data-depth="0.20">
-                <div class="bg3"><img src="images/sircle-dot1.png" alt=""></div>
-            </li>
-            <li class="layer" data-depth="0.20">
-                <div class="bg4"><img src="images/sircle-dot2.png" alt=""></div>
-            </li>
-            <li class="layer" data-depth="0.20">
-                <div class="bg5"><img src="images/sircle-dot3.png" alt=""></div>
-            </li>
-            <li class="layer" data-depth="0.20">
-                <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
-            </li>
-            <li class="layer" data-depth="0.20" ng-repeat="acount in accounts">
-                <div class="signin-account {{acount.magnitude}}" style="background-color:{{acount.bgcolor}}">
-                    <span ng-if="acount.site == 'VietnamWork'">
-                        <a data-toggle="modal" data-target="#signin-form"><img ng-src="{{acount.logo}}" alt=""></a>
-                    </span>
-                    <span ng-if="acount.site != 'VietnamWork'">
-                        <a><img ng-src="{{acount.logo}}" alt=""></a>
-                    </span>
-                </div>
-            </li>
-        </ul>
+    <div class="col-md-4 tech-line">
+      <h2 translate>tagLine</h2>
     </div>
+    <div class="col-md-4 close-button">
+      <a class="btn-close" title="Close">X</a>
+    </div>
+  </div>
+  <div class="signin-contianer">
+    <ul class="signin-accounts">
+      <li class="layer" data-depth="0.20">
+        <div class="bg1"><img src="images/bg-signin1.png" alt=""></div>
+      </li>
+      <li class="layer" data-depth="0.20">
+        <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
+      </li>
+      <li class="layer" data-depth="0.20">
+        <div class="bg3"><img src="images/sircle-dot1.png" alt=""></div>
+      </li>
+      <li class="layer" data-depth="0.20">
+        <div class="bg4"><img src="images/sircle-dot2.png" alt=""></div>
+      </li>
+      <li class="layer" data-depth="0.20">
+        <div class="bg5"><img src="images/sircle-dot3.png" alt=""></div>
+      </li>
+      <li class="layer" data-depth="0.20">
+        <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
+      </li>
+      <li class="layer" data-depth="0.20" ng-repeat="auth in authSource">
+        <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
+          <!--<span ng-if="auth.site === 'vietnamworks'">-->
+            <!--<a data-toggle="modal" data-target="#signin-form" class="hi-icon">-->
+              <!--<img ng-src="{{auth.logo}}" alt="">-->
+            <!--</a>-->
+          <!--</span>-->
+          <!--<span ng-if="auth.site != 'vietnamworks'">-->
+            <a ng-click="openOathDialog(auth)"><img ng-src="{{auth.logo}}" alt=""></a>
+          <!--</span>-->
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 
-<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="signin-popup">
-                    <div class="signin-popup-header">
-                        <a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/logo_thanksgiving.png" alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>
-                    </div>
-                    <div class="signin-form-content">
-                        <div class="signin-field">
-                            <label for="txtUserName">User Name:</label>
-                            <input type="text" id="txtUserName" class="form-control" placeholder="Enter email">
-                        </div>
-                        <div class="signin-field has-error">
-                            <label for="txtPassword">Password:</label>
-                            <input type="password" id="txtUserName" class="form-control" placeholder="Password">
-                        </div>
-                        <div class="signin-field">
-                            <button class="btn btn-primary sign-successful">Ok</button>
-                            <button class="btn btn-primary signin-popup-close">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-body">-->
+        <!--<div class="signin-popup">-->
+          <!--<div class="signin-popup-header">-->
+            <!--<a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/jobseekers/logo.png"-->
+                                                        <!--alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>-->
+          <!--</div>-->
+          <!--<div class="signin-form-content">-->
+            <!--<div class="signin-field">-->
+              <!--<label for="txtUserName">User Name:</label>-->
+              <!--<input type="text" id="txtUserName" class="form-control">-->
+            <!--</div>-->
+            <!--<div class="signin-field has-error">-->
+              <!--<label for="txtPassword">Password:</label>-->
+              <!--<input type="password" id="txtPassword" class="form-control">-->
+            <!--</div>-->
+            <!--<div class="signin-field">-->
+              <!--<button class="btn btn-primary sign-successful">Continues</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

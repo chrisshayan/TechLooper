@@ -1,5 +1,5 @@
 angular.module("Common").factory("utils", function (jsonValue, $location) {
-  var notification = {};
+  var techlooperObserver = $.microObserver.get("techlooper");
 
   return {
     go2SkillAnalyticPage: function(scope, term) {
@@ -66,23 +66,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
     },
 
     //TODO allow auto scan observable objects
-    registerNotification: function (name, fn, ableToReceiveFn) {
-      if (notification[name] === undefined) {
-        notification[name] = [];
-      }
-      return notification[name].push({fn: fn, ableToReceiveFn: ableToReceiveFn});
+    registerNotification: function (notify, handler, able) {
+      return techlooperObserver.on(notify, handler, able);
     },
 
     sendNotification: function () {
-      var notifies = notification[arguments[0]];
-      if (notifies === undefined) {
-        return false;
-      }
-      var args = Array.prototype.slice.call(arguments, 1);
-      $.each(notifies, function (index, notify) {
-        var ok = notify.ableToReceiveFn === undefined || notify.ableToReceiveFn.apply(null, args);
-        ok && notify.fn.apply(null, args);
-      });
+      return techlooperObserver.send.apply(techlooperObserver, arguments);
     },
 
     getView: function ($path) {
@@ -142,29 +131,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
         }
       });
       return val;
-    },
-    getDataTour: function(){
-      var path = $location.$$path;
-      if(path.indexOf("pie") > 0){
-        return jsonValue.introTour.pieHomePage;
-      }else if(path.indexOf("bubble") > 0){
-        return jsonValue.introTour.bubbleHomePage;
-      }else if(path.indexOf("skill") > 0){
-        return jsonValue.introTour.technicalDetail;
-      }else if(path.indexOf("signin") > 0){
-        return jsonValue.introTour.signIn
-      }else if(path.indexOf("search") > 0){
-        return jsonValue.introTour.searchForm
-      }
-    },
-    makeTourGuide: function (dataTour) {
-      var tour = new Tour({
-          steps: dataTour,
-          template: jsonValue.introTour.template
-          
-      });
-      tour.init();
-      tour.start();
     }
   }
 });

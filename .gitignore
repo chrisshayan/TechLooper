@@ -39,8 +39,6 @@ css/
 static/
 *.log
 .brackets.json
-sample/
 
 #Gruntfile.js
-generate-resources/
 .tmp/

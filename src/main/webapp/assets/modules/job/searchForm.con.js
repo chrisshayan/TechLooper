@@ -1,6 +1,6 @@
 angular.module('Jobs').controller('searchFormController', function (utils, $scope, searchBoxService, jsonValue, animationFactory) {
-  var dataTour = utils.getDataTour();
-  utils.makeTourGuide(dataTour); 
+  //var dataTour = utils.getDataTour();
+  //utils.makeTourGuide(dataTour);
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
   $scope.skills = jsonValue.technicalSkill;
 
