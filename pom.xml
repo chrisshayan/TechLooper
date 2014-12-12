@@ -49,6 +49,7 @@
     <spring.security.version>3.2.5.RELEASE</spring.security.version>
     <spring-social-linkedin.version>1.0.0.RELEASE</spring-social-linkedin.version>
     <spring-social.version>1.1.0.RELEASE</spring-social.version>
+    <dozer.version>5.5.1</dozer.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -559,6 +560,12 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
       <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.dozer</groupId>
+      <artifactId>dozer</artifactId>
+      <version>${dozer.version}</version>
     </dependency>
 
     <dependency>

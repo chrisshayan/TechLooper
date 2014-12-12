@@ -1,0 +1,247 @@
+{
+  "firstName": "Chris",
+  "lastName": "Shayan",
+  "industry": "Information Technology and Services",
+  "headline": "Head of IT at Navigos Group",
+  "pictureUrl": "https://media.licdn.com/mpr/mprx/0_-OwaAqh4cBPlik3jyZEjAnrect3xfFKjKyxlABTZHBzmr_bgY4UGxcznJpTTuhlA1jWrOrx9e-Q7",
+  "email": "hamedshayan@gmail.com",
+  "num-recommenders": NumberInt
+  (
+  41
+  ),
+  "three-current-positions": [
+    {
+      "id": "612198525",
+      "title": "Founder",
+      "summary": "Hobnob is a professional social networking app at airports. \n\nI founded Hobnob because worldwide, annually airports are hosting 350 billion business travelers. Each traveler in average is staying at the airport from 3 to 5 hours. It means in total everyday at each airport 257888 hours opportunity to make new business connections.\n\nhttp://hobnobworld.com/",
+      "is-current": true,
+      "company": "Hobnob World",
+      "start": "9/2014"
+    },
+    {
+      "id": "518016270",
+      "title": "Head of IT",
+      "summary": "* Lead strategic planning and technological vision to achieve business goals by identifying and prioritizing initiatives and setting timetables for the evaluation, development and deployment of scalable technology platforms for both online and offline services, including CRM, ERP, and Collaboration Software.\n* Improve backend process efficiency, e.g. integrating CRM, accounting and order management systems, implementing a more scalable content management system for the VietnamWorks.com and NavigosSearch.com websites.\n* Improve business intelligence and data management ability, e.g. design and implement a data warehouse and create data-mining and reporting tools to support better business decisions.\n* Improve technical performance of VietnamWorks.com and NavigosSearch.com websites, e.g. page load speed, database searching speed, robustness and scalability of code.\n* Deeply understand offline and online business model and identify and implement cutting edge technology to stay a step ahead of the market.\n* Communicate the company’s technology strategy to investors, management, Dream Makers, customers and other stakeholders.\n* Establish a process to integrate customer service and support with the software engineering process to support resolution of customer issues and improve application usability.\n* Oversee the IT infrastructure of 2 offices + 2 data centers; and responsible for building and managing multi-level IT team, including system, network and support functioning.\n* Responsible for development and maintenance of new and existing business Web\napplications, proposing improvements to existing applications.\n* Oversee day-to-day operations, looking for better, smarter, faster, cheaper ways of doing business.\n* Implementing Lean Start Up, Lean UX and Lean Analytics. \n* Upgrading the systems to latest stable version and migrating the development team to Scrum and agile frameworks\n* Implementing Continuous Delivery (Reduced delivery time from 5 weeks to 1 week)",
+      "is-current": true,
+      "company": "Navigos Group",
+      "start": "10/2013"
+    }
+  ],
+  "skills": [
+    {
+      "id": "105",
+      "name": "Hibernate"
+    },
+    {
+      "id": "106",
+      "name": "Spring"
+    },
+    {
+      "id": "107",
+      "name": "SOA"
+    },
+    {
+      "id": "108",
+      "name": "Maven"
+    },
+    {
+      "id": "109",
+      "name": "Scrum"
+    },
+    {
+      "id": "110",
+      "name": "UML"
+    },
+    {
+      "id": "111",
+      "name": "Java"
+    },
+    {
+      "id": "112",
+      "name": "EJB"
+    },
+    {
+      "id": "113",
+      "name": "Struts"
+    },
+    {
+      "id": "114",
+      "name": "Servlets"
+    },
+    {
+      "id": "115",
+      "name": "Web Services"
+    },
+    {
+      "id": "116",
+      "name": "Design Patterns"
+    },
+    {
+      "id": "117",
+      "name": "Web Applications"
+    },
+    {
+      "id": "118",
+      "name": "XML"
+    },
+    {
+      "id": "119",
+      "name": "JSP"
+    },
+    {
+      "id": "120",
+      "name": "Enterprise Architecture"
+    },
+    {
+      "id": "121",
+      "name": "JSTL"
+    },
+    {
+      "id": "122",
+      "name": "JPA"
+    },
+    {
+      "id": "123",
+      "name": "Tomcat"
+    },
+    {
+      "id": "124",
+      "name": "Software Design"
+    },
+    {
+      "id": "125",
+      "name": "Apache"
+    },
+    {
+      "id": "126",
+      "name": "RUP"
+    },
+    {
+      "id": "127",
+      "name": "JUnit"
+    },
+    {
+      "id": "128",
+      "name": "Ant"
+    },
+    {
+      "id": "129",
+      "name": "IntelliJ IDEA"
+    },
+    {
+      "id": "130",
+      "name": "Architecture"
+    },
+    {
+      "id": "131",
+      "name": "AJAX"
+    },
+    {
+      "id": "132",
+      "name": "JDBC"
+    },
+    {
+      "id": "133",
+      "name": "JMS"
+    },
+    {
+      "id": "134",
+      "name": "SOAP"
+    },
+    {
+      "id": "135",
+      "name": "EAI"
+    },
+    {
+      "id": "136",
+      "name": "XSL"
+    },
+    {
+      "id": "137",
+      "name": "XSLT"
+    },
+    {
+      "id": "138",
+      "name": "XP"
+    },
+    {
+      "id": "139",
+      "name": "Liferay"
+    },
+    {
+      "id": "140",
+      "name": "J2EE"
+    },
+    {
+      "id": "141",
+      "name": "ESB"
+    },
+    {
+      "id": "142",
+      "name": "SWOT analysis"
+    },
+    {
+      "id": "143",
+      "name": "Balanced Scorecard"
+    },
+    {
+      "id": "144",
+      "name": "Agile"
+    },
+    {
+      "id": "145",
+      "name": "TDD"
+    },
+    {
+      "id": "146",
+      "name": "Lucene"
+    },
+    {
+      "id": "147",
+      "name": "Lean Startup"
+    },
+    {
+      "id": "148",
+      "name": "Innovation Development"
+    },
+    {
+      "id": "149",
+      "name": "lean analytics"
+    },
+    {
+      "id": "150",
+      "name": "lean ux"
+    },
+    {
+      "id": "151",
+      "name": "Node.js"
+    },
+    {
+      "id": "152",
+      "name": "jQuery"
+    },
+    {
+      "id": "153",
+      "name": "Cloud Computing"
+    },
+    {
+      "id": "154",
+      "name": "Virtualization"
+    }
+  ],
+  "phones": {
+    "home": "",
+    "work": "",
+    "mobile": "00841218954113"
+  },
+  "interests": "o Activities\n\n§ Surfing on internet\n\n§ hubble bubble\n\no Interests\n\n§ Visiting different cultures and countries\n\no Favorite music\n\n§ Gipsy Ki [...]",
+  "tw": {
+    "id": "24154138",
+    "name": "chrisshayan"
+  },
+  "industryCode": NumberInt
+  (
+  96
+  ),
+]
+}
