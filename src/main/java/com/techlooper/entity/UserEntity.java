@@ -1,11 +1,13 @@
 package com.techlooper.entity;
 
 import com.techlooper.entity.ProfileEntity;
+import com.techlooper.model.SocialProvider;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by NguyenDangKhoa on 12/10/14.
@@ -25,14 +27,12 @@ public class UserEntity {
     @Field
     private String lastName;
 
-    @Field
-    private String password;
 
     @Field
-    private List<String> loginSources;
+    private SocialProvider loginSource;
 
     @Field
-    private List<ProfileEntity> profiles;
+    private Map<SocialProvider, ProfileEntity> profiles;
 
     public UserEntity(String id) {
         this.id = id;
@@ -70,27 +70,20 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
+
+    public SocialProvider getLoginSource() {
+        return loginSource;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLoginSource(SocialProvider loginSource) {
+        this.loginSource = loginSource;
     }
 
-    public List<String> getLoginSources() {
-        return loginSources;
-    }
-
-    public void setLoginSources(List<String> loginSources) {
-        this.loginSources = loginSources;
-    }
-
-    public List<ProfileEntity> getProfiles() {
+    public Map<SocialProvider, ProfileEntity> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(List<ProfileEntity> profiles) {
+    public void setProfiles(Map<SocialProvider, ProfileEntity> profiles) {
         this.profiles = profiles;
     }
 }
