@@ -1,4 +1,4 @@
-angular.module('Skill').factory('userProfileFactory', function (jsonValue, utils, $translate) {
+angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils, $translate) {
   var $$ = {
     getXAxisLabels: function (viewJson) {
       var oneSkill = viewJson.tableAndChartJson[0];
