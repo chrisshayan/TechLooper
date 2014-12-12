@@ -26,16 +26,14 @@ var techlooper = angular.module("Techlooper", [
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider",
   function ($routeProvider, $translateProvider, $authProvider) {
 
-    var apiKey = {};
-    $.post("getClientId", {provider: "linkedin"}).done(function (resp) {apiKey.linkedin = resp;});
-
-    $authProvider.linkedin({//@see https://github.com/sahat/satellizer#how-it-works
-      url: "auth/linkedin",
-      authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-      clientId: '75ukeuo2zr5y3n',
-      //redirectUri: "http://www.TechLooper.com"
-      redirectUri: baseUrl + "/authentication"
-    });
+    $.post("getSocialConfig", {provider: "LINKEDIN"})
+      .done(function (resp) {
+        $authProvider.linkedin({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/LINKEDIN",
+          clientId: resp.apiKey,
+          redirectUri: resp.redirectUri
+        });
+      });
 
     $translateProvider.useStaticFilesLoader({
       prefix: "modules/translation/messages_",

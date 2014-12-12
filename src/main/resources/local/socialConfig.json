@@ -1,7 +1,8 @@
 [
   {
-    "provider": "linkedin",
+    "provider": "LINKEDIN",
     "apiKey": "75ukeuo2zr5y3n",
-    "secretKey": "smrMWSaQ8affK893"
+    "secretKey": "smrMWSaQ8affK893",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
   }
 ]

@@ -2,6 +2,8 @@ package com.techlooper.controller;
 
 import com.techlooper.model.Authentication;
 import com.techlooper.model.SocialAccessToken;
+import com.techlooper.model.SocialConfig;
+import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
 import org.springframework.context.ApplicationContext;
@@ -23,16 +25,16 @@ public class SocialController {
   @Resource
   private JsonConfigRepository jsonConfigRepository;
 
-  @RequestMapping("/getClientId")
+  @RequestMapping("/getSocialConfig")
   @ResponseBody
-  public String getClientId(@RequestParam String provider) {
+  public SocialConfig getSocialConfig(@RequestParam SocialProvider provider) {
     return jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> config.getProvider().equalsIgnoreCase(provider)).findFirst().get().getApiKey();
+      .filter(config -> provider == config.getProvider()).findFirst().get();
   }
 
   @RequestMapping("/auth/{provider}")
   @ResponseBody
-  public SocialAccessToken auth(@PathVariable String provider, @RequestBody Authentication auth) {
+  public SocialAccessToken auth(@PathVariable SocialProvider provider, @RequestBody Authentication auth) {
     SocialAccessToken token = new SocialAccessToken();
     Optional.ofNullable(applicationContext.getBean(provider + "Service", SocialService.class))
       .ifPresent(service -> token.setToken(service.getAccessToken(auth.getCode())));
