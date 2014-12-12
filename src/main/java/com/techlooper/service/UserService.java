@@ -9,4 +9,5 @@ public interface UserService {
 
     void save(UserEntity user);
 
+    UserEntity findById(String id);
 }

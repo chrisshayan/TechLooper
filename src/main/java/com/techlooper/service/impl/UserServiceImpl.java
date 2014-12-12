@@ -19,4 +19,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public UserEntity findById(String id) {
+        return userRepository.findOne(id);
+    }
 }
