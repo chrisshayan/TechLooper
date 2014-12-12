@@ -1,6 +1,5 @@
 package com.techlooper.repository;
 
-import com.couchbase.client.protocol.views.Query;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.CouchbaseConfiguration;
 import com.techlooper.entity.ProfileEntity;
@@ -15,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class, CouchbaseConfiguration.class})
@@ -26,7 +25,7 @@ public class UserRepositoryTestITCase {
 
     @Test
     public void testSave() throws Exception {
-        String key = "3";
+        String key = "ndkhoa.is@gmail.com";
         UserEntity user = new UserEntity(key);
         user.setFirstName("Khoa");
         user.setLastName("Nguyen");
@@ -52,6 +51,13 @@ public class UserRepositoryTestITCase {
 
         UserEntity found = userRepository.findOne(key);
         assertEquals(found.getId(), user.getId());
+    }
+
+    @Test
+    public void testFindById() throws Exception {
+        UserEntity userEntity = userRepository.findOne("ndkhoa.is@gmail.com");
+        assertNotNull(userEntity);
+        assertEquals(userEntity.getFirstName(), "Khoa");
     }
 
 }

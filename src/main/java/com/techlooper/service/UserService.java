@@ -9,5 +9,4 @@ public interface UserService {
 
     void save(UserEntity user);
 
-    UserEntity findByEmail(String email);
 }
