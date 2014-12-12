@@ -12,7 +12,7 @@ angular.module("SignIn", []);
 angular.module("Register", []);
 angular.module("UserProfile", []);
 
-var baseUrl = (function() {
+var baseUrl = (function () {
   var paths = window.location.pathname.split('/');
   paths.pop();
   return window.location.protocol + '//' + window.location.host + paths.join('/');
@@ -27,10 +27,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider",
   function ($routeProvider, $translateProvider, $authProvider) {
 
     var apiKey = {};
-    $.get("getClientId", {provider: "linkedin"}).done(function(resp){console.log(resp); apiKey.linkedin = resp;});
+    $.post("getClientId", {provider: "linkedin"}).done(function (resp) {apiKey.linkedin = resp;});
 
     $authProvider.linkedin({//@see https://github.com/sahat/satellizer#how-it-works
-      url: baseUrl + "/auth",
+      url: "auth/linkedin",
       authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
       clientId: '75ukeuo2zr5y3n',
       //redirectUri: "http://www.TechLooper.com"
