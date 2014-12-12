@@ -16,6 +16,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class})
@@ -60,5 +61,11 @@ public class UserServiceImplTest {
         UserEntity userEntity = userService.findById("ndkhoa.is2@gmail.com");
         assertNotNull(userEntity);
         assertEquals(userEntity.getFirstName(), "Khoa");
+    }
+
+    @Test
+    public void testUserNotFound() throws Exception {
+        UserEntity userEntity = userService.findById("id");
+        assertNull(userEntity);
     }
 }
