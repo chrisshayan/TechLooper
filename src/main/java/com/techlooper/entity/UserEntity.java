@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,7 +31,7 @@ public class UserEntity {
   private SocialProvider loginSource;
 
   @Field
-  private Map<SocialProvider, ProfileEntity> profiles;
+  private Map<SocialProvider, Serializable> profiles = new HashMap<>();
 
   public String getId() {
     return id;
@@ -71,19 +73,44 @@ public class UserEntity {
     this.loginSource = loginSource;
   }
 
-  public Map<SocialProvider, ProfileEntity> getProfiles() {
+  public Map<SocialProvider, Serializable> getProfiles() {
     return profiles;
   }
 
-  public void setProfiles(Map<SocialProvider, ProfileEntity> profiles) {
+  public void setProfiles(Map<SocialProvider, Serializable> profiles) {
     this.profiles = profiles;
   }
 
   public static class Builder {
+
     private UserEntity instance = new UserEntity();
 
-    public Builder withLoginSource(SocialProvider socialProvider) {
-      instance.loginSource = socialProvider;
+    public Builder() {}
+
+    public Builder(UserEntity userEntity) {
+      instance = userEntity;
+    }
+
+    public static Builder get(UserEntity userEntity) {
+      return new Builder(userEntity);
+    }
+
+    public static Builder get() {
+      return new Builder();
+    }
+
+    public Builder withId(String id) {
+      instance.id = id;
+      return this;
+    }
+
+    public Builder withEmailAddress(String emailAddress) {
+      instance.emailAddress = emailAddress;
+      return this;
+    }
+
+    public Builder withFirstName(String firstName) {
+      instance.firstName = firstName;
       return this;
     }
 
@@ -92,14 +119,18 @@ public class UserEntity {
       return this;
     }
 
-    public Builder withEmailAddress(String email) {
-      instance.id = email;
-      instance.emailAddress = email;
+    public Builder withLoginSource(SocialProvider loginSource) {
+      instance.loginSource = loginSource;
       return this;
     }
 
-    public Builder withFirstName(String firstName) {
-      instance.firstName = firstName;
+    public Builder withProfiles(Map<SocialProvider, Serializable> profiles) {
+      instance.profiles = profiles;
+      return this;
+    }
+
+    public Builder withProfile(SocialProvider socialProvider, Serializable profile) {
+      instance.profiles.put(socialProvider, profile);
       return this;
     }
 
