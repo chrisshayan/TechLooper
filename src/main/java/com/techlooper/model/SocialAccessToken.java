@@ -7,6 +7,10 @@ public class SocialAccessToken {
 
   private String token;
 
+  public SocialAccessToken() {
+    this.token = "";
+  }
+
   public SocialAccessToken(String token) {
     this.token = token;
   }

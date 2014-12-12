@@ -1,39 +1,67 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.service.LinkedInService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
-import org.springframework.social.connect.*;
+import com.techlooper.entity.LinkedInProfile;
+import com.techlooper.entity.UserEntity;
+import com.techlooper.model.SocialProvider;
+import com.techlooper.repository.JsonConfigRepository;
+import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.service.SocialService;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+import org.springframework.social.connect.Connection;
 import org.springframework.social.linkedin.api.LinkedIn;
+import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
+import java.util.Optional;
+
+import static com.techlooper.model.SocialProvider.LINKEDIN;
 
 /**
  * Created by phuonghqh on 12/11/14.
  */
 
-@Service
-public class LinkedInServiceImpl implements LinkedInService {
+@Service("LINKEDINService")
+public class LinkedInServiceImpl implements SocialService {
 
   @Resource
-  private ConnectionFactory linkedInConnectionFactory;
+  private LinkedInConnectionFactory linkedInConnectionFactory;
 
-  @Value("${social.redirectUrl}")
-  private String socialRedirectUrl;
+  private String redirectUri;
 
-  public String getAccessToken(String accessCode) {
-    LinkedInConnectionFactory factory = (LinkedInConnectionFactory)linkedInConnectionFactory;
-    AccessGrant accessGrant = factory.getOAuthOperations().exchangeForAccess(accessCode, "http://localhost:8080/techlooper/authentication", null);
-//    Connection<LinkedIn> connection = fac.createConnection(accessGrant);
-//    connection.getKey();
-//    AccessGrant accessGrant = factory.getOAuthOperations().exchangeForAccess(accessCode, socialRedirectUrl, null);
-//    SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(connectionKey.getProviderUserId(), null, null));
-    return accessGrant.getAccessToken();
+  @Resource
+  private UserRepository userRepository;
+
+  @Resource
+  private Mapper dozerBeanMapper;
+
+  @Inject
+  public LinkedInServiceImpl(JsonConfigRepository jsonConfigRepository) {
+    redirectUri = jsonConfigRepository.getSocialConfig().stream()
+      .filter(config -> LINKEDIN == config.getProvider()).findFirst().get().getRedirectUri();
+  }
+
+  public AccessGrant getAccessGrant(String accessCode) {
+    return linkedInConnectionFactory.getOAuthOperations().exchangeForAccess(accessCode, redirectUri, null);
+  }
+
+  public void persistProfile(AccessGrant accessGrant) {
+    Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(accessGrant);
+    LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
+    LinkedInProfile profileEntity = dozerBeanMapper.map(profile, LinkedInProfile.class);
+    UserEntity userEntity = Optional.ofNullable(userRepository.findOne(profile.getEmailAddress())).orElse(new UserEntity());
+    UserEntity.Builder builder = UserEntity.Builder.get(userEntity).withProfile(SocialProvider.LINKEDIN, profileEntity);
+    if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
+      builder.withId(profile.getEmailAddress())
+        .withLoginSource(SocialProvider.LINKEDIN)
+        .withFirstName(profile.getFirstName())
+        .withLastName(profile.getLastName())
+        .withEmailAddress(profile.getEmailAddress());
+    }
+    userRepository.save(builder.build());
   }
 }

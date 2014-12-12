@@ -1,11 +1,13 @@
 package com.techlooper.entity;
 
-import com.techlooper.entity.ProfileEntity;
+import com.techlooper.model.SocialProvider;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by NguyenDangKhoa on 12/10/14.
@@ -13,84 +15,127 @@ import java.util.List;
 @Document
 public class UserEntity {
 
-    @Id
-    private String id;
+  @Id
+  private String id;
 
-    @Field
-    private String emailAddress;
+  @Field
+  private String emailAddress;
 
-    @Field
-    private String firstName;
+  @Field
+  private String firstName;
 
-    @Field
-    private String lastName;
+  @Field
+  private String lastName;
 
-    @Field
-    private String password;
+  @Field
+  private SocialProvider loginSource;
 
-    @Field
-    private List<String> loginSources;
+  @Field
+  private Map<SocialProvider, Serializable> profiles = new HashMap<>();
 
-    @Field
-    private List<ProfileEntity> profiles;
+  public String getId() {
+    return id;
+  }
 
-    public UserEntity(String id) {
-        this.id = id;
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public SocialProvider getLoginSource() {
+    return loginSource;
+  }
+
+  public void setLoginSource(SocialProvider loginSource) {
+    this.loginSource = loginSource;
+  }
+
+  public Map<SocialProvider, Serializable> getProfiles() {
+    return profiles;
+  }
+
+  public void setProfiles(Map<SocialProvider, Serializable> profiles) {
+    this.profiles = profiles;
+  }
+
+  public static class Builder {
+
+    private UserEntity instance = new UserEntity();
+
+    public Builder() {}
+
+    public Builder(UserEntity userEntity) {
+      instance = userEntity;
     }
 
-    public String getId() {
-        return id;
+    public static Builder get(UserEntity userEntity) {
+      return new Builder(userEntity);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public static Builder get() {
+      return new Builder();
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public Builder withId(String id) {
+      instance.id = id;
+      return this;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public Builder withEmailAddress(String emailAddress) {
+      instance.emailAddress = emailAddress;
+      return this;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Builder withFirstName(String firstName) {
+      instance.firstName = firstName;
+      return this;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public Builder withLastName(String lastName) {
+      instance.lastName = lastName;
+      return this;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Builder withLoginSource(SocialProvider loginSource) {
+      instance.loginSource = loginSource;
+      return this;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public Builder withProfiles(Map<SocialProvider, Serializable> profiles) {
+      instance.profiles = profiles;
+      return this;
     }
 
-    public String getPassword() {
-        return password;
+    public Builder withProfile(SocialProvider socialProvider, Serializable profile) {
+      instance.profiles.put(socialProvider, profile);
+      return this;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public UserEntity build() {
+      return instance;
     }
-
-    public List<String> getLoginSources() {
-        return loginSources;
-    }
-
-    public void setLoginSources(List<String> loginSources) {
-        this.loginSources = loginSources;
-    }
-
-    public List<ProfileEntity> getProfiles() {
-        return profiles;
-    }
-
-    public void setProfiles(List<ProfileEntity> profiles) {
-        this.profiles = profiles;
-    }
+  }
 }

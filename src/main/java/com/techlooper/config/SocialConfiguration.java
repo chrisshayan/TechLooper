@@ -1,12 +1,15 @@
 package com.techlooper.config;
 
+import com.techlooper.model.SocialConfig;
+import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 
 import javax.annotation.Resource;
+
+import static com.techlooper.model.SocialProvider.LINKEDIN;
 
 /**
  * Created by phuonghqh on 12/9/14.
@@ -15,10 +18,12 @@ import javax.annotation.Resource;
 public class SocialConfiguration {
 
   @Resource
-  private Environment env;
+  private JsonConfigRepository jsonConfigRepository;
 
   @Bean
   public ConnectionFactory linkedInConnectionFactory() {
-    return new LinkedInConnectionFactory(env.getProperty("linkedin.appKey"), env.getProperty("linkedin.appSecret"));
+    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+      .filter(config -> LINKEDIN == config.getProvider()).findFirst().get();
+    return new LinkedInConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
   }
 }

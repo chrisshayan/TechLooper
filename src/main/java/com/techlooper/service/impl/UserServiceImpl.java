@@ -20,14 +20,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findByEmail(String email) {
-        Iterable<UserEntity> userEntities = userRepository.findAll();
-        while (userEntities.iterator().hasNext()) {
-            UserEntity userEntity = userEntities.iterator().next();
-            if (userEntity.getEmailAddress().equals(email)) {
-                return userEntity;
-            }
-        }
-        return null;
+    public UserEntity findById(String id) {
+        return userRepository.findOne(id);
     }
 }

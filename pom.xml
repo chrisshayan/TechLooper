@@ -30,7 +30,6 @@
     <spring-data-couchbase>1.2.1.RELEASE</spring-data-couchbase>
     <hibernate-entitymanager.version>4.3.5.Final</hibernate-entitymanager.version>
     <hsqldb.version>2.3.2</hsqldb.version>
-    <dozer.version>5.5.1</dozer.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
     <jstl.version>1.2</jstl.version>
@@ -50,6 +49,7 @@
     <spring.security.version>3.2.5.RELEASE</spring.security.version>
     <spring-social-linkedin.version>1.0.0.RELEASE</spring-social-linkedin.version>
     <spring-social.version>1.1.0.RELEASE</spring-social.version>
+    <dozer.version>5.5.1</dozer.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -562,6 +562,11 @@
       <version>${jackson.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>net.sf.dozer</groupId>
+      <artifactId>dozer</artifactId>
+      <version>${dozer.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
