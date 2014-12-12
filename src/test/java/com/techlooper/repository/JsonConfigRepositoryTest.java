@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(JUnit4.class)
-public class TechnicalTermRepositoryTest {
+public class JsonConfigRepositoryTest {
 
     private List<TechnicalTerm> terms;
 

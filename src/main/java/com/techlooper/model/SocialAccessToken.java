@@ -3,11 +3,11 @@ package com.techlooper.model;
 /**
  * Created by phuonghqh on 12/11/14.
  */
-public class Token {
+public class SocialAccessToken {
 
   private String token;
 
-  public Token(String token) {
+  public SocialAccessToken(String token) {
     this.token = token;
   }
 

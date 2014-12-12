@@ -1,6 +1,7 @@
 package com.techlooper.config;
 
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
@@ -65,6 +66,10 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public TechnicalTermRepository technicalTermRepository() {
         return new TechnicalTermRepository();
+    }
+
+    public JsonConfigRepository jsonConfigRepository() {
+        return new JsonConfigRepository();
     }
 
     @Bean

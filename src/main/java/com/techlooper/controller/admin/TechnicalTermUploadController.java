@@ -1,6 +1,6 @@
 package com.techlooper.controller.admin;
 
-import com.techlooper.repository.TechnicalTermRepository;
+import com.techlooper.repository.JsonConfigRepository;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,15 +23,15 @@ public class TechnicalTermUploadController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TechnicalTermUploadController.class);
 
     @Resource
-    private TechnicalTermRepository technicalTermRepository;
+    private JsonConfigRepository jsonConfigRepository;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile uploadFile) {
         if (!uploadFile.isEmpty()) {
             try {
-                File uploadedFile = technicalTermRepository.getSkillJsonResource().getFile();
+                File uploadedFile = jsonConfigRepository.getSkillJsonResource().getFile();
                 IOUtils.write(uploadFile.getBytes(), new BufferedOutputStream(new FileOutputStream(uploadedFile)));
-                technicalTermRepository.refresh();
+                jsonConfigRepository.refresh();
                 return "Upload Successfully";
             } catch (IOException e) {
                 LOGGER.error(e.getMessage(), e);
