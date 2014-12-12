@@ -1,5 +1,6 @@
 package com.techlooper.config;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -48,5 +49,10 @@ public class CoreConfiguration {
     CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
     multipartResolver.setMaxUploadSize(500000);
     return multipartResolver;
+  }
+
+  @Bean
+  public DozerBeanMapper dozerBeanMapper() {
+    return new DozerBeanMapper();
   }
 }

@@ -68,6 +68,7 @@ public class ConfigurationTest implements ApplicationContextAware {
         return new TechnicalTermRepository();
     }
 
+    @Bean
     public JsonConfigRepository jsonConfigRepository() {
         return new JsonConfigRepository();
     }
