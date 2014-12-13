@@ -34,6 +34,7 @@ angular.module('SignIn').factory('signInService',
 
     var instance = {
       openOathDialog: function (auth) {
+        utils.sendNotification(jsonValue.notifications.switchScope, scope);
         $auth.authenticate(auth.provider).then(function (resp) {
           localStorageService.set(jsonValue.storage.key, resp.data.key);
           $location.path(jsonValue.routerUris.register);
