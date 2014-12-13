@@ -1,12 +1,13 @@
 package com.techlooper.controller;
 
-import com.techlooper.model.Authentication;
-import com.techlooper.model.SocialAccessToken;
-import com.techlooper.model.SocialConfig;
-import com.techlooper.model.SocialProvider;
+import com.techlooper.entity.UserEntity;
+import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
+import com.techlooper.service.UserService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,15 @@ public class SocialController {
   @Resource
   private SocialService defaultSocialService;
 
+  @Resource
+  private UserService userService;
+
+  @SendTo("/topic/userInfo/email")
+  @MessageMapping("/userInfo/email")
+  public UserInfo getUserInfo(SocialRequest searchRequest) {
+    return userService.findByKey(searchRequest.getKey());
+  }
+
   @RequestMapping("/getSocialConfig")
   @ResponseBody
   public SocialConfig getSocialConfig(@RequestParam SocialProvider provider) {
@@ -38,10 +48,12 @@ public class SocialController {
 
   @RequestMapping("/auth/{provider}")
   @ResponseBody
-  public SocialAccessToken auth(@PathVariable SocialProvider provider, @RequestBody Authentication auth) {
+  public SocialResponse auth(@PathVariable SocialProvider provider, @RequestBody Authentication auth) {
     SocialService service = Optional.ofNullable(applicationContext.getBean(provider + "Service", SocialService.class)).orElse(defaultSocialService);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
-    service.persistProfile(accessGrant);
-    return new SocialAccessToken(accessGrant.getAccessToken());
+    UserEntity userEntity = service.persistProfile(accessGrant);
+    return SocialResponse.Builder.get()
+      .withToken(accessGrant.getAccessToken())
+      .withKey(userEntity.getKey()).build();
   }
 }

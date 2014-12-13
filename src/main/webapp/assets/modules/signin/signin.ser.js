@@ -1,5 +1,5 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth) {
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService) {
     var scope;
 
     var $$ = {
@@ -28,13 +28,15 @@ angular.module('SignIn').factory('signInService',
       },
 
       enableNotifications: function () {
-        return $(".signin-page").is(":visible");
+        return $(".signin-contianer").is(":visible");
       }
     }
 
     var instance = {
       openOathDialog: function (auth) {
-        $auth.authenticate(auth.provider).then(function (response) {
+        utils.sendNotification(jsonValue.notifications.switchScope, scope);
+        $auth.authenticate(auth.provider).then(function (resp) {
+          localStorageService.set(jsonValue.storage.key, resp.data.key);
           $location.path(jsonValue.routerUris.register);
         });
       }

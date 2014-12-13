@@ -4,10 +4,10 @@ import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
-import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.service.SocialService;
-import org.dozer.DozerBeanMapper;
+import com.techlooper.service.UserService;
 import org.dozer.Mapper;
+import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfileFull;
@@ -34,10 +34,13 @@ public class LinkedInServiceImpl implements SocialService {
   private String redirectUri;
 
   @Resource
-  private UserRepository userRepository;
+  private UserService userService;
 
   @Resource
   private Mapper dozerBeanMapper;
+
+  @Resource
+  private PasswordEncryptor passwordEncryptor;
 
   @Inject
   public LinkedInServiceImpl(JsonConfigRepository jsonConfigRepository) {
@@ -49,19 +52,23 @@ public class LinkedInServiceImpl implements SocialService {
     return linkedInConnectionFactory.getOAuthOperations().exchangeForAccess(accessCode, redirectUri, null);
   }
 
-  public void persistProfile(AccessGrant accessGrant) {
+  public UserEntity persistProfile(AccessGrant accessGrant) {
     Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(accessGrant);
     LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
     LinkedInProfile profileEntity = dozerBeanMapper.map(profile, LinkedInProfile.class);
-    UserEntity userEntity = Optional.ofNullable(userRepository.findOne(profile.getEmailAddress())).orElse(new UserEntity());
-    UserEntity.Builder builder = UserEntity.Builder.get(userEntity).withProfile(SocialProvider.LINKEDIN, profileEntity);
+    UserEntity userEntity = Optional.ofNullable(userService.findById(profile.getEmailAddress())).orElse(new UserEntity());
+    UserEntity.Builder builder = UserEntity.Builder.get(userEntity)
+      .withProfile(SocialProvider.LINKEDIN, profileEntity)
+      .withAccessGrant(dozerBeanMapper.map(accessGrant, com.techlooper.entity.AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       builder.withId(profile.getEmailAddress())
         .withLoginSource(SocialProvider.LINKEDIN)
         .withFirstName(profile.getFirstName())
         .withLastName(profile.getLastName())
-        .withEmailAddress(profile.getEmailAddress());
+        .withEmailAddress(profile.getEmailAddress())
+        .withKey(passwordEncryptor.encryptPassword(profile.getEmailAddress()));
     }
-    userRepository.save(builder.build());
+    userService.save(userEntity);
+    return userEntity;
   }
 }

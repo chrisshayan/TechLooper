@@ -1,5 +1,7 @@
 package com.techlooper.service;
 
+import com.techlooper.entity.LinkedInProfile;
+import com.techlooper.entity.UserEntity;
 import org.springframework.social.oauth2.AccessGrant;
 
 /**
@@ -9,5 +11,5 @@ public interface SocialService {
 
   AccessGrant getAccessGrant(String accessCode);
 
-  void persistProfile(AccessGrant accessGrant);
+  UserEntity persistProfile(AccessGrant accessGrant);
 }

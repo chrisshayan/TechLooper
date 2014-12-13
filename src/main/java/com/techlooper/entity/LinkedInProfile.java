@@ -16,7 +16,6 @@ public class LinkedInProfile implements Serializable {
   private String lastName;
   private String headline;
   private String industry;
-  private String location;
   private Integer numConnections;
   private String profilePictureUrl;
   private String publicProfileUrl;
@@ -62,14 +61,6 @@ public class LinkedInProfile implements Serializable {
 
   public void setIndustry(String industry) {
     this.industry = industry;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
   }
 
   public Integer getNumConnections() {

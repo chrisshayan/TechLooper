@@ -1,5 +1,9 @@
 package com.techlooper.config;
 
+import com.couchbase.client.CouchbaseClient;
+import com.couchbase.client.protocol.views.DesignDocument;
+import com.couchbase.client.protocol.views.ViewDesign;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
@@ -18,6 +22,24 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
 
     @Resource
     private Environment env;
+
+    @Bean
+    public CouchbaseClient couchbaseClient() throws Exception {
+        CouchbaseClient client = super.couchbaseClient();
+        DesignDocument designDoc = new DesignDocument("userEntity");
+        String viewName = "byKey";
+        String mapFunction = //TODO extract to backing-view js
+          "function (doc, meta) {\n" +
+            "  if(doc._class == \"com.techlooper.entity.UserEntity\" ) {" +
+            "    emit(doc.key, null);\n" +
+            "  }\n" +
+            "}";
+        ViewDesign viewDesign = new ViewDesign(viewName, mapFunction);
+        designDoc.getViews().add(viewDesign);
+        client.createDesignDoc(designDoc);
+
+        return client;
+    }
 
     @Override
     protected List<String> bootstrapHosts() {

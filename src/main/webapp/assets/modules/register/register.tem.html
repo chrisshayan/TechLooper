@@ -17,15 +17,15 @@
 
       <div class="row">
         <div class="col-md-6 first">
-          <input type="text" placeholder="First Name" disabled="disabled" value="Johnson">
+          <input class="firstName" type="text" placeholder="First Name" disabled="disabled" value="Johnson">
         </div>
         <div class="col-md-6">
-          <input type="text" placeholder="Last Name" disabled="disabled" value="Pham">
+          <input class="lastName" type="text" placeholder="Last Name" disabled="disabled" value="Pham">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <input type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
+          <input class="emailAddress" type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
         </div>
       </div>
       <div class="row technical-skill">
@@ -55,15 +55,15 @@
         <h3>Account Sign In</h3>
         <ul>
 
-          <li ng-repeat="item in accounts">
-              <span ng-if="item.site == 'LinkedIn'">
-                  <span class="active" ng-style="{'background-color': item.bgcolor}">
-                    <img ng-src="{{item.logo}}" alt="">
-                  </span>
-              </span>
-             <span ng-if="item.site != 'LinkedIn'">
+          <li ng-repeat="item in authSource">
+              <!--<span ng-if="item.site == 'LinkedIn'">-->
+                  <!--<span class="active" ng-style="{'background-color': item.bgcolor}">-->
+                    <!--<img ng-src="{{item.logo}}" alt="">-->
+                  <!--</span>-->
+              <!--</span>-->
+             <!--<span ng-if="item.site != 'LinkedIn'">-->
                 <span><img ng-src="{{item.logo}}" alt=""></span>
-            </span>
+            <!--</span>-->
           </li>
         </ul>
       </div>
