@@ -4,64 +4,26 @@
   "emailAddress": "phuonghqh@gmail.com",
   "profiles": {
     "LINKEDIN": {
+      "profilePictureUrl": "https://media.licdn.com/mpr/mprx/0_5KCgsmCAx6YcPPRC5P-Gs23u0GRsl9sCblnGsD8uhFfwmtSGdntlqSqCAuUk-AUmkP8_vEtH179V",
+      "summary": "Phuong is a full-stack developer, with 7+ years experience in software development. He has very strong computer science background.\n\nPhuong often contribute to open source projects as he love to do in his spare time. At the moment, he is contributing to https://github.com/chrisshayan/TechLooper\n\nPhuong's nice work can be found at https://github.com/phuonghuynh\n\nContact Phuong at: phuonghqh [at] gmail [dot] com\n\nSpecialties:\n - Cloud: Heroku, AWS, AppFog\n - Saleforce 2012\n - IBM Filenet: 3x, 4x, 5x\n \n - Java: 6x, 7x, 8x\n - Spring 3x, 4x\n - Hibernate: 3x, 4x\n - JMS: Rapid MQ \n - Web Service: Apache CXF, Rest\n - JEE server: JBoss 7x, IBM Websphere 7x\n \n - Python: DJango, Google Protocol Buffer\n - Ruby on Rails\n\n - Javascript: AngularJS, PureMVC, ExtJS, DOJO, Node\n - Front end: Bootstrap, Polymer, Font Awesome\n \n - OS: Windows, Mac, Linux: Ubuntu, CentOS\n - Database: MySQL, SQL Server, PostgresSQL\n - Tools: SVN, Git, Mercurial, Eclipse, Intellij IDEA\n\n - Distributed System\n\n - Problem solving\n - Quick learning\n - Reading new tech",
       "lastName": "Huynh",
-      "distance": 0,
-      "extraData": {
-        "languages": {
-          "_total": 1,
-          "values": [
-            {
-              "language": {
-                "name": "English"
-              },
-              "id": 19
-            }
-          ]
-        }
-      },
+      "publicProfileUrl": "https://www.linkedin.com/in/phuonghqh",
+      "numConnections": 152,
       "threeCurrentPositions": [
         {
-          "isCurrent": true,
-          "extraData": {},
           "company": {
-            "name": "TechLooper",
-            "id": 4844000,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
+            "name": "TechLooper"
           },
-          "id": "602800883",
           "title": "Senior Developer",
           "startDate": {
             "month": 9,
             "year": 2014,
-            "extraData": {},
-            "day": 0
-          }
-        }
-      ],
-      "educations": [
-        {
-          "endDate": {
-            "month": 0,
-            "year": 2006,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "degree": "Bachelor of Applied Science (BASc)",
-          "id": "13898473",
-          "schoolName": "Dai hoc Quôc Gia Tp. Hô Chí Minh",
-          "fieldOfStudy": "Information Technology",
-          "startDate": {
-            "month": 0,
-            "year": 2001,
-            "extraData": {},
             "day": 0
           }
         }
       ],
       "industry": "Computer Software",
+      "numRecommenders": 0,
       "skills": [
         "Web Services",
         "Project Delivery",
@@ -75,319 +37,16 @@
         "Salesforce.com",
         "Guidewire"
       ],
-      "emailAddress": "phuonghqh@gmail.com",
-      "id": "VVHyBi8zZJ",
-      "headline": "Senior Developer at VietnamWorks",
-      "threePastPositions": [
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 8,
-            "year": 2014,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "Capgemini",
-            "id": 157240,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "466216768",
-          "title": "Lead Consultant",
-          "startDate": {
-            "month": 9,
-            "year": 2013,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 9,
-            "year": 2013,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "HRBoss",
-            "id": 2193791,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "576343503",
-          "title": "Senior Developer",
-          "startDate": {
-            "month": 9,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 10,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "SMS Management & Technology",
-            "id": 5256,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "544020352",
-          "title": "Senior Java Developer",
-          "startDate": {
-            "month": 1,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          }
-        }
-      ],
-      "profilePictureUrl": "https://media.licdn.com/mpr/mprx/0_5KCgsmCAx6YcPPRC5P-Gs23u0GRsl9sCblnGsD8uhFfwmtSGdntlqSqCAuUk-AUmkP8_vEtH179V",
-      "summary": "Phuong is a full-stack developer, with 7+ years experience in software development. He has very strong computer science background.\n\nPhuong often contribute to open source projects as he love to do in his spare time. At the moment, he is contributing to https://github.com/chrisshayan/TechLooper\n\nPhuong's nice work can be found at https://github.com/phuonghuynh\n\nContact Phuong at: phuonghqh [at] gmail [dot] com\n\nSpecialties:\n - Cloud: Heroku, AWS, AppFog\n - Saleforce 2012\n - IBM Filenet: 3x, 4x, 5x\n \n - Java: 6x, 7x, 8x\n - Spring 3x, 4x\n - Hibernate: 3x, 4x\n - JMS: Rapid MQ \n - Web Service: Apache CXF, Rest\n - JEE server: JBoss 7x, IBM Websphere 7x\n \n - Python: DJango, Google Protocol Buffer\n - Ruby on Rails\n\n - Javascript: AngularJS, PureMVC, ExtJS, DOJO, Node\n - Front end: Bootstrap, Polymer, Font Awesome\n \n - OS: Windows, Mac, Linux: Ubuntu, CentOS\n - Database: MySQL, SQL Server, PostgresSQL\n - Tools: SVN, Git, Mercurial, Eclipse, Intellij IDEA\n\n - Distributed System\n\n - Problem solving\n - Quick learning\n - Reading new tech",
-      "numConnectionsCapped": false,
-      "publicProfileUrl": "https://www.linkedin.com/in/phuonghqh",
-      "numConnections": 152,
-      "positions": [
-        {
-          "isCurrent": true,
-          "extraData": {},
-          "company": {
-            "name": "TechLooper",
-            "id": 4844000,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "602800883",
-          "title": "Senior Developer",
-          "startDate": {
-            "month": 9,
-            "year": 2014,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 8,
-            "year": 2014,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "Capgemini",
-            "id": 157240,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "466216768",
-          "title": "Lead Consultant",
-          "startDate": {
-            "month": 9,
-            "year": 2013,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 9,
-            "year": 2013,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "HRBoss",
-            "id": 2193791,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "576343503",
-          "title": "Senior Developer",
-          "startDate": {
-            "month": 9,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 10,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "SMS Management & Technology",
-            "id": 5256,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "544020352",
-          "title": "Senior Java Developer",
-          "startDate": {
-            "month": 1,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 10,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "Renewtek",
-            "id": 29374,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "296057986",
-          "title": "Senior Java (J2EE) Developer",
-          "startDate": {
-            "month": 12,
-            "year": 2008,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 0,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "BPC Vietnam",
-            "id": 0,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "395771673",
-          "title": "Seni J2EE Engineer",
-          "startDate": {
-            "month": 0,
-            "year": 2012,
-            "extraData": {},
-            "day": 0
-          }
-        },
-        {
-          "isCurrent": false,
-          "endDate": {
-            "month": 11,
-            "year": 2008,
-            "extraData": {},
-            "day": 0
-          },
-          "extraData": {},
-          "company": {
-            "name": "Cap Tien IT",
-            "id": 0,
-            "extraData": {},
-            "foundedYear": 0,
-            "numFollowers": 0
-          },
-          "id": "25879045",
-          "title": "Developer",
-          "startDate": {
-            "month": 0,
-            "year": 2006,
-            "extraData": {},
-            "day": 0
-          }
-        }
-      ],
-      "dateOfBirth": {
-        "month": 10,
-        "year": 1983,
-        "extraData": {},
-        "day": 5
-      },
-      "connectionAuthorization": {
-        "name": "x-li-auth-token",
-        "extraData": {},
-        "value": "name:0XMf"
-      },
-      "numRecommenders": 0,
       "firstName": "Phuong",
-      "currentShare": {
-        "visibility": "anyone",
-        "extraData": {},
-        "author": {
-          "firstName": "Phuong",
-          "lastName": "Huynh",
-          "id": "VVHyBi8zZJ",
-          "extraData": {}
-        },
-        "id": "s5943381348570906624",
-        "source": {
-          "serviceProvider": "LI_BADGE",
-          "extraData": {}
-        },
-        "content": {
-          "eyebrowUrl": "https://www.linkedin.com/share?viewLink=&sid=s5943381348570906624&url=http%3A%2F%2Flnkd%2Ein%2FbqHvhAB&urlhash=teFq",
-          "shortenedUrl": "http://lnkd.in/bqHvhAB",
-          "submittedUrl": "https://www.linkedin.com/pulse/article/20141126135944-56410746-join-the-movement",
-          "extraData": {
-            "resolvedUrl": "https://www.linkedin.com/today/post/article/20141126135944-56410746-join-the-movement"
-          },
-          "submittedImageUrl": "http://m.c.lnkd.licdn.com/mpr/mpr/p/6/005/09e/315/152c7d1.jpg",
-          "description": "We are bunch of engineers. We believe in what we are doing. We are not just technology lovers. We are helping others to move up. We challenge ourselves by being creative. We are agile and we love our customers.Yes, we are engineers. We build a...",
-          "title": "Join the Movement",
-          "thumbnailUrl": "https://media.licdn.com/media-proxy/ext?w=80&h=100&hash=MBb%2FrFPwuasDeigSXujUeTbo3mY%3D&url=http%3A%2F%2Fm.c.lnkd.licdn.com%2Fmpr%2Fmpr%2Fp%2F6%2F005%2F09e%2F315%2F152c7d1.jpg"
-        },
-        "timestamp": 1417012536000
-      },
-      "location": {
-        "name": "Vietnam",
-        "country": "vn",
-        "extraData": {}
-      },
-      "_class": "org.springframework.social.linkedin.api.LinkedInProfileFull",
-      "siteStandardProfileRequest": {
-        "extraData": {},
-        "url": "https://www.linkedin.com/profile/view?id=17463106&authType=name&authToken=0XMf&trk=api*a4197321*s4260381*"
-      },
-      "relationToViewer": {
-        "distance": 0,
-        "extraData": {}
-      }
+      "_class": "com.techlooper.entity.LinkedInProfile",
+      "headline": "Senior Developer at VietnamWorks"
     }
   },
   "_class": "com.techlooper.entity.UserEntity",
-  "loginSource": "LINKEDIN"
+  "accessGrant": {
+    "accessToken": "AQUBAfIMSKvA2Xvazs3eO1SGAx-XacBvGDgHIwf62l2aedvHVG_5b6YWsRfgLh2AQVgoxM_39FOTrajTyBlu7MiJCNcSzHwrxCq8ObpZ_d7lOBEkj59Fa0cZsFzVYuennzsnT-BhC9THW1w_wOMUxRwl3lNeqO54FsTilGoatnQ5U8Sk_qs",
+    "expireTime": 1423586155443
+  },
+  "loginSource": "LINKEDIN",
+  "key": "hYMS9koz+WdR+uO5iZTJlQRrqirHVGZqYRg4dsMeuO2a32G0YffTXog6OmMXTyof"
 }

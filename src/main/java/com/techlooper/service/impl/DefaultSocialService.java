@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.UserEntity;
 import com.techlooper.service.SocialService;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class DefaultSocialService implements SocialService {
     return new AccessGrant("");
   }
 
-  public void persistProfile(AccessGrant accessGrant) {
+  public UserEntity persistProfile(AccessGrant accessGrant) {
+    return new UserEntity();
   }
 }

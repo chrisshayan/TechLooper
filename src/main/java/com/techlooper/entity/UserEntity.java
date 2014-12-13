@@ -18,20 +18,35 @@ public class UserEntity {
   @Id
   private String id;
 
-  @Field
   private String emailAddress;
 
-  @Field
   private String firstName;
 
-  @Field
   private String lastName;
 
-  @Field
   private SocialProvider loginSource;
 
-  @Field
   private Map<SocialProvider, Serializable> profiles = new HashMap<>();
+
+  private AccessGrant accessGrant;
+
+  private String key;
+
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
+  }
+
+  public AccessGrant getAccessGrant() {
+    return accessGrant;
+  }
+
+  public void setAccessGrant(AccessGrant accessGrant) {
+    this.accessGrant = accessGrant;
+  }
 
   public String getId() {
     return id;
@@ -85,7 +100,8 @@ public class UserEntity {
 
     private UserEntity instance = new UserEntity();
 
-    public Builder() {}
+    public Builder() {
+    }
 
     public Builder(UserEntity userEntity) {
       instance = userEntity;
@@ -97,6 +113,16 @@ public class UserEntity {
 
     public static Builder get() {
       return new Builder();
+    }
+
+    public Builder withKey(String key) {
+      instance.key = key;
+      return this;
+    }
+
+    public Builder withAccessGrant(AccessGrant accessGrant) {
+      instance.accessGrant = accessGrant;
+      return this;
     }
 
     public Builder withId(String id) {

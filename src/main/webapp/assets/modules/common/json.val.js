@@ -1,5 +1,9 @@
 angular.module("Common").constant("jsonValue", {
 
+  storage: {
+    key: "key"
+  },
+
   histograms: {
     oneWeek: "ONE_WEEK",
     sixBlocksOfFiveDays: "SIX_BLOCKS_OF_FIVE_DAYS",
@@ -118,7 +122,8 @@ angular.module("Common").constant("jsonValue", {
     term: "Term",
     changeChart: "Change Chart",
     foundJobs: "Found Jobs",
-    analyticsSkill: "Analytics Skill"
+    analyticsSkill: "Analytics Skill",
+    userInfoEmail: "UserInfo Email"
   },
 
   routerUris: {
@@ -153,7 +158,10 @@ angular.module("Common").constant("jsonValue", {
     subscribeJobsSearch: "/topic/jobs/search",
 
     analyticsSkill: "/app/analytics/skill",
-    subscribeAnalyticsSkill: "/topic/analytics/skill"
+    subscribeAnalyticsSkill: "/topic/analytics/skill",
+
+    userInfoEmail: "/app/userInfo/email",
+    subscribeUserInfoEmail: "/topic/userInfo/email"
   },
   technicalSkill: [{
     'text': 'Java',

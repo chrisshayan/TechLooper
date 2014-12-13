@@ -2,6 +2,8 @@ package com.techlooper.config;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.jasypt.util.password.PasswordEncryptor;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -23,7 +25,6 @@ import java.util.Arrays;
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
-//@Import({SocialConfiguration.class, ElasticsearchConfiguration.class})
 public class CoreConfiguration {
 
   @Bean
@@ -55,5 +56,10 @@ public class CoreConfiguration {
   @Bean
   public Mapper dozerBeanMapper() {
     return new DozerBeanMapper();
+  }
+
+  @Bean
+  public PasswordEncryptor passwordEncryptor() {
+    return new StrongPasswordEncryptor();
   }
 }

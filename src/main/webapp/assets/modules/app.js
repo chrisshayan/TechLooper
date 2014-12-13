@@ -19,12 +19,16 @@ var baseUrl = (function () {
 })();
 
 var techlooper = angular.module("Techlooper", [
-  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer",
+  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
   "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
-techlooper.config(["$routeProvider", "$translateProvider", "$authProvider",
-  function ($routeProvider, $translateProvider, $authProvider) {
+techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider",
+  function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider) {
+    localStorageServiceProvider
+      .setPrefix('techlooper')
+      .setStorageType('cookieStorage')
+      .setNotify(true, true);
 
     $.post("getSocialConfig", {provider: "LINKEDIN"})
       .done(function (resp) {

@@ -29,7 +29,8 @@
     "cafej": "latest",
     "bootstrap-tour": "latest",
     "jScrollPane": "latest",
-    "satellizer": "latest"
+    "satellizer": "latest",
+    "angular-local-storage": "latest"
   },
   "overrides": {
     "jquery": {
@@ -112,6 +113,9 @@
     },
     "satellizer": {
       "main": "satellizer.min.js"
+    },
+    "angular-local-storage": {
+      "main": "dist/angular-local-storage.min.js"
     }
   },
   "resolutions": {
