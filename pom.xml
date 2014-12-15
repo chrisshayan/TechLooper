@@ -240,6 +240,10 @@
                     <resource>
                       <directory>src/main/resources/local</directory>
                     </resource>
+                    <resource>
+                      <directory>src/main/resources/couchbase_view</directory>
+                      <targetPath>couchbase_view</targetPath>
+                    </resource>
                   </resources>
                 </configuration>
               </execution>
