@@ -1,16 +1,16 @@
 package com.techlooper.service.impl;
 
-import com.couchbase.client.protocol.views.ComplexKey;
+import com.couchbase.client.CouchbaseClient;
 import com.couchbase.client.protocol.views.Query;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.service.UserService;
 import org.dozer.Mapper;
-import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -24,6 +24,10 @@ public class UserServiceImpl implements UserService {
   @Resource
   private Mapper dozerMapper;
 
+
+  @Resource
+  private CouchbaseClient couchbaseClient;
+
   public void save(UserEntity user) {
     userRepository.save(user);
   }
@@ -35,7 +39,9 @@ public class UserServiceImpl implements UserService {
   public UserInfo findByKey(String key) {
     Query query = new Query();
     query.setKey(key);
-    UserEntity userEntity = userRepository.findByKey(query);
+    query.setLimit(1);
+    query.setDebug(true);
+    UserEntity userEntity = Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
     return dozerMapper.map(userEntity, UserInfo.class);
   }
 }

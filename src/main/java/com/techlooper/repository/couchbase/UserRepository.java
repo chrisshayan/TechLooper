@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by NguyenDangKhoa on 12/10/14.
  */
+@Repository
 public interface UserRepository extends CouchbaseRepository<UserEntity, String> {
 
   UserEntity findByKey(Query query);
