@@ -21,7 +21,9 @@ angular.module("Common").constant("jsonValue", {
     mouseHover: "Mouse Hover",
     gotData: "Got Data",
     changeLang: "Change language",
-    changeUrl: "Change URL"
+    changeUrl: "Change URL",
+    loading: "loading",
+    loaded: "loaded"
   },
 
   viewTerms: {
@@ -256,16 +258,14 @@ angular.module("Common").constant("jsonValue", {
       provider: "vietnamworks",
       logo: "images/vietnamwork.png",
       magnitude: "level1",
-      bgcolor: "#1fbaec"
+      bgcolor: "#1fbaec",
+      isNotSupported: true
     },
     {
       provider: "linkedin",
       logo: "images/linkedin.png",
       magnitude: "level2",
-      bgcolor: "#007bb6",
-      oauthOptions: {
-        response_type: "code"
-      }
+      bgcolor: "#007bb6"
     },
     {
       provider: "facebook",
@@ -277,31 +277,36 @@ angular.module("Common").constant("jsonValue", {
       provider: "stackoverflow",
       logo: "images/stackoverflow.png",
       magnitude: "level4",
-      bgcolor: "#fda428"
+      bgcolor: "#fda428",
+      isNotSupported: true
     },
     {
       provider: "g+",
       "logo": "images/gmail.png",
       "magnitude": "level5",
-      bgcolor: "#ac2e25"
+      bgcolor: "#ac2e25",
+      isNotSupported: true
     },
     {
       provider: "github",
       logo: "images/github.png",
       magnitude: "level6",
-      bgcolor: "#333333"
+      bgcolor: "#333333",
+      isNotSupported: true
     },
     {
       provider: "bitbucket",
       logo: "images/bitbucket.png",
       magnitude: "level7",
-      bgcolor: "#1f5081"
+      bgcolor: "#1f5081",
+      isNotSupported: true
     },
     {
       provider: "twitter",
       logo: "images/twitter.png",
       magnitude: "level8",
-      bgcolor: "#33ccff"
+      bgcolor: "#33ccff",
+      isNotSupported: true
     }
   ],
 

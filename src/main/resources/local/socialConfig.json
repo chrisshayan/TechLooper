@@ -4,5 +4,17 @@
     "apiKey": "75ukeuo2zr5y3n",
     "secretKey": "smrMWSaQ8affK893",
     "redirectUri": "http://localhost:8080/techlooper/authentication"
+  },
+  {
+    "provider": "FACEBOOK",
+    "apiKey": "775424035845076",
+    "secretKey": "48114f64ce77e617b7f83fc055456217",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
+  },
+  {
+    "provider": "GITHUB",
+    "apiKey": "",
+    "secretKey": "",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
   }
 ]

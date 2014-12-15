@@ -9,6 +9,7 @@ import com.techlooper.service.UserService;
 import org.dozer.Mapper;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
@@ -26,30 +27,18 @@ import static com.techlooper.model.SocialProvider.LINKEDIN;
  */
 
 @Service("LINKEDINService")
-public class LinkedInServiceImpl implements SocialService {
+public class LinkedInService extends AbstractSocialService {
 
   @Resource
   private LinkedInConnectionFactory linkedInConnectionFactory;
 
-  private String redirectUri;
-
-  @Resource
-  private UserService userService;
-
-  @Resource
-  private Mapper dozerBeanMapper;
-
-  @Resource
-  private PasswordEncryptor passwordEncryptor;
-
   @Inject
-  public LinkedInServiceImpl(JsonConfigRepository jsonConfigRepository) {
-    redirectUri = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> LINKEDIN == config.getProvider()).findFirst().get().getRedirectUri();
+  public LinkedInService(JsonConfigRepository jsonConfigRepository) {
+    super(jsonConfigRepository, LINKEDIN);
   }
 
-  public AccessGrant getAccessGrant(String accessCode) {
-    return linkedInConnectionFactory.getOAuthOperations().exchangeForAccess(accessCode, redirectUri, null);
+  public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
+    return linkedInConnectionFactory;
   }
 
   public UserEntity persistProfile(AccessGrant accessGrant) {
