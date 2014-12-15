@@ -21,8 +21,10 @@ public class CouchbaseBucketCreator {
     private String adminPassword;
     private String bucketName;
     private String bucketPassword;
+    private ClusterManager bucketManager;
 
-    public CouchbaseBucketCreator(String connectionUri, String adminUser, String adminPassword, String bucketName, String bucketPassword) {
+    public CouchbaseBucketCreator(String connectionUri, String adminUser, String adminPassword,
+                                  String bucketName, String bucketPassword) {
         this.connectionUri = connectionUri;
         this.adminUser = adminUser;
         this.adminPassword = adminPassword;
@@ -32,22 +34,27 @@ public class CouchbaseBucketCreator {
 
     @PostConstruct
     public void init() throws Exception {
-        //TODO : It always doesn't exist now, check for integration first
-        boolean exist = checkBucketExist();
+        this.bucketManager = new ClusterManager(Arrays.asList(URI.create(connectionUri)), adminUser, adminPassword);
+        boolean bucketDoesNotExist = checkBucketDoesNotExist();
 
-        if (!exist) {
+        if (bucketDoesNotExist) {
             createBucket();
         }
     }
 
-    private boolean checkBucketExist() {
-        return false;
+    private boolean checkBucketDoesNotExist() {
+        return bucketManager.listBuckets().contains(bucketName) == false;
     }
 
     private void createBucket() throws Exception {
-        ClusterManager bucketManager = new ClusterManager(Arrays.asList(URI.create(connectionUri)), adminUser, adminPassword);
-        bucketManager.createNamedBucket(BucketType.COUCHBASE, bucketName, 128, 0, bucketPassword, true);
-        Thread.sleep(5000);
-        bucketManager.shutdown();
+        try {
+            bucketManager.createNamedBucket(BucketType.COUCHBASE, bucketName, 128, 0, bucketPassword, true);
+            // Waiting for several seconds before shutting down the connection
+            Thread.sleep(3000);
+        } catch (Throwable throwable) {
+            LOGGER.error(throwable.getMessage(), throwable);
+        } finally {
+            bucketManager.shutdown();
+        }
     }
 }
