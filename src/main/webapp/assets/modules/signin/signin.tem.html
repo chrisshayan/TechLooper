@@ -38,11 +38,8 @@
               <!--<img ng-src="{{auth.logo}}" alt="">-->
             <!--</a>-->
           <!--</span>-->
-          <span ng-if="auth.provider === 'linkedin'">
+          <span>
             <a ng-click="openOathDialog(auth)"><img ng-src="{{auth.logo}}" alt=""></a>
-          </span>
-          <span ng-if="auth.provider !== 'linkedin'">
-            <a href="#/"><img ng-src="{{auth.logo}}" alt=""></a>
           </span>
         </div>
       </li>

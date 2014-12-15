@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,9 +43,13 @@ public class SocialController {
 
   @RequestMapping("/getSocialConfig")
   @ResponseBody
-  public SocialConfig getSocialConfig(@RequestParam SocialProvider provider) {
-    return jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> provider == config.getProvider()).findFirst().get();
+  public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {
+    List<SocialConfig> configs = new ArrayList<>();
+    providers.forEach(prov ->
+        configs.add(jsonConfigRepository.getSocialConfig().stream()
+          .filter(config -> prov == config.getProvider()).findFirst().get())
+    );
+    return configs;
   }
 
   @RequestMapping("/auth/{provider}")

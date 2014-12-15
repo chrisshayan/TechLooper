@@ -1,10 +1,10 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService) {
-    var scope;
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window) {
+    //var scope;
 
     var $$ = {
       initialize: function ($scope) {
-        scope = $scope;
+        //scope = $scope;
         $('.signin-accounts').parallax();
 
         $('.btn-close').click(function () {
@@ -34,14 +34,19 @@ angular.module('SignIn').factory('signInService',
 
     var instance = {
       openOathDialog: function (auth) {
-        utils.sendNotification(jsonValue.notifications.switchScope, scope);
-        $auth.authenticate(auth.provider).then(function (resp) {
-          localStorageService.set(jsonValue.storage.key, resp.data.key);
-          $location.path(jsonValue.routerUris.register);
-        });
+        if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
+        utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+        $auth.authenticate(auth.provider)
+          .then(function (resp) {//success
+            delete $window.localStorage["satellizer_token"];
+            localStorageService.set(jsonValue.storage.key, resp.data.key);
+            $location.path(jsonValue.routerUris.register);
+          }, function(resp) {//error
+            utils.sendNotification(jsonValue.notifications.loaded);
+          });
       }
     };
 
-    utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
+    //utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });
