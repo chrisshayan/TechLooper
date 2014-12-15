@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class})
-public class UserServiceImplTest {
+public class UserServiceITcase {
 
     @Resource
     private UserService userService;
