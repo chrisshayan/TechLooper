@@ -1,9 +1,6 @@
 package com.techlooper.entity;
 
 
-
-import org.dozer.Mapping;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,6 +27,16 @@ public class LinkedInProfile implements Serializable {
   private String interests;
 
   private List<TwitterAccount> twitterAccounts;
+
+  private ConnectionAuthorization connectionAuthorization;
+
+  public ConnectionAuthorization getConnectionAuthorization() {
+    return connectionAuthorization;
+  }
+
+  public void setConnectionAuthorization(ConnectionAuthorization connectionAuthorization) {
+    this.connectionAuthorization = connectionAuthorization;
+  }
 
   public String getFirstName() {
     return firstName;

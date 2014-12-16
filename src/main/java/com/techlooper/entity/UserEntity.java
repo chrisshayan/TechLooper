@@ -3,9 +3,7 @@ package com.techlooper.entity;
 import com.techlooper.model.SocialProvider;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
-import org.springframework.data.couchbase.core.mapping.Field;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,11 +24,21 @@ public class UserEntity {
 
   private SocialProvider loginSource;
 
-  private Map<SocialProvider, Serializable> profiles = new HashMap<>();
+  private Map<SocialProvider, Object> profiles = new HashMap<>();
 
   private AccessGrant accessGrant;
 
   private String key;
+
+  private String username;
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   public String getKey() {
     return key;
@@ -88,80 +96,79 @@ public class UserEntity {
     this.loginSource = loginSource;
   }
 
-  public Map<SocialProvider, Serializable> getProfiles() {
+  public Map<SocialProvider, Object> getProfiles() {
     return profiles;
   }
 
-  public void setProfiles(Map<SocialProvider, Serializable> profiles) {
+  public void setProfiles(Map<SocialProvider, Object> profiles) {
     this.profiles = profiles;
   }
 
-  public static class Builder {
+  public static class UserEntityBuilder {
+    private UserEntity userEntity;
 
-    private UserEntity instance = new UserEntity();
-
-    public Builder() {
+    private UserEntityBuilder() {
     }
 
-    public Builder(UserEntity userEntity) {
-      instance = userEntity;
+    public static UserEntityBuilder userEntity(UserEntity userEntity) {
+      UserEntityBuilder builder = new UserEntityBuilder();
+      builder.userEntity = userEntity;
+      return builder;
     }
 
-    public static Builder get(UserEntity userEntity) {
-      return new Builder(userEntity);
-    }
-
-    public static Builder get() {
-      return new Builder();
-    }
-
-    public Builder withKey(String key) {
-      instance.key = key;
+    public UserEntityBuilder withUsername(String username) {
+      userEntity.username = username;
       return this;
     }
 
-    public Builder withAccessGrant(AccessGrant accessGrant) {
-      instance.accessGrant = accessGrant;
+
+    public UserEntityBuilder withId(String id) {
+      userEntity.id = id;
       return this;
     }
 
-    public Builder withId(String id) {
-      instance.id = id;
+    public UserEntityBuilder withEmailAddress(String emailAddress) {
+      userEntity.emailAddress = emailAddress;
       return this;
     }
 
-    public Builder withEmailAddress(String emailAddress) {
-      instance.emailAddress = emailAddress;
+    public UserEntityBuilder withFirstName(String firstName) {
+      userEntity.firstName = firstName;
       return this;
     }
 
-    public Builder withFirstName(String firstName) {
-      instance.firstName = firstName;
+    public UserEntityBuilder withLastName(String lastName) {
+      userEntity.lastName = lastName;
       return this;
     }
 
-    public Builder withLastName(String lastName) {
-      instance.lastName = lastName;
+    public UserEntityBuilder withLoginSource(SocialProvider loginSource) {
+      userEntity.loginSource = loginSource;
       return this;
     }
 
-    public Builder withLoginSource(SocialProvider loginSource) {
-      instance.loginSource = loginSource;
+    public UserEntityBuilder withProfiles(Map<SocialProvider, Object> profiles) {
+      userEntity.profiles = profiles;
       return this;
     }
 
-    public Builder withProfiles(Map<SocialProvider, Serializable> profiles) {
-      instance.profiles = profiles;
+    public UserEntityBuilder withAccessGrant(AccessGrant accessGrant) {
+      userEntity.accessGrant = accessGrant;
       return this;
     }
 
-    public Builder withProfile(SocialProvider socialProvider, Serializable profile) {
-      instance.profiles.put(socialProvider, profile);
+    public UserEntityBuilder withKey(String key) {
+      userEntity.key = key;
       return this;
     }
 
     public UserEntity build() {
-      return instance;
+      return userEntity;
+    }
+
+    public UserEntityBuilder withProfile(SocialProvider provider, Object profile) {
+      userEntity.profiles.put(provider, profile);
+      return this;
     }
   }
 }

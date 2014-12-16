@@ -12,13 +12,13 @@ import java.util.Locale;
  * Created by phuonghqh on 12/15/14.
  */
 public class FacebookProfile implements Serializable {
-  private  String id;
-  private  String username;
-  private  String name;
-  private  String firstName;
+  private String id;
+  private String username;
+  private String name;
+  private String firstName;
   private String middleName;
-  private  String lastName;
-  private  String gender;
+  private String lastName;
+  private String gender;
   private Locale locale;
   private String link;
   private String website;

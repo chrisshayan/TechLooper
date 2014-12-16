@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.couchbase.client.CouchbaseClient;
+import com.couchbase.client.protocol.views.ComplexKey;
 import com.couchbase.client.protocol.views.Query;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.UserInfo;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
   public UserInfo findByKey(String key) {
     Query query = new Query();
-    query.setKey(key);
+    query.setKey(ComplexKey.of(key));
     query.setLimit(1);
     query.setDebug(true);
     UserEntity userEntity = Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());

@@ -1,5 +1,7 @@
 package com.techlooper.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by phuonghqh on 12/11/14.
  */
