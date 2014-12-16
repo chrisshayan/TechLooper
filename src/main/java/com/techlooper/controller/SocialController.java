@@ -33,9 +33,6 @@ public class SocialController {
   private JsonConfigRepository jsonConfigRepository;
 
   @Resource
-  private SocialService defaultSocialService;
-
-  @Resource
   private UserService userService;
 
   @SendTo("/topic/userInfo/key")
