@@ -17,6 +17,36 @@ angular.module('UserProfile').factory('userProfileFactory', function () {
           $(this).parent().find('.bg-item-container').jScrollPane();
         }
       })
+    },
+    naviControl: function(){
+      $('.manager-navi').find('.fa-bars').on('tap click', function(){
+        if($(this).hasClass('active')){
+          $('.main-navi-block').animate({
+            width: '0px'
+          }).css('position','relative');;
+          $('.user-profile-page').animate({
+            'padding-left': 0
+          });
+          $('.header-section').animate({
+            'padding-left': '65px'
+          });
+          $('.navi-container').hide();
+          $(this).removeClass('active');
+        }else{
+          $('.main-navi-block').animate({
+            width: '85px'
+          }).css('position','fixed');
+          $('.user-profile-page').animate({
+            'padding-left': '85px'
+          });
+          $('.header-section').animate({
+            'padding-left': '0px'
+          });
+          $('.navi-container').show();
+          $(this).addClass('active');
+        }
+      })
+
     }
   }
   return instance;

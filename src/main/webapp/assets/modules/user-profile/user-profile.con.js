@@ -3,4 +3,5 @@ angular.module('UserProfile').controller('userProfileController', function ($sco
   userProfileFactory.customScrollBar();
   userProfileFactory.resizeScreen();
   userProfileFactory.collapseContent();
+  userProfileFactory.naviControl();
 });
