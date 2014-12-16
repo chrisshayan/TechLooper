@@ -88,11 +88,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     }).when("/register", {
       templateUrl: "modules/register/register.tem.html",
       controller: "registerController"
-    }).otherwise({
-      redirectTo: "/bubble-chart"
     }).when("/user", {
       templateUrl: "modules/user-profile/user-profile.tem.html",
       controller: "userProfileController"
+    }).otherwise({
+      redirectTo: "/bubble-chart"
     });
   }]);
 
