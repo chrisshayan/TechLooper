@@ -130,6 +130,13 @@ ul.setting-items
 .logo-block
   width: 33%
   float: left
+  height: 70px
+  position: relative
+.logo-block img
+  margin: auto
+  position: absolute
+  top: 0
+  bottom: 0
 .tech-line
   width: 33%
   text-align: center
@@ -195,11 +202,14 @@ ul.setting-items
       line-height: 55px
 
 /* -- style for Navi ---*/
+.header-section
+  padding-left: 65px
+
 .main-navi-block
-  width: 85px
+  width: 0
   float: left
   background: url(../images/line-h.png) #000000 right top repeat-y
-  position: fixed
+  position: relative
   left: 0
   top: 0
   bottom: 0
@@ -207,16 +217,22 @@ ul.setting-items
     height: 70px
     text-align: center
     line-height: 70px
+    position: absolute
+    left: 0
+    top: 0
+    z-index: 999
+    width: 85px
     i.fa-bars
       font-weight: 400
       font-size: 35px
       color: #636363
       display: block
       cursor: pointer
-      padding-top: 20px
+      padding-top: 18px
   .navi-container
-    display: block
+    display: none
     clear: both
+    padding-top: 70px
     ul
       margin: 0
       padding: 0
@@ -225,18 +241,20 @@ ul.setting-items
       width: 100%
       padding: 10px 0
       text-align: center
+      position: relative
       a
-        background: url(../images/ic-navi.png) left top no-repeat
+        background: url(../images/ic-navi.png) #000 left top no-repeat
         border: 1px solid #636363
         width: 60px
         height: 60px
         margin: auto
+        z-index: 999
       a.m-home-page
         background-position: 14px 13px
       a.m-pie-chart
-        background: url(../images/ic-small.png) 3px -273px no-repeat
+        background: url(../images/ic-small.png) 3px -267px no-repeat
       a.m-bubble-chart
-        background: url(../images/ic-small.png) 2px 7px no-repeat
+        background: url(../images/ic-small.png) 2px -370px no-repeat
       a.m-search-jobs
         background-position: 14px -87px
       a.m-languages.vi
@@ -261,9 +279,9 @@ ul.setting-items
       a.m-home-page:hover
         background-position: 14px -35px
       a.m-pie-chart:hover
-        background: url(../images/ic-small.png) 3px -273px no-repeat
+        background: url(../images/ic-small.png) 3px -317px no-repeat
       a.m-bubble-chart:hover
-        background: url(../images/ic-small.png) 2px 7px no-repeat
+        background: url(../images/ic-small.png) 2px -418px no-repeat
       a.m-search-jobs:hover
         background-position: 14px -137px
       a.m-languages.vi:hover
@@ -277,25 +295,40 @@ ul.setting-items
       a.m-user-profile:hover
         background: transparent
     li ul
-      width: 60%
+      width: 0
+      height: 58px
       margin: auto
-      botder: 1px solid #636363
+      border: 1px solid #636363
       border-radius: 5px
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
-      background-color: #1a1919
-      padding: 5px 0
+      background-color: #000
+      position: absolute
+      left: 34px
+      top: 10px
+      padding: 0
+      z-index: -666
     li li
-      padding: 2px 0
+      padding: 0 5px
+      width: 40px
+      height: 60px
+      display: inline-block
       a
         border: 0
         border-radius: none
         -webkit-border-radius: none
         -moz-border-radius: none
         font-size: 20px
-        width: 30px
-        height: 30px
+        width: 40px
+        height: 40px
+        display: block
+        margin: auto
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
 
 .signin-signout-block
   padding-top: 10px
@@ -1195,7 +1228,6 @@ label.bootstrap-checkbox.disabled
 .user-profile-page
   display: block
   clear: both
-  padding-left: 85px
 .user-profile-contianer
   display: block
   clear: both

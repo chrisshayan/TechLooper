@@ -4,4 +4,5 @@ angular.module('UserProfile').controller('userProfileController', function ($sco
   userProfileFactory.resizeScreen();
   userProfileFactory.collapseContent();
   userProfileFactory.naviControl();
+  userProfileFactory.subNaviControl();
 });
