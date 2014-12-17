@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.couchbase.client.CouchbaseClient;
 import com.couchbase.client.protocol.views.ComplexKey;
 import com.couchbase.client.protocol.views.Query;
+import com.couchbase.client.protocol.views.Stale;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
     query.setKey(ComplexKey.of(key));
     query.setLimit(1);
     query.setDebug(true);
+    query.setStale(Stale.FALSE);
     UserEntity userEntity = Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
     return dozerMapper.map(userEntity, UserInfo.class);
   }
