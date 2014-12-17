@@ -23,9 +23,8 @@ public class UserServiceImpl implements UserService {
   @Resource
   private UserRepository userRepository;
 
-  @Resource
-  private Mapper dozerMapper;
-
+//  @Resource
+//  private Mapper dozerMapper;
 
   @Resource
   private CouchbaseClient couchbaseClient;
@@ -38,13 +37,12 @@ public class UserServiceImpl implements UserService {
     return userRepository.findOne(id);
   }
 
-  public UserInfo findByKey(String key) {
+  public UserEntity findByKey(String key) {
     Query query = new Query();
-    query.setKey(ComplexKey.of(key));
+    query.setKey(key);
     query.setLimit(1);
-    query.setDebug(true);
     query.setStale(Stale.FALSE);
-    UserEntity userEntity = Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
-    return dozerMapper.map(userEntity, UserInfo.class);
+    return Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
+//    return dozerMapper.map(userEntity, UserInfo.class);
   }
 }
