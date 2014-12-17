@@ -137,6 +137,12 @@ ul.setting-items
   position: absolute
   top: 0
   bottom: 0
+.logo-block
+  .logo
+    margin: auto
+    position: absolute
+    img
+      max-height: 60px
 .tech-line
   width: 33%
   text-align: center
@@ -1307,17 +1313,19 @@ label.bootstrap-checkbox.disabled
     margin: 0
   ul
     margin: 0
-    padding: 0 0 0 10px
+    padding: 0 0 0 2px
   li
     width: 100%
     float: left
     display: block
-    border-bottom: 1px solid #000
+    border-top: 1px solid #000
     padding: 0
     a
       display: block
       background: url(../images/ic-list.png) left 13px no-repeat
       padding: 5px 0 5px 20px
+  li:first-child
+    border-top: 0
 .user-background
   display: block
   clear: both

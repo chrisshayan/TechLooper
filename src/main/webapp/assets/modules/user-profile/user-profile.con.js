@@ -1,4 +1,4 @@
-angular.module('UserProfile').controller('userProfileController', function ($scope, jsonValue, userProfileFactory) {
+angular.module('UserProfile').controller('userProfileController', function ($scope, jsonValue, shortcutFactory, userProfileFactory) {
   $scope.accounts = jsonValue.accountSignin;
   userProfileFactory.customScrollBar();
   userProfileFactory.resizeScreen();
