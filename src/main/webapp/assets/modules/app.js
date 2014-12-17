@@ -30,7 +30,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .setStorageType('cookieStorage')
       .setNotify(true, true);
 
-    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER"]})
+    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
       .done(function (resp) {
         var provider = {};
         $.each(resp, function (i, prov) {provider[prov.provider] = prov;});
@@ -48,6 +48,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           url: "auth/GOOGLE",
           clientId: provider['GOOGLE'].apiKey,
           redirectUri: provider['GOOGLE'].redirectUri
+        });
+        $authProvider.github({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/GITHUB",
+          clientId: provider['GITHUB'].apiKey,
+          redirectUri: provider['GITHUB'].redirectUri
         });
         $authProvider.twitter({//@see https://github.com/sahat/satellizer#how-it-works
           url: "auth/oath1/TWITTER",

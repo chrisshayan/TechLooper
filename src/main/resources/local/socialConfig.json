@@ -13,9 +13,9 @@
   },
   {
     "provider": "GITHUB",
-    "apiKey": "",
-    "secretKey": "",
-    "redirectUri": "http://localhost:8080/techlooper/authentication"
+    "apiKey": "5d7da4728397ed22bc58",
+    "secretKey": "27a0682cd7293cfaa2921895de78633b12fc653d",
+    "redirectUri": "http://techlooper.com/authentication"
   },
   {
     "provider": "GOOGLE",
