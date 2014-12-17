@@ -38,20 +38,20 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
   }
 
   var instance = {
-    findUserInfoByEmail: function(json) {
+    findUserInfoByKey: function(json) {
       if (!stompClient.connected) {
         callbacks.push({
-          fn: instance.findUserInfoByEmail,
+          fn: instance.findUserInfoByKey,
           args: json
         });
         return instance.connectSocket();
       }
 
-      var subscription = stompClient.subscribe(socketUri.subscribeUserInfoEmail, function (response) {
-        scope.$emit(events.userInfoEmail, JSON.parse(response.body));
+      var subscription = stompClient.subscribe(socketUri.subscribeUserInfoByKey, function (response) {
+        scope.$emit(events.userInfo, JSON.parse(response.body));
         subscription.unsubscribe();
       });
-      stompClient.send(socketUri.userInfoEmail, {}, JSON.stringify(json));
+      stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
     },
 
     /* @subscription */

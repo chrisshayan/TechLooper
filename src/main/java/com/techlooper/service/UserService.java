@@ -13,5 +13,5 @@ public interface UserService {
 
   UserEntity findById(String id);
 
-  UserInfo findByKey(String key);
+  UserEntity findByKey(String key);
 }

@@ -6,9 +6,9 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.FacebookProfile;
-import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.github.api.GitHub;
+import org.springframework.social.github.api.GitHubUserProfile;
+import org.springframework.social.github.connect.GitHubConnectionFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,40 +16,37 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
-import static com.techlooper.model.SocialProvider.FACEBOOK;
 
 /**
- * Created by phuonghqh on 12/15/14.
+ * Created by phuonghqh on 12/16/14.
  */
-@Service("FACEBOOKService")
-public class FacebookService extends AbstractSocialService {
-
+@Service("GITHUBService")
+public class GitHubService extends AbstractSocialService {
 
   @Resource
-  private FacebookConnectionFactory facebookConnectionFactory;
+  private GitHubConnectionFactory gitHubConnectionFactory;
 
   @Inject
-  public FacebookService(JsonConfigRepository jsonConfigRepository) {
-    super(jsonConfigRepository, FACEBOOK);
+  public GitHubService(JsonConfigRepository jsonConfigRepository) {
+    super(jsonConfigRepository, SocialProvider.GITHUB);
   }
 
   public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return facebookConnectionFactory;
+    return gitHubConnectionFactory;
   }
 
   public UserEntity persistProfile(AccessGrant accessGrant) {
-    Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
-    com.techlooper.entity.FacebookProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
+    Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
+    GitHubUserProfile profile = connection.getApi().userOperations().getUserProfile();
+    com.techlooper.entity.GitHubUserProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.GitHubUserProfile.class);
     UserEntity userEntity = Optional.ofNullable(userService.findById(profile.getEmail())).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(SocialProvider.FACEBOOK, profileEntity)
+      .withProfile(SocialProvider.GITHUB, profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       builder.withId(profile.getEmail())
-        .withLoginSource(SocialProvider.FACEBOOK)
-        .withFirstName(profile.getFirstName())
-        .withLastName(profile.getLastName())
+        .withLoginSource(SocialProvider.GITHUB)
+        .withFirstName(profile.getName())
         .withEmailAddress(profile.getEmail())
         .withKey(passwordEncryptor.encryptPassword(profile.getEmail()));
     }

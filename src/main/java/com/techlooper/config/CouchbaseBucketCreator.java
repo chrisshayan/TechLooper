@@ -30,11 +30,11 @@ public class CouchbaseBucketCreator {
         this.adminPassword = adminPassword;
         this.bucketName = bucketName;
         this.bucketPassword = bucketPassword;
+        this.bucketManager = new ClusterManager(Arrays.asList(URI.create(connectionUri)), adminUser, adminPassword);
     }
 
     @PostConstruct
     public void init() throws Exception {
-        this.bucketManager = new ClusterManager(Arrays.asList(URI.create(connectionUri)), adminUser, adminPassword);
         boolean bucketDoesNotExist = checkBucketDoesNotExist();
 
         if (bucketDoesNotExist) {
