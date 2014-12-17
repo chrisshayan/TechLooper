@@ -125,7 +125,7 @@ angular.module("Common").constant("jsonValue", {
     changeChart: "Change Chart",
     foundJobs: "Found Jobs",
     analyticsSkill: "Analytics Skill",
-    userInfoEmail: "UserInfo Email"
+    userInfo: "UserInfo"
   },
 
   routerUris: {
@@ -162,8 +162,8 @@ angular.module("Common").constant("jsonValue", {
     analyticsSkill: "/app/analytics/skill",
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
-    userInfoEmail: "/app/userInfo/email",
-    subscribeUserInfoEmail: "/topic/userInfo/email"
+    getUserInfoByKey: "/app/userInfo/key",
+    subscribeUserInfoByKey: "/topic/userInfo/key"
   },
   technicalSkill: [{
     'text': 'Java',
@@ -281,11 +281,10 @@ angular.module("Common").constant("jsonValue", {
       isNotSupported: true
     },
     {
-      provider: "g+",
+      provider: "google",
       "logo": "images/gmail.png",
       "magnitude": "level5",
-      bgcolor: "#ac2e25",
-      isNotSupported: true
+      bgcolor: "#ac2e25"
     },
     {
       provider: "github",
@@ -305,8 +304,7 @@ angular.module("Common").constant("jsonValue", {
       provider: "twitter",
       logo: "images/twitter.png",
       magnitude: "level8",
-      bgcolor: "#33ccff",
-      isNotSupported: true
+      bgcolor: "#33ccff"
     }
   ],
 

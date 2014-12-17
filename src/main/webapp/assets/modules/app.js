@@ -30,7 +30,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .setStorageType('cookieStorage')
       .setNotify(true, true);
 
-    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK"]})
+    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER"]})
       .done(function (resp) {
         var provider = {};
         $.each(resp, function (i, prov) {provider[prov.provider] = prov;});
@@ -43,6 +43,16 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           url: "auth/FACEBOOK",
           clientId: provider['FACEBOOK'].apiKey,
           redirectUri: provider['FACEBOOK'].redirectUri
+        });
+        $authProvider.google({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/GOOGLE",
+          clientId: provider['GOOGLE'].apiKey,
+          redirectUri: provider['GOOGLE'].redirectUri
+        });
+        $authProvider.twitter({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/oath1/TWITTER",
+          clientId: provider['TWITTER'].apiKey,
+          redirectUri: provider['TWITTER'].redirectUri
         });
       });
 

@@ -1,5 +1,6 @@
 package com.techlooper.controller;
 
+import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
@@ -8,11 +9,13 @@ import com.techlooper.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.Option;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,19 +33,16 @@ public class SocialController {
   private JsonConfigRepository jsonConfigRepository;
 
   @Resource
-  private SocialService defaultSocialService;
-
-  @Resource
   private UserService userService;
 
-  @SendTo("/topic/userInfo/email")
-  @MessageMapping("/userInfo/email")
+  @SendTo("/topic/userInfo/key")
+  @MessageMapping("/userInfo/key")
   public UserInfo getUserInfo(SocialRequest searchRequest) {
     return userService.findByKey(searchRequest.getKey());
   }
 
-  @RequestMapping("/getSocialConfig")
   @ResponseBody
+  @RequestMapping("/getSocialConfig")
   public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {
     List<SocialConfig> configs = new ArrayList<>();
     providers.forEach(prov ->
@@ -52,14 +52,32 @@ public class SocialController {
     return configs;
   }
 
-  @RequestMapping("/auth/{provider}")
   @ResponseBody
+  @RequestMapping("/auth/{provider}")
   public SocialResponse auth(@PathVariable SocialProvider provider, @RequestBody Authentication auth) {
-    SocialService service = Optional.ofNullable(applicationContext.getBean(provider + "Service", SocialService.class)).orElse(defaultSocialService);
+    SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
     UserEntity userEntity = service.persistProfile(accessGrant);
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
       .withKey(userEntity.getKey()).build();
+  }
+
+  @ResponseBody
+  @RequestMapping("/auth/oath1/{provider}")
+  public SocialResponse auth1(@PathVariable SocialProvider provider, HttpServletResponse httpServletResponse,
+                              @RequestParam(value = "oauth_token", required = false) String token,
+                              @RequestParam(value = "oauth_verifier", required = false) String verifier) throws IOException {
+    SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
+    if (Optional.ofNullable(token).isPresent()) {
+      AccessGrant accessGrant = service.getAccessGrant(token, verifier);
+      UserEntity userEntity = service.persistProfile(accessGrant);
+      return SocialResponse.Builder.get()
+        .withToken(accessGrant.getValue())
+        .withKey(userEntity.getKey()).build();
+    }
+    AccessGrant accessGrant = service.getAccessGrant(null, null);
+    httpServletResponse.sendRedirect(accessGrant.getAuthorizeUrl());
+    return null;
   }
 }

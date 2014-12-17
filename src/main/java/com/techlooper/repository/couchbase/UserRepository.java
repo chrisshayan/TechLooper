@@ -2,7 +2,6 @@ package com.techlooper.repository.couchbase;
 
 import com.couchbase.client.protocol.views.Query;
 import com.techlooper.entity.UserEntity;
-import org.springframework.data.couchbase.core.view.View;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 

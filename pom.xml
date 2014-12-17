@@ -52,6 +52,9 @@
     <dozer.version>5.5.1</dozer.version>
     <jasypt.version>1.9.2</jasypt.version>
     <spring-social-facebook.version>1.1.0.RELEASE</spring-social-facebook.version>
+    <spring-social-github.version>1.0.0.M4</spring-social-github.version>
+    <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
+    <spring-social-twitter.version>1.1.0.RELEASE</spring-social-twitter.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -526,6 +529,24 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.social</groupId>
+      <artifactId>spring-social-github</artifactId>
+      <version>${spring-social-github.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.social</groupId>
+      <artifactId>spring-social-google</artifactId>
+      <version>${spring-social-google.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.social</groupId>
+      <artifactId>spring-social-twitter</artifactId>
+      <version>${spring-social-twitter.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
       <version>${aspectj.version}</version>
@@ -612,4 +633,15 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>http://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>
