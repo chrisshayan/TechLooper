@@ -1,21 +1,7 @@
-angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, shortcutFactory) {
-	
-  var dataTour = utils.getDataTour();
-  utils.makeTourGuide(dataTour); 
-
-	$scope.accounts = jsonValue.accountSignin;
-	
-	$('.signin-accounts').parallax();
-	
-  $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
-  $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
-
-  $(".signin-popup-close").on('click', function() {
-    $('#signin-form').modal('hide');
-  });
-
-  $('.sign-successful').on('click', function(){
-  	$location.path('/register');
-  	$scope.$apply();
-  });
+angular.module('SignIn').controller('signInController', function ($location, jsonValue, utils, $scope, signInService) {
+  signInService.initialize();
+  $scope.authSource = jsonValue.authSource;
+  //utils.sendNotification(jsonValue.notifications.switchScope, $scope);
+  //utils.sendNotification(jsonValue.notifications.gotData);
+  $scope.openOathDialog = signInService.openOathDialog;
 });

@@ -1,0 +1,32 @@
+[
+  {
+    "provider": "LINKEDIN",
+    "apiKey": "75ukeuo2zr5y3n",
+    "secretKey": "smrMWSaQ8affK893",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
+  },
+  {
+    "provider": "FACEBOOK",
+    "apiKey": "775424035845076",
+    "secretKey": "48114f64ce77e617b7f83fc055456217",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
+  },
+  {
+    "provider": "GITHUB",
+    "apiKey": "5d7da4728397ed22bc58",
+    "secretKey": "27a0682cd7293cfaa2921895de78633b12fc653d",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
+  },
+  {
+    "provider": "GOOGLE",
+    "apiKey": "772729238937-mgmqvv3047pu1u5l5t9ia9df61ipm1uk.apps.googleusercontent.com",
+    "secretKey": "NR1E7THY9NoNM115cS9W33_I",
+    "redirectUri": "http://localhost:8080/techlooper/authentication"
+  },
+  {
+    "provider": "TWITTER",
+    "apiKey": "yy82Q0dMblXKYF633qBEn9OhM",
+    "secretKey": "XPbAnAbhGQLunSMJt0Xz8Ra2chUJjyyUT8ck1NxfkvRhaJozYF",
+    "redirectUri": "http://techlooper.com/authentication"
+  }
+]

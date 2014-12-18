@@ -1,7 +1,7 @@
 angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope, utils) {
   var historyStack = {max: 0, items: {}};
 
-  $rootScope.$on('$routeChangeSuccess', function(event, route) {
+  $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
     switch (utils.getView()) {
       case jsonValue.views.bubbleChart:
       case jsonValue.views.pieChart:
@@ -10,7 +10,9 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
         instance.trackHistory();
         break;
     }
-    utils.sendNotification(jsonValue.notifications.changeUrl);
+    //next.$$route.originalPath;
+    //current.$$route.originalPath;
+    utils.sendNotification(jsonValue.notifications.changeUrl/*, current.$$route.originalPath, next.$$route.originalPath*/);
   });
 
   var instance = {

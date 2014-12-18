@@ -610,7 +610,8 @@
                 "logoUrl" : "lg-git.png"
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "lg-jersey.png"
             },
             {
                 "name" : "Agile Software Development"
@@ -647,7 +648,8 @@
                 "logoUrl" : "lg-git.png"
             },
             {
-                "name" : "REST"
+                "name" : "REST",
+                "logoUrl" : "lg-jersey.png"
             },
             {
                 "name" : "Agile Software Development"
@@ -667,10 +669,10 @@
         "searchTexts" : ["project manager"],
         "label" : "Project Manager",
         "logoUrl" : "",
-        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
-                "name" : "scrum"
+                "name" : "Scrum",
+                "logoUrl" : "lg-scrum.png"
             },
             {
                 "name" : "Project Management"
@@ -694,13 +696,15 @@
                 "name" : "Agile Software Development"
             },
             {
-                "name" : "CMMI"
+                "name" : "CMMI",
+                "logoUrl" : "lg-cmmi.png"
             },
             {
                 "name" : "Supplier Management"
             },
             {
-                "name" : "itil"
+                "name" : "Itil",
+                "logoUrl" : "lg-itil.png"
             }
         ]
     },
@@ -709,7 +713,6 @@
         "searchTexts" : ["database", "database administrator", "data analyst", "data scientist"],
         "label" : "DBA",
         "logoUrl" : "",
-        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "MySql",
@@ -757,7 +760,8 @@
                 "name" : "Database Analysis"
             },
             {
-                "name" : "Data Warehouse"
+                "name" : "Data Warehouse",
+                "logoUrl" : "lg-data-warehouse-logo.png"
             }
         ]
     },
@@ -766,7 +770,6 @@
         "searchTexts" : ["qa", "qc"],
         "label" : "QA",
         "logoUrl" : "lg-qa.png",
-        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "Selenium",
@@ -777,40 +780,52 @@
                 "logoUrl" : "lg-automation-testing.png"
             },
             {
-                "name" : "Test Script"
+                "name" : "Test Script",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "BDD"
+                "name" : "BDD",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "JIRA"
+                "name" : "JIRA",
+                "logoUrl" : "lg-jira.png"
             },
             {
-                "name" : "WebDriver"
+                "name" : "WebDriver",
+                "logoUrl" : "lg-webdrive.png"
             },
             {
-                "name" : "Cucumber"
+                "name" : "Cucumber",
+                "logoUrl" : "lg-cucumber.png"
             },
             {
-                "name" : "QuickTest Pro"
+                "name" : "QuickTest Pro",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "JMeter"
+                "name" : "JMeter",
+                "logoUrl" : "lg-jmeter.png"
             },
             {
-                "name" : "Continuous Integration"
+                "name" : "Continuous Integration",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "Test Planning"
+                "name" : "Test Planning",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "User Acceptance Testing"
+                "name" : "User Acceptance Testing",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "Regression Testing"
+                "name" : "Regression Testing",
+                "logoUrl" : "lg-qa.png"
             },
             {
-                "name" : "Test Strategy"
+                "name" : "Test Strategy",
+                "logoUrl" : "lg-qa.png"
             }
         ]
     },
@@ -908,7 +923,6 @@
         "searchTexts" : ["web", "front-end"],
         "label" : "Web",
         "logoUrl" : "lg-web.png",
-        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "html",
@@ -923,8 +937,8 @@
                 "logoUrl" : "lg-javascript.png"
             },
             {
-                "name" : "saas",
-                "logoUrl" : "lg-saas.png"
+                "name" : "sass",
+                "logoUrl" : "lg-sass.png"
             },
             {
                 "name" : "less",
@@ -965,7 +979,6 @@
         "searchTexts" : ["mobile", "android", "ios"],
         "label" : "Mobile",
         "logoUrl" : "lg-mobile.png",
-        "webSite" : "https://www.vietnamwork.com",
         "skills" : [
             {
                 "name" : "Android",

@@ -1,0 +1,52 @@
+{
+  "firstName": "Phuong",
+  "lastName": "Huynh",
+  "emailAddress": "phuonghqh@gmail.com",
+  "profiles": {
+    "LINKEDIN": {
+      "profilePictureUrl": "https://media.licdn.com/mpr/mprx/0_5KCgsmCAx6YcPPRC5P-Gs23u0GRsl9sCblnGsD8uhFfwmtSGdntlqSqCAuUk-AUmkP8_vEtH179V",
+      "summary": "Phuong is a full-stack developer, with 7+ years experience in software development. He has very strong computer science background.\n\nPhuong often contribute to open source projects as he love to do in his spare time. At the moment, he is contributing to https://github.com/chrisshayan/TechLooper\n\nPhuong's nice work can be found at https://github.com/phuonghuynh\n\nContact Phuong at: phuonghqh [at] gmail [dot] com\n\nSpecialties:\n - Cloud: Heroku, AWS, AppFog\n - Saleforce 2012\n - IBM Filenet: 3x, 4x, 5x\n \n - Java: 6x, 7x, 8x\n - Spring 3x, 4x\n - Hibernate: 3x, 4x\n - JMS: Rapid MQ \n - Web Service: Apache CXF, Rest\n - JEE server: JBoss 7x, IBM Websphere 7x\n \n - Python: DJango, Google Protocol Buffer\n - Ruby on Rails\n\n - Javascript: AngularJS, PureMVC, ExtJS, DOJO, Node\n - Front end: Bootstrap, Polymer, Font Awesome\n \n - OS: Windows, Mac, Linux: Ubuntu, CentOS\n - Database: MySQL, SQL Server, PostgresSQL\n - Tools: SVN, Git, Mercurial, Eclipse, Intellij IDEA\n\n - Distributed System\n\n - Problem solving\n - Quick learning\n - Reading new tech",
+      "lastName": "Huynh",
+      "publicProfileUrl": "https://www.linkedin.com/in/phuonghqh",
+      "numConnections": 152,
+      "threeCurrentPositions": [
+        {
+          "company": {
+            "name": "TechLooper"
+          },
+          "title": "Senior Developer",
+          "startDate": {
+            "month": 9,
+            "year": 2014,
+            "day": 0
+          }
+        }
+      ],
+      "industry": "Computer Software",
+      "numRecommenders": 0,
+      "skills": [
+        "Web Services",
+        "Project Delivery",
+        "Java",
+        "BPMN",
+        "FileNet",
+        "Product Development",
+        "Risk Management",
+        "Consulting",
+        "Team Leadership",
+        "Salesforce.com",
+        "Guidewire"
+      ],
+      "firstName": "Phuong",
+      "_class": "com.techlooper.entity.LinkedInProfile",
+      "headline": "Senior Developer at VietnamWorks"
+    }
+  },
+  "_class": "com.techlooper.entity.UserEntity",
+  "accessGrant": {
+    "accessToken": "AQUBAfIMSKvA2Xvazs3eO1SGAx-XacBvGDgHIwf62l2aedvHVG_5b6YWsRfgLh2AQVgoxM_39FOTrajTyBlu7MiJCNcSzHwrxCq8ObpZ_d7lOBEkj59Fa0cZsFzVYuennzsnT-BhC9THW1w_wOMUxRwl3lNeqO54FsTilGoatnQ5U8Sk_qs",
+    "expireTime": 1423586155443
+  },
+  "loginSource": "LINKEDIN",
+  "key": "hYMS9koz+WdR+uO5iZTJlQRrqirHVGZqYRg4dsMeuO2a32G0YffTXog6OmMXTyof"
+}

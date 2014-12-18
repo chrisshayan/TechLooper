@@ -10,15 +10,56 @@ angular.module("SearchForm", []);
 angular.module("Skill", []);
 angular.module("SignIn", []);
 angular.module("Register", []);
+angular.module("UserProfile", []);
 
+var baseUrl = (function () {
+  var paths = window.location.pathname.split('/');
+  paths.pop();
+  return window.location.protocol + '//' + window.location.host + paths.join('/');
+})();
 
 var techlooper = angular.module("Techlooper", [
-  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute",
-  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register"
+  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
+  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
-techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
-  function ($routeProvider, $translateProvider, $locationProvider, jsonVal) {
+techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider",
+  function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider) {
+    localStorageServiceProvider
+      .setPrefix('techlooper')
+      .setStorageType('cookieStorage')
+      .setNotify(true, true);
+
+    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
+      .done(function (resp) {
+        var provider = {};
+        $.each(resp, function (i, prov) {provider[prov.provider] = prov;});
+        $authProvider.linkedin({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/LINKEDIN",
+          clientId: provider['LINKEDIN'].apiKey,
+          redirectUri: provider['LINKEDIN'].redirectUri
+        });
+        $authProvider.facebook({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/FACEBOOK",
+          clientId: provider['FACEBOOK'].apiKey,
+          redirectUri: provider['FACEBOOK'].redirectUri
+        });
+        $authProvider.google({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/GOOGLE",
+          clientId: provider['GOOGLE'].apiKey,
+          redirectUri: provider['GOOGLE'].redirectUri
+        });
+        $authProvider.github({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/GITHUB",
+          clientId: provider['GITHUB'].apiKey,
+          redirectUri: provider['GITHUB'].redirectUri
+        });
+        $authProvider.twitter({//@see https://github.com/sahat/satellizer#how-it-works
+          url: "auth/oath1/TWITTER",
+          clientId: provider['TWITTER'].apiKey,
+          redirectUri: provider['TWITTER'].redirectUri
+        });
+      });
 
     $translateProvider.useStaticFilesLoader({
       prefix: "modules/translation/messages_",
@@ -52,16 +93,20 @@ techlooper.config(["$routeProvider", "$translateProvider", "$locationProvider",
     }).when("/register", {
       templateUrl: "modules/register/register.tem.html",
       controller: "registerController"
+    }).when("/user", {
+      templateUrl: "modules/user-profile/user-profile.tem.html",
+      controller: "userProfileController"
     }).otherwise({
       redirectTo: "/bubble-chart"
     });
   }]);
 
-techlooper.run(function(shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory) {
+techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
+  tourService.initialize();
 });
 
 techlooper.directive("header", function () {

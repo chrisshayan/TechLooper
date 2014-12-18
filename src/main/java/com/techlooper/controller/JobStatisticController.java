@@ -1,7 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.model.*;
-import com.techlooper.repository.TechnicalTermRepository;
+import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobStatisticService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -23,11 +23,11 @@ public class JobStatisticController {
     private SimpMessagingTemplate messagingTemplate;
 
     @Resource
-    private TechnicalTermRepository technicalTermRepository;
+    private JsonConfigRepository jsonConfigRepository;
 
     @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
-        technicalTermRepository.findAll().stream().forEach(term ->
+        jsonConfigRepository.getSkillConfig().stream().forEach(term ->
                         messagingTemplate.convertAndSend("/topic/jobs/term/" + term.getKey(), new JobStatisticResponse.Builder()
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
@@ -37,7 +37,7 @@ public class JobStatisticController {
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
-        technicalTermRepository.findAll().stream().forEach(term ->
+        jsonConfigRepository.getSkillConfig().stream().forEach(term ->
                         terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey()).withLabel(term.getLabel())
                                 .withCount(vietnamWorksJobStatisticService.count(term)).build())
         );
@@ -47,19 +47,19 @@ public class JobStatisticController {
     @MessageMapping("/jobs")
     public void countTechnicalJobs(JobStatisticRequest request) {
         messagingTemplate.convertAndSend(
-                "/topic/jobs/" + request.getTerm().toLowerCase(),
-                new JobStatisticResponse.Builder().withCount(
-                        vietnamWorksJobStatisticService.count(
-                                technicalTermRepository.findByKey(request.getTerm().toUpperCase())))
-                        .build());
+          "/topic/jobs/" + request.getTerm().toLowerCase(),
+          new JobStatisticResponse.Builder().withCount(
+            vietnamWorksJobStatisticService.count(
+              jsonConfigRepository.findByKey(request.getTerm().toUpperCase())))
+            .build());
     }
 
     @SendTo("/topic/analytics/skill")
     @MessageMapping("/analytics/skill")
     public SkillStatisticResponse countTechnicalSkillByTerm(SkillStatisticRequest skillStatisticRequest) {
         return vietnamWorksJobStatisticService.countJobsBySkill(
-                technicalTermRepository.findByKey(skillStatisticRequest.getTerm()),
-                skillStatisticRequest.getHistograms());
+          jsonConfigRepository.findByKey(skillStatisticRequest.getTerm()),
+          skillStatisticRequest.getHistograms());
     }
 
 }

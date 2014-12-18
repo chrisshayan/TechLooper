@@ -1,15 +1,17 @@
 angular.module("Common").factory("loadingBoxFactory", function (jsonValue, utils) {
-  var dataTour = [];
-  utils.registerNotification(jsonValue.notifications.switchScope, function(){
+  utils.registerNotification(jsonValue.notifications.switchScope, function () {
+    $('.loading-data').css("height", "auto");
     $('.loading-data').show();
-    dataTour = utils.getDataTour();
   });
-  utils.registerNotification(jsonValue.notifications.gotData, function(){
-    $('.loading-data').fadeOut(500);
-    utils.makeTourGuide(dataTour);
+  utils.registerNotification(jsonValue.notifications.loading, function (h) {
+    $('.loading-data').height(h);
+    $('.loading-data').show();
   });
 
+  var hide = function () {$('.loading-data').fadeOut(500);};
+  utils.registerNotification(jsonValue.notifications.loaded, hide);
+  utils.registerNotification(jsonValue.notifications.gotData, hide);
   return {
-    initialize: function(){}
+    initialize: function () {}
   };
 });

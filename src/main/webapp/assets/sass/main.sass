@@ -39,6 +39,8 @@ a:hover
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
+  width: 33%
+  float: left
   a
     color: #727272
 .fa-bubble-chart
@@ -130,12 +132,24 @@ ul.setting-items
 .logo-block
   width: 33%
   float: left
+  height: 60px
+  position: relative
+.logo-block img
+  margin: auto
+  position: absolute
+  top: 0
+  bottom: 0
+.search-logo-block
+  .logo-block
+    text-align: left
+    img
+      float: left
 .tech-line
   width: 33%
   text-align: center
   float: left
 .close-button
-  width: 33%
+  width: 10%
   text-align: right
   float: right
 .logo-block h1
@@ -156,7 +170,8 @@ ul.setting-items
   clear: both
   display: block
   text-align: center
-.signin-header
+.signin-header,
+.user-profile-header
   height: 70px
   padding-top: 5px
   background: url(../images/underline-black.png) left bottom repeat-x
@@ -164,11 +179,15 @@ ul.setting-items
     width: 100%
     max-width: 250px
     cursor: pointer
+    float: left
   .close-button
     text-align: right
     padding-top: 7px
   .close-button a
     background: #2c2a2a
+    border-radius: 50%
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
     border-radius: 50%
     display: block
     width: 45px
@@ -189,13 +208,147 @@ ul.setting-items
       margin: 0
       padding: 0
       line-height: 55px
+
+/* -- style for Navi ---*/
+.header-section
+  padding-left: 65px
+
+.main-navi-block
+  width: 0
+  float: left
+  background: url(../images/line-h.png) #000000 right top repeat-y
+  position: relative
+  left: 0
+  top: 0
+  bottom: 0
+  .manager-navi
+    height: 70px
+    text-align: center
+    line-height: 70px
+    position: absolute
+    left: 0
+    top: 0
+    z-index: 999
+    width: 85px
+    i.fa-bars
+      font-weight: 400
+      font-size: 35px
+      color: #636363
+      display: block
+      cursor: pointer
+      padding-top: 18px
+  .navi-container
+    display: none
+    clear: both
+    padding-top: 70px
+    ul
+      margin: 0
+      padding: 0
+    li
+      display: block
+      width: 100%
+      padding: 10px 0
+      text-align: center
+      position: relative
+      a
+        background: url(../images/ic-navi.png) #000 left top no-repeat
+        border: 1px solid #636363
+        width: 60px
+        height: 60px
+        margin: auto
+        z-index: 999
+      a.m-home-page
+        background-position: 14px 13px
+      a.m-pie-chart
+        background: url(../images/ic-small.png) 3px -267px no-repeat
+      a.m-bubble-chart
+        background: url(../images/ic-small.png) 2px -370px no-repeat
+      a.m-search-jobs
+        background-position: 14px -87px
+      a.m-languages.vi
+        background-position: 18px -183px
+      a.m-languages.en
+        background-position: 18px -260px
+      a.m-sign-out
+        background-position: 19px -340px
+      a.m-sign-in
+        background-position: 17px -428px
+      a.m-user-profile
+        background: transparent
+      a.m-user-profile img
+        width: 60px
+        height: 60px
+        border-radius: 50%
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+        border-radius: 50%
+      a:hover
+        background: url(../images/ic-navi.png) #fff left top no-repeat
+      a.m-home-page:hover
+        background-position: 14px -35px
+      a.m-pie-chart:hover
+        background: url(../images/ic-small.png) 3px -317px no-repeat
+      a.m-bubble-chart:hover
+        background: url(../images/ic-small.png) 2px -418px no-repeat
+      a.m-search-jobs:hover
+        background-position: 14px -137px
+      a.m-languages.vi:hover
+        background-position: 18px -222px
+      a.m-languages.en:hover
+        background-position: 18px -299px
+      a.m-sign-out:hover
+        background-position: 19px -384px
+      a.m-sign-in:hover
+        background-position: 17px -471px
+      a.m-user-profile:hover
+        background: transparent
+    li ul
+      width: 0
+      height: 58px
+      margin: auto
+      border: 1px solid #636363
+      border-radius: 5px
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      background-color: #000
+      position: absolute
+      left: 34px
+      top: 11px
+      padding: 0
+      z-index: -666
+    li li
+      padding: 0 5px
+      width: 40px
+      height: 60px
+      display: inline-block
+      a
+        border: 0
+        border-radius: none
+        -webkit-border-radius: none
+        -moz-border-radius: none
+        font-size: 20px
+        width: 40px
+        height: 40px
+        display: block
+        margin: auto
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+
 .signin-signout-block
   padding-top: 10px
+  float: right
 .signin-signout-container
   position: absolute
   background-color: #323232
   border: 1px solid #3d373a
   padding: 4px
+  border-radius: 5px
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
   border-radius: 5px
   cursor: pointer
   right: 10px
@@ -264,20 +417,20 @@ ul.setting-items
   border: 1px solid #727272
   position: absolute
   z-index: 99
-  vertical-align: middle
-  text-align: center
-  -webkit-transition: 1s ease-in-out
-  -moz-transition: 1s ease-in-out 
-  -o-transition: 1s ease-in-out
-  transition: 1s ease-in-out
+  // vertical-align: middle
+  // text-align: center
+  // -webkit-transition: 1s ease-in-out
+  // -moz-transition: 1s ease-in-out
+  // -o-transition: 1s ease-in-out
+  // transition: 1s ease-in-out
   cursor: pointer
 .signin-account:hover
-  border: 3px solid #fff
-  -webkit-transform: rotate(360deg) scale(1.2)
-  -moz-transform: rotate(360deg) scale(1.2)
-  -o-transform: rotate(360deg) scale(1.2)
-  -ms-transform: rotate(360deg) scale(1.2)
-  transform: rotate(360deg) scale(1.2)
+  // border: 3px solid #fff
+  // -webkit-transform: rotate(360deg) scale(1.2)
+  // -moz-transform: rotate(360deg) scale(1.2)
+  // -o-transform: rotate(360deg) scale(1.2)
+  // -ms-transform: rotate(360deg) scale(1.2)
+  // transform: rotate(360deg) scale(1.2)
   z-index: 9999
 .signin-account img
   width: 80%
@@ -304,12 +457,12 @@ ul.setting-items
 .signin-account.level4
   width: 100px
   height: 100px
-  right: 65px
-  top: 30px
+  right: 110px
+  top: -15px
 .signin-account.level5
   width: 60px
   height: 60px
-  left: 235px
+  left: 215px
   top: -10px
 .signin-account.level6
   width: 60px
@@ -321,6 +474,35 @@ ul.setting-items
   height: 60px
   right: 140px
   bottom: 35px
+.signin-account.level8
+  width: 60px
+  height: 60px
+  right: 75px
+  top: 75px
+.signin-account .hi-icon
+  background: transparent !important
+  -webkit-transition: background 0.2s, color 0.2s
+  -moz-transition: background 0.2s, color 0.2s
+  transition: background 0.2s, color 0.2s
+  width: 100%
+  height: 100%
+  height: 100%
+  margin: auto
+
+.signin-account .hi-icon:after
+  top: -7px
+  left: -7px
+  padding: 7px
+  box-shadow: 0 0 0 4px #fff
+  -webkit-transition: -webkit-transform 0.2s, opacity 0.2s
+  -webkit-transform: scale(.8)
+  -moz-transition: -moz-transform 0.2s, opacity 0.2s
+  -moz-transform: scale(.8)
+  -ms-transform: scale(.8)
+  transition: transform 0.2s, opacity 0.2s
+  transform: scale(.8)
+  opacity: 0
+
 /* --- Style for bubble chart ---*/
 
 .bubble-chart-block
@@ -820,7 +1002,7 @@ label.bootstrap-checkbox.disabled
   background-repeat: no-repeat
 
 .bootstrap-checkbox button.btn > span.cb-icon-check
-  background-position: 0 -33px
+  background-position: 0 0
 .bootstrap-checkbox button.btn:hover > span.cb-icon-check
   background-position: 0 0
 .bootstrap-checkbox button.btn > span.cb-icon-check-empty
@@ -830,7 +1012,7 @@ label.bootstrap-checkbox.disabled
 .register-contianer
   width: 100%
   text-align: center
-  padding-top: 50px
+  padding-top: 10px
   .register-form-block
     width: 100%
     max-width: 400px
@@ -840,7 +1022,6 @@ label.bootstrap-checkbox.disabled
       font-size: 16px
       font-weight: 300
       text-transform: uppercase
-      padding-left: 10px
     input[type=text]
       background-color: #251f21
       border: 1px solid #3c3438
@@ -860,7 +1041,7 @@ label.bootstrap-checkbox.disabled
     .technical-skill p
       font-weight: 400
     .technical-skill ul
-      padding: 10px
+      padding: 10px 10px 5px 10px
       margin: 0
       background-color: #251f21
       border: 1px solid #3c3438
@@ -898,6 +1079,59 @@ label.bootstrap-checkbox.disabled
       color: #fff
     .submit a:hover
       background-color: #007bdc
+.other-accounts
+  display: block
+  clear: both
+  padding-top: 30px
+  text-align: center
+  ul
+    margin: 0
+    padding: 0
+    li
+      width: auto
+      display: inline-block
+      padding: 0 5px
+      span
+        width: 60px
+        height: 60px
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+        border-radius: 50%
+        display: block
+        text-align: center
+        position: relative
+        background-color: #251f21
+        img
+          width: 100%
+          max-width: 80%
+          filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
+          filter: grayscale(100%)
+          -moz-filter: grayscale(100%)
+          -ms-filter: grayscale(100%)
+          -o-filter: grayscale(100%)
+          filter: gray
+          -webkit-filter: grayscale(100%)
+          margin: auto
+          position: absolute
+          left: 0
+          top: 0
+          right: 0
+          bottom: 0
+      span.active
+      span:hover
+        img
+          filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
+          filter: grayscale(0%)
+          -moz-filter: grayscale(0%)
+          -ms-filter: grayscale(0%)
+          -o-filter: grayscale(0%)
+          filter: none
+          zoom: 1
+          -webkit-filter: grayscale(0%)
+  h3
+    font-size: 14px
+    font-weight: 400
+
 .modal-dialog
   top: 25%
 .signin-popup
@@ -991,3 +1225,221 @@ label.bootstrap-checkbox.disabled
     float: right
   .prev-tour
     margin-right: 0
+.bg-tour-giude
+  background-color: #000
+  opacity: 0.1
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  width: 100%
+  height: 100%
+  z-index: 666
+  display: none
+
+.user-profile-page
+  display: block
+  clear: both
+.user-profile-contianer
+  display: block
+  clear: both
+  padding-top: 15px
+  .general-information
+    widows: 100%
+    clear: both
+    display: block
+  .general-information h3
+    font-size: 20px
+    text-transform: uppercase
+    font-weight: 300
+    widows: 100%
+    display: block
+    clear: both
+    color: #a4a4a4
+    margin: 0
+  .general-information p
+    font-size: 16px
+    color: #757575
+    clear: both
+    font-weight: 300
+  .general-information ul
+    margin: 0
+    padding: 0
+  .general-information li
+    width: 100%
+    clear: both
+    padding: 2px 0
+    float: left
+  .general-information span
+    color: #a4a4a4
+    text-align: left
+  .general-information span.title
+    width: 120px
+    display: block
+    font-size: 14px
+    color: #757575
+    padding-right: 5px
+    padding-left: 0
+  .general-information span.content
+    padding-left: 0
+    line-height: 18px
+  .general-information
+    .social-accounts
+      width: auto
+      float: left
+      span
+        width: 25px
+        height: 25px
+        display: block
+        text-align: center
+        position: relative
+        margin-right: 5px
+        float: left
+        img
+          width: 24px
+          height: 24px
+          position: absolute
+          left: 0
+          right: 0
+          bottom: 0
+          top: 0
+.interesting-jobs-block
+  h3
+    font-size: 20px
+    text-transform: uppercase
+    font-weight: 300
+    widows: 100%
+    display: block
+    clear: both
+    color: #a4a4a4
+    margin: 0
+  ul
+    margin: 0
+    padding: 0 0 0 2px
+  li
+    width: 100%
+    float: left
+    display: block
+    border-top: 1px solid #000
+    padding: 0
+    a
+      display: block
+      background: url(../images/ic-list.png) left 13px no-repeat
+      padding: 5px 0 5px 20px
+  li:first-child
+    border-top: 0
+.user-background
+  display: block
+  clear: both
+  padding:  20px 0
+  h3
+    width: 100%
+    background: url(../images/underline-black.png) #342f30 left top repeat-x
+    line-height: 40px
+    font-size: 16px
+    text-transform: uppercase
+    padding: 0 0 0 10px
+    margin: 0
+  .bg-item
+    background-color: #2c2729
+    clear: both
+    display: block
+    padding: 0
+
+    h4
+      font-size: 14px
+      font-weight: 300
+      color: #a4a4a4
+      background: url(../images/ic-accordion.png) 10px -21px no-repeat
+      padding: 0 0 0 30px
+      line-height: 40px
+      margin: 0
+      border-top: 1px solid #272023
+      cursor: pointer
+    .bg-item-container
+      background-color: #272023
+      padding: 15px
+      max-height: 350px
+      width: 100%
+      display: none
+    .sub-bg-item
+      padding: 15px
+  .active
+    display: block
+    .bg-item-container
+      display: block
+    h4
+      background-position: 10px 14px
+  .jspVerticalBar
+    width: 10px
+    .jspTrack
+      background-color: #373133
+    .jspDrag
+      background-color: #000000
+
+.hi-icon
+  display: inline-block
+  font-size: 0px
+  cursor: pointer
+  margin: 15px 30px
+  width: 90px
+  height: 90px
+  border-radius: 50%
+  text-align: center
+  position: relative
+  z-index: 1
+  color: #fff
+
+.hi-icon:after
+  pointer-events: none
+  position: absolute
+  width: 100%
+  height: 100%
+  border-radius: 50%
+  content: ''
+  -webkit-box-sizing: content-box
+  -moz-box-sizing: content-box
+  box-sizing: content-box
+
+.hi-icon:before
+  speak: none
+  font-size: 48px
+  line-height: 90px
+  font-style: normal
+  font-weight: normal
+  font-variant: normal
+  text-transform: none
+  display: block
+  -webkit-font-smoothing: antialiased
+.hi-icon-effect-1 .hi-icon
+  background: rgba(255,255,255,0.1)
+  -webkit-transition: background 0.2s, color 0.2s
+  -moz-transition: background 0.2s, color 0.2s
+  transition: background 0.2s, color 0.2s
+
+.hi-icon-effect-1 .hi-icon:after
+  top: -7px
+  left: -7px
+  padding: 7px
+  box-shadow: 0 0 0 2px #fff
+  -webkit-transition: -webkit-transform 0.2s, opacity 0.2s
+  -webkit-transform: scale(.8)
+  -moz-transition: -moz-transform 0.2s, opacity 0.2s
+  -moz-transform: scale(.8)
+  -ms-transform: scale(.8)
+  transition: transform 0.2s, opacity 0.2s
+  transform: scale(.8)
+  opacity: 0
+
+.hi-icon-effect-1a .hi-icon:hover
+  background: rgba(255,255,255,1)
+  color: #41ab6b
+
+
+.hi-icon-effect-1a .hi-icon:hover:after
+  -webkit-transform: scale(1)
+  -moz-transform: scale(1)
+  -ms-transform: scale(1)
+  transform: scale(1)
+  opacity: 1

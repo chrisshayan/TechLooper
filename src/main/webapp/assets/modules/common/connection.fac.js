@@ -6,10 +6,8 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
   var subscriptions = {};
   var isConnecting = false;
 
-  var paths = window.location.pathname.split('/');
-  paths.pop();
-  var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
-  var stompUrl = contextUrl + '/' + socketUri.sockjs;
+  //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
+  var stompUrl = baseUrl + '/' + socketUri.sockjs;
   var stompClient = Stomp.over(new SockJS(stompUrl));
   stompClient.debug = function () {};
 
@@ -40,6 +38,21 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
   }
 
   var instance = {
+    findUserInfoByKey: function(json) {
+      if (!stompClient.connected) {
+        callbacks.push({
+          fn: instance.findUserInfoByKey,
+          args: json
+        });
+        return instance.connectSocket();
+      }
+
+      var subscription = stompClient.subscribe(socketUri.subscribeUserInfoByKey, function (response) {
+        scope.$emit(events.userInfo, JSON.parse(response.body));
+        subscription.unsubscribe();
+      });
+      stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
+    },
 
     /* @subscription */
     analyticsSkill: function (analyticJson) {

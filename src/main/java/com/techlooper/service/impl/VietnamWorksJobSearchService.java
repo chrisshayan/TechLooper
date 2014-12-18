@@ -4,12 +4,13 @@ import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.model.VNWJobSearchResponseDataItem;
+import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +27,6 @@ import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLoc
 import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LEVEL;
 import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LOCATION;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  * @author khoa-nd
@@ -38,17 +38,8 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     @Resource
     private RestTemplate restTemplate;
 
-    @Value("${vnw.api.configuration.url}")
-    private String configurationUrl;
-
-    @Value("${vnw.api.job.search.url}")
-    private String searchUrl;
-
-    @Value("${vnw.api.key.name}")
-    private String apiKeyName;
-
-    @Value("${vnw.api.key.value}")
-    private String apiKeyValue;
+    @Resource
+    private JobSearchAPIConfigurationRepository apiConfiguration;
 
     private VNWConfigurationResponse configurationResponse;
 
@@ -59,8 +50,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
      */
     public VNWConfigurationResponse getConfiguration() {
         return Optional.ofNullable(configurationResponse).orElseGet(() -> {
-            HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON, apiKeyName, apiKeyValue, EMPTY);
-            ResponseEntity<String> responseEntity = restTemplate.exchange(configurationUrl, HttpMethod.GET, requestEntity, String.class);
+            HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(
+                    MediaType.APPLICATION_JSON, apiConfiguration.getApiKeyName(), apiConfiguration.getApiKeyValue(), EMPTY);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    apiConfiguration.getConfigurationUrl(), HttpMethod.GET, requestEntity, String.class);
             final Optional<String> configuration = Optional.ofNullable(responseEntity.getBody());
 
             if (configuration.isPresent()) {
@@ -79,8 +72,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
      */
     public VNWJobSearchResponse searchJob(VNWJobSearchRequest jobSearchRequest) {
         final String searchParameters = JsonUtils.toJSON(jobSearchRequest).orElse(EMPTY);
-        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(APPLICATION_JSON, apiKeyName, apiKeyValue, searchParameters);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(searchUrl, HttpMethod.POST, requestEntity, String.class);
+        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(
+                MediaType.APPLICATION_JSON, apiConfiguration.getApiKeyName(), apiConfiguration.getApiKeyValue(), searchParameters);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                apiConfiguration.getSearchUrl(), HttpMethod.POST, requestEntity, String.class);
 
         final Optional<String> jobSearchResponseJson = Optional.ofNullable(responseEntity.getBody());
 

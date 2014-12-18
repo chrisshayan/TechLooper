@@ -1,9 +1,11 @@
-angular.module('Register').controller('registerController', function (shortcutFactory) {
-	$('input[type="checkbox"]').checkbox();
-	$("#salary").slider({});
-	
-    $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
-    $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
-
-    $('.register-successful').click(function(){shortcutFactory.trigger('esc');});
-});
+angular.module('Register').controller('registerController',
+  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService) {
+    utils.sendNotification(jsonValue.notifications.switchScope, $scope);
+    $scope.authSource = jsonValue.authSource;
+    $scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
+      registerService.updateUserInfo(userInfo);
+      utils.sendNotification(jsonValue.notifications.gotData);
+    });
+    var key = localStorageService.get(jsonValue.storage.key);
+    key !== undefined && connectionFactory.findUserInfoByKey({key: key});
+  });
