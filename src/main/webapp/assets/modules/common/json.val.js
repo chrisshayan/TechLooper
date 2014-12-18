@@ -290,8 +290,7 @@ angular.module("Common").constant("jsonValue", {
       provider: "github",
       logo: "images/github.png",
       magnitude: "level6",
-      bgcolor: "#333333",
-      isNotSupported: true
+      bgcolor: "#333333"
     },
     {
       provider: "bitbucket",

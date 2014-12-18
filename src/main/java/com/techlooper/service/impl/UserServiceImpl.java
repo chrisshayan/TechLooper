@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.couchbase.client.CouchbaseClient;
 import com.couchbase.client.protocol.views.ComplexKey;
 import com.couchbase.client.protocol.views.Query;
+import com.couchbase.client.protocol.views.Stale;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
@@ -22,9 +23,8 @@ public class UserServiceImpl implements UserService {
   @Resource
   private UserRepository userRepository;
 
-  @Resource
-  private Mapper dozerMapper;
-
+//  @Resource
+//  private Mapper dozerMapper;
 
   @Resource
   private CouchbaseClient couchbaseClient;
@@ -37,12 +37,12 @@ public class UserServiceImpl implements UserService {
     return userRepository.findOne(id);
   }
 
-  public UserInfo findByKey(String key) {
+  public UserEntity findByKey(String key) {
     Query query = new Query();
-    query.setKey(ComplexKey.of(key));
+    query.setKey(key);
     query.setLimit(1);
-    query.setDebug(true);
-    UserEntity userEntity = Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
-    return dozerMapper.map(userEntity, UserInfo.class);
+    query.setStale(Stale.FALSE);
+    return Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
+//    return dozerMapper.map(userEntity, UserInfo.class);
   }
 }

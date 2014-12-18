@@ -9,6 +9,7 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubUserProfile;
 import org.springframework.social.github.connect.GitHubConnectionFactory;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 /**
  * Created by phuonghqh on 12/16/14.
  */
-//@Service("GITHUBService")
+@Service("GITHUBService")
 public class GitHubService extends AbstractSocialService {
 
   @Resource

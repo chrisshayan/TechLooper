@@ -37,7 +37,7 @@ public class SocialController {
 
   @SendTo("/topic/userInfo/key")
   @MessageMapping("/userInfo/key")
-  public UserInfo getUserInfo(SocialRequest searchRequest) {
+  public UserEntity getUserInfo(SocialRequest searchRequest) {
     return userService.findByKey(searchRequest.getKey());
   }
 
