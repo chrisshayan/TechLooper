@@ -33,8 +33,7 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
     @Override
     @DependsOn("couchbaseBucketCreator")
     public CouchbaseClient couchbaseClient() throws Exception {
-        CouchbaseClient client = super.couchbaseClient();
-        return client;
+        return super.couchbaseClient();
     }
 
     @Bean
