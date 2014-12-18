@@ -1,5 +1,5 @@
 angular.module('UserProfile').controller('userProfileController', function ($scope, jsonValue, shortcutFactory, userProfileFactory) {
-  $scope.accounts = jsonValue.accountSignin;
+  $scope.accounts = jsonValue.authSource;
   userProfileFactory.customScrollBar();
   userProfileFactory.resizeScreen();
   userProfileFactory.collapseContent();
