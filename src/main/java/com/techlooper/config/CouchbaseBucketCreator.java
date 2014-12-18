@@ -43,7 +43,7 @@ public class CouchbaseBucketCreator {
     }
 
     private boolean checkBucketDoesNotExist() {
-        return bucketManager.listBuckets().contains(bucketName) == false;
+        return !bucketManager.listBuckets().contains(bucketName);
     }
 
     private void createBucket() throws Exception {

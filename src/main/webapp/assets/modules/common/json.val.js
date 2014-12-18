@@ -254,13 +254,13 @@ angular.module("Common").constant("jsonValue", {
   }],
 
   authSource: [
-    {
+/*    {
       provider: "vietnamworks",
       logo: "images/vietnamwork.png",
       magnitude: "level1",
       bgcolor: "#1fbaec",
       isNotSupported: true
-    },
+    },*/
     {
       provider: "linkedin",
       logo: "images/linkedin.png",
@@ -273,6 +273,7 @@ angular.module("Common").constant("jsonValue", {
       magnitude: "level3",
       bgcolor: "#3b5a9b"
     },
+/*
     {
       provider: "stackoverflow",
       logo: "images/stackoverflow.png",
@@ -280,6 +281,7 @@ angular.module("Common").constant("jsonValue", {
       bgcolor: "#fda428",
       isNotSupported: true
     },
+*/
     {
       provider: "google",
       "logo": "images/gmail.png",
@@ -292,6 +294,7 @@ angular.module("Common").constant("jsonValue", {
       magnitude: "level6",
       bgcolor: "#333333"
     },
+/*
     {
       provider: "bitbucket",
       logo: "images/bitbucket.png",
@@ -299,6 +302,7 @@ angular.module("Common").constant("jsonValue", {
       bgcolor: "#1f5081",
       isNotSupported: true
     },
+*/
     {
       provider: "twitter",
       logo: "images/twitter.png",
