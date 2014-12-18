@@ -3,7 +3,13 @@ angular.module('SignIn').factory('signInService',
     //var scope;
 
     var $$ = {
-      initialize: function ($scope) {
+      enableNotifications: function () {
+        return $(".signin-contianer").is(":visible");
+      }
+    }
+
+    var instance = {
+      initialize: function () {
         //scope = $scope;
         $('.signin-accounts').parallax();
 
@@ -27,12 +33,6 @@ angular.module('SignIn').factory('signInService',
         tourService.makeTourGuide();
       },
 
-      enableNotifications: function () {
-        return $(".signin-contianer").is(":visible");
-      }
-    }
-
-    var instance = {
       openOathDialog: function (auth) {
         if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
         utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
