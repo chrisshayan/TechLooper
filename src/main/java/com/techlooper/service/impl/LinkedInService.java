@@ -1,11 +1,14 @@
 package com.techlooper.service.impl;
 
+import com.couchbase.client.protocol.views.Query;
+import com.couchbase.client.protocol.views.Stale;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserEntity.UserEntityBuilder;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
+import com.techlooper.repository.couchbase.UserRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -29,6 +32,9 @@ public class LinkedInService extends AbstractSocialService {
 
   @Resource
   private LinkedInConnectionFactory linkedInConnectionFactory;
+
+  @Resource
+  private UserRepository userRepository;
 
   @Inject
   public LinkedInService(JsonConfigRepository jsonConfigRepository) {
