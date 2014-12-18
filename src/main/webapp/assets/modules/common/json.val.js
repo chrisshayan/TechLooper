@@ -264,7 +264,7 @@ angular.module("Common").constant("jsonValue", {
     {
       provider: "linkedin",
       logo: "images/linkedin.png",
-      magnitude: "level2",
+      magnitude: "level1",
       bgcolor: "#007bb6"
     },
     {
@@ -289,7 +289,7 @@ angular.module("Common").constant("jsonValue", {
     {
       provider: "github",
       logo: "images/github.png",
-      magnitude: "level6",
+      magnitude: "level7",
       bgcolor: "#333333"
     },
     {

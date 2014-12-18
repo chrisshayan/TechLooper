@@ -32,21 +32,18 @@
         <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
       </li>
       <li class="layer" data-depth="0.20" ng-repeat="auth in authSource">
-        <span ng-if="auth.isNotSupported === true">
-        <div class="signin-account {{auth.magnitude}}" style="background-color: #9c9c9c">
-
-            <a>
-              <img ng-src="{{auth.logo}}" alt="">
-            </a>
-
-
-        </div>
-         </span>
-  <span  ng-if="auth.isNotSupported === undefined">
-    <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
+        <!--<span ng-if="auth.isNotSupported === true">-->
+          <!--<div class="signin-account {{auth.magnitude}}" style="background-color: #9c9c9c">-->
+              <!--<a>-->
+                <!--<img ng-src="{{auth.logo}}" alt="">-->
+              <!--</a>-->
+          <!--</div>-->
+        <!--</span>-->
+        <span  ng-if="auth.isNotSupported === undefined">
+          <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
             <a ng-click="openOathDialog(auth)" class="hi-icon"><img ng-src="{{auth.logo}}" alt=""></a>
-    </div>
-          </span>
+          </div>
+        </span>
 
       </li>
     </ul>
