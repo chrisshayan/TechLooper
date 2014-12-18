@@ -1,4 +1,4 @@
-@media (min-width: 320px) and (max-width: 767px)
+@media (min-width: 320px) and (max-width: 768px)
   .desktop
     display: none
   .mobile
@@ -8,7 +8,7 @@
   .fa-bars
     display: block
   .setting-block
-    width: 60px
+    width: 10%
     float: left
     padding-top: 10px
   .setting-content
@@ -18,13 +18,14 @@
   .technical-header-block
     height: auto
   .logo-block
-    width: 65%
-    padding-top: 15px
+    width: 80%
+    padding-top: 0
   .logo-block img
     width: 100%
   .close-button
-    width: 25%
-  
+    width: 20%
+  .signin-signout-block
+    width: 10%
   .technical-header-block 
     .close-button
       padding-bottom: 10px !important
@@ -45,9 +46,15 @@
   .logo
     width: 100%
     padding: 5px 5px 5px 0
+    position: relative
     img
-      width: 100%
-      max-width: 259px
+      width: auto
+      max-height: 60px
+      position: absolute
+      left: 0
+      top: 0
+      right: 0
+      bottom: 0
     h1
       line-height: 0
       margin: 0
@@ -368,6 +375,11 @@
 @media (min-width: 778px)
   .fa-bars
     display: none
+  .logo-block
+    height: auto
+  .logo-block img
+    position: inherit
+
 @media (min-width: 640px)
   .rwd-table
     margin: auto
@@ -378,3 +390,8 @@
       display: table-cell
       padding: 5px 10px
       text-align: center
+@media (max-width: 440px)
+  .logo-block
+    width: 75%
+    img
+      max-width: 85% !important
