@@ -12,11 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String AUTHORIZATION_ROLE_ADMIN = "administrator";
+
   @Value("${admin.path}")
   private String adminPath;
+
   @Value("${admin.username}")
   private String username;
   @Value("${admin.password}")
@@ -27,7 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers(adminPath).hasRole(AUTHORIZATION_ROLE_ADMIN).and().httpBasic();
+    http
+      .authorizeRequests()
+        .antMatchers(adminPath).hasRole(AUTHORIZATION_ROLE_ADMIN)
+      .and().httpBasic();
     http.csrf().disable();
   }
 }

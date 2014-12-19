@@ -54,7 +54,7 @@ public class SocialController {
 
   @ResponseBody
   @RequestMapping("/auth/{provider}")
-  public SocialResponse auth(@PathVariable SocialProvider provider, @RequestBody Authentication auth) {
+  public SocialResponse auth(@PathVariable SocialProvider provider, @RequestBody(required = false) Authentication auth) {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
     UserEntity userEntity = service.persistProfile(accessGrant);

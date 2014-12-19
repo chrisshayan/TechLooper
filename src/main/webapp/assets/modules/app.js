@@ -32,32 +32,13 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
       .done(function (resp) {
-        var provider = {};
-        $.each(resp, function (i, prov) {provider[prov.provider] = prov;});
-        $authProvider.linkedin({//@see https://github.com/sahat/satellizer#how-it-works
-          url: "auth/LINKEDIN",
-          clientId: provider['LINKEDIN'].apiKey,
-          redirectUri: provider['LINKEDIN'].redirectUri
-        });
-        $authProvider.facebook({//@see https://github.com/sahat/satellizer#how-it-works
-          url: "auth/FACEBOOK",
-          clientId: provider['FACEBOOK'].apiKey,
-          redirectUri: provider['FACEBOOK'].redirectUri
-        });
-        $authProvider.google({//@see https://github.com/sahat/satellizer#how-it-works
-          url: "auth/GOOGLE",
-          clientId: provider['GOOGLE'].apiKey,
-          redirectUri: provider['GOOGLE'].redirectUri
-        });
-        $authProvider.github({//@see https://github.com/sahat/satellizer#how-it-works
-          url: "auth/GITHUB",
-          clientId: provider['GITHUB'].apiKey,
-          redirectUri: provider['GITHUB'].redirectUri
-        });
-        $authProvider.twitter({//@see https://github.com/sahat/satellizer#how-it-works
-          url: "auth/oath1/TWITTER",
-          clientId: provider['TWITTER'].apiKey,
-          redirectUri: provider['TWITTER'].redirectUri
+        var oauth1Providers = ["TWITTER"];
+        $.each(resp, function (i, prov) {
+          $authProvider[prov.provider.toLowerCase()]({
+            url: oauth1Providers.indexOf(prov.provider) > -1 ? "auth/oath1" : "auth/" + prov.provider,
+            clientId: prov.apiKey,
+            redirectUri: prov.redirectUri
+          });
         });
       });
 
