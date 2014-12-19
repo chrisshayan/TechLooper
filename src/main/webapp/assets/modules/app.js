@@ -35,7 +35,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         var oauth1Providers = ["TWITTER"];
         $.each(resp, function (i, prov) {
           $authProvider[prov.provider.toLowerCase()]({
-            url: oauth1Providers.indexOf(prov.provider) > -1 ? "auth/oath1" : "auth/" + prov.provider,
+            url: "auth/" + (oauth1Providers.indexOf(prov.provider) >= 0 ? "oath1/" : "") + prov.provider,
             clientId: prov.apiKey,
             redirectUri: prov.redirectUri
           });
