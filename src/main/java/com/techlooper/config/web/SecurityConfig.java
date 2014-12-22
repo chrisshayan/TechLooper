@@ -1,7 +1,9 @@
 package com.techlooper.config.web;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,18 +23,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Value("${admin.username}")
   private String username;
+
   @Value("${admin.password}")
   private String password;
 
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication().withUser(username).password(password).roles(AUTHORIZATION_ROLE_ADMIN);
+//    auth.inMemoryAuthentication().withUser(username).password(password).roles(AUTHORIZATION_ROLE_ADMIN);
+    auth.authenticationProvider(authenticationProvider());
   }
 
   protected void configure(HttpSecurity http) throws Exception {
-    http
-      .authorizeRequests()
-        .antMatchers(adminPath).hasRole(AUTHORIZATION_ROLE_ADMIN)
-      .and().httpBasic();
-    http.csrf().disable();
+//    http
+//      .authorizeRequests()
+//        .antMatchers(adminPath).hasRole(AUTHORIZATION_ROLE_ADMIN)
+//      .and().httpBasic();
+//    http.csrf().disable();
+  }
+
+  @Bean
+  public AuthenticationProvider authenticationProvider() {
+    return new SecurityAuthenticationProvider();
   }
 }
