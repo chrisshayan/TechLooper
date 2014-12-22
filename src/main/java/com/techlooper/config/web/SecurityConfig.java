@@ -33,11 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().anyRequest().permitAll();
 //    http
 //      .authorizeRequests()
 //        .antMatchers(adminPath).hasRole(AUTHORIZATION_ROLE_ADMIN)
 //      .and().httpBasic();
-//    http.csrf().disable();
+    http.csrf().disable();
   }
 
   @Bean
