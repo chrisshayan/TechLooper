@@ -23,8 +23,27 @@ var techlooper = angular.module("Techlooper", [
   "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
-techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider",
-  function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider) {
+techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
+  function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
+    $httpProvider.interceptors.push(function ($q, $rootScope, $location) {
+        return {
+          'responseError': function (rejection) {
+            //console.log(rejection);
+            var status = rejection.status;
+            //var config = rejection.config;
+            //var method = config.method;
+            //var url = config.url;
+
+            if (status === 401 || status === 403) {
+              $location.path("/");
+            }
+            //$location.path("/");
+            return $q.reject(rejection);
+          }
+        };
+      }
+    );
+
     localStorageServiceProvider
       .setPrefix('techlooper')
       .setStorageType('cookieStorage')

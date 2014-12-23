@@ -9,6 +9,9 @@ import com.techlooper.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,9 +39,11 @@ public class SocialController {
   @Resource
   private UserService userService;
 
-  @SendTo("/topic/userInfo/key")
-  @MessageMapping("/userInfo/key")
-  public UserEntity getUserInfo(SocialRequest searchRequest) {
+//  @SendTo("/topic/userInfo/key")
+//  @MessageMapping("/userInfo/key")
+  @ResponseBody
+  @RequestMapping("/user")
+  public UserEntity getUserInfo(@RequestBody SocialRequest searchRequest) {
     return userService.findByKey(searchRequest.getKey());
   }
 
@@ -58,6 +64,8 @@ public class SocialController {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
     UserEntity userEntity = service.persistProfile(accessGrant);
+    SecurityContextHolder.getContext()
+      .setAuthentication(new UsernamePasswordAuthenticationToken(userEntity.getEmailAddress(), null, null));
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
       .withKey(userEntity.getKey()).build();

@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", function (jsonValue, utils) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -39,19 +39,21 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
   var instance = {
     findUserInfoByKey: function(json) {
-      if (!stompClient.connected) {
-        callbacks.push({
-          fn: instance.findUserInfoByKey,
-          args: json
-        });
-        return instance.connectSocket();
-      }
+      //if (!stompClient.connected) {
+      //  callbacks.push({
+      //    fn: instance.findUserInfoByKey,
+      //    args: json
+      //  });
+      //  return instance.connectSocket();
+      //}
+      //
+      //var subscription = stompClient.subscribe(socketUri.subscribeUserInfoByKey, function (response) {
+      //  scope.$emit(events.userInfo, JSON.parse(response.body));
+      //  subscription.unsubscribe();
+      //});
+      //stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
 
-      var subscription = stompClient.subscribe(socketUri.subscribeUserInfoByKey, function (response) {
-        scope.$emit(events.userInfo, JSON.parse(response.body));
-        subscription.unsubscribe();
-      });
-      stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
+      return $.post("user", json);
     },
 
     /* @subscription */
