@@ -53,7 +53,23 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       //});
       //stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
 
-      return $.post("user", json);
+        return $http.post("user", json);
+//            .done(function (resp) {
+//                console.log(resp);
+//            });
+//        $.ajax({
+//            beforeSend: function(xhrObj){
+//                xhrObj.setRequestHeader("Content-Type","application/json");
+//                xhrObj.setRequestHeader("Accept","application/json");
+//            },
+//            type: "POST",
+//            url: "user",
+//            data: json,
+//            dataType: "json",
+//            success: function(res){
+//                alert(res);
+//            }
+//        });
     },
 
     /* @subscription */
