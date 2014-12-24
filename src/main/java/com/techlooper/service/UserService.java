@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
  */
 public interface UserService {
 
-  void save(UserEntity user);
+  void save(UserEntity userEntity);
+
+  void save(UserInfo userInfo);
 
   UserEntity findById(String id);
 
-  UserEntity findByKey(String key);
+  UserInfo findUserInfoByKey(String key);
 }

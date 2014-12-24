@@ -8,8 +8,9 @@ angular.module('Register').controller('registerController',
     //});
     //var key = localStorageService.get(jsonValue.storage.key);
     connectionFactory.findUserInfoByKey({key: localStorageService.get(jsonValue.storage.key)})
-      .done(function (userInfo) {
-        registerService.updateUserInfo(userInfo);
-        utils.sendNotification(jsonValue.notifications.gotData);
-      });
+      .then(function (userInfo) {
+        $scope.userInfo = userInfo;
+        //registerService.updateUserInfo(userInfo);
+      })
+      .finally(function () {utils.sendNotification(jsonValue.notifications.gotData);});
   });

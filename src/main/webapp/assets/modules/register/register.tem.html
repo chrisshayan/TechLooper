@@ -17,15 +17,15 @@
 
       <div class="row">
         <div class="col-md-6 first">
-          <input class="firstName" type="text" placeholder="First Name" value="">
+          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="First Name" value="">
         </div>
         <div class="col-md-6">
-          <input class="lastName" type="text" placeholder="Last Name" value="">
+          <input ng-model="userInfo.lastName"  class="lastName" type="text" placeholder="Last Name" value="">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <input class="emailAddress" type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
+          <input  ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
         </div>
       </div>
       <div class="row technical-skill">
@@ -49,7 +49,7 @@
         <span>$ 100K</span>
       </div>
       <div class="row submit">
-        <a href="#/user" class="register-successful">Continues</a>
+        <a class="register-successful">Continues</a>
       </div>
       <div class="row other-accounts">
         <h3>Account Sign In</h3>

@@ -17,10 +17,12 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.validation.ValidatorFactory;
 import java.util.*;
 
 @Configuration
@@ -75,4 +77,5 @@ public class CoreConfiguration {
   public PasswordEncryptor passwordEncryptor() {
     return new StrongPasswordEncryptor();
   }
+
 }

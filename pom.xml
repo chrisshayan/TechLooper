@@ -55,6 +55,8 @@
     <spring-social-github.version>1.0.0.M4</spring-social-github.version>
     <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
     <spring-social-twitter.version>1.1.0.RELEASE</spring-social-twitter.version>
+    <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
+    <validation-api.version>1.1.0.Final</validation-api.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -571,6 +573,18 @@
       <!--<groupId>org.springframework.social</groupId>-->
       <!--<artifactId>spring-social-bitbucket</artifactId>-->
     <!--</dependency>-->
+
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${validation-api.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.aspectj</groupId>

@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http, $q) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -34,10 +34,28 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         callback.fn(callback.args);
       });
       callbacks.length = 0;
+    },
+
+    post: function(uri, json) {
+      var deferred = $q.defer();
+      setTimeout(function() {
+        $http.post(uri, json)
+          .success(function(resp) {
+            deferred.resolve(resp);
+          })
+          .error(function(resp) {
+            deferred.reject(resp);
+          });
+      }, 2000);
+      return deferred.promise;
     }
   }
 
   var instance = {
+    saveUserInfo: function(json) {
+      return $$.post(jsonValue.httpUri.userSave, json);
+    },
+
     findUserInfoByKey: function(json) {
       //if (!stompClient.connected) {
       //  callbacks.push({
@@ -52,8 +70,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       //  subscription.unsubscribe();
       //});
       //stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
-
-      return $.post("user", json);
+      return $$.post(jsonValue.httpUri.user, json);
     },
 
     /* @subscription */

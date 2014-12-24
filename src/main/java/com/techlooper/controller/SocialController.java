@@ -36,17 +36,6 @@ public class SocialController {
   @Resource
   private JsonConfigRepository jsonConfigRepository;
 
-  @Resource
-  private UserService userService;
-
-//  @SendTo("/topic/userInfo/key")
-//  @MessageMapping("/userInfo/key")
-  @ResponseBody
-  @RequestMapping("/user")
-  public UserEntity getUserInfo(@RequestBody SocialRequest searchRequest) {
-    return userService.findByKey(searchRequest.getKey());
-  }
-
   @ResponseBody
   @RequestMapping("/getSocialConfig")
   public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {

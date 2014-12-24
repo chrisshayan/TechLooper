@@ -149,6 +149,11 @@ angular.module("Common").constant("jsonValue", {
     userProfile: "userProfile"
   },
 
+  httpUri: {
+    user: "user",
+    userSave: "user/save"
+  },
+
   socketUri: {
     sockjs: "ws",
 
@@ -165,6 +170,8 @@ angular.module("Common").constant("jsonValue", {
     getUserInfoByKey: "/app/userInfo/key",
     subscribeUserInfoByKey: "/topic/userInfo/key"
   },
+
+
   technicalSkill: [{
     'text': 'Java',
     'logo': 'lg-java.png'
