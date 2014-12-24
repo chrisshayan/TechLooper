@@ -37,7 +37,7 @@ public class FacebookService extends AbstractSocialService {
     return facebookConnectionFactory;
   }
 
-  public UserEntity persistProfile(AccessGrant accessGrant) {
+  public UserEntity saveFootprint(AccessGrant accessGrant) {
     Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
     FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
     com.techlooper.entity.FacebookProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);

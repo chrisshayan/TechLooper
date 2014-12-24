@@ -5,22 +5,16 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
-import com.techlooper.service.UserService;
 import org.springframework.context.ApplicationContext;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +46,7 @@ public class SocialController {
   public SocialResponse auth(@PathVariable SocialProvider provider, @RequestBody(required = false) Authentication auth) {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
-    UserEntity userEntity = service.persistProfile(accessGrant);
+    UserEntity userEntity = service.saveFootprint(accessGrant);
     SecurityContextHolder.getContext()
       .setAuthentication(new UsernamePasswordAuthenticationToken(userEntity.getEmailAddress(), null, null));
     return SocialResponse.Builder.get()
@@ -68,7 +62,7 @@ public class SocialController {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     if (Optional.ofNullable(token).isPresent()) {
       AccessGrant accessGrant = service.getAccessGrant(token, verifier);
-      UserEntity userEntity = service.persistProfile(accessGrant);
+      UserEntity userEntity = service.saveFootprint(accessGrant);
       return SocialResponse.Builder.get()
         .withToken(accessGrant.getValue())
         .withKey(userEntity.getKey()).build();

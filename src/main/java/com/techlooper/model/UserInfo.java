@@ -1,6 +1,10 @@
 package com.techlooper.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by phuonghqh on 12/12/14.
@@ -9,13 +13,13 @@ public class UserInfo {
 
   private String id;
 
-  @NotNull
+  @NotEmpty
   private String emailAddress;
 
-  @NotNull
+  @NotEmpty
   private String firstName;
 
-  @NotNull
+  @NotEmpty
   private String lastName;
 
   private SocialProvider loginSource;
@@ -23,6 +27,16 @@ public class UserInfo {
   private String key;
 
   private String username;
+
+  private Set<SocialProvider> profileNames;
+
+  public Set<SocialProvider> getProfileNames() {
+    return profileNames;
+  }
+
+  public void setProfileNames(Set<SocialProvider> profileNames) {
+    this.profileNames = profileNames;
+  }
 
   public String getId() {
     return id;

@@ -9,7 +9,7 @@ import com.techlooper.service.UserService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
 import com.techlooper.service.impl.UserServiceImpl;
 import com.techlooper.service.impl.VietnamWorksJobSearchService;
-import com.techlooper.util.LocaleConverter;
+import com.techlooper.converter.LocaleConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;

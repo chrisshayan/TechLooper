@@ -63,10 +63,10 @@ public abstract class AbstractSocialService implements SocialService {
   }
 
   public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return null;
+    throw new UnsupportedOperationException("Method is not supported");
   }
 
-  public  OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
-    return null;
+  public OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
+    throw new UnsupportedOperationException("Method is not supported");
   }
 }
