@@ -19,10 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.Option;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by phuonghqh on 12/10/14.
@@ -53,8 +50,10 @@ public class SocialController {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
     UserEntity userEntity = service.persistProfile(accessGrant);
+    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
     SecurityContextHolder.getContext()
-      .setAuthentication(new UsernamePasswordAuthenticationToken(userEntity.getEmailAddress(), null, null));
+      .setAuthentication(new UsernamePasswordAuthenticationToken(
+              userEntity.getEmailAddress(), userEntity.getKey(), Arrays.asList(authority)));
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
       .withKey(userEntity.getKey()).build();

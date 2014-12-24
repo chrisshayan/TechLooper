@@ -36,30 +36,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //  @Value("${admin.password}")
 //  private String password;
 
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//    auth.inMemoryAuthentication().withUser(username).password(password).roles(AUTHORIZATION_ROLE_ADMIN);
-    auth.authenticationProvider(socialAuthenticationProvider());
-  }
-
-  @Bean
-  public AuthenticationProvider socialAuthenticationProvider() {
-    return new SocialAuthenticationProvider(inMemoryUsersConnectionRepository(), socialUserDetailsService());
-  }
-
-  @Bean
-  public SocialUserDetailsService socialUserDetailsService() {
-    return new SimpleSocialUserDetailsService(userDetailsService());
-  }
-
-  @Bean
-  public UsersConnectionRepository inMemoryUsersConnectionRepository() {
-    return new InMemoryUsersConnectionRepository(socialConnectionFactoryLocator());
-  }
-
-  @Bean
-  public ConnectionFactoryLocator socialConnectionFactoryLocator() {
-    return new SocialAuthenticationServiceRegistry();
-  }
+//  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+////    auth.inMemoryAuthentication().withUser(username).password(password).roles(AUTHORIZATION_ROLE_ADMIN);
+//    auth.authenticationProvider(socialAuthenticationProvider());
+//  }
+//
+//  @Bean
+//  public AuthenticationProvider socialAuthenticationProvider() {
+//    return new SocialAuthenticationProvider(inMemoryUsersConnectionRepository(), socialUserDetailsService());
+//  }
+//
+//  @Bean
+//  public SocialUserDetailsService socialUserDetailsService() {
+//    return new SimpleSocialUserDetailsService(userDetailsService());
+//  }
+//
+//  @Bean
+//  public UsersConnectionRepository inMemoryUsersConnectionRepository() {
+//    return new InMemoryUsersConnectionRepository(socialConnectionFactoryLocator());
+//  }
+//
+//  @Bean
+//  public ConnectionFactoryLocator socialConnectionFactoryLocator() {
+//    return new SocialAuthenticationServiceRegistry();
+//  }
 
 
   protected void configure(HttpSecurity http) throws Exception {
@@ -69,8 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        .antMatchers(adminPath).hasRole(AUTHORIZATION_ROLE_ADMIN)
 //      .and().httpBasic();
     http.csrf().disable()
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//      .and().authorizeRequests().antMatchers("/user").hasAuthority("USER")
+      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+      .and().authorizeRequests().antMatchers("/user").hasAuthority("USER")
 //      .and().formLogin().loginPage("/#/signin")
 //      .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
       .and().authorizeRequests().anyRequest().permitAll();
