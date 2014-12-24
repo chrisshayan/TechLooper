@@ -7,111 +7,111 @@ import java.util.List;
  */
 public class SkillStatisticResponse {
 
-    private String label;
-    private Long count;
-    private Long totalTechnicalJobs;
-    private List<SkillStatistic> skills;
-    private String logoUrl;
-    private String webSite;
-    private List<SkillLink> usefulLinks;
+  private String label;
+  private Long count;
+  private Long totalTechnicalJobs;
+  private List<SkillStatistic> skills;
+  private String logoUrl;
+  private String webSite;
+  private List<SkillLink> usefulLinks;
 
-    public static class Builder {
+  public static class Builder {
 
-        private SkillStatisticResponse instance = new SkillStatisticResponse();
+    private SkillStatisticResponse instance = new SkillStatisticResponse();
 
-        public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
-            instance.totalTechnicalJobs = totalTechnicalJobs;
-            return this;
-        }
-
-        public Builder withSkills(List<SkillStatistic> skills) {
-            instance.skills = skills;
-            return this;
-        }
-
-        public Builder withLabel(String label) {
-            instance.label = label;
-            return this;
-        }
-
-        public Builder withCount(Long count) {
-            instance.count = count;
-            return this;
-        }
-
-        public Builder withLogoUrl(String logoUrl) {
-            instance.logoUrl = logoUrl;
-            return this;
-        }
-
-        public Builder withWebSite(String webSite) {
-            instance.webSite = webSite;
-            return this;
-        }
-
-        public Builder withUsefulLinks(List<SkillLink> usefulLinks) {
-            instance.usefulLinks = usefulLinks;
-            return this;
-        }
-
-        public SkillStatisticResponse build() {
-            return instance;
-        }
+    public Builder withTotalTechnicalJobs(Long totalTechnicalJobs) {
+      instance.totalTechnicalJobs = totalTechnicalJobs;
+      return this;
     }
 
-    public String getLabel() {
-        return label;
+    public Builder withSkills(List<SkillStatistic> skills) {
+      instance.skills = skills;
+      return this;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public Builder withLabel(String label) {
+      instance.label = label;
+      return this;
     }
 
-    public Long getCount() {
-        return count;
+    public Builder withCount(Long count) {
+      instance.count = count;
+      return this;
     }
 
-    public void setCount(Long count) {
-        this.count = count;
+    public Builder withLogoUrl(String logoUrl) {
+      instance.logoUrl = logoUrl;
+      return this;
     }
 
-    public List<SkillStatistic> getSkills() {
-        return skills;
+    public Builder withWebSite(String webSite) {
+      instance.webSite = webSite;
+      return this;
     }
 
-    public void setSkills(List<SkillStatistic> skills) {
-        this.skills = skills;
+    public Builder withUsefulLinks(List<SkillLink> usefulLinks) {
+      instance.usefulLinks = usefulLinks;
+      return this;
     }
 
-    public Long getTotalTechnicalJobs() {
-        return totalTechnicalJobs;
+    public SkillStatisticResponse build() {
+      return instance;
     }
+  }
 
-    public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
-        this.totalTechnicalJobs = totalTechnicalJobs;
-    }
+  public String getLabel() {
+    return label;
+  }
 
-    public String getLogoUrl() {
-        return logoUrl;
-    }
+  public void setLabel(String label) {
+    this.label = label;
+  }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
-    }
+  public Long getCount() {
+    return count;
+  }
 
-    public String getWebSite() {
-        return webSite;
-    }
+  public void setCount(Long count) {
+    this.count = count;
+  }
 
-    public void setWebSite(String webSite) {
-        this.webSite = webSite;
-    }
+  public List<SkillStatistic> getSkills() {
+    return skills;
+  }
 
-    public List<SkillLink> getUsefulLinks() {
-        return usefulLinks;
-    }
+  public void setSkills(List<SkillStatistic> skills) {
+    this.skills = skills;
+  }
 
-    public void setUsefulLinks(List<SkillLink> usefulLinks) {
-        this.usefulLinks = usefulLinks;
-    }
+  public Long getTotalTechnicalJobs() {
+    return totalTechnicalJobs;
+  }
+
+  public void setTotalTechnicalJobs(Long totalTechnicalJobs) {
+    this.totalTechnicalJobs = totalTechnicalJobs;
+  }
+
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
+
+  public String getWebSite() {
+    return webSite;
+  }
+
+  public void setWebSite(String webSite) {
+    this.webSite = webSite;
+  }
+
+  public List<SkillLink> getUsefulLinks() {
+    return usefulLinks;
+  }
+
+  public void setUsefulLinks(List<SkillLink> usefulLinks) {
+    this.usefulLinks = usefulLinks;
+  }
 }

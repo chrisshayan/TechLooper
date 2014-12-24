@@ -40,11 +40,9 @@ angular.module('Register').factory('registerService',
     }
 
     var instance = {
-      //updateUserInfo: function (userInfo) {
-      //  $(".firstName").val(userInfo.firstName);
-      //  $(".lastName").val(userInfo.lastName);
-      //  $(".emailAddress").val(userInfo.emailAddress);
-      //}
+      openOathDialog: function (auth) {
+        utils.openOathDialog(auth, jsonValue.routerUris.register);
+      }
     };
 
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);

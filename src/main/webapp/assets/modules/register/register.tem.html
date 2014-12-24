@@ -28,41 +28,42 @@
           <input  ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
         </div>
       </div>
-      <div class="row technical-skill">
-        <p>Choose Your Skills:</p>
-        <ul>
-          <li><label><input type="checkbox" class="checkbox"/>Java</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>.Net</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>PHP</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>Ruby</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>Python</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>DBA</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>BA</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>QA</label></li>
-          <li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>
-        </ul>
-      </div>
-      <div class="row your-salary">
-        <p>Choose Your salary:</p>
-        <span>$ 10K</span> <input id="salary" type="text" class="span2" value="" data-slider-min="10"
-                                  data-slider-max="100" data-slider-step="5" data-slider-value="[50,70]"/>
-        <span>$ 100K</span>
-      </div>
+      <!--<div class="row technical-skill">-->
+        <!--<p>Choose Your Skills:</p>-->
+        <!--<ul>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>Java</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>.Net</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>PHP</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>Ruby</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>Python</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>DBA</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>BA</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>QA</label></li>-->
+          <!--<li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--<div class="row your-salary">-->
+        <!--<p>Choose Your salary:</p>-->
+        <!--<span>$ 10K</span> <input id="salary" type="text" class="span2" value="" data-slider-min="10"-->
+                                  <!--data-slider-max="100" data-slider-step="5" data-slider-value="[50,70]"/>-->
+        <!--<span>$ 100K</span>-->
+      <!--</div>-->
       <div class="row submit">
         <a class="register-successful">Continues</a>
       </div>
       <div class="row other-accounts">
-        <h3>Account Sign In</h3>
+        <h3>Allow us to connect</h3>
         <ul>
-
-          <li ng-repeat="item in authSource">
+          <li ng-repeat="auth in authSource">
               <!--<span ng-if="item.site == 'LinkedIn'">-->
                   <!--<span class="active" ng-style="{'background-color': item.bgcolor}">-->
                     <!--<img ng-src="{{item.logo}}" alt="">-->
                   <!--</span>-->
               <!--</span>-->
              <!--<span ng-if="item.site != 'LinkedIn'">-->
-                <span><img ng-src="{{item.logo}}" alt=""></span>
+                <span>
+                  <a ng-click="openOathDialog(auth)" class="hi-icon"><img ng-src="{{auth.logo}}" alt=""></a>
+                </span>
             <!--</span>-->
           </li>
         </ul>

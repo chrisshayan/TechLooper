@@ -1,7 +1,7 @@
-angular.module("Common").factory("utils", function (jsonValue, $location) {
+angular.module("Common").factory("utils", function (jsonValue, $location, $auth, localStorageService, $window) {
   var techlooperObserver = $.microObserver.get("techlooper");
 
-  return {
+  var instance = {
     go2SkillAnalyticPage: function(scope, term) {
       var path = jsonValue.routerUris.analyticsSkill + '/' + term;
       $location.path(path);
@@ -131,6 +131,22 @@ angular.module("Common").factory("utils", function (jsonValue, $location) {
         }
       });
       return val;
+    },
+
+    openOathDialog: function (auth, successUrl) {
+      if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
+      instance.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+      $auth.authenticate(auth.provider)
+        .then(function (resp) {//success
+          delete $window.localStorage["satellizer_token"];
+          localStorageService.set(jsonValue.storage.key, resp.data.key);
+          $location.path(successUrl);
+        })
+        .finally(function(resp) {
+          instance.sendNotification(jsonValue.notifications.loaded);
+        });
     }
   }
+
+  return instance;
 });

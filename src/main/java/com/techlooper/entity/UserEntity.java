@@ -4,10 +4,8 @@ import com.techlooper.model.SocialProvider;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 12/10/14.

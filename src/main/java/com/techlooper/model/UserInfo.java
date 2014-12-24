@@ -1,13 +1,6 @@
 package com.techlooper.model;
 
-import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.UserEntity;
-import org.springframework.data.annotation.Id;
-
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by phuonghqh on 12/12/14.

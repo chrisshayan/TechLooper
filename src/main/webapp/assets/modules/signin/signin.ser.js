@@ -34,16 +34,7 @@ angular.module('SignIn').factory('signInService',
       },
 
       openOathDialog: function (auth) {
-        if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
-        utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
-        $auth.authenticate(auth.provider)
-          .then(function (resp) {//success
-            delete $window.localStorage["satellizer_token"];
-            localStorageService.set(jsonValue.storage.key, resp.data.key);
-            $location.path(jsonValue.routerUris.register);
-          }, function(resp) {//error
-            utils.sendNotification(jsonValue.notifications.loaded);
-          });
+        utils.openOathDialog(auth, jsonValue.routerUris.register);
       }
     };
 
