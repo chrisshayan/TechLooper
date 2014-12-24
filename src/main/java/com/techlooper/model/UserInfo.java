@@ -4,6 +4,7 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -15,10 +16,13 @@ public class UserInfo {
 
   private String id;
 
+  @NotNull
   private String emailAddress;
 
+  @NotNull
   private String firstName;
 
+  @NotNull
   private String lastName;
 
   private SocialProvider loginSource;
