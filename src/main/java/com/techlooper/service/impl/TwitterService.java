@@ -37,7 +37,7 @@ public class TwitterService extends AbstractSocialService {
     return twitterConnectionFactory;
   }
 
-  public UserEntity persistProfile(AccessGrant accessGrant) {
+  public UserEntity saveFootprint(AccessGrant accessGrant) {
     Connection<Twitter> connection = twitterConnectionFactory.createConnection(new OAuthToken(accessGrant.getValue(), accessGrant.getSecret()));
     TwitterProfile profile = connection.getApi().userOperations().getUserProfile();
     com.techlooper.entity.TwitterProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);

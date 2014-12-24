@@ -142,7 +142,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
           localStorageService.set(jsonValue.storage.key, resp.data.key);
           $location.path(successUrl);
         })
-        .finally(function(resp) {
+        .catch(function(resp) {
           instance.sendNotification(jsonValue.notifications.loaded);
         });
     }

@@ -3,6 +3,8 @@ package com.techlooper.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 /**
  * Created by phuonghqh on 12/11/14.
  */
@@ -15,6 +17,16 @@ public class SocialConfig {
   private String secretKey;
 
   private String redirectUri;
+
+  private Map<String, String> apiUrl;
+
+  public Map<String, String> getApiUrl() {
+    return apiUrl;
+  }
+
+  public void setApiUrl(Map<String, String> apiUrl) {
+    this.apiUrl = apiUrl;
+  }
 
   public SocialProvider getProvider() {
     return provider;

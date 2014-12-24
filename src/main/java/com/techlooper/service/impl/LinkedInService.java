@@ -45,7 +45,7 @@ public class LinkedInService extends AbstractSocialService {
     return linkedInConnectionFactory;
   }
 
-  public UserEntity persistProfile(AccessGrant accessGrant) {
+  public UserEntity saveFootprint(AccessGrant accessGrant) {
     Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(getAccessGrant(accessGrant));
     LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
     LinkedInProfile profileEntity = dozerBeanMapper.map(profile, LinkedInProfile.class);

@@ -11,6 +11,9 @@ angular.module('Register').controller('registerController',
     connectionFactory.findUserInfoByKey({key: localStorageService.get(jsonValue.storage.key)})
       .then(function (userInfo) {
         $scope.userInfo = userInfo;
+        registerService.updateConnections(userInfo);
       })
-      .finally(function () {utils.sendNotification(jsonValue.notifications.gotData);});
+      .finally(function () {
+        utils.sendNotification(jsonValue.notifications.gotData);
+      });
   });

@@ -1,12 +1,15 @@
 package com.techlooper.config;
 
-import com.techlooper.util.LocaleConverter;
-import org.dozer.CustomConverter;
+import com.techlooper.converter.ProfileNameConverter;
+import com.techlooper.entity.UserEntity;
+import com.techlooper.model.UserInfo;
+import com.techlooper.converter.LocaleConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
+import org.dozer.loader.api.TypeMappingBuilder;
+import org.dozer.loader.api.TypeMappingOptions;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.cache.CacheManager;
@@ -17,12 +20,10 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import javax.validation.ValidatorFactory;
 import java.util.*;
 
 @Configuration
@@ -67,6 +68,7 @@ public class CoreConfiguration {
     BeanMappingBuilder builder = new BeanMappingBuilder() {
       protected void configure() {
         mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class).fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+        mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay()).fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
       }
     };
     dozerBeanMapper.addMapping(builder);

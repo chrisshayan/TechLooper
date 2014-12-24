@@ -2,6 +2,7 @@ package com.techlooper.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by phuonghqh on 12/16/14.
@@ -16,6 +17,25 @@ public class GitHubUserProfile implements Serializable {
   private String email;
   private Date createdDate;
   private String profileImageUrl;
+  private List<GitHubRepo> repos;
+
+  private List<GitHubFollower> followers;
+
+  public List<GitHubFollower> getFollowers() {
+    return followers;
+  }
+
+  public void setFollowers(List<GitHubFollower> followers) {
+    this.followers = followers;
+  }
+
+  public List<GitHubRepo> getRepos() {
+    return repos;
+  }
+
+  public void setRepos(List<GitHubRepo> repos) {
+    this.repos = repos;
+  }
 
   public long getId() {
     return id;

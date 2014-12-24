@@ -40,6 +40,13 @@ angular.module('Register').factory('registerService',
     }
 
     var instance = {
+      updateConnections: function(userInfo) {
+        $.each(userInfo.profileNames, function(i, name) {
+          // TODO: high-light provider icon
+          $("a." + name.toLowerCase()).unbind("click");
+        });
+      },
+
       openOathDialog: function (auth) {
         utils.openOathDialog(auth, jsonValue.routerUris.register);
       }

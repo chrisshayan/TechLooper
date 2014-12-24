@@ -10,5 +10,5 @@ import com.techlooper.entity.UserEntity;
 public interface SocialService {
   AccessGrant getAccessGrant(String accessCode);
   AccessGrant getAccessGrant(String accessToken, String accessSecret);
-  UserEntity persistProfile(AccessGrant accessGrant);
+  UserEntity saveFootprint(AccessGrant accessGrant);
 }
