@@ -17,7 +17,7 @@ angular.module("Header").factory("headerService",
         }
         else {//already sign-out
           $(".signin-signout-container > a").unbind("click");
-          $(".signin-signout-container > a").attr("href", "#/signin").find('span').addClass('signout');
+          $(".signin-signout-container > a").attr("href", "#/signin").find('span').removeClass('signout');
         }
       }
     }
