@@ -1,5 +1,5 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window) {
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $http) {
     //var scope;
 
     var $$ = {

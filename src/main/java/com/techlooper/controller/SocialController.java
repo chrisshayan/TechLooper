@@ -47,10 +47,10 @@ public class SocialController {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
     UserEntity userEntity = service.saveFootprint(accessGrant);
-    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
-    SecurityContextHolder.getContext()
-      .setAuthentication(new UsernamePasswordAuthenticationToken(
-              userEntity.getEmailAddress(), userEntity.getKey(), Arrays.asList(authority)));
+//    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
+//    SecurityContextHolder.getContext()
+//      .setAuthentication(new UsernamePasswordAuthenticationToken(
+//              userEntity.getEmailAddress(), userEntity.getKey(), Arrays.asList(authority)));
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
       .withKey(userEntity.getKey()).build();
