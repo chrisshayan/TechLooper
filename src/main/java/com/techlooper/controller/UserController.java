@@ -32,6 +32,11 @@ public class UserController {
   @Resource
   private UserService userService;
 
+  @RequestMapping(value = "/login", method = RequestMethod.GET)
+  public void login(HttpServletResponse httpServletResponse) {
+    httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+  }
+
   @ResponseBody
   @RequestMapping(value = "/user/save" , method = RequestMethod.POST)
   public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
