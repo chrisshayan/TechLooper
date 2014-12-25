@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
@@ -40,10 +41,12 @@ public class FacebookService extends AbstractSocialService {
     return facebookConnectionFactory;
   }
 
-  public Object getProfile(AccessGrant accessGrant) {
+  public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
     FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
-    return dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
+    com.techlooper.entity.FacebookProfile fbProfile = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
+    fbProfile.setAccessGrant(accessGrant);
+    return fbProfile;
   }
 
   public UserEntity saveFootprint(AccessGrant accessGrant) {

@@ -1,9 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.GitHubFollower;
-import com.techlooper.entity.GitHubRepo;
-import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.*;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
@@ -39,10 +36,11 @@ public class GitHubService extends AbstractSocialService {
     return gitHubConnectionFactory;
   }
 
-  public Object getProfile(AccessGrant accessGrant) {
+  public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
     com.techlooper.entity.GitHubUserProfile profile = dozerBeanMapper.map(connection.getApi().userOperations().getUserProfile(), com.techlooper.entity.GitHubUserProfile.class);
     buildProfile(connection, profile);
+    profile.setAccessGrant(accessGrant);
     return profile;
   }
 

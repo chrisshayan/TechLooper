@@ -4,6 +4,7 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserEntity.UserEntityBuilder;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
@@ -38,10 +39,12 @@ public class LinkedInService extends AbstractSocialService {
     return linkedInConnectionFactory;
   }
 
-  public Object getProfile(AccessGrant accessGrant) {
+  public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(getAccessGrant(accessGrant));
     LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
-    return dozerBeanMapper.map(profile, LinkedInProfile.class);
+    LinkedInProfile liProfile = dozerBeanMapper.map(profile, LinkedInProfile.class);
+    liProfile.setAccessGrant(accessGrant);
+    return liProfile;
   }
 
   public UserEntity saveFootprint(AccessGrant accessGrant) {

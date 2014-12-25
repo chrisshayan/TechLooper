@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by phuonghqh on 12/16/14.
  */
-public class GitHubUserProfile implements Serializable {
+public class GitHubUserProfile extends UserProfile implements Serializable {
   private long id;
   private String name;
   private String username;
