@@ -32,10 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and().authorizeRequests().antMatchers("/user").hasAuthority("USER")
                 .and().formLogin().loginPage("/login").usernameParameter("key").defaultSuccessUrl("/")
-                .failureHandler((request, response, exception) -> {
+                    .failureHandler((request, response, exception) -> {
+                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    })
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
+                .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 })
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
                 .and().authorizeRequests().anyRequest().permitAll();
     }
 
