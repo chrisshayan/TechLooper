@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialConfig;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
@@ -73,7 +74,7 @@ public abstract class AbstractSocialService implements SocialService {
     throw new UnsupportedOperationException("Method is not supported");
   }
 
-  public abstract Object getProfile(com.techlooper.entity.AccessGrant accessGrant);
+  public abstract UserProfile getProfile(com.techlooper.entity.AccessGrant accessGrant);
 
   public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
     UserEntity entity = userService.findUserEntityByKey(key);

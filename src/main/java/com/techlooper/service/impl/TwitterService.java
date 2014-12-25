@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
@@ -37,10 +38,12 @@ public class TwitterService extends AbstractSocialService {
     return twitterConnectionFactory;
   }
 
-  public Object getProfile(AccessGrant accessGrant) {
+  public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<Twitter> connection = twitterConnectionFactory.createConnection(new OAuthToken(accessGrant.getValue(), accessGrant.getSecret()));
     TwitterProfile profile = connection.getApi().userOperations().getUserProfile();
-    return dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
+    com.techlooper.entity.TwitterProfile twProfile = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
+    twProfile.setAccessGrant(accessGrant);
+    return twProfile;
   }
 
   public UserEntity saveFootprint(AccessGrant accessGrant) {

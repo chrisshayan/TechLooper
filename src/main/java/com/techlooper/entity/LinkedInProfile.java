@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by NguyenDangKhoa on 12/10/14.
  */
-public class LinkedInProfile implements Serializable {
+public class LinkedInProfile extends UserProfile implements Serializable {
 
   private String firstName;
   private String lastName;
