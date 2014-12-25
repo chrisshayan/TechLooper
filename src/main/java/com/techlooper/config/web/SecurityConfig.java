@@ -1,22 +1,32 @@
 package com.techlooper.config.web;
 
-import org.springframework.context.annotation.Bean;
+import com.techlooper.service.UserService;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.social.connect.ConnectionFactoryLocator;
-import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.security.SocialAuthenticationProvider;
-import org.springframework.social.security.SocialAuthenticationServiceRegistry;
-import org.springframework.social.security.SocialUserDetails;
-import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.SocialAuthenticationToken;
+import org.springframework.util.Assert;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by NguyenDangKhoa on 11/27/14.
@@ -36,31 +46,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //  @Value("${admin.password}")
 //  private String password;
 
-//  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-////    auth.inMemoryAuthentication().withUser(username).password(password).roles(AUTHORIZATION_ROLE_ADMIN);
-//    auth.authenticationProvider(socialAuthenticationProvider());
-//  }
-//
-//  @Bean
-//  public AuthenticationProvider socialAuthenticationProvider() {
-//    return new SocialAuthenticationProvider(inMemoryUsersConnectionRepository(), socialUserDetailsService());
-//  }
-//
-//  @Bean
-//  public SocialUserDetailsService socialUserDetailsService() {
-//    return new SimpleSocialUserDetailsService(userDetailsService());
-//  }
-//
-//  @Bean
-//  public UsersConnectionRepository inMemoryUsersConnectionRepository() {
-//    return new InMemoryUsersConnectionRepository(socialConnectionFactoryLocator());
-//  }
-//
-//  @Bean
-//  public ConnectionFactoryLocator socialConnectionFactoryLocator() {
-//    return new SocialAuthenticationServiceRegistry();
-//  }
+  @Resource
+  private UserService userService;
 
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//    auth.inMemoryAuthentication().withUser(username).password(password).roles(AUTHORIZATION_ROLE_ADMIN);
+    auth.authenticationProvider(new AuthenticationProvider() {
+
+      public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication, "unsupported authentication type");
+        Assert.isTrue(!authentication.isAuthenticated(), "already authenticated");
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+        return new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getPrincipal(), Arrays.asList(new SimpleGrantedAuthority("USER")));
+      }
+
+      public boolean supports(Class<?> authentication) {
+        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+      }
+    });
+//    auth.userDetailsService(userService);
+  }
 
   protected void configure(HttpSecurity http) throws Exception {
 //    http.authorizeRequests().anyRequest().permitAll();
@@ -71,8 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
       .and().authorizeRequests().antMatchers("/user").hasAuthority("USER")
-//      .and().formLogin().loginPage("/#/signin")
-//      .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+      .and().formLogin().loginPage("/login").usernameParameter("key").defaultSuccessUrl("/")
+      .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
       .and().authorizeRequests().anyRequest().permitAll();
   }
 

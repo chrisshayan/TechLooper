@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 import static com.techlooper.model.SocialProvider.GITHUB;
@@ -41,24 +43,21 @@ public class GitHubService extends AbstractSocialService {
     Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
     UserEntity userEntity = getForUserProfile(accessGrant, connection);
     com.techlooper.entity.GitHubUserProfile profile = (com.techlooper.entity.GitHubUserProfile) userEntity.getProfiles().get(GITHUB);
-    getForUserRepos(connection, profile);
-    getForUserFollowers(connection, profile);
+    String username = profile.getUsername();
+    profile.setRepos(getForUserRepos(connection, username));
+    profile.setFollowers(getForUserFollowers(connection, username));
     userService.save(userEntity);
     return userEntity;
   }
 
-  private void getForUserFollowers(Connection<GitHub> connection, com.techlooper.entity.GitHubUserProfile profile) {
-    String username = profile.getUsername();
-    GitHubFollower[] followers = connection.getApi().restOperations()
-      .getForObject(socialConfig.getApiUrl().get("followers"), GitHubFollower[].class, username);
-    profile.setFollowers(Arrays.asList(followers));
+  private List<GitHubFollower> getForUserFollowers(Connection<GitHub> connection, String username) {
+    return Arrays.asList(connection.getApi().restOperations()
+      .getForObject(socialConfig.getApiUrl().get("followers"), GitHubFollower[].class, username));
   }
 
-  private void getForUserRepos(Connection<GitHub> connection, com.techlooper.entity.GitHubUserProfile profile) {
-    String username = profile.getUsername();
-    GitHubRepo[] repos = connection.getApi().restOperations()
-      .getForObject(socialConfig.getApiUrl().get("repos"), GitHubRepo[].class, username);
-    profile.setRepos(Arrays.asList(repos));
+  private List<GitHubRepo> getForUserRepos(Connection<GitHub> connection, String username) {
+    return Arrays.asList(connection.getApi().restOperations()
+      .getForObject(socialConfig.getApiUrl().get("repos"), GitHubRepo[].class, username));
   }
 
   private UserEntity getForUserProfile(AccessGrant accessGrant, Connection<GitHub> connection) {
