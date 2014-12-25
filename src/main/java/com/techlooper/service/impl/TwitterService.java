@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
@@ -37,14 +38,20 @@ public class TwitterService extends AbstractSocialService {
     return twitterConnectionFactory;
   }
 
-  public UserEntity persistProfile(AccessGrant accessGrant) {
+  public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<Twitter> connection = twitterConnectionFactory.createConnection(new OAuthToken(accessGrant.getValue(), accessGrant.getSecret()));
     TwitterProfile profile = connection.getApi().userOperations().getUserProfile();
-    com.techlooper.entity.TwitterProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
+    com.techlooper.entity.TwitterProfile twProfile = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
+    twProfile.setAccessGrant(accessGrant);
+    return twProfile;
+  }
+
+  public UserEntity saveFootprint(AccessGrant accessGrant) {
+    com.techlooper.entity.TwitterProfile profile = (com.techlooper.entity.TwitterProfile) getProfile(accessGrant);
     String userId = TWITTER.name() + "-" + profile.getId();
     UserEntity userEntity = Optional.ofNullable(userService.findById(userId)).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(SocialProvider.TWITTER, profileEntity)
+      .withProfile(SocialProvider.TWITTER, profile)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       builder.withId(userId)

@@ -1,12 +1,41 @@
 angular.module("Header").factory("headerService",
-  function (utils, jsonValue, $rootScope, $location, pieFactory, bubbleFactory, $cacheFactory, tourService) {
+  function (utils, jsonValue, $rootScope, $location, pieFactory,
+            bubbleFactory, $cacheFactory, tourService, localStorageService, $http) {
     var cache = $cacheFactory("chart");
 
+    var $$ = {
+      updateUserInfo: function() {
+        if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
+          $(".signin-signout-container > a").attr("href", "#").find('span').addClass('signout');
+          $(".signin-signout-container > a").click(function() {
+            $http.get(jsonValue.httpUri.logout).success(function() {
+              localStorageService.clearAll();
+              //delete $cookies['JSESSIONID'];
+              $location.path("/");
+            });
+          });
+        }
+        else {//already sign-out
+          $(".signin-signout-container > a").unbind("click");
+          $(".signin-signout-container > a").attr("href", "#/signin").find('span').removeClass('signout');
+        }
+      }
+    }
+
     var instance = {
+      initialize: function() {
+        $$.updateUserInfo();
+        instance.getChart();
+        $('.btn-setting').click(instance.showSetting);
+        $("i[techlooper='chartsMenu']").click(instance.changeChart);
+        instance.changeChart();
+        instance.restartTour();
+      },
+
       changeChart: function (event) {
         $("i[techlooper='chartsMenu']").removeClass('active');
         var $element = (event !== undefined) ? $(event.target) : instance.getChart($location.path()).$element;
-        $element.addClass("active");
+        $element !== undefined && $element.addClass("active");
       },
 
       getChart: function (location) {

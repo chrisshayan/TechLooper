@@ -4,8 +4,8 @@ package com.techlooper.entity;
  * Created by phuonghqh on 12/12/14.
  */
 public class PhoneNumber {
-  private  String phoneType;
-  private  String phoneNumber;
+  private String phoneType;
+  private String phoneNumber;
 
   public String getPhoneType() {
     return phoneType;

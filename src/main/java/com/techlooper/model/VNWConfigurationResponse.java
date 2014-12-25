@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VNWConfigurationResponse {
 
-    @JsonProperty(value = "data")
-    private VNWConfigurationResponseData data;
+  @JsonProperty(value = "data")
+  private VNWConfigurationResponseData data;
 
-    public VNWConfigurationResponseData getData() {
-        return data;
-    }
+  public VNWConfigurationResponseData getData() {
+    return data;
+  }
 
-    public void setData(VNWConfigurationResponseData data) {
-        this.data = data;
-    }
+  public void setData(VNWConfigurationResponseData data) {
+    this.data = data;
+  }
 }

@@ -1,11 +1,12 @@
 package com.techlooper.service.impl;
 
-import com.couchbase.client.CouchbaseClient;
 import com.couchbase.client.protocol.views.Query;
 import com.couchbase.client.protocol.views.Stale;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.service.UserService;
+import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,25 +21,38 @@ public class UserServiceImpl implements UserService {
   @Resource
   private UserRepository userRepository;
 
-  public void save(UserEntity user) {
-    userRepository.save(user);
+  @Resource
+  private Mapper dozerMapper;
+
+  public void save(UserEntity userEntity) {
+    userRepository.save(userEntity);
 
     // TODO: make sure couchbase find by view can work later, remove it later
     Query query = new Query();
-    query.setKey(user.getKey());
+    query.setKey(userEntity.getKey());
     query.setLimit(1);
     query.setStale(Stale.FALSE);
     userRepository.findByKey(query);
+  }
+
+  public void save(UserInfo userInfo) {
+    UserEntity userEntity = userRepository.findOne(userInfo.getId());
+    dozerMapper.map(userInfo, userEntity);
+    userRepository.save(userEntity);
   }
 
   public UserEntity findById(String id) {
     return userRepository.findOne(id);
   }
 
-  public UserEntity findByKey(String key) {
+  public UserInfo findUserInfoByKey(String key) {
+    return dozerMapper.map(findUserEntityByKey(key),  UserInfo.class);
+  }
+
+  public UserEntity findUserEntityByKey(String key) {
     Query query = new Query();
     query.setKey(key);
     query.setLimit(1);
-    return Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
+    return userRepository.findByKey(query);
   }
 }

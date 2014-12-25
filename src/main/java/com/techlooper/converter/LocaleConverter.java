@@ -1,4 +1,4 @@
-package com.techlooper.util;
+package com.techlooper.converter;
 
 import org.dozer.DozerConverter;
 
