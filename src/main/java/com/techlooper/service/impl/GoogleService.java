@@ -35,9 +35,13 @@ public class GoogleService extends AbstractSocialService {
     return googleConnectionFactory;
   }
 
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
+  public Object getProfile(AccessGrant accessGrant) {
     Connection<Google> connection = googleConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    Person profile = connection.getApi().plusOperations().getGoogleProfile();
+    return connection.getApi().plusOperations().getGoogleProfile();
+  }
+
+  public UserEntity saveFootprint(AccessGrant accessGrant) {
+    Person profile = (Person) getProfile(accessGrant);
     UserEntity userEntity = Optional.ofNullable(userService.findById(profile.getAccountEmail())).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
       .withProfile(SocialProvider.GOOGLE, profile)

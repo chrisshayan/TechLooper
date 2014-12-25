@@ -1,5 +1,5 @@
 angular.module('Register').factory('registerService',
-  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location) {
+  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth, $window) {
     var scope;
     var flag = {};
 
@@ -26,7 +26,7 @@ angular.module('Register').factory('registerService',
             console.log(errors);
             $.each(errors, function (i, error) {
               // TODO: design error display
-              $("input." + error.field).css("border", "1px solid red");//error.defaultMessage
+              $("." + error.field).css("border", "1px solid red");//error.defaultMessage
             });
           })
           .finally(function () {
@@ -40,6 +40,14 @@ angular.module('Register').factory('registerService',
     }
 
     var instance = {
+      getSalaryOptions: function() {
+        var options =  [800, 1000, 1500, 2000, 2500, 3000, 4000].map(function(val) {
+          return "Up to $" + val + " per month";
+        });
+        options.push("Above $4000 per month");
+        return options
+      },
+
       updateConnections: function(userInfo) {
         $.each(userInfo.profileNames, function(i, name) {
           // TODO: high-light provider icon
@@ -48,7 +56,17 @@ angular.module('Register').factory('registerService',
       },
 
       openOathDialog: function (auth) {
-        utils.openOathDialog(auth, jsonValue.routerUris.register);
+        utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+        $auth.authenticate(auth.provider)
+          .then(function (resp) {//success
+            delete $window.localStorage["satellizer_token"];
+            //localStorageService.set(jsonValue.storage.key, resp.data.key);
+            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
+            $location.path(jsonValue.routerUris.register);
+          })
+          .finally(function(resp) {
+            utils.sendNotification(jsonValue.notifications.loaded);
+          });
       }
     };
 

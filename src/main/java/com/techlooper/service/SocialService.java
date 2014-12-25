@@ -11,4 +11,5 @@ public interface SocialService {
   AccessGrant getAccessGrant(String accessCode);
   AccessGrant getAccessGrant(String accessToken, String accessSecret);
   UserEntity saveFootprint(AccessGrant accessGrant);
+  UserEntity saveFootprint(AccessGrant accessGrant, String key);
 }

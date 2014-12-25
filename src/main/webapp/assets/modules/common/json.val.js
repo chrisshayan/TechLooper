@@ -23,7 +23,8 @@ angular.module("Common").constant("jsonValue", {
     changeLang: "Change language",
     changeUrl: "Change URL",
     loading: "loading",
-    loaded: "loaded"
+    loaded: "loaded",
+    loginSuccess: "login success"
   },
 
   viewTerms: {
@@ -151,7 +152,8 @@ angular.module("Common").constant("jsonValue", {
 
   httpUri: {
     user: "user",
-    userSave: "user/save"
+    userSave: "user/save",
+    logout: "logout"
   },
 
   socketUri: {

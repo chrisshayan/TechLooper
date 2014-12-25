@@ -46,10 +46,13 @@ public class UserServiceImpl implements UserService {
   }
 
   public UserInfo findUserInfoByKey(String key) {
+    return dozerMapper.map(findUserEntityByKey(key),  UserInfo.class);
+  }
+
+  public UserEntity findUserEntityByKey(String key) {
     Query query = new Query();
     query.setKey(key);
     query.setLimit(1);
-    UserEntity userEntity = Optional.ofNullable(userRepository.findByKey(query)).orElse(new UserEntity());
-    return dozerMapper.map(userEntity, UserInfo.class);
+    return userRepository.findByKey(query);
   }
 }

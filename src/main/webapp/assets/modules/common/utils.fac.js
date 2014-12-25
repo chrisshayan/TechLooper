@@ -140,13 +140,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
         .then(function (resp) {//success
           delete $window.localStorage["satellizer_token"];
           localStorageService.set(jsonValue.storage.key, resp.data.key);
-          //$.param(requestData),
-          //{
-          //  headers:
-          //  {
-          //    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-          //  }
-          //}
           $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
           $location.path(successUrl);
         })

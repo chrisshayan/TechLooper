@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,14 +44,12 @@ public class SocialController {
 
   @ResponseBody
   @RequestMapping("/auth/{provider}")
-  public SocialResponse auth(@PathVariable SocialProvider provider, @RequestBody(required = false) Authentication auth) {
+  public SocialResponse auth(@PathVariable SocialProvider provider,
+                             @CookieValue(value = "techlooper.key", required = false) String key,
+                             @RequestBody(required = false) Authentication auth) {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
-    UserEntity userEntity = service.saveFootprint(accessGrant);
-//    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
-//    SecurityContextHolder.getContext()
-//      .setAuthentication(new UsernamePasswordAuthenticationToken(
-//              userEntity.getEmailAddress(), userEntity.getKey(), Arrays.asList(authority)));
+    UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
       .withKey(userEntity.getKey()).build();
@@ -59,12 +58,13 @@ public class SocialController {
   @ResponseBody
   @RequestMapping("/auth/oath1/{provider}")
   public SocialResponse auth1(@PathVariable SocialProvider provider, HttpServletResponse httpServletResponse,
+                              @CookieValue(value = "techlooper.key", required = false) String key,
                               @RequestParam(value = "oauth_token", required = false) String token,
                               @RequestParam(value = "oauth_verifier", required = false) String verifier) throws IOException {
     SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
     if (Optional.ofNullable(token).isPresent()) {
       AccessGrant accessGrant = service.getAccessGrant(token, verifier);
-      UserEntity userEntity = service.saveFootprint(accessGrant);
+      UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
       return SocialResponse.Builder.get()
         .withToken(accessGrant.getValue())
         .withKey(userEntity.getKey()).build();

@@ -30,6 +30,16 @@ public class LinkedInProfile implements Serializable {
 
   private ConnectionAuthorization connectionAuthorization;
 
+  private String emailAddress;
+
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
+  }
+
   public ConnectionAuthorization getConnectionAuthorization() {
     return connectionAuthorization;
   }
