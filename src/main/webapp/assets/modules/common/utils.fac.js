@@ -146,6 +146,18 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
         .catch(function(resp) {
           instance.sendNotification(jsonValue.notifications.loaded);
         });
+    },
+    //closeAlert: function(){
+    //  $('.messager-block').find('.close').click(function(){
+    //    $(this).parent().hide();
+    //  });
+    //},
+    openAlert: function(msg, type){
+      $('.messager-block').addClass(type).find('p').text(msg);
+      $('.messager-block').show();
+      $('.messager-block').find('.close').click(function(){
+        $(this).parent().hide();
+      });
     }
   }
 
