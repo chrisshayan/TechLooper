@@ -521,11 +521,11 @@
       <version>${spring-social.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework.social</groupId>
-      <artifactId>spring-social-security</artifactId>
-      <version>${spring-social.version}</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.social</groupId>-->
+      <!--<artifactId>spring-social-security</artifactId>-->
+      <!--<version>${spring-social.version}</version>-->
+    <!--</dependency>-->
 
     <dependency>
       <groupId>org.springframework.social</groupId>
