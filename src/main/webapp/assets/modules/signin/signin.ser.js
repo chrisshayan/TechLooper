@@ -11,6 +11,11 @@ angular.module('SignIn').factory('signInService',
     var instance = {
       initialize: function () {
         //scope = $scope;
+
+        if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
+          $location.path("/");
+        }
+
         $('.signin-accounts').parallax();
 
         $('.btn-close').click(function () {

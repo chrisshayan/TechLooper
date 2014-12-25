@@ -26,7 +26,7 @@ angular.module('Register').factory('registerService',
             console.log(errors);
             $.each(errors, function (i, error) {
               // TODO: design error display
-              $("input." + error.field).css("border", "1px solid red");//error.defaultMessage
+              $("." + error.field).css("border", "1px solid red");//error.defaultMessage
             });
           })
           .finally(function () {
@@ -60,11 +60,11 @@ angular.module('Register').factory('registerService',
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
-            localStorageService.set(jsonValue.storage.key, resp.data.key);
+            //localStorageService.set(jsonValue.storage.key, resp.data.key);
             $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
             $location.path(jsonValue.routerUris.register);
           })
-          .catch(function(resp) {
+          .finally(function(resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
       }
