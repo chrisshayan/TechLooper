@@ -42,12 +42,20 @@
           <!--<li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>-->
         <!--</ul>-->
       <!--</div>-->
-      <!--<div class="row your-salary">-->
-        <!--<p>Choose Your salary:</p>-->
-        <!--<span>$ 10K</span> <input id="salary" type="text" class="span2" value="" data-slider-min="10"-->
-                                  <!--data-slider-max="100" data-slider-step="5" data-slider-value="[50,70]"/>-->
-        <!--<span>$ 100K</span>-->
-      <!--</div>-->
+      <div class="row your-salary">
+        <p>Choose Your salary:</p>
+        <div class="salary-range-block">
+          <select name="" id="">
+            <option value="80">Up to $80</option>
+            <option value="80">Up to $100</option>
+            <option value="80">Up to $150</option>
+            <option value="80">Up to $200</option>
+            <option value="80">Up to $250</option>
+            <option value="80">Up to $300</option>
+            <option value="80">Up to $350</option>
+          </select>
+        </div>
+      </div>
       <div class="row submit">
         <a class="register-successful">Continues</a>
       </div>
@@ -62,7 +70,7 @@
               <!--</span>-->
              <!--<span ng-if="item.site != 'LinkedIn'">-->
                 <span>
-                  <a ng-click="openOathDialog(auth)" class="hi-icon {{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
+                  <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
                 </span>
             <!--</span>-->
           </li>
