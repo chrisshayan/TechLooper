@@ -30,6 +30,17 @@ public class UserInfo {
 
   private Set<SocialProvider> profileNames;
 
+  @NotEmpty
+  private String salary;
+
+  public String getSalary() {
+    return salary;
+  }
+
+  public void setSalary(String salary) {
+    this.salary = salary;
+  }
+
   public Set<SocialProvider> getProfileNames() {
     return profileNames;
   }

@@ -3,6 +3,7 @@ angular.module('Register').controller('registerController',
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
+    $scope.salaryOptions = registerService.getSalaryOptions();
     //$scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
     //  registerService.updateUserInfo(userInfo);
     //  utils.sendNotification(jsonValue.notifications.gotData);

@@ -25,27 +25,29 @@ var techlooper = angular.module("Techlooper", [
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
-    $httpProvider.interceptors.push(function ($q, $rootScope, $location) {
+    $httpProvider.interceptors.push(function ($q, $rootScope, $location, localStorageService) {
         return {
-          'responseError': function (rejection) {
-            //console.log(rejection);
-            var status = rejection.status;
-            //var config = rejection.config;
-            //var method = config.method;
-            //var url = config.url;
+          request: function (request) {
+            //config.headers[csrfTokenData.headerName] = csrfTokenData.token;
+            return request || $q.when(request);
+          },
 
-            if (status === 401 || status === 403) {
-              $location.path("/");
+          responseError: function (rejection) {
+            switch (rejection.status) {
+              case 403:
+              case 401:
+                $location.path("/signin");
+                break;
+              case 404:
+                $location.path("/");
             }
-            //$location.path("/");
             return $q.reject(rejection);
           }
         };
       }
     );
 
-    localStorageServiceProvider
-      .setPrefix('techlooper')
+    localStorageServiceProvider.setPrefix('techlooper')
       .setStorageType('cookieStorage')
       .setNotify(true, true);
 
@@ -101,7 +103,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     });
   }]);
 
-techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService) {
+techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService, localStorageService) {
+  //localStorageService.clearAll();
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();

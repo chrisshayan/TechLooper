@@ -32,6 +32,16 @@ public class UserEntity {
 
   private String username;
 
+  private String salary;
+
+  public String getSalary() {
+    return salary;
+  }
+
+  public void setSalary(String salary) {
+    this.salary = salary;
+  }
+
   public String getUsername() {
     return username;
   }

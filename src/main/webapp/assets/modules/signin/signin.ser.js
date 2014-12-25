@@ -1,5 +1,5 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $http) {
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http) {
     //var scope;
 
     var $$ = {
@@ -34,7 +34,24 @@ angular.module('SignIn').factory('signInService',
       },
 
       openOathDialog: function (auth) {
-        utils.openOathDialog(auth, jsonValue.routerUris.register);
+        if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
+        utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+        $auth.authenticate(auth.provider)
+          .then(function (resp) {//success
+            delete $window.localStorage["satellizer_token"];
+            localStorageService.set(jsonValue.storage.key, resp.data.key);
+            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+              .success(function() {
+                $location.path(jsonValue.routerUris.register);
+              })
+              .error(function() {
+                //TODO: invalid user credential
+                utils.sendNotification(jsonValue.notifications.loaded);
+              });
+          })
+          .catch(function(resp) {
+            utils.sendNotification(jsonValue.notifications.loaded);
+          });
       }
     };
 
