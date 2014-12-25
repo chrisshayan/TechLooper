@@ -60,8 +60,10 @@ angular.module('Register').factory('registerService',
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
+            scope.userInfo.profileNames.push(auth.provider.toUpperCase());
+            instance.updateConnections(scope.userInfo);
             //localStorageService.set(jsonValue.storage.key, resp.data.key);
-            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
+            //$http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
             $location.path(jsonValue.routerUris.register);
           })
           .finally(function(resp) {
