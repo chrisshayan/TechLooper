@@ -20,10 +20,11 @@ angular.module('Register').factory('registerService',
         flag.saveUserInfo = true;
         connectionFactory.saveUserInfo(scope.userInfo)
           .then(function (resp) {
-            utils.notify(jsonValue.messages.successSave, 'info');
+            utils.notify(jsonValue.messages.successSave, 'success');
             $location.path("/");
           })
           .catch(function (errors) {
+            //console.log(errors);
             utils.notify(jsonValue.messages.errorFieldsSave, 'error');
             $.each(errors, function (i, error) {
               // TODO: design error display
@@ -49,7 +50,7 @@ angular.module('Register').factory('registerService',
       getSalaryOptions: function() {
         var options =  [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function(val) {
           return {
-            label: "Up to $" + val + " per month",
+            label: "Up to $" + Math.abs(val) + " per month",
             value: val
           };
         });
