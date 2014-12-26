@@ -2,23 +2,23 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
-    go2SkillAnalyticPage: function(scope, term) {
+    go2SkillAnalyticPage: function (scope, term) {
       var path = jsonValue.routerUris.analyticsSkill + '/' + term;
       $location.path(path);
       scope.$apply();
     },
 
-    getDatePeriods: function(number, period) {
+    getDatePeriods: function (number, period) {
       switch (period) {
         case "month":
           return (number).months();
         case "quarter":
-          return (number*3).months();
+          return (number * 3).months();
       }
       return (number).weeks();
     },
 
-    getHistogramPeriod: function(histogram) {
+    getHistogramPeriod: function (histogram) {
       switch (histogram) {
         case jsonValue.histograms.sixBlocksOfFiveDays:
           return 5;
@@ -32,10 +32,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
       return 1;
     },
 
-    getNonZeroItems: function(items, props) {
+    getNonZeroItems: function (items, props) {
       return $.grep(items.slice(0), function (item, i) {
         var zeroCounter = 0;
-        $.each(props, function(j, prop) {
+        $.each(props, function (j, prop) {
           item[prop] === 0 && (++zeroCounter);
         });
         return zeroCounter !== props.length;
@@ -140,10 +140,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
         .then(function (resp) {//success
           delete $window.localStorage["satellizer_token"];
           localStorageService.set(jsonValue.storage.key, resp.data.key);
-          $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
+          $http.post("login", $.param({key: resp.data.key}), {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
           $location.path(successUrl);
         })
-        .catch(function(resp) {
+        .catch(function (resp) {
           instance.sendNotification(jsonValue.notifications.loaded);
         });
     },
@@ -152,21 +152,33 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
     //    $(this).parent().hide();
     //  });
     //},
-    notify: function(msg, type){
+    notify: function (msg, type) {
       var bootstrapClass = "alert-danger";
       switch (type) {
         case "error":
           bootstrapClass = "alert-danger";
           break;
+        case "success":
+          bootstrapClass = "alert-success";
+          break;
       }
 
       $('.messager-block').addClass(bootstrapClass).find('p').text(msg);
       $('.messager-block').show();
-      $('.messager-block').find('.close').click(function(){
+      $('.messager-block').find('.close').click(function () {
         $(this).parent().hide();
       });
+      setTimeout(function () {
+        $(".messager-block").fadeOut(1000);
+      }, 4000);
+    },
+
+    closeNotify: function() {
+      $(".messager-block").fadeOut(1000);
     }
   }
+
+  //instance.registerNotification(jsonValue.notifications.changeUrl, instance.closeNotify)
 
   return instance;
 });

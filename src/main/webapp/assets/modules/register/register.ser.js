@@ -20,10 +20,11 @@ angular.module('Register').factory('registerService',
         flag.saveUserInfo = true;
         connectionFactory.saveUserInfo(scope.userInfo)
           .then(function (resp) {
-            utils.notify(jsonValue.messages.successSave, 'info');
+            utils.notify(jsonValue.messages.successSave, 'success');
             $location.path("/");
           })
           .catch(function (errors) {
+            //console.log(errors);
             utils.notify(jsonValue.messages.errorFieldsSave, 'error');
             $.each(errors, function (i, error) {
               // TODO: design error display
