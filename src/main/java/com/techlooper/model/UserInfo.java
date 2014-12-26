@@ -30,14 +30,14 @@ public class UserInfo {
 
   private Set<SocialProvider> profileNames;
 
-  @NotEmpty
-  private String salary;
+  @NotNull
+  private Integer salary;
 
-  public String getSalary() {
+  public Integer getSalary() {
     return salary;
   }
 
-  public void setSalary(String salary) {
+  public void setSalary(Integer salary) {
     this.salary = salary;
   }
 

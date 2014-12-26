@@ -20,14 +20,20 @@ angular.module('Register').factory('registerService',
         flag.saveUserInfo = true;
         connectionFactory.saveUserInfo(scope.userInfo)
           .then(function (resp) {
+            utils.notify(jsonValue.messages.successSave, 'info');
             $location.path("/");
           })
           .catch(function (errors) {
-            console.log(errors);
+            utils.notify(jsonValue.messages.errorFieldsSave, 'error');
             $.each(errors, function (i, error) {
               // TODO: design error display
               $("." + error.field).css("border", "1px solid red");//error.defaultMessage
             });
+            //$.notify("Please correct the marked field(s) above.", {
+            //  className: "error",
+            //  autoHideDelay: 3000,
+            //  globalPosition: 'bottom right'
+            //});
           })
           .finally(function () {
             flag.saveUserInfo = false;
@@ -41,16 +47,23 @@ angular.module('Register').factory('registerService',
 
     var instance = {
       getSalaryOptions: function() {
-        var options =  [800, 1000, 1500, 2000, 2500, 3000, 4000].map(function(val) {
-          return "Up to $" + val + " per month";
+        var options =  [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function(val) {
+          return {
+            label: "Up to $" + val + " per month",
+            value: val
+          };
         });
-        options.push("Above $4000 per month");
+        options.push({
+          label: "More than $4000 per month",
+          value: 4000
+        });
         return options
       },
 
       updateConnections: function(userInfo) {
         $.each(userInfo.profileNames, function(i, name) {
           // TODO: high-light provider icon
+          $("a." + name.toLowerCase()).parent().addClass('active');
           $("a." + name.toLowerCase()).unbind("click");
         });
       },

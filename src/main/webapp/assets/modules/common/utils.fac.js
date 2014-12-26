@@ -146,6 +146,25 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
         .catch(function(resp) {
           instance.sendNotification(jsonValue.notifications.loaded);
         });
+    },
+    //closeAlert: function(){
+    //  $('.messager-block').find('.close').click(function(){
+    //    $(this).parent().hide();
+    //  });
+    //},
+    notify: function(msg, type){
+      var bootstrapClass = "alert-danger";
+      switch (type) {
+        case "error":
+          bootstrapClass = "alert-danger";
+          break;
+      }
+
+      $('.messager-block').addClass(bootstrapClass).find('p').text(msg);
+      $('.messager-block').show();
+      $('.messager-block').find('.close').click(function(){
+        $(this).parent().hide();
+      });
     }
   }
 

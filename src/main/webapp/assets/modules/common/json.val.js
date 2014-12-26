@@ -1,5 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
+  messages: {
+    successSave: "Your data has been successfully saved",
+    errorFieldsSave: "Please correct the marked field(s) above"
+  },
+
   storage: {
     key: "key"
   },
