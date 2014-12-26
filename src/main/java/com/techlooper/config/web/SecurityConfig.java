@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        return new CustomAuthenticationProvider();
+        return new SocialAuthenticationProvider();
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().anyRequest().permitAll();
     }
 
-//  public void configure(WebSecurity web) throws Exception {
-//    web.ignoring().antMatchers("/images/**", "/css/**", "/generate-resources/**", "/modules/**", "/auth/**", "/getSocialConfig");
-//  }
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/images/**", "/css/**", "/generate-resources/**", "/modules/**", "/bower_components/**", "/custom-js/**");
+  }
 }
