@@ -62,7 +62,7 @@
                   <!--</span>-->
               <!--</span>-->
              <!--<span ng-if="item.site != 'LinkedIn'">-->
-                <span>
+                <span  ng-if="auth.isNotSupported === undefined">
                   <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
                 </span>
             <!--</span>-->
