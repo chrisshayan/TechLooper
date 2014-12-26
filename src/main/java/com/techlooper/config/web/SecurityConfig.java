@@ -1,5 +1,7 @@
 package com.techlooper.config.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
+
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
@@ -34,10 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/user").hasAuthority("USER")
                 .and().formLogin().loginPage("/login").usernameParameter("key").defaultSuccessUrl("/")
                     .failureHandler((request, response, exception) -> {
+                        LOGGER.error(exception.getMessage(), exception);
                         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     })
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
                 .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+                    LOGGER.error(authException.getMessage(), authException);
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 })
                 .and().authorizeRequests().anyRequest().permitAll();
