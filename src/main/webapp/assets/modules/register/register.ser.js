@@ -50,7 +50,7 @@ angular.module('Register').factory('registerService',
       getSalaryOptions: function() {
         var options =  [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function(val) {
           return {
-            label: "Up to $" + val + " per month",
+            label: "Up to $" + Math.abs(val) + " per month",
             value: val
           };
         });
