@@ -152,8 +152,15 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
     //    $(this).parent().hide();
     //  });
     //},
-    openAlert: function(msg, type){
-      $('.messager-block').addClass(type).find('p').text(msg);
+    notify: function(msg, type){
+      var bootstrapClass = "alert-danger";
+      switch (type) {
+        case "error":
+          bootstrapClass = "alert-danger";
+          break;
+      }
+
+      $('.messager-block').addClass(bootstrapClass).find('p').text(msg);
       $('.messager-block').show();
       $('.messager-block').find('.close').click(function(){
         $(this).parent().hide();

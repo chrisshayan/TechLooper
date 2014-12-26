@@ -20,10 +20,11 @@ angular.module('Register').factory('registerService',
         flag.saveUserInfo = true;
         connectionFactory.saveUserInfo(scope.userInfo)
           .then(function (resp) {
+            utils.notify(jsonValue.messages.successSave, 'info');
             $location.path("/");
           })
           .catch(function (errors) {
-            utils.openAlert("Please correct the marked field(s) above.", 'alert-danger');
+            utils.notify(jsonValue.messages.errorFieldsSave, 'error');
             $.each(errors, function (i, error) {
               // TODO: design error display
               $("." + error.field).css("border", "1px solid red");//error.defaultMessage
