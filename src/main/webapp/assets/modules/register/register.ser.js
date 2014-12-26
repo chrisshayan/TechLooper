@@ -23,7 +23,7 @@ angular.module('Register').factory('registerService',
             $location.path("/");
           })
           .catch(function (errors) {
-            //utils.openAlert("Please correct the marked field(s) above.", 'alert-danger');
+            utils.openAlert("Please correct the marked field(s) above.", 'alert-danger');
             $.each(errors, function (i, error) {
               // TODO: design error display
               $("." + error.field).css("border", "1px solid red");//error.defaultMessage
