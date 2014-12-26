@@ -15,7 +15,11 @@
     "provider": "GITHUB",
     "apiKey": "51e6879d5b769b8629f4",
     "secretKey": "713bde969430097dacde108a5852cba41c5fe06d",
-    "redirectUri": "http://techlooper.com/authentication"
+    "redirectUri": "http://techlooper.com/authentication",
+    "apiUrl": {
+      "repos": "https://api.github.com/users/{username}/repos",
+      "followers": "https://api.github.com/users/{username}/followers"
+    }
   },
   {
     "provider": "GOOGLE",
