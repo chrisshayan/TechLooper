@@ -34,19 +34,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                .and().authorizeRequests().antMatchers("/user").hasAuthority("USER")
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                .authorizeRequests().antMatchers("/user").hasAuthority("USER")
                 .and().formLogin().loginPage("/login").usernameParameter("key").defaultSuccessUrl("/")
-                    .failureHandler((request, response, exception) -> {
-                        LOGGER.error(exception.getMessage(), exception);
-                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    })
+                .failureHandler((request, response, exception) -> {
+                    LOGGER.error(exception.getMessage(), exception);
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                })
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
                 .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
                     LOGGER.error(authException.getMessage(), authException);
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 })
-                .and().authorizeRequests().anyRequest().permitAll();
+                .and().authorizeRequests().anyRequest().permitAll()
+                .and().sessionManagement().invalidSessionUrl("/").maximumSessions(1);
     }
 
   public void configure(WebSecurity web) throws Exception {
