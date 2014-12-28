@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by NguyenDangKhoa on 12/10/14.
  */
-public class LinkedInProfile implements Serializable {
+public class LinkedInProfile extends UserProfile implements Serializable {
 
   private String firstName;
   private String lastName;
@@ -29,6 +29,16 @@ public class LinkedInProfile implements Serializable {
   private List<TwitterAccount> twitterAccounts;
 
   private ConnectionAuthorization connectionAuthorization;
+
+  private String emailAddress;
+
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
+  }
 
   public ConnectionAuthorization getConnectionAuthorization() {
     return connectionAuthorization;

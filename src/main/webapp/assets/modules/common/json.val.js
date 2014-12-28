@@ -1,5 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
+  messages: {
+    successSave: "Your data has been successfully saved",
+    errorFieldsSave: "Please correct the marked field(s) above"
+  },
+
   storage: {
     key: "key"
   },
@@ -23,7 +28,8 @@ angular.module("Common").constant("jsonValue", {
     changeLang: "Change language",
     changeUrl: "Change URL",
     loading: "loading",
-    loaded: "loaded"
+    loaded: "loaded",
+    loginSuccess: "login success"
   },
 
   viewTerms: {
@@ -149,6 +155,12 @@ angular.module("Common").constant("jsonValue", {
     userProfile: "userProfile"
   },
 
+  httpUri: {
+    user: "user",
+    userSave: "user/save",
+    logout: "logout"
+  },
+
   socketUri: {
     sockjs: "ws",
 
@@ -165,6 +177,8 @@ angular.module("Common").constant("jsonValue", {
     getUserInfoByKey: "/app/userInfo/key",
     subscribeUserInfoByKey: "/topic/userInfo/key"
   },
+
+
   technicalSkill: [{
     'text': 'Java',
     'logo': 'lg-java.png'
@@ -264,7 +278,7 @@ angular.module("Common").constant("jsonValue", {
     {
       provider: "linkedin",
       logo: "images/linkedin.png",
-      magnitude: "level2",
+      magnitude: "level1",
       bgcolor: "#007bb6"
     },
     {
@@ -289,7 +303,7 @@ angular.module("Common").constant("jsonValue", {
     {
       provider: "github",
       logo: "images/github.png",
-      magnitude: "level6",
+      magnitude: "level7",
       bgcolor: "#333333"
     },
     {

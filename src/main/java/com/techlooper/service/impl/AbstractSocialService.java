@@ -1,5 +1,7 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialConfig;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
@@ -19,6 +21,8 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 import static com.techlooper.entity.AccessGrant.AccessGrantBuilder.accessGrant;
+import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
+import static com.techlooper.model.SocialProvider.LINKEDIN;
 
 /**
  * Created by phuonghqh on 12/15/14.
@@ -63,10 +67,22 @@ public abstract class AbstractSocialService implements SocialService {
   }
 
   public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return null;
+    throw new UnsupportedOperationException("Method is not supported");
   }
 
-  public  OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
-    return null;
+  public OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
+    throw new UnsupportedOperationException("Method is not supported");
+  }
+
+  public abstract UserProfile getProfile(com.techlooper.entity.AccessGrant accessGrant);
+
+  public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
+    UserEntity entity = userService.findUserEntityByKey(key);
+    if (!Optional.ofNullable(entity).isPresent()) {
+      throw new UnsupportedOperationException("Method is not supported");
+    }
+    userEntity(entity).withProfile(socialConfig.getProvider(), getProfile(accessGrant));
+    userService.save(entity);
+    return entity;
   }
 }

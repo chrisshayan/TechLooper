@@ -1,11 +1,12 @@
 package com.techlooper.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by phuonghqh on 12/16/14.
  */
-public class TwitterProfile {
+public class TwitterProfile extends UserProfile implements Serializable {
 
   private long id;
   private String screenName;

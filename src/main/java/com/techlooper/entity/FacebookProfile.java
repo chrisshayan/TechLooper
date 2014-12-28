@@ -11,7 +11,7 @@ import java.util.Locale;
 /**
  * Created by phuonghqh on 12/15/14.
  */
-public class FacebookProfile implements Serializable {
+public class FacebookProfile extends UserProfile implements Serializable {
   private String id;
   private String username;
   private String name;

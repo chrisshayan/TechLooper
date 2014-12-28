@@ -1,7 +1,5 @@
 package com.techlooper.model;
 
-import java.util.List;
-
 /**
  * Created by phuonghqh on 12/12/14.
  */

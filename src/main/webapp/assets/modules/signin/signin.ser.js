@@ -1,5 +1,5 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window) {
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http) {
     //var scope;
 
     var $$ = {
@@ -11,6 +11,11 @@ angular.module('SignIn').factory('signInService',
     var instance = {
       initialize: function () {
         //scope = $scope;
+
+        if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
+          $location.path("/");
+        }
+
         $('.signin-accounts').parallax();
 
         $('.btn-close').click(function () {
@@ -40,8 +45,16 @@ angular.module('SignIn').factory('signInService',
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             localStorageService.set(jsonValue.storage.key, resp.data.key);
-            $location.path(jsonValue.routerUris.register);
-          }, function(resp) {//error
+            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+              .success(function() {
+                $location.path(jsonValue.routerUris.register);
+              })
+              .error(function() {
+                //TODO: invalid user credential
+                utils.sendNotification(jsonValue.notifications.loaded);
+              });
+          })
+          .catch(function(resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
       }

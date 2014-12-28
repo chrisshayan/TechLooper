@@ -1,7 +1,9 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
+import com.techlooper.entity.SimpleUserProfile;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
@@ -35,9 +37,16 @@ public class GoogleService extends AbstractSocialService {
     return googleConnectionFactory;
   }
 
-  public UserEntity persistProfile(AccessGrant accessGrant) {
+  public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<Google> connection = googleConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    Person profile = connection.getApi().plusOperations().getGoogleProfile();
+    SimpleUserProfile gProfile = new SimpleUserProfile();
+    gProfile.setAccessGrant(accessGrant);
+    gProfile.setActual(connection.getApi().plusOperations().getGoogleProfile());
+    return gProfile;
+  }
+
+  public UserEntity saveFootprint(AccessGrant accessGrant) {
+    Person profile = (Person) ((SimpleUserProfile) getProfile(accessGrant)).getActual();
     UserEntity userEntity = Optional.ofNullable(userService.findById(profile.getAccountEmail())).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
       .withProfile(SocialProvider.GOOGLE, profile)
