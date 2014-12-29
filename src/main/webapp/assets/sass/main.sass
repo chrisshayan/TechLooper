@@ -130,15 +130,10 @@ ul.setting-items
       float: left
 
 .logo-block
-  width: 33%
+  width: 100%
   float: left
   height: 60px
-  position: relative
-.logo-block img
-  margin: auto
-  position: absolute
-  top: 0
-  bottom: 0
+  padding: 10px 0
 .search-logo-block
   .logo-block
     text-align: left
@@ -213,7 +208,18 @@ ul.setting-items
       margin: 0
       padding: 0
       line-height: 55px
+.sub-page-header
+  width: 100%
+  display: block
+  clear: both
+  .logo-block
+    width: 80%
+    float: left
+    img
 
+  .close-button
+    width: 20%
+    float: right
 /* -- style for Navi ---*/
 .header-section
   padding-left: 65px
@@ -243,9 +249,9 @@ ul.setting-items
       cursor: pointer
       padding-top: 18px
   .navi-container
-    display: none
     clear: both
     padding-top: 70px
+    display: none
     ul
       margin: 0
       padding: 0
@@ -275,7 +281,7 @@ ul.setting-items
       a.m-languages.en
         background-position: 18px -260px
       a.m-sign-out
-        background-position: 19px -340px
+        background-position: 19px -340px !important
       a.m-sign-in
         background-position: 17px -428px
       a.m-user-profile

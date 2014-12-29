@@ -2,6 +2,7 @@ angular.module("Common", []);
 angular.module("Bubble", []);
 angular.module("Home", []);
 angular.module("Header", []);
+angular.module("Navigation", []);
 angular.module("Footer", []);
 angular.module("Chart", ["Common", "Bubble", "Pie", "Common", "Header"]);
 angular.module("Jobs", ['infinite-scroll']);
@@ -20,7 +21,7 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Header", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
+  "Bubble", "Pie", "Home", "Header", "Navigation" ,"Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
@@ -118,6 +119,13 @@ techlooper.directive("header", function () {
     replace: true,
     templateUrl: "modules/header/header.tem.html",
     controller: "headerController"
+  }
+}).directive("navigation", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/navigation/navigation.tem.html",
+    controller: "navigationController"
   }
 }).directive("findjobs", function () {
   return {

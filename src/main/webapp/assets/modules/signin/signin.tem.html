@@ -1,5 +1,6 @@
-<div class="signin-page">
-  <div class="signin-header">
+<div navigation></div>
+<div class="techlooper-body">
+  <div class="sub-page-header">
     <div class="col-md-4 logo-block">
       <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
       <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
@@ -11,45 +12,46 @@
       <a class="btn-close" title="Close">X</a>
     </div>
   </div>
-  <div class="signin-contianer">
-    <ul class="signin-accounts hi-icon-effect-1 hi-icon-effect-1a">
-      <li class="layer" data-depth="0.20">
-        <div class="bg1"><img src="images/bg-signin1.png" alt=""></div>
-      </li>
-      <li class="layer" data-depth="0.20">
-        <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
-      </li>
-      <li class="layer" data-depth="0.20">
-        <div class="bg3"><img src="images/sircle-dot1.png" alt=""></div>
-      </li>
-      <li class="layer" data-depth="0.20">
-        <div class="bg4"><img src="images/sircle-dot2.png" alt=""></div>
-      </li>
-      <li class="layer" data-depth="0.20">
-        <div class="bg5"><img src="images/sircle-dot3.png" alt=""></div>
-      </li>
-      <li class="layer" data-depth="0.20">
-        <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
-      </li>
-      <li class="layer" data-depth="0.20" ng-repeat="auth in authSource">
-        <!--<span ng-if="auth.isNotSupported === true">-->
-          <!--<div class="signin-account {{auth.magnitude}}" style="background-color: #9c9c9c">-->
-              <!--<a>-->
-                <!--<img ng-src="{{auth.logo}}" alt="">-->
-              <!--</a>-->
-          <!--</div>-->
-        <!--</span>-->
-        <span  ng-if="auth.isNotSupported === undefined">
-          <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
-            <a ng-click="openOathDialog(auth)" class="hi-icon"><img ng-src="{{auth.logo}}" alt=""></a>
-          </div>
-        </span>
+  <div class="signin-page">
+    <div class="signin-contianer">
+      <ul class="signin-accounts hi-icon-effect-1 hi-icon-effect-1a">
+        <li class="layer" data-depth="0.20">
+          <div class="bg1"><img src="images/bg-signin1.png" alt=""></div>
+        </li>
+        <li class="layer" data-depth="0.20">
+          <div class="bg2"><img src="images/bg-signin2.png" alt=""></div>
+        </li>
+        <li class="layer" data-depth="0.20">
+          <div class="bg3"><img src="images/sircle-dot1.png" alt=""></div>
+        </li>
+        <li class="layer" data-depth="0.20">
+          <div class="bg4"><img src="images/sircle-dot2.png" alt=""></div>
+        </li>
+        <li class="layer" data-depth="0.20">
+          <div class="bg5"><img src="images/sircle-dot3.png" alt=""></div>
+        </li>
+        <li class="layer" data-depth="0.20">
+          <div class="bg6"><img src="images/dunut-circle.png" alt=""></div>
+        </li>
+        <li class="layer" data-depth="0.20" ng-repeat="auth in authSource">
+          <!--<span ng-if="auth.isNotSupported === true">-->
+            <!--<div class="signin-account {{auth.magnitude}}" style="background-color: #9c9c9c">-->
+                <!--<a>-->
+                  <!--<img ng-src="{{auth.logo}}" alt="">-->
+                <!--</a>-->
+            <!--</div>-->
+          <!--</span>-->
+          <span  ng-if="auth.isNotSupported === undefined">
+            <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
+              <a ng-click="openOathDialog(auth)" class="hi-icon"><img ng-src="{{auth.logo}}" alt=""></a>
+            </div>
+          </span>
 
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
-
 <!--<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
   <!--<div class="modal-dialog">-->
     <!--<div class="modal-content">-->
