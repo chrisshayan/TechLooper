@@ -28,6 +28,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
           return 1;
         case jsonValue.histograms.eighteenBlocksOfFiveDays:
           return 5;
+        case jsonValue.histograms.sixMonths:
+          return 10;
+        case jsonValue.histograms.oneYear:
+          return 31;
       }
       return 1;
     },

@@ -15,9 +15,13 @@ angular.module("Common").constant("jsonValue", {
     sixBlocksOfFifteenDays: "SIX_BLOCKS_OF_FIFTEEN_DAYS",
     oneMonth: "ONE_MONTH",
     eighteenBlocksOfFiveDays: "EIGHTEEN_BLOCKS_OF_FIVE_DAYS",
+    sixMonths: "SIX_MONTHS",
+    oneYear: "ONE_YEAR",
     twoWeeks: "TWO_WEEKS",
     twoMonths: "TWO_MONTHS",
-    twoQuarters: "TWO_QUARTERS"
+    twoQuarters: "TWO_QUARTERS",
+    twoSixMonths: "TWO_SIX_MONTHS",
+    twoYears: "TWO_YEARS"
   },
 
   notifications: {
