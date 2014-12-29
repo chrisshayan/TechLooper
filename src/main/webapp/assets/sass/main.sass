@@ -36,6 +36,11 @@ a:hover
   display: none
 .desktop
   display: block
+.techlooper-body
+  display: block
+  clear: both
+  float: left
+  width: 100%
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
@@ -134,24 +139,7 @@ ul.setting-items
   float: left
   height: 60px
   padding: 10px 0
-.search-logo-block
-  .logo-block
-    text-align: left
-    img
-      float: left
-.technical-header-block
-  .logo-block
-    text-align: left
-    img
-      float: left
-.tech-line
-  width: 33%
-  text-align: center
-  float: left
-.close-button
-  width: 10%
-  text-align: right
-  float: right
+
 .logo-block h1
   margin: 0
   padding: 0
@@ -212,10 +200,31 @@ ul.setting-items
   width: 100%
   display: block
   clear: both
+  padding-left: 80px
   .logo-block
     width: 80%
     float: left
     img
+      float: left
+  .close-button
+    text-align: right
+    padding: 7px 10px 0 0
+  .close-button a
+    background: #2c2a2a
+    border-radius: 50%
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
+    border-radius: 50%
+    display: block
+    width: 45px
+    height: 45px
+    float: right
+    color: #fff
+    font-weight: 300
+    font-size: 20px
+    line-height: 45px
+    text-align: center
+    cursor: pointer
 
   .close-button
     width: 20%
@@ -374,6 +383,8 @@ ul.setting-items
     background-position: 0px 1px
 .signin-page
   text-align: center
+  float: left
+  width: 100%
 .signin-contianer
   width: 500px
   margin: auto

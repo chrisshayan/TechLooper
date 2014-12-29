@@ -31,14 +31,15 @@ angular.module("Navigation").factory("navigationService",
             $('.techlooper-body').animate({
               'padding-left': 0
             });
-            $('.header-section').animate({
-              'padding-left': '65px'
+            $('.sub-page-header').animate({
+              'padding-left': '80px'
             });
             $('.navi-container').animate({
               'width': '0%'
             }, 300, function(){
               $(this).css('display', 'none');
             });
+
             $(this).removeClass('active');
           }else{
             $('.main-navi-block').animate({
@@ -47,7 +48,7 @@ angular.module("Navigation").factory("navigationService",
             $('.techlooper-body').animate({
               'padding-left': '85px'
             });
-            $('.header-section').animate({
+            $('.sub-page-header').animate({
               'padding-left': '0px'
             });
             $('.navi-container').animate({
