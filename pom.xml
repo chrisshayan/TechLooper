@@ -438,14 +438,14 @@
 
 
     <!--<dependency>-->
-      <!--<groupId>org.slf4j</groupId>-->
-      <!--<artifactId>slf4j-api</artifactId>-->
-      <!--<version>${slf4j.version}</version>-->
+    <!--<groupId>org.slf4j</groupId>-->
+    <!--<artifactId>slf4j-api</artifactId>-->
+    <!--<version>${slf4j.version}</version>-->
     <!--</dependency>-->
     <!--<dependency>-->
-      <!--<groupId>org.slf4j</groupId>-->
-      <!--<artifactId>slf4j-log4j12</artifactId>-->
-      <!--<version>${slf4j.version}</version>-->
+    <!--<groupId>org.slf4j</groupId>-->
+    <!--<artifactId>slf4j-log4j12</artifactId>-->
+    <!--<version>${slf4j.version}</version>-->
     <!--</dependency>-->
     <!-- Log Framework -->
     <dependency>
@@ -453,6 +453,11 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.7.9</version>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.slf4j</groupId>-->
+      <!--<artifactId>jul-to-slf4j</artifactId>-->
+      <!--<version>1.7.9</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -542,9 +547,9 @@
       <version>${spring.security.version}</version>
     </dependency>
     <!--<dependency>-->
-      <!--<groupId>org.springframework.session</groupId>-->
-      <!--<artifactId>spring-session</artifactId>-->
-      <!--<version>1.0.0.RC1</version>-->
+    <!--<groupId>org.springframework.session</groupId>-->
+    <!--<artifactId>spring-session</artifactId>-->
+    <!--<version>1.0.0.RC1</version>-->
     <!--</dependency>-->
 
     <dependency>
@@ -560,9 +565,9 @@
     </dependency>
 
     <!--<dependency>-->
-      <!--<groupId>org.springframework.social</groupId>-->
-      <!--<artifactId>spring-social-security</artifactId>-->
-      <!--<version>${spring-social.version}</version>-->
+    <!--<groupId>org.springframework.social</groupId>-->
+    <!--<artifactId>spring-social-security</artifactId>-->
+    <!--<version>${spring-social.version}</version>-->
     <!--</dependency>-->
 
     <dependency>
@@ -608,8 +613,8 @@
     </dependency>
 
     <!--<dependency>-->
-      <!--<groupId>org.springframework.social</groupId>-->
-      <!--<artifactId>spring-social-bitbucket</artifactId>-->
+    <!--<groupId>org.springframework.social</groupId>-->
+    <!--<artifactId>spring-social-bitbucket</artifactId>-->
     <!--</dependency>-->
 
     <dependency>
