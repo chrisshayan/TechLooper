@@ -15,5 +15,7 @@
   "week": "Week",
   "month": "Month",
   "quarter": "Quarter",
-  "clickBubbleChartTip": "(See more details)"
+  "clickBubbleChartTip": "(See more details)",
+  "6 Months": "6 Months",
+  "year": "Year"
 }

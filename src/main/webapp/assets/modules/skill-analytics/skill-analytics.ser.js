@@ -55,14 +55,14 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       renderPeriodRadios: function () {
         switch (skillStatisticRequest.period) {
-          case "month":
-            $("li[data-period=month]").addClass("active");
+          case "sixMonths":
+            $("li[data-period=sixMonths]").addClass("active");
             break;
-          case "quarter":
-            $("li[data-period=quarter]").addClass("active");
+          case "oneYear":
+            $("li[data-period=oneYear]").addClass("active");
             break;
           default:
-            $("li[data-period=week]").addClass("active");
+            $("li[data-period=quarter]").addClass("active");
             break;
         }
       },
@@ -80,18 +80,18 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       getHistogramsAndPeriod: function (period) {
         var histogramsAndPeriod = {
-          histograms: [jsonValue.histograms.twoWeeks, jsonValue.histograms.oneWeek],
+          histograms: [jsonValue.histograms.twoQuarters, jsonValue.histograms.eighteenBlocksOfFiveDays],
           period: period
         };
         switch (period) {
-          case "month":
-            histogramsAndPeriod.histograms = [jsonValue.histograms.twoMonths, jsonValue.histograms.oneMonth];
+          case "sixMonths":
+            histogramsAndPeriod.histograms = [jsonValue.histograms.twoSixMonths, jsonValue.histograms.sixMonths];
             break;
-          case "quarter":
-            histogramsAndPeriod.histograms = [jsonValue.histograms.twoQuarters, jsonValue.histograms.eighteenBlocksOfFiveDays]
+          case "oneYear":
+            histogramsAndPeriod.histograms = [jsonValue.histograms.twoYears, jsonValue.histograms.oneYear]
             break;
           default:
-            histogramsAndPeriod.period = "week"
+            histogramsAndPeriod.period = "quarter"
         }
         return histogramsAndPeriod;
       },

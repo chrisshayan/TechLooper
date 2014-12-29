@@ -14,8 +14,20 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
           return (number).months();
         case "quarter":
           return (number * 3).months();
+        case "sixMonths":
+          return (number * 6).months();
+        case "oneYear":
+          return (number * 12).months();
       }
       return (number).weeks();
+    },
+
+    formatDateByPeriod : function (date, period) {
+      //TODO : It should be able to autodectect period base on the value in json.val.js
+      if (period === "oneYear") {
+          return date.toString("MMM yyyy");
+      }
+      return date.toString("MMM dd");
     },
 
     getHistogramPeriod: function (histogram) {
@@ -28,6 +40,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
           return 1;
         case jsonValue.histograms.eighteenBlocksOfFiveDays:
           return 5;
+        case jsonValue.histograms.sixMonths:
+          return 10;
+        case jsonValue.histograms.oneYear:
+          return 31;
       }
       return 1;
     },
