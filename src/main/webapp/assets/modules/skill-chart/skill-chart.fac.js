@@ -3,13 +3,8 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
     getXAxisLabels: function (viewJson) {
       var oneSkill = viewJson.tableAndChartJson[0];
       var labels = [];
-      var dateFormat = "MMM dd";
-      //TODO : this param should be dynamic
-      if (viewJson.period === "oneYear") {
-        dateFormat = "MMM yyyy";
-      }
       $.each(oneSkill.histogramData, function (i, item) {
-        labels.unshift((i * viewJson.histogramDataPeriod).days().ago().toString(dateFormat));
+        labels.unshift(utils.formatDateByPeriod((i * viewJson.histogramDataPeriod).days().ago(), viewJson.period));
       });
       return labels;
     },
