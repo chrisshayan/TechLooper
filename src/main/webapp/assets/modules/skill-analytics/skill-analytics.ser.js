@@ -55,14 +55,14 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       renderPeriodRadios: function () {
         switch (skillStatisticRequest.period) {
-          case "month":
-            $("li[data-period=month]").addClass("active");
+          case "sixMonths":
+            $("li[data-period=sixMonths]").addClass("active");
             break;
-          case "quarter":
-            $("li[data-period=quarter]").addClass("active");
+          case "oneYear":
+            $("li[data-period=oneYear]").addClass("active");
             break;
           default:
-            $("li[data-period=week]").addClass("active");
+            $("li[data-period=quarter]").addClass("active");
             break;
         }
       },
