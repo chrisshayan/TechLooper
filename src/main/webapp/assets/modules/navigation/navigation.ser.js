@@ -66,10 +66,10 @@ angular.module("Navigation").factory("navigationService",
         $$.updateUserInfo();
         $$.naviControl();
         if(utils.getView() == jsonValue.views.bubbleChart){
-          $('.m-chart').addClass('m-pie-chart');
+          $('.m-chart').removeClass('m-bubble-chart').addClass('m-pie-chart');
         }
         if(utils.getView() == jsonValue.views.pieChart){
-          $('.m-chart').removeClass('m-pie-chart');
+          $('.m-chart').removeClass('m-pie-chart').addClass('m-bubble-chart');
         }
       },
       getChartFactory: function () {
