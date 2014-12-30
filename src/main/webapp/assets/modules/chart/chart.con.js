@@ -1,7 +1,7 @@
 angular.module('Chart').controller('chartController',
-  function ($scope, jsonValue, connectionFactory, utils, headerService) {
+  function ($scope, jsonValue, connectionFactory, utils, navigationService) {
     var events = jsonValue.events;
-    var chartFactory = headerService.getChart().factory;
+    var chartFactory = navigationService.getChartFactory();
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.$on(events.terms, function (event, terms) {
       chartFactory.renderView(terms);

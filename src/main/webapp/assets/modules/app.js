@@ -113,14 +113,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   tourService.initialize();
 });
 
-techlooper.directive("header", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/header/header.tem.html",
-    controller: "headerController"
-  }
-}).directive("navigation", function () {
+techlooper.directive("navigation", function () {
   return {
     restrict: "A",
     replace: true,
