@@ -58,21 +58,6 @@ angular.module("Navigation").factory("navigationService",
                         $(this).addClass('active');
                     }
                 });
-            },
-            changeChart: function(scope){
-                if(utils.getView() == jsonValue.views.bubbleChart){
-                    $('.m-chart').addClass('m-pie-chart');
-                }
-                if(utils.getView() == jsonValue.views.pieChart){
-                    $('.m-chart').removeClass('m-pie-chart');
-                }
-                $('.m-chart').click(function(){
-                    if($('.m-chart').hasClass('m-pie-chart')){
-                        $(this).attr('href','#/bubble-chart').removeClass('m-pie-chart');
-                    }else {
-                        $(this).attr('href','#/pie-chart').addClass('m-pie-chart');
-                    }
-                });
             }
         }
 
@@ -80,7 +65,12 @@ angular.module("Navigation").factory("navigationService",
             initialize: function () {
                 $$.updateUserInfo();
                 $$.naviControl();
-                $$.changeChart();
+                if(utils.getView() == jsonValue.views.bubbleChart){
+                    $('.m-chart').removeClass('m-bubble-chart').addClass('m-pie-chart');
+                }
+                if(utils.getView() == jsonValue.views.pieChart){
+                    $('.m-chart').removeClass('m-pie-chart').addClass('m-bubble-chart');
+                }
             },
             getChartFactory: function () {
                 switch (utils.getView()) {
