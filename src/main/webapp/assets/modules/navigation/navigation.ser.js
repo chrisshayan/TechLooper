@@ -58,10 +58,21 @@ angular.module("Navigation").factory("navigationService",
             $(this).addClass('active');
           }
         });
-        //$('.m-sign-in').click(function(){
-        //  $('.techlooper-body').css('padding-left', '85px');
-        //  $('.sub-page-header').css('padding-left', '20px');
-        //});
+      },
+      changeChart: function(scope){
+        if(utils.getView() == jsonValue.views.bubbleChart){
+          $('.m-chart').addClass('m-pie-chart');
+        }
+        if(utils.getView() == jsonValue.views.pieChart){
+          $('.m-chart').removeClass('m-pie-chart');
+        }
+        $('.m-chart').click(function(){
+          if($('.m-chart').hasClass('m-pie-chart')){
+            $(this).attr('href','#/bubble-chart').removeClass('m-pie-chart');
+          }else {
+            $(this).attr('href','#/pie-chart').addClass('m-pie-chart');
+          }
+        });
       }
     }
 
@@ -69,14 +80,20 @@ angular.module("Navigation").factory("navigationService",
       initialize: function () {
         $$.updateUserInfo();
         $$.naviControl();
+        $$.changeChart();
       },
-      getChartFactory: function (location) {
+      getChartFactory: function () {
         switch (utils.getView()) {
           case jsonValue.views.pieChart:
             return pieFactory;
           case jsonValue.views.bubbleChart:
             return bubbleFactory;
         }
+      },
+      restartTour: function(){
+        $('.infor-tour').on('click', function(){
+          tourService.restart();
+        });
       }
     }
 

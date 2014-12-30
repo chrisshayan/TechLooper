@@ -1,10 +1,9 @@
 angular.module("Common", []);
 angular.module("Bubble", []);
 angular.module("Home", []);
-angular.module("Header", []);
 angular.module("Navigation", []);
 angular.module("Footer", []);
-angular.module("Chart", ["Common", "Bubble", "Pie", "Common", "Header"]);
+angular.module("Chart", ["Common", "Bubble", "Pie", "Common"]);
 angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
@@ -21,7 +20,7 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Header", "Navigation" ,"Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
+  "Bubble", "Pie", "Home", "Navigation" ,"Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
