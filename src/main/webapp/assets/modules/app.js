@@ -3,7 +3,7 @@ angular.module("Bubble", []);
 angular.module("Home", []);
 angular.module("Navigation", []);
 angular.module("Footer", []);
-angular.module("Chart", ["Common", "Bubble", "Pie", "Common", "Header"]);
+angular.module("Chart", ["Common", "Bubble", "Pie", "Common"]);
 angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
