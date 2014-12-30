@@ -97,19 +97,6 @@ ul.setting-items
   width: 16px
   height: 16px
   cursor: pointer
-.infor-tour
-  width: 30px
-  height: 30px
-  background-color: #323232
-  border: 1px solid #3d373a
-  border-radius: 5px
-  cursor: pointer
-  padding: 4px
-  position: absolute
-  right: 45px
-  font-size: 20px
-  line-height: 20px
-  text-align: center
 .keyboard-shortcuts-items
   background: #000000
   padding: 10px
@@ -137,8 +124,8 @@ ul.setting-items
 .logo-block
   width: 100%
   float: left
-  height: 60px
-  padding: 10px 0
+  height: 70px
+  padding: 5px 0
 
 .logo-block h1
   margin: 0
@@ -201,9 +188,14 @@ ul.setting-items
   display: block
   clear: both
   padding-left: 80px
+  padding-bottom: 10px
+  float: left
+  background: url(../images/underline-black.png) center bottom repeat-x
   .logo-block
     width: 80%
     float: left
+    height: 60px
+    padding: 10px 0
     img
       float: left
   .close-button
@@ -277,6 +269,7 @@ ul.setting-items
         height: 60px
         margin: auto
         z-index: 999
+        cursor: pointer
       a.m-home-page
         background-position: 14px 13px
       a.m-pie-chart
@@ -302,6 +295,8 @@ ul.setting-items
         -webkit-border-radius: 50%
         -moz-border-radius: 50%
         border-radius: 50%
+      a.m-tour-guide
+        background-position: 15px -519px
       a:hover
         background: url(../images/ic-navi.png) #fff left top no-repeat
       a.m-home-page:hover
@@ -322,6 +317,8 @@ ul.setting-items
         background-position: 17px -471px
       a.m-user-profile:hover
         background: transparent
+      a.m-tour-guide:hover
+        background-position: 15px -569px
     li ul
       width: 0
       height: 58px

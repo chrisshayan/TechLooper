@@ -32,7 +32,7 @@ angular.module("Navigation").factory("navigationService",
               'padding-left': 0
             });
             $('.sub-page-header').animate({
-              'padding-left': '80px'
+              'padding-left': '90px'
             });
             $('.navi-container').animate({
               'width': '0%'
@@ -49,7 +49,7 @@ angular.module("Navigation").factory("navigationService",
               'padding-left': '85px'
             });
             $('.sub-page-header').animate({
-              'padding-left': '0px'
+              'padding-left': '20px'
             });
             $('.navi-container').animate({
               'width': '100%'
