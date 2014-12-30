@@ -57,21 +57,6 @@ angular.module("Navigation").factory("navigationService",
             $(this).addClass('active');
           }
         });
-      },
-      subNaviControl: function(){
-        var subNavi = $('.hi-icon-effect-1').find('li.subNavi');
-        subNavi.mouseenter(function(){
-          $(this).find('ul').stop().animate({
-            width: '140px',
-            'padding-left': '40px'
-          }).css('z-index','666');
-        }).mouseleave(function(){
-          $(this).find('ul').stop().animate({
-            width: '0',
-            'padding-left': '0',
-            'z-index': '-666'
-          });
-        });
       }
     }
 
@@ -79,7 +64,6 @@ angular.module("Navigation").factory("navigationService",
       initialize: function() {
         $$.updateUserInfo();
         $$.naviControl();
-        $$.subNaviControl();
       }
     }
 
