@@ -41,7 +41,6 @@ a:hover
   clear: both
   float: left
   width: 100%
-
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
@@ -151,13 +150,13 @@ ul.setting-items
   height: 70px
   padding-top: 5px
   background: url(../images/underline-black.png) left bottom repeat-x
-
 .sub-page-header
   width: 100%
   display: block
   clear: both
   padding-bottom: 10px
   float: left
+  padding-left: 90px
   background: url(../images/underline-black.png) center bottom repeat-x
   .logo-block
     width: 80%
@@ -213,6 +212,7 @@ ul.setting-items
   left: 0
   top: 0
   bottom: 0
+  z-index: 999
   .manager-navi
     height: 70px
     text-align: center
@@ -253,7 +253,7 @@ ul.setting-items
       a.m-home-page
         background-position: 14px 13px
       a.m-pie-chart
-        background-position: 13px -709px
+        background-position: 13px -709px !important
       a.m-bubble-chart
         background-position: 15px -614px
       a.m-search-jobs
@@ -282,7 +282,7 @@ ul.setting-items
       a.m-home-page:hover
         background-position: 14px -35px
       a.m-pie-chart:hover
-        background-position: 13px -757px
+        background-position: 13px -757px !important
       a.m-bubble-chart:hover
         background-position: 15px -660px
       a.m-search-jobs:hover
@@ -1010,7 +1010,9 @@ label.bootstrap-checkbox.disabled
 .register-contianer
   width: 100%
   text-align: center
-  padding-top: 10px
+  padding-top: 30px
+  float: left
+  display: block
   .register-form-block
     width: 100%
     max-width: 400px
