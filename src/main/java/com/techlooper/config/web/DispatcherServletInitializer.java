@@ -17,6 +17,8 @@
 package com.techlooper.config.web;
 
 import com.techlooper.config.CoreConfiguration;
+import com.techlooper.config.web.security.SecurityConfig;
+import com.techlooper.config.web.security.WebSocketSecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletRegistration.Dynamic;
@@ -24,7 +26,7 @@ import javax.servlet.ServletRegistration.Dynamic;
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[]{CoreConfiguration.class, SecurityConfig.class};
+    return new Class<?>[]{CoreConfiguration.class, SecurityConfig.class, WebSocketSecurityConfig.class};
   }
 
   protected Class<?>[] getServletConfigClasses() {

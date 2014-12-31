@@ -61,7 +61,7 @@ angular.module('Register').factory('registerService',
         return options
       },
 
-      updateConnections: function(userInfo) {
+      updateUserInfo: function(userInfo) {
         $.each(userInfo.profileNames, function(i, name) {
           // TODO: high-light provider icon
           $("a." + name.toLowerCase()).parent().addClass('active');

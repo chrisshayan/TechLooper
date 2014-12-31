@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http, $q) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http, $q, $location, localStorageService) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -8,8 +8,8 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
   //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
   var stompUrl = baseUrl + '/' + socketUri.sockjs;
-  var stompClient = Stomp.over(new SockJS(stompUrl));
-  stompClient.debug = function () {};
+  var broadcastClient = Stomp.over(new SockJS(stompUrl));
+  //broadcastClient.debug = function () {};
 
   // private functions
   var $$ = {
@@ -36,46 +36,67 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       callbacks.length = 0;
     },
 
-    post: function(uri, json) {
+    post: function (uri, params, header) {
       var deferred = $q.defer();
-      setTimeout(function() {
-        $http.post(uri, json)
-          .success(function(resp) {
+      setTimeout(function () {
+        $http.post(uri, params, header)
+          .success(function (resp) {
             deferred.resolve(resp);
           })
-          .error(function(resp) {
+          .error(function (resp) {
             deferred.reject(resp);
           });
       }, 2000);
       return deferred.promise;
+    },
+
+    errorHandler: function (error) {
+      if (error.headers.message.indexOf("AuthenticationCredentialsNotFoundException") >= 0) {
+        localStorageService.clearAll();
+        utils.sendNotification(jsonValue.notifications.loaded);
+        return $location.path(jsonValue.routerUris.signIn);
+      }
     }
   }
 
   var instance = {
-    saveUserInfo: function(json) {
+    login: function () {
+      if (localStorageService.get(jsonValue.storage.key) === null) {
+        utils.sendNotification(jsonValue.notifications.loaded);
+        return $q.reject();
+      }
+
+      return $$.post(jsonValue.httpUri.login,
+        $.param({key: localStorageService.get(jsonValue.storage.key)}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
+    },
+
+    saveUserInfo: function (json) {
       return $$.post(jsonValue.httpUri.userSave, json);
     },
 
-    findUserInfoByKey: function(json) {
-      //if (!stompClient.connected) {
-      //  callbacks.push({
-      //    fn: instance.findUserInfoByKey,
-      //    args: json
-      //  });
-      //  return instance.connectSocket();
-      //}
-      //
-      //var subscription = stompClient.subscribe(socketUri.subscribeUserInfoByKey, function (response) {
-      //  scope.$emit(events.userInfo, JSON.parse(response.body));
-      //  subscription.unsubscribe();
-      //});
-      //stompClient.send(socketUri.getUserInfoByKey, {}, JSON.stringify(json));
-      return $$.post(jsonValue.httpUri.user, json);
+    findUserInfoByKey: function () {
+      if (!broadcastClient.connected) {
+        callbacks.push({
+          fn: instance.findUserInfoByKey,
+          args: undefined
+        });
+        return instance.connectSocket();
+      }
+
+      var subscription = broadcastClient.subscribe(socketUri.subscribeUserInfo, function (response) {
+        console.log(response);
+        scope.$emit(events.userInfo, JSON.parse(response.body));
+        //subscription.unsubscribe();
+      });
+      broadcastClient.send(socketUri.getUserInfoByKey, {},
+        JSON.stringify({key: localStorageService.get(jsonValue.storage.key)}));
+      //return $$.post(jsonValue.httpUri.user, json);
     },
 
     /* @subscription */
     analyticsSkill: function (analyticJson) {
-      if (!stompClient.connected) {
+      if (!broadcastClient.connected) {
         callbacks.push({
           fn: instance.analyticsSkill,
           args: analyticJson
@@ -87,20 +108,20 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       //var subscription = subscriptions[uri];
       //if (subscription !== undefined) { return true; }
 
-      var subscription = stompClient.subscribe(uri, function (response) {
+      var subscription = broadcastClient.subscribe(uri, function (response) {
         scope.$emit(events.analyticsSkill, JSON.parse(response.body));
         subscription.unsubscribe(); // TODO no need to support real-time now
         utils.sendNotification(jsonValue.notifications.gotData);
       });
       //subscriptions[uri] = subscription;
 
-      stompClient.send(socketUri.analyticsSkill, {},
+      broadcastClient.send(socketUri.analyticsSkill, {},
         JSON.stringify({term: analyticJson.term, histograms: analyticJson.histograms}));
     },
 
     /* @subscription */
     findJobs: function (json) {
-      if (!stompClient.connected) {
+      if (!broadcastClient.connected) {
         callbacks.push({
           fn: instance.findJobs,
           args: json
@@ -108,11 +129,11 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         return instance.connectSocket();
       }
 
-      var subscription = stompClient.subscribe(socketUri.subscribeJobsSearch, function (response) {
+      var subscription = broadcastClient.subscribe(socketUri.subscribeJobsSearch, function (response) {
         scope.$emit(events.foundJobs, JSON.parse(response.body));
         subscription.unsubscribe();
       });
-      stompClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
+      broadcastClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
     },
 
     /* @subscription */
@@ -129,7 +150,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       if (subscription !== undefined) {
         return true;
       }
-      subscription = stompClient.subscribe(uri, function (response) {
+      subscription = broadcastClient.subscribe(uri, function (response) {
         scope.$emit(events.term + term.term, {
           count: JSON.parse(response.body).count,
           term: term.term
@@ -142,16 +163,16 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       if (isConnecting) { return; }
 
       if (instance.isConnected()) {
-        stompClient.disconnect();
+        broadcastClient.disconnect();
       }
-      stompClient = Stomp.over(new SockJS(stompUrl));
-      stompClient.debug = function () {};
+      broadcastClient = Stomp.over(new SockJS(stompUrl));
+      //broadcastClient.debug = function () {};
 
-      stompClient.connect({}, function (frame) {
+      broadcastClient.connect({}, function (frame) {
         isConnecting = false;
         $$.runCallbacks();
-      }, function (errorFrame) {
-        console.log("Erorr: " + errorFrame);
+      }, function (error) {
+        $$.errorHandler(error);
         isConnecting = false;
       });//onreceipt
       isConnecting = true;
@@ -159,34 +180,30 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
     /* @subscription */
     receiveTechnicalTerms: function () {
-      if (!stompClient.connected) {
+      if (!broadcastClient.connected) {
         callbacks.push({
           fn: instance.receiveTechnicalTerms,
           args: undefined
         });
         return instance.connectSocket();
       }
-      var subscribeTerms = stompClient.subscribe(socketUri.subscribeTerms, function (response) {
+      var subscribeTerms = broadcastClient.subscribe(socketUri.subscribeTerms, function (response) {
         scope.$emit(events.terms, JSON.parse(response.body));
         instance.registerTermsSubscription(JSON.parse(response.body));
         subscribeTerms.unsubscribe();
         utils.sendNotification(jsonValue.notifications.gotData);
       });
-      stompClient.send(socketUri.sendTerms);
+      broadcastClient.send(socketUri.sendTerms);
     },
 
     isConnected: function () {
-      if (stompClient !== undefined) {
-        return stompClient.connected;
+      if (broadcastClient !== undefined) {
+        return broadcastClient.connected;
       }
       return false;
     },
 
-    getStompClient: function () {
-      return stompClient;
-    },
-
-    initialize: function() {}
+    initialize: function () {}
   }
   utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
   return instance;

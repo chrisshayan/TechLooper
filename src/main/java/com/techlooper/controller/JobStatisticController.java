@@ -25,7 +25,7 @@ public class JobStatisticController {
     @Resource
     private JsonConfigRepository jsonConfigRepository;
 
-    @Scheduled(cron = "${scheduled.cron}")
+//    @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
         jsonConfigRepository.getSkillConfig().stream().forEach(term ->
                         messagingTemplate.convertAndSend("/topic/jobs/term/" + term.getKey(), new JobStatisticResponse.Builder()

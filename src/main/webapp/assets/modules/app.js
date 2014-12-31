@@ -3,7 +3,7 @@ angular.module("Bubble", []);
 angular.module("Home", []);
 angular.module("Navigation", []);
 angular.module("Footer", []);
-angular.module("Chart", ["Common", "Bubble", "Pie", "Common", "Header"]);
+angular.module("Chart", ["Common", "Bubble", "Pie", "Common"]);
 angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
@@ -36,9 +36,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
             switch (rejection.status) {
               case 403:
               case 401:
+                localStorageService.clearAll();
                 $location.path("/signin");
                 break;
               case 404:
+                localStorageService.clearAll();
                 $location.path("/");
             }
             return $q.reject(rejection);

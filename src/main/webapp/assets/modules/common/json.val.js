@@ -162,6 +162,7 @@ angular.module("Common").constant("jsonValue", {
   httpUri: {
     user: "user",
     userSave: "user/save",
+    login: "login",
     logout: "logout"
   },
 
@@ -178,8 +179,8 @@ angular.module("Common").constant("jsonValue", {
     analyticsSkill: "/app/analytics/skill",
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
-    getUserInfoByKey: "/app/userInfo/key",
-    subscribeUserInfoByKey: "/topic/userInfo/key"
+    getUserInfoByKey: "/user/findByKey",
+    subscribeUserInfo: "/user/queue/info"
   },
 
 

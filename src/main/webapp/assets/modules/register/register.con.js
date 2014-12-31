@@ -4,17 +4,18 @@ angular.module('Register').controller('registerController',
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
     $scope.salaryOptions = registerService.getSalaryOptions();
-    //$scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
-    //  registerService.updateUserInfo(userInfo);
-    //  utils.sendNotification(jsonValue.notifications.gotData);
-    //});
-    //var key = localStorageService.get(jsonValue.storage.key);
-    connectionFactory.findUserInfoByKey({key: localStorageService.get(jsonValue.storage.key)})
-      .then(function (userInfo) {
-        $scope.userInfo = userInfo;
-        registerService.updateConnections(userInfo);
-      })
-      .finally(function () {
-        utils.sendNotification(jsonValue.notifications.gotData);
-      });
+    $scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
+      $scope.userInfo = userInfo;
+      registerService.updateUserInfo(userInfo);
+      utils.sendNotification(jsonValue.notifications.gotData);
+      $scope.$apply();
+    });
+    connectionFactory.findUserInfoByKey();
+      //.then(function (userInfo) {
+      //  $scope.userInfo = userInfo;
+      //  registerService.updateUserInfo(userInfo);
+      //})
+      //.finally(function () {
+      //  utils.sendNotification(jsonValue.notifications.gotData);
+      //});
   });

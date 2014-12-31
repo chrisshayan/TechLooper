@@ -1,5 +1,5 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http) {
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http, connectionFactory) {
     //var scope;
 
     var $$ = {
@@ -11,10 +11,19 @@ angular.module('SignIn').factory('signInService',
     var instance = {
       initialize: function () {
         //scope = $scope;
+        utils.sendNotification(jsonValue.notifications.loading)
+        connectionFactory.login()
+          .then(function() {
+            return $location.path("/");
+          })
+          .catch(function() {
+            utils.sendNotification(jsonValue.notifications.loaded);
+            return localStorageService.clearAll();
+          });
 
-        if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
-          $location.path("/");
-        }
+        //if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
+        //  return $location.path("/");
+        //}
 
         $('.signin-accounts').parallax();
 
@@ -45,14 +54,21 @@ angular.module('SignIn').factory('signInService',
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             localStorageService.set(jsonValue.storage.key, resp.data.key);
-            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
-              .success(function() {
+            connectionFactory.login()
+              .then(function() {
                 $location.path(jsonValue.routerUris.register);
               })
-              .error(function() {
+              .catch(function() {
                 //TODO: invalid user credential
                 utils.sendNotification(jsonValue.notifications.loaded);
               });
+              //.success(function() {
+              //  $location.path(jsonValue.routerUris.register);
+              //})
+              //.error(function() {
+              //  //TODO: invalid user credential
+              //  utils.sendNotification(jsonValue.notifications.loaded);
+              //});
           })
           .catch(function(resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
