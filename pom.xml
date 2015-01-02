@@ -57,6 +57,10 @@
     <spring-social-twitter.version>1.1.0.RELEASE</spring-social-twitter.version>
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <validation-api.version>1.1.0.Final</validation-api.version>
+    <spring-session.version>1.0.0.RC1</spring-session.version>
+    <spring-data-redis.version>1.4.1.RELEASE</spring-data-redis.version>
+    <jedis.version>2.6.1</jedis.version>
+    <embedded-redis.version>0.3</embedded-redis.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -454,9 +458,9 @@
       <version>1.7.9</version>
     </dependency>
     <!--<dependency>-->
-      <!--<groupId>org.slf4j</groupId>-->
-      <!--<artifactId>jul-to-slf4j</artifactId>-->
-      <!--<version>1.7.9</version>-->
+    <!--<groupId>org.slf4j</groupId>-->
+    <!--<artifactId>jul-to-slf4j</artifactId>-->
+    <!--<version>1.7.9</version>-->
     <!--</dependency>-->
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -543,14 +547,34 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-data</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-messaging</artifactId>
       <version>${spring.security.version}</version>
     </dependency>
-    <!--<dependency>-->
-    <!--<groupId>org.springframework.session</groupId>-->
-    <!--<artifactId>spring-session</artifactId>-->
-    <!--<version>1.0.0.RC1</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework.session</groupId>
+      <artifactId>spring-session</artifactId>
+      <version>${spring-session.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>${spring-data-redis.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>${jedis.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>redis.embedded</groupId>
+      <artifactId>embedded-redis</artifactId>
+      <version>${embedded-redis.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.elasticsearch</groupId>
@@ -725,6 +749,10 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+    </repository>
+    <repository>
+      <id>clojars.org</id>
+      <url>http://clojars.org/repo</url>
     </repository>
   </repositories>
 </project>

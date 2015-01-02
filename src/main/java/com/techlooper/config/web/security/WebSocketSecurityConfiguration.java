@@ -9,19 +9,11 @@ import org.springframework.security.config.annotation.web.socket.AbstractSecurit
  * Created by phuonghqh on 12/30/14.
  */
 @Configuration
-public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+public class WebSocketSecurityConfiguration extends AbstractSecurityWebSocketMessageBrokerConfigurer {
 
   protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
     messages
-      .antMatchers("/user/**", "/queue/**").hasAuthority("USER");
-//      .antMatchers("/user/**").hasAuthority("USER");
-
-//    messages
-//      .antMatchers(SimpMessageType.MESSAGE,"/queue/**","/topic/**").denyAll()
-//      .antMatchers(SimpMessageType.SUBSCRIBE, "/queue/**/*-user*","/topic/**/*-user*").denyAll()
-//      .antMatchers("/user/queue/errors").permitAll()
-//      .anyMessage().hasRole("USER");
-
+      .antMatchers("/user/**", "/queue/**", "/app/user/**").hasAuthority("USER");
   }
 }
 

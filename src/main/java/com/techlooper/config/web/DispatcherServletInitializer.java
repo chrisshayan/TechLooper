@@ -17,8 +17,8 @@
 package com.techlooper.config.web;
 
 import com.techlooper.config.CoreConfiguration;
-import com.techlooper.config.web.security.SecurityConfig;
-import com.techlooper.config.web.security.WebSocketSecurityConfig;
+import com.techlooper.config.web.security.SecurityConfiguration;
+import com.techlooper.config.web.security.WebSocketSecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletRegistration.Dynamic;
@@ -26,11 +26,18 @@ import javax.servlet.ServletRegistration.Dynamic;
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[]{CoreConfiguration.class, SecurityConfig.class, WebSocketSecurityConfig.class};
+    return null;
   }
 
   protected Class<?>[] getServletConfigClasses() {
-    return new Class<?>[]{WebConfig.class};
+    return new Class<?>[]{
+//      EmbeddedRedisConfig.class,
+//      RedisDataSourceConfig.class,
+      CoreConfiguration.class,
+      SecurityConfiguration.class,
+      WebConfiguration.class,
+      WebSocketSecurityConfiguration.class
+    };
   }
 
   protected String[] getServletMappings() {
@@ -40,4 +47,9 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
   protected void customizeRegistration(Dynamic registration) {
     registration.setInitParameter("dispatchOptionsRequest", "true");
   }
+
+//  public void onStartup(ServletContext servletContext) throws ServletException {
+//    super.onStartup(servletContext);
+//    servletContext.getSessionCookieConfig().setPath("/");
+//  }
 }

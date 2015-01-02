@@ -5,21 +5,33 @@ angular.module('SignIn').factory('signInService',
     var $$ = {
       enableNotifications: function () {
         return $(".signin-contianer").is(":visible");
+      },
+
+      loginFailed: function() {
+        localStorageService.clearAll();
+        // TODO: consider to use a "signing box"
+        utils.sendNotification(jsonValue.notifications.hideLoadingBox);
       }
+
+      //loginSuccess: function() {
+      //  $location.path(jsonValue.routerUris.register);
+      //}
     }
 
     var instance = {
       initialize: function () {
         //scope = $scope;
-        utils.sendNotification(jsonValue.notifications.loading)
-        connectionFactory.login()
-          .then(function() {
-            return $location.path("/");
-          })
-          .catch(function() {
-            utils.sendNotification(jsonValue.notifications.loaded);
-            return localStorageService.clearAll();
-          });
+        utils.sendNotification(jsonValue.notifications.loading);
+        connectionFactory.login(function() {
+          $location.path("/");
+        });
+          //.then(function() {
+          //  return $location.path("/");
+          //})
+          //.catch(function() {
+          //  utils.sendNotification(jsonValue.notifications.loaded);
+          //  return localStorageService.clearAll();
+          //});
 
         //if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
         //  return $location.path("/");
@@ -54,14 +66,16 @@ angular.module('SignIn').factory('signInService',
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             localStorageService.set(jsonValue.storage.key, resp.data.key);
-            connectionFactory.login()
-              .then(function() {
-                $location.path(jsonValue.routerUris.register);
-              })
-              .catch(function() {
-                //TODO: invalid user credential
-                utils.sendNotification(jsonValue.notifications.loaded);
-              });
+            connectionFactory.login(function() {
+              $location.path(jsonValue.routerUris.register);
+            });
+              //.then(function() {
+              //  //$location.path(jsonValue.routerUris.register);
+              //})
+              //.catch(function() {
+              //  //TODO: invalid user credential
+              //  utils.sendNotification(jsonValue.notifications.loaded);
+              //});
               //.success(function() {
               //  $location.path(jsonValue.routerUris.register);
               //})
@@ -76,6 +90,7 @@ angular.module('SignIn').factory('signInService',
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
+    //utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess,  $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
     return instance;
   });

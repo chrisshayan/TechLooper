@@ -31,9 +31,12 @@ angular.module("Common").constant("jsonValue", {
     gotData: "Got Data",
     changeLang: "Change language",
     changeUrl: "Change URL",
-    loading: "loading",
-    loaded: "loaded",
-    loginSuccess: "login success"
+    loading: "Loading",
+    loaded: "Loaded",
+    loginSuccess: "Login success",
+    loginFailed: "Login failed",
+    userInfo: "User info",
+    hideLoadingBox: "Hide loading box"
   },
 
   viewTerms: {
@@ -179,7 +182,7 @@ angular.module("Common").constant("jsonValue", {
     analyticsSkill: "/app/analytics/skill",
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
-    getUserInfoByKey: "/user/findByKey",
+    getUserInfoByKey: "/app/user/findByKey",
     subscribeUserInfo: "/user/queue/info"
   },
 

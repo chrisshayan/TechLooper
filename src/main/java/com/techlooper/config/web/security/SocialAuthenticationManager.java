@@ -1,12 +1,14 @@
 package com.techlooper.config.web.security;
 
 import com.techlooper.service.UserService;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -17,7 +19,7 @@ import java.util.Optional;
 /**
  * Created by NguyenDangKhoa on 12/25/14.
  */
-public class SocialAuthenticationProvider implements AuthenticationProvider {
+public class SocialAuthenticationManager implements AuthenticationManager {
 
   @Resource
   private UserService userService;
@@ -33,10 +35,11 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
       throw new InternalAuthenticationServiceException("User does not exist in database.");
     }
     UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-    return new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getPrincipal(), Arrays.asList(new SimpleGrantedAuthority("USER")));
+    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getPrincipal(), Arrays.asList(new SimpleGrantedAuthority("USER")));
+    return auth;
   }
 
-  public boolean supports(Class<?> authentication) {
-    return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-  }
+//  public boolean supports(Class<?> authentication) {
+//    return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+//  }
 }

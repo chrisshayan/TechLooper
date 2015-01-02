@@ -9,7 +9,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
   //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
   var stompUrl = baseUrl + '/' + socketUri.sockjs;
   var broadcastClient = Stomp.over(new SockJS(stompUrl));
-  //broadcastClient.debug = function () {};
+  broadcastClient.debug = function () {};
 
   // private functions
   var $$ = {
@@ -40,11 +40,11 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       var deferred = $q.defer();
       setTimeout(function () {
         $http.post(uri, params, header)
-          .success(function (resp) {
-            deferred.resolve(resp);
+          .success(function (data, status, headers, config) {
+            deferred.resolve(data, status, headers, config);
           })
-          .error(function (resp) {
-            deferred.reject(resp);
+          .error(function (data, status, headers, config) {
+            deferred.reject(data, status, headers, config);
           });
       }, 2000);
       return deferred.promise;
@@ -53,22 +53,32 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
     errorHandler: function (error) {
       if (error.headers.message.indexOf("AuthenticationCredentialsNotFoundException") >= 0) {
         localStorageService.clearAll();
-        utils.sendNotification(jsonValue.notifications.loaded);
-        return $location.path(jsonValue.routerUris.signIn);
+        return $location.path("/signin");
       }
     }
   }
 
   var instance = {
-    login: function () {
+    login: function (successHandler, errorHandler) {
       if (localStorageService.get(jsonValue.storage.key) === null) {
-        utils.sendNotification(jsonValue.notifications.loaded);
-        return $q.reject();
+        return utils.sendNotification(jsonValue.notifications.loginFailed);
       }
 
-      return $$.post(jsonValue.httpUri.login,
+      $$.post(jsonValue.httpUri.login,
         $.param({key: localStorageService.get(jsonValue.storage.key)}),
-        {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+        .then(function(data, status, headers, config) {
+          utils.sendNotification(jsonValue.notifications.loginSuccess, data, status, headers, config);
+          if (successHandler !== undefined) {
+            successHandler(data, status, headers, config);
+          }
+        })
+        .catch(function(data, status, headers, config) {
+          utils.sendNotification(jsonValue.notifications.loginFailed, data, status, headers, config);
+          if (errorHandler !== undefined) {
+            errorHandler(data, status, headers, config);
+          }
+        });
     },
 
     saveUserInfo: function (json) {
@@ -76,6 +86,12 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
     },
 
     findUserInfoByKey: function () {
+      var uri = socketUri.subscribeUserInfo;
+      var subscription = subscriptions[uri];
+      if (subscription !== undefined) {
+        return true;
+      }
+
       if (!broadcastClient.connected) {
         callbacks.push({
           fn: instance.findUserInfoByKey,
@@ -84,14 +100,15 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         return instance.connectSocket();
       }
 
-      var subscription = broadcastClient.subscribe(socketUri.subscribeUserInfo, function (response) {
-        console.log(response);
-        scope.$emit(events.userInfo, JSON.parse(response.body));
+      subscription = broadcastClient.subscribe(uri, function (response) {
+        var userInfo = JSON.parse(response.body);
+        scope.$emit(events.userInfo, userInfo);
+        utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
         //subscription.unsubscribe();
       });
+      subscriptions[uri] = subscription;
       broadcastClient.send(socketUri.getUserInfoByKey, {},
         JSON.stringify({key: localStorageService.get(jsonValue.storage.key)}));
-      //return $$.post(jsonValue.httpUri.user, json);
     },
 
     /* @subscription */
@@ -165,8 +182,9 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       if (instance.isConnected()) {
         broadcastClient.disconnect();
       }
+      subscriptions = {};
       broadcastClient = Stomp.over(new SockJS(stompUrl));
-      //broadcastClient.debug = function () {};
+      broadcastClient.debug = function () {};
 
       broadcastClient.connect({}, function (frame) {
         isConnecting = false;
@@ -205,6 +223,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
     initialize: function () {}
   }
+  utils.registerNotification(jsonValue.notifications.loginSuccess, instance.connectSocket);
   utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
   return instance;
 });

@@ -11,6 +11,7 @@ angular.module("Common").factory("loadingBoxFactory", function (jsonValue, utils
   var hide = function () {$('.loading-data').fadeOut(500);};
   utils.registerNotification(jsonValue.notifications.loaded, hide);
   utils.registerNotification(jsonValue.notifications.gotData, hide);
+  utils.registerNotification(jsonValue.notifications.hideLoadingBox, hide);
   return {
     initialize: function () {}
   };

@@ -42,7 +42,7 @@ public class UserController {
 
 
   @SendToUser("/queue/info")
-  @MessageMapping("/findByKey")
+  @MessageMapping("/user/findByKey")
 //    @ResponseBody
 //    @RequestMapping("/user")
   public UserInfo getUserInfo(SocialRequest searchRequest/*, @DestinationVariable String username */) {

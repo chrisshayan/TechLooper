@@ -14,23 +14,8 @@ appender("CONSOLE", ConsoleAppender) {
   }
 }
 
-appender("FILE", RollingFileAppender) {
-  file = "techlooper.log"
-  rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper_%i.log"
-    minIndex = 1
-    maxIndex = 12
-  }
-  triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
-  }
-  encoder(PatternLayoutEncoder) {
-    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
-  }
-}
+logger("org.springframework", DEBUG, ["CONSOLE"])
+logger("com.couchbase", ERROR, ["CONSOLE"])
+logger("net.spy.memcached", ERROR, ["CONSOLE"])
 
-logger("org.springframework", DEBUG, ["CONSOLE", "FILE"])
-logger("com.couchbase", ERROR, ["CONSOLE", "FILE"])
-logger("net.spy.memcached", ERROR, ["CONSOLE", "FILE"])
-
-root(ERROR, ["CONSOLE", "FILE"])
+root(ERROR, ["CONSOLE"])

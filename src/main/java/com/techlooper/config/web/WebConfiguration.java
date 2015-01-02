@@ -19,7 +19,7 @@ import java.util.Collections;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.techlooper.controller"})
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfiguration extends WebMvcConfigurerAdapter {
 
   @Resource
   private Environment environment;
