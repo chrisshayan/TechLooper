@@ -51,9 +51,10 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
     },
 
     errorHandler: function (error) {
-      if (error.headers.message.indexOf("AuthenticationCredentialsNotFoundException") >= 0) {
-        localStorageService.clearAll();
-        return $location.path("/signin");
+      if (error.headers !== undefined && error.headers.message.indexOf("AuthenticationCredentialsNotFoundException") >= 0) {
+        utils.sendNotification(jsonValue.notifications.loginFailed);
+        $location.path(jsonValue.routerUris.signIn);
+        return scope.$apply();
       }
     }
   }
@@ -190,8 +191,8 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         isConnecting = false;
         $$.runCallbacks();
       }, function (error) {
-        $$.errorHandler(error);
         isConnecting = false;
+        $$.errorHandler(error);
       });//onreceipt
       isConnecting = true;
     },

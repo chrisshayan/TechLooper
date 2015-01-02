@@ -31,8 +31,6 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
   protected Class<?>[] getServletConfigClasses() {
     return new Class<?>[]{
-//      EmbeddedRedisConfig.class,
-//      RedisDataSourceConfig.class,
       CoreConfiguration.class,
       SecurityConfiguration.class,
       WebConfiguration.class,

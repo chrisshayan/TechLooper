@@ -105,13 +105,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     });
   }]);
 
-techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService, localStorageService) {
+techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory, tourService, signInService) {
   //localStorageService.clearAll();
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
   tourService.initialize();
+  signInService.initialize(true);
 });
 
 techlooper.directive("navigation", function () {

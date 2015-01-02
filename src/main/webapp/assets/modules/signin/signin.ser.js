@@ -12,30 +12,18 @@ angular.module('SignIn').factory('signInService',
         // TODO: consider to use a "signing box"
         utils.sendNotification(jsonValue.notifications.hideLoadingBox);
       }
-
-      //loginSuccess: function() {
-      //  $location.path(jsonValue.routerUris.register);
-      //}
     }
 
     var instance = {
-      initialize: function () {
+      initialize: function (register) {
+        if (register) {
+          return undefined;
+        }
         //scope = $scope;
         utils.sendNotification(jsonValue.notifications.loading);
         connectionFactory.login(function() {
           $location.path("/");
         });
-          //.then(function() {
-          //  return $location.path("/");
-          //})
-          //.catch(function() {
-          //  utils.sendNotification(jsonValue.notifications.loaded);
-          //  return localStorageService.clearAll();
-          //});
-
-        //if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
-        //  return $location.path("/");
-        //}
 
         $('.signin-accounts').parallax();
 
@@ -69,20 +57,6 @@ angular.module('SignIn').factory('signInService',
             connectionFactory.login(function() {
               $location.path(jsonValue.routerUris.register);
             });
-              //.then(function() {
-              //  //$location.path(jsonValue.routerUris.register);
-              //})
-              //.catch(function() {
-              //  //TODO: invalid user credential
-              //  utils.sendNotification(jsonValue.notifications.loaded);
-              //});
-              //.success(function() {
-              //  $location.path(jsonValue.routerUris.register);
-              //})
-              //.error(function() {
-              //  //TODO: invalid user credential
-              //  utils.sendNotification(jsonValue.notifications.loaded);
-              //});
           })
           .catch(function(resp) {
             utils.sendNotification(jsonValue.notifications.loaded);

@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
-      .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)).and()
+//      .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)).and()
       .authorizeRequests().antMatchers("/user").hasAuthority("USER")
       .and().formLogin().loginPage("/login").usernameParameter("key").failureHandler((request, response, exception) -> {response.setStatus(HttpServletResponse.SC_FORBIDDEN);})
       .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()

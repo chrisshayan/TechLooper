@@ -11,11 +11,4 @@ angular.module('Register').controller('registerController',
       $scope.$apply();
     });
     connectionFactory.findUserInfoByKey();
-      //.then(function (userInfo) {
-      //  $scope.userInfo = userInfo;
-      //  registerService.updateUserInfo(userInfo);
-      //})
-      //.finally(function () {
-      //  utils.sendNotification(jsonValue.notifications.gotData);
-      //});
   });
