@@ -1,6 +1,5 @@
 package com.techlooper.config.web.security;
 
-import com.techlooper.config.CoreConfiguration;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 

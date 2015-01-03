@@ -1,17 +1,17 @@
 angular.module('UserProfile').factory('userProfileFactory', function () {
   var instance = {
-    customScrollBar: function(){
+    customScrollBar: function () {
       $('.bg-item-container').jScrollPane();
     },
-    resizeScreen: function(){
+    resizeScreen: function () {
       $(window).resize(function () {
         $('.bg-item-container').jScrollPane();
       });
     },
-    collapseContent: function(){
+    collapseContent: function () {
       var list = $('.bg-item');
-      list.find('h4').on("click", function(){
-        if(!$(this).parent().hasClass('active')){
+      list.find('h4').on("click", function () {
+        if (!$(this).parent().hasClass('active')) {
           list.removeClass('active');
           $(this).parent().addClass('active');
           $(this).parent().find('.bg-item-container').jScrollPane();

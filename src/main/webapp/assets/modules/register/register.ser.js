@@ -47,8 +47,8 @@ angular.module('Register').factory('registerService',
     }
 
     var instance = {
-      getSalaryOptions: function() {
-        var options =  [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function(val) {
+      getSalaryOptions: function () {
+        var options = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
           return {
             label: "Up to $" + Math.abs(val) + " per month",
             value: val
@@ -61,8 +61,8 @@ angular.module('Register').factory('registerService',
         return options
       },
 
-      updateUserInfo: function(userInfo) {
-        $.each(userInfo.profileNames, function(i, name) {
+      updateUserInfo: function (userInfo) {
+        $.each(userInfo.profileNames, function (i, name) {
           // TODO: high-light provider icon
           $("a." + name.toLowerCase()).parent().addClass('active');
           $("a." + name.toLowerCase()).unbind("click");
@@ -80,7 +80,7 @@ angular.module('Register').factory('registerService',
             //$http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
             $location.path(jsonValue.routerUris.register);
           })
-          .finally(function(resp) {
+          .finally(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
       }

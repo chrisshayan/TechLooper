@@ -1,5 +1,6 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http, connectionFactory) {
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
+            $window, $http, connectionFactory, historyFactory) {
     //var scope;
 
     var $$ = {
@@ -7,23 +8,21 @@ angular.module('SignIn').factory('signInService',
         return $(".signin-contianer").is(":visible");
       },
 
-      loginFailed: function() {
-        localStorageService.clearAll();
+      loginFailed: function () {
         // TODO: consider to use a "signing box"
         utils.sendNotification(jsonValue.notifications.hideLoadingBox);
       }
     }
 
     var instance = {
-      initialize: function (register) {
-        if (register) {
-          return undefined;
-        }
+      init: function () {},
+
+      initialize: function () {
         //scope = $scope;
         utils.sendNotification(jsonValue.notifications.loading);
-        connectionFactory.login(function() {
-          $location.path("/");
-        });
+
+        // check if user already login
+        connectionFactory.login();
 
         $('.signin-accounts').parallax();
 
@@ -39,11 +38,6 @@ angular.module('SignIn').factory('signInService',
           $('#signin-form').modal('hide');
         });
 
-        //$('.sign-successful').on('click', function () {
-        //  $location.path(jsonValue.routerUris.register);
-        //  $scope.$apply();
-        //});
-
         tourService.makeTourGuide();
       },
 
@@ -54,11 +48,9 @@ angular.module('SignIn').factory('signInService',
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             localStorageService.set(jsonValue.storage.key, resp.data.key);
-            connectionFactory.login(function() {
-              $location.path(jsonValue.routerUris.register);
-            });
+            connectionFactory.login();
           })
-          .catch(function(resp) {
+          .catch(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
       }

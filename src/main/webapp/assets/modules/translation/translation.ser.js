@@ -2,19 +2,19 @@ angular.module('Common').factory('translationService', function ($translate, uti
   var scope;
 
   var instance = {
-    initialize: function($scope) {
+    initialize: function ($scope) {
       scope = $scope;
       $(".langKey").click(function () {
         var nextLang = instance.getNextLanguage();
         $translate.use(nextLang);
-        scope.$apply();
+        utils.apply();
         nextLang = instance.getNextLanguage(nextLang);
         scope.icoLanguage = nextLang;
         utils.sendNotification(jsonValue.notifications.changeLang);
       });
     },
 
-    getNextLanguage: function(lang) {
+    getNextLanguage: function (lang) {
       var language = lang === undefined ? $translate.use() : lang;
       switch (language) {
         case "vi":

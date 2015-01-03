@@ -1,7 +1,6 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
 
 /**

@@ -8,7 +8,7 @@ angular.module('Register').controller('registerController',
       $scope.userInfo = userInfo;
       registerService.updateUserInfo(userInfo);
       utils.sendNotification(jsonValue.notifications.gotData);
-      $scope.$apply();
+      utils.apply();
     });
     connectionFactory.findUserInfoByKey();
   });

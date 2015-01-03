@@ -1,10 +1,7 @@
 package com.techlooper.converter;
 
-import com.techlooper.model.SocialProvider;
 import org.dozer.DozerConverter;
 
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 

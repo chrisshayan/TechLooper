@@ -52,15 +52,14 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
     errorHandler: function (error) {
       if (error.headers !== undefined && error.headers.message.indexOf("AuthenticationCredentialsNotFoundException") >= 0) {
+        localStorageService.set(jsonValue.storage.back2Me, "true");
         utils.sendNotification(jsonValue.notifications.loginFailed);
-        $location.path(jsonValue.routerUris.signIn);
-        return scope.$apply();
       }
     }
   }
 
   var instance = {
-    login: function (successHandler, errorHandler) {
+    login: function () {
       if (localStorageService.get(jsonValue.storage.key) === null) {
         return utils.sendNotification(jsonValue.notifications.loginFailed);
       }
@@ -68,17 +67,11 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
       $$.post(jsonValue.httpUri.login,
         $.param({key: localStorageService.get(jsonValue.storage.key)}),
         {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
-        .then(function(data, status, headers, config) {
+        .then(function (data, status, headers, config) {
           utils.sendNotification(jsonValue.notifications.loginSuccess, data, status, headers, config);
-          if (successHandler !== undefined) {
-            successHandler(data, status, headers, config);
-          }
         })
-        .catch(function(data, status, headers, config) {
+        .catch(function (data, status, headers, config) {
           utils.sendNotification(jsonValue.notifications.loginFailed, data, status, headers, config);
-          if (errorHandler !== undefined) {
-            errorHandler(data, status, headers, config);
-          }
         });
     },
 

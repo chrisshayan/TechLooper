@@ -6,7 +6,8 @@ angular.module("Common").constant("jsonValue", {
   },
 
   storage: {
-    key: "key"
+    key: "key",
+    back2Me: "back2Me"
   },
 
   histograms: {
@@ -36,7 +37,8 @@ angular.module("Common").constant("jsonValue", {
     loginSuccess: "Login success",
     loginFailed: "Login failed",
     userInfo: "User info",
-    hideLoadingBox: "Hide loading box"
+    hideLoadingBox: "Hide loading box",
+    http404: "HTTP code 404"
   },
 
   viewTerms: {

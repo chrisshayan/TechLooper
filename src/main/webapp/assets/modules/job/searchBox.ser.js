@@ -6,7 +6,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
-      scope.$apply();
+      utils.apply();
     },
 
     alignButtonSearch: function () {
@@ -24,12 +24,12 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     },
 
-    enableNotifications: function() {
+    enableNotifications: function () {
       return $('.searchText').is(":visible");
     },
 
     initializeSearchTextbox: function ($scope, $textArray) {
-      $('.search-block').css('min-height',$(window).height() -5);
+      $('.search-block').css('min-height', $(window).height() - 5);
       utils.sendNotification(jsonValue.notifications.gotData);
       scope = $scope;
       textArray = $textArray;
@@ -72,7 +72,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       })[0].selectize;
 
-      $translate("searchTextPlaceholder").then(function(translation){
+      $translate("searchTextPlaceholder").then(function (translation) {
         searchText.setPlaceholder(translation);
       });
 
@@ -95,8 +95,8 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       $('.btn-search').click($$.doSearch);
 
-      $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
-      $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
+      $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
+      $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
@@ -108,7 +108,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   }
 
   var instance = {
-    getSearchText: function() {
+    getSearchText: function () {
       return searchText;
     },
 

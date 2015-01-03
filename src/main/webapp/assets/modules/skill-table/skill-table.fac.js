@@ -14,7 +14,7 @@ angular.module('Skill').factory('skillTableFactory', function (jsonValue, utils)
       var icStock = '';
       $.each(tableAndChartJson, function (i, item) {
         var percent = (item.currentCount - item.previousCount) / Math.max(item.previousCount, 1) * 100;
-        percent = percent !== 0  && (percent.toFixed(2) / percent) !== 1 ? percent.toFixed(2) : percent;
+        percent = percent !== 0 && (percent.toFixed(2) / percent) !== 1 ? percent.toFixed(2) : percent;
         icStock = percent > 0 ? 'fa-arrow-up ic-blue' : (percent < 0 ? 'fa-arrow-down ic-red' : '');
         item.percent = percent;
         item.icon = icStock;

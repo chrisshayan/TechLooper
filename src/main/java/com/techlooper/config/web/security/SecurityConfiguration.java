@@ -9,7 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,11 +44,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.csrf().disable()
 //      .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)).and()
       .authorizeRequests().antMatchers("/user").hasAuthority("USER")
-      .and().formLogin().loginPage("/login").usernameParameter("key").failureHandler((request, response, exception) -> {response.setStatus(HttpServletResponse.SC_FORBIDDEN);})
-      .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
-      .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> {response.setStatus(HttpServletResponse.SC_FORBIDDEN);})
+      .and().formLogin().loginPage("/login").usernameParameter("key").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
+      .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
+      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint())
       .and().authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
 //      .and().sessionManagement().invalidSessionUrl("/").maximumSessions(1);
+  }
+
+  private AuthenticationEntryPoint getAuthenticationEntryPoint() {
+    return (request, response, authException) -> {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    };
+  }
+
+  private LogoutSuccessHandler getLogoutSuccessHandler() {
+    return (request, response, authentication) -> {
+      response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    };
+  }
+
+  private AuthenticationFailureHandler getAuthenticationFailureHandler() {
+    return (request, response, exception) -> {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    };
+  }
+
+  private AuthenticationSuccessHandler getSuccessHandler() {
+    return (request, response, authentication) -> {
+      response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    };
   }
 
   public void configure(WebSecurity web) throws Exception {

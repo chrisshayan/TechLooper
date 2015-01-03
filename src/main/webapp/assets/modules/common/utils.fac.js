@@ -1,11 +1,17 @@
-angular.module("Common").factory("utils", function (jsonValue, $location, $auth, localStorageService, $window, $http) {
+angular.module("Common").factory("utils", function (jsonValue, $location, $rootScope) {
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    apply: function () {
+      if (!$rootScope.$$phase) {
+        $rootScope.$apply();
+      }
+    },
+
     go2SkillAnalyticPage: function (scope, term) {
       var path = jsonValue.routerUris.analyticsSkill + '/' + term;
       $location.path(path);
-      scope.$apply();
+      instance.apply();
     },
 
     getDatePeriods: function (number, period) {
@@ -22,10 +28,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
       return (number).weeks();
     },
 
-    formatDateByPeriod : function (date, period) {
+    formatDateByPeriod: function (date, period) {
       //TODO : It should be able to autodectect period base on the value in json.val.js
       if (period === "oneYear") {
-          return date.toString("MMM yyyy");
+        return date.toString("MMM yyyy");
       }
       return date.toString("MMM dd");
     },
@@ -149,20 +155,20 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
       return val;
     },
 
-    openOathDialog: function (auth, successUrl) {
-      if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
-      instance.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
-      $auth.authenticate(auth.provider)
-        .then(function (resp) {//success
-          delete $window.localStorage["satellizer_token"];
-          localStorageService.set(jsonValue.storage.key, resp.data.key);
-          $http.post("login", $.param({key: resp.data.key}), {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
-          $location.path(successUrl);
-        })
-        .catch(function (resp) {
-          instance.sendNotification(jsonValue.notifications.loaded);
-        });
-    },
+    //openOathDialog: function (auth, successUrl) {
+    //  if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
+    //  instance.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+    //  $auth.authenticate(auth.provider)
+    //    .then(function (resp) {//success
+    //      delete $window.localStorage["satellizer_token"];
+    //      localStorageService.set(jsonValue.storage.key, resp.data.key);
+    //      $http.post("login", $.param({key: resp.data.key}), {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
+    //      $location.path(successUrl);
+    //    })
+    //    .catch(function (resp) {
+    //      instance.sendNotification(jsonValue.notifications.loaded);
+    //    });
+    //},
     //closeAlert: function(){
     //  $('.messager-block').find('.close').click(function(){
     //    $(this).parent().hide();
@@ -189,7 +195,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $auth,
       }, 4000);
     },
 
-    closeNotify: function() {
+    closeNotify: function () {
       $(".messager-block").fadeOut(1000);
     }
   }

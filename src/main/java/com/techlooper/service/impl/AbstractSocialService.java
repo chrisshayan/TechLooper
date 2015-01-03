@@ -22,7 +22,6 @@ import java.util.Optional;
 
 import static com.techlooper.entity.AccessGrant.AccessGrantBuilder.accessGrant;
 import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
-import static com.techlooper.model.SocialProvider.LINKEDIN;
 
 /**
  * Created by phuonghqh on 12/15/14.

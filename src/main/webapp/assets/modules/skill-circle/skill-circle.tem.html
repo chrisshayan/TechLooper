@@ -10,10 +10,11 @@
 
       <div class="term-useful-links">
         <i class="fa fa-caret-left"></i>
+
         <div class="logo-term">
           <a ng-href="{{viewJson.webSite}}" target="_blank">
               <span ng-if="viewJson.logoUrl.length">
-                  <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
+                  <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}"/>
               </span><!-- 
               <span ng-if="!viewJson.logoUrl.length">
                   <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
@@ -37,10 +38,11 @@
     <div class="skill-name">{{item.skillName}}</div>
     <div class="skill-useful-links">
       <i class="fa fa-caret-left"></i>
+
       <div class="skill-logo">
-        <a ng-href="{{item.webSite}}"  target="_blank">
+        <a ng-href="{{item.webSite}}" target="_blank">
           <span ng-if="item.logoUrl.length">
-            <img ng-src="images/{{item.logoUrl}}" alt="" />
+            <img ng-src="images/{{item.logoUrl}}" alt=""/>
           </span>
           <!-- <span ng-if="!item.logoUrl.length">
             <img ng-src="images/no-logo.png" alt="" />
@@ -61,11 +63,11 @@
     <div class="logo-term">
       <a ng-href="{{viewJson.webSite}}" target="_blank">
           <span ng-if="viewJson.logoUrl.length">
-              <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}" />
+              <img ng-src="images/{{viewJson.logoUrl}}" alt="{{viewJson.label}}"/>
           </span>
-          <!-- <span ng-if="!viewJson.logoUrl.length">
-              <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
-          </span> -->
+        <!-- <span ng-if="!viewJson.logoUrl.length">
+            <img ng-src="images/no-logo.png" alt="{{viewJson.label}}" />
+        </span> -->
       </a>
     </div>
     <span ng-if="viewJson.usefulLinks.length">

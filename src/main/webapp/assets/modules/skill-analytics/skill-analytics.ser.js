@@ -5,7 +5,7 @@ angular.module("Skill").factory("skillAnalyticsService",
     var skillStatisticRequest;
 
     var $$ = {
-      initialize: function($scope) {
+      initialize: function ($scope) {
         scope = $scope;
       },
 
@@ -67,11 +67,11 @@ angular.module("Skill").factory("skillAnalyticsService",
         }
       },
 
-      renderView: function() {
+      renderView: function () {
         $$.renderPeriodRadios();
       },
 
-      enableNotifications: function() {
+      enableNotifications: function () {
         return $("div.technical-detail-page").is(":visible");
       }
     }
@@ -117,7 +117,7 @@ angular.module("Skill").factory("skillAnalyticsService",
         type.unbind("click");
         type.bind('click', function () {
           $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
-          scope.$apply();
+          utils.apply();
         });
       },
 
@@ -127,9 +127,9 @@ angular.module("Skill").factory("skillAnalyticsService",
 
       makeTourGuide: function () {
         var tour = new Tour({
-            steps: jsonValue.introTour.homePage,
-            template: jsonValue.introTour.template
-            
+          steps: jsonValue.introTour.homePage,
+          template: jsonValue.introTour.template
+
         });
         tour.init();
         tour.start();

@@ -3,7 +3,6 @@ package com.techlooper.controller;
 import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserInfo;
 import com.techlooper.service.UserService;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;

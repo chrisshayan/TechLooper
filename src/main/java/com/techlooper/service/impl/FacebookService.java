@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
@@ -11,8 +10,6 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.linkedin.api.LinkedIn;
-import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -3,6 +3,7 @@
     <div class="logo-block">
       <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
       <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
+
       <div class="tech-line">
         <h2 translate>tagLine</h2>
       </div>
@@ -20,32 +21,35 @@
           <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="First Name" value="">
         </div>
         <div class="col-md-6">
-          <input ng-model="userInfo.lastName"  class="lastName" type="text" placeholder="Last Name" value="">
+          <input ng-model="userInfo.lastName" class="lastName" type="text" placeholder="Last Name" value="">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <input  ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
+          <input ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email"
+                 disabled="disabled" value="trinh.pham@navigosgroup.com">
         </div>
       </div>
       <!--<div class="row technical-skill">-->
-        <!--<p>Choose Your Skills:</p>-->
-        <!--<ul>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Java</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>.Net</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>PHP</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Ruby</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Python</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>DBA</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>BA</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>QA</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>-->
-        <!--</ul>-->
+      <!--<p>Choose Your Skills:</p>-->
+      <!--<ul>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>Java</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>.Net</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>PHP</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>Ruby</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>Python</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>DBA</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>BA</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>QA</label></li>-->
+      <!--<li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>-->
+      <!--</ul>-->
       <!--</div>-->
       <div class="row your-salary">
         <p>Choose Your salary:</p>
+
         <div class="salary-range-block">
-          <select class="salary" ng-model="userInfo.salary" ng-options="option.value as option.label for option in salaryOptions">
+          <select class="salary" ng-model="userInfo.salary"
+                  ng-options="option.value as option.label for option in salaryOptions">
           </select>
         </div>
       </div>
@@ -56,13 +60,13 @@
         <h3>Allow us to connect</h3>
         <ul>
           <li ng-repeat="auth in authSource">
-              <!--<span ng-if="item.site == 'LinkedIn'">-->
-                  <!--<span class="active" ng-style="{'background-color': item.bgcolor}">-->
-                    <!--<img ng-src="{{item.logo}}" alt="">-->
-                  <!--</span>-->
-              <!--</span>-->
-             <!--<span ng-if="item.site != 'LinkedIn'">-->
-                <span  ng-if="auth.isNotSupported === undefined">
+            <!--<span ng-if="item.site == 'LinkedIn'">-->
+            <!--<span class="active" ng-style="{'background-color': item.bgcolor}">-->
+            <!--<img ng-src="{{item.logo}}" alt="">-->
+            <!--</span>-->
+            <!--</span>-->
+            <!--<span ng-if="item.site != 'LinkedIn'">-->
+                <span ng-if="auth.isNotSupported === undefined">
                   <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
                 </span>
             <!--</span>-->

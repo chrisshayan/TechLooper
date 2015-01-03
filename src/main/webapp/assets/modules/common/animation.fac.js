@@ -17,7 +17,7 @@ angular.module("Common").factory("animationFactory", function (jsonValue, utils)
           break
 
         case jsonValue.views.analyticsSkill:
-          $(window).resize(function() {
+          $(window).resize(function () {
             $('.technical-detail-page').animate({
               'min-height': $(window).height(),
               'width': '100%'
