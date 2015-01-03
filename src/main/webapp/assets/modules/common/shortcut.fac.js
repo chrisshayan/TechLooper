@@ -4,7 +4,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
     goBack: function () {
       var path = historyFactory.popHistory();
       $location.path(path === undefined ? "/" : path);
-      utils.apply();
     }
   }
 
@@ -17,7 +16,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
             return;
           }
           $location.path(jsonValue.routerUris.jobsSearch);
-          utils.apply();
           break;
 
         default:

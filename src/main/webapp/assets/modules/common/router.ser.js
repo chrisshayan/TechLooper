@@ -3,7 +3,6 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
   var $$ = {
     loginFailed: function () {
       $location.path(jsonValue.routerUris.signIn);
-      utils.apply();
     },
 
     loginSuccess: function () {
@@ -14,16 +13,19 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
       else {//default after sign-in
         $location.path(jsonValue.routerUris.register);
       }
-      utils.apply();
     },
 
     http404: function () {
       $location.path("/");
-      utils.apply();
+    },
+
+    logoutSuccess: function() {
+      $location.path("/");
     }
   }
 
   utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
+  utils.registerNotification(jsonValue.notifications.logoutSuccess, $$.logoutSuccess);
   utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
   utils.registerNotification(jsonValue.notifications.http404, $$.http404);
 

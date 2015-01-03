@@ -1,7 +1,6 @@
 angular.module('SignIn').factory('signInService',
   function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
-            $window, $http, connectionFactory, historyFactory) {
-    //var scope;
+            $window, $http, connectionFactory) {
 
     var $$ = {
       enableNotifications: function () {
@@ -18,7 +17,6 @@ angular.module('SignIn').factory('signInService',
       init: function () {},
 
       initialize: function () {
-        //scope = $scope;
         utils.sendNotification(jsonValue.notifications.loading);
 
         // check if user already login
@@ -56,7 +54,6 @@ angular.module('SignIn').factory('signInService',
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess,  $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
     return instance;
   });

@@ -8,6 +8,7 @@ angular.module('Common').factory('translationService', function ($translate, uti
         var nextLang = instance.getNextLanguage();
         $translate.use(nextLang);
         utils.apply();
+
         nextLang = instance.getNextLanguage(nextLang);
         scope.icoLanguage = nextLang;
         utils.sendNotification(jsonValue.notifications.changeLang);

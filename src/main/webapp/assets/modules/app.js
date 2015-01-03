@@ -26,24 +26,24 @@ var techlooper = angular.module("Techlooper", [
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
     $httpProvider.interceptors.push(function ($q, utils, jsonValue) {
-        return {
-          request: function (request) {
-            return request || $q.when(request);
-          },
+      return {
+        request: function (request) {
+          return request || $q.when(request);
+        },
 
-          responseError: function (rejection) {
-            switch (rejection.status) {
-              case 403:
-              case 401:
-                utils.sendNotification(jsonValue.notifications.loginFailed);
-                break;
-              case 404:
-                utils.sendNotification(jsonValue.notifications.http404);
-                break;
-            }
-            return $q.reject(rejection);
+        responseError: function (rejection) {
+          switch (rejection.status) {
+            case 403:
+            case 401:
+              utils.sendNotification(jsonValue.notifications.loginFailed);
+              break;
+            case 404:
+              utils.sendNotification(jsonValue.notifications.http404);
+              break;
           }
-        };
+          return $q.reject(rejection);
+        }
+      };
       }
     );
 
@@ -113,7 +113,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, routerService) {
+                         tourService, signInService, historyFactory, routerService, $location, utils) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -122,6 +122,13 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   signInService.init();
+
+  var locationPathFn = $location.path;
+  $location.path = function()  {
+    var rsLocationPathFn = locationPathFn.apply($location, arguments);
+    utils.apply();
+    return rsLocationPathFn;
+  }
 });
 
 techlooper.directive("navigation", function () {

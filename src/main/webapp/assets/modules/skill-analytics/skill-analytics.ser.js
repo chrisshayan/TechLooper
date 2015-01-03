@@ -117,7 +117,6 @@ angular.module("Skill").factory("skillAnalyticsService",
         type.unbind("click");
         type.bind('click', function () {
           $location.path(jsonValue.routerUris.analyticsSkill + "/" + skillStatisticRequest.term + "/" + $(this).data("period"));
-          utils.apply();
         });
       },
 

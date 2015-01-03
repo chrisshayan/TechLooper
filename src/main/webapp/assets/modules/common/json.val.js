@@ -38,7 +38,8 @@ angular.module("Common").constant("jsonValue", {
     loginFailed: "Login failed",
     userInfo: "User info",
     hideLoadingBox: "Hide loading box",
-    http404: "HTTP code 404"
+    http404: "HTTP code 404",
+    logoutSuccess: "Logout success"
   },
 
   viewTerms: {

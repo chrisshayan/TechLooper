@@ -21,6 +21,7 @@ angular.module('Jobs').controller('searchResultController',
       search.jobs = search.jobs.concat(data.jobs);
       search.busy = false;
       utils.apply();
+
       $(".job-title").dotdotdot({
         height: 23
       });

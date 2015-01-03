@@ -10,7 +10,8 @@ angular.module("Navigation").factory("navigationService",
             $http.get(jsonValue.httpUri.logout).success(function () {
               cleanupFactory.cleanSession();
               //delete $cookies['JSESSIONID'];
-              $location.path("/");
+              //$location.path("/");
+              utils.sendNotification(jsonValue.notifications.logoutSuccess)
             });
           });
         }
