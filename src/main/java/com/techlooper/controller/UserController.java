@@ -45,7 +45,9 @@ public class UserController {
 //    @ResponseBody
 //    @RequestMapping("/user")
   public UserInfo getUserInfo(SocialRequest searchRequest/*, @DestinationVariable String username */) {
-    return userService.findUserInfoByKey(searchRequest.getKey());
+    UserInfo userInfo = userService.findUserInfoByKey(searchRequest.getKey());
+    userInfo.getLoginSource();
+    return userInfo;
   }
 
 }

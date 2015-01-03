@@ -17,6 +17,7 @@
     "secretKey": "27a0682cd7293cfaa2921895de78633b12fc653d",
     "redirectUri": "http://localhost:8080/techlooper/authentication",
     "apiUrl": {
+      "users": "https://api.github.com/users/{username}",
       "repos": "https://api.github.com/users/{username}/repos",
       "followers": "https://api.github.com/users/{username}/followers"
     }

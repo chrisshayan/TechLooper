@@ -1,5 +1,9 @@
 package com.techlooper.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +12,7 @@ import java.util.List;
  * Created by phuonghqh on 12/16/14.
  */
 public class GitHubUserProfile extends UserProfile implements Serializable {
+
   private long id;
   private String name;
   private String username;
@@ -18,7 +23,6 @@ public class GitHubUserProfile extends UserProfile implements Serializable {
   private Date createdDate;
   private String profileImageUrl;
   private List<GitHubRepo> repos;
-
   private List<GitHubFollower> followers;
 
   public List<GitHubFollower> getFollowers() {

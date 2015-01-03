@@ -84,10 +84,12 @@ public class GitHubService extends AbstractSocialService {
       .withProfile(GITHUB, profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
+      com.techlooper.entity.GitHubApiUser apiUser = connection.getApi().restOperations()
+        .getForObject(socialConfig.getApiUrl().get("users"), com.techlooper.entity.GitHubApiUser.class, profileEntity.getUsername());
+      profileEntity.setProfileImageUrl(apiUser.getProfileImageUrl());
+      dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
         .withLoginSource(GITHUB)
-        .withFirstName(profileEntity.getName())
-        .withEmailAddress(profileEntity.getEmail())
         .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
     }
     return userEntity;

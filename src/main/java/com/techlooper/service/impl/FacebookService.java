@@ -53,11 +53,9 @@ public class FacebookService extends AbstractSocialService {
       .withProfile(SocialProvider.FACEBOOK, profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
+      dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
         .withLoginSource(SocialProvider.FACEBOOK)
-        .withFirstName(profileEntity.getFirstName())
-        .withLastName(profileEntity.getLastName())
-        .withEmailAddress(profileEntity.getEmail())
         .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
     }
     userService.save(userEntity);
