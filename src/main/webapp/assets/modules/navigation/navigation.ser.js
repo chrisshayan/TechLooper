@@ -8,7 +8,7 @@ angular.module("Navigation").factory("navigationService",
 
           $("a.sign-out-sign-in").click(function () {
             $http.get(jsonValue.httpUri.logout).success(function () {
-              cleanupFactory.cleanSession();
+              //cleanupFactory.cleanSession();
               //delete $cookies['JSESSIONID'];
               //$location.path("/");
               utils.sendNotification(jsonValue.notifications.logoutSuccess)

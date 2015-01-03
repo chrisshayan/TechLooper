@@ -9,7 +9,10 @@
     "provider": "FACEBOOK",
     "apiKey": "775424035845076",
     "secretKey": "48114f64ce77e617b7f83fc055456217",
-    "redirectUri": "http://localhost:8080/techlooper/authentication"
+    "redirectUri": "http://localhost:8080/techlooper/authentication",
+    "apiUrl": {
+      "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
+    }
   },
   {
     "provider": "GITHUB",

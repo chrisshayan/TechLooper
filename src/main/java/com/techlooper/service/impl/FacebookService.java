@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
@@ -42,6 +43,8 @@ public class FacebookService extends AbstractSocialService {
     Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
     FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
     com.techlooper.entity.FacebookProfile fbProfile = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
+    String profileImageUrl = connection.getApi().restOperations().getForObject(socialConfig.getApiUrl().get("picture"), JsonNode.class).at("/data/url").asText();
+    fbProfile.setProfileImageUrl(profileImageUrl);
     fbProfile.setAccessGrant(accessGrant);
     return fbProfile;
   }

@@ -20,5 +20,6 @@ angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, l
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.cleanHighCharts);
   utils.registerNotification(jsonValue.notifications.loginFailed, instance.cleanSession);
+  utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.cleanSession);
   return instance;
 });

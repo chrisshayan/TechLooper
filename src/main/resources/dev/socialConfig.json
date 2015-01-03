@@ -3,19 +3,22 @@
     "provider": "LINKEDIN",
     "apiKey": "75ukeuo2zr5y3n",
     "secretKey": "smrMWSaQ8affK893",
-    "redirectUri": "http://localhost:8080/techlooper/authentication"
+    "redirectUri": "http://techlooper.com/authentication"
   },
   {
     "provider": "FACEBOOK",
-    "apiKey": "775424035845076",
-    "secretKey": "48114f64ce77e617b7f83fc055456217",
-    "redirectUri": "http://localhost:8080/techlooper/authentication"
+    "apiKey": "596454787147962",
+    "secretKey": "dc25bf6805886ee435f2bc56db3f393e",
+    "redirectUri": "http://techlooper.com/authentication",
+    "apiUrl": {
+      "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
+    }
   },
   {
     "provider": "GITHUB",
-    "apiKey": "5d7da4728397ed22bc58",
-    "secretKey": "27a0682cd7293cfaa2921895de78633b12fc653d",
-    "redirectUri": "http://localhost:8080/techlooper/authentication",
+    "apiKey": "51e6879d5b769b8629f4",
+    "secretKey": "713bde969430097dacde108a5852cba41c5fe06d",
+    "redirectUri": "http://techlooper.com/authentication",
     "apiUrl": {
       "users": "https://api.github.com/users/{username}",
       "repos": "https://api.github.com/users/{username}/repos",
@@ -24,14 +27,14 @@
   },
   {
     "provider": "GOOGLE",
-    "apiKey": "772729238937-mgmqvv3047pu1u5l5t9ia9df61ipm1uk.apps.googleusercontent.com",
-    "secretKey": "NR1E7THY9NoNM115cS9W33_I",
-    "redirectUri": "http://localhost:8080/techlooper/authentication"
+    "apiKey": "339114452335-57uq0b7djh0u478igqj5g3cub376urgp.apps.googleusercontent.com",
+    "secretKey": "qEr_e0VkkMUg4PmCuGGMumjj",
+    "redirectUri": "http://techlooper.com/authentication"
   },
   {
     "provider": "TWITTER",
-    "apiKey": "yy82Q0dMblXKYF633qBEn9OhM",
-    "secretKey": "XPbAnAbhGQLunSMJt0Xz8Ra2chUJjyyUT8ck1NxfkvRhaJozYF",
+    "apiKey": "MuUgbFPQiFjUkmaHoezhuRPM0",
+    "secretKey": "TqeGjYs6xhYX6bIVZn7Lis49LrtSO2996J481w9VXg7ashxm8E",
     "redirectUri": "http://techlooper.com/authentication"
   }
 ]
