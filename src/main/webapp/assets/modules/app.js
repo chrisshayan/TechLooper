@@ -113,7 +113,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, routerService, $location, utils) {
+                         tourService, signInService, historyFactory, userService, routerService, $location, utils) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -121,6 +121,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   tourService.initialize();
   historyFactory.initialize();
   routerService.initialize();
+  userService.initialize();
   signInService.init();
 
   var locationPathFn = $location.path;

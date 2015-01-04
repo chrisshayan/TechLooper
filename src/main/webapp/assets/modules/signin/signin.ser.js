@@ -24,7 +24,14 @@ angular.module('SignIn').factory('signInService',
         utils.sendNotification(jsonValue.notifications.loading);
 
         // check if user already login
-        connectionFactory.login();
+        connectionFactory.verifyUserLogin()
+          .then(function() {
+            utils.sendNotification(jsonValue.notifications.loginSuccess);
+          })
+          .catch(function() {
+            utils.sendNotification(jsonValue.notifications.loginFailed);
+            //utils.sendNotification(jsonValue.notifications.loaded);
+          });
 
         $('.signin-accounts').parallax();
 

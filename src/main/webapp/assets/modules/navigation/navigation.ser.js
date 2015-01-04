@@ -1,4 +1,4 @@
-angular.module("Navigation").factory("navigationService", function (utils, jsonValue, $rootScope, $http, $location, tourService) {
+angular.module("Navigation").factory("navigationService", function (utils, jsonValue, $rootScope, $http, $location, tourService, userService) {
 
   var $$ = {
     naviControl: function () {
@@ -82,10 +82,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
         $$.updateSigninButton();
       });
     }
-
-    //updateUserInfo: function() {
-    //  //utils.apply();
-    //}
   }
 
   var instance = {

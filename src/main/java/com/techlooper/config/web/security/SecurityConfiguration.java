@@ -43,11 +43,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
 //      .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)).and()
-      .authorizeRequests().antMatchers("/user").hasAuthority("USER")
+      .authorizeRequests().antMatchers("/user/**").hasAuthority("USER")
       .and().formLogin().loginPage("/login").usernameParameter("key").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
       .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
-      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint())
-      .and().authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
+      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());
 //      .and().sessionManagement().invalidSessionUrl("/").maximumSessions(1);
   }
 

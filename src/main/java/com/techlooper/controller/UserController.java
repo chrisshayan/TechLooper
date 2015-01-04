@@ -42,12 +42,14 @@ public class UserController {
 
   @SendToUser("/queue/info")
   @MessageMapping("/user/findByKey")
-//    @ResponseBody
-//    @RequestMapping("/user")
   public UserInfo getUserInfo(SocialRequest searchRequest/*, @DestinationVariable String username */) {
     UserInfo userInfo = userService.findUserInfoByKey(searchRequest.getKey());
     userInfo.getLoginSource();
     return userInfo;
   }
 
+  @ResponseBody
+  @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
+  public void verifyUserLogin(@RequestBody(required = false) SocialRequest searchRequest) {
+  }
 }

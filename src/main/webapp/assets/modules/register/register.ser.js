@@ -1,5 +1,6 @@
 angular.module('Register').factory('registerService',
-  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth, $window) {
+  function (shortcutFactory, jsonValue, localStorageService, utils, $http,
+            connectionFactory, $location, $auth, $window, $rootScope) {
     var scope;
     var flag = {};
 
@@ -61,8 +62,8 @@ angular.module('Register').factory('registerService',
         return options
       },
 
-      updateUserInfo: function (userInfo) {
-        $.each(userInfo.profileNames, function (i, name) {
+      updateUserInfo: function () {
+        $.each($rootScope.userInfo.profileNames, function (i, name) {
           // TODO: high-light provider icon
           $("a." + name.toLowerCase()).parent().addClass('active');
           $("a." + name.toLowerCase()).unbind("click");
@@ -74,11 +75,11 @@ angular.module('Register').factory('registerService',
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
-            scope.userInfo.profileNames.push(auth.provider.toUpperCase());
-            instance.updateConnections(scope.userInfo);
+            $rootScope.userInfo.profileNames.push(auth.provider.toUpperCase());
+            instance.updateUserInfo();
             //localStorageService.set(jsonValue.storage.key, resp.data.key);
             //$http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
-            $location.path(jsonValue.routerUris.register);
+            //$location.path(jsonValue.routerUris.register);
           })
           .finally(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
@@ -86,6 +87,7 @@ angular.module('Register').factory('registerService',
       }
     };
 
+    //utils.registerNotification(jsonValue.notifications.userInfo, instance.updateUserInfo, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });
