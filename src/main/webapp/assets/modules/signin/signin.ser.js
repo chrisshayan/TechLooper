@@ -10,6 +10,10 @@ angular.module('SignIn').factory('signInService',
       loginFailed: function () {
         // TODO: consider to use a "signing box"
         utils.sendNotification(jsonValue.notifications.hideLoadingBox);
+      },
+
+      loginSuccess: function() {
+
       }
     }
 
@@ -54,6 +58,7 @@ angular.module('SignIn').factory('signInService',
       }
     };
 
+    utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
     utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
     return instance;
   });

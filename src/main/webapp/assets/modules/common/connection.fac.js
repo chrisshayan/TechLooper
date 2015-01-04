@@ -1,4 +1,4 @@
-angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http, $q, $location, localStorageService) {
+angular.module("Common").factory("connectionFactory", function (jsonValue, utils, $http, $q, $location, localStorageService, $rootScope) {
   var socketUri = jsonValue.socketUri;
   var events = jsonValue.events;
   var callbacks = [];
@@ -81,10 +81,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
 
     findUserInfoByKey: function () {
       var uri = socketUri.subscribeUserInfo;
-      var subscription = subscriptions[uri];
-      if (subscription !== undefined) {
-        return true;
-      }
 
       if (!broadcastClient.connected) {
         callbacks.push({
@@ -94,13 +90,14 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         return instance.connectSocket();
       }
 
-      subscription = broadcastClient.subscribe(uri, function (response) {
+      var subscription = broadcastClient.subscribe(uri, function (response) {
         var userInfo = JSON.parse(response.body);
+        $rootScope.userInfo = userInfo;
         scope.$emit(events.userInfo, userInfo);
-        utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
-        //subscription.unsubscribe();
+        //utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
+        subscription.unsubscribe();
       });
-      subscriptions[uri] = subscription;
+
       broadcastClient.send(socketUri.getUserInfoByKey, {},
         JSON.stringify({key: localStorageService.get(jsonValue.storage.key)}));
     },

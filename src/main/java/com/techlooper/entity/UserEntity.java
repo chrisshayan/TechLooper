@@ -136,39 +136,13 @@ public class UserEntity {
       return builder;
     }
 
-    public UserEntityBuilder withUsername(String username) {
-      userEntity.username = username;
-      return this;
-    }
-
-
     public UserEntityBuilder withId(String id) {
       userEntity.id = id;
       return this;
     }
 
-    public UserEntityBuilder withEmailAddress(String emailAddress) {
-      userEntity.emailAddress = emailAddress;
-      return this;
-    }
-
-    public UserEntityBuilder withFirstName(String firstName) {
-      userEntity.firstName = firstName;
-      return this;
-    }
-
-    public UserEntityBuilder withLastName(String lastName) {
-      userEntity.lastName = lastName;
-      return this;
-    }
-
     public UserEntityBuilder withLoginSource(SocialProvider loginSource) {
       userEntity.loginSource = loginSource;
-      return this;
-    }
-
-    public UserEntityBuilder withProfiles(Map<SocialProvider, Object> profiles) {
-      userEntity.profiles = profiles;
       return this;
     }
 

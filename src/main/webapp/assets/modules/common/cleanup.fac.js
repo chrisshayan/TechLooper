@@ -1,4 +1,4 @@
-angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, localStorageService) {
+angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, localStorageService, $rootScope) {
 
   var $$ = {
     cleanHighCharts: function () {
@@ -14,6 +14,7 @@ angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, l
     initialize: function () {},
 
     cleanSession: function () {
+      $rootScope.userInfo = undefined;
       localStorageService.remove(jsonValue.storage.key);
     }
   };

@@ -23,7 +23,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.google.api.plus.Person;
-import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -69,7 +68,7 @@ public class CoreConfiguration {
   @Bean
   public Mapper dozerBeanMapper() {
     DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-    BeanMappingBuilder builder = new BeanMappingBuilder() {
+    dozerBeanMapper.addMapping(new BeanMappingBuilder() {
       protected void configure() {
         mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
           .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
@@ -97,8 +96,7 @@ public class CoreConfiguration {
         mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
           .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
       }
-    };
-    dozerBeanMapper.addMapping(builder);
+    });
     return dozerBeanMapper;
   }
 

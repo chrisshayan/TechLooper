@@ -1,14 +1,22 @@
 angular.module('Register').controller('registerController',
-  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService) {
+  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService, $rootScope) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
     $scope.salaryOptions = registerService.getSalaryOptions();
-    $scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
-      $scope.userInfo = userInfo;
-      registerService.updateUserInfo(userInfo);
+
+    var updateUserInfo = function() {
+      $scope.userInfo = $rootScope.userInfo;
+      registerService.updateUserInfo($rootScope.userInfo);
       utils.sendNotification(jsonValue.notifications.gotData);
       utils.apply();
+    }
+
+    $scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
+      updateUserInfo();
     });
-    connectionFactory.findUserInfoByKey();
+
+    if ($rootScope.userInfo === undefined) {
+      connectionFactory.findUserInfoByKey();
+    }
   });

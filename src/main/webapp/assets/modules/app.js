@@ -26,24 +26,24 @@ var techlooper = angular.module("Techlooper", [
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
     $httpProvider.interceptors.push(function ($q, utils, jsonValue) {
-      return {
-        request: function (request) {
-          return request || $q.when(request);
-        },
+        return {
+          request: function (request) {
+            return request || $q.when(request);
+          },
 
-        responseError: function (rejection) {
-          switch (rejection.status) {
-            case 403:
-            case 401:
-              utils.sendNotification(jsonValue.notifications.loginFailed);
-              break;
-            case 404:
-              utils.sendNotification(jsonValue.notifications.http404);
-              break;
+          responseError: function (rejection) {
+            switch (rejection.status) {
+              case 403:
+              case 401:
+                utils.sendNotification(jsonValue.notifications.loginFailed);
+                break;
+              case 404:
+                utils.sendNotification(jsonValue.notifications.http404);
+                break;
+            }
+            return $q.reject(rejection);
           }
-          return $q.reject(rejection);
-        }
-      };
+        };
       }
     );
 
@@ -124,24 +124,26 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   signInService.init();
 
   var locationPathFn = $location.path;
-  $location.path = function()  {
+  $location.path = function () {
     var rsLocationPathFn = locationPathFn.apply($location, arguments);
     utils.apply();
     return rsLocationPathFn;
   }
 });
 
-techlooper.directive("navigation", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/navigation/navigation.tem.html",
-    controller: "navigationController"
-  }
-}).directive("findjobs", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/job/findJobs.tem.html"
-  }
-});
+techlooper
+  .directive("navigation", function () {
+    return {
+      restrict: "A",
+      replace: true,
+      templateUrl: "modules/navigation/navigation.tem.html",
+      controller: "navigationController"
+    }
+  })
+  .directive("findjobs", function () {
+    return {
+      restrict: "A",
+      replace: true,
+      templateUrl: "modules/job/findJobs.tem.html"
+    }
+  });
