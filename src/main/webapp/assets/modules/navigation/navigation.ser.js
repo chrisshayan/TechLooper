@@ -82,6 +82,10 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
         $$.updateSigninButton();
       });
     }
+
+    //updateUserInfo: function() {
+    //  //utils.apply();
+    //}
   }
 
   var instance = {
@@ -99,7 +103,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
     //}
   }
 
-  //utils.registerNotification(jsonValue.notifications.userInfo, $$.updateSigninButton);
+  //utils.registerNotification(jsonValue.notifications.userInfo, $$.updateUserInfo);
 
   return instance;
 });

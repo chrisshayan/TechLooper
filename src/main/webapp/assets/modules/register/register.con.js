@@ -6,7 +6,6 @@ angular.module('Register').controller('registerController',
     $scope.salaryOptions = registerService.getSalaryOptions();
 
     var updateUserInfo = function() {
-      $scope.userInfo = $rootScope.userInfo;
       registerService.updateUserInfo($rootScope.userInfo);
       utils.sendNotification(jsonValue.notifications.gotData);
       utils.apply();

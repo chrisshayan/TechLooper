@@ -7,7 +7,7 @@
       <li class="subNavi">
         <a class="hi-icon m-chart" />
       </li>
-      <li><a class="hi-icon m-user-profile"><img ng-src="images/chris.jpg" alt=""/></a></li>
+      <li ng-show="userInfo !== undefined"><a class="hi-icon m-user-profile"><img ng-src="{{userInfo.profileImageUrl}}" alt=""/></a></li>
       <li><a href="#/jobs/search" class="hi-icon m-search-jobs"></a></li>
       <li>
         <translation></translation>

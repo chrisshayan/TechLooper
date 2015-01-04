@@ -80,8 +80,6 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
     },
 
     findUserInfoByKey: function () {
-      var uri = socketUri.subscribeUserInfo;
-
       if (!broadcastClient.connected) {
         callbacks.push({
           fn: instance.findUserInfoByKey,
@@ -90,7 +88,7 @@ angular.module("Common").factory("connectionFactory", function (jsonValue, utils
         return instance.connectSocket();
       }
 
-      var subscription = broadcastClient.subscribe(uri, function (response) {
+      var subscription = broadcastClient.subscribe(socketUri.subscribeUserInfo, function (response) {
         var userInfo = JSON.parse(response.body);
         $rootScope.userInfo = userInfo;
         scope.$emit(events.userInfo, userInfo);
