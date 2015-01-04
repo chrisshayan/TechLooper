@@ -1,4 +1,4 @@
-angular.module("Navigation").factory("navigationService", function (utils, jsonValue, $rootScope, $http, $location) {
+angular.module("Navigation").factory("navigationService", function (utils, jsonValue, $rootScope, $http, $location, tourService) {
 
   var $$ = {
     naviControl: function () {
@@ -94,13 +94,13 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       $$.updateSigninButton();
       $$.registerEventListeners();
       $$.naviControl();
-    }
+    },
 
-    //restartTour: function () {
-    //  $('.infor-tour').on('click', function () {
-    //    tourService.restart();
-    //  });
-    //}
+    restartTour: function () {
+      $('.infor-tour').on('click', function () {
+        tourService.restart();
+      });
+    }
   }
 
   //utils.registerNotification(jsonValue.notifications.userInfo, $$.updateUserInfo);
