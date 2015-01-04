@@ -8,7 +8,7 @@ angular.module('Register').controller('registerController',
     var updateUserInfo = function() {
       registerService.updateUserInfo($rootScope.userInfo);
       utils.sendNotification(jsonValue.notifications.gotData);
-      utils.apply();
+      //utils.apply();
     }
 
     $scope.$on(jsonValue.events.userInfo, function (event, userInfo) {
