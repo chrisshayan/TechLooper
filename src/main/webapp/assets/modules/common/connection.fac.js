@@ -61,7 +61,7 @@ angular.module("Common").factory("connectionFactory",
 
     var instance = {
       verifyUserLogin: function() {
-        return $$.post(jsonValue.httpUri.validateUserLogin,
+        return $$.post(jsonValue.httpUri.verifyUserLogin,
           {key: localStorageService.get(jsonValue.storage.key)});
       },
 
