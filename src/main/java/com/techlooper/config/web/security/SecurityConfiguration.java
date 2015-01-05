@@ -46,8 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .authorizeRequests().antMatchers("/user/**").hasAuthority("USER")
       .and().formLogin().loginPage("/login").usernameParameter("key").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
       .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
-      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());
-//      .and().sessionManagement().invalidSessionUrl("/").maximumSessions(1);
+      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint())
+      .and().sessionManagement().invalidSessionUrl("/").maximumSessions(1);
   }
 
   private AuthenticationEntryPoint getAuthenticationEntryPoint() {
