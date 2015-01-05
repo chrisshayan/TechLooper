@@ -15,5 +15,7 @@ appender("CONSOLE", ConsoleAppender) {
 logger("org.springframework", DEBUG, ["CONSOLE"])
 logger("com.couchbase", ERROR, ["CONSOLE"])
 logger("net.spy.memcached", ERROR, ["CONSOLE"])
+logger("org.springframework.data.redis", ERROR, ["CONSOLE"])
+logger("org.springframework.session", ERROR, ["CONSOLE"])
 
 root(ERROR, ["CONSOLE"])
