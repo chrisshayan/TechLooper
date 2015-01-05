@@ -6,7 +6,8 @@ angular.module("Common").constant("jsonValue", {
   },
 
   storage: {
-    key: "key"
+    key: "key",
+    back2Me: "back2Me"
   },
 
   histograms: {
@@ -31,9 +32,14 @@ angular.module("Common").constant("jsonValue", {
     gotData: "Got Data",
     changeLang: "Change language",
     changeUrl: "Change URL",
-    loading: "loading",
-    loaded: "loaded",
-    loginSuccess: "login success"
+    loading: "Loading",
+    loaded: "Loaded",
+    loginSuccess: "Login success",
+    loginFailed: "Login failed",
+    userInfo: "User info",
+    hideLoadingBox: "Hide loading box",
+    http404: "HTTP code 404",
+    logoutSuccess: "Logout success"
   },
 
   viewTerms: {
@@ -162,7 +168,9 @@ angular.module("Common").constant("jsonValue", {
   httpUri: {
     user: "user",
     userSave: "user/save",
-    logout: "logout"
+    login: "login",
+    logout: "logout",
+    verifyUserLogin: "user/verifyUserLogin"
   },
 
   socketUri: {
@@ -178,8 +186,8 @@ angular.module("Common").constant("jsonValue", {
     analyticsSkill: "/app/analytics/skill",
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
-    getUserInfoByKey: "/app/userInfo/key",
-    subscribeUserInfoByKey: "/topic/userInfo/key"
+    getUserInfoByKey: "/app/user/findByKey",
+    subscribeUserInfo: "/user/queue/info"
   },
 
 

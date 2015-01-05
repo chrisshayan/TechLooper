@@ -57,7 +57,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       return randomCircles;
     },
 
-    acceptCircle: function(cx, cy, radius, value, box, termCountMax, randomCircles) {
+    acceptCircle: function (cx, cy, radius, value, box, termCountMax, randomCircles) {
       var fontSize = Math.max((value * box.fontMax) / termCountMax, box.fontMin);
       randomCircles.push({
         cx: cx - radius < 0 ? radius : (cx + radius) > box.width ? box.width - radius : cx,
@@ -177,12 +177,12 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         });
 
       node.selectAll("text.termCount").transition().duration(1000)
-        .style("font-size", function (d) { return utils.isMobile()? "35px": "45px";});
+        .style("font-size", function (d) { return utils.isMobile() ? "35px" : "45px";});
 
       node.selectAll("text.termLabel").transition().duration(1000)
         .attr("dy", function (d) {return "40px";})
         .style("font-size", function (d) { return utils.isMobile() ? "25px" : "30px";});
-      
+
     },
 
     moveToReflection: function (node, box, swapped) {
@@ -252,22 +252,22 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         d3.select(".clickMe").text(translation);
       });
     },
-    registerResponsive: function(svg){
-      $(window).resize(function() {
+    registerResponsive: function (svg) {
+      $(window).resize(function () {
         var width = $(".bubble-chart-container").width();
         svg.attr("width", width);
         svg.attr("height", width);
       });
       $(window).resize();
     },
-    unregisterResponsive: function(){
+    unregisterResponsive: function () {
       $(window).off("resize");
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, function ($scope) {scope = $scope}, $$.enableNotifications);
   utils.registerNotification(jsonValue.notifications.changeLang, $$.changeLang);
-  utils.registerNotification(jsonValue.notifications.changeUrl, function() {$$.unregisterResponsive();}, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeUrl, function () {$$.unregisterResponsive();}, $$.enableNotifications);
 
   var instance = {
 
@@ -304,11 +304,11 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     updateViewTerm: function (term) {
       var node = d3.select(["g.node", term.term].join("."));
       var nodeTermCount = node.select("text.termCount");
-      
+
       if (nodeTermCount.text() === "" + term.count) {
         return false;
       }
-      var circleTerm =  node.select("circle");
+      var circleTerm = node.select("circle");
       circleTerm.style({"stroke": '#fff', 'stroke-width': 3}).transition().duration(1000).style("stroke-width", 0);
 
       nodeTermCount.text(term.count).style("opacity", 0).transition().duration(1000).style("opacity", "1");

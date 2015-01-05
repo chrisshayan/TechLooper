@@ -12,7 +12,7 @@ angular.module('Skill').controller('skillAnalyticsController',
       var viewJson = skillAnalyticsService.extractViewJson(data, skillStatisticRequest);
       $scope.viewJson = viewJson;
       skillTableFactory.calculatePercentage(viewJson);
-      $scope.$apply();
+      utils.apply();
 
       skillCircleFactory.renderView(viewJson);
       skillTableFactory.renderView(viewJson);

@@ -4,7 +4,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
     goBack: function () {
       var path = historyFactory.popHistory();
       $location.path(path === undefined ? "/" : path);
-      $rootScope.$apply();
     }
   }
 
@@ -17,15 +16,15 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
             return;
           }
           $location.path(jsonValue.routerUris.jobsSearch);
-          $rootScope.$apply();
           break;
+
         default:
           $$.goBack();
           break;
       }
     },
 
-    enter: function(e) {
+    enter: function (e) {
       switch (utils.getView()) {
         case jsonValue.views.jobsSearchText:
         case jsonValue.views.jobsSearch:

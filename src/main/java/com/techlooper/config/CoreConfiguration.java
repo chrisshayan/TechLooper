@@ -1,14 +1,16 @@
 package com.techlooper.config;
 
+import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
+import com.techlooper.entity.GitHubUserProfile;
+import com.techlooper.entity.LinkedInProfile;
+import com.techlooper.entity.TwitterProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.UserInfo;
-import com.techlooper.converter.LocaleConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
-import org.dozer.loader.api.TypeMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -20,11 +22,12 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
+import org.springframework.social.google.api.plus.Person;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import java.util.*;
+import java.util.Arrays;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
@@ -65,13 +68,35 @@ public class CoreConfiguration {
   @Bean
   public Mapper dozerBeanMapper() {
     DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-    BeanMappingBuilder builder = new BeanMappingBuilder() {
+    dozerBeanMapper.addMapping(new BeanMappingBuilder() {
       protected void configure() {
-        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class).fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
-        mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay()).fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
+          .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+
+        mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+          .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
+
+        mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+
+        mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
+          .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
+          .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
+          .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+
+        mapping(FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+
+        mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+
+        mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
+          .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
       }
-    };
-    dozerBeanMapper.addMapping(builder);
+    });
     return dozerBeanMapper;
   }
 

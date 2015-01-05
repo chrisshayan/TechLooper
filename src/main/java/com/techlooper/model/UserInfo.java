@@ -3,7 +3,6 @@ package com.techlooper.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +31,16 @@ public class UserInfo {
 
   @NotNull
   private Integer salary;
+
+  private String profileImageUrl;
+
+  public String getProfileImageUrl() {
+    return profileImageUrl;
+  }
+
+  public void setProfileImageUrl(String profileImageUrl) {
+    this.profileImageUrl = profileImageUrl;
+  }
 
   public Integer getSalary() {
     return salary;

@@ -3,8 +3,6 @@ angular.module('UserProfile').controller('userProfileController', function ($sco
   userProfileFactory.customScrollBar();
   userProfileFactory.resizeScreen();
   userProfileFactory.collapseContent();
-  userProfileFactory.naviControl();
-  userProfileFactory.subNaviControl();
   $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
   $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
 });

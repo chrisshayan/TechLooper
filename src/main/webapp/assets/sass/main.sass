@@ -36,6 +36,11 @@ a:hover
   display: none
 .desktop
   display: block
+.techlooper-body
+  display: block
+  clear: both
+  float: left
+  width: 100%
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
@@ -92,19 +97,6 @@ ul.setting-items
   width: 16px
   height: 16px
   cursor: pointer
-.infor-tour
-  width: 30px
-  height: 30px
-  background-color: #323232
-  border: 1px solid #3d373a
-  border-radius: 5px
-  cursor: pointer
-  padding: 4px
-  position: absolute
-  right: 45px
-  font-size: 20px
-  line-height: 20px
-  text-align: center
 .keyboard-shortcuts-items
   background: #000000
   padding: 10px
@@ -130,33 +122,11 @@ ul.setting-items
       float: left
 
 .logo-block
-  width: 33%
+  width: 100%
   float: left
-  height: 60px
-  position: relative
-.logo-block img
-  margin: auto
-  position: absolute
-  top: 0
-  bottom: 0
-.search-logo-block
-  .logo-block
-    text-align: left
-    img
-      float: left
-.technical-header-block
-  .logo-block
-    text-align: left
-    img
-      float: left
-.tech-line
-  width: 33%
-  text-align: center
-  float: left
-.close-button
-  width: 10%
-  text-align: right
-  float: right
+  height: 70px
+  padding: 5px 0
+
 .logo-block h1
   margin: 0
   padding: 0
@@ -180,14 +150,35 @@ ul.setting-items
   height: 70px
   padding-top: 5px
   background: url(../images/underline-black.png) left bottom repeat-x
-  .logo-block img
-    width: 100%
-    max-width: 250px
-    cursor: pointer
+.sub-page-header
+  width: 100%
+  display: block
+  clear: both
+  padding-bottom: 10px
+  float: left
+  padding-left: 90px
+  background: url(../images/underline-black.png) center bottom repeat-x
+  .logo-block
+    width: 80%
     float: left
+    height: 60px
+    padding: 10px 0
+    img
+      float: left
+  .tech-line
+    text-align: center
+    float: left
+    padding-left: 20px
+    h2
+      color: #777
+      font-size: 16px
+      font-weight: 300
+      line-height: 55px
+      margin: 0
+      padding: 0
   .close-button
     text-align: right
-    padding-top: 7px
+    padding: 7px 10px 0 0
   .close-button a
     background: #2c2a2a
     border-radius: 50%
@@ -204,15 +195,10 @@ ul.setting-items
     line-height: 45px
     text-align: center
     cursor: pointer
-  .tech-line
-    text-align: center
-    h2
-      font-weight: 300
-      font-size: 16px
-      color: #777
-      margin: 0
-      padding: 0
-      line-height: 55px
+
+  .close-button
+    width: 20%
+    float: right
 
 /* -- style for Navi ---*/
 .header-section
@@ -226,6 +212,7 @@ ul.setting-items
   left: 0
   top: 0
   bottom: 0
+  z-index: 999
   .manager-navi
     height: 70px
     text-align: center
@@ -243,9 +230,9 @@ ul.setting-items
       cursor: pointer
       padding-top: 18px
   .navi-container
-    display: none
     clear: both
     padding-top: 70px
+    display: none
     ul
       margin: 0
       padding: 0
@@ -262,12 +249,13 @@ ul.setting-items
         height: 60px
         margin: auto
         z-index: 999
+        cursor: pointer
       a.m-home-page
         background-position: 14px 13px
       a.m-pie-chart
-        background: url(../images/ic-small.png) 3px -267px no-repeat
+        background-position: 13px -709px !important
       a.m-bubble-chart
-        background: url(../images/ic-small.png) 2px -370px no-repeat
+        background-position: 15px -614px
       a.m-search-jobs
         background-position: 14px -87px
       a.m-languages.vi
@@ -275,7 +263,7 @@ ul.setting-items
       a.m-languages.en
         background-position: 18px -260px
       a.m-sign-out
-        background-position: 19px -340px
+        background-position: 19px -340px !important
       a.m-sign-in
         background-position: 17px -428px
       a.m-user-profile
@@ -287,14 +275,16 @@ ul.setting-items
         -webkit-border-radius: 50%
         -moz-border-radius: 50%
         border-radius: 50%
+      a.m-tour-guide
+        background-position: 15px -519px
       a:hover
         background: url(../images/ic-navi.png) #fff left top no-repeat
       a.m-home-page:hover
         background-position: 14px -35px
       a.m-pie-chart:hover
-        background: url(../images/ic-small.png) 3px -317px no-repeat
+        background-position: 13px -757px !important
       a.m-bubble-chart:hover
-        background: url(../images/ic-small.png) 2px -418px no-repeat
+        background-position: 15px -660px
       a.m-search-jobs:hover
         background-position: 14px -137px
       a.m-languages.vi:hover
@@ -307,6 +297,8 @@ ul.setting-items
         background-position: 17px -471px
       a.m-user-profile:hover
         background: transparent
+      a.m-tour-guide:hover
+        background-position: 15px -569px
     li ul
       width: 0
       height: 58px
@@ -368,6 +360,8 @@ ul.setting-items
     background-position: 0px 1px
 .signin-page
   text-align: center
+  float: left
+  width: 100%
 .signin-contianer
   width: 500px
   margin: auto
@@ -1016,7 +1010,9 @@ label.bootstrap-checkbox.disabled
 .register-contianer
   width: 100%
   text-align: center
-  padding-top: 10px
+  padding-top: 30px
+  float: left
+  display: block
   .register-form-block
     width: 100%
     max-width: 400px

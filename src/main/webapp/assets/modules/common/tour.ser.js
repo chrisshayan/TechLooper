@@ -12,7 +12,7 @@ angular.module("Common").factory("tourService", function (jsonValue, utils) {
   var instance = {
     initialize: function () {},
 
-    endTourGuide: function() {
+    endTourGuide: function () {
       if (currentTour !== undefined && !currentTour.ended()) {
         currentTour.end();
       }

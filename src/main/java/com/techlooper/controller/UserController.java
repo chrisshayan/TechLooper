@@ -3,6 +3,8 @@ package com.techlooper.controller;
 import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserInfo;
 import com.techlooper.service.UserService;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,27 +24,32 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Resource
-    private UserService userService;
+  @Resource
+  private UserService userService;
 
-    @ResponseBody
-    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
-    public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
-        if (result.getFieldErrorCount() > 0) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        } else {
-            userService.save(userInfo);
-        }
-        return result.getFieldErrors();
+  @ResponseBody
+  @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+  public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
+    if (result.getFieldErrorCount() > 0) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
-
-
-    //  @SendTo("/topic/userInfo/key")
-//  @MessageMapping("/userInfo/key")
-    @ResponseBody
-    @RequestMapping("/user")
-    public UserInfo getUserInfo(@RequestBody SocialRequest searchRequest) {
-        return userService.findUserInfoByKey(searchRequest.getKey());
+    else {
+      userService.save(userInfo);
     }
+    return result.getFieldErrors();
+  }
 
+
+  @SendToUser("/queue/info")
+  @MessageMapping("/user/findByKey")
+  public UserInfo getUserInfo(SocialRequest searchRequest/*, @DestinationVariable String username */) {
+    UserInfo userInfo = userService.findUserInfoByKey(searchRequest.getKey());
+    userInfo.getLoginSource();
+    return userInfo;
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
+  public void verifyUserLogin(@RequestBody(required = false) SocialRequest searchRequest) {
+  }
 }

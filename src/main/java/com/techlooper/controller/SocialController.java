@@ -2,13 +2,13 @@ package com.techlooper.controller;
 
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
-import com.techlooper.model.*;
+import com.techlooper.model.Authentication;
+import com.techlooper.model.SocialConfig;
+import com.techlooper.model.SocialProvider;
+import com.techlooper.model.SocialResponse;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by phuonghqh on 12/10/14.

@@ -54,10 +54,9 @@ public class TwitterService extends AbstractSocialService {
       .withProfile(SocialProvider.TWITTER, profile)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
+      dozerBeanMapper.map(profile, userEntity);
       builder.withId(userId)
         .withLoginSource(SocialProvider.TWITTER)
-        .withFirstName(profile.getName())
-        .withUsername(profile.getScreenName())
         .withKey(passwordEncryptor.encryptPassword(userId));
     }
     userService.save(userEntity);

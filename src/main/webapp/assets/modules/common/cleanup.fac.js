@@ -1,4 +1,4 @@
-angular.module("Common").factory("cleanupFactory", function (jsonValue, utils) {
+angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, localStorageService, $rootScope) {
 
   var $$ = {
     cleanHighCharts: function () {
@@ -9,8 +9,18 @@ angular.module("Common").factory("cleanupFactory", function (jsonValue, utils) {
       Highcharts.charts.length = 0;
     }
   }
-  utils.registerNotification(jsonValue.notifications.switchScope, $$.cleanHighCharts);
-  return {
-    initialize: function () {}
+
+  var instance = {
+    initialize: function () {},
+
+    cleanSession: function () {
+      $rootScope.userInfo = undefined;
+      localStorageService.remove(jsonValue.storage.key);
+    }
   };
+
+  utils.registerNotification(jsonValue.notifications.switchScope, $$.cleanHighCharts);
+  utils.registerNotification(jsonValue.notifications.loginFailed, instance.cleanSession);
+  utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.cleanSession);
+  return instance;
 });

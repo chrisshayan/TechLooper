@@ -17,32 +17,17 @@
     display: block
   .technical-header-block
     height: auto
-  .logo-block
-    width: 80%
-    padding-top: 20px
-  .logo-block img
-    width: 100%
-  .close-button
-    width: 20%
+  .sub-page-header
+    padding-bottom: 0
+    .logo-block
+      width: 70%
+    .logo-block img
+      max-width: 175px
+    .close-button
+      width: 30%
   .signin-signout-block
     width: 10%
-  .technical-header-block 
-    .close-button
-      padding-bottom: 10px !important
-      float: right
-  .search-logo-block 
-    .close-button
-      float: right
-  .search-logo-block 
-    .close-button a
-      width: 40px
-      height: 40px
-      line-height: 40px
-  .technical-header-block 
-    .close-button a
-      width: 40px
-      height: 40px
-      line-height: 40px
+
   .logo
     width: 100%
     padding: 5px 5px 5px 0
@@ -52,9 +37,11 @@
       max-height: 60px
       position: absolute
       left: 0
-      top: 0
+      top: 50px
       right: 0
       bottom: 0
+      margin: auto
+
     h1
       line-height: 0
       margin: 0
@@ -375,8 +362,6 @@
 @media (min-width: 778px)
   .fa-bars
     display: none
-  .logo-block
-    height: auto
   .logo-block img
     position: inherit
 
@@ -391,7 +376,6 @@
       padding: 5px 10px
       text-align: center
 @media (max-width: 440px)
-  .logo-block
-    width: 75%
-    img
-      max-width: 85% !important
+  .logo-block img
+    max-width: 90% !important
+    padding-top: 5px

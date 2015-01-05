@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
@@ -11,8 +11,6 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.linkedin.api.LinkedIn;
-import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,6 +43,8 @@ public class FacebookService extends AbstractSocialService {
     Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
     FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
     com.techlooper.entity.FacebookProfile fbProfile = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
+    String profileImageUrl = connection.getApi().restOperations().getForObject(socialConfig.getApiUrl().get("picture"), JsonNode.class).at("/data/url").asText();
+    fbProfile.setProfileImageUrl(profileImageUrl);
     fbProfile.setAccessGrant(accessGrant);
     return fbProfile;
   }
@@ -56,11 +56,9 @@ public class FacebookService extends AbstractSocialService {
       .withProfile(SocialProvider.FACEBOOK, profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
+      dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
         .withLoginSource(SocialProvider.FACEBOOK)
-        .withFirstName(profileEntity.getFirstName())
-        .withLastName(profileEntity.getLastName())
-        .withEmailAddress(profileEntity.getEmail())
         .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
     }
     userService.save(userEntity);

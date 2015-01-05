@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.*;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
@@ -84,10 +85,12 @@ public class GitHubService extends AbstractSocialService {
       .withProfile(GITHUB, profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
+      String profileImageUrl = connection.getApi().restOperations()
+        .getForObject(socialConfig.getApiUrl().get("users"), JsonNode.class, profileEntity.getUsername()).get("avatar_url").asText();
+      profileEntity.setProfileImageUrl(profileImageUrl);
+      dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
         .withLoginSource(GITHUB)
-        .withFirstName(profileEntity.getName())
-        .withEmailAddress(profileEntity.getEmail())
         .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
     }
     return userEntity;

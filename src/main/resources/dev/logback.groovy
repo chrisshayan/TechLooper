@@ -15,7 +15,8 @@ appender("CONSOLE", ConsoleAppender) {
 }
 
 appender("FILE", RollingFileAppender) {
-  file = "${catalina.base}/logs/techlooper.log"
+  file = "techlooper.log"
+//  file = "${catalina.base}/logs/techlooper.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper_%i.log"
     minIndex = 1

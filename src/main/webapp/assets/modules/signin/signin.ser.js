@@ -1,20 +1,37 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http) {
-    //var scope;
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
+            $window, $http, connectionFactory) {
 
     var $$ = {
       enableNotifications: function () {
         return $(".signin-contianer").is(":visible");
+      },
+
+      loginFailed: function () {
+        // TODO: consider to use a "signing box"
+        utils.sendNotification(jsonValue.notifications.hideLoadingBox);
+      },
+
+      loginSuccess: function() {
+
       }
     }
 
     var instance = {
-      initialize: function () {
-        //scope = $scope;
+      init: function () {},
 
-        if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
-          $location.path("/");
-        }
+      initialize: function () {
+        utils.sendNotification(jsonValue.notifications.loading);
+
+        // check if user already login
+        connectionFactory.verifyUserLogin()
+          .then(function() {
+            utils.sendNotification(jsonValue.notifications.loginSuccess);
+          })
+          .catch(function() {
+            utils.sendNotification(jsonValue.notifications.loginFailed);
+            //utils.sendNotification(jsonValue.notifications.loaded);
+          });
 
         $('.signin-accounts').parallax();
 
@@ -30,11 +47,6 @@ angular.module('SignIn').factory('signInService',
           $('#signin-form').modal('hide');
         });
 
-        //$('.sign-successful').on('click', function () {
-        //  $location.path(jsonValue.routerUris.register);
-        //  $scope.$apply();
-        //});
-
         tourService.makeTourGuide();
       },
 
@@ -45,21 +57,15 @@ angular.module('SignIn').factory('signInService',
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             localStorageService.set(jsonValue.storage.key, resp.data.key);
-            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
-              .success(function() {
-                $location.path(jsonValue.routerUris.register);
-              })
-              .error(function() {
-                //TODO: invalid user credential
-                utils.sendNotification(jsonValue.notifications.loaded);
-              });
+            connectionFactory.login();
           })
-          .catch(function(resp) {
+          .catch(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
+    utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
     return instance;
   });
