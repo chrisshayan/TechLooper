@@ -55,22 +55,13 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }
     },
 
-    updateSigninButton: function () {
-      if ($rootScope.userInfo === undefined) {
-        $("a.sign-out-sign-in").attr({'title': 'Sign Out'}).addClass('m-sign-out');
-      }
-      else {
-        $("a.sign-out-sign-in").attr({'title': "Sign In"}).removeClass('m-sign-out');
-      }
-    },
-
     registerEventListeners: function () {
       $(".m-chart").on("click tap", function() {
         $location.path($('.m-chart').hasClass("m-pie-chart") ? jsonValue.routerUris.pie : jsonValue.routerUris.bubble);
         $$.updateChartButton();
       });
 
-      $("a.sign-out-sign-in").click(function () {
+      $("a.sign-out-sign-in").on("click tap", function () {
         if ($rootScope.userInfo === undefined) {
           $location.path(jsonValue.routerUris.signIn);
         }
@@ -79,7 +70,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
             utils.sendNotification(jsonValue.notifications.logoutSuccess);
           });
         }
-        $$.updateSigninButton();
+        //$$.updateSigninButton();
       });
     }
   }
@@ -87,7 +78,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
   var instance = {
     initialize: function () {
       $$.updateChartButton();
-      $$.updateSigninButton();
       $$.registerEventListeners();
       $$.naviControl();
     },
@@ -98,8 +88,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       });
     }
   }
-
-  //utils.registerNotification(jsonValue.notifications.userInfo, $$.updateUserInfo);
 
   return instance;
 });
