@@ -9,11 +9,9 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
       if (localStorageService.get(jsonValue.storage.back2Me) === true) {
         localStorageService.remove(jsonValue.storage.back2Me);
         var path = historyFactory.popHistory();
-        console.log("routerService", path);
         $location.path(path);
       }
       else {//default after sign-in
-        console.log("routerService", jsonValue.routerUris.register);
         $location.path(jsonValue.routerUris.register);
       }
     },
