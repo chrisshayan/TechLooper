@@ -9,9 +9,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           }, 300, function () {
             $(this).css('position', 'relative');
           });
-          $('.techlooper-body').animate({
-            'padding-left': 0
-          });
           $('.sub-page-header').animate({
             'padding-left': '90px'
           });
@@ -20,19 +17,12 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           }, 300, function () {
             $(this).css('display', 'none');
           });
-
           $(this).removeClass('active');
         }
         else {
           $('.main-navi-block').animate({
             width: '85px'
           }).css('position', 'fixed');
-          $('.techlooper-body').animate({
-            'padding-left': '85px'
-          });
-          $('.sub-page-header').animate({
-            'padding-left': '20px'
-          });
           $('.navi-container').animate({
             'width': '100%'
           }).css('display', 'block');
@@ -93,17 +83,24 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }
       var menuItem = $('.navi-container').find('li');
       menuItem.on('click', function(){
+        hideNavigationBar();
         if($(this).find('a').hasClass('m-chart') || $(this).find('a').hasClass('m-search-jobs') || $(this).find('a').hasClass('sign-out-sign-in')){
           menuItem.removeClass('active');
           $(this).addClass('active');
           if($(this).find('a').hasClass('m-search-jobs')){
-            $('.main-navi-block').css('background','url(../images/line-h1.png) #ccc right top repeat-y');
+            $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+          }else{
+            $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
           }
         }
       });
     }
   }
-
+  function hideNavigationBar(){
+    $('.main-navi-block').css('width', '0px');
+    $('.navi-container').css({'width': '0%', 'display': 'none'});
+    $('.manager-navi').find('.fa-bars').removeClass('active');
+  }
   var instance = {
     initialize: function () {
       $$.updateChartButton();
