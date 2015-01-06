@@ -136,7 +136,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       utils.sendNotification(jsonValue.notifications.loginSuccess);
     })
     .catch(function() {
-      utils.sendNotification(jsonValue.notifications.loginFailed);
+      //utils.sendNotification(jsonValue.notifications.loginFailed);
     });
 });
 
