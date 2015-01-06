@@ -49,7 +49,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           break;
 
         default:
-          $('.m-chart').removeClass('m-bubble-chart').addClass('m-pie-chart')
+          $('.m-chart').removeClass('m-bubble-chart').addClass('m-pie-chart');
             //.attr('href', "#" + jsonValue.routerUris.pie);
           break;
       }
@@ -70,7 +70,36 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
             utils.sendNotification(jsonValue.notifications.logoutSuccess);
           });
         }
-        //$$.updateSigninButton();
+      });
+    },
+    updateHighlight: function(){
+      $('.navi-container').find('li').removeClass('active');
+      switch (utils.getView()) {
+        case jsonValue.views.pieChart:
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          break;
+        case jsonValue.views.bubbleChart:
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          break;
+        case jsonValue.views.jobsSearch:
+          $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+          break;
+        case jsonValue.views.signIn:
+          $('.navi-container').find('a.sign-out-sign-in').parent().addClass('active');
+          break;
+        default:
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          break;
+      }
+      var menuItem = $('.navi-container').find('li');
+      menuItem.on('click', function(){
+        if($(this).find('a').hasClass('m-chart') || $(this).find('a').hasClass('m-search-jobs') || $(this).find('a').hasClass('sign-out-sign-in')){
+          menuItem.removeClass('active');
+          $(this).addClass('active');
+          if($(this).find('a').hasClass('m-search-jobs')){
+            $('.main-navi-block').css('background','url(../images/line-h1.png) #ccc right top repeat-y');
+          }
+        }
       });
     }
   }
@@ -78,6 +107,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
   var instance = {
     initialize: function () {
       $$.updateChartButton();
+      $$.updateHighlight();
       $$.registerEventListeners();
       $$.naviControl();
     },
