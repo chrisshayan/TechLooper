@@ -91,6 +91,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
             $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
           }else{
             $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+            $('body').css('background-color','#201d1e');
           }
         }
       });
