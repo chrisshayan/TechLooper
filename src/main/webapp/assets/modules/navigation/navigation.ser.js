@@ -73,6 +73,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           break;
         case jsonValue.views.jobsSearch:
           $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
           break;
         case jsonValue.views.signIn:
           $('.navi-container').find('a.sign-out-sign-in').parent().addClass('active');
