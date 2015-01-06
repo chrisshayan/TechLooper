@@ -113,7 +113,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, userService, routerService, $location, utils) {
+                         tourService, signInService, historyFactory, userService, routerService, $location, utils, jsonValue) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -130,6 +130,14 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     utils.apply();
     return rsLocationPathFn;
   }
+
+  connectionFactory.verifyUserLogin()
+    .then(function() {
+      utils.sendNotification(jsonValue.notifications.loginSuccess);
+    })
+    .catch(function() {
+      utils.sendNotification(jsonValue.notifications.loginFailed);
+    });
 });
 
 techlooper
