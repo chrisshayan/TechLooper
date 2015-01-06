@@ -3,18 +3,18 @@
     <i class="fa fa-bars"></i>
   </div>
   <div class="navi-container">
-    <ul class="hi-icon-effect-1 hi-icon-effect-1a">
-      <li class="subNavi">
-        <a class="hi-icon m-chart" />
+    <ul>
+      <li>
+        <a class="m-chart"/>
       </li>
-      <li ng-show="userInfo !== undefined"><a class="hi-icon m-user-profile"><img ng-src="{{userInfo.profileImageUrl}}" alt=""/></a></li>
-      <li><a href="#/jobs/search" class="hi-icon m-search-jobs"></a></li>
+      <li ng-show="userInfo !== undefined"><a class="m-user-profile"><img ng-src="{{userInfo.profileImageUrl}}" alt=""/></a></li>
+      <li><a href="#/jobs/search" class="m-search-jobs"></a></li>
       <li>
         <translation></translation>
       </li>
-      <li><a class="hi-icon sign-out-sign-in {{userInfo === undefined ? 'm-sign-in' : 'm-sign-out'}}"
+      <li><a class="sign-out-sign-in {{userInfo === undefined ? 'm-sign-in' : 'm-sign-out'}}"
              title="{{userInfo === undefined ? 'Sign In' : 'Sign Out'}}"></a></li>
-      <li><a class="hi-icon m-tour-guide infor-tour" title="Tour Guide"></a></li>
+      <li><a class="m-tour-guide infor-tour" title="Tour Guide"></a></li>
     </ul>
   </div>
 </div>

@@ -21,7 +21,7 @@ angular.module('SignIn').factory('signInService',
       init: function () {},
 
       initialize: function () {
-        utils.sendNotification(jsonValue.notifications.loading);
+        utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
         // check if user already login
         connectionFactory.verifyUserLogin()
@@ -37,10 +37,14 @@ angular.module('SignIn').factory('signInService',
 
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
+          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
         });
 
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
+          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
         });
 
         $(".signin-popup-close").on('click', function () {

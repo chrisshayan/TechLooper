@@ -94,8 +94,24 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       $('.btn-search').click($$.doSearch);
 
-      $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
-      $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
+      $('.btn-close').click(function () {
+        shortcutFactory.trigger('esc');
+        var view = utils.getView();
+        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
+          $('.main-navi-block').css('background','url(../images/line-h.png) #000 right top repeat-y');
+        }
+      });
+      $('.btn-logo').click(function () {
+        shortcutFactory.trigger('esc');
+        var view = utils.getView();
+        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
+          $('.main-navi-block').css('background','url(../images/line-h.png) #000 right top repeat-y');
+        }
+      });
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,

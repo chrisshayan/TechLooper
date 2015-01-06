@@ -9,8 +9,16 @@ angular.module('Register').factory('registerService',
         scope = $scope;
         $('input[type="checkbox"]').checkbox();
         $("#salary").slider({});
-        $('.btn-close').click(function () {shortcutFactory.trigger('esc');});
-        $('.btn-logo').click(function () {shortcutFactory.trigger('esc');});
+        $('.btn-close').click(function () {
+          shortcutFactory.trigger('esc');
+          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+        });
+        $('.btn-logo').click(function () {
+          shortcutFactory.trigger('esc');
+          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+        });
         $('.register-successful').click($$.saveUserInfo);
       },
 

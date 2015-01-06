@@ -13,6 +13,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import javax.servlet.http.HttpServletResponse;
@@ -46,8 +47,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .authorizeRequests().antMatchers("/user/**").hasAuthority("USER")
       .and().formLogin().loginPage("/login").usernameParameter("key").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
       .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
-      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint())
-      .and().sessionManagement().invalidSessionUrl("/").maximumSessions(1);
+      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());
+//      .and().sessionManagement().maximumSessions(1);
   }
 
   private AuthenticationEntryPoint getAuthenticationEntryPoint() {
