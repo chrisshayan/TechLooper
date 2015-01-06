@@ -131,13 +131,13 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
-  connectionFactory.verifyUserLogin()
-    .then(function() {
-      utils.sendNotification(jsonValue.notifications.loginSuccess);
-    })
-    .catch(function() {
-      //utils.sendNotification(jsonValue.notifications.loginFailed);
-    });
+  //connectionFactory.verifyUserLogin();
+    //.then(function() {
+    //  utils.sendNotification(jsonValue.notifications.loginSuccess);
+    //})
+    //.catch(function() {
+    //  //utils.sendNotification(jsonValue.notifications.loginFailed);
+    //});
 });
 
 techlooper
