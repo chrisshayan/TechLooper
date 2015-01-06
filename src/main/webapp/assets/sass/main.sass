@@ -243,31 +243,34 @@ ul.setting-items
       text-align: center
       position: relative
       a
-        background: url(../images/ic-navi.png) #000 left top no-repeat
-        border: 1px solid #636363
+        background: url(../images/ic-navi.png) transparent left top no-repeat
         width: 60px
         height: 60px
         margin: auto
         z-index: 999
         cursor: pointer
+        display: block
       a.m-home-page
-        background-position: 14px 13px
+        background-position: 8px -127px
       a.m-pie-chart
-        background-position: 13px -709px !important
+        background-position: 8px 8px !important
       a.m-bubble-chart
-        background-position: 15px -614px
+        background-position: 8px -58px
       a.m-search-jobs
-        background-position: 14px -87px
+        background-position: 8px -198px
       a.m-languages.vi
-        background-position: 18px -183px
+        background-position: 15px -592px
       a.m-languages.en
-        background-position: 18px -260px
+        background-position: 9px -517px
       a.m-sign-out
-        background-position: 19px -340px !important
+        background-position: 13px -358px !important
       a.m-sign-in
-        background-position: 17px -428px
+        background-position: 13px -280px
       a.m-user-profile
         background: transparent
+        border-radius: 50%
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
       a.m-user-profile img
         width: 60px
         height: 60px
@@ -276,29 +279,51 @@ ul.setting-items
         -moz-border-radius: 50%
         border-radius: 50%
       a.m-tour-guide
-        background-position: 15px -519px
+        background-position: 10px -438px
       a:hover
-        background: url(../images/ic-navi.png) #fff left top no-repeat
+        background: url(../images/ic-navi.png) transparent left top no-repeat
       a.m-home-page:hover
-        background-position: 14px -35px
+        background-position: -65px -127px
       a.m-pie-chart:hover
-        background-position: 13px -757px !important
+        background-position: -65px 8px !important
       a.m-bubble-chart:hover
-        background-position: 15px -660px
+        background-position: -65px -58px
       a.m-search-jobs:hover
-        background-position: 14px -137px
+        background-position: -65px -198px
       a.m-languages.vi:hover
-        background-position: 18px -222px
+        background-position: -59px -592px
       a.m-languages.en:hover
-        background-position: 18px -299px
+        background-position: -65px -517px
       a.m-sign-out:hover
-        background-position: 19px -384px
+        background-position: -61px -358px
       a.m-sign-in:hover
-        background-position: 17px -471px
+        background-position: -61px -280px
       a.m-user-profile:hover
         background: transparent
       a.m-tour-guide:hover
-        background-position: 15px -569px
+        background-position: -64px -438px
+    li.active
+      a.m-home-page
+      background-position: -65px -127px
+      a.m-pie-chart
+        background-position: -65px 8px !important
+      a.m-bubble-chart
+        background-position: -65px -58px
+      a.m-search-jobs
+        background-position: -65px -198px
+      a.m-languages.vi
+        background-position: -59px -592px
+      a.m-languages.en
+        background-position: -65px -517px
+      a.m-sign-out
+        background-position: -61px -358px
+      a.m-sign-in
+        background-position: -61px -280px
+      a.m-user-profile
+        background: transparent
+      a.m-tour-guide
+        background-position: -64px -438px
+
     li ul
       width: 0
       height: 58px
@@ -1407,7 +1432,7 @@ label.bootstrap-checkbox.disabled
   text-align: center
   position: relative
   z-index: 1
-  color: #fff
+  color: #147ed9
 
 .hi-icon:after
   pointer-events: none
@@ -1440,7 +1465,7 @@ label.bootstrap-checkbox.disabled
   top: -7px
   left: -7px
   padding: 7px
-  box-shadow: 0 0 0 2px #fff
+  box-shadow: 0 0 0 2px #147ed9
   -webkit-transition: -webkit-transform 0.2s, opacity 0.2s
   -webkit-transform: scale(.8)
   -moz-transition: -moz-transform 0.2s, opacity 0.2s
@@ -1451,7 +1476,7 @@ label.bootstrap-checkbox.disabled
   opacity: 0
 
 .hi-icon-effect-1a .hi-icon:hover
-  background: rgba(255,255,255,1)
+  background: #147ed9
   color: #41ab6b
 
 
