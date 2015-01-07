@@ -157,7 +157,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     },
 
     updateNavi: function(){
-      utils.hideNavigationBar();
       $('.navi-container').find('li').removeClass('active');
       $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
     }

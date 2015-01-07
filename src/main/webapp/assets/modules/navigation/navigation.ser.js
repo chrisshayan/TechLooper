@@ -88,7 +88,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }
       var menuItem = $('.navi-container').find('li');
       menuItem.on('click', function(){
-        utils.hideNavigationBar();
+        //utils.hideNavigationBar();
         if($(this).find('a').hasClass('m-chart') || $(this).find('a').hasClass('m-search-jobs') || $(this).find('a').hasClass('sign-out-sign-in')){
           menuItem.removeClass('active');
           $(this).addClass('active');
@@ -97,6 +97,10 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           }else{
             $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
             $('body').css('background-color','#201d1e');
+          }
+          if($(this).find('a').hasClass('m-sign-out')){
+            $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
+            $('.navi-container').find('a.m-chart').parent().addClass('active');
           }
         }
       });
