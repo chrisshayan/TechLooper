@@ -6,12 +6,12 @@ angular.module('Common').factory('translationService', function ($translate, uti
       scope = $scope;
       $(".langKey").click(function () {
         var nextLang = instance.getNextLanguage();
-        $translate.use(nextLang);
+        $translate.use(nextLang).then(function () {utils.sendNotification(jsonValue.notifications.changeLang, lang);});
+        var lang = nextLang;
         utils.apply();
 
         nextLang = instance.getNextLanguage(nextLang);
         scope.icoLanguage = nextLang;
-        utils.sendNotification(jsonValue.notifications.changeLang);
       });
     },
 
