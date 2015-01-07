@@ -41,9 +41,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
             /*
              * .addResolver(new CachingResourceResolver(cacheManager,
              * "default"))
-             */.addResolver(new GzipResourceResolver())
+             */.addResolver(new GzipResourceResolver());
       // .addTransformer(new CachingResourceTransformer(cacheManager,
       // "default"))
-      .addTransformer(new CssLinkResourceTransformer());
+//      .addTransformer(new CssLinkResourceTransformer());
   }
 }
