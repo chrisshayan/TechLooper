@@ -6,7 +6,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
-      utils.hideNavigationBar();
     },
 
     alignButtonSearch: function () {
@@ -154,10 +153,16 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         });
       });
+    },
+
+    updateNavi: function(){
+      $('.navi-container').find('li').removeClass('active');
+      $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.enableNotifications);
   utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.enableNotifications);
+
   return instance;
 });

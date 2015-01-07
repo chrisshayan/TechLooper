@@ -197,11 +197,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
 
     closeNotify: function () {
       $(".messager-block").fadeOut(1000);
-    },
-    hideNavigationBar: function(){
-      $('.main-navi-block').css('width', '0px');
-      $('.navi-container').css({'width': '0%', 'display': 'none'});
-      $('.manager-navi').find('.fa-bars').removeClass('active');
     }
   }
 

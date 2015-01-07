@@ -79,7 +79,7 @@ angular.module('Register').factory('registerService',
       },
 
       openOathDialog: function (auth) {
-        utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+        utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];

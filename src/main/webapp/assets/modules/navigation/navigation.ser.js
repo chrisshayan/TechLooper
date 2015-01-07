@@ -9,6 +9,9 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           }, 300, function () {
             $(this).css('position', 'relative');
           });
+          $('.techlooper-body').animate({
+            'padding-left': 0
+          });
           $('.sub-page-header').animate({
             'padding-left': '90px'
           });
@@ -17,12 +20,23 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           }, 300, function () {
             $(this).css('display', 'none');
           });
+
           $(this).removeClass('active');
         }
         else {
+          var view = utils.getView();
+          if(view == jsonValue.views.jobsSearch){
+            $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+          }
           $('.main-navi-block').animate({
             width: '85px'
           }).css('position', 'fixed');
+          $('.techlooper-body').animate({
+            'padding-left': '85px'
+          });
+          $('.sub-page-header').animate({
+            'padding-left': '20px'
+          });
           $('.navi-container').animate({
             'width': '100%'
           }).css('display', 'block');
@@ -63,6 +77,11 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       });
     },
     updateHighlight: function(){
+      if($rootScope.userInfo === undefined){
+        $('.main-navi-block').css('width', '0px');
+        $('.navi-container').css({'width': '0%', 'display': 'none'});
+        $('.manager-navi').find('.fa-bars').removeClass('active');
+      }
       $('.navi-container').find('li').removeClass('active');
       switch (utils.getView()) {
         case jsonValue.views.pieChart:
@@ -84,7 +103,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }
       var menuItem = $('.navi-container').find('li');
       menuItem.on('click', function(){
-        utils.hideNavigationBar();
+        //utils.hideNavigationBar();
         if($(this).find('a').hasClass('m-chart') || $(this).find('a').hasClass('m-search-jobs') || $(this).find('a').hasClass('sign-out-sign-in')){
           menuItem.removeClass('active');
           $(this).addClass('active');
@@ -93,6 +112,10 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           }else{
             $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
             $('body').css('background-color','#201d1e');
+          }
+          if($(this).find('a').hasClass('m-sign-out')){
+            $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
+            $('.navi-container').find('a.m-chart').parent().addClass('active');
           }
         }
       });
@@ -110,6 +133,16 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       $('.infor-tour').on('click', function () {
         tourService.restart();
       });
+    },
+    addSpaceforNavi: function(){
+      var page = $('.techlooper-body');
+      if($('.main-navi-block').width() == 85){
+        page.css('padding-left', '85px');
+        $('.sub-page-header').css('padding-left', '20px');
+      }else{
+        page.css('padding-left', '0');
+        $('.sub-page-header').css('padding-left', '90px');
+      }
     }
   }
 

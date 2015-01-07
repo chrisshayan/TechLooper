@@ -1,5 +1,5 @@
 angular.module('Register').controller('registerController',
-  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService, userService) {
+  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService, userService, navigationService) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
@@ -8,4 +8,5 @@ angular.module('Register').controller('registerController',
       registerService.updateUserInfo();
       utils.sendNotification(jsonValue.notifications.gotData);
     });
+    navigationService.addSpaceforNavi();
   });

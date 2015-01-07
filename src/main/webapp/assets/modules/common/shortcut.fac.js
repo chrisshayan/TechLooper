@@ -39,7 +39,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
       return;
     }
     traps.esc(e);
-    utils.hideNavigationBar();
   });
 
   Mousetrap.bindGlobal("enter", function (e) {
