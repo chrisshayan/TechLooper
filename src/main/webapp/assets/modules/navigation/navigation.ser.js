@@ -52,7 +52,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       });
 
       $("a.sign-out-sign-in").on("click tap", function () {
-        if ($rootScope.userInfo === undefined) {
+        if (userService.notLoggedIn()) {
           $location.path(jsonValue.routerUris.signIn);
         }
         else {

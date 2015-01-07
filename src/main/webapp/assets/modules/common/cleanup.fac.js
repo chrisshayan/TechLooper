@@ -7,20 +7,20 @@ angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, l
         return true;
       });
       Highcharts.charts.length = 0;
-    }
-  }
-
-  var instance = {
-    initialize: function () {},
+    },
 
     cleanSession: function () {
       $rootScope.userInfo = undefined;
       localStorageService.remove(jsonValue.storage.key);
     }
+  }
+
+  var instance = {
+    initialize: function () {}
   };
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.cleanHighCharts);
-  utils.registerNotification(jsonValue.notifications.loginFailed, instance.cleanSession);
-  utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.cleanSession);
+  utils.registerNotification(jsonValue.notifications.loginFailed, $$.cleanSession);
+  utils.registerNotification(jsonValue.notifications.logoutSuccess, $$.cleanSession);
   return instance;
 });

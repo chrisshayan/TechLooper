@@ -19,6 +19,10 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
       }
       defers.getUserInfo.push(deferred);
       return deferred.promise;
+    },
+
+    notLoggedIn: function() {
+      return ($rootScope.userInfo === undefined);
     }
   }
   instance.getUserInfo();//read userInfo
