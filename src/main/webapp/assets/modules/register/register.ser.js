@@ -48,6 +48,7 @@ angular.module('Register').factory('registerService',
           .finally(function () {
             flag.saveUserInfo = false;
           });
+          utils.hideNavigationBar();
       },
 
       enableNotifications: function () {
