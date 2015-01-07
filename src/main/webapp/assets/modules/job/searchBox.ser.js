@@ -2,6 +2,12 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   var scope, searchText, textArray;
 
   var $$ = {
+    translation: function() {
+      $translate("searchTextPlaceholder").then(function (translation) {
+        searchText.setPlaceholder(translation);
+      });
+    },
+
     doSearch: function () {
       // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
@@ -71,9 +77,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       })[0].selectize;
 
-      $translate("searchTextPlaceholder").then(function (translation) {
-        searchText.setPlaceholder(translation);
-      });
+      $$.translation();
 
       if ($.isArray(textArray)) {
         var options = [];
@@ -163,6 +167,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.enableNotifications);
   utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.translation, $$.enableNotifications);
 
   return instance;
 });
