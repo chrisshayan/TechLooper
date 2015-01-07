@@ -84,7 +84,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }
       var menuItem = $('.navi-container').find('li');
       menuItem.on('click', function(){
-        hideNavigationBar();
+        utils.hideNavigationBar();
         if($(this).find('a').hasClass('m-chart') || $(this).find('a').hasClass('m-search-jobs') || $(this).find('a').hasClass('sign-out-sign-in')){
           menuItem.removeClass('active');
           $(this).addClass('active');
@@ -97,11 +97,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
         }
       });
     }
-  }
-  function hideNavigationBar(){
-    $('.main-navi-block').css('width', '0px');
-    $('.navi-container').css({'width': '0%', 'display': 'none'});
-    $('.manager-navi').find('.fa-bars').removeClass('active');
   }
   var instance = {
     initialize: function () {

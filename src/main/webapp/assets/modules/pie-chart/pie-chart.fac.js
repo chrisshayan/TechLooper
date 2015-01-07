@@ -96,6 +96,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
             events: {
               click: function (e) {
                 utils.go2SkillAnalyticPage(scope, terms[data4PieChart.labels.indexOf(this.name)].term);
+                utils.hideNavigationBar();
               }
             }
           },

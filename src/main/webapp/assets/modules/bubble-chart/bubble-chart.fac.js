@@ -222,6 +222,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
         var d3Node = d3.select(this);
         if (d3Node.selectAll("text.clickMe")[0].length === 1) {
           utils.go2SkillAnalyticPage(scope, d3Node.attr("class").split(" ")[1]);
+          utils.hideNavigationBar();
           return false;
         }
         $$.reset(node);

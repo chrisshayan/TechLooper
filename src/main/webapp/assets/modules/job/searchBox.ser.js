@@ -6,6 +6,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
+      utils.hideNavigationBar();
     },
 
     alignButtonSearch: function () {
