@@ -1,4 +1,4 @@
-angular.module('Jobs').controller('searchFormController', function (utils, $scope, searchBoxService, jsonValue, animationFactory) {
+angular.module('Jobs').controller('searchFormController', function (utils, $scope, searchBoxService, jsonValue, animationFactory, navigationService) {
   //var dataTour = utils.getDataTour();
   //utils.makeTourGuide(dataTour);
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
@@ -14,4 +14,5 @@ angular.module('Jobs').controller('searchFormController', function (utils, $scop
   }
 
   animationFactory.animatePage();
+  navigationService.addSpaceforNavi();
 });

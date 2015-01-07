@@ -1,5 +1,5 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, navigationService) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
     $scope.search = {
       jobs: [],
@@ -68,4 +68,5 @@ angular.module('Jobs').controller('searchResultController',
     }
 
     searchBoxService.changeBodyColor();
+    navigationService.addSpaceforNavi();
   });
