@@ -20,6 +20,10 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           $(this).removeClass('active');
         }
         else {
+          var view = utils.getView();
+          if(view == jsonValue.views.jobsSearch){
+            $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+          }
           $('.main-navi-block').animate({
             width: '85px'
           }).css('position', 'fixed');

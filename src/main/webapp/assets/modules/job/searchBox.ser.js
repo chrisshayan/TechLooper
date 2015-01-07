@@ -154,10 +154,17 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         });
       });
+    },
+
+    updateNavi: function(){
+      utils.hideNavigationBar();
+      $('.navi-container').find('li').removeClass('active');
+      $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.enableNotifications);
   utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.enableNotifications);
+
   return instance;
 });
