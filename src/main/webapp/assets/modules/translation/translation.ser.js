@@ -11,6 +11,7 @@ angular.module('Common').factory('translationService', function ($translate, uti
 
         var nextLang = instance.getNextLanguage(lang);
         scope.icoLanguage = nextLang;
+        scope.$apply();
       });
     },
 
