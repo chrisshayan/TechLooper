@@ -4,14 +4,14 @@ angular.module('Common').factory('translationService', function ($translate, uti
   var instance = {
     initialize: function ($scope) {
       scope = $scope;
-      $(".langKey").on('click', function () {
-        var nextLang = instance.getNextLanguage();
-        $translate.use(nextLang);
+      $(".langKey").click(function () {
+        var lang = instance.getNextLanguage();
+        $translate.use(lang).then(function () {utils.sendNotification(jsonValue.notifications.changeLang, lang);});
         utils.apply();
 
-        nextLang = instance.getNextLanguage(nextLang);
+        var nextLang = instance.getNextLanguage(lang);
         scope.icoLanguage = nextLang;
-        utils.sendNotification(jsonValue.notifications.changeLang);
+        scope.$apply();
       });
     },
 
@@ -23,7 +23,7 @@ angular.module('Common').factory('translationService', function ($translate, uti
         case "en":
           return "vi";
         default:
-          return "vi";
+          return "en";
       }
     }
   }

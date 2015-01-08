@@ -77,7 +77,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       });
     },
     updateHighlight: function(){
-      if($rootScope.userInfo === undefined){
+      if(!userService.notLoggedIn()){
         $('.main-navi-block').css('width', '0px');
         $('.navi-container').css({'width': '0%', 'display': 'none'});
         $('.manager-navi').find('.fa-bars').removeClass('active');
