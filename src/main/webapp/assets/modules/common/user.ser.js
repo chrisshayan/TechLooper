@@ -25,7 +25,8 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
       return ($rootScope.userInfo === undefined);
     }
   }
-  instance.getUserInfo();//read userInfo
+
+  instance.getUserInfo(); //handle refresh button: read user-info
   utils.registerNotification(jsonValue.notifications.userInfo, instance.getUserInfo);
   return instance;
 });
