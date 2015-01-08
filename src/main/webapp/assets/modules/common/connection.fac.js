@@ -59,8 +59,9 @@ angular.module("Common").factory("connectionFactory",
       errorHandler: function (error) {
         if (error.headers !== undefined && error.headers.message.indexOf("AuthenticationCredentialsNotFoundException") >= 0) {
           localStorageService.set(jsonValue.storage.back2Me, "true");
-          utils.sendNotification(jsonValue.notifications.loginFailed);
+          return utils.sendNotification(jsonValue.notifications.loginFailed);
         }
+        return utils.sendNotification(jsonValue.notifications.http404);
       }
     }
 
@@ -91,23 +92,36 @@ angular.module("Common").factory("connectionFactory",
       },
 
       findUserInfoByKey: function () {
-        if (!broadcastClient.connected) {
-          rootScopeCallbacks.push({
-            fn: instance.findUserInfoByKey,
-            args: undefined
+        //HTTP version
+        $$.post(jsonValue.httpUri.getUserInfoByKey, {key: localStorageService.get(jsonValue.storage.key)})
+          .then(function(userInfo) {
+            $rootScope.userInfo = userInfo;
+            utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
+          })
+          .catch(function() {
+            //localStorageService.set(jsonValue.storage.back2Me, "true");
+            utils.sendNotification(jsonValue.notifications.notUserInfo);
           });
-          return instance.connectSocket();
-        }
 
-        var subscription = broadcastClient.subscribe(socketUri.subscribeUserInfo, function (response) {
-          var userInfo = JSON.parse(response.body);
-          $rootScope.userInfo = userInfo;
-          utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
-          subscription.unsubscribe();
-        });
 
-        broadcastClient.send(socketUri.getUserInfoByKey, {},
-          JSON.stringify({key: localStorageService.get(jsonValue.storage.key)}));
+        // Websocket version - for nginx which support websocket version
+        //if (!broadcastClient.connected) {
+        //  rootScopeCallbacks.push({
+        //    fn: instance.findUserInfoByKey,
+        //    args: undefined
+        //  });
+        //  return instance.connectSocket();
+        //}
+        //
+        //var subscription = broadcastClient.subscribe(socketUri.subscribeUserInfo, function (response) {
+        //  var userInfo = JSON.parse(response.body);
+        //  $rootScope.userInfo = userInfo;
+        //  utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
+        //  subscription.unsubscribe();
+        //});
+        //
+        //broadcastClient.send(socketUri.getUserInfoByKey, {},
+        //  JSON.stringify({key: localStorageService.get(jsonValue.storage.key)}));
       },
 
       /* @subscription */

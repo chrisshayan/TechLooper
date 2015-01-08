@@ -203,6 +203,29 @@ ul.setting-items
 /* -- style for Navi ---*/
 .header-section
   padding-left: 65px
+a.m-languages
+  background: url(../images/ic-navi.png) transparent left top no-repeat
+  width: 60px
+  height: 60px
+  margin: auto
+  z-index: 999
+  cursor: pointer
+  display: block
+
+.languages-block
+  right: 55px
+  position: absolute
+  top: 10px
+  z-index: 999
+
+a.m-languages.vi
+  background-position: 13px -590px
+a.m-languages.en
+  background-position: 9px -519px
+a.m-languages.vi:hover
+  background-position: -61px -590px
+a.m-languages.en:hover
+  background-position: -65px -519px
 
 .main-navi-block
   width: 0
@@ -228,7 +251,7 @@ ul.setting-items
       color: #636363
       display: block
       cursor: pointer
-      padding-top: 18px
+      padding-top: 15px
   .navi-container
     clear: both
     padding-top: 70px
@@ -257,7 +280,7 @@ ul.setting-items
       a.m-bubble-chart
         background-position: 8px -58px
       a.m-search-jobs
-        background-position: 8px -198px
+        background-position: 8px -187px
       a.m-languages.vi
         background-position: 15px -592px
       a.m-languages.en
@@ -289,7 +312,7 @@ ul.setting-items
       a.m-bubble-chart:hover
         background-position: -65px -58px
       a.m-search-jobs:hover
-        background-position: -65px -198px
+        background-position: -65px -187px
       a.m-languages.vi:hover
         background-position: -59px -592px
       a.m-languages.en:hover
@@ -310,7 +333,7 @@ ul.setting-items
       a.m-bubble-chart
         background-position: -65px -58px
       a.m-search-jobs
-        background-position: -65px -198px
+        background-position: -65px -187px
       a.m-languages.vi
         background-position: -59px -592px
       a.m-languages.en
@@ -323,7 +346,8 @@ ul.setting-items
         background: transparent
       a.m-tour-guide
         background-position: -64px -438px
-
+    .d-languages-block
+      display: none
     li ul
       width: 0
       height: 58px

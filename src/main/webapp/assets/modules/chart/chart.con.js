@@ -1,4 +1,4 @@
-angular.module('Chart').controller('chartController', function ($scope, jsonValue, connectionFactory, utils, chartService) {
+angular.module('Chart').controller('chartController', function ($scope, jsonValue, connectionFactory, utils, chartService, navigationService) {
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
   var events = jsonValue.events;
@@ -14,4 +14,5 @@ angular.module('Chart').controller('chartController', function ($scope, jsonValu
   });
 
   connectionFactory.receiveTechnicalTerms();
+  navigationService.reSetingPositionLangIcon();
 });

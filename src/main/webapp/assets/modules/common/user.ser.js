@@ -9,23 +9,29 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
 
     getUserInfo: function () {
       var deferred = $q.defer();
-      //TODO: check actual user logged-in
-      if ($rootScope.userInfo === undefined) {
+      defers.getUserInfo.push(deferred);
+
+      if (instance.notLoggedIn()) {
         connectionFactory.findUserInfoByKey();
       }
       else {
-        $.each(defers.getUserInfo, function (i, d) {d.resolve($rootScope.userInfo);});
-        defers.getUserInfo.length = 0;
+        instance.resolve("getUserInfo", $rootScope.userInfo);
       }
-      defers.getUserInfo.push(deferred);
       return deferred.promise;
     },
 
-    notLoggedIn: function() {
+    resolve: function (key, reply) {
+      $.each(defers[key], function (i, d) {d.resolve(reply);});
+      defers[key].length = 0;
+    },
+
+    //TODO: check actual user logged-in
+    notLoggedIn: function () {
       return ($rootScope.userInfo === undefined);
     }
   }
-  instance.getUserInfo();//read userInfo
+
+  instance.getUserInfo(); //handle refresh button: read user-info
   utils.registerNotification(jsonValue.notifications.userInfo, instance.getUserInfo);
   return instance;
 });

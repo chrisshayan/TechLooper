@@ -42,7 +42,9 @@ public class UserController {
 
   @SendToUser("/queue/info")
   @MessageMapping("/user/findByKey")
-  public UserInfo getUserInfo(SocialRequest searchRequest/*, @DestinationVariable String username */) {
+  @ResponseBody
+  @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
+  public UserInfo getUserInfo(@RequestBody @Valid SocialRequest searchRequest/*, @DestinationVariable String username */) {
     UserInfo userInfo = userService.findUserInfoByKey(searchRequest.getKey());
     userInfo.getLoginSource();
     return userInfo;

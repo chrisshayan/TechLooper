@@ -280,6 +280,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
       var box = $$.getBox(size, size);
       var randomCircles = $$.getCircles(box);
 
+      $(".bubble-chart-container").find("svg.bubbleChart").remove(); //remove all bubble chart svg
       var svg = d3.select(".bubble-chart-container").append("svg")
         .attr({preserveAspectRatio: "xMidYMid", width: size, height: size, class: "bubbleChart"})
         .attr("viewBox", function (d) {return ["0 0", size, size].join(" ")});
