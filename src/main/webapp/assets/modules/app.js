@@ -65,6 +65,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         });
       });
 
+    $authProvider.loginRedirect = undefined;
+
     $translateProvider.useStaticFilesLoader({
       prefix: "modules/translation/messages_",
       suffix: ".json"
