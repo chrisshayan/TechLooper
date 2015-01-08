@@ -51,7 +51,7 @@ angular.module('Register').factory('registerService',
       },
 
       enableNotifications: function () {
-        return $(".register-contianer").is(":visible");
+        return utils.getView() === jsonValue.views.register;
       }
     }
 
@@ -95,7 +95,7 @@ angular.module('Register').factory('registerService',
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.userInfo, instance.updateUserInfo, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.notUserInfo, function () {localStorageService.set(jsonValue.storage.back2Me, "true");}, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });
