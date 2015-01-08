@@ -1,18 +1,14 @@
 angular.module('Common').factory('translationService', function ($translate, utils, jsonValue) {
   var scope;
-
   var instance = {
     initialize: function ($scope) {
       scope = $scope;
-      $(".langKey").click(function () {
+      scope.changeLanguage = function () {
         var lang = instance.getNextLanguage();
         $translate.use(lang).then(function () {utils.sendNotification(jsonValue.notifications.changeLang, lang);});
         utils.apply();
-
-        var nextLang = instance.getNextLanguage(lang);
-        scope.icoLanguage = nextLang;
-        scope.$apply();
-      });
+        scope.icoLanguage = instance.getNextLanguage(lang);
+      };
     },
 
     getNextLanguage: function (lang) {
