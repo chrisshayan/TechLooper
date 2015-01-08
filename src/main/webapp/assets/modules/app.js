@@ -133,8 +133,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     utils.apply();
     return rsLocationPathFn;
   }
-
-  userService.getUserInfo();
 });
 
 techlooper

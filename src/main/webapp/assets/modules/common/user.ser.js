@@ -9,6 +9,7 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
 
     getUserInfo: function () {
       var deferred = $q.defer();
+      defers.getUserInfo.push(deferred);
       //TODO: check actual user logged-in
       if ($rootScope.userInfo === undefined) {
         connectionFactory.findUserInfoByKey();
@@ -17,7 +18,6 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
         $.each(defers.getUserInfo, function (i, d) {d.resolve($rootScope.userInfo);});
         defers.getUserInfo.length = 0;
       }
-      defers.getUserInfo.push(deferred);
       return deferred.promise;
     },
 
@@ -25,7 +25,8 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
       return ($rootScope.userInfo === undefined);
     }
   }
-  instance.getUserInfo();//read userInfo
+
+  instance.getUserInfo(); //handle refresh button: read user-info
   utils.registerNotification(jsonValue.notifications.userInfo, instance.getUserInfo);
   return instance;
 });
