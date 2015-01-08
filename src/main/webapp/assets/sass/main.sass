@@ -203,6 +203,33 @@ ul.setting-items
 /* -- style for Navi ---*/
 .header-section
   padding-left: 65px
+a.m-languages
+  background: url(../images/ic-navi.png) transparent left top no-repeat
+  width: 60px
+  height: 60px
+  margin: auto
+  z-index: 999
+  cursor: pointer
+  display: block
+
+.languages-block
+  right: 0
+  position: absolute
+  top: 10px
+  z-index: 999
+
+.sub-page-header
+  .languages-block
+    right: 55px
+
+a.m-languages.vi
+  background-position: 13px -590px
+a.m-languages.en
+  background-position: 9px -519px
+a.m-languages.vi:hover
+  background-position: -61px -590px
+a.m-languages.en:hover
+  background-position: -65px -519px
 
 .main-navi-block
   width: 0
@@ -228,7 +255,7 @@ ul.setting-items
       color: #636363
       display: block
       cursor: pointer
-      padding-top: 18px
+      padding-top: 15px
   .navi-container
     clear: both
     padding-top: 70px

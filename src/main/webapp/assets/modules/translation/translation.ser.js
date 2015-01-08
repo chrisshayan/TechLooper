@@ -4,9 +4,9 @@ angular.module('Common').factory('translationService', function ($translate, uti
   var instance = {
     initialize: function ($scope) {
       scope = $scope;
-      $(".langKey").click(function () {
-        var lang = instance.getNextLanguage();
-        $translate.use(lang).then(function () {utils.sendNotification(jsonValue.notifications.changeLang, lang);});
+      $(".langKey").on('click', function () {
+        var nextLang = instance.getNextLanguage();
+        $translate.use(nextLang);
         utils.apply();
 
         var nextLang = instance.getNextLanguage(lang);
