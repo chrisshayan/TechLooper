@@ -25,7 +25,7 @@ var techlooper = angular.module("Techlooper", [
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
-    $httpProvider.interceptors.push(function ($q, utils, jsonValue) {
+    $httpProvider.interceptors.push(function ($q, utils, jsonValue, localStorageService) {
         return {
           request: function (request) {
             return request || $q.when(request);
@@ -35,7 +35,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
             switch (rejection.status) {
               case 403:
               case 401:
-                utils.sendNotification(jsonValue.notifications.loginFailed);
+                //utils.sendNotification(jsonValue.notifications.loginFailed);
+                if (localStorageService.get(jsonValue.storage.back2Me) === true) {
+                  utils.sendNotification(jsonValue.notifications.loginFailed);
+                }
                 break;
               case 404:
                 utils.sendNotification(jsonValue.notifications.http404);
@@ -113,7 +116,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, userService, routerService, $location, utils, jsonValue) {
+                         tourService, signInService, historyFactory, userService, routerService, $location, utils, $rootScope) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -131,13 +134,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
-  //connectionFactory.verifyUserLogin();
-    //.then(function() {
-    //  utils.sendNotification(jsonValue.notifications.loginSuccess);
-    //})
-    //.catch(function() {
-    //  //utils.sendNotification(jsonValue.notifications.loginFailed);
-    //});
+  userService.getUserInfo();
 });
 
 techlooper

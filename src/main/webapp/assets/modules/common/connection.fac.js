@@ -3,6 +3,7 @@ angular.module("Common").factory("connectionFactory",
     var socketUri = jsonValue.socketUri;
     var events = jsonValue.events;
     var callbacks = [];
+    var rootScopeCallbacks = [];
     var scope;
     var subscriptions = {};
     var isConnecting = false;
@@ -34,6 +35,10 @@ angular.module("Common").factory("connectionFactory",
         $.each(callbacks, function (index, callback) {
           callback.fn(callback.args);
         });
+        $.each(rootScopeCallbacks, function (index, callback) {
+          callback.fn(callback.args);
+        });
+        rootScopeCallbacks.length = 0;
         callbacks.length = 0;
       },
 
@@ -87,7 +92,7 @@ angular.module("Common").factory("connectionFactory",
 
       findUserInfoByKey: function () {
         if (!broadcastClient.connected) {
-          callbacks.push({
+          rootScopeCallbacks.push({
             fn: instance.findUserInfoByKey,
             args: undefined
           });
@@ -97,7 +102,6 @@ angular.module("Common").factory("connectionFactory",
         var subscription = broadcastClient.subscribe(socketUri.subscribeUserInfo, function (response) {
           var userInfo = JSON.parse(response.body);
           $rootScope.userInfo = userInfo;
-          //scope.$emit(events.userInfo, userInfo);
           utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
           subscription.unsubscribe();
         });
