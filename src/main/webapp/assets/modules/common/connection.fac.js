@@ -99,8 +99,8 @@ angular.module("Common").factory("connectionFactory",
             utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
           })
           .catch(function() {
-            localStorageService.set(jsonValue.storage.back2Me, "true");
-            utils.sendNotification(jsonValue.notifications.loginFailed);
+            //localStorageService.set(jsonValue.storage.back2Me, "true");
+            utils.sendNotification(jsonValue.notifications.notUserInfo);
           });
 
 
