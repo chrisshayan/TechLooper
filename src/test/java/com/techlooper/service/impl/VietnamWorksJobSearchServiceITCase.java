@@ -9,6 +9,7 @@ import com.techlooper.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,6 +38,7 @@ public class VietnamWorksJobSearchServiceITCase {
         assertNotNull(vnwJobSearchRequest);
     }
 
+    @Ignore
     @Test
     public void testGetConfiguration() {
         VNWConfigurationResponse vnwConfigurationResponse = jobSearchService.getConfiguration();
@@ -50,6 +52,7 @@ public class VietnamWorksJobSearchServiceITCase {
                 0, vnwConfigurationResponse.getData().getDegrees().size());
     }
 
+    @Ignore
     @Test
     public void testSearchJob() {
         VNWJobSearchResponse vnwConfigurationResponse = jobSearchService.searchJob(vnwJobSearchRequest);
@@ -60,6 +63,7 @@ public class VietnamWorksJobSearchServiceITCase {
         assertNotEquals("Total Jobs : " + totalJob, 0, totalJob);
     }
 
+    @Ignore
     @Test
     public void testSearchJobEmptyData() {
         vnwJobSearchRequest.setJobTitle("AngularJS,Java");
