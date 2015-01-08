@@ -68,16 +68,17 @@ angular.module("Common").factory("connectionFactory",
     var instance = {
       verifyUserLogin: function() {
         return $$.post(jsonValue.httpUri.verifyUserLogin,
-          {key: localStorageService.get(jsonValue.storage.key)});
+          {key: localStorageService.cookie.get(jsonValue.storage.key)});
       },
 
       login: function () {
-        if (localStorageService.get(jsonValue.storage.key) === null) {
+        var key = localStorageService.cookie.get(jsonValue.storage.key);
+        if (key === null) {
           return utils.sendNotification(jsonValue.notifications.loginFailed);
         }
 
         $$.post(jsonValue.httpUri.login,
-          $.param({key: localStorageService.get(jsonValue.storage.key)}),
+          $.param({key: key}),
           {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
           .then(function (data, status, headers, config) {
             utils.sendNotification(jsonValue.notifications.loginSuccess, data, status, headers, config);
@@ -93,7 +94,7 @@ angular.module("Common").factory("connectionFactory",
 
       findUserInfoByKey: function () {
         //HTTP version
-        $$.post(jsonValue.httpUri.getUserInfoByKey, {key: localStorageService.get(jsonValue.storage.key)})
+        $$.post(jsonValue.httpUri.getUserInfoByKey, {key: localStorageService.cookie.get(jsonValue.storage.key)})
           .then(function(userInfo) {
             $rootScope.userInfo = userInfo;
             utils.sendNotification(jsonValue.notifications.userInfo, userInfo);

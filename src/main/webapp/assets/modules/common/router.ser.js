@@ -6,7 +6,7 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
     },
 
     loginSuccess: function () {
-      if (localStorageService.get(jsonValue.storage.back2Me) === true) {
+      if (localStorageService.get(jsonValue.storage.back2Me) === "true") {
         localStorageService.remove(jsonValue.storage.back2Me);
         var path = historyFactory.popHistory();
         $location.path(path);

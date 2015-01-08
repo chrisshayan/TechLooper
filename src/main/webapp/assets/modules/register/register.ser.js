@@ -33,17 +33,11 @@ angular.module('Register').factory('registerService',
             $location.path("/");
           })
           .catch(function (errors) {
-            //console.log(errors);
             utils.notify(jsonValue.messages.errorFieldsSave, 'error');
             $.each(errors, function (i, error) {
               // TODO: design error display
               $("." + error.field).css("border", "1px solid red");//error.defaultMessage
             });
-            //$.notify("Please correct the marked field(s) above.", {
-            //  className: "error",
-            //  autoHideDelay: 3000,
-            //  globalPosition: 'bottom right'
-            //});
           })
           .finally(function () {
             flag.saveUserInfo = false;
@@ -76,9 +70,6 @@ angular.module('Register').factory('registerService',
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             $rootScope.userInfo.profileNames.push(auth.provider.toUpperCase());
-            //localStorageService.set(jsonValue.storage.key, resp.data.key);
-            //$http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
-            //$location.path(jsonValue.routerUris.register);
           })
           .finally(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
