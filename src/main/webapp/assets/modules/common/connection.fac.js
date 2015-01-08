@@ -100,6 +100,7 @@ angular.module("Common").factory("connectionFactory",
           })
           .catch(function() {
             localStorageService.set(jsonValue.storage.back2Me, "true");
+            utils.sendNotification(jsonValue.notifications.loginFailed);
           });
 
 
