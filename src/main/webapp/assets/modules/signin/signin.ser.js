@@ -1,6 +1,6 @@
 angular.module('SignIn').factory('signInService',
   function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
-            $window, $http, connectionFactory) {
+            $window, $http, connectionFactory, $rootScope) {
 
     var $$ = {
       enableNotifications: function () {
@@ -25,7 +25,7 @@ angular.module('SignIn').factory('signInService',
             utils.sendNotification(jsonValue.notifications.loginSuccess);
           })
           .catch(function() {
-            //utils.sendNotification(jsonValue.notifications.loginFailed);
+            $rootScope.userInfo = undefined;
             utils.sendNotification(jsonValue.notifications.loaded);
           });
 

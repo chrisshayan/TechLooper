@@ -28,7 +28,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     },
 
     popHistory: function () {
-      //historyStack.pop(); // remove current item
+      historyStack.pop(); // remove current item
       if (historyStack.length === 0) return "/";
       return historyStack.pop();
     }
