@@ -120,7 +120,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
-  tourService.initialize();
+  //tourService.initialize();
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
