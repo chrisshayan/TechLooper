@@ -170,7 +170,8 @@ angular.module("Common").constant("jsonValue", {
     userSave: "user/save",
     login: "login",
     logout: "logout",
-    verifyUserLogin: "user/verifyUserLogin"
+    verifyUserLogin: "user/verifyUserLogin",
+    getUserInfoByKey: "user/findByKey"
   },
 
   socketUri: {
