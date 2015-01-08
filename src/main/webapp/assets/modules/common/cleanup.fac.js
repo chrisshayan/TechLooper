@@ -11,7 +11,7 @@ angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, l
 
     cleanSession: function () {
       $rootScope.userInfo = undefined;
-      localStorageService.remove(jsonValue.storage.key);
+      localStorageService.cookie.remove(jsonValue.storage.key);
     }
   }
 
