@@ -10,4 +10,5 @@ angular.module('Register').controller('registerController',
     });
     navigationService.addSpaceforNavi();
     navigationService.reSetingPositionLangIcon();
+    navigationService.keepNaviBar();
   });

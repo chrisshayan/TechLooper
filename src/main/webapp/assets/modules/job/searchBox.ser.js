@@ -34,7 +34,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     },
 
     initializeSearchTextbox: function ($scope, $textArray) {
-      $('.search-block').css('min-height', $(window).height() - 5);
+      $('.search-block').css('min-height', $(window).height());
       utils.sendNotification(jsonValue.notifications.gotData);
       scope = $scope;
       textArray = $textArray;
