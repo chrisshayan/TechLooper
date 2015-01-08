@@ -24,4 +24,5 @@ angular.module('Skill').controller('skillAnalyticsController',
     //animationFactory.animatePage();
     navigationService.addSpaceforNavi();
     navigationService.reSetingPositionLangIcon();
+    navigationService.keepNaviBar();
   });

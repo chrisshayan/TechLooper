@@ -77,11 +77,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       });
     },
     updateHighlight: function(){
-      if(!userService.notLoggedIn()){
-        $('.main-navi-block').css('width', '0px');
-        $('.navi-container').css({'width': '0%', 'display': 'none'});
-        $('.manager-navi').find('.fa-bars').removeClass('active');
-      }
       $('.navi-container').find('li').removeClass('active');
       switch (utils.getView()) {
         case jsonValue.views.pieChart:
@@ -91,6 +86,10 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           $('.navi-container').find('a.m-chart').parent().addClass('active');
           break;
         case jsonValue.views.jobsSearch:
+          $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+          break;
+        case jsonValue.views.jobsSearchText:
           $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
           $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
           break;
@@ -134,12 +133,6 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       $$.registerEventListeners();
       $$.naviControl();
     },
-
-    //restartTour: function () {
-    //  $('.infor-tour').on('click', function () {
-    //    tourService.restart();
-    //  });
-    //},
     addSpaceforNavi: function(){
       var page = $('.techlooper-body');
       if($('.main-navi-block').width() == 85){
@@ -161,8 +154,20 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       $('.navi-container').find('a.m-chart').parent().addClass('active');
       $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
       $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+    },
+    keepNaviBar: function(){
+      utils.registerNotification(jsonValue.notifications.userInfo, function(userInfo) {
+        $('.main-navi-block').css({
+          'width': '85px',
+          'position': 'fixed'
+        });
+        $('.navi-container').css({'width': '100%', 'display': 'block'});
+        $('.manager-navi').find('.fa-bars').addClass('active');
+        instance.addSpaceforNavi();
+      });
     }
   }
 
   return instance;
+
 });
