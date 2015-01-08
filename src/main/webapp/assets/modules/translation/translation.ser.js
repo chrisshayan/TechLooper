@@ -6,7 +6,6 @@ angular.module('Common').factory('translationService', function ($translate, uti
       scope.changeLanguage = function () {
         var lang = instance.getNextLanguage();
         $translate.use(lang).then(function () {utils.sendNotification(jsonValue.notifications.changeLang, lang);});
-        utils.apply();
         scope.icoLanguage = instance.getNextLanguage(lang);
       };
     },
