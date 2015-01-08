@@ -1,4 +1,4 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory, navigationService) {
   var scope, searchText, textArray;
 
   var $$ = {
@@ -102,18 +102,14 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         shortcutFactory.trigger('esc');
         var view = utils.getView();
         if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
-          $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
-          $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+          navigationService.restoreNaviStyle();
         }
       });
       $('.btn-logo').click(function () {
         shortcutFactory.trigger('esc');
         var view = utils.getView();
         if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
-          $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
-          $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+          navigationService.restoreNaviStyle();
         }
       });
 
