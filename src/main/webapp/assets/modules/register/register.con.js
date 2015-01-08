@@ -9,4 +9,5 @@ angular.module('Register').controller('registerController',
       utils.sendNotification(jsonValue.notifications.gotData);
     });
     navigationService.addSpaceforNavi();
+    navigationService.reSetingPositionLangIcon();
   });

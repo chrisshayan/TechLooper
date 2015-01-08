@@ -1,4 +1,6 @@
 @media (min-width: 320px) and (max-width: 768px)
+  .register-form-block .first
+    padding-bottom: 20px !important
   .desktop
     display: none
   .mobile
@@ -271,20 +273,7 @@
     bottom: 35px
   .signin-accounts .bg7
     width: 80px
-  .register-container
-    .register-form-block
-      .col-md-6
-        width: 50%
-        float: left
-        padding: 0
-      h2
-        padding-left: 10px
-      .col-md-6.first
-        padding-right: 10px
-      .col-md-12
-        padding-right: 0
-      .technical-skill ul li
-        min-width: inherit
+
   .register-container
     padding-top: 10px
     .register-form-block 
@@ -356,17 +345,16 @@
       display: table-cell
       padding: 5px 10px
       text-align: center
-@media (max-width: 480px)
+@media (max-width: 460px)
   .logo-block img
     max-width: 55% !important
     padding-top: 8px
-  .navbar
-    .languages-block
-      display: none
   .sub-page-header
     .logo-block img
       max-width: 85% !important
-
-  .navi-container
-    .languages-block
-      display: block !important
+  .languages-block
+    display: none
+  .main-navi-block
+    .navi-container
+      .d-languages-block
+        display: block
