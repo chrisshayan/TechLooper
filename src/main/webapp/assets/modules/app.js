@@ -39,7 +39,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
                   utils.sendNotification(jsonValue.notifications.loginFailed);
                 }
                 break;
-              
+
               case 500:
               case 404:
                 utils.sendNotification(jsonValue.notifications.http404);
