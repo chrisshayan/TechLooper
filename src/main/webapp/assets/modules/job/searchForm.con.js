@@ -16,4 +16,5 @@ angular.module('Jobs').controller('searchFormController', function (utils, $scop
   animationFactory.animatePage();
   navigationService.addSpaceforNavi();
   navigationService.reSetingPositionLangIcon();
+  navigationService.keepNaviBar();
 });
