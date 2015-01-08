@@ -104,7 +104,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       var menuItem = $('.navi-container').find('li');
       menuItem.on('click', function(){
         //utils.hideNavigationBar();
-        if($(this).find('a').hasClass('m-chart') || $(this).find('a').hasClass('m-search-jobs') || $(this).find('a').hasClass('sign-out-sign-in')){
+        if(!$(this).find('a').hasClass('m-languages')){
           menuItem.removeClass('active');
           $(this).addClass('active');
           if($(this).find('a').hasClass('m-search-jobs')){
@@ -117,6 +117,12 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
             $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
             $('.navi-container').find('a.m-chart').parent().addClass('active');
           }
+          $('.techlooper-body').animate({
+            'padding-left': '85px'
+          });
+          $('.sub-page-header').animate({
+            'padding-left': '20px'
+          });
         }
       });
     }
@@ -129,11 +135,11 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       $$.naviControl();
     },
 
-    restartTour: function () {
-      $('.infor-tour').on('click', function () {
-        tourService.restart();
-      });
-    },
+    //restartTour: function () {
+    //  $('.infor-tour').on('click', function () {
+    //    tourService.restart();
+    //  });
+    //},
     addSpaceforNavi: function(){
       var page = $('.techlooper-body');
       if($('.main-navi-block').width() == 85){
@@ -142,6 +148,13 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }else{
         page.css('padding-left', '0');
         $('.sub-page-header').css('padding-left', '90px');
+      }
+    },
+    reSetingPositionLangIcon: function(){
+      if($('.navbar').length > 0){
+        $('.languages-block').css('right','0');
+      }else{
+        $('.languages-block').css('right','55px');
       }
     }
   }
