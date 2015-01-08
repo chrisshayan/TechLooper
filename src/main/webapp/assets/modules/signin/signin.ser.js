@@ -56,7 +56,7 @@ angular.module('SignIn').factory('signInService',
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
-            localStorageService.set(jsonValue.storage.key, resp.data.key);
+            localStorageService.cookie.set(jsonValue.storage.key, resp.data.key);
             connectionFactory.login();
           })
           .catch(function (resp) {

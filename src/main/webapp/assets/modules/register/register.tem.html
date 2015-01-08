@@ -30,20 +30,6 @@
                  disabled="disabled" value="trinh.pham@navigosgroup.com">
         </div>
       </div>
-      <!--<div class="row technical-skill">-->
-      <!--<p>Choose Your Skills:</p>-->
-      <!--<ul>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>Java</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>.Net</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>PHP</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>Ruby</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>Python</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>DBA</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>BA</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>QA</label></li>-->
-      <!--<li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>-->
-      <!--</ul>-->
-      <!--</div>-->
       <div class="row your-salary">
         <p>Choose Your salary:</p>
 
@@ -60,16 +46,9 @@
         <h3>Allow us to connect</h3>
         <ul>
           <li ng-repeat="auth in authSource">
-            <!--<span ng-if="item.site == 'LinkedIn'">-->
-            <!--<span class="active" ng-style="{'background-color': item.bgcolor}">-->
-            <!--<img ng-src="{{item.logo}}" alt="">-->
-            <!--</span>-->
-            <!--</span>-->
-            <!--<span ng-if="item.site != 'LinkedIn'">-->
-                <span ng-if="auth.isNotSupported === undefined">
-                  <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
-                </span>
-            <!--</span>-->
+              <span ng-if="auth.isNotSupported === undefined" class="{{userInfo !== undefined && userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1 ? 'active' : 'inactive'  }}">
+                <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
+              </span>
           </li>
         </ul>
       </div>

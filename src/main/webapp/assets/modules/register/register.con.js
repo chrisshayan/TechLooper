@@ -4,10 +4,11 @@ angular.module('Register').controller('registerController',
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
     $scope.salaryOptions = registerService.getSalaryOptions();
+
     userService.getUserInfo().then(function () {
-      registerService.updateUserInfo();
       utils.sendNotification(jsonValue.notifications.gotData);
     });
     navigationService.addSpaceforNavi();
     navigationService.reSetingPositionLangIcon();
+    navigationService.keepNaviBar();
   });

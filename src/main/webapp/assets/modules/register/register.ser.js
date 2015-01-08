@@ -33,17 +33,11 @@ angular.module('Register').factory('registerService',
             $location.path("/");
           })
           .catch(function (errors) {
-            //console.log(errors);
             utils.notify(jsonValue.messages.errorFieldsSave, 'error');
             $.each(errors, function (i, error) {
               // TODO: design error display
               $("." + error.field).css("border", "1px solid red");//error.defaultMessage
             });
-            //$.notify("Please correct the marked field(s) above.", {
-            //  className: "error",
-            //  autoHideDelay: 3000,
-            //  globalPosition: 'bottom right'
-            //});
           })
           .finally(function () {
             flag.saveUserInfo = false;
@@ -70,24 +64,12 @@ angular.module('Register').factory('registerService',
         return options
       },
 
-      updateUserInfo: function () {
-        $.each($rootScope.userInfo.profileNames, function (i, name) {
-          // TODO: high-light provider icon
-          $("a." + name.toLowerCase()).parent().addClass('active');
-          $("a." + name.toLowerCase()).unbind("click");
-        });
-      },
-
       openOathDialog: function (auth) {
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
             $rootScope.userInfo.profileNames.push(auth.provider.toUpperCase());
-            instance.updateUserInfo();
-            //localStorageService.set(jsonValue.storage.key, resp.data.key);
-            //$http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}});
-            //$location.path(jsonValue.routerUris.register);
           })
           .finally(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
