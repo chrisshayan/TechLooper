@@ -156,6 +156,11 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       }else{
         $('.languages-block').css('right','55px');
       }
+    },
+    restoreNaviStyle: function(){
+      $('.navi-container').find('a.m-chart').parent().addClass('active');
+      $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
+      $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
     }
   }
 
