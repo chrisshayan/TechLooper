@@ -15,4 +15,5 @@ angular.module('Chart').controller('chartController', function ($scope, jsonValu
 
   connectionFactory.receiveTechnicalTerms();
   navigationService.reSetingPositionLangIcon();
+  navigationService.keepNaviBar();
 });
