@@ -1,21 +1,15 @@
 angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope, utils) {
   var historyStack = [];
+  var exceptViews = [jsonValue.views.analyticsSkill, jsonValue.views.signIn];
 
   $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
     switch (utils.getView()) {
-      case jsonValue.views.analyticsSkill://dont need to keep track this url
-      case jsonValue.views.signIn://dont need to keep track this url
-        break;
-
       case jsonValue.views.bubbleChart:
       case jsonValue.views.pieChart:
         // TODO: #1 - change the body background to black
-        $("body").css("background-color", "#201d1e")
-
-      default:
-        instance.trackHistory();
+        $("body").css("background-color", "#201d1e");
     }
-
+    instance.trackHistory();
     utils.sendNotification(jsonValue.notifications.changeUrl/*, current.$$route.originalPath, next.$$route.originalPath*/);
   });
 
@@ -23,14 +17,24 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     initialize: function () {},
 
     trackHistory: function () {
-      while (historyStack.indexOf($location.path()) >= 0) {historyStack.pop();}
-      historyStack.push($location.path());
+      var path = $location.path();
+      while (historyStack.indexOf(path) >= 0) {historyStack.pop();}
+      historyStack.push(path);
     },
 
     popHistory: function () {
-      //historyStack.pop(); // remove current item
-      if (historyStack.length === 0) return "/";
-      return historyStack.pop();
+      var url; // remove current item
+      do {url = historyStack.pop()} while(exceptViews.indexOf(url) >= 0);
+      console.log(historyStack);
+      //if (historyStack.length === 0) return "/";
+      //return historyStack.pop();
+      switch (utils.getView()) {
+        case jsonValue.views.jobsSearchText:
+          return jsonValue.routerUris.jobsSearch;
+
+        default:
+          return historyStack.length > 0 ? historyStack.pop() : "/";
+      }
     }
   }
   return instance;

@@ -37,9 +37,9 @@ angular.module("Common").factory("tourService", function (jsonValue, utils) {
   //  instance.endTourGuide();
   //});
 
-  utils.registerNotification(jsonValue.notifications.gotData, function () {
-    instance.makeTourGuide();
-  });
+  //utils.registerNotification(jsonValue.notifications.gotData, function () {
+  //  instance.makeTourGuide();
+  //});
 
   //$('body').on('click', function (e) {
   //  var container = $(".tour");

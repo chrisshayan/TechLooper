@@ -8,6 +8,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.model.SocialResponse;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
+import org.jasypt.util.text.TextEncryptor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -32,6 +33,9 @@ public class SocialController {
   @Resource
   private JsonConfigRepository jsonConfigRepository;
 
+  @Resource
+  private TextEncryptor textEncryptor;
+
   @ResponseBody
   @RequestMapping("/getSocialConfig")
   public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {
@@ -53,7 +57,7 @@ public class SocialController {
     UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
-      .withKey(userEntity.getKey()).build();
+      .withKey(textEncryptor.encrypt(userEntity.key())).build();
   }
 
   @ResponseBody
@@ -68,7 +72,7 @@ public class SocialController {
       UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
       return SocialResponse.Builder.get()
         .withToken(accessGrant.getValue())
-        .withKey(userEntity.getKey()).build();
+        .withKey(textEncryptor.encrypt(userEntity.key())).build();
     }
     AccessGrant accessGrant = service.getAccessGrant(null, null);
     httpServletResponse.sendRedirect(accessGrant.getAuthorizeUrl());

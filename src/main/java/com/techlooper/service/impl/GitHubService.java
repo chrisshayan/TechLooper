@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 import static com.techlooper.model.SocialProvider.GITHUB;
@@ -43,13 +44,6 @@ public class GitHubService extends AbstractSocialService {
     buildProfile(connection, profile);
     profile.setAccessGrant(accessGrant);
     return profile;
-  }
-
-  public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
-    UserEntity entity = userService.findUserEntityByKey(key);
-    userEntity(entity).withProfile(socialConfig.getProvider(), getProfile(accessGrant));
-    userService.save(entity);
-    return entity;
   }
 
   public UserEntity saveFootprint(AccessGrant accessGrant) {
@@ -90,8 +84,7 @@ public class GitHubService extends AbstractSocialService {
       profileEntity.setProfileImageUrl(profileImageUrl);
       dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
-        .withLoginSource(GITHUB)
-        .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
+        .withLoginSource(GITHUB);
     }
     return userEntity;
   }

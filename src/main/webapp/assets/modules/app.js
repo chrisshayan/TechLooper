@@ -38,9 +38,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
                 if (localStorageService.get(jsonValue.storage.back2Me) === "true") {
                   utils.sendNotification(jsonValue.notifications.loginFailed);
                 }
+                else {
+                  utils.sendNotification(jsonValue.notifications.cleanSession);
+                }
                 break;
+
+              case 500:
               case 404:
-                utils.sendNotification(jsonValue.notifications.http404);
+                utils.sendNotification(jsonValue.notifications.serverError);
                 break;
             }
             return $q.reject(rejection);
@@ -53,7 +58,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .setPrefix('techlooper')
       .setStorageType('sessionStorage')
       .setNotify(true, true)
-      .setStorageCookie(45);;
+      .setStorageCookie(45);
 
     $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
       .done(function (resp) {

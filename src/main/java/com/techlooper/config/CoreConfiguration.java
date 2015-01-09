@@ -14,12 +14,15 @@ import org.dozer.loader.api.FieldsMappingOptions;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.google.api.plus.Person;
@@ -27,6 +30,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 @Configuration
@@ -38,6 +42,9 @@ import java.util.Arrays;
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
 public class CoreConfiguration {
+
+  @Resource
+  private Environment environment;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -87,7 +94,7 @@ public class CoreConfiguration {
           .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
           .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-        mapping(FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+        mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
           .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
         mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
@@ -101,8 +108,10 @@ public class CoreConfiguration {
   }
 
   @Bean
-  public PasswordEncryptor passwordEncryptor() {
-    return new StrongPasswordEncryptor();
+  public TextEncryptor textEncryptor() {
+    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+    textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
+    return textEncryptor;
   }
 
 }

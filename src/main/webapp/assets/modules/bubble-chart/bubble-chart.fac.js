@@ -244,7 +244,7 @@ angular.module('Bubble').factory('bubbleFactory', function (utils, jsonValue, $l
     },
 
     enableNotifications: function () {
-      return $(".bubble-chart-container").is(":visible");
+      return utils.getView() === jsonValue.views.bubbleChart;
     },
 
     changeLang: function () {

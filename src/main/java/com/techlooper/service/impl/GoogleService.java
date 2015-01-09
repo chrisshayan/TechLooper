@@ -54,8 +54,7 @@ public class GoogleService extends AbstractSocialService {
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       dozerBeanMapper.map(profile, userEntity);
       builder.withId(profile.getAccountEmail())
-        .withLoginSource(SocialProvider.GITHUB)
-        .withKey(passwordEncryptor.encryptPassword(profile.getAccountEmail()));
+        .withLoginSource(SocialProvider.GITHUB);
     }
     userService.save(userEntity);
     return userEntity;

@@ -3,6 +3,7 @@ package com.techlooper.entity;
 import com.techlooper.model.SocialProvider;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,13 +29,15 @@ public class UserEntity {
 
   private AccessGrant accessGrant;
 
-  private String key;
-
   private String username;
 
   private Integer salary;
 
   private String profileImageUrl;
+
+  public String key() {
+    return StringUtils.hasText(emailAddress) ? emailAddress : id;
+  }
 
   public String getProfileImageUrl() {
     return profileImageUrl;
@@ -58,14 +61,6 @@ public class UserEntity {
 
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
   }
 
   public AccessGrant getAccessGrant() {
@@ -148,11 +143,6 @@ public class UserEntity {
 
     public UserEntityBuilder withAccessGrant(AccessGrant accessGrant) {
       userEntity.accessGrant = accessGrant;
-      return this;
-    }
-
-    public UserEntityBuilder withKey(String key) {
-      userEntity.key = key;
       return this;
     }
 

@@ -61,14 +61,14 @@ angular.module("Common").factory("connectionFactory",
           localStorageService.set(jsonValue.storage.back2Me, "true");
           return utils.sendNotification(jsonValue.notifications.loginFailed);
         }
-        return utils.sendNotification(jsonValue.notifications.http404);
       }
     }
 
     var instance = {
       verifyUserLogin: function() {
-        return $$.post(jsonValue.httpUri.verifyUserLogin,
-          {key: localStorageService.cookie.get(jsonValue.storage.key)});
+        return $$.post(jsonValue.httpUri.verifyUserLogin, {
+          emailAddress: $rootScope.userInfo !== undefined ? $rootScope.userInfo.emailAddress : ""
+        });
       },
 
       login: function () {
@@ -94,13 +94,12 @@ angular.module("Common").factory("connectionFactory",
 
       findUserInfoByKey: function () {
         //HTTP version
-        $$.post(jsonValue.httpUri.getUserInfoByKey, {key: localStorageService.cookie.get(jsonValue.storage.key)})
+        $$.post(jsonValue.httpUri.getUserInfoByKey)
           .then(function(userInfo) {
             $rootScope.userInfo = userInfo;
             utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
           })
           .catch(function() {
-            //localStorageService.set(jsonValue.storage.back2Me, "true");
             utils.sendNotification(jsonValue.notifications.notUserInfo);
           });
 

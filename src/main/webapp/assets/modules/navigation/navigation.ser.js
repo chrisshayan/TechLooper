@@ -1,7 +1,8 @@
-angular.module("Navigation").factory("navigationService", function (utils, jsonValue, $rootScope, $http, $location, tourService, userService) {
+angular.module("Navigation").factory("navigationService", function (localStorageService, utils, jsonValue, $rootScope, $http, $location, tourService, userService) {
 
   var $$ = {
     naviControl: function () {
+      //localStorageService.set(jsonValue.storage.navigation, 'close');
       $('.manager-navi').find('.fa-bars').on('tap click', function () {
         if ($(this).hasClass('active')) {
           $('.main-navi-block').animate({
@@ -22,6 +23,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
           });
 
           $(this).removeClass('active');
+          localStorageService.set(jsonValue.storage.navigation, 'close');
         }
         else {
           var view = utils.getView();
@@ -41,6 +43,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
             'width': '100%'
           }).css('display', 'block');
           $(this).addClass('active');
+          localStorageService.set(jsonValue.storage.navigation, 'open');
         }
       });
     },
@@ -156,7 +159,8 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
       $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
     },
     keepNaviBar: function(){
-      utils.registerNotification(jsonValue.notifications.userInfo, function(userInfo) {
+      var status = localStorageService.get(jsonValue.storage.navigation);
+      if(status == 'open'){
         $('.main-navi-block').css({
           'width': '85px',
           'position': 'fixed'
@@ -164,7 +168,7 @@ angular.module("Navigation").factory("navigationService", function (utils, jsonV
         $('.navi-container').css({'width': '100%', 'display': 'block'});
         $('.manager-navi').find('.fa-bars').addClass('active');
         instance.addSpaceforNavi();
-      });
+      }
     }
   }
 
