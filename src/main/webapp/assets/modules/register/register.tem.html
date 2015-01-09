@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col-md-12">
           <input ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email"
-                 disabled="disabled">
+                 ng-disabled="userInfo.emailAddress != null">
         </div>
       </div>
       <div class="row your-salary">
