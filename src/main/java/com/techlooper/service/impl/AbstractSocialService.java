@@ -8,7 +8,7 @@ import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
 import com.techlooper.service.UserService;
 import org.dozer.Mapper;
-import org.jasypt.util.password.PasswordEncryptor;
+import org.jasypt.util.text.TextEncryptor;
 import org.springframework.social.connect.support.OAuth1ConnectionFactory;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth1.AuthorizedRequestToken;
@@ -35,7 +35,7 @@ public abstract class AbstractSocialService implements SocialService {
   protected Mapper dozerBeanMapper;
 
   @Resource
-  protected PasswordEncryptor passwordEncryptor;
+  protected TextEncryptor textEncryptor;
 
   protected SocialConfig socialConfig;
 

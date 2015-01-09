@@ -90,8 +90,7 @@ public class GitHubService extends AbstractSocialService {
       profileEntity.setProfileImageUrl(profileImageUrl);
       dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
-        .withLoginSource(GITHUB)
-        .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
+        .withLoginSource(GITHUB);
     }
     return userEntity;
   }

@@ -56,8 +56,7 @@ public class LinkedInService extends AbstractSocialService {
     if (!Optional.ofNullable(entity.getEmailAddress()).isPresent()) {
       dozerBeanMapper.map(profileEntity, entity);
       builder.withId(profileEntity.getEmailAddress())
-        .withLoginSource(LINKEDIN)
-        .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmailAddress()));
+        .withLoginSource(LINKEDIN);
     }
     userService.save(entity);
     return entity;

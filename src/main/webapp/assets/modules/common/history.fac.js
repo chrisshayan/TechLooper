@@ -1,16 +1,14 @@
 angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope, utils) {
   var historyStack = [];
+  var exceptViews = [jsonValue.views.analyticsSkill, jsonValue.views.signIn];
 
   $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-    switch (utils.getView()) {
-      case jsonValue.views.analyticsSkill://dont need to keep track this url
-      case jsonValue.views.signIn://dont need to keep track this url
-        break;
-
+    var view = utils.getView();
+    switch (view) {
       case jsonValue.views.bubbleChart:
       case jsonValue.views.pieChart:
         // TODO: #1 - change the body background to black
-        $("body").css("background-color", "#201d1e")
+        $("body").css("background-color", "#201d1e");
 
       default:
         instance.trackHistory();
@@ -28,7 +26,9 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     },
 
     popHistory: function () {
-      //historyStack.pop(); // remove current item
+      console.log(historyStack);
+      var url; // remove current item
+      do {url = historyStack.pop()} while(historyStack.indexOf(url) >= 0)
       if (historyStack.length === 0) return "/";
       return historyStack.pop();
     }

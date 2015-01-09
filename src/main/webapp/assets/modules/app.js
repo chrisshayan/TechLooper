@@ -39,6 +39,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
                   utils.sendNotification(jsonValue.notifications.loginFailed);
                 }
                 break;
+
+              case 500:
               case 404:
                 utils.sendNotification(jsonValue.notifications.http404);
                 break;
@@ -53,7 +55,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .setPrefix('techlooper')
       .setStorageType('sessionStorage')
       .setNotify(true, true)
-      .setStorageCookie(45);;
+      .setStorageCookie(45);
 
     $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
       .done(function (resp) {
