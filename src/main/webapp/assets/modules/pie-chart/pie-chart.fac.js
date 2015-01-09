@@ -7,7 +7,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
   var $$ = {
     enableNotifications: function () {
-      return $(".pie-Chart-Container").is(":visible");
+      return utils.getView() === jsonValue.views.pieChart;
     },
 
     generateChartData: function ($terms) {

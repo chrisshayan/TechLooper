@@ -17,5 +17,15 @@
   "quarter": "Quarter",
   "clickBubbleChartTip": "(See more details)",
   "6 Months": "6 Months",
-  "year": "Year"
+  "year": "Year",
+  "chooseYourSalary" : "Choose Your salary",
+  "confirmInformation" : "CONFIRM INFORMATION",
+  "allowUsToConnect" : "Allow us to connect",
+  "firstName" : "First name",
+  "lastName" : "Last name",
+  "emailAddress" : "Email address",
+  "userProfile" : "User profile",
+  "homepage" : "Home page",
+  "signIn" : "Sign In",
+  "signOut" : "Sign Out"
 }
