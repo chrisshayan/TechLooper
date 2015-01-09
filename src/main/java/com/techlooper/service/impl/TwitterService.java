@@ -3,7 +3,6 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
-import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth1ConnectionFactory;
@@ -51,12 +50,12 @@ public class TwitterService extends AbstractSocialService {
     String userId = TWITTER.name() + "-" + profile.getId();
     UserEntity userEntity = Optional.ofNullable(userService.findById(userId)).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(SocialProvider.TWITTER, profile)
+      .withProfile(socialConfig.getProvider(), profile)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       dozerBeanMapper.map(profile, userEntity);
       builder.withId(userId)
-        .withLoginSource(SocialProvider.TWITTER);
+        .withLoginSource(socialConfig.getProvider());
     }
     userService.save(userEntity);
     return userEntity;

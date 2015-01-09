@@ -49,12 +49,12 @@ public class GoogleService extends AbstractSocialService {
     Person profile = (Person) ((SimpleUserProfile) getProfile(accessGrant)).getActual();
     UserEntity userEntity = Optional.ofNullable(userService.findById(profile.getAccountEmail())).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(SocialProvider.GOOGLE, profile)
+      .withProfile(socialConfig.getProvider(), profile)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       dozerBeanMapper.map(profile, userEntity);
       builder.withId(profile.getAccountEmail())
-        .withLoginSource(SocialProvider.GITHUB);
+        .withLoginSource(socialConfig.getProvider());
     }
     userService.save(userEntity);
     return userEntity;

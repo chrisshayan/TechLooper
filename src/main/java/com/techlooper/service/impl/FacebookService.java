@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
-import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
@@ -53,12 +52,12 @@ public class FacebookService extends AbstractSocialService {
     com.techlooper.entity.FacebookProfile profileEntity = (com.techlooper.entity.FacebookProfile) getProfile(accessGrant);
     UserEntity userEntity = Optional.ofNullable(userService.findById(profileEntity.getEmail())).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(SocialProvider.FACEBOOK, profileEntity)
+      .withProfile(socialConfig.getProvider(), profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
-        .withLoginSource(SocialProvider.FACEBOOK);
+        .withLoginSource(socialConfig.getProvider());
     }
     userService.save(userEntity);
     return userEntity;
