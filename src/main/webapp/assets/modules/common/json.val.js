@@ -7,7 +7,8 @@ angular.module("Common").constant("jsonValue", {
 
   storage: {
     key: "key",
-    back2Me: "back2Me"
+    back2Me: "back2Me",
+    navigation: "navigation"
   },
 
   histograms: {
