@@ -25,12 +25,14 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     popHistory: function () {
       var url; // remove current item
       do {url = historyStack.pop()} while(exceptViews.indexOf(url) >= 0);
-      console.log(historyStack);
       //if (historyStack.length === 0) return "/";
       //return historyStack.pop();
       switch (utils.getView()) {
         case jsonValue.views.jobsSearchText:
           return jsonValue.routerUris.jobsSearch;
+
+        case jsonValue.views.analyticsSkill:
+          return jsonValue.routerUris.bubbleChart;
 
         default:
           return historyStack.length > 0 ? historyStack.pop() : "/";

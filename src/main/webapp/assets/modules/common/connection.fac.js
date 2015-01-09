@@ -236,6 +236,7 @@ angular.module("Common").factory("connectionFactory",
 
       initialize: function () {}
     }
+    utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.connectSocket);
     utils.registerNotification(jsonValue.notifications.loginSuccess, instance.connectSocket);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize);
     return instance;
