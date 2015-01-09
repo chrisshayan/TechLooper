@@ -30,7 +30,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
     },
 
     enableNotifications: function () {
-      return $('.searchText').is(":visible");
+      return [jsonValue.views.jobsSearch, jsonValue.views.jobsSearchText].indexOf(utils.getView()) >= 0;
     },
 
     initializeSearchTextbox: function ($scope, $textArray) {

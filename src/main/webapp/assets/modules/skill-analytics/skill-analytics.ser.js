@@ -72,7 +72,7 @@ angular.module("Skill").factory("skillAnalyticsService",
       },
 
       enableNotifications: function () {
-        return $("div.technical-detail-page").is(":visible");
+        return utils.getView() === jsonValue.views.analyticsSkill;
       }
     }
 

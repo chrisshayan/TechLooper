@@ -4,7 +4,7 @@ angular.module('SignIn').factory('signInService',
 
     var $$ = {
       enableNotifications: function () {
-        return $(".signin-contianer").is(":visible");
+        return utils.getView() === jsonValue.views.signIn;
       },
 
       loginFailed: function () {

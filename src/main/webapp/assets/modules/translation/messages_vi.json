@@ -17,7 +17,17 @@
   "quarter": "Quý",
   "clickBubbleChartTip": "(Xem chi tiết)",
   "6 Months": "6 Tháng",
-  "year": "Năm"
+  "year": "Năm",
+  "chooseYourSalary" : "Chọn mức lương",
+  "confirmInformation" : "Xác nhận thông tin",
+  "allowUsToConnect" : "Kết nối",
+  "firstName" : "Tên",
+  "lastName" : "Họ",
+  "emailAddress" : "Địa chỉ Email",
+  "userProfile" : "Thông tin Người dùng",
+  "homepage" : "Trang chủ",
+  "signIn" : "Đăng nhập",
+  "signOut" : "Đăng xuất"
 }
 
 

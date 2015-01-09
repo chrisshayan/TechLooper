@@ -46,6 +46,10 @@ angular.module('Register').factory('registerService',
 
       enableNotifications: function () {
         return utils.getView() === jsonValue.views.register;
+      },
+
+      notUserInfo: function() {
+        localStorageService.set(jsonValue.storage.back2Me, "true");
       }
     }
 
@@ -77,7 +81,7 @@ angular.module('Register').factory('registerService',
       }
     };
 
-    utils.registerNotification(jsonValue.notifications.notUserInfo, function () {localStorageService.set(jsonValue.storage.back2Me, "true");}, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.notUserInfo, $$.notUserInfo, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });

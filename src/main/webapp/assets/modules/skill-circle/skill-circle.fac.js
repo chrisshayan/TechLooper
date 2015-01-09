@@ -59,10 +59,6 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       }
     },
 
-    enableNotifications: function () {
-      return $(".top10Circles").is(":visible");
-    },
-
     hoverTermUseful: function () {
       $('.term-infor').on('click mouseover', function () {
         $(this).find('.v-mobile').show();

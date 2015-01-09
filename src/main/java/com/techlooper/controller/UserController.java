@@ -9,10 +9,7 @@ import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -49,16 +46,16 @@ public class UserController {
   @MessageMapping("/user/findByKey")
   @ResponseBody
   @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
-  public UserInfo getUserInfo(@RequestBody @Valid SocialRequest searchRequest/*, @DestinationVariable String username */) {
-    UserInfo userInfo = userService.findUserInfoByKey(searchRequest.getKey());
+  public UserInfo getUserInfo(@CookieValue("techlooper.key") String techlooperKey/*, @DestinationVariable String username */) {
+    UserInfo userInfo = userService.findUserInfoByKey(techlooperKey);
     userInfo.getLoginSource();
     return userInfo;
   }
 
   @ResponseBody
   @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
-  public void verifyUserLogin(@RequestBody @Valid SocialRequest searchRequest, HttpServletResponse httpServletResponse) {
-    if (!textEncryptor.decrypt(searchRequest.getKey()).equals(searchRequest.getEmailAddress())) {
+  public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
+    if (!textEncryptor.encrypt(searchRequest.getEmailAddress()).equals(techlooperKey)) {
       httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
   }

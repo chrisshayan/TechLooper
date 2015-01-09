@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
  */
 public class SocialRequest {
 
-  @NotNull
   private String key;
 
   private String emailAddress;
