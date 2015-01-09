@@ -94,7 +94,7 @@ public class CoreConfiguration {
           .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
           .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-        mapping(FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+        mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
           .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
         mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())

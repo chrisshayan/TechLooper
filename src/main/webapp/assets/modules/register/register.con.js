@@ -5,9 +5,15 @@ angular.module('Register').controller('registerController',
     $scope.openOathDialog = registerService.openOathDialog;
     $scope.salaryOptions = registerService.getSalaryOptions();
 
-    userService.getUserInfo().then(function () {
-      utils.sendNotification(jsonValue.notifications.gotData);
-    });
+    userService.getUserInfo()
+      .then(function () {
+        localStorageService.remove(jsonValue.storage.back2Me, "true");
+        utils.sendNotification(jsonValue.notifications.gotData);
+      })
+      .catch(function () {
+        localStorageService.set(jsonValue.storage.back2Me, "true");
+        utils.sendNotification(jsonValue.notifications.loginFailed);
+      });
     navigationService.addSpaceforNavi();
     navigationService.reSetingPositionLangIcon();
     navigationService.keepNaviBar();

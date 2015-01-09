@@ -1,5 +1,6 @@
 package com.techlooper.config;
 
+import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.TechnicalTermRepository;
@@ -9,11 +10,12 @@ import com.techlooper.service.UserService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
 import com.techlooper.service.impl.UserServiceImpl;
 import com.techlooper.service.impl.VietnamWorksJobSearchService;
-import com.techlooper.converter.LocaleConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
+import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -32,69 +34,76 @@ import javax.annotation.Resource;
 
 @Configuration
 @PropertySources({
-        @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties")})
+  @PropertySource("classpath:techlooper.properties"),
+  @PropertySource("classpath:secret.properties")})
 @Import(CouchbaseConfiguration.class)
 public class ConfigurationTest implements ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
+  private ApplicationContext applicationContext;
 
-    @Resource
-    private Environment environment;
+  @Resource
+  private Environment environment;
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
-    @Bean
-    public JobSearchAPIConfigurationRepository apiConfiguration() {
-        return new JobSearchAPIConfigurationRepository();
-    }
+  @Bean
+  public JobSearchAPIConfigurationRepository apiConfiguration() {
+    return new JobSearchAPIConfigurationRepository();
+  }
 
-    @Bean
-    public JobSearchService jobSearchService() {
-        return new VietnamWorksJobSearchService();
-    }
+  @Bean
+  public JobSearchService jobSearchService() {
+    return new VietnamWorksJobSearchService();
+  }
 
-    @Bean
-    public TechnicalTermRepository technicalTermRepository() {
-        return new TechnicalTermRepository();
-    }
+  @Bean
+  public TechnicalTermRepository technicalTermRepository() {
+    return new TechnicalTermRepository();
+  }
 
-    @Bean
-    public JsonConfigRepository jsonConfigRepository() {
-        return new JsonConfigRepository();
-    }
+  @Bean
+  public JsonConfigRepository jsonConfigRepository() {
+    return new JsonConfigRepository();
+  }
 
-    @Bean
-    public JobQueryBuilder jobQueryBuilder() {
-        return new JobQueryBuilderImpl();
-    }
+  @Bean
+  public JobQueryBuilder jobQueryBuilder() {
+    return new JobQueryBuilderImpl();
+  }
 
-    @Bean
-    public UserService userService() {
-        return new UserServiceImpl();
-    }
+  @Bean
+  public UserService userService() {
+    return new UserServiceImpl();
+  }
 
-    @Bean
-    public Mapper dozerBeanMapper() {
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        BeanMappingBuilder builder = new BeanMappingBuilder() {
-            protected void configure() {
-                mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class).fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
-            }
-        };
-        dozerBeanMapper.addMapping(builder);
-        return dozerBeanMapper;
-    }
+  @Bean
+  public Mapper dozerBeanMapper() {
+    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+    BeanMappingBuilder builder = new BeanMappingBuilder() {
+      protected void configure() {
+        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class).fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+      }
+    };
+    dozerBeanMapper.addMapping(builder);
+    return dozerBeanMapper;
+  }
 
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+  @Bean
+  public TextEncryptor textEncryptor() {
+    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+    textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
+    return textEncryptor;
+  }
+
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    this.applicationContext = applicationContext;
+  }
 }

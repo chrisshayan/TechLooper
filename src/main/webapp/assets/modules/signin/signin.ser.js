@@ -1,6 +1,6 @@
 angular.module('SignIn').factory('signInService',
   function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
-            $window, $http, connectionFactory, $rootScope) {
+            $window, $http, connectionFactory, $rootScope, userService) {
 
     var $$ = {
       enableNotifications: function () {
@@ -20,14 +20,14 @@ angular.module('SignIn').factory('signInService',
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
         // check if user already login
-        connectionFactory.verifyUserLogin()
-          .then(function() {
-            utils.sendNotification(jsonValue.notifications.loginSuccess);
-          })
-          .catch(function() {
-            $rootScope.userInfo = undefined;
-            utils.sendNotification(jsonValue.notifications.loaded);
-          });
+        if (userService.verifyUserSession()) {
+          connectionFactory.verifyUserLogin()
+            .then(function () {utils.sendNotification(jsonValue.notifications.loginSuccess);})
+            .catch(function () {utils.sendNotification(jsonValue.notifications.loginFailed);});
+        }
+        else {
+          utils.sendNotification(jsonValue.notifications.hideLoadingBox);
+        }
 
         $('.signin-accounts').parallax();
 

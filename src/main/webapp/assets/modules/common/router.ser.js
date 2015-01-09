@@ -7,7 +7,6 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
 
     loginSuccess: function () {
       if (localStorageService.get(jsonValue.storage.back2Me) === "true") {
-        localStorageService.remove(jsonValue.storage.back2Me);
         var path = historyFactory.popHistory();
         $location.path(path);
       }
@@ -17,17 +16,11 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
     },
 
     serverError: function () {
-      //$location.path("/");
+      console.log("Unable to connect to server");
     },
 
     logoutSuccess: function() {
       $location.path("/");
-    },
-
-    changeUrl: function() {
-      if (utils.getView() !== jsonValue.views.signIn) {
-        localStorageService.remove(jsonValue.storage.back2Me);
-      }
     }
   }
 
@@ -35,7 +28,6 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
   utils.registerNotification(jsonValue.notifications.logoutSuccess, $$.logoutSuccess);
   utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
   utils.registerNotification(jsonValue.notifications.serverError, $$.serverError);
-  utils.registerNotification(jsonValue.notifications.changeUrl, $$.changeUrl);
 
   var instance = {
     initialize: function () {}

@@ -57,7 +57,7 @@ public class SocialController {
     UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
     return SocialResponse.Builder.get()
       .withToken(accessGrant.getAccessToken())
-      .withKey(textEncryptor.encrypt(userEntity.getEmailAddress())).build();
+      .withKey(textEncryptor.encrypt(userEntity.key())).build();
   }
 
   @ResponseBody
@@ -72,7 +72,7 @@ public class SocialController {
       UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
       return SocialResponse.Builder.get()
         .withToken(accessGrant.getValue())
-        .withKey(textEncryptor.encrypt(userEntity.getEmailAddress())).build();
+        .withKey(textEncryptor.encrypt(userEntity.key())).build();
     }
     AccessGrant accessGrant = service.getAccessGrant(null, null);
     httpServletResponse.sendRedirect(accessGrant.getAuthorizeUrl());

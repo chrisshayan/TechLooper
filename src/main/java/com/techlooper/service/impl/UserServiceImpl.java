@@ -29,13 +29,6 @@ public class UserServiceImpl implements UserService {
 
   public void save(UserEntity userEntity) {
     userRepository.save(userEntity);
-//
-//    // TODO: make sure couchbase find by view can work later, remove it later
-//    Query query = new Query();
-//    query.setKey(userEntity.getKey());
-//    query.setLimit(1);
-//    query.setStale(Stale.FALSE);
-//    userRepository.findByKey(query);
   }
 
   public void save(UserInfo userInfo) {

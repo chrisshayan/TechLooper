@@ -1,6 +1,6 @@
 angular.module("Common").factory("historyFactory", function (jsonValue, $location, $rootScope, utils) {
   var historyStack = [];
-  //var exceptViews = [jsonValue.views.analyticsSkill, jsonValue.views.signIn];
+  var exceptViews = [jsonValue.views.analyticsSkill, jsonValue.views.signIn];
 
   $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
     switch (utils.getView()) {
@@ -8,9 +8,8 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
       case jsonValue.views.pieChart:
         // TODO: #1 - change the body background to black
         $("body").css("background-color", "#201d1e");
-        instance.trackHistory();
     }
-
+    instance.trackHistory();
     utils.sendNotification(jsonValue.notifications.changeUrl/*, current.$$route.originalPath, next.$$route.originalPath*/);
   });
 
@@ -24,8 +23,9 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
     },
 
     popHistory: function () {
-      //var url; // remove current item
-      //do {url = historyStack.pop()} while(exceptViews.indexOf(url) >= 0);
+      var url; // remove current item
+      do {url = historyStack.pop()} while(exceptViews.indexOf(url) >= 0);
+      console.log(historyStack);
       //if (historyStack.length === 0) return "/";
       //return historyStack.pop();
       switch (utils.getView()) {
