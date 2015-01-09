@@ -10,6 +10,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
         $("body").css("background-color", "#201d1e");
         instance.trackHistory();
     }
+    console.log(historyStack);
 
     utils.sendNotification(jsonValue.notifications.changeUrl/*, current.$$route.originalPath, next.$$route.originalPath*/);
   });

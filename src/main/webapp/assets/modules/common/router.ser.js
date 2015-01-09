@@ -16,8 +16,8 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
       }
     },
 
-    http404: function () {
-      $location.path("/");
+    serverError: function () {
+      //$location.path("/");
     },
 
     logoutSuccess: function() {
@@ -34,7 +34,7 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
   utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
   utils.registerNotification(jsonValue.notifications.logoutSuccess, $$.logoutSuccess);
   utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
-  utils.registerNotification(jsonValue.notifications.http404, $$.http404);
+  utils.registerNotification(jsonValue.notifications.serverError, $$.serverError);
   utils.registerNotification(jsonValue.notifications.changeUrl, $$.changeUrl);
 
   var instance = {
