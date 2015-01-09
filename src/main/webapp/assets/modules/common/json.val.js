@@ -40,7 +40,9 @@ angular.module("Common").constant("jsonValue", {
     notUserInfo: "Not get User info",
     hideLoadingBox: "Hide loading box",
     http404: "HTTP code 404",
-    logoutSuccess: "Logout success"
+    logoutSuccess: "Logout success",
+    cleanSession: "Clean session",
+    serverError: "Server error"
   },
 
   viewTerms: {
