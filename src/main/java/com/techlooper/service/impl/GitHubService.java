@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 import static com.techlooper.model.SocialProvider.GITHUB;
@@ -76,7 +75,7 @@ public class GitHubService extends AbstractSocialService {
     com.techlooper.entity.GitHubUserProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.GitHubUserProfile.class);
     UserEntity userEntity = Optional.ofNullable(userService.findById(profileEntity.getEmail())).orElse(new UserEntity());
     UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(GITHUB, profileEntity)
+      .withProfile(socialConfig.getProvider(), profileEntity)
       .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
     if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
       String profileImageUrl = connection.getApi().restOperations()
@@ -84,7 +83,7 @@ public class GitHubService extends AbstractSocialService {
       profileEntity.setProfileImageUrl(profileImageUrl);
       dozerBeanMapper.map(profileEntity, userEntity);
       builder.withId(profileEntity.getEmail())
-        .withLoginSource(GITHUB);
+        .withLoginSource(socialConfig.getProvider());
     }
     return userEntity;
   }

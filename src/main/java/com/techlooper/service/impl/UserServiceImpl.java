@@ -1,7 +1,5 @@
 package com.techlooper.service.impl;
 
-import com.couchbase.client.protocol.views.Query;
-import com.couchbase.client.protocol.views.Stale;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
@@ -42,7 +40,7 @@ public class UserServiceImpl implements UserService {
   }
 
   public UserInfo findUserInfoByKey(String key) {
-    return dozerMapper.map(findUserEntityByKey(key),  UserInfo.class);
+    return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
   }
 
   public UserEntity findUserEntityByKey(String key) {
