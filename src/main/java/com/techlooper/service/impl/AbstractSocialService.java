@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
+import com.techlooper.exception.EntityNotFoundException;
 import com.techlooper.model.SocialConfig;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
@@ -78,7 +79,7 @@ public abstract class AbstractSocialService implements SocialService {
   public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
     UserEntity entity = userService.findUserEntityByKey(key);
     if (!Optional.ofNullable(entity).isPresent()) {
-      throw new UnsupportedOperationException("Method is not supported");
+      throw new EntityNotFoundException("Can not find User by key: " + key);
     }
     userEntity(entity).withProfile(socialConfig.getProvider(), getProfile(accessGrant));
     userService.save(entity);
