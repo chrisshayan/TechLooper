@@ -44,20 +44,4 @@ public class TwitterService extends AbstractSocialService {
     twProfile.setAccessGrant(accessGrant);
     return twProfile;
   }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    com.techlooper.entity.TwitterProfile profile = (com.techlooper.entity.TwitterProfile) getProfile(accessGrant);
-    String userId = TWITTER.name() + "-" + profile.getId();
-    UserEntity userEntity = Optional.ofNullable(userService.findById(userId)).orElse(new UserEntity());
-    UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(socialConfig.getProvider(), profile)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
-      dozerBeanMapper.map(profile, userEntity);
-      builder.withId(userId)
-        .withLoginSource(socialConfig.getProvider());
-    }
-    userService.save(userEntity);
-    return userEntity;
-  }
 }
