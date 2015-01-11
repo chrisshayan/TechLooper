@@ -110,5 +110,4 @@ public class CoreConfiguration {
     textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
     return textEncryptor;
   }
-
 }

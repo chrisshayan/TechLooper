@@ -51,6 +51,13 @@ angular.module('Register').factory('registerService',
     }
 
     var instance = {
+      hasProfile: function (auth) {
+        if ($rootScope.userInfo === undefined) {
+          return false;
+        }
+        return $rootScope.userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1;
+      },
+
       getSalaryOptions: function () {
         var options = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
           return {
@@ -66,6 +73,8 @@ angular.module('Register').factory('registerService',
       },
 
       openOathDialog: function (auth) {
+        if (instance.hasProfile(auth)) { return false; }
+
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
@@ -78,7 +87,6 @@ angular.module('Register').factory('registerService',
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.notUserInfo, $$.notUserInfo, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });

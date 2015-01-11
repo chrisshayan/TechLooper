@@ -18,10 +18,12 @@
 
       <div class="row">
         <div class="col-md-6 first">
-          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="{{ 'firstName' | translate }}" value="">
+          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="{{ 'firstName' | translate }}"
+                 value="">
         </div>
         <div class="col-md-6">
-          <input ng-model="userInfo.lastName" class="lastName" type="text" placeholder="{{ 'lastName' | translate }}" value="">
+          <input ng-model="userInfo.lastName" class="lastName" type="text" placeholder="{{ 'lastName' | translate }}"
+                 value="">
         </div>
       </div>
       <div class="row">
@@ -46,8 +48,8 @@
         <h3>{{ 'allowUsToConnect' | translate }}</h3>
         <ul>
           <li ng-repeat="auth in authSource">
-              <span ng-if="auth.isNotSupported === undefined" class="{{userInfo !== undefined && userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1 ? 'active' : 'inactive'  }}">
-                <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
+              <span ng-if="auth.isNotSupported === undefined" ng-class="hasProfile(auth) ? 'active' : 'inactive'">
+                <a ng-click="openOathDialog(auth)" ng-class="auth.provider"><img ng-src="{{auth.logo}}" alt=""></a>
               </span>
           </li>
         </ul>

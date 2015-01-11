@@ -36,8 +36,4 @@ public class SocialAuthenticationManager implements AuthenticationManager {
     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getPrincipal(), Arrays.asList(new SimpleGrantedAuthority("USER")));
     return auth;
   }
-
-//  public boolean supports(Class<?> authentication) {
-//    return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-//  }
 }
