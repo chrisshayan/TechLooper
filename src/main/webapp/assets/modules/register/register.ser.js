@@ -58,19 +58,6 @@ angular.module('Register').factory('registerService',
         return $rootScope.userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1;
       },
 
-      //salaryOptions: function () {
-      //  scope.salaryOptions = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
-      //    return {
-      //      label: "Up to $" + Math.abs(val) + " per month",
-      //      value: val
-      //    };
-      //  });
-      //  scope.salaryOptions.push({
-      //    label: "More than $4000 per month",
-      //    value: 4000
-      //  });
-      //},
-
       openOathDialog: function (auth) {
         if (instance.hasProfile(auth)) { return false; }
 
@@ -89,7 +76,7 @@ angular.module('Register').factory('registerService',
         $translate("up2perMonth").then(function (translation) {
           scope.salaryOptions = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
             return {
-              label: translation.replace("{}", val),
+              label: translation.replace("{}", Math.abs(val)),
               value: val
             };
           });
