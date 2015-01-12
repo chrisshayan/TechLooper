@@ -27,7 +27,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
         return "/";
       }
 
-      var url, view; // remove current item
+      var url = historyStack.pop(), view; // remove current item
       do {
         url = historyStack.pop();
         view = utils.getView(url);
@@ -40,7 +40,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
           return jsonValue.routerUris.jobsSearch;
 
         default:
-          return url;
+          return url !== undefined ? url : "/";
       }
     }
   }
