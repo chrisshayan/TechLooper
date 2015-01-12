@@ -1,5 +1,6 @@
 package com.techlooper.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,8 @@ public class UserInfo {
 
   private String id;
 
-  @NotEmpty
+  @NotNull
+  @Email
   private String emailAddress;
 
   @NotEmpty
