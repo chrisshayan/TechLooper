@@ -1,6 +1,6 @@
 angular.module('Register').factory('registerService',
-  function (shortcutFactory, jsonValue, localStorageService, utils, $http,
-            connectionFactory, $location, $auth, $window, $rootScope) {
+  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
+            $window, $rootScope, $translate) {
     var scope;
     var flag = {};
 
@@ -58,19 +58,18 @@ angular.module('Register').factory('registerService',
         return $rootScope.userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1;
       },
 
-      getSalaryOptions: function () {
-        var options = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
-          return {
-            label: "Up to $" + Math.abs(val) + " per month",
-            value: val
-          };
-        });
-        options.push({
-          label: "More than $4000 per month",
-          value: 4000
-        });
-        return options
-      },
+      //salaryOptions: function () {
+      //  scope.salaryOptions = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
+      //    return {
+      //      label: "Up to $" + Math.abs(val) + " per month",
+      //      value: val
+      //    };
+      //  });
+      //  scope.salaryOptions.push({
+      //    label: "More than $4000 per month",
+      //    value: 4000
+      //  });
+      //},
 
       openOathDialog: function (auth) {
         if (instance.hasProfile(auth)) { return false; }
@@ -84,9 +83,27 @@ angular.module('Register').factory('registerService',
           .finally(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
+      },
+
+      translation: function() {
+        $translate("up2perMonth").then(function (translation) {
+          scope.salaryOptions = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
+            return {
+              label: translation.replace("{}", val),
+              value: val
+            };
+          });
+        });
+        $translate("moreThanPerMonth").then(function (translation) {
+          scope.salaryOptions.push({
+            label: translation.replace("{}", 4000),
+            value: 4000
+          });
+        });
       }
     };
 
+    utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });

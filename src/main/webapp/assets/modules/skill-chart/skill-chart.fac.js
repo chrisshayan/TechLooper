@@ -51,11 +51,11 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
 
     translation: function () {
       var chart = Highcharts.charts[0];
-      $translate("skillLineChartXAxis").then(function (translation) {
+      $translate("timeline").then(function (translation) {
         chartMetadata.xAxisTitle.text = translation;
         chart.xAxis[0].setTitle(chartMetadata.xAxisTitle);
       });
-      $translate("skillLineChartYAxis").then(function (translation) {
+      $translate("numberOfJobs").then(function (translation) {
         chartMetadata.yAxisTitle.text = translation;
         chart.yAxis[0].setTitle(chartMetadata.yAxisTitle);
       });
