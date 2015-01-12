@@ -46,19 +46,4 @@ public class LinkedInService extends AbstractSocialService {
     liProfile.setAccessGrant(accessGrant);
     return liProfile;
   }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    LinkedInProfile profileEntity = (LinkedInProfile) getProfile(accessGrant);
-    UserEntity entity = Optional.ofNullable(userService.findById(profileEntity.getEmailAddress())).orElse(new UserEntity());
-    UserEntityBuilder builder = userEntity(entity)
-      .withProfile(socialConfig.getProvider(), profileEntity)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(entity.getEmailAddress()).isPresent()) {
-      dozerBeanMapper.map(profileEntity, entity);
-      builder.withId(profileEntity.getEmailAddress())
-        .withLoginSource(socialConfig.getProvider());
-    }
-    userService.save(entity);
-    return entity;
-  }
 }

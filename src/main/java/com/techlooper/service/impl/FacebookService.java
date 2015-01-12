@@ -47,19 +47,4 @@ public class FacebookService extends AbstractSocialService {
     fbProfile.setAccessGrant(accessGrant);
     return fbProfile;
   }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    com.techlooper.entity.FacebookProfile profileEntity = (com.techlooper.entity.FacebookProfile) getProfile(accessGrant);
-    UserEntity userEntity = Optional.ofNullable(userService.findById(profileEntity.getEmail())).orElse(new UserEntity());
-    UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(socialConfig.getProvider(), profileEntity)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
-      dozerBeanMapper.map(profileEntity, userEntity);
-      builder.withId(profileEntity.getEmail())
-        .withLoginSource(socialConfig.getProvider());
-    }
-    userService.save(userEntity);
-    return userEntity;
-  }
 }

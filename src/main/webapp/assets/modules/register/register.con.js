@@ -4,6 +4,7 @@ angular.module('Register').controller('registerController',
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
     $scope.salaryOptions = registerService.getSalaryOptions();
+    $scope.hasProfile = registerService.hasProfile;
 
     userService.getUserInfo()
       .then(function () {
