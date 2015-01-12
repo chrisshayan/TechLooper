@@ -103,19 +103,19 @@ angular.module("Navigation").factory("navigationService", function (localStorage
           $('.navi-container').find('a.m-chart').parent().addClass('active');
           break;
       }
-      var menuItem = $('.navi-container').find('li');
+      var menuItem = $('.navi-container').find('li a');
       menuItem.on('click', function(){
         //utils.hideNavigationBar();
-        if(!$(this).find('a').hasClass('m-languages')){
-          menuItem.removeClass('active');
-          $(this).addClass('active');
-          if($(this).find('a').hasClass('m-search-jobs')){
+        if(!$(this).hasClass('m-languages')){
+          menuItem.parent().removeClass('active');
+          $(this).parent().addClass('active');
+          if($(this).hasClass('m-search-jobs')){
             $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
           }else{
             $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
             $('body').css('background-color','#201d1e');
           }
-          if($(this).find('a').hasClass('m-sign-out')){
+          if($(this).hasClass('m-sign-out')){
             $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
             $('.navi-container').find('a.m-chart').parent().addClass('active');
           }
