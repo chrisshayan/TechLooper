@@ -6,6 +6,8 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserEntity.UserEntityBuilder;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -25,6 +27,7 @@ import static com.techlooper.model.SocialProvider.LINKEDIN;
  */
 
 @Service("LINKEDINService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class LinkedInService extends AbstractSocialService {
 
   @Resource

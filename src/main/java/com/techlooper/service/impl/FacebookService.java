@@ -5,6 +5,8 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.facebook.api.Facebook;
@@ -23,6 +25,7 @@ import static com.techlooper.model.SocialProvider.FACEBOOK;
  * Created by phuonghqh on 12/15/14.
  */
 @Service("FACEBOOKService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class FacebookService extends AbstractSocialService {
 
 

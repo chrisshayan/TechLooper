@@ -4,6 +4,8 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth1ConnectionFactory;
 import org.springframework.social.oauth1.OAuthToken;
@@ -23,6 +25,7 @@ import static com.techlooper.model.SocialProvider.TWITTER;
  * Created by phuonghqh on 12/16/14.
  */
 @Service("TWITTERService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class TwitterService extends AbstractSocialService {
 
   @Resource

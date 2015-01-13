@@ -3,6 +3,8 @@ package com.techlooper.service.impl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.*;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.github.api.GitHub;
@@ -23,6 +25,7 @@ import static com.techlooper.model.SocialProvider.GITHUB;
  * Created by phuonghqh on 12/16/14.
  */
 @Service("GITHUBService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class GitHubService extends AbstractSocialService {
 
   @Resource

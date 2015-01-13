@@ -5,6 +5,8 @@ import com.techlooper.entity.SimpleUserProfile;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.google.api.Google;
@@ -18,6 +20,7 @@ import javax.inject.Inject;
  * Created by phuonghqh on 12/16/14.
  */
 @Service("GOOGLEService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class GoogleService extends AbstractSocialService {
 
   @Resource
