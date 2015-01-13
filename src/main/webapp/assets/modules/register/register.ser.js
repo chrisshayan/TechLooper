@@ -21,6 +21,7 @@ angular.module('Register').factory('registerService',
           $('.navi-container').find('a.m-chart').parent().addClass('active');
         });
         $('.register-successful').click($$.saveUserInfo);
+        $$.userInfo();
       },
 
       saveUserInfo: function (e) {
@@ -47,6 +48,11 @@ angular.module('Register').factory('registerService',
 
       enableNotifications: function () {
         return utils.getView() === jsonValue.views.register;
+      },
+
+      userInfo: function () {
+        if ($rootScope.userInfo === undefined) { return false; }
+        $(".emailAddress").prop("disabled", $rootScope.userInfo.emailAddress != null);
       }
     }
 
@@ -60,7 +66,6 @@ angular.module('Register').factory('registerService',
 
       openOathDialog: function (auth) {
         if (instance.hasProfile(auth)) { return false; }
-
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
@@ -72,7 +77,7 @@ angular.module('Register').factory('registerService',
           });
       },
 
-      translation: function() {
+      translation: function () {
         $translate("up2perMonth").then(function (translation) {
           scope.salaryOptions = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
             return {
@@ -90,6 +95,7 @@ angular.module('Register').factory('registerService',
       }
     };
 
+    utils.registerNotification(jsonValue.notifications.userInfo, $$.userInfo, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
