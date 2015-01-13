@@ -1,9 +1,9 @@
 angular.module('Register').controller('registerController',
   function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService, userService, navigationService) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
+    registerService.translation();
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
-    $scope.salaryOptions = registerService.getSalaryOptions();
     $scope.hasProfile = registerService.hasProfile;
 
     userService.getUserInfo()

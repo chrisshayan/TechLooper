@@ -5,9 +5,9 @@
   "tagLine": "Career Analytics. Open Source. Awesome!",
   "loadMore": "Scroll Down to Load More",
   "loading": "Loading data...",
-  "searchTextPlaceholder": "Enter text to search...",
-  "skillLineChartXAxis": "Timeline",
-  "skillLineChartYAxis": "Number of jobs",
+  "enterText2Search": "Enter text to search...",
+  "timeline": "Timeline",
+  "numberOfJobs": "Number of jobs",
   "skill": "Skill",
   "current": "Current",
   "previous": "Previous",
@@ -27,5 +27,8 @@
   "userProfile" : "User profile",
   "homepage" : "Home page",
   "signIn" : "Sign In",
-  "signOut" : "Sign Out"
+  "signOut" : "Sign Out",
+  "up2perMonth": "Up to ${} per month",
+  "moreThanPerMonth": "More than ${} per month",
+  "continue": "Continue"
 }

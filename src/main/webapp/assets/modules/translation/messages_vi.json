@@ -5,9 +5,9 @@
   "tagLine": "Career Analytics. Open Source. Awesome!",
   "loadMore": "Scroll Down to Load More",
   "loading": "Loading data...",
-  "searchTextPlaceholder": "Nhập từ cần tìm và nhấn Enter...",
-  "skillLineChartXAxis": "Dòng thời gian",
-  "skillLineChartYAxis": "Số lượng công việc",
+  "enterText2Search": "Nhập từ cần tìm và nhấn Enter...",
+  "timeline": "Dòng thời gian",
+  "numberOfJobs": "Số lượng công việc",
   "skill": "Kỹ năng",
   "current": "Hiện thời",
   "previous": "Trước đây",
@@ -27,7 +27,10 @@
   "userProfile" : "Thông tin Người dùng",
   "homepage" : "Trang chủ",
   "signIn" : "Đăng nhập",
-  "signOut" : "Đăng xuất"
+  "signOut" : "Đăng xuất",
+  "up2perMonth": "Lên đến ${} mỗi tháng",
+  "moreThanPerMonth": "Hơn ${} mỗi tháng",
+  "continue": "Tiếp tục"
 }
 
 

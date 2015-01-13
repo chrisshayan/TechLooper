@@ -3,7 +3,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
   var $$ = {
     translation: function() {
-      $translate("searchTextPlaceholder").then(function (translation) {
+      $translate("enterText2Search").then(function (translation) {
         searchText.setPlaceholder(translation);
       });
     },
