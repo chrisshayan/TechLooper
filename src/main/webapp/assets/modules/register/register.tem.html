@@ -41,13 +41,14 @@
         </div>
       </div>
       <div class="row vietnamworks-profile">
-        <div class="col-md-12">
-          <i class="fa fa-check-square-o"></i> You used this email for <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a> account.
+        <div class="col-md-12" ng-if="hasProfile(authSource[0])">
+          <i class="fa fa-check-square-o"></i> You have already registered to <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a> using this email.
         </div>
       </div>
-      <div class="row vietnamworks-profile">
+      <div class="row vietnamworks-profile" ng-if="!hasProfile(authSource[0])">
         <div class="col-md-12">
-          <i class="fa fa-square-o fa-check-square-o"></i> You will use this email for <a href="http://www.vietnamworks.com/sign-up" target="_blank">Vietnamworks</a> account.
+          <i class="fa fa-square-o fa-check-square-o"></i>
+            You haven't registered to <a href="http://www.vietnamworks.com/sign-up" target="_blank">Vietnamworks</a> yet. Do you want to create new account using this email ?
         </div>
       </div>
       <div class="row terms-conditions">
