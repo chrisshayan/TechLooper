@@ -1,6 +1,6 @@
 angular.module('Register').factory('registerService',
   function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
-            $window, $rootScope, $translate) {
+            $window, $rootScope, $translate, navigationService) {
     var scope;
     var flag = {};
 
@@ -12,13 +12,12 @@ angular.module('Register').factory('registerService',
         $("#salary").slider({});
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          navigationService.backtoSearchPage('m-user-profile');
         });
+
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          navigationService.backtoSearchPage('m-user-profile');
         });
         $('.register-successful').click($$.saveUserInfo);
         $$.userInfo();
