@@ -17,6 +17,12 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           }
           $location.path(jsonValue.routerUris.jobsSearch);
           break;
+        case jsonValue.views.register:
+          if ($("#terms-conditions").is(":visible")) {
+            return;
+          }
+          $$.goBack();
+          break;
         default:
           $$.goBack();
           navigationService.restoreNaviStyle();
