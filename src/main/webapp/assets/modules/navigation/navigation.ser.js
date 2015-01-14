@@ -169,6 +169,18 @@ angular.module("Navigation").factory("navigationService", function (localStorage
         $('.manager-navi').find('.fa-bars').addClass('active');
         instance.addSpaceforNavi();
       }
+    },
+    backtoSearchPage: function(mItem){
+      var view = utils.getView();
+      if(view == jsonValue.views.jobsSearch || view == jsonValue.views.jobsSearchText){
+        $('.navi-container').find('li').removeClass('active');
+        $('.navi-container').find('a.'+ mItem).parent().addClass('active');
+        $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+      }else{
+        $('.navi-container').find('a.'+ mItem).parent().removeClass('active');
+        $('.navi-container').find('a.m-chart').parent().addClass('active');
+        $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+      }
     }
   }
 

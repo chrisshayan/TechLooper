@@ -1,6 +1,6 @@
 angular.module('SignIn').factory('signInService',
   function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
-            $window, $http, connectionFactory, $rootScope, userService) {
+            $window, $http, connectionFactory, $rootScope, userService, navigationService) {
 
     var $$ = {
       enableNotifications: function () {
@@ -33,14 +33,13 @@ angular.module('SignIn').factory('signInService',
 
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          navigationService.backtoSearchPage('sign-out-sign-in');
         });
 
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          var view = utils.getView();
+          navigationService.backtoSearchPage('sign-out-sign-in');
         });
 
         $(".signin-popup-close").on('click', function () {
