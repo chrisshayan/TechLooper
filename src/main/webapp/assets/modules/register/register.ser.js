@@ -2,8 +2,6 @@ angular.module('Register').factory('registerService',
   function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
             $window, $rootScope, $translate) {
     var scope;
-    var flag = {};
-
     var $$ = {
       initialize: function ($scope) {
         scope = $scope;
@@ -25,10 +23,7 @@ angular.module('Register').factory('registerService',
       },
 
       saveUserInfo: function (e) {
-        if (flag.saveUserInfo === true) {
-          return;
-        }
-        flag.saveUserInfo = true;
+        $(e.target).unbind("click tap");
         connectionFactory.saveUserInfo(scope.userInfo)
           .then(function (resp) {
             utils.notify(jsonValue.messages.successSave, 'success');
@@ -42,7 +37,7 @@ angular.module('Register').factory('registerService',
             });
           })
           .finally(function () {
-            flag.saveUserInfo = false;
+            $(e.target).bind("click tap", $$.saveUserInfo);
           });
       },
 
