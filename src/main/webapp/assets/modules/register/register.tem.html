@@ -42,14 +42,13 @@
       </div>
       <div class="row vietnamworks-profile">
         <div class="col-md-12" ng-if="hasProfile(authSource[0])">
-          <i class="fa fa-check-square-o"></i> You have already registered to <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a> using this email.
+          <input type="checkbox" checked disabled> You have already registered to <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a> using this email.
         </div>
       </div>
       <div class="row vietnamworks-profile" ng-if="!hasProfile(authSource[0])">
         <div class="col-md-12">
-          <label>
-            <input type="checkbox" ng-model="userInfo.registerVietnamworks" class="fa fa-square-o fa-check-square-o"/>
-            You haven't registered to <a href="http://www.vietnamworks.com/sign-up" target="_blank">Vietnamworks</a> yet.
+          <input type="checkbox" ng-model="userInfo.registerVietnamworks" id="isVNWSelected" checked>
+          <label for="isVNWSelected">You haven't registered to <a href="http://www.vietnamworks.com/sign-up" target="_blank">Vietnamworks</a> yet.
               Do you want to create new account using this email ?
           </label>
         </div>

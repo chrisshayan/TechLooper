@@ -25,6 +25,7 @@
     "d3": "latest",
     "d3-transform": "latest",
     "parallax": "latest",
+    "iCheck": "latest",
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
     "bootstrap-tour": "latest",
@@ -98,6 +99,9 @@
     },
     "parallax": {
       "main": "deploy/jquery.parallax.min.js"
+    },
+    "iCheck": {
+      "main": "icheck.min.js"
     },
     "seiyria-bootstrap-slider": {
       "main": "dist/bootstrap-slider.min.js"

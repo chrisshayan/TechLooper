@@ -5,8 +5,6 @@ angular.module('Register').factory('registerService',
     var $$ = {
       initialize: function ($scope) {
         scope = $scope;
-
-        $('input[type="checkbox"]').checkbox();
         $("#salary").slider({});
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
