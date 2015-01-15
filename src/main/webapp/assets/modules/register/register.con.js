@@ -9,11 +9,6 @@ angular.module('Register').controller('registerController',
       .then(function () {
         localStorageService.remove(jsonValue.storage.back2Me, "true");
         utils.sendNotification(jsonValue.notifications.gotData);
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_polaris',
-          radioClass: 'iradio_polaris',
-          increaseArea: '-10%' // optional
-        });
       })
       .catch(function () {
         localStorageService.set(jsonValue.storage.back2Me, "true");
