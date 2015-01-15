@@ -1,33 +1,26 @@
 angular.module('Register').factory('registerService',
-  function (shortcutFactory, jsonValue, localStorageService, utils, $http,
-            connectionFactory, $location, $auth, $window, $rootScope) {
+  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
+            $window, $rootScope, $translate, navigationService) {
     var scope;
-    var flag = {};
-
     var $$ = {
       initialize: function ($scope) {
         scope = $scope;
-
-        $('input[type="checkbox"]').checkbox();
         $("#salary").slider({});
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          navigationService.backtoSearchPage('m-user-profile');
         });
+
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.sign-out-sign-in').parent().removeClass('active');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          navigationService.backtoSearchPage('m-user-profile');
         });
         $('.register-successful').click($$.saveUserInfo);
+        $$.userInfo();
       },
 
       saveUserInfo: function (e) {
-        if (flag.saveUserInfo === true) {
-          return;
-        }
-        flag.saveUserInfo = true;
+        $(e.target).unbind("click tap");
         connectionFactory.saveUserInfo(scope.userInfo)
           .then(function (resp) {
             utils.notify(jsonValue.messages.successSave, 'success');
@@ -41,31 +34,30 @@ angular.module('Register').factory('registerService',
             });
           })
           .finally(function () {
-            flag.saveUserInfo = false;
+            $(e.target).bind("click tap", $$.saveUserInfo);
           });
       },
 
       enableNotifications: function () {
         return utils.getView() === jsonValue.views.register;
+      },
+
+      userInfo: function () {
+        if ($rootScope.userInfo === undefined) { return false; }
+        $(".emailAddress").prop("disabled", $rootScope.userInfo.emailAddress != null);
       }
     }
 
     var instance = {
-      getSalaryOptions: function () {
-        var options = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
-          return {
-            label: "Up to $" + Math.abs(val) + " per month",
-            value: val
-          };
-        });
-        options.push({
-          label: "More than $4000 per month",
-          value: 4000
-        });
-        return options
+      hasProfile: function (auth) {
+        if ($rootScope.userInfo === undefined) {
+          return false;
+        }
+        return $rootScope.userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1;
       },
 
       openOathDialog: function (auth) {
+        if (instance.hasProfile(auth)) { return false; }
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
@@ -75,10 +67,28 @@ angular.module('Register').factory('registerService',
           .finally(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
+      },
+
+      translation: function () {
+        $translate("up2perMonth").then(function (translation) {
+          scope.salaryOptions = [-800, -1000, -1500, -2000, -2500, -3000, -4000].map(function (val) {
+            return {
+              label: translation.replace("{}", Math.abs(val)),
+              value: val
+            };
+          });
+        });
+        $translate("moreThanPerMonth").then(function (translation) {
+          scope.salaryOptions.push({
+            label: translation.replace("{}", 4000),
+            value: 4000
+          });
+        });
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.notUserInfo, $$.notUserInfo, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.userInfo, $$.userInfo, $$.enableNotifications);
+    utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, $$.enableNotifications);
     utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
     return instance;
   });

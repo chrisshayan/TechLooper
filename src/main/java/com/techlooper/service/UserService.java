@@ -10,7 +10,7 @@ public interface UserService {
 
   void save(UserEntity userEntity);
 
-  void save(UserInfo userInfo);
+  void save(UserInfo userInfo, boolean registerVietnamworks);
 
   UserEntity findById(String id);
 

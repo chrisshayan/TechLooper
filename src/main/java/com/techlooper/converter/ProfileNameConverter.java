@@ -18,7 +18,6 @@ public class ProfileNameConverter extends DozerConverter<Map, Set> {
     return source.keySet();
   }
 
-
   public Map convertFrom(Set source, Map destination) {
     return destination;
   }

@@ -15,6 +15,12 @@ public class JobSearchAPIConfigurationRepository {
     @Value("${vnw.api.job.search.url}")
     private String searchUrl;
 
+    @Value("${vnw.api.job.register.url}")
+    private String registerUrl;
+
+    @Value("${vnw.api.job.accountStatus.url}")
+    private String accountStatus;
+
     @Value("${vnw.api.key.name}")
     private String apiKeyName;
 
@@ -35,6 +41,22 @@ public class JobSearchAPIConfigurationRepository {
 
     public void setSearchUrl(String searchUrl) {
         this.searchUrl = searchUrl;
+    }
+
+    public String getRegisterUrl() {
+        return registerUrl;
+    }
+
+    public void setRegisterUrl(String registerUrl) {
+        this.registerUrl = registerUrl;
+    }
+
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
     }
 
     public String getApiKeyName() {

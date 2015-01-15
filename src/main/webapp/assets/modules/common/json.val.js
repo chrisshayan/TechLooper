@@ -289,8 +289,7 @@ angular.module("Common").constant("jsonValue", {
       provider: "vietnamworks",
       logo: "images/vietnamwork.png",
       magnitude: "level1",
-      bgcolor: "#1fbaec",
-      isNotSupported: true
+      bgcolor: "#1fbaec"
     },
     {
       provider: "linkedin",

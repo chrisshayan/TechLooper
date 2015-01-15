@@ -18,16 +18,17 @@
 
       <div class="row">
         <div class="col-md-6 first">
-          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="{{ 'firstName' | translate }}" value="">
+          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="{{ 'firstName' | translate }}"
+                 value="">
         </div>
         <div class="col-md-6">
-          <input ng-model="userInfo.lastName" class="lastName" type="text" placeholder="{{ 'lastName' | translate }}" value="">
+          <input ng-model="userInfo.lastName" class="lastName" type="text" placeholder="{{ 'lastName' | translate }}"
+                 value="">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <input ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email"
-                 ng-disabled="userInfo.emailAddress != null">
+          <input ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="{{ 'emailAddress' | translate }}">
         </div>
       </div>
       <div class="row your-salary">
@@ -39,18 +40,48 @@
           </select>
         </div>
       </div>
+      <div class="row vietnamworks-profile">
+        <div class="col-md-12" ng-if="hasProfile(authSource[0])">
+          <input type="checkbox" checked disabled> You have already registered to <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a> using this email.
+        </div>
+      </div>
+      <div class="row vietnamworks-profile" ng-if="!hasProfile(authSource[0])">
+        <div class="col-md-12">
+            <label>
+                <input type="checkbox" ng-model="userInfo.registerVietnamworks" checked/>
+                    You haven't registered to <a href="http://www.vietnamworks.com/sign-up" target="_blank">Vietnamworks</a> yet.
+                    Do you want to create new account using this email ?
+            </label>
+        </div>
+      </div>
+      <div class="row terms-conditions">
+        By clicking Continue, you agree to our <a data-toggle="modal" data-target="#terms-conditions">Terms</a> and that you have read our <a data-toggle="modal" data-target="#terms-conditions">Data Use Policy</a>, including our <a data-toggle="modal" data-target="#terms-conditions">Cookie Use</a>.
+      </div>
       <div class="row submit">
-        <a class="register-successful">Continues</a>
+        <a class="register-successful">{{ 'continue' | translate }}</a>
       </div>
       <div class="row other-accounts">
         <h3>{{ 'allowUsToConnect' | translate }}</h3>
         <ul>
           <li ng-repeat="auth in authSource">
-              <span ng-if="auth.isNotSupported === undefined" class="{{userInfo !== undefined && userInfo.profileNames.indexOf(auth.provider.toUpperCase()) > -1 ? 'active' : 'inactive'  }}">
-                <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
+              <span ng-if="auth.isNotSupported === undefined" ng-class="hasProfile(auth) ? 'active' : 'inactive'">
+                <a ng-click="openOathDialog(auth)" ng-class="auth.provider"><img ng-src="{{auth.logo}}" alt=""></a>
               </span>
           </li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="terms-conditions" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+        <h4 class="modal-title" id="myModalLabel">Terms and Conditions</h4>
+      </div>
+      <div class="modal-body">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </div>
     </div>
   </div>

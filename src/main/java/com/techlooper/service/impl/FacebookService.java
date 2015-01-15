@@ -5,6 +5,8 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.facebook.api.Facebook;
@@ -23,6 +25,7 @@ import static com.techlooper.model.SocialProvider.FACEBOOK;
  * Created by phuonghqh on 12/15/14.
  */
 @Service("FACEBOOKService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class FacebookService extends AbstractSocialService {
 
 
@@ -46,20 +49,5 @@ public class FacebookService extends AbstractSocialService {
     fbProfile.setProfileImageUrl(profileImageUrl);
     fbProfile.setAccessGrant(accessGrant);
     return fbProfile;
-  }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    com.techlooper.entity.FacebookProfile profileEntity = (com.techlooper.entity.FacebookProfile) getProfile(accessGrant);
-    UserEntity userEntity = Optional.ofNullable(userService.findById(profileEntity.getEmail())).orElse(new UserEntity());
-    UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(socialConfig.getProvider(), profileEntity)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
-      dozerBeanMapper.map(profileEntity, userEntity);
-      builder.withId(profileEntity.getEmail())
-        .withLoginSource(socialConfig.getProvider());
-    }
-    userService.save(userEntity);
-    return userEntity;
   }
 }

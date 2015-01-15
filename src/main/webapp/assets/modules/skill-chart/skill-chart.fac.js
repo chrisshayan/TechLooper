@@ -1,4 +1,6 @@
 angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils, $translate) {
+  var chartMetadata;
+
   var $$ = {
     getXAxisLabels: function (viewJson) {
       var oneSkill = viewJson.tableAndChartJson[0];
@@ -47,22 +49,26 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
       }
     },
 
-    translate: function (chartMetadata) {
+    translation: function () {
       var chart = Highcharts.charts[0];
-      $translate("skillLineChartXAxis").then(function (translation) {
+      $translate("timeline").then(function (translation) {
         chartMetadata.xAxisTitle.text = translation;
         chart.xAxis[0].setTitle(chartMetadata.xAxisTitle);
       });
-      $translate("skillLineChartYAxis").then(function (translation) {
+      $translate("numberOfJobs").then(function (translation) {
         chartMetadata.yAxisTitle.text = translation;
         chart.yAxis[0].setTitle(chartMetadata.yAxisTitle);
       });
+    },
+
+    enableNotifications: function() {
+      return utils.getView() === jsonValue.views.analyticsSkill;
     }
   }
 
   var instance = {
     renderView: function (viewJson) {
-      var chartMetadata = $$.getChartMetadata(viewJson);
+      chartMetadata = $$.getChartMetadata(viewJson);
       $('.line-chart-content').highcharts({
         chart: {
           backgroundColor: '#201d1e',
@@ -155,7 +161,7 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
           $(this).hide();
         }
       });
-      $$.translate(chartMetadata);
+      $$.translation();
     },
 
     highLight: function (skillName) {
@@ -166,5 +172,6 @@ angular.module('Skill').factory('skillChartFactory', function (jsonValue, utils,
     }
   }
 
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.translation, $$.enableNotifications);
   return instance;
 });

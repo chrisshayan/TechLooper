@@ -45,9 +45,4 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
   protected void customizeRegistration(Dynamic registration) {
     registration.setInitParameter("dispatchOptionsRequest", "true");
   }
-
-//  public void onStartup(ServletContext servletContext) throws ServletException {
-//    super.onStartup(servletContext);
-//    servletContext.getSessionCookieConfig().setPath("/");
-//  }
 }
