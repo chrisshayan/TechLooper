@@ -42,20 +42,19 @@
       </div>
       <div class="row vietnamworks-profile">
         <div class="col-md-12" ng-if="hasProfile(authSource[0])">
-          <input type="checkbox" checked disabled> You have already registered to <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a> using this email.
+          <input type="checkbox" checked disabled> {{ 'alreadyRegisteredVietnamworks' | translate }} <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a>.
         </div>
       </div>
       <div class="row vietnamworks-profile" ng-if="!hasProfile(authSource[0])">
         <div class="col-md-12">
             <label>
                 <input type="checkbox" ng-model="userInfo.registerVietnamworks" checked/>
-                    You haven't registered to <a href="http://www.vietnamworks.com/sign-up" target="_blank">Vietnamworks</a> yet.
-                    Do you want to create new account using this email ?
+                    {{ 'registerVietnamworksQuestion' | translate }} <a href="http://www.vietnamwos.com/sign-up" target="_blank">Vietnamworks</a> ?
             </label>
         </div>
       </div>
       <div class="row terms-conditions">
-        By clicking Continue, you agree to our <a data-toggle="modal" data-target="#terms-conditions">Terms</a> and that you have read our <a data-toggle="modal" data-target="#terms-conditions">Data Use Policy</a>, including our <a data-toggle="modal" data-target="#terms-conditions">Cookie Use</a>.
+        <a data-toggle="modal" data-target="#terms-conditions">{{ 'termAndCondition' | translate }}</a>
       </div>
       <div class="row submit">
         <a class="register-successful">{{ 'continue' | translate }}</a>
