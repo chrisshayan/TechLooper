@@ -1,19 +1,13 @@
 angular.module('Register').factory('registerService',
   function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
-            $window, $rootScope, $translate, navigationService) {
+            $window, $rootScope, $translate) {
     var scope;
     var $$ = {
       initialize: function ($scope) {
         scope = $scope;
         $("#salary").slider({});
-        $('.btn-close').click(function () {
-          shortcutFactory.trigger('esc');
-          navigationService.backtoSearchPage('m-user-profile');
-        });
-
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          navigationService.backtoSearchPage('m-user-profile');
         });
         $('.register-successful').click($$.saveUserInfo);
         $$.userInfo();

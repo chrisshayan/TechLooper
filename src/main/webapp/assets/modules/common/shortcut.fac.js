@@ -1,4 +1,4 @@
-angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils, navigationService) {
+angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils) {
 
   var $$ = {
     goBack: function () {
@@ -25,7 +25,6 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           break;
         default:
           $$.goBack();
-          navigationService.restoreNaviStyle();
           break;
       }
     },

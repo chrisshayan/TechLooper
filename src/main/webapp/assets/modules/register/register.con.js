@@ -1,5 +1,5 @@
 angular.module('Register').controller('registerController',
-  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService, userService, navigationService) {
+  function ($scope, connectionFactory, jsonValue, localStorageService, utils, registerService, userService) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     registerService.translation();
     $scope.authSource = jsonValue.authSource;
@@ -14,7 +14,4 @@ angular.module('Register').controller('registerController',
         localStorageService.set(jsonValue.storage.back2Me, "true");
         utils.sendNotification(jsonValue.notifications.loginFailed);
       });
-    navigationService.addSpaceforNavi();
-    navigationService.reSetingPositionLangIcon();
-    navigationService.keepNaviBar();
   });

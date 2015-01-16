@@ -108,11 +108,9 @@ angular.module("Skill").factory("skillAnalyticsService",
         skillTableFactory.registerEvents();
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
         });
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
         });
 
         var type = $('.chart-management ul').find('li');
