@@ -38,18 +38,18 @@
         </div>
       </div>
       <div class="row vietnamworks-profile">
-        <div class="col-md-12" ng-if="hasProfile(authSource[0])">
-          <input type="checkbox" checked disabled> {{ 'alreadyRegisteredVietnamworks' | translate }} <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a>.
-        </div>
-      </div>
-      <div class="row vietnamworks-profile" ng-if="!hasProfile(authSource[0])">
         <div class="col-md-12">
-            <label>
-                <input type="checkbox" ng-model="userInfo.registerVietnamworks" checked/>
-                    {{ 'registerVietnamworksQuestion' | translate }} <a href="http://www.vietnamwos.com/sign-up" target="_blank">Vietnamworks</a> ?
-            </label>
+          <input type="checkbox" id="vietnamworks" ng-click="registerVietnamworks()" ng-disabled="hasProfile(authSource[0])" ng-checked="hasProfile(authSource[0])" />
+          <label for="vietnamworks" ng-show="hasProfile(authSource[0])">
+            {{ 'alreadyRegisteredVietnamworks' | translate }} <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a>.
+          </label>
+          <label for="vietnamworks" ng-show="!hasProfile(authSource[0])">
+            {{ 'registerVietnamworksQuestion' | translate }} <a href="http://www.vietnamwos.com/sign-up" target="_blank">Vietnamworks</a> ?
+          </label>
+
         </div>
       </div>
+      
       <div class="row terms-conditions">
         <a data-toggle="modal" data-target="#terms-conditions">{{ 'termAndCondition' | translate }}</a>
       </div>

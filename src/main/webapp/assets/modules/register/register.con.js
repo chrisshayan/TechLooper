@@ -5,6 +5,7 @@ angular.module('Register').controller('registerController',
     $scope.authSource = jsonValue.authSource;
     $scope.openOathDialog = registerService.openOathDialog;
     $scope.hasProfile = registerService.hasProfile;
+    $scope.registerVietnamworks = registerService.registerVietnamworks;
     userService.getUserInfo()
       .then(function () {
         localStorageService.remove(jsonValue.storage.back2Me, "true");
