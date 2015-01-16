@@ -42,17 +42,16 @@
       </div>
       <div class="row vietnamworks-profile">
         <div class="col-md-12">
-          <input type="checkbox" id="vietnamworks" ng-click="registerVietnamworks()" ng-disabled="hasProfile(authSource[0])" ng-checked="hasProfile(authSource[0])" />
-          <label for="vietnamworks" ng-show="hasProfile(authSource[0])">
+          <input class="register-vietnamworks" type="checkbox" id="vietnamworks" ng-click="registerVietnamworks()" />
+          <label id="alreadyRegisteredVietnamworks" for="vietnamworks">
             {{ 'alreadyRegisteredVietnamworks' | translate }} <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a>.
           </label>
-          <label for="vietnamworks" ng-show="!hasProfile(authSource[0])">
+          <label id="registerVietnamworksQuestion" for="vietnamworks">
             {{ 'registerVietnamworksQuestion' | translate }} <a href="http://www.vietnamwos.com/sign-up" target="_blank">Vietnamworks</a> ?
           </label>
-
         </div>
       </div>
-      
+
       <div class="row terms-conditions">
         <a data-toggle="modal" data-target="#terms-conditions">{{ 'termAndCondition' | translate }}</a>
       </div>

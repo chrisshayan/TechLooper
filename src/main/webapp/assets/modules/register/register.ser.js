@@ -46,6 +46,17 @@ angular.module('Register').factory('registerService',
           return false;
         }
         $(".emailAddress").prop("disabled", $rootScope.userInfo.emailAddress != null);
+
+        if (instance.hasProfile(jsonValue.authSource[0])) {
+          $("#alreadyRegisteredVietnamworks").show();
+          $("#registerVietnamworksQuestion").hide();
+          $(".register-vietnamworks").prop("disabled", true);
+          $(".register-vietnamworks").prop("checked", true);
+        }
+        else {
+          $("#alreadyRegisteredVietnamworks").hide();
+          $("#registerVietnamworksQuestion").show();
+        }
       }
     }
 
@@ -93,7 +104,7 @@ angular.module('Register').factory('registerService',
         if ($('.register-vietnamworks').prop('checked') === true) {
           $rootScope.userInfo.profileNames.push(jsonValue.authSource[0].provider.toUpperCase());
         } else {
-          $rootScope.userInfo.profileNames.pop();
+          //$rootScope.userInfo.profileNames.pop();
         }
       }
     };
