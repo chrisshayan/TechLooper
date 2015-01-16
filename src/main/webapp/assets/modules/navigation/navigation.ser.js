@@ -170,6 +170,9 @@ angular.module("Navigation").factory("navigationService", function (shortcutFact
         case jsonValue.views.signIn:
           $('.navi-container').find('a.sign-out-sign-in').parent().addClass('active');
           break;
+        case jsonValue.views.register:
+          $('.navi-container').find('a.m-user-profile').parent().addClass('active');
+          break;
         default:
           $('.navi-container').find('a.m-chart').parent().addClass('active');
           break;
