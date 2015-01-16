@@ -164,6 +164,7 @@ angular.module("Navigation").factory("navigationService", function (shortcutFact
           break;
         case jsonValue.views.jobsSearchText:
           $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
           $('.close-button').addClass('close-search');
           break;
         case jsonValue.views.signIn:

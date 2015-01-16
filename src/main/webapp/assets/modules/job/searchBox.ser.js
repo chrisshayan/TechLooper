@@ -141,13 +141,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         });
       });
-    },
-
-    updateNavi: function(){
-      $('.navi-container').find('li').removeClass('active');
-      $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
-      $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
-
     }
   }
 
