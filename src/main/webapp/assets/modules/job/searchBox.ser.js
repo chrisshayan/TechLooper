@@ -97,20 +97,8 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       }
 
       $('.btn-search').click($$.doSearch);
-
-      $('.btn-close').click(function () {
-        shortcutFactory.trigger('esc');
-        var view = utils.getView();
-        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
-          navigationService.restoreNaviStyle();
-        }
-      });
       $('.btn-logo').click(function () {
         shortcutFactory.trigger('esc');
-        var view = utils.getView();
-        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
-          navigationService.restoreNaviStyle();
-        }
       });
 
       $('.btn-search').css({

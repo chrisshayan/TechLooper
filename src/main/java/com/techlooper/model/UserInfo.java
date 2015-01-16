@@ -36,6 +36,8 @@ public class UserInfo {
 
     private String profileImageUrl;
 
+    private boolean registerVietnamworks;
+
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
@@ -114,5 +116,13 @@ public class UserInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isRegisterVietnamworks() {
+        return registerVietnamworks;
+    }
+
+    public void setRegisterVietnamworks(boolean registerVietnamworks) {
+        this.registerVietnamworks = registerVietnamworks;
     }
 }

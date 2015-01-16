@@ -1,6 +1,5 @@
 package com.techlooper.controller;
 
-import com.techlooper.model.SocialProvider;
 import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserInfo;
 import com.techlooper.model.VNWUserInfo;
@@ -41,7 +40,7 @@ public class UserController {
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             boolean registerResult = false;
-            if (userInfo.getProfileNames().contains(SocialProvider.VIETNAMWORKS)) {
+            if (userInfo.isRegisterVietnamworks()) {
                 VNWUserInfo vnwUserInfo = new VNWUserInfo(userInfo.getEmailAddress(), userInfo.getFirstName(), userInfo.getLastName());
                 registerResult = vietnamWorksUserService.register(vnwUserInfo);
             }
