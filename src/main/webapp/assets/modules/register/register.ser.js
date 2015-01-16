@@ -99,7 +99,10 @@ angular.module('Register').factory('registerService',
         if ($('.register-vietnamworks').prop('checked') === true) {
           $rootScope.userInfo.profileNames.push(jsonValue.authSource[0].provider.toUpperCase());
         } else {
-          //$rootScope.userInfo.profileNames.pop();
+          var i = $rootScope.userInfo.profileNames.indexOf("VIETNAMWORKS");
+          if (i != -1) {
+            $rootScope.userInfo.profileNames.splice(i, 1);
+          }
         }
       }
     };
