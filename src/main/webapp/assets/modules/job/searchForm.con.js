@@ -2,7 +2,6 @@ angular.module('Jobs').controller('searchFormController', function (utils, $scop
   //var dataTour = utils.getDataTour();
   //utils.makeTourGuide(dataTour);
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
-  searchBoxService.updateNavi();
   $scope.skills = jsonValue.technicalSkill;
 
   searchBoxService.hightlightSKill();
