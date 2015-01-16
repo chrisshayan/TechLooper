@@ -4,7 +4,7 @@ import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserInfo;
 import com.techlooper.model.VNWUserInfo;
 import com.techlooper.service.UserService;
-import com.techlooper.service.impl.VietnamWorksUserService;
+import com.techlooper.service.VietnamWorksUserService;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;

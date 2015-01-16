@@ -2,8 +2,11 @@ package com.techlooper.service.impl;
 
 import com.techlooper.model.VNWUserInfo;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.service.VietnamWorksUserService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -17,10 +20,11 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * @author khoa-nd
- * @see com.techlooper.service.impl.VietnamWorksUserService
+ * @see com.techlooper.service.impl.VietnamWorksUserServiceImpl
  */
 @Service
-public class VietnamWorksUserService {
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
+public class VietnamWorksUserServiceImpl implements VietnamWorksUserService {
 
     private static final String RESPONSE_CODE_SUCCESS = "200";
     private static final String RESPONSE_CODE_DUPLICATED = "400";
