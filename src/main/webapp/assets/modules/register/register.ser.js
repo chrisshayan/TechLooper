@@ -1,6 +1,5 @@
 angular.module('Register').factory('registerService',
-  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
-            $window, $rootScope, $translate, navigationService) {
+  function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth, $window, $rootScope, $translate, navigationService) {
     var scope;
     var $$ = {
       initialize: function ($scope) {
@@ -43,7 +42,9 @@ angular.module('Register').factory('registerService',
       },
 
       userInfo: function () {
-        if ($rootScope.userInfo === undefined) { return false; }
+        if ($rootScope.userInfo === undefined) {
+          return false;
+        }
         $(".emailAddress").prop("disabled", $rootScope.userInfo.emailAddress != null);
       }
     }
@@ -57,7 +58,9 @@ angular.module('Register').factory('registerService',
       },
 
       openOathDialog: function (auth) {
-        if (instance.hasProfile(auth)) { return false; }
+        if (instance.hasProfile(auth)) {
+          return false;
+        }
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
@@ -83,6 +86,16 @@ angular.module('Register').factory('registerService',
             label: translation.replace("{}", 4000),
             value: 4000
           });
+        });
+      },
+
+      registerVietnamworks: function () {
+        $('.register-vietnamworks').on('change', function () {
+          if ($(this).prop('checked') == true) {
+            $rootScope.userInfo.profileNames.push(jsonValue.authSource[0].provider.toUpperCase());
+          } else {
+            $rootScope.userInfo.profileNames.pop();
+          }
         });
       }
     };
