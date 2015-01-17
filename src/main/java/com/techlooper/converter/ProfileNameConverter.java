@@ -20,9 +20,7 @@ public class ProfileNameConverter extends DozerConverter<Map, Set> {
 
   public Map convertFrom(Set profileNames, Map profiles) {
     Set names = profiles.keySet();
-    profileNames.stream().filter(name -> !names.contains(name)).forEach(profileName -> {
-      profiles.put(profileName, null);
-    });
+    profileNames.stream().filter(name -> !names.contains(name)).forEach(profileName -> profiles.put(profileName, null));
     return profiles;
   }
 }
