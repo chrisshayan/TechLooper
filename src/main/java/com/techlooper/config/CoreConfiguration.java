@@ -100,6 +100,9 @@ public class CoreConfiguration {
 
         mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
           .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+
+        mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
       }
     });
     return dozerBeanMapper;

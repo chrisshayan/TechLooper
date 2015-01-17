@@ -1,10 +1,12 @@
 package com.techlooper.controller;
 
+import com.techlooper.model.SocialProvider;
 import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserInfo;
 import com.techlooper.model.VNWUserInfo;
 import com.techlooper.service.UserService;
 import com.techlooper.service.impl.VietnamworksUserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,9 +33,6 @@ public class UserController {
   @Resource
   private TextEncryptor textEncryptor;
 
-  @Resource
-  private VietnamworksUserService vietnamWorksUserService;
-
   @ResponseBody
   @RequestMapping(value = "/user/save", method = RequestMethod.POST)
   public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
@@ -40,12 +40,8 @@ public class UserController {
       httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
     else {
-      boolean registerResult = false;
-      if (userInfo.isRegisterVietnamworks()) {
-        VNWUserInfo vnwUserInfo = new VNWUserInfo(userInfo.getEmailAddress(), userInfo.getFirstName(), userInfo.getLastName());
-        registerResult = vietnamWorksUserService.register(vnwUserInfo);
-      }
-      userService.save(userInfo, registerResult);
+      userService.registerVietnamworksAccount(userInfo);
+      userService.save(userInfo);
     }
     return result.getFieldErrors();
   }

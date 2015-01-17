@@ -1,9 +1,9 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.SimpleUserProfile;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserInfo;
+import com.techlooper.model.VNWUserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.service.UserService;
 import org.dozer.Mapper;
@@ -34,12 +34,9 @@ public class UserServiceImpl implements UserService {
     userRepository.save(userEntity);
   }
 
-  public void save(UserInfo userInfo, boolean registerVietnamworks) {
+  public void save(UserInfo userInfo) {
     UserEntity userEntity = userRepository.findOne(userInfo.getId());
     dozerMapper.map(userInfo, userEntity);
-    if (registerVietnamworks) {
-      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, new SimpleUserProfile());
-    }
     userRepository.save(userEntity);
   }
 
@@ -62,5 +59,18 @@ public class UserServiceImpl implements UserService {
       userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
     }
     return result;
+  }
+
+  public boolean registerVietnamworksAccount(UserInfo userInfo) {
+    boolean userAgreeRegister = userInfo.getProfileNames().contains(SocialProvider.VIETNAMWORKS);
+    boolean registerSuccess = false;
+    if (userAgreeRegister) {
+      registerSuccess = vietnamworksUserService.register(
+        new VNWUserInfo(userInfo.getEmailAddress(), userInfo.getFirstName(), userInfo.getLastName()));
+    }
+    if (!registerSuccess) {
+      userInfo.getProfileNames().remove(SocialProvider.VIETNAMWORKS);
+    }
+    return registerSuccess;
   }
 }
