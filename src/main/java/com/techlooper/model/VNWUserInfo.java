@@ -5,37 +5,39 @@ package com.techlooper.model;
  */
 public class VNWUserInfo {
 
-    private String email;
-    private String firstname;
-    private String lastname;
+  private String email;
 
-    public VNWUserInfo(String email, String firstname, String lastname) {
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
+  private String firstname;
 
-    public String getEmail() {
-        return email;
-    }
+  private String lastname;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public VNWUserInfo(UserInfo userInfo) {
+    this.email = userInfo.getEmailAddress();
+    this.firstname = userInfo.getFirstName();
+    this.lastname = userInfo.getLastName();
+  }
 
-    public String getFirstname() {
-        return firstname;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getLastname() {
-        return lastname;
-    }
+  public String getFirstname() {
+    return firstname;
+  }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
 }

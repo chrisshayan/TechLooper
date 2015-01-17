@@ -115,4 +115,16 @@ public class UserInfo {
   public void setUsername(String username) {
     this.username = username;
   }
+
+  public boolean hasProfile(SocialProvider socialProvider) {
+    return profileNames.contains(socialProvider);
+  }
+
+  public boolean removeProfile(SocialProvider socialProvider) {
+    return profileNames.remove(socialProvider);
+  }
+
+  public boolean acceptRegisterVietnamworksAccount() {
+    return hasProfile(SocialProvider.VIETNAMWORKS);
+  }
 }

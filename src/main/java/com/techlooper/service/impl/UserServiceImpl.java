@@ -62,14 +62,10 @@ public class UserServiceImpl implements UserService {
   }
 
   public boolean registerVietnamworksAccount(UserInfo userInfo) {
-    boolean userAgreeRegister = userInfo.getProfileNames().contains(SocialProvider.VIETNAMWORKS);
     boolean registerSuccess = false;
-    if (userAgreeRegister) {
-      registerSuccess = vietnamworksUserService.register(
-        new VNWUserInfo(userInfo.getEmailAddress(), userInfo.getFirstName(), userInfo.getLastName()));
-    }
-    if (!registerSuccess) {
-      userInfo.getProfileNames().remove(SocialProvider.VIETNAMWORKS);
+    if (userInfo.acceptRegisterVietnamworksAccount() &&
+      !(registerSuccess = vietnamworksUserService.register(new VNWUserInfo(userInfo)))) {
+      userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
     }
     return registerSuccess;
   }
