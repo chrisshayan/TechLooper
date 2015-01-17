@@ -17,4 +17,6 @@ public interface UserService {
   UserInfo findUserInfoByKey(String key);
 
   UserEntity findUserEntityByKey(String key);
+
+  boolean verifyVietnamworksAccount(UserEntity userEntity);
 }

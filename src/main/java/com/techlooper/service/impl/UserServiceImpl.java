@@ -18,38 +18,49 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
-    private UserRepository userRepository;
+  @Resource
+  private UserRepository userRepository;
 
-    @Resource
-    private Mapper dozerMapper;
+  @Resource
+  private Mapper dozerMapper;
 
-    @Resource
-    private TextEncryptor textEncryptor;
+  @Resource
+  private TextEncryptor textEncryptor;
 
-    public void save(UserEntity userEntity) {
-        userRepository.save(userEntity);
+  @Resource
+  private VietnamworksUserService vietnamworksUserService;
+
+  public void save(UserEntity userEntity) {
+    userRepository.save(userEntity);
+  }
+
+  public void save(UserInfo userInfo, boolean registerVietnamworks) {
+    UserEntity userEntity = userRepository.findOne(userInfo.getId());
+    dozerMapper.map(userInfo, userEntity);
+    if (registerVietnamworks) {
+      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, new SimpleUserProfile());
     }
+    userRepository.save(userEntity);
+  }
 
-    public void save(UserInfo userInfo, boolean registerVietnamworks) {
-        UserEntity userEntity = userRepository.findOne(userInfo.getId());
-        dozerMapper.map(userInfo, userEntity);
-        if (registerVietnamworks) {
-            userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, new SimpleUserProfile());
-        }
-        userRepository.save(userEntity);
-    }
+  public UserEntity findById(String id) {
+    return userRepository.findOne(id);
+  }
 
-    public UserEntity findById(String id) {
-        return userRepository.findOne(id);
-    }
+  public UserInfo findUserInfoByKey(String key) {
+    return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
+  }
 
-    public UserInfo findUserInfoByKey(String key) {
-        return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
-    }
+  public UserEntity findUserEntityByKey(String key) {
+    String emailAddress = textEncryptor.decrypt(key);
+    return userRepository.findOne(emailAddress);
+  }
 
-    public UserEntity findUserEntityByKey(String key) {
-        String emailAddress = textEncryptor.decrypt(key);
-        return userRepository.findOne(emailAddress);
+  public boolean verifyVietnamworksAccount(UserEntity userEntity) {
+    boolean result = vietnamworksUserService.existUser(userEntity.getEmailAddress());
+    if (result) {
+      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
     }
+    return result;
+  }
 }
