@@ -24,47 +24,48 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Resource
-    private UserService userService;
+  @Resource
+  private UserService userService;
 
-    @Resource
-    private TextEncryptor textEncryptor;
+  @Resource
+  private TextEncryptor textEncryptor;
 
-    @Resource
-    private VietnamworksUserService vietnamWorksUserService;
+  @Resource
+  private VietnamworksUserService vietnamWorksUserService;
 
-    @ResponseBody
-    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
-    public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
-        if (result.getFieldErrorCount() > 0) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        } else {
-            boolean registerResult = false;
-            if (userInfo.isRegisterVietnamworks()) {
-                VNWUserInfo vnwUserInfo = new VNWUserInfo(userInfo.getEmailAddress(), userInfo.getFirstName(), userInfo.getLastName());
-                registerResult = vietnamWorksUserService.register(vnwUserInfo);
-            }
-            userService.save(userInfo, registerResult);
-        }
-        return result.getFieldErrors();
+  @ResponseBody
+  @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+  public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
+    if (result.getFieldErrorCount() > 0) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
-
-
-    @SendToUser("/queue/info")
-    @MessageMapping("/user/findByKey")
-    @ResponseBody
-    @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
-    public UserInfo getUserInfo(@CookieValue("techlooper.key") String techlooperKey/*, @DestinationVariable String username */) {
-        UserInfo userInfo = userService.findUserInfoByKey(techlooperKey);
-        userInfo.getLoginSource();
-        return userInfo;
+    else {
+      boolean registerResult = false;
+      if (userInfo.isRegisterVietnamworks()) {
+        VNWUserInfo vnwUserInfo = new VNWUserInfo(userInfo.getEmailAddress(), userInfo.getFirstName(), userInfo.getLastName());
+        registerResult = vietnamWorksUserService.register(vnwUserInfo);
+      }
+      userService.save(userInfo, registerResult);
     }
+    return result.getFieldErrors();
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
-    public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
-        if (!textEncryptor.encrypt(searchRequest.getEmailAddress()).equals(techlooperKey)) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }
+
+  @SendToUser("/queue/info")
+  @MessageMapping("/user/findByKey")
+  @ResponseBody
+  @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
+  public UserInfo getUserInfo(@CookieValue("techlooper.key") String techlooperKey/*, @DestinationVariable String username */) {
+    UserInfo userInfo = userService.findUserInfoByKey(techlooperKey);
+    userInfo.getLoginSource();
+    return userInfo;
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
+  public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
+    if (!textEncryptor.encrypt(searchRequest.getEmailAddress()).equals(techlooperKey)) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
+  }
 }

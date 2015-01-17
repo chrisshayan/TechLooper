@@ -9,6 +9,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
 import com.techlooper.service.UserService;
+import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.social.connect.support.OAuth1ConnectionFactory;

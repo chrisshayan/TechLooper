@@ -2,8 +2,11 @@ package com.techlooper.service.impl;
 
 import com.techlooper.model.VNWUserInfo;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.service.VietnamWorksUserService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
