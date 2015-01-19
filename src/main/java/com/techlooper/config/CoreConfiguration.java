@@ -2,10 +2,7 @@ package com.techlooper.config;
 
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
-import com.techlooper.entity.GitHubUserProfile;
-import com.techlooper.entity.LinkedInProfile;
-import com.techlooper.entity.TwitterProfile;
-import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.*;
 import com.techlooper.model.UserInfo;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -103,6 +100,9 @@ public class CoreConfiguration {
 
         mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
           .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+
+        mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
+
       }
     });
     return dozerBeanMapper;

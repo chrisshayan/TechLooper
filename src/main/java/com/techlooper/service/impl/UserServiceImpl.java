@@ -1,11 +1,12 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserInfo;
-import com.techlooper.model.VNWUserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.service.UserService;
+import com.techlooper.service.VietnamworksUserService;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.stereotype.Service;
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
   public boolean registerVietnamworksAccount(UserInfo userInfo) {
     boolean registerSuccess = false;
     if (userInfo.acceptRegisterVietnamworksAccount() &&
-      !(registerSuccess = vietnamworksUserService.register(new VNWUserInfo(userInfo)))) {
+      !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
       userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
     }
     return registerSuccess;

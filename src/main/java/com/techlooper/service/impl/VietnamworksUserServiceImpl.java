@@ -1,7 +1,8 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.model.VNWUserInfo;
+import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.service.VietnamworksUserService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
 import org.springframework.http.HttpEntity;
@@ -17,10 +18,10 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * @author khoa-nd
- * @see com.techlooper.service.impl.VietnamworksUserService
+ * @see com.techlooper.service.impl.VietnamworksUserServiceImpl
  */
 @Service
-public class VietnamworksUserService {
+public class VietnamworksUserServiceImpl implements VietnamworksUserService {
 
   private static final String RESPONSE_CODE_SUCCESS = "200";
 
@@ -43,8 +44,8 @@ public class VietnamworksUserService {
     return !responseBody.contains(ACCOUNT_STATUS_NEW);
   }
 
-  public boolean register(VNWUserInfo userInfo) {
-    final String userInfoParameters = JsonUtils.toJSON(userInfo).orElse(EMPTY);
+  public boolean register(VnwUserProfile userProfile) {
+    final String userInfoParameters = JsonUtils.toJSON(userProfile).orElse(EMPTY);
     HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(
       MediaType.APPLICATION_JSON, apiConfiguration.getApiKeyName(),
       apiConfiguration.getApiKeyValue(), userInfoParameters);

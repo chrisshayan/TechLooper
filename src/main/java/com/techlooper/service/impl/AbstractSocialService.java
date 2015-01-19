@@ -36,11 +36,11 @@ public abstract class AbstractSocialService implements SocialService {
 
   @Resource
   protected Mapper dozerBeanMapper;
+
   @Resource
   protected TextEncryptor textEncryptor;
+
   protected SocialConfig socialConfig;
-  @Resource
-  private VietnamworksUserService vietnamWorksUserService;
 
   public AbstractSocialService(JsonConfigRepository jsonConfigRepository, SocialProvider socialProvider) {
     socialConfig = jsonConfigRepository.getSocialConfig().stream()

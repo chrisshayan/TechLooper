@@ -1,21 +1,20 @@
-package com.techlooper.model;
+package com.techlooper.entity;
+
+import org.dozer.Mapping;
 
 /**
- * Created by NguyenDangKhoa on 1/14/15.
+ * Created by phuonghqh on 1/19/15.
  */
-public class VNWUserInfo {
+public class VnwUserProfile extends UserProfile {
 
+  @Mapping("emailAddress")
   private String email;
 
+  @Mapping("firstName")
   private String firstname;
 
+  @Mapping("lastName")
   private String lastname;
-
-  public VNWUserInfo(UserInfo userInfo) {
-    this.email = userInfo.getEmailAddress();
-    this.firstname = userInfo.getFirstName();
-    this.lastname = userInfo.getLastName();
-  }
 
   public String getEmail() {
     return email;
