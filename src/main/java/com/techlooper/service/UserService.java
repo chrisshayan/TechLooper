@@ -10,11 +10,15 @@ public interface UserService {
 
   void save(UserEntity userEntity);
 
-  void save(UserInfo userInfo, boolean registerVietnamworks);
+  void save(UserInfo userInfo);
 
   UserEntity findById(String id);
 
   UserInfo findUserInfoByKey(String key);
 
   UserEntity findUserEntityByKey(String key);
+
+  boolean verifyVietnamworksAccount(UserEntity userEntity);
+
+  boolean registerVietnamworksAccount(UserInfo userInfo);
 }

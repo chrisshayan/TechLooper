@@ -1,7 +1,5 @@
 package com.techlooper.model;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by phuonghqh on 12/12/14.
  */
