@@ -70,4 +70,8 @@ public class UserServiceImpl implements UserService {
     }
     return registerSuccess;
   }
+
+  public boolean addCrawledUser(UserInfo userInfo) {
+    return false;
+  }
 }

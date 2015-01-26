@@ -21,4 +21,6 @@ public interface UserService {
   boolean verifyVietnamworksAccount(UserEntity userEntity);
 
   boolean registerVietnamworksAccount(UserInfo userInfo);
+
+  boolean addCrawledUser(UserInfo userInfo);
 }
