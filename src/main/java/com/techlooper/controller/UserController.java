@@ -29,7 +29,7 @@ public class UserController {
   private TextEncryptor textEncryptor;
 
   @ResponseBody
-  @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+  @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserInfo userInfo, HttpServletResponse httpServletResponse) {
     httpServletResponse.setStatus(userService.addCrawledUser(userInfo) ? HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
   }
