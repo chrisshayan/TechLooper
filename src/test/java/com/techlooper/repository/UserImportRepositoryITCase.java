@@ -6,7 +6,9 @@ import com.techlooper.entity.GitHubUserProfile;
 import com.techlooper.entity.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.elasticsearch.UserImportRepository;
+import com.techlooper.service.UserService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.DependsOn;
@@ -28,6 +30,9 @@ public class UserImportRepositoryITCase {
   @Resource
   private UserImportRepository userImportRepository;
 
+  @Resource
+  private UserService userService;
+
   @Before
   public void empty() {
     assertNotNull(userImportRepository);
@@ -37,7 +42,7 @@ public class UserImportRepositoryITCase {
   public void testAddUser() {
     UserImportEntity.UserImportEntityBuilder userImportEntityBuilder =
             UserImportEntity.UserImportEntityBuilder.userImportEntity(new UserImportEntity());
-    userImportEntityBuilder.withEmail("ndkhoa.is@gmail.com");
+    userImportEntityBuilder.withEmail("ndkhoa.fat@gmail.com");
     userImportEntityBuilder.withFullName("Khoa Nguyen");
     GitHubUserProfile gitHubUserProfile = new GitHubUserProfile();
     gitHubUserProfile.setEmail("ndkhoa.is@gmail.com");
@@ -59,6 +64,13 @@ public class UserImportRepositoryITCase {
   public void testUserProfiles() {
     UserImportEntity userImportEntity = userImportRepository.findOne("ndkhoa.is@gmail.com");
     assertNotNull(userImportEntity.getProfiles().get(SocialProvider.GITHUB));
+  }
+
+  @Test
+  @DependsOn("testAddUser")
+  public void testSearchUserImportByEmail() {
+    UserImportEntity userImportEntity = userService.findUserImportByEmail("ndkhoa.is@gmail.com");
+    assertNotNull(userImportEntity);
   }
 
 }

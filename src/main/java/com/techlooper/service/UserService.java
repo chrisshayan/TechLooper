@@ -1,6 +1,8 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserImportEntity;
+import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 
 /**
@@ -22,5 +24,7 @@ public interface UserService {
 
   boolean registerVietnamworksAccount(UserInfo userInfo);
 
-  boolean addCrawledUser(UserInfo userInfo);
+  boolean addCrawledUser(UserImportData userImportData);
+
+  UserImportEntity findUserImportByEmail(String email);
 }

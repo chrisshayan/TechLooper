@@ -1,14 +1,23 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserImportEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.repository.elasticsearch.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamworksUserService;
+import org.apache.lucene.queryparser.xml.FilterBuilder;
 import org.dozer.Mapper;
+import org.elasticsearch.index.query.*;
 import org.jasypt.util.text.TextEncryptor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
   @Resource
   private UserRepository userRepository;
+
+  @Resource
+  private UserImportRepository userImportRepository;
 
   @Resource
   private Mapper dozerMapper;
@@ -65,13 +77,50 @@ public class UserServiceImpl implements UserService {
   public boolean registerVietnamworksAccount(UserInfo userInfo) {
     boolean registerSuccess = false;
     if (userInfo.acceptRegisterVietnamworksAccount() &&
-      !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
+            !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
       userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
     }
     return registerSuccess;
   }
 
-  public boolean addCrawledUser(UserInfo userInfo) {
-    return false;
+  public boolean addCrawledUser(UserImportData userImportData) {
+    UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
+
+    if (userImportEntity != null) {
+      userImportEntity.getProfiles().put(userImportData.getCrawlerSource(), userImportData.getProfile());
+    } else {
+      userImportEntity = new UserImportEntity();
+      UserImportEntity.UserImportEntityBuilder userImportEntityBuilder =
+              UserImportEntity.UserImportEntityBuilder.userImportEntity(userImportEntity);
+      userImportEntityBuilder.withEmail(userImportData.getEmail());
+      userImportEntityBuilder.withFullName(userImportData.getFullName());
+      userImportEntityBuilder.withProfile(userImportData.getCrawlerSource(), userImportData.getProfile());
+      userImportEntityBuilder.withIsCrawled(true);
+    }
+
+    return userImportRepository.save(userImportEntity) != null;
+  }
+
+  public UserImportEntity findUserImportByEmail(String email) {
+    UserImportEntity userImportEntity = userImportRepository.findOne(email);
+
+    if (userImportEntity != null) {
+      return userImportEntity;
+    } else {
+//TODO: search for only primary email now, will update search in profiles email later
+//      QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(email, "email")
+//              .operator(MatchQueryBuilder.Operator.OR));
+//      SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
+//              .withFilter(queryFilterBuilder)
+//              .withPageable(new PageRequest(0, 10))
+//              .build();
+//      Page<UserImportEntity> result = userImportRepository.search(userSearchQuery);
+//      if (result.getNumberOfElements() > 0) {
+//        return result.getContent().get(0);
+//      } else {
+//        return null;
+//      }
+      return null;
+    }
   }
 }

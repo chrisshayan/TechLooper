@@ -1,6 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.model.SocialRequest;
+import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 import com.techlooper.service.UserService;
 import org.jasypt.util.text.TextEncryptor;
@@ -30,8 +31,8 @@ public class UserController {
 
   @ResponseBody
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
-  public void save(@RequestBody UserInfo userInfo, HttpServletResponse httpServletResponse) {
-    httpServletResponse.setStatus(userService.addCrawledUser(userInfo) ? HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+  public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
+    httpServletResponse.setStatus(userService.addCrawledUser(userImportData) ? HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
   }
 
   @ResponseBody

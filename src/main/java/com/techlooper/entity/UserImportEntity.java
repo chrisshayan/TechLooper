@@ -26,6 +26,8 @@ public class UserImportEntity {
   @Field(type = FieldType.Nested)
   private Map<SocialProvider, Object> profiles = new HashMap<>();
 
+  private boolean isCrawled;
+
   public String getEmail() {
     return email;
   }
@@ -48,6 +50,14 @@ public class UserImportEntity {
 
   public void setProfiles(Map<SocialProvider, Object> profiles) {
     this.profiles = profiles;
+  }
+
+  public boolean isCrawled() {
+    return isCrawled;
+  }
+
+  public void setCrawled(boolean isCrawled) {
+    this.isCrawled = isCrawled;
   }
 
   public static class UserImportEntityBuilder {
@@ -75,6 +85,11 @@ public class UserImportEntity {
 
     public UserImportEntityBuilder withProfile(SocialProvider provider, Object profile) {
       userImportEntity.profiles.put(provider, profile);
+      return this;
+    }
+
+    public UserImportEntityBuilder withIsCrawled(boolean isCrawled) {
+      userImportEntity.isCrawled = isCrawled;
       return this;
     }
 
