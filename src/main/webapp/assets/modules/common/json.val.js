@@ -6,7 +6,9 @@ angular.module("Common").constant("jsonValue", {
   },
 
   storage: {
-    key: "key"
+    key: "key",
+    back2Me: "back2Me",
+    navigation: "navigation"
   },
 
   histograms: {
@@ -15,9 +17,13 @@ angular.module("Common").constant("jsonValue", {
     sixBlocksOfFifteenDays: "SIX_BLOCKS_OF_FIFTEEN_DAYS",
     oneMonth: "ONE_MONTH",
     eighteenBlocksOfFiveDays: "EIGHTEEN_BLOCKS_OF_FIVE_DAYS",
+    sixMonths: "SIX_MONTHS",
+    oneYear: "ONE_YEAR",
     twoWeeks: "TWO_WEEKS",
     twoMonths: "TWO_MONTHS",
-    twoQuarters: "TWO_QUARTERS"
+    twoQuarters: "TWO_QUARTERS",
+    twoSixMonths: "TWO_SIX_MONTHS",
+    twoYears: "TWO_YEARS"
   },
 
   notifications: {
@@ -27,9 +33,17 @@ angular.module("Common").constant("jsonValue", {
     gotData: "Got Data",
     changeLang: "Change language",
     changeUrl: "Change URL",
-    loading: "loading",
-    loaded: "loaded",
-    loginSuccess: "login success"
+    loading: "Loading",
+    loaded: "Loaded",
+    loginSuccess: "Login success",
+    loginFailed: "Login failed",
+    userInfo: "User info",
+    notUserInfo: "Not get User info",
+    hideLoadingBox: "Hide loading box",
+    http404: "HTTP code 404",
+    logoutSuccess: "Logout success",
+    cleanSession: "Clean session",
+    serverError: "Server error"
   },
 
   viewTerms: {
@@ -158,7 +172,10 @@ angular.module("Common").constant("jsonValue", {
   httpUri: {
     user: "user",
     userSave: "user/save",
-    logout: "logout"
+    login: "login",
+    logout: "logout",
+    verifyUserLogin: "user/verifyUserLogin",
+    getUserInfoByKey: "user/findByKey"
   },
 
   socketUri: {
@@ -174,8 +191,8 @@ angular.module("Common").constant("jsonValue", {
     analyticsSkill: "/app/analytics/skill",
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
-    getUserInfoByKey: "/app/userInfo/key",
-    subscribeUserInfoByKey: "/topic/userInfo/key"
+    getUserInfoByKey: "/app/user/findByKey",
+    subscribeUserInfo: "/user/queue/info"
   },
 
 
@@ -272,8 +289,7 @@ angular.module("Common").constant("jsonValue", {
       provider: "vietnamworks",
       logo: "images/vietnamwork.png",
       magnitude: "level1",
-      bgcolor: "#1fbaec",
-      isNotSupported: true
+      bgcolor: "#1fbaec"
     },
     {
       provider: "linkedin",

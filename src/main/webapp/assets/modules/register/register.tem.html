@@ -1,73 +1,86 @@
 <div class="signin-page">
-  <div class="signin-header">
-    <div class="col-md-4 logo-block">
+  <div class="sub-page-header">
+    <div class="logo-block">
       <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
       <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
+
+      <div class="tech-line">
+        <h2 translate>tagLine</h2>
+      </div>
     </div>
-    <div class="col-md-4 tech-line">
-      <h2 translate>tagLine</h2>
-    </div>
-    <div class="col-md-4 close-button">
+    <div class="close-button">
       <a class="btn-close" title="Close">X</a>
     </div>
   </div>
   <div class="register-contianer">
     <div class="register-form-block">
-      <h2><span>Confirm Information</span></h2>
+      <h2><span>{{ 'confirmInformation' | translate }}</span></h2>
 
       <div class="row">
         <div class="col-md-6 first">
-          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="First Name" value="">
+          <input ng-model="userInfo.firstName" class="firstName" type="text" placeholder="{{ 'firstName' | translate }}"
+                 value="">
         </div>
         <div class="col-md-6">
-          <input ng-model="userInfo.lastName"  class="lastName" type="text" placeholder="Last Name" value="">
+          <input ng-model="userInfo.lastName" class="lastName" type="text" placeholder="{{ 'lastName' | translate }}"
+                 value="">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <input  ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="Email" disabled="disabled" value="trinh.pham@navigosgroup.com">
+          <input ng-model="userInfo.emailAddress" class="emailAddress" type="text" placeholder="{{ 'emailAddress' | translate }}">
         </div>
       </div>
-      <!--<div class="row technical-skill">-->
-        <!--<p>Choose Your Skills:</p>-->
-        <!--<ul>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Java</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>.Net</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>PHP</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Ruby</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Python</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>DBA</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>BA</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>QA</label></li>-->
-          <!--<li><label><input type="checkbox" class="checkbox"/>Project Manager</label></li>-->
-        <!--</ul>-->
-      <!--</div>-->
       <div class="row your-salary">
-        <p>Choose Your salary:</p>
+        <p>{{ 'chooseYourSalary' | translate }} :</p>
+
         <div class="salary-range-block">
-          <select class="salary" ng-model="userInfo.salary" ng-options="option.value as option.label for option in salaryOptions">
+          <select class="salary" ng-model="userInfo.salary"
+                  ng-options="option.value as option.label for option in salaryOptions">
           </select>
         </div>
       </div>
+      <div class="row vietnamworks-profile">
+        <div class="col-md-12" ng-if="hasProfile(authSource[0])">
+          <input type="checkbox" checked disabled> {{ 'alreadyRegisteredVietnamworks' | translate }} <a href="http://www.vietnamworks.com/" target="_blank">Vietnamworks</a>.
+        </div>
+      </div>
+      <div class="row vietnamworks-profile" ng-if="!hasProfile(authSource[0])">
+        <div class="col-md-12">
+            <label>
+                <input type="checkbox" ng-model="userInfo.registerVietnamworks" checked/>
+                    {{ 'registerVietnamworksQuestion' | translate }} <a href="http://www.vietnamwos.com/sign-up" target="_blank">Vietnamworks</a> ?
+            </label>
+        </div>
+      </div>
+      <div class="row terms-conditions">
+        <a data-toggle="modal" data-target="#terms-conditions">{{ 'termAndCondition' | translate }}</a>
+      </div>
       <div class="row submit">
-        <a class="register-successful">Continues</a>
+        <a class="register-successful">{{ 'continue' | translate }}</a>
       </div>
       <div class="row other-accounts">
-        <h3>Allow us to connect</h3>
+        <h3>{{ 'allowUsToConnect' | translate }}</h3>
         <ul>
           <li ng-repeat="auth in authSource">
-              <!--<span ng-if="item.site == 'LinkedIn'">-->
-                  <!--<span class="active" ng-style="{'background-color': item.bgcolor}">-->
-                    <!--<img ng-src="{{item.logo}}" alt="">-->
-                  <!--</span>-->
-              <!--</span>-->
-             <!--<span ng-if="item.site != 'LinkedIn'">-->
-                <span  ng-if="auth.isNotSupported === undefined">
-                  <a ng-click="openOathDialog(auth)" class="{{auth.provider}}"><img ng-src="{{auth.logo}}" alt=""></a>
-                </span>
-            <!--</span>-->
+              <span ng-if="auth.isNotSupported === undefined" ng-class="hasProfile(auth) ? 'active' : 'inactive'">
+                <a ng-click="openOathDialog(auth)" ng-class="auth.provider"><img ng-src="{{auth.logo}}" alt=""></a>
+              </span>
           </li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="terms-conditions" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+        <h4 class="modal-title" id="myModalLabel">Terms and Conditions</h4>
+      </div>
+      <div class="modal-body">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </div>
     </div>
   </div>

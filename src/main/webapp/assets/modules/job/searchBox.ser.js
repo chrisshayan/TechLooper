@@ -1,12 +1,17 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory, navigationService) {
   var scope, searchText, textArray;
 
   var $$ = {
+    translation: function() {
+      $translate("enterText2Search").then(function (translation) {
+        searchText.setPlaceholder(translation);
+      });
+    },
+
     doSearch: function () {
       // TODO: #1 - change the body background to white
       $('body').css("background-color", "#eeeeee");
       $location.path(jsonValue.routerUris.jobsSearch + "/" + searchText.getValue());
-      scope.$apply();
     },
 
     alignButtonSearch: function () {
@@ -24,11 +29,12 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       });
     },
 
-    enableNotifications: function() {
-      return $('.searchText').is(":visible");
+    enableNotifications: function () {
+      return [jsonValue.views.jobsSearch, jsonValue.views.jobsSearchText].indexOf(utils.getView()) >= 0;
     },
 
     initializeSearchTextbox: function ($scope, $textArray) {
+      $('.search-block').css('min-height', $(window).height());
       utils.sendNotification(jsonValue.notifications.gotData);
       scope = $scope;
       textArray = $textArray;
@@ -71,9 +77,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
         }
       })[0].selectize;
 
-      $translate("searchTextPlaceholder").then(function(translation){
-        searchText.setPlaceholder(translation);
-      });
+      $$.translation();
 
       if ($.isArray(textArray)) {
         var options = [];
@@ -94,8 +98,20 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
 
       $('.btn-search').click($$.doSearch);
 
-      $('.btn-close').click(function(){shortcutFactory.trigger('esc');});
-      $('.btn-logo').click(function(){shortcutFactory.trigger('esc');});
+      $('.btn-close').click(function () {
+        shortcutFactory.trigger('esc');
+        var view = utils.getView();
+        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
+          navigationService.restoreNaviStyle();
+        }
+      });
+      $('.btn-logo').click(function () {
+        shortcutFactory.trigger('esc');
+        var view = utils.getView();
+        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
+          navigationService.restoreNaviStyle();
+        }
+      });
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,
@@ -107,7 +123,7 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
   }
 
   var instance = {
-    getSearchText: function() {
+    getSearchText: function () {
       return searchText;
     },
 
@@ -137,10 +153,19 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         });
       });
+    },
+
+    updateNavi: function(){
+      $('.navi-container').find('li').removeClass('active');
+      $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+      $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+
     }
   }
 
   utils.registerNotification(jsonValue.notifications.switchScope, $$.initializeSearchTextbox, $$.enableNotifications);
   utils.registerNotification(jsonValue.notifications.defaultAction, $$.doSearch, $$.enableNotifications);
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.translation, $$.enableNotifications);
+
   return instance;
 });

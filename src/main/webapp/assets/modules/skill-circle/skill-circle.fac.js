@@ -2,7 +2,7 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
   var circles = [];
 
   var $$ = {
-    clear: function() {
+    clear: function () {
       circles.length = 0;
     },
 
@@ -59,14 +59,10 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
       }
     },
 
-    enableNotifications: function() {
-      return $(".top10Circles").is(":visible");
-    },
-
-    hoverTermUseful: function(){
-      $('.term-infor').on('click mouseover', function(){
+    hoverTermUseful: function () {
+      $('.term-infor').on('click mouseover', function () {
         $(this).find('.v-mobile').show();
-      }).mouseleave(function(){
+      }).mouseleave(function () {
         $(this).find('.v-mobile').hide();
       });
     }
@@ -78,20 +74,21 @@ angular.module("Skill").factory("skillCircleFactory", function (jsonValue, utils
     renderView: function (viewJson) {
       $$.renderCircles(viewJson);
       $$.renderTermBox(viewJson);
-      $('.skill-circle-item').on('click mouseover', function(){
+      $('.skill-circle-item').on('click mouseover', function () {
         utils.sendNotification(jsonValue.notifications.mouseHover, $(this).find('.skill-name').text());
         $(this).find('.skill-useful-links').show();
-      }).mouseleave(function(){
+      }).mouseleave(function () {
         $(this).find('.skill-useful-links').hide();
       });
-      if($(window).width() < 768){
+      if ($(window).width() < 768) {
         $('.term-infor .term-useful-links').addClass('v-mobile');
       }
       $(window).resize(function () {
         var w = $(window).width();
-        if(w > 767){
+        if (w > 767) {
           $('.term-infor .term-useful-links').removeClass('v-mobile');
-        }else{
+        }
+        else {
           $('.term-infor .term-useful-links').addClass('v-mobile');
         }
       });

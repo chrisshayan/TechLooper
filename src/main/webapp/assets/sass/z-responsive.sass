@@ -1,4 +1,6 @@
 @media (min-width: 320px) and (max-width: 768px)
+  .register-form-block .first
+    padding-bottom: 20px !important
   .desktop
     display: none
   .mobile
@@ -17,48 +19,16 @@
     display: block
   .technical-header-block
     height: auto
-  .logo-block
-    width: 80%
-    padding-top: 0
-  .logo-block img
-    width: 100%
-  .close-button
-    width: 20%
+  .sub-page-header
+    padding-bottom: 0
+    .logo-block
+      width: 70%
+    .logo-block img
+      max-width: 175px
+    .close-button
+      width: 30%
   .signin-signout-block
     width: 10%
-  .technical-header-block 
-    .close-button
-      padding-bottom: 10px !important
-      float: right
-  .search-logo-block 
-    .close-button
-      float: right
-  .search-logo-block 
-    .close-button a
-      width: 40px
-      height: 40px
-      line-height: 40px
-  .technical-header-block 
-    .close-button a
-      width: 40px
-      height: 40px
-      line-height: 40px
-  .logo
-    width: 100%
-    padding: 5px 5px 5px 0
-    position: relative
-    img
-      width: auto
-      max-height: 60px
-      position: absolute
-      left: 0
-      top: 0
-      right: 0
-      bottom: 0
-    h1
-      line-height: 0
-      margin: 0
-      padding: 0
 
   .bubble-chart-block
     width: 65%
@@ -303,25 +273,20 @@
     bottom: 35px
   .signin-accounts .bg7
     width: 80px
-  .register-container
-    .register-form-block
-      .col-md-6
-        width: 50%
-        float: left
-        padding: 0
-      h2
-        padding-left: 10px
-      .col-md-6.first
-        padding-right: 10px
-      .col-md-12
-        padding-right: 0
-      .technical-skill ul li
-        min-width: inherit
+
   .register-container
     padding-top: 10px
     .register-form-block 
       .row
         padding: 10px
+  .register-contianer
+    .register-form-block
+      .salary-range-block
+        float: left
+        padding-right: 5px
+        select
+          width: 100%
+          float: right
   .slider.slider-horizontal
     width: 210px
   .modal-dialog
@@ -375,8 +340,6 @@
 @media (min-width: 778px)
   .fa-bars
     display: none
-  .logo-block
-    height: auto
   .logo-block img
     position: inherit
 
@@ -390,8 +353,16 @@
       display: table-cell
       padding: 5px 10px
       text-align: center
-@media (max-width: 440px)
-  .logo-block
-    width: 75%
-    img
+@media (max-width: 460px)
+  .logo-block img
+    max-width: 55% !important
+    padding-top: 8px
+  .sub-page-header
+    .logo-block img
       max-width: 85% !important
+  .languages-block
+    display: none
+  .main-navi-block
+    .navi-container
+      .d-languages-block
+        display: block

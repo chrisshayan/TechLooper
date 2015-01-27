@@ -7,7 +7,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
   var $$ = {
     enableNotifications: function () {
-      return $(".pie-Chart-Container").is(":visible");
+      return utils.getView() === jsonValue.views.pieChart;
     },
 
     generateChartData: function ($terms) {
@@ -20,7 +20,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       data4PieChart.labels = terms.toArray("label");
     },
 
-    switchScope: function($scope) {
+    switchScope: function ($scope) {
       scope = $scope;
       data4PieChart = {colors: [], data: [], labels: [], terms: []};
     }
@@ -106,7 +106,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       $('text[text-anchor=end]').css('display', 'none');
     },
 
-    updateViewTerm: function(term) {
+    updateViewTerm: function (term) {
       Highcharts.charts[0].series[0]
         .data[data4PieChart.terms.indexOf(term.term)].update([term.term, term.count]);
     }

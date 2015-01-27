@@ -1,44 +1,41 @@
-<div class="row technical-detail-page">
-    <div class="row technical-header-block">
-        <div class="col-md-4 logo-block">
-            <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
-            <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
-        </div>
-        <div class="col-md-4 tech-line">
-            <h2 translate>tagLine</h2>
-        </div>
-        <div class="col-md-4 close-button">
-            <a class="btn-close" title="Close">X</a>
-        </div>
-    </div>
-    <div class="row technical-contianer-block">
-        <div class="row">
-            <div class="col-md-3 skill-items-block">
-                <skillcircle view-json="viewJson"></skillcircle>
-            </div>
-            <div class="col-md-9 trending-block">
-                <div class="row">
-                    <div class="chart-management">
-                        <ul>
-                            <li data-period="week">
-                                <i class="fa"></i>{{'week' | translate}}
-                            </li>
-                            <li data-period="month">
-                                <i class="fa"></i>{{'month' | translate}}
-                            </li>
-                            <li data-period="quarter">
-                                <i class="fa"></i>{{'quarter' | translate}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div skillchart></div>
-                    <skilltable view-json="viewJson"></skilltable>
-                </div>
-            </div>
+<div class="sub-page-header">
+  <div class="logo-block">
+    <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
+    <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
 
-        </div>
+    <div class="tech-line">
+      <h2 translate>tagLine</h2>
     </div>
-    
+  </div>
+  <div class="close-button">
+    <a class="btn-close" title="Close">X</a>
+  </div>
+</div>
+<div class="technical-detail-page">
+  <div class="row technical-contianer-block">
+    <div class="col-md-3 skill-items-block">
+      <skillcircle view-json="viewJson"></skillcircle>
+    </div>
+    <div class="col-md-9 trending-block">
+      <div class="row">
+        <div class="chart-management">
+          <ul>
+            <li data-period="quarter">
+              <i class="fa"></i>{{'quarter' | translate}}
+            </li>
+            <li data-period="sixMonths">
+              <i class="fa"></i>{{'6 Months' | translate}}
+            </li>
+            <li data-period="oneYear">
+              <i class="fa"></i>{{'year' | translate}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div skillchart></div>
+        <skilltable view-json="viewJson"></skilltable>
+      </div>
+    </div>
+  </div>
 </div>

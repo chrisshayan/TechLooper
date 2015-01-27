@@ -1,0 +1,27 @@
+<div>
+<div class="main-navi-block">
+  <div class="manager-navi">
+    <i class="fa fa-bars"></i>
+  </div>
+  <div class="navi-container">
+    <ul>
+      <li>
+        <a class="m-chart" title="{{'homepage' | translate}}"/>
+      </li>
+      <li ng-show="userInfo !== undefined"><a href="#/register" class="m-user-profile" title="{{'userProfile' | translate}}"><img ng-src="{{userInfo.profileImageUrl}}" alt=""/></a></li>
+      <li><a href="#/jobs/search" class="m-search-jobs" title="{{'findjobs' | translate}}"></a></li>
+      <li>
+        <div class="d-languages-block">
+          <translation></translation>
+        </div>
+      </li>
+      <li><a class="sign-out-sign-in {{userInfo === undefined ? 'm-sign-in' : 'm-sign-out'}}"
+             title="{{userInfo === undefined ? ('signIn' | translate) : ('signOut' | translate)}}"></a></li>
+      <!--<li><a class="m-tour-guide infor-tour" title="Tour Guide"></a></li>-->
+    </ul>
+  </div>
+</div>
+  <div class="languages-block">
+    <translation></translation>
+  </div>
+</div>

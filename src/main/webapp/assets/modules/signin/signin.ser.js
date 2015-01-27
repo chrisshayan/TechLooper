@@ -1,65 +1,70 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService, $window, $http) {
-    //var scope;
+  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
+            $window, $http, connectionFactory, $rootScope, userService, navigationService) {
 
     var $$ = {
       enableNotifications: function () {
-        return $(".signin-contianer").is(":visible");
+        return utils.getView() === jsonValue.views.signIn;
+      },
+
+      loginFailed: function () {
+        // TODO: consider to use a "signing box"
+        utils.sendNotification(jsonValue.notifications.hideLoadingBox);
       }
     }
 
     var instance = {
-      initialize: function () {
-        //scope = $scope;
+      init: function () {},
 
-        if (localStorageService.get(jsonValue.storage.key)) {//already sign-in
-          $location.path("/");
+      initialize: function () {
+        utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+
+        // check if user already login
+        if (userService.verifyUserSession()) {
+          connectionFactory.verifyUserLogin()
+            .then(function () {utils.sendNotification(jsonValue.notifications.loginSuccess);})
+            .catch(function () {utils.sendNotification(jsonValue.notifications.loginFailed);});
+        }
+        else {
+          utils.sendNotification(jsonValue.notifications.hideLoadingBox);
         }
 
         $('.signin-accounts').parallax();
 
         $('.btn-close').click(function () {
           shortcutFactory.trigger('esc');
+          navigationService.backtoSearchPage('sign-out-sign-in');
         });
 
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
+          var view = utils.getView();
+          navigationService.backtoSearchPage('sign-out-sign-in');
         });
 
         $(".signin-popup-close").on('click', function () {
           $('#signin-form').modal('hide');
         });
 
-        //$('.sign-successful').on('click', function () {
-        //  $location.path(jsonValue.routerUris.register);
-        //  $scope.$apply();
-        //});
-
         tourService.makeTourGuide();
       },
 
       openOathDialog: function (auth) {
         if (auth.isNotSupported) {return alert("Sign-in by " + auth.provider.toUpperCase() + " isn't supported");}
-        utils.sendNotification(jsonValue.notifications.loading, $(".signin-page").height());
+        utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
             delete $window.localStorage["satellizer_token"];
-            localStorageService.set(jsonValue.storage.key, resp.data.key);
-            $http.post("login", $.param({key: resp.data.key}), {headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
-              .success(function() {
-                $location.path(jsonValue.routerUris.register);
-              })
-              .error(function() {
-                //TODO: invalid user credential
-                utils.sendNotification(jsonValue.notifications.loaded);
-              });
+            localStorageService.cookie.set(jsonValue.storage.key, resp.data.key);
+            connectionFactory.login();
           })
-          .catch(function(resp) {
+          .catch(function (resp) {
             utils.sendNotification(jsonValue.notifications.loaded);
           });
       }
     };
 
-    //utils.registerNotification(jsonValue.notifications.switchScope, $$.initialize, $$.enableNotifications);
+    //utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
+    utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
     return instance;
   });

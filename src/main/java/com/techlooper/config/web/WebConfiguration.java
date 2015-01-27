@@ -8,18 +8,14 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.techlooper.controller"})
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfiguration extends WebMvcConfigurerAdapter {
 
   @Resource
   private Environment environment;
@@ -45,9 +41,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             /*
              * .addResolver(new CachingResourceResolver(cacheManager,
              * "default"))
-             */.addResolver(new GzipResourceResolver())
+             */.addResolver(new GzipResourceResolver());
       // .addTransformer(new CachingResourceTransformer(cacheManager,
       // "default"))
-      .addTransformer(new CssLinkResourceTransformer());
+//      .addTransformer(new CssLinkResourceTransformer());
   }
 }

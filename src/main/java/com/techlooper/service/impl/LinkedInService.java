@@ -6,6 +6,8 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserEntity.UserEntityBuilder;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -25,6 +27,7 @@ import static com.techlooper.model.SocialProvider.LINKEDIN;
  */
 
 @Service("LINKEDINService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class LinkedInService extends AbstractSocialService {
 
   @Resource
@@ -45,23 +48,5 @@ public class LinkedInService extends AbstractSocialService {
     LinkedInProfile liProfile = dozerBeanMapper.map(profile, LinkedInProfile.class);
     liProfile.setAccessGrant(accessGrant);
     return liProfile;
-  }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    LinkedInProfile profileEntity = (LinkedInProfile) getProfile(accessGrant);
-    UserEntity entity = Optional.ofNullable(userService.findById(profileEntity.getEmailAddress())).orElse(new UserEntity());
-    UserEntityBuilder builder = userEntity(entity)
-      .withProfile(LINKEDIN, profileEntity)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(entity.getEmailAddress()).isPresent()) {
-      builder.withId(profileEntity.getEmailAddress())
-        .withLoginSource(LINKEDIN)
-        .withFirstName(profileEntity.getFirstName())
-        .withLastName(profileEntity.getLastName())
-        .withEmailAddress(profileEntity.getEmailAddress())
-        .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmailAddress()));
-    }
-    userService.save(entity);
-    return entity;
   }
 }

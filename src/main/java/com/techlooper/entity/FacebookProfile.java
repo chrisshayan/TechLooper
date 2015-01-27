@@ -46,6 +46,15 @@ public class FacebookProfile extends UserProfile implements Serializable {
   private List<WorkEntry> work;
   private List<EducationEntry> education;
   private AgeRange ageRange;
+  private String profileImageUrl;
+
+  public String getProfileImageUrl() {
+    return profileImageUrl;
+  }
+
+  public void setProfileImageUrl(String profileImageUrl) {
+    this.profileImageUrl = profileImageUrl;
+  }
 
   public String getId() {
     return id;

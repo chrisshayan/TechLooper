@@ -1,9 +1,9 @@
 package com.techlooper.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,97 +11,118 @@ import java.util.Set;
  */
 public class UserInfo {
 
-  private String id;
+    private String id;
 
-  @NotEmpty
-  private String emailAddress;
+    @NotNull
+    @Email
+    private String emailAddress;
 
-  @NotEmpty
-  private String firstName;
+    @NotEmpty
+    private String firstName;
 
-  @NotEmpty
-  private String lastName;
+    @NotEmpty
+    private String lastName;
 
-  private SocialProvider loginSource;
+    private SocialProvider loginSource;
 
-  private String key;
+    private String key;
 
-  private String username;
+    private String username;
 
-  private Set<SocialProvider> profileNames;
+    private Set<SocialProvider> profileNames;
 
-  @NotNull
-  private Integer salary;
+    @NotNull
+    private Integer salary;
 
-  public Integer getSalary() {
-    return salary;
-  }
+    private String profileImageUrl;
 
-  public void setSalary(Integer salary) {
-    this.salary = salary;
-  }
+    private boolean registerVietnamworks;
 
-  public Set<SocialProvider> getProfileNames() {
-    return profileNames;
-  }
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
 
-  public void setProfileNames(Set<SocialProvider> profileNames) {
-    this.profileNames = profileNames;
-  }
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 
-  public String getId() {
-    return id;
-  }
+    public Integer getSalary() {
+        return salary;
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
 
-  public String getEmailAddress() {
-    return emailAddress;
-  }
+    public Set<SocialProvider> getProfileNames() {
+        return profileNames;
+    }
 
-  public void setEmailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
-  }
+    public void setProfileNames(Set<SocialProvider> profileNames) {
+        this.profileNames = profileNames;
+    }
 
-  public String getFirstName() {
-    return firstName;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public String getLastName() {
-    return lastName;
-  }
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 
-  public SocialProvider getLoginSource() {
-    return loginSource;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public void setLoginSource(SocialProvider loginSource) {
-    this.loginSource = loginSource;
-  }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-  public String getKey() {
-    return key;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public void setKey(String key) {
-    this.key = key;
-  }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public SocialProvider getLoginSource() {
+        return loginSource;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public void setLoginSource(SocialProvider loginSource) {
+        this.loginSource = loginSource;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean isRegisterVietnamworks() {
+        return registerVietnamworks;
+    }
+
+    public void setRegisterVietnamworks(boolean registerVietnamworks) {
+        this.registerVietnamworks = registerVietnamworks;
+    }
 }

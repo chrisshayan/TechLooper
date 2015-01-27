@@ -1,5 +1,5 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils) {
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, navigationService) {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
     $scope.search = {
       jobs: [],
@@ -20,7 +20,8 @@ angular.module('Jobs').controller('searchResultController',
       search.total = data.total;
       search.jobs = search.jobs.concat(data.jobs);
       search.busy = false;
-      $scope.$apply();
+      utils.apply();
+
       $(".job-title").dotdotdot({
         height: 23
       });
@@ -67,4 +68,6 @@ angular.module('Jobs').controller('searchResultController',
     }
 
     searchBoxService.changeBodyColor();
+    navigationService.addSpaceforNavi();
+    navigationService.keepNaviBar();
   });

@@ -1,16 +1,17 @@
-<div class="signin-page">
-  <div class="signin-header">
-    <div class="col-md-4 logo-block">
-      <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
-      <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
-    </div>
-    <div class="col-md-4 tech-line">
+<div class="sub-page-header">
+  <div class="logo-block">
+    <img ng-src="images/techlooper-logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo desktop">
+    <img ng-src="images/logo.png" alt="Career Analytics. Open Source. Awesome!" class="btn-logo mobile">
+
+    <div class="tech-line">
       <h2 translate>tagLine</h2>
     </div>
-    <div class="col-md-4 close-button">
-      <a class="btn-close" title="Close">X</a>
-    </div>
   </div>
+  <div class="close-button">
+    <a class="btn-close" title="Close">X</a>
+  </div>
+</div>
+<div class="signin-page">
   <div class="signin-contianer">
     <ul class="signin-accounts hi-icon-effect-1 hi-icon-effect-1a">
       <li class="layer" data-depth="0.20">
@@ -33,48 +34,47 @@
       </li>
       <li class="layer" data-depth="0.20" ng-repeat="auth in authSource">
         <!--<span ng-if="auth.isNotSupported === true">-->
-          <!--<div class="signin-account {{auth.magnitude}}" style="background-color: #9c9c9c">-->
-              <!--<a>-->
-                <!--<img ng-src="{{auth.logo}}" alt="">-->
-              <!--</a>-->
-          <!--</div>-->
+        <!--<div class="signin-account {{auth.magnitude}}" style="background-color: #9c9c9c">-->
+        <!--<a>-->
+        <!--<img ng-src="{{auth.logo}}" alt="">-->
+        <!--</a>-->
+        <!--</div>-->
         <!--</span>-->
-        <span  ng-if="auth.isNotSupported === undefined">
-          <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
-            <a ng-click="openOathDialog(auth)" class="hi-icon"><img ng-src="{{auth.logo}}" alt=""></a>
-          </div>
-        </span>
+          <span ng-if="auth.isNotSupported === undefined">
+            <div class="signin-account {{auth.magnitude}}" ng-style="{'background-color': auth.bgcolor}">
+              <a ng-click="openOathDialog(auth)" class="hi-icon"><img ng-src="{{auth.logo}}" alt=""></a>
+            </div>
+          </span>
 
       </li>
     </ul>
   </div>
 </div>
-
 <!--<div id="signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-body">-->
-        <!--<div class="signin-popup">-->
-          <!--<div class="signin-popup-header">-->
-            <!--<a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/jobseekers/logo.png"-->
-                                                        <!--alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>-->
-          <!--</div>-->
-          <!--<div class="signin-form-content">-->
-            <!--<div class="signin-field">-->
-              <!--<label for="txtUserName">User Name:</label>-->
-              <!--<input type="text" id="txtUserName" class="form-control">-->
-            <!--</div>-->
-            <!--<div class="signin-field has-error">-->
-              <!--<label for="txtPassword">Password:</label>-->
-              <!--<input type="password" id="txtPassword" class="form-control">-->
-            <!--</div>-->
-            <!--<div class="signin-field">-->
-              <!--<button class="btn btn-primary sign-successful">Continues</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
+<!--<div class="modal-dialog">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-body">-->
+<!--<div class="signin-popup">-->
+<!--<div class="signin-popup-header">-->
+<!--<a href="http://www.vietnamworks.com/"><img src="http://images.vietnamworks.com/img/jobseekers/logo.png"-->
+<!--alt="Vietnamworks - Job Search, career and employment in Vietnam"></a>-->
+<!--</div>-->
+<!--<div class="signin-form-content">-->
+<!--<div class="signin-field">-->
+<!--<label for="txtUserName">User Name:</label>-->
+<!--<input type="text" id="txtUserName" class="form-control">-->
+<!--</div>-->
+<!--<div class="signin-field has-error">-->
+<!--<label for="txtPassword">Password:</label>-->
+<!--<input type="password" id="txtPassword" class="form-control">-->
+<!--</div>-->
+<!--<div class="signin-field">-->
+<!--<button class="btn btn-primary sign-successful">Continues</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->

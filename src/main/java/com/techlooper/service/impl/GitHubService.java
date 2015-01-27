@@ -1,7 +1,10 @@
 package com.techlooper.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.*;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.github.api.GitHub;
@@ -22,6 +25,7 @@ import static com.techlooper.model.SocialProvider.GITHUB;
  * Created by phuonghqh on 12/16/14.
  */
 @Service("GITHUBService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class GitHubService extends AbstractSocialService {
 
   @Resource
@@ -39,25 +43,12 @@ public class GitHubService extends AbstractSocialService {
   public UserProfile getProfile(AccessGrant accessGrant) {
     Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
     com.techlooper.entity.GitHubUserProfile profile = dozerBeanMapper.map(connection.getApi().userOperations().getUserProfile(), com.techlooper.entity.GitHubUserProfile.class);
+    String profileImageUrl = connection.getApi().restOperations()
+      .getForObject(socialConfig.getApiUrl().get("users"), JsonNode.class, profile.getUsername()).get("avatar_url").asText();
+    profile.setProfileImageUrl(profileImageUrl);
     buildProfile(connection, profile);
     profile.setAccessGrant(accessGrant);
     return profile;
-  }
-
-  public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
-    UserEntity entity = userService.findUserEntityByKey(key);
-    userEntity(entity).withProfile(socialConfig.getProvider(), getProfile(accessGrant));
-    userService.save(entity);
-    return entity;
-  }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    UserEntity userEntity = createUserEntity(accessGrant, connection);
-    com.techlooper.entity.GitHubUserProfile profile = (com.techlooper.entity.GitHubUserProfile) userEntity.getProfiles().get(GITHUB);
-    buildProfile(connection, profile);
-    userService.save(userEntity);
-    return userEntity;
   }
 
   private void buildProfile(Connection<GitHub> connection, com.techlooper.entity.GitHubUserProfile profile) {
@@ -74,22 +65,5 @@ public class GitHubService extends AbstractSocialService {
   private List<GitHubRepo> getForUserRepos(Connection<GitHub> connection, String username) {
     return Arrays.asList(connection.getApi().restOperations()
       .getForObject(socialConfig.getApiUrl().get("repos"), GitHubRepo[].class, username));
-  }
-
-  private UserEntity createUserEntity(AccessGrant accessGrant, Connection<GitHub> connection) {
-    GitHubUserProfile profile = connection.getApi().userOperations().getUserProfile();
-    com.techlooper.entity.GitHubUserProfile profileEntity = dozerBeanMapper.map(profile, com.techlooper.entity.GitHubUserProfile.class);
-    UserEntity userEntity = Optional.ofNullable(userService.findById(profileEntity.getEmail())).orElse(new UserEntity());
-    UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(GITHUB, profileEntity)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
-      builder.withId(profileEntity.getEmail())
-        .withLoginSource(GITHUB)
-        .withFirstName(profileEntity.getName())
-        .withEmailAddress(profileEntity.getEmail())
-        .withKey(passwordEncryptor.encryptPassword(profileEntity.getEmail()));
-    }
-    return userEntity;
   }
 }

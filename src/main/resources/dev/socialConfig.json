@@ -9,7 +9,10 @@
     "provider": "FACEBOOK",
     "apiKey": "596454787147962",
     "secretKey": "dc25bf6805886ee435f2bc56db3f393e",
-    "redirectUri": "http://techlooper.com/authentication"
+    "redirectUri": "http://techlooper.com/authentication",
+    "apiUrl": {
+      "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
+    }
   },
   {
     "provider": "GITHUB",
@@ -17,6 +20,7 @@
     "secretKey": "713bde969430097dacde108a5852cba41c5fe06d",
     "redirectUri": "http://techlooper.com/authentication",
     "apiUrl": {
+      "users": "https://api.github.com/users/{username}",
       "repos": "https://api.github.com/users/{username}/repos",
       "followers": "https://api.github.com/users/{username}/followers"
     }

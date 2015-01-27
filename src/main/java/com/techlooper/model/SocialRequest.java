@@ -1,11 +1,23 @@
 package com.techlooper.model;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by phuonghqh on 12/12/14.
  */
 public class SocialRequest {
 
   private String key;
+
+  private String emailAddress;
+
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
+  }
 
   public String getKey() {
     return key;

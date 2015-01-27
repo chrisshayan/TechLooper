@@ -1,6 +1,6 @@
 angular.module('Skill').controller('skillAnalyticsController',
   function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
-            skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location) {
+            skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location, navigationService) {
     var histogramsAndPeriod = skillAnalyticsService.getHistogramsAndPeriod($routeParams.period);
     var skillStatisticRequest = {
       term: $routeParams.term,
@@ -12,7 +12,7 @@ angular.module('Skill').controller('skillAnalyticsController',
       var viewJson = skillAnalyticsService.extractViewJson(data, skillStatisticRequest);
       $scope.viewJson = viewJson;
       skillTableFactory.calculatePercentage(viewJson);
-      $scope.$apply();
+      utils.apply();
 
       skillCircleFactory.renderView(viewJson);
       skillTableFactory.renderView(viewJson);
@@ -22,4 +22,7 @@ angular.module('Skill').controller('skillAnalyticsController',
 
     connectionFactory.analyticsSkill(skillStatisticRequest);
     //animationFactory.animatePage();
+    navigationService.addSpaceforNavi();
+    navigationService.reSetingPositionLangIcon();
+    navigationService.keepNaviBar();
   });

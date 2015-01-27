@@ -3,8 +3,9 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
-import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth1ConnectionFactory;
 import org.springframework.social.oauth1.OAuthToken;
@@ -24,6 +25,7 @@ import static com.techlooper.model.SocialProvider.TWITTER;
  * Created by phuonghqh on 12/16/14.
  */
 @Service("TWITTERService")
+@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class TwitterService extends AbstractSocialService {
 
   @Resource
@@ -44,23 +46,5 @@ public class TwitterService extends AbstractSocialService {
     com.techlooper.entity.TwitterProfile twProfile = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
     twProfile.setAccessGrant(accessGrant);
     return twProfile;
-  }
-
-  public UserEntity saveFootprint(AccessGrant accessGrant) {
-    com.techlooper.entity.TwitterProfile profile = (com.techlooper.entity.TwitterProfile) getProfile(accessGrant);
-    String userId = TWITTER.name() + "-" + profile.getId();
-    UserEntity userEntity = Optional.ofNullable(userService.findById(userId)).orElse(new UserEntity());
-    UserEntity.UserEntityBuilder builder = userEntity(userEntity)
-      .withProfile(SocialProvider.TWITTER, profile)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, AccessGrant.class));
-    if (!Optional.ofNullable(userEntity.getEmailAddress()).isPresent()) {
-      builder.withId(userId)
-        .withLoginSource(SocialProvider.TWITTER)
-        .withFirstName(profile.getName())
-        .withUsername(profile.getScreenName())
-        .withKey(passwordEncryptor.encryptPassword(userId));
-    }
-    userService.save(userEntity);
-    return userEntity;
   }
 }

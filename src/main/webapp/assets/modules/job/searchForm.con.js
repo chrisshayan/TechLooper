@@ -1,7 +1,8 @@
-angular.module('Jobs').controller('searchFormController', function (utils, $scope, searchBoxService, jsonValue, animationFactory) {
+angular.module('Jobs').controller('searchFormController', function (utils, $scope, searchBoxService, jsonValue, animationFactory, navigationService) {
   //var dataTour = utils.getDataTour();
   //utils.makeTourGuide(dataTour);
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
+  searchBoxService.updateNavi();
   $scope.skills = jsonValue.technicalSkill;
 
   searchBoxService.hightlightSKill();
@@ -13,4 +14,7 @@ angular.module('Jobs').controller('searchFormController', function (utils, $scop
   }
 
   animationFactory.animatePage();
+  navigationService.addSpaceforNavi();
+  navigationService.reSetingPositionLangIcon();
+  navigationService.keepNaviBar();
 });
