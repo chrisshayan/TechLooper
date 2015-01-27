@@ -176,9 +176,28 @@ ul.setting-items
       line-height: 55px
       margin: 0
       padding: 0
+
+/* -- style for Navi ---*/
+.header-section
+  padding-left: 65px
+a.m-languages
+  background: url(../images/ic-navi.png) transparent left top no-repeat
+  width: 60px
+  height: 60px
+  margin: auto
+  z-index: 999
+  cursor: pointer
+  display: block
+.close-button-languages-block
+  position: absolute
+  right: 20px
+  position: absolute
+  top: 5px
+  z-index: 999
   .close-button
     text-align: right
     padding: 7px 10px 0 0
+    float: left
   .close-button a
     background: #2c2a2a
     border-radius: 50%
@@ -195,29 +214,14 @@ ul.setting-items
     line-height: 45px
     text-align: center
     cursor: pointer
-
-  .close-button
-    width: 20%
-    float: right
-
-/* -- style for Navi ---*/
-.header-section
-  padding-left: 65px
-a.m-languages
-  background: url(../images/ic-navi.png) transparent left top no-repeat
-  width: 60px
-  height: 60px
-  margin: auto
-  z-index: 999
-  cursor: pointer
-  display: block
+  .close-search a
+    background: #ccc
 
 .languages-block
-  right: 55px
-  position: absolute
-  top: 10px
-  z-index: 999
-
+  float: left
+  padding: 7px 0 0 0
+  a.m-languages
+    height: 45px !important
 a.m-languages.vi
   background-position: 13px -590px
 a.m-languages.en

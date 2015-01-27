@@ -2,7 +2,6 @@ package com.techlooper.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Scope;
@@ -16,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import java.util.Optional;
 
-import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 import static com.techlooper.model.SocialProvider.FACEBOOK;
 
 /**
@@ -27,7 +24,6 @@ import static com.techlooper.model.SocialProvider.FACEBOOK;
 @Service("FACEBOOKService")
 @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class FacebookService extends AbstractSocialService {
-
 
   @Resource
   private FacebookConnectionFactory facebookConnectionFactory;

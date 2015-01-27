@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 

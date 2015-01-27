@@ -68,6 +68,4 @@ angular.module('Jobs').controller('searchResultController',
     }
 
     searchBoxService.changeBodyColor();
-    navigationService.addSpaceforNavi();
-    navigationService.keepNaviBar();
   });

@@ -14,47 +14,45 @@ import java.util.Arrays;
  */
 public class CouchbaseBucketCreator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseBucketCreator.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseBucketCreator.class);
 
-    private String connectionUri;
-    private String adminUser;
-    private String adminPassword;
-    private String bucketName;
-    private String bucketPassword;
-    private ClusterManager bucketManager;
+  private String bucketName;
 
-    public CouchbaseBucketCreator(String connectionUri, String adminUser, String adminPassword,
-                                  String bucketName, String bucketPassword) {
-        this.connectionUri = connectionUri;
-        this.adminUser = adminUser;
-        this.adminPassword = adminPassword;
-        this.bucketName = bucketName;
-        this.bucketPassword = bucketPassword;
-        this.bucketManager = new ClusterManager(Arrays.asList(URI.create(connectionUri)), adminUser, adminPassword);
+  private String bucketPassword;
+
+  private ClusterManager bucketManager;
+
+  public CouchbaseBucketCreator(String connectionUri, String adminUser, String adminPassword,
+                                String bucketName, String bucketPassword) {
+    this.bucketName = bucketName;
+    this.bucketPassword = bucketPassword;
+    this.bucketManager = new ClusterManager(Arrays.asList(URI.create(connectionUri)), adminUser, adminPassword);
+  }
+
+  @PostConstruct
+  public void init() throws Exception {
+    boolean bucketDoesNotExist = checkBucketDoesNotExist();
+
+    if (bucketDoesNotExist) {
+      createBucket();
     }
+  }
 
-    @PostConstruct
-    public void init() throws Exception {
-        boolean bucketDoesNotExist = checkBucketDoesNotExist();
+  private boolean checkBucketDoesNotExist() {
+    return !bucketManager.listBuckets().contains(bucketName);
+  }
 
-        if (bucketDoesNotExist) {
-            createBucket();
-        }
+  private void createBucket() throws Exception {
+    try {
+      bucketManager.createNamedBucket(BucketType.COUCHBASE, bucketName, 128, 0, bucketPassword, true);
+      // Waiting for several seconds before shutting down the connection
+      Thread.sleep(3000);
     }
-
-    private boolean checkBucketDoesNotExist() {
-        return !bucketManager.listBuckets().contains(bucketName);
+    catch (Throwable throwable) {
+      LOGGER.error(throwable.getMessage(), throwable);
     }
-
-    private void createBucket() throws Exception {
-        try {
-            bucketManager.createNamedBucket(BucketType.COUCHBASE, bucketName, 128, 0, bucketPassword, true);
-            // Waiting for several seconds before shutting down the connection
-            Thread.sleep(3000);
-        } catch (Throwable throwable) {
-            LOGGER.error(throwable.getMessage(), throwable);
-        } finally {
-            bucketManager.shutdown();
-        }
+    finally {
+      bucketManager.shutdown();
     }
+  }
 }

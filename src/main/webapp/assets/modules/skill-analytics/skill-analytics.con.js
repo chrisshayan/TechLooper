@@ -22,7 +22,4 @@ angular.module('Skill').controller('skillAnalyticsController',
 
     connectionFactory.analyticsSkill(skillStatisticRequest);
     //animationFactory.animatePage();
-    navigationService.addSpaceforNavi();
-    navigationService.reSetingPositionLangIcon();
-    navigationService.keepNaviBar();
   });

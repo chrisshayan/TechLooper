@@ -1,14 +1,16 @@
 package com.techlooper.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.techlooper.entity.*;
+import com.techlooper.entity.AccessGrant;
+import com.techlooper.entity.GitHubFollower;
+import com.techlooper.entity.GitHubRepo;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.github.api.GitHub;
-import org.springframework.social.github.api.GitHubUserProfile;
 import org.springframework.social.github.connect.GitHubConnectionFactory;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 import static com.techlooper.model.SocialProvider.GITHUB;
 
 /**

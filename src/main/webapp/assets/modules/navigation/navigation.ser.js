@@ -1,8 +1,7 @@
-angular.module("Navigation").factory("navigationService", function (localStorageService, utils, jsonValue, $rootScope, $http, $location, tourService, userService) {
+angular.module("Navigation").factory("navigationService", function (shortcutFactory, localStorageService, utils, jsonValue, $rootScope, $http, $location, tourService, userService) {
 
   var $$ = {
     naviControl: function () {
-      //localStorageService.set(jsonValue.storage.navigation, 'close');
       $('.manager-navi').find('.fa-bars').on('tap click', function () {
         if ($(this).hasClass('active')) {
           $('.main-navi-block').animate({
@@ -79,33 +78,9 @@ angular.module("Navigation").factory("navigationService", function (localStorage
         }
       });
     },
-    updateHighlight: function(){
-      $('.navi-container').find('li').removeClass('active');
-      switch (utils.getView()) {
-        case jsonValue.views.pieChart:
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
-          break;
-        case jsonValue.views.bubbleChart:
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
-          break;
-        case jsonValue.views.jobsSearch:
-          $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
-          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
-          break;
-        case jsonValue.views.jobsSearchText:
-          $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
-          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
-          break;
-        case jsonValue.views.signIn:
-          $('.navi-container').find('a.sign-out-sign-in').parent().addClass('active');
-          break;
-        default:
-          $('.navi-container').find('a.m-chart').parent().addClass('active');
-          break;
-      }
+    changeView: function(){
       var menuItem = $('.navi-container').find('li a');
       menuItem.on('click', function(){
-        //utils.hideNavigationBar();
         if(!$(this).hasClass('m-languages')){
           menuItem.parent().removeClass('active');
           $(this).parent().addClass('active');
@@ -132,9 +107,12 @@ angular.module("Navigation").factory("navigationService", function (localStorage
   var instance = {
     initialize: function () {
       $$.updateChartButton();
-      $$.updateHighlight();
+      $$.changeView();
       $$.registerEventListeners();
       $$.naviControl();
+      $('.btn-close').click(function () {
+        shortcutFactory.trigger('esc');
+      });
     },
     addSpaceforNavi: function(){
       var page = $('.techlooper-body');
@@ -153,11 +131,7 @@ angular.module("Navigation").factory("navigationService", function (localStorage
         $('.languages-block').css('right','55px');
       }
     },
-    restoreNaviStyle: function(){
-      $('.navi-container').find('a.m-chart').parent().addClass('active');
-      $('.navi-container').find('a.m-search-jobs').parent().removeClass('active');
-      $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
-    },
+
     keepNaviBar: function(){
       var status = localStorageService.get(jsonValue.storage.navigation);
       if(status == 'open'){
@@ -167,23 +141,51 @@ angular.module("Navigation").factory("navigationService", function (localStorage
         });
         $('.navi-container').css({'width': '100%', 'display': 'block'});
         $('.manager-navi').find('.fa-bars').addClass('active');
-        instance.addSpaceforNavi();
       }
     },
-    backtoSearchPage: function(mItem){
-      var view = utils.getView();
-      if(view == jsonValue.views.jobsSearch || view == jsonValue.views.jobsSearchText){
-        $('.navi-container').find('li').removeClass('active');
-        $('.navi-container').find('a.'+ mItem).parent().addClass('active');
-        $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
-      }else{
-        $('.navi-container').find('a.'+ mItem).parent().removeClass('active');
-        $('.navi-container').find('a.m-chart').parent().addClass('active');
-        $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+    updateHighlight: function(){
+      $('.navi-container').find('li').removeClass('active');
+      $('.main-navi-block').css('background','url(images/line-h.png) #000 right top repeat-y');
+      $('.close-button').show();
+      $('.close-button').removeClass('close-search');
+      switch (utils.getView()) {
+        case jsonValue.views.pieChart:
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          $('.close-button').hide();
+          break;
+        case jsonValue.views.bubbleChart:
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          $('.close-button').hide();
+          break;
+        case jsonValue.views.jobsSearch:
+          $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+          $('.close-button').addClass('close-search');
+          break;
+        case jsonValue.views.jobsSearchText:
+          $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
+          $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
+          $('.close-button').addClass('close-search');
+          break;
+        case jsonValue.views.signIn:
+          $('.navi-container').find('a.sign-out-sign-in').parent().addClass('active');
+          break;
+        case jsonValue.views.register:
+          $('.navi-container').find('a.m-user-profile').parent().addClass('active');
+          break;
+        default:
+          $('.navi-container').find('a.m-chart').parent().addClass('active');
+          break;
       }
     }
   }
 
+  utils.registerNotification(jsonValue.notifications.changeUrl, function(){
+    instance.updateHighlight();
+    instance.reSetingPositionLangIcon();
+    instance.keepNaviBar();
+    instance.addSpaceforNavi();
+  });
   return instance;
 
 });

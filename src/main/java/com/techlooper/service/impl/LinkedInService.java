@@ -2,8 +2,6 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.LinkedInProfile;
-import com.techlooper.entity.UserEntity;
-import com.techlooper.entity.UserEntity.UserEntityBuilder;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Scope;
@@ -17,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import java.util.Optional;
 
-import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 import static com.techlooper.model.SocialProvider.LINKEDIN;
 
 /**

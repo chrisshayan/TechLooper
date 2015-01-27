@@ -1,19 +1,13 @@
 angular.module('Register').factory('registerService',
   function (shortcutFactory, jsonValue, localStorageService, utils, $http, connectionFactory, $location, $auth,
-            $window, $rootScope, $translate, navigationService) {
+            $window, $rootScope, $translate) {
     var scope;
     var $$ = {
       initialize: function ($scope) {
         scope = $scope;
         $("#salary").slider({});
-        $('.btn-close').click(function () {
-          shortcutFactory.trigger('esc');
-          navigationService.backtoSearchPage('m-user-profile');
-        });
-
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          navigationService.backtoSearchPage('m-user-profile');
         });
         $('.register-successful').click($$.saveUserInfo);
         $$.userInfo();
@@ -43,8 +37,21 @@ angular.module('Register').factory('registerService',
       },
 
       userInfo: function () {
-        if ($rootScope.userInfo === undefined) { return false; }
+        if ($rootScope.userInfo === undefined) {
+          return false;
+        }
         $(".emailAddress").prop("disabled", $rootScope.userInfo.emailAddress != null);
+
+        if (instance.hasProfile(jsonValue.authSource[0])) {
+          $("#alreadyRegisteredVietnamworks").show();
+          $("#registerVietnamworksQuestion").hide();
+          $(".register-vietnamworks").prop("disabled", true);
+          $(".register-vietnamworks").prop("checked", true);
+        }
+        else {
+          $("#alreadyRegisteredVietnamworks").hide();
+          $("#registerVietnamworksQuestion").show();
+        }
       }
     }
 
@@ -57,7 +64,9 @@ angular.module('Register').factory('registerService',
       },
 
       openOathDialog: function (auth) {
-        if (instance.hasProfile(auth)) { return false; }
+        if (instance.hasProfile(auth)) {
+          return false;
+        }
         utils.sendNotification(jsonValue.notifications.loading, $(window).height());
         $auth.authenticate(auth.provider)
           .then(function (resp) {//success
@@ -84,6 +93,17 @@ angular.module('Register').factory('registerService',
             value: 4000
           });
         });
+      },
+
+      registerVietnamworks: function () {
+        if ($('.register-vietnamworks').prop('checked') === true) {
+          $rootScope.userInfo.profileNames.push(jsonValue.authSource[0].provider.toUpperCase());
+        } else {
+          var i = $rootScope.userInfo.profileNames.indexOf("VIETNAMWORKS");
+          if (i != -1) {
+            $rootScope.userInfo.profileNames.splice(i, 1);
+          }
+        }
       }
     };
 
