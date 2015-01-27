@@ -10,14 +10,8 @@ import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.elasticsearch.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamworksUserService;
-import org.apache.lucene.queryparser.xml.FilterBuilder;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.*;
 import org.jasypt.util.text.TextEncryptor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

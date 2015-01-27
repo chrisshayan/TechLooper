@@ -1,11 +1,5 @@
 package com.techlooper.model;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
-import java.util.Set;
-
 /**
  * Created by khoa-nd on 27/01/15.
  */
