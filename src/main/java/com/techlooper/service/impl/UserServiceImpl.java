@@ -11,10 +11,19 @@ import com.techlooper.repository.elasticsearch.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamworksUserService;
 import org.dozer.Mapper;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.QueryFilterBuilder;
 import org.jasypt.util.text.TextEncryptor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -101,20 +110,18 @@ public class UserServiceImpl implements UserService {
     if (userImportEntity != null) {
       return userImportEntity;
     } else {
-//TODO: search for only primary email now, will update search in profiles email later
-//      QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(email, "email")
-//              .operator(MatchQueryBuilder.Operator.OR));
-//      SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
-//              .withFilter(queryFilterBuilder)
-//              .withPageable(new PageRequest(0, 10))
-//              .build();
-//      Page<UserImportEntity> result = userImportRepository.search(userSearchQuery);
-//      if (result.getNumberOfElements() > 0) {
-//        return result.getContent().get(0);
-//      } else {
-//        return null;
-//      }
-      return null;
+      QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(
+              QueryBuilders.queryString(email).defaultOperator(Operator.AND)).cache(true);
+      SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
+              .withFilter(queryFilterBuilder)
+              .withPageable(new PageRequest(0, 10))
+              .build();
+      Page<UserImportEntity> result = userImportRepository.search(userSearchQuery);
+      if (result.getNumberOfElements() > 0) {
+        return result.getContent().get(0);
+      } else {
+        return null;
+      }
     }
   }
 }
