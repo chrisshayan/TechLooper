@@ -4,6 +4,7 @@ import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 import com.techlooper.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -32,7 +33,17 @@ public class UserController {
   @ResponseBody
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
-    httpServletResponse.setStatus(userService.addCrawledUser(userImportData) ? HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+    httpServletResponse.setStatus(userService.addCrawledUser(userImportData) ?
+            HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/api/users/addAll", method = RequestMethod.POST)
+  public void saveAll(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
+    //TODO : Temporarily adding fake email for user who is missing email address to pass validation
+    processMissingEmailUser(users);
+    httpServletResponse.setStatus(userService.addCrawledUserAll(users) > 0 ?
+            HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
   }
 
   @ResponseBody
@@ -40,8 +51,7 @@ public class UserController {
   public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
     if (result.getFieldErrorCount() > 0) {
       httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-    }
-    else {
+    } else {
       userService.registerVietnamworksAccount(userInfo);
       userService.save(userInfo);
     }
@@ -64,6 +74,15 @@ public class UserController {
   public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
     if (!textEncryptor.encrypt(searchRequest.getEmailAddress()).equals(techlooperKey)) {
       httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+  }
+
+  private void processMissingEmailUser(List<UserImportData> users) {
+    if (users != null && users.size() > 0) {
+      for (UserImportData user : users)
+        if (StringUtils.isEmpty(user.getEmail())) {
+          user.setEmail(user.getUsername() + "@missing.com");
+        }
     }
   }
 }

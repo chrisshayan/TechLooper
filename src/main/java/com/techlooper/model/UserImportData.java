@@ -11,7 +11,13 @@ public class UserImportData {
 
   private SocialProvider crawlerSource;
 
-  private UserImportProfile profile;
+  private String username;
+
+  private String imageUrl;
+
+  private String location;
+
+  private String dateJoined;
 
   public String getEmail() {
     return email;
@@ -37,11 +43,35 @@ public class UserImportData {
     this.crawlerSource = crawlerSource;
   }
 
-  public UserImportProfile getProfile() {
-    return profile;
+  public String getUsername() {
+    return username;
   }
 
-  public void setProfile(UserImportProfile profile) {
-    this.profile = profile;
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public String getDateJoined() {
+    return dateJoined;
+  }
+
+  public void setDateJoined(String dateJoined) {
+    this.dateJoined = dateJoined;
   }
 }

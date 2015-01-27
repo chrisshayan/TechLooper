@@ -8,7 +8,6 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.elasticsearch.UserImportRepository;
 import com.techlooper.service.UserService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.DependsOn;
@@ -40,17 +39,16 @@ public class UserImportRepositoryITCase {
 
   @Test
   public void testAddUser() {
-    UserImportEntity.UserImportEntityBuilder userImportEntityBuilder =
-            UserImportEntity.UserImportEntityBuilder.userImportEntity(new UserImportEntity());
-    userImportEntityBuilder.withEmail("ndkhoa.fat@gmail.com");
-    userImportEntityBuilder.withFullName("Khoa Nguyen");
+    UserImportEntity userImportEntity = new UserImportEntity();
+    userImportEntity.setEmail("ndkhoa.is@gmail.com");
+    userImportEntity.setFullName("Khoa Nguyen");
+    userImportEntity.setCrawled(true);
     GitHubUserProfile gitHubUserProfile = new GitHubUserProfile();
-    gitHubUserProfile.setEmail("ndkhoa.is@gmail.com");
-    gitHubUserProfile.setCompany("TechLooper");
     gitHubUserProfile.setLocation("Vietnam");
-    userImportEntityBuilder.withProfile(SocialProvider.GITHUB, gitHubUserProfile);
+    gitHubUserProfile.setUsername("khoa-nd");
+    userImportEntity.withProfile(SocialProvider.GITHUB, gitHubUserProfile);
 
-    userImportRepository.save(userImportEntityBuilder.build());
+    assertNotNull(userImportRepository.save(userImportEntity));
   }
 
   @Test

@@ -14,7 +14,7 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 /**
  * Created by khoa-nd on 27/01/15.
  */
-@Document(indexName = "user_import", type = "user")
+@Document(indexName = "techlooper", type = "user")
 public class UserImportEntity {
 
   @Id
@@ -60,41 +60,7 @@ public class UserImportEntity {
     this.isCrawled = isCrawled;
   }
 
-  public static class UserImportEntityBuilder {
-
-    private UserImportEntity userImportEntity;
-
-    private UserImportEntityBuilder() {
-    }
-
-    public static UserImportEntityBuilder userImportEntity(UserImportEntity userImportEntity) {
-      UserImportEntityBuilder builder = new UserImportEntityBuilder();
-      builder.userImportEntity = userImportEntity;
-      return builder;
-    }
-
-    public UserImportEntityBuilder withEmail(String email) {
-      userImportEntity.email = email;
-      return this;
-    }
-
-    public UserImportEntityBuilder withFullName(String fullName) {
-      userImportEntity.fullName = fullName;
-      return this;
-    }
-
-    public UserImportEntityBuilder withProfile(SocialProvider provider, Object profile) {
-      userImportEntity.profiles.put(provider, profile);
-      return this;
-    }
-
-    public UserImportEntityBuilder withIsCrawled(boolean isCrawled) {
-      userImportEntity.isCrawled = isCrawled;
-      return this;
-    }
-
-    public UserImportEntity build() {
-      return userImportEntity;
-    }
+  public void withProfile(SocialProvider provider, Object object) {
+    this.profiles.put(provider, object);
   }
 }
