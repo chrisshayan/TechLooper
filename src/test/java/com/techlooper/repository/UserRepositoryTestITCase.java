@@ -2,6 +2,7 @@ package com.techlooper.repository;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.CouchbaseConfiguration;
+import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.couchbase.UserRepository;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, CouchbaseConfiguration.class})
+@ContextConfiguration(classes = {ConfigurationTest.class, CouchbaseConfiguration.class, ElasticsearchUserImportConfiguration.class})
 public class UserRepositoryTestITCase {
 
     @Resource
