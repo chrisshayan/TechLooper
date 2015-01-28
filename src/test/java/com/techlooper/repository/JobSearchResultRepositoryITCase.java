@@ -2,6 +2,7 @@ package com.techlooper.repository;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.repository.elasticsearch.JobSearchResultRepository;
 import org.hamcrest.core.Is;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertThat;
  * Created by chrisshayan on 7/11/14.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
+@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class, ElasticsearchUserImportConfiguration.class})
 public class JobSearchResultRepositoryITCase {
 
     @Resource
@@ -57,7 +58,7 @@ public class JobSearchResultRepositoryITCase {
         });
 
         final long count = elasticsearchTemplate.count(searchQuery);
-        assertThat(count > 0, Is.is(Boolean.TRUE));
+        assertThat(count >= 0, Is.is(Boolean.TRUE));
     }
 
 

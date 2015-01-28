@@ -2,10 +2,11 @@ package com.techlooper.repository;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.GitHubUserProfile;
 import com.techlooper.entity.UserImportEntity;
 import com.techlooper.model.SocialProvider;
-import com.techlooper.repository.elasticsearch.UserImportRepository;
+import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  * Created by khoa-nd on 27/01/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
+@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchUserImportConfiguration.class})
 public class UserImportRepositoryITCase {
 
   @Resource
