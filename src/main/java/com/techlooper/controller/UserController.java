@@ -82,6 +82,8 @@ public class UserController {
       for (UserImportData user : users)
         if (StringUtils.isEmpty(user.getEmail())) {
           user.setEmail(user.getUsername() + "@missing.com");
+        } else {
+          user.setEmail(StringUtils.deleteWhitespace(user.getEmail()));
         }
     }
   }
