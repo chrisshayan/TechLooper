@@ -84,7 +84,7 @@ public class UserController {
           user.setEmail(user.getUsername() + "@missing.com");
         } else {
           user.setEmail(StringUtils.deleteWhitespace(user.getEmail())
-                  .toLowerCase().replaceAll("[at]", "@").replaceAll("[dot]", "."));
+                  .toLowerCase().replaceAll("\\[at\\]", "@").replaceAll("\\[dot\\]", "."));
 
         }
     }
