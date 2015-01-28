@@ -2,7 +2,8 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
-import com.techlooper.service.VietnamworksUserService;
+import com.techlooper.service.VietnamWorksUserService;
+import com.techlooper.service.VietnamWorksUserService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
 import org.springframework.http.HttpEntity;
@@ -21,7 +22,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  * @see com.techlooper.service.impl.VietnamWorksUserServiceImpl
  */
 @Service
-public class VietnamWorksUserServiceImpl implements VietnamworksUserService {
+public class VietnamWorksUserServiceImpl implements VietnamWorksUserService {
 
   private static final String RESPONSE_CODE_SUCCESS = "200";
 

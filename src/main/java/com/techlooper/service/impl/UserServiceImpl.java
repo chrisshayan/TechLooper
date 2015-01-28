@@ -9,7 +9,7 @@ import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.elasticsearch.UserImportRepository;
 import com.techlooper.service.UserService;
-import com.techlooper.service.VietnamworksUserService;
+import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
   private TextEncryptor textEncryptor;
 
   @Resource
-  private VietnamworksUserService vietnamworksUserService;
+  private VietnamWorksUserService vietnamworksUserService;
 
   public void save(UserEntity userEntity) {
     userRepository.save(userEntity);
