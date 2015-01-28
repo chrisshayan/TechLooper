@@ -5,7 +5,7 @@ import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.entity.GitHubUserProfile;
 import com.techlooper.entity.UserImportEntity;
 import com.techlooper.model.SocialProvider;
-import com.techlooper.repository.elasticsearch.UserImportRepository;
+import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import org.junit.Before;
 import org.junit.Test;

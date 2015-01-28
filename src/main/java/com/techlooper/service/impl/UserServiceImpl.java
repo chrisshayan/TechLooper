@@ -7,7 +7,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
-import com.techlooper.repository.elasticsearch.UserImportRepository;
+import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
