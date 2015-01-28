@@ -18,7 +18,8 @@ import javax.annotation.Resource;
  * Created by NguyenDangKhoa on 28/01/15.
  */
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.techlooper.repository.userimport")
+@EnableElasticsearchRepositories(basePackages = "com.techlooper.repository.userimport",
+  elasticsearchTemplateRef = "elasticsearchTemplateUserImport")
 public class ElasticsearchUserImportConfiguration {
 
   @Resource
