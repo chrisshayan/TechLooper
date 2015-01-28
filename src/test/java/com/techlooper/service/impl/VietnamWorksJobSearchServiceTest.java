@@ -24,7 +24,7 @@ public class VietnamWorksJobSearchServiceTest {
     private String apiKeyName = "apiKeyName";
     private String apiKeyValue = "apiKeyValue";
 
-    private JobSearchService jobSearchService = new VietnamWorksJobSearchService();
+    private JobSearchService jobSearchService = new VietnamworksJobSearchService();
     private RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
     private JobSearchAPIConfigurationRepository apiConfigurationRepository = mock(JobSearchAPIConfigurationRepository.class);
     private HttpEntity<String> requestEntity;

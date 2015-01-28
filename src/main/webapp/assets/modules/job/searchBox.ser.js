@@ -97,20 +97,8 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       }
 
       $('.btn-search').click($$.doSearch);
-
-      $('.btn-close').click(function () {
-        shortcutFactory.trigger('esc');
-        var view = utils.getView();
-        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
-          navigationService.restoreNaviStyle();
-        }
-      });
       $('.btn-logo').click(function () {
         shortcutFactory.trigger('esc');
-        var view = utils.getView();
-        if(view == jsonValue.views.pieChart || view == jsonValue.views.bubbleChart){
-          navigationService.restoreNaviStyle();
-        }
       });
 
       $('.btn-search').css({
@@ -153,13 +141,6 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
           }
         });
       });
-    },
-
-    updateNavi: function(){
-      $('.navi-container').find('li').removeClass('active');
-      $('.navi-container').find('a.m-search-jobs').parent().addClass('active');
-      $('.main-navi-block').css('background','url(images/line-h1.png) #ccc right top repeat-y');
-
     }
   }
 

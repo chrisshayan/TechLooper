@@ -9,8 +9,6 @@ import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
 import org.dozer.loader.api.TypeMappingOptions;
-import org.jasypt.util.password.PasswordEncryptor;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.cache.CacheManager;
@@ -99,6 +97,12 @@ public class CoreConfiguration {
 
         mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
           .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+
+        mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+
+        mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
+
       }
     });
     return dozerBeanMapper;

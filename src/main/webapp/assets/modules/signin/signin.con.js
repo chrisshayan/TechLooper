@@ -4,6 +4,5 @@ angular.module('SignIn').controller('signInController', function ($location, jso
   //utils.sendNotification(jsonValue.notifications.switchScope, $scope);
   //utils.sendNotification(jsonValue.notifications.gotData);
   $scope.openOathDialog = signInService.openOathDialog;
-  navigationService.addSpaceforNavi();
-  navigationService.reSetingPositionLangIcon();
+
 });

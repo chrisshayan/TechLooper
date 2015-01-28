@@ -7,9 +7,11 @@ import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserService;
+import com.techlooper.service.VietnamworksUserService;
 import com.techlooper.service.impl.JobQueryBuilderImpl;
 import com.techlooper.service.impl.UserServiceImpl;
-import com.techlooper.service.impl.VietnamWorksJobSearchService;
+import com.techlooper.service.impl.VietnamworksJobSearchService;
+import com.techlooper.service.impl.VietnamworksUserServiceImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -61,7 +63,7 @@ public class ConfigurationTest implements ApplicationContextAware {
 
   @Bean
   public JobSearchService jobSearchService() {
-    return new VietnamWorksJobSearchService();
+    return new VietnamworksJobSearchService();
   }
 
   @Bean
@@ -82,6 +84,11 @@ public class ConfigurationTest implements ApplicationContextAware {
   @Bean
   public UserService userService() {
     return new UserServiceImpl();
+  }
+
+  @Bean
+  public VietnamworksUserService vietnamworksUserService() {
+    return new VietnamworksUserServiceImpl();
   }
 
   @Bean

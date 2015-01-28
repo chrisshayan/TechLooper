@@ -31,15 +31,8 @@ angular.module('SignIn').factory('signInService',
 
         $('.signin-accounts').parallax();
 
-        $('.btn-close').click(function () {
-          shortcutFactory.trigger('esc');
-          navigationService.backtoSearchPage('sign-out-sign-in');
-        });
-
         $('.btn-logo').click(function () {
           shortcutFactory.trigger('esc');
-          var view = utils.getView();
-          navigationService.backtoSearchPage('sign-out-sign-in');
         });
 
         $(".signin-popup-close").on('click', function () {

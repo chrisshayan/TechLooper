@@ -45,7 +45,7 @@ public class VietnamWorksJobStatisticServiceITCase {
 
     @Before
     public void before() {
-        jobStatisticService = new VietnamWorksJobStatisticService();
+        jobStatisticService = new VietnamworksJobStatisticService();
         ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
         ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
         ReflectionTestUtils.setField(jobStatisticService, "elasticSearchIndexName", elasticSearchIndexName);
