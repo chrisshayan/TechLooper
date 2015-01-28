@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * Created by chrisshayan on 7/14/14.
  */
 @Service
-public class VietnamworksJobStatisticService implements JobStatisticService {
+public class VietnamWorksJobStatisticService implements JobStatisticService {
 
   private static final String ALL_TERMS = "allTerms";
 

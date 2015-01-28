@@ -18,10 +18,10 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * @author khoa-nd
- * @see com.techlooper.service.impl.VietnamworksUserServiceImpl
+ * @see com.techlooper.service.impl.VietnamWorksUserServiceImpl
  */
 @Service
-public class VietnamworksUserServiceImpl implements VietnamworksUserService {
+public class VietnamWorksUserServiceImpl implements VietnamworksUserService {
 
   private static final String RESPONSE_CODE_SUCCESS = "200";
 
