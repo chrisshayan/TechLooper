@@ -4,6 +4,7 @@ import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 import com.techlooper.service.UserService;
+import com.techlooper.util.EmailValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,7 +43,7 @@ public class UserController {
   @RequestMapping(value = "/api/users/addAll", method = RequestMethod.POST)
   public void saveAll(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
     //TODO : Temporarily adding fake email for user who is missing email address to pass validation
-    processMissingEmailUser(users);
+    processEmailUser(users);
     httpServletResponse.setStatus(userService.addCrawledUserAll(users) > 0 ?
             HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
   }
@@ -77,16 +79,14 @@ public class UserController {
     }
   }
 
-  private void processMissingEmailUser(List<UserImportData> users) {
-    if (users != null && users.size() > 0) {
-      for (UserImportData user : users)
-        if (StringUtils.isEmpty(user.getEmail())) {
-          user.setEmail(user.getUsername() + "@missing.com");
-        } else {
-          user.setEmail(StringUtils.deleteWhitespace(user.getEmail())
-                  .toLowerCase().replaceAll("\\[at\\]", "@").replaceAll("\\[dot\\]", "."));
-
-        }
+  private void processEmailUser(List<UserImportData> users) {
+    Iterator<UserImportData> iterator = users.iterator();
+    while (iterator.hasNext()) {
+      UserImportData user = iterator.next();
+      if (StringUtils.isEmpty(user.getEmail()) || !EmailValidator.validate(user.getEmail())) {
+        user.setOriginalEmail(user.getEmail());
+        user.setEmail(user.getUsername() + "@missing.com");
+      }
     }
   }
 }
