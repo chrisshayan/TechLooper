@@ -1,4 +1,4 @@
-package com.bootcamp;
+package com.techlooper.bootcamp;
 
 import com.google.common.io.Files;
 import com.techlooper.util.JsonUtils;
@@ -14,16 +14,15 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by phuonghqh on 1/29/15.
  */
-@Controller("/bootcamp")
-public class UserController {
+@Controller
+public class BootcampController {
 
   @ResponseBody
-  @RequestMapping(value = "/users",  method = RequestMethod.POST)
+  @RequestMapping(value = "/bootcamp/users", method = RequestMethod.POST)
   public void save(@RequestBody BootcampUserInfo bootcampUserInfo, HttpServletResponse httpServletResponse) throws IOException {
     File jsonFile = new File("bootcamp-users.json");
     StringBuilder jsonBuilder = new StringBuilder();

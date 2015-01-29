@@ -1,4 +1,4 @@
-package com.bootcamp;
+package com.techlooper.bootcamp;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
