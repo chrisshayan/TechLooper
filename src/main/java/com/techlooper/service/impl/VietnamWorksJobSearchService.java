@@ -33,7 +33,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  * @see JobSearchService
  */
 @Service
-public class VietnamworksJobSearchService implements JobSearchService {
+public class VietnamWorksJobSearchService implements JobSearchService {
 
   @Resource
   private RestTemplate restTemplate;
