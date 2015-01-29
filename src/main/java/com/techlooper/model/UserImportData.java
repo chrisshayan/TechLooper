@@ -1,5 +1,7 @@
 package com.techlooper.model;
 
+import java.util.List;
+
 /**
  * Created by khoa-nd on 27/01/15.
  */
@@ -22,6 +24,8 @@ public class UserImportData {
   private String dateJoin;
 
   private String company;
+
+  private List<String> skills;
 
   public String getEmail() {
     return email;
@@ -93,5 +97,13 @@ public class UserImportData {
 
   public void setCompany(String company) {
     this.company = company;
+  }
+
+  public List<String> getSkills() {
+    return skills;
+  }
+
+  public void setSkills(List<String> skills) {
+    this.skills = skills;
   }
 }
