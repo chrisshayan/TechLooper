@@ -7,6 +7,8 @@ public class UserImportData {
 
   private String email;
 
+  private String originalEmail;
+
   private String fullName;
 
   private SocialProvider crawlerSource;
@@ -17,7 +19,9 @@ public class UserImportData {
 
   private String location;
 
-  private String dateJoined;
+  private String dateJoin;
+
+  private String company;
 
   public String getEmail() {
     return email;
@@ -25,6 +29,14 @@ public class UserImportData {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getOriginalEmail() {
+    return originalEmail;
+  }
+
+  public void setOriginalEmail(String originalEmail) {
+    this.originalEmail = originalEmail;
   }
 
   public String getFullName() {
@@ -67,11 +79,19 @@ public class UserImportData {
     this.location = location;
   }
 
-  public String getDateJoined() {
-    return dateJoined;
+  public String getDateJoin() {
+    return dateJoin;
   }
 
-  public void setDateJoined(String dateJoined) {
-    this.dateJoined = dateJoined;
+  public void setDateJoin(String dateJoin) {
+    this.dateJoin = dateJoin;
+  }
+
+  public String getCompany() {
+    return company;
+  }
+
+  public void setCompany(String company) {
+    this.company = company;
   }
 }
