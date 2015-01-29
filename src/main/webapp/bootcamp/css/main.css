@@ -1,0 +1,861 @@
+*{
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+    border: 0;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    text-decoration: none;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #525252;
+}
+h2{
+    text-transform: uppercase;
+}
+ul{
+    list-style: none;
+}
+.align-center{
+    text-align: center !important;
+}
+.full-box{
+    width: 100% !important;
+}
+.header-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    float: left;
+    padding: 10px 20px;
+    position: fixed;
+    z-index: 999;
+    background-color: inherit;
+    transition:background-color 0.8s ease;
+}
+.header-block.changed{
+    background-color: #00b9f2;
+    transition:background-color 0.8s ease;   
+}
+.header-block .logo-block{
+    float: left;
+    width: 320px;
+}
+.header-block .logo-block h1{
+    font-weight: normal;
+}
+.header-block .logo-block a{
+    color: #fff;
+    font-weight: 300;
+    font-size: 22px;
+    text-transform: capitalize;
+    line-height: 32px;
+}
+.header-block .logo-block img{
+    margin: auto;
+    vertical-align: middle;
+}
+.header-block .contact-block{
+    float: right;
+    width: 60%;
+    padding-right: 20px;
+    text-align: right;
+    color: #fff;
+    line-height: 32px;
+}
+.header-block .contact-block .languages{
+    display: inline-block;
+    width: auto;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+.contact-block .languages a{
+    background: url(../img/languages.png) left top no-repeat;
+    display: block;
+    width: 33px;
+    height: 17px;
+    cursor: pointer;
+}
+.contact-block .languages a.vn{
+    background-position: 0 0;
+}
+.contact-block .languages a.en{
+    background-position: 0 -28px;
+}
+.header-block .contact-block i{
+    font-size: 22px;
+}
+.header-block .contact-block a{
+    color: #fee900;    
+}
+.header-block .contact-block span{
+    color: #fee900;
+    font-weight: 400;
+}
+.header-block .contact-block strong{
+    font-size: 18px;
+    padding-right: 10px;
+}
+.header-block .menu-block{
+    width: 60px;
+    float: right;
+    color: #fff;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: right;
+}
+.header-block .menu-block i{
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 300;
+}
+.header-block .menu-block .menu-list{
+    font-size: 14px;
+    position: absolute;
+    z-index: 9999;
+    text-align: left;
+    background-color: #fff;
+    width: 200px;
+    right: 5px;
+    top: 55px;
+    display: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    opacity: 0.9;
+}
+.header-block .menu-block .menu-list.active{
+    display: block;
+}
+.menu-list li{
+    display: block;
+    clear: both;
+    border-top: 1px solid #dcdcdc;
+}
+.menu-list li:first-child{
+    border-top: 0;
+}
+.menu-list a{
+    color: #525252;
+    display: block;
+    padding: 10px 15px;
+}
+.menu-list a:hover{
+    color: #00b9f2;
+}
+.header-block .menu-block .menu-list i{
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+.overlay-black{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.6;
+    z-index: 2;
+    background-color: #000;
+}
+/* ------ style for main banner ---------*/
+.container-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    float: left;
+}
+.container-block .main-banner-block{
+    width: 100%;
+    position: relative;
+    height: 768px;
+    text-align: center;
+}
+.main-banner-block .bg-banner{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+.main-banner-block .bg-banner img{
+    width: 100%;
+    max-width: 100%;
+    max-height: 768px;
+}
+.main-banner-block .banner-content{
+    position: absolute;
+    z-index: 222;
+    top: 40%;
+    left: 0;
+    right: 0;
+    color: #fff;
+}
+.main-banner-block .banner-content h2{
+    font-weight: 400;
+    font-size: 34px;
+    display:inline;
+    background-color: #00b9f2;
+    padding: 2px 10px;
+    opacity: 0.8;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.main-banner-block .banner-content span{
+    font-style: italic;
+}
+.main-banner-block .banner-content p{
+    font-size: 20px;
+    padding-top: 10px;
+    font-weight: 300;
+}
+.sns-block{
+    width: auto;
+    padding-top: 10px;
+    position: absolute;
+    z-index: 3;
+    top: 50px;
+    left: 20px;
+    opacity: 0.8;
+}
+.sns-block li{
+    display: inline-block;
+}
+.sns-block li a{
+    color: #fff;
+    font-weight: 300;
+    font-size: 25px;
+}
+.sns-block li a:hover{
+    color: #00b9f2;
+    opacity: 1;
+}
+.main-banner-block .banner-content .btn-register{
+    width: 100%;
+    padding-top: 45px;
+    display: block;
+}
+.banner-content .btn-register a{
+    width: 240px;
+    display: block;
+    padding: 18px;
+    color: #fff;
+    margin: auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #e9e9e9;
+    font-size: 20px;
+}
+.banner-content .btn-register a:hover{
+    background-color: #00b9f2;
+}
+/* ------ What is it --------- */
+.what-is-it-block{
+    display: block;
+    position: relative;
+    float: left;
+    z-index: 2;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 80px;
+}
+.what-is-it-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.what-is-it-block p{
+    font-size: 16px;
+    font-weight: 300;
+    padding-bottom: 20px;
+    width: 80%;
+    line-height: 22px;
+    margin: auto;
+}
+.what-is-it-block .img-desc{
+    padding-top: 10px;
+    display: block;
+    width: 100%;
+}
+.what-is-it-block .img-desc img{
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+}
+/* ------ What is it --------- */
+.why-lean-vietnam-block{
+    display: block;
+    position: relative;
+    float: left;
+    z-index: 2;
+    background-color: #f7f7f9;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+.why-lean-vietnam-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.why-lean-vietnam-block p{
+    font-size: 16px;
+    font-weight: 300;
+    padding-bottom: 20px;
+    width: 80%;
+    line-height: 22px;
+    margin: auto;
+}
+.why-lean-vietnam-block .why-content{
+    display: block;
+    clear: both;
+    padding-top: 20px;
+    float: left;
+    width: 100%;
+}
+.why-lean-vietnam-block .why-content h3{
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding-bottom: 50px;
+}
+.why-lean-vietnam-block .why-content ul{
+    width: 80%;
+    display: block;
+    clear: both;
+    margin: auto;
+}
+.why-content li{
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+.why-content li span{
+    display: block;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #525252;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin: auto;
+    line-height: 76px;
+}
+.why-content li:hover span{
+    border: 1px solid #00b9f2;
+}
+.why-content span i{
+    margin: auto;
+    vertical-align: middle;
+    font-size: 45px;
+    font-weight: 300;
+}
+.why-content li:hover i{
+    color: #00b9f2;
+}
+.why-content p{
+    padding-top: 20px;
+    font-size: 14px;
+}
+/* ------ What is it --------- */
+.key-benefits-block{
+    display: block;
+    position: relative;
+    float: left;
+    z-index: 2;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    width: 100%;
+}
+.key-benefits-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.key-benefits-block p{
+    font-size: 16px;
+    font-weight: 300;
+    width: 80%;
+    line-height: 22px;
+    margin: auto;
+}
+.key-benefits-block .benefits-content{
+    padding-top: 10px;
+    display: block;
+    width: 85%;
+    margin: auto;
+}
+.benefits-content .left-side{
+    width: 65%;
+    float: left;
+    padding-top: 40px;
+}
+.benefits-content .left-side li{
+    width: 100%;
+    clear: both;
+    padding: 10px 0;
+    text-align: left;
+    line-height: 20px;
+    font-size: 19px;
+}
+.benefits-content .left-side span{
+    display: block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #525252;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    line-height: 46px;
+    float: left;
+    text-align: center;
+}
+.benefits-content .left-side i{
+    margin: auto;
+    vertical-align: middle;
+    font-size: 25px;
+    font-weight: 300;
+}
+.benefits-content .left-side p{
+    padding-top: 10px;
+    padding-left: 60px;
+    font-size: 16px;
+    width: auto;
+    line-height: 18px;
+}
+.benefits-content .right-side{
+    width: 35%;
+    float: left;
+}
+.benefits-content .right-side img{
+    max-width: 458px;
+    width: 100%;
+}
+/* ------ who should attend is it --------- */
+.who-should-attend-block{
+    display: block;
+    position: relative;
+    float: left;
+    z-index: 2;
+    background: #fff url(../img/who.png) center bottom no-repeat;
+    text-align: center;
+    padding-top: 150px;
+    padding-bottom: 50px;
+    width: 100%;
+    height: 350px;
+    color: #fff;
+}
+.who-should-attend-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.who-should-attend-block p{
+    font-size: 16px;
+    font-weight: 300;
+    width: 80%;
+    line-height: 22px;
+    margin: auto;
+    background-color: #00b9f2;
+    display: inline;
+    padding: 3px 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+/* ------ Agenda --------- */
+.agenda-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding: 80px 0;
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    float: left;
+}
+.agenda-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.agenda-management{
+    width: 400px;
+    margin: auto;
+    clear: both;
+    display: block;
+    padding-top: 20px;
+}
+.agenda-management ul{
+
+}
+.agenda-management li{
+    width: 50%;
+    float: left;
+}
+.agenda-management a{
+    display: block;
+    width: 180px;
+    padding: 10px 25px;
+    color: #525252;
+    font-size: 16px;
+    font-weight: 300;
+    text-transform: capitalize;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #525252;
+}
+.agenda-management a.active,
+.agenda-management a:hover{
+    color: #fff;
+    border: 1px solid #00b9f2;
+    background-color: #00b9f2;
+}
+.agenda-content-block{
+    width: 80%;
+    padding-top: 30px;
+    display: block;
+    clear: both;
+    margin: auto;
+}
+.agenda-content-block .agenda-detail{
+    width: 50%;
+    padding: 10px;
+    float: left;
+}
+.agenda-content-block .agenda-detail h3{
+    display: block;
+    clear: both;
+    padding-bottom: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: left;
+}
+.agenda-content-block ul{
+    width: 100%;
+    display: block;
+    clear: both;
+    background: url(../img/time-line.png) 64px top repeat-y;
+    float: left;
+}
+.agenda-content-block li{
+    width: 100%;
+    float: left;
+    padding: 5px 0;
+}
+.agenda-content-block li:hover{
+    background-color: #00b9f2;
+    color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.agenda-content-block li:first-child{
+    padding-top: 0;
+}
+.agenda-content-block p{
+    font-size: 14px;
+    float: left;
+    min-height: 35px;
+}
+.agenda-content-block p.time{
+    font-weight: 400;
+    width: 50px;
+    text-align: right;
+    line-height: 35px;
+    padding-right: 10px;
+}
+.agenda-content-block span.icon{
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #525252;
+    background-color: #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    line-height: 24px;
+    float: left;
+    text-align: center;
+}
+.agenda-content-block span.icon i{
+    margin: auto;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 300;
+}
+.agenda-content-block li:hover span.icon i{
+    color: #525252;
+}
+.agenda-content-block p.desc{
+    width: 100%;
+    padding-left: 90px;
+    float: none;
+    text-align: left;
+}
+.agenda-content-block  span.title{
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    float: left;
+    line-height: 34px;
+    text-transform: uppercase;
+}
+.agenda-content-block  span.title i{
+    font-weight: 300;
+    font-style: italic;
+    text-transform: capitalize;
+}
+.agenda-content-block  span.content{
+    display: block;
+    width: 100%;
+    font-weight: 300;
+    float: left;
+    line-height: 18px;
+}
+/* ------ Speakers --------- */
+.speakers-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding: 80px 0;
+    background-color: #f7f7f9;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    float: left;
+}
+.speakers-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.speakers-block .speaker-user{
+    width: 50%;
+    margin: auto;
+}
+.speakers-block .speaker-user ul{
+    width: 100%;
+    float: left;
+    padding-top: 20px;
+}
+.speakers-block .speaker-user li{
+    width: 50%;
+    padding: 0 10px;
+    float: left;
+}
+.speaker-user .speaker-info{
+    background-color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding:20px 10px;
+    display: block;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+.speaker-user .speaker-info:hover{
+    background-color: #00b9f2;
+    color: #fff;
+}
+.speakers-block .speaker-user img{
+    margin: auto;
+    width: 140px;
+    height: 140px;
+    border: 1px solid #525252;
+    background-color: #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.speaker-user .speaker-info:hover img{
+    border: 1px solid #fff;
+}
+.speakers-block .speaker-user p{
+    font-size: 16px;
+    font-weight: 300;
+    clear: both;
+    padding-bottom: 5px;
+    text-transform: capitalize;
+}
+.speakers-block .speaker-user p.name{
+    font-weight: 400;
+    padding-top: 25px;
+    font-size: 20px;
+}
+.speakers-block .speaker-user p.title{
+    font-size: 18px;
+    padding-bottom: 15px;
+    font-style: italic;
+}
+.speakers-block .speaker-user p.company{
+    font-size: 14px;
+    background: url(../img/line-user.png) center top no-repeat;
+    padding-top: 15px;
+    font-weight: 400;
+}
+/* ------ Location --------- */
+.where-when-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding: 80px 0;
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    float: left;
+}
+.where-when-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.where-when-block .location-block{
+    padding: 20px 50px 0 50px;
+    width: 100%;
+    clear: both;
+    display: block;
+}
+.where-when-block .location-block h3{
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 300;
+    padding-bottom: 20px;
+    display: block;
+    clear: both;
+}
+.where-when-block .location-block .left-side{
+    width: 50%;
+    float: left;
+    padding-right: 10px;
+}
+.location-block .map-block{
+    height: 350px;
+    border: 1px solid #e2e2e2;
+    width: 100%;
+}
+.where-when-block .location-block .right-side{
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+    height: 350px;
+}
+/* ------ registration --------- */
+.registration-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding: 80px 0;
+    background-color: #f7f7f9;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    float: left;
+}
+.registration-block h2{
+    font-size: 34px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+.registration-form{
+    width: 60%;
+    margin: auto;
+    display: block;
+    clear: both;
+    padding-top: 20px;
+}
+.registration-form .registration-field{
+    width: 50%;
+    padding: 5px 10px;
+    float: left;
+    text-align: left;
+}
+.registration-form .submit{
+    padding-top: 35px;
+}
+.registration-form .registration-field input[type=text]{
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 0 10px;
+    float: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.registration-form .registration-field input.error[type=text]{
+    border: 1px solid red;
+    color: red;
+}
+.registration-form .registration-field p{
+    font-size: 12px;
+    color: red;
+    font-style: italic;
+    float: left;
+    clear: both;
+}
+.registration-form .registration-field label{
+    width: 150px;
+    float: left;
+    padding-bottom: 5px;
+    font-weight: 400;
+}
+.registration-form .registration-field span{
+    color: red;
+}
+.registration-form .registration-field button.register{
+    border: 1px solid #525252;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px 25px;
+    text-transform: capitalize;
+    width: 180px;
+    background-color: #00b9f2;
+    cursor: pointer;
+    margin: auto;
+}
+.registration-form .registration-field button.register:hover{
+    background-color: #525252;
+    border: 1px solid #525252;
+}
+/* ------ Footer -------- */
+.footer-block{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding: 15px 20px;
+    background-color: #1e1e1f;
+    text-align: center;
+    color: #989898;
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+}
+.footer-block p{
+    line-height: 18px;
+}
+.footer-block a{
+    color: #fff;
+}
+.footer-block a:hover{
+    color: #989898;
+}
