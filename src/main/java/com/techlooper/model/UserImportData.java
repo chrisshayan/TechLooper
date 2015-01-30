@@ -46,7 +46,7 @@ public class UserImportData {
   private String followers;
 
   @JsonProperty("following")
-  private int following;
+  private String following;
 
   @JsonProperty("organizations")
   private List<String> organizations;
@@ -175,11 +175,11 @@ public class UserImportData {
     this.followers = followers;
   }
 
-  public int getFollowing() {
+  public String getFollowing() {
     return following;
   }
 
-  public void setFollowing(int following) {
+  public void setFollowing(String following) {
     this.following = following;
   }
 

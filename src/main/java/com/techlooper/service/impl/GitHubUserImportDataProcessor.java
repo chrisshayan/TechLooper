@@ -21,6 +21,7 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
       extractUserSkillSetFromDescription(user);
       extractUserNumberOfRepositories(user);
       processUserFollowers(user);
+      processUserFollowing(user);
       processUserContributedLongStreakDays(user);
       processUserContributedNumberLastYear(user);
     }
@@ -56,6 +57,14 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
     if (StringUtils.isNotEmpty(followers) && followers.contains("k")) {
       double numberOfFollowers = Double.valueOf(followers.replace("k", "")) * 1000;
       user.setFollowers(String.valueOf((int)numberOfFollowers));
+    }
+  }
+
+  private void processUserFollowing(UserImportData user) {
+    String following = user.getFollowing();
+    if (StringUtils.isNotEmpty(following) && following.contains("k")) {
+      double numberOfFollowing = Double.valueOf(following.replace("k", "")) * 1000;
+      user.setFollowers(String.valueOf((int)numberOfFollowing));
     }
   }
 
