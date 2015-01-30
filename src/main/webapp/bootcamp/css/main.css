@@ -96,9 +96,14 @@ ul{
 .header-block .contact-block a{
     color: #fee900;    
 }
+
 .header-block .contact-block span{
     color: #fee900;
     font-weight: 400;
+}
+.header-block .contact-block span.register{
+    color: #fff;
+    font-weight: 300;
 }
 .header-block .contact-block strong{
     font-size: 18px;
@@ -192,6 +197,7 @@ ul{
     position: relative;
     height: 768px;
     text-align: center;
+    background: url(../img/bg-banner.png) fixed center top no-repeat;
 }
 .main-banner-block .bg-banner{
     position: fixed;
@@ -220,10 +226,11 @@ ul{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background-color: #00b9f2;
-    /*transition: background-color 0.8s ease-in-out;*/
-    /*-moz-transition: background-color 0.8s ease-in-out;*/
-    /*-webkit-transition: background-color 0.8s ease-in-out;*/
+    /*-webkit-animation: change .8s infinite;*/
+    /*-moz-animation: change .8s infinite;*/
+    /*-ms-animation: change .8s infinite;*/
+    /*-o-animation: change .8s infinite;*/
+    /*animation: change .8s infinite;*/
 }
 .main-banner-block .banner-content span{
     font-style: italic;
@@ -233,6 +240,15 @@ ul{
     padding-top: 10px;
     font-weight: 300;
 }
+
+.main-banner-block .banner-content.transition h2{
+    background-color: #00b9f2;
+    opacity: 1;
+    transition-property: background, opacity;
+    transition-duration: .2s, 1s;
+    transition-timing-function: linear, ease-in;
+    transition-delay: 0, 1s;
+}
 .price-for-ticket{
     width: auto;
     padding-top: 10px;
@@ -241,7 +257,7 @@ ul{
     font-size: 18px;
     top: 50px;
     right: 20px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 .price-for-ticket span{
     font-style: normal;
@@ -537,13 +553,13 @@ ul{
     position: relative;
     float: left;
     z-index: 2;
-    background: #fff url(../img/who.png) center bottom no-repeat;
+    /*background: #fff url(../img/who.png) center bottom no-repeat;*/
+    background-color: #f7f7f9;
     text-align: center;
     padding-top: 150px;
     padding-bottom: 50px;
     width: 100%;
     height: 350px;
-    color: #fff;
 }
 .who-should-attend-content{
 
@@ -560,7 +576,7 @@ ul{
     width: 80%;
     line-height: 22px;
     margin: auto;
-    background-color: #00b9f2;
+    background-color: #e4e5e5;
     display: inline;
     padding: 3px 10px;
     -webkit-border-radius: 5px;
@@ -756,7 +772,7 @@ ul{
     background-color: #f7f7f9;
     text-align: center;
     position: relative;
-    z-index: 2;
+    z-index: 666;
     float: left;
 }
 .speakers-block h2{
@@ -854,7 +870,7 @@ ul{
     background-color: #fff;
     text-align: center;
     position: relative;
-    z-index: 2;
+    z-index: 666;
     float: left;
 }
 .where-when-block h2{
@@ -907,7 +923,7 @@ ul{
     background-color: #f7f7f9;
     text-align: center;
     position: relative;
-    z-index: 2;
+    z-index: 666;
     float: left;
 }
 .registration-block h2{
@@ -992,7 +1008,7 @@ ul{
     text-align: center;
     color: #989898;
     position: relative;
-    z-index: 2;
+    z-index: 666;
     font-size: 12px;
 }
 .footer-block p{
@@ -1013,3 +1029,28 @@ ul{
     font-style: italic;
     font-size: 14px;
 }
+
+/*@-webkit-keyframes change {*/
+    /*from { background-color: #000000; }*/
+    /*to { background-color: #00b9f2; }*/
+/*}*/
+
+/*@-moz-keyframes change {*/
+    /*from { background-color: #000000; }*/
+    /*to { background-color: #00b9f2; }*/
+/*}*/
+
+/*@-ms-keyframes change {*/
+    /*from { background-color: #000000; }*/
+    /*to { background-color: #00b9f2; }*/
+/*}*/
+
+/*@-o-keyframes change {*/
+    /*from { background-color: #000000; }*/
+    /*to { background-color: #00b9f2; }*/
+/*}*/
+
+/*@keyframes change {*/
+    /*from { background-color: #000000; }*/
+    /*to { background-color: #00b9f2; }*/
+/*}*/

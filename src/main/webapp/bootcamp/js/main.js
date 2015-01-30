@@ -10,6 +10,7 @@ $(document).ready(function() {
   menuAnimate();
   contentAnimate();
 	invalidationData();
+
 });
 function menuManager(){
 	var icMenu = $('.fa-bars'),
