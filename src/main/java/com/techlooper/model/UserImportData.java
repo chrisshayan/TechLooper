@@ -1,11 +1,15 @@
 package com.techlooper.model;
 
+import java.util.List;
+
 /**
  * Created by khoa-nd on 27/01/15.
  */
 public class UserImportData {
 
   private String email;
+
+  private String originalEmail;
 
   private String fullName;
 
@@ -17,7 +21,11 @@ public class UserImportData {
 
   private String location;
 
-  private String dateJoined;
+  private String dateJoin;
+
+  private String company;
+
+  private List<String> skills;
 
   public String getEmail() {
     return email;
@@ -25,6 +33,14 @@ public class UserImportData {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getOriginalEmail() {
+    return originalEmail;
+  }
+
+  public void setOriginalEmail(String originalEmail) {
+    this.originalEmail = originalEmail;
   }
 
   public String getFullName() {
@@ -67,11 +83,27 @@ public class UserImportData {
     this.location = location;
   }
 
-  public String getDateJoined() {
-    return dateJoined;
+  public String getDateJoin() {
+    return dateJoin;
   }
 
-  public void setDateJoined(String dateJoined) {
-    this.dateJoined = dateJoined;
+  public void setDateJoin(String dateJoin) {
+    this.dateJoin = dateJoin;
+  }
+
+  public String getCompany() {
+    return company;
+  }
+
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  public List<String> getSkills() {
+    return skills;
+  }
+
+  public void setSkills(List<String> skills) {
+    this.skills = skills;
   }
 }
