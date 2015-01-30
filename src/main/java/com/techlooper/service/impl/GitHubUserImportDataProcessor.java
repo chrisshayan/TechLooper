@@ -35,12 +35,14 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
   }
 
   private void extractUserSkillSetFromDescription(UserImportData user) {
-    String[] tokens = StringUtils.split(user.getDescription(), " ");
-    for(String token : tokens) {
-      if (token.contains(EmailValidator.COMMA)) {
-        user.getSkills().add(StringUtils.remove(token, EmailValidator.COMMA));
-      } else if (token.contains(EmailValidator.DOT) && !token.toUpperCase().contains(SocialProvider.GITHUB.toString())) {
-        user.getSkills().add(StringUtils.remove(token, EmailValidator.DOT));
+    if (user.getDescription().startsWith(user.getUsername())) {
+      String[] tokens = StringUtils.split(user.getDescription(), " ");
+      for (String token : tokens) {
+        if (token.contains(EmailValidator.COMMA)) {
+          user.getSkills().add(StringUtils.remove(token, EmailValidator.COMMA));
+        } else if (token.contains(EmailValidator.DOT) && !token.toUpperCase().contains(SocialProvider.GITHUB.toString())) {
+          user.getSkills().add(StringUtils.remove(token, EmailValidator.DOT));
+        }
       }
     }
   }
@@ -48,8 +50,10 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
   private void extractUserNumberOfRepositories(UserImportData user) {
     int beforeNumberRepoIndex = StringUtils.ordinalIndexOf(user.getDescription(), EmailValidator.WHITE_SPACE, 2);
     int afterNumberRepoIndex = StringUtils.ordinalIndexOf(user.getDescription(), EmailValidator.WHITE_SPACE, 3);
-    user.setNumberOfRepositories(
-            Integer.valueOf(StringUtils.substring(user.getDescription(), beforeNumberRepoIndex + 1, afterNumberRepoIndex)));
+    String numRepoStr = StringUtils.substring(user.getDescription(), beforeNumberRepoIndex + 1, afterNumberRepoIndex);
+    if (StringUtils.isNumeric(numRepoStr)) {
+      user.setNumberOfRepositories(Integer.valueOf(numRepoStr));
+    }
   }
 
   private void processUserFollowers(UserImportData user) {
