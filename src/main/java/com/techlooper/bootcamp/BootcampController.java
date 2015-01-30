@@ -24,7 +24,7 @@ public class BootcampController {
   @ResponseBody
   @RequestMapping(value = "/bootcamp/users", method = RequestMethod.POST)
   public void save(@RequestBody BootcampUserInfo bootcampUserInfo, HttpServletResponse httpServletResponse) throws IOException {
-    File jsonFile = new File("bootcamp-users.json");
+    File jsonFile = new File("c:/bootcamp-users.json");
     StringBuilder jsonBuilder = new StringBuilder();
     if (jsonFile.exists()) {
       Files.readLines(jsonFile, StandardCharsets.UTF_8).stream().forEach(jsonBuilder::append);
