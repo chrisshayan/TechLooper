@@ -10,7 +10,7 @@ $(document).ready(function() {
   menuAnimate();
   contentAnimate();
 	invalidationData();
-
+	shareSocial();
 });
 function menuManager(){
 	var icMenu = $('.fa-bars'),
@@ -99,23 +99,22 @@ function contentAnimate(){
 }
 
 function invalidationData() {
-	$('.register').click(function(event){
+	$('button.register').click(function(event){
 		event.preventDefault();
-		//var nameReg = /^[A-Za-z]+$/;
 		var numberReg =  /^[0-9]+$/;
 		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 		var errorContent = '';
 		var fName = $('#txtFirstName').val(),
-				lName = $('#txtLastName').val(),
+				//lName = $('#txtLastName').val(),
 				job = $('#txtCurrentJob').val(),
 				email = $('#txtEmail').val(),
 				phoneNumber = $('#txtPhone').val(),
 				companyName = $('#txtCompany').val(),
-				location = $('#txtLocation').val(),
-				birthday = $('#txtBirthDay').val();
+				location = $('#txtLocation').val();
+				//birthday = $('#txtBirthDay').val();
 
-		var inputVal = new Array(fName, lName, job, email, phoneNumber);
-		var inputMessage = new Array("first name", "last name", "current job title" , "email address", "telephone number");
+		var inputVal = new Array(fName, companyName, job, email, phoneNumber, location);
+		var inputMessage = new Array("first name", "company name", "current job title" , "email address", "telephone number", 'location');
 		$('.error-messages').html('');
 		$.each(inputVal, function( index, value ) {
 			if(value == ""){
@@ -128,35 +127,60 @@ function invalidationData() {
 		});
 		if(phoneNumber != '' &&  !numberReg.test(phoneNumber)){
 			if(errorContent == ''){
-				errorContent = 'Numbers only';
+				errorContent = 'Telephone Numbers only';
 			}else{
-				errorContent = errorContent + ', Numbers only';
+				errorContent = errorContent + ', Telephone Numbers only';
 			}
 		}
 		if(email != '' && !emailReg.test(email)){
 			if(errorContent == ''){
-				errorContent = 'Please enter a valid email address';
+				errorContent = 'Email address is not valid';
 			}else{
-				errorContent = errorContent+ ', Please enter a valid email address';
+				errorContent = errorContent+ ', Email address is not valid';
 			}
 		}
 		if(errorContent != ''){
 			$('.error-messages').append('Please enter your <strong>' + errorContent+ '</strong>');
 		}else{
-			var userInfo = '{"firstName": "' + fName + '", "lastName" : "' + lName + '", "currentJobTitle": "' + job + '", "emailAddress" : "' + email + '", "phoneNumber": "' + phoneNumber + '", "companyName" : "' + companyName + '", "location" : "' + location + '", "birthday" : "' + birthday + '"}';
-			sendData(userInfo);
+			var today = currentDate();
+			var subject = today + ' – LeanVietnamBootCamp - ' + fName;
+			$.ajax({
+				type: 'POST',
+				url: 'http://leads.navigosgroup.com/api/leads',
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify({
+					Subject: subject,
+					EmailAddress1: email,
+					Telephone1: phoneNumber,
+					"FirstName": fName,
+					"CompanyName": companyName,
+					Qntt_Source: 'ONLINE',
+					LeadQualifyCode: 'HOT',
+					Qntt_LegalName: companyName,
+					CampaignId: 'ONLINE-LeanVietnamBootCamp',
+					Qntt_City: location
+				})
+				, success: function (data) {
+					resetField();
+					alert('Thank you for registering for Lean Vietnam Bootcamp');
+				}, error: function (err) {
+					switch (err.status) {
+						case 500: // internal server error or duplication found
+							console.log(err.responseJSON.Message);
+							break;
+						case 400: // validation failed. The error details is the array ModelState
+							$.each(err.responseJSON.ModelState, function (index, validationError) {
+								console.log(validationError);
+							});
+							break;
+						default:
+							console.debug(err.responseJSON);
+							break;
+					}
+				}
+			});
 		}
 
-	});
-}
-function sendData(userInfo){
-	$.ajax({
-		type: 'POST',
-		url: 'users',
-		data: userInfo,
-		success: function(data) {resetField();alert('Thank you'); },
-		contentType: "application/json; charset=UTF-8",
-		dataType: 'json'
 	});
 }
 function resetField(){
@@ -164,8 +188,44 @@ function resetField(){
 	$('#txtLastName').val(''),
 	$('#txtCurrentJob').val(''),
 	$('#txtEmail').val(''),
-			$('#txtPhone').val(''),
+	$('#txtPhone').val(''),
 	$('#txtCompany').val(''),
 	$('#txtLocation').val(''),
 	$('#txtBirthDay').val('');
+}
+
+function currentDate(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+		dd='0'+dd;
+	}
+
+	if(mm<10) {
+		mm='0'+mm;
+	}
+
+	return today = mm+'/'+dd+'/'+yyyy;
+}
+
+function shareSocial(){
+	$('a.share-facebook').on('click', function() {
+		window.open(jQuery(this).attr('href'), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400');
+		return false;
+	});
+	$('a.share-linkedin').on('click', function() {
+		window.open(jQuery(this).attr('href'), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450');
+		return false;
+	});
+	$('a.share-google-plus-1').on('click', function() {
+		window.open(jQuery(this).attr('href'), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550');
+		return false;
+	});
+	$('a.share-twitter').on('click', function() {
+		window.open(jQuery(this).attr('href'), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350');
+		return false;
+	});
 }
