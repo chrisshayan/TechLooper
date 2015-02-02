@@ -1,0 +1,281 @@
+/* --- for mobile version */
+@media screen and (min-width: 320px) and (max-width: 719px) {
+  .header-block{
+    position: static;
+    background-color: #00b9f2;
+  }
+  .header-block .logo-block{
+    clear: both;
+    width: 100%;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+  }
+  .header-block .logo-block a{
+    font-size: 20px;
+  }
+  .header-block .menu-block{
+    width: 35px;
+  }
+  .header-block .contact-block{
+    width: 245px;
+    float: left;
+    padding-right: 0;
+    font-size: 11px;
+  }
+  .header-block .contact-block .languages{
+    padding-right: 0;
+  }
+  .contact-block i{
+    display: none;
+  }
+  .contact-block strong{
+    display: none;
+  }
+  .header-block .contact-block span.register{
+    display: none;
+  }
+  .header-block .menu-block .menu-list{
+    top: 90px;
+  }
+  /* banner */
+  .container-block .main-banner-block{
+    height: 400px;
+  }
+  .main-banner-block .banner-content{
+    top: 30%;
+  }
+  .main-banner-block .banner-content h2{
+    font-size: 22px;
+  }
+  .main-banner-block .banner-content p{
+    font-size: 16px;
+  }
+  .sns-block,
+  .price-for-ticket{
+    top: 20px;
+  }
+  /* -- what -- */
+  .what-is-it-block{
+    padding: 50px 20px;
+  }
+  .what-is-it-block h2{
+    font-size: 20px;
+  }
+  .what-is-it-block p{
+    font-size: 14px;
+    width: 100%;
+    text-align: justify;
+  }
+  .what-is-it-block .img-desc{
+    height: auto;
+  }
+  /* --- why --- */
+  .why-lean-vietnam-block{
+    padding: 50px 20px;
+  }
+  .why-lean-vietnam-block h2{
+    font-size: 20px;
+    line-height: 26px;
+  }
+  .why-lean-vietnam-block p{
+    font-size: 14px;
+    width: 100%;
+    text-align: justify;
+  }
+  .why-lean-vietnam-block .why-content h3{
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .why-lean-vietnam-block .why-content ul{
+    width: 100%;
+  }
+  .why-content li{
+    width: 100%;
+  }
+  .why-lean-vietnam-block li p{
+    text-align: center;
+  }
+  /* --- benefits --- */
+  .key-benefits-block{
+    padding: 50px 20px;
+  }
+  .key-benefits-block .benefits-content{
+    width: 100%;
+  }
+  .key-benefits-block h2{
+    font-size: 20px;
+  }
+  .benefits-content .left-side{
+    width: 100%;
+    clear: both;
+    padding-top: 10px;
+    padding-left: 25px;
+  }
+  .benefits-content .left-side li{
+    font-size: 18px;
+  }
+  .benefits-content .right-side{
+    width: 100%;
+    clear: both;
+    padding-top: 20px;
+    height: auto;
+    min-height: inherit;
+  }
+  /* ---   Who attend --- */
+  .who-should-attend-block{
+    padding: 50px 20px;
+    height: auto;
+  }
+  .who-should-attend-content h2{
+    font-size: 20px;
+  }
+  .who-should-attend-content p{
+    font-size: 16px;
+  }
+  /* --- Agenda --- */
+  .agenda-block{
+    padding: 50px 20px;
+  }
+  .agenda-block h2{
+    font-size: 20px;
+  }
+  .agenda-content-block{
+    width: 100%;
+    padding-top: 10px;
+  }
+  .agenda-content-block .agenda-detail{
+    width: 100%;
+    clear: both;
+    padding:15px 0 0 0;
+  }
+  .agenda-content-block p.desc{
+    padding-left: 35px;
+  }
+  .agenda-content-block .agenda-detail h3{
+    font-size: 16px;
+  }
+  .agenda-content-block span.title{
+    font-size: 14px;
+  }
+  /*--- Speakers --- */
+  .speakers-block{
+    padding: 50px 20px;
+  }
+  .speakers-block .speaker-user{
+    width: 100%;
+  }
+  .speakers-block .speaker-user li{
+    width: 100%;
+    clear: both;
+    padding: 10px 0;
+  }
+  /* --- where and when --- */
+  .where-when-block{
+    padding: 50px 20px 100px 20px;
+    z-index: 2;
+  }
+  .where-when-block h2{
+    font-size: 20px;
+  }
+  .where-when-block .location-block{
+    padding: 10px 0;
+    float: left;
+  }
+  .where-when-block .location-block .right-side,
+  .where-when-block .location-block .left-side{
+    width: 100%;
+    clear: both;
+    padding: 10px 0;
+  }
+  .where-when-block .location-block .right-side {
+    padding-top: 40px;
+  }
+  .where-when-block .location-block h3{
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    padding-bottom: 5px;
+  }
+  .where-when-block .location-block p{
+    font-size: 14px;
+    line-height: 18px;
+  }
+  /* --- registration --- */
+  .registration-block{
+    padding: 50px 20px;
+  }
+  .registration-block h2{
+    font-size: 20px;
+  }
+  .registration-form{
+    width: 100%;
+  }
+  .registration-form .registration-field{
+    width: 100%;
+    clear: both;
+  }
+}
+/* --- for table version view by portrait*/
+@media screen and (min-width: 720px) and (max-width: 990px) {
+  .header-block .logo-block{
+    width: 280px;
+  }
+  .header-block .logo-block a{
+    font-size: 20px;
+  }
+  .header-block .menu-block{
+    width: 40px;
+  }
+  .header-block .contact-block{
+    width: auto;
+    padding-right: 0;
+  }
+  .contact-block i{
+    display: none;
+  }
+  .contact-block strong{
+    display: none;
+  }
+  .header-block .contact-block span.register{
+    display: none;
+  }
+  .what-is-it-block .img-desc{
+    height: 350px;
+  }
+  .what-is-it-block p{
+    width: 90%;
+  }
+  .why-lean-vietnam-block p{
+    width: 90%;
+  }
+  .why-lean-vietnam-block .why-content h3{
+    width: 90%;
+    margin: auto;
+    line-height: 22px;
+  }
+  .key-benefits-block .benefits-content{
+    width: 90%;
+  }
+  .benefits-content .left-side{
+    width: 50%;
+    padding-left: 15px;
+  }
+  .benefits-content .right-side{
+    width: 50%;
+    padding-top: 50px;
+  }
+  .who-should-attend-block p{
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+  .agenda-content-block{
+    width: 90%;
+  }
+  .speakers-block .speaker-user{
+    width: 80%;
+  }
+  .registration-form{
+    width: 75%;
+  }
+}
