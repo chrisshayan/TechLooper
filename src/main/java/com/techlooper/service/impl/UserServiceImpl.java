@@ -10,6 +10,7 @@ import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -107,8 +108,11 @@ public class UserServiceImpl implements UserService {
     List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
 
     for (UserImportData user : users) {
-      UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
+      if (StringUtils.isEmpty(user.getUsername())) {
+        continue;
+      }
 
+      UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
       if (userImportEntity != null) {
         userImportEntity.withProfile(user.getCrawlerSource(), user);
       } else {
