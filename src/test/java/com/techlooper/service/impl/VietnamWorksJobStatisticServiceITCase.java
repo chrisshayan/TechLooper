@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by chrisshayan on 7/14/14.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class})
+@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class, ElasticsearchUserImportConfiguration.class})
 public class VietnamWorksJobStatisticServiceITCase {
 
     private JobStatisticService jobStatisticService;
@@ -45,7 +46,7 @@ public class VietnamWorksJobStatisticServiceITCase {
 
     @Before
     public void before() {
-        jobStatisticService = new VietnamworksJobStatisticService();
+        jobStatisticService = new VietnamWorksJobStatisticService();
         ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
         ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
         ReflectionTestUtils.setField(jobStatisticService, "elasticSearchIndexName", elasticSearchIndexName);

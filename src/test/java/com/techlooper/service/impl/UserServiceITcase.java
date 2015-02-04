@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.config.ConfigurationTest;
+import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.service.UserService;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class})
+@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchUserImportConfiguration.class})
 public class UserServiceITcase {
 
     @Resource

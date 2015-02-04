@@ -1,11 +1,16 @@
 package com.techlooper.controller;
 
+import com.techlooper.model.SocialProvider;
 import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
+import com.techlooper.service.SocialService;
+import com.techlooper.service.UserImportDataProcessor;
 import com.techlooper.service.UserService;
+import com.techlooper.util.EmailValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -23,6 +29,9 @@ import java.util.List;
  */
 @Controller
 public class UserController {
+
+  @Resource
+  private ApplicationContext applicationContext;
 
   @Resource
   private UserService userService;
@@ -40,10 +49,16 @@ public class UserController {
   @ResponseBody
   @RequestMapping(value = "/api/users/addAll", method = RequestMethod.POST)
   public void saveAll(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
-    //TODO : Temporarily adding fake email for user who is missing email address to pass validation
-    processMissingEmailUser(users);
-    httpServletResponse.setStatus(userService.addCrawledUserAll(users) > 0 ?
-            HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+    if (!users.isEmpty()) {
+      SocialProvider provider = users.get(0).getCrawlerSource();
+      UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
+      // process raw user data before import into ElasticSearch
+      dataProcessor.process(users);
+      httpServletResponse.setStatus(userService.addCrawledUserAll(users) > 0 ?
+              HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+    } else {
+      httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+    }
   }
 
   @ResponseBody
@@ -77,12 +92,4 @@ public class UserController {
     }
   }
 
-  private void processMissingEmailUser(List<UserImportData> users) {
-    if (users != null && users.size() > 0) {
-      for (UserImportData user : users)
-        if (StringUtils.isEmpty(user.getEmail())) {
-          user.setEmail(user.getUsername() + "@missing.com");
-        }
-    }
-  }
 }
