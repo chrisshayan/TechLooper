@@ -155,7 +155,7 @@ function invalidationData() {
 					"FirstName": fName,
 					"CompanyName": companyName,
 					Qntt_Source: 'ONLINE',
-					LeadQualifyCode: 'HOT',
+					LeadQualityCode: 'HOT',
 					Qntt_LegalName: companyName,
 					CampaignId: 'ONLINE-LeanVietnamBootCamp',
 					Qntt_City: location
