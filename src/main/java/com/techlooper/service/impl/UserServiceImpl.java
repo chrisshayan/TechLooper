@@ -134,6 +134,33 @@ public class UserServiceImpl implements UserService {
     return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
   }
 
+  public int importUserAll(List<UserImportData> users) {
+    List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
+
+    for (UserImportData user : users) {
+      try {
+          if (StringUtils.isEmpty(user.getEmail())) {
+            user.setEmail(user.getUsername() + "@missing.com");
+          }
+          UserImportEntity userImportEntity = userImportRepository.findOne(user.getEmail());
+          if (userImportEntity == null) {
+            userImportEntity = dozerMapper.map(user, UserImportEntity.class);
+            userImportEntity.withProfile(user.getCrawlerSource(), user);
+            userImportEntity.setCrawled(true);
+            shouldBeSavedUsers.add(userImportEntity);
+          }
+      } catch (Exception ex) {
+        LOGGER.error("User Import Fail : " + user.getUsername(), ex);
+      }
+    }
+
+    if (shouldBeSavedUsers.size() > 0) {
+      return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
+    }
+
+    return 0;
+  }
+
   public UserImportEntity findUserImportByEmail(String email) {
     UserImportEntity userImportEntity = userImportRepository.findOne(email);
 

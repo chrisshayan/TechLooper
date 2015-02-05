@@ -36,6 +36,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/bootcamp/**").addResourceLocations("/bootcamp/");
+    registry.addResourceHandler("/talentsearch/**").addResourceLocations("/rs/");
 
     registry.addResourceHandler("/**").addResourceLocations(environment.getProperty("webapp.resource.location"))
       .resourceChain(true)

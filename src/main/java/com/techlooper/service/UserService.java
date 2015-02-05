@@ -31,4 +31,6 @@ public interface UserService {
   int addCrawledUserAll(List<UserImportData> users);
 
   UserImportEntity findUserImportByEmail(String email);
+
+  int importUserAll(List<UserImportData> users);
 }
