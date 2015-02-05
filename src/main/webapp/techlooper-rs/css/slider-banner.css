@@ -121,9 +121,9 @@
 
 .main-banner .sl-slider h2,
 .main-banner .sl-slider blockquote {
-    padding: 170px 30px 10px 30px;
-    width: 80%;
-    max-width: 960px;
+    padding: 200px 30px 10px 30px;
+    width: 100%;
+    /*max-width: 1000px;*/
     color: #fff;
     margin: 0 auto;
     position: relative;
