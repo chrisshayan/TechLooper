@@ -36,7 +36,7 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
   }
 
   private void extractUserSkillSetFromDescription(UserImportData user) {
-    if (StringUtils.isNotEmpty(user.getDescription())) {
+    if (StringUtils.isNotEmpty(user.getDescription()) && !StringUtils.contains(user.getDescription(), "available")) {
       final String USER_DESCRIPTION_PATTERN = "([A-Za-z0-9-_]+)*\\shas\\s([0-9]+)*\\s(repositories|repository)\\swritten\\sin\\s"
               + "(([-\\w\\s,\\+#\\(\\)']+)*|([-\\w\\s,\\+#\\(\\)']+)*\\sand\\s([-\\w\\+#\\(\\)']+)*)\\.\\s"
               + "Follow\\stheir\\scode\\son\\sGitHub\\.";
@@ -44,7 +44,7 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
       Matcher matcher = pattern.matcher(user.getDescription());
       if (matcher.matches()) {
         user.setNumberOfRepositories(Integer.valueOf(matcher.group(2)));
-        String skills = matcher.group(4).replaceAll("and", EmailValidator.COMMA).replaceAll("available", "");
+        String skills = matcher.group(4).replaceAll("and", EmailValidator.COMMA);
         user.setSkills(Arrays.asList(StringUtils.split(StringUtils.deleteWhitespace(skills), EmailValidator.COMMA)));
       }
     }
