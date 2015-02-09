@@ -1,0 +1,243 @@
+/* --- for mobile version */
+@media screen and (min-width: 320px) and (max-width: 719px) {
+	/* --- header --- */
+	header{
+		padding: 0 10px;
+		/*position: relative;*/
+	}
+	.navbar{
+		/*position: relative;*/
+	}
+	.navbar ul{
+		display: none;
+		transition: display 0.8s ease;
+    -moz-transition: display 0.8s ease;
+    -webkit-transition: display 0.8s ease;
+	}
+	header .navbar ul span{
+		display: block;
+		padding-right: 10px;
+		float: left;
+		width: 30px;
+	}
+	.navbar ul.active{
+		width: 100%;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 60px;
+		bottom: 0;
+		display: block;
+		transition: display 0.8s ease;
+    -moz-transition: display 0.8s ease;
+    -webkit-transition: display 0.8s ease;
+    z-index: 8888;
+    padding-top: 0;
+    background-color: #00b9f2;
+	}
+	.navbar ul.active li{
+		width: 100%;
+		float: left;
+		border-top: 1px solid #87e1fc;
+		padding: 5px 0;
+		text-align: left;
+	}
+	header .navbar li a{
+		color: #fff;
+	}
+	header .navbar li a:hover{
+		background-color: transparent;
+		padding: 8px 12px;
+		color: #525252;
+	}
+	header .navbar li a.languages{
+		background: transparent; 
+		font-size: 18px;
+		text-indent: inherit;
+		width: 100%;
+		margin-top: 0;
+		height: auto;
+	}
+	header .menu-bar{
+		display: block;
+		font-size: 30px;
+		width: 50px;
+		height: 60px;
+		float: right;
+		color: #d4d4d4;
+		line-height: 60px;
+		font-weight: 300;
+		cursor: pointer;
+		position: absolute;
+		right: 10px;
+		top: 0;
+		z-index: 9999;
+	}
+	header .navbar li .languages-list{
+		width: 100%;
+		background-color: #1f1f1f;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		-webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+	}
+	header .navbar li .languages-list a{
+		color: #fff;
+	}
+	.languages-list.active .arrow{
+		display: none;
+	}
+	/* --- Banner --- */
+	.main-banner .sl-slider h2{
+		font-size: 28px;
+		line-height: 22px;
+		padding: 100px 0 20px;
+		width: 90%;
+	}
+	.main-banner .sl-slider blockquote{
+		padding: 10px 0 20px;
+		width: 90%;
+	}
+	.sl-slider blockquote .btn{
+		margin: 20px 10px 10px 10px;
+		font-size: 20px;
+	}
+
+	/*-- global --- */
+	.content_wrapper section{
+		padding: 40px 10px;
+	}
+	.header-block h2{
+		font-size: 25px;
+		line-height: 28px;
+	}
+	.header-block p{
+		font-size: 16px;
+	}
+	.container-block{
+		padding-top: 20px;
+	}
+	/* --- reasons --- */
+	.reasons{
+		min-height: 1265px;
+	}
+	.reasons-content{
+		padding-top: 30px;
+	}
+	.reasons-content li{
+		width: 100%;
+		min-height: 285px;
+		padding: 0;
+	}
+	.reasons-content li h3{
+		font-size: 16px;
+	}
+	.reasons-content li p{
+		font-size: 14px;
+	}
+	/*--- customers say --- */
+	.feedback{
+		height: 530px;
+	}
+	.customers-said-content{
+		width: 100%;
+	}
+	.customers-said{
+		height: 600px;
+	}
+	/* --- feedback --- */
+	.feedback-form{
+		width: 100%;
+		padding: 0 10px;
+	}
+	/* --- Map --- */
+	.map-block{
+		margin-top: 350px;
+	}
+	.address-info{
+		width: 100%;
+		border: 0;
+		left: 0;
+		top: 0;
+		-webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+	}
+	/* --- footer --- */
+	footer{
+		padding: 5px;
+		height: 35px;
+	}
+	footer .copyright-block p{
+		font-size: 10px;
+		text-align: center;
+	}
+	footer .copyright-block{
+		width: 100%;
+	}
+	footer .copyright-block p.address{
+		display: none;
+	}
+	footer .social-network-block{
+		display: none;
+	}
+}
+/* --- for table version */
+@media screen and (min-width: 720px) and (max-width: 1024px) {
+	header{
+		padding: 0 10px;
+	}
+	header .logo-block{
+		width: 28%;
+	}
+	header .logo-block img{
+		width: 100%;
+		max-height: 50px;
+	}
+	header .navbar{
+		width: 72%;
+	}
+	header .navbar li{
+		padding: 0;
+	}
+	header .navbar li a{
+		font-size: 16px;
+		padding: 8px 10px;
+	}
+	header .navbar li a.languages span.text{
+		display: none;
+	}
+	.languages-list.active .arrow{
+		right: 18px;
+		left: auto;
+	}
+	.content_wrapper section{
+		padding: 50px 10px;
+	}
+	/*-- reasons ----*/
+	.reasons{
+		min-height: 780px;
+	}
+	.reasons-content li{
+		padding-bottom: 20px;
+		min-height: 285px;
+	}
+	/* --- Customers say --- */
+	.customers-said-content{
+		width: 100%;
+		padding: 50px 20px 0 20px;
+	}
+	/*--- footer ---*/
+	footer {
+		padding: 10px 15px;
+	}
+	footer .copyright-block{
+		width: 70%;
+	}
+	footer .social-network-block{
+		width: 30%;
+	}
+}

@@ -17,6 +17,8 @@ import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryFilterBuilder;
 import org.jasypt.util.text.TextEncryptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -34,6 +36,8 @@ import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
   @Resource
   private UserRepository userRepository;
@@ -112,19 +116,49 @@ public class UserServiceImpl implements UserService {
         continue;
       }
 
-      UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
-      if (userImportEntity != null) {
-        userImportEntity.withProfile(user.getCrawlerSource(), user);
-      } else {
-        userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-        userImportEntity.withProfile(user.getCrawlerSource(), user);
-        userImportEntity.setCrawled(true);
+      try {
+        UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
+        if (userImportEntity != null) {
+          userImportEntity.withProfile(user.getCrawlerSource(), user);
+        } else {
+          userImportEntity = dozerMapper.map(user, UserImportEntity.class);
+          userImportEntity.withProfile(user.getCrawlerSource(), user);
+          userImportEntity.setCrawled(true);
+        }
+        shouldBeSavedUsers.add(userImportEntity);
+      } catch (Exception ex) {
+        LOGGER.error("User Import Fail : " + user.getUsername(), ex);
       }
-
-      shouldBeSavedUsers.add(userImportEntity);
     }
 
     return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
+  }
+
+  public int importUserAll(List<UserImportData> users) {
+    List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
+
+    for (UserImportData user : users) {
+      try {
+          if (StringUtils.isEmpty(user.getEmail())) {
+            user.setEmail(user.getUsername() + "@missing.com");
+          }
+          UserImportEntity userImportEntity = userImportRepository.findOne(user.getEmail());
+          if (userImportEntity == null) {
+            userImportEntity = dozerMapper.map(user, UserImportEntity.class);
+            userImportEntity.withProfile(user.getCrawlerSource(), user);
+            userImportEntity.setCrawled(true);
+            shouldBeSavedUsers.add(userImportEntity);
+          }
+      } catch (Exception ex) {
+        LOGGER.error("User Import Fail : " + user.getUsername(), ex);
+      }
+    }
+
+    if (shouldBeSavedUsers.size() > 0) {
+      return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
+    }
+
+    return 0;
   }
 
   public UserImportEntity findUserImportByEmail(String email) {
