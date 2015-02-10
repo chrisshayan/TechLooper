@@ -267,6 +267,38 @@ header .navbar li .languages-list.active{
     z-index: 9999;
 }
 /* --- banner section --- */
+.img-banner{
+    background-image: url(../img/banner-1.jpg);
+    position: relative;
+    background-position: top center;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 80px 25px;
+    min-height: 700px;
+}
+.banner-content{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30%;
+    z-index: 888;
+    color: #fff;
+}
+.banner-content h2{
+    color: #fff;
+    font-weight: 300;
+    font-size: 55px;
+    text-transform: capitalize;
+    line-height: 60px;
+    padding-bottom: 30px;
+}
+.banner-content h2 span{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.banner-content p{
+    padding-top: 10px;
+}
 .count-down-day{
     color: #fff;
     -webkit-border-radius: 50%;
@@ -366,34 +398,6 @@ header .navbar li .languages-list.active{
     padding: 0 25px;
     text-align: center;
     min-height: 250px;
-    opacity: 0;
-    transition: opacity 1s ease;
-    -moz-transition: opacity 1s ease;
-    -webkit-transition: opacity 1s ease;
-}
-.reasons-content li.transition:nth-child(1){
-    opacity: 1;
-    transition: opacity 0.8s ease;
-    -moz-transition: opacity 0.8s ease;
-    -webkit-transition: opacity 0.8s ease;
-}
-.reasons-content li.transition:nth-child(2){
-    opacity: 1;
-     transition: opacity 2.8s ease;
-    -moz-transition: opacity 2.8s ease;
-    -webkit-transition: opacity 2.8s ease;   
-}
-.reasons-content li.transition:nth-child(3){
-    opacity: 1;
-    transition: opacity 4.3s ease;
-    -moz-transition: opacity 4.3s ease;
-    -webkit-transition: opacity 4.3s ease;   
-}
-.reasons-content li.transition:nth-child(4){
-    opacity: 1;
-    transition: opacity 6.8s ease;
-    -moz-transition: opacity 6.8s ease;
-    -webkit-transition: opacity 6.8s ease;    
 }
 .reasons-content li .icon{
     width: 100%;
@@ -685,11 +689,8 @@ footer .copyright-block p{
     font-size: 12px;
     line-height: 16px;
 }
-footer .copyright-block a{
+footer .copyright-block span{
     color: #a3a3a3;
-}
-footer .copyright-block a:hover{
-    color: #2c7abe;
 }
 
 footer .social-network-block{
