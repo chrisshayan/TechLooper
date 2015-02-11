@@ -235,6 +235,12 @@ public class UserImportData {
   @JsonProperty("userpathpicturefile")
   private String userPathPictureFile;
 
+  @JsonProperty("profile")
+  private String profile;
+
+  @JsonProperty("bio")
+  private String bio;
+
   private List<String> skills = new ArrayList<>();
 
   private int numberOfRepositories;
@@ -853,5 +859,21 @@ public class UserImportData {
 
   public void setEmailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
+  }
+
+  public String getProfile() {
+    return profile;
+  }
+
+  public void setProfile(String profile) {
+    this.profile = profile;
+  }
+
+  public String getBio() {
+    return bio;
+  }
+
+  public void setBio(String bio) {
+    this.bio = bio;
   }
 }

@@ -1,11 +1,15 @@
 package com.techlooper.entity.userimport;
 
+import com.techlooper.model.SocialProvider;
+
 import java.util.Date;
 
 /**
  * Created by NguyenDangKhoa on 2/11/15.
  */
 public class VietnamworksUserImportProfile implements UserImportProfile {
+
+  private SocialProvider crawlerSource;
 
   private Long resumeId;
 
@@ -535,5 +539,13 @@ public class VietnamworksUserImportProfile implements UserImportProfile {
 
   public void setUserPathPictureFile(String userPathPictureFile) {
     this.userPathPictureFile = userPathPictureFile;
+  }
+
+  public SocialProvider getCrawlerSource() {
+    return crawlerSource;
+  }
+
+  public void setCrawlerSource(SocialProvider crawlerSource) {
+    this.crawlerSource = crawlerSource;
   }
 }
