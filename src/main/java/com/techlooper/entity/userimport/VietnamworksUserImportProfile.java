@@ -1,435 +1,117 @@
-package com.techlooper.model;
+package com.techlooper.entity.userimport;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by khoa-nd on 27/01/15.
+ * Created by NguyenDangKhoa on 2/11/15.
  */
-public class UserImportData {
+public class VietnamworksUserImportProfile implements UserImportProfile {
 
-  @JsonProperty("email")
-  private String email;
-
-  private String originalEmail;
-
-  @JsonProperty("fullname")
-  private String fullName;
-
-  @JsonProperty("crawlersource")
-  private SocialProvider crawlerSource;
-
-  @JsonProperty("username")
-  private String username;
-
-  @JsonProperty("imageurl")
-  private String imageUrl;
-
-  @JsonProperty("location")
-  private String location;
-
-  @JsonProperty("datejoin")
-  private String dateJoin;
-
-  @JsonProperty("company")
-  private String company;
-
-  @JsonProperty("website")
-  private String website;
-
-  @JsonProperty("description")
-  private String description;
-
-  @JsonProperty("followers")
-  private String followers;
-
-  @JsonProperty("following")
-  private String following;
-
-  @JsonProperty("organizations")
-  private List<String> organizations;
-
-  @JsonProperty("popular_repos")
-  private List<String> popularRepositories;
-
-  @JsonProperty("contributed_repos")
-  private List<String> contributedRepositories;
-
-  @JsonProperty("contribute_longest_streak_total")
-  private String contributedLongestStreakTotal;
-
-  @JsonProperty("last_contributed_datetime")
-  private String lastContributedDateTime;
-
-  @JsonProperty("contribute_number_last_year")
-  private String contributeNumberLastYear;
-
-  @JsonProperty("contribute_number_last_year_period")
-  private String contributeNumberLastYearPeriod;
-
-  @JsonProperty("contribute_longest_streak_period")
-  private String contributeLongestStreakPeriod;
-
-  @JsonProperty("contribute_current_streak_total")
-  private String contributeCurrentStreakTotal;
-
-  @JsonProperty("resumeid")
   private Long resumeId;
 
-  @JsonProperty("languageid")
   private int languageId;
 
-  @JsonProperty("resumetitl")
   private String resumeTitle;
 
-  @JsonProperty("alias")
   private String alias;
 
-  @JsonProperty("userId")
   private Long userId;
 
-  @JsonProperty("birthday")
   private Date birthday;
 
-  @JsonProperty("genderid")
   private int genderId;
 
-  @JsonProperty("maritalstatusid")
   private int maritalStatusId;
 
-  @JsonProperty("address")
   private String address;
 
-  @JsonProperty("countryid")
   private int countryId;
 
-  @JsonProperty("cityname")
   private String cityName;
 
-  @JsonProperty("districtid")
   private int districtId;
 
-  @JsonProperty("locationmin")
   private int locationMin;
 
-  @JsonProperty("locationmax")
   private int locationMax;
 
-  @JsonProperty("homephone")
   private String homePhone;
 
-  @JsonProperty("cellphone")
   private String cellPhone;
 
-  @JsonProperty("emailaddress")
   private String emailAddress;
 
-  @JsonProperty("desiredjobtitle")
   private String desiredJobTitle;
 
-  @JsonProperty("joblevelid")
   private int jobLevelId;
 
-  @JsonProperty("desiredjoblevelid")
   private int desiredJobLevelId;
 
-  @JsonProperty("companysizeid")
   private int companySizeId;
 
-  @JsonProperty("mostrecentemployer")
   private String mostRecentEmployer;
 
-  @JsonProperty("mostrecentposition")
   private String mostRecentPosition;
 
-  @JsonProperty("yearsexperienceid")
   private int yearsExperienceId;
 
-  @JsonProperty("workexperience")
   private String workexperience;
 
-  @JsonProperty("skill")
   private String skill;
 
-  @JsonProperty("education")
   private String education;
 
-  @JsonProperty("highestdegreeid")
   private String highestDegreeId;
 
-  @JsonProperty("addinfo")
   private String addInfo;
 
-  @JsonProperty("referenceperson")
   private String referencePerson;
 
-  @JsonProperty("jobdescription")
   private String jobDescription;
 
-  @JsonProperty("careerhighlight")
   private String careerHighlight;
 
-  @JsonProperty("jobcategoryid")
   private int jobCategoryId;
 
-  @JsonProperty("relocateid")
   private int relocateId;
 
-  @JsonProperty("willingtravelid")
   private int willingTravelId;
 
-  @JsonProperty("currentsalary")
   private Long currentSalary;
 
-  @JsonProperty("typeworkingid")
   private int typeWorkingId;
 
-  @JsonProperty("suggestedsalary")
   private Long suggestedSalary;
 
-  @JsonProperty("salaryrangeid")
   private int salaryRangeId;
 
-  @JsonProperty("nationalityid")
   private int nationalityId;
 
-  @JsonProperty("language")
   private int language;
 
-  @JsonProperty("language1")
   private int language1;
 
-  @JsonProperty("languagelevel1")
   private int languageLevel1;
 
-  @JsonProperty("language2")
   private int language2;
 
-  @JsonProperty("languagelevel2")
   private int languageLevel2;
 
-  @JsonProperty("language3")
   private int language3;
 
-  @JsonProperty("languagelevel3")
   private int languageLevel3;
 
-  @JsonProperty("language4")
   private int language4;
 
-  @JsonProperty("languagelevel4")
   private int languageLevel4;
 
-  @JsonProperty("createddate")
   private Date createdDate;
 
-  @JsonProperty("resumepathattachedfile")
   private String resumePathAttachedFile;
 
-  @JsonProperty("resumecontent")
   private String resumeContent;
 
-  @JsonProperty("userpathpicturefile")
   private String userPathPictureFile;
-
-  private List<String> skills = new ArrayList<>();
-
-  private int numberOfRepositories;
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getOriginalEmail() {
-    return originalEmail;
-  }
-
-  public void setOriginalEmail(String originalEmail) {
-    this.originalEmail = originalEmail;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public SocialProvider getCrawlerSource() {
-    return crawlerSource;
-  }
-
-  public void setCrawlerSource(SocialProvider crawlerSource) {
-    this.crawlerSource = crawlerSource;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getImageUrl() {
-    return imageUrl;
-  }
-
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
-  }
-
-  public String getDateJoin() {
-    return dateJoin;
-  }
-
-  public void setDateJoin(String dateJoin) {
-    this.dateJoin = dateJoin;
-  }
-
-  public String getCompany() {
-    return company;
-  }
-
-  public void setCompany(String company) {
-    this.company = company;
-  }
-
-  public String getWebsite() {
-    return website;
-  }
-
-  public void setWebsite(String website) {
-    this.website = website;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public String getFollowers() {
-    return followers;
-  }
-
-  public void setFollowers(String followers) {
-    this.followers = followers;
-  }
-
-  public String getFollowing() {
-    return following;
-  }
-
-  public void setFollowing(String following) {
-    this.following = following;
-  }
-
-  public List<String> getOrganizations() {
-    return organizations;
-  }
-
-  public void setOrganizations(List<String> organizations) {
-    this.organizations = organizations;
-  }
-
-  public List<String> getPopularRepositories() {
-    return popularRepositories;
-  }
-
-  public void setPopularRepositories(List<String> popularRepositories) {
-    this.popularRepositories = popularRepositories;
-  }
-
-  public List<String> getContributedRepositories() {
-    return contributedRepositories;
-  }
-
-  public void setContributedRepositories(List<String> contributedRepositories) {
-    this.contributedRepositories = contributedRepositories;
-  }
-
-  public String getContributedLongestStreakTotal() {
-    return contributedLongestStreakTotal;
-  }
-
-  public void setContributedLongestStreakTotal(String contributedLongestStreakTotal) {
-    this.contributedLongestStreakTotal = contributedLongestStreakTotal;
-  }
-
-  public String getLastContributedDateTime() {
-    return lastContributedDateTime;
-  }
-
-  public void setLastContributedDateTime(String lastContributedDateTime) {
-    this.lastContributedDateTime = lastContributedDateTime;
-  }
-
-  public String getContributeNumberLastYear() {
-    return contributeNumberLastYear;
-  }
-
-  public void setContributeNumberLastYear(String contributeNumberLastYear) {
-    this.contributeNumberLastYear = contributeNumberLastYear;
-  }
-
-  public String getContributeNumberLastYearPeriod() {
-    return contributeNumberLastYearPeriod;
-  }
-
-  public void setContributeNumberLastYearPeriod(String contributeNumberLastYearPeriod) {
-    this.contributeNumberLastYearPeriod = contributeNumberLastYearPeriod;
-  }
-
-  public String getContributeLongestStreakPeriod() {
-    return contributeLongestStreakPeriod;
-  }
-
-  public void setContributeLongestStreakPeriod(String contributeLongestStreakPeriod) {
-    this.contributeLongestStreakPeriod = contributeLongestStreakPeriod;
-  }
-
-  public String getContributeCurrentStreakTotal() {
-    return contributeCurrentStreakTotal;
-  }
-
-  public void setContributeCurrentStreakTotal(String contributeCurrentStreakTotal) {
-    this.contributeCurrentStreakTotal = contributeCurrentStreakTotal;
-  }
-
-  public List<String> getSkills() {
-    return skills;
-  }
-
-  public void setSkills(List<String> skills) {
-    this.skills = skills;
-  }
-
-  public int getNumberOfRepositories() {
-    return numberOfRepositories;
-  }
-
-  public void setNumberOfRepositories(int numberOfRepositories) {
-    this.numberOfRepositories = numberOfRepositories;
-  }
 
   public Long getResumeId() {
     return resumeId;
@@ -557,6 +239,14 @@ public class UserImportData {
 
   public void setCellPhone(String cellPhone) {
     this.cellPhone = cellPhone;
+  }
+
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
   }
 
   public String getDesiredJobTitle() {
@@ -845,13 +535,5 @@ public class UserImportData {
 
   public void setUserPathPictureFile(String userPathPictureFile) {
     this.userPathPictureFile = userPathPictureFile;
-  }
-
-  public String getEmailAddress() {
-    return emailAddress;
-  }
-
-  public void setEmailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
   }
 }

@@ -1,4 +1,4 @@
-package com.techlooper.entity;
+package com.techlooper.entity.userimport;
 
 import com.techlooper.model.SocialProvider;
 import org.springframework.data.annotation.Id;
@@ -26,7 +26,7 @@ public class UserImportEntity {
   @Field(type = FieldType.Nested)
   private Map<SocialProvider, Object> profiles = new HashMap<>();
 
-  private boolean isCrawled;
+  private boolean isCrawled = true;
 
   public String getEmail() {
     return email;
@@ -60,7 +60,7 @@ public class UserImportEntity {
     this.isCrawled = isCrawled;
   }
 
-  public void withProfile(SocialProvider provider, Object object) {
-    this.profiles.put(provider, object);
+  public void withProfile(SocialProvider provider, Object profile) {
+    this.profiles.put(provider, profile);
   }
 }

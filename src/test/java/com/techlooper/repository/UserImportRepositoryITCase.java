@@ -1,10 +1,9 @@
 package com.techlooper.repository;
 
 import com.techlooper.config.ConfigurationTest;
-import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.GitHubUserProfile;
-import com.techlooper.entity.UserImportEntity;
+import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
@@ -47,7 +46,7 @@ public class UserImportRepositoryITCase {
     GitHubUserProfile gitHubUserProfile = new GitHubUserProfile();
     gitHubUserProfile.setLocation("Vietnam");
     gitHubUserProfile.setUsername("khoa-nd");
-    userImportEntity.withProfile(SocialProvider.GITHUB, gitHubUserProfile);
+//    userImportEntity.withProfile(SocialProvider.GITHUB, gitHubUserProfile);
 
     assertNotNull(userImportRepository.save(userImportEntity));
   }

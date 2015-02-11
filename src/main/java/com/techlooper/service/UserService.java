@@ -1,8 +1,8 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.UserEntity;
-import com.techlooper.entity.UserImportEntity;
-import com.techlooper.model.UserImportData;
+import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserInfo;
 
 import java.util.List;
@@ -26,11 +26,9 @@ public interface UserService {
 
   boolean registerVietnamworksAccount(UserInfo userInfo);
 
-  boolean addCrawledUser(UserImportData userImportData);
+  boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider);
 
-  int addCrawledUserAll(List<UserImportData> users);
+  int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider);
 
   UserImportEntity findUserImportByEmail(String email);
-
-  int importUserAll(List<UserImportData> users);
 }
