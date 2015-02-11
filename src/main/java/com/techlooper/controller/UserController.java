@@ -1,14 +1,12 @@
 package com.techlooper.controller;
 
+import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.SocialRequest;
 import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
-import com.techlooper.service.SocialService;
 import com.techlooper.service.UserImportDataProcessor;
 import com.techlooper.service.UserService;
-import com.techlooper.util.EmailValidator;
-import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,7 +40,11 @@ public class UserController {
   @ResponseBody
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
-    httpServletResponse.setStatus(userService.addCrawledUser(userImportData) ?
+    SocialProvider provider = userImportData.getCrawlerSource();
+    UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
+    // process raw user data before import into ElasticSearch
+    List<UserImportEntity> userImportEntities = dataProcessor.process(Arrays.asList(userImportData));
+    httpServletResponse.setStatus(userService.addCrawledUser(userImportEntities.get(0), provider) ?
             HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
   }
 
@@ -53,19 +55,8 @@ public class UserController {
       SocialProvider provider = users.get(0).getCrawlerSource();
       UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
       // process raw user data before import into ElasticSearch
-      dataProcessor.process(users);
-      httpServletResponse.setStatus(userService.addCrawledUserAll(users) == users.size() ?
-              HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
-    } else {
-      httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-    }
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/api/users/import", method = RequestMethod.POST)
-  public void importUser(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
-    if (!users.isEmpty()) {
-      httpServletResponse.setStatus(userService.importUserAll(users) > 0 ?
+      List<UserImportEntity> userImportEntities = dataProcessor.process(users);
+      httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider) == users.size() ?
               HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
     } else {
       httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
