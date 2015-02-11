@@ -704,13 +704,14 @@ ul{
     padding-bottom: 20px;
 }
 .speakers-block .speaker-user{
-    width: 60%;
+    width: 70%;
     margin: auto;
 }
 .speakers-block .speaker-user ul{
     width: 100%;
     float: left;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 .speakers-block .speaker-user li.user{
     width: 35%;
@@ -794,6 +795,34 @@ ul{
 }
 .speakers-block .speaker-info:hover p.company{
     background: url(../img/line-user1.png) center top no-repeat;
+}
+.speakers-block .see-also{
+    display: block;
+    clear: both;
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+.speakers-block .see-also h3{
+    text-transform: capitalize;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+.speakers-block .see-also p{
+    font-size: 16px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    line-height: 20px;
+}
+.speakers-block .see-also p strong{
+    font-weight: 400;
+    display: block;
+    clear: both;
+    padding: 5px 0;
+}
+.speakers-block .see-also p span{
+    font-style: italic;
+    font-size: 14px;
 }
 /* ------ Location --------- */
 .where-when-block{
