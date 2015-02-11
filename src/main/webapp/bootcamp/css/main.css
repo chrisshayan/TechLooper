@@ -226,6 +226,7 @@ ul{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    width: 80%;
     /*-webkit-animation: change .8s infinite;*/
     /*-moz-animation: change .8s infinite;*/
     /*-ms-animation: change .8s infinite;*/
@@ -234,6 +235,7 @@ ul{
 }
 .main-banner-block .banner-content span{
     font-style: italic;
+    text-transform: capitalize;
 }
 .main-banner-block .banner-content p{
     font-size: 20px;
@@ -313,6 +315,7 @@ ul{
     background-color: #fff;
     text-align: center;
     padding:80px 0 50px 0;
+    width: 100%;
 }
 .what-is-it-block h2{
     font-size: 34px;
@@ -332,10 +335,10 @@ ul{
     display: block;
     width: 100%;
     height: 500px;
+    text-align: center;
 }
 .what-is-it-block .img-desc img{
     max-width: 1000px;
-    width: 0%;
     margin: auto;
     /*transition: width 5s ease-in-out;
     -moz-transition: width 5s ease-in-out;
@@ -370,6 +373,16 @@ ul{
     width: 80%;
     line-height: 22px;
     margin: auto;
+    text-align: justify;
+}
+.why-lean-vietnam-block ul{
+    width: 80%;
+    margin: auto;
+}
+.why-lean-vietnam-block li{
+    width: 100%;
+    padding-bottom: 10px;
+    text-align: justify;
 }
 .why-lean-vietnam-block .why-content{
     display: block;
@@ -394,41 +407,7 @@ ul{
     float: left;
     width: 33%;
     text-align: center;
-    opacity: 0;
     min-height: 200px;
-}
-.why-content li:first-child{
-    /*transition: opacity 5s ease-in-out;
-    -moz-transition: opacity 5s ease-in-out;
-    -webkit-transition: opacity 5s ease-in-out;*/
-}
-.why-content li.transition:first-child{
-    opacity: 1;
-    transition: opacity .4s ease-in-out;
-    -moz-transition: opacity .4s ease-in-out;
-    -webkit-transition: opacity .4s ease-in-out;
-}
-.why-content li:nth-child(2){
-   /* transition: opacity 5s ease-in-out;
-    -moz-transition: opacity 5s ease-in-out;
-    -webkit-transition: opacity 5s ease-in-out;*/
-}
-.why-content li.transition:nth-child(2){
-    opacity: 1;
-    transition: opacity 1s ease-in-out;
-    -moz-transition: opacity 1s ease-in-out;
-    -webkit-transition: opacity 1s ease-in-out;
-}
-.why-content li:last-child{
-    /*transition: opacity 5s ease-in-out;
-    -moz-transition: opacity 5s ease-in-out;
-    -webkit-transition: opacity 5s ease-in-out;*/
-}
-.why-content li.transition:last-child{
-    opacity: 1;
-    transition: opacity 1.6s ease-in-out;
-    -moz-transition: opacity 1.6s ease-in-out;
-    -webkit-transition: opacity 1.6s ease-in-out;
 }
 .why-content li span{
     display: block;
@@ -456,6 +435,7 @@ ul{
 .why-content p{
     padding-top: 20px;
     font-size: 14px;
+    text-align: center;
 }
 /* ------ What is it --------- */
 .key-benefits-block{
@@ -539,7 +519,6 @@ ul{
 }
 .benefits-content .right-side img{
     max-width: 458px;
-    width:0%;
 }
 .benefits-content .right-side.transition img{
     width:100%;
@@ -556,7 +535,7 @@ ul{
     /*background: #fff url(../img/who.png) center bottom no-repeat;*/
     background-color: #f7f7f9;
     text-align: center;
-    padding-top: 130px;
+    padding-top: 80px;
     padding-bottom: 50px;
     width: 100%;
     height: 350px;
@@ -568,7 +547,6 @@ ul{
     font-size: 34px;
     font-weight: 300;
     padding-bottom: 20px;
-    opacity: 0;
 }
 .who-should-attend-block p{
     font-size: 16px;
@@ -576,25 +554,10 @@ ul{
     width: 80%;
     line-height: 22px;
     margin: auto;
-    background-color: #c9f8fe;
-    display: inline;
     padding: 3px 10px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    opacity: 0;
-}
-.who-should-attend-content.transition h2{
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    -moz-transition: opacity 0.5s ease-in-out;
-    -webkit-transition: opacity 0.5s ease-in-out;
-}
-.who-should-attend-content.transition p{
-    opacity: 1;
-    transition: opacity 1.5s ease-in-out;
-    -moz-transition: opacity 1.5s ease-in-out;
-    -webkit-transition: opacity 1.5s ease-in-out;
 }
 /* ------ Agenda --------- */
 .agenda-block{
@@ -666,7 +629,7 @@ ul{
     margin: auto;
 }
 .agenda-content-block .agenda-detail{
-    width: 50%;
+    width: 100%;
     padding: 10px;
     float: left;
 }
@@ -685,35 +648,22 @@ ul{
     width: 100%;
     display: block;
     clear: both;
-    background: url(../img/time-line.png) 24px top repeat-y;
+    /*background: url(../img/time-line.png) 24px top repeat-y;*/
     float: left;
 }
 .agenda-content-block li{
-    width: 100%;
+    width: 50%;
     float: left;
-    padding: 5px 0;
+    padding: 10px 0;
 }
-.agenda-content-block li:hover{
-    background-color: #00b9f2;
-    color: #fff;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-.agenda-content-block li:first-child{
-    padding-top: 0;
-}
+
 .agenda-content-block p{
     font-size: 14px;
     float: left;
     min-height: 35px;
 }
-.agenda-content-block p.time{
-    font-weight: 400;
-    width: 50px;
-    text-align: right;
-    line-height: 35px;
-    padding-right: 10px;
+.agenda-content-block span{
+    float: left;
 }
 .agenda-content-block span.icon{
     display: block;
@@ -724,44 +674,17 @@ ul{
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    line-height: 24px;
-    float: left;
+    line-height: 28px;
     text-align: center;
 }
-.agenda-content-block span.icon i{
-    margin: auto;
-    vertical-align: middle;
-    font-size: 18px;
-    font-weight: 300;
-}
-.agenda-content-block li:hover span.icon i{
-    color: #525252;
-}
-.agenda-content-block p.desc{
-    width: 100%;
-    padding-left: 50px;
-    float: none;
-    text-align: left;
-}
 .agenda-content-block  span.title{
-    display: block;
-    width: 100%;
+    width: auto;
     font-weight: 400;
     float: left;
-    line-height: 22px;
-    text-transform: uppercase;
-}
-.agenda-content-block  span.title i{
-    font-weight: 300;
-    font-style: italic;
-    text-transform: capitalize;
-}
-.agenda-content-block  span.content{
+    line-height: 30px;
     display: block;
-    width: 100%;
-    font-weight: 300;
-    float: left;
-    line-height: 18px;
+    padding:0 30px 0 10px;
+    text-transform: uppercase;
 }
 /* ------ Speakers --------- */
 .speakers-block{
@@ -781,31 +704,43 @@ ul{
     padding-bottom: 20px;
 }
 .speakers-block .speaker-user{
-    width: 50%;
+    width: 70%;
     margin: auto;
 }
 .speakers-block .speaker-user ul{
     width: 100%;
     float: left;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
-.speakers-block .speaker-user li{
-    width: 50%;
+.speakers-block .speaker-user li.user{
+    width: 35%;
     padding: 0 10px;
     float: left;
-    opacity: 0;
 }
-.speakers-block .speaker-user li.transition:first-child{
-    opacity: 1;
-    transition: opacity .2s ease-in-out;
-    -moz-transition: opacity .2s ease-in-out;
-    -webkit-transition: opacity .2s ease-in-out;
+.speakers-block .speaker-user li.talk{
+    width: 65%;
+    padding: 30px 10px 0 10px;
+    float: left;
 }
-.speakers-block .speaker-user li.transition:last-child{
-    opacity: 1;
-    transition: opacity 1.5s ease-in-out;
-    -moz-transition: opacity 1.5s ease-in-out;
-    -webkit-transition: opacity 1.5s ease-in-out;
+.speakers-block .speaker-user li.talk p{
+    text-align: left;
+    width: 100%;
+    padding-top: 10px;
+    line-height: 20px;
+}
+.speakers-block .speaker-user li.talk p.title{
+    padding-bottom: 0;
+    font-style: normal;
+}
+.speakers-block .speaker-user li.talk ul{
+    width: 100%;
+    text-align: left;
+    padding-top: 5px;
+}
+.speakers-block .speaker-user li.talk li{
+    font-size: 16px;
+    padding-bottom: 10px;
 }
 .speaker-user .speaker-info{
     background-color: #fff;
@@ -818,7 +753,7 @@ ul{
     float: left;
     width: 100%;
 }
-.speaker-user .speaker-info:hover{
+.speakers-block .speaker-user ul:hover .speaker-info{
     background-color: #00b9f2;
     color: #fff;
 }
@@ -848,7 +783,7 @@ ul{
     font-size: 20px;
 }
 .speakers-block .speaker-user p.title{
-    font-size: 18px;
+    font-size: 16px;
     padding-bottom: 25px;
     font-style: italic;
 }
@@ -860,6 +795,34 @@ ul{
 }
 .speakers-block .speaker-info:hover p.company{
     background: url(../img/line-user1.png) center top no-repeat;
+}
+.speakers-block .see-also{
+    display: block;
+    clear: both;
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+.speakers-block .see-also h3{
+    text-transform: capitalize;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+.speakers-block .see-also p{
+    font-size: 16px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    line-height: 20px;
+}
+.speakers-block .see-also p strong{
+    font-weight: 400;
+    display: block;
+    clear: both;
+    padding: 5px 0;
+}
+.speakers-block .see-also p span{
+    font-style: italic;
+    font-size: 14px;
 }
 /* ------ Location --------- */
 .where-when-block{
@@ -884,7 +847,7 @@ ul{
     clear: both;
     display: block;
 }
-.where-when-block .location-block h3{
+.where-when-block .location-block p{
     font-size: 18px;
     text-transform: capitalize;
     font-weight: 300;
@@ -892,27 +855,21 @@ ul{
     display: block;
     clear: both;
 }
-.where-when-block .location-block .left-side{
+.where-when-block .location-block ul{
     width: 50%;
-    float: left;
-    padding-right: 10px;
+    margin: auto;
 }
-.location-block .map-block{
-    height: 350px;
-    border: 1px solid #e2e2e2;
+.where-when-block .location-block li{
     width: 100%;
+    padding-bottom: 10px;
+    text-align: left;
 }
-.where-when-block .location-block .right-side{
-    width: 50%;
-    float: left;
-    padding-left: 10px;
-    height: 350px;
-}
-.where-when-block .location-block p{
-    font-size: 14px;
-    padding-top: 10px;
-    clear: both;
-    text-align: center;
+.where-when-block .location-block li span{
+    font-weight: 400;
+    font-size: 16px;
+    padding-right: 20px;
+    display: inline-block;
+    width: 150px;
 }
 /* ------ registration --------- */
 .registration-block{

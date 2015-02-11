@@ -69,6 +69,9 @@
   .what-is-it-block .img-desc{
     height: auto;
   }
+  .what-is-it-block .img-desc img{
+    width: 100%;
+  }
   /* --- why --- */
   .why-lean-vietnam-block{
     padding: 50px 20px;
@@ -92,9 +95,20 @@
   .why-content li{
     width: 100%;
   }
+  .why-lean-vietnam-block ul{
+    width: 100%;
+  }
   .why-lean-vietnam-block li p{
     text-align: center;
   }
+  .why-lean-vietnam-block li{
+    text-align: left;
+    line-height: 18px;
+  }
+  .why-content li span{
+    text-align: center;
+  }
+
   /* --- benefits --- */
   .key-benefits-block{
     padding: 50px 20px;
@@ -121,16 +135,24 @@
     height: auto;
     min-height: inherit;
   }
+  .benefits-content .right-side img{
+    width: 100%;
+  }
   /* ---   Who attend --- */
   .who-should-attend-block{
     padding: 50px 20px;
     height: auto;
+    width: 100%;
   }
   .who-should-attend-content h2{
     font-size: 20px;
   }
   .who-should-attend-content p{
     font-size: 16px;
+    width: 100%;
+    text-align: left;
+    line-height: 18px;
+    padding-bottom: 10px;
   }
   /* --- Agenda --- */
   .agenda-block{
@@ -157,6 +179,15 @@
   .agenda-content-block span.title{
     font-size: 14px;
   }
+  .agenda-content-block li{
+    width: 100%;
+    padding-right: 0;
+  }
+  .agenda-content-block span.title{
+    padding-right: 0;
+    padding-left: 10px;
+    font-size: 13px;
+  }
   /*--- Speakers --- */
   .speakers-block{
     padding: 50px 20px;
@@ -168,6 +199,12 @@
     width: 100%;
     clear: both;
     padding: 10px 0;
+  }
+  .speakers-block .speaker-user li.user{
+    width: 100%;
+  }
+  .speakers-block .speaker-user li.talk{
+    width: 100%;
   }
   /* --- where and when --- */
   .where-when-block{
@@ -200,6 +237,17 @@
     font-size: 14px;
     line-height: 18px;
   }
+  .where-when-block .location-block ul{
+    width: 100%;
+  }
+  .where-when-block .location-block li{
+    padding-bottom: 20px;
+  }
+  .where-when-block .location-block li span{
+    display: block;
+    width: 100%;
+    padding-bottom: 5px;
+  }
   /* --- registration --- */
   .registration-block{
     padding: 50px 20px;
@@ -216,7 +264,7 @@
   }
 }
 /* --- for table version view by portrait*/
-@media screen and (min-width: 720px) and (max-width: 990px) {
+@media screen and (min-width: 720px) and (max-width: 1024px) {
   .header-block .logo-block{
     width: 280px;
   }
@@ -239,9 +287,6 @@
   .header-block .contact-block span.register{
     display: none;
   }
-  .what-is-it-block .img-desc{
-    height: 350px;
-  }
   .what-is-it-block p{
     width: 90%;
   }
@@ -257,12 +302,13 @@
     width: 90%;
   }
   .benefits-content .left-side{
-    width: 50%;
+    width: 100%;
     padding-left: 15px;
   }
   .benefits-content .right-side{
-    width: 50%;
+    width: 100%;
     padding-top: 50px;
+    text-align: center;
   }
   .who-should-attend-block p{
     -webkit-border-radius: 0;
@@ -270,12 +316,33 @@
     border-radius: 0;
   }
   .agenda-content-block{
-    width: 90%;
+    width: 100%;
+    padding: 0 30px;
   }
   .speakers-block .speaker-user{
     width: 80%;
   }
   .registration-form{
     width: 75%;
+  }
+  .who-should-attend-block{
+    height: auto;
+  }
+  .who-should-attend-content{
+    text-align: center;
+  }
+  .who-should-attend-content p{
+    width: 100%;
+    padding: 5px 30px;
+    text-align: left;
+  }
+  .agenda-content-block .agenda-detail{
+    padding-top: 20px; 
+  }
+  .speakers-block .speaker-user li.talk{
+    padding-top: 0;
+  }
+  .where-when-block .location-block ul{
+    width: 90%;
   }
 }
