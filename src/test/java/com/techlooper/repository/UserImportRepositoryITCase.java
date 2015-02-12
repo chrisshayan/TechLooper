@@ -8,6 +8,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.DependsOn;
@@ -58,6 +59,7 @@ public class UserImportRepositoryITCase {
   }
 
   @Test
+  @Ignore
   @DependsOn("testAddUser")
   public void testUserProfiles() {
     UserImportEntity userImportEntity = userImportRepository.findOne("ndkhoa.is@gmail.com");
