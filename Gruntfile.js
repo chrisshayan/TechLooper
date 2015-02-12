@@ -167,7 +167,12 @@ module.exports = function (grunt) {
       cssConcat: {
         src: ["<%=pkg.public%>generate-resources/*.css"],
         dest: "<%=pkg.public%>generate-resources/",
-        replacements: [{from: "};", to: "}"}, {from: "../fonts", to: "fonts"}]
+        replacements: [
+          {from: "};", to: "}"},
+          {from: "../fonts", to: "fonts"},
+          {from: ".tmp/concat/", to: ""},
+          {from: "images/", to: "../images/"}
+        ]
       }
     },
 
