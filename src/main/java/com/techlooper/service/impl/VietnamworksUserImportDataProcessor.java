@@ -4,6 +4,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.userimport.VietnamworksUserImportProfile;
 import com.techlooper.model.UserImportData;
 import com.techlooper.service.UserImportDataProcessor;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,11 @@ public class VietnamworksUserImportDataProcessor implements UserImportDataProces
 
   private void processEmailAddress(UserImportData user) {
     // Because ElasticSearch will accept field "email" as a key, so we should prepare email for it before adding to ES
-    user.setEmail(user.getEmailAddress());
+    if (StringUtils.isEmpty(user.getEmailAddress())) {
+      user.setEmail(user.getUserId() + "@missing.com");
+    } else {
+      user.setEmail(user.getEmailAddress());
+    }
   }
 
 }
