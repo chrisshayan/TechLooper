@@ -1,6 +1,7 @@
 package com.techlooper.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.techlooper.entity.userimport.GravatarUserImportProfile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -240,6 +241,9 @@ public class UserImportData {
 
   @JsonProperty("bio")
   private String bio;
+
+  @JsonProperty("entry")
+  private List<GravatarUserImportProfile> gravatarProfile;
 
   private List<String> skills = new ArrayList<>();
 
@@ -875,5 +879,13 @@ public class UserImportData {
 
   public void setBio(String bio) {
     this.bio = bio;
+  }
+
+  public List<GravatarUserImportProfile> getGravatarProfile() {
+    return gravatarProfile;
+  }
+
+  public void setGravatarProfile(List<GravatarUserImportProfile> gravatarProfile) {
+    this.gravatarProfile = gravatarProfile;
   }
 }
