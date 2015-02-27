@@ -1,11 +1,16 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.userimport.GithubUserImportProfile;
+import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.UserImportData;
 import com.techlooper.service.UserImportDataProcessor;
 import com.techlooper.util.EmailValidator;
 import org.apache.commons.lang3.StringUtils;
+import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -17,7 +22,11 @@ import java.util.regex.Pattern;
 @Service("GITHUBUserImportDataProcessor")
 public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
 
-  public void process(List<UserImportData> users) {
+  @Resource
+  private Mapper dozerMapper;
+
+  public List<UserImportEntity> process(List<UserImportData> users) {
+    List<UserImportEntity> userImportEntities = new ArrayList<>();
     for (UserImportData user : users) {
       processUserEmail(user);
       extractUserSkillSetFromDescription(user);
@@ -25,7 +34,11 @@ public class GitHubUserImportDataProcessor implements UserImportDataProcessor {
       processUserFollowing(user);
       processUserContributedLongStreakDays(user);
       processUserContributedNumberLastYear(user);
+      UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
+      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user, GithubUserImportProfile.class));
+      userImportEntities.add(userImportEntity);
     }
+    return userImportEntities;
   }
 
   private void processUserEmail(UserImportData user) {

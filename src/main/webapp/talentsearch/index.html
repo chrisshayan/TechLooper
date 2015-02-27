@@ -24,7 +24,6 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700&subset=latin,cyrillic-ext,vietnamese,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/slider-banner.css">
     <link rel="stylesheet" href="css/slider.css">
 	  <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -38,9 +37,9 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<ul>
-				<li><a href="#itJobs"><span><i class="fa fa-connectdevelop"></i></span>IT Job Post</a></li>
-				<li><a href="#itPro"><span><i class="fa fa-search"></i></span>IT Pro Search</a></li>
-				<li><a href="#userSite"><span><i class="fa fa-group"></i></span>User Site</a></li>
+				<!-- <li><a href="#itJobs"><span><i class="fa fa-connectdevelop"></i></span>IT Job Post</a></li>
+				<li><a href="#itPro"><span><i class="fa fa-search"></i></span>IT Pro Search</a></li> -->
+				<li><a href="http://techlooper.com" target="_blank"><span><i class="fa fa-group"></i></span>IT professional</a></li>
 				<li><a href="#contact"><span><i class="fa fa-phone-square"></i></span>Contact</a></li>
 				<li><a href="#"><span><i class="fa fa-sign-in"></i></span> Login</a></li>
 				<li><a href="#" class="languages"><span><i class="fa fa-globe" title="Languages"></i></span> <span class="text">English</span></a>
@@ -64,68 +63,18 @@
 	</header>
 	<div class="content_wrapper">
 		<div class="main-banner">
-			<div id="slider" class="sl-slider-wrapper">
-
-            <div class="sl-slider">
-
-                <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
-                    <div class="sl-slide-inner">
-                        <div class="bg-img bg-img-1"></div>
-                        <h2>Reach <span>IT talent</span> you could never find</h2>
-                        <blockquote>
-                            <div class="count-down-day">
-                            	<span>60</span>
-                            </div>
-                            <p>Days left for free trial</p>
-                            <div class="start-hiring-button">
-                            	<p><button class="btn">Start Hiring</button></p>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-
-                <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="-30" data-slice2-rotation="-35" data-slice1-scale="1.5" data-slice2-scale="3.5">
-                    <div class="sl-slide-inner">
-                        <div class="bg-img bg-img-2"></div>
-                        <h2>Reach <span>IT talent</span> you could never find</h2>
-                        <blockquote>
-                            <div class="count-down-day">
-                            	<span>60</span>
-                            </div>
-                            <p>Days left for free trial</p>
-                            <div class="start-hiring-button">
-                            	<p><button class="btn">Start Hiring</button></p>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-
-                <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-3" data-slice2-rotation="-3" data-slice1-scale="2" data-slice2-scale="3.5">
-                    <div class="sl-slide-inner">
-                        <div class="bg-img bg-img-3"></div>
-                        <h2>Reach <span>IT talent</span> you could never find</h2>
-                        <blockquote>
-                            <div class="count-down-day">
-                            	<span>60</span>
-                            </div>
-                            <p>Days left for free trial</p>
-                            <div class="start-hiring-button">
-                            	<p><button class="btn">Start Hiring</button></p>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-            </div>
-            <!-- /sl-slider -->
-
-            <nav id="nav-dots" class="nav-dots">
-                <span class="nav-dot-current"></span>
-                <span></span>
-                <span></span>
-            </nav>
-
-        </div>
-		</div>
+			<div class="img-banner"></div>
+			<div class="banner-content">
+				<h2>Reach <span>IT talent</span> you could never find</h2>
+				<div class="count-down-day">
+	      	<span>60</span>
+	      </div>
+	      <p>Days left for free trial</p>
+	      <div class="start-hiring-button">
+	      	<p><button class="btn">Start Hiring</button></p>
+	      </div>
+			</div>
+    </div>
 		<section class="reasons">
 			<div class="header-block">
 				<h2>4 reasons to use TechLooper resume search</h2>
@@ -278,7 +227,7 @@
 			<div class="container-block">
 				<div class="map-block" id="location-map"></div>
 				<div class="address-info">
-					<h3>VietnamWorks Offices</h3>
+					<h3>TechLooper Offices</h3>
 					<div class="head active">
 						<p class="head-name" data-map="HCM" title="Click here to find map."><i class="fa fa-map-marker"></i> Ho Chi Minh City</p>
 						<p>130 Suong Nguyet Anh, Ben Thanh Ward
@@ -299,7 +248,7 @@ Hanoi</p>
 	</div>
 	<footer>
 		<div class="copyright-block">
-			<p>Copyright © <a href="http://www.navigosgroup.com/" target="_black">Navigos Group Vietnam</a> Joint Stock Company</p>
+			<p>Copyright © <span>Navigos Group Vietnam</span> Joint Stock Company</p>
 <p class="address">130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam </p>
 		</div>
 		<div class="social-network-block">
@@ -316,7 +265,6 @@ Hanoi</p>
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 <script type="text/javascript" src="js/jquery.ba-cond.min.js"></script>
-<script type="text/javascript" src="js/jquery.slitslider.js"></script>
 <script type="text/javascript" src="js/customers.js"></script>
 <script type="text/javascript" src="js/skrollr.js"></script>
 <!-- count down -->

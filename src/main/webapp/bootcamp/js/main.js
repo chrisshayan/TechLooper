@@ -1,14 +1,10 @@
 $(document).ready(function() {
-  loadHCMMap();
-  google.maps.event.addDomListener(window, 'load', loadHCMMap);
-  loadHNMap();
-  google.maps.event.addDomListener(window, 'load', loadHNMap);
   scrollToRegistration();
   menuManager();
   scrollManager();
   $(".birthDay").pickadate();
   menuAnimate();
-  contentAnimate();
+  //contentAnimate();
 	invalidationData();
 	shareSocial();
 });

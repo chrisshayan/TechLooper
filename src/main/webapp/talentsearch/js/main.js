@@ -3,14 +3,11 @@ $(document).ready(function() {
   languagesManagetment.init();
   menuAnimate();
   settingSelect();
-  bannerSlider.init();
-  //cbpFixedScrollLayout.init();
   $('.kz-slider-run').kzSlider();
   loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
   countDownday();
   validationFeedback();
   swapMap();
-  contentAnimate();
 });
 function menuManagement(){
   var contentMenu = $('.navbar ul'),
@@ -64,125 +61,6 @@ function settingSelect() {
         else $(this).removeClass("empty")
     });
 }
-var bannerSlider = (function() {
-
-    var $navArrows = $('#nav-arrows'),
-        $nav = $('#nav-dots > span'),
-        slitslider = $('#slider').slitslider({
-            autoplay: true,
-            speed: 1500,
-            optOpacity: true,
-            onBeforeChange: function(slide, pos) {
-
-                $nav.removeClass('nav-dot-current');
-                $nav.eq(pos).addClass('nav-dot-current');
-
-            }
-        }),
-
-        init = function() {
-
-            initEvents();
-
-        },
-        initEvents = function() {
-
-            // add navigation events
-            $navArrows.children(':last').on('click', function() {
-
-                slitslider.next();
-                return false;
-
-            });
-
-            $navArrows.children(':first').on('click', function() {
-
-                slitslider.previous();
-                return false;
-
-            });
-
-            $nav.each(function(i) {
-
-                $(this).on('click', function(event) {
-
-                    var $dot = $(this);
-
-                    if (!slitslider.isActive()) {
-
-                        $nav.removeClass('nav-dot-current');
-                        $dot.addClass('nav-dot-current');
-
-                    }
-
-                    slitslider.jump(i + 1);
-                    return false;
-
-                });
-
-            });
-
-        };
-
-    return {
-        init: init
-    };
-})();
-
-var cbpFixedScrollLayout = (function() {
-    var config = {
-        $sections: $('#cbp-fbscroller > section'),
-        $navlinks: $('#cbp-fbscroller > nav:first > a'),
-        currentLink: 0,
-        $body: $('html, body'),
-        animspeed: 650,
-        animeasing: 'easeInOutExpo'
-    };
-
-    function init() {
-        config.$navlinks.on('click', function() {
-            scrollAnim(config.$sections.eq($(this).index()).offset().top);
-            return false;
-        });
-        config.$sections.waypoint(function(direction) {
-            if (direction === 'down') {
-                changeNav($(this));
-            }
-        }, {
-            offset: '30%'
-        }).waypoint(function(direction) {
-            if (direction === 'up') {
-                changeNav($(this));
-            }
-        }, {
-            offset: '-30%'
-        });
-
-        // on window resize: the body is scrolled to the position of the current section
-        $(window).on('debouncedresize', function() {
-            scrollAnim(config.$sections.eq(config.currentLink).offset().top);
-        });
-
-    }
-
-    // update the current navigation link
-    function changeNav($section) {
-        config.$navlinks.eq(config.currentLink).removeClass('cbp-fbcurrent');
-        config.currentLink = $section.index('section');
-        config.$navlinks.eq(config.currentLink).addClass('cbp-fbcurrent');
-    }
-
-    // function to scroll / animate the body
-    function scrollAnim(top) {
-        config.$body.stop().animate({
-            scrollTop: top
-        }, config.animspeed, config.animeasing);
-    }
-
-    return {
-        init: init
-    };
-})();
 
 function loadMap(lp, rp, title) {
     var mapCanvas = document.getElementById('location-map');
@@ -365,17 +243,4 @@ function menuAnimate() {
             }
         }
     });
-}
-
-function contentAnimate() {
-  $(window).scroll(function() {
-    var windscroll = $(window).scrollTop();
-    if (windscroll > 0) {
-      if ($('.reasons').position().top - 60 <= windscroll) {
-        $('.reasons-content li').addClass('transition');
-      } else {
-        $('.reasons-content li').removeClass('transition');
-      }
-    }
-  });
 }

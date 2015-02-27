@@ -1,6 +1,6 @@
 package com.techlooper.repository.userimport;
 
-import com.techlooper.entity.UserImportEntity;
+import com.techlooper.entity.userimport.UserImportEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

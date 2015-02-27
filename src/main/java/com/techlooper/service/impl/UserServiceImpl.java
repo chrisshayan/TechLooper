@@ -1,16 +1,14 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.UserEntity;
-import com.techlooper.entity.UserImportEntity;
+import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.model.SocialProvider;
-import com.techlooper.model.UserImportData;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
-import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -94,71 +92,38 @@ public class UserServiceImpl implements UserService {
     return registerSuccess;
   }
 
-  public boolean addCrawledUser(UserImportData userImportData) {
+  public boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider) {
     UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
 
     if (userImportEntity != null) {
-      userImportEntity.withProfile(userImportData.getCrawlerSource(), userImportData);
+      userImportEntity.withProfile(socialProvider, userImportData.getProfiles().get(socialProvider));
     } else {
       userImportEntity = dozerMapper.map(userImportData, UserImportEntity.class);
-      userImportEntity.withProfile(userImportData.getCrawlerSource(), userImportData);
+      userImportEntity.withProfile(socialProvider, userImportData.getProfiles().get(socialProvider));
       userImportEntity.setCrawled(true);
     }
 
     return userImportRepository.save(userImportEntity) != null;
   }
 
-  public int addCrawledUserAll(List<UserImportData> users) {
+  public int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider) {
     List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
 
-    for (UserImportData user : users) {
-      if (StringUtils.isEmpty(user.getUsername())) {
-        continue;
-      }
-
+    for (UserImportEntity user : users) {
       try {
         UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
         if (userImportEntity != null) {
-          userImportEntity.withProfile(user.getCrawlerSource(), user);
+          userImportEntity.withProfile(socialProvider, user.getProfiles().get(socialProvider));
+          shouldBeSavedUsers.add(userImportEntity);
         } else {
-          userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-          userImportEntity.withProfile(user.getCrawlerSource(), user);
-          userImportEntity.setCrawled(true);
+          shouldBeSavedUsers.add(user);
         }
-        shouldBeSavedUsers.add(userImportEntity);
       } catch (Exception ex) {
-        LOGGER.error("User Import Fail : " + user.getUsername(), ex);
+        LOGGER.error("User Import Fail : " + user.getEmail(), ex);
       }
     }
 
     return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
-  }
-
-  public int importUserAll(List<UserImportData> users) {
-    List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
-
-    for (UserImportData user : users) {
-      try {
-          if (StringUtils.isEmpty(user.getEmail())) {
-            user.setEmail(user.getUsername() + "@missing.com");
-          }
-          UserImportEntity userImportEntity = userImportRepository.findOne(user.getEmail());
-          if (userImportEntity == null) {
-            userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-            userImportEntity.withProfile(user.getCrawlerSource(), user);
-            userImportEntity.setCrawled(true);
-            shouldBeSavedUsers.add(userImportEntity);
-          }
-      } catch (Exception ex) {
-        LOGGER.error("User Import Fail : " + user.getUsername(), ex);
-      }
-    }
-
-    if (shouldBeSavedUsers.size() > 0) {
-      return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
-    }
-
-    return 0;
   }
 
   public UserImportEntity findUserImportByEmail(String email) {
