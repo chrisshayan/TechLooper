@@ -1,7 +1,7 @@
 package com.techlooper.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.techlooper.entity.userimport.*;
+import com.techlooper.entity.userimport.GravatarUserImportProfile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -242,44 +242,8 @@ public class UserImportData {
   @JsonProperty("bio")
   private String bio;
 
-  @JsonProperty("profileUrl")
-  private String profileUrl;
-
-  @JsonProperty("thumbnailUrl")
-  private String thumbnailUrl;
-
-  @JsonProperty("preferredUsername")
-  private String preferredUsername;
-
-  @JsonProperty("displayName")
-  private String displayName;
-
-  @JsonProperty("aboutMe")
-  private String aboutMe;
-
-  @JsonProperty("photos")
-  private List<PhotoModel> photos;
-
-  @JsonProperty("profileBackground")
-  private ProfileBackgroundModel profileBackground;
-
-  @JsonProperty("name")
-  private NameModel name;
-
-  @JsonProperty("phoneNumbers")
-  private List<PhoneNumberModel> phoneNumbers;
-
-  @JsonProperty("emails")
-  private List<EmailModel> emails;
-
-  @JsonProperty("ims")
-  private List<IMModel> ims;
-
-  @JsonProperty("accounts")
-  private List<AccountModel> accounts;
-
-  @JsonProperty("urls")
-  private List<UrlModel> urls;
+  @JsonProperty("entry")
+  private List<GravatarUserImportProfile> gravatarProfile;
 
   private List<String> skills = new ArrayList<>();
 
@@ -915,5 +879,13 @@ public class UserImportData {
 
   public void setBio(String bio) {
     this.bio = bio;
+  }
+
+  public List<GravatarUserImportProfile> getGravatarProfile() {
+    return gravatarProfile;
+  }
+
+  public void setGravatarProfile(List<GravatarUserImportProfile> gravatarProfile) {
+    this.gravatarProfile = gravatarProfile;
   }
 }

@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class GravatarUserImportProfile implements UserImportProfile {
 
-  private SocialProvider crawlerSource;
-
   private String profileUrl;
 
   private String thumbnailUrl;
@@ -36,14 +34,6 @@ public class GravatarUserImportProfile implements UserImportProfile {
   private List<AccountModel> accounts;
 
   private List<UrlModel> urls;
-
-  public SocialProvider getCrawlerSource() {
-    return crawlerSource;
-  }
-
-  public void setCrawlerSource(SocialProvider crawlerSource) {
-    this.crawlerSource = crawlerSource;
-  }
 
   public String getProfileUrl() {
     return profileUrl;
@@ -148,4 +138,5 @@ public class GravatarUserImportProfile implements UserImportProfile {
   public void setUrls(List<UrlModel> urls) {
     this.urls = urls;
   }
+
 }
