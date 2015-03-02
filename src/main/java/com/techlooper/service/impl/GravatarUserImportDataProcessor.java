@@ -1,11 +1,9 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.userimport.EmailModel;
 import com.techlooper.entity.userimport.GravatarUserImportProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.UserImportData;
 import com.techlooper.service.UserImportDataProcessor;
-import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class GravatarUserImportDataProcessor implements UserImportDataProcessor 
     List<UserImportEntity> userImportEntities = new ArrayList<>();
     for (UserImportData user : users) {
       UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user.getGravatarProfile().get(0), GravatarUserImportProfile.class));
+      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user, GravatarUserImportProfile.class));
       userImportEntities.add(userImportEntity);
     }
     return userImportEntities;
