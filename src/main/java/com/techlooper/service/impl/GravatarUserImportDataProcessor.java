@@ -24,7 +24,7 @@ public class GravatarUserImportDataProcessor implements UserImportDataProcessor 
     List<UserImportEntity> userImportEntities = new ArrayList<>();
     for (UserImportData user : users) {
       UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user, GravatarUserImportProfile.class));
+      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user.getGravatarProfile().get(0), GravatarUserImportProfile.class));
       userImportEntities.add(userImportEntity);
     }
     return userImportEntities;
