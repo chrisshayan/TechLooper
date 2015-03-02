@@ -1,54 +1,31 @@
 [
   {
-    "profileUrl": "http://gravatar.com/markdownj",
-    "thumbnailUrl": "https://secure.gravatar.com/avatar/1145494ac9d9780fd1b35d241cbf15fa",
-    "preferredUsername": "markdownj",
-    "displayName": "markdown-ja",
-    "aboutMe": "Japanese Markdown User Group",
-    "photos": [
+    "entry": [
       {
-        "value": "https://secure.gravatar.com/avatar/1145494ac9d9780fd1b35d241cbf15fa",
-        "type": "thumbnail"
+        "id": "55105395",
+        "hash": "1145494ac9d9780fd1b35d241cbf15fa",
+        "requestHash": "1145494ac9d9780fd1b35d241cbf15fa",
+        "profileUrl": "http://gravatar.com/markdownj",
+        "preferredUsername": "markdownj",
+        "thumbnailUrl": "https://secure.gravatar.com/avatar/1145494ac9d9780fd1b35d241cbf15fa",
+        "photos": [
+          {
+            "value": "https://secure.gravatar.com/avatar/1145494ac9d9780fd1b35d241cbf15fa",
+            "type": "thumbnail"
+          }
+        ],
+        "displayName": "markdown-ja",
+        "aboutMe": "Japanese Markdown User Group",
+        "currentLocation": "Japan",
+        "urls": [
+          {
+            "value": "http://markdown.jp",
+            "title": "Japanese Markdown User Group"
+          }
+        ]
       }
     ],
-    "profileBackground": null,
-    "name": null,
-    "phoneNumbers": null,
-    "emails": "abc@abc.com",
-    "ims": null,
-    "accounts": null,
-    "crawlersource": "GRAVATAR",
-    "urls": [
-      {
-        "value": "http://markdown.jp",
-        "title": "Japanese Markdown User Group"
-      }
-    ]
-  },
-  {
-    "profileUrl": "http://gravatar.com/markdownj",
-    "thumbnailUrl": "https://secure.gravatar.com/avatar/1145494ac9d9780fd1b35d241cbf15fa",
-    "preferredUsername": "markdownj",
-    "displayName": "markdown-ja",
-    "aboutMe": "Japanese Markdown User Group",
-    "photos": [
-      {
-        "value": "https://secure.gravatar.com/avatar/1145494ac9d9780fd1b35d241cbf15fa",
-        "type": "thumbnail"
-      }
-    ],
-    "profileBackground": null,
-    "name": null,
-    "phoneNumbers": null,
-    "emails": "abc@abc.com",
-    "ims": null,
-    "accounts": null,
-    "crawlersource": "GRAVATAR",
-    "urls": [
-      {
-        "value": "http://markdown.jp",
-        "title": "Japanese Markdown User Group"
-      }
-    ]
+    "email": "info@markdown.jp",
+    "crawlersource": "GRAVATAR"
   }
 ]
