@@ -17,17 +17,17 @@ import java.util.List;
 @Service("GRAVATARUserImportDataProcessor")
 public class GravatarUserImportDataProcessor implements UserImportDataProcessor {
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  public List<UserImportEntity> process(List<UserImportData> users) {
-    List<UserImportEntity> userImportEntities = new ArrayList<>();
-    for (UserImportData user : users) {
-      UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user.getGravatarProfile().get(0), GravatarUserImportProfile.class));
-      userImportEntities.add(userImportEntity);
+    public List<UserImportEntity> process(List<UserImportData> users) {
+        List<UserImportEntity> userImportEntities = new ArrayList<>();
+        for (UserImportData user : users) {
+            UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
+            userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user.getGravatarProfile().get(0), GravatarUserImportProfile.class));
+            userImportEntities.add(userImportEntity);
+        }
+        return userImportEntities;
     }
-    return userImportEntities;
-  }
 
 }

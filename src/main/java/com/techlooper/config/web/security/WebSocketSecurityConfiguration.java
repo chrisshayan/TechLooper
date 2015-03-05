@@ -10,9 +10,9 @@ import org.springframework.security.config.annotation.web.socket.AbstractSecurit
 @Configuration
 public class WebSocketSecurityConfiguration extends AbstractSecurityWebSocketMessageBrokerConfigurer {
 
-  protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
+    protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 //    messages
 //      .antMatchers("/user/**", "/queue/**", "/app/user/**").hasAuthority("USER");
-  }
+    }
 }
 

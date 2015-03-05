@@ -10,17 +10,17 @@ import java.util.Set;
  */
 public class ProfileNameConverter extends DozerConverter<Map, Set> {
 
-  public ProfileNameConverter() {
-    super(Map.class, Set.class);
-  }
+    public ProfileNameConverter() {
+        super(Map.class, Set.class);
+    }
 
-  public Set convertTo(Map profiles, Set profileNames) {
-    return profiles.keySet();
-  }
+    public Set convertTo(Map profiles, Set profileNames) {
+        return profiles.keySet();
+    }
 
-  public Map convertFrom(Set profileNames, Map profiles) {
-    Set names = profiles.keySet();
-    profileNames.stream().filter(name -> !names.contains(name)).forEach(profileName -> profiles.put(profileName, null));
-    return profiles;
-  }
+    public Map convertFrom(Set profileNames, Map profiles) {
+        Set names = profiles.keySet();
+        profileNames.stream().filter(name -> !names.contains(name)).forEach(profileName -> profiles.put(profileName, null));
+        return profiles;
+    }
 }

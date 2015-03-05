@@ -26,7 +26,9 @@ public class TechnicalTermUploadController {
     private JsonConfigRepository jsonConfigRepository;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile uploadFile) {
+    public
+    @ResponseBody
+    String handleFileUpload(@RequestParam("file") MultipartFile uploadFile) {
         if (!uploadFile.isEmpty()) {
             try {
                 File uploadedFile = jsonConfigRepository.getSkillJsonResource().getFile();

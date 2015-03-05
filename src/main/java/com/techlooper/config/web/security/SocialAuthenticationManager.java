@@ -19,21 +19,21 @@ import java.util.Optional;
  */
 public class SocialAuthenticationManager implements AuthenticationManager {
 
-  @Resource
-  private UserService userService;
+    @Resource
+    private UserService userService;
 
-  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication, "Unsupported authentication type");
-    Assert.isTrue(!authentication.isAuthenticated(), "Already authenticated");
-    String key = authentication.getPrincipal().toString();
-    if (!StringUtils.hasText(key)) {
-      throw new InternalAuthenticationServiceException("User key must not be empty.");
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication, "Unsupported authentication type");
+        Assert.isTrue(!authentication.isAuthenticated(), "Already authenticated");
+        String key = authentication.getPrincipal().toString();
+        if (!StringUtils.hasText(key)) {
+            throw new InternalAuthenticationServiceException("User key must not be empty.");
+        }
+        if (!Optional.ofNullable(userService.findUserEntityByKey(key)).isPresent()) {
+            throw new InternalAuthenticationServiceException("User does not exist in database.");
+        }
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getPrincipal(), Arrays.asList(new SimpleGrantedAuthority("USER")));
+        return auth;
     }
-    if (!Optional.ofNullable(userService.findUserEntityByKey(key)).isPresent()) {
-      throw new InternalAuthenticationServiceException("User does not exist in database.");
-    }
-    UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getPrincipal(), Arrays.asList(new SimpleGrantedAuthority("USER")));
-    return auth;
-  }
 }

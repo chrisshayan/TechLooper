@@ -31,87 +31,87 @@ import java.util.Arrays;
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
-  @PropertySource("classpath:techlooper.properties"),
-  @PropertySource("classpath:secret.properties")})
+        @PropertySource("classpath:techlooper.properties"),
+        @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
 public class CoreConfiguration {
 
-  @Resource
-  private Environment environment;
+    @Resource
+    private Environment environment;
 
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-  @Bean
-  public CacheManager cacheManager() {
-    CompositeCacheManager manager = new CompositeCacheManager();
-    manager.setCacheManagers(Arrays.asList(
-      new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
-      new ConcurrentMapCacheManager("SKILL_CONFIG")));
-    return manager;
-  }
+    @Bean
+    public CacheManager cacheManager() {
+        CompositeCacheManager manager = new CompositeCacheManager();
+        manager.setCacheManagers(Arrays.asList(
+                new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
+                new ConcurrentMapCacheManager("SKILL_CONFIG")));
+        return manager;
+    }
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-  @Bean
-  public MultipartResolver multipartResolver() {
-    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-    multipartResolver.setMaxUploadSize(500000);
-    return multipartResolver;
-  }
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(500000);
+        return multipartResolver;
+    }
 
-  @Bean
-  public Mapper dozerBeanMapper() {
-    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-    dozerBeanMapper.addMapping(new BeanMappingBuilder() {
-      protected void configure() {
-        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
-          .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+    @Bean
+    public Mapper dozerBeanMapper() {
+        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+        dozerBeanMapper.addMapping(new BeanMappingBuilder() {
+            protected void configure() {
+                mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
+                        .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
 
-        mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
-          .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
+                mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+                        .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
 
-        mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
-          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+                mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+                        .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
-        mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
-          .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
-          .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
-          .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+                mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
+                        .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
+                        .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
+                        .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-        mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+                mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
-        mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+                mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-        mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
-          .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+                mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
+                        .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
-        mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+                mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
-        mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
+                mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
 
-      }
-    });
-    return dozerBeanMapper;
-  }
+            }
+        });
+        return dozerBeanMapper;
+    }
 
-  @Bean
-  public TextEncryptor textEncryptor() {
-    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-    textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
-    return textEncryptor;
-  }
+    @Bean
+    public TextEncryptor textEncryptor() {
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
+        return textEncryptor;
+    }
 }

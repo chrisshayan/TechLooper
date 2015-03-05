@@ -5,7 +5,7 @@ package com.techlooper.exception;
  */
 public class EntityNotFoundException extends Error {
 
-  public EntityNotFoundException(String msg) {
-    super(msg);
-  }
+    public EntityNotFoundException(String msg) {
+        super(msg);
+    }
 }

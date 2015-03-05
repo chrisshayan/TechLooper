@@ -19,48 +19,48 @@ import java.util.List;
 @Repository
 public class JsonConfigRepository {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(JsonConfigRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonConfigRepository.class);
 
-  @Value("classpath:skill.json")
-  private Resource skillJsonResource;
+    @Value("classpath:skill.json")
+    private Resource skillJsonResource;
 
-  @Value("classpath:socialConfig.json")
-  private Resource socialConfigResource;
+    @Value("classpath:socialConfig.json")
+    private Resource socialConfigResource;
 
 
-  /**
-   * Load technical term and skill from JSON file and put them into the cache
-   *
-   * @return list of terms {@link com.techlooper.model.SocialConfig}
-   */
-  @Cacheable(value = "SOCIAL_CONFIG")
-  public List<SocialConfig> getSocialConfig() {
-    return JsonUtils.toList(socialConfigResource, SocialConfig.class).get();
-  }
+    /**
+     * Load technical term and skill from JSON file and put them into the cache
+     *
+     * @return list of terms {@link com.techlooper.model.SocialConfig}
+     */
+    @Cacheable(value = "SOCIAL_CONFIG")
+    public List<SocialConfig> getSocialConfig() {
+        return JsonUtils.toList(socialConfigResource, SocialConfig.class).get();
+    }
 
-  @Cacheable(value = "SKILL_CONFIG")
-  public List<TechnicalTerm> getSkillConfig() {
-    return JsonUtils.toList(skillJsonResource, TechnicalTerm.class).get();
-  }
+    @Cacheable(value = "SKILL_CONFIG")
+    public List<TechnicalTerm> getSkillConfig() {
+        return JsonUtils.toList(skillJsonResource, TechnicalTerm.class).get();
+    }
 
-  /**
-   * Intentionally, this method is just used to invalidate the cache and trigger reloading new term and skill from JSON file
-   */
-  @CacheEvict(value = {"SOCIAL_CONFIG", "SKILL_CONFIG"}, allEntries = true)
-  public void refresh() {
-  }
+    /**
+     * Intentionally, this method is just used to invalidate the cache and trigger reloading new term and skill from JSON file
+     */
+    @CacheEvict(value = {"SOCIAL_CONFIG", "SKILL_CONFIG"}, allEntries = true)
+    public void refresh() {
+    }
 
-  /**
-   * This method find the matching technical term
-   *
-   * @param termKey the term to look for
-   * @return Correct instance of {@link com.techlooper.model.TechnicalTerm} related to termKey
-   */
-  public TechnicalTerm findByKey(String termKey) {
-    return getSkillConfig().stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
-  }
+    /**
+     * This method find the matching technical term
+     *
+     * @param termKey the term to look for
+     * @return Correct instance of {@link com.techlooper.model.TechnicalTerm} related to termKey
+     */
+    public TechnicalTerm findByKey(String termKey) {
+        return getSkillConfig().stream().filter(term -> term.getKey().equals(termKey)).findFirst().get();
+    }
 
-  public Resource getSkillJsonResource() {
-    return skillJsonResource;
-  }
+    public Resource getSkillJsonResource() {
+        return skillJsonResource;
+    }
 }

@@ -23,23 +23,23 @@ import javax.inject.Inject;
 @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class GoogleService extends AbstractSocialService {
 
-  @Resource
-  private GoogleConnectionFactory googleConnectionFactory;
+    @Resource
+    private GoogleConnectionFactory googleConnectionFactory;
 
-  @Inject
-  public GoogleService(JsonConfigRepository jsonConfigRepository) {
-    super(jsonConfigRepository, SocialProvider.GOOGLE);
-  }
+    @Inject
+    public GoogleService(JsonConfigRepository jsonConfigRepository) {
+        super(jsonConfigRepository, SocialProvider.GOOGLE);
+    }
 
-  public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return googleConnectionFactory;
-  }
+    public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
+        return googleConnectionFactory;
+    }
 
-  public UserProfile getProfile(AccessGrant accessGrant) {
-    Connection<Google> connection = googleConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    SimpleUserProfile gProfile = new SimpleUserProfile();
-    gProfile.setAccessGrant(accessGrant);
-    gProfile.setActual(connection.getApi().plusOperations().getGoogleProfile());
-    return gProfile;
-  }
+    public UserProfile getProfile(AccessGrant accessGrant) {
+        Connection<Google> connection = googleConnectionFactory.createConnection(getAccessGrant(accessGrant));
+        SimpleUserProfile gProfile = new SimpleUserProfile();
+        gProfile.setAccessGrant(accessGrant);
+        gProfile.setActual(connection.getApi().plusOperations().getGoogleProfile());
+        return gProfile;
+    }
 }

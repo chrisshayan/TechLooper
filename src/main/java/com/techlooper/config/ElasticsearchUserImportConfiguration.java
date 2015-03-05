@@ -19,27 +19,27 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.techlooper.repository.userimport",
-  elasticsearchTemplateRef = "elasticsearchTemplateUserImport")
+        elasticsearchTemplateRef = "elasticsearchTemplateUserImport")
 public class ElasticsearchUserImportConfiguration {
 
-  @Resource
-  private Environment environment;
+    @Resource
+    private Environment environment;
 
-  @Resource
-  private TransportClient transportClientUserImport;
+    @Resource
+    private TransportClient transportClientUserImport;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchUserImportConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchUserImportConfiguration.class);
 
-  @Bean
-  public FactoryBean<TransportClient> transportClientUserImport() throws Exception {
-    TransportClientFactoryBean factory = new TransportClientFactoryBean();
-    factory.setClusterName(environment.getProperty("elasticsearch.userimport.cluster.name"));
-    factory.setClusterNodes(environment.getProperty("elasticsearch.userimport.host"));
-    return factory;
-  }
+    @Bean
+    public FactoryBean<TransportClient> transportClientUserImport() throws Exception {
+        TransportClientFactoryBean factory = new TransportClientFactoryBean();
+        factory.setClusterName(environment.getProperty("elasticsearch.userimport.cluster.name"));
+        factory.setClusterNodes(environment.getProperty("elasticsearch.userimport.host"));
+        return factory;
+    }
 
-  @Bean
-  public ElasticsearchOperations elasticsearchTemplateUserImport() {
-    return new ElasticsearchTemplate(transportClientUserImport);
-  }
+    @Bean
+    public ElasticsearchOperations elasticsearchTemplateUserImport() {
+        return new ElasticsearchTemplate(transportClientUserImport);
+    }
 }
