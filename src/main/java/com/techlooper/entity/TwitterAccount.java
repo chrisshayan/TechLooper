@@ -5,23 +5,23 @@ package com.techlooper.entity;
  */
 public class TwitterAccount {
 
-  private String providerAccountId;
+    private String providerAccountId;
 
-  private String providerAccountName;
+    private String providerAccountName;
 
-  public String getProviderAccountId() {
-    return providerAccountId;
-  }
+    public String getProviderAccountId() {
+        return providerAccountId;
+    }
 
-  public void setProviderAccountId(String providerAccountId) {
-    this.providerAccountId = providerAccountId;
-  }
+    public void setProviderAccountId(String providerAccountId) {
+        this.providerAccountId = providerAccountId;
+    }
 
-  public String getProviderAccountName() {
-    return providerAccountName;
-  }
+    public String getProviderAccountName() {
+        return providerAccountName;
+    }
 
-  public void setProviderAccountName(String providerAccountName) {
-    this.providerAccountName = providerAccountName;
-  }
+    public void setProviderAccountName(String providerAccountName) {
+        this.providerAccountName = providerAccountName;
+    }
 }

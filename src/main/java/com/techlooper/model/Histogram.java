@@ -7,42 +7,42 @@ import java.util.List;
  */
 public class Histogram {
 
-  private HistogramEnum name;
+    private HistogramEnum name;
 
-  private List<Long> values;
+    private List<Long> values;
 
-  public HistogramEnum getName() {
-    return name;
-  }
-
-  public void setName(HistogramEnum name) {
-    this.name = name;
-  }
-
-  public List<Long> getValues() {
-    return values;
-  }
-
-  public void setValues(List<Long> values) {
-    this.values = values;
-  }
-
-  public static class Builder {
-
-    private Histogram instance = new Histogram();
-
-    public Builder withValues(List<Long> values) {
-      instance.values = values;
-      return this;
+    public HistogramEnum getName() {
+        return name;
     }
 
-    public Builder withName(HistogramEnum name) {
-      instance.name = name;
-      return this;
+    public void setName(HistogramEnum name) {
+        this.name = name;
     }
 
-    public Histogram build() {
-      return instance;
+    public List<Long> getValues() {
+        return values;
     }
-  }
+
+    public void setValues(List<Long> values) {
+        this.values = values;
+    }
+
+    public static class Builder {
+
+        private Histogram instance = new Histogram();
+
+        public Builder withValues(List<Long> values) {
+            instance.values = values;
+            return this;
+        }
+
+        public Builder withName(HistogramEnum name) {
+            instance.name = name;
+            return this;
+        }
+
+        public Histogram build() {
+            return instance;
+        }
+    }
 }

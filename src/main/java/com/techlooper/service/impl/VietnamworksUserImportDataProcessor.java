@@ -18,27 +18,27 @@ import java.util.List;
 @Service("VIETNAMWORKSUserImportDataProcessor")
 public class VietnamworksUserImportDataProcessor implements UserImportDataProcessor {
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  public List<UserImportEntity> process(List<UserImportData> users) {
-    List<UserImportEntity> userImportEntities = new ArrayList<>();
-    for (UserImportData user : users) {
-      processEmailAddress(user);
-      UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
-      userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user, VietnamworksUserImportProfile.class));
-      userImportEntities.add(userImportEntity);
+    public List<UserImportEntity> process(List<UserImportData> users) {
+        List<UserImportEntity> userImportEntities = new ArrayList<>();
+        for (UserImportData user : users) {
+            processEmailAddress(user);
+            UserImportEntity userImportEntity = dozerMapper.map(user, UserImportEntity.class);
+            userImportEntity.withProfile(user.getCrawlerSource(), dozerMapper.map(user, VietnamworksUserImportProfile.class));
+            userImportEntities.add(userImportEntity);
+        }
+        return userImportEntities;
     }
-    return userImportEntities;
-  }
 
-  private void processEmailAddress(UserImportData user) {
-    // Because ElasticSearch will accept field "email" as a key, so we should prepare email for it before adding to ES
-    if (StringUtils.isEmpty(user.getEmailAddress())) {
-      user.setEmail(user.getUserId() + "@missing.com");
-    } else {
-      user.setEmail(user.getEmailAddress());
+    private void processEmailAddress(UserImportData user) {
+        // Because ElasticSearch will accept field "email" as a key, so we should prepare email for it before adding to ES
+        if (StringUtils.isEmpty(user.getEmailAddress())) {
+            user.setEmail(user.getUserId() + "@missing.com");
+        } else {
+            user.setEmail(user.getEmailAddress());
+        }
     }
-  }
 
 }

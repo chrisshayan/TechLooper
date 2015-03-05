@@ -5,13 +5,13 @@ package com.techlooper.entity;
  */
 public class SimpleUserProfile extends UserProfile {
 
-  private Object actual;
+    private Object actual;
 
-  public Object getActual() {
-    return actual;
-  }
+    public Object getActual() {
+        return actual;
+    }
 
-  public void setActual(Object actual) {
-    this.actual = actual;
-  }
+    public void setActual(Object actual) {
+        this.actual = actual;
+    }
 }

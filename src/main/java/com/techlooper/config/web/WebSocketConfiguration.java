@@ -14,13 +14,13 @@ public class WebSocketConfiguration extends AbstractSessionWebSocketMessageBroke
 //    registry.addEndpoint("/ws").withSockJS();
 //  }
 
-  protected void configureStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/ws").withSockJS();
-  }
+    protected void configureStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/ws").withSockJS();
+    }
 
 
-  public void configureMessageBroker(MessageBrokerRegistry config) {
-    config.enableSimpleBroker("/topic/", "/queue/");
-    config.setApplicationDestinationPrefixes("/app");
-  }
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic/", "/queue/");
+        config.setApplicationDestinationPrefixes("/app");
+    }
 }

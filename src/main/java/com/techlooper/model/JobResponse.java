@@ -5,147 +5,147 @@ package com.techlooper.model;
  */
 public class JobResponse {
 
-  private String url;
+    private String url;
 
-  private String title;
+    private String title;
 
-  private String location;
+    private String location;
 
-  private String level;
+    private String level;
 
-  private String postedOn;
+    private String postedOn;
 
-  private String company;
+    private String company;
 
-  private String videoUrl;
+    private String videoUrl;
 
-  private String logoUrl;
+    private String logoUrl;
 
-  public static class Builder {
+    public static class Builder {
 
-    private JobResponse instance = new JobResponse();
+        private JobResponse instance = new JobResponse();
 
-    public Builder withUrl(String url) {
-      instance.url = url;
-      return this;
+        public Builder withUrl(String url) {
+            instance.url = url;
+            return this;
+        }
+
+        public Builder withTitle(String title) {
+            instance.title = title;
+            return this;
+        }
+
+        public Builder withLocation(String location) {
+            instance.location = location;
+            return this;
+        }
+
+        public Builder withLevel(String level) {
+            instance.level = level;
+            return this;
+        }
+
+        public Builder withPostedOn(String postedOn) {
+            instance.postedOn = postedOn;
+            return this;
+        }
+
+        public Builder withCompany(String company) {
+            instance.company = company;
+            return this;
+        }
+
+        public Builder withVideoUrl(String videoUrl) {
+            instance.videoUrl = videoUrl;
+            return this;
+        }
+
+        public Builder withLogoUrl(String logoUrl) {
+            instance.logoUrl = logoUrl;
+            return this;
+        }
+
+        public JobResponse build() {
+            return instance;
+        }
     }
 
-    public Builder withTitle(String title) {
-      instance.title = title;
-      return this;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JobResponse that = (JobResponse) o;
+
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+
+        return true;
     }
 
-    public Builder withLocation(String location) {
-      instance.location = location;
-      return this;
+    public int hashCode() {
+        return url != null ? url.hashCode() : 0;
     }
 
-    public Builder withLevel(String level) {
-      instance.level = level;
-      return this;
+    public String getUrl() {
+        return url;
     }
 
-    public Builder withPostedOn(String postedOn) {
-      instance.postedOn = postedOn;
-      return this;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public Builder withCompany(String company) {
-      instance.company = company;
-      return this;
+    public String getTitle() {
+        return title;
     }
 
-    public Builder withVideoUrl(String videoUrl) {
-      instance.videoUrl = videoUrl;
-      return this;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Builder withLogoUrl(String logoUrl) {
-      instance.logoUrl = logoUrl;
-      return this;
+    public String getLocation() {
+        return location;
     }
 
-    public JobResponse build() {
-      return instance;
+    public void setLocation(String location) {
+        this.location = location;
     }
-  }
 
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    public String getLevel() {
+        return level;
+    }
 
-    JobResponse that = (JobResponse) o;
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
-    if (url != null ? !url.equals(that.url) : that.url != null) return false;
+    public String getPostedOn() {
+        return postedOn;
+    }
 
-    return true;
-  }
+    public void setPostedOn(String postedOn) {
+        this.postedOn = postedOn;
+    }
 
-  public int hashCode() {
-    return url != null ? url.hashCode() : 0;
-  }
+    public String getCompany() {
+        return company;
+    }
 
-  public String getUrl() {
-    return url;
-  }
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
+    public String getVideoUrl() {
+        return videoUrl;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public String getLogoUrl() {
+        return logoUrl;
+    }
 
-  public String getLocation() {
-    return location;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
-  }
-
-  public String getLevel() {
-    return level;
-  }
-
-  public void setLevel(String level) {
-    this.level = level;
-  }
-
-  public String getPostedOn() {
-    return postedOn;
-  }
-
-  public void setPostedOn(String postedOn) {
-    this.postedOn = postedOn;
-  }
-
-  public String getCompany() {
-    return company;
-  }
-
-  public void setCompany(String company) {
-    this.company = company;
-  }
-
-  public String getVideoUrl() {
-    return videoUrl;
-  }
-
-  public void setVideoUrl(String videoUrl) {
-    this.videoUrl = videoUrl;
-  }
-
-  public String getLogoUrl() {
-    return logoUrl;
-  }
-
-  public void setLogoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-  }
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 }

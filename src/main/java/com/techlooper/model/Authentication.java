@@ -5,33 +5,33 @@ package com.techlooper.model;
  */
 public class Authentication {
 
-  private String code;
+    private String code;
 
-  private String clientId;
+    private String clientId;
 
-  private String redirectUri;
+    private String redirectUri;
 
-  public String getClientId() {
-    return clientId;
-  }
+    public String getClientId() {
+        return clientId;
+    }
 
-  public void setClientId(String clientId) {
-    this.clientId = clientId;
-  }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-  public String getRedirectUri() {
-    return redirectUri;
-  }
+    public String getRedirectUri() {
+        return redirectUri;
+    }
 
-  public void setRedirectUri(String redirectUri) {
-    this.redirectUri = redirectUri;
-  }
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public String getCode() {
+        return code;
+    }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CouchbaseRepository<UserEntity, String> {
 
-  UserEntity findByKey(Query query);
+    UserEntity findByKey(Query query);
 }

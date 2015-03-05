@@ -25,24 +25,24 @@ import javax.servlet.ServletRegistration.Dynamic;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-  protected Class<?>[] getRootConfigClasses() {
-    return null;
-  }
+    protected Class<?>[] getRootConfigClasses() {
+        return null;
+    }
 
-  protected Class<?>[] getServletConfigClasses() {
-    return new Class<?>[]{
-      CoreConfiguration.class,
-      SecurityConfiguration.class,
-      WebConfiguration.class,
-      WebSocketSecurityConfiguration.class
-    };
-  }
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class<?>[]{
+                CoreConfiguration.class,
+                SecurityConfiguration.class,
+                WebConfiguration.class,
+                WebSocketSecurityConfiguration.class
+        };
+    }
 
-  protected String[] getServletMappings() {
-    return new String[]{"/"};
-  }
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
 
-  protected void customizeRegistration(Dynamic registration) {
-    registration.setInitParameter("dispatchOptionsRequest", "true");
-  }
+    protected void customizeRegistration(Dynamic registration) {
+        registration.setInitParameter("dispatchOptionsRequest", "true");
+    }
 }

@@ -11,67 +11,67 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class VNWJobSearchRequest {
 
-  @JsonProperty(value = "job_title")
-  private String jobTitle;
+    @JsonProperty(value = "job_title")
+    private String jobTitle;
 
-  @JsonProperty(value = "job_location")
-  private String jobLocation;
+    @JsonProperty(value = "job_location")
+    private String jobLocation;
 
-  @JsonProperty(value = "job_category")
-  private String jobCategory;
+    @JsonProperty(value = "job_category")
+    private String jobCategory;
 
-  @JsonProperty(value = "job_level")
-  private String jobLevel;
+    @JsonProperty(value = "job_level")
+    private String jobLevel;
 
-  @JsonProperty(value = "page_number")
-  private String pageNumber;
+    @JsonProperty(value = "page_number")
+    private String pageNumber;
 
-  public VNWJobSearchRequest() {
-  }
+    public VNWJobSearchRequest() {
+    }
 
-  public VNWJobSearchRequest(String jobTitle, String jobCategory, String pageNumber) {
-    this.jobTitle = jobTitle;
-    this.jobCategory = jobCategory;
-    this.pageNumber = pageNumber;
-  }
+    public VNWJobSearchRequest(String jobTitle, String jobCategory, String pageNumber) {
+        this.jobTitle = jobTitle;
+        this.jobCategory = jobCategory;
+        this.pageNumber = pageNumber;
+    }
 
-  public String getJobTitle() {
-    return jobTitle;
-  }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-  public void setJobTitle(String jobTitle) {
-    this.jobTitle = jobTitle;
-  }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-  public String getJobLocation() {
-    return jobLocation;
-  }
+    public String getJobLocation() {
+        return jobLocation;
+    }
 
-  public void setJobLocation(String jobLocation) {
-    this.jobLocation = jobLocation;
-  }
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
 
-  public String getJobCategory() {
-    return jobCategory;
-  }
+    public String getJobCategory() {
+        return jobCategory;
+    }
 
-  public void setJobCategory(String jobCategory) {
-    this.jobCategory = jobCategory;
-  }
+    public void setJobCategory(String jobCategory) {
+        this.jobCategory = jobCategory;
+    }
 
-  public String getJobLevel() {
-    return jobLevel;
-  }
+    public String getJobLevel() {
+        return jobLevel;
+    }
 
-  public void setJobLevel(String jobLevel) {
-    this.jobLevel = jobLevel;
-  }
+    public void setJobLevel(String jobLevel) {
+        this.jobLevel = jobLevel;
+    }
 
-  public String getPageNumber() {
-    return pageNumber;
-  }
+    public String getPageNumber() {
+        return pageNumber;
+    }
 
-  public void setPageNumber(String pageNumber) {
-    this.pageNumber = pageNumber;
-  }
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 }

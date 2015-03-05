@@ -17,50 +17,50 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 @Document(indexName = "techlooper", type = "user")
 public class UserImportEntity {
 
-  @Id
-  private String email;
+    @Id
+    private String email;
 
-  @Field(type = String)
-  private String fullName;
+    @Field(type = String)
+    private String fullName;
 
-  @Field(type = FieldType.Nested)
-  private Map<SocialProvider, Object> profiles = new HashMap<>();
+    @Field(type = FieldType.Nested)
+    private Map<SocialProvider, Object> profiles = new HashMap<>();
 
-  private boolean isCrawled = true;
+    private boolean isCrawled = true;
 
-  public String getEmail() {
-    return email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public String getFullName() {
-    return fullName;
-  }
+    public String getFullName() {
+        return fullName;
+    }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-  public Map<SocialProvider, Object> getProfiles() {
-    return profiles;
-  }
+    public Map<SocialProvider, Object> getProfiles() {
+        return profiles;
+    }
 
-  public void setProfiles(Map<SocialProvider, Object> profiles) {
-    this.profiles = profiles;
-  }
+    public void setProfiles(Map<SocialProvider, Object> profiles) {
+        this.profiles = profiles;
+    }
 
-  public boolean isCrawled() {
-    return isCrawled;
-  }
+    public boolean isCrawled() {
+        return isCrawled;
+    }
 
-  public void setCrawled(boolean isCrawled) {
-    this.isCrawled = isCrawled;
-  }
+    public void setCrawled(boolean isCrawled) {
+        this.isCrawled = isCrawled;
+    }
 
-  public void withProfile(SocialProvider provider, Object profile) {
-    this.profiles.put(provider, profile);
-  }
+    public void withProfile(SocialProvider provider, Object profile) {
+        this.profiles.put(provider, profile);
+    }
 }
