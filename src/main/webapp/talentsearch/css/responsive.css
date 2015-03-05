@@ -108,7 +108,7 @@
 
 	/*-- global --- */
 	.content_wrapper section{
-		padding: 40px 10px;
+		
 	}
 	.header-block h2{
 		font-size: 25px;
@@ -215,7 +215,15 @@
 		left: auto;
 	}
 	.content_wrapper section{
-		padding: 50px 10px;
+
+	}
+	/* -- banner --- */
+	.banner-content{
+		top: 20%;
+	}
+	/* --- Search Form --- */
+	.input-group .selectize-control{
+		width: 24%;
 	}
 	/*-- reasons ----*/
 	.reasons{
@@ -224,6 +232,9 @@
 	.reasons-content li{
 		padding-bottom: 20px;
 		min-height: 285px;
+	}
+	.customer-company .customers-list img{
+		max-width: 100px;
 	}
 	/* --- Customers say --- */
 	.customers-said-content{

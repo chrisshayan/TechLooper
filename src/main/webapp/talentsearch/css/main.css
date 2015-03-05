@@ -448,7 +448,7 @@ header .menu-icon i{
     padding: 0 10px;
 }
 .customer-company .customers-list img{
-    max-width: 180px;
+    max-width: 150px;
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
 }

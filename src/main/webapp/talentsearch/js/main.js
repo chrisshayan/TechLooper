@@ -43,6 +43,7 @@ var menuManagement = (function() {
                     'z-index': '-9'
                 },1000);
                 $('body').removeClass('noscroll');
+                $('.languages-list').removeClass('active');
             });
         },
         managerMenu = function() {
