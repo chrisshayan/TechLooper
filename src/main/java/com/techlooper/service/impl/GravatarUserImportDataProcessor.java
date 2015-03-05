@@ -1,11 +1,9 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.userimport.EmailModel;
 import com.techlooper.entity.userimport.GravatarUserImportProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.UserImportData;
 import com.techlooper.service.UserImportDataProcessor;
-import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
