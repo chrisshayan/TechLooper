@@ -146,4 +146,9 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    @Override
+    public List<UserImportEntity> getAll(int pageNumber, int pageSize) {
+        return null; //TODO: Will implement later tonight at home.
+    }
 }

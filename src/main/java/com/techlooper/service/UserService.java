@@ -96,4 +96,12 @@ public interface UserService {
      * @return the imported user into ElasticSearch if there is any match.
      */
     UserImportEntity findUserImportByEmail(String email);
+
+    /**
+     * Find users
+     * @param pageNumber the page number to fetch users
+     * @param pageSize the size of each page
+     * @return list of {@linkplain com.techlooper.entity.userimport.UserImportEntity}
+     */
+    List<UserImportEntity> getAll(final int pageNumber, final int pageSize);
 }
