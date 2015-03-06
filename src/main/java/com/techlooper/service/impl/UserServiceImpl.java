@@ -27,6 +27,8 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
 import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
 /**
@@ -145,5 +147,17 @@ public class UserServiceImpl implements UserService {
                 return null;
             }
         }
+    }
+
+    @Override
+    public List<UserImportEntity> getAll(int pageNumber, int pageSize) {
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(boolQuery()
+                        .mustNot(wildcardQuery("email", "*users.noreply.github.com"))
+                        .mustNot(wildcardQuery("email", "*missing.com")))
+                .withPageable(new PageRequest(pageNumber, pageSize))
+                .build();
+
+        return userImportRepository.search(searchQuery).getContent();
     }
 }
