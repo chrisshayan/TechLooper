@@ -312,6 +312,7 @@ header .menu-icon{
     margin-top: 5px;
     cursor: pointer;
 }
+
 header .menu-icon:hover{
     background-color: #227bbe;
     color: #cecece;
@@ -877,6 +878,7 @@ section#contact .container-block{
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     color: #fff;
+    z-index: 999;
 }
 .address-info .head{
     display: block;
