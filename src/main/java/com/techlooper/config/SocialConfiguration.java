@@ -21,41 +21,41 @@ import static com.techlooper.model.SocialProvider.*;
 @Configuration
 public class SocialConfiguration {
 
-  @Resource
-  private JsonConfigRepository jsonConfigRepository;
+    @Resource
+    private JsonConfigRepository jsonConfigRepository;
 
-  @Bean
-  public ConnectionFactory linkedInConnectionFactory() {
-    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> LINKEDIN == config.getProvider()).findFirst().get();
-    return new LinkedInConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
-  }
+    @Bean
+    public ConnectionFactory linkedInConnectionFactory() {
+        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+                .filter(config -> LINKEDIN == config.getProvider()).findFirst().get();
+        return new LinkedInConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
+    }
 
-  @Bean
-  public ConnectionFactory twitterConnectionFactory() {
-    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> TWITTER == config.getProvider()).findFirst().get();
-    return new TwitterConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
-  }
+    @Bean
+    public ConnectionFactory twitterConnectionFactory() {
+        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+                .filter(config -> TWITTER == config.getProvider()).findFirst().get();
+        return new TwitterConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
+    }
 
-  @Bean
-  public ConnectionFactory gitHubConnectionFactory() {
-    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> GITHUB == config.getProvider()).findFirst().get();
-    return new GitHubConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
-  }
+    @Bean
+    public ConnectionFactory gitHubConnectionFactory() {
+        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+                .filter(config -> GITHUB == config.getProvider()).findFirst().get();
+        return new GitHubConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
+    }
 
-  @Bean
-  public ConnectionFactory googleConnectionFactory() {
-    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> GOOGLE == config.getProvider()).findFirst().get();
-    return new GoogleConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
-  }
+    @Bean
+    public ConnectionFactory googleConnectionFactory() {
+        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+                .filter(config -> GOOGLE == config.getProvider()).findFirst().get();
+        return new GoogleConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
+    }
 
-  @Bean
-  public ConnectionFactory facebookConnectionFactory() {
-    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> FACEBOOK == config.getProvider()).findFirst().get();
-    return new FacebookConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
-  }
+    @Bean
+    public ConnectionFactory facebookConnectionFactory() {
+        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+                .filter(config -> FACEBOOK == config.getProvider()).findFirst().get();
+        return new FacebookConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
+    }
 }

@@ -26,23 +26,23 @@ import static com.techlooper.model.SocialProvider.LINKEDIN;
 @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class LinkedInService extends AbstractSocialService {
 
-  @Resource
-  private LinkedInConnectionFactory linkedInConnectionFactory;
+    @Resource
+    private LinkedInConnectionFactory linkedInConnectionFactory;
 
-  @Inject
-  public LinkedInService(JsonConfigRepository jsonConfigRepository) {
-    super(jsonConfigRepository, LINKEDIN);
-  }
+    @Inject
+    public LinkedInService(JsonConfigRepository jsonConfigRepository) {
+        super(jsonConfigRepository, LINKEDIN);
+    }
 
-  public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return linkedInConnectionFactory;
-  }
+    public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
+        return linkedInConnectionFactory;
+    }
 
-  public UserProfile getProfile(AccessGrant accessGrant) {
-    Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
-    LinkedInProfile liProfile = dozerBeanMapper.map(profile, LinkedInProfile.class);
-    liProfile.setAccessGrant(accessGrant);
-    return liProfile;
-  }
+    public UserProfile getProfile(AccessGrant accessGrant) {
+        Connection<LinkedIn> connection = linkedInConnectionFactory.createConnection(getAccessGrant(accessGrant));
+        LinkedInProfileFull profile = connection.getApi().profileOperations().getUserProfileFull();
+        LinkedInProfile liProfile = dozerBeanMapper.map(profile, LinkedInProfile.class);
+        liProfile.setAccessGrant(accessGrant);
+        return liProfile;
+    }
 }

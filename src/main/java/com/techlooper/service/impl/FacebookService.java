@@ -25,25 +25,25 @@ import static com.techlooper.model.SocialProvider.FACEBOOK;
 @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class FacebookService extends AbstractSocialService {
 
-  @Resource
-  private FacebookConnectionFactory facebookConnectionFactory;
+    @Resource
+    private FacebookConnectionFactory facebookConnectionFactory;
 
-  @Inject
-  public FacebookService(JsonConfigRepository jsonConfigRepository) {
-    super(jsonConfigRepository, FACEBOOK);
-  }
+    @Inject
+    public FacebookService(JsonConfigRepository jsonConfigRepository) {
+        super(jsonConfigRepository, FACEBOOK);
+    }
 
-  public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return facebookConnectionFactory;
-  }
+    public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
+        return facebookConnectionFactory;
+    }
 
-  public UserProfile getProfile(AccessGrant accessGrant) {
-    Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
-    com.techlooper.entity.FacebookProfile fbProfile = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
-    String profileImageUrl = connection.getApi().restOperations().getForObject(socialConfig.getApiUrl().get("picture"), JsonNode.class).at("/data/url").asText();
-    fbProfile.setProfileImageUrl(profileImageUrl);
-    fbProfile.setAccessGrant(accessGrant);
-    return fbProfile;
-  }
+    public UserProfile getProfile(AccessGrant accessGrant) {
+        Connection<Facebook> connection = facebookConnectionFactory.createConnection(getAccessGrant(accessGrant));
+        FacebookProfile profile = connection.getApi().userOperations().getUserProfile();
+        com.techlooper.entity.FacebookProfile fbProfile = dozerBeanMapper.map(profile, com.techlooper.entity.FacebookProfile.class);
+        String profileImageUrl = connection.getApi().restOperations().getForObject(socialConfig.getApiUrl().get("picture"), JsonNode.class).at("/data/url").asText();
+        fbProfile.setProfileImageUrl(profileImageUrl);
+        fbProfile.setAccessGrant(accessGrant);
+        return fbProfile;
+    }
 }

@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.service.UserService;
 import org.junit.Test;
@@ -11,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -66,5 +69,11 @@ public class UserServiceITcase {
     public void testUserNotFound() throws Exception {
         UserEntity userEntity = userService.findById("id");
         assertNull(userEntity);
+    }
+
+    @Test
+    public void getAll() throws Exception {
+        final List<UserImportEntity> all = userService.getAll(1, 10);
+        assertNull(all);
     }
 }

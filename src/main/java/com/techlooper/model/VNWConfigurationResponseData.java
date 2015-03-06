@@ -11,198 +11,198 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VNWConfigurationResponseData {
 
-  @JsonProperty(value = "locations")
-  private List<ConfigurationLocation> locations;
+    @JsonProperty(value = "locations")
+    private List<ConfigurationLocation> locations;
 
-  @JsonProperty(value = "categories")
-  private List<ConfigurationCategory> categories;
+    @JsonProperty(value = "categories")
+    private List<ConfigurationCategory> categories;
 
-  @JsonProperty(value = "job_levels")
-  private List<ConfigurationJobLevel> levels;
+    @JsonProperty(value = "job_levels")
+    private List<ConfigurationJobLevel> levels;
 
-  @JsonProperty(value = "degree")
-  private List<ConfigurationDegree> degrees;
+    @JsonProperty(value = "degree")
+    private List<ConfigurationDegree> degrees;
 
-  public List<ConfigurationLocation> getLocations() {
-    return locations;
-  }
-
-  public void setLocations(List<ConfigurationLocation> locations) {
-    this.locations = locations;
-  }
-
-  public List<ConfigurationCategory> getCategories() {
-    return categories;
-  }
-
-  public void setCategories(List<ConfigurationCategory> categories) {
-    this.categories = categories;
-  }
-
-  public List<ConfigurationJobLevel> getLevels() {
-    return levels;
-  }
-
-  public void setLevels(List<ConfigurationJobLevel> levels) {
-    this.levels = levels;
-  }
-
-  public List<ConfigurationDegree> getDegrees() {
-    return degrees;
-  }
-
-  public void setDegrees(List<ConfigurationDegree> degrees) {
-    this.degrees = degrees;
-  }
-
-  public static class ConfigurationItem {
-  }
-
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class ConfigurationLocation extends ConfigurationItem {
-
-    @JsonProperty(value = "location_id")
-    private String locationId;
-
-    @JsonProperty(value = "lang_en")
-    private String english;
-
-    @JsonProperty(value = "lang_vn")
-    private String vietnamese;
-
-    public String getLocationId() {
-      return locationId;
+    public List<ConfigurationLocation> getLocations() {
+        return locations;
     }
 
-    public void setLocationId(String locationId) {
-      this.locationId = locationId;
+    public void setLocations(List<ConfigurationLocation> locations) {
+        this.locations = locations;
     }
 
-    public String getEnglish() {
-      return english;
+    public List<ConfigurationCategory> getCategories() {
+        return categories;
     }
 
-    public void setEnglish(String english) {
-      this.english = english;
+    public void setCategories(List<ConfigurationCategory> categories) {
+        this.categories = categories;
     }
 
-    public String getVietnamese() {
-      return vietnamese;
+    public List<ConfigurationJobLevel> getLevels() {
+        return levels;
     }
 
-    public void setVietnamese(String vietnamese) {
-      this.vietnamese = vietnamese;
-    }
-  }
-
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class ConfigurationCategory {
-
-    @JsonProperty(value = "category_id")
-    private String categoryId;
-
-    @JsonProperty(value = "lang_en")
-    private String english;
-
-    @JsonProperty(value = "lang_vn")
-    private String vietnamese;
-
-    public String getCategoryId() {
-      return categoryId;
+    public void setLevels(List<ConfigurationJobLevel> levels) {
+        this.levels = levels;
     }
 
-    public void setCategoryId(String categoryId) {
-      this.categoryId = categoryId;
+    public List<ConfigurationDegree> getDegrees() {
+        return degrees;
     }
 
-    public String getEnglish() {
-      return english;
+    public void setDegrees(List<ConfigurationDegree> degrees) {
+        this.degrees = degrees;
     }
 
-    public void setEnglish(String english) {
-      this.english = english;
+    public static class ConfigurationItem {
     }
 
-    public String getVietnamese() {
-      return vietnamese;
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ConfigurationLocation extends ConfigurationItem {
+
+        @JsonProperty(value = "location_id")
+        private String locationId;
+
+        @JsonProperty(value = "lang_en")
+        private String english;
+
+        @JsonProperty(value = "lang_vn")
+        private String vietnamese;
+
+        public String getLocationId() {
+            return locationId;
+        }
+
+        public void setLocationId(String locationId) {
+            this.locationId = locationId;
+        }
+
+        public String getEnglish() {
+            return english;
+        }
+
+        public void setEnglish(String english) {
+            this.english = english;
+        }
+
+        public String getVietnamese() {
+            return vietnamese;
+        }
+
+        public void setVietnamese(String vietnamese) {
+            this.vietnamese = vietnamese;
+        }
     }
 
-    public void setVietnamese(String vietnamese) {
-      this.vietnamese = vietnamese;
-    }
-  }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ConfigurationCategory {
 
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class ConfigurationJobLevel {
+        @JsonProperty(value = "category_id")
+        private String categoryId;
 
-    @JsonProperty(value = "location_id")
-    private String locationId;
+        @JsonProperty(value = "lang_en")
+        private String english;
 
-    @JsonProperty(value = "lang_en")
-    private String english;
+        @JsonProperty(value = "lang_vn")
+        private String vietnamese;
 
-    @JsonProperty(value = "lang_vn")
-    private String vietnamese;
+        public String getCategoryId() {
+            return categoryId;
+        }
 
-    public String getLocationId() {
-      return locationId;
-    }
+        public void setCategoryId(String categoryId) {
+            this.categoryId = categoryId;
+        }
 
-    public void setLocationId(String locationId) {
-      this.locationId = locationId;
-    }
+        public String getEnglish() {
+            return english;
+        }
 
-    public String getEnglish() {
-      return english;
-    }
+        public void setEnglish(String english) {
+            this.english = english;
+        }
 
-    public void setEnglish(String english) {
-      this.english = english;
-    }
+        public String getVietnamese() {
+            return vietnamese;
+        }
 
-    public String getVietnamese() {
-      return vietnamese;
-    }
-
-    public void setVietnamese(String vietnamese) {
-      this.vietnamese = vietnamese;
-    }
-  }
-
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class ConfigurationDegree extends ConfigurationItem {
-
-    @JsonProperty(value = "degree_id")
-    private String degreeId;
-
-    @JsonProperty(value = "lang_en")
-    private String english;
-
-    @JsonProperty(value = "lang_vn")
-    private String vietnamese;
-
-    public String getDegreeId() {
-      return degreeId;
+        public void setVietnamese(String vietnamese) {
+            this.vietnamese = vietnamese;
+        }
     }
 
-    public void setDegreeId(String degreeId) {
-      this.degreeId = degreeId;
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ConfigurationJobLevel {
+
+        @JsonProperty(value = "location_id")
+        private String locationId;
+
+        @JsonProperty(value = "lang_en")
+        private String english;
+
+        @JsonProperty(value = "lang_vn")
+        private String vietnamese;
+
+        public String getLocationId() {
+            return locationId;
+        }
+
+        public void setLocationId(String locationId) {
+            this.locationId = locationId;
+        }
+
+        public String getEnglish() {
+            return english;
+        }
+
+        public void setEnglish(String english) {
+            this.english = english;
+        }
+
+        public String getVietnamese() {
+            return vietnamese;
+        }
+
+        public void setVietnamese(String vietnamese) {
+            this.vietnamese = vietnamese;
+        }
     }
 
-    public String getEnglish() {
-      return english;
-    }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ConfigurationDegree extends ConfigurationItem {
 
-    public void setEnglish(String english) {
-      this.english = english;
-    }
+        @JsonProperty(value = "degree_id")
+        private String degreeId;
 
-    public String getVietnamese() {
-      return vietnamese;
-    }
+        @JsonProperty(value = "lang_en")
+        private String english;
 
-    public void setVietnamese(String vietnamese) {
-      this.vietnamese = vietnamese;
+        @JsonProperty(value = "lang_vn")
+        private String vietnamese;
+
+        public String getDegreeId() {
+            return degreeId;
+        }
+
+        public void setDegreeId(String degreeId) {
+            this.degreeId = degreeId;
+        }
+
+        public String getEnglish() {
+            return english;
+        }
+
+        public void setEnglish(String english) {
+            this.english = english;
+        }
+
+        public String getVietnamese() {
+            return vietnamese;
+        }
+
+        public void setVietnamese(String vietnamese) {
+            this.vietnamese = vietnamese;
+        }
     }
-  }
 }

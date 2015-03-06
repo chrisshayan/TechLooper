@@ -14,38 +14,35 @@ import java.util.Optional;
  */
 public abstract class UserProfile {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserProfile.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserProfile.class);
 
-  private static List<String> ENTITY_ID_FIELDS = Arrays.asList("email", "emailAddress", "accountEmail", "id");
+    private static List<String> ENTITY_ID_FIELDS = Arrays.asList("email", "emailAddress", "accountEmail", "id");
 
-  private AccessGrant accessGrant;
+    private AccessGrant accessGrant;
 
-  public String entityId() {
-    final String[] entityId = new String[1];
-    Object instance = this instanceof SimpleUserProfile ? ((SimpleUserProfile)this).getActual() : this;
-    ENTITY_ID_FIELDS.stream().filter((field) -> {
-      try {
-        entityId[0] = BeanUtils.getSimpleProperty(instance, field);
-      }
-      catch (IllegalAccessException e) {
-        LOGGER.debug("Field {} is not accessible", field);
-      }
-      catch (InvocationTargetException e) {
-        LOGGER.debug("Field {} is not invokable", field);
-      }
-      catch (NoSuchMethodException e) {
-        LOGGER.debug("Field {} is not gettable", field);
-      }
-      return Optional.ofNullable(entityId[0]).isPresent();
-    }).findFirst();
-    return entityId[0];
-  }
+    public String entityId() {
+        final String[] entityId = new String[1];
+        Object instance = this instanceof SimpleUserProfile ? ((SimpleUserProfile) this).getActual() : this;
+        ENTITY_ID_FIELDS.stream().filter((field) -> {
+            try {
+                entityId[0] = BeanUtils.getSimpleProperty(instance, field);
+            } catch (IllegalAccessException e) {
+                LOGGER.debug("Field {} is not accessible", field);
+            } catch (InvocationTargetException e) {
+                LOGGER.debug("Field {} is not invokable", field);
+            } catch (NoSuchMethodException e) {
+                LOGGER.debug("Field {} is not gettable", field);
+            }
+            return Optional.ofNullable(entityId[0]).isPresent();
+        }).findFirst();
+        return entityId[0];
+    }
 
-  public AccessGrant getAccessGrant() {
-    return accessGrant;
-  }
+    public AccessGrant getAccessGrant() {
+        return accessGrant;
+    }
 
-  public void setAccessGrant(AccessGrant accessGrant) {
-    this.accessGrant = accessGrant;
-  }
+    public void setAccessGrant(AccessGrant accessGrant) {
+        this.accessGrant = accessGrant;
+    }
 }

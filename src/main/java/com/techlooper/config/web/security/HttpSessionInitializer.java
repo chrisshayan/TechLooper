@@ -8,7 +8,7 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
  */
 public class HttpSessionInitializer extends AbstractHttpSessionApplicationInitializer {
 
-  protected String getDispatcherWebApplicationContextSuffix() {
-    return AbstractDispatcherServletInitializer.DEFAULT_SERVLET_NAME;
-  }
+    protected String getDispatcherWebApplicationContextSuffix() {
+        return AbstractDispatcherServletInitializer.DEFAULT_SERVLET_NAME;
+    }
 }

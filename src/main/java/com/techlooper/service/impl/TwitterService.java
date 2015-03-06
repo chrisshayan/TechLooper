@@ -25,23 +25,23 @@ import static com.techlooper.model.SocialProvider.TWITTER;
 @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class TwitterService extends AbstractSocialService {
 
-  @Resource
-  private TwitterConnectionFactory twitterConnectionFactory;
+    @Resource
+    private TwitterConnectionFactory twitterConnectionFactory;
 
-  @Inject
-  public TwitterService(JsonConfigRepository jsonConfigRepository) {
-    super(jsonConfigRepository, TWITTER);
-  }
+    @Inject
+    public TwitterService(JsonConfigRepository jsonConfigRepository) {
+        super(jsonConfigRepository, TWITTER);
+    }
 
-  public OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
-    return twitterConnectionFactory;
-  }
+    public OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
+        return twitterConnectionFactory;
+    }
 
-  public UserProfile getProfile(AccessGrant accessGrant) {
-    Connection<Twitter> connection = twitterConnectionFactory.createConnection(new OAuthToken(accessGrant.getValue(), accessGrant.getSecret()));
-    TwitterProfile profile = connection.getApi().userOperations().getUserProfile();
-    com.techlooper.entity.TwitterProfile twProfile = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
-    twProfile.setAccessGrant(accessGrant);
-    return twProfile;
-  }
+    public UserProfile getProfile(AccessGrant accessGrant) {
+        Connection<Twitter> connection = twitterConnectionFactory.createConnection(new OAuthToken(accessGrant.getValue(), accessGrant.getSecret()));
+        TwitterProfile profile = connection.getApi().userOperations().getUserProfile();
+        com.techlooper.entity.TwitterProfile twProfile = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
+        twProfile.setAccessGrant(accessGrant);
+        return twProfile;
+    }
 }
