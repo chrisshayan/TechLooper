@@ -21,46 +21,46 @@
     <meta itemprop="name" content="TechLooper is a career analytics platform." />
     <meta itemprop="image" content="images/logo.png" />
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700&subset=latin,cyrillic-ext,vietnamese,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,300italic,400italic,500,500italic&subset=latin,vietnamese,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/selectize.default.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/slider.css">
 	  <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-	<header>
+	<header class="home">
 		<div class="logo-block">
 			<h1><a href="#"><img src="img/logo.png" alt="TechLooper is a career analytics platform."></a></h1>
 		</div>
-		<div class="navbar">
-			<div class="menu-bar">
-				<i class="fa fa-bars"></i>
-			</div>
-			<ul>
-				<!-- <li><a href="#itJobs"><span><i class="fa fa-connectdevelop"></i></span>IT Job Post</a></li>
-				<li><a href="#itPro"><span><i class="fa fa-search"></i></span>IT Pro Search</a></li> -->
-				<li><a href="http://techlooper.com" target="_blank"><span><i class="fa fa-group"></i></span>IT professional</a></li>
-				<li><a href="#contact"><span><i class="fa fa-phone-square"></i></span>Contact</a></li>
-				<li><a href="#"><span><i class="fa fa-sign-in"></i></span> Login</a></li>
-				<li><a href="#" class="languages"><span><i class="fa fa-globe" title="Languages"></i></span> <span class="text">English</span></a>
-					<div class="languages-list">
-						<div class="arrow"><i class="fa fa-caret-up"></i></div>
-						<div class="languages-items">
-							<div class="language-item">
-								<a href="#">Vietnamese</a>
-							</div>
-							<div class="language-item">
-								<a href="#">English</a>
-							</div>
-							<div class="language-item">
-								<a href="#">Japanese</a>
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
+		<div class="menu-icon">
+			<p><i class="fa fa-bars"></i> <span>Menu</span></p>
 		</div>
 	</header>
+	<div class="full-menu">
+		<div class="close-menu"><span title="Close Menu">x</span></div>
+		<ul>
+			<li><a href="http://techlooper.com" target="_blank"><span><i class="fa fa-group"></i></span>IT professional</a></li>
+			<li><a href="#contact"><span><i class="fa fa-phone-square"></i></span>Contact</a></li>
+			<li><a href="#"><span><i class="fa fa-sign-in"></i></span> Login</a></li>
+			<li><a href="#" class="languages"><span><i class="fa fa-globe" title="Languages"></i></span> <span class="text">English</span></a>
+				<div class="languages-list">
+					<div class="arrow"><i class="fa fa-caret-up"></i></div>
+					<div class="languages-items">
+						<div class="language-item">
+							<a href="#">Vietnamese</a>
+						</div>
+						<div class="language-item">
+							<a href="#">English</a>
+						</div>
+						<div class="language-item">
+							<a href="#">Japanese</a>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 	<div class="content_wrapper">
 		<div class="main-banner">
 			<div class="img-banner"></div>
@@ -70,14 +70,24 @@
 	      	<span>60</span>
 	      </div>
 	      <p>Days left for free trial</p>
-	      <div class="start-hiring-button">
-	      	<p><button class="btn">Start Hiring</button></p>
-	      </div>
 			</div>
     </div>
+		<div class="search-form-block">
+			<div class="input-group">
+				<input type="text" placeholder="Skill" id="input-skill"/>
+				<input type="text" placeholder="Job title/Position" id="input-job-title"/>
+				<input type="text" placeholder="Company Name" id="input-company-name"/>
+				<input type="text" placeholder="Location" id="select-location"/>
+			</div>
+			<div class="input-submit">
+				<div class="start-hiring-button">
+					<p><button class="btn">Start Hiring</button></p>
+				</div>
+			</div>
+		</div>
 		<section class="reasons">
 			<div class="header-block">
-				<h2>4 reasons to use TechLooper resume search</h2>
+				<h2>Why Use our services</h2>
 			</div>
 			<div class="container-block reasons-content">
 				<ul>
@@ -112,9 +122,22 @@
 				</ul>
 			</div>
 		</section>
+		<div class="customer-company">
+			<div class="header-block">
+				<h2>Our Customers</h2>
+			</div>
+			<div class="customers-list">
+				<ul>
+					<li><img src="img/cp-logo-google.png" alt=""/></li>
+					<li><img src="img/cp-logo-techcombank.png" alt=""/></li>
+					<li><img src="img/cp-logo-fpt.png" alt=""/></li>
+					<li><img src="img/cp-logo-atlassian.png" alt=""/></li>
+				</ul>
+			</div>
+		</div>
 		<section class="customers-said">
 			<div class="header-block">
-				<h2>What Our Customers Say</h2>
+				<h2>Our Customers Say</h2>
 			</div>
 			<div class="container-block customers-said-content">
 				<div class="kz-slider kz-slider-run">
@@ -191,9 +214,9 @@
 		<section class="feedback">
 			<div class="header-block">
 				<h2>Feedback</h2>
-				<p>Please give us your feedback! We are trying for better matching for IT professionals and employers</p>
 			</div>
 			<div class="container-block feedback-form">
+				<p>Please give us your feedback! We are trying for better matching for IT professionals and employers</p>
 				<div class="error-messages"></div>
 					<div class="feedback-field">
 						<input type="text" placeholder="Your email *" id="txtEmail">
@@ -221,28 +244,29 @@
 		</section>
 		<section id="contact">
 			<div class="header-block">
-				<h2>Contact</h2>
+				<h2>Contact Us</h2>
 				<p></p>
 			</div>
 			<div class="container-block">
-				<div class="map-block" id="location-map"></div>
 				<div class="address-info">
 					<h3>TechLooper Offices</h3>
 					<div class="head active">
 						<p class="head-name" data-map="HCM" title="Click here to find map."><i class="fa fa-map-marker"></i> Ho Chi Minh City</p>
 						<p>130 Suong Nguyet Anh, Ben Thanh Ward
-District 1, HCM City </p>
-<p>Tel: (84 8) 5 404 1373 </p>
+							District 1, HCM City </p>
+						<p>Tel: (84 8) 5 404 1373 </p>
 					</div>
 					<div class="head">
 						<p class="head-name" data-map='HN' title="Click here to find map."><i class="fa fa-map-marker"></i> Ha Noi</p>
 						<p> 7th floor, V-building
-125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district
-Hanoi</p>
-<p>Tel: (84 4) 39743033</p> 
-<p>Fax: (84 4) 39743031</p>
+							125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district
+							Hanoi</p>
+						<p>Tel: (84 4) 39743033</p>
+						<p>Fax: (84 4) 39743031</p>
 					</div>
 				</div>
+				<div class="map-block" id="location-map"></div>
+
 			</div>
 		</section>
 	</div>
@@ -271,5 +295,7 @@ Hanoi</p>
 <script src="js/clock/flipclock.min.js"></script>
 <!-- google map -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- selectbox --->
+<script src="js/selectize.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 </html>
