@@ -25,57 +25,57 @@ import javax.servlet.http.HttpServletResponse;
 @EnableRedisHttpSession
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Bean
-  public EmbeddedRedisServer redisServer() {
-    return new EmbeddedRedisServer();
-  }
+    @Bean
+    public EmbeddedRedisServer redisServer() {
+        return new EmbeddedRedisServer();
+    }
 
-  @Bean
-  public JedisConnectionFactory connectionFactory() throws Exception {
-    return new JedisConnectionFactory();
-  }
+    @Bean
+    public JedisConnectionFactory connectionFactory() throws Exception {
+        return new JedisConnectionFactory();
+    }
 
-  @Bean
-  public AuthenticationManager authenticationManager() {
-    return new SocialAuthenticationManager();
-  }
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        return new SocialAuthenticationManager();
+    }
 
-  protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable()
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
 //      .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)).and()
-      .authorizeRequests().antMatchers("/user/**").hasAuthority("USER")
-      .and().formLogin().loginPage("/login").usernameParameter("key").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
-      .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
-      .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());
+                .authorizeRequests().antMatchers("/user/**").hasAuthority("USER")
+                .and().formLogin().loginPage("/login").usernameParameter("key").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
+                .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
+                .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());
 //      .and().sessionManagement().maximumSessions(1);
-  }
+    }
 
-  private AuthenticationEntryPoint getAuthenticationEntryPoint() {
-    return (request, response, authException) -> {
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    };
-  }
+    private AuthenticationEntryPoint getAuthenticationEntryPoint() {
+        return (request, response, authException) -> {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        };
+    }
 
-  private LogoutSuccessHandler getLogoutSuccessHandler() {
-    return (request, response, authentication) -> {
-      response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-    };
-  }
+    private LogoutSuccessHandler getLogoutSuccessHandler() {
+        return (request, response, authentication) -> {
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        };
+    }
 
-  private AuthenticationFailureHandler getAuthenticationFailureHandler() {
-    return (request, response, exception) -> {
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    };
-  }
+    private AuthenticationFailureHandler getAuthenticationFailureHandler() {
+        return (request, response, exception) -> {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        };
+    }
 
-  private AuthenticationSuccessHandler getSuccessHandler() {
-    return (request, response, authentication) -> {
-      response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-    };
-  }
+    private AuthenticationSuccessHandler getSuccessHandler() {
+        return (request, response, authentication) -> {
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        };
+    }
 
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/images/**", "/css/**", "/generate-resources/**", "/modules/**", "/bower_components/**", "/custom-js/**");
-  }
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/images/**", "/css/**", "/generate-resources/**", "/modules/**", "/bower_components/**", "/custom-js/**");
+    }
 
 }

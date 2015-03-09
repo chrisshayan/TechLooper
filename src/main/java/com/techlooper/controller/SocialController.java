@@ -27,55 +27,55 @@ import java.util.Optional;
 @Controller
 public class SocialController {
 
-  @Resource
-  private ApplicationContext applicationContext;
+    @Resource
+    private ApplicationContext applicationContext;
 
-  @Resource
-  private JsonConfigRepository jsonConfigRepository;
+    @Resource
+    private JsonConfigRepository jsonConfigRepository;
 
-  @Resource
-  private TextEncryptor textEncryptor;
+    @Resource
+    private TextEncryptor textEncryptor;
 
-  @ResponseBody
-  @RequestMapping("/getSocialConfig")
-  public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {
-    List<SocialConfig> configs = new ArrayList<>();
-    providers.forEach(prov ->
-        configs.add(jsonConfigRepository.getSocialConfig().stream()
-          .filter(config -> prov == config.getProvider()).findFirst().get())
-    );
-    return configs;
-  }
-
-  @ResponseBody
-  @RequestMapping("/auth/{provider}")
-  public SocialResponse auth(@PathVariable SocialProvider provider,
-                             @CookieValue(value = "techlooper.key", required = false) String key,
-                             @RequestBody(required = false) Authentication auth) {
-    SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
-    AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
-    UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
-    return SocialResponse.Builder.get()
-      .withToken(accessGrant.getAccessToken())
-      .withKey(textEncryptor.encrypt(userEntity.key())).build();
-  }
-
-  @ResponseBody
-  @RequestMapping("/auth/oath1/{provider}")
-  public SocialResponse auth1(@PathVariable SocialProvider provider, HttpServletResponse httpServletResponse,
-                              @CookieValue(value = "techlooper.key", required = false) String key,
-                              @RequestParam(value = "oauth_token", required = false) String token,
-                              @RequestParam(value = "oauth_verifier", required = false) String verifier) throws IOException {
-    SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
-    if (Optional.ofNullable(token).isPresent()) {
-      AccessGrant accessGrant = service.getAccessGrant(token, verifier);
-      UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
-      return SocialResponse.Builder.get()
-        .withToken(accessGrant.getValue())
-        .withKey(textEncryptor.encrypt(userEntity.key())).build();
+    @ResponseBody
+    @RequestMapping("/getSocialConfig")
+    public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {
+        List<SocialConfig> configs = new ArrayList<>();
+        providers.forEach(prov ->
+                        configs.add(jsonConfigRepository.getSocialConfig().stream()
+                                .filter(config -> prov == config.getProvider()).findFirst().get())
+        );
+        return configs;
     }
-    AccessGrant accessGrant = service.getAccessGrant(null, null);
-    httpServletResponse.sendRedirect(accessGrant.getAuthorizeUrl());
-    return null;
-  }
+
+    @ResponseBody
+    @RequestMapping("/auth/{provider}")
+    public SocialResponse auth(@PathVariable SocialProvider provider,
+                               @CookieValue(value = "techlooper.key", required = false) String key,
+                               @RequestBody(required = false) Authentication auth) {
+        SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
+        AccessGrant accessGrant = service.getAccessGrant(auth.getCode());
+        UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
+        return SocialResponse.Builder.get()
+                .withToken(accessGrant.getAccessToken())
+                .withKey(textEncryptor.encrypt(userEntity.key())).build();
+    }
+
+    @ResponseBody
+    @RequestMapping("/auth/oath1/{provider}")
+    public SocialResponse auth1(@PathVariable SocialProvider provider, HttpServletResponse httpServletResponse,
+                                @CookieValue(value = "techlooper.key", required = false) String key,
+                                @RequestParam(value = "oauth_token", required = false) String token,
+                                @RequestParam(value = "oauth_verifier", required = false) String verifier) throws IOException {
+        SocialService service = applicationContext.getBean(provider + "Service", SocialService.class);
+        if (Optional.ofNullable(token).isPresent()) {
+            AccessGrant accessGrant = service.getAccessGrant(token, verifier);
+            UserEntity userEntity = StringUtils.hasText(key) ? service.saveFootprint(accessGrant, key) : service.saveFootprint(accessGrant);
+            return SocialResponse.Builder.get()
+                    .withToken(accessGrant.getValue())
+                    .withKey(textEncryptor.encrypt(userEntity.key())).build();
+        }
+        AccessGrant accessGrant = service.getAccessGrant(null, null);
+        httpServletResponse.sendRedirect(accessGrant.getAuthorizeUrl());
+        return null;
+    }
 }

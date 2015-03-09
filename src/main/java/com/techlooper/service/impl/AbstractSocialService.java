@@ -31,81 +31,81 @@ import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
  */
 public abstract class AbstractSocialService implements SocialService {
 
-  @Resource
-  protected UserService userService;
+    @Resource
+    protected UserService userService;
 
-  @Resource
-  protected Mapper dozerBeanMapper;
+    @Resource
+    protected Mapper dozerBeanMapper;
 
-  @Resource
-  protected TextEncryptor textEncryptor;
+    @Resource
+    protected TextEncryptor textEncryptor;
 
-  protected SocialConfig socialConfig;
+    protected SocialConfig socialConfig;
 
-  public AbstractSocialService(JsonConfigRepository jsonConfigRepository, SocialProvider socialProvider) {
-    socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> socialProvider == config.getProvider()).findFirst().get();
-  }
-
-  public com.techlooper.entity.AccessGrant getAccessGrant(String accessCode) {
-    AccessGrant access = getOAuth2ConnectionFactory().getOAuthOperations().exchangeForAccess(accessCode, socialConfig.getRedirectUri(), null);
-    return dozerBeanMapper.map(access, com.techlooper.entity.AccessGrant.class);
-  }
-
-  public com.techlooper.entity.AccessGrant getAccessGrant(String accessToken, String accessSecret) {
-    OAuth1Operations oAuthOperations = getOAuth1ConnectionFactory().getOAuthOperations();
-    if (Optional.ofNullable(accessToken).isPresent()) {
-      OAuthToken token = oAuthOperations.exchangeForAccessToken(
-        new AuthorizedRequestToken(new OAuthToken(accessToken, null), accessSecret), null);
-      return dozerBeanMapper.map(token, com.techlooper.entity.AccessGrant.class);
-    }
-    OAuthToken token = oAuthOperations.fetchRequestToken(socialConfig.getRedirectUri(), null);
-    String authorizeUrl = oAuthOperations.buildAuthorizeUrl(token.getValue(), OAuth1Parameters.NONE);
-    return accessGrant().withAuthorizeUrl(authorizeUrl).build();
-  }
-
-  protected AccessGrant getAccessGrant(com.techlooper.entity.AccessGrant accessGrant) {
-    return new AccessGrant(accessGrant.getAccessToken(), accessGrant.getScope(), accessGrant.getRefreshToken(), accessGrant.getExpireTime());
-  }
-
-  public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    throw new UnsupportedOperationException("Method is not supported");
-  }
-
-  public OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
-    throw new UnsupportedOperationException("Method is not supported");
-  }
-
-  public abstract UserProfile getProfile(com.techlooper.entity.AccessGrant accessGrant);
-
-  public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant) {
-    UserProfile profile = getProfile(accessGrant);
-    UserEntity user = Optional.ofNullable(userService.findById(profile.entityId())).orElse(new UserEntity());
-    UserEntity.UserEntityBuilder builder = userEntity(user)
-      .withProfile(socialConfig.getProvider(), profile)
-      .withAccessGrant(dozerBeanMapper.map(accessGrant, com.techlooper.entity.AccessGrant.class));
-    if (!Optional.ofNullable(user.getId()).isPresent()) {
-      Object instance = profile instanceof SimpleUserProfile ? ((SimpleUserProfile) profile).getActual() : profile;
-      dozerBeanMapper.map(instance, user);
-      builder.withId(profile.entityId()).withLoginSource(socialConfig.getProvider());
-    }
-    userService.verifyVietnamworksAccount(user);
-    userService.save(user);
-    return user;
-  }
-
-  public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
-    UserEntity entity = userService.findUserEntityByKey(key);
-    if (!Optional.ofNullable(entity).isPresent()) {
-      throw new EntityNotFoundException("Can not find User by key: " + key);
+    public AbstractSocialService(JsonConfigRepository jsonConfigRepository, SocialProvider socialProvider) {
+        socialConfig = jsonConfigRepository.getSocialConfig().stream()
+                .filter(config -> socialProvider == config.getProvider()).findFirst().get();
     }
 
-    CompletableFuture.supplyAsync(() -> getProfile(accessGrant)).thenAccept((profile) -> {
-      userEntity(entity).withProfile(socialConfig.getProvider(), profile);
-      userService.save(entity);
-    });
+    public com.techlooper.entity.AccessGrant getAccessGrant(String accessCode) {
+        AccessGrant access = getOAuth2ConnectionFactory().getOAuthOperations().exchangeForAccess(accessCode, socialConfig.getRedirectUri(), null);
+        return dozerBeanMapper.map(access, com.techlooper.entity.AccessGrant.class);
+    }
 
-    userEntity(entity).withProfile(socialConfig.getProvider(), null);
-    return entity;
-  }
+    public com.techlooper.entity.AccessGrant getAccessGrant(String accessToken, String accessSecret) {
+        OAuth1Operations oAuthOperations = getOAuth1ConnectionFactory().getOAuthOperations();
+        if (Optional.ofNullable(accessToken).isPresent()) {
+            OAuthToken token = oAuthOperations.exchangeForAccessToken(
+                    new AuthorizedRequestToken(new OAuthToken(accessToken, null), accessSecret), null);
+            return dozerBeanMapper.map(token, com.techlooper.entity.AccessGrant.class);
+        }
+        OAuthToken token = oAuthOperations.fetchRequestToken(socialConfig.getRedirectUri(), null);
+        String authorizeUrl = oAuthOperations.buildAuthorizeUrl(token.getValue(), OAuth1Parameters.NONE);
+        return accessGrant().withAuthorizeUrl(authorizeUrl).build();
+    }
+
+    protected AccessGrant getAccessGrant(com.techlooper.entity.AccessGrant accessGrant) {
+        return new AccessGrant(accessGrant.getAccessToken(), accessGrant.getScope(), accessGrant.getRefreshToken(), accessGrant.getExpireTime());
+    }
+
+    public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
+        throw new UnsupportedOperationException("Method is not supported");
+    }
+
+    public OAuth1ConnectionFactory getOAuth1ConnectionFactory() {
+        throw new UnsupportedOperationException("Method is not supported");
+    }
+
+    public abstract UserProfile getProfile(com.techlooper.entity.AccessGrant accessGrant);
+
+    public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant) {
+        UserProfile profile = getProfile(accessGrant);
+        UserEntity user = Optional.ofNullable(userService.findById(profile.entityId())).orElse(new UserEntity());
+        UserEntity.UserEntityBuilder builder = userEntity(user)
+                .withProfile(socialConfig.getProvider(), profile)
+                .withAccessGrant(dozerBeanMapper.map(accessGrant, com.techlooper.entity.AccessGrant.class));
+        if (!Optional.ofNullable(user.getId()).isPresent()) {
+            Object instance = profile instanceof SimpleUserProfile ? ((SimpleUserProfile) profile).getActual() : profile;
+            dozerBeanMapper.map(instance, user);
+            builder.withId(profile.entityId()).withLoginSource(socialConfig.getProvider());
+        }
+        userService.verifyVietnamworksAccount(user);
+        userService.save(user);
+        return user;
+    }
+
+    public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
+        UserEntity entity = userService.findUserEntityByKey(key);
+        if (!Optional.ofNullable(entity).isPresent()) {
+            throw new EntityNotFoundException("Can not find User by key: " + key);
+        }
+
+        CompletableFuture.supplyAsync(() -> getProfile(accessGrant)).thenAccept((profile) -> {
+            userEntity(entity).withProfile(socialConfig.getProvider(), profile);
+            userService.save(entity);
+        });
+
+        userEntity(entity).withProfile(socialConfig.getProvider(), null);
+        return entity;
+    }
 }

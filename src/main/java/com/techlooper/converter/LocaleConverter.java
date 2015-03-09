@@ -9,15 +9,15 @@ import java.util.Locale;
  */
 public class LocaleConverter extends DozerConverter<Locale, Locale> {
 
-  public LocaleConverter() {
-    super(Locale.class, Locale.class);
-  }
+    public LocaleConverter() {
+        super(Locale.class, Locale.class);
+    }
 
-  public Locale convertTo(Locale source, Locale destination) {
-    return source;
-  }
+    public Locale convertTo(Locale source, Locale destination) {
+        return source;
+    }
 
-  public Locale convertFrom(Locale source, Locale destination) {
-    return source;
-  }
+    public Locale convertFrom(Locale source, Locale destination) {
+        return source;
+    }
 }

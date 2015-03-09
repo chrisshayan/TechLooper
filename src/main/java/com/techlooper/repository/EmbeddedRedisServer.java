@@ -10,16 +10,16 @@ import redis.embedded.RedisServer;
  */
 public class EmbeddedRedisServer implements InitializingBean, DisposableBean {
 
-  private RedisServer redisServer;
+    private RedisServer redisServer;
 
-  public void afterPropertiesSet() throws Exception {
-    redisServer = new RedisServer(Protocol.DEFAULT_PORT);
-    redisServer.start();
-  }
-
-  public void destroy() throws Exception {
-    if(redisServer != null) {
-      redisServer.stop();
+    public void afterPropertiesSet() throws Exception {
+        redisServer = new RedisServer(Protocol.DEFAULT_PORT);
+        redisServer.start();
     }
-  }
+
+    public void destroy() throws Exception {
+        if (redisServer != null) {
+            redisServer.stop();
+        }
+    }
 }

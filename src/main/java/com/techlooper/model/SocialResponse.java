@@ -5,45 +5,45 @@ package com.techlooper.model;
  */
 public class SocialResponse {
 
-  private String token = "";
+    private String token = "";
 
-  private String key = "";
+    private String key = "";
 
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
-
-  public static class Builder {
-    private SocialResponse instance = new SocialResponse();
-
-    public static Builder get() {
-      return new Builder();
+    public String getKey() {
+        return key;
     }
 
-    public Builder withToken(String token) {
-      instance.token = token;
-      return this;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public Builder withKey(String key) {
-      instance.key = key;
-      return this;
+    public String getToken() {
+        return token;
     }
 
-    public SocialResponse build() {
-      return instance;
+    public void setToken(String token) {
+        this.token = token;
     }
-  }
+
+    public static class Builder {
+        private SocialResponse instance = new SocialResponse();
+
+        public static Builder get() {
+            return new Builder();
+        }
+
+        public Builder withToken(String token) {
+            instance.token = token;
+            return this;
+        }
+
+        public Builder withKey(String key) {
+            instance.key = key;
+            return this;
+        }
+
+        public SocialResponse build() {
+            return instance;
+        }
+    }
 }

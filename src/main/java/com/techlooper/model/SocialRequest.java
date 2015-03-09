@@ -5,23 +5,23 @@ package com.techlooper.model;
  */
 public class SocialRequest {
 
-  private String key;
+    private String key;
 
-  private String emailAddress;
+    private String emailAddress;
 
-  public String getEmailAddress() {
-    return emailAddress;
-  }
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
-  public void setEmailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
-  }
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 
-  public String getKey() {
-    return key;
-  }
+    public String getKey() {
+        return key;
+    }
 
-  public void setKey(String key) {
-    this.key = key;
-  }
+    public void setKey(String key) {
+        this.key = key;
+    }
 }

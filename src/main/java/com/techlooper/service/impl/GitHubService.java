@@ -28,42 +28,42 @@ import static com.techlooper.model.SocialProvider.GITHUB;
 @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class GitHubService extends AbstractSocialService {
 
-  @Resource
-  private GitHubConnectionFactory gitHubConnectionFactory;
+    @Resource
+    private GitHubConnectionFactory gitHubConnectionFactory;
 
-  @Inject
-  public GitHubService(JsonConfigRepository jsonConfigRepository) {
-    super(jsonConfigRepository, GITHUB);
-  }
+    @Inject
+    public GitHubService(JsonConfigRepository jsonConfigRepository) {
+        super(jsonConfigRepository, GITHUB);
+    }
 
-  public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
-    return gitHubConnectionFactory;
-  }
+    public OAuth2ConnectionFactory getOAuth2ConnectionFactory() {
+        return gitHubConnectionFactory;
+    }
 
-  public UserProfile getProfile(AccessGrant accessGrant) {
-    Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
-    com.techlooper.entity.GitHubUserProfile profile = dozerBeanMapper.map(connection.getApi().userOperations().getUserProfile(), com.techlooper.entity.GitHubUserProfile.class);
-    String profileImageUrl = connection.getApi().restOperations()
-      .getForObject(socialConfig.getApiUrl().get("users"), JsonNode.class, profile.getUsername()).get("avatar_url").asText();
-    profile.setProfileImageUrl(profileImageUrl);
-    buildProfile(connection, profile);
-    profile.setAccessGrant(accessGrant);
-    return profile;
-  }
+    public UserProfile getProfile(AccessGrant accessGrant) {
+        Connection<GitHub> connection = gitHubConnectionFactory.createConnection(getAccessGrant(accessGrant));
+        com.techlooper.entity.GitHubUserProfile profile = dozerBeanMapper.map(connection.getApi().userOperations().getUserProfile(), com.techlooper.entity.GitHubUserProfile.class);
+        String profileImageUrl = connection.getApi().restOperations()
+                .getForObject(socialConfig.getApiUrl().get("users"), JsonNode.class, profile.getUsername()).get("avatar_url").asText();
+        profile.setProfileImageUrl(profileImageUrl);
+        buildProfile(connection, profile);
+        profile.setAccessGrant(accessGrant);
+        return profile;
+    }
 
-  private void buildProfile(Connection<GitHub> connection, com.techlooper.entity.GitHubUserProfile profile) {
-    String username = profile.getUsername();
-    profile.setRepos(getForUserRepos(connection, username));
-    profile.setFollowers(getForUserFollowers(connection, username));
-  }
+    private void buildProfile(Connection<GitHub> connection, com.techlooper.entity.GitHubUserProfile profile) {
+        String username = profile.getUsername();
+        profile.setRepos(getForUserRepos(connection, username));
+        profile.setFollowers(getForUserFollowers(connection, username));
+    }
 
-  private List<GitHubFollower> getForUserFollowers(Connection<GitHub> connection, String username) {
-    return Arrays.asList(connection.getApi().restOperations()
-      .getForObject(socialConfig.getApiUrl().get("followers"), GitHubFollower[].class, username));
-  }
+    private List<GitHubFollower> getForUserFollowers(Connection<GitHub> connection, String username) {
+        return Arrays.asList(connection.getApi().restOperations()
+                .getForObject(socialConfig.getApiUrl().get("followers"), GitHubFollower[].class, username));
+    }
 
-  private List<GitHubRepo> getForUserRepos(Connection<GitHub> connection, String username) {
-    return Arrays.asList(connection.getApi().restOperations()
-      .getForObject(socialConfig.getApiUrl().get("repos"), GitHubRepo[].class, username));
-  }
+    private List<GitHubRepo> getForUserRepos(Connection<GitHub> connection, String username) {
+        return Arrays.asList(connection.getApi().restOperations()
+                .getForObject(socialConfig.getApiUrl().get("repos"), GitHubRepo[].class, username));
+    }
 }
