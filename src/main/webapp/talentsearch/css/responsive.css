@@ -230,6 +230,39 @@
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
 		margin: 0;
 	}
+	/* === ----- Search results ----- === */
+	.search-page .search-form-block{
+		height: 320px;
+		margin-top: 40px;
+	}
+	.search-page .search-form-block .input-group{
+		width: 100%;
+	}
+	.search-page .input-group .selectize-control{
+		width:100%;
+		margin-bottom: 10px;
+	}
+	.search-page .start-hiring-button{
+		float: none;
+	}
+	.search-page .start-hiring-button p{
+		position: relative;
+	}
+	.search-page .start-hiring-button .btn::after{
+		position: absolute;
+		background: #bb11c4;
+	}
+	.search-page .start-hiring-button .btn{
+		background: transparent;
+		border: 1px solid #fff;
+		color: #fff;
+		width: auto;
+		text-indent: inherit;
+		height: auto;
+	}
+	.talent-results .talent-item{
+		width: 98%;
+	}
 	/* --- footer --- */
 	footer{
 		padding: 5px;
@@ -250,6 +283,7 @@
 	}
 }
 /* --- for table version */
+
 @media screen and (min-width: 720px) and (max-width: 1024px) {
 	header{
 		padding: 0 10px;
@@ -306,6 +340,16 @@
 		width: 100%;
 		padding: 50px 20px 0 20px;
 	}
+	/* === ----- Search results ----- === */
+	.search-page .search-form-block .input-group{
+		width: 85%;
+	}
+	.search-page .input-group .selectize-control{
+		width: 24%;
+	}
+	.talent-results .talent-item{
+		width: 48%;
+	}
 	/*--- footer ---*/
 	footer {
 		padding: 10px 15px;
@@ -315,5 +359,11 @@
 	}
 	footer .social-network-block{
 		width: 30%;
+	}
+}
+@media screen and (min-width: 900px) and (max-width: 1024px) {
+	/* === ----- Search results ----- === */
+	.talent-results .talent-item{
+		width: 31%;
 	}
 }
