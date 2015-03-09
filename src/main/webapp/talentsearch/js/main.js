@@ -2,18 +2,25 @@ $(document).ready(function() {
     menuManagement.init();
     languagesManagetment.init();
     styleSearchForm.init();
-    menuAnimate();
+    if($('header').hasClass('home')){
+        menuAnimate();
+        loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
+        swapMap();
+        validationFeedback();
+        $('.kz-slider-run').kzSlider();
+        countDownday();
+    }else{
+        $('header').addClass('changed');
+    }
     settingSelect();
-    $('.kz-slider-run').kzSlider();
-    loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
-    countDownday();
-    validationFeedback();
-    swapMap();
     $( window ).resize(function() {
         $('.full-menu').animate({
-           height:  $(window).height()
+            height:  $(window).height()
         });
     });
+    if($('.talent-results').length > 0){
+        talentItemManager.init();
+    }
 });
 var menuManagement = (function() {
     var hWin = $(window).height();
@@ -350,4 +357,35 @@ var styleSearchForm = (function(){
         });
     };
     return {init: init}
+})();
+
+var talentItemManager = (function(){
+    var item = $('.talent-item'),
+        action = $('.talent-action-block'),
+    init = function(){
+        mouseOverItem();
+    },
+    hItem = function(){
+        var max = 0;
+        item.each(function(){
+            if(max < $(this).height()){
+                max = $(this).height();
+            }
+        });
+        return max;
+    },
+    mouseOverItem = function(){
+        item.mouseenter(function(){
+            $(this).find('.talent-action-block').stop().animate({
+                height: hItem(),
+                'min-height': '430px'
+            });
+        }).mouseleave(function(){
+            $(this).find('.talent-action-block').stop().animate({
+                height: 0,
+                'min-height': 0
+            });
+        });
+    };
+    return {init:init}
 })();

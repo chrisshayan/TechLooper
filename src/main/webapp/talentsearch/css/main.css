@@ -126,6 +126,16 @@ button:focus {
     height: 400%;
     opacity: 1;
 }
+.btn-blue{
+    width: auto;
+    padding: 10px 30px;
+    color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #227bbe;
+    font-size: 18px;
+}
 /* --- Header section --- */
 header{
     /*background: url(../img/bg-header.png) left top repeat-x;*/
@@ -140,6 +150,7 @@ header{
     transition: background-color 0.8s ease;
     -moz-transition: background-color 0.8s ease;
     -webkit-transition: background-color 0.8s ease;
+    top:0;
 }
 header.changed{
     background-color: #000;
@@ -956,4 +967,268 @@ footer .social-network-block a:hover{
 }
 footer .social-network-block i{
     font-size: 30px;
+}
+/* ==== -------- Search -------- ==== */
+.search-page{
+    display: block;
+    clear: both;
+    background: url(../img/bg.png) left top repeat;
+    width: 100%;
+    float: left;
+}
+.search-page .search-form-block{
+    margin-top: 60px;
+    background-color: #227bbe;
+    height: 70px;
+}
+.search-page .search-form-block .input-group{
+    width: 70%;
+    display: inline-block;
+    clear: none;
+}
+.search-page  .input-submit{
+    width: auto;
+    display: inline-block;
+    clear: none;
+}
+.search-page .input-group .selectize-control{
+    width: 24.5%;
+    margin: 0 0.5% 0 0;
+    float: left;
+}
+.search-page .input-group .selectize-input{
+    height: 38px;
+}
+.search-page .start-hiring-button p{
+    padding: 0;
+}
+.search-page .start-hiring-button .btn:after{
+    position: inherit;
+    background: transparent;
+}
+.search-page .start-hiring-button .btn:before{
+    position: inherit;
+    background: transparent;
+}
+.search-page .start-hiring-button{
+    float: left;
+}
+.search-page .start-hiring-button p{
+    margin: 0;
+    padding: 0;
+    position: inherit;
+}
+.search-page .start-hiring-button .btn{
+    background: url(../img/ic-search-btn.png) #bb11c4 center top no-repeat;
+    width: 30px;
+    margin: -1px 0 0 0;
+    text-indent: -999999px;
+    height: 40px;
+    border: 0;
+}
+.search-results-content{
+    display: block;
+    clear: both;
+    padding: 40px 1%;
+    text-align: left;
+    width: 100%;
+    max-width: 1230px;
+    margin: auto;
+}
+.search-results-content h2{
+    font-size: 20px;
+    font-weight: 100;
+    text-transform: capitalize;
+    padding: 0 1%;
+}
+.search-results-content h2 strong{
+    font-weight: 300;
+}
+.talent-results{
+    display: block;
+    clear: both;
+    padding: 10px 0 0;
+}
+.talent-results .talent-item{
+    width: 23%;
+    float: left;
+    min-height: 430px;
+    background-color: #ededed;
+    border: 1px solid #cacaca;
+    margin: 1%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(255,255,255,255.5);
+    padding: 10px;
+    position: relative;
+}
+.talent-results .talent-item .avatar-block{
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.talent-item .avatar-block img{
+    width: 120px;
+    height: 120px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.talent-results .talent-item .info-completed{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding-bottom: 20px;
+    text-align: center;
+}
+.talent-results .talent-item .general-info{
+    width: 100%;
+    clear: both;
+    display: block;
+}
+.talent-item .general-info h2{
+    font-weight: 300;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 5px;
+}
+.talent-item .general-info p{
+    display: block;
+    clear: both;
+    font-size: 14px;
+    text-align: left;
+}
+.talent-item .general-info ul{
+    width: 100%;
+    padding-top: 10px;
+}
+.talent-item .general-info li{
+    width: auto;
+    display: inline-block;
+    padding: 5px 10px 5px 0;
+    font-weight: 400;
+}
+.talent-item .general-info li span{
+    font-weight: 300;
+    padding-right: 5px;
+    display: inline-block;
+}
+.talent-item .job-info{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding-top: 10px;
+}
+.talent-item .job-info ul{
+    width: 100%;
+}
+.talent-item .job-info li{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding: 5px 10px 5px 0;
+}
+.talent-item .job-info li span{
+    display: block;
+    background: url(../img/icon.png) left top no-repeat;
+    padding-left: 30px;
+    height: 22px;
+}
+.talent-item .job-info li span.job-title{
+    background-position: 0 0px;
+}
+.talent-item .job-info li span.company{
+    background-position: 0 -82px;
+}
+.talent-item .job-info li span.location{
+    background-position: 0 -40px;
+}
+.talent-item .main-skill{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding-top: 10px;
+}
+.talent-item .main-skill ul{
+
+}
+.talent-item .main-skill li{
+    width: auto;
+    display: inline-block;
+    padding: 5px 5px 5px 0
+}
+.talent-item .main-skill span{
+    display: block;
+    font-size: 13px;
+}
+.talent-item .main-skill span.left{
+    background: url(../img/left-tag.png) left -39px no-repeat;
+    padding-left: 30px;
+}
+.talent-item .main-skill span.right{
+    background: url(../img/right-tag.png) right -39px no-repeat;
+    padding-right: 10px;
+    line-height: 29px;
+    height: 30px;
+}
+.talent-item .main-skill li.highlight span.left{
+    background: url(../img/left-tag.png) left 0 no-repeat;
+    padding-left: 25px;
+}
+.talent-item .main-skill li.highlight  span.right{
+    background: url(../img/right-tag.png) right 0 no-repeat;
+    padding-right: 10px;
+    line-height: 29px;
+    height: 30px;
+}
+
+.talent-item .talent-action-block{
+    background: url(../img/overlap-bg.png) left top repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    text-align: center;
+    overflow: hidden;
+    height: 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.talent-item .action-btn{
+    width: 100%;
+    clear: both;
+    display: block;
+    padding-top:190px;
+}
+.talent-item .action-btn .action-btn{
+    display: block;
+    clear: both;
+    padding-bottom: 10px;
+}
+.action-btn .view-more{
+    display: block;
+    clear: both;
+    padding-bottom: 10px;
+}
+.action-btn .save-list{
+    display: block;
+    clear: both;
+    padding-top: 10px;
+    float: left;
+    width: 100%;
+}
+.action-btn .save-list a{
+    color: #227bbe;
+    font-size: 18px;
+}
+.last-date-view{
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    color: #9f9e9e;
+    font-size: 16px;
 }
