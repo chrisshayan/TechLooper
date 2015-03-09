@@ -1,60 +1,107 @@
 $(document).ready(function() {
-  menuManagement();
-  languagesManagetment.init();
-  menuAnimate();
-  settingSelect();
-  $('.kz-slider-run').kzSlider();
-  loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
-  countDownday();
-  validationFeedback();
-  swapMap();
-});
-function menuManagement(){
-  var contentMenu = $('.navbar ul'),
-      ctrlMenu = $('.menu-bar');
-  ctrlMenu.bind('click', function(){
-    var hScreen = $(window).height();
-    var wScreen = $(window).width();
-    contentMenu.css('height', 'auto');
-    $('.languages-list').removeClass('active');
-    contentMenu.toggleClass('active');
-    if(wScreen > 319 && wScreen < 720){
-      contentMenu.animate({
-        height: hScreen
-      });
+    menuManagement.init();
+    languagesManagetment.init();
+    styleSearchForm.init();
+    if($('header').hasClass('home')){
+        menuAnimate();
+        loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
+        swapMap();
+        validationFeedback();
+        $('.kz-slider-run').kzSlider();
+        countDownday();
+    }else{
+        $('header').addClass('changed');
     }
-  });
-}
-var languagesManagetment = (function(){
-  var ctrlLang = $('.languages'),
-      conLang = $('.languages-list'),
-  init = function(){
-    langManager();
-    settingLang();
-  },
-  langManager = function(){
-    ctrlLang.bind('click', function(){
-      var hScreen = $(window).height();
-      var wScreen = $(window).width();
-      conLang.css('height', 'auto');
-      conLang.toggleClass('active');
-      if(wScreen > 319 && wScreen < 720){
-        conLang.animate({
-          height: hScreen
+    settingSelect();
+    $( window ).resize(function() {
+        $('.full-menu').animate({
+            height:  $(window).height()
         });
-      }
     });
-  },
-  settingLang = function(){
-    var item = conLang.find('.language-item a');
-    item.on('click', function(){
-      var lang = $(this).text();
-      $('.languages').find('span.text').text(lang);
-      conLang.removeClass('active');
+    if($('.talent-results').length > 0){
+        talentItemManager.init();
+    }
+});
+var menuManagement = (function() {
+    var hWin = $(window).height();
+    $( window ).resize(function() {
+        hWin = $(window).height();
     });
-  };
-  return { init: init };
+    var ctrlClose = $('.close-menu'),
+        ctrlMenu = $('.menu-icon'),
+        init = function() {
+            managerClose();
+            managerMenu();
+        },
+        managerClose = function() {
+            ctrlClose.find('span').click(function() {
+                $(this).animate({
+                    opacity: 0
+                },500);
+                $('.full-menu').find('ul').animate({
+                    opacity: 0
+                }, 500);
+                $('.full-menu').animate({
+                    opacity: 0,
+                    height: 0,
+                    width: 0,
+                    left: '50%',
+                    top: '50%',
+                    'z-index': '-9'
+                },1000);
+                $('body').removeClass('noscroll');
+                $('.languages-list').removeClass('active');
+            });
+        },
+        managerMenu = function() {
+            ctrlMenu.click(function() {
+                $('.full-menu').css('z-index', '99999');
+                $('.full-menu').animate({
+                    opacity: 1,
+                    height: hWin,
+                    width: '100%',
+                    left: 0,
+                    top: 0
+                },1000);
+                ctrlClose.find('span').animate({
+                    opacity: 1,
+                },1500);
+                $('.full-menu').find('ul').animate({
+                    opacity: 1
+                }, 500);
+                $('body').addClass('noscroll');
+            });
+        };
+    return {
+        init: init
+    };
 })();
+var languagesManagetment = (function() {
+    var ctrlLang = $('.languages'),
+        conLang = $('.languages-list'),
+        init = function() {
+            langManager();
+            settingLang();
+        },
+        langManager = function() {
+            ctrlLang.bind('click', function() {
+                conLang.css('height', 'auto');
+                conLang.toggleClass('active');
+            });
+        },
+        settingLang = function() {
+            var item = conLang.find('.language-item a');
+            item.on('click', function() {
+                var lang = $(this).text();
+                $('.languages').find('span.text').text(lang);
+                conLang.removeClass('active');
+            });
+        };
+    return {
+        init: init
+    };
+})();
+
 function settingSelect() {
     $("select").on('change', function() {
         if ($(this).val() == "0") $(this).addClass("empty");
@@ -183,7 +230,7 @@ function swapMap() {
 function countDownday() {
     today = new Date();
 
-    BigDay = new Date("March 2, 2015");
+    BigDay = new Date("April 1, 2015");
     msPerDay = 24 * 60 * 60 * 1000;
     timeLeft = (BigDay.getTime() - today.getTime());
     e_daysLeft = timeLeft / msPerDay;
@@ -230,13 +277,13 @@ function validationFeedback() {
 
 function menuAnimate() {
     var windscroll = $(window).scrollTop();
-    if ($('.reasons').position().top > -60 <= windscroll) {
+    if ($('.search-form-block').position().top > -60 <= windscroll) {
         $('header').addClass('changed');
     }
     $(window).scroll(function() {
         windscroll = $(window).scrollTop();
         if (windscroll > 0) {
-            if ($('.reasons').position().top - 60 <= windscroll) {
+            if ($('.search-form-block').position().top - 60 <= windscroll) {
                 $('header').addClass('changed');
             } else {
                 $('header').removeClass('changed');
@@ -244,3 +291,101 @@ function menuAnimate() {
         }
     });
 }
+
+var styleSearchForm = (function(){
+    var init = function(){
+        // skill
+        $('#input-skill').selectize({
+            persist: false,
+            createOnBlur: true,
+            create: true
+        });
+        // Job title
+        $('#input-job-title').selectize({
+            persist: false,
+            createOnBlur: true,
+            create: true
+        });
+        // company name
+        $('#input-company-name').selectize({
+            persist: false,
+            createOnBlur: true,
+            create: true
+        });
+
+        // location
+        $('#select-location').selectize({
+            maxItems: null,
+            valueField: 'id',
+            searchField: 'title',
+            options: [
+                {id: 0, title: 'Ho Chi Minh'},
+                {id: 1, title: 'Ha Noi'},
+                {id: 2, title: 'Da Nang'},
+                {id: 3, title: 'Ba Ria - Vung Tau'},
+                {id: 4, title: 'Dong Nai'},
+                {id: 5, title: 'Tay Ninh'},
+                {id: 6, title: 'Can Tho'},
+                {id: 7, title: 'Bac Lieu'},
+                {id: 8, title: 'An Giang'},
+                {id: 9, title: 'Bac Ning'},
+                {id: 10, title: 'Ninh Thuan'},
+                {id: 11, title: 'Thua Thien Hue'},
+                {id: 12, title: 'Quang Tri'},
+                {id: 13, title: 'Binh Thuan'},
+                {id: 14, title: 'Lam Dong'},
+                {id: 15, title: 'Daklak'}
+            ],
+            createOnBlur: true,
+            create: true,
+            render: {
+                option: function(data, escape) {
+                    return '<div class="option">' +
+                        '<span class="title">' + escape(data.title) + '</span>' +
+                        '</div>';
+                },
+                item: function(data, escape) {
+                    return '<div class="item">'+ escape(data.title)  + '</div>';
+                }
+            },
+            create: function(input) {
+                return {
+                    id: 0,
+                    title: input
+                };
+            }
+        });
+    };
+    return {init: init}
+})();
+
+var talentItemManager = (function(){
+    var item = $('.talent-item'),
+        action = $('.talent-action-block'),
+    init = function(){
+        mouseOverItem();
+    },
+    hItem = function(){
+        var max = 0;
+        item.each(function(){
+            if(max < $(this).height()){
+                max = $(this).height();
+            }
+        });
+        return max;
+    },
+    mouseOverItem = function(){
+        item.mouseenter(function(){
+            $(this).find('.talent-action-block').stop().animate({
+                height: hItem(),
+                'min-height': '430px'
+            });
+        }).mouseleave(function(){
+            $(this).find('.talent-action-block').stop().animate({
+                height: 0,
+                'min-height': 0
+            });
+        });
+    };
+    return {init:init}
+})();
