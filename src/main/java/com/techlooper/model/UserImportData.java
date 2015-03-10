@@ -77,6 +77,12 @@ public class UserImportData {
     @JsonProperty("contribute_current_streak_total")
     private String contributeCurrentStreakTotal;
 
+    @JsonProperty("contribution_count")
+    private List<Integer> contributionCounts;
+
+    @JsonProperty("contribution_date")
+    private List<String> contributionDates;
+
     @JsonProperty("resumeid")
     private Long resumeId;
 
@@ -887,5 +893,21 @@ public class UserImportData {
 
     public void setGravatarProfile(List<GravatarUserImportProfile> gravatarProfile) {
         this.gravatarProfile = gravatarProfile;
+    }
+
+    public List<Integer> getContributionCounts() {
+        return contributionCounts;
+    }
+
+    public void setContributionCounts(List<Integer> contributionCounts) {
+        this.contributionCounts = contributionCounts;
+    }
+
+    public List<String> getContributionDates() {
+        return contributionDates;
+    }
+
+    public void setContributionDates(List<String> contributionDates) {
+        this.contributionDates = contributionDates;
     }
 }

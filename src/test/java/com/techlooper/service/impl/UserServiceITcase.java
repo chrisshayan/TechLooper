@@ -6,6 +6,8 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.service.UserService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,7 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -71,9 +76,34 @@ public class UserServiceITcase {
         assertNull(userEntity);
     }
 
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void getAll() throws Exception {
-        final List<UserImportEntity> all = userService.getAll(1, 10);
-        assertNull(all);
+        final List<UserImportEntity> all = userService.getAll(0, 10);
+        assertNotNull(all);
+
+        final FileWriter fileWriter = new FileWriter("test.csv");
+
+        all.stream().forEach(user -> {
+            final Map<String, Object> githubProfile = (Map<String, Object>) user.getProfiles().get(SocialProvider.GITHUB);
+            final List<String> skills = (List<String>) githubProfile.get("skills");
+            System.out.println("githubProfile.get(\"skills\") = " + skills);
+            assertNotNull(githubProfile);
+
+            try {
+                fileWriter.append(user.getFullName());
+                fileWriter.append(",");
+                fileWriter.append(user.getEmail()) ;
+                fileWriter.append(",");
+                if(CollectionUtils.isNotEmpty(skills)) {
+                    fileWriter.append(skills.toString());
+                }
+                fileWriter.append("\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        fileWriter.flush();
+        fileWriter.close();
     }
 }

@@ -3,6 +3,7 @@ package com.techlooper.entity.userimport;
 import com.techlooper.model.SocialProvider;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,10 @@ public class GithubUserImportProfile implements UserImportProfile {
     private String contributeLongestStreakPeriod;
 
     private String contributeCurrentStreakTotal;
+
+    private List<Integer> contributionCounts;
+
+    private List<String> contributionDates;
 
     private List<String> skills = new ArrayList<>();
 
@@ -248,5 +253,21 @@ public class GithubUserImportProfile implements UserImportProfile {
 
     public void setNumberOfRepositories(int numberOfRepositories) {
         this.numberOfRepositories = numberOfRepositories;
+    }
+
+    public List<Integer> getContributionCounts() {
+        return contributionCounts;
+    }
+
+    public void setContributionCounts(List<Integer> contributionCounts) {
+        this.contributionCounts = contributionCounts;
+    }
+
+    public List<String> getContributionDates() {
+        return contributionDates;
+    }
+
+    public void setContributionDates(List<String> contributionDates) {
+        this.contributionDates = contributionDates;
     }
 }
