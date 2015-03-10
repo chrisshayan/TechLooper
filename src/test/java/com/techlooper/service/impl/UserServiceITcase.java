@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchUserImportConfiguration.class})
@@ -105,5 +103,10 @@ public class UserServiceITcase {
 
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    @Test
+    public void testFindTalent() throws Exception {
+        assertTrue(userService.findTalent().size() > 0);
     }
 }
