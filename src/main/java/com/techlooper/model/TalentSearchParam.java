@@ -16,6 +16,8 @@ public class TalentSearchParam {
 
     private String sortByField = "profiles.GITHUB.numberOfRepositories";
 
+    private int pageIndex = 0;
+
     private int pageSize = 20;
 
     public List<String> getSkills() {
@@ -56,6 +58,14 @@ public class TalentSearchParam {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 
     public static class Builder {
@@ -99,6 +109,11 @@ public class TalentSearchParam {
 
         public Builder withPageSize(int pageSize) {
             instance.pageSize = pageSize;
+            return this;
+        }
+
+        public Builder withPageIndex(int pageIndex) {
+            instance.pageIndex = pageIndex;
             return this;
         }
 

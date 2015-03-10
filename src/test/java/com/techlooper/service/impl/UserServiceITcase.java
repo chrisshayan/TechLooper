@@ -112,7 +112,7 @@ public class UserServiceITcase {
         TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
         searchParam.withSkills("Java").withLocations("Vietnam")
                    .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
-                   .withPageSize(20);
+                   .withPageSize(20).withPageIndex(0);
         List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
         assertTrue(userImportEntities.size() > 0);
     }

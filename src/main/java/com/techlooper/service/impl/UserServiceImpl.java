@@ -179,7 +179,7 @@ public class UserServiceImpl implements UserService {
         final SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(nestedQuery("profiles", boolQueryBuilder))
                 .withSort(SortBuilders.fieldSort(param.getSortByField()).order(SortOrder.DESC))
-                .withPageable(new PageRequest(0, param.getPageSize()))
+                .withPageable(new PageRequest(param.getPageIndex(), param.getPageSize()))
                 .build();
         return userImportRepository.search(searchQuery).getContent();
     }
