@@ -5,6 +5,7 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.TalentSearchParam;
 import com.techlooper.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,12 +18,11 @@ import javax.annotation.Resource;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchUserImportConfiguration.class})
@@ -105,5 +105,15 @@ public class UserServiceITcase {
 
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    @Test
+    public void testFindTalent() throws Exception {
+        TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
+        searchParam.withSkills("Java").withLocations("Vietnam")
+                   .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
+                   .withPageSize(20).withPageIndex(0);
+        List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
+        assertTrue(userImportEntities.size() > 0);
     }
 }
