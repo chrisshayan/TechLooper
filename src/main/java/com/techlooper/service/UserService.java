@@ -104,4 +104,10 @@ public interface UserService {
      * @return list of {@linkplain com.techlooper.entity.userimport.UserImportEntity}
      */
     List<UserImportEntity> getAll(final int pageNumber, final int pageSize);
+
+    /**
+     * Find talent users
+     * @return list of {@linkplain com.techlooper.entity.userimport.UserImportEntity}
+     */
+    List<UserImportEntity> findTalent();
 }

@@ -14,6 +14,8 @@ import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryFilterBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
 import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
@@ -158,6 +161,18 @@ public class UserServiceImpl implements UserService {
                 .withPageable(new PageRequest(pageNumber, pageSize))
                 .build();
 
+        return userImportRepository.search(searchQuery).getContent();
+    }
+
+    public List<UserImportEntity> findTalent() {
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(nestedQuery("profiles", QueryBuilders.boolQuery()
+                        .must(QueryBuilders.matchQuery("profiles.GITHUB.skills", "Java"))
+                        .must(QueryBuilders.matchQuery("profiles.GITHUB.location", "Vietnam"))
+                        .must(QueryBuilders.matchQuery("profiles.GITHUB.company", "TechLooper"))))
+                .withSort(SortBuilders.fieldSort("profiles.GITHUB.numberOfRepositories").order(SortOrder.DESC))
+                .withPageable(new PageRequest(0, 20))
+                .build();
         return userImportRepository.search(searchQuery).getContent();
     }
 }
