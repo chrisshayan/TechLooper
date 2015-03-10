@@ -12,6 +12,7 @@ import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryFilterBuilder;
@@ -164,11 +165,19 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<UserImportEntity> findTalent(TalentSearchParam param) {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        if (!param.getSkills().isEmpty()) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()));
+        }
+        if (!param.getLocations().isEmpty()) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.location", param.getLocations()));
+        }
+        if (!param.getCompanies().isEmpty()) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.company", param.getCompanies()));
+        }
+
         final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(nestedQuery("profiles", QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()))
-                        .must(QueryBuilders.matchQuery("profiles.GITHUB.location", param.getLocations()))
-                        .must(QueryBuilders.matchQuery("profiles.GITHUB.company", param.getCompanies()))))
+                .withQuery(nestedQuery("profiles", boolQueryBuilder))
                 .withSort(SortBuilders.fieldSort(param.getSortByField()).order(SortOrder.DESC))
                 .withPageable(new PageRequest(0, param.getPageSize()))
                 .build();
