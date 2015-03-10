@@ -62,7 +62,9 @@ var menuManagement = (function() {
                     width: '100%',
                     left: 0,
                     top: 0
-                },1000);
+                },1000, function(){
+                    $(this).c
+                });
                 ctrlClose.find('span').animate({
                     opacity: 1,
                 },1500);

@@ -136,6 +136,9 @@ button:focus {
     background-color: #227bbe;
     font-size: 18px;
 }
+.btn-blue:hover{
+    background-color: #000;
+}
 /* --- Header section --- */
 header{
     /*background: url(../img/bg-header.png) left top repeat-x;*/
@@ -176,6 +179,7 @@ header .logo-block img{
     opacity: 0;
     color: #d2d2d2;
     height: 0;
+    z-index: -9;
 }
 .full-menu .close-menu{
     display: block;
@@ -1255,7 +1259,11 @@ footer .social-network-block i{
     background-color: #fff;
     min-height: 200px;
     padding: 20px;
+    float: left;
     text-align: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 .talent-general-info-content .left-side{
     width: 30%;
@@ -1335,42 +1343,87 @@ footer .social-network-block i{
     padding-left:10px;
     float: left;
 }
-.main-skill-block .main-skill-content{
-    width: 100%;
-    min-height: 200px;
-    background-color: #fff;
-    padding: 20px;
-}
 .main-skill-list{
-    width: 25%;
-    float: left;
-}
-.main-skill-content ul{
     width: 100%;
-    padding-top: 10px;
+    clear: both;
+    display: block;
+    padding-top: 20px;
 }
-.main-skill-content li{
+.main-skill-list h3{
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+.main-skill-list ul{
     width: 100%;
+    clear: both;
+}
+.main-skill-list li{
+    width: auto;
     text-align: center;
     padding: 10px 10px 10px 0;
-    float: left;
+    display: inline-block;
     clear: both;
     vertical-align: middle;
 }
-.main-skill-content li img{
+.main-skill-list li img{
     width: 30px;
     float: left;
     height: 30px;
     vertical-align: middle;
 }
-.main-skill-content li h3{
+.main-skill-list li h3{
     font-size: 16px;
     font-weight: 300;
     padding-top: 5px;
     width: auto;
     float: left;
     line-height: 18px;
-    padding-left: 10px;
+    padding-left: 5px;
+}
+.github-repositories{
+    width: 100%;
+    min-height: 200px;
+    background-color: #fff;
+    padding: 20px;
+    text-align: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.github-repositories h3{
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+.github-repositories h4{
+    font-weight: 300;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+.github-repositories p{
+    font-size: 12px;
+    font-weight: 300;
+}
+.github-repositories .repositories-list{
+    height: 219px;
+    overflow: auto;
+    width: 100%;
+    clear: both;
+}
+.github-repositories ul{
+    width: 100%;
+
+}
+.github-repositories li{
+    width: 100%;
+    clear: both;
+    padding: 10px 0;
+    border-top: 1px dashed #c1c1c1;
+}
+.github-repositories li:first-child{
+    padding-top: 0;
+    border-top: 0;
 }
 .talent-detail-page .evaluation-block{
     width: 100%;
@@ -1379,12 +1432,191 @@ footer .social-network-block i{
     padding: 20px 0;
 }
 .evaluation-block .evaluation-content{
-    min-height: 400px;
+    min-height: 270px;
     background-color: #fff;
     width: 100%;
     padding: 20px;
+    text-align: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.rating-talent-ranking{
+    width: 25%;
+    float: left;
+    padding-right: 10px;
+}
+.rating-talent-ranking h3{
+    font-size: 18px;
+    font-weight: 400;
+    padding-bottom: 10px;
+}
+.rating-talent-ranking .rating-block{
+    width: 100%;
+    clear: both;
+    padding-bottom: 10px;
+}
+.rating-talent-ranking .rating-block p{
+    width: 100%;
+    font-size: 30px;
+    font-weight: 300;
+    color: #227bbe;
 }
 
+.rating-talent-ranking .rating-block ul{}
+.rating-talent-ranking .rating-block li{
+    width: auto;
+    float: left;
+    padding: 5px;
+    font-size: 30px;
+    color: #227bbe;
+}
+.rating-talent-ranking .rating-block li:first-child{
+    padding-left: 0;
+}
+.rating-talent-ranking .talent-ranking-block{
+    display: block;
+    clear: both;
+    width: 100%;
+    padding-top: 30px;
+}
+.rating-talent-ranking  .talent-ranking-block h3{
+    font-size: 18px;
+    font-weight: 400;
+    padding-bottom: 20px;
+    float: left;
+}
+.rating-talent-ranking  .talent-ranking-block p{
+    width: 100%;
+    font-size: 14px;
+    float: left;
+}
+.info-completed-status{
+    width:80%;
+    display: block;
+    overflow: hidden;
+    height: 8px;
+    margin: 5px auto;
+    background: #b8b8b8;
+    border-radius: 4px;
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 60%);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6);
+
+}
+.info-completed .real-status{
+    display: block;
+    min-width: 8px;
+    height: 8px;
+    background: #1997e6;
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #147cd6, #24c1fc);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.evaluation-block .ranking{
+    width: 250px;
+    display: block;
+    overflow: hidden;
+    height: 8px;
+    margin: 5px 0;
+    background: #b8b8b8;
+    border-radius: 4px;
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 60%);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6);
+    float: left;
+}
+.evaluation-block .real{
+    display: block;
+    min-width: 8px;
+    height: 8px;
+    background: #1997e6;
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #147cd6, #24c1fc);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.evaluation-block .real.blue{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #147cd6, #24c1fc);
+}
+.evaluation-block .real.yellow{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ddcb00, #fbe70b);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #ddcb00, #fbe70b);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #ddcb00, #fbe70b);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #ddcb00, #fbe70b);
+}
+
+.evaluation-block .real.green{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #7fac35, #aec785);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #7fac35, #aec785);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #7fac35, #aec785);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #7fac35, #aec785);
+}
+.evaluation-block .real.purple{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #815ec1, #a48ad4);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #815ec1, #a48ad4);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #815ec1, #a48ad4);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #815ec1, #a48ad4);
+}
+
+.evaluation-block .real.oranges{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #07bab2, #08e8de);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #07bab2, #08e8de);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #07bab2, #08e8de);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #07bab2, #08e8de);
+}
+.evaluation-block .real.bright-turquoise{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #147cd6, #24c1fc);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #147cd6, #24c1fc);
+}
+
+.evaluation-block .real.blush{
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ca446c, #de5d83);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #ca446c, #de5d83);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #ca446c, #de5d83);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #ca446c, #de5d83);
+}
+.evaluation-github{
+    width: 75%;
+    float: left;
+}
+.evaluation-item{
+    width: 33%;
+    float: left;
+    padding: 20px 10px;
+}
+.evaluation-item h3{
+    font-size: 18px;
+    font-weight: 400;
+    padding-bottom: 20px;
+    float: left;
+}
+.evaluation-item p{
+    width: 100%;
+    font-size: 14px;
+    float: left;
+}
+.evaluation-block .evaluation-item .ranking{
+    width: 250px;
+}
 .talent-detail-page .resume-block{
     width: 100%;
     display: block;
@@ -1392,7 +1624,128 @@ footer .social-network-block i{
 }
 .resume-block .resume-content{
     min-height: 400px;
-    background-color: #fff;
-    padding: 20px;
     width: 100%;
+}
+.resume-content .left-side{
+    padding-right: 20px;
+    float: left;
+    width: 20%;
+}
+.resume-content .left-side .resume-tab-manager{
+    background-color: #e5e5e5;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #bfbfbf;
+    border-left: 1px solid #bfbfbf;
+    width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.resume-tab-manager ul{
+
+}
+.resume-tab-manager li{
+    border-top: 1px solid #fff;
+    padding: 15px 10px 15px 55px;
+    text-align: left;
+    background: url(../img/icon.png) left top no-repeat;
+    cursor: pointer;
+    position: relative;
+}
+.resume-tab-manager li span.arrow{
+    display: none;
+    position: absolute;
+    right: -8px;
+    top: 5px;
+    color: #4cacf5;
+    font-size: 30px;
+}
+.resume-tab-manager li.active{
+    background-color: #4cacf5;
+    color: #fff;
+}
+.resume-tab-manager li.active span.arrow{
+    display: block;
+}
+.resume-tab-manager li.re-information{
+    background-position: 10px -213px;
+}
+.resume-tab-manager li.re-information.active{
+    background-position: 10px -262px;
+}
+.resume-tab-manager li.re-experience{
+    background-position: 10px -314px;
+}
+.resume-tab-manager li.re-experience.active{
+    background-position: 10px -363px;
+}
+.resume-tab-manager li.re-education{
+    background-position: 10px -413px;
+}
+.resume-tab-manager li.re-education.active{
+    background-position: 10px -452px;
+}
+.resume-tab-manager li.re-skills{
+    background-position: 10px -497px;
+}
+.resume-tab-manager li.re-skills.active{
+    background-position: 10px -545px;
+}
+.resume-tab-manager li:first-child{
+    border-top: 0;
+}
+
+.career-objective{
+    display: block;
+    clear: both;
+    padding-top: 30px;
+    background: url(../img/bg-career-ojective.png) 75px bottom no-repeat;
+}
+.career-objective h3{
+    font-size: 30px;
+    font-weight: 300;
+    padding-bottom: 10px;
+}
+.career-objective p{
+    font-size: 18px;
+    font-weight: 100;
+    font-style: italic;
+    line-height: 22px;
+}
+.career-objective span{
+    background: url(../img/icon.png) left top no-repeat;
+    width: 35px;
+    height: 25px;
+    display: inline-block;
+}
+.career-objective span.double-quotation-top{
+    background-position: 0 -595px;
+    padding-left: 10px;
+}
+.career-objective span.double-quotation-bottom{
+    background-position: 10px -640px;
+    padding-right: 10px;
+    height: 20px;
+}
+.career-objective .avatar-block{
+    text-align: left;
+    padding-top: 30px;
+}
+.career-objective .avatar-block img{
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    width: 80px;
+    height: 80px;
+}
+.resume-content .right-side{
+    padding: 20px;
+    background-color: #fff;
+    float: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 80%;
+    min-height: 500px;
+    text-align: left;
 }
