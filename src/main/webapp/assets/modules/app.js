@@ -87,35 +87,41 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $routeProvider
       .when("/bubble-chart", {
-        templateUrl: "modules/bubble-chart/bubble-chart.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
       })
       .when("/pie-chart", {
-        templateUrl: "modules/pie-chart/pie-chart.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
       })
       .when("/jobs/search", {
-        templateUrl: "modules/job/searchForm.tem.html",
+        //templateUrl: "modules/job/searchForm.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "searchFormController"
       })
       .when("/jobs/search/:text", {
-        templateUrl: "modules/job/searchResult.tem.html",
+        //templateUrl: "modules/job/searchResult.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "searchResultController"
       })
       .when("/analytics/skill/:term/:period?", {
-        templateUrl: "modules/skill-analytics/skill-analytics.tem.html",
+        //templateUrl: "modules/skill-analytics/skill-analytics.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "skillAnalyticsController"
       })
       .when("/signin", {
-        templateUrl: "modules/signin/signin.tem.html",
+        //templateUrl: "modules/signin/signin.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "signInController"
       })
       .when("/register", {
-        templateUrl: "modules/register/register.tem.html",
+        //templateUrl: "modules/register/register.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "registerController"
       })
       .when("/user", {
-        templateUrl: "modules/user-profile/user-profile.tem.html",
+        //templateUrl: "modules/user-profile/user-profile.tem.html",
+        templateUrl: "modules/it-professional/main.tem.html",
         controller: "userProfileController"
       })
       .otherwise({

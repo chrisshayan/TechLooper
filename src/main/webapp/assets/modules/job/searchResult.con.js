@@ -1,36 +1,42 @@
 angular.module('Jobs').controller('searchResultController',
-  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, navigationService) {
-    utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
-    $scope.search = {
-      jobs: [],
-      pageNumber: 0,
-      busy: false,
-      total: 1,
-      nextPage: function () {
-        if (this.busy || this.jobs.length === this.total) {
-          return;
-        }
-        this.busy = true;
-        connectionFactory.findJobs({terms: $routeParams.text.replace(/,/g, " "), pageNumber: ++this.pageNumber});
-      }
-    };
+  function ($scope, $location, $routeParams, connectionFactory, jsonValue, searchBoxService, utils, $timeout) {
 
-    $scope.$on(jsonValue.events.foundJobs, function (event, data) {
-      var search = $scope.search;
-      search.total = data.total;
-      search.jobs = search.jobs.concat(data.jobs);
-      search.busy = false;
-      utils.apply();
+    $timeout(function () {
+      utils.sendNotification(jsonValue.notifications.switchScope, $scope, $routeParams.text.split(","));
+      $scope.$on(jsonValue.events.foundJobs, function (event, data) {
+        var search = $scope.search;
+        search.total = data.total;
+        search.jobs = search.jobs.concat(data.jobs);
+        search.busy = false;
+        utils.apply();
 
-      $(".job-title").dotdotdot({
-        height: 23
+        $(".job-title").dotdotdot({
+          height: 23
+        });
+
+        alignLogo();
+        $('.search-block').css('min-height', $(window).height());
+        $('.jobs-total strong').text(search.total);
+        $('.jobs-total').show();
       });
 
-      alignLogo();
-      $('.search-block').css('min-height', $(window).height());
-      $('.jobs-total strong').text(search.total);
-      $('.jobs-total').show();
-    });
+      $scope.search = {
+        jobs: [],
+        pageNumber: 0,
+        busy: false,
+        total: 1,
+        nextPage: function () {
+          if (this.busy || this.jobs.length === this.total) {
+            return;
+          }
+          this.busy = true;
+          connectionFactory.findJobs({terms: $routeParams.text.replace(/,/g, " "), pageNumber: ++this.pageNumber});
+        }
+      };
+
+      searchBoxService.changeBodyColor();
+    }, 10);
+
 
     $scope.playVideo = function (event) {
       var url = $(event.currentTarget).attr('ng-url');
@@ -67,5 +73,4 @@ angular.module('Jobs').controller('searchResultController',
       $('.job-infor').css('height', h);
     }
 
-    searchBoxService.changeBodyColor();
   });
