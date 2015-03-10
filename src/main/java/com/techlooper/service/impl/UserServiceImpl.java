@@ -4,6 +4,7 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
@@ -29,9 +30,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
-import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
 /**
@@ -164,15 +163,16 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    public List<UserImportEntity> findTalent() {
+    public List<UserImportEntity> findTalent(TalentSearchParam param) {
         final SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(nestedQuery("profiles", QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("profiles.GITHUB.skills", "Java"))
-                        .must(QueryBuilders.matchQuery("profiles.GITHUB.location", "Vietnam"))
-                        .must(QueryBuilders.matchQuery("profiles.GITHUB.company", "TechLooper"))))
-                .withSort(SortBuilders.fieldSort("profiles.GITHUB.numberOfRepositories").order(SortOrder.DESC))
-                .withPageable(new PageRequest(0, 20))
+                        .must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()))
+                        .must(QueryBuilders.matchQuery("profiles.GITHUB.location", param.getLocations()))
+                        .must(QueryBuilders.matchQuery("profiles.GITHUB.company", param.getCompanies()))))
+                .withSort(SortBuilders.fieldSort(param.getSortByField()).order(SortOrder.DESC))
+                .withPageable(new PageRequest(0, param.getPageSize()))
                 .build();
         return userImportRepository.search(searchQuery).getContent();
     }
+
 }

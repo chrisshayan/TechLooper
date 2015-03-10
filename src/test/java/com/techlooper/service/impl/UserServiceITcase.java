@@ -5,6 +5,7 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.TalentSearchParam;
 import com.techlooper.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -107,6 +109,10 @@ public class UserServiceITcase {
 
     @Test
     public void testFindTalent() throws Exception {
-        assertTrue(userService.findTalent().size() > 0);
+        TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
+        searchParam.withSkills("Java").withLocations("Vietnam")
+                   .withSortByField("profiles.GITHUB.numberOfRepositories")
+                   .withPageSize(20);
+        assertTrue(userService.findTalent(searchParam.build()).size() > 0);
     }
 }
