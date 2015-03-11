@@ -107,13 +107,22 @@ public class UserServiceITcase {
     }
 
     @Test
-    public void testFindTalent() throws Exception {
+     public void testFindTalent() throws Exception {
         TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
         searchParam.withSkills("Java").withLocations("Vietnam")
-                   .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
-                   .withPageSize(20).withPageIndex(0);
+                .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
+                .withPageSize(20).withPageIndex(0);
         List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
         assertTrue(userImportEntities.size() > 0);
+    }
+
+    @Test
+    public void testTalentNotFound() throws Exception {
+        TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
+        searchParam.withSkills("English").withLocations("Vietnam")
+                .withPageSize(20).withPageIndex(0);
+        List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
+        assertTrue(userImportEntities.size() == 0);
     }
 
 }
