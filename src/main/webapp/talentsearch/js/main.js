@@ -208,13 +208,13 @@ function loadMap(lp, rp, title) {
 function swapMap() {
     var lmap = $('.address-info').find('.head-name');
 
-    var lpHN = '21.017329',
-        rpHN = '105.848996',
-        titleHN = '125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district Ha Noi';
+    // var lpHN = '21.017329',
+    //     rpHN = '105.848996',
+    //     titleHN = '125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district Ha Noi';
 
-    var lpHCM = '10.770850',
-        rpHCM = '106.6880500',
-        titleHCM = 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City';
+    // var lpHCM = '10.770850',
+    //     rpHCM = '106.6880500',
+    //     titleHCM = 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City';
 
     lmap.on('click', function() {
         lmap.parent().removeClass('active');

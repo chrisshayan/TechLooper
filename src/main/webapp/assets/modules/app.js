@@ -87,7 +87,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $routeProvider
       .when("/home", {
-        templateUrl: "modules/talent-search/home.tem.html"
+        templateUrl: "modules/talent-search/home.tem.html",
+        controller: "tsMainController"
       })
       .when("/bubble-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
