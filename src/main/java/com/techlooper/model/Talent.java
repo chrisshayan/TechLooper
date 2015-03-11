@@ -96,4 +96,58 @@ public class Talent {
     public void setSkills(List<String> skills) {
         this.skills = skills;
     }
+
+    public static class Builder {
+
+        private Talent instance = new Talent();
+
+        public Builder withEmail(String email) {
+            instance.email = email;
+            return this;
+        }
+
+        public Builder withImageUrl(String imageUrl) {
+            instance.imageUrl = imageUrl;
+            return this;
+        }
+
+        public Builder withUsername(String username) {
+            instance.username = username;
+            return this;
+        }
+
+        public Builder withFullName(String fullName) {
+            instance.fullName = fullName;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            instance.description = description;
+            return this;
+        }
+
+        public Builder withJobTitle(String jobTitle) {
+            instance.jobTitle = jobTitle;
+            return this;
+        }
+
+        public Builder withCompany(String company) {
+            instance.company = company;
+            return this;
+        }
+
+        public Builder withLocation(String location) {
+            instance.location = location;
+            return this;
+        }
+
+        public Builder withSkills(List<String> skills) {
+            instance.skills = skills;
+            return this;
+        }
+
+        public Talent build() {
+            return instance;
+        }
+    }
 }

@@ -5,7 +5,9 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchParam;
+import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +31,9 @@ public class UserServiceITcase {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private GithubTalentSearchDataProcessor githubTalentSearchDataProcessor;
 
     @Test
     public void testSave() throws Exception {
@@ -113,7 +118,8 @@ public class UserServiceITcase {
                 .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
                 .withPageSize(20).withPageIndex(0);
         List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
-        assertTrue(userImportEntities.size() > 0);
+        List<Talent> talents = githubTalentSearchDataProcessor.process(userImportEntities);
+        assertTrue(talents.size() > 0);
     }
 
     @Test
