@@ -1,0 +1,418 @@
+.full-box
+  width: 100% !important
+.ts-main
+  text-align: center
+  background-color: #fff
+/* --------- Header ------------ */
+header
+  width: 100%
+  clear: both
+  display: block
+  height: 60px
+  position: fixed
+  z-index: 99999
+  padding: 0 25px
+  text-align: left
+  transition: background-color 0.8s ease
+  -moz-transition: background-color 0.8s ease
+  -webkit-transition: background-color 0.8s ease
+  top: 0
+  .changed
+    background-color: #000
+    transition: background-color 0.8s ease
+    -moz-transition: background-color 0.8s ease
+    -webkit-transition: background-color 0.8s ease
+  .logo-block
+    width: 32%
+    float: left
+    padding-top: 5px
+  .logo-block 
+    img
+      max-height: 50px
+.full-menu
+  width: 0
+  background: #227bbe
+  position: absolute
+  z-index: 99999
+  top: 50%
+  left: 50%
+  opacity: 0
+  color: #d2d2d2
+  height: 0
+  z-index: -9
+  .close-menu
+    display: block
+    width: 100%
+    padding-right: 10px
+    padding-top: 10px
+  .close-menu 
+    span
+      font-size: 40px
+      font-weight: 100
+      width: 60px
+      height: 60px
+      line-height: 50px
+      display: block
+      color: #fff
+      background-color: #195b8c
+      -webkit-border-radius: 50%
+      -moz-border-radius: 50%
+      border-radius: 50%
+      cursor: pointer
+      float: right
+      opacity: 0
+  ul
+    width: 100%
+    color: #fff
+    padding-top: 15%
+    span
+      display: none
+  li
+    clear: both
+    padding: 0 5px
+    width: 100%
+    position: relative
+.full-menu li:last-child
+  padding-right: 0
+.full-menu li a
+  color: #d2d2d2
+  font-size: 36px
+  display: block
+  text-transform: capitalize
+  width: auto
+  padding: 8px 10px
+  transition: padding-top 0.5s ease
+  -moz-transition: padding-top 0.5s ease
+  -webkit-transition: padding-top 0.5s ease
+  font-weight: 100
+.full-menu li a:hover
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  padding-top: 10px
+  padding-bottom: 6px
+  transition: padding-top 0.5s ease
+  -moz-transition: padding-top 0.5s ease
+  -webkit-transition: padding-top 0.5s ease
+  color: #fff
+.full-menu li a.languages
+  display: inline-block
+  cursor: pointer
+  -webkit-border-radius: 0
+  -moz-border-radius: 0
+  border-radius: 0
+.full-menu li a.languages span
+  display: inline-block
+  padding-right: 5px
+  margin-top: -5px
+  line-height: 40px
+.full-menu li a.languages span.text
+  margin-top: 0
+  padding-right: 0
+.full-menu li .languages-list
+  display: none
+  background: url(../images/bg-white.png) left top repeat
+  width: 120px
+  height: auto
+  padding: 10px
+  text-align: left
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  position: absolute
+  right: 45%
+  left: 45%
+  top: 60px
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176)
+  z-index: 99999
+.languages-list .language-item
+  width: 100%
+  clear: both
+  display: block
+  border-top: 1px solid #e3e3e3
+  padding: 5px 0
+  color: #fff
+  cursor: pointer
+.languages-list .language-item:first-child
+  border-top: 0
+.languages-list .language-item a
+  color: #fff
+  padding: 0
+  font-size: 14px
+.languages-list .language-item a:hover
+  color: #000
+  padding: 0
+.full-menu li .languages-list.active
+  display: block
+.languages-list.active .arrow
+  position: absolute
+  left: 11px
+  top: -15px
+  height: 20px
+  width: 20px
+  opacity: 0.6
+.languages-list.active .arrow i
+  font-size: 20px
+  color: #fff
+  z-index: 9999
+header .menu-icon
+  float: right
+  width: auto
+  padding: 10px 15px
+  border: 1px solid #cecece
+  color: #cecece
+  font-size: 25px
+  font-weight: 100
+  text-align: center
+  text-transform: uppercase
+  margin-top: 5px
+  cursor: pointer
+header .menu-icon:hover
+  background-color: #227bbe
+  color: #cecece
+header .menu-icon i
+  padding-right: 5px
+/* ------------- Banner --------- */
+.img-banner
+  background-image: url(../images/banner.jpg)
+  position: relative
+  background-position: top center
+  background-size: cover
+  background-attachment: fixed
+  padding: 80px 25px
+  min-height: 700px
+.banner-content
+  position: absolute
+  left: 0
+  right: 0
+  top: 30%
+  z-index: 888
+  color: #fff
+  text-align: center
+.banner-content h2
+  color: #fff
+  font-weight: 100
+  font-size: 58px
+  text-transform:none
+  line-height: 60px
+  padding-bottom: 50px
+.banner-content h2 span
+  font-weight: 400
+.banner-content p
+  padding-top: 20px
+  font-size: 30px
+  font-weight: 100
+.count-down-day
+  color: #fff
+  background: url(../images/ic-medium.png) left top no-repeat
+  width: 95px
+  height: 95px
+  margin: auto
+  vertical-align: middle
+  text-align: center
+  line-height: 120px
+  font-weight: 300
+  font-size: 40px
+.content_wrapper
+  width: 100%
+  clear: both
+  display: block
+.start-hiring-button .btn
+  border: 1px solid #fff
+  color: #fff
+  font-size: 25px
+  font-weight: 300
+  text-transform: capitalize
+  padding: 15px 35px
+  margin-top: 0
+.start-hiring-button .btn:after
+  background-color: #bb11c4
+.start-hiring-button .btn:hover,
+.start-hiring-button .btn:active 
+  color: #d0d0d0
+  border: 1px solid #d0d0d0
+.start-hiring-button p 
+  margin: 0
+  padding: 1em
+  position: relative
+  z-index: 1
+.content_wrapper section
+  position: relative
+  background-position: top center
+  background-size: cover
+  background-attachment: fixed
+
+/* --- Search form ----- */
+.search-form-block
+  width: 100%
+  clear: both
+  display: block
+  background: url(../images/blue-down.png) center top no-repeat
+  height: 160px
+  padding-top: 15px
+.search-form-block .input-group
+  display: block
+  clear: both
+.input-group input
+  background-color: #195b8c
+  height: auto
+  border-radius: 5px
+  color: #fff
+  padding: 5px 15px
+  font-size: 18px
+  width: 20%
+  margin: 0 5px
+  font-weight: 100
+.input-group input::-webkit-input-placeholder
+  color: #d2d2d2
+  font-size: 16px
+.input-group input:-moz-placeholder
+  color: #d2d2d2
+  font-size: 16px
+.input-group input::-moz-placeholder
+  color: #d2d2d2
+  font-size: 16px
+.input-group input:-ms-input-placeholder
+  color: #d2d2d2
+  font-size: 16px
+.input-group .selectize-control
+  width: 20%
+  display: inline-block
+.input-group  .selectize-input
+  background-color: #195b8c
+  height: 40px
+  border-radius: 5px
+  color: #fff
+  font-size: 18px
+  width: 100%
+  border: 0
+  text-align: left
+.selectize-control.multi .selectize-input [data-value]
+  height: 30px
+  margin-top: 5px
+  line-height: 22px
+  padding-left: 27px
+  background: url(../images/bg-tag.png) left 4px no-repeat
+.selectize-control.multi .selectize-input .active[data-value]
+  background: url(../images/close-tag.png) #227bbe left 4px no-repeat
+.input-group .selectize-control.multi .selectize-input.has-items
+  padding: 0px 5px
+.input-group .selectize-dropdown
+  border-color: #195b8c
+.input-group .selectize-dropdown-content
+  color: #d2d2d2
+.input-group .selectize-dropdown
+  background-color: #0d436a
+  text-align: left
+  font-size: 16px
+  font-weight: 100
+  padding: 5px
+.input-group .selectize-dropdown .active 
+  background-color:transparent
+  color: #bb11c4
+.selectize-input.dropdown-active:before
+  background-color:transparent
+.selectize-dropdown [data-selectable] .highlight 
+  background: rgba(125, 168, 208, 0.5)
+.selectize-dropdown .active.create 
+  color: #bb11c4
+.selectize-dropdown .create 
+  color: #bb11c4
+/* ---- global ---- */
+.content_wrapper 
+  section 
+    .header-block
+      width: 100%
+.header-block 
+  h2
+    font-size: 40px
+    text-transform: capitalize
+    color: #525252
+    font-weight: 100
+.header-block 
+  p
+    padding-top: 20px
+    font-size: 18px
+    font-weight: 300
+/* ---- Reason to used our services ---- */
+.reasons
+  background-image: url(../images/map.png)
+  height: 720px 
+.reasons 
+  .header-block 
+    padding-top: 50px
+    h2
+      background: url(../images/underline-blue.png) center bottom no-repeat
+      width: auto
+      display: inline-block
+      padding-bottom: 25px
+  .reasons-content
+    width: 100%
+  .reasons-content 
+    ul
+      width: 100%
+      margin: auto
+      max-width: 1000px
+      li
+        width: 50%
+        float: left
+        padding: 0 25px
+        text-align: center
+        min-height: 250px
+        .icon
+          width: 100%
+          text-align: center
+          clear: both
+          padding-bottom: 20px  
+          span
+            display: block
+            border: 2px solid #525252
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            height: 80px
+            width: 80px
+            vertical-align: middle
+            text-align: center
+            margin: auto
+            color: #525252
+            transition: border 0.8s ease
+            -moz-transition: border 0.8s ease
+            -webkit-transition: border 0.8s ease
+            transition: color 0.8s ease
+            -moz-transition: color 0.8s ease
+            -webkit-transition: color 0.8s ease
+            i
+              font-size: 45px
+              margin: auto
+              line-height: 80px
+              transition: font-size 1s ease
+              -moz-transition: font-size 1s ease
+              -webkit-transition: font-size 1s ease
+        h3
+          font-weight: 400
+          font-size: 20px
+          text-transform: capitalize
+          padding-bottom: 20px
+        p
+          text-align: center
+          font-size: 16px
+          line-height: 20px
+      li:hover 
+        .icon 
+          span
+            border: 2px solid #1686da
+            color: #1686da
+            transition: border 0.8s ease
+            -moz-transition: border 0.8s ease
+            -webkit-transition: border 0.8s ease
+            transition: color 0.8s ease
+            -moz-transition: color 0.8s ease
+            -webkit-transition: color 0.8s ease
+            i
+              font-size: 55px
+              margin: auto
+              line-height: 80px
+              transition: font-size 1s ease
+              -moz-transition: font-size 1s ease
+              -webkit-transition: font-size 1s ease
