@@ -165,25 +165,4 @@ techlooper.directive("navigation", function () {
     replace: true,
     templateUrl: "modules/job/findJobs.tem.html"
   }
-}).directive("tsHeader", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/header/header.tem.html",
-    controller: "tsHeaderController"
-  }
-}).directive("talentSearch", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/main/main.tem.html",
-    controller: "tsMainController"
-  }
-}).directive("tsFooter", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/footer/footer.tem.html",
-    controller: "tsFooterController"
-  }
 });
