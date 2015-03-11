@@ -149,6 +149,7 @@ angular.module("Common").constant("jsonValue", {
   },
 
   routerUris: {
+    home: "/home",
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
@@ -159,6 +160,7 @@ angular.module("Common").constant("jsonValue", {
   },
 
   views: {
+    home: "home",
     jobsSearch: "jobSearch",
     jobsSearchText: "jobSearchText",
     analyticsSkill: "analyticsSkill",
