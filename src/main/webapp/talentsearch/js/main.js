@@ -379,7 +379,7 @@ var talentItemManager = (function(){
     mouseOverItem = function(){
         item.mouseenter(function(){
             $(this).find('.talent-action-block').stop().animate({
-                height: hItem(),
+                height: hItem()+20,
                 'min-height': '430px'
             });
         }).mouseleave(function(){
