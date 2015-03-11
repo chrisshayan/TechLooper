@@ -166,6 +166,7 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
+    //TODO: This search function is focusing on github only, need to find a way to inject other sources
     public List<UserImportEntity> findTalent(TalentSearchParam param) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         if (!param.getSkills().isEmpty()) {
