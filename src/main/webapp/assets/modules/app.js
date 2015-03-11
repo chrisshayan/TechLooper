@@ -86,6 +86,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     $translateProvider.use((window.navigator.userLanguage || window.navigator.language).substring(0, 2));
 
     $routeProvider
+      .when("/home", {
+        templateUrl: "modules/talent-search/home.tem.html"
+      })
       .when("/bubble-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
@@ -125,7 +128,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "userProfileController"
       })
       .otherwise({
-        redirectTo: "/bubble-chart"
+        redirectTo: "/home"
       });
   }]);
 
@@ -149,19 +152,38 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   }
 });
 
-techlooper
-  .directive("navigation", function () {
-    return {
-      restrict: "A",
-      replace: true,
-      templateUrl: "modules/navigation/navigation.tem.html",
-      controller: "navigationController"
-    }
-  })
-  .directive("findjobs", function () {
-    return {
-      restrict: "A",
-      replace: true,
-      templateUrl: "modules/job/findJobs.tem.html"
-    }
-  });
+techlooper.directive("navigation", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/navigation/navigation.tem.html",
+    controller: "navigationController"
+  }
+}).directive("findjobs", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/job/findJobs.tem.html"
+  }
+}).directive("tsHeader", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/talent-search/header/header.tem.html",
+    controller: "tsHeaderController"
+  }
+}).directive("talentSearch", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/talent-search/main/main.tem.html",
+    controller: "tsMainController"
+  }
+}).directive("tsFooter", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/talent-search/footer/footer.tem.html",
+    controller: "tsFooterController"
+  }
+});
