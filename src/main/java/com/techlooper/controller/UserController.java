@@ -1,10 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.SocialProvider;
-import com.techlooper.model.SocialRequest;
-import com.techlooper.model.UserImportData;
-import com.techlooper.model.UserInfo;
+import com.techlooper.model.*;
 import com.techlooper.service.UserImportDataProcessor;
 import com.techlooper.service.UserService;
 import org.jasypt.util.text.TextEncryptor;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,6 +71,13 @@ public class UserController {
             userService.save(userInfo);
         }
         return result.getFieldErrors();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/findTalent", method = RequestMethod.POST)
+    public List<Talent> findTalent(@RequestBody TalentSearchParam param, HttpServletResponse httpServletResponse) {
+        List<UserImportEntity> result = userService.findTalent(param);
+        return new ArrayList<>();
     }
 
 
