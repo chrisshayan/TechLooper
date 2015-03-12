@@ -450,13 +450,13 @@ body.noscroll
 /* ---- Reason to used our services ---- */
 .reasons
   background-image: url(../images/map.png)
-  height: 900px 
+  height: 940px 
   position: relative
   z-index: 888
   top: -120px
   padding-top: 120px
   .header-block 
-    padding-top: 50px
+    padding: 50px 0 30px 0
     h2
       background: url(../images/underline-blue.png) center bottom no-repeat
       width: auto
@@ -579,7 +579,7 @@ body.noscroll
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-    color: #cecece
+    color: #cecece !important
   .customers-said-content
     width: 80%
     clear: both
@@ -599,18 +599,6 @@ body.noscroll
           line-height: 150px
           vertical-align: middle
           text-align: center
-          img
-            width: 120px
-            height: 120px 
-            -webkit-border-radius: 50%
-            -moz-border-radius: 50%
-            border-radius: 50%
-            border: 1px solid #aaaaaa  
-            transition: border-radius 0.8s ease
-            -moz-transition: border-radius 0.8s ease
-            -webkit-transition: border-radius 0.8s ease 
-            margin: auto
-            vertical-align: middle
       h3
         font-size: 18px
         font-weight: 400
@@ -619,16 +607,29 @@ body.noscroll
       p
         font-size: 14px
         padding-top: 10px
-    .customer-item:hover
-      color: #aaaaaa
-      span 
-        img
-        -webkit-border-radius: 0
-        -moz-border-radius: 0
-        border-radius: 0
+    .customer-item
+      img
+        width: 120px
+        height: 120px 
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+        border-radius: 50%
+        border: 1px solid #aaaaaa  
         transition: border-radius 0.8s ease
         -moz-transition: border-radius 0.8s ease
-        -webkit-transition: border-radius 0.8s ease
+        -webkit-transition: border-radius 0.8s ease 
+        margin: auto
+        vertical-align: middle
+      
+    .customer-item:hover
+      color: #aaaaaa
+    .customer-item:hover img
+      -webkit-border-radius: 0
+      -moz-border-radius: 0
+      border-radius: 0
+      transition: border-radius 0.8s ease
+      -moz-transition: border-radius 0.8s ease
+      -webkit-transition: border-radius 0.8s ease
 /* --- feedback --- */
 .feedback
   background-image: url(../images/feedback.png)
@@ -639,7 +640,7 @@ body.noscroll
     padding-top: 30px
     h2
       color: #fff
-      background: url(../images/underline-black.png) center bottom no-repeat
+      background: url(../images/underline-black1.png) center bottom no-repeat
       padding-bottom: 20px
       width: auto
       display: inline
@@ -701,7 +702,7 @@ body.noscroll
   .header-block 
     h2
       color: #fff
-      background: url(../images/underline-black.png) center bottom no-repeat
+      background: url(../images/underline-black1.png) center bottom no-repeat
       padding-bottom: 20px
       width: auto
       display: inline

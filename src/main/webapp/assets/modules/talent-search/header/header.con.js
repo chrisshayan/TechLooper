@@ -2,5 +2,7 @@ techlooper.controller("tsHeaderController", function ($scope, tsHeaderService, $
   tsHeaderService.init();
   $timeout(function(){
     tsHeaderService.menuAnimate();
+    tsHeaderService.langManager();
+    tsHeaderService.settingLang();
   }, 100);
 });
