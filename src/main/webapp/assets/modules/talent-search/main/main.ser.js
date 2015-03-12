@@ -182,10 +182,10 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
 
     searchTalent: function() {
       var request = {
-        skills : skills.getValue().split(","),
-        locations : locations.getValue().split(","),
-        titles : titles.getValue().split(","),
-        companies : companies.getValue().split(",")
+        skills: skills.getValue().split(","),
+        locations: locations.getValue().split(","),
+        titles: titles.getValue().split(","),
+        companies: companies.getValue().split(",")
       }
 
       $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
@@ -195,6 +195,40 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
         .error(function (data, status, headers, config) {
           console.log(data);
         });
+    },
+    
+    validationFeedback: function() {
+      $('.send-feedback').click(function(event) {
+        event.preventDefault();
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+            feedBack = $('#txtFeedback').val(),
+            email = $('#txtEmail').val();
+        var errorContent = '';
+        $('.error-messages').text('');
+        var inputVal = new Array(email, feedBack);
+        var inputMessage = new Array("Email", "Your Message");
+        $.each(inputVal, function(index, value) {
+          if (value == "") {
+            if (errorContent == '') {
+              errorContent = inputMessage[index];
+            } else {
+              errorContent = errorContent + ', ' + inputMessage[index];
+            }
+          }
+        });
+        if (email != '' && !emailReg.test(email)) {
+          if (errorContent == '') {
+            errorContent = 'Email address is not valid';
+          } else {
+            errorContent = errorContent + ', Email address is not valid';
+          }
+        }
+        if (errorContent != '') {
+          $('.error-messages').append('Please enter your <strong>' + errorContent + '</strong>');
+        } else {
+          alert('Thank you for your feedback')
+        }
+      });
     }
   };
 

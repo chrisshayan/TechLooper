@@ -1,8 +1,6 @@
 techlooper.factory("tsHeaderService", function () {
   var hWin = $(window).height();
   var ctrlClose = $('.close-menu');
-  var ctrlLang = $('.languages'),
-      conLang = $('.languages-list');
   var $$ = {
     managerClose : function() {
       ctrlClose.find('span').click(function() {
@@ -48,20 +46,6 @@ techlooper.factory("tsHeaderService", function () {
       $( window ).resize(function() {
         hWin = $(window).height();
       });
-    },
-    langManager: function() {
-      ctrlLang.bind('click', function() {
-        conLang.css('height', 'auto');
-        conLang.toggleClass('active');
-      });
-    },
-    settingLang: function() {
-      var item = conLang.find('.language-item a');
-      item.on('click', function() {
-        var lang = $(this).text();
-        $('.languages').find('span.text').text(lang);
-        conLang.removeClass('active');
-      });
     }
   };
   var instance = {
@@ -69,8 +53,39 @@ techlooper.factory("tsHeaderService", function () {
       $$.managerClose();
       $$.managerMenu();
       $$.winResize();
-      $$.langManager();
-      $$.settingLang();
+    },
+    menuAnimate: function() {
+      var wScroll = $(window).scrollTop();
+      if ($('.search-form-block').position().top > -60 <= wScroll) {
+        $('header').addClass('changed');
+      }
+      $(window).scroll(function () {
+        wScroll = $(window).scrollTop();
+        if (wScroll > 0) {
+          if ($('.search-form-block').position().top - 60 <= wScroll) {
+            $('header').addClass('changed');
+          } else {
+            $('header').removeClass('changed');
+          }
+        }
+      });
+    },
+    langManager: function() {
+      var ctrlLang = $('.languages'),
+          conLang = $('.languages-list');
+      ctrlLang.on('click', function() {
+        conLang.css('height', 'auto');
+        conLang.toggleClass('active');
+      });
+    },
+    settingLang: function(){
+      var conLang = $('.languages-list');
+      var item = conLang.find('.language-item a');
+      item.on('click', function() {
+        var lang = $(this).text();
+        $('.languages').find('span.text').text(lang);
+        conLang.removeClass('active');
+      });
     }
   };
   return instance;
