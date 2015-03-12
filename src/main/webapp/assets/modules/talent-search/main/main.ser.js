@@ -1,4 +1,6 @@
-techlooper.factory("tsMainService", function () {
+techlooper.factory("tsMainService", function (jsonValue, $http) {
+  var locations, skills, titles, companies;
+
   var $$ = {
     loadMap: function (lp, rp, title) {
       var mapCanvas = document.getElementById('location-map');
@@ -118,6 +120,7 @@ techlooper.factory("tsMainService", function () {
       });
     }
   };
+
   var instance = {
     applySlider: function () {
       $('.kz-slider-run').kzSlider();
@@ -125,47 +128,32 @@ techlooper.factory("tsMainService", function () {
 
     enableSelectOptions: function () {
       // skill
-      $('#input-skill').selectize({
+      skills = $('#input-skill').selectize({
         persist: false,
         createOnBlur: true,
         create: true
-      });
+      })[0].selectize;
+
       // Job title
-      $('#input-job-title').selectize({
+      titles = $('#input-job-title').selectize({
         persist: false,
         createOnBlur: true,
         create: true
-      });
+      })[0].selectize;
+
       // company name
-      $('#input-company-name').selectize({
+      companies = $('#input-company-name').selectize({
         persist: false,
         createOnBlur: true,
         create: true
-      });
+      })[0].selectize;
 
       // location
-      $('#select-location').selectize({
+      locations = $('#select-location').selectize({
         maxItems: null,
         valueField: 'id',
         searchField: 'title',
-        options: [
-          {id: 0, title: 'Ho Chi Minh'},
-          {id: 1, title: 'Ha Noi'},
-          {id: 2, title: 'Da Nang'},
-          {id: 3, title: 'Ba Ria - Vung Tau'},
-          {id: 4, title: 'Dong Nai'},
-          {id: 5, title: 'Tay Ninh'},
-          {id: 6, title: 'Can Tho'},
-          {id: 7, title: 'Bac Lieu'},
-          {id: 8, title: 'An Giang'},
-          {id: 9, title: 'Bac Ning'},
-          {id: 10, title: 'Ninh Thuan'},
-          {id: 11, title: 'Thua Thien Hue'},
-          {id: 12, title: 'Quang Tri'},
-          {id: 13, title: 'Binh Thuan'},
-          {id: 14, title: 'Lam Dong'},
-          {id: 15, title: 'Daklak'}
-        ],
+        options: jsonValue.cities,
         createOnBlur: true,
         create: true,
         render: {
@@ -184,7 +172,7 @@ techlooper.factory("tsMainService", function () {
             title: input
           };
         }
-      });
+      })[0].selectize;
     },
 
     location: function () {
@@ -192,6 +180,23 @@ techlooper.factory("tsMainService", function () {
       $$.swapMap();
     },
 
+    searchTalent: function() {
+      var request = {
+        skills: skills.getValue().split(","),
+        locations: locations.getValue().split(","),
+        titles: titles.getValue().split(","),
+        companies: companies.getValue().split(",")
+      }
+
+      $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
+        .success(function (data, status, headers, config) {
+          console.log(data);
+        })
+        .error(function (data, status, headers, config) {
+          console.log(data);
+        });
+    },
+    
     validationFeedback: function() {
       $('.send-feedback').click(function(event) {
         event.preventDefault();

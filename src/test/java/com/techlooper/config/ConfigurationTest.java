@@ -4,6 +4,7 @@ import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.TechnicalTermRepository;
+import com.techlooper.repository.userimport.GithubTalentSearchRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserService;
@@ -103,6 +104,11 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public GithubTalentSearchDataProcessor githubTalentSearchDataProcessor() {
         return new GithubTalentSearchDataProcessor();
+    }
+
+    @Bean(name = "GITHUBTalentSearchRepository")
+    public GithubTalentSearchRepository githubTalentSearchRepository() {
+        return new GithubTalentSearchRepository();
     }
 
     @Bean
