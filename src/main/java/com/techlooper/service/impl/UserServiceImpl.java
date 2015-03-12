@@ -4,23 +4,24 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.repository.talentsearch.TalentSearchRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
+import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryFilterBuilder;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -28,10 +29,11 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
+import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
 import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
 /**
@@ -56,6 +58,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private VietnamWorksUserService vietnamworksUserService;
+
+    @Resource
+    private ApplicationContext applicationContext;
 
     public void save(UserEntity userEntity) {
         userRepository.save(userEntity);
@@ -164,24 +169,19 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    public List<UserImportEntity> findTalent(TalentSearchParam param) {
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if (!param.getSkills().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()));
-        }
-        if (!param.getLocations().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.location", param.getLocations()));
-        }
-        if (!param.getCompanies().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.company", param.getCompanies()));
-        }
+    public Set<Talent> findTalent(final TalentSearchParam param) {
+        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
+        Set<Talent> talents = new HashSet<>();
 
-        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(nestedQuery("profiles", boolQueryBuilder))
-                .withSort(SortBuilders.fieldSort(param.getSortByField()).order(SortOrder.DESC))
-                .withPageable(new PageRequest(param.getPageIndex(), param.getPageSize()))
-                .build();
-        return userImportRepository.search(searchQuery).getContent();
+        socialProviders.forEach(provider -> {
+            TalentSearchRepository talentSearchRepository =
+                    applicationContext.getBean(provider + "TalentSearchRepository", TalentSearchRepository.class);
+            TalentSearchDataProcessor talentSearchDataProcessor =
+                    applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
+            talents.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
+        });
+
+        return talents;
     }
 
 }

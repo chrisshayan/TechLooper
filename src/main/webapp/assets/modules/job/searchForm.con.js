@@ -4,7 +4,7 @@ angular.module('Jobs').controller('searchFormController',
     $timeout(function () {
       utils.sendNotification(jsonValue.notifications.switchScope, $scope);
       searchBoxService.hightlightSKill();
-    }, 10);
+    }, 100);
 
     //utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     $scope.skills = jsonValue.technicalSkill;

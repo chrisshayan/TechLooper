@@ -86,6 +86,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     $translateProvider.use((window.navigator.userLanguage || window.navigator.language).substring(0, 2));
 
     $routeProvider
+      .when("/home", {
+        templateUrl: "modules/talent-search/home.tem.html",
+        controller: "tsMainController"
+      })
+      .when("/talent-search-result", {
+        templateUrl: "modules/talent-search/home.tem.html",
+        controller: "tsSearchResultController"
+      })
       .when("/bubble-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
@@ -95,37 +103,31 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "chartController"
       })
       .when("/jobs/search", {
-        //templateUrl: "modules/job/searchForm.tem.html",
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "searchFormController"
       })
       .when("/jobs/search/:text", {
-        //templateUrl: "modules/job/searchResult.tem.html",
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "searchResultController"
       })
       .when("/analytics/skill/:term/:period?", {
-        //templateUrl: "modules/skill-analytics/skill-analytics.tem.html",
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "skillAnalyticsController"
       })
       .when("/signin", {
-        //templateUrl: "modules/signin/signin.tem.html",
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "signInController"
       })
       .when("/register", {
-        //templateUrl: "modules/register/register.tem.html",
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "registerController"
       })
       .when("/user", {
-        //templateUrl: "modules/user-profile/user-profile.tem.html",
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "userProfileController"
       })
       .otherwise({
-        redirectTo: "/bubble-chart"
+        redirectTo: "/home"
       });
   }]);
 
@@ -149,19 +151,17 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   }
 });
 
-techlooper
-  .directive("navigation", function () {
-    return {
-      restrict: "A",
-      replace: true,
-      templateUrl: "modules/navigation/navigation.tem.html",
-      controller: "navigationController"
-    }
-  })
-  .directive("findjobs", function () {
-    return {
-      restrict: "A",
-      replace: true,
-      templateUrl: "modules/job/findJobs.tem.html"
-    }
-  });
+techlooper.directive("navigation", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/navigation/navigation.tem.html",
+    controller: "navigationController"
+  }
+}).directive("findjobs", function () {
+  return {
+    restrict: "A",
+    replace: true,
+    templateUrl: "modules/job/findJobs.tem.html"
+  }
+});

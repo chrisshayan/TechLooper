@@ -1,10 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.SocialProvider;
-import com.techlooper.model.SocialRequest;
-import com.techlooper.model.UserImportData;
-import com.techlooper.model.UserInfo;
+import com.techlooper.model.*;
 import com.techlooper.service.UserImportDataProcessor;
 import com.techlooper.service.UserService;
 import org.jasypt.util.text.TextEncryptor;
@@ -21,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by phuonghqh on 12/23/14.
@@ -73,6 +71,12 @@ public class UserController {
             userService.save(userInfo);
         }
         return result.getFieldErrors();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
+    public Set<Talent> findTalent(@RequestBody TalentSearchParam param, HttpServletResponse httpServletResponse) {
+        return userService.findTalent(param);
     }
 
 

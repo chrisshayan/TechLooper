@@ -1,5 +1,5 @@
-;(function($){
-    var $win = $(window);
+;(function(){
+    var win = $(window);
     var KzSlider = function (element, options) {
         this.$element = $(element);
         this.options = options;
@@ -269,9 +269,9 @@
             opts.auto && _this.play.call(_this);
 
             _this.update.call(_this);
-            $win.on('resize.'+opts.namespace, $.proxy(_this.resize,_this));
+            win.on('resize.'+opts.namespace, $.proxy(_this.resize,_this));
             if ("onorientationchange" in window){
-                $win.on('orientationchange.'+opts.namespace, $.proxy(_this.resize,_this));
+                win.on('orientationchange.'+opts.namespace, $.proxy(_this.resize,_this));
             }
         },
         resize: function(){
@@ -288,7 +288,7 @@
         },
         stop:function(){
             this.pause.call(this);
-            $win.off('resize.'+this.options.namespace);
+            win.off('resize.'+this.options.namespace);
         },
         destroy: function(){
             this.stop();
@@ -320,4 +320,5 @@
     };
 
     $.fn.kzSlider.Constructor = KzSlider;
+
 })(window.jQuery);

@@ -35,7 +35,7 @@ angular.module('Jobs').controller('searchResultController',
       };
 
       searchBoxService.changeBodyColor();
-    }, 10);
+    }, 100);
 
 
     $scope.playVideo = function (event) {

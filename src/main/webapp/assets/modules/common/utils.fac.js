@@ -119,6 +119,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/register/.test(path)) {
         return jsonValue.views.register;
       }
+      else if (/\/home/.test(path)) {
+        return jsonValue.views.home;
+      }
+      else if (/\/talent-search-result/.test(path)) {
+        return jsonValue.views.talentSearchResult;
+      }
     },
 
     sum: function (array, prop) {

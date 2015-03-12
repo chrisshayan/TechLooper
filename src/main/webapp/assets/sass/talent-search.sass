@@ -1,0 +1,797 @@
+::-webkit-input-placeholder
+  color: #525252
+  font-style: italic
+::-moz-placeholder
+  color: #525252
+  font-style: italic
+::-ms-input-placeholder
+  color: #525252
+  font-style: italic
+body.noscroll
+  position: fixed
+  overflow-y: scroll
+  width: 100%
+.full-box
+  width: 100% !important
+.ts-main
+  text-align: center
+  background-color: #fff
+/* --- ======== btn ========= --- */
+.ts-main
+  .btn
+    border: none
+    font-family: inherit
+    font-size: inherit
+    color: inherit
+    background: none
+    cursor: pointer
+    padding: 20px 60px
+    display: inline-block
+    margin: 15px 30px
+    text-transform: uppercase
+    letter-spacing: 1px
+    font-weight: 400
+    outline: none
+    font-size: 18px
+    position: relative
+    -webkit-transition: all 0.3s
+    -moz-transition: all 0.3s
+    transition: all 0.3s
+    border: 1px solid #a6a6a6
+    color: #a6a6a6
+    overflow: hidden
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+  .btn:after
+    content: ''
+    position: absolute
+    z-index: -1
+    -webkit-transition: all 0.3s
+    -moz-transition: all 0.3s
+    transition: all 0.3s
+    width: 100%
+    height: 0
+    top: 50%
+    left: 50%
+    background: #525252
+    opacity: 0
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    transform: translateX(-50%) translateY(-50%) rotate(45deg)
+
+  .btn:before
+    speak: none
+    font-style: normal
+    font-weight: normal
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+    position: relative
+    -webkit-font-smoothing: antialiased
+  .btn:hover,
+  .btn:active
+    color: #ffffff
+    border: 1px solid #525252
+
+  .btn:hover:after
+    height: 260%
+    opacity: 1
+
+  .btn:active:after
+    height: 400%
+    opacity: 1
+  .btn-blue
+    width: auto
+    padding: 10px 30px
+    color: #fff
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    background-color: #227bbe
+    font-size: 18px
+  .btn-blue:hover
+    background-color: #000
+/* --------- Header ------------ */
+.ts-header
+  header
+    width: 100%
+    clear: both
+    display: block
+    height: 60px
+    position: fixed
+    z-index: 99999
+    padding: 0 25px
+    text-align: left
+    transition: background-color 0.8s ease
+    -moz-transition: background-color 0.8s ease
+    -webkit-transition: background-color 0.8s ease
+    top: 0
+    .logo-block
+      width: 32%
+      float: left
+      padding-top: 5px
+    .logo-block 
+      img
+        max-height: 50px
+  header.changed
+    background-color: #000
+    transition: background-color 0.8s ease
+    -moz-transition: background-color 0.8s ease
+    -webkit-transition: background-color 0.8s ease
+  .full-menu
+    width: 0
+    background: #227bbe
+    position: absolute
+    z-index: 99999
+    top: 50%
+    left: 50%
+    opacity: 0
+    color: #d2d2d2
+    height: 0
+    z-index: -9
+    .close-menu
+      display: block
+      width: 100%
+      padding-right: 10px
+      padding-top: 10px
+    .close-menu 
+      span
+        font-size: 40px
+        font-weight: 100
+        width: 60px
+        height: 60px
+        line-height: 50px
+        display: block
+        color: #fff
+        background-color: #195b8c
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+        border-radius: 50%
+        cursor: pointer
+        float: right
+        opacity: 0
+        text-align: center
+    ul
+      width: 100%
+      color: #fff
+      padding-top: 15%
+      span
+        display: none
+    li
+      clear: both
+      padding: 0 5px
+      width: 100%
+      position: relative
+      text-align: center
+    i:last-child
+      padding-right: 0
+    li a
+      color: #d2d2d2
+      font-size: 36px
+      display: block
+      text-transform: capitalize
+      width: auto
+      padding: 8px 10px
+      transition: padding-top 0.5s ease
+      -moz-transition: padding-top 0.5s ease
+      -webkit-transition: padding-top 0.5s ease
+      font-weight: 100
+    li a:hover
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      padding-top: 10px
+      padding-bottom: 6px
+      transition: padding-top 0.5s ease
+      -moz-transition: padding-top 0.5s ease
+      -webkit-transition: padding-top 0.5s ease
+      color: #fff
+    li a.languages
+      display: inline-block
+      cursor: pointer
+      -webkit-border-radius: 0
+      -moz-border-radius: 0
+      border-radius: 0
+    li a.languages span
+      display: inline-block
+      padding-right: 5px
+      margin-top: -5px
+      line-height: 40px
+  .full-menu li a.languages span.text
+    margin-top: 0
+    padding-right: 0
+  .full-menu li .languages-list
+    display: none
+    background: url(../images/bg-white.png) left top repeat
+    width: 120px
+    height: auto
+    padding: 10px
+    text-align: left
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    position: absolute
+    right: 45%
+    left: 45%
+    top: 60px
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176)
+    z-index: 99999
+  .languages-list .language-item
+    width: 100%
+    clear: both
+    display: block
+    border-top: 1px solid #e3e3e3
+    padding: 5px 0
+    color: #fff
+    cursor: pointer
+  .languages-list .language-item:first-child
+    border-top: 0
+  .languages-list .language-item a
+    color: #fff
+    padding: 0
+    font-size: 14px
+  .languages-list .language-item a:hover
+    color: #000
+    padding: 0
+  .full-menu li .languages-list.active
+    display: block
+  .languages-list.active .arrow
+    position: absolute
+    left: 11px
+    top: -15px
+    height: 20px
+    width: 20px
+    opacity: 0.6
+  .languages-list.active .arrow i
+    font-size: 20px
+    color: #fff
+    z-index: 9999
+  header .menu-icon
+    float: right
+    width: auto
+    padding: 5px 15px
+    border: 1px solid #cecece
+    color: #cecece
+    font-size: 25px
+    font-weight: 100
+    text-align: center
+    text-transform: uppercase
+    margin-top: 5px
+    cursor: pointer
+    p
+      margin: 0
+    .menu-icon:hover
+      background-color: #227bbe
+      color: #cecece
+    i.fa-bars
+      padding: 5px 5px 0 0
+      display: block
+      float: left
+/* ------------- Banner --------- */
+.main-banner
+  .img-banner
+    background-image: url(../images/banner.jpg)
+    position: relative
+    background-position: top center
+    background-size: cover
+    background-attachment: fixed
+    padding: 80px 25px
+    min-height: 700px
+  .banner-content
+    position: absolute
+    left: 0
+    right: 0
+    top: 30%
+    z-index: 888
+    color: #fff
+    text-align: center
+    h2
+      color: #fff
+      font-weight: 100
+      font-size: 58px
+      text-transform:none
+      line-height: 60px
+      padding-bottom: 50px
+      span
+        font-weight: 400
+    p
+      padding: 20px 0 0 0
+      font-size: 30px
+      font-weight: 100
+      margin: 0
+  .count-down-day
+    color: #fff
+    background: url(../images/ic-medium.png) left top no-repeat
+    width: 95px
+    height: 95px
+    margin: auto
+    vertical-align: middle
+    text-align: center
+    line-height: 118px
+    font-weight: 300
+    font-size: 40px
+.start-hiring-button 
+  .btn
+    border: 1px solid #fff
+    color: #fff
+    font-size: 25px
+    font-weight: 300
+    text-transform: capitalize
+    padding: 10px 35px
+    margin-top: 0
+  .btn:after
+    background-color: #bb11c4
+  .btn:hover,
+  .btn:active 
+    color: #d0d0d0
+    border: 1px solid #d0d0d0
+  p 
+    margin: 0
+    padding: 1em
+    position: relative
+    z-index: 1
+
+
+/* --- Search form ----- */
+.search-form-block
+  width: 100%
+  clear: both
+  display: block
+  background: url(../images/blue-down.png) center top no-repeat
+  height: 160px
+  padding-top: 15px
+  position: relative
+  z-index: 999
+  .input-group
+    display: block
+    clear: both
+    input
+      background-color: #195b8c
+      height: auto
+      border-radius: 5px
+      color: #fff
+      padding: 5px 15px
+      font-size: 18px
+      width: 20%
+      margin: 3px 0 0 5px !important
+      font-weight: 100
+    input::-webkit-input-placeholder
+      color: #d2d2d2
+      font-size: 16px
+    input:-moz-placeholder
+      color: #d2d2d2
+      font-size: 16px
+    input::-moz-placeholder
+      color: #d2d2d2
+      font-size: 16px
+    input:-ms-input-placeholder
+      color: #d2d2d2
+      font-size: 16px
+    .selectize-control
+      width: 20%
+      display: inline-block
+    .selectize-input
+      background-color: #195b8c
+      height: 40px
+      border-radius: 5px
+      color: #fff
+      font-size: 18px
+      width: 100%
+      border: 0
+      text-align: left
+  .selectize-control.multi .selectize-input [data-value]
+    height: 30px
+    margin-top: 5px
+    line-height: 22px
+    padding-left: 27px
+    background: url(../images/bg-tag.png) left 4px no-repeat
+  .selectize-control.multi .selectize-input .active[data-value]
+    background: url(../images/close-tag.png) #227bbe left 4px no-repeat
+  .input-group .selectize-control.multi .selectize-input.has-items
+    padding: 0px 5px
+  .input-group .selectize-dropdown
+    border-color: #195b8c
+  .input-group .selectize-dropdown-content
+    color: #d2d2d2
+  .input-group .selectize-dropdown
+    background-color: #0d436a
+    text-align: left
+    font-size: 16px
+    font-weight: 100
+    padding: 5px
+  .input-group .selectize-dropdown .active 
+    background-color:transparent
+    color: #bb11c4
+  .selectize-input.dropdown-active:before
+    background-color:transparent
+  .selectize-dropdown [data-selectable] .highlight 
+    background: rgba(125, 168, 208, 0.5)
+  .selectize-dropdown .active.create 
+    color: #bb11c4
+  .selectize-dropdown .create 
+    color: #bb11c4
+  .selectize-control.multi .selectize-input > div
+    height: 40px
+    border-radius: 5px
+    color: #fff
+    font-size: 18px
+    width: auto
+    border: 1px solid #0073bb
+    text-align: left 
+  .selectize-dropdown .active 
+    background-color: #114369 !important
+    color: #bb11c4
+/* ---- global ---- */
+.content_wrapper 
+  width: 100%
+  clear: both
+  display: block
+  section 
+    position: relative
+    background-position: top center
+    background-size: cover
+    background-attachment: fixed
+    .header-block
+      width: 100%
+  .header-block 
+    h2
+      font-size: 40px
+      text-transform: capitalize
+      color: #525252
+      font-weight: 100
+  .header-block 
+    p
+      padding-top: 20px
+      font-size: 18px
+      font-weight: 300
+/* ---- Reason to used our services ---- */
+.reasons
+  background-image: url(../images/map.png)
+  height: 940px 
+  position: relative
+  z-index: 888
+  top: -120px
+  padding-top: 120px
+  .header-block 
+    padding: 50px 0 30px 0
+    h2
+      background: url(../images/underline-blue.png) center bottom no-repeat
+      width: auto
+      display: inline-block
+      padding-bottom: 25px
+  .reasons-content
+    width: 100%
+  .reasons-content 
+    ul
+      width: 100%
+      margin: auto
+      max-width: 1000px
+      li
+        width: 50%
+        float: left
+        padding: 0 25px
+        text-align: center
+        min-height: 250px
+        .icon
+          width: 100%
+          text-align: center
+          clear: both
+          padding-bottom: 20px  
+          span
+            display: block
+            border: 2px solid #525252
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            height: 80px
+            width: 80px
+            vertical-align: middle
+            text-align: center
+            margin: auto
+            color: #525252
+            transition: border 0.8s ease
+            -moz-transition: border 0.8s ease
+            -webkit-transition: border 0.8s ease
+            transition: color 0.8s ease
+            -moz-transition: color 0.8s ease
+            -webkit-transition: color 0.8s ease
+            i
+              font-size: 45px
+              margin: auto
+              line-height: 80px
+              transition: font-size 1s ease
+              -moz-transition: font-size 1s ease
+              -webkit-transition: font-size 1s ease
+        h3
+          font-weight: 400
+          font-size: 20px
+          text-transform: capitalize
+        p
+          text-align: center
+          font-size: 16px
+          line-height: 20px
+      li:hover 
+        .icon 
+          span
+            border: 2px solid #1686da
+            color: #1686da
+            transition: border 0.8s ease
+            -moz-transition: border 0.8s ease
+            -webkit-transition: border 0.8s ease
+            transition: color 0.8s ease
+            -moz-transition: color 0.8s ease
+            -webkit-transition: color 0.8s ease
+            i
+              font-size: 55px
+              margin: auto
+              line-height: 80px
+              transition: font-size 1s ease
+              -moz-transition: font-size 1s ease
+              -webkit-transition: font-size 1s ease
+/* --- Our Customers --- */
+.customer-company
+  background: url(../images/black-bg.png) center top no-repeat
+  height: 328px
+  position: relative
+  z-index: 999
+  top: -200px
+  .header-block
+    display: block
+    clear: both
+    padding-top: 50px
+    h2
+      font-size: 40px
+      text-transform: capitalize
+      color: #cecece
+      font-weight: 100
+      background: url(../images/underline-blue.png) center bottom no-repeat
+      display: inline
+      padding-bottom: 25px
+  .customers-list
+    display: block
+    clear: both
+    text-align: center
+    ul
+      margin: auto
+      padding-top: 70px
+    li
+      display: inline-block
+      width: auto
+      padding: 0 10px
+    img
+      max-width: 150px
+      -webkit-filter: grayscale(100%)
+      filter: grayscale(100%)
+/* --- Customers say --- */
+.customers-said
+  background-image: url(../images/customers-said.jpg)
+  height: 800px
+  margin-top: -325px
+  padding-top: 220px
+  h2
+    background: url(../images/underline-blue.png) center bottom no-repeat
+    width: auto
+    display: inline-block
+    padding: 0 0 25px 0
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    color: #cecece !important
+  .customers-said-content
+    width: 80%
+    clear: both
+    margin: auto
+    position: relative
+    .customer-item
+      color: #7c7c7c
+      .customer-avatar
+        width: 100%
+        display: block
+        padding-bottom: 20px
+        span
+          width: 150px
+          height: 150px 
+          display: block   
+          margin: auto
+          line-height: 150px
+          vertical-align: middle
+          text-align: center
+      h3
+        font-size: 18px
+        font-weight: 400
+        padding-bottom: 10px
+        text-transform: capitalize
+      p
+        font-size: 14px
+        padding-top: 10px
+    .customer-item
+      img
+        width: 120px
+        height: 120px 
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+        border-radius: 50%
+        border: 1px solid #aaaaaa  
+        transition: border-radius 0.8s ease
+        -moz-transition: border-radius 0.8s ease
+        -webkit-transition: border-radius 0.8s ease 
+        margin: auto
+        vertical-align: middle
+      
+    .customer-item:hover
+      color: #aaaaaa
+    .customer-item:hover img
+      -webkit-border-radius: 0
+      -moz-border-radius: 0
+      border-radius: 0
+      transition: border-radius 0.8s ease
+      -moz-transition: border-radius 0.8s ease
+      -webkit-transition: border-radius 0.8s ease
+/* --- feedback --- */
+.feedback
+  background-image: url(../images/feedback.png)
+  height: 865px
+  .header-block
+    background: url(../images/blue-down.png) center top no-repeat
+    height: 160px
+    padding-top: 30px
+    h2
+      color: #fff
+      background: url(../images/underline-black1.png) center bottom no-repeat
+      padding-bottom: 20px
+      width: auto
+      display: inline
+  .feedback-form 
+    width: 500px
+    margin: auto
+    clear: both
+    padding-top: 50px
+    p
+      font-size: 16px
+      padding-bottom: 20px
+    input,
+    textarea,
+    select 
+      line-height: 1.5
+      font-size: 14px
+      padding: 5px 10px
+      color: #525252
+      display: block
+      width: 100%
+      background: transparent
+      margin-bottom: 10px
+      border: 1px solid #a6a6a6
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+    select.empty  
+      color: #a6a6a6 
+      font-style: italic
+
+    textarea 
+      min-height: 150px
+
+
+    input:focus,
+    textarea:focus,
+    label:active + input,
+    label:active + textarea 
+      outline: none
+      border: 1px solid #525252
+
+
+    select:focus 
+      outline: none
+  .error-messages
+    color: red
+    font-style: italic
+    font-size: 13px
+    display: block
+    clear: both
+    padding-bottom: 10px
+/* --- Contact --- */
+#contact
+  margin-top: -160px
+  .header-block
+    background: url(../images/blue-up.png) center top no-repeat
+    height: 160px
+    padding-top: 50px
+  .header-block 
+    h2
+      color: #fff
+      background: url(../images/underline-black1.png) center bottom no-repeat
+      padding-bottom: 20px
+      width: auto
+      display: inline
+  .container-block
+    padding-top: 0px
+    position: relative
+  .map-block
+    height: 500px
+    width: 100%
+    display: block
+    clear: both
+  .address-info
+    position: absolute
+    left: 15%
+    top: 75px
+    width: 280px
+    height: 350px
+    padding: 20px
+    background-color: #656565
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    border: 1px solid #323232
+    text-align: left
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
+    color: #fff
+    z-index: 999
+  .address-info .head
+    display: block
+    clear: both
+    padding-bottom: 20px
+    color: #b5b5b5
+
+  .address-info h3
+    font-size: 22px
+    font-weight: 100
+    text-transform: uppercase
+    padding-bottom: 20px
+    text-align: center
+
+  .address-info p
+    font-size: 14px
+    padding-bottom: 5px
+    line-height: 20px
+  .address-info p.head-name
+    font-weight: 400
+    text-transform: capitalize
+    padding-bottom: 10px
+    font-size: 16px
+    cursor: pointer
+  .address-info .head.active
+    color: #e8e8e8
+/* --- footer --- */
+.ts-footer
+  footer
+    height: 60px
+    background-color: #000
+    color: #fff
+    width: 100%
+    clear: both
+    padding: 10px 25px
+    display: block
+    position: static
+    .copyright-block
+      width: 60%
+      float: left
+      color: #585858
+      text-align: left
+      padding-top: 6px
+      p
+        font-size: 12px
+        line-height: 16px
+        margin: auto
+      span
+        color: #a3a3a3
+    .social-network-block
+      width: 40%
+      float: left
+      text-align: right
+      ul
+        width: auto
+        float: right
+        li
+          float: left
+          padding: 5px 0 0 5px
+          a
+            color: #585858
+          a:hover
+            color: #2c7abe
+          i
+            font-size: 30px
