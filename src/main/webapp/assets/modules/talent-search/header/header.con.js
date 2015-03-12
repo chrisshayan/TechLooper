@@ -1,7 +1,9 @@
 techlooper.controller("tsHeaderController", function ($scope, tsHeaderService, $timeout) {
   tsHeaderService.init();
   $timeout(function(){
-    tsHeaderService.menuAnimate();
+    if($('.search-form-block').length > 0){
+      tsHeaderService.menuAnimate();
+    }
     tsHeaderService.langManager();
     tsHeaderService.settingLang();
   }, 100);
