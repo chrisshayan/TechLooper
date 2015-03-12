@@ -320,7 +320,7 @@ body.noscroll
     font-size: 25px
     font-weight: 300
     text-transform: capitalize
-    padding: 15px 35px
+    padding: 10px 35px
     margin-top: 0
   .btn:after
     background-color: #bb11c4
@@ -343,6 +343,8 @@ body.noscroll
   background: url(../images/blue-down.png) center top no-repeat
   height: 160px
   padding-top: 15px
+  position: relative
+  z-index: 999
   .input-group
     display: block
     clear: both
@@ -354,7 +356,7 @@ body.noscroll
       padding: 5px 15px
       font-size: 18px
       width: 20%
-      margin: 0 5px
+      margin: 3px 0 0 5px !important
       font-weight: 100
     input::-webkit-input-placeholder
     color: #d2d2d2
@@ -411,6 +413,17 @@ body.noscroll
     color: #bb11c4
   .selectize-dropdown .create 
     color: #bb11c4
+  .selectize-control.multi .selectize-input > div
+    height: 40px
+    border-radius: 5px
+    color: #fff
+    font-size: 18px
+    width: auto
+    border: 1px solid #0073bb
+    text-align: left 
+  .selectize-dropdown .active 
+    background-color: #2596eb !important
+    color: #bb11c4
 /* ---- global ---- */
 .content_wrapper 
   width: 100%
@@ -438,6 +451,10 @@ body.noscroll
 .reasons
   background-image: url(../images/map.png)
   height: 720px 
+  position: relative
+  z-index: 888
+  top: -120px
+  padding-top: 120px
   .header-block 
     padding-top: 50px
     h2
