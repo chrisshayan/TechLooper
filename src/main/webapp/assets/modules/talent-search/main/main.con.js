@@ -2,5 +2,6 @@ techlooper.controller("tsMainController", function ($scope, $timeout, tsMainServ
   $timeout(function() {
     tsMainService.applySlider();
     tsMainService.location();
+    tsMainService.enableSelectOptions();
   }, 100);
 });
