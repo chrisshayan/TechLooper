@@ -383,13 +383,11 @@ var talentItemManager = (function () {
     mouseOverItem = function () {
       item.mouseenter(function () {
         $(this).find('.talent-action-block').stop().animate({
-          height: hItem() + 20,
-          'min-height': '430px'
+          height: '130px'
         });
       }).mouseleave(function () {
         $(this).find('.talent-action-block').stop().animate({
-          height: 0,
-          'min-height': 0
+          height: 0
         });
       });
     };

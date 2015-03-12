@@ -1189,12 +1189,12 @@ footer .social-network-block i{
     background: url(../img/overlap-bg.png) left top repeat;
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: 0;
     width: 100%;
     z-index: 999;
     text-align: center;
     overflow: hidden;
-    height: 0;
+    height: 130px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -1203,12 +1203,7 @@ footer .social-network-block i{
     width: 100%;
     clear: both;
     display: block;
-    padding-top:190px;
-}
-.talent-item .action-btn .action-btn{
-    display: block;
-    clear: both;
-    padding-bottom: 10px;
+    padding-top:30px;
 }
 .action-btn .view-more{
     display: block;
@@ -1228,11 +1223,11 @@ footer .social-network-block i{
 }
 .last-date-view{
     width: 100%;
-    position: absolute;
-    bottom: 20px;
     text-align: center;
     color: #9f9e9e;
-    font-size: 16px;
+    font-size: 14px;
+    padding-top: 10px;
+    float: left;
 }
 /* === ----- talent Detail ----- === */
 .talent-detail-page{
