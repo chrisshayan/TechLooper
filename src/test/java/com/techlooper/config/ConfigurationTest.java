@@ -101,7 +101,7 @@ public class ConfigurationTest implements ApplicationContextAware {
         return dozerBeanMapper;
     }
 
-    @Bean
+    @Bean(name = "GITHUBTalentSearchDataProcessor")
     public GithubTalentSearchDataProcessor githubTalentSearchDataProcessor() {
         return new GithubTalentSearchDataProcessor();
     }

@@ -4,11 +4,13 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.userimport.TalentSearchRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
+import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
@@ -30,8 +32,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
@@ -171,11 +172,19 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    //TODO: This search function is focusing on github only, need to find a way to inject other sources
-    public List<UserImportEntity> findTalent(TalentSearchParam param) {
-        TalentSearchRepository talentSearchRepository =
-                applicationContext.getBean("GITHUBTalentSearchRepository", TalentSearchRepository.class);
-        return talentSearchRepository.findTalent(param);
+    public List<Talent> findTalent(final TalentSearchParam param) {
+        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
+        List<Talent> result = new ArrayList<>();
+
+        socialProviders.forEach(provider -> {
+            TalentSearchRepository talentSearchRepository =
+                    applicationContext.getBean(provider + "TalentSearchRepository", TalentSearchRepository.class);
+            TalentSearchDataProcessor talentSearchDataProcessor =
+                    applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
+            result.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
+        });
+
+        return result;
     }
 
 }

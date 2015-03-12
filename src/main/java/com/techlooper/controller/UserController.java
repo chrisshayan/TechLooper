@@ -76,10 +76,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
     public List<Talent> findTalent(@RequestBody TalentSearchParam param, HttpServletResponse httpServletResponse) {
-        List<UserImportEntity> result = userService.findTalent(param);
-        TalentSearchDataProcessor talentSearchDataProcessor =
-                applicationContext.getBean("GITHUBTalentSearchDataProcessor", TalentSearchDataProcessor.class);
-        return talentSearchDataProcessor.process(result);
+        return userService.findTalent(param);
     }
 
 
