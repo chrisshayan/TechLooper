@@ -1,0 +1,251 @@
+.search-page
+  display: block
+  clear: both
+  background: url(../images/bg.png) left top repeat
+  width: 100%
+  float: left
+  text-align: center
+  color: #525252
+  .search-form-block
+    margin-top: 20px
+    background-color: #227bbe
+    height: 70px
+    .input-group
+      width: 70%
+      display: inline-block
+      clear: none
+      .selectize-control
+        width: 24.5%
+        margin: 0 0.5% 0 0
+        float: left
+      .selectize-input
+        height: 38px
+  .input-submit
+    width: auto
+    display: inline-block
+    clear: none
+  .start-hiring-button
+    float: left
+    p
+      margin: 0
+      padding: 0
+      position: inherit
+    .btn
+      background: url(../images/ic-search-btn.png) #bb11c4 center top no-repeat
+      width: 30px
+      margin: -1px 0 0 0
+      text-indent: -999999px
+      height: 40px
+      border: 0
+    .btn:after
+      position: inherit
+      background: transparent
+    .btn:before
+      position: inherit
+      background: transparent
+  .search-results-content
+    display: block
+    clear: both
+    padding: 40px 1%
+    text-align: left
+    width: 100%
+    max-width: 1230px
+    margin: auto
+    h2
+      font-size: 25px
+      font-weight: 300
+      text-transform: capitalize
+      padding: 0 1%
+      margin: 0
+      strong
+        font-weight: 400
+  .talent-results
+    display: block
+    clear: both
+    padding: 10px 0 0
+    .talent-item
+      width: 23%
+      float: left
+      min-height: 430px
+      background-color: #ededed
+      border: 1px solid #cacaca
+      margin: 1%
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      box-shadow: 0 1px 1px rgba(255,255,255,255.5)
+      padding: 10px
+      position: relative
+      .main-skill
+        width: 100%
+        clear: both
+        display: block
+        padding-top: 10px
+        ul
+          width: 100%
+          margin: 0
+          padding: 0
+          li
+            width: auto
+            display: inline-block
+            padding: 5px 5px 5px 0
+            span
+              display: block
+              font-size: 13px
+            span.left
+              background: url(../images/left-tag.png) left -39px no-repeat
+              padding-left: 30px
+            span.right
+              background: url(../images/right-tag.png) right -39px no-repeat
+              padding-right: 10px
+              line-height: 29px
+              height: 30px
+          li.highlight 
+            span.left
+              background: url(../images/left-tag.png) left 0 no-repeat
+              padding-left: 25px
+            span.right
+              background: url(../images/right-tag.png) right 0 no-repeat
+              padding-right: 10px
+              line-height: 29px
+              height: 30px
+      .talent-action-block
+        background: url(../images/overlap-bg.png) left top repeat
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+        z-index: 999
+        text-align: center
+        overflow: hidden
+        height: 0
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+      .action-btn
+        width: 100%
+        clear: both
+        display: block
+        padding-top: 190px
+  .avatar-block
+    width: 100%
+    text-align: center
+    padding-bottom: 10px
+  .avatar-block img
+    width: 120px
+    height: 120px
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
+    border-radius: 50%
+  .info-completed
+    width: 100%
+    clear: both
+    display: block
+    padding-bottom: 20px
+    text-align: center
+  .general-info
+    width: 100%
+    clear: both
+    display: block
+    h2
+      font-weight: 400
+      font-size: 18px
+      text-align: center
+      padding-bottom: 5px
+      text-transform: capitalize
+      margin: 0
+    p
+      display: block
+      clear: both
+      font-size: 14px
+      text-align: left
+      line-height: 18px
+      margin: 0
+    ul
+      width: 100%
+      padding: 10px 0 0 0
+      margin: 0
+    li
+      width: auto
+      display: inline-block
+      padding: 5px 10px 5px 0
+      font-weight: 400
+      span
+        font-weight: 300
+        padding-right: 5px
+        display: inline-block
+  .job-info
+    width: 100%
+    clear: both
+    display: block
+    padding-top: 10px
+    ul
+      width: 100%
+      margin: 0
+      padding: 0
+    li
+      width: 100%
+      clear: both
+      display: block
+      padding: 5px 10px 5px 0
+      span
+        display: block
+        background: url(../images/icon.png) left top no-repeat
+        padding-left: 30px
+        height: 22px
+        line-height: 22px
+      span.job-title
+        background-position: 0 0px
+      span.company
+        background-position: 0 -82px
+      span.location
+        background-position: 0 -40px
+
+.action-btn .view-more
+  display: block
+  clear: both
+  padding-bottom: 10px
+.action-btn .save-list
+  display: block
+  clear: both
+  padding-top: 10px
+  float: left
+  width: 100%
+.action-btn .save-list a
+  color: #227bbe
+  font-size: 18px
+.last-date-view
+  width: 100%
+  position: absolute
+  bottom: 20px
+  text-align: center
+  color: #9f9e9e
+  font-size: 16px
+.info-completed-status
+  width: 80%
+  display: block
+  overflow: hidden
+  height: 8px
+  margin: 5px auto
+  background: #b8b8b8
+  border-radius: 4px
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%)
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%)
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%)
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 60%)
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6)
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6)
+
+.info-completed .real-status
+  display: block
+  min-width: 8px
+  height: 8px
+  background: #1997e6
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc)
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc)
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #147cd6, #24c1fc)
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #147cd6, #24c1fc)
+  border-radius: 4px
+  -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
+  
