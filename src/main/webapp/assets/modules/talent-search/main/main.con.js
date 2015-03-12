@@ -4,6 +4,7 @@ techlooper.controller("tsMainController", function ($scope, $timeout, tsMainServ
     tsMainService.location();
     tsMainService.enableSelectOptions();
     tsMainService.validationFeedback();
+    tsMainService.countdown();
   }, 100);
 
   $scope.startHiring = tsMainService.searchTalent;

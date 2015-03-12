@@ -180,7 +180,7 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
       $$.swapMap();
     },
 
-    searchTalent: function() {
+    searchTalent: function () {
       var request = {
         skills: skills.getValue().split(","),
         locations: locations.getValue().split(","),
@@ -193,25 +193,26 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
           console.log(data);
         })
         .error(function (data, status, headers, config) {
-          console.log(data);
+          //console.log(data);
         });
     },
-    
-    validationFeedback: function() {
-      $('.send-feedback').click(function(event) {
+
+    validationFeedback: function () {
+      $('.send-feedback').click(function (event) {
         event.preventDefault();
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-            feedBack = $('#txtFeedback').val(),
-            email = $('#txtEmail').val();
+          feedBack = $('#txtFeedback').val(),
+          email = $('#txtEmail').val();
         var errorContent = '';
         $('.error-messages').text('');
         var inputVal = new Array(email, feedBack);
         var inputMessage = new Array("Email", "Your Message");
-        $.each(inputVal, function(index, value) {
+        $.each(inputVal, function (index, value) {
           if (value == "") {
             if (errorContent == '') {
               errorContent = inputMessage[index];
-            } else {
+            }
+            else {
               errorContent = errorContent + ', ' + inputMessage[index];
             }
           }
@@ -219,16 +220,31 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
         if (email != '' && !emailReg.test(email)) {
           if (errorContent == '') {
             errorContent = 'Email address is not valid';
-          } else {
+          }
+          else {
             errorContent = errorContent + ', Email address is not valid';
           }
         }
         if (errorContent != '') {
           $('.error-messages').append('Please enter your <strong>' + errorContent + '</strong>');
-        } else {
+        }
+        else {
           alert('Thank you for your feedback')
         }
       });
+    },
+
+    countdown: function () {
+      today = new Date();
+      BigDay = new Date("April 1, 2015");
+      msPerDay = 24 * 60 * 60 * 1000;
+      timeLeft = (BigDay.getTime() - today.getTime());
+      e_daysLeft = timeLeft / msPerDay;
+      daysLeft = Math.floor(e_daysLeft);
+      e_hrsLeft = (e_daysLeft - daysLeft) * 24;
+      hrsLeft = Math.floor(e_hrsLeft);
+      minsLeft = Math.floor((e_hrsLeft - hrsLeft) * 60);
+      $('.count-down-day span').text(daysLeft);
     }
   };
 
