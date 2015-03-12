@@ -7,6 +7,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.repository.userimport.TalentSearchRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
@@ -21,6 +22,7 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -58,6 +60,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private VietnamWorksUserService vietnamworksUserService;
+
+    @Resource
+    private ApplicationContext applicationContext;
 
     public void save(UserEntity userEntity) {
         userRepository.save(userEntity);
@@ -168,23 +173,9 @@ public class UserServiceImpl implements UserService {
 
     //TODO: This search function is focusing on github only, need to find a way to inject other sources
     public List<UserImportEntity> findTalent(TalentSearchParam param) {
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if (!param.getSkills().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()));
-        }
-        if (!param.getLocations().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.location", param.getLocations()));
-        }
-        if (!param.getCompanies().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.company", param.getCompanies()));
-        }
-
-        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(nestedQuery("profiles", boolQueryBuilder))
-                .withSort(SortBuilders.fieldSort(param.getSortByField()).order(SortOrder.DESC))
-                .withPageable(new PageRequest(param.getPageIndex(), param.getPageSize()))
-                .build();
-        return userImportRepository.search(searchQuery).getContent();
+        TalentSearchRepository talentSearchRepository =
+                applicationContext.getBean("GITHUBTalentSearchRepository", TalentSearchRepository.class);
+        return talentSearchRepository.findTalent(param);
     }
 
 }
