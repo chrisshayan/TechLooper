@@ -1,4 +1,6 @@
-techlooper.factory("tsMainService", function () {
+techlooper.factory("tsMainService", function (jsonValue, $http) {
+  var locations, skills, titles, companies;
+
   var $$ = {
     loadMap: function (lp, rp, title) {
       var mapCanvas = document.getElementById('location-map');
@@ -118,6 +120,7 @@ techlooper.factory("tsMainService", function () {
       });
     }
   };
+
   var instance = {
     applySlider: function () {
       $('.kz-slider-run').kzSlider();
@@ -125,47 +128,32 @@ techlooper.factory("tsMainService", function () {
 
     enableSelectOptions: function () {
       // skill
-      $('#input-skill').selectize({
+      skills = $('#input-skill').selectize({
         persist: false,
         createOnBlur: true,
         create: true
-      });
+      })[0].selectize;
+
       // Job title
-      $('#input-job-title').selectize({
+      titles = $('#input-job-title').selectize({
         persist: false,
         createOnBlur: true,
         create: true
-      });
+      })[0].selectize;
+
       // company name
-      $('#input-company-name').selectize({
+      companies = $('#input-company-name').selectize({
         persist: false,
         createOnBlur: true,
         create: true
-      });
+      })[0].selectize;
 
       // location
-      $('#select-location').selectize({
+      locations = $('#select-location').selectize({
         maxItems: null,
         valueField: 'id',
         searchField: 'title',
-        options: [
-          {id: 0, title: 'Ho Chi Minh'},
-          {id: 1, title: 'Ha Noi'},
-          {id: 2, title: 'Da Nang'},
-          {id: 3, title: 'Ba Ria - Vung Tau'},
-          {id: 4, title: 'Dong Nai'},
-          {id: 5, title: 'Tay Ninh'},
-          {id: 6, title: 'Can Tho'},
-          {id: 7, title: 'Bac Lieu'},
-          {id: 8, title: 'An Giang'},
-          {id: 9, title: 'Bac Ning'},
-          {id: 10, title: 'Ninh Thuan'},
-          {id: 11, title: 'Thua Thien Hue'},
-          {id: 12, title: 'Quang Tri'},
-          {id: 13, title: 'Binh Thuan'},
-          {id: 14, title: 'Lam Dong'},
-          {id: 15, title: 'Daklak'}
-        ],
+        options: jsonValue.cities,
         createOnBlur: true,
         create: true,
         render: {
@@ -184,7 +172,7 @@ techlooper.factory("tsMainService", function () {
             title: input
           };
         }
-      });
+      })[0].selectize;
     },
 
     location: function () {
@@ -192,21 +180,39 @@ techlooper.factory("tsMainService", function () {
       $$.swapMap();
     },
 
-    validationFeedback: function() {
-      $('.send-feedback').click(function(event) {
+    searchTalent: function () {
+      var request = {
+        skills: skills.getValue().split(","),
+        locations: locations.getValue().split(","),
+        titles: titles.getValue().split(","),
+        companies: companies.getValue().split(",")
+      }
+
+      $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
+        .success(function (data, status, headers, config) {
+          console.log(data);
+        })
+        .error(function (data, status, headers, config) {
+          //console.log(data);
+        });
+    },
+
+    validationFeedback: function () {
+      $('.send-feedback').click(function (event) {
         event.preventDefault();
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-            feedBack = $('#txtFeedback').val(),
-            email = $('#txtEmail').val();
+          feedBack = $('#txtFeedback').val(),
+          email = $('#txtEmail').val();
         var errorContent = '';
         $('.error-messages').text('');
         var inputVal = new Array(email, feedBack);
         var inputMessage = new Array("Email", "Your Message");
-        $.each(inputVal, function(index, value) {
+        $.each(inputVal, function (index, value) {
           if (value == "") {
             if (errorContent == '') {
               errorContent = inputMessage[index];
-            } else {
+            }
+            else {
               errorContent = errorContent + ', ' + inputMessage[index];
             }
           }
@@ -214,16 +220,31 @@ techlooper.factory("tsMainService", function () {
         if (email != '' && !emailReg.test(email)) {
           if (errorContent == '') {
             errorContent = 'Email address is not valid';
-          } else {
+          }
+          else {
             errorContent = errorContent + ', Email address is not valid';
           }
         }
         if (errorContent != '') {
           $('.error-messages').append('Please enter your <strong>' + errorContent + '</strong>');
-        } else {
+        }
+        else {
           alert('Thank you for your feedback')
         }
       });
+    },
+
+    countdown: function () {
+      today = new Date();
+      BigDay = new Date("April 1, 2015");
+      msPerDay = 24 * 60 * 60 * 1000;
+      timeLeft = (BigDay.getTime() - today.getTime());
+      e_daysLeft = timeLeft / msPerDay;
+      daysLeft = Math.floor(e_daysLeft);
+      e_hrsLeft = (e_daysLeft - daysLeft) * 24;
+      hrsLeft = Math.floor(e_hrsLeft);
+      minsLeft = Math.floor((e_hrsLeft - hrsLeft) * 60);
+      $('.count-down-day span').text(daysLeft);
     }
   };
 

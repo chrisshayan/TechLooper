@@ -179,7 +179,8 @@ angular.module("Common").constant("jsonValue", {
     login: "login",
     logout: "logout",
     verifyUserLogin: "user/verifyUserLogin",
-    getUserInfoByKey: "user/findByKey"
+    getUserInfoByKey: "user/findByKey",
+    searchTalent: "api/user/findTalent"
   },
 
   socketUri: {
@@ -342,6 +343,261 @@ angular.module("Common").constant("jsonValue", {
     }
   ],
 
+  cities: [
+    {
+      "title": "An Giang",
+      "id": 0
+    },
+    {
+      "title": "Bắc Giang",
+      "id": 1
+    },
+    {
+      "title": "Bắc Kạn",
+      "id": 2
+    },
+    {
+      "title": "Bạc Liêu",
+      "id": 3
+    },
+    {
+      "title": "Bắc Ninh",
+      "id": 4
+    },
+    {
+      "title": "Bà Rịa-Vũng Tàu",
+      "id": 5
+    },
+    {
+      "title": "Bến Tre",
+      "id": 6
+    },
+    {
+      "title": "Bình Định",
+      "id": 7
+    },
+    {
+      "title": "Bình Dương",
+      "id": 8
+    },
+    {
+      "title": "Bình Phước",
+      "id": 9
+    },
+    {
+      "title": "Bình Thuận",
+      "id": 10
+    },
+    {
+      "title": "Cà Mau",
+      "id": 11
+    },
+    {
+      "title": "Cần Thơ",
+      "id": 12
+    },
+    {
+      "title": "Cao Bằng",
+      "id": 13
+    },
+    {
+      "title": "Đắk Lắk",
+      "id": 14
+    },
+    {
+      "title": "Đắk Nông",
+      "id": 15
+    },
+    {
+      "title": "Đà Nẵng",
+      "id": 16
+    },
+    {
+      "title": "Điện Biên",
+      "id": 17
+    },
+    {
+      "title": "Đồng Nai",
+      "id": 18
+    },
+    {
+      "title": "Đồng Tháp",
+      "id": 19
+    },
+    {
+      "title": "Gia Lai",
+      "id": 20
+    },
+    {
+      "title": "Hà Giang",
+      "id": 21
+    },
+    {
+      "title": "Hải Dương",
+      "id": 22
+    },
+    {
+      "title": "Hải Phòng",
+      "id": 23
+    },
+    {
+      "title": "Hà Nam",
+      "id": 24
+    },
+    {
+      "title": "Hà Nội",
+      "id": 25
+    },
+    {
+      "title": "Hà Tĩnh",
+      "id": 26
+    },
+    {
+      "title": "Hậu Giang",
+      "id": 27
+    },
+    {
+      "title": "Hòa Bình",
+      "id": 28
+    },
+    {
+      "title": "Hưng Yên",
+      "id": 29
+    },
+    {
+      "title": "Khánh Hòa",
+      "id": 30
+    },
+    {
+      "title": "Kiên Giang",
+      "id": 31
+    },
+    {
+      "title": "Kon Tum",
+      "id": 32
+    },
+    {
+      "title": "Lai Châu",
+      "id": 33
+    },
+    {
+      "title": "Lâm Đồng",
+      "id": 34
+    },
+    {
+      "title": "Lạng Sơn",
+      "id": 35
+    },
+    {
+      "title": "Lào Cai",
+      "id": 36
+    },
+    {
+      "title": "Long An",
+      "id": 37
+    },
+    {
+      "title": "Nam Định",
+      "id": 38
+    },
+    {
+      "title": "Nghệ An",
+      "id": 39
+    },
+    {
+      "title": "Ninh Binh",
+      "id": 40
+    },
+    {
+      "title": "Ninh Thuận",
+      "id": 41
+    },
+    {
+      "title": "Phú Thọ",
+      "id": 42
+    },
+    {
+      "title": "Phú Yên",
+      "id": 43
+    },
+    {
+      "title": "Quảng Bình",
+      "id": 44
+    },
+    {
+      "title": "Quảng Nam",
+      "id": 45
+    },
+    {
+      "title": "Quảng Ngãi",
+      "id": 46
+    },
+    {
+      "title": "Quảng Ninh",
+      "id": 47
+    },
+    {
+      "title": "Quảng Trị",
+      "id": 48
+    },
+    {
+      "title": "Sóc Trăng",
+      "id": 49
+    },
+    {
+      "title": "Sơn La",
+      "id": 50
+    },
+    {
+      "title": "Tây Ninh",
+      "id": 51
+    },
+    {
+      "title": "Thái Bình",
+      "id": 52
+    },
+    {
+      "title": "Thái Nguyên",
+      "id": 53
+    },
+    {
+      "title": "Thanh Hóa",
+      "id": 54
+    },
+    {
+      "title": "Hồ Chí Minh",
+      "id": 55
+    },
+    {
+      "title": "Thừa Thiên-Huế",
+      "id": 56
+    },
+    {
+      "title": "Tiền Giang",
+      "id": 57
+    },
+    {
+      "title": "Trà Vinh",
+      "id": 58
+    },
+    {
+      "title": "Tuyên Quang",
+      "id": 59
+    },
+    {
+      "title": "Vĩnh Long",
+      "id": 60
+    },
+    {
+      "title": "Vĩnh Phúc",
+      "id": 61
+    },
+    {
+      "title": "Yên Bái",
+      "id": 62
+    }
+  ],
+
   introTour: {
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
     pieHomePage: [
@@ -396,71 +652,5 @@ angular.module("Common").constant("jsonValue", {
         content: "Click to this button, you can find job on search job page"
       }
     ]
-    //technicalDetail: [
-    //  {
-    //    element: ".term-infor",
-    //    placement: "right",
-    //    title: "Term chart",
-    //    content: "The number of jobs of The Term, and job percent of term on total jobs."
-    //  },
-    //  {
-    //    element: "#circle-1",
-    //    placement: "right",
-    //    title: "Skill chart",
-    //    content: "The number of jobs of skill"
-    //  },
-    //  {
-    //    element: ".chart-management ul",
-    //    placement: "bottom",
-    //    title: "Period of Line chart",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  },
-    //  {
-    //    element: ".highcharts-container",
-    //    placement: "top",
-    //    title: "Line chart",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  },
-    //  {
-    //    element: ".rwd-table",
-    //    placement: "top",
-    //    title: "table chart",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  },
-    //  {
-    //    element: ".term-useful-links",
-    //    placement: "top",
-    //    title: "Useful link for the Term",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  }
-    //],
-    //signIn: [
-    //  {
-    //    element: ".signin-contianer",
-    //    placement: "left",
-    //    title: "Sign with social account",
-    //    content: "You can choose one account you like to sign in."
-    //  }
-    //],
-    //searchForm: [
-    //  {
-    //    element: ".selectize-input ",
-    //    placement: "bottom",
-    //    title: "Search Box",
-    //    content: "Enter text to search..."
-    //  },
-    //  {
-    //    element: ".technical-Skill-List",
-    //    placement: "top",
-    //    title: "choose Term logo for search box ",
-    //    content: "You can click to Term logo to selection for the search."
-    //  },
-    //  {
-    //    element: ".btn-close",
-    //    placement: "left",
-    //    title: "Close",
-    //    content: "Click here to close Search page and back to Home page."
-    //  }
-    //]
   }
 });
