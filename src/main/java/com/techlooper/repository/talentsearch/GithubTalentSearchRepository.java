@@ -1,7 +1,8 @@
-package com.techlooper.repository.userimport;
+package com.techlooper.repository.talentsearch;
 
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.TalentSearchParam;
+import com.techlooper.service.impl.GithubTalentSearchDataProcessor;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -12,7 +13,6 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
@@ -25,13 +25,14 @@ public class GithubTalentSearchRepository implements TalentSearchRepository {
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
+    @Resource
+    private GithubTalentSearchDataProcessor dataProcessor;
+
     @Override
     public List<UserImportEntity> findTalent(TalentSearchParam param) {
+        dataProcessor.normalizeInputParameter(param);
+
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        //TODO : should implement data pre-processor before search
-        param.getSkills().removeAll(Arrays.asList(null, ""));
-        param.getLocations().removeAll(Arrays.asList(null, ""));
-        param.getCompanies().removeAll(Arrays.asList(null, ""));
         if (!param.getSkills().isEmpty()) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()));
         }

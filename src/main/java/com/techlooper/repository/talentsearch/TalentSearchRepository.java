@@ -1,4 +1,4 @@
-package com.techlooper.repository.userimport;
+package com.techlooper.repository.talentsearch;
 
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.TalentSearchParam;

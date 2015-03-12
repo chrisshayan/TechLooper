@@ -3,10 +3,12 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
+import com.techlooper.model.TalentSearchParam;
 import com.techlooper.service.TalentSearchDataProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -39,6 +41,13 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                              .withSkills(((List<String>) profile.get("skills")))
                              .build();
         }).filter(talent -> talent != null).collect(Collectors.toList());
+    }
+
+    @Override
+    public void normalizeInputParameter(TalentSearchParam param) {
+        param.getSkills().removeAll(Arrays.asList(null, ""));
+        param.getLocations().removeAll(Arrays.asList(null, ""));
+        param.getCompanies().removeAll(Arrays.asList(null, ""));
     }
 
 }

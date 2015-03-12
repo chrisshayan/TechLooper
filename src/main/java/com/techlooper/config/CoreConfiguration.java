@@ -4,7 +4,7 @@ import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
 import com.techlooper.entity.*;
 import com.techlooper.model.UserInfo;
-import com.techlooper.repository.userimport.GithubTalentSearchRepository;
+import com.techlooper.repository.talentsearch.GithubTalentSearchRepository;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
