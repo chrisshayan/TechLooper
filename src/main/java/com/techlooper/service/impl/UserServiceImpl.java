@@ -172,19 +172,19 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    public List<Talent> findTalent(final TalentSearchParam param) {
+    public Set<Talent> findTalent(final TalentSearchParam param) {
         List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
-        List<Talent> result = new ArrayList<>();
+        Set<Talent> talents = new HashSet<>();
 
         socialProviders.forEach(provider -> {
             TalentSearchRepository talentSearchRepository =
                     applicationContext.getBean(provider + "TalentSearchRepository", TalentSearchRepository.class);
             TalentSearchDataProcessor talentSearchDataProcessor =
                     applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
-            result.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
+            talents.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
         });
 
-        return result;
+        return talents;
     }
 
 }

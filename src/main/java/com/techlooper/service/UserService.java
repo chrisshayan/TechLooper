@@ -8,6 +8,7 @@ import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -101,16 +102,18 @@ public interface UserService {
 
     /**
      * Find users
+     *
      * @param pageNumber the page number to fetch users
-     * @param pageSize the size of each page
+     * @param pageSize   the size of each page
      * @return list of {@linkplain com.techlooper.entity.userimport.UserImportEntity}
      */
     List<UserImportEntity> getAll(final int pageNumber, final int pageSize);
 
     /**
      * Find talent users
+     *
      * @param param search criteria
      * @return list of {@linkplain com.techlooper.model.Talent}
      */
-    List<Talent> findTalent(TalentSearchParam param);
+    Set<Talent> findTalent(TalentSearchParam param);
 }
