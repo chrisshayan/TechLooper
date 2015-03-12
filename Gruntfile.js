@@ -107,7 +107,12 @@ module.exports = function (grunt) {
       options: {
         basePath: "<%=pkg.public%>",
         duplicates: false,
-        debug: true
+        debug: true,
+        templates: {
+          html: {
+            js: '<script src="{filePath}" charset="utf-8"></script>'
+          }
+        }
       },
       target: {
         files: {
