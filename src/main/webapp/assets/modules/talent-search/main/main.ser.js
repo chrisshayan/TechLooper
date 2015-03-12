@@ -109,9 +109,9 @@ techlooper.factory("tsMainService", function () {
     lmap.on('click', function() {
       lmap.parent().removeClass('active');
       if ($(this).attr('data-map') == 'HN') {
-        loadMap('21.017329', '105.848996', '125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district Ha Noi');
+        $$.loadMap('21.017329', '105.848996', '125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district Ha Noi');
       } else {
-        loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
+        $$.loadMap('10.770850', '106.6880500', 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City');
       }
       $(this).parent().addClass('active');
     });
