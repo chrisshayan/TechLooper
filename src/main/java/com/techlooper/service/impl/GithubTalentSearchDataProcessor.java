@@ -4,6 +4,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
 import com.techlooper.service.TalentSearchDataProcessor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,13 +29,14 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
 
             Talent.Builder talentBuilder = new Talent.Builder();
             return talentBuilder.withEmail(userImportEntity.getEmail())
-                             .withUsername(profile.get("username").toString())
-                             .withFullName(userImportEntity.getFullName())
-                             .withImageUrl(profile.get("imageUrl").toString())
-                             .withCompany(profile.get("company").toString())
-                             .withDescription(profile.get("description").toString())
-                             .withLocation(profile.get("location").toString())
-                             .withSkills(((List<String>)profile.get("skills")))
+                             .withUsername(StringUtils.trimToEmpty((String) profile.get("username")))
+                             .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
+                             .withImageUrl(StringUtils.trimToEmpty((String) profile.get("imageUrl")))
+                             .withCompany(StringUtils.trimToEmpty((String) profile.get("company")))
+                             .withDescription(StringUtils.trimToEmpty((String) profile.get("description")))
+                             .withLocation(StringUtils.trimToEmpty((String) profile.get("location")))
+                             .withJobTitle("")
+                             .withSkills(((List<String>) profile.get("skills")))
                              .build();
         }).filter(talent -> talent != null).collect(Collectors.toList());
     }
