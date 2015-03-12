@@ -71,6 +71,22 @@ techlooper.factory("tsHeaderService", function () {
       $$.winResize();
       $$.langManager();
       $$.settingLang();
+    },
+    menuAnimate: function() {
+      var wScroll = $(window).scrollTop();
+      if ($('.search-form-block').position().top > -60 <= wScroll) {
+        $('header').addClass('changed');
+      }
+      $(window).scroll(function () {
+        wScroll = $(window).scrollTop();
+        if (wScroll > 0) {
+          if ($('.search-form-block').position().top - 60 <= wScroll) {
+            $('header').addClass('changed');
+          } else {
+            $('header').removeClass('changed');
+          }
+        }
+      });
     }
   };
   return instance;

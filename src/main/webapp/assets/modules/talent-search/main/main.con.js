@@ -3,5 +3,6 @@ techlooper.controller("tsMainController", function ($scope, $timeout, tsMainServ
     tsMainService.applySlider();
     tsMainService.location();
     tsMainService.enableSelectOptions();
+    tsMainService.validationFeedback();
   }, 100);
 });

@@ -109,11 +109,6 @@ body.noscroll
     -moz-transition: background-color 0.8s ease
     -webkit-transition: background-color 0.8s ease
     top: 0
-    .changed
-      background-color: #000
-      transition: background-color 0.8s ease
-      -moz-transition: background-color 0.8s ease
-      -webkit-transition: background-color 0.8s ease
     .logo-block
       width: 32%
       float: left
@@ -121,6 +116,11 @@ body.noscroll
     .logo-block 
       img
         max-height: 50px
+  header.changed
+    background-color: #000
+    transition: background-color 0.8s ease
+    -moz-transition: background-color 0.8s ease
+    -webkit-transition: background-color 0.8s ease
   .full-menu
     width: 0
     background: #227bbe
@@ -422,7 +422,7 @@ body.noscroll
     border: 1px solid #0073bb
     text-align: left 
   .selectize-dropdown .active 
-    background-color: #2596eb !important
+    background-color: #114369 !important
     color: #bb11c4
 /* ---- global ---- */
 .content_wrapper 
@@ -450,7 +450,7 @@ body.noscroll
 /* ---- Reason to used our services ---- */
 .reasons
   background-image: url(../images/map.png)
-  height: 720px 
+  height: 900px 
   position: relative
   z-index: 888
   top: -120px
@@ -509,7 +509,6 @@ body.noscroll
           font-weight: 400
           font-size: 20px
           text-transform: capitalize
-          padding-bottom: 20px
         p
           text-align: center
           font-size: 16px
@@ -538,6 +537,7 @@ body.noscroll
   height: 328px
   position: relative
   z-index: 999
+  top: -200px
   .header-block
     display: block
     clear: both
@@ -569,7 +569,7 @@ body.noscroll
 .customers-said
   background-image: url(../images/customers-said.jpg)
   height: 800px
-  margin-top: -164px
+  margin-top: -325px
   padding-top: 220px
   h2
     background: url(../images/underline-blue.png) center bottom no-repeat
@@ -632,7 +632,7 @@ body.noscroll
 /* --- feedback --- */
 .feedback
   background-image: url(../images/feedback.png)
-  height: 800px
+  height: 865px
   .header-block
     background: url(../images/blue-down.png) center top no-repeat
     height: 160px
