@@ -3,6 +3,7 @@ package com.techlooper.service;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 
@@ -109,7 +110,7 @@ public interface UserService {
     /**
      * Find talent users
      * @param param search criteria
-     * @return list of {@linkplain com.techlooper.entity.userimport.UserImportEntity}
+     * @return list of {@linkplain com.techlooper.model.Talent}
      */
-    List<UserImportEntity> findTalent(TalentSearchParam param);
+    List<Talent> findTalent(TalentSearchParam param);
 }

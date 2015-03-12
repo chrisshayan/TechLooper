@@ -32,9 +32,6 @@ public class UserServiceITcase {
     @Resource
     private UserService userService;
 
-    @Resource
-    private GithubTalentSearchDataProcessor githubTalentSearchDataProcessor;
-
     @Test
     public void testSave() throws Exception {
         String key = "ndkhoa.is2@gmail.com";
@@ -117,8 +114,7 @@ public class UserServiceITcase {
         searchParam.withSkills("Java").withLocations("Vietnam")
                 .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
                 .withPageSize(20).withPageIndex(0);
-        List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
-        List<Talent> talents = githubTalentSearchDataProcessor.process(userImportEntities);
+        List<Talent> talents = userService.findTalent(searchParam.build());
         assertTrue(talents.size() > 0);
     }
 
@@ -127,8 +123,8 @@ public class UserServiceITcase {
         TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
         searchParam.withSkills("English").withLocations("Vietnam")
                 .withPageSize(20).withPageIndex(0);
-        List<UserImportEntity> userImportEntities = userService.findTalent(searchParam.build());
-        assertTrue(userImportEntities.size() == 0);
+        List<Talent> talents = userService.findTalent(searchParam.build());
+        assertTrue(talents.size() == 0);
     }
 
 }
