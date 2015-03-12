@@ -13,6 +13,84 @@
 .ts-main
   text-align: center
   background-color: #fff
+/* --- ======== btn ========= --- */
+.ts-main
+  .btn
+    border: none
+    font-family: inherit
+    font-size: inherit
+    color: inherit
+    background: none
+    cursor: pointer
+    padding: 20px 60px
+    display: inline-block
+    margin: 15px 30px
+    text-transform: uppercase
+    letter-spacing: 1px
+    font-weight: 400
+    outline: none
+    font-size: 18px
+    position: relative
+    -webkit-transition: all 0.3s
+    -moz-transition: all 0.3s
+    transition: all 0.3s
+    border: 1px solid #a6a6a6
+    color: #a6a6a6
+    overflow: hidden
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+
+  .btn:after
+    content: ''
+    position: absolute
+    z-index: -1
+    -webkit-transition: all 0.3s
+    -moz-transition: all 0.3s
+    transition: all 0.3s
+    width: 100%
+    height: 0
+    top: 50%
+    left: 50%
+    background: #525252
+    opacity: 0
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    transform: translateX(-50%) translateY(-50%) rotate(45deg)
+
+  .btn:before
+    speak: none
+    font-style: normal
+    font-weight: normal
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+    position: relative
+    -webkit-font-smoothing: antialiased
+  .btn:hover,
+  .btn:active
+    color: #ffffff
+    border: 1px solid #525252
+
+  .btn:hover:after
+    height: 260%
+    opacity: 1
+
+  .btn:active:after
+    height: 400%
+    opacity: 1
+  .btn-blue
+    width: auto
+    padding: 10px 30px
+    color: #fff
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    background-color: #227bbe
+    font-size: 18px
+  .btn-blue:hover
+    background-color: #000
 /* --------- Header ------------ */
 .ts-header
   header
@@ -72,6 +150,7 @@
         cursor: pointer
         float: right
         opacity: 0
+        text-align: center
     ul
       width: 100%
       color: #fff
@@ -83,40 +162,41 @@
       padding: 0 5px
       width: 100%
       position: relative
-  .full-menu li:last-child
-    padding-right: 0
-  .full-menu li a
-    color: #d2d2d2
-    font-size: 36px
-    display: block
-    text-transform: capitalize
-    width: auto
-    padding: 8px 10px
-    transition: padding-top 0.5s ease
-    -moz-transition: padding-top 0.5s ease
-    -webkit-transition: padding-top 0.5s ease
-    font-weight: 100
-  .full-menu li a:hover
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
-    padding-top: 10px
-    padding-bottom: 6px
-    transition: padding-top 0.5s ease
-    -moz-transition: padding-top 0.5s ease
-    -webkit-transition: padding-top 0.5s ease
-    color: #fff
-  .full-menu li a.languages
-    display: inline-block
-    cursor: pointer
-    -webkit-border-radius: 0
-    -moz-border-radius: 0
-    border-radius: 0
-  .full-menu li a.languages span
-    display: inline-block
-    padding-right: 5px
-    margin-top: -5px
-    line-height: 40px
+      text-align: center
+    i:last-child
+      padding-right: 0
+    li a
+      color: #d2d2d2
+      font-size: 36px
+      display: block
+      text-transform: capitalize
+      width: auto
+      padding: 8px 10px
+      transition: padding-top 0.5s ease
+      -moz-transition: padding-top 0.5s ease
+      -webkit-transition: padding-top 0.5s ease
+      font-weight: 100
+    li a:hover
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      padding-top: 10px
+      padding-bottom: 6px
+      transition: padding-top 0.5s ease
+      -moz-transition: padding-top 0.5s ease
+      -webkit-transition: padding-top 0.5s ease
+      color: #fff
+    li a.languages
+      display: inline-block
+      cursor: pointer
+      -webkit-border-radius: 0
+      -moz-border-radius: 0
+      border-radius: 0
+    li a.languages span
+      display: inline-block
+      padding-right: 5px
+      margin-top: -5px
+      line-height: 40px
   .full-menu li a.languages span.text
     margin-top: 0
     padding-right: 0
@@ -169,7 +249,7 @@
   header .menu-icon
     float: right
     width: auto
-    padding: 10px 15px
+    padding: 5px 15px
     border: 1px solid #cecece
     color: #cecece
     font-size: 25px
@@ -178,11 +258,15 @@
     text-transform: uppercase
     margin-top: 5px
     cursor: pointer
-  header .menu-icon:hover
-    background-color: #227bbe
-    color: #cecece
-  header .menu-icon i
-    padding-right: 5px
+    p
+      margin: 0
+    .menu-icon:hover
+      background-color: #227bbe
+      color: #cecece
+    i.fa-bars
+      padding: 5px 5px 0 0
+      display: block
+      float: left
 /* ------------- Banner --------- */
 .main-banner
   .img-banner
@@ -209,11 +293,12 @@
       line-height: 60px
       padding-bottom: 50px
       span
-      font-weight: 400
+        font-weight: 400
     p
-      padding-top: 20px
+      padding: 20px 0 0 0
       font-size: 30px
       font-weight: 100
+      margin: 0
   .count-down-day
     color: #fff
     background: url(../images/ic-medium.png) left top no-repeat
@@ -225,25 +310,26 @@
     line-height: 118px
     font-weight: 300
     font-size: 40px
-.start-hiring-button .btn
-  border: 1px solid #fff
-  color: #fff
-  font-size: 25px
-  font-weight: 300
-  text-transform: capitalize
-  padding: 15px 35px
-  margin-top: 0
-.start-hiring-button .btn:after
-  background-color: #bb11c4
-.start-hiring-button .btn:hover,
-.start-hiring-button .btn:active 
-  color: #d0d0d0
-  border: 1px solid #d0d0d0
-.start-hiring-button p 
-  margin: 0
-  padding: 1em
-  position: relative
-  z-index: 1
+.start-hiring-button 
+  .btn
+    border: 1px solid #fff
+    color: #fff
+    font-size: 25px
+    font-weight: 300
+    text-transform: capitalize
+    padding: 15px 35px
+    margin-top: 0
+  .btn:after
+    background-color: #bb11c4
+  .btn:hover,
+  .btn:active 
+    color: #d0d0d0
+    border: 1px solid #d0d0d0
+  p 
+    margin: 0
+    padding: 1em
+    position: relative
+    z-index: 1
 
 
 /* --- Search form ----- */
