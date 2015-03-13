@@ -33,7 +33,7 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
             return talentBuilder.withEmail(userImportEntity.getEmail())
                              .withUsername(StringUtils.trimToEmpty((String) profile.get("username")))
                              .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
-                             .withImageUrl(StringUtils.trimToEmpty((String) profile.get("imageUrl")))
+                             .withImageUrl(StringUtils.trimToEmpty((String) profile.get("imageurl")))
                              .withCompany(StringUtils.trimToEmpty((String) profile.get("company")))
                              .withDescription(StringUtils.trimToEmpty((String) profile.get("description")))
                              .withLocation(StringUtils.trimToEmpty((String) profile.get("location")))
