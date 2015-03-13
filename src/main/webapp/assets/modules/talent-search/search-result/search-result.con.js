@@ -7,9 +7,15 @@ techlooper.controller("tsSearchResultController",
 
     try {
       var request = JSON.parse($routeParams.text);
+      $timeout(function () {
+        console.log(tsMainService.getSkills());
+        tsMainService.getSkills().setValue(request.skills);
+        console.log(tsMainService.getLocations());
+        console.log(tsMainService.getTitles());
+        console.log(tsMainService.getCompanies());
+      }, 100);
       $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
         .success(function (data, status, headers, config) {
-          console.log(data);
           $scope.talents = data;
         });
     }
