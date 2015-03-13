@@ -130,22 +130,67 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       // skill
       skills = $('#input-skill').selectize({
         persist: false,
-        createOnBlur: true,
-        create: true
+        delimiter: ',',
+        create: function(input) {
+          return {
+            value: input,
+            text: input
+          }
+        },
+        createFilter: function (input) {
+          var ok = true;
+          $.each(this.options, function (index, value) {
+            if (value.text.toLowerCase() === input.toLowerCase()) {
+              ok = false;
+              return false;
+            }
+          });
+          return ok;
+        }
       })[0].selectize;
 
       // Job title
       titles = $('#input-job-title').selectize({
         persist: false,
-        createOnBlur: true,
-        create: true
+        delimiter: ',',
+        create: function(input) {
+          return {
+            value: input,
+            text: input
+          }
+        },
+        createFilter: function (input) {
+          var ok = true;
+          $.each(this.options, function (index, value) {
+            if (value.text.toLowerCase() === input.toLowerCase()) {
+              ok = false;
+              return false;
+            }
+          });
+          return ok;
+        }
       })[0].selectize;
 
       // company name
       companies = $('#input-company-name').selectize({
         persist: false,
-        createOnBlur: true,
-        create: true
+        delimiter: ',',
+        create: function(input) {
+          return {
+            value: input,
+            text: input
+          }
+        },
+        createFilter: function (input) {
+          var ok = true;
+          $.each(this.options, function (index, value) {
+            if (value.text.toLowerCase() === input.toLowerCase()) {
+              ok = false;
+              return false;
+            }
+          });
+          return ok;
+        }
       })[0].selectize;
 
       // location
