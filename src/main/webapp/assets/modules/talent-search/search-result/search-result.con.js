@@ -15,9 +15,12 @@ techlooper.controller("tsSearchResultController",
       catch(e){
         $location.path("/");
       }
-    }, 100);
+    }, 200);
 
     $scope.doSomething = function() {
-      tsSearchResultService.init();
+      $timeout(function () {
+        tsSearchResultService.init();
+      }, 100);
     }
+    $scope.startHiring = tsMainService.searchTalent;
   });
