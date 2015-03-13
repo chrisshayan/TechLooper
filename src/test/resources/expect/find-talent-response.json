@@ -1,17 +1,20 @@
-[
-  {
-    "email": "baothaingo@gmail.com",
-    "imageUrl": "https://avatars2.githubusercontent.com/u/627823?v=3&s=460",
-    "username": "thainb",
-    "fullName": "Thai Ngo",
-    "description": "thainb has 399 repositories written in C++, Perl, and Java. Follow their code on GitHub.",
-    "jobTitle": "",
-    "company": "VNG (aka Vinagame)",
-    "location": "Ho Chi Minh City, Vietnam",
-    "skills":[
-      "C++",
-      "Perl",
-      "Java"
-    ]
-  }
-]
+{
+  "total": 1000,
+  "result": [
+    {
+      "email": "baothaingo@gmail.com",
+      "imageUrl": "https://avatars2.githubusercontent.com/u/627823?v=3&s=460",
+      "username": "thainb",
+      "fullName": "Thai Ngo",
+      "description": "thainb has 399 repositories written in C++, Perl, and Java. Follow their code on GitHub.",
+      "jobTitle": "",
+      "company": "VNG (aka Vinagame)",
+      "location": "Ho Chi Minh City, Vietnam",
+      "skills": [
+        "C++",
+        "Perl",
+        "Java"
+      ]
+    }
+  ]
+}
