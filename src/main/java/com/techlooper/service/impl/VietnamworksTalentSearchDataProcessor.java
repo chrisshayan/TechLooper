@@ -3,7 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchParam;
+import com.techlooper.model.TalentSearchRequest;
 import com.techlooper.service.TalentSearchDataProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataPr
     }
 
     @Override
-    public void normalizeInputParameter(TalentSearchParam param) {
+    public void normalizeInputParameter(TalentSearchRequest param) {
         param.getSkills().removeAll(Arrays.asList(null, ""));
         param.getLocations().removeAll(Arrays.asList(null, ""));
         param.getCompanies().removeAll(Arrays.asList(null, ""));

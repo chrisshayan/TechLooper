@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by NguyenDangKhoa on 3/10/15.
  */
-public class TalentSearchParam {
+public class TalentSearchRequest {
 
     private List<String> skills = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class TalentSearchParam {
 
     public static class Builder {
 
-        private TalentSearchParam instance = new TalentSearchParam();
+        private TalentSearchRequest instance = new TalentSearchRequest();
 
         public Builder withSkills(String skill) {
             instance.skills.add(skill);
@@ -117,7 +117,7 @@ public class TalentSearchParam {
             return this;
         }
 
-        public TalentSearchParam build() {
+        public TalentSearchRequest build() {
             return instance;
         }
     }
