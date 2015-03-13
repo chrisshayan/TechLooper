@@ -4,7 +4,7 @@ import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.TechnicalTermRepository;
-import com.techlooper.repository.userimport.GithubTalentSearchRepository;
+import com.techlooper.repository.talentsearch.GithubTalentSearchRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserService;

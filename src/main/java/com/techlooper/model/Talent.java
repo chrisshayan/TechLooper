@@ -97,6 +97,21 @@ public class Talent {
         this.skills = skills;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Talent talent = (Talent) o;
+
+        if (!email.equals(talent.email)) return false;
+
+        return true;
+    }
+
+    public int hashCode() {
+        return email.hashCode();
+    }
+
     public static class Builder {
 
         private Talent instance = new Talent();

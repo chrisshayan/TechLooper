@@ -8,19 +8,16 @@ import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchParam;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
-import com.techlooper.repository.userimport.TalentSearchRepository;
+import com.techlooper.repository.talentsearch.TalentSearchRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryFilterBuilder;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,19 +169,19 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    public List<Talent> findTalent(final TalentSearchParam param) {
+    public Set<Talent> findTalent(final TalentSearchParam param) {
         List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
-        List<Talent> result = new ArrayList<>();
+        Set<Talent> talents = new HashSet<>();
 
         socialProviders.forEach(provider -> {
             TalentSearchRepository talentSearchRepository =
                     applicationContext.getBean(provider + "TalentSearchRepository", TalentSearchRepository.class);
             TalentSearchDataProcessor talentSearchDataProcessor =
                     applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
-            result.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
+            talents.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
         });
 
-        return result;
+        return talents;
     }
 
 }
