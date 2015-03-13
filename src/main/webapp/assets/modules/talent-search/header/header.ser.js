@@ -45,6 +45,7 @@ techlooper.factory("tsHeaderService", function () {
     winResize: function(){
       $( window ).resize(function() {
         hWin = $(window).height();
+        $('.full-menu').css('height',hWin);
       });
     }
   };
