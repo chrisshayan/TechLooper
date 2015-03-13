@@ -4,7 +4,7 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchParam;
+import com.techlooper.model.TalentSearchRequest;
 import com.techlooper.model.UserInfo;
 
 import java.util.List;
@@ -115,5 +115,5 @@ public interface UserService {
      * @param param search criteria
      * @return list of {@linkplain com.techlooper.model.Talent}
      */
-    Set<Talent> findTalent(TalentSearchParam param);
+    Set<Talent> findTalent(TalentSearchRequest param);
 }

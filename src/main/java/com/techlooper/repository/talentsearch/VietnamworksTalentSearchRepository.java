@@ -1,7 +1,7 @@
 package com.techlooper.repository.talentsearch;
 
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.TalentSearchParam;
+import com.techlooper.model.TalentSearchRequest;
 import com.techlooper.service.impl.VietnamworksTalentSearchDataProcessor;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -41,7 +41,7 @@ public class VietnamworksTalentSearchRepository implements TalentSearchRepositor
             "profiles.VIETNAMWORKS.cityName"};
 
     @Override
-    public List<UserImportEntity> findTalent(TalentSearchParam param) {
+    public List<UserImportEntity> findTalent(TalentSearchRequest param) {
         dataProcessor.normalizeInputParameter(param);
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();

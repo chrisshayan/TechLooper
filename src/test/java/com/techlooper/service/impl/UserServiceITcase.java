@@ -6,7 +6,7 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchParam;
+import com.techlooper.model.TalentSearchRequest;
 import com.techlooper.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
@@ -109,7 +109,7 @@ public class UserServiceITcase {
 
     @Test
     public void testFindTalent() throws Exception {
-        TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
+        TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
         searchParam.withSkills("Java").withLocations("Vietnam")
                 .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
                 .withPageSize(20).withPageIndex(0);
@@ -119,7 +119,7 @@ public class UserServiceITcase {
 
     @Test
     public void testTalentNotFound() throws Exception {
-        TalentSearchParam.Builder searchParam = new TalentSearchParam.Builder();
+        TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
         searchParam.withSkills("English").withLocations("Vietnam")
                 .withPageSize(20).withPageIndex(0);
         Set<Talent> talents = userService.findTalent(searchParam.build());
