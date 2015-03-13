@@ -26,15 +26,17 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
     },
 
     updateSearchText: function (request) {
-      var options = [];
-      var values = [];
-      var skills = tsMainService.getSkills();
-      $.each(request.skills, function (i, skill) {
-        options.push(skill);
-        values.push(skill);
-      });
-      skills.addOption(options.join(","));
-      skills.setValue(values.join(","));
+      var searchRequest = tsMainService.getSearchRequest();
+      for (var prop in searchRequest) {
+        var options = [];
+        var values = [];
+        $.each(request[prop], function (i, text) {
+          options.push({text: text});
+          values.push(text);
+        });
+        searchRequest[prop].addOption(options);
+        searchRequest[prop].setValue(values);
+      }
     }
   };
 

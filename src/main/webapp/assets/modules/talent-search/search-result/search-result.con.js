@@ -5,7 +5,8 @@ techlooper.controller("tsSearchResultController",
       tsSearchResultService.init();
 
       try {
-        var request = JSON.parse($routeParams.text);
+        var request = CryptoJS.enc.Base64.parse($routeParams.text).toString(CryptoJS.enc.Utf8);//JSON.parse($routeParams.text);
+        request = JSON.parse(request);
         tsSearchResultService.updateSearchText(request);
         $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
           .success(function (data, status, headers, config) {
@@ -13,8 +14,7 @@ techlooper.controller("tsSearchResultController",
           });
       }
       catch(e){
-        console.log(e);
         $location.path("/");
       }
-    }, 100);
+    }, 1000);
   });
