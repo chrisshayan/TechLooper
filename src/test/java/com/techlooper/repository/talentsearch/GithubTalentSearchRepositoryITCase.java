@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchUserImportConfiguration.class})
-public class GithubTalentSearchRepositoryTest {
+public class GithubTalentSearchRepositoryITCase {
 
     @Resource
     private GithubTalentSearchRepository githubTalentSearchRepository;
