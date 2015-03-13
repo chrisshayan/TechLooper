@@ -2,7 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchParam;
+import com.techlooper.model.TalentSearchRequest;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface TalentSearchDataProcessor {
 
     List<Talent> process(List<UserImportEntity> users);
 
-    void normalizeInputParameter(TalentSearchParam param);
+    void normalizeInputParameter(TalentSearchRequest param);
 }

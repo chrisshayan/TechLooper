@@ -5,7 +5,7 @@ import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchParam;
+import com.techlooper.model.TalentSearchRequest;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.talentsearch.TalentSearchRepository;
@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    public Set<Talent> findTalent(final TalentSearchParam param) {
+    public Set<Talent> findTalent(final TalentSearchRequest param) {
         List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
         Set<Talent> talents = new HashSet<>();
 
