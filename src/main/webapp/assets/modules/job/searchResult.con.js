@@ -62,6 +62,7 @@ angular.module('Jobs').controller('searchResultController',
       var url = $(event.currentTarget).attr('data-url');
       window.open(url);
     }
+
     function alignLogo() {
       var list = $('.job-item'),
         h = list.height();

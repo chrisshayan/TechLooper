@@ -2,7 +2,7 @@ package com.techlooper.repository.talentsearch;
 
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.TalentSearchRequest;
-import com.techlooper.service.impl.GithubTalentSearchDataProcessor;
+import com.techlooper.service.impl.VietnamworksTalentSearchDataProcessor;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -20,13 +20,25 @@ import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 /**
  * Created by NguyenDangKhoa on 3/12/15.
  */
-public class GithubTalentSearchRepository implements TalentSearchRepository {
+public class VietnamworksTalentSearchRepository implements TalentSearchRepository {
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
     @Resource
-    private GithubTalentSearchDataProcessor dataProcessor;
+    private VietnamworksTalentSearchDataProcessor dataProcessor;
+
+    private static final String[] SKILL_FIELDS = new String[]{"profiles.VIETNAMWORKS.alias",
+            "profiles.VIETNAMWORKS.workexperience",
+            "profiles.VIETNAMWORKS.skill"};
+
+    private static final String[] JOB_TITLE_FIELDS = new String[]{"profiles.VIETNAMWORKS.desiredJobTitle",
+            "profiles.VIETNAMWORKS.mostRecentPosition"};
+
+    private static final String[] COMPANY_FIELDS = new String[]{"profiles.VIETNAMWORKS.mostRecentEmployer"};
+
+    private static final String[] LOCATION_FIELDS = new String[]{"profiles.VIETNAMWORKS.address",
+            "profiles.VIETNAMWORKS.cityName"};
 
     @Override
     public List<UserImportEntity> findTalent(TalentSearchRequest param) {
@@ -45,13 +57,13 @@ public class GithubTalentSearchRepository implements TalentSearchRepository {
     private SearchQuery getSearchQuery(TalentSearchRequest param) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         if (!param.getSkills().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", param.getSkills()));
+            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(param.getSkills(), SKILL_FIELDS));
         }
         if (!param.getLocations().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.location", param.getLocations()));
+            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(param.getLocations(), LOCATION_FIELDS));
         }
         if (!param.getCompanies().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.company", param.getCompanies()));
+            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(param.getCompanies(), COMPANY_FIELDS));
         }
 
         return new NativeSearchQueryBuilder()

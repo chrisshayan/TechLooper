@@ -45,6 +45,7 @@ techlooper.factory("tsHeaderService", function () {
     winResize: function(){
       $( window ).resize(function() {
         hWin = $(window).height();
+        $('.full-menu').css('height',hWin);
       });
     }
   };
@@ -62,7 +63,8 @@ techlooper.factory("tsHeaderService", function () {
       $(window).scroll(function () {
         wScroll = $(window).scrollTop();
         if (wScroll > 0) {
-          if ($('.search-form-block').position().top - 60 <= wScroll) {
+          var pos = $('.search-form-block').position();
+          if (pos !== undefined && pos.top - 60 <= wScroll) {
             $('header').addClass('changed');
           } else {
             $('header').removeClass('changed');

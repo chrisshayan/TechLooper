@@ -1,5 +1,8 @@
 {
-  "skills" : ["Java"],
-  "locations" : ["Vietnam"],
-  "companies" : ["TechLooper"]
+  "skills": ["Java"],
+  "locations": ["Vietnam"],
+  "companies": ["TechLooper"],
+  "titles": ["Senior Java Developer"],
+  "pageIndex": 0,
+  "pageSize": 20
 }

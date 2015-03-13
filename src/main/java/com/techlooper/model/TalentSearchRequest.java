@@ -6,13 +6,15 @@ import java.util.List;
 /**
  * Created by NguyenDangKhoa on 3/10/15.
  */
-public class TalentSearchParam {
+public class TalentSearchRequest {
 
     private List<String> skills = new ArrayList<>();
 
     private List<String> locations = new ArrayList<>();
 
     private List<String> companies = new ArrayList<>();
+
+    private List<String> titles = new ArrayList<>();
 
     private String sortByField = "profiles.GITHUB.numberOfRepositories";
 
@@ -68,9 +70,17 @@ public class TalentSearchParam {
         this.pageIndex = pageIndex;
     }
 
+    public List<String> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
+
     public static class Builder {
 
-        private TalentSearchParam instance = new TalentSearchParam();
+        private TalentSearchRequest instance = new TalentSearchRequest();
 
         public Builder withSkills(String skill) {
             instance.skills.add(skill);
@@ -117,7 +127,12 @@ public class TalentSearchParam {
             return this;
         }
 
-        public TalentSearchParam build() {
+        public Builder withTitles(List<String> titles) {
+            instance.titles.addAll(titles);
+            return this;
+        }
+
+        public TalentSearchRequest build() {
             return instance;
         }
     }

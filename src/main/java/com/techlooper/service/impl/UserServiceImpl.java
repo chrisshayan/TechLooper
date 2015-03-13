@@ -3,10 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.SocialProvider;
-import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchParam;
-import com.techlooper.model.UserInfo;
+import com.techlooper.model.*;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.talentsearch.TalentSearchRepository;
 import com.techlooper.repository.userimport.UserImportRepository;
@@ -169,19 +166,20 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
-    public Set<Talent> findTalent(final TalentSearchParam param) {
+    public TalentSearchResponse findTalent(final TalentSearchRequest param) {
         List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
-        Set<Talent> talents = new HashSet<>();
+        TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
 
         socialProviders.forEach(provider -> {
             TalentSearchRepository talentSearchRepository =
                     applicationContext.getBean(provider + "TalentSearchRepository", TalentSearchRepository.class);
             TalentSearchDataProcessor talentSearchDataProcessor =
                     applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
-            talents.addAll(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
+            builder.withTotal(talentSearchRepository.countTalent(param));
+            builder.withResult(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
         });
 
-        return talents;
+        return builder.build();
     }
 
 }

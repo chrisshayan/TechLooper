@@ -1,5 +1,6 @@
-techlooper.factory("tsMainService", function (jsonValue, $http) {
-  var locations, skills, titles, companies;
+techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
+  //var locations, skills, titles, companies;
+  var searchRequest = {};
 
   var $$ = {
     loadMap: function (lp, rp, title) {
@@ -127,52 +128,45 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
     },
 
     enableSelectOptions: function () {
-      // skill
-      skills = $('#input-skill').selectize({
-        persist: false,
-        createOnBlur: true,
-        create: true
-      })[0].selectize;
-
-      // Job title
-      titles = $('#input-job-title').selectize({
-        persist: false,
-        createOnBlur: true,
-        create: true
-      })[0].selectize;
-
-      // company name
-      companies = $('#input-company-name').selectize({
-        persist: false,
-        createOnBlur: true,
-        create: true
-      })[0].selectize;
-
-      // location
-      locations = $('#select-location').selectize({
-        maxItems: null,
-        valueField: 'id',
-        searchField: 'title',
-        options: jsonValue.cities,
-        createOnBlur: true,
-        create: true,
-        render: {
-          option: function (data, escape) {
-            return '<div class="option">' +
-              '<span class="title">' + escape(data.title) + '</span>' +
-              '</div>';
+      $.each([
+        {key: "skills", selector: "#input-skill"},
+        {key: "titles", selector: "#input-job-title"},
+        {key: "companies", selector: "#input-company-name"},
+        {key: "locations", selector: "#select-location", options: jsonValue.cities},
+      ], function (i, item) {
+        searchRequest[item.key] = $(item.selector).selectize({
+          sortField: "text",
+          mode: "multi",
+          persist: false,
+          createOnBlur: false,
+          create: true,
+          valueField: "text",
+          searchField: ['text'],
+          labelField: "text",
+          createFilter: function (input) {
+            var ok = true;
+            $.each(this.options, function (index, value) {
+              if (value.text.toLowerCase() === input.toLowerCase()) {
+                ok = false;
+                return false;
+              }
+            });
+            return ok;
           },
-          item: function (data, escape) {
-            return '<div class="item">' + escape(data.title) + '</div>';
+          render: {
+            item: function (item, escape) {
+              return "<div>" + item.text + " </div>";
+            },
+            option: function (item, escape) {
+              return "<div>" + item.text + " </div>";
+            }
           }
-        },
-        create: function (input) {
-          return {
-            id: 0,
-            title: input
-          };
+        })[0].selectize;
+
+        if (item.options !== undefined) {
+          searchRequest[item.key].addOption(item.options);
         }
-      })[0].selectize;
+      });
     },
 
     location: function () {
@@ -182,19 +176,13 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
 
     searchTalent: function () {
       var request = {
-        skills: skills.getValue().split(","),
-        locations: locations.getValue().split(","),
-        titles: titles.getValue().split(","),
-        companies: companies.getValue().split(",")
+        skills: searchRequest.skills.getValue().split(","),
+        locations: searchRequest.locations.getValue().split(","),
+        titles: searchRequest.titles.getValue().split(","),
+        companies: searchRequest.companies.getValue().split(",")
       }
-
-      $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
-        .success(function (data, status, headers, config) {
-          console.log(data);
-        })
-        .error(function (data, status, headers, config) {
-          //console.log(data);
-        });
+      var queryArray = CryptoJS.enc.Utf8.parse(JSON.stringify(request));
+      $location.path(jsonValue.routerUris.talentSearchResult + "/" + CryptoJS.enc.Base64.stringify(queryArray));
     },
 
     validationFeedback: function () {
@@ -245,6 +233,10 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
       hrsLeft = Math.floor(e_hrsLeft);
       minsLeft = Math.floor((e_hrsLeft - hrsLeft) * 60);
       $('.count-down-day span').text(daysLeft);
+    },
+
+    getSearchRequest: function () {
+      return searchRequest;
     }
   };
 

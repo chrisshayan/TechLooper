@@ -1,8 +1,7 @@
 package com.techlooper.repository.talentsearch;
 
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.TalentSearchParam;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import com.techlooper.model.TalentSearchRequest;
 
 import java.util.List;
 
@@ -11,6 +10,8 @@ import java.util.List;
  */
 public interface TalentSearchRepository {
 
-    public List<UserImportEntity> findTalent(TalentSearchParam param);
+    public List<UserImportEntity> findTalent(TalentSearchRequest param);
+
+    public long countTalent(TalentSearchRequest param);
 
 }

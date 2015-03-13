@@ -5,6 +5,7 @@ import com.techlooper.converter.ProfileNameConverter;
 import com.techlooper.entity.*;
 import com.techlooper.model.UserInfo;
 import com.techlooper.repository.talentsearch.GithubTalentSearchRepository;
+import com.techlooper.repository.talentsearch.VietnamworksTalentSearchRepository;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -119,5 +120,10 @@ public class CoreConfiguration {
     @Bean(name = "GITHUBTalentSearchRepository")
     public GithubTalentSearchRepository githubTalentSearchRepository() {
         return new GithubTalentSearchRepository();
+    }
+
+    @Bean(name = "VIETNAMWORKSTalentSearchRepository")
+    public VietnamworksTalentSearchRepository vietnamworksTalentSearchRepository() {
+        return new VietnamworksTalentSearchRepository();
     }
 }
