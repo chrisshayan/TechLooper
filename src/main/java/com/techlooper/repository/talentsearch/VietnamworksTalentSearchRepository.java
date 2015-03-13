@@ -49,6 +49,7 @@ public class VietnamworksTalentSearchRepository implements TalentSearchRepositor
 
     @Override
     public long countTalent(TalentSearchRequest param) {
+        dataProcessor.normalizeInputParameter(param);
         final SearchQuery searchQuery = getSearchQuery(param);
         return elasticsearchTemplateUserImport.count(searchQuery, UserImportEntity.class);
     }
