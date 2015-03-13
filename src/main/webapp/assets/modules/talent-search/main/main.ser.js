@@ -247,6 +247,22 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       hrsLeft = Math.floor(e_hrsLeft);
       minsLeft = Math.floor((e_hrsLeft - hrsLeft) * 60);
       $('.count-down-day span').text(daysLeft);
+    },
+
+    getSkills: function() {
+      return skills;
+    },
+
+    getLocations: function() {
+      return locations;
+    },
+
+    getTitles: function() {
+      return titles;
+    },
+
+    getCompanies: function() {
+      return companies;
     }
   };
 

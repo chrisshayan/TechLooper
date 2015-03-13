@@ -16,6 +16,25 @@ techlooper.factory("tsSearchResultService", function () {
   var instance = {
     init: function(){
       $$.talentItemManager();
+    },
+
+    updateSearchText: function() {
+      //if ($.isArray(textArray)) {
+      //  var options = [];
+      //  var values = [];
+      //  $.each(textArray, function (i, text) {
+      //    var tag = utils.findBy(jsonValue.technicalSkill, "text", text);
+      //    if (tag === undefined) {
+      //      options.push({text: text});
+      //      values.push(text);
+      //    }
+      //    else {
+      //      values.push(tag.text);
+      //    }
+      //  });
+      //  searchText.addOption(options);
+      //  searchText.setValue(values);
+      //}
     }
   };
 
