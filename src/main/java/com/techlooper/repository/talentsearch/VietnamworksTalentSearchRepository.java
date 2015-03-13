@@ -43,7 +43,17 @@ public class VietnamworksTalentSearchRepository implements TalentSearchRepositor
     @Override
     public List<UserImportEntity> findTalent(TalentSearchRequest param) {
         dataProcessor.normalizeInputParameter(param);
+        final SearchQuery searchQuery = getSearchQuery(param);
+        return elasticsearchTemplateUserImport.queryForList(searchQuery, UserImportEntity.class);
+    }
 
+    @Override
+    public long countTalent(TalentSearchRequest param) {
+        final SearchQuery searchQuery = getSearchQuery(param);
+        return elasticsearchTemplateUserImport.count(searchQuery, UserImportEntity.class);
+    }
+
+    private SearchQuery getSearchQuery(TalentSearchRequest param) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         if (!param.getSkills().isEmpty()) {
             boolQueryBuilder.must(QueryBuilders.multiMatchQuery(param.getSkills(), SKILL_FIELDS));
@@ -55,11 +65,11 @@ public class VietnamworksTalentSearchRepository implements TalentSearchRepositor
             boolQueryBuilder.must(QueryBuilders.multiMatchQuery(param.getCompanies(), COMPANY_FIELDS));
         }
 
-        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+        return new NativeSearchQueryBuilder()
                 .withQuery(nestedQuery("profiles", boolQueryBuilder))
                 .withSort(SortBuilders.fieldSort(param.getSortByField()).order(SortOrder.DESC))
                 .withPageable(new PageRequest(param.getPageIndex(), param.getPageSize()))
                 .build();
-        return elasticsearchTemplateUserImport.queryForList(searchQuery, UserImportEntity.class);
     }
+
 }

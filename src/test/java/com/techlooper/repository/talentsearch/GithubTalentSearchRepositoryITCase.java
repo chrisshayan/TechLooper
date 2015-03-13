@@ -30,4 +30,12 @@ public class GithubTalentSearchRepositoryITCase {
         List<UserImportEntity> userEntities = githubTalentSearchRepository.findTalent(searchParam.build());
         assertTrue(userEntities.size() > 0);
     }
+
+    @Test
+    public void testCountTalent() throws Exception {
+        TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
+        searchParam.withSkills("Java");
+        long count = githubTalentSearchRepository.countTalent(searchParam.build());
+        assertTrue(count > 0);
+    }
 }
