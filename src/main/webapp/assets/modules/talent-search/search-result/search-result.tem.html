@@ -15,7 +15,7 @@
   <div class="search-results-content">
     <h2><strong>{{talents.total}}</strong> talents found</h2>
     <div class="talent-results">
-      <div class="talent-item" ng-repeat="talent in talents.result">
+      <div class="talent-item" ng-repeat="talent in talents.result" ng-init="$last ? doSomething() : null">
         <div class="avatar-block">
           <img ng-src="{{talent.imageUrl || 'images/no-avatar.png'}}" alt=""/>.
         </div>

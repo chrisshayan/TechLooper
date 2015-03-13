@@ -2,7 +2,6 @@ techlooper.controller("tsSearchResultController",
   function ($scope, $timeout, tsMainService, tsSearchResultService, $routeParams, $http, jsonValue, $location) {
     $timeout(function () {
       tsMainService.enableSelectOptions();
-      tsSearchResultService.init();
 
       try {
         var request = CryptoJS.enc.Base64.parse($routeParams.text).toString(CryptoJS.enc.Utf8);//JSON.parse($routeParams.text);
@@ -16,5 +15,9 @@ techlooper.controller("tsSearchResultController",
       catch(e){
         $location.path("/");
       }
-    }, 1000);
+    }, 100);
+
+    $scope.doSomething = function() {
+      tsSearchResultService.init();
+    }
   });
