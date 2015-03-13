@@ -1,4 +1,4 @@
-techlooper.factory("tsMainService", function (jsonValue, $http) {
+techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
   var locations, skills, titles, companies;
 
   var $$ = {
@@ -181,20 +181,22 @@ techlooper.factory("tsMainService", function (jsonValue, $http) {
     },
 
     searchTalent: function () {
+      //$location.path();
       var request = {
         skills: skills.getValue().split(","),
         locations: locations.getValue().split(","),
         titles: titles.getValue().split(","),
         companies: companies.getValue().split(",")
       }
-
-      $http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
-        .success(function (data, status, headers, config) {
-          console.log(data);
-        })
-        .error(function (data, status, headers, config) {
-          //console.log(data);
-        });
+      $location.path(jsonValue.routerUris.talentSearchResult + "/" + JSON.stringify(request));
+      //
+      //$http.post(jsonValue.httpUri.searchTalent, JSON.stringify(request))
+      //  .success(function (data, status, headers, config) {
+      //    console.log(data);
+      //  })
+      //  .error(function (data, status, headers, config) {
+      //    //console.log(data);
+      //  });
     },
 
     validationFeedback: function () {
