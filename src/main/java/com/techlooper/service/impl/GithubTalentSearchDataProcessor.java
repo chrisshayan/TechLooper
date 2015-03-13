@@ -34,11 +34,13 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                     .replace(username, "")
                     .replace(" Follow their code on GitHub.", "")
                     .trim();
+            String imageUrl = StringUtils.isNotEmpty((String)profile.get("imageurl")) ?
+                    StringUtils.trimToEmpty((String)profile.get("imageurl")) : StringUtils.trimToEmpty((String)profile.get("imageUrl"));
 
             return talentBuilder.withEmail(userImportEntity.getEmail())
                     .withUsername(username)
                     .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
-                    .withImageUrl(StringUtils.trimToEmpty((String) profile.get("imageurl")))
+                    .withImageUrl(imageUrl)
                     .withCompany(StringUtils.trimToEmpty((String) profile.get("company")))
                     .withDescription(description)
                     .withLocation(StringUtils.trimToEmpty((String) profile.get("location")))

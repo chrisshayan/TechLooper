@@ -7,6 +7,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchRequest;
+import com.techlooper.model.TalentSearchResponse;
 import com.techlooper.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
@@ -113,8 +114,8 @@ public class UserServiceITcase {
         searchParam.withSkills("Java").withLocations("Vietnam")
                 .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
                 .withPageSize(20).withPageIndex(0);
-        Set<Talent> talents = userService.findTalent(searchParam.build());
-        assertTrue(talents.size() > 0);
+        TalentSearchResponse talents = userService.findTalent(searchParam.build());
+        assertTrue(talents.getResult().size() > 0);
     }
 
     @Test
@@ -122,8 +123,8 @@ public class UserServiceITcase {
         TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
         searchParam.withSkills("English").withLocations("Vietnam")
                 .withPageSize(20).withPageIndex(0);
-        Set<Talent> talents = userService.findTalent(searchParam.build());
-        assertTrue(talents.size() == 0);
+        TalentSearchResponse talents = userService.findTalent(searchParam.build());
+        assertTrue(talents.getResult().size() == 0);
     }
 
 }

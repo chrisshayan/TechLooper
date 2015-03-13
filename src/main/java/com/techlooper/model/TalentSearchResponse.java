@@ -1,6 +1,7 @@
 package com.techlooper.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,15 +9,15 @@ import java.util.Set;
  */
 public class TalentSearchResponse {
 
-    private int total = 0;
+    private long total = 0;
 
     private Set<Talent> result = new HashSet<>();
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
@@ -32,12 +33,12 @@ public class TalentSearchResponse {
 
         private TalentSearchResponse instance = new TalentSearchResponse();
 
-        public Builder withTotal(int total) {
+        public Builder withTotal(long total) {
             instance.total += total;
             return this;
         }
 
-        public Builder withResult(Set<Talent> result) {
+        public Builder withResult(List<Talent> result) {
             instance.result.addAll(result);
             return this;
         }

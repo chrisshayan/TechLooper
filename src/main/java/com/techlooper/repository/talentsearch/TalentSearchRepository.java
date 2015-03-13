@@ -12,4 +12,6 @@ public interface TalentSearchRepository {
 
     public List<UserImportEntity> findTalent(TalentSearchRequest param);
 
+    public long countTalent(TalentSearchRequest param);
+
 }
