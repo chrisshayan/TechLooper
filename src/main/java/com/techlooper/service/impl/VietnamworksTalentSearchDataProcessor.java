@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by NguyenDangKhoa on 3/11/15.
  */
-@Service("GITHUBTalentSearchDataProcessor")
+@Service("VIETNAMWORKSTalentSearchDataProcessor")
 public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataProcessor {
 
     @Override

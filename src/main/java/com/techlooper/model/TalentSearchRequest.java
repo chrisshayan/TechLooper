@@ -14,6 +14,8 @@ public class TalentSearchRequest {
 
     private List<String> companies = new ArrayList<>();
 
+    private List<String> titles = new ArrayList<>();
+
     private String sortByField = "profiles.GITHUB.numberOfRepositories";
 
     private int pageIndex = 0;
@@ -68,6 +70,14 @@ public class TalentSearchRequest {
         this.pageIndex = pageIndex;
     }
 
+    public List<String> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
+
     public static class Builder {
 
         private TalentSearchRequest instance = new TalentSearchRequest();
@@ -114,6 +124,11 @@ public class TalentSearchRequest {
 
         public Builder withPageIndex(int pageIndex) {
             instance.pageIndex = pageIndex;
+            return this;
+        }
+
+        public Builder withTitles(List<String> titles) {
+            instance.titles.addAll(titles);
             return this;
         }
 
