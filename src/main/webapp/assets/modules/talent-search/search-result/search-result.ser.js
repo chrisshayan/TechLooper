@@ -8,7 +8,7 @@ techlooper.factory("tsSearchResultService", function () {
             maxHeight = $(this).height();
           }
         });
-        item.css('height', maxHeight + 10);
+        item.css('height', maxHeight + 20);
         item.mouseenter(function () {
           $(this).find('.talent-action-block').stop().animate({
             height: '130px'
