@@ -125,6 +125,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/talent-search-result/.test(path)) {
         return jsonValue.views.talentSearchResult;
       }
+      else if (/\/talent-profile/.test(path)) {
+        return jsonValue.views.talentProfile;
+      }
     },
 
     sum: function (array, prop) {

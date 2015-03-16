@@ -90,6 +90,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/talent-search/home.tem.html",
         controller: "tsMainController"
       })
+      .when("/talent-profile", {
+        templateUrl: "modules/talent-search/talent-profile/talent-profile.tem.html",
+        controller: "talentProfileController"
+      })
       .when("/talent-search-result/:text", {
         templateUrl: "modules/talent-search/home.tem.html",
         controller: "tsSearchResultController"
