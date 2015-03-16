@@ -111,23 +111,48 @@
               line-height: 29px
               height: 30px
       .talent-action-block
-        background: url(../images/overlap-bg.png) left top repeat
+        background: url(../images/overlap-bg-blue.png) left top repeat
         position: absolute
-        left: 0
-        bottom: 0
-        width: 100%
+        right: 0
+        top: 0
+        width: 0
         z-index: 999
         text-align: center
         overflow: hidden
-        height: 0px
+        height: 0
         border-radius: 0px 0px 5px 5px
         -moz-border-radius: 0px 0px 5px 5px
         -webkit-border-radius: 0px 0px 5px 5px
       .action-btn
-        width: 100%
+        width: 130px
         clear: both
         display: block
-        padding-top: 30px
+        padding: 20px 0 0 55px
+        .view-more-info
+          display: inline-block
+          float: left
+          a
+            background: url(../images/icon.png) left -216px no-repeat
+            display: block
+            width: 33px
+            height: 33px
+            cursor: pointer
+            font-size: 0
+            text-indent: -9999
+        .save-list
+          display: inline-block
+          float: left
+          width: auto
+          padding-left: 5px
+          a
+            background: url(../images/icon.png) left -267px no-repeat
+            width: 33px
+            height: 33px
+            cursor: pointer
+            display: block
+            font-size: 0
+            text-indent: -9999
+
   .avatar-block
     width: 100%
     text-align: center
@@ -202,25 +227,13 @@
       span.location
         background-position: 0 -40px
 
-.action-btn .view-more-info
-  display: block
-  clear: both
-  padding-bottom: 10px
-.action-btn .save-list
-  display: block
-  clear: both
-  padding-bottom: 10px
-  float: left
-  width: 100%
-.action-btn .save-list a
-  color: #227bbe
-  font-size: 16px
 .last-date-view
   width: 100%
   text-align: center
   color: #9f9e9e
   font-size: 14px
   padding-top: 10px
+  display: none
 .info-completed-status
   width: 80%
   display: block
