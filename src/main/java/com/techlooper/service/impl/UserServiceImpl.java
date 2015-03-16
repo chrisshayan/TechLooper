@@ -3,9 +3,12 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.*;
+import com.techlooper.model.SocialProvider;
+import com.techlooper.model.TalentSearchRequest;
+import com.techlooper.model.TalentSearchResponse;
+import com.techlooper.model.UserInfo;
 import com.techlooper.repository.couchbase.UserRepository;
-import com.techlooper.repository.talentsearch.TalentSearchRepository;
+import com.techlooper.repository.talentsearch.query.TalentSearchQuery;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserService;
@@ -21,15 +24,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
 import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
@@ -167,16 +173,21 @@ public class UserServiceImpl implements UserService {
     }
 
     public TalentSearchResponse findTalent(final TalentSearchRequest param) {
-        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
+        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB, SocialProvider.VIETNAMWORKS);
         TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
 
         socialProviders.forEach(provider -> {
-            TalentSearchRepository talentSearchRepository =
-                    applicationContext.getBean(provider + "TalentSearchRepository", TalentSearchRepository.class);
+            TalentSearchQuery talentSearchQuery =
+                    applicationContext.getBean(provider + "TalentSearchQuery", TalentSearchQuery.class);
+            ElasticsearchRepository talentSearchRepository =
+                    applicationContext.getBean(provider + "TalentSearchRepository", ElasticsearchRepository.class);
             TalentSearchDataProcessor talentSearchDataProcessor =
                     applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
-            builder.withTotal(talentSearchRepository.countTalent(param));
-            builder.withResult(talentSearchDataProcessor.process(talentSearchRepository.findTalent(param)));
+
+            talentSearchDataProcessor.normalizeInputParameter(param);
+            FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(param));
+            builder.withTotal(pageResult.getTotalElements());
+            builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
         });
 
         return builder.build();
