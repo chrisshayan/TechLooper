@@ -34,14 +34,8 @@
         </div>
         <div class="main-skill">
           <ul>
-            <li class="highlight">
-              <span class="left"><span class="right">{{talent.skills[0]}}</span></span>
-            </li>
-            <li>
-              <span class="left"><span class="right">{{talent.skills[1]}}</span></span>
-            </li>
-            <li>
-              <span class="left"><span class="right">{{talent.skills[2]}}</span></span>
+            <li ng-repeat="skill in talent.skills" >
+              <span class="left"><span class="right">{{skill}}</span></span>
             </li>
           </ul>
         </div>
