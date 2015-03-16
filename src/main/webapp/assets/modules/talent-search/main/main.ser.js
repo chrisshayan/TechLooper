@@ -176,14 +176,14 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         titles: searchRequest.titles.getValue().split(","),
         companies: searchRequest.companies.getValue().split(",")
       }
-      var allNull = true;
+      var hasSearchField = false;
       for (var prop in request) {
-        if (request[prop].length === 1 && request[prop] === "") {
-          allNull = false;
+        if (request[prop][0] !== "") {
+          hasSearchField = true;
           break;
         }
       }
-      if (allNull) {
+      if (!hasSearchField) {
         return;
       }
 
