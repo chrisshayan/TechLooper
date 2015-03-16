@@ -4,8 +4,8 @@ import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.TechnicalTermRepository;
-import com.techlooper.repository.talentsearch.GithubTalentSearchRepository;
-import com.techlooper.repository.talentsearch.VietnamworksTalentSearchRepository;
+import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
+import com.techlooper.repository.talentsearch.query.VietnamworksTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserService;
@@ -107,19 +107,19 @@ public class ConfigurationTest implements ApplicationContextAware {
         return new GithubTalentSearchDataProcessor();
     }
 
-    @Bean(name = "GITHUBTalentSearchRepository")
-    public GithubTalentSearchRepository githubTalentSearchRepository() {
-        return new GithubTalentSearchRepository();
-    }
-
     @Bean(name = "VIETNAMWORKSTalentSearchDataProcessor")
     public VietnamworksTalentSearchDataProcessor vietnamworksTalentSearchDataProcessor() {
         return new VietnamworksTalentSearchDataProcessor();
     }
 
-    @Bean(name = "VIETNAMWORKSTalentSearchRepository")
-    public VietnamworksTalentSearchRepository vietnamworksTalentSearchRepository() {
-        return new VietnamworksTalentSearchRepository();
+    @Bean(name = "GITHUBTalentSearchQuery")
+    public GithubTalentSearchQuery githubTalentSearchQuery() {
+        return new GithubTalentSearchQuery();
+    }
+
+    @Bean(name = "VIETNAMWORKSTalentSearchQuery")
+    public VietnamworksTalentSearchQuery vietnamworksTalentSearchQuery() {
+        return new VietnamworksTalentSearchQuery();
     }
 
     @Bean

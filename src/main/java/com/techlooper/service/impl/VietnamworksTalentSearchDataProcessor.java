@@ -30,7 +30,6 @@ public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataPr
 
             Talent.Builder talentBuilder = new Talent.Builder();
             return talentBuilder.withEmail(userImportEntity.getEmail())
-                             .withUsername(StringUtils.trimToEmpty((String) profile.get("userId")))
                              .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
                              .withImageUrl(StringUtils.trimToEmpty((String) profile.get("userPathPictureFile")))
                              .withCompany(StringUtils.trimToEmpty((String) profile.get("mostRecentEmployer")))
