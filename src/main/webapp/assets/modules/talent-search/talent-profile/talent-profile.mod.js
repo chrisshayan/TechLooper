@@ -2,36 +2,21 @@ techlooper.directive("general-info", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/main/search-form.tem.html"
+    templateUrl: "modules/talent-search/talent-profile/general-info.tem.html",
+    controller: "talentProfileController"
   }
-}).directive("reasonUsed", function () {
+}).directive("evaluation", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/main/reason.tem.html"
+    templateUrl: "modules/talent-search/talent-profile/evaluation.tem.html",
+    controller: "talentProfileController"
   }
-}).directive("ourCustomers", function () {
+}).directive("resume", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/main/our-customers.tem.html"
-  }
-}).directive("customersSay", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/main/customers-say.tem.html"
-  }
-}).directive("feedbackForm", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/main/feedback.tem.html"
-  }
-}).directive("locationMap", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/main/location.tem.html"
+    templateUrl: "modules/talent-search/talent-profile/resume.tem.html",
+    controller: "talentProfileController"
   }
 });

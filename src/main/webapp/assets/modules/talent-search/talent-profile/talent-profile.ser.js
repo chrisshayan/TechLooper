@@ -1,7 +1,4 @@
-techlooper.factory("tsMainService", function () {
-  var $$ = {
-  };
-
+techlooper.factory("talentProfileService", function () {
   var instance = {
   };
 

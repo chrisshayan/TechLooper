@@ -1,3 +1,3 @@
-techlooper.controller("tsMainController", function () {
+techlooper.controller("talentProfileController", function () {
 
 });
