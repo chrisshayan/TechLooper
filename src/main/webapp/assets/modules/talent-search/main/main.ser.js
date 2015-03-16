@@ -176,6 +176,17 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         titles: searchRequest.titles.getValue().split(","),
         companies: searchRequest.companies.getValue().split(",")
       }
+      var allNull = true;
+      for (var prop in request) {
+        if (request[prop].length === 1 && request[prop] === "") {
+          allNull = false;
+          break;
+        }
+      }
+      if (allNull) {
+        return;
+      }
+
       var queryArray = CryptoJS.enc.Utf8.parse(JSON.stringify(request));
       $location.path(jsonValue.routerUris.talentSearchResult + "/" + CryptoJS.enc.Base64.stringify(queryArray));
     },
