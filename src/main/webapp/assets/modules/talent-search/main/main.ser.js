@@ -100,15 +100,6 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
     },
     swapMap: function () {
       var lmap = $('.address-info').find('.head-name');
-
-      //var lpHN = '21.017329',
-      //    rpHN = '105.848996',
-      //    titleHN = '125-127 Ba Trieu street, Nguyen Du Ward, Hai Ba Trung district Ha Noi';
-      //
-      //var lpHCM = '10.770850',
-      //    rpHCM = '106.6880500',
-      //    titleHCM = 'Navigos Group Vietnam : 130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City';
-
       lmap.on('click', function () {
         lmap.parent().removeClass('active');
         if ($(this).attr('data-map') == 'HN') {
@@ -135,6 +126,10 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         {key: "locations", selector: "#select-location", options: jsonValue.cities},
       ], function (i, item) {
         searchRequest[item.key] = $(item.selector).selectize({
+          plugins: {
+            "remove_button": {},
+            "restore_on_backspace": {}
+          },
           sortField: "text",
           mode: "multi",
           persist: false,
