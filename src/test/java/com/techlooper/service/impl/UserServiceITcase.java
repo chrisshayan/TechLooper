@@ -111,9 +111,7 @@ public class UserServiceITcase {
     @Test
     public void testFindTalent() throws Exception {
         TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
-        searchParam.withSkills("Java").withLocations("Vietnam")
-                .withSortByField("profiles.GITHUB.numberOfRepositories").withCompanies("Navigos")
-                .withPageSize(20).withPageIndex(0);
+        searchParam.withSkills(".NET").withPageSize(20).withPageIndex(0);
         TalentSearchResponse talents = userService.findTalent(searchParam.build());
         assertTrue(talents.getResult().size() > 0);
     }

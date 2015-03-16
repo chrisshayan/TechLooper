@@ -1,0 +1,3 @@
+techlooper.controller("talentProfileController", function () {
+
+});
