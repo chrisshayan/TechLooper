@@ -4,6 +4,9 @@
   <div class="search-results-content">
     <h2><strong>{{search.total}}</strong> talents found</h2>
     <div class="talent-results">
+      <div class="no-result" ng-show='search.talents.length < 1'>
+
+      </div>
       <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? makeHover() : null">
         <div class="avatar-block">
           <img ng-src="{{talent.imageUrl || 'images/no-avatar.png'}}" alt=""/>.
@@ -57,5 +60,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="loading-more" ng-show='search.talents.length < search.total '>
+    <span translate><i class="fa fa-arrow-down"></i>loadMore</span>
   </div>
 </div>
