@@ -386,10 +386,10 @@ body.noscroll
     height: 30px
     margin-top: 5px
     line-height: 22px
-    padding-left: 27px
-    background: url(../images/bg-tag.png) left 4px no-repeat
+    padding-left: 20px
+    background: url(../images/bg-tag.png) left top no-repeat
   .selectize-control.multi .selectize-input .active[data-value]
-    background: url(../images/close-tag.png) #227bbe left 4px no-repeat
+    background: url(../images/bg-tag-x.png) #227bbe left top no-repeat
   .input-group .selectize-control.multi .selectize-input.has-items
     padding: 0px 5px
   .input-group .selectize-dropdown
@@ -403,10 +403,10 @@ body.noscroll
     font-weight: 100
     padding: 5px
   .input-group .selectize-dropdown .active 
-    background-color:transparent
+    background-color: transparent
     color: #bb11c4
   .selectize-input.dropdown-active:before
-    background-color:transparent
+    background-color: transparent
   .selectize-dropdown [data-selectable] .highlight 
     background: rgba(125, 168, 208, 0.5)
   .selectize-dropdown .active.create 
@@ -424,6 +424,8 @@ body.noscroll
   .selectize-dropdown .active 
     background-color: #114369 !important
     color: #bb11c4
+  .selectize-control.plugin-remove_button [data-value] .remove
+    color: red
 /* ---- global ---- */
 .content_wrapper 
   width: 100%

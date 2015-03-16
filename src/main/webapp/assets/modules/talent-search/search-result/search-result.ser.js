@@ -11,11 +11,13 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
       item.css('height', maxHeight + 20);
       item.mouseenter(function () {
         $(this).find('.talent-action-block').stop().animate({
-          height: '130px'
+          height: '130px',
+          width: '130px'
         });
       }).mouseleave(function () {
           $(this).find('.talent-action-block').stop().animate({
-            height: 0
+            height: 0,
+            width: 0
           });
         });
     }
