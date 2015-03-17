@@ -36,18 +36,22 @@
       padding: 0
       position: inherit
     .btn
-      background: url(../images/ic-search-btn.png) #bb11c4 center top no-repeat
-      width: 30px
+      background-color: #114d79
+      width: 120px
       margin: -1px 0 0 0
-      text-indent: -999999px
       height: 40px
       border: 0
+      font-size: 16px
+      line-height: 16px
+      padding: 0
     .btn:after
       position: inherit
       background: transparent
     .btn:before
       position: inherit
       background: transparent
+    .btn:hover
+      background-color: #bb11c4
   .search-results-content
     display: block
     clear: both
@@ -156,81 +160,6 @@
             display: block
             font-size: 0
             text-indent: -9999
-
-  .avatar-block
-    width: 100%
-    text-align: center
-    padding-bottom: 10px
-  .avatar-block img
-    width: 120px
-    height: 120px
-    -webkit-border-radius: 50%
-    -moz-border-radius: 50%
-    border-radius: 50%
-  .info-completed
-    width: 100%
-    clear: both
-    display: block
-    padding-bottom: 20px
-    text-align: center
-  .general-info
-    width: 100%
-    clear: both
-    display: block
-    h2
-      font-weight: 400
-      font-size: 18px
-      text-align: center
-      padding-bottom: 5px
-      text-transform: capitalize
-      margin: 0
-    p
-      display: block
-      clear: both
-      font-size: 14px
-      text-align: left
-      line-height: 18px
-      margin: 0
-    ul
-      width: 100%
-      padding: 10px 0 0 0
-      margin: 0
-    li
-      width: auto
-      display: inline-block
-      padding: 5px 10px 5px 0
-      font-weight: 400
-      span
-        font-weight: 300
-        padding-right: 5px
-        display: inline-block
-  .job-info
-    width: 100%
-    clear: both
-    display: block
-    padding-top: 10px
-    ul
-      width: 100%
-      margin: 0
-      padding: 0
-    li
-      width: 100%
-      clear: both
-      display: block
-      padding: 5px 10px 5px 0
-      span
-        display: block
-        background: url(../images/icon.png) left top no-repeat
-        padding-left: 30px
-        height: 22px
-        line-height: 22px
-      span.job-title
-        background-position: 0 0px
-      span.company
-        background-position: 0 -82px
-      span.location
-        background-position: 0 -40px
-
 .last-date-view
   width: 100%
   text-align: center
@@ -265,4 +194,77 @@
   border-radius: 4px
   -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
   box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
-  
+.avatar-block
+  width: 100%
+  text-align: center
+  padding-bottom: 10px
+.avatar-block img
+  width: 120px
+  height: 120px
+  -webkit-border-radius: 50%
+  -moz-border-radius: 50%
+  border-radius: 50%
+.info-completed
+  width: 100%
+  clear: both
+  display: block
+  padding-bottom: 20px
+  text-align: center
+.general-info
+  width: 100%
+  clear: both
+  display: block
+  h2
+    font-weight: 400
+    font-size: 18px
+    text-align: center
+    padding-bottom: 5px
+    text-transform: capitalize
+    margin: 0
+  p
+    display: block
+    clear: both
+    font-size: 14px
+    text-align: left
+    line-height: 18px
+    margin: 0
+    height: 35px
+  ul
+    width: 100%
+    padding: 10px 0 0 0
+    margin: 0
+  li
+    width: auto
+    display: inline-block
+    padding: 5px 10px 5px 0
+    font-weight: 400
+    span
+      font-weight: 300
+      padding-right: 5px
+      display: inline-block
+.job-info
+  width: 100%
+  clear: both
+  display: block
+  padding-top: 10px
+  ul
+    width: 100%
+    margin: 0
+    padding: 0
+  li
+    width: 100%
+    clear: both
+    display: block
+    padding: 5px 10px 5px 0
+    span
+      display: block
+      background: url(../images/icon.png) left top no-repeat
+      padding-left: 30px
+      height: 22px
+      line-height: 22px
+    span.job-title
+      background-position: 0 0px
+    span.company
+      background-position: 0 -84px
+    span.location
+      background-position: 0 -40px

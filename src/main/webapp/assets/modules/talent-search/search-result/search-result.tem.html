@@ -10,7 +10,7 @@
       </div>
       <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? makeHover() : null">
         <div class="avatar-block">
-          <img ng-src="{{talent.imageUrl || 'images/no-avatar.png'}}" alt=""/>.
+          <img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
         </div>
         <div class="info-completed">
           <div class="percent-user-info"></div>
@@ -28,9 +28,9 @@
         </div>
         <div class="job-info">
           <ul>
-            <li><span class="job-title">{{talent.jobTitle || 'N/A'}}</span></li>
-            <li><span class="company">{{talent.company || 'N/A'}}</span></li>
-            <li><span class="location">{{talent.location || 'N/A'}}</span></li>
+            <li><span class="job-title" title="{{talent.jobTitle}}">{{talent.jobTitle || 'N/A'}}</span></li>
+            <li><span class="company" title="{{talent.company}}">{{talent.company || 'N/A'}}</span></li>
+            <li><span class="location" title="{{talent.location}}">{{talent.location || 'N/A'}}</span></li>
           </ul>
         </div>
         <div class="main-skill">
@@ -43,7 +43,7 @@
         <div class="talent-action-block">
           <div class="action-btn">
             <div class="view-more-info">
-              <a href="talent-detail.html" title="Click to view detail">View Detail</a>
+              <a href="#/talent-profile" title="Click to view detail">View Detail</a>
             </div>
             <div class="save-list">
               <a href="#" title="Click save to list">Save to List</a>

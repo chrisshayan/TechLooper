@@ -25,6 +25,13 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
   var instance = {
     init: function () {
       $$.talentItemManager();
+      $(".job-info span").dotdotdot({
+        height: 23
+      });
+      $("span.location").dotdotdot({
+        height: 23
+      });
+
     },
 
     updateSearchText: function (request) {
