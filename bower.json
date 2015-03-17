@@ -31,8 +31,7 @@
     "jScrollPane": "latest",
     "satellizer": "latest",
     "angular-local-storage": "latest",
-    "jquery.easing": "latest",
-    "cryptojslib": "latest"
+    "jquery.easing": "latest"
   },
   "overrides": {
     "jquery": {
@@ -121,9 +120,6 @@
     },
     "jquery.easing": {
       "main": "js/jquery.easing.js"
-    },
-    "cryptojslib": {
-      "main": ["rollups/md5.js", "components/enc-base64-min.js"]
     }
   },
   "resolutions": {

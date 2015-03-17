@@ -29,15 +29,14 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
 
     updateSearchText: function (request) {
       var searchRequest = tsMainService.getSearchRequest();
-      for (var prop in searchRequest) {
+      for (var prop in request) {
         var options = [];
         var values = [];
         $.each(request[prop], function (i, text) {
           options.push({text: text});
           values.push(text);
         });
-        searchRequest[prop].addOption(options);
-        searchRequest[prop].setValue(values);
+        searchRequest[prop] !== undefined && searchRequest[prop].addOption(options) && searchRequest[prop].setValue(values);
       }
     }
   };
