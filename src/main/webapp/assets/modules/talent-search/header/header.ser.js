@@ -1,26 +1,32 @@
 techlooper.factory("tsHeaderService", function () {
-  var hWin = $(window).height();
-  var ctrlClose = $('.close-menu');
-  var $$ = {
-    managerClose : function() {
-      ctrlClose.find('span').click(function() {
-        $(this).animate({
-          opacity: 0
-        },500);
-        $('.full-menu').find('ul').animate({
-          opacity: 0
-        }, 500);
-        $('.full-menu').animate({
-          opacity: 0,
-          height: 0,
-          width: 0,
-          left: '50%',
-          top: '50%',
-          'z-index': '-9'
-        },1000);
-        $('body').removeClass('noscroll');
-        $('.languages-list').removeClass('active');
+  var hWin = $(window).height();  var $$ = {
+    closeMenuButton : function() {
+      $('.close-menu').find('span').click(function() {
+        $$.hideMenu();
       });
+    },
+    closeMenuLink : function() {
+      $('.full-menu').find('a').on('click', function() {
+        $$.hideMenu();
+      });
+    },
+    hideMenu: function(){
+      $('.close-menu').find('span').animate({
+        opacity: 0
+      },500);
+      $('.full-menu').find('ul').animate({
+        opacity: 0
+      }, 500);
+      $('.full-menu').animate({
+        opacity: 0,
+        height: 0,
+        width: 0,
+        left: '50%',
+        top: '50%',
+        'z-index': '-9'
+      },1000);
+      $('body').removeClass('noscroll');
+      $('.languages-list').removeClass('active');
     },
     managerMenu : function() {
       var ctrlMenu = $('.menu-icon');
@@ -32,14 +38,16 @@ techlooper.factory("tsHeaderService", function () {
           width: '100%',
           left: 0,
           top: 0
-        },1000);
-        ctrlClose.find('span').animate({
+        },1000,function(){
+          $('body').addClass('noscroll');
+        });
+        $('.close-menu').find('span').animate({
           opacity: 1,
         },1500);
         $('.full-menu').find('ul').animate({
           opacity: 1
         }, 500);
-        $('body').addClass('noscroll');
+
       });
     },
     winResize: function(){
@@ -47,13 +55,21 @@ techlooper.factory("tsHeaderService", function () {
         hWin = $(window).height();
         $('.full-menu').css('height',hWin);
       });
+    },
+    scrollToSearchForm: function(){
+      $('.search-icon').click(function(){
+        $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 60},800);
+      });
     }
   };
   var instance = {
     init: function(){
-      $$.managerClose();
+      $('body').removeClass('noscroll');
+      $$.closeMenuButton();
+      $$.closeMenuLink();
       $$.managerMenu();
       $$.winResize();
+      $$.scrollToSearchForm();
     },
     menuAnimate: function() {
       var wScroll = $(window).scrollTop();

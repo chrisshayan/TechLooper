@@ -72,8 +72,9 @@ body.noscroll
     -webkit-font-smoothing: antialiased
   .btn:hover,
   .btn:active
-    color: #ffffff
-    border: 1px solid #525252
+    color: #fff
+    border: 1px solid #227bbe
+    background-color: #227bbe
 
   .btn:hover:after
     height: 260%
@@ -115,11 +116,28 @@ body.noscroll
     .logo-block 
       img
         max-height: 50px
+    .search-icon
+      font-size: 0
+      text-indent: -999
   header.changed
     background-color: #000
     transition: background-color 0.8s ease
     -moz-transition: background-color 0.8s ease
     -webkit-transition: background-color 0.8s ease
+    .search-icon
+      width: 40px
+      height: 40px
+      background: url(../images/ic-search-btn.png) left top no-repeat
+      float: right
+      font-size: 0
+      text-indent: -999
+      margin-top: 10px
+      cursor: pointer
+      margin-right: 10px
+      span
+        width: 40px
+        height: 40px
+        display: block
   .full-menu
     width: 0
     background: #227bbe
@@ -151,7 +169,7 @@ body.noscroll
         border-radius: 50%
         cursor: pointer
         float: right
-        opacity: 0
+        opacity: 1
         text-align: center
     ul
       width: 100%
@@ -172,13 +190,14 @@ body.noscroll
       font-size: 36px
       display: block
       text-transform: capitalize
-      width: auto
+      width: 100%
       padding: 8px 10px
       transition: padding-top 0.5s ease
       -moz-transition: padding-top 0.5s ease
       -webkit-transition: padding-top 0.5s ease
       font-weight: 100
       cursor: pointer
+      margin: auto
     li a:hover
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
@@ -325,7 +344,8 @@ body.noscroll
   .btn:after
     background-color: #bb11c4
   .btn:hover,
-  .btn:active 
+  .btn:active
+    background-color: transparent
     color: #d0d0d0
     border: 1px solid #d0d0d0
   p 
@@ -426,6 +446,7 @@ body.noscroll
     color: #bb11c4
   .selectize-control.plugin-remove_button [data-value] .remove
     color: red
+    cursor: pointer
 /* ---- global ---- */
 .content_wrapper 
   width: 100%
@@ -504,9 +525,6 @@ body.noscroll
               font-size: 45px
               margin: auto
               line-height: 80px
-              transition: font-size 1s ease
-              -moz-transition: font-size 1s ease
-              -webkit-transition: font-size 1s ease
         h3
           font-weight: 400
           font-size: 20px
@@ -515,24 +533,6 @@ body.noscroll
           text-align: center
           font-size: 16px
           line-height: 20px
-      li:hover 
-        .icon 
-          span
-            border: 2px solid #1686da
-            color: #1686da
-            transition: border 0.8s ease
-            -moz-transition: border 0.8s ease
-            -webkit-transition: border 0.8s ease
-            transition: color 0.8s ease
-            -moz-transition: color 0.8s ease
-            -webkit-transition: color 0.8s ease
-            i
-              font-size: 55px
-              margin: auto
-              line-height: 80px
-              transition: font-size 1s ease
-              -moz-transition: font-size 1s ease
-              -webkit-transition: font-size 1s ease
 /* --- Our Customers --- */
 .customer-company
   background: url(../images/black-bg.png) center top no-repeat
