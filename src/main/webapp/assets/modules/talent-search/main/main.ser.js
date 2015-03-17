@@ -180,7 +180,7 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       var q = "";
       for (var prop in request) {
         if (request[prop][0] !== "") {
-          q = prop + ":" + request[prop].join(",") + "::";
+          q += prop + ":" + request[prop].join(",") + "::";
         }
       }
       if (q === "") {
