@@ -14,7 +14,6 @@ techlooper.controller("tsSearchResultController",
       busy: false,
       total: 1,
       nextPage: function () {
-        console.log(123);
         if (this.busy || this.talents.length === this.total) {
           return;
         }
@@ -33,7 +32,9 @@ techlooper.controller("tsSearchResultController",
     $scope.makeHover = function () {
       tsMainService.enableSelectOptions();
       tsSearchResultService.updateSearchText(request);
-      tsSearchResultService.init();
+      $timeout(function() {
+        tsSearchResultService.init();
+      });
     }
     $scope.startHiring = tsMainService.searchTalent;
 

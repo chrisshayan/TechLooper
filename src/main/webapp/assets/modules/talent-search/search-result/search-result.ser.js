@@ -43,7 +43,10 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
           options.push({text: text});
           values.push(text);
         });
-        searchRequest[prop] !== undefined && searchRequest[prop].addOption(options) && searchRequest[prop].setValue(values);
+        if (searchRequest[prop] !== undefined) {
+          searchRequest[prop].addOption(options);
+          searchRequest[prop].setValue(values);
+        }
       }
     }
   };
