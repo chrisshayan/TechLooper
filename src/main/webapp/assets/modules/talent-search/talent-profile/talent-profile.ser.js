@@ -25,7 +25,7 @@ techlooper.factory("talentProfileService", function () {
       var item  = $('.ranking'),
           rl = item.find('.real');
       rl.each(function(){
-        var per = Math.floor((Math.random() * 100) + 1);
+        var per = Math.floor((Math.random() * 100) + 40);
         $(this).animate({
           width: per
         }, 1000);
