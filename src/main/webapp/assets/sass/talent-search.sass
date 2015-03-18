@@ -295,36 +295,37 @@ body.noscroll
     margin: auto
 /* ------------- Banner --------- */
 .main-banner
+  min-height: 500px
+
   .img-banner
     background-image: url(../images/banner.jpg)
     position: relative
     background-position: top center
     background-size: cover
     background-attachment: fixed
-    padding: 80px 25px
-    min-height: 700px
-  .banner-content
+    padding: 50px 25px
+    min-height: 500px
+  h2
+    color: #fff
+    font-weight: 100
+    font-size: 58px
+    text-transform: none
+    line-height: 60px
     position: absolute
     left: 0
     right: 0
-    top: 30%
+    top: 0
+    bottom: 0
+    vertical-align: middle
     z-index: 888
-    color: #fff
-    text-align: center
-    h2
-      color: #fff
-      font-weight: 100
-      font-size: 58px
-      text-transform:none
-      line-height: 60px
-      padding-bottom: 50px
-      span
-        font-weight: 400
-    p
-      padding: 20px 0 0 0
-      font-size: 30px
-      font-weight: 100
-      margin: 0
+    margin: auto
+    span
+      font-weight: 400
+  p
+    padding: 20px 0 0 0
+    font-size: 30px
+    font-weight: 100
+    margin: 0
   .count-down-day
     color: #fff
     background: url(../images/ic-medium.png) left top no-repeat
@@ -802,3 +803,32 @@ body.noscroll
     width: 100%
     max-width: 1400px
     margin: auto
+.new-style
+  .modal-content
+    background-color: #fff
+    .modal-header
+      background-color: #227bbe
+      color: #fff
+      -webkit-border-top-left-radius: 5px
+      -webkit-border-top-right-radius: 5px
+      -moz-border-radius-topleft: 5px
+      -moz-border-radius-topright: 5px
+      border-top-left-radius: 5px
+      border-top-right-radius: 5px
+      h4
+        font-size: 18px
+        font-weight: 300
+    .modal-footer
+      background-color: #000000
+      -webkit-border-bottom-left-radius: 5px
+      -webkit-border-bottom-right-radius: 5px
+      -moz-border-radius-bottomleft: 5px
+      -moz-border-radius-bottomright: 5px
+      border-bottom-left-radius: 5px
+      border-bottom-right-radius: 5px
+    .registration-employer-form
+      padding: 40px 20px
+      label
+        font-weight: 300
+        padding-left: 5px
+        cursor: pointer
