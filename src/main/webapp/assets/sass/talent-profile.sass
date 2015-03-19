@@ -15,19 +15,18 @@
       width: 50%
       padding: 0 10px 0 0
     .right-side-section
-      display: flex
       width: 50%
       padding: 0 0 0 10px
     .talent-info-content
       width: 100%
-      display: flex
-      //flex-direction: column
       background-color: #fff
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
       text-align: center
       padding: 20px
+      clear: both
+      display: block
       .left-side
         width: 30%
         float: left
@@ -88,11 +87,51 @@
           clear: both
           float: left
           width: 100%
-          cursor:pointer
+          cursor: pointer
         .save-talent span
           background-position: 0 -125px
         .contact-talent span
           background-position: 0 -172px
+    .github-profile
+      text-align: left
+      width: 100%
+      background-color: #fff
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      padding: 20px
+      clear: both
+      display: block
+      margin-bottom: 20px
+      h3
+        font-size: 18px
+        font-weight: 400
+        margin: 0
+        padding: 0 0 20px
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: auto
+          display: inline-block
+          padding: 0 25px
+          strong
+            font-size: 20px
+            font-weight: 400
+            border: 1px solid #525252
+            width: 70px
+            height: 70px
+            line-height: 70px
+            display: block
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            text-align: center
+          p
+            width: 100%
+            text-align: center
+        li:first-child
+          padding-left: 0
   .talent-general-info
     text-align: left
     .main-skill-block
@@ -154,10 +193,11 @@
       font-weight: 300
       margin: 0
     .repositories-list
-      height: 219px
+      min-height: 60px
       overflow: auto
       width: 100%
       clear: both
+      position: relative
     ul
       width: 100%
       margin: 0
@@ -507,7 +547,7 @@
         button.btn::after
           background-color: #1e1e1e
 .talent-detail-content
-  max-width: 1400px
+  max-width: 1200px
   margin: auto
   width: 100%
 .coming-soon
@@ -528,8 +568,14 @@
     font-weight: 300
     text-align: left
     background-color: #414141
-    padding: 10px 20px
+    padding: 15px 20px
     margin: 0
+    -webkit-border-top-left-radius: 5px
+    -webkit-border-top-right-radius: 5px
+    -moz-border-radius-topleft: 5px
+    -moz-border-radius-topright: 5px
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
   p
     padding: 0 30px
     font-weight: 300
@@ -537,7 +583,7 @@
     color: #fff
     background-color: #227bbe
     width: 200px
-    margin: auto
+    margin: auto !important
     height: 60px
     line-height: 60px
     vertical-align: middle
@@ -549,3 +595,6 @@
     bottom: 0
     left: 0
     right: 0
+  span
+    color: #fff
+    line-height: 60px
