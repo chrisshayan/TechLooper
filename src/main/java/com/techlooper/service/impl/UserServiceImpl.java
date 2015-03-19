@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public TalentSearchResponse findTalent(final TalentSearchRequest param) {
-        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB, SocialProvider.VIETNAMWORKS);
+        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
         TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
 
         socialProviders.forEach(provider -> {
