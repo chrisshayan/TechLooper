@@ -15,7 +15,7 @@ body.noscroll
   width: 100% !important
 .ts-main
   text-align: center
-  background-color: #fff
+  background-color: #eeeeee
 /* --- ======== btn ========= --- */
 .ts-main
   .btn
@@ -72,8 +72,9 @@ body.noscroll
     -webkit-font-smoothing: antialiased
   .btn:hover,
   .btn:active
-    color: #ffffff
-    border: 1px solid #525252
+    color: #eeeeee
+    border: 1px solid #227bbe
+    background-color: #227bbe
 
   .btn:hover:after
     height: 260%
@@ -85,7 +86,7 @@ body.noscroll
   .btn-blue
     width: auto
     padding: 10px 30px
-    color: #fff
+    color: #eeeeee
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
@@ -96,30 +97,50 @@ body.noscroll
 /* --------- Header ------------ */
 .ts-header
   header
+    background: url(../images/overlap-bg.png) left top repeat
     width: 100%
     clear: both
     display: block
-    height: 60px
+    height: 55px
     position: fixed
     z-index: 99999
-    padding: 0 25px
     text-align: left
-    transition: background-color 0.8s ease
-    -moz-transition: background-color 0.8s ease
-    -webkit-transition: background-color 0.8s ease
     top: 0
+    margin: auto
+    left: 0
+    right: 0
+    border-bottom: 1px solid #202020
+    .header-content
+      max-width: 1200px
+      width: 100%
     .logo-block
       width: 32%
       float: left
       padding-top: 5px
-    .logo-block 
-      img
-        max-height: 50px
-  header.changed
-    background-color: #000
-    transition: background-color 0.8s ease
-    -moz-transition: background-color 0.8s ease
-    -webkit-transition: background-color 0.8s ease
+    .user-manager
+      float: right
+      width: auto
+      ul
+        margin: 0
+        padding: 15px 0
+        li
+          float: left
+          width: auto
+          padding: 0 10px
+          line-height: 25px
+          font-size: 16px
+          background: url(../images/line-li-black.png) right top repeat-y
+          strong
+            font-weight: 300
+            color: #a8a8a8
+          a
+            cursor: pointer
+        li:last-child
+          background: transparent
+          padding-right: 0
+    .search-icon
+      font-size: 0
+      text-indent: -999
   .full-menu
     width: 0
     background: #227bbe
@@ -144,18 +165,18 @@ body.noscroll
         height: 60px
         line-height: 50px
         display: block
-        color: #fff
+        color: #eeeeee
         background-color: #195b8c
         -webkit-border-radius: 50%
         -moz-border-radius: 50%
         border-radius: 50%
         cursor: pointer
         float: right
-        opacity: 0
+        opacity: 1
         text-align: center
     ul
       width: 100%
-      color: #fff
+      color: #eeeeee
       padding-top: 15%
       span
         display: none
@@ -172,13 +193,14 @@ body.noscroll
       font-size: 36px
       display: block
       text-transform: capitalize
-      width: auto
+      width: 100%
       padding: 8px 10px
       transition: padding-top 0.5s ease
       -moz-transition: padding-top 0.5s ease
       -webkit-transition: padding-top 0.5s ease
       font-weight: 100
       cursor: pointer
+      margin: auto
     li a:hover
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
@@ -188,13 +210,13 @@ body.noscroll
       transition: padding-top 0.5s ease
       -moz-transition: padding-top 0.5s ease
       -webkit-transition: padding-top 0.5s ease
-      color: #fff
-    li a.languages
-      display: inline-block
-      cursor: pointer
-      -webkit-border-radius: 0
-      -moz-border-radius: 0
-      border-radius: 0
+      color: #eeeeee
+      li a.languages
+        display: inline-block
+        cursor: pointer
+        -webkit-border-radius: 0
+        -moz-border-radius: 0
+        border-radius: 0
     li a.languages span
       display: inline-block
       padding-right: 5px
@@ -225,12 +247,12 @@ body.noscroll
     display: block
     border-top: 1px solid #e3e3e3
     padding: 5px 0
-    color: #fff
+    color: #eeeeee
     cursor: pointer
   .languages-list .language-item:first-child
     border-top: 0
   .languages-list .language-item a
-    color: #fff
+    color: #eeeeee
     padding: 0
     font-size: 14px
   .languages-list .language-item a:hover
@@ -247,7 +269,7 @@ body.noscroll
     opacity: 0.6
   .languages-list.active .arrow i
     font-size: 20px
-    color: #fff
+    color: #eeeeee
     z-index: 9999
   header .menu-icon
     float: right
@@ -270,40 +292,44 @@ body.noscroll
       padding: 5px 5px 0 0
       display: block
       float: left
+  .header-content
+    width: 100%
+    max-width: 1200px
+    margin: auto
+  .changed
+    background-color: #000
+    transition: background-color 0.8s ease
+    -moz-transition: background-color 0.8s ease
+    -webkit-transition: background-color 0.8s ease
+    .search-icon
+      width: 40px
+      height: 40px
+      background: url(../images/ic-search-btn.png) left top no-repeat
+      float: right
+      font-size: 0
+      text-indent: -999
+      margin-top: 10px
+      cursor: pointer
+      margin-right: 10px
+      span
+        width: 40px
+        height: 40px
+        display: block
 /* ------------- Banner --------- */
 .main-banner
+  text-align: center
+  width: 100%
+  position: relative
   .img-banner
     background-image: url(../images/banner.jpg)
     position: relative
     background-position: top center
     background-size: cover
     background-attachment: fixed
-    padding: 80px 25px
-    min-height: 700px
-  .banner-content
-    position: absolute
-    left: 0
-    right: 0
-    top: 30%
-    z-index: 888
-    color: #fff
-    text-align: center
-    h2
-      color: #fff
-      font-weight: 100
-      font-size: 58px
-      text-transform:none
-      line-height: 60px
-      padding-bottom: 50px
-      span
-        font-weight: 400
-    p
-      padding: 20px 0 0 0
-      font-size: 30px
-      font-weight: 100
-      margin: 0
+    padding: 50px 25px
+    min-height: 820px
   .count-down-day
-    color: #fff
+    color: #eeeeee
     background: url(../images/ic-medium.png) left top no-repeat
     width: 91px
     height: 95px
@@ -315,36 +341,76 @@ body.noscroll
     font-size: 40px
 .start-hiring-button 
   .btn
-    border: 1px solid #fff
-    color: #fff
+    color: #eeeeee
     font-size: 25px
     font-weight: 300
     text-transform: capitalize
     padding: 10px 35px
     margin-top: 0
+    background-color: #248bd8
+    border: 0
   .btn:after
     background-color: #bb11c4
-  .btn:hover,
-  .btn:active 
-    color: #d0d0d0
-    border: 1px solid #d0d0d0
+  .btn:hover
+    color: #cbcbcb
+    background-color: #000
+    border: 0
+  .btn:active
+    background-color: transparent
+    color: #cbcbcb
+    border: 0
   p 
     margin: 0
     padding: 1em
     position: relative
     z-index: 1
 
-
+.scroll-down-alert
+  background: url(../images/scroll-down.png) left top no-repeat
+  position: fixed
+  bottom: 50px
+  left: 0
+  right: 0
+  margin: auto
+  width: 37px
+  height: 49px
+  cursor: pointer
 /* --- Search form ----- */
 .search-form-block
-  width: 100%
-  clear: both
-  display: block
-  background: url(../images/blue-down.png) center top no-repeat
-  height: 160px
-  padding-top: 15px
-  position: relative
-  z-index: 999
+  width: 80%
+  max-width: 1200px
+  background: url(../images/bg-blue.png) left top repeat
+  height: auto
+  position: absolute
+  z-index: 888
+  top: 35%
+  margin: auto
+  -webkit-border-radius: 4px
+  -moz-border-radius: 4px
+  border-radius: 4px
+  left: 0
+  right: 0
+  padding: 20px 0
+  h2
+    color: #eeeeee
+    font-weight: 100
+    font-size: 40px
+    text-transform: none
+    line-height: 60px
+    z-index: 888
+    margin: 0
+    padding: 0 0 20px 0
+    span
+      font-weight: 400
+  p
+    padding: 20px 0 0 0
+    font-size: 30px
+    font-weight: 100
+    margin: 0
+  .search-form-content
+    width: 100%
+    margin: auto
+    max-width: 1200px
   .input-group
     display: block
     clear: both
@@ -352,7 +418,7 @@ body.noscroll
       background-color: #195b8c
       height: auto
       border-radius: 5px
-      color: #fff
+      color: #eeeeee
       padding: 5px 15px
       font-size: 18px
       width: 20%
@@ -371,25 +437,25 @@ body.noscroll
       color: #d2d2d2
       font-size: 16px
     .selectize-control
-      width: 20%
+      width: 24%
       display: inline-block
     .selectize-input
-      background-color: #195b8c
+      background: url(../images/bg-blue-light.png) left top repeat
       height: 40px
       border-radius: 5px
-      color: #fff
+      color: #eeeeee
       font-size: 18px
       width: 100%
-      border: 0
+      border: 1px solid #4591ca
       text-align: left
   .selectize-control.multi .selectize-input [data-value]
     height: 30px
     margin-top: 5px
     line-height: 22px
     padding-left: 20px
-    background: url(../images/bg-tag.png) left top no-repeat
+    background: url(../images/bg-tag.png) #414141 left top no-repeat
   .selectize-control.multi .selectize-input .active[data-value]
-    background: url(../images/bg-tag-x.png) #227bbe left top no-repeat
+    background: url(../images/bg-tag-x.png) #707070 left top no-repeat
   .input-group .selectize-control.multi .selectize-input.has-items
     padding: 0px 5px
   .input-group .selectize-dropdown
@@ -404,28 +470,29 @@ body.noscroll
     padding: 5px
   .input-group .selectize-dropdown .active 
     background-color: transparent
-    color: #bb11c4
+    color: #98cdf4
   .selectize-input.dropdown-active:before
     background-color: transparent
   .selectize-dropdown [data-selectable] .highlight 
     background: rgba(125, 168, 208, 0.5)
   .selectize-dropdown .active.create 
-    color: #bb11c4
+    color: #98cdf4
   .selectize-dropdown .create 
-    color: #bb11c4
+    color: #98cdf4
   .selectize-control.multi .selectize-input > div
     height: 40px
     border-radius: 5px
-    color: #fff
+    color: #eeeeee
     font-size: 18px
     width: auto
-    border: 1px solid #0073bb
+    border: 1px solid #707070
     text-align: left 
   .selectize-dropdown .active 
     background-color: #114369 !important
     color: #bb11c4
   .selectize-control.plugin-remove_button [data-value] .remove
     color: red
+    cursor: pointer
 /* ---- global ---- */
 .content_wrapper 
   width: 100%
@@ -455,8 +522,7 @@ body.noscroll
   height: 940px 
   position: relative
   z-index: 888
-  top: -120px
-  padding-top: 120px
+  border-top: 1px solid #000
   .header-block 
     padding: 50px 0 30px 0
     h2
@@ -504,9 +570,6 @@ body.noscroll
               font-size: 45px
               margin: auto
               line-height: 80px
-              transition: font-size 1s ease
-              -moz-transition: font-size 1s ease
-              -webkit-transition: font-size 1s ease
         h3
           font-weight: 400
           font-size: 20px
@@ -515,31 +578,13 @@ body.noscroll
           text-align: center
           font-size: 16px
           line-height: 20px
-      li:hover 
-        .icon 
-          span
-            border: 2px solid #1686da
-            color: #1686da
-            transition: border 0.8s ease
-            -moz-transition: border 0.8s ease
-            -webkit-transition: border 0.8s ease
-            transition: color 0.8s ease
-            -moz-transition: color 0.8s ease
-            -webkit-transition: color 0.8s ease
-            i
-              font-size: 55px
-              margin: auto
-              line-height: 80px
-              transition: font-size 1s ease
-              -moz-transition: font-size 1s ease
-              -webkit-transition: font-size 1s ease
 /* --- Our Customers --- */
 .customer-company
   background: url(../images/black-bg.png) center top no-repeat
   height: 328px
   position: relative
   z-index: 999
-  top: -200px
+  top: -160px
   .header-block
     display: block
     clear: both
@@ -573,6 +618,7 @@ body.noscroll
   height: 800px
   margin-top: -325px
   padding-top: 220px
+
   h2
     background: url(../images/underline-blue.png) center bottom no-repeat
     width: auto
@@ -586,6 +632,7 @@ body.noscroll
     width: 80%
     clear: both
     margin: auto
+    max-width: 1200px
     position: relative
     .customer-item
       color: #7c7c7c
@@ -616,22 +663,12 @@ body.noscroll
         -webkit-border-radius: 50%
         -moz-border-radius: 50%
         border-radius: 50%
-        border: 1px solid #aaaaaa  
-        transition: border-radius 0.8s ease
-        -moz-transition: border-radius 0.8s ease
-        -webkit-transition: border-radius 0.8s ease 
+        border: 1px solid #aaaaaa
         margin: auto
         vertical-align: middle
       
     .customer-item:hover
       color: #aaaaaa
-    .customer-item:hover img
-      -webkit-border-radius: 0
-      -moz-border-radius: 0
-      border-radius: 0
-      transition: border-radius 0.8s ease
-      -moz-transition: border-radius 0.8s ease
-      -webkit-transition: border-radius 0.8s ease
 /* --- feedback --- */
 .feedback
   background-image: url(../images/feedback.png)
@@ -641,7 +678,7 @@ body.noscroll
     height: 160px
     padding-top: 30px
     h2
-      color: #fff
+      color: #eeeeee
       background: url(../images/underline-black1.png) center bottom no-repeat
       padding-bottom: 20px
       width: auto
@@ -703,7 +740,7 @@ body.noscroll
     padding-top: 50px
   .header-block 
     h2
-      color: #fff
+      color: #eeeeee
       background: url(../images/underline-black1.png) center bottom no-repeat
       padding-bottom: 20px
       width: auto
@@ -732,7 +769,7 @@ body.noscroll
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
-    color: #fff
+    color: #eeeeee
     z-index: 999
   .address-info .head
     display: block
@@ -764,7 +801,7 @@ body.noscroll
   footer
     height: 60px
     background-color: #000
-    color: #fff
+    color: #eeeeee
     width: 100%
     clear: both
     padding: 10px 25px
@@ -798,3 +835,36 @@ body.noscroll
             color: #2c7abe
           i
             font-size: 30px
+  .footer-content
+    width: 100%
+    max-width: 1200px
+    margin: auto
+.new-style
+  .modal-content
+    background-color: #eeeeee
+    .modal-header
+      background-color: #227bbe
+      color: #eeeeee
+      -webkit-border-top-left-radius: 5px
+      -webkit-border-top-right-radius: 5px
+      -moz-border-radius-topleft: 5px
+      -moz-border-radius-topright: 5px
+      border-top-left-radius: 5px
+      border-top-right-radius: 5px
+      h4
+        font-size: 18px
+        font-weight: 300
+    .modal-footer
+      background-color: #000000
+      -webkit-border-bottom-left-radius: 5px
+      -webkit-border-bottom-right-radius: 5px
+      -moz-border-radius-bottomleft: 5px
+      -moz-border-radius-bottomright: 5px
+      border-bottom-left-radius: 5px
+      border-bottom-right-radius: 5px
+    .registration-employer-form
+      padding: 40px 20px
+      label
+        font-weight: 300
+        padding-left: 5px
+        cursor: pointer

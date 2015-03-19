@@ -1,12 +1,12 @@
 techlooper.controller("tsSearchResultController",
   function ($scope, $timeout, tsMainService, tsSearchResultService, $routeParams, $http, jsonValue, $location) {
-    try {
-      var request = CryptoJS.enc.Base64.parse($routeParams.text).toString(CryptoJS.enc.Utf8);
-      request = JSON.parse(request);
-    }
-    catch(e){
-      $location.path("/");
-    }
+    var request = {};
+    $.each($routeParams.text.split("::"), function (i, q) {
+      if (q.length > 0) {
+        var qs = q.split(":");
+        request[qs[0]] = qs[1].split(",");
+      }
+    });
 
     $scope.search = {
       talents: [],
@@ -29,23 +29,16 @@ techlooper.controller("tsSearchResultController",
       }
     }
 
-    $timeout(function () {
+    $scope.makeHover = function () {
       tsMainService.enableSelectOptions();
-
-      try {
-        var request = CryptoJS.enc.Base64.parse($routeParams.text).toString(CryptoJS.enc.Utf8);
-        request = JSON.parse(request);
-        tsSearchResultService.updateSearchText(request);
-      }
-      catch(e){
-        $location.path("/");
-      }
-    }, 200);
-
-    $scope.makeHover = function() {
-      $timeout(function () {
+      tsSearchResultService.updateSearchText(request);
+      $timeout(function() {
         tsSearchResultService.init();
-      }, 100);
+      });
     }
     $scope.startHiring = tsMainService.searchTalent;
+
+    if ($scope.search.talents.length === 0) {
+      $scope.search.nextPage();
+    }
   });

@@ -6,20 +6,28 @@
   width: 100%
   padding: 20px
   margin-top: 60px
-  .talent-general-info-block
-    width: 50%
-    float: left
-    padding-right: 10px
-    .talent-general-info-content
+  .talent-general-info-section
+    display:  flex
+    flex-wrap:  wrap
+    width: 100%
+    .left-side-section
+      display: flex
+      width: 50%
+      padding: 0 10px 0 0
+    .right-side-section
+      display: flex
+      width: 50%
+      padding: 0 0 0 10px
+    .talent-info-content
       width: 100%
+      display: flex
+      //flex-direction: column
       background-color: #fff
-      min-height: 200px
-      padding: 20px
-      float: left
-      text-align: left
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
+      text-align: center
+      padding: 20px
       .left-side
         width: 30%
         float: left
@@ -28,11 +36,15 @@
         width: 70%
         float: left
         padding-left: 10px
+      .job-info
+        ul
+          float: left
+          width: 60%
+          text-align: left
       .general-info
         width: 100%
         clear: both
         display: block
-        padding-top: 15px
         h2
           font-weight: 400
           font-size: 18px
@@ -45,9 +57,7 @@
           text-align: left
           min-height: 30px
           line-height: 18px
-      .general-info ul
-        width: 60%
-        float: left
+
       .btn-connection
         width: 40%
         float: left
@@ -75,14 +85,18 @@
           clear: both
           float: left
           width: 100%
+          cursor: pointer
         .save-talent span
           background-position: 0 -125px
         .contact-talent span
           background-position: 0 -172px
-  .main-skill-block
-    width: 50%
-    padding-left: 10px
-    float: left
+  .talent-general-info
+    text-align: left
+    .main-skill-block
+      width: 50%
+      padding-left: 10px
+      float: left
+      text-align: left
   .main-skill-list
     width: 100%
     clear: both
@@ -92,9 +106,13 @@
       font-weight: 400
       font-size: 18px
       padding-bottom: 5px
+      margin: 0
+      text-align: left
     ul
       width: 100%
       clear: both
+      padding: 0
+      text-align: left
     li
       width: auto
       text-align: center
@@ -115,19 +133,15 @@
         float: left
         line-height: 18px
         padding-left: 5px
+        margin: 0
   .github-repositories
     width: 100%
-    min-height: 200px
-    background-color: #fff
-    padding: 20px
     text-align: left
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
     h3
       font-weight: 400
       font-size: 18px
-      padding-bottom: 20px
+      padding: 0 0 20px 0
+      margin: 0
     h4
       font-weight: 300
       font-size: 16px
@@ -135,6 +149,7 @@
     p
       font-size: 12px
       font-weight: 300
+      margin: 0
     .repositories-list
       height: 219px
       overflow: auto
@@ -142,6 +157,8 @@
       clear: both
     ul
       width: 100%
+      margin: 0
+      padding: 0
     li
       width: 100%
       clear: both
@@ -164,6 +181,7 @@
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
+      display: flex
   .rating-talent-ranking
     width: 25%
     float: left
@@ -172,6 +190,7 @@
       font-size: 18px
       font-weight: 400
       padding-bottom: 10px
+      margin: 0
     .rating-block
       width: 100%
       clear: both
@@ -181,12 +200,15 @@
       font-size: 30px
       font-weight: 300
       color: #227bbe
+      margin: 0
 
-    .rating-block u
+    .rating-block ul
+      margin: 0
+      padding: 0
     .rating-block li
       width: auto
       float: left
-      padding: 5px
+      padding: 0 5px
       font-size: 30px
       color: #227bbe
     .rating-block li:first-child
@@ -201,10 +223,12 @@
         font-weight: 400
         padding-bottom: 20px
         float: left
+        margin: 0
       p
         width: 100%
         font-size: 14px
         float: left
+        margin: 0
   .info-completed-status
     width: 80%
     display: block
@@ -259,6 +283,7 @@
     border-radius: 4px
     -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
     box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
+    width: 0
   .evaluation-block .real.blue
     background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc)
     background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc)
@@ -309,10 +334,12 @@
     font-weight: 400
     padding-bottom: 20px
     float: left
+    margin: 0
   .evaluation-item p
     width: 100%
     font-size: 14px
     float: left
+    margin: 0
   .evaluation-block .evaluation-item .ranking
     width: 250px
   .talent-detail-page .resume-block
@@ -322,66 +349,190 @@
   .resume-block .resume-content
     min-height: 400px
     width: 100%
-  .resume-content .left-side
-    padding-right: 20px
-    float: left
-    width: 20%
-  .resume-content .left-side .resume-tab-manager
-    background-color: #e5e5e5
-    border-right: 1px solid #fff
-    border-bottom: 1px solid #fff
-    border-top: 1px solid #bfbfbf
-    border-left: 1px solid #bfbfbf
-    width: 100%
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
-  .resume-tab-manager ul
+  .resume-content
+    .left-side
+      padding-right: 20px
+      float: left
+      width: 20%
+      .resume-tab-manager
+        background-color: #e5e5e5
+        border-top: 1px solid #fff
+        border-left: 1px solid #fff
+        border-right: 1px solid #bfbfbf
+        border-bottom: 1px solid #bfbfbf
+        width: 100%
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        ul
+          margin: 0
+          padding: 0
 
-  .resume-tab-manager li
-    border-top: 1px solid #fff
-    padding: 15px 10px 15px 55px
-    text-align: left
-    background: url(../images/icon.png) left top no-repeat
-    cursor: pointer
-    position: relative
-  .resume-tab-manager li span.arrow
-    display: none
-    position: absolute
-    right: -8px
-    top: 5px
-    color: #4cacf5
-    font-size: 30px
-  .resume-tab-manager li.active
-    background-color: #4cacf5
-    color: #fff
-  .resume-tab-manager li.active span.arrow
-    display: block
-  .resume-tab-manager li.re-information
-    background-position: 10px -213px
-  .resume-tab-manager li.re-information.active
-    background-position: 10px -262px
-  .resume-tab-manager li.re-experience
-    background-position: 10px -314px
-  .resume-tab-manager li.re-experience.active
-    background-position: 10px -363px
-  .resume-tab-manager li.re-education
-    background-position: 10px -413px
-  .resume-tab-manager li.re-education.active
-    background-position: 10px -452px
-  .resume-tab-manager li.re-skills
-    background-position: 10px -497px
-  .resume-tab-manager li.re-skills.active
-    background-position: 10px -545px
-  .resume-tab-manager li:first-child
-    border-top: 0
-
-  .career-objective
-    display: block
-    clear: both
-    padding-top: 30px
-    background: url(../images/bg-career-ojective.png) 75px bottom no-repeat
-  .career-objective h3
-    font-size: 30px
-    font-weight: 300
-    padding-bottom: 10px
+          li
+            border-top: 1px solid #bfbfbf
+            padding: 15px 10px 15px 55px
+            text-align: left
+            background: url(../images/icon.png) left top no-repeat
+            cursor: pointer
+            position: relative
+          li span.arrow
+            display: none
+            position: absolute
+            right: -8px
+            top: 5px
+            color: #4cacf5
+            font-size: 30px
+          li.active
+            background-color: #4cacf5
+            color: #fff
+          li.active span.arrow
+            display: block
+          li.re-information
+            background-position: 10px -345px
+          li.re-information.active
+            background-position: 10px -391px
+            transition: background-position 0.8s ease
+            -moz-transition: background-position 0.8s ease
+            -webkit-transition: background-position 0.8s ease
+          li.re-experience
+            background-position: 10px -437px
+          li.re-experience.active
+            background-position: 10px -484px
+            transition: background-position 0.8s ease
+            -moz-transition: background-position 0.8s ease
+            -webkit-transition: background-position 0.8s ease
+          li.re-education
+            background-position: 10px -522px
+          li.re-education.active
+            background-position: 10px -559px
+            transition: background-position 0.8s ease
+            -moz-transition: background-position 0.8s ease
+            -webkit-transition: background-position 0.8s ease
+          li.re-skills
+            background-position: 10px -598px
+          li.re-skills.active
+            background-position: 10px -638px
+            transition: background-position 0.8s ease
+            -moz-transition: background-position 0.8s ease
+            -webkit-transition: background-position 0.8s ease
+          li:first-child
+            border-top: 0
+      .career-objective
+        display: block
+        clear: both
+        padding-top: 30px
+        background: url(../images/bg-career-ojective.png) 75px bottom no-repeat
+        h3
+          font-size: 30px
+          font-weight: 300
+          padding-bottom: 10px
+        p
+          font-size: 18px
+          font-weight: 100
+          font-style: italic
+          line-height: 22px
+        span
+          background: url(../images/icon.png) left top no-repeat
+          width: 22px
+          height: 25px
+          display: inline-block
+        span.double-quotation-top
+          background-position: 0 -694px
+          padding-left: 10px
+        .double-quotation-bottom
+          background-position: 5px -738px
+          padding-right: 10px
+          height: 20px
+        .avatar-block
+          text-align: left
+          padding-top: 30px
+        .avatar-block img
+          -webkit-filter: grayscale(100%)
+          filter: grayscale(100%)
+          width: 80px
+          height: 80px
+        .right-side
+          padding: 20px
+          background-color: #fff
+          float: left
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          width: 80%
+          min-height: 500px
+          text-align: left
+    .right-side
+      padding: 20px
+      background-color: #fff
+      float: left
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      width: 80%
+      min-height: 500px
+      text-align: left
+      position: relative
+      .resume-content-detail
+        width: 100%
+        display: flex
+      .general-information
+        opacity: 0
+        display: none
+      .work-experience
+        opacity: 0
+        display: none
+      .education-qualifications
+        opacity: 0
+        display: none
+      .resume-skills
+        opacity: 0
+        display: none
+      .active
+        opacity: 1
+        display: block
+        transition: opacity, width, height 0.8s ease
+        -moz-transition: opacity, width, height 0.8s ease
+        -webkit-transition: opacity, width, height 0.8s ease
+      .none-credit
+        background: url(../images/overlap-bg.png) #CCCCCC left top repeat
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+        z-index: 999
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        text-align: center
+        vertical-align: middle
+        button
+          margin: auto
+          position: absolute
+          left: 0
+          right: 0
+          top: 0
+          bottom: 0
+          border: 0
+          padding: 15px 30px
+          width: auto
+          color: #fff
+          font-weight: 100
+          font-size: 20px
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          background-color: #227bbe
+          z-index: 9999
+          height: 60px
+        button:hover
+          background-color: #000
+          transition: background-color 0.8s ease
+          -moz-transition: background-color 0.8s ease
+          -webkit-transition: background-color 0.8s ease
+        button.btn::after
+          background-color: #1e1e1e
+.talent-detail-content
+  max-width: 1400px
+  margin: auto
+  width: 100%

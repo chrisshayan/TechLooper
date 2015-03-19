@@ -51,7 +51,8 @@ public class CoreConfiguration {
         CompositeCacheManager manager = new CompositeCacheManager();
         manager.setCacheManagers(Arrays.asList(
                 new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
-                new ConcurrentMapCacheManager("SKILL_CONFIG")));
+                new ConcurrentMapCacheManager("SKILL_CONFIG"),
+                new ConcurrentMapCacheManager("GITHUB_TALENT_SCORE_CONFIG")));
         return manager;
     }
 

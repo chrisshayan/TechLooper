@@ -1,5 +1,6 @@
 package com.techlooper.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -9,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -105,5 +108,17 @@ public class JsonUtils {
             LOGGER.error(e.getMessage(), e);
         }
         return optional;
+    }
+
+    public static <K,V> Map<K,V> toMap(Resource io) {
+        Map<K,V> map = null;
+        try {
+            String json = IOUtils.toString(io.getInputStream(), "UTF-8");
+            map = getObjectMapper().readValue(json,
+                    new TypeReference<HashMap<K,V>>() {});
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return map;
     }
 }

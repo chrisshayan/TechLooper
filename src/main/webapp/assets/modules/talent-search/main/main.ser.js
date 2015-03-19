@@ -176,19 +176,19 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         titles: searchRequest.titles.getValue().split(","),
         companies: searchRequest.companies.getValue().split(",")
       }
-      var hasSearchField = false;
+
+      var q = "";
       for (var prop in request) {
         if (request[prop][0] !== "") {
-          hasSearchField = true;
-          break;
+          q += prop + ":" + request[prop].join(",") + "::";
         }
       }
-      if (!hasSearchField) {
+      if (q === "") {
         return;
       }
 
-      var queryArray = CryptoJS.enc.Utf8.parse(JSON.stringify(request));
-      $location.path(jsonValue.routerUris.talentSearchResult + "/" + CryptoJS.enc.Base64.stringify(queryArray));
+      //var queryArray = CryptoJS.enc.Utf8.parse(JSON.stringify(request));
+      $location.path(jsonValue.routerUris.talentSearchResult + "/" + q);
     },
 
     validationFeedback: function () {

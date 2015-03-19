@@ -19,6 +19,7 @@
     "highcharts-release": "latest",
     "ngInfiniteScroll": "latest",
     "selectize": "latest",
+    "perfect-scrollbar": "latest",
     "mousetrap": "latest",
     "JSONPath": "latest",
     "DateJS": "latest",
@@ -31,8 +32,7 @@
     "jScrollPane": "latest",
     "satellizer": "latest",
     "angular-local-storage": "latest",
-    "jquery.easing": "latest",
-    "cryptojslib": "latest"
+    "jquery.easing": "latest"
   },
   "overrides": {
     "jquery": {
@@ -80,6 +80,9 @@
     "selectize": {
       "main": "dist/js/standalone/selectize.min.js"
     },
+    "perfect-scrollbar": {
+      "main": "js/perfect-scrollbar.js"
+    },
     "jQuery.dotdotdot": {
       "main": "src/js/jquery.dotdotdot.min.js"
     },
@@ -121,9 +124,6 @@
     },
     "jquery.easing": {
       "main": "js/jquery.easing.js"
-    },
-    "cryptojslib": {
-      "main": ["rollups/md5.js", "components/enc-base64-min.js"]
     }
   },
   "resolutions": {

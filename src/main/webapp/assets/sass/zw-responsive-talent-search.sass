@@ -1,19 +1,20 @@
 @media screen and (min-width: 320px) and (max-width: 719px)
-  header
-    padding: 0 10px
-  .languages-list.active .arrow
-    display: block
+  .ts-header
+    header
+      padding: 0 10px
+    .languages-list.active .arrow
+      display: block
 
-  header .menu-icon
-    border: 0
-    padding: 10px 0
+    header .menu-icon
+      border: 0
+      padding: 10px 0
 
-  header .menu-icon:hover
-    background-color: transparent
-    color: #cecece
+    header .menu-icon:hover
+      background-color: transparent
+      color: #cecece
 
-  .menu-icon span
-    font-size: 0
+    .menu-icon span
+      font-size: 0
 
   /* --- Banner --- */
   .banner-content
@@ -34,15 +35,12 @@
 
   /*-- global --- */
   .content_wrapper section
-
-
   .header-block h2
     font-size: 25px
     line-height: 28px
 
   .header-block p
     font-size: 16px
-
   .container-block
     padding-top: 20px
 
@@ -178,19 +176,76 @@
     width: 98%
 
   /* --- footer --- */
-  footer
-    padding: 5px
-    height: 35px
+  .ts-footer
+    footer
+      padding: 5px
+      height: 35px
+    footer .copyright-block p
+      font-size: 10px
+      text-align: center
+    footer .copyright-block
+      width: 100%
+    footer .copyright-block p.address
+      display: none
+    footer .social-network-block
+      display: none
+@media screen and (min-width: 720px) and (max-width: 1024px)
+  .ts-header
+    header
+      padding: 0 10px
+    header .logo-block
+      width: 28%
+    header .logo-block img
+      width: 100%
+      max-height: 50px
+    header .navbar
+      width: 72%
+    header .navbar li
+      padding: 0
+    header .navbar li a
+      font-size: 16px
+      padding: 8px 10px
+    header .navbar li a.languages span.text
+      display: none
+  .languages-list.active .arrow
+    right: 18px
+    left: auto
 
-  footer .copyright-block p
-    font-size: 10px
-    text-align: center
+  .content_wrapper section
 
-  footer .copyright-block
+  /* -- banner --- */
+  .banner-content
+    top: 20%
+  /* --- Search Form --- */
+  .input-group .selectize-control
+    width: 24%
+  /*-- reasons ----*/
+  .reasons
+    min-height: 780px
+  .reasons-content li
+    padding-bottom: 20px
+    min-height: 285px
+  .customer-company .customers-list img
+    max-width: 100px
+  /* --- Customers say --- */
+  .customers-said-content
     width: 100%
-
-  footer .copyright-block p.address
-    display: none
-
-  footer .social-network-block
-    display: none
+    padding: 50px 20px 0 20px
+  /* === ----- Search results ----- === */
+  .search-page .search-form-block .input-group
+    width: 85%
+  .search-page .input-group .selectize-control
+    width: 24%
+  .talent-results .talent-item
+    width: 48%
+  /*--- footer ---*/
+  .ts-footer
+    footer
+      padding: 10px 15px
+    footer .copyright-block
+      width: 70%
+    footer .social-network-block
+      width: 30%
+@media screen and (min-width: 900px) and (max-width: 1024px)
+  .talent-results .talent-item
+    width: 31%

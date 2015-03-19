@@ -33,7 +33,6 @@ public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataPr
                      .withUsername(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
                      .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
                      .withCompany(StringUtils.trimToEmpty((String) profile.get("mostRecentEmployer")))
-                     .withDescription(StringUtils.trimToEmpty((String) profile.get("alias")))
                      .withLocation(StringUtils.trimToEmpty((String) profile.get("address")))
                      .withJobTitle(StringUtils.trimToEmpty((String) profile.get("mostRecentPosition")))
                      .build();
