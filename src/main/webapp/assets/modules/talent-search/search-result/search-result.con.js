@@ -17,6 +17,12 @@ techlooper.controller("tsSearchResultController",
         if (this.busy || this.talents.length === this.total) {
           return;
         }
+
+        if (this.talents.length / 20 === 10) {
+          this.busy = false;
+          return;
+        }
+
         this.busy = true;
         ++this.pageIndex;
         request.pageIndex = this.pageIndex;
