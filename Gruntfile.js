@@ -64,12 +64,7 @@ module.exports = function (grunt) {
     usemin: {
       html: ["<%=pkg.public%>index.html"],
       options: {
-        publicDirs: ["<%=pkg.public%>css"],
-        blockReplacements: {
-          js: function (block) {
-            return '<script src="' + block.dest + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
-          }
-        }
+        publicDirs: ["<%=pkg.public%>css"]
       }
     },
 
