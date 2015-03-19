@@ -70,9 +70,9 @@ techlooper.factory("tsHeaderService", function () {
   var instance = {
     init: function(){
       $('body').removeClass('noscroll');
-      $$.closeMenuButton();
-      $$.closeMenuLink();
-      $$.managerMenu();
+      //$$.closeMenuButton();
+      //$$.closeMenuLink();
+      //$$.managerMenu();
       $$.winResize();
       $$.scrollToSearchForm();
     },
