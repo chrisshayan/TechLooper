@@ -34,10 +34,10 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                     .replace(username, "")
                     .replace(" Follow their code on GitHub.", "")
                     .trim();
-            String imageUrl = StringUtils.isNotEmpty((String)profile.get("imageurl")) ?
-                    StringUtils.trimToEmpty((String)profile.get("imageurl")) : StringUtils.trimToEmpty((String)profile.get("imageUrl"));
+            String imageUrl = StringUtils.isNotEmpty((String) profile.get("imageurl")) ?
+                    StringUtils.trimToEmpty((String) profile.get("imageurl")) : StringUtils.trimToEmpty((String) profile.get("imageUrl"));
 
-            return talentBuilder.withEmail(userImportEntity.getEmail())
+            talentBuilder.withEmail(userImportEntity.getEmail())
                     .withUsername(username)
                     .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
                     .withImageUrl(imageUrl)
@@ -45,8 +45,8 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                     .withDescription(description)
                     .withLocation(StringUtils.trimToEmpty((String) profile.get("location")))
                     .withJobTitle("")
-                    .withSkills(((List<String>) profile.get("skills")))
-                    .build();
+                    .withSkills(((List<String>) profile.get("skills")));
+            return talentBuilder.build();
         }).filter(talent -> talent != null).collect(Collectors.toList());
     }
 
