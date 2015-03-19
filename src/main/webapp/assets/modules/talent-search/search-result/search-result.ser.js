@@ -9,17 +9,17 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
         }
       });
       item.css('height', maxHeight + 20);
-      $('.talent-item').mouseenter(function () {
-        $(this).addClass('item-hover');
-        $(this).find('.save-list').stop().animate({
-          opacity: 1
-        });
-      }).mouseleave(function () {
-        $(this).removeClass('item-hover');
-          $(this).find('.save-list').stop().animate({
-            opacity: 0
-          });
-        });
+      //$('.talent-item').mouseenter(function () {
+      //  $(this).addClass('item-hover');
+      //  $(this).find('.save-list').stop().animate({
+      //    opacity: 1
+      //  });
+      //}).mouseleave(function () {
+      //  $(this).removeClass('item-hover');
+      //    $(this).find('.save-list').stop().animate({
+      //      opacity: 0
+      //    });
+      //  });
     },
     openURL: function(){
       $(document).delegate("[data-url]", 'click', function(e){

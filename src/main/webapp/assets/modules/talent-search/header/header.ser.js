@@ -59,10 +59,9 @@ techlooper.factory("tsHeaderService", function () {
     scrollToSearchForm: function(){
       $('.search-icon').click(function(){
         if($('.search-form-block').length > 0){
-          $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 60},800);
+          $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 75},800);
         }else{
           window.location.href='#/home';
-          $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 60},800);
         }
       });
     }
