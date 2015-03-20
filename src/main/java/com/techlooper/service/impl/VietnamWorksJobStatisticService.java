@@ -58,6 +58,14 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         return toSkillStatisticResponse(term, elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations));
     }
 
+    @Override
+    public Long countJobsBySkillWithinPeriod(String skill, HistogramEnum period) {
+        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
+                .withFilter(jobQueryBuilder.getTechnicalTermQueryAvailableWithinPeriod(skill, period))
+                .build();
+        return elasticsearchTemplate.count(searchQuery);
+    }
+
     /**
      * @param term         See more {@link com.techlooper.model.TechnicalTerm}
      * @param aggregations See more {@link org.elasticsearch.search.aggregations.Aggregations}
