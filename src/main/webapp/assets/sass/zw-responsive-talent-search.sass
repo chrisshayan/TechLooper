@@ -49,90 +49,79 @@
   .content_wrapper
     section
       position: inherit
+      width: 100%
+      display: block
+      clear: both
+      float: left
+      .header-block
+        display: block
+        clear: both
+        width: 100%
+        float: left
+        padding: 20px 20px 0 20px
+        h2
+          display: block
+          clear: both
+          width: 100%
+          float: left
   .reasons
+    padding-bottom: 50px
+    height: auto
     .header-block
-      padding: 30px 20px 0 20px
       h2
         font-size: 24px
         font-weight: 300
     .reasons-content
       ul
-        padding: 10px 0 0 0
+        padding: 15px 0 0 0
         li
           width: 100%
           padding-top: 20px
+          min-height: inherit
           h3
             background: transparent
           p
-            padding-left: 0
-
-  /* === ----- Our Customers ----- === */
-  .customer-company
-    background-color: #202020
-    padding: 20px
-
-  .customer-company .header-block
-    padding-top: 30px
-
-  .customer-company .header-block h2
-    font-size: 28px
-
-  .customer-company .customers-list li
-    width: 50%
-    float: left
-
-  .customer-company .customers-list li img
-    max-width: 90%
-
-  /*--- customers say --- */
-  .customers-said
-    min-height: 750px
-
-  .customers-said .container-block
-    padding-top: 0
+            padding: 0
 
   /* === ------- feedback ----- */
   .feedback
     height: auto
+    .header-block
+      padding: 30px 20px 0
+      height: auto
+      h2
+        font-size: 24px
+        font-weight: 300
+    .feedback-form
+      width: 100%
+      padding: 20px 10px 0 10px
+      p
+        font-size: 14px
 
-  .customers-said-content
-    width: 100%
-
-  .customers-said
-    height: 600px
-
-  /* --- feedback --- */
-  .feedback-form
-    width: 100%
-    padding: 20px 10px 0 10px
-
-  .feedback .header-block
-    height: 120px
-    background-position: center bottom
 
   /* --- Map --- */
-  section#contact
+  #contact
     margin-top: 0
-
-  section#contact .header-block
-    height: 110px
-    padding-top: 30px
-    border: 0
-
-  .address-info
-    width: 100%
-    border: 0
-    float: left
-    position: initial
-    width: 100%
-    -webkit-border-radius: 0
-    -moz-border-radius: 0
-    border-radius: 0
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75)
-      -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75)
-      box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75)
-    margin: 0
-
+    .header-block
+      padding: 20px 20px 0
+      h2
+        width: 100%
+    .address-info
+      width: 100%
+      border: 0
+      float: left
+      position: initial
+      width: 100%
+      margin: 0
+      padding: 20px 20px 0
+      .head
+        width: 100%
+        padding: 0
+        p span.icon
+          width: 20px
+        p span.content
+          padding-left: 20px
+          width: auto
   /* === ----- Search results ----- === */
   .search-page .search-form-block
     height: 320px
