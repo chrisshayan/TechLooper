@@ -25,4 +25,6 @@ public interface JobStatisticService {
      * @return the skill statistic {@link com.techlooper.model.SkillStatisticResponse}
      */
     SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums);
+
+    public Long countJobsBySkillWithinPeriod(final String skill, final HistogramEnum period);
 }
