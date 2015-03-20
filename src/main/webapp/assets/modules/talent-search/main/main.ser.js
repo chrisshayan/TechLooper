@@ -11,7 +11,7 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
           plugins: {
             "remove_button": {},
             "restore_on_backspace": {},
-            "techlooper": {onReturn: $$.searchTalent}
+            "techlooper": {onReturn: instance.searchTalent}
           },
           sortField: "text",
           mode: "multi",
