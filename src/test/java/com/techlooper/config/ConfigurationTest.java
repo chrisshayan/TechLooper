@@ -35,101 +35,101 @@ import javax.annotation.Resource;
 
 @Configuration
 @PropertySources({
-        @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties")})
+  @PropertySource("classpath:techlooper.properties"),
+  @PropertySource("classpath:secret.properties")})
 @Import(CouchbaseConfiguration.class)
 public class ConfigurationTest implements ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
+  private ApplicationContext applicationContext;
 
-    @Resource
-    private Environment environment;
+  @Resource
+  private Environment environment;
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
-    @Bean
-    public JobSearchAPIConfigurationRepository apiConfiguration() {
-        return new JobSearchAPIConfigurationRepository();
-    }
+  @Bean
+  public JobSearchAPIConfigurationRepository apiConfiguration() {
+    return new JobSearchAPIConfigurationRepository();
+  }
 
-    @Bean
-    public JobSearchService jobSearchService() {
-        return new VietnamWorksJobSearchService();
-    }
+  @Bean
+  public JobSearchService jobSearchService() {
+    return new VietnamWorksJobSearchService();
+  }
 
-    @Bean
-    public TechnicalTermRepository technicalTermRepository() {
-        return new TechnicalTermRepository();
-    }
+  @Bean
+  public TechnicalTermRepository technicalTermRepository() {
+    return new TechnicalTermRepository();
+  }
 
-    @Bean
-    public JsonConfigRepository jsonConfigRepository() {
-        return new JsonConfigRepository();
-    }
+  @Bean
+  public JsonConfigRepository jsonConfigRepository() {
+    return new JsonConfigRepository();
+  }
 
-    @Bean
-    public JobQueryBuilder jobQueryBuilder() {
-        return new JobQueryBuilderImpl();
-    }
+  @Bean
+  public JobQueryBuilder jobQueryBuilder() {
+    return new JobQueryBuilderImpl();
+  }
 
-    @Bean
-    public UserService userService() {
-        return new UserServiceImpl();
-    }
+  @Bean
+  public UserService userService() {
+    return new UserServiceImpl();
+  }
 
-    @Bean
-    public VietnamWorksUserService vietnamworksUserService() {
-        return new VietnamWorksUserServiceImpl();
-    }
+  @Bean
+  public VietnamWorksUserService vietnamworksUserService() {
+    return new VietnamWorksUserServiceImpl();
+  }
 
-    @Bean
-    public Mapper dozerBeanMapper() {
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        BeanMappingBuilder builder = new BeanMappingBuilder() {
-            protected void configure() {
-                mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class).fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
-            }
-        };
-        dozerBeanMapper.addMapping(builder);
-        return dozerBeanMapper;
-    }
+  @Bean
+  public Mapper dozerBeanMapper() {
+    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+    BeanMappingBuilder builder = new BeanMappingBuilder() {
+      protected void configure() {
+        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class).fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+      }
+    };
+    dozerBeanMapper.addMapping(builder);
+    return dozerBeanMapper;
+  }
 
-    @Bean(name = "GITHUBTalentSearchDataProcessor")
-    public GithubTalentSearchDataProcessor githubTalentSearchDataProcessor() {
-        return new GithubTalentSearchDataProcessor();
-    }
+  @Bean(name = "GITHUBTalentSearchDataProcessor")
+  public GithubTalentSearchDataProcessor githubTalentSearchDataProcessor() {
+    return new GithubTalentSearchDataProcessor();
+  }
 
-    @Bean(name = "VIETNAMWORKSTalentSearchDataProcessor")
-    public VietnamworksTalentSearchDataProcessor vietnamworksTalentSearchDataProcessor() {
-        return new VietnamworksTalentSearchDataProcessor();
-    }
+  @Bean(name = "VIETNAMWORKSTalentSearchDataProcessor")
+  public VietnamworksTalentSearchDataProcessor vietnamworksTalentSearchDataProcessor() {
+    return new VietnamworksTalentSearchDataProcessor();
+  }
 
-    @Bean(name = "GITHUBTalentSearchQuery")
-    public GithubTalentSearchQuery githubTalentSearchQuery() {
-        return new GithubTalentSearchQuery();
-    }
+  @Bean(name = "GITHUBTalentSearchQuery")
+  public GithubTalentSearchQuery githubTalentSearchQuery() {
+    return new GithubTalentSearchQuery();
+  }
 
-    @Bean(name = "VIETNAMWORKSTalentSearchQuery")
-    public VietnamworksTalentSearchQuery vietnamworksTalentSearchQuery() {
-        return new VietnamworksTalentSearchQuery();
-    }
+  @Bean(name = "VIETNAMWORKSTalentSearchQuery")
+  public VietnamworksTalentSearchQuery vietnamworksTalentSearchQuery() {
+    return new VietnamworksTalentSearchQuery();
+  }
 
-    @Bean
-    public TextEncryptor textEncryptor() {
-        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
-        return textEncryptor;
-    }
+  @Bean
+  public TextEncryptor textEncryptor() {
+    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+    textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
+    return textEncryptor;
+  }
 
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    this.applicationContext = applicationContext;
+  }
 }
