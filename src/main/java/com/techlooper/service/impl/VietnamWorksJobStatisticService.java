@@ -5,6 +5,8 @@ import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -63,6 +65,20 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
                 .withFilter(jobQueryBuilder.getTechnicalTermQueryAvailableWithinPeriod(skill, period))
                 .build();
+        return elasticsearchTemplate.count(searchQuery);
+    }
+
+    @Override
+    public Long countTotalITJobsWithinPeriod(HistogramEnum period) {
+        String lastPeriod = "now-" + period.getPeriod() + period.getUnit();
+        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery().withQuery(QueryBuilders.nestedQuery("industries",
+                QueryBuilders.boolQuery()
+                        .should(QueryBuilders.termQuery("industries.industryId", 35))
+                        .should(QueryBuilders.termQuery("industries.industryId", 55))
+                        .should(QueryBuilders.termQuery("industries.industryId", 57))
+                        .minimumNumberShouldMatch(1))).withFilter(
+                FilterBuilders.rangeFilter("approvedDate").from(lastPeriod).to("now")).build();
+
         return elasticsearchTemplate.count(searchQuery);
     }
 

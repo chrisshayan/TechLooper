@@ -27,4 +27,6 @@ public interface JobStatisticService {
     SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums);
 
     public Long countJobsBySkillWithinPeriod(final String skill, final HistogramEnum period);
+
+    public Long countTotalITJobsWithinPeriod(HistogramEnum period);
 }
