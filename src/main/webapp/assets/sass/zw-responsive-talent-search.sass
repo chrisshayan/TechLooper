@@ -1,66 +1,52 @@
 @media screen and (min-width: 320px) and (max-width: 719px)
   .ts-header
     header
-      padding: 0 10px
-    .languages-list.active .arrow
-      display: block
+      .logo-block
+        width: 60%
+        padding: 0 5px
+        height: auto
+        img
+          max-width: 100% !important
+      .user-manager
+        width: 40%
+        ul
+          float: right
+          width: auto
+          padding: 10px  5px 5px 0
+          li:last-child
+            padding-right: 5px
+          a
+            line-height: auto
+            i
+              font-size: 25px
+              padding-top: 5px
+              display: block
+            span
+              font-size: 0
+              text-indent: -99999
+      .search-icon
+        display: none !important
 
-    header .menu-icon
-      border: 0
-      padding: 10px 0
+  .main-banner
+    .img-banner
+      min-height: 400px
+    .search-form-block
+      background: transparent
+      top: 40px
+      width: 100%
+      h2
+        font-size: 18px
+        padding-bottom: 0
+      .input-group
+        .selectize-control
+          width: 94%
+    .scroll-btn
+      display: none
 
-    header .menu-icon:hover
-      background-color: transparent
-      color: #cecece
-
-    .menu-icon span
-      font-size: 0
-
-  /* --- Banner --- */
-  .banner-content
-    top: 120px
-
-  .img-banner
-    min-height: 500px
-
-  .banner-content h2
-    font-size: 40px
-    line-height: 34px
-    width: 90%
-    margin: auto
-    padding-bottom: 20px
-
-  .banner-content p
-    font-size: 18px
-
-  /*-- global --- */
-  .content_wrapper section
-  .header-block h2
-    font-size: 25px
-    line-height: 28px
-
-  .header-block p
-    font-size: 16px
-  .container-block
-    padding-top: 20px
-
-  /* === ------ Search ------ === */
-  .search-form-block
-    background-color: #227bbe
-    padding: 40px 20px 20px 20px
-    height: auto
-
-  .input-group .selectize-control
-    width: 100%
-    margin-bottom: 10px
-
-  .start-hiring-button p
-    padding: 0
-
-  /* --- reasons --- */
   .reasons
     min-height: 1265px
-
+    h2
+      font-size: 20px
   .reasons .reasons-content
     padding: 30px 20px 0 20px
 

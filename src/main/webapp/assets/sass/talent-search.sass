@@ -11,6 +11,23 @@ body.noscroll
   position: fixed
   overflow-y: scroll
   width: 100%
+button.btn-blue
+  background-color: #248bd8
+  border: 0 none
+  color: #fff
+  font-size: 25px
+  font-weight: 300
+  margin-top: 0
+  padding: 10px 45px
+  text-transform: capitalize
+  transition: background-color 0.5s ease
+  -moz-transition: background-color 0.5s ease
+  -webkit-transition: background-color 0.5s ease
+button.btn-blue:hover
+  background-color: #333
+  transition: background-color 0.5s ease
+  -moz-transition: background-color 0.5s ease
+  -webkit-transition: background-color 0.5s ease
 .full-box
   width: 100% !important
 .ts-main
@@ -70,6 +87,8 @@ body.noscroll
             color: #a8a8a8
           a
             cursor: pointer
+          i
+            display: none
         li:last-child
           background: transparent
           padding-right: 0
@@ -389,6 +408,7 @@ body.noscroll
   .input-group
     display: block
     clear: both
+    padding: 0 20px
     input
       background-color: #195b8c
       height: auto
@@ -412,8 +432,14 @@ body.noscroll
       color: #d2d2d2
       font-size: 16px
     .selectize-control
-      width: 24%
+      width: 29%
       display: inline-block
+      float: right
+    .key-word
+      width: 70%
+      float: left
+      .selectize-control
+        width: 100%
     .selectize-input
       background: url(../images/bg-blue-light.png) left top repeat
       height: 40px
@@ -468,6 +494,11 @@ body.noscroll
   .selectize-control.plugin-remove_button [data-value] .remove
     color: red
     cursor: pointer
+  .input-submit
+    display: block
+    clear: both
+    padding-top: 10px
+    text-align: center
 /* ---- global ---- */
 .content_wrapper 
   width: 100%
@@ -631,7 +662,7 @@ body.noscroll
 #contact
   background-color: #201d1e
   .header-block
-    padding: 80px 0 50px 0
+    padding: 30px 0 20px 0
     h2
       color: #e9e9e9
       background: url(../images/underline-blue.png) center bottom no-repeat
@@ -661,9 +692,9 @@ body.noscroll
       padding-bottom: 20px
       text-align: center
     p
-      font-size: 14px
-      line-height: 20px
-      padding-bottom: 15px
+      font-size: 12px
+      line-height: 14px
+      padding-bottom: 10px
       width: 100%
       float: left
       span
@@ -677,7 +708,7 @@ body.noscroll
       span.content
         width: 93%
         float: left
-        font-size: 14px
+        font-size: 12px
         border-left: 1px solid #b5b5b5
         padding-left: 10px
         color: #525252
