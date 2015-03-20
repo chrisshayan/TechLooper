@@ -1,9 +1,11 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.LooperPointService;
 import com.techlooper.service.UserEvaluationService;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.bootstrap.Elasticsearch;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.slf4j.Logger;
@@ -16,6 +18,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by phuonghqh on 3/20/15.
@@ -28,17 +32,20 @@ public class LooperPointServiceImpl implements LooperPointService {
   @Resource(name = "elasticsearchTemplateUserImport")
   private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
+  @Resource
+  private UserImportRepository userImportRepository;
+
   @Value("${elasticsearch.userimport.index.name}")
   private String indexName;
 
   @Resource
   private UserEvaluationService userEvaluationService;
 
-  final String[] countries = {"vietnam"};//, "japan", "thailand", "singapore", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
-//    "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
-//    "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
+  final String[] countries = {"vietnam", "japan", "thailand", "singapore", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
+    "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
+    "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
 
-  @Scheduled(cron = "0 0 0 * * 1")// start every week at SUN 00:00:00
+  @Scheduled(cron = "0 0 20 * * FRI")// start every week at FRI 19:00:00
   public void evaluateCandidates() {
     LOGGER.info("Start service to evaluate candidates...");
     for (String country : countries) {
@@ -57,12 +64,15 @@ public class LooperPointServiceImpl implements LooperPointService {
     int maxPageNumber = total / 50;
     for (int pageNumber = 0; pageNumber < maxPageNumber; ++pageNumber) {
       queryBuilder.withSearchType(SearchType.DFS_QUERY_THEN_FETCH).withPageable(new PageRequest(pageNumber, 50));
+      final List<UserImportEntity> users = new ArrayList<>();
       elasticsearchTemplateUserImport.queryForPage(queryBuilder.build(), UserImportEntity.class)
         .forEach(userImportEntity -> {
-          userEvaluationService.rate(userImportEntity);
-          userEvaluationService.score(userImportEntity);
-          userEvaluationService.rank(userImportEntity);
+          userImportEntity.setRate(userEvaluationService.rate(userImportEntity));
+          userImportEntity.setScore(Double.valueOf(userEvaluationService.score(userImportEntity)));
+//          userImportEntity.setRanks(userEvaluationService.rank(userImportEntity));
+          users.add(userImportEntity);
         });
+      userImportRepository.save(users);
     }
   }
 
