@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="view-info-detail">
-          <a href="#/talent-profile" title="Click to view detail">View Detail</a>
+          <a ng-click="showTalentDetails(talent)" title="Click to view detail">View Detail</a>
         </div>
         <div class="save-list">
           <span title="Click save to list">Save to List</span>
@@ -49,7 +49,7 @@
       </div>
     </div>
   </div>
-  <div class="loading-more" ng-show='search.talents.length < search.total '>
+  <div class="loading-more" ng-show='search.talents.length < search.total && !search.reachTop'>
     <span translate><i class="fa fa-arrow-down"></i>loadMore</span>
   </div>
 </div>

@@ -12,14 +12,16 @@ techlooper.controller("tsSearchResultController",
       talents: [],
       pageIndex: -1,
       busy: false,
+      reachTop: false,
       total: 1,
       nextPage: function () {
         if (this.busy || this.talents.length === this.total) {
           return;
         }
 
-        if (this.talents.length / 20 === 10) {
+        if (this.talents.length / 20 === 2) {
           this.busy = false;
+          this.reachTop = true;
           return;
         }
 
@@ -46,5 +48,9 @@ techlooper.controller("tsSearchResultController",
 
     if ($scope.search.talents.length === 0) {
       $scope.search.nextPage();
+    }
+
+    $scope.showTalentDetails = function(talent) {
+      $location.path(jsonValue.routes.talentProfile);
     }
   });
