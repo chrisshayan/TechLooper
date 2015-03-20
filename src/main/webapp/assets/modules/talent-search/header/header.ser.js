@@ -77,13 +77,13 @@ techlooper.factory("tsHeaderService", function () {
     },
     menuAnimate: function() {
       var wScroll = $(window).scrollTop();
-      if ($('.search-form-block').position().top > -60 <= wScroll) {
+      var pos = $('.search-form-block').position();
+      if (pos !== undefined && pos.top > -60 <= wScroll) {
         $('header').addClass('changed');
       }
       $(window).scroll(function () {
         wScroll = $(window).scrollTop();
         if (wScroll > 0) {
-          var pos = $('.search-form-block').position();
           if (pos !== undefined && pos.top - 60 <= wScroll) {
             $('header').addClass('changed');
           } else {

@@ -8,9 +8,12 @@ techlooper.controller("tsHeaderController", function ($scope, tsHeaderService, $
     }
     tsHeaderService.langManager();
     tsHeaderService.settingLang();
-  }, 100);
 
+  }, 200);
+  $timeout(function(){
+    $('.selectpicker').selectpicker();
+  }, 300);
   $scope.itProfessionalClick = function() {
     $location.path(jsonValue.routerUris.bubble);
-  }
+  };
 });

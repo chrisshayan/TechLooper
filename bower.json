@@ -32,7 +32,8 @@
     "jScrollPane": "latest",
     "satellizer": "latest",
     "angular-local-storage": "latest",
-    "jquery.easing": "latest"
+    "jquery.easing": "latest",
+    "bootstrap-select": "latest"
   },
   "overrides": {
     "jquery": {
@@ -124,6 +125,9 @@
     },
     "jquery.easing": {
       "main": "js/jquery.easing.js"
+    },
+    "bootstrap-select": {
+      "main": "dist/js/bootstrap-select.js"
     }
   },
   "resolutions": {
