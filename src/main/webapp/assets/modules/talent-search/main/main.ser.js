@@ -10,7 +10,8 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         searchRequest[item.key] = $(item.selector).selectize({
           plugins: {
             "remove_button": {},
-            "restore_on_backspace": {}
+            "restore_on_backspace": {},
+            "techlooper": {onReturn: $$.searchTalent}
           },
           sortField: "text",
           mode: "multi",
