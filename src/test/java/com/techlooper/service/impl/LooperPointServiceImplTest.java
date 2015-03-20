@@ -5,10 +5,12 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.service.LooperPointService;
 import com.techlooper.service.UserEvaluationService;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -28,13 +30,18 @@ public class LooperPointServiceImplTest {
   @Resource(name = "elasticsearchTemplateUserImport")
   private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
-  @Mock
+  @Resource
   private UserEvaluationService userEvaluationService;
 
   private LooperPointService looperPointService;
 
   @Value("${elasticsearch.userimport.index.name}")
   private String indexName;
+
+  @Bean
+  public UserEvaluationService userEvaluationService() {
+    return new UserEvaluationServiceImpl();
+  }
 
   @Before
   public void before() {
@@ -45,6 +52,7 @@ public class LooperPointServiceImplTest {
     ReflectionTestUtils.setField(looperPointService, "elasticsearchTemplateUserImport", elasticsearchTemplateUserImport);
   }
 
+//  @Test
   public void testEvaluateCandidates() {
     looperPointService.evaluateCandidates();
   }

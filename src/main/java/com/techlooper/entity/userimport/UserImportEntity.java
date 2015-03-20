@@ -23,6 +23,15 @@ public class UserImportEntity {
     @Field(type = String)
     private String fullName;
 
+    @Field
+    private Double rate;
+
+    @Field
+    private Map<String, Long> ranks;
+
+    @Field
+    private Double score;
+
     @Field(type = FieldType.Nested)
     private Map<SocialProvider, Object> profiles = new HashMap<>();
 
@@ -60,7 +69,35 @@ public class UserImportEntity {
         this.isCrawled = isCrawled;
     }
 
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public void setIsCrawled(boolean isCrawled) {
+        this.isCrawled = isCrawled;
+    }
+
     public void withProfile(SocialProvider provider, Object profile) {
         this.profiles.put(provider, profile);
+    }
+
+    public Map<java.lang.String, Long> getRanks() {
+        return ranks;
+    }
+
+    public void setRanks(Map<java.lang.String, Long> ranks) {
+        this.ranks = ranks;
     }
 }
