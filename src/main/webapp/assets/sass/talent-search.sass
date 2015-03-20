@@ -327,7 +327,7 @@ body.noscroll
     background-size: cover
     background-attachment: fixed
     padding: 50px 25px
-    min-height: 820px
+    min-height: 700px
   .count-down-day
     color: #eeeeee
     background: url(../images/ic-medium.png) left top no-repeat
@@ -366,15 +366,56 @@ body.noscroll
     z-index: 1
 
 .scroll-down-alert
-  background: url(../images/scroll-down.png) left top no-repeat
+  background: url(../images/go-down.png) left top no-repeat
   position: fixed
   bottom: 50px
   left: 0
   right: 0
   margin: auto
-  width: 37px
-  height: 49px
+  width: 44px
+  height: 65px
+.scroll-btn
+  background: url("../images/arrow-down.png") no-repeat scroll center bottom / 30px 16px rgba(0, 0, 0, 0)
+  bottom: 30px
+  color: #fff
+  font-family: "OpenSans-Light-webfont"
+  font-size: 10px
+  height: 40px
+  left: 50%
+  margin-left: -30px
+  opacity: 0.8
+  position: absolute
+  text-align: center
+  text-transform: uppercase
+  transition: all 0.35s ease-in-out 0s
+  width: 60px
+  z-index: 3900
   cursor: pointer
+.scroll-btn
+  animation: 3.8s ease 1s normal none infinite running arrows
+@keyframes arrows
+  0%
+    bottom: 30px
+  10%
+    bottom: 40px
+  20%
+    bottom: 30px
+  30%
+    bottom: 40px
+  40%
+    bottom: 20px
+  50%
+    bottom: 40px
+  60%
+    bottom: 30px
+  70%
+    bottom: 40px
+  80%
+    bottom: 20px
+  90%
+    bottom: 40px
+  100%
+    bottom: 30px
 /* --- Search form ----- */
 .search-form-block
   width: 80%
@@ -518,13 +559,13 @@ body.noscroll
       font-weight: 300
 /* ---- Reason to used our services ---- */
 .reasons
-  background-image: url(../images/map.png)
-  height: 940px 
+  background-color: #f8f8f8
+  height: 540px
   position: relative
   z-index: 888
   border-top: 1px solid #000
   .header-block 
-    padding: 50px 0 30px 0
+    padding: 50px 0 60px 0
     h2
       background: url(../images/underline-blue.png) center bottom no-repeat
       width: auto
@@ -541,145 +582,47 @@ body.noscroll
         width: 50%
         float: left
         padding: 0 25px
-        text-align: center
-        min-height: 250px
+        text-align: left
+        min-height: 160px
+        color: #333333
         .icon
-          width: 100%
-          text-align: center
-          clear: both
-          padding-bottom: 20px  
-          span
-            display: block
-            border: 2px solid #525252
-            -webkit-border-radius: 50%
-            -moz-border-radius: 50%
-            border-radius: 50%
-            height: 80px
-            width: 80px
-            vertical-align: middle
-            text-align: center
-            margin: auto
+          width: 10%
+          text-align: left
+          padding-bottom: 20px
+          float: left
+          font-size: 28px
+          font-weight: 100
+          i
+            float: left
+        .reason-content-detail
+          width: 90%
+          float: left
+          text-align: left
+          padding-left: 15px
+          h3
+            font-weight: 400
+            font-size: 18px
+            text-transform: capitalize
+            margin: 0
+            padding: 0 0 8px 0
+            background: url(../images/line-head.png) left bottom no-repeat
+          p
+            font-size: 14px
+            line-height: 20px
+            margin: 0
+            padding: 15px 0 0 0
             color: #525252
-            transition: border 0.8s ease
-            -moz-transition: border 0.8s ease
-            -webkit-transition: border 0.8s ease
-            transition: color 0.8s ease
-            -moz-transition: color 0.8s ease
-            -webkit-transition: color 0.8s ease
-            i
-              font-size: 45px
-              margin: auto
-              line-height: 80px
-        h3
-          font-weight: 400
-          font-size: 20px
-          text-transform: capitalize
-        p
-          text-align: center
-          font-size: 16px
-          line-height: 20px
-/* --- Our Customers --- */
-.customer-company
-  background: url(../images/black-bg.png) center top no-repeat
-  height: 328px
-  position: relative
-  z-index: 999
-  top: -160px
-  .header-block
-    display: block
-    clear: both
-    padding-top: 50px
-    h2
-      font-size: 40px
-      text-transform: capitalize
-      color: #cecece
-      font-weight: 100
-      background: url(../images/underline-blue.png) center bottom no-repeat
-      display: inline
-      padding-bottom: 25px
-  .customers-list
-    display: block
-    clear: both
-    text-align: center
-    ul
-      margin: auto
-      padding-top: 70px
-    li
-      display: inline-block
-      width: auto
-      padding: 0 10px
-    img
-      max-width: 150px
-      -webkit-filter: grayscale(100%)
-      filter: grayscale(100%)
-/* --- Customers say --- */
-.customers-said
-  background-image: url(../images/customers-said.jpg)
-  height: 800px
-  margin-top: -325px
-  padding-top: 220px
-
-  h2
-    background: url(../images/underline-blue.png) center bottom no-repeat
-    width: auto
-    display: inline-block
-    padding: 0 0 25px 0
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
-    color: #cecece !important
-  .customers-said-content
-    width: 80%
-    clear: both
-    margin: auto
-    max-width: 1200px
-    position: relative
-    .customer-item
-      color: #7c7c7c
-      .customer-avatar
-        width: 100%
-        display: block
-        padding-bottom: 20px
-        span
-          width: 150px
-          height: 150px 
-          display: block   
-          margin: auto
-          line-height: 150px
-          vertical-align: middle
-          text-align: center
-      h3
-        font-size: 18px
-        font-weight: 400
-        padding-bottom: 10px
-        text-transform: capitalize
-      p
-        font-size: 14px
-        padding-top: 10px
-    .customer-item
-      img
-        width: 120px
-        height: 120px 
-        -webkit-border-radius: 50%
-        -moz-border-radius: 50%
-        border-radius: 50%
-        border: 1px solid #aaaaaa
-        margin: auto
-        vertical-align: middle
-      
-    .customer-item:hover
-      color: #aaaaaa
-/* --- feedback --- */
+      li:hover
+        color: #337ab7
 .feedback
-  background-image: url(../images/feedback.png)
-  height: 865px
+  background-color: #ffffff
+  padding-bottom: 50px
   .header-block
-    background: url(../images/blue-down.png) center top no-repeat
     height: 160px
-    padding-top: 30px
+    padding-top: 80px
     h2
-      color: #eeeeee
-      background: url(../images/underline-black1.png) center bottom no-repeat
+      color: #333333
+      background: url(../images/underline-blue.png) center bottom no-repeat
       padding-bottom: 20px
       width: auto
       display: inline
@@ -720,10 +663,14 @@ body.noscroll
     label:active + textarea 
       outline: none
       border: 1px solid #525252
-
-
     select:focus 
       outline: none
+  button.send-feedback
+    background-color: #333
+    color: #fff
+    border: 0
+  button.send-feedback:hover
+    border: 0
   .error-messages
     color: red
     font-style: italic
@@ -733,67 +680,72 @@ body.noscroll
     padding-bottom: 10px
 /* --- Contact --- */
 #contact
-  margin-top: -160px
+  background-color: #201d1e
   .header-block
-    background: url(../images/blue-up.png) center top no-repeat
-    height: 160px
-    padding-top: 50px
-  .header-block 
+    padding: 80px 0 50px 0
     h2
-      color: #eeeeee
-      background: url(../images/underline-black1.png) center bottom no-repeat
+      color: #e9e9e9
+      background: url(../images/underline-blue.png) center bottom no-repeat
       padding-bottom: 20px
       width: auto
       display: inline
   .container-block
     padding-top: 0px
-    position: relative
-  .map-block
-    height: 500px
     width: 100%
-    display: block
-    clear: both
+    margin: auto
+    max-width: 1200px
   .address-info
-    position: absolute
-    left: 15%
-    top: 75px
-    width: 280px
-    height: 350px
-    padding: 20px
-    background-color: #656565
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
-    border: 1px solid #323232
-    text-align: left
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
-    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
-    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75)
-    color: #eeeeee
-    z-index: 999
-  .address-info .head
-    display: block
+    width: 100%
     clear: both
-    padding-bottom: 20px
-    color: #b5b5b5
-
-  .address-info h3
-    font-size: 22px
-    font-weight: 100
-    text-transform: uppercase
-    padding-bottom: 20px
-    text-align: center
-
-  .address-info p
-    font-size: 14px
-    padding-bottom: 5px
-    line-height: 20px
+    display: block
+    text-align: left
+    .head
+      display: block
+      float: left
+      color: #b5b5b5
+      width: 50%
+      padding: 0 70px 20px
+    h3
+      font-size: 22px
+      font-weight: 100
+      text-transform: uppercase
+      padding-bottom: 20px
+      text-align: center
+    p
+      font-size: 14px
+      line-height: 20px
+      padding-bottom: 15px
+      width: 100%
+      float: left
+      span
+        display: inline-block
+      span.icon
+        width: 7%
+        float: left
+        i
+          font-weight: 100
+          font-size: 20px
+      span.content
+        width: 93%
+        float: left
+        font-size: 14px
+        border-left: 1px solid #b5b5b5
+        padding-left: 10px
+        color: #525252
+        strong
+          font-size: 16px
+          font-weight: 100
+          clear: both
+          display: block
+          color: #b5b5b5
+          padding-bottom: 5px
   .address-info p.head-name
     font-weight: 400
-    text-transform: capitalize
+    text-transform: uppercase
     padding-bottom: 10px
     font-size: 16px
     cursor: pointer
+
   .address-info .head.active
     color: #e8e8e8
 /* --- footer --- */
