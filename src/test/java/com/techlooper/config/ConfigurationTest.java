@@ -6,10 +6,7 @@ import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.TechnicalTermRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.repository.talentsearch.query.VietnamworksTalentSearchQuery;
-import com.techlooper.service.JobQueryBuilder;
-import com.techlooper.service.JobSearchService;
-import com.techlooper.service.UserService;
-import com.techlooper.service.VietnamWorksUserService;
+import com.techlooper.service.*;
 import com.techlooper.service.impl.*;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -127,6 +124,16 @@ public class ConfigurationTest implements ApplicationContextAware {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
         return textEncryptor;
+    }
+
+    @Bean
+    public UserEvaluationService userEvaluationService() {
+        return new UserEvaluationServiceImpl();
+    }
+
+    @Bean
+    public JobStatisticService jobStatisticService() {
+        return new VietnamWorksJobStatisticService();
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
