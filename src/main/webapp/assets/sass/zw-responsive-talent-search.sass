@@ -26,10 +26,9 @@
               text-indent: -99999
       .search-icon
         display: none !important
-
   .main-banner
     .img-banner
-      min-height: 400px
+      min-height: 300px
     .search-form-block
       background: transparent
       top: 40px
@@ -39,27 +38,31 @@
         padding-bottom: 0
       .input-group
         .selectize-control
-          width: 94%
+          width: 98%
+          float: none
+        .key-word
+          width: 100%
+          .selectize-control
+            width: 98%
     .scroll-btn
       display: none
-
   .reasons
     min-height: 1265px
-    h2
-      font-size: 20px
-  .reasons .reasons-content
-    padding: 30px 20px 0 20px
-
-  .reasons-content li
-    width: 100%
-    min-height: 285px
-    padding: 0
-
-  .reasons-content li h3
-    font-size: 16px
-
-  .reasons-content li p
-    font-size: 14px
+    .header-block
+      padding: 30px 20px 0 20px
+      h2
+        font-size: 24px
+        font-weight: 300
+    .reasons-content
+      ul
+        padding: 10px 0 0 0
+        li
+          width: 100%
+          padding-top: 20px
+          h3
+            background: transparent
+          p
+            padding-left: 0
 
   /* === ----- Our Customers ----- === */
   .customer-company
