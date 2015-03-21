@@ -52,9 +52,8 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
 
     @Override
     public void normalizeInputParameter(TalentSearchRequest param) {
-        param.getSkills().removeAll(Arrays.asList(null, ""));
+        param.getKeywords().removeAll(Arrays.asList(null, ""));
         param.getLocations().removeAll(Arrays.asList(null, ""));
-        param.getCompanies().removeAll(Arrays.asList(null, ""));
     }
 
 }

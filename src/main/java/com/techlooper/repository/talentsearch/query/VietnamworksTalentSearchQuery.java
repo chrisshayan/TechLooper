@@ -18,14 +18,13 @@ import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 @Service("VIETNAMWORKSTalentSearchQuery")
 public class VietnamworksTalentSearchQuery implements TalentSearchQuery {
 
-    private static final String[] SKILL_FIELDS = new String[]{"profiles.VIETNAMWORKS.alias",
+    private static final String[] GENERAL_SEARCH_FIELDS = new String[]{
+            "profiles.VIETNAMWORKS.alias",
             "profiles.VIETNAMWORKS.workexperience",
-            "profiles.VIETNAMWORKS.skill"};
-
-    private static final String[] JOB_TITLE_FIELDS = new String[]{"profiles.VIETNAMWORKS.desiredJobTitle",
-            "profiles.VIETNAMWORKS.mostRecentPosition"};
-
-    private static final String[] COMPANY_FIELDS = new String[]{"profiles.VIETNAMWORKS.mostRecentEmployer"};
+            "profiles.VIETNAMWORKS.skill",
+            "profiles.VIETNAMWORKS.desiredJobTitle",
+            "profiles.VIETNAMWORKS.mostRecentPosition",
+            "profiles.VIETNAMWORKS.mostRecentEmployer"};
 
     private static final String[] LOCATION_FIELDS = new String[]{"profiles.VIETNAMWORKS.address",
             "profiles.VIETNAMWORKS.cityName"};
@@ -33,14 +32,11 @@ public class VietnamworksTalentSearchQuery implements TalentSearchQuery {
     @Override
     public SearchQuery getSearchQuery(TalentSearchRequest searchRequest) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if (!searchRequest.getSkills().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getSkills(), SKILL_FIELDS));
+        if (!searchRequest.getKeywords().isEmpty()) {
+            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getKeywords(), GENERAL_SEARCH_FIELDS));
         }
         if (!searchRequest.getLocations().isEmpty()) {
             boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getLocations(), LOCATION_FIELDS));
-        }
-        if (!searchRequest.getCompanies().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getCompanies(), COMPANY_FIELDS));
         }
 
         return new NativeSearchQueryBuilder()
