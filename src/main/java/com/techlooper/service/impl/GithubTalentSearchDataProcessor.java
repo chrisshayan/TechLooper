@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 @Service("GITHUBTalentSearchDataProcessor")
 public class GithubTalentSearchDataProcessor implements TalentSearchDataProcessor {
 
+    private final int PAGE_RESULT_THRESHOLD = 9;
+
     @Override
     public List<Talent> process(List<UserImportEntity> users) {
         return users.stream().map(userImportEntity -> {
@@ -54,6 +56,11 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
     public void normalizeInputParameter(TalentSearchRequest param) {
         param.getKeywords().removeAll(Arrays.asList(null, ""));
         param.getLocations().removeAll(Arrays.asList(null, ""));
+
+        //limit the number of pages up to 10, zero-based page index
+        if (param.getPageIndex() > PAGE_RESULT_THRESHOLD) {
+            param.setPageIndex(PAGE_RESULT_THRESHOLD);
+        }
     }
 
 }
