@@ -5,6 +5,7 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.service.LooperPointService;
 import com.techlooper.service.UserEvaluationService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -52,7 +53,8 @@ public class LooperPointServiceImplTest {
     ReflectionTestUtils.setField(looperPointService, "elasticsearchTemplateUserImport", elasticsearchTemplateUserImport);
   }
 
-//  @Test
+  @Test
+  @Ignore
   public void testEvaluateCandidates() {
     looperPointService.evaluateCandidates();
   }

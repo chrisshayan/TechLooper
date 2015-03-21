@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -111,7 +112,7 @@ public class UserServiceITcase {
     @Test
     public void testFindTalent() throws Exception {
         TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
-        searchParam.withSkills(".NET").withPageSize(20).withPageIndex(0);
+        searchParam.withKeywords(Arrays.asList(".NET", "Senior Developer")).withPageSize(20).withPageIndex(0);
         TalentSearchResponse talents = userService.findTalent(searchParam.build());
         assertTrue(talents.getResult().size() > 0);
     }
@@ -119,7 +120,7 @@ public class UserServiceITcase {
     @Test
     public void testTalentNotFound() throws Exception {
         TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
-        searchParam.withSkills("English").withLocations("Vietnam")
+        searchParam.withKeywords("English").withLocations("Vietnam")
                 .withPageSize(20).withPageIndex(0);
         TalentSearchResponse talents = userService.findTalent(searchParam.build());
         assertTrue(talents.getResult().size() == 0);

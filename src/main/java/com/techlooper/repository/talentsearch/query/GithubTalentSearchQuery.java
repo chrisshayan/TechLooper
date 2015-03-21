@@ -18,17 +18,20 @@ import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 @Service("GITHUBTalentSearchQuery")
 public class GithubTalentSearchQuery implements TalentSearchQuery {
 
+    private static final String[] GENERAL_SEARCH_FIELDS = new String[]{
+            "profiles.GITHUB.skills",
+            "profiles.GITHUB.company"};
+
+    private static final String LOCATION_SEARCH_FIELDS = "profiles.GITHUB.location";
+
     @Override
     public SearchQuery getSearchQuery(TalentSearchRequest searchRequest) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if (!searchRequest.getSkills().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", searchRequest.getSkills()));
+        if (!searchRequest.getKeywords().isEmpty()) {
+            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getKeywords(), GENERAL_SEARCH_FIELDS));
         }
         if (!searchRequest.getLocations().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.location", searchRequest.getLocations()));
-        }
-        if (!searchRequest.getCompanies().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.company", searchRequest.getCompanies()));
+            boolQueryBuilder.must(QueryBuilders.matchQuery(LOCATION_SEARCH_FIELDS, searchRequest.getLocations()));
         }
 
         return new NativeSearchQueryBuilder()
