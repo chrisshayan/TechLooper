@@ -27,14 +27,14 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testScore() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("baothaingo@gmail.com");
+        UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
         long score = userEvaluationService.score(userImportEntity);
-        assertTrue(score > 4000);
+        assertTrue(score > 0);
     }
 
     @Test
     public void testRate() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("baothaingo@gmail.com");
+        UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
         double rate = userEvaluationService.rate(userImportEntity);
         assertTrue(rate > 0 && rate <= 5);
     }

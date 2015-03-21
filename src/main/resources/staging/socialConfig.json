@@ -1,0 +1,40 @@
+[
+  {
+    "provider": "LINKEDIN",
+    "apiKey": "75ukeuo2zr5y3n",
+    "secretKey": "smrMWSaQ8affK893",
+    "redirectUri": "http://techlooper.com/authentication"
+  },
+  {
+    "provider": "FACEBOOK",
+    "apiKey": "596454787147962",
+    "secretKey": "dc25bf6805886ee435f2bc56db3f393e",
+    "redirectUri": "http://techlooper.com/authentication",
+    "apiUrl": {
+      "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
+    }
+  },
+  {
+    "provider": "GITHUB",
+    "apiKey": "51e6879d5b769b8629f4",
+    "secretKey": "713bde969430097dacde108a5852cba41c5fe06d",
+    "redirectUri": "http://techlooper.com/authentication",
+    "apiUrl": {
+      "users": "https://api.github.com/users/{username}",
+      "repos": "https://api.github.com/users/{username}/repos",
+      "followers": "https://api.github.com/users/{username}/followers"
+    }
+  },
+  {
+    "provider": "GOOGLE",
+    "apiKey": "339114452335-57uq0b7djh0u478igqj5g3cub376urgp.apps.googleusercontent.com",
+    "secretKey": "qEr_e0VkkMUg4PmCuGGMumjj",
+    "redirectUri": "http://techlooper.com/authentication"
+  },
+  {
+    "provider": "TWITTER",
+    "apiKey": "MuUgbFPQiFjUkmaHoezhuRPM0",
+    "secretKey": "TqeGjYs6xhYX6bIVZn7Lis49LrtSO2996J481w9VXg7ashxm8E",
+    "redirectUri": "http://techlooper.com/authentication"
+  }
+]
