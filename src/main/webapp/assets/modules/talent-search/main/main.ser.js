@@ -13,7 +13,6 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
             "restore_on_backspace": {},
             "techlooper": {onReturn: instance.searchTalent}
           },
-          sortField: "text",
           mode: "multi",
           persist: false,
           createOnBlur: false,
