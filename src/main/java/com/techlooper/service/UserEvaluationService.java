@@ -13,5 +13,5 @@ public interface UserEvaluationService {
 
     double rate(UserImportEntity user);
 
-    Map<String,Long> rank(UserImportEntity user);
+    Map<String,Integer> rank(UserImportEntity user);
 }

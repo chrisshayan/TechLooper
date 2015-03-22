@@ -4,6 +4,8 @@ import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
 
+import java.util.List;
+
 /**
  * Created by chrisshayan on 7/14/14.
  */
