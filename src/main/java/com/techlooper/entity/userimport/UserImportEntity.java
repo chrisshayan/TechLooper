@@ -27,7 +27,7 @@ public class UserImportEntity {
     private Double rate;
 
     @Field
-    private Map<String, Long> ranks;
+    private Map<String, Integer> ranks;
 
     @Field
     private Double score;
@@ -93,11 +93,11 @@ public class UserImportEntity {
         this.profiles.put(provider, profile);
     }
 
-    public Map<java.lang.String, Long> getRanks() {
+    public Map<java.lang.String, Integer> getRanks() {
         return ranks;
     }
 
-    public void setRanks(Map<java.lang.String, Long> ranks) {
+    public void setRanks(Map<java.lang.String, Integer> ranks) {
         this.ranks = ranks;
     }
 }
