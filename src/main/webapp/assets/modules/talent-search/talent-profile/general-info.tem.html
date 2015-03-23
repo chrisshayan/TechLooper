@@ -6,7 +6,7 @@
           <img ng-src="{{userProfile.profiles.GITHUB.imageUrl.indexOf('http') === 0 ? userProfile.profiles.GITHUB.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
         </div>
         <div class="looper-point" title="Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects">
-          <strong>{{userProfile.score}}</strong><span>Loopers &copy;</span>
+          <strong>{{userProfile.score || "In Progress"}}</strong><span ng-show="userProfile.score > 0">Loopers &copy;</span>
         </div>
       </div>
       <div class="right-side">
