@@ -8,6 +8,7 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
   $http.get(jsonValue.httpUri.talentProfile + "/" + hashEmail)
     .success(function (data, status, headers, config) {
       $scope.userProfile = data.userImportEntity;
+      console.log($scope.userProfile);
       $scope.userProfile.itemSkills = [];
       for (var skillName in $scope.userProfile.ranks) {
           $scope.userProfile.itemSkills.push({
@@ -24,6 +25,8 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       }
 
       talentProfileService.showRating(parseFloat($scope.userProfile.rate));
+
+      $(window).scrollTop(0);
     });
 
   //$scope.$watch("contentLoaded", function() {
