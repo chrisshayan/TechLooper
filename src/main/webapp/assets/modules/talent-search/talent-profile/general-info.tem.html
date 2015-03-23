@@ -34,7 +34,7 @@
         <ul>
           <li><p>Email:</p> {{userProfile.email}}</li>
           <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
-            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}">{{phone.value}}</a>
+            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
           </li>
         </ul>
       </div>
