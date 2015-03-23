@@ -1,26 +1,5 @@
 techlooper.factory("tsSearchResultService", function (tsMainService) {
   var $$ = {
-    talentItemManager: function () {
-      var item = $('.talent-item-content');
-      var maxHeight = 0;
-      item.each(function () {
-        if (maxHeight < $(this).height()) {
-          maxHeight = $(this).height();
-        }
-      });
-      item.css('height', maxHeight + 20);
-      //$('.talent-item').mouseenter(function () {
-      //  $(this).addClass('item-hover');
-      //  $(this).find('.save-list').stop().animate({
-      //    opacity: 1
-      //  });
-      //}).mouseleave(function () {
-      //  $(this).removeClass('item-hover');
-      //    $(this).find('.save-list').stop().animate({
-      //      opacity: 0
-      //    });
-      //  });
-    },
     openURL: function(){
       $(document).delegate("[data-url]", 'click', function(e){
         e.preventDefault();
@@ -38,7 +17,6 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
   };
   var instance = {
     init: function () {
-      $$.talentItemManager();
       $(".job-info span").dotdotdot({
         height: 23
       });
@@ -63,6 +41,16 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
           searchRequest[prop].setValue(values);
         }
       }
+    },
+    alignItemResult: function () {
+      var item = $('.talent-item-content');
+      var maxHeight = 0;
+      item.each(function () {
+        if (maxHeight < $(this).height()) {
+          maxHeight = $(this).height();
+        }
+      });
+      item.css('height', maxHeight + 20);
     }
   };
 
