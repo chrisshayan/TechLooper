@@ -1,8 +1,11 @@
-techlooper.controller("talentProfileController", function ($timeout, talentProfileService, $scope) {
+techlooper.controller("talentProfileController", function ($timeout, talentProfileService, $scope, $routeParams) {
   //$timeout(function(){
   //  //talentProfileService.init();
   //  talentProfileService.showRating(parseFloat($scope.userProfile.rate));
   //}, 500);
+
+  var email = $.base64.decode($routeParams.text);
+  console.log(email);
 
   $scope.$watch("contentLoaded", function() {
     if ($scope.contentLoaded === true) {
