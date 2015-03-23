@@ -6,7 +6,7 @@
           <img ng-src="{{userProfile.profiles.GITHUB.imageUrl.indexOf('http') === 0 ? userProfile.profiles.GITHUB.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
         </div>
         <div class="looper-point" title="Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects">
-          <strong>{{userProfile.score}}</strong><span>Loopers &copy;</span>
+          <strong>{{userProfile.score || "In Progress"}}</strong><span ng-show="userProfile.score > 0">Loopers &copy;</span>
         </div>
       </div>
       <div class="right-side">
@@ -16,9 +16,9 @@
         </div>
         <div class="job-info">
           <ul>
-            <li><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle || 'N/A'}}</span></li>
-            <li><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company || 'N/A'}}</span></li>
-            <li><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.jobTitle.length > 0"><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.company.length > 0"><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.location.length > 0"><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
           </ul>
           <div class="btn-connection">
             <div class="save-talent">
