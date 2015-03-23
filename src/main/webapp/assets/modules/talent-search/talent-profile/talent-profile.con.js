@@ -13,9 +13,9 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       for (var skillName in $scope.userProfile.ranks) {
           $scope.userProfile.itemSkills.push({
           name: skillName,
-          rank: $scope.userProfile.ranks[skillName],
+          rank: $scope.userProfile.ranks[skillName].toLocaleString(),
           logo: talentProfileService.getLogo(skillName),
-          total: data.skillMap[skillName]
+          total: data.skillMap[skillName].toLocaleString()
         });
       }
 
@@ -28,6 +28,10 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
 
       $(window).scrollTop(0);
     });
+
+  $scope.githubLink = function(userProfile) {
+    return "https://github.com/" + userProfile.profiles.GITHUB.username;
+  }
 
   //$scope.$watch("contentLoaded", function() {
   //  if ($scope.contentLoaded === true) {
