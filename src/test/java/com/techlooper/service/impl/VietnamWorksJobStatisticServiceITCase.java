@@ -23,8 +23,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -70,5 +70,17 @@ public class VietnamWorksJobStatisticServiceITCase {
 //        assertNotEquals("", skillStatisticResponse.getWebSite());
 //        assertNotEquals(0, skillStatisticResponse.getSkills().size());
 //        assertNotEquals(0, skillStatisticResponse.getUsefulLinks().size());
+    }
+
+    @Test
+    public void testCountJobsBySkillWithinPeriod() throws Exception {
+        Long numberOfJavaJobs = jobStatisticService.countJobsBySkillWithinPeriod("Java", HistogramEnum.TWO_QUARTERS);
+        assertTrue(numberOfJavaJobs > 0);
+    }
+
+    @Test
+    public void testCountTotalITJobsWithinPeriod() throws Exception {
+        Long totalITJobs = jobStatisticService.countTotalITJobsWithinPeriod(HistogramEnum.TWO_QUARTERS);
+        assertTrue(totalITJobs > 0);
     }
 }

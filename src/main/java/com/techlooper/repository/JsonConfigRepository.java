@@ -12,7 +12,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by NguyenDangKhoa on 11/25/14.
@@ -27,9 +26,6 @@ public class JsonConfigRepository {
 
     @Value("classpath:socialConfig.json")
     private Resource socialConfigResource;
-
-    @Value("classpath:githubTalentSearchScore.json")
-    private Resource githubTalentSearchScore;
 
 
     /**
@@ -47,15 +43,10 @@ public class JsonConfigRepository {
         return JsonUtils.toList(skillJsonResource, TechnicalTerm.class).get();
     }
 
-    @Cacheable(value = "GITHUB_TALENT_SCORE_CONFIG")
-    public Map<String,Integer> getGithubTalentScore() {
-        return JsonUtils.toMap(githubTalentSearchScore);
-    }
-
     /**
      * Intentionally, this method is just used to invalidate the cache and trigger reloading new term and skill from JSON file
      */
-    @CacheEvict(value = {"SOCIAL_CONFIG", "SKILL_CONFIG", "GITHUB_TALENT_SCORE_CONFIG"}, allEntries = true)
+    @CacheEvict(value = {"SOCIAL_CONFIG", "SKILL_CONFIG"}, allEntries = true)
     public void refresh() {
     }
 

@@ -8,26 +8,22 @@ import java.util.List;
  */
 public class TalentSearchRequest {
 
-    private List<String> skills = new ArrayList<>();
+    private List<String> keywords = new ArrayList<>();
 
     private List<String> locations = new ArrayList<>();
 
-    private List<String> companies = new ArrayList<>();
-
-    private List<String> titles = new ArrayList<>();
-
-    private String sortByField = "profiles.GITHUB.numberOfRepositories";
+    private String sortByField = "score";
 
     private int pageIndex = 0;
 
     private int pageSize = 20;
 
-    public List<String> getSkills() {
-        return skills;
+    public List<String> getKeywords() {
+        return keywords;
     }
 
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
     }
 
     public List<String> getLocations() {
@@ -36,14 +32,6 @@ public class TalentSearchRequest {
 
     public void setLocations(List<String> locations) {
         this.locations = locations;
-    }
-
-    public List<String> getCompanies() {
-        return companies;
-    }
-
-    public void setCompanies(List<String> companies) {
-        this.companies = companies;
     }
 
     public String getSortByField() {
@@ -70,25 +58,17 @@ public class TalentSearchRequest {
         this.pageIndex = pageIndex;
     }
 
-    public List<String> getTitles() {
-        return titles;
-    }
-
-    public void setTitles(List<String> titles) {
-        this.titles = titles;
-    }
-
     public static class Builder {
 
         private TalentSearchRequest instance = new TalentSearchRequest();
 
-        public Builder withSkills(String skill) {
-            instance.skills.add(skill);
+        public Builder withKeywords(String keyword) {
+            instance.keywords.add(keyword);
             return this;
         }
 
-        public Builder withSkills(List<String> skills) {
-            instance.skills.addAll(skills);
+        public Builder withKeywords(List<String> keywords) {
+            instance.keywords.addAll(keywords);
             return this;
         }
 
@@ -99,16 +79,6 @@ public class TalentSearchRequest {
 
         public Builder withLocations(List<String> locations) {
             instance.locations.addAll(locations);
-            return this;
-        }
-
-        public Builder withCompanies(String company) {
-            instance.companies.add(company);
-            return this;
-        }
-
-        public Builder withCompanies(List<String> companies) {
-            instance.companies.addAll(companies);
             return this;
         }
 
@@ -124,11 +94,6 @@ public class TalentSearchRequest {
 
         public Builder withPageIndex(int pageIndex) {
             instance.pageIndex = pageIndex;
-            return this;
-        }
-
-        public Builder withTitles(List<String> titles) {
-            instance.titles.addAll(titles);
             return this;
         }
 

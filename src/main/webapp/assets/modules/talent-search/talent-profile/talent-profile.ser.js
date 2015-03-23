@@ -1,11 +1,26 @@
 techlooper.factory("talentProfileService", function () {
   var $$ = {
-    changeScrollStyle: function(){
-      var hDiv = $('.talent-info-content') - 40;
-      $(".repositories-list").width('100%').height(hDiv);
-      $('.repositories-list').perfectScrollbar();
+    countUp: function($) {
+      $$.animateValue("followers-count", 0, 76, 2000);
+      $$.animateValue("starred-count", 0, 30, 2500);
+      $$.animateValue("following-count", 0, 83, 2500);
+      $$.animateValue("repositories-count", 0, 12, 2500);
     },
-    tabManagerResume: function(){
+    animateValue: function(cls, start, end, duration) {
+    var range = end - start;
+    var current = start;
+    var increment = end > start? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    var obj = $('.'+ cls);
+    var timer = setInterval(function() {
+      current += increment;
+      obj.text(current);
+      if (current == end) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+  },
+  tabManagerResume: function(){
       $$.activeTab();
     },
     activeTab: function(){
@@ -34,9 +49,9 @@ techlooper.factory("talentProfileService", function () {
   };
   var instance = {
     init: function(){
-      //$$.changeScrollStyle();
-      $$.tabManagerResume();
+      //$$.tabManagerResume();
       $$.rankingAnimate();
+      $$.countUp();
     }
   };
 

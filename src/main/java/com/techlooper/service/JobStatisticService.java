@@ -4,6 +4,8 @@ import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
 
+import java.util.List;
+
 /**
  * Created by chrisshayan on 7/14/14.
  */
@@ -25,4 +27,8 @@ public interface JobStatisticService {
      * @return the skill statistic {@link com.techlooper.model.SkillStatisticResponse}
      */
     SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums);
+
+    public Long countJobsBySkillWithinPeriod(final String skill, final HistogramEnum period);
+
+    public Long countTotalITJobsWithinPeriod(HistogramEnum period);
 }

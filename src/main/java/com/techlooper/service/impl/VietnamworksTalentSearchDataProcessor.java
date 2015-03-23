@@ -33,6 +33,7 @@ public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataPr
                      .withUsername(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
                      .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
                      .withCompany(StringUtils.trimToEmpty((String) profile.get("mostRecentEmployer")))
+                     .withDescription(StringUtils.trimToEmpty((String) profile.get("alias")))
                      .withLocation(StringUtils.trimToEmpty((String) profile.get("address")))
                      .withJobTitle(StringUtils.trimToEmpty((String) profile.get("mostRecentPosition")))
                      .build();
@@ -41,9 +42,8 @@ public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataPr
 
     @Override
     public void normalizeInputParameter(TalentSearchRequest param) {
-        param.getSkills().removeAll(Arrays.asList(null, ""));
+        param.getKeywords().removeAll(Arrays.asList(null, ""));
         param.getLocations().removeAll(Arrays.asList(null, ""));
-        param.getCompanies().removeAll(Arrays.asList(null, ""));
     }
 
 }

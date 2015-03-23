@@ -59,10 +59,9 @@ techlooper.factory("tsHeaderService", function () {
     scrollToSearchForm: function(){
       $('.search-icon').click(function(){
         if($('.search-form-block').length > 0){
-          $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 60},800);
+          $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 75},800);
         }else{
           window.location.href='#/home';
-          $('html,body').animate({ scrollTop: $('.search-form-block').offset().top - 60},800);
         }
       });
     }
@@ -78,13 +77,13 @@ techlooper.factory("tsHeaderService", function () {
     },
     menuAnimate: function() {
       var wScroll = $(window).scrollTop();
-      if ($('.search-form-block').position().top > -60 <= wScroll) {
+      var pos = $('.search-form-block').position();
+      if (pos !== undefined && pos.top > -60 <= wScroll) {
         $('header').addClass('changed');
       }
       $(window).scroll(function () {
         wScroll = $(window).scrollTop();
         if (wScroll > 0) {
-          var pos = $('.search-form-block').position();
           if (pos !== undefined && pos.top - 60 <= wScroll) {
             $('header').addClass('changed');
           } else {

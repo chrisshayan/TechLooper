@@ -4,14 +4,11 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.Talent;
 import com.techlooper.model.TalentSearchRequest;
-import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.TalentSearchDataProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,8 +19,7 @@ import java.util.stream.Collectors;
 @Service("GITHUBTalentSearchDataProcessor")
 public class GithubTalentSearchDataProcessor implements TalentSearchDataProcessor {
 
-    @Resource
-    private JsonConfigRepository jsonConfigRepository;
+    private final int PAGE_RESULT_THRESHOLD = 9;
 
     @Override
     public List<Talent> process(List<UserImportEntity> users) {
@@ -40,8 +36,8 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                     .replace(username, "")
                     .replace(" Follow their code on GitHub.", "")
                     .trim();
-            String imageUrl = StringUtils.isNotEmpty((String)profile.get("imageurl")) ?
-                    StringUtils.trimToEmpty((String)profile.get("imageurl")) : StringUtils.trimToEmpty((String)profile.get("imageUrl"));
+            String imageUrl = StringUtils.isNotEmpty((String) profile.get("imageurl")) ?
+                    StringUtils.trimToEmpty((String) profile.get("imageurl")) : StringUtils.trimToEmpty((String) profile.get("imageUrl"));
 
             talentBuilder.withEmail(userImportEntity.getEmail())
                     .withUsername(username)
@@ -52,29 +48,19 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                     .withLocation(StringUtils.trimToEmpty((String) profile.get("location")))
                     .withJobTitle("")
                     .withSkills(((List<String>) profile.get("skills")));
-
-            Map<String,Integer> scoreMap = jsonConfigRepository.getGithubTalentScore();
-            int totalScore = 0;
-            for(Map.Entry<String,Integer> entry : scoreMap.entrySet()) {
-                Object profileItem = profile.get(entry.getKey());
-                int profileItemUnitScore = entry.getValue();
-                if (profileItem instanceof List) {
-                    totalScore += profileItemUnitScore * ((List)profileItem).size();
-                } else if (profileItem != null) {
-                    totalScore += profileItemUnitScore;
-                }
-            }
-
-            talentBuilder.withScore(totalScore);
             return talentBuilder.build();
         }).filter(talent -> talent != null).collect(Collectors.toList());
     }
 
     @Override
     public void normalizeInputParameter(TalentSearchRequest param) {
-        param.getSkills().removeAll(Arrays.asList(null, ""));
+        param.getKeywords().removeAll(Arrays.asList(null, ""));
         param.getLocations().removeAll(Arrays.asList(null, ""));
-        param.getCompanies().removeAll(Arrays.asList(null, ""));
+
+        //limit the number of pages up to 10, zero-based page index
+        if (param.getPageIndex() > PAGE_RESULT_THRESHOLD) {
+            param.setPageIndex(PAGE_RESULT_THRESHOLD);
+        }
     }
 
 }

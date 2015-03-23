@@ -6,20 +6,17 @@
     <h2 ng-show="search.talents.length == 0"><strong>Searching</strong></h2>
     <div class="talent-results">
       <div class="no-result" ng-show='search.talents.length < 1'>
-
       </div>
       <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? makeHover() : null">
-        <div class="talent-item-content" data-url="#/talent-profile">
+        <div class="talent-item-content">
           <div class="avatar-block">
             <img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
           </div>
-          <div class="info-completed">
-            <div class="percent-user-info"></div>
-            <p>80% Information</p>
-            <div class="info-completed-status"><div class="real-status" style="width: 70%"></div></div>
-          </div>
           <div class="general-info">
-            <h2>{{talent.username}}</h2>
+            <h3>{{talent.username}}</h3>
+            <div class="looper-point">
+              <strong>5603</strong><span>Looper points</span>
+            </div>
             <p>{{talent.description.charAt(0).toUpperCase() + talent.description.slice(1)}}</p>
             <ul>
               <li><span class="view">View</span> 00</li>
@@ -43,7 +40,7 @@
           </div>
         </div>
         <div class="view-info-detail">
-          <a href="#/talent-profile" title="Click to view detail">View Detail</a>
+          <a ng-click="showTalentDetails(talent)" title="Click to view detail">View Detail</a>
         </div>
         <div class="save-list">
           <span title="Click save to list">Save to List</span>
@@ -51,7 +48,7 @@
       </div>
     </div>
   </div>
-  <div class="loading-more" ng-show='search.talents.length < search.total '>
+  <div class="loading-more" ng-show='search.talents.length < search.total && !search.reachTop'>
     <span translate><i class="fa fa-arrow-down"></i>loadMore</span>
   </div>
 </div>

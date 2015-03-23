@@ -172,8 +172,9 @@ public class UserServiceImpl implements UserService {
         return userImportRepository.search(searchQuery).getContent();
     }
 
+    @Override
     public TalentSearchResponse findTalent(final TalentSearchRequest param) {
-        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB, SocialProvider.VIETNAMWORKS);
+        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
         TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
 
         socialProviders.forEach(provider -> {

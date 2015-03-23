@@ -15,19 +15,19 @@
       width: 50%
       padding: 0 10px 0 0
     .right-side-section
-      display: flex
       width: 50%
       padding: 0 0 0 10px
     .talent-info-content
       width: 100%
-      display: flex
-      //flex-direction: column
       background-color: #fff
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
       text-align: center
       padding: 20px
+      clear: both
+      display: block
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
       .left-side
         width: 30%
         float: left
@@ -50,6 +50,8 @@
           font-size: 18px
           padding-bottom: 5px
           text-align: left
+          padding-top: 0
+          margin: 0
         p
           display: block
           clear: both
@@ -62,6 +64,7 @@
         width: 40%
         float: left
         text-align: center
+        display: none
         .save-talent
           display: block
           width: 100%
@@ -90,6 +93,48 @@
           background-position: 0 -125px
         .contact-talent span
           background-position: 0 -172px
+    .github-profile
+      text-align: left
+      width: 100%
+      background-color: #fff
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      padding: 20px
+      clear: both
+      display: block
+      margin-bottom: 20px
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+      h3
+        font-size: 18px
+        font-weight: 400
+        margin: 0
+        padding: 0 0 20px
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: auto
+          display: inline-block
+          padding: 0 25px
+          strong
+            font-size: 20px
+            font-weight: 400
+            border: 1px solid #525252
+            width: 60px
+            height: 60px
+            line-height: 60px
+            display: block
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            text-align: center
+            margin: auto
+          p
+            width: 100%
+            text-align: center
+        li:first-child
+          padding-left: 0
   .talent-general-info
     text-align: left
     .main-skill-block
@@ -151,10 +196,11 @@
       font-weight: 300
       margin: 0
     .repositories-list
-      height: 219px
+      min-height: 60px
       overflow: auto
       width: 100%
       clear: both
+      position: relative
     ul
       width: 100%
       margin: 0
@@ -173,7 +219,6 @@
     clear: both
     padding: 20px 0
     .evaluation-content
-      min-height: 270px
       background-color: #fff
       width: 100%
       padding: 20px
@@ -182,6 +227,7 @@
       -moz-border-radius: 5px
       border-radius: 5px
       display: flex
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
   .rating-talent-ranking
     width: 25%
     float: left
@@ -194,7 +240,6 @@
     .rating-block
       width: 100%
       clear: both
-      padding-bottom: 10px
     .rating-block p
       width: 100%
       font-size: 30px
@@ -209,7 +254,7 @@
       width: auto
       float: left
       padding: 0 5px
-      font-size: 30px
+      font-size: 36px
       color: #227bbe
     .rating-block li:first-child
       padding-left: 0
@@ -329,27 +374,36 @@
     width: 33%
     float: left
     padding: 20px 10px
+    text-align: center
   .evaluation-item h3
     font-size: 18px
     font-weight: 400
     padding-bottom: 20px
-    float: left
     margin: 0
+    line-height: 30px
+    width: 80%
+    img
+      height: 30px
+      padding-right: 10px
   .evaluation-item p
     width: 100%
     font-size: 14px
     float: left
     margin: 0
+    text-align: left
+    strong
+      font-weight: 400
+      font-size: 20px
   .evaluation-block .evaluation-item .ranking
     width: 250px
-  .talent-detail-page .resume-block
+  .resume-block
     width: 100%
     display: block
     clear: both
-  .resume-block .resume-content
-    min-height: 400px
-    width: 100%
+    position: relative
   .resume-content
+    min-height: 300px
+    width: 100%
     .left-side
       padding-right: 20px
       float: left
@@ -364,6 +418,7 @@
         -webkit-border-radius: 5px
         -moz-border-radius: 5px
         border-radius: 5px
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
         ul
           margin: 0
           padding: 0
@@ -396,8 +451,16 @@
             -webkit-transition: background-position 0.8s ease
           li.re-experience
             background-position: 10px -437px
+
           li.re-experience.active
             background-position: 10px -484px
+            transition: background-position 0.8s ease
+            -moz-transition: background-position 0.8s ease
+            -webkit-transition: background-position 0.8s ease
+          li.re-career-objective
+            background-position: 10px -770px
+          li.re-career-objective.active
+            background-position: 10px -820px
             transition: background-position 0.8s ease
             -moz-transition: background-position 0.8s ease
             -webkit-transition: background-position 0.8s ease
@@ -417,50 +480,6 @@
             -webkit-transition: background-position 0.8s ease
           li:first-child
             border-top: 0
-      .career-objective
-        display: block
-        clear: both
-        padding-top: 30px
-        background: url(../images/bg-career-ojective.png) 75px bottom no-repeat
-        h3
-          font-size: 30px
-          font-weight: 300
-          padding-bottom: 10px
-        p
-          font-size: 18px
-          font-weight: 100
-          font-style: italic
-          line-height: 22px
-        span
-          background: url(../images/icon.png) left top no-repeat
-          width: 22px
-          height: 25px
-          display: inline-block
-        span.double-quotation-top
-          background-position: 0 -694px
-          padding-left: 10px
-        .double-quotation-bottom
-          background-position: 5px -738px
-          padding-right: 10px
-          height: 20px
-        .avatar-block
-          text-align: left
-          padding-top: 30px
-        .avatar-block img
-          -webkit-filter: grayscale(100%)
-          filter: grayscale(100%)
-          width: 80px
-          height: 80px
-        .right-side
-          padding: 20px
-          background-color: #fff
-          float: left
-          -webkit-border-radius: 5px
-          -moz-border-radius: 5px
-          border-radius: 5px
-          width: 80%
-          min-height: 500px
-          text-align: left
     .right-side
       padding: 20px
       background-color: #fff
@@ -469,9 +488,10 @@
       -moz-border-radius: 5px
       border-radius: 5px
       width: 80%
-      min-height: 500px
+      min-height: 300px
       text-align: left
       position: relative
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
       .resume-content-detail
         width: 100%
         display: flex
@@ -506,6 +526,7 @@
         border-radius: 5px
         text-align: center
         vertical-align: middle
+        opacity: 0.7
         button
           margin: auto
           position: absolute
@@ -525,14 +546,90 @@
           background-color: #227bbe
           z-index: 9999
           height: 60px
-        button:hover
-          background-color: #000
-          transition: background-color 0.8s ease
-          -moz-transition: background-color 0.8s ease
-          -webkit-transition: background-color 0.8s ease
-        button.btn::after
-          background-color: #1e1e1e
+        //button:hover
+        //  background-color: #000
+        //  transition: background-color 0.8s ease
+        //  -moz-transition: background-color 0.8s ease
+        //  -webkit-transition: background-color 0.8s ease
+        //button.btn::after
+        //  background-color: #1e1e1e
 .talent-detail-content
-  max-width: 1400px
+  max-width: 1200px
   margin: auto
   width: 100%
+.coming-soon
+  background: url(../images/overlap-bg.png) #cccccc left top repeat
+  position: absolute
+  z-index: 99999
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  text-align: center
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  opacity: 0.7
+  h3
+    color: #e9e9e9
+    font-size: 18px
+    font-weight: 300
+    text-align: left
+    background-color: #414141
+    padding: 15px 20px
+    margin: 0
+    -webkit-border-top-left-radius: 5px
+    -webkit-border-top-right-radius: 5px
+    -moz-border-radius-topleft: 5px
+    -moz-border-radius-topright: 5px
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+  p
+    padding: 0 30px
+    font-weight: 300
+    font-size: 22px
+    color: #fff
+    background-color: #227bbe
+    width: 290px
+    margin: auto !important
+    height: 60px
+    line-height: 60px
+    vertical-align: middle
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+  span
+    color: #fff
+    line-height: 60px
+.profile-activity-block
+  width: 100%
+  display: block
+  clear: both
+  margin-top: 20px
+  .profile-activity-content
+    display: block
+    background-color: #fff
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    position: relative
+    min-height: 200px
+    padding: 20px
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+    h2
+      font-weight: 400
+      font-size: 18px
+      text-align: left
+      padding: 0 0 20px 0
+      margin: 0
+    .profile-activity-detail
+      min-height: 200px
+      img
+        width: 100%
+    .coming-soon
+      opacity: 0.7

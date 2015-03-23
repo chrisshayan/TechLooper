@@ -4,7 +4,8 @@ import ch.qos.logback.core.rolling.FixedWindowRollingPolicy
 import ch.qos.logback.core.rolling.RollingFileAppender
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy
 
-import static ch.qos.logback.classic.Level.*
+import static ch.qos.logback.classic.Level.DEBUG
+import static ch.qos.logback.classic.Level.ERROR
 
 scan()
 
@@ -14,10 +15,10 @@ appender("CONSOLE", ConsoleAppender) {
   }
 }
 
-appender("FILE", RollingFileAppender) {
-  file = "${catalina.base}/logs/techlooper.log"
+appender("CRONF", RollingFileAppender) {
+  file = "techlooper_cron_.log"
   rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper_%i.log"
+    fileNamePattern = "techlooper_cron_%i.log"
     minIndex = 1
     maxIndex = 12
   }
@@ -29,4 +30,6 @@ appender("FILE", RollingFileAppender) {
   }
 }
 
-root(ERROR, ["CONSOLE", "FILE"])
+logger("com.techlooper.service.impl.LooperPointServiceImpl", ALL, ["CRONF"])
+
+root(ERROR, ["CONSOLE"])

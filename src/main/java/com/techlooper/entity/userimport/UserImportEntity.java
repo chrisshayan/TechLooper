@@ -17,50 +17,87 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 @Document(indexName = "techlooper", type = "user")
 public class UserImportEntity {
 
-    @Id
-    private String email;
+  @Id
+  private String email;
 
-    @Field(type = String)
-    private String fullName;
+  @Field(type = String)
+  private String fullName;
 
-    @Field(type = FieldType.Nested)
-    private Map<SocialProvider, Object> profiles = new HashMap<>();
+  @Field
+  private Double rate;
 
-    private boolean isCrawled = true;
+  @Field
+  private Map<String, Integer> ranks;
 
-    public String getEmail() {
-        return email;
-    }
+  @Field
+  private Long score;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  @Field(type = FieldType.Nested)
+  private Map<SocialProvider, Object> profiles = new HashMap<>();
 
-    public String getFullName() {
-        return fullName;
-    }
+  private boolean isCrawled = true;
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public Map<SocialProvider, Object> getProfiles() {
-        return profiles;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setProfiles(Map<SocialProvider, Object> profiles) {
-        this.profiles = profiles;
-    }
+  public String getFullName() {
+    return fullName;
+  }
 
-    public boolean isCrawled() {
-        return isCrawled;
-    }
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
 
-    public void setCrawled(boolean isCrawled) {
-        this.isCrawled = isCrawled;
-    }
+  public Map<SocialProvider, Object> getProfiles() {
+    return profiles;
+  }
 
-    public void withProfile(SocialProvider provider, Object profile) {
-        this.profiles.put(provider, profile);
-    }
+  public void setProfiles(Map<SocialProvider, Object> profiles) {
+    this.profiles = profiles;
+  }
+
+  public boolean isCrawled() {
+    return isCrawled;
+  }
+
+  public void setCrawled(boolean isCrawled) {
+    this.isCrawled = isCrawled;
+  }
+
+  public Double getRate() {
+    return rate;
+  }
+
+  public void setRate(Double rate) {
+    this.rate = rate;
+  }
+
+  public Long getScore() {
+    return score;
+  }
+
+  public void setScore(Long score) {
+    this.score = score;
+  }
+
+  public void setIsCrawled(boolean isCrawled) {
+    this.isCrawled = isCrawled;
+  }
+
+  public void withProfile(SocialProvider provider, Object profile) {
+    this.profiles.put(provider, profile);
+  }
+
+  public Map<java.lang.String, Integer> getRanks() {
+    return ranks;
+  }
+
+  public void setRanks(Map<java.lang.String, Integer> ranks) {
+    this.ranks = ranks;
+  }
 }
