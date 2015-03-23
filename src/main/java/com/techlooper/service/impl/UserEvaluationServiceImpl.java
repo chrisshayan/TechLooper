@@ -40,6 +40,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     public long score(UserImportEntity user, Map<String, Long> totalJobPerSkillMap) {
         long score = 0L;
 
+        // TODO Check for users.noreply.github.com
         if (StringUtils.isNotEmpty(user.getEmail()) && !user.getEmail().contains("missing.com")) {
             score += 10;
         }
