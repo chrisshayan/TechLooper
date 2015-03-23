@@ -79,6 +79,12 @@ public class UserController {
         return userService.findTalent(param);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/api/user/talentProfile", method = RequestMethod.POST)
+    public TalentProfile getTalentProfile(@RequestBody String email, HttpServletResponse httpServletResponse) {
+        return userService.getTalentProfile(email);
+    }
+
 
     @SendToUser("/queue/info")
     @MessageMapping("/user/findByKey")
