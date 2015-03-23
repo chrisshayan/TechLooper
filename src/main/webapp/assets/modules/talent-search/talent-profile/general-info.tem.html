@@ -32,9 +32,9 @@
       </div>
       <div class="full-side">
         <ul>
-          <li><p>Email:</p> {{userProfile.email}}</li>{{userProfile.GRAVATAR}}
-          <li ng-repeat="phone in userProfile.GRAVATAR.phoneNumbers">
-            <p>{{phone.type}}</p> {{phone.value}}
+          <li><p>Email:</p> {{userProfile.email}}</li>
+          <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
+            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
           </li>
         </ul>
       </div>
@@ -62,7 +62,7 @@
           </strong>
           <p>Repositories</p>
         </li>
-        <li><button class="btn-black">View Detail</button></li>
+        <li><a href="{{githubLink(userProfile)}}" class="btn-black">View Detail</a></li>
       </ul>
       <div class="github-repositories">
         <h3>Detail for repositories contributed to:</h3>
