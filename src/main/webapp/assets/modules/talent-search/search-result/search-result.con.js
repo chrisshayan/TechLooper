@@ -41,9 +41,6 @@ techlooper.controller("tsSearchResultController",
       if ($scope.contentLoaded === true) {
         tsSearchResultService.updateSearchText(request);
         tsSearchResultService.init();
-        //tsSearchResultService.makeShortName();
-        //$timeout(tsSearchResultService.makeShortName(), 2000);
-        $(".job-info span").dotdotdot({height: 23});
       }
     });
 
@@ -58,6 +55,5 @@ techlooper.controller("tsSearchResultController",
     }
 
     $scope.handleLastItem = function() {
-      //$timeout(tsSearchResultService.makeShortName(), 1000);
     }
   });
