@@ -80,8 +80,8 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/api/user/talentProfile", method = RequestMethod.POST)
-    public TalentProfile getTalentProfile(@RequestBody String email, HttpServletResponse httpServletResponse) {
+    @RequestMapping(value = "/api/user/talentProfile/{email}", method = RequestMethod.GET)
+    public TalentProfile getTalentProfile(@PathVariable String email, HttpServletResponse httpServletResponse) {
         return userService.getTalentProfile(email);
     }
 

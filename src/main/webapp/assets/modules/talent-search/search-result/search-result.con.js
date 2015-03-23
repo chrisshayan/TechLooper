@@ -56,6 +56,6 @@ techlooper.controller("tsSearchResultController",
     }
 
     $scope.handleLastItem = function() {
-
+      //tsSearchResultService.alignItemResult();
     }
   });
