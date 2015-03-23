@@ -11,6 +11,9 @@ techlooper.directive("talentSearch", function ($compile, $location, utils, jsonV
           return "modules/talent-search/talent-profile/talent-profile.tem.html";
       }
       return '';
+    },
+    link: function(scope, elem, attrs) {
+      console.log(elem);
     }
   };
 }).directive("tsHeader", function () {

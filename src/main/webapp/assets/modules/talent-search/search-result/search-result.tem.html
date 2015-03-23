@@ -11,7 +11,7 @@
     <div class="talent-results">
       <div class="no-result" ng-show='search.talents.length < 1'>
       </div>
-      <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? handleLastItem() : null">
+      <div class="talent-item" style="margin-right: 0px;11" ng-repeat="talent in search.talents" ng-init="$last ? handleLastItem() : null">
         <div class="talent-item-content">
           <div class="avatar-block">
             <img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
