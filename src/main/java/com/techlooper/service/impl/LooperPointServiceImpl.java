@@ -73,7 +73,7 @@ public class LooperPointServiceImpl implements LooperPointService {
         .forEach(userImportEntity -> {
           LOGGER.debug("Evaluate user {}", userImportEntity.getEmail());
           userImportEntity.setRate(userEvaluationService.rate(userImportEntity));
-          userImportEntity.setScore(Double.valueOf(userEvaluationService.score(userImportEntity)));
+          userImportEntity.setScore(userEvaluationService.score(userImportEntity));
           userImportEntity.setRanks(userEvaluationService.rank(userImportEntity));
           users.add(userImportEntity);
           LOGGER.debug("Done evaluate user {}", userImportEntity.getEmail());
