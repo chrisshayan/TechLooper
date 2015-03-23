@@ -17,16 +17,20 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
   };
   var instance = {
     init: function () {
+      $$.openURL();
+      $$.saveTalent();
+    },
+    makeShortName: function(){
       $(".job-info span").dotdotdot({
         height: 23
       });
       $("span.location").dotdotdot({
         height: 23
       });
-      $$.openURL();
-      $$.saveTalent();
+      $('span.company').dotdotdot({
+        height: 23
+      });
     },
-
     updateSearchText: function (request) {
       var searchRequest = tsMainService.getSearchRequest();
       for (var prop in request) {
