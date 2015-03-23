@@ -48,10 +48,10 @@ public class LooperPointServiceImpl implements LooperPointService {
   @Resource
   private JobStatisticService jobStatisticService;
 
-//  final String[] countries = {"vietnam", "japan", "thailand", "singapore", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
-//    "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
-//    "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
-  final String[] countries = {"vietnam"};
+  final String[] countries = {"vietnam", "japan", "thailand", "singapore", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
+    "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
+    "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
+//  final String[] countries = {"vietnam"};
 
   @Scheduled(cron = "0 0 12 * * MON")// start every week at FRI 19:00:00
   public void evaluateCandidates() {
