@@ -113,9 +113,11 @@
       ul
         margin: 0
         padding: 0
+        width: 100%
+        display: flex
         li
           width: auto
-          display: inline-block
+          float: left
           padding: 0 25px
           strong
             font-size: 25px
@@ -135,13 +137,19 @@
           p
             width: 100%
             text-align: center
+          button
+            font-size: 14px
         li:first-child
           padding-left: 0
           strong
             background-color: #aec785
-        li:last-child
+        li:nth-last-of-type(3)
           strong
             background-color: #fa8564
+        li:last-child
+          padding: 20px 0 0 20px
+          button.btn-black
+            padding: 10px 25px
   .talent-general-info
     text-align: left
     .main-skill-block
