@@ -6,7 +6,7 @@
   </div>
 
   <div class="search-results-content">
-    <h2 ng-show="search.talents.length > 0"><strong>{{search.total}}</strong> talents found</h2>
+    <h2 ng-show="search.talents.length > 0"><strong>{{search.total.toLocaleString()}}</strong> talents found</h2>
     <h2 ng-show="search.talents.length == 0"><strong>Searching</strong></h2>
     <div class="talent-results">
       <div class="no-result" ng-show='search.talents.length < 1'>
@@ -17,9 +17,9 @@
             <img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
           </div>
           <div class="general-info">
-            <h3>{{talent.username}}</h3>
+            <h3>{{talent.fullName || talent.username}}</h3>
             <div class="looper-point" title="Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects">
-              <strong>{{talent.score || 'N/A'}}</strong><span>Loopers&copy;</span>
+              <strong>{{talent.score || 'N/A'}}</strong><span>Loopers &copy;</span>
             </div>
             <p>{{talent.description.charAt(0).toUpperCase() + talent.description.slice(1)}}</p>
             <!--<ul>-->
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="view-info-detail">
-          <a ng-click="showTalentDetails(talent)" title="Click to view detail">View Detail</a>
+          <a ng-href="{{talentLink(talent)}}" title="Click to view detail">View Detail</a>
         </div>
         <div class="save-list">
           <span title="Click save to list">Save to List</span>

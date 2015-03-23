@@ -8,6 +8,7 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
   $http.get(jsonValue.httpUri.talentProfile + "/" + hashEmail)
     .success(function (data, status, headers, config) {
       $scope.userProfile = data.userImportEntity;
+      console.log($scope.userProfile);
       $scope.userProfile.itemSkills = [];
       for (var skillName in $scope.userProfile.ranks) {
           $scope.userProfile.itemSkills.push({
@@ -19,10 +20,19 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       }
 
       //$scope.totalSkills = data.skillMap;
-      console.log($scope.userProfile);
+      if ($scope.userProfile.profiles.GITHUB.imageUrl === undefined) {
+        $scope.userProfile.profiles.GITHUB.imageUrl = $scope.userProfile.profiles.GITHUB.imageurl;
+      }
 
-      talentProfileService.showRating(parseFloat($scope.userProfile.rate));
+      $timeout(talentProfileService.showRating(parseFloat($scope.userProfile.rate)), 100);
+
+
+      $(window).scrollTop(0);
     });
+
+  $scope.githubLink = function(userProfile) {
+    return "https://github.com/" + userProfile.profiles.GITHUB.username;
+  }
 
   //$scope.$watch("contentLoaded", function() {
   //  if ($scope.contentLoaded === true) {

@@ -36,6 +36,30 @@
         width: 70%
         float: left
         padding-left: 10px
+      .full-side
+        width: 100%
+        clear: both
+        padding-top: 10px
+        text-align: left
+        ul
+          width: 100%
+          margin: 0
+          padding: 0
+          li
+            width: 100%
+            clear: both
+            padding-top: 5px
+          p
+            width: 80px
+            float: left
+            font-weight: 400
+            margin: 0
+            padding: 0
+            span
+              display: inline-block
+              clear: both
+          a
+            color: #727272
       .job-info
         ul
           float: left
@@ -103,8 +127,8 @@
       padding: 20px
       clear: both
       display: block
-      margin-bottom: 20px
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+      min-height: 310px
       h3
         font-size: 18px
         font-weight: 400
@@ -113,9 +137,11 @@
       ul
         margin: 0
         padding: 0
+        width: 100%
+        display: flex
         li
           width: auto
-          display: inline-block
+          float: left
           padding: 0 25px
           strong
             font-size: 25px
@@ -135,13 +161,19 @@
           p
             width: 100%
             text-align: center
+          a
+            font-size: 14px
         li:first-child
           padding-left: 0
           strong
             background-color: #aec785
-        li:last-child
+        li:nth-last-of-type(3)
           strong
             background-color: #fa8564
+        li:last-child
+          padding: 20px 0 0 20px
+          a.btn-black
+            padding: 10px 25px
   .talent-general-info
     text-align: left
     .main-skill-block
@@ -189,6 +221,7 @@
   .github-repositories
     width: 100%
     text-align: left
+    padding-top: 20px
     h3
       font-weight: 400
       font-size: 18px

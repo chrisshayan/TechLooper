@@ -6,7 +6,7 @@
           <img ng-src="{{userProfile.profiles.GITHUB.imageUrl.indexOf('http') === 0 ? userProfile.profiles.GITHUB.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
         </div>
         <div class="looper-point" title="Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects">
-          <strong>{{userProfile.score}}</strong><span>Loopers&copy;</span>
+          <strong>{{userProfile.score || "In Progress"}}</strong><span ng-show="userProfile.score > 0">Loopers &copy;</span>
         </div>
       </div>
       <div class="right-side">
@@ -16,9 +16,9 @@
         </div>
         <div class="job-info">
           <ul>
-            <li><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle || 'N/A'}}</span></li>
-            <li><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company || 'N/A'}}</span></li>
-            <li><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.jobTitle.length > 0"><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.company.length > 0"><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.location.length > 0"><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
           </ul>
           <div class="btn-connection">
             <div class="save-talent">
@@ -29,6 +29,14 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="full-side">
+        <ul>
+          <li><p>Email:</p> {{userProfile.email}}</li>
+          <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
+            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -42,12 +50,6 @@
           </span></strong>
           <p>Followers</p>
         </li>
-        <!--<li>-->
-          <!--<strong class="starred-count">-->
-            <!--{{userProfile.profiles.GITHUB.}}-->
-          <!--</strong>-->
-          <!--<p>Starred</p>-->
-        <!--</li>-->
         <li>
           <strong class="following-count">
             {{userProfile.profiles.GITHUB.following}}
@@ -60,34 +62,11 @@
           </strong>
           <p>Repositories</p>
         </li>
+        <li><a href="{{githubLink(userProfile)}}" class="btn-black">View Detail</a></li>
       </ul>
-    </div>
-    <div class="talent-info-content">
       <div class="github-repositories">
         <h3>Detail for repositories contributed to:</h3>
         <div class="repositories-list">
-          <!--<ul>-->
-            <!--<li>-->
-              <!--<h4><i class="fa fa-book"></i> TechLooper</h4>-->
-              <!--<p>This is VietnamWorks Open Source project. TechLooper is an aggregator which will detects the market demands and trends for IT jobs.</p>-->
-            <!--</li>-->
-            <!--<li>-->
-              <!--<h4><i class="fa fa-book"></i> CommonResourcesValidator</h4>-->
-              <!--<p>A maven mojo to validate bundles, you can read more in here: http://architects.dzone.com/articles/server-staging-maven-and-some</p>-->
-            <!--</li>-->
-            <!--<li>-->
-              <!--<h4><i class="fa fa-book"></i> gimmehi5</h4>-->
-              <!--<p>This is a project that I am trying to work on in my spare time.</p>-->
-            <!--</li>-->
-            <!--<li>-->
-              <!--<h4><i class="fa fa-book"></i> hobnobenricher</h4>-->
-              <!--<p>Hobnob is a location base app for professionals. You can choose a specific desired industries, and then as soon as there is any match in your desired industry and close to your location, Hobnob wil…</p>-->
-            <!--</li>-->
-            <!--<li>-->
-              <!--<h4><i class="fa fa-book"></i> TechLooper</h4>-->
-              <!--<p>This is VietnamWorks Open Source project. TechLooper is an aggregator which will detects the market demands and trends for IT jobs.</p>-->
-            <!--</li>-->
-          <!--</ul>-->
           <div class="coming-soon">
             <span>Coming soon</span>
           </div>

@@ -17,16 +17,20 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
   };
   var instance = {
     init: function () {
+      $$.openURL();
+      $$.saveTalent();
+    },
+    makeShortName: function(){
       $(".job-info span").dotdotdot({
         height: 23
       });
       $("span.location").dotdotdot({
         height: 23
       });
-      $$.openURL();
-      $$.saveTalent();
+      $('span.company').dotdotdot({
+        height: 23
+      });
     },
-
     updateSearchText: function (request) {
       var searchRequest = tsMainService.getSearchRequest();
       for (var prop in request) {
@@ -41,16 +45,7 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
           searchRequest[prop].setValue(values);
         }
       }
-    },
-    alignItemResult: function () {
-      var item = $('.talent-item-content');
-      var maxHeight = 0;
-      item.each(function () {
-        if (maxHeight < $(this).height()) {
-          maxHeight = $(this).height();
-        }
-      });
-      item.css('height', maxHeight + 20);
+      //$(".job-info span").dotdotdot({height: 23});
     }
   };
 
