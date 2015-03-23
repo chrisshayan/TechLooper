@@ -50,7 +50,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         List<String> skills = (List<String>) profile.get("skills");
         for (String skill : skills) {
-            score += totalJobPerSkillMap.get(skill);
+            score += totalJobPerSkillMap.get(skill.toLowerCase()) != null ? totalJobPerSkillMap.get(skill.toLowerCase()) : 0L;
         }
 
         return score;
@@ -63,7 +63,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         Map<String, Object> profile = (Map<String, Object>) user.getProfiles().get(SocialProvider.GITHUB);
         List<String> skills = (List<String>) profile.get("skills");
         for (String skill : skills) {
-            score += totalJobPerSkillMap.get(skill);
+            score += totalJobPerSkillMap.get(skill.toLowerCase()) != null ? totalJobPerSkillMap.get(skill.toLowerCase()) : 0L;
         }
 
         if (totalITJobs > 0) {
