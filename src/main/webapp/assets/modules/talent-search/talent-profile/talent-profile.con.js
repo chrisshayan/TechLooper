@@ -19,7 +19,9 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       }
 
       //$scope.totalSkills = data.skillMap;
-      console.log($scope.userProfile);
+      if ($scope.userProfile.profiles.GITHUB.imageUrl === undefined) {
+        $scope.userProfile.profiles.GITHUB.imageUrl = $scope.userProfile.profiles.GITHUB.imageurl;
+      }
 
       talentProfileService.showRating(parseFloat($scope.userProfile.rate));
     });
