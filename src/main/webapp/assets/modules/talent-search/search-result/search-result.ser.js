@@ -41,16 +41,6 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
           searchRequest[prop].setValue(values);
         }
       }
-    },
-    alignItemResult: function () {
-      var item = $('.talent-item-content');
-      var maxHeight = 0;
-      item.each(function () {
-        if (maxHeight < $(this).height()) {
-          maxHeight = $(this).height();
-        }
-      });
-      item.css('height', maxHeight + 20);
     }
   };
 
