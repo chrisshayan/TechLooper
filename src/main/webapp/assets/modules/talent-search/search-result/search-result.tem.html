@@ -6,7 +6,7 @@
   </div>
 
   <div class="search-results-content">
-    <h2 ng-show="search.talents.length > 0"><strong>{{search.total}}</strong> talents found</h2>
+    <h2 ng-show="search.talents.length > 0"><strong>{{search.total.toLocaleString()}}</strong> talents found</h2>
     <h2 ng-show="search.talents.length == 0"><strong>Searching</strong></h2>
     <div class="talent-results">
       <div class="no-result" ng-show='search.talents.length < 1'>
