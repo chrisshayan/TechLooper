@@ -37,10 +37,13 @@ techlooper.controller("tsSearchResultController",
       }
     }
 
-    $scope.makeHover = function () {
+    $timeout(function () {
       tsMainService.enableSelectOptions();
       tsSearchResultService.updateSearchText(request);
-      $timeout(function() {
+    }, 100);
+
+    $scope.makeHover = function () {
+      $timeout(function () {
         tsSearchResultService.init();
       });
     }
@@ -50,7 +53,7 @@ techlooper.controller("tsSearchResultController",
       $scope.search.nextPage();
     }
 
-    $scope.showTalentDetails = function(talent) {
+    $scope.showTalentDetails = function (talent) {
       $location.path(jsonValue.routes.talentProfile);
     }
   });
