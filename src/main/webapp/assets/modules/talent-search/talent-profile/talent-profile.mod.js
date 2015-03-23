@@ -8,7 +8,11 @@ techlooper.directive("generalInfo", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/talent-profile/evaluation.tem.html"
+    templateUrl: "modules/talent-search/talent-profile/evaluation.tem.html",
+    link: function(scope, elem, attrs) {
+      scope.contentLoaded = false;
+      scope.contentLoaded = true;
+    }
   }
 }).directive("resume", function () {
   return {

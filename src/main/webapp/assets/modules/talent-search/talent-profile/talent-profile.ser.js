@@ -55,9 +55,9 @@ techlooper.factory("talentProfileService", function (jsonValue) {
   };
   var instance = {
     init: function(){
-      $$.tabManagerResume();
-      $$.rankingAnimate();
-      $$.countUp();
+      //$$.tabManagerResume();
+      //$$.rankingAnimate();
+      //$$.countUp();
     },
     showRating: function(n){
       var start ="",
