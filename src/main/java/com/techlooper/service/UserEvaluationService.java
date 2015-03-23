@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public interface UserEvaluationService {
 
-    long score(UserImportEntity user);
+    long score(UserImportEntity user, Map<String,Long> totalJobPerSkillMap);
 
-    double rate(UserImportEntity user);
+    double rate(UserImportEntity user, Map<String,Long> totalJobPerSkillMap, Long totalITJobs);
 
     Map<String,Integer> rank(UserImportEntity user);
 
