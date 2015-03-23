@@ -3,15 +3,18 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.repository.talentsearch.GITHUBTalentSearchRepository;
+import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 /**
  * Created by NguyenDangKhoa on 3/19/15.
@@ -21,6 +24,12 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     @Resource
     private JobStatisticService jobStatisticService;
+
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplateUserImport;
+
+    @Resource(name="GITHUBTalentSearchQuery")
+    private GithubTalentSearchQuery githubTalentSearchQuery;
 
     @Override
     public long score(UserImportEntity user) {
@@ -68,7 +77,21 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     }
 
     @Override
-    public Map<String, Long> rank(UserImportEntity user) {
-        return new HashMap<>();
+    public Map<String, Integer> rank(UserImportEntity user) {
+        Map<String, Integer> resultMap = new HashMap<>();
+        Map<String, Object> profile = (Map<String, Object>) user.getProfiles().get(SocialProvider.GITHUB);
+        List<String> skills = (List<String>) profile.get("skills");
+        for (String skill : skills) {
+            List<String> userIds = elasticsearchTemplateUserImport.queryForIds(
+                    githubTalentSearchQuery.getSearchBySkillQuery(skill, "score"));
+            OptionalInt rank = IntStream.range(0, userIds.size())
+                    .filter(index -> userIds.get(index).equals(user.getEmail())).findFirst();
+            if (rank.isPresent()) {
+                resultMap.put(skill, rank.getAsInt());
+            } else {
+                resultMap.put(skill, userIds.size());
+            }
+        }
+        return resultMap;
     }
 }
