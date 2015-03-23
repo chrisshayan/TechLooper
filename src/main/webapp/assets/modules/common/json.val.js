@@ -354,6 +354,8 @@ angular.module("Common").constant("jsonValue", {
     {"text": "Ho Chi Minh"},
     {"text": "Ha Noi"},
     {"text": "Da Nang"},
+    {"text": "Cambodia"},
+    {"text": "Myanmar"},
     {"text": "Japan"},
     {"text": "Thailand"},
     {"text": "Singapore"},
