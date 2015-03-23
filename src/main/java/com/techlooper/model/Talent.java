@@ -25,6 +25,8 @@ public class Talent {
 
     private List<String> skills;
 
+    private Long score;
+
     public String getEmail() {
         return email;
     }
@@ -97,6 +99,14 @@ public class Talent {
         this.skills = skills;
     }
 
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
+    }
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -158,6 +168,11 @@ public class Talent {
 
         public Builder withSkills(List<String> skills) {
             instance.skills = skills;
+            return this;
+        }
+
+        public Builder withScore(Long score) {
+            instance.score = score;
             return this;
         }
 
