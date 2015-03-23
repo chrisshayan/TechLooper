@@ -19,7 +19,7 @@ techlooper.controller("tsSearchResultController",
           return;
         }
 
-        if (this.talents.length / 20 === 2) {
+        if (this.talents.length / 20 === 10) {
           this.busy = false;
           this.reachTop = true;
           return;
