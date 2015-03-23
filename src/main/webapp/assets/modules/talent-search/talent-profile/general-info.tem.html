@@ -32,9 +32,9 @@
       </div>
       <div class="full-side">
         <ul>
-          <li><p>Email:</p> {{userProfile.email}}</li>{{userProfile.GRAVATAR}}
-          <li ng-repeat="phone in userProfile.GRAVATAR.phoneNumbers">
-            <p>{{phone.type}}</p> {{phone.value}}
+          <li><p>Email:</p> {{userProfile.email}}</li>
+          <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
+            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}">{{phone.value}}</a>
           </li>
         </ul>
       </div>
