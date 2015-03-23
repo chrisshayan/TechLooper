@@ -65,42 +65,42 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       $location.path(jsonValue.routerUris.talentSearchResult + "/" + q);
     },
 
-    validationFeedback: function () {
-      $('.send-feedback').click(function (event) {
-        event.preventDefault();
-        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-          feedBack = $('#txtFeedback').val(),
-          email = $('#txtEmail').val();
-        var errorContent = '';
-        $('.error-messages').text('');
-        var inputVal = new Array(email, feedBack);
-        var inputMessage = new Array("Email", "Your Message");
-        $.each(inputVal, function (index, value) {
-          if (value == "") {
-            if (errorContent == '') {
-              errorContent = inputMessage[index];
-            }
-            else {
-              errorContent = errorContent + ', ' + inputMessage[index];
-            }
-          }
-        });
-        if (email != '' && !emailReg.test(email)) {
-          if (errorContent == '') {
-            errorContent = 'Email address is not valid';
-          }
-          else {
-            errorContent = errorContent + ', Email address is not valid';
-          }
-        }
-        if (errorContent != '') {
-          $('.error-messages').append('Please enter your <strong>' + errorContent + '</strong>');
-        }
-        else {
-          alert('Thank you for your feedback')
-        }
-      });
-    },
+    //validationFeedback: function () {
+    //  $('.send-feedback').click(function (event) {
+    //    event.preventDefault();
+    //    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    //      feedBack = $('#txtFeedback').val(),
+    //      email = $('#txtEmail').val();
+    //    var errorContent = '';
+    //    $('.error-messages').text('');
+    //    var inputVal = new Array(email, feedBack);
+    //    var inputMessage = new Array("Email", "Your Message");
+    //    $.each(inputVal, function (index, value) {
+    //      if (value == "") {
+    //        if (errorContent == '') {
+    //          errorContent = inputMessage[index];
+    //        }
+    //        else {
+    //          errorContent = errorContent + ', ' + inputMessage[index];
+    //        }
+    //      }
+    //    });
+    //    if (email != '' && !emailReg.test(email)) {
+    //      if (errorContent == '') {
+    //        errorContent = 'Email address is not valid';
+    //      }
+    //      else {
+    //        errorContent = errorContent + ', Email address is not valid';
+    //      }
+    //    }
+    //    if (errorContent != '') {
+    //      $('.error-messages').append('Please enter your <strong>' + errorContent + '</strong>');
+    //    }
+    //    else {
+    //      alert('Thank you for your feedback')
+    //    }
+    //  });
+    //},
     getSearchRequest: function () {
       return searchRequest;
     },

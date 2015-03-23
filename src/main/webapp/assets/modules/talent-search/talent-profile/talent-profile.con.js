@@ -1,8 +1,14 @@
 techlooper.controller("talentProfileController", function ($timeout, talentProfileService, $scope) {
-  $timeout(function(){
-    talentProfileService.init();
-    talentProfileService.showRating(parseFloat($scope.userProfile.rate));
-  }, 500);
+  //$timeout(function(){
+  //  //talentProfileService.init();
+  //  talentProfileService.showRating(parseFloat($scope.userProfile.rate));
+  //}, 500);
+
+  $scope.$watch("contentLoaded", function() {
+    if ($scope.contentLoaded === true) {
+      talentProfileService.showRating(parseFloat($scope.userProfile.rate));
+    }
+  });
 
   $scope.userProfile = {
     "email": "abc@missing.com",
