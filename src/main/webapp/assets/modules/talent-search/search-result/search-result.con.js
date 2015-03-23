@@ -52,6 +52,6 @@ techlooper.controller("tsSearchResultController",
     }
 
     $scope.showTalentDetails = function (talent) {
-      $location.path(jsonValue.routes.talentProfile);
+      $location.path(jsonValue.routerUris.talentProfile + "/" + $.base64.encode(talent.email));
     }
   });

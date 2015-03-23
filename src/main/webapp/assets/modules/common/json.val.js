@@ -182,7 +182,8 @@ angular.module("Common").constant("jsonValue", {
     logout: "logout",
     verifyUserLogin: "user/verifyUserLogin",
     getUserInfoByKey: "user/findByKey",
-    searchTalent: "api/user/findTalent"
+    searchTalent: "api/user/findTalent",
+    talentProfile: "api/user/talentProfile"
   },
 
   socketUri: {
