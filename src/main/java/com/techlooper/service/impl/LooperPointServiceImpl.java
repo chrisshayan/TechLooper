@@ -45,7 +45,7 @@ public class LooperPointServiceImpl implements LooperPointService {
     "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
     "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
 
-  @Scheduled(cron = "0 0 20 * * FRI")// start every week at FRI 19:00:00
+  @Scheduled(cron = "0 25 21 * * FRI")// start every week at FRI 19:00:00
   public void evaluateCandidates() {
     LOGGER.info("Start service to evaluate candidates...");
     for (String country : countries) {
