@@ -1,8 +1,7 @@
 package com.techlooper.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 3/13/15.
@@ -11,7 +10,7 @@ public class TalentSearchResponse {
 
     private long total = 0;
 
-    private Set<Talent> result = new HashSet<>();
+    private List<Talent> result = new ArrayList<>();
 
     public long getTotal() {
         return total;
@@ -21,11 +20,11 @@ public class TalentSearchResponse {
         this.total = total;
     }
 
-    public Set<Talent> getResult() {
+    public List<Talent> getResult() {
         return result;
     }
 
-    public void setResult(Set<Talent> result) {
+    public void setResult(List<Talent> result) {
         this.result = result;
     }
 

@@ -209,9 +209,12 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': '.Net',
     'logo': 'lg-dotnet.png'
-  }, {
-    'text': 'Php',
-    'logo': 'lg-php.png'
+  },{
+    'text': 'C#',
+    'logo': 'lg-c-sharp.png'
+  },{
+  'text': 'Php',
+  'logo': 'lg-php.png'
   }, {
     'text': 'Ruby',
     'logo': 'lg-ruby.png'

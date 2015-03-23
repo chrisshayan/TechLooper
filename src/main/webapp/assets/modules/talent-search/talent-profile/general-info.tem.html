@@ -3,22 +3,22 @@
     <div class="talent-info-content">
       <div class="left-side">
         <div class="avatar-block">
-          <img src="images/user1.jpg" alt=""/>.
+          <img ng-src="{{userProfile.profiles.GITHUB.imageUrl.indexOf('http') === 0 ? userProfile.profiles.GITHUB.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
         </div>
         <div class="looper-point">
-          <strong>5603</strong><span>Looper points</span>
+          <strong>{{userProfile.score}}</strong><span>Looper points</span>
         </div>
       </div>
       <div class="right-side">
         <div class="general-info">
-          <h2>User name</h2>
-          <p>Has 10 repositories written in Java, JavaScript, and Groovy.</p>
+          <h2>{{userProfile.fullName}}</h2>
+          <p>{{userProfile.profiles.GITHUB.description.charAt(0).toUpperCase() + userProfile.profiles.GITHUB.description.slice(1)}}</p>
         </div>
         <div class="job-info">
           <ul>
-            <li><span class="job-title">IT Director</span></li>
-            <li><span class="company">Navigos Group</span></li>
-            <li><span class="location">Ho Chi Minh, Vietnam</span></li>
+            <li><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle || 'N/A'}}</span></li>
+            <li><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company || 'N/A'}}</span></li>
+            <li><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
           </ul>
           <div class="btn-connection">
             <div class="save-talent">
@@ -37,19 +37,27 @@
       <h3>Github Profile Detail</h3>
       <ul>
         <li>
-          <strong><span class="followers-count">7.6</span>K</strong>
+          <strong><span class="followers-count">
+            {{userProfile.profiles.GITHUB.followers}}
+          </span></strong>
           <p>Followers</p>
         </li>
+        <!--<li>-->
+          <!--<strong class="starred-count">-->
+            <!--{{userProfile.profiles.GITHUB.}}-->
+          <!--</strong>-->
+          <!--<p>Starred</p>-->
+        <!--</li>-->
         <li>
-          <strong class="starred-count">30</strong>
-          <p>Starred</p>
-        </li>
-        <li>
-          <strong class="following-count">83</strong>
+          <strong class="following-count">
+            {{userProfile.profiles.GITHUB.following}}
+          </strong>
           <p>Following</p>
         </li>
         <li>
-          <strong class="repositories-count">12</strong>
+          <strong class="repositories-count">
+            {{userProfile.profiles.GITHUB.numberOfRepositories}}
+          </strong>
           <p>Repositories</p>
         </li>
       </ul>
@@ -86,6 +94,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
