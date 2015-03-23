@@ -30,14 +30,16 @@ public class UserEvaluationServiceImplTest {
     @Test
     public void testScore() throws Exception {
         UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
-        long score = userEvaluationService.score(userImportEntity);
+        Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
+        long score = userEvaluationService.score(userImportEntity, result);
         assertTrue(score > 0);
     }
 
     @Test
     public void testRate() throws Exception {
         UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
-        double rate = userEvaluationService.rate(userImportEntity);
+        Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
+        double rate = userEvaluationService.rate(userImportEntity, result, 100000L);
         assertTrue(rate > 0 && rate <= 5);
     }
 
@@ -46,5 +48,17 @@ public class UserEvaluationServiceImplTest {
         UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
         Map<String,Integer> result = userEvaluationService.rank(userImportEntity);
         assertTrue(userImportEntity.getScore() > 0 ? result.size() > 0 : result.size() == 0);
+    }
+
+    @Test
+    public void testGetSkillMap() throws Exception {
+        Map<String,Long> result = userEvaluationService.getSkillMap();
+        assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void testGetTotalNumberOfJobPerSkill() throws Exception {
+        Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
+        assertTrue(result.size() > 0);
     }
 }
