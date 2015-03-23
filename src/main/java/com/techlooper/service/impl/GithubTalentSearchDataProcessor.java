@@ -47,7 +47,8 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
                     .withDescription(description)
                     .withLocation(StringUtils.trimToEmpty((String) profile.get("location")))
                     .withJobTitle("")
-                    .withSkills(((List<String>) profile.get("skills")));
+                    .withSkills(((List<String>) profile.get("skills")))
+                    .withScore(userImportEntity.getScore());
             return talentBuilder.build();
         }).filter(talent -> talent != null).collect(Collectors.toList());
     }

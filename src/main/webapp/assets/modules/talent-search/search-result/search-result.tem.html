@@ -15,7 +15,7 @@
           <div class="general-info">
             <h3>{{talent.username}}</h3>
             <div class="looper-point">
-              <strong>5603</strong><span>Looper points</span>
+              <strong>{{talent.score || 'N/A'}}</strong><span>Looper points</span>
             </div>
             <p>{{talent.description.charAt(0).toUpperCase() + talent.description.slice(1)}}</p>
             <ul>
