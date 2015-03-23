@@ -63,7 +63,7 @@ techlooper.factory("talentProfileService", function (jsonValue) {
       var start ="",
           temp1 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li>",
           temp2 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star-half-full'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li>",
-          temp3 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-sta'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li>",
+          temp3 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li>",
           temp4 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star-half-full'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li>",
           temp5 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star-o'></i></li><li><i class='fa fa-star-o'></i></li>",
           temp6 = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star-half-full'></i></li><li><i class='fa fa-star-o'></i></li>",

@@ -9,7 +9,7 @@
     </div>
     <div class="evaluation-github">
       <div class="evaluation-item" ng-repeat="skill in userProfile.itemSkills">
-        <h3><img ng-src="images/{{skill.logo}}" alt=""/> {{skill.name}}</h3>
+        <h3><span ng-show="{{skill.logo.length}}"><img ng-src="images/{{skill.logo}}" alt=""/> </span>{{skill.name}}</h3>
         <p><strong>{{skill.rank}}th</strong>/ {{skill.total}} IT talents</p>
         <!--<div class="ranking"><div class="real yellow"></div></div>-->
       </div>
