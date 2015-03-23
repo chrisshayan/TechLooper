@@ -37,16 +37,13 @@ techlooper.controller("tsSearchResultController",
       }
     }
 
-    $timeout(function () {
-      tsMainService.enableSelectOptions();
-      tsSearchResultService.updateSearchText(request);
-    }, 100);
-
-    $scope.makeHover = function () {
-      $timeout(function () {
+    $scope.$watch("contentLoaded", function () {
+      if ($scope.contentLoaded === true) {
+        tsSearchResultService.updateSearchText(request);
         tsSearchResultService.init();
-      });
-    }
+      }
+    });
+
     $scope.startHiring = tsMainService.searchTalent;
 
     if ($scope.search.talents.length === 0) {
