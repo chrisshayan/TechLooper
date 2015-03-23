@@ -13,9 +13,9 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       for (var skillName in $scope.userProfile.ranks) {
           $scope.userProfile.itemSkills.push({
           name: skillName,
-          rank: $scope.userProfile.ranks[skillName].toLocaleString(),
+          rank: $scope.userProfile.ranks[skillName],
           logo: talentProfileService.getLogo(skillName),
-          total: data.skillMap[skillName].toLocaleString()
+          total: data.skillMap[skillName]
         });
       }
 
