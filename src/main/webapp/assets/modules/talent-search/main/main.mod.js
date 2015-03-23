@@ -1,8 +1,13 @@
-techlooper.directive("talentSearchForm", function () {
+techlooper.directive("talentSearchForm", function (tsMainService) {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/main/search-form.tem.html"
+    templateUrl: "modules/talent-search/main/search-form.tem.html",
+    link: function(scope, elem, attrs) {
+      scope.contentLoaded = false;
+      tsMainService.enableSelectOptions();
+      scope.contentLoaded = true;
+    }
   }
 }).directive("reasonUsed", function () {
   return {
