@@ -41,7 +41,6 @@ techlooper.controller("tsSearchResultController",
       if ($scope.contentLoaded === true) {
         tsSearchResultService.updateSearchText(request);
         tsSearchResultService.init();
-        //tsSearchResultService.alignItemResult();
       }
     });
 
@@ -56,6 +55,6 @@ techlooper.controller("tsSearchResultController",
     }
 
     $scope.handleLastItem = function() {
-      //tsSearchResultService.alignItemResult();
+
     }
   });
