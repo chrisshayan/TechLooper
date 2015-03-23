@@ -45,6 +45,7 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
           searchRequest[prop].setValue(values);
         }
       }
+      //$(".job-info span").dotdotdot({height: 23});
     }
   };
 
