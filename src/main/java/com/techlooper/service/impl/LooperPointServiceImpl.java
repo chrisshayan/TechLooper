@@ -48,7 +48,7 @@ public class LooperPointServiceImpl implements LooperPointService {
   @Resource
   private JobStatisticService jobStatisticService;
 
-  final String[] countries = {"vietnam", "japan", "thailand", "singapore", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
+  final String[] countries = {"japan", "thailand", "singapore", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
     "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
     "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
 //  final String[] countries = {"vietnam"};
