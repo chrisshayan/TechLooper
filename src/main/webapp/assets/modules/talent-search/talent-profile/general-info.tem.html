@@ -16,9 +16,9 @@
         </div>
         <div class="job-info">
           <ul>
-            <li><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle || 'N/A'}}</span></li>
-            <li><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company || 'N/A'}}</span></li>
-            <li><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.jobTitle.length > 0"><span class="job-title" title="{{userProfile.profiles.GITHUB.jobTitle}}">{{userProfile.profiles.GITHUB.jobTitle}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.company.length > 0"><span class="company" title="{{userProfile.profiles.GITHUB.company}}">{{userProfile.profiles.GITHUB.company}}</span></li>
+            <li ng-show="userProfile.profiles.GITHUB.location.length > 0"><span class="location" title="{{userProfile.profiles.GITHUB.location}}">{{userProfile.profiles.GITHUB.location || 'N/A'}}</span></li>
           </ul>
           <div class="btn-connection">
             <div class="save-talent">
