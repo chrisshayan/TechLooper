@@ -4,10 +4,7 @@ import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.SocialProvider;
-import com.techlooper.model.Talent;
-import com.techlooper.model.TalentSearchRequest;
-import com.techlooper.model.TalentSearchResponse;
+import com.techlooper.model.*;
 import com.techlooper.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
@@ -124,6 +121,13 @@ public class UserServiceITcase {
                 .withPageSize(20).withPageIndex(0);
         TalentSearchResponse talents = userService.findTalent(searchParam.build());
         assertTrue(talents.getResult().size() == 0);
+    }
+
+    @Test
+    public void testGetTalentProfile() throws Exception {
+        TalentProfile talentProfile = userService.getTalentProfile("nguyentruongminh7@gmail.com");
+        assertTrue(talentProfile.getSkillMap().size() > 0);
+        assertTrue(talentProfile.getUserImportEntity().getScore() > 0);
     }
 
 }

@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -77,6 +78,13 @@ public class UserController {
     @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
     public TalentSearchResponse findTalent(@RequestBody TalentSearchRequest param, HttpServletResponse httpServletResponse) {
         return userService.findTalent(param);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/user/talentProfile/{hashEmail}", method = RequestMethod.GET)
+    public TalentProfile getTalentProfile(@PathVariable String hashEmail, HttpServletResponse httpServletResponse) {
+        String email = new String(Base64.getDecoder().decode(hashEmail));
+        return userService.getTalentProfile(email);
     }
 
 

@@ -3,14 +3,12 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.SocialProvider;
-import com.techlooper.model.TalentSearchRequest;
-import com.techlooper.model.TalentSearchResponse;
-import com.techlooper.model.UserInfo;
+import com.techlooper.model.*;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.talentsearch.query.TalentSearchQuery;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.TalentSearchDataProcessor;
+import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
@@ -18,6 +16,7 @@ import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryFilterBuilder;
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +30,11 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
-import static org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -61,6 +58,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private VietnamWorksUserService vietnamworksUserService;
+
+    @Resource
+    private UserEvaluationService userEvaluationService;
 
     @Resource
     private ApplicationContext applicationContext;
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
             return userImportEntity;
         } else {
             QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(
-                    QueryBuilders.queryString(email).defaultOperator(Operator.AND)).cache(true);
+                    QueryBuilders.queryString(email).defaultOperator(QueryStringQueryBuilder.Operator.AND)).cache(true);
             SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
                     .withFilter(queryFilterBuilder)
                     .withPageable(new PageRequest(0, 10))
@@ -158,6 +158,7 @@ public class UserServiceImpl implements UserService {
                 return null;
             }
         }
+
     }
 
     @Override
@@ -191,6 +192,24 @@ public class UserServiceImpl implements UserService {
             builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
         });
 
+        return builder.build();
+    }
+
+    @Override
+    public TalentProfile getTalentProfile(String email) {
+        TalentProfile.Builder builder = new TalentProfile.Builder();
+        UserImportEntity userImportEntity = findUserImportByEmail(email);
+        if (userImportEntity != null) {
+            Map<String,Long> skillMap = userEvaluationService.getSkillMap();
+            Map<String, Object> profile = (Map<String, Object>) userImportEntity.getProfiles().get(SocialProvider.GITHUB);
+            if (profile != null) {
+                List<String> skills = (List<String>) profile.get("skills");
+                Map<String,Long> talentSkillMap = new HashMap<>();
+                skills.stream().forEach(skill -> talentSkillMap.put(skill, skillMap.get(skill.toLowerCase())));
+                builder.withUserImportEntity(userImportEntity);
+                builder.withSkillMap(talentSkillMap);
+            }
+        }
         return builder.build();
     }
 

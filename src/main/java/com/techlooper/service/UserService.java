@@ -114,4 +114,6 @@ public interface UserService {
      * @return list of {@linkplain com.techlooper.model.TalentSearchResponse}
      */
     TalentSearchResponse findTalent(TalentSearchRequest param);
+
+    TalentProfile getTalentProfile(String email);
 }

@@ -11,31 +11,17 @@
   text-align: center
   color: #525252
   padding-bottom: 10px
+  .main-banner
+    .img-banner
+      min-height: 200px
   .search-form-block
-    background-image: none
-    background-color: #227bbe
-    border-top: 3px solid #404040
+    background: transparent
     height: auto
-    top: 75px
+    top: 35px
     width: 100%
     max-width: 1200px
     h2
       display: none
-    .input-group
-      input
-        background-color: #000
-      .selectize-input
-        background-image: none
-        background-color: #0a5389
-        border: 0
-    .selectize-control.multi .selectize-input [data-value]
-      background: url(../images/bg-tag.png) #2e90d9 left top no-repeat
-    .selectize-control.multi .selectize-input .active[data-value]
-      background: url(../images/bg-tag-x.png) #074471 left top no-repeat
-    .selectize-control.multi .selectize-input > div
-      border: 1px solid #074471
-    .selectize-dropdown .active
-      background-color: #074471 !important
   .input-submit
     width: auto
     display: inline-block
@@ -44,7 +30,7 @@
   .search-results-content
     display: block
     clear: both
-    padding: 215px 1% 40px 1%
+    padding: 35px 1% 40px 1%
     text-align: left
     width: 100%
     max-width: 1252px
@@ -71,12 +57,12 @@
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
-      position: relative
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
       .talent-item-content
         width: 100%
         display: block
         padding: 10px
+        min-height: 438px
       .main-skill
         width: 100%
         clear: both
@@ -248,14 +234,13 @@
   clear: both
   padding: 0 0 10px 0
   text-align: center
-  font-size: 10px
+  font-size: 14px
   strong
     font-size: 22px
     font-weight: 500
     padding-right: 5px
   span
     width: 38px
-    display: inline-block
     line-height: 12px
 .job-info
   width: 100%
