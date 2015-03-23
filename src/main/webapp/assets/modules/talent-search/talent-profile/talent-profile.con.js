@@ -24,7 +24,8 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
         $scope.userProfile.profiles.GITHUB.imageUrl = $scope.userProfile.profiles.GITHUB.imageurl;
       }
 
-      talentProfileService.showRating(parseFloat($scope.userProfile.rate));
+      $timeout(talentProfileService.showRating(parseFloat($scope.userProfile.rate)), 100);
+
 
       $(window).scrollTop(0);
     });
