@@ -3,7 +3,7 @@ techlooper.controller("tsMainController", function ($scope, $timeout, tsMainServ
     tsMainService.enableSelectOptions();
     tsMainService.validationFeedback();
     tsMainService.scrollToReason();
-  }, 500);
+  }, 1000);
 
   $scope.startHiring = tsMainService.searchTalent;
 });

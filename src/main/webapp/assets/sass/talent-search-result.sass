@@ -10,71 +10,41 @@
   float: left
   text-align: center
   color: #525252
+  padding-bottom: 10px
   .search-form-block
+    background-image: none
     background-color: #227bbe
     border-top: 3px solid #404040
     height: auto
     top: 75px
     width: 100%
-    max-width: 100%
     max-width: 1200px
     h2
       display: none
     .input-group
-      width: 85%
-      display: inline-block
-      clear: none
-      .selectize-control
-        width: 24.5%
-        margin: 0 0.5% 0 0
-        float: left
+      input
+        background-color: #000
       .selectize-input
-        height: 42px
-    .selectize-input
-      background-color: #000
+        background-image: none
+        background-color: #0a5389
+        border: 0
     .selectize-control.multi .selectize-input [data-value]
-      background: url(../images/bg-tag.png) #031d30 left top no-repeat
-      color: #e9e9e9
+      background: url(../images/bg-tag.png) #2e90d9 left top no-repeat
     .selectize-control.multi .selectize-input .active[data-value]
-      background: url(../images/bg-tag-x.png) #0c4875 left top no-repeat
+      background: url(../images/bg-tag-x.png) #074471 left top no-repeat
     .selectize-control.multi .selectize-input > div
-      border: 1px solid #083251
-    .search-form-block .selectize-control.plugin-remove_button [data-value] .remove
-      background-color: #000
+      border: 1px solid #074471
+    .selectize-dropdown .active
+      background-color: #074471 !important
   .input-submit
     width: auto
     display: inline-block
     clear: none
-  .start-hiring-button
-    float: left
-    padding-bottom: 5px
-    p
-      margin: 0
-      padding: 0
-      position: inherit
-    .btn
-      background-color: #fff
-      width: 120px
-      margin: -1px 0 0 0
-      height: 40px
-      border: 0
-      font-size: 16px
-      line-height: 16px
-      padding: 0
-      color: #000
-    .btn:after
-      position: inherit
-      background: transparent
-    .btn:before
-      position: inherit
-      background: transparent
-    .btn:hover
-      background-color: #bb11c4
-      color: #fff
+
   .search-results-content
     display: block
     clear: both
-    padding: 165px 1% 40px 1%
+    padding: 215px 1% 40px 1%
     text-align: left
     width: 100%
     max-width: 1252px
