@@ -1,6 +1,10 @@
 <div class="ts-main search-page" infinite-scroll="search.nextPage()"
      infinite-scroll-disabled="search.busy" infinite-scroll-distance='0'>
-  <div talent-Search-Form></div>
+  <div class="main-banner">
+    <div class="img-banner"></div>
+    <div talent-Search-Form></div>
+  </div>
+
   <div class="search-results-content">
     <h2 ng-show="search.talents.length > 0"><strong>{{search.total}}</strong> talents found</h2>
     <h2 ng-show="search.talents.length == 0"><strong>Searching</strong></h2>
@@ -14,15 +18,15 @@
           </div>
           <div class="general-info">
             <h3>{{talent.username}}</h3>
-            <div class="looper-point">
-              <strong>{{talent.score || 'N/A'}}</strong><span>Looper points</span>
+            <div class="looper-point" title="Looper Points">
+              <strong>{{talent.score || 'N/A'}}</strong><span>Loopers&copy;</span>
             </div>
             <p>{{talent.description.charAt(0).toUpperCase() + talent.description.slice(1)}}</p>
-            <ul>
-              <li><span class="view">View</span> 00</li>
-              <li><span class="save">Save</span> 00</li>
-              <li><span class="contact">Contacted</span> 00</li>
-            </ul>
+            <!--<ul>-->
+              <!--<li><span class="view">View</span> 00</li>-->
+              <!--<li><span class="save">Save</span> 00</li>-->
+              <!--<li><span class="contact">Contacted</span> 00</li>-->
+            <!--</ul>-->
           </div>
           <div class="job-info">
             <ul>
