@@ -8,6 +8,12 @@ import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.InternalAggregation;
+import org.elasticsearch.search.aggregations.bucket.nested.InternalNested;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 
@@ -93,5 +99,26 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             }
         }
         return resultMap;
+    }
+
+    @Override
+    public Map<String,Long> getSkillMap() {
+        Map<String,Long> skillMap = new HashMap<>();
+        Aggregations aggregations =
+                elasticsearchTemplateUserImport.query(githubTalentSearchQuery.getSkillStatsQuery(), SearchResponse::getAggregations);
+        InternalNested agg = (InternalNested) aggregations.getAsMap().get("skill_list");
+        StringTerms stringTerms = (StringTerms) agg.getAggregations().getAsMap().get("skill_list");
+        stringTerms.getBuckets().stream().forEach(bucket -> skillMap.put(bucket.getKey(), bucket.getDocCount()));
+        return skillMap;
+    }
+
+    @Override
+    public Map<String, Long> getTotalNumberOfJobPerSkill() {
+        Map<String,Long> totalJobPerSkillMap = new HashMap<>();
+        Map<String,Long> skillMap = getSkillMap();
+        skillMap.entrySet().stream().forEach(skillEntry ->
+            totalJobPerSkillMap.put(skillEntry.getKey(),jobStatisticService.countJobsBySkillWithinPeriod(
+                    skillEntry.getKey(), HistogramEnum.TWO_QUARTERS)));
+        return totalJobPerSkillMap;
     }
 }

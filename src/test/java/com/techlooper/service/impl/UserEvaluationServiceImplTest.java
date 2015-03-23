@@ -47,4 +47,16 @@ public class UserEvaluationServiceImplTest {
         Map<String,Integer> result = userEvaluationService.rank(userImportEntity);
         assertTrue(userImportEntity.getScore() > 0 ? result.size() > 0 : result.size() == 0);
     }
+
+    @Test
+    public void testGetSkillMap() throws Exception {
+        Map<String,Long> result = userEvaluationService.getSkillMap();
+        assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void testGetTotalNumberOfJobPerSkill() throws Exception {
+        Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
+        assertTrue(result.size() > 0);
+    }
 }

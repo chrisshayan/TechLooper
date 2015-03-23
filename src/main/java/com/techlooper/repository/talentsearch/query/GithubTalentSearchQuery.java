@@ -4,6 +4,7 @@ import com.techlooper.model.TalentSearchRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.PageRequest;
@@ -54,5 +55,13 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
                 .withPageable(new PageRequest(0, 100000))
                 .withIndices("techlooper")
                 .build();
+    }
+
+    public SearchQuery getSkillStatsQuery() {
+        return new NativeSearchQueryBuilder()
+                .addAggregation(AggregationBuilders.nested("skill_list").path("profiles")
+                    .subAggregation(AggregationBuilders.terms("skill_list").field("profiles.GITHUB.skills").size(0)))
+                    .withIndices("techlooper")
+                    .build();
     }
 }

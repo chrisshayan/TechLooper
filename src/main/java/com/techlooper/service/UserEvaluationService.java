@@ -14,4 +14,8 @@ public interface UserEvaluationService {
     double rate(UserImportEntity user);
 
     Map<String,Integer> rank(UserImportEntity user);
+
+    Map<String,Long> getSkillMap();
+
+    Map<String,Long> getTotalNumberOfJobPerSkill();
 }
