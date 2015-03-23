@@ -53,7 +53,7 @@ public class LooperPointServiceImpl implements LooperPointService {
     "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
 //  final String[] countries = {"vietnam"};
 
-  @Scheduled(cron = "0 0 12 * * MON")// start every week at FRI 19:00:00
+  @Scheduled(cron = "${scheduled.cron.looperpoints}")// start every week at FRI 19:00:00
   public void evaluateCandidates() {
     Map<String, Long> totalNumberOfJobPerSkill = userEvaluationService.getTotalNumberOfJobPerSkill();
     Long totalITJobs = jobStatisticService.countTotalITJobsWithinPeriod(HistogramEnum.TWO_QUARTERS);
