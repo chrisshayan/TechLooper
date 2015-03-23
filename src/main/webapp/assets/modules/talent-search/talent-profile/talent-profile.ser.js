@@ -112,7 +112,12 @@ techlooper.factory("talentProfileService", function (jsonValue) {
       });
       return logo
     },
-    getColorProcess: function(){}
+    getColorProcess: function(){
+      
+    },
+    getPercentRank: function(){
+
+    }
   };
 
   return instance;
