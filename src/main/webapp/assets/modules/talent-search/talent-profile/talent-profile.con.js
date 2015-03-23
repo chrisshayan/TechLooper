@@ -1,17 +1,19 @@
 techlooper.controller("talentProfileController", function ($timeout, talentProfileService, $scope) {
   $timeout(function(){
     talentProfileService.init();
-  }, 200);
+    talentProfileService.showRating(parseFloat($scope.userProfile.rate));
+  }, 500);
 
   $scope.userProfile = {
     "email": "abc@missing.com",
     "fullName": "Peter Parker",
-    "rate": "0.0",
+    "rate": "3",
     "ranks": {
-      "java": 1,
-      "c#": 2
+      "java": 400,
+      "c#": 239,
+      "AngularJS": 1024
     },
-    "score": 1000,
+    "score": 1600,
     "profiles": {
       "GITHUB": {
         "email": "skynet.hd.91@gmail.com",
@@ -25,8 +27,8 @@ techlooper.controller("talentProfileController", function ($timeout, talentProfi
         "company": "Niteco",
         "website": null,
         "description": "xonxoi has 5 repositories written in Java, CSS, and JavaScript. Follow their code on GitHub.",
-        "followers": "0",
-        "following": "0",
+        "followers": "13",
+        "following": "40",
         "organizations": null,
         "popularRepositories": [
           "/xonxoi/interportlet-communication-jms",
@@ -50,7 +52,17 @@ techlooper.controller("talentProfileController", function ($timeout, talentProfi
         "numberOfRepositories": 5
       }
     }
-  }
+  };
 
+  $scope.userProfile.itemSkills = [];
+  for (var skillName in $scope.userProfile.ranks) {
+    $scope.userProfile.itemSkills.push({
+      name: skillName,
+      rank: $scope.userProfile.ranks[skillName],
+      logo: talentProfileService.getLogo(skillName),
+      color: talentProfileService.getColorProcess(),
+      perCent: talentProfileService.getPercent()
+    });
+  }
 
 });
