@@ -1,6 +1,7 @@
 package com.techlooper.repository.talentsearch.query;
 
 import com.techlooper.model.TalentSearchRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -41,4 +42,17 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
                 .build();
     }
 
+    public SearchQuery getSearchBySkillQuery(String skill, String sortField) {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        if (StringUtils.isNotEmpty(skill)) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", skill));
+        }
+
+        return new NativeSearchQueryBuilder()
+                .withQuery(nestedQuery("profiles", boolQueryBuilder))
+                .withSort(SortBuilders.fieldSort(sortField).order(SortOrder.DESC))
+                .withPageable(new PageRequest(0, 100000))
+                .withIndices("techlooper")
+                .build();
+    }
 }

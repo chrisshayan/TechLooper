@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,6 +43,8 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testRank() throws Exception {
-
+        UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
+        Map<String,Integer> result = userEvaluationService.rank(userImportEntity);
+        assertTrue(userImportEntity.getScore() > 0 ? result.size() > 0 : result.size() == 0);
     }
 }
