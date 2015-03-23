@@ -107,6 +107,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         InternalNested agg = (InternalNested) aggregations.getAsMap().get("skill_list");
         StringTerms stringTerms = (StringTerms) agg.getAggregations().getAsMap().get("skill_list");
         stringTerms.getBuckets().stream().forEach(bucket -> skillMap.put(bucket.getKey(), bucket.getDocCount()));
+        //TODO : ES cannot index special language like C++ or C#, we assume it as C-family skill and will handle this issue later
+        skillMap.put("c++", skillMap.get("c"));
+        skillMap.put("c#", skillMap.get("c"));
         return skillMap;
     }
 
