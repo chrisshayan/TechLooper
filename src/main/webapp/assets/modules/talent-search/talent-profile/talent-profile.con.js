@@ -61,7 +61,7 @@ techlooper.controller("talentProfileController", function ($timeout, talentProfi
       rank: $scope.userProfile.ranks[skillName],
       logo: talentProfileService.getLogo(skillName),
       color: talentProfileService.getColorProcess(),
-      perCent: talentProfileService.getPercent()
+      perCent: talentProfileService.getPercentRank()
     });
   }
 
