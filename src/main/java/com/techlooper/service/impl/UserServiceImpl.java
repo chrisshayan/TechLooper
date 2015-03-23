@@ -13,10 +13,15 @@ import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.QueryFilterBuilder;
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -135,7 +140,25 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserImportEntity findUserImportByEmail(String email) {
-        return userImportRepository.findOne(email);
+        UserImportEntity userImportEntity = userImportRepository.findOne(email);
+
+        if (userImportEntity != null) {
+            return userImportEntity;
+        } else {
+            QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(
+                    QueryBuilders.queryString(email).defaultOperator(QueryStringQueryBuilder.Operator.AND)).cache(true);
+            SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
+                    .withFilter(queryFilterBuilder)
+                    .withPageable(new PageRequest(0, 10))
+                    .build();
+            Page<UserImportEntity> result = userImportRepository.search(userSearchQuery);
+            if (result.getNumberOfElements() > 0) {
+                return result.getContent().get(0);
+            } else {
+                return null;
+            }
+        }
+
     }
 
     @Override
@@ -176,14 +199,16 @@ public class UserServiceImpl implements UserService {
     public TalentProfile getTalentProfile(String email) {
         TalentProfile.Builder builder = new TalentProfile.Builder();
         UserImportEntity userImportEntity = findUserImportByEmail(email);
-        Map<String,Long> skillMap = userEvaluationService.getSkillMap();
-        Map<String, Object> profile = (Map<String, Object>) userImportEntity.getProfiles().get(SocialProvider.GITHUB);
-        if (profile != null) {
-            List<String> skills = (List<String>) profile.get("skills");
-            Map<String,Long> talentSkillMap = new HashMap<>();
-            skills.stream().forEach(skill -> talentSkillMap.put(skill, skillMap.get(skill.toLowerCase())));
-            builder.withUserImportEntity(userImportEntity);
-            builder.withSkillMap(talentSkillMap);
+        if (userImportEntity != null) {
+            Map<String,Long> skillMap = userEvaluationService.getSkillMap();
+            Map<String, Object> profile = (Map<String, Object>) userImportEntity.getProfiles().get(SocialProvider.GITHUB);
+            if (profile != null) {
+                List<String> skills = (List<String>) profile.get("skills");
+                Map<String,Long> talentSkillMap = new HashMap<>();
+                skills.stream().forEach(skill -> talentSkillMap.put(skill, skillMap.get(skill.toLowerCase())));
+                builder.withUserImportEntity(userImportEntity);
+                builder.withSkillMap(talentSkillMap);
+            }
         }
         return builder.build();
     }
