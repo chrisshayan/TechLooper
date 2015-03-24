@@ -42,7 +42,7 @@ techlooper.controller("tsSearchResultController",
       if ($scope.contentLoaded === true) {
         tsSearchResultService.updateSearchText(request);
         tsSearchResultService.init();
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({html:true});
       }
     });
 
@@ -57,6 +57,6 @@ techlooper.controller("tsSearchResultController",
     }
 
     $scope.handleLastItem = function() {
-      $('[data-toggle="tooltip"]').tooltip();
+      $('[data-toggle="tooltip"]').tooltip({html:true});
     }
   });
