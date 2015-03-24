@@ -131,7 +131,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "userProfileController"
       })
       .otherwise({
-        redirectTo: "/home"
+        redirectTo: function() {
+          if (window.location.host.indexOf("hiring") >= 0) {
+            return "/home";
+          }
+          return "/bubble-chart";
+        }
       });
   }]);
 
