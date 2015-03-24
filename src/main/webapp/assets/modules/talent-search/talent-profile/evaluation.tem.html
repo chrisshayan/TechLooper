@@ -2,16 +2,16 @@
   <div class="evaluation-content">
     <div class="rating-talent-ranking">
       <div class="rating-block">
-        <h3>Rating</h3>
-        <p>{{userProfile.rate}}</p>
+        <h3>Loopating &copy;</h3>
         <ul class="rating-status"></ul>
+        <p ng-show="userProfile.ranks.Overall" data-toggle="tooltip" data-original-title="<strong>{{userProfile.fullName || userProfile.profiles.GITHUB.username}}</strong> ranks in the top <strong class='blue'>{{userProfile.ranks.Overall}}%</strong> of TechLooper talent pool.">Ranks in the top <strong class="blue">{{userProfile.ranks.Overall}}%</strong></p>
       </div>
     </div>
     <div class="evaluation-github">
       <div class="evaluation-item" ng-repeat="skill in userProfile.itemSkills">
         <h3><span ng-show="{{skill.logo.length > 0}}"><img ng-src="images/{{skill.logo}}" alt=""/> </span>{{skill.name}}</h3>
-        <p><strong>{{skill.rank.toLocaleString()}} th</strong>/ {{skill.total.toLocaleString()}} IT talents</p>
-        <div class="ranking"><div class="real yellow" ng-style="{'width': ((skill.total - skill.rank) / skill.total * 100) + '%'}"></div></div>
+        <p><strong>#{{skill.rank.toLocaleString()}}</strong> out of {{skill.total.toLocaleString()}}</p>
+        <!--<div class="ranking"><div class="real yellow" ng-style="{'width': ((skill.total - skill.rank) / skill.total * 100) + '%'}"></div></div>-->
       </div>
     </div>
   </div>

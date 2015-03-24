@@ -55,8 +55,19 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
 
     @Override
     public void normalizeInputParameter(TalentSearchRequest param) {
-        param.getKeywords().removeAll(Arrays.asList(null, ""));
+        param.getSkills().removeAll(Arrays.asList(null, ""));
+        param.getCompanies().removeAll(Arrays.asList(null, ""));
         param.getLocations().removeAll(Arrays.asList(null, ""));
+
+        //process locations which contains whitespace among their words, remove the blank, "Ha Noi" -> "HaNoi"
+        List<String> locations = param.getLocations();
+        locations.addAll(locations.stream().filter(
+                location -> location.contains(" ")).map(
+                location -> new String(location.replaceAll(" ", ""))).collect(Collectors.toList()));
+        //TODO : should define a map<keysearch,text search> for this later
+        if (locations.contains("Ho Chi Minh")) {
+            locations.add("saigon");
+        }
 
         //limit the number of pages up to 10, zero-based page index
         if (param.getPageIndex() > PAGE_RESULT_THRESHOLD) {

@@ -109,7 +109,7 @@ public class UserServiceITcase {
     @Test
     public void testFindTalent() throws Exception {
         TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
-        searchParam.withKeywords(Arrays.asList(".NET", "Senior Developer")).withPageSize(20).withPageIndex(0);
+        searchParam.withLocations(Arrays.asList("Ho Chi Minh", "Saigon", "HoChiMinh")).withPageSize(20).withPageIndex(0);
         TalentSearchResponse talents = userService.findTalent(searchParam.build());
         assertTrue(talents.getResult().size() > 0);
     }
@@ -117,7 +117,7 @@ public class UserServiceITcase {
     @Test
     public void testTalentNotFound() throws Exception {
         TalentSearchRequest.Builder searchParam = new TalentSearchRequest.Builder();
-        searchParam.withKeywords("English").withLocations("Vietnam")
+        searchParam.withSkills("English").withLocations("Vietnam")
                 .withPageSize(20).withPageIndex(0);
         TalentSearchResponse talents = userService.findTalent(searchParam.build());
         assertTrue(talents.getResult().size() == 0);

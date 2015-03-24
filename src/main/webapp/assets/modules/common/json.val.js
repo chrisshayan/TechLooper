@@ -276,6 +276,15 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Illustrator',
     'logo': 'lg-illustrator.png'
+  }, {
+    'text': 'JavaScript',
+    'logo': 'lg-javascript.png'
+  }, {
+    'text': 'C',
+    'logo': 'lg-c.png'
+  }, {
+    'text': 'CSS',
+    'logo': 'lg-css3.png'
   }],
   shortcuts: [{
     "id": 1,

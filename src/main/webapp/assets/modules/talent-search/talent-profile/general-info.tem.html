@@ -5,7 +5,7 @@
         <div class="avatar-block">
           <img ng-src="{{userProfile.profiles.GITHUB.imageUrl.indexOf('http') === 0 ? userProfile.profiles.GITHUB.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
         </div>
-        <div class="looper-point" title="Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects">
+        <div class="looper-point" data-toggle="tooltip" data-original-title="Loopers is a measure of profile <strong>completeness</strong>, <strong>relevance</strong> and <strong>experience</strong>; the more points means profile contains <strong>more personal information</strong>, person skills’ are more <strong>relevant to market demand</strong> and this person has <strong>contributed more to open source</strong> projects">
           <strong>{{userProfile.score || "In Progress"}}</strong><span ng-show="userProfile.score > 0">Loopers &copy;</span>
         </div>
       </div>
@@ -32,9 +32,18 @@
       </div>
       <div class="full-side">
         <ul>
-          <li><p>Email:</p> {{userProfile.email}}</li>
+          <li ng-show="userProfile.email.indexOf('missing.com') < 0"><p>Email </p><a href="mailto:{{userProfile.email}}">{{userProfile.email}}</a></li>
           <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
-            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
+            <p>{{phone.type.capitalize(0)}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
+          </li>
+          <li ng-repeat="im in userProfile.profiles.GRAVATAR.ims">
+            <p>{{im.type.capitalize(0)}}</p> {{im.value}}
+          </li>
+          <li ng-repeat="account in userProfile.profiles.GRAVATAR.accounts">
+            <p>{{account.shortname.capitalize(0)}}</p> <a href="{{account.url}}" target="_blank">{{account.username}}</a>
+          </li>
+          <li ng-repeat="url in userProfile.profiles.GRAVATAR.urls">
+            <p>URL</p> <a href="{{url.value}}" target="_blank">{{url.title}}</a>
           </li>
         </ul>
       </div>
