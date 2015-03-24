@@ -285,6 +285,9 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'CSS',
     'logo': 'lg-css3.png'
+  }, {
+    'text': 'Shell',
+    'logo': 'lg-shell.png'
   }],
   shortcuts: [{
     "id": 1,
