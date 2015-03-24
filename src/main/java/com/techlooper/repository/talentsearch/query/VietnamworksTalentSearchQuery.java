@@ -32,8 +32,8 @@ public class VietnamworksTalentSearchQuery implements TalentSearchQuery {
     @Override
     public SearchQuery getSearchQuery(TalentSearchRequest searchRequest) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if (!searchRequest.getKeywords().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getKeywords(), GENERAL_SEARCH_FIELDS));
+        if (!searchRequest.getSkills().isEmpty()) {
+            boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getSkills(), GENERAL_SEARCH_FIELDS));
         }
         if (!searchRequest.getLocations().isEmpty()) {
             boolQueryBuilder.must(QueryBuilders.multiMatchQuery(searchRequest.getLocations(), LOCATION_FIELDS));
