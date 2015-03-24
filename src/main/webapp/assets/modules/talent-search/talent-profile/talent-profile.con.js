@@ -10,12 +10,14 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       $scope.userProfile = data.userImportEntity;
       $scope.userProfile.itemSkills = [];
       for (var skillName in $scope.userProfile.ranks) {
-          $scope.userProfile.itemSkills.push({
-          name: skillName,
-          rank: $scope.userProfile.ranks[skillName],
-          logo: talentProfileService.getLogo(skillName),
-          total: data.skillMap[skillName]
-        });
+          if (skillName != 'Overall') {
+            $scope.userProfile.itemSkills.push({
+              name: skillName,
+              rank: $scope.userProfile.ranks[skillName],
+              logo: talentProfileService.getLogo(skillName),
+              total: data.skillMap[skillName]
+            })
+          };
       }
 
       //$scope.totalSkills = data.skillMap;
@@ -27,7 +29,7 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
         $scope.userProfile.ranks.Overall = 50;
       }
       else {
-        $scope.userProfile.ranks.Overall = Math.min(userProfile.ranks.Overall / 188501 * 100, 50);
+        $scope.userProfile.ranks.Overall = Math.ceil(Math.min($scope.userProfile.ranks.Overall / 188501 * 100, 50));
       }
 
       $timeout(talentProfileService.showRating(parseFloat($scope.userProfile.rate)), 100);
