@@ -8,8 +8,11 @@
   <div class="search-results-content">
     <h2 ng-show="search.talents.length > 1"><strong>{{search.total.toLocaleString()}}</strong> talents found</h2>
     <h2 ng-show="search.talents.length == 1"><strong>{{search.total.toLocaleString()}}</strong> talent found</h2>
-    <div class="no-result-content" ng-show='search.talents.length < 1'>
+    <div class="no-result-content" ng-show='search.talents.length < 1 && !search.busy'>
       <p>Our robots are searching all over internet to find more passive candidates. At the moment we could not find any match with you criteria. Please give us another chance and try another search. </p>
+    </div>
+    <div class="no-result-content" ng-show='search.busy'>
+      <p>Searching </p>
     </div>
     <div class="talent-results">
       <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? handleLastItem() : null">
