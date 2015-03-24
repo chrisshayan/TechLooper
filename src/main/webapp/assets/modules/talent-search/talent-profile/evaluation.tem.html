@@ -4,7 +4,7 @@
       <div class="rating-block">
         <h3>Loopating &copy;</h3>
         <ul class="rating-status"></ul>
-        <p>{{userProfile.fullName || userProfile.profiles.GITHUB.username}} ranks in the top {{userProfile.ranks.Overall}}% of TechLooper talent pool.</p>
+        <p data-toggle="tooltip" data-original-title="<strong>{{userProfile.fullName || userProfile.profiles.GITHUB.username}}</strong> ranks in the top <strong class='blue'>{{userProfile.ranks.Overall}}%</strong> of TechLooper talent pool.">Ranks in the top <strong class="blue">{{userProfile.ranks.Overall}}%</strong></p>
       </div>
     </div>
     <div class="evaluation-github">
