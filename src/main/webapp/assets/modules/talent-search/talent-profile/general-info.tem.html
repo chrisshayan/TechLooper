@@ -32,9 +32,18 @@
       </div>
       <div class="full-side">
         <ul>
-          <li><p>Email:</p> {{userProfile.email}}</li>
+          <li><p>Email </p><a href="mailto:{{userProfile.email}}">{{userProfile.email}}</a></li>
           <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
-            <p>{{phone.type}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
+            <p>{{phone.type.capitalize(0)}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
+          </li>
+          <li ng-repeat="im in userProfile.profiles.GRAVATAR.ims">
+            <p>{{im.type.capitalize(0)}}</p> {{im.value}}
+          </li>
+          <li ng-repeat="account in userProfile.profiles.GRAVATAR.accounts">
+            <p>{{account.shortname.capitalize(0)}}</p> <a href="{{account.url}}" target="_blank">{{account.username}}</a>
+          </li>
+          <li ng-repeat="url in userProfile.profiles.GRAVATAR.urls">
+            <p>URL</p> <a href="{{url.value}}" target="_blank">{{url.title}}</a>
           </li>
         </ul>
       </div>
