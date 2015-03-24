@@ -27,6 +27,7 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
 
       //console.log($scope.userProfile);
       $(window).scrollTop(0);
+      $('[data-toggle="tooltip"]').tooltip({html:true});
     });
 
   $scope.githubLink = function(userProfile) {

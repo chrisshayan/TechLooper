@@ -9,7 +9,7 @@
     <div class="evaluation-github">
       <div class="evaluation-item" ng-repeat="skill in userProfile.itemSkills">
         <h3><span ng-show="{{skill.logo.length > 0}}"><img ng-src="images/{{skill.logo}}" alt=""/> </span>{{skill.name}}</h3>
-        <p><strong>{{skill.rank.toLocaleString()}} th</strong>/ {{skill.total.toLocaleString()}} IT talents</p>
+        <p><strong>#{{skill.rank.toLocaleString()}}</strong> out of {{skill.total.toLocaleString()}}</p>
         <!--<div class="ranking"><div class="real yellow" ng-style="{'width': ((skill.total - skill.rank) / skill.total * 100) + '%'}"></div></div>-->
       </div>
     </div>
