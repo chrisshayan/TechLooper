@@ -23,11 +23,11 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
         $scope.userProfile.profiles.GITHUB.imageUrl = $scope.userProfile.profiles.GITHUB.imageurl;
       }
 
-      if (userProfile.ranks.Overall === undefined) {
-        userProfile.ranks.Overall = 50;
+      if ($scope.userProfile.ranks.Overall === undefined) {
+        $scope.userProfile.ranks.Overall = 50;
       }
       else {
-        userProfile.ranks.Overall = Math.min(userProfile.ranks.Overall / 188501 * 100, 50);
+        $scope.userProfile.ranks.Overall = Math.min(userProfile.ranks.Overall / 188501 * 100, 50);
       }
 
       $timeout(talentProfileService.showRating(parseFloat($scope.userProfile.rate)), 100);
