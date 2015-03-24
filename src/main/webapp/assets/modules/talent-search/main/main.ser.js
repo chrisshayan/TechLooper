@@ -4,7 +4,8 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
   var instance = {
     enableSelectOptions: function () {
       $.each([
-        {key: "keywords", selector: "#input-skill"},
+        {key: "skills", selector: "#input-skill"},
+        {key: "companies", selector: "#company"},
         {key: "locations", selector: "#select-location", options: jsonValue.cities},
       ], function (i, item) {
         searchRequest[item.key] = $(item.selector).selectize({
@@ -46,9 +47,13 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       });
     },
     searchTalent: function () {
-      var request = {
-        keywords: searchRequest.keywords.getValue().split(","),
-        locations: searchRequest.locations.getValue().split(",")
+      //var request = {
+      //  keywords: searchRequest.keywords.getValue().split(","),
+      //  locations: searchRequest.locations.getValue().split(",")
+      //}
+      var request = {};
+      for (var prop in searchRequest) {
+        request[prop] = searchRequest[prop].getValue().split(",");
       }
 
       var q = "";
