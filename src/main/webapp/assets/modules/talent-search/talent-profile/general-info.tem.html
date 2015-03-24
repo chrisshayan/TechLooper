@@ -32,7 +32,7 @@
       </div>
       <div class="full-side">
         <ul>
-          <li><p>Email </p><a href="mailto:{{userProfile.email}}">{{userProfile.email}}</a></li>
+          <li ng-show="userProfile.email.indexOf('missing.com') < 0"><p>Email </p><a href="mailto:{{userProfile.email}}">{{userProfile.email}}</a></li>
           <li ng-repeat="phone in userProfile.profiles.GRAVATAR.phoneNumbers">
             <p>{{phone.type.capitalize(0)}}</p> <a href="tel:{{phone.value}}" target="_blank">{{phone.value}}</a>
           </li>
