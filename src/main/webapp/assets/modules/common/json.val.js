@@ -214,8 +214,8 @@ angular.module("Common").constant("jsonValue", {
     'text': 'C#',
     'logo': 'lg-c-sharp.png'
   },{
-  'text': 'Php',
-  'logo': 'lg-php.png'
+    'text': 'Php',
+    'logo': 'lg-php.png'
   }, {
     'text': 'Ruby',
     'logo': 'lg-ruby.png'
@@ -253,6 +253,9 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Photoshop',
     'logo': 'lg-photoshop.png'
   }, {
+    'text': 'ABAP',
+    'logo': 'lg-sap.png'
+  }, {
     'text': 'Less',
     'logo': 'lg-less.png'
   }, {
@@ -288,6 +291,48 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Shell',
     'logo': 'lg-shell.png'
+  }, {
+    'text': 'Shell',
+    'logo': 'lg-shell.png'
+  }, {
+    'text': 'Clojure',
+    'logo': 'lg-clojure.png'
+  },{
+      'text': 'CoffeeScript',
+      'logo': 'lg-coffeescript.png'
+   }, {
+    'text': 'Go',
+    'logo': 'lg-go.png'
+  },{
+    'text': 'Haskell',
+    'logo': 'lg-haskell.png'
+  }, {
+    'text': 'Lua',
+    'logo': 'lg-lua.png'
+  },{
+    'text': 'Matlab',
+    'logo': 'lg-matlab.png'
+  }, {
+    'text': 'Perl',
+    'logo': 'lg-perl.png'
+  },{
+    'text': 'R',
+    'logo': 'lg-r.png'
+  }, {
+    'text': 'Scala',
+    'logo': 'lg-scala.png'
+  },{
+    'text': 'Swift',
+    'logo': 'lg-swift.png'
+  }, {
+    'text': 'Clojure',
+    'logo': 'lg-clojure.png'
+  },{
+    'text': 'Tex',
+    'logo': 'lg-tex.png'
+  },{
+    'text': 'VimL',
+    'logo': 'lg-viml.png'
   }],
   shortcuts: [{
     "id": 1,
