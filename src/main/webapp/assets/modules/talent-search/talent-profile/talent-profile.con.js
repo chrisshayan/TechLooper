@@ -23,6 +23,8 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
         $scope.userProfile.profiles.GITHUB.imageUrl = $scope.userProfile.profiles.GITHUB.imageurl;
       }
 
+      userProfile.ranks.Overall = Math.min(userProfile.ranks.Overall / 188501 * 100, 50);
+
       $timeout(talentProfileService.showRating(parseFloat($scope.userProfile.rate)), 100);
 
       //console.log($scope.userProfile);
