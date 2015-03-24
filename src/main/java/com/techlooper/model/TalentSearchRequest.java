@@ -8,7 +8,9 @@ import java.util.List;
  */
 public class TalentSearchRequest {
 
-    private List<String> keywords = new ArrayList<>();
+    private List<String> skills = new ArrayList<>();
+
+    private List<String> companies = new ArrayList<>();
 
     private List<String> locations = new ArrayList<>();
 
@@ -18,12 +20,20 @@ public class TalentSearchRequest {
 
     private int pageSize = 20;
 
-    public List<String> getKeywords() {
-        return keywords;
+    public List<String> getSkills() {
+        return skills;
     }
 
-    public void setKeywords(List<String> keywords) {
-        this.keywords = keywords;
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
+    public List<String> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(List<String> companies) {
+        this.companies = companies;
     }
 
     public List<String> getLocations() {
@@ -62,13 +72,23 @@ public class TalentSearchRequest {
 
         private TalentSearchRequest instance = new TalentSearchRequest();
 
-        public Builder withKeywords(String keyword) {
-            instance.keywords.add(keyword);
+        public Builder withSkills(String skills) {
+            instance.skills.add(skills);
             return this;
         }
 
-        public Builder withKeywords(List<String> keywords) {
-            instance.keywords.addAll(keywords);
+        public Builder withSkills(List<String> skills) {
+            instance.skills.addAll(skills);
+            return this;
+        }
+
+        public Builder withCompanies(String companies) {
+            instance.companies.add(companies);
+            return this;
+        }
+
+        public Builder withCompanies(List<String> companies) {
+            instance.companies.addAll(companies);
             return this;
         }
 
