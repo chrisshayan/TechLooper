@@ -12,6 +12,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 
 /**
@@ -63,5 +64,14 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
                     .subAggregation(AggregationBuilders.terms("skill_list").field("profiles.GITHUB.skills").size(0)))
                     .withIndices("techlooper")
                     .build();
+    }
+
+    public SearchQuery sortUser(String sortField) {
+        return new NativeSearchQueryBuilder()
+                .withQuery(matchAllQuery())
+                .withSort(SortBuilders.fieldSort(sortField).order(SortOrder.DESC))
+                .withPageable(new PageRequest(0, 200000))
+                .withIndices("techlooper")
+                .build();
     }
 }

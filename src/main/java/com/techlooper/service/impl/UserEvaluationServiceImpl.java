@@ -97,6 +97,15 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                 resultMap.put(skill, userIds.size());
             }
         }
+        List<String> allUserIds = elasticsearchTemplateUserImport.queryForIds(
+                githubTalentSearchQuery.sortUser("score"));
+        OptionalInt overallRank = IntStream.range(0, allUserIds.size())
+                .filter(index -> allUserIds.get(index).equals(user.getEmail())).findFirst();
+        if (overallRank.isPresent()) {
+            resultMap.put("Overall", overallRank.getAsInt());
+        } else {
+            resultMap.put("Overall", allUserIds.size());
+        }
         return resultMap;
     }
 
