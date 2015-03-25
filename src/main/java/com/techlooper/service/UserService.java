@@ -118,4 +118,6 @@ public interface UserService {
     TalentProfile getTalentProfile(String email);
 
     void registerUser(UserInfo userInfo);
+
+    long countRegisteredUser();
 }
