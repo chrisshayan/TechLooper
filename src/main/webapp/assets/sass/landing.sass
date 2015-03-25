@@ -184,6 +184,7 @@
   height: 50px
   text-align: center
   padding: 5px 0
+  line-height: 50px
   p
     width: 100%
     max-width: 1000px
@@ -244,9 +245,18 @@
           font-size: 12px
   .landing-footer
     height: auto
+    line-height: inherit
 @media screen and (min-width: 481px) and (max-width: 720px)
   .landing-body
     .landing-body-content
+      .discovering-section
+        .discovering-content
+          ul
+            li
+              .discovering-icon
+              .discovering-item
+                width: 80%
+                padding-top: 0
       .landing-registration-section
         .landing-registration-content
           .landing-registration-form
@@ -258,9 +268,19 @@
                 margin: 0 0 10px 0
               button.submit
                 font-size: 12px
+  .landing-footer
+    height: auto
+    line-height: inherit
 @media screen and (min-width: 721px) and (max-width: 999px)
   .landing-body
     .landing-body-content
+      .discovering-section
+        .discovering-content
+          ul
+            li
+              .discovering-icon
+              .discovering-item
+                width: 90%
       .landing-registration-section
         .landing-registration-content
           .landing-registration-form
@@ -268,3 +288,6 @@
             .landing-registration-field
               input.half
                 width: 49%
+  .landing-footer
+    height: auto
+    line-height: inherit
