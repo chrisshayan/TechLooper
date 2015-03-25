@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by phuonghqh on 12/23/14.
@@ -87,6 +86,16 @@ public class UserController {
         return userService.getTalentProfile(email);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
+    public List<FieldError> registerUser(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
+        if (result.getFieldErrorCount() > 0) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            userService.registerUser(userInfo);
+        }
+        return result.getFieldErrors();
+    }
 
     @SendToUser("/queue/info")
     @MessageMapping("/user/findByKey")
