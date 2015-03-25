@@ -17,38 +17,39 @@ import java.util.List;
  */
 public class CouchbaseViewCreator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseViewCreator.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseViewCreator.class);
 
-    public static final String COUCHBASE_VIEW_BASE_DIR = "couchbase_view/";
+  public static final String COUCHBASE_VIEW_BASE_DIR = "couchbase_view/";
 
-    @Resource
-    private CouchbaseClient couchbaseClient;
+  @Resource
+  private CouchbaseClient couchbaseClient;
 
-    private ClassLoader classLoader;
+  private ClassLoader classLoader;
 
-    public CouchbaseViewCreator() {
-        this.classLoader = this.getClass().getClassLoader();
+  public CouchbaseViewCreator() {
+    this.classLoader = this.getClass().getClassLoader();
+  }
+
+  @PostConstruct
+  public void init() throws Exception {
+    DesignDocument designDoc;
+    try {
+      designDoc = couchbaseClient.getDesignDoc("userregistration");
+    }
+    catch (Throwable throwable) {
+      LOGGER.debug(throwable.getMessage(), throwable);
+      designDoc = new DesignDocument("userregistration");
     }
 
-    @PostConstruct
-    public void init() throws Exception {
-        DesignDocument designDoc;
-        try {
-            designDoc = couchbaseClient.getDesignDoc("userEntity");
-        } catch (Throwable throwable) {
-            LOGGER.error(throwable.getMessage(), throwable);
-            designDoc = new DesignDocument("userEntity");
-        }
-
-        List<String> viewDefinitionFiles = IOUtils.readLines(classLoader.getResourceAsStream(COUCHBASE_VIEW_BASE_DIR));
-        for (String viewDefinitionFileName : viewDefinitionFiles) {
-            String viewDefinitionFunction = IOUtils.toString(
-                    classLoader.getResourceAsStream(COUCHBASE_VIEW_BASE_DIR + viewDefinitionFileName));
-            ViewDesign viewDesign = new ViewDesign(FilenameUtils.getBaseName(viewDefinitionFileName), viewDefinitionFunction);
-            designDoc.getViews().add(viewDesign);
-        }
-
-        couchbaseClient.createDesignDoc(designDoc);
+    List<String> viewDefinitionFiles = IOUtils.readLines(classLoader.getResourceAsStream(COUCHBASE_VIEW_BASE_DIR));
+    for (String viewDefinitionFileName : viewDefinitionFiles) {
+      String viewDefinitionFunction = IOUtils.toString(
+        classLoader.getResourceAsStream(COUCHBASE_VIEW_BASE_DIR + viewDefinitionFileName));
+      ViewDesign viewDesign = new ViewDesign(FilenameUtils.getBaseName(viewDefinitionFileName), viewDefinitionFunction, "_count");
+      designDoc.getViews().add(viewDesign);
     }
+
+    couchbaseClient.createDesignDoc(designDoc);
+  }
 
 }

@@ -26,93 +26,103 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Resource
-    private ApplicationContext applicationContext;
+  @Resource
+  private ApplicationContext applicationContext;
 
-    @Resource
-    private UserService userService;
+  @Resource
+  private UserService userService;
 
-    @Resource
-    private TextEncryptor textEncryptor;
+  @Resource
+  private TextEncryptor textEncryptor;
 
-    @ResponseBody
-    @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
-    public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
-        SocialProvider provider = userImportData.getCrawlerSource();
-        UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
-        // process raw user data before import into ElasticSearch
-        List<UserImportEntity> userImportEntities = dataProcessor.process(Arrays.asList(userImportData));
-        httpServletResponse.setStatus(userService.addCrawledUser(userImportEntities.get(0), provider) ?
-                HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+  @ResponseBody
+  @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
+  public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
+    SocialProvider provider = userImportData.getCrawlerSource();
+    UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
+    // process raw user data before import into ElasticSearch
+    List<UserImportEntity> userImportEntities = dataProcessor.process(Arrays.asList(userImportData));
+    httpServletResponse.setStatus(userService.addCrawledUser(userImportEntities.get(0), provider) ?
+      HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/api/users/addAll", method = RequestMethod.POST)
+  public void saveAll(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
+    if (!users.isEmpty()) {
+      SocialProvider provider = users.get(0).getCrawlerSource();
+      UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
+      // process raw user data before import into ElasticSearch
+      List<UserImportEntity> userImportEntities = dataProcessor.process(users);
+      httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider) == users.size() ?
+        HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
     }
-
-    @ResponseBody
-    @RequestMapping(value = "/api/users/addAll", method = RequestMethod.POST)
-    public void saveAll(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
-        if (!users.isEmpty()) {
-            SocialProvider provider = users.get(0).getCrawlerSource();
-            UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
-            // process raw user data before import into ElasticSearch
-            List<UserImportEntity> userImportEntities = dataProcessor.process(users);
-            httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider) == users.size() ?
-                    HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
-        } else {
-            httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-        }
+    else {
+      httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
     }
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
-    public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
-        if (result.getFieldErrorCount() > 0) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        } else {
-            userService.registerVietnamworksAccount(userInfo);
-            userService.save(userInfo);
-        }
-        return result.getFieldErrors();
+  @ResponseBody
+  @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+  public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
+    if (result.getFieldErrorCount() > 0) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
+    else {
+      userService.registerVietnamworksAccount(userInfo);
+      userService.save(userInfo);
+    }
+    return result.getFieldErrors();
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
-    public TalentSearchResponse findTalent(@RequestBody TalentSearchRequest param, HttpServletResponse httpServletResponse) {
-        return userService.findTalent(param);
-    }
+  @ResponseBody
+  @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
+  public TalentSearchResponse findTalent(@RequestBody TalentSearchRequest param, HttpServletResponse httpServletResponse) {
+    return userService.findTalent(param);
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/api/user/talentProfile/{hashEmail}", method = RequestMethod.GET)
-    public TalentProfile getTalentProfile(@PathVariable String hashEmail, HttpServletResponse httpServletResponse) {
-        String email = new String(Base64.getDecoder().decode(hashEmail));
-        return userService.getTalentProfile(email);
-    }
+  @ResponseBody
+  @RequestMapping(value = "/api/user/talentProfile/{hashEmail}", method = RequestMethod.GET)
+  public TalentProfile getTalentProfile(@PathVariable String hashEmail, HttpServletResponse httpServletResponse) {
+    String email = new String(Base64.getDecoder().decode(hashEmail));
+    return userService.getTalentProfile(email);
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
-    public List<FieldError> registerUser(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
-        if (result.getFieldErrorCount() > 0) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        } else {
-            userService.registerUser(userInfo);
-        }
-        return result.getFieldErrors();
+  @ResponseBody
+  @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
+  public List<FieldError> registerUser(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
+    if (result.getFieldErrorCount() > 0) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
+    else {
+      userService.registerUser(userInfo);
+    }
+    return result.getFieldErrors();
+  }
 
-    @SendToUser("/queue/info")
-    @MessageMapping("/user/findByKey")
-    @ResponseBody
-    @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
-    public UserInfo getUserInfo(@CookieValue("techlooper.key") String techlooperKey/*, @DestinationVariable String username */) {
-        UserInfo userInfo = userService.findUserInfoByKey(techlooperKey);
-        userInfo.getLoginSource();
-        return userInfo;
-    }
+  @SendToUser("/queue/info")
+  @MessageMapping("/user/findByKey")
+  @ResponseBody
+  @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
+  public UserInfo getUserInfo(@CookieValue("techlooper.key") String techlooperKey/*, @DestinationVariable String username */) {
+    UserInfo userInfo = userService.findUserInfoByKey(techlooperKey);
+    userInfo.getLoginSource();
+    return userInfo;
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
-    public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
-        if (!textEncryptor.encrypt(searchRequest.getEmailAddress()).equals(techlooperKey)) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }
+  @ResponseBody
+  @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
+  public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
+    if (!textEncryptor.encrypt(searchRequest.getEmailAddress()).equals(techlooperKey)) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
+  public Long countRegisterUser() {
+    return userService.countRegisteredUser();
+  }
+
 
 }
