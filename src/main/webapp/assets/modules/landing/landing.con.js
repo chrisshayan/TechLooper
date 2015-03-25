@@ -1,5 +1,5 @@
 techlooper.controller('landingController',
-  function ($scope, landingService) {
+  function ($scope) {
     $scope.validationRegister = function(){
       var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
           fName = $('#landing-first-name').val(),
