@@ -84,21 +84,23 @@ public class UserServiceITcase {
 
         all.stream().forEach(user -> {
             final Map<String, Object> githubProfile = (Map<String, Object>) user.getProfiles().get(SocialProvider.GITHUB);
-            final List<String> skills = (List<String>) githubProfile.get("skills");
-            System.out.println("githubProfile.get(\"skills\") = " + skills);
-            assertNotNull(githubProfile);
+            if (githubProfile != null) {
+                final List<String> skills = (List<String>) githubProfile.get("skills");
+                System.out.println("githubProfile.get(\"skills\") = " + skills);
+                assertNotNull(githubProfile);
 
-            try {
-                fileWriter.append(user.getFullName());
-                fileWriter.append(",");
-                fileWriter.append(user.getEmail());
-                fileWriter.append(",");
-                if (CollectionUtils.isNotEmpty(skills)) {
-                    fileWriter.append(skills.toString());
+                try {
+                    fileWriter.append(user.getFullName());
+                    fileWriter.append(",");
+                    fileWriter.append(user.getEmail());
+                    fileWriter.append(",");
+                    if (CollectionUtils.isNotEmpty(skills)) {
+                        fileWriter.append(skills.toString());
+                    }
+                    fileWriter.append("\n");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-                fileWriter.append("\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         });
 
@@ -125,9 +127,21 @@ public class UserServiceITcase {
 
     @Test
     public void testGetTalentProfile() throws Exception {
-        TalentProfile talentProfile = userService.getTalentProfile("nguyentruongminh7@gmail.com");
+        TalentProfile talentProfile = userService.getTalentProfile("falcon@falconsrv.net");
         assertTrue(talentProfile.getSkillMap().size() > 0);
         assertTrue(talentProfile.getUserImportEntity().getScore() > 0);
     }
 
+    @Test
+    public void testRegisterTalent() throws Exception {
+        String email = "ndkhoa.is@gmail.com";
+        UserInfo userInfo = new UserInfo();
+        userInfo.setEmailAddress(email);
+        userInfo.setFirstName("Khoa");
+        userInfo.setLastName("Nguyen");
+        userService.registerUser(userInfo);
+
+        UserEntity found = userService.findById(email);
+        assertEquals(found.getId(), userInfo.getId());
+    }
 }

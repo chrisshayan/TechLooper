@@ -120,6 +120,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         //TODO : ES cannot index special language like C++ or C#, we assume it as C-family skill and will handle this issue later
         skillMap.put("c++", skillMap.get("c"));
         skillMap.put("c#", skillMap.get("c"));
+        skillMap.put("objective-c", skillMap.get("objective"));
+        skillMap.put("objective-c++", skillMap.get("objective"));
         return skillMap;
     }
 

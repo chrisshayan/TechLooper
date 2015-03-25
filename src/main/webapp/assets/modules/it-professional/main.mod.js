@@ -24,6 +24,9 @@ techlooper.directive("itProfessional", function ($compile, $location, utils, jso
 
         case jsonValue.views.register:
           return "modules/register/register.tem.html";
+
+        case jsonValue.views.landing:
+          return "modules/landing/landing.tem.html";
       }
       return '';
     }

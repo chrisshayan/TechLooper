@@ -23,6 +23,8 @@ public class UserInfo {
     @NotEmpty
     private String lastName;
 
+    private String createdDateTime;
+
     private SocialProvider loginSource;
 
     private String key;
@@ -31,7 +33,6 @@ public class UserInfo {
 
     private Set<SocialProvider> profileNames;
 
-    @NotNull
     private Integer salary;
 
     private String profileImageUrl;
@@ -126,5 +127,13 @@ public class UserInfo {
 
     public boolean acceptRegisterVietnamworksAccount() {
         return hasProfile(SocialProvider.VIETNAMWORKS);
+    }
+
+    public String getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(String createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 }

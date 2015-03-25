@@ -149,6 +149,7 @@ angular.module("Common").constant("jsonValue", {
   },
 
   routerUris: {
+    landing: "/landing",
     home: "/home",
     talentSearchResult: "/talent-search-result",
     talentProfile: "/talent-profile",
@@ -162,6 +163,7 @@ angular.module("Common").constant("jsonValue", {
   },
 
   views: {
+    landing: "landing",
     home: "home",
     talentSearchResult: "talentSearchResult",
     talentProfile: "talentProfile",
@@ -183,7 +185,9 @@ angular.module("Common").constant("jsonValue", {
     verifyUserLogin: "user/verifyUserLogin",
     getUserInfoByKey: "user/findByKey",
     searchTalent: "api/user/findTalent",
-    talentProfile: "api/user/talentProfile"
+    talentProfile: "api/user/talentProfile",
+    userRegister: "api/user/register",
+    userRegisterCount: "api/user/register/count"
   },
 
   socketUri: {
