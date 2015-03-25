@@ -149,6 +149,7 @@ angular.module("Common").constant("jsonValue", {
   },
 
   routerUris: {
+    landing: "/landing",
     home: "/home",
     talentSearchResult: "/talent-search-result",
     talentProfile: "/talent-profile",
@@ -162,6 +163,7 @@ angular.module("Common").constant("jsonValue", {
   },
 
   views: {
+    landing: "landing",
     home: "home",
     talentSearchResult: "talentSearchResult",
     talentProfile: "talentProfile",

@@ -1,0 +1,270 @@
+.landing-header
+  width: 100%
+  background-color: #1d1d1d
+  text-align: center
+  padding: 5px 20px
+  .landing-header-content
+    max-width: 1000px
+    margin: auto
+    height: 50px
+    text-align: left
+    .landing-logo
+      img
+        max-height: 50px
+.landing-body
+  background-color: #fff
+  width: 100%
+  clear: both
+  display: block
+  .landing-body-content
+    h2
+      margin: 0
+      padding: 0
+      font-size: 25px
+      font-weight: 300
+      text-transform: capitalize
+      color: #1d1d1d
+      line-height: 36px
+    h3
+      margin: 0
+      padding: 20px 0 15px 0
+      font-size: 20px
+      font-weight: 300
+      text-transform: capitalize
+      color: #1d1d1d
+      line-height: 36px
+    .discovering-section
+      width: 100%
+      clear: both
+      display: block
+      background-color: #f1f1f1
+      padding: 50px 20px
+      float: left
+      .discovering-content
+        width: 100%
+        max-width: 1000px
+        margin: auto
+        text-align: center
+        ul
+          margin: 0
+          padding: 0
+          text-align: left
+          li
+            width: 100%
+            float: left
+            clear: both
+            padding-bottom: 25px
+            .discovering-icon
+              background: url(../images/ic-discovering.png) 7px -29px no-repeat
+              width: 50px
+              height: 50px
+              border: 1px solid #227bbe
+              -webkit-border-radius: 50%
+              -moz-border-radius: 50%
+              border-radius: 50%
+              float: left
+            .discovering-item
+              float: left
+              padding: 5px 0 0 15px
+              h4
+                font-size: 16px
+                font-weight: 400
+                color: #227bbe
+                margin: 0
+                padding: 0 0 5px 0
+              p
+                padding: 0
+                margin: 0
+                font-size: 14px
+          li:first-child
+            .discovering-icon
+              background-position: 13px 11px
+          li:last-child
+            .discovering-icon
+              background-position: 17px -68px
+    .landing-registration-section
+      float: left
+      clear: both
+      padding: 50px 20px 70px 20px
+      background-color: #fff
+      text-align: center
+      width: 100%
+      .landing-registration-content
+        width: 100%
+        max-width: 1000px
+        margin: auto
+        h3
+          text-transform: inherit
+          width: 80%
+          margin: auto
+          .counters-digit
+            background: none repeat scroll 0 0 #227bbe
+            display: inline-block
+            height: 18px
+            line-height: 18px
+            position: relative
+            width: 32px
+            font-weight: 400px
+            color: #fff
+          .counters-digit::after
+            border-left: 16px solid transparent
+            border-right: 16px solid transparent
+            border-top: 8px solid #227bbe
+            bottom: -8px
+            content: ""
+            height: 0
+            left: 0
+            position: absolute
+            width: 0
+          .counters-digit::before
+            border-bottom: 8px solid #227bbe
+            border-left: 16px solid transparent
+            border-right: 16px solid transparent
+            content: ""
+            height: 0
+            left: 0
+            position: absolute
+            top: -8px
+            width: 0
+        .landing-registration-form
+          display: block
+          clear: both
+          padding-top: 30px
+          margin: auto
+          width: 50%
+          .landing-registration-field
+            display: block
+            clear: both
+            padding-bottom: 10px
+            float: left
+            width: 100%
+            input.half
+              width: 49%
+              float: left
+            input.half:last-child
+              float: right
+            button.submit
+              font-size: 20px
+              font-weight: 300
+              padding: 15px 0
+              text-transform: capitalize
+              border: 0
+              width: 100%
+            button.submit:hover
+              background-color: #1d1d1d
+              color: #b4b4b4
+    .landing-ambassadors-section
+      width: 100%
+      clear: both
+      float: left
+      background-color: #f1f1f1
+      padding: 30px 20px 50px 20px
+      .landing-ambassadors-content
+        width: 100%
+        max-width: 1000px
+        margin: auto
+        text-align: center
+        ul
+          margin: 10px 0 0 0
+          padding: 0
+          li
+            width: 33%
+            float: left
+            text-align: left
+            li
+              width: 100%
+              padding-bottom: 10px
+              a
+                text-transform: capitalize
+.landing-footer
+  width: 100%
+  display: flex
+  clear: both
+  background-color: #1d1d1d
+  height: 50px
+  text-align: center
+  padding: 5px 0
+  p
+    width: 100%
+    max-width: 1000px
+    font-size: 12px
+    color: #858585
+    display: block
+    clear: both
+    margin: auto
+    a
+      color: #c3c2c2
+@media screen and (min-width: 320px) and (max-width: 480px)
+  .landing-body
+    .landing-body-content
+      h2
+        font-size: 20px
+        line-height: 25px
+      .discovering-section
+        padding: 30px 10px
+        h3
+          font-size: 18px
+          line-height: 22px
+        .discovering-content
+          ul
+            li
+              .discovering-icon
+                display: none
+              .discovering-item
+                padding-left: 0
+                h4
+                  font-weight: 300
+                p
+                  text-align: justify
+      .landing-registration-section
+        padding: 30px 10px
+        .landing-registration-content
+          h3
+            font-size: 18px
+            line-height: 30px
+            width: 100%
+            padding: 0
+          .landing-registration-form
+            width: 100%
+            .landing-registration-field
+              input.half
+                width: 100%
+              input.half:first-child
+                margin: 0 0 10px 0
+              button.submit
+                font-size: 12px
+      .landing-ambassadors-section
+        padding: 30px 10px 20px 10px
+        h3
+          font-size: 18px
+          line-height: 30px
+          width: 100%
+          padding: 0
+        ul
+          font-size: 12px
+  .landing-footer
+    height: auto
+@media screen and (min-width: 481px) and (max-width: 720px)
+  .landing-body
+    .landing-body-content
+      .landing-registration-section
+        .landing-registration-content
+          .landing-registration-form
+            width: 80%
+            .landing-registration-field
+              input.half
+                width: 100%
+              input.half:first-child
+                margin: 0 0 10px 0
+              button.submit
+                font-size: 12px
+@media screen and (min-width: 721px) and (max-width: 999px)
+  .landing-body
+    .landing-body-content
+      .landing-registration-section
+        .landing-registration-content
+          .landing-registration-form
+            width: 80%
+            .landing-registration-field
+              input.half
+                width: 49%

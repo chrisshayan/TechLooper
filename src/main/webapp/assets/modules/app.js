@@ -86,6 +86,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     $translateProvider.use((window.navigator.userLanguage || window.navigator.language).substring(0, 2));
 
     $routeProvider
+      .when("/landing", {
+        templateUrl: "modules/landing/landing.tem.html",
+        controller: "landingController"
+      })
       .when("/home", {
         templateUrl: "modules/talent-search/home.tem.html",
         controller: "tsMainController"
