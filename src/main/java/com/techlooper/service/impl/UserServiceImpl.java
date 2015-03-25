@@ -11,6 +11,7 @@ import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -30,6 +31,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -211,6 +213,17 @@ public class UserServiceImpl implements UserService {
             }
         }
         return builder.build();
+    }
+
+    public void registerUser(UserInfo userInfo) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userInfo.getEmailAddress());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+        userEntity.setCreatedDateTime(sdf.format(new Date()));
+        userEntity.setEmailAddress(userInfo.getEmailAddress());
+        userEntity.setFirstName(userInfo.getFirstName());
+        userEntity.setLastName(userInfo.getLastName());
+        userRepository.save(userEntity);
     }
 
 }

@@ -13,6 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -25,30 +28,14 @@ public class UserRepositoryTestITCase {
 
     @Test
     public void testSave() throws Exception {
-        String key = "ndkhoa.is2@gmail.com";
+        String key = "ndkhoa.fat@gmail.com";
         UserEntity user = new UserEntity();
         user.setId(key);
         user.setFirstName("Khoa");
         user.setLastName("Nguyen");
-        user.setEmailAddress("ndkhm");
-        user.setLoginSource(SocialProvider.LINKEDIN);
-
-//        ProfileEntity profile = new ProfileEntity();
-//        profile.setSns("LinkedIn");
-//        profile.setId("zJROJ4-vlg");
-//        profile.setLastName("Nguyen");
-//        profile.setFirstName("Khoa");
-//        profile.setAccessToken("b1ce044e-ca68-4fab-9590-f2708ffcd04c");
-//        profile.setHeadline("Java Developer");
-//        profile.setIndustry("Information Technology and Services");
-//        profile.setLocation("vn");
-//        profile.setNumConnections(119);
-//        profile.setPictureUrl("profile.png");
-//        profile.setPublicProfileUrl("https://www.linkedin.com/in/khoanguyendang");
-//        Map<SocialProvider, ProfileEntity> profileEntityMap = new HashMap<>();
-//        profileEntityMap.put(SocialProvider.LINKEDIN, profile);
-//        user.setProfiles(profileEntityMap);
-
+        user.setEmailAddress("ndkhoa.fat@gmail.com");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+        user.setCreatedDateTime(sdf.format(new Date()));
         userRepository.save(user);
 
         UserEntity found = userRepository.findOne(key);
@@ -57,7 +44,7 @@ public class UserRepositoryTestITCase {
 
     @Test
     public void testFindById() throws Exception {
-        UserEntity userEntity = userRepository.findOne("ndkhoa.is2@gmail.com");
+        UserEntity userEntity = userRepository.findOne("ndkhoa.is@gmail.com");
         assertNotNull(userEntity);
         assertEquals(userEntity.getFirstName(), "Khoa");
     }
