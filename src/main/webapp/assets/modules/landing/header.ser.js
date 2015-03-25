@@ -76,9 +76,9 @@ techlooper.factory("landingService", function ($http, jsonValue, $timeout) {
         $('.alert').removeClass('alert-danger').animate({
           opacity: 1
         }, 1000);
-        //$('#landing-first-name').val('');
-        //$('#landing-last-name').val('');
-        //$('#landing-email').val('');
+        $('#landing-first-name').val('');
+        $('#landing-last-name').val('');
+        $('#landing-email').val('');
 
         $http.post(jsonValue.httpUri.userRegister, {
           emailAddress: email,
