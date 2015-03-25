@@ -30,6 +30,9 @@ techlooper.controller('landingController',
       }else{
         $('.error-messages').hide();
         alert('thanks you')
+        $('#landing-first-name').val('');
+        $('#landing-last-name').val('');
+        $('#landing-email').val('');
       }
     };
   });
