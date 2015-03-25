@@ -1,4 +1,4 @@
-angular.module('Landing').controller('landingController',
+techlooper.controller('landingController',
   function ($scope, landingService) {
-
+    landingService.init();
   });
