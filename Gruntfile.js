@@ -175,8 +175,8 @@ module.exports = function (grunt) {
         replacements: [
           {from: "};", to: "}"},
           {from: "../fonts", to: "fonts"},
-          {from: ".tmp/concat/", to: ""},
-          {from: "images/", to: "../images/"}
+          {from: ".tmp/concat/", to: ""}
+          //{from: "images/", to: "../images/"}
         ]
       }
     },
