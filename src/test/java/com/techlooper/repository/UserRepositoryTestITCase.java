@@ -6,6 +6,7 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.couchbase.UserRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,6 +28,7 @@ public class UserRepositoryTestITCase {
     private UserRepository userRepository;
 
     @Test
+    @Ignore
     public void testSave() throws Exception {
         String key = "ndkhoa.fat@gmail.com";
         UserEntity user = new UserEntity();
@@ -43,6 +45,7 @@ public class UserRepositoryTestITCase {
     }
 
     @Test
+    @Ignore
     public void testFindById() throws Exception {
         UserEntity userEntity = userRepository.findOne("ndkhoa.is@gmail.com");
         assertNotNull(userEntity);
