@@ -1,4 +1,4 @@
-techlooper.controller('landingController', function ($scope, $http, jsonValue) {
+techlooper.controller('landingController', function ($scope, $http, jsonValue, $timeout) {
   $scope.validationRegister = function () {
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
       fName = $('#landing-first-name').val(),
@@ -7,7 +7,7 @@ techlooper.controller('landingController', function ($scope, $http, jsonValue) {
       errorContent = '';
     var inputVal = new Array(fName, lName, email);
     var inputMessage = new Array("first name", "last name", "email address");
-    $('.error-messages').html('');
+    $('.alert').html('');
     $.each(inputVal, function (index, value) {
       if (value == "") {
         if (errorContent == '') {
@@ -28,26 +28,37 @@ techlooper.controller('landingController', function ($scope, $http, jsonValue) {
       }
     }
     if (errorContent != '') {
-      $('.error-messages').append('Please enter your <strong>' + errorContent + '</strong>').show();
+      $('.alert').append('Please enter your <strong>' + errorContent + '</strong>').addClass('alert-danger').animate({
+        opacity: 1
+      }, 1000);
     }
     else {
-      $('.error-messages').hide();
-      $('#landing-first-name').val('');
-      $('#landing-last-name').val('');
-      $('#landing-email').val('');
+      $('.alert').removeClass('alert-danger').animate({
+        opacity: 1
+      }, 1000);
+      //$('#landing-first-name').val('');
+      //$('#landing-last-name').val('');
+      //$('#landing-email').val('');
 
       $http.post(jsonValue.httpUri.userRegister, {
         emailAddress: email,
         firstName: fName,
         lastName: lName
       }).success(function (data) {
-        alert("Cam on");
+        $('.alert').removeClass('alert-danger').addClass('alert-success').append('Bạn đã đăng kí thành công. Chào mừng bạn đến với <strong>cộng đồng Techlooper</strong>!').animate({
+          opacity: 1
+        }, 1000);
         $('.error-messages').hide();
         $('#landing-first-name').val('');
         $('#landing-last-name').val('');
         $('#landing-email').val('');
+        $('.alert').animate({
+          opacity: 0
+        }, 1000, function(){
+          $(this).removeClass('alert-success');
+        });
       }).error(function (data) {
-          $('.error-messages').append('Register failed!!').show();
+          $('.alert').append('Register failed!!').show();
         });
     }
   };
