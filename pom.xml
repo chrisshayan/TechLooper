@@ -141,6 +141,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
+                            <!--<arguments>build</arguments>-->
                             <arguments>${grunt.task}</arguments>
                         </configuration>
                     </execution>
@@ -168,7 +169,7 @@
                 <version>9.2.2.v20140723</version>
                 <configuration>
                     <webApp>
-                        <contextPath>/${project.build.finalName}</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                 </configuration>
                 <dependencies>
