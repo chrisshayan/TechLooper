@@ -97,6 +97,7 @@
           text-transform: inherit
           width: 80%
           margin: auto
+          padding-bottom: 0
           .counters-digit
             background: none repeat scroll 0 0 #227bbe
             display: inline-block
@@ -104,8 +105,11 @@
             line-height: 18px
             position: relative
             width: 32px
-            font-weight: 400px
+            font-weight: 400
             color: #fff
+            transition: background 1.2s ease
+            -moz-transition: background 1.2s ease
+            -webkit-transition: background 1.2s ease
           .counters-digit::after
             border-left: 16px solid transparent
             border-right: 16px solid transparent
@@ -116,6 +120,9 @@
             left: 0
             position: absolute
             width: 0
+            transition: border-top 1.2s ease
+            -moz-transition: border-top 1.2s ease
+            -webkit-transition: border-top 1.2s ease
           .counters-digit::before
             border-bottom: 8px solid #227bbe
             border-left: 16px solid transparent
@@ -126,10 +133,29 @@
             position: absolute
             top: -8px
             width: 0
+            transition: border-bottom 1.2s ease
+            -moz-transition: border-bottom 1.2s ease
+            -webkit-transition: border-bottom 1.2s ease
+          .updateNumber
+            .counters-digit
+              background: none repeat scroll 0 0 #000
+              font-weight: 500
+              transition: background 1.2s ease
+              -moz-transition: background 1.2s ease
+              -webkit-transition: background 1.2s ease
+            .counters-digit::after
+              border-top: 8px solid #000
+              transition: border-top 1.2s ease
+              -moz-transition: border-top 1.2s ease
+              -webkit-transition: border-top 1.2s ease
+            .counters-digit::before
+              border-bottom: 8px solid #000
+              transition: border-bottom 1.2s ease
+              -moz-transition: border-bottom 1.2s ease
+              -webkit-transition: border-bottom 1.2s ease
         .landing-registration-form
           display: block
           clear: both
-          padding-top: 30px
           margin: auto
           width: 50%
           .landing-registration-field
@@ -143,14 +169,14 @@
               float: left
             input.half:last-child
               float: right
-            button.submit
+            button.landing-submit
               font-size: 20px
               font-weight: 300
               padding: 15px 0
               text-transform: capitalize
               border: 0
               width: 100%
-            button.submit:hover
+            button.landing-submit:hover
               background-color: #1d1d1d
               color: #b4b4b4
     .landing-ambassadors-section
@@ -158,7 +184,7 @@
       clear: both
       float: left
       background-color: #f1f1f1
-      padding: 30px 20px 50px 20px
+      padding: 30px 20px 20px 20px
       .landing-ambassadors-content
         width: 100%
         max-width: 1000px
@@ -166,7 +192,7 @@
         text-align: center
         ul
           margin: 10px 0 0 0
-          padding: 0
+          padding: 0 0 0 180px
           li
             width: 33%
             float: left
@@ -176,11 +202,13 @@
               padding-bottom: 10px
               a
                 text-transform: capitalize
-    .error-messages
-      color: red
-      display: none
-      strong
-        font-weight: 500
+          ul
+            padding-left: 0
+    .alert
+      opacity: 0
+      padding: 0
+      line-height: 40px
+      height: 40px
 .landing-footer
   width: 100%
   display: flex
@@ -246,8 +274,14 @@
           line-height: 30px
           width: 100%
           padding: 0
-        ul
-          font-size: 12px
+        .landing-ambassadors-content
+          ul
+            padding-left: 0px
+            font-size: 12px
+            margin-top: 5px
+            li
+              li
+                padding-bottom: 5px
   .landing-footer
     height: auto
     line-height: inherit
@@ -273,6 +307,11 @@
                 margin: 0 0 10px 0
               button.submit
                 font-size: 12px
+      .landing-ambassadors-section 
+        .landing-ambassadors-content 
+          ul
+            padding-left: 80px
+        
   .landing-footer
     height: auto
     line-height: inherit
@@ -293,6 +332,10 @@
             .landing-registration-field
               input.half
                 width: 49%
+      .landing-ambassadors-section
+        .landing-ambassadors-content
+          ul
+            padding-left: 80px
   .landing-footer
     height: auto
     line-height: inherit
