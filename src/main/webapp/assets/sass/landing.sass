@@ -105,8 +105,11 @@
             line-height: 18px
             position: relative
             width: 32px
-            font-weight: 400px
+            font-weight: 400
             color: #fff
+            transition: background 1.2s ease
+            -moz-transition: background 1.2s ease
+            -webkit-transition: background 1.2s ease
           .counters-digit::after
             border-left: 16px solid transparent
             border-right: 16px solid transparent
@@ -117,6 +120,9 @@
             left: 0
             position: absolute
             width: 0
+            transition: border-top 1.2s ease
+            -moz-transition: border-top 1.2s ease
+            -webkit-transition: border-top 1.2s ease
           .counters-digit::before
             border-bottom: 8px solid #227bbe
             border-left: 16px solid transparent
@@ -127,6 +133,26 @@
             position: absolute
             top: -8px
             width: 0
+            transition: border-bottom 1.2s ease
+            -moz-transition: border-bottom 1.2s ease
+            -webkit-transition: border-bottom 1.2s ease
+          .updateNumber
+            .counters-digit
+              background: none repeat scroll 0 0 #000
+              font-weight: 500
+              transition: background 1.2s ease
+              -moz-transition: background 1.2s ease
+              -webkit-transition: background 1.2s ease
+            .counters-digit::after
+              border-top: 8px solid #000
+              transition: border-top 1.2s ease
+              -moz-transition: border-top 1.2s ease
+              -webkit-transition: border-top 1.2s ease
+            .counters-digit::before
+              border-bottom: 8px solid #000
+              transition: border-bottom 1.2s ease
+              -moz-transition: border-bottom 1.2s ease
+              -webkit-transition: border-bottom 1.2s ease
         .landing-registration-form
           display: block
           clear: both
@@ -180,6 +206,9 @@
             padding-left: 0
     .alert
       opacity: 0
+      padding: 0
+      line-height: 40px
+      height: 40px
 .landing-footer
   width: 100%
   display: flex
