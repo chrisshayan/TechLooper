@@ -29,7 +29,7 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testScore() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
+        UserImportEntity userImportEntity = userService.findUserImportByEmail("thach.nguyenngoc@imipgroup.com");
         Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
         long score = userEvaluationService.score(userImportEntity, result);
         assertTrue(score > 0);
@@ -37,7 +37,7 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testRate() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
+        UserImportEntity userImportEntity = userService.findUserImportByEmail("thach.nguyenngoc@imipgroup.com");
         Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
         double rate = userEvaluationService.rate(userImportEntity, result, 100000L);
         assertTrue(rate > 0 && rate <= 5);
@@ -45,7 +45,7 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testRank() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("takuma.miyake@framgia.com");
+        UserImportEntity userImportEntity = userService.findUserImportByEmail("thach.nguyenngoc@imipgroup.com");
         Map<String,Integer> result = userEvaluationService.rank(userImportEntity);
         assertTrue(userImportEntity.getScore() > 0 ? result.size() > 0 : result.size() == 0);
     }
