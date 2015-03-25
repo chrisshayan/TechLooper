@@ -18,6 +18,16 @@ public class UserRegistration {
 
   private String lastName;
 
+  private String createdDateTime;
+
+  public String getCreatedDateTime() {
+    return createdDateTime;
+  }
+
+  public void setCreatedDateTime(String createdDateTime) {
+    this.createdDateTime = createdDateTime;
+  }
+
   public String getId() {
     return id;
   }

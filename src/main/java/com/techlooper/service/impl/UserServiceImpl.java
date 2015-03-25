@@ -36,6 +36,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
@@ -232,6 +233,8 @@ public class UserServiceImpl implements UserService {
   public void registerUser(UserInfo userInfo) {
     UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
     user.setId(userInfo.getEmailAddress());
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+    user.setCreatedDateTime(sdf.format(new Date()));
     userRegistrationRepository.save(user);
   }
 

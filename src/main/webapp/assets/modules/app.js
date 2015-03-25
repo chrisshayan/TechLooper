@@ -139,7 +139,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
-          return "/bubble-chart";
+          return "/landing";
         }
       });
   }]);

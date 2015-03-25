@@ -1,43 +1,56 @@
-techlooper.factory("landingService", function ($http, jsonValue, $timeout) {
+techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout, $q) {
+  var maxTotal = function(number) {
+    return Math.max(5000 - parseInt(number), 0);
+  }
 
   var instance = {
     init: function(){
       instance.showNumberTalent();
     },
+
     getNumberTalent: function(){
-      var serNumber = '310';
-      var newNumber = instance.formationNumber(parseInt(serNumber), 4); // 00014
-      return newNumber;
+      var deferred = $q.defer();
+      $http.get(jsonValue.httpUri.userRegisterCount)
+        .success(function(data) {
+          var newNumber = instance.formationNumber(maxTotal(data), 4);
+          deferred.resolve(newNumber);
+        });
+
+      return deferred.promise;
     },
-    formationNumber: function(n, p, c) {
-      var pad_char = typeof c !== 'undefined' ? c : '0';
-      var pad = new Array(1 + p).join(pad_char);
-      return (pad + n).slice(-pad.length);
+
+    formationNumber: function(number, pad) {
+      var pad = new Array(1 + pad).join('0');
+      return  (pad + number).slice(-pad.length);
     },
+
+    // load page
     showNumberTalent: function(){
-      var realNumber = instance.getNumberTalent();
-      var arrayNumber = realNumber.toString().split('');
-      var newNumber = $('.show-number');
-      angular.forEach(arrayNumber, function(value, key) {
-        newNumber.append('<span class="counters-digit">'+ value +'</span>');
+      instance.getNumberTalent().then(function(realNumber) {
+        var arrayNumber = realNumber.toString().split('');
+        var newNumber = $('.show-number');
+        angular.forEach(arrayNumber, function(value, key) {
+          newNumber.append('<span class="counters-digit">'+ value +'</span>');
+        });
       });
     },
+
+    //after form save
     updateNumberTalent: function(){
-      var serNumber = instance.getNumberTalent();
-      var subractionOne = parseInt(serNumber) - 1;
-      if(subractionOne < 0){
-        subractionOne = 0
-      }
-      var newNumber = instance.formationNumber(parseInt(subractionOne), 4);
-      var arrayNumber = newNumber.toString().split('');
-      $('.show-number').html('');
-      angular.forEach(arrayNumber, function(value, key) {
-        $('.show-number').append('<span class="counters-digit">'+ value +'</span>');
+      instance.getNumberTalent().then(function(countdownTotal) {
+        var newNumber = instance.formationNumber(countdownTotal, 4) - 1;
+        var arrayNumber = newNumber.toString().split('');
+        $('.show-number').html('');
+        angular.forEach(arrayNumber, function(value, key) {
+          $('.show-number').append('<span class="counters-digit">'+ value +'</span>');
+        });
+        $('.show-number').addClass('updateNumber');
+        setTimeout(function(){
+          $('.show-number').removeClass('updateNumber');
+        }, 1000);
       });
-      $('.show-number').addClass('updateNumber');
-      setTimeout(function(){
-        $('.show-number').removeClass('updateNumber');
-      }, 1000);
+      //var serNumber = instance.getNumberTalent();
+
     },
     validateForm: function(){
       var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
@@ -98,6 +111,9 @@ techlooper.factory("landingService", function ($http, jsonValue, $timeout) {
           }, 1000, function(){
             $(this).removeClass('alert-success');
           });
+
+          //call server to update number
+          //instance.updateNumberTalent();
         }).error(function (data) {
           $('.alert').addClass('alert-danger').append('Register failed!!').animate({
             opacity: 1
