@@ -36,9 +36,9 @@ techlooper.controller('landingController', function ($scope, $http, jsonValue, $
       $('.alert').removeClass('alert-danger').animate({
         opacity: 1
       }, 1000);
-      //$('#landing-first-name').val('');
-      //$('#landing-last-name').val('');
-      //$('#landing-email').val('');
+      $('#landing-first-name').val('');
+      $('#landing-last-name').val('');
+      $('#landing-email').val('');
 
       $http.post(jsonValue.httpUri.userRegister, {
         emailAddress: email,
@@ -58,7 +58,9 @@ techlooper.controller('landingController', function ($scope, $http, jsonValue, $
           $(this).removeClass('alert-success');
         });
       }).error(function (data) {
-          $('.alert').append('Register failed!!').show();
+          $('.alert').addClass('alert-danger').append('Register failed!!').animate({
+            opacity: 1
+          }, 1000);
         });
     }
   };
