@@ -45,7 +45,7 @@ techlooper.controller('landingController', function ($scope, $http, jsonValue, $
         firstName: fName,
         lastName: lName
       }).success(function (data) {
-        $('.alert').removeClass('alert-danger').addClass('alert-success').append('Bạn đã đăng kí thành công. Chào mừng bạn đến với <strong>cộng đồng Techlooper</strong>!').animate({
+        $('.alert').removeClass('alert-danger').addClass('alert-success').append('Bạn đã đăng kí thành công. Chào mừng bạn đến với cộng đồng Techlooper!').animate({
           opacity: 1
         }, 1000);
         $('.error-messages').hide();
