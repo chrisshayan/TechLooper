@@ -4,6 +4,7 @@ import com.couchbase.client.CouchbaseClient;
 import com.couchbase.client.protocol.views.DesignDocument;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -30,6 +31,7 @@ public class CouchbaseViewCreatorTest {
     }
 
     @Test
+    @Ignore
     public void testInit() throws Exception {
         InputStream couchbaseViewDir =
                 this.getClass().getClassLoader().getResourceAsStream(CouchbaseViewCreator.COUCHBASE_VIEW_BASE_DIR);
