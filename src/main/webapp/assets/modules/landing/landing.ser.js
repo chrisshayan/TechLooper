@@ -99,7 +99,7 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
           //instance.updateNumberTalent();
           $('.alert').animate({
             height: '0px'
-          }, 1000, function () {
+          }, 1500, function () {
             $(this).removeClass('alert-success').html('');
           });
 
