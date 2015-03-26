@@ -1,65 +1,56 @@
-techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout, $q) {
-  var maxTotal = function(number) {
+techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout, $q, connectionFactory, utils) {
+  var maxTotal = function (number) {
     return Math.max(5000 - parseInt(number), 0);
   }
 
+  utils.registerNotification(jsonValue.notifications.userRegistrationCount, function (totalUsers) {
+    var remainTotal = instance.formationNumber(maxTotal(totalUsers), 4);
+    instance.showNumberTalent(remainTotal);
+  }, function () {
+    return utils.getView() === jsonValue.views.landing;
+  });
+
   var instance = {
-    init: function(){
-      instance.showNumberTalent();
+    init: function () {
+      var arrayNumber = "5000".split('');
+      var newNumber = $('.show-number');
+      angular.forEach(arrayNumber, function (value, key) {
+        newNumber.append('<span class="counters-digit">' + value + '</span>');
+      });
+      connectionFactory.subscribeUserRegistration();
     },
 
-    getNumberTalent: function(){
-      var deferred = $q.defer();
-      $http.get(jsonValue.httpUri.userRegisterCount)
-        .success(function(data) {
-          var newNumber = instance.formationNumber(maxTotal(data), 4);
-          deferred.resolve(newNumber);
-        });
-
-      return deferred.promise;
-    },
-
-    formationNumber: function(number, pad) {
+    formationNumber: function (number, pad) {
       var pad = new Array(1 + pad).join('0');
-      return  (pad + number).slice(-pad.length);
+      return (pad + number).slice(-pad.length);
     },
 
     // load page
-    showNumberTalent: function(){
-      instance.getNumberTalent().then(function(realNumber) {
-        var arrayNumber = realNumber.toString().split('');
-        var newNumber = $('.show-number');
-        angular.forEach(arrayNumber, function(value, key) {
-          newNumber.append('<span class="counters-digit">'+ value +'</span>');
-        });
+    showNumberTalent: function (remainTotal) {
+      var newNumber = instance.formationNumber(remainTotal, 4) - 1;
+      if ($(".show-number").data("number") === newNumber) {
+        return;
+      }
+      $(".show-number").data("number", newNumber)
+      var arrayNumber = newNumber.toString().split('');
+      $('.show-number').html('');
+      angular.forEach(arrayNumber, function (value, key) {
+        $('.show-number').append('<span class="counters-digit">' + value + '</span>');
       });
+      $('.show-number').addClass('updateNumber');
+      setTimeout(function () {
+        $('.show-number').removeClass('updateNumber');
+      }, 1000);
     },
 
-    //after form save
-    updateNumberTalent: function(){
-      instance.getNumberTalent().then(function(countdownTotal) {
-        var newNumber = instance.formationNumber(countdownTotal, 4) - 1;
-        var arrayNumber = newNumber.toString().split('');
-        $('.show-number').html('');
-        angular.forEach(arrayNumber, function(value, key) {
-          $('.show-number').append('<span class="counters-digit">'+ value +'</span>');
-        });
-        $('.show-number').addClass('updateNumber');
-        setTimeout(function(){
-          $('.show-number').removeClass('updateNumber');
-        }, 1000);
-      });
-      //var serNumber = instance.getNumberTalent();
-
-    },
-    validateForm: function(){
+    validateForm: function () {
       var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-          fName = $('#landing-first-name').val(),
-          lName = $('#landing-last-name').val(),
-          email = $('#landing-email').val(),
-          errorContent = '';
+        fName = $('#landing-first-name').val(),
+        lName = $('#landing-last-name').val(),
+        email = $('#landing-email').val(),
+        errorContent = '';
       var inputVal = new Array(fName, lName, email);
-      var inputMessage = new Array("first name", "last name", "email address");
+      var inputMessage = new Array(" tên", " họ", " Địa chỉ email");
       $('.alert').html('');
       $.each(inputVal, function (index, value) {
         if (value == "") {
@@ -74,20 +65,20 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
 
       if (email != '' && !emailReg.test(email)) {
         if (errorContent == '') {
-          errorContent = 'Email address is not valid';
+          errorContent = 'Email không đúng định dạng';
         }
         else {
-          errorContent = errorContent + ', Email address is not valid';
+          errorContent = errorContent + ', Email không đúng định dạng';
         }
       }
       if (errorContent != '') {
-        $('.alert').append('Please enter your <strong>' + errorContent + '</strong>').addClass('alert-danger').animate({
-          opacity: 1
+        $('.alert').append('Xin vui kiểm tra <strong>' + errorContent + '</strong>').addClass('alert-danger').animate({
+          height: '40px'
         }, 1000);
       }
       else {
         $('.alert').removeClass('alert-danger').animate({
-          opacity: 1
+          height: '40px'
         }, 1000);
         $('#landing-first-name').val('');
         $('#landing-last-name').val('');
@@ -99,24 +90,24 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
           lastName: lName
         }).success(function (data) {
           $('.alert').removeClass('alert-danger').addClass('alert-success').append('Bạn đã đăng kí thành công. Chào mừng bạn đến với cộng đồng Techlooper!').animate({
-            opacity: 1
+            height: '40px'
           }, 1000);
           $('.error-messages').hide();
           $('#landing-first-name').val('');
           $('#landing-last-name').val('');
           $('#landing-email').val('');
-          instance.updateNumberTalent();
+          //instance.updateNumberTalent();
           $('.alert').animate({
-            opacity: 0
-          }, 1000, function(){
-            $(this).removeClass('alert-success');
+            height: '0px'
+          }, 1500, function () {
+            $(this).removeClass('alert-success').html('');
           });
 
           //call server to update number
           //instance.updateNumberTalent();
         }).error(function (data) {
-          $('.alert').addClass('alert-danger').append('Register failed!!').animate({
-            opacity: 1
+          $('.alert').addClass('alert-danger').append('đăng kí thành công!!').animate({
+            height: '40px'
           }, 1000);
         });
       }
