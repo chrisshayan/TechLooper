@@ -18,6 +18,10 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
         newNumber.append('<span class="counters-digit">' + value + '</span>');
       });
       connectionFactory.subscribeUserRegistration();
+      $http.get(jsonValue.httpUri.userRegisterCount).success(function(totalNumber) {
+        var remainTotal = instance.formationNumber(maxTotal(totalNumber), 4);
+        instance.showNumberTalent(remainTotal);
+      });
     },
 
     formationNumber: function (number, pad) {

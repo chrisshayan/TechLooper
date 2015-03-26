@@ -130,5 +130,11 @@ public class UserController {
     messagingTemplate.convertAndSend("/topic/api/user/register/count", userService.countRegisteredUser());
   }
 
+  @ResponseBody
+  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
+  public long getRegisterUserNumber() {
+    return userService.countRegisteredUser();
+  }
+
 
 }
