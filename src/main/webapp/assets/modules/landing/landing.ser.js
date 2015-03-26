@@ -73,12 +73,12 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
       }
       if (errorContent != '') {
         $('.alert').append('Xin vui kiểm tra <strong>' + errorContent + '</strong>').addClass('alert-danger').animate({
-          opacity: 1
+          height: '40px'
         }, 1000);
       }
       else {
         $('.alert').removeClass('alert-danger').animate({
-          opacity: 1
+          height: '40px'
         }, 1000);
         $('#landing-first-name').val('');
         $('#landing-last-name').val('');
@@ -90,7 +90,7 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
           lastName: lName
         }).success(function (data) {
           $('.alert').removeClass('alert-danger').addClass('alert-success').append('Bạn đã đăng kí thành công. Chào mừng bạn đến với cộng đồng Techlooper!').animate({
-            opacity: 1
+            height: '40px'
           }, 1000);
           $('.error-messages').hide();
           $('#landing-first-name').val('');
@@ -98,16 +98,16 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
           $('#landing-email').val('');
           //instance.updateNumberTalent();
           $('.alert').animate({
-            opacity: 0
+            height: '0px'
           }, 1000, function () {
-            $(this).removeClass('alert-success');
+            $(this).removeClass('alert-success').html('');
           });
 
           //call server to update number
           //instance.updateNumberTalent();
         }).error(function (data) {
           $('.alert').addClass('alert-danger').append('đăng kí thành công!!').animate({
-            opacity: 1
+            height: '40px'
           }, 1000);
         });
       }
