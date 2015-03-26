@@ -133,15 +133,15 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/user", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "userProfileController"
-      })
-      .otherwise({
-        redirectTo: function() {
-          if (window.location.host.indexOf("hiring") >= 0) {
-            return "/home";
-          }
-          return "/landing";
-        }
       });
+      //.otherwise({
+      //  redirectTo: function() {
+      //    if (window.location.host.indexOf("hiring") >= 0) {
+      //      return "/home";
+      //    }
+      //    return "/landing";
+      //  }
+      //});
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
