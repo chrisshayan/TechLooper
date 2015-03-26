@@ -7,7 +7,9 @@ import com.techlooper.service.UserService;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,6 +36,9 @@ public class UserController {
 
   @Resource
   private TextEncryptor textEncryptor;
+
+  @Resource
+  private SimpMessagingTemplate messagingTemplate;
 
   @ResponseBody
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
@@ -118,10 +123,11 @@ public class UserController {
     }
   }
 
-  @ResponseBody
-  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
-  public Long countRegisterUser() {
-    return userService.countRegisteredUser();
+//  @ResponseBody
+//  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
+  @Scheduled(cron = "0/1 * * * * *")
+  public void countRegisterUser() {
+    messagingTemplate.convertAndSend("/topic/api/user/register/count", userService.countRegisteredUser());
   }
 
 

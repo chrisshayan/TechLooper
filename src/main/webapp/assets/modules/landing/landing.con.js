@@ -1,4 +1,6 @@
-techlooper.controller('landingController', function ($scope, $http, jsonValue, landingService) {
+techlooper.controller('landingController', function ($scope, $http, jsonValue, landingService, utils) {
+  utils.sendNotification(jsonValue.notifications.switchScope, $scope);
+
   $scope.validationRegister = function () {
     landingService.validateForm();
   };

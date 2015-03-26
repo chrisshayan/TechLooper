@@ -43,7 +43,8 @@ angular.module("Common").constant("jsonValue", {
     http404: "HTTP code 404",
     logoutSuccess: "Logout success",
     cleanSession: "Clean session",
-    serverError: "Server error"
+    serverError: "Server error",
+    userRegistrationCount: "User registration count"
   },
 
   viewTerms: {
@@ -204,7 +205,8 @@ angular.module("Common").constant("jsonValue", {
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
     getUserInfoByKey: "/app/user/findByKey",
-    subscribeUserInfo: "/user/queue/info"
+    subscribeUserInfo: "/user/queue/info",
+    subscribeUserRegistration: "/topic/api/user/register/count"
   },
 
 
