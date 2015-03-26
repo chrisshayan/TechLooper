@@ -59,7 +59,7 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
           email = $('#landing-email').val(),
           errorContent = '';
       var inputVal = new Array(fName, lName, email);
-      var inputMessage = new Array("first name", "last name", "email address");
+      var inputMessage = new Array(" tên", " họ", " Địa chỉ email");
       $('.alert').html('');
       $.each(inputVal, function (index, value) {
         if (value == "") {
@@ -74,14 +74,14 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
 
       if (email != '' && !emailReg.test(email)) {
         if (errorContent == '') {
-          errorContent = 'Email address is not valid';
+          errorContent = 'Email không đúng định dạng';
         }
         else {
-          errorContent = errorContent + ', Email address is not valid';
+          errorContent = errorContent + ', Email không đúng định dạng';
         }
       }
       if (errorContent != '') {
-        $('.alert').append('Please enter your <strong>' + errorContent + '</strong>').addClass('alert-danger').animate({
+        $('.alert').append('Xin vui kiểm tra <strong>' + errorContent + '</strong>').addClass('alert-danger').animate({
           opacity: 1
         }, 1000);
       }
@@ -115,7 +115,7 @@ techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout
           //call server to update number
           //instance.updateNumberTalent();
         }).error(function (data) {
-          $('.alert').addClass('alert-danger').append('Register failed!!').animate({
+          $('.alert').addClass('alert-danger').append('đăng kí thành công!!').animate({
             opacity: 1
           }, 1000);
         });
