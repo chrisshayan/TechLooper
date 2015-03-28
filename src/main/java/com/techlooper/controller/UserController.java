@@ -59,7 +59,7 @@ public class UserController {
       UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
       // process raw user data before import into ElasticSearch
       List<UserImportEntity> userImportEntities = dataProcessor.process(users);
-      httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider) == users.size() ?
+      httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider, UpdateModeEnum.MERGE) == users.size() ?
         HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
     }
     else {
