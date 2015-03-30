@@ -1,17 +1,56 @@
 .ts-company-profile
   width: 100%
   text-align: center
-  .company-profile-content
-    max-width: 1200px
-    margin: auto
-    h2
-      font-size: 24px
-      text-transform: capitalize
-      font-weight: 300
-      padding-bottom: 20px
-    ul
-      margin: 0
-      padding: 0
+  background-color: #fff
+  padding-top: 50px
+  h2
+    font-size: 24px
+    text-transform: capitalize
+    font-weight: 300
+    padding-bottom: 20px
+  ul
+    margin: 0
+    padding: 0
+  h2
+    margin: 0
+    padding: 0
+    text-transform: capitalize
+    font-weight: 300
+  .company-info-block
+    display: block
+    float: left
+    width: 100%
+    clear: both
+    padding: 30px 0
+    background-color: #f1f1f1
+    border-bottom: 1px solid #d4d4d4
+    .company-info-content
+      max-width: 1200px
+      margin: auto
+      text-align: left
+    .company-logo-block
+      width: 15%
+      float: left
+    .company-info-detail
+      width: 85%
+      float: left
+      h2
+        padding-bottom: 30px
+        font-size: 22px
+        font-weight: 400
+      li
+        float: right
+        padding-bottom: 5px
+        width: 60%
+        font-size: 14px
+        span
+          font-weight: 400
+          font-size: 16px
+          display: inline-block
+          padding-right: 10px
+      li:nth-of-type(2n+1)
+        float: left
+        width: 40%
   .company-culture-block
     display: block
     float: left
@@ -19,38 +58,107 @@
     clear: both
     padding: 30px 0
     .company-culture-content
-      width: 100%
+      width: 600px
       clear: both
       ul
         width: 100%
         margin: auto
+        height: 100%
         li
-          width: 300px
+          width: 71px
+          float: left
+          height: 75px
+          text-align: right
+          padding: 10px
+          span.dot
+            display: inline-block
+            width: 10px
+            height: 10px
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            margin: auto
+        li:nth-of-type(3n-1)
+          text-align: center
+        li:nth-of-type(3n+1)
+          text-align: left
+      .title-side
+        width: 100%
+        position: absolute
+        z-index: 888
+        opacity: 0.6
+        text-align: center
+        text-transform: uppercase
+        font-size: 16px
+        width: 220px
       .left-top-side
-        width: 300px
-        height: 25px
+        width: 260px
         float: left
-        padding: 10px
+        padding: 20px
+        height: 240px
+        position: relative
+        z-index: 777
         ul
-          background-color: #ffe2ac
-          li
-            width: 100px
-            float: left
-            height: 100px
+          border: 2px solid #ffe2ac
+          span.dot
+            background-color: #ffe2ac
+        .title-side
+          bottom: 70px
       .right-top-side
-        width: 300px
-        height: 25px
+        width: 260px
         float: left
-        padding: 10px
-        height: 300px
+        padding: 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 2px solid #f1fbda
+          span.dot
+            background-color: #f1fbda
+        .title-side
+          bottom: 70px
       .left-bottom-side
-        width: 300px
-        height: 25px
+        width: 260px
         float: left
-        padding: 10px
-      .left-bottom-side
-        width: 300px
-        height: 25px
+        padding: 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 2px solid #f8cfcd
+          span.dot
+            background-color: #f8cfcd
+        .title-side
+          top: 70px
+      .right-bottom-side
+        width: 260px
         float: left
-        padding: 10px
-
+        padding: 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 2px solid #c9e5ff
+          span.dot
+            background-color: #c9e5ff
+        .title-side
+          top: 70px
+      .company-dot
+        position: absolute
+        z-index: 999
+        h3
+          font-weight: 300
+          font-size: 20px
+        span
+          font-size: 0
+          z-index: -9999px
+          display: inline-block
+          width: 30px
+          height: 30px
+          -webkit-border-radius: 50%
+          -moz-border-radius: 50%
+          border-radius: 50%
+          background-color: #227bbe
+      .dot-three
+        right: 30px
+        top: 15px
