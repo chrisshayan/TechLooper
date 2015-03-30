@@ -1,9 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.couchbase.client.CouchbaseClient;
-import com.couchbase.client.protocol.views.Query;
-import com.couchbase.client.protocol.views.View;
-import com.couchbase.client.protocol.views.ViewResponse;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserRegistration;
 import com.techlooper.entity.VnwUserProfile;
@@ -48,198 +45,209 @@ import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
 @Service
 public class UserServiceImpl implements UserService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-  @Resource
-  private UserRepository userRepository;
+    @Resource
+    private UserRepository userRepository;
 
-  @Resource
-  private UserImportRepository userImportRepository;
+    @Resource
+    private UserImportRepository userImportRepository;
 
-  @Resource
-  private UserRegistrationRepository userRegistrationRepository;
+    @Resource
+    private UserRegistrationRepository userRegistrationRepository;
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  @Resource
-  private TextEncryptor textEncryptor;
+    @Resource
+    private TextEncryptor textEncryptor;
 
-  @Resource
-  private VietnamWorksUserService vietnamworksUserService;
+    @Resource
+    private VietnamWorksUserService vietnamworksUserService;
 
-  @Resource
-  private UserEvaluationService userEvaluationService;
+    @Resource
+    private UserEvaluationService userEvaluationService;
 
-  @Resource
-  private ApplicationContext applicationContext;
+    @Resource
+    private ApplicationContext applicationContext;
 
-  @Resource
-  private CouchbaseClient couchbaseClient;
+    @Resource
+    private CouchbaseClient couchbaseClient;
 
-  public void save(UserEntity userEntity) {
-    userRepository.save(userEntity);
-  }
-
-  public void save(UserInfo userInfo) {
-    UserEntity userEntity = userRepository.findOne(userInfo.getId());
-    dozerMapper.map(userInfo, userEntity);
-    userRepository.save(userEntity);
-  }
-
-  public UserEntity findById(String id) {
-    return userRepository.findOne(id);
-  }
-
-  public UserInfo findUserInfoByKey(String key) {
-    return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
-  }
-
-  public UserEntity findUserEntityByKey(String key) {
-    String emailAddress = textEncryptor.decrypt(key);
-    return userRepository.findOne(emailAddress);
-  }
-
-  public boolean verifyVietnamworksAccount(UserEntity userEntity) {
-    boolean result = vietnamworksUserService.existUser(userEntity.getEmailAddress());
-    if (result) {
-      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
-    }
-    return result;
-  }
-
-  public boolean registerVietnamworksAccount(UserInfo userInfo) {
-    boolean registerSuccess = false;
-    if (userInfo.acceptRegisterVietnamworksAccount() &&
-      !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
-      userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
-    }
-    return registerSuccess;
-  }
-
-  public boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider) {
-    UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
-
-    if (userImportEntity != null) {
-      userImportEntity.withProfile(socialProvider, userImportData.getProfiles().get(socialProvider));
-    }
-    else {
-      userImportEntity = dozerMapper.map(userImportData, UserImportEntity.class);
-      userImportEntity.withProfile(socialProvider, userImportData.getProfiles().get(socialProvider));
-      userImportEntity.setCrawled(true);
+    public void save(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
-    return userImportRepository.save(userImportEntity) != null;
-  }
+    public void save(UserInfo userInfo) {
+        UserEntity userEntity = userRepository.findOne(userInfo.getId());
+        dozerMapper.map(userInfo, userEntity);
+        userRepository.save(userEntity);
+    }
 
-  public int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider) {
-    List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
+    public UserEntity findById(String id) {
+        return userRepository.findOne(id);
+    }
 
-    for (UserImportEntity user : users) {
-      try {
-        UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
+    public UserInfo findUserInfoByKey(String key) {
+        return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
+    }
+
+    public UserEntity findUserEntityByKey(String key) {
+        String emailAddress = textEncryptor.decrypt(key);
+        return userRepository.findOne(emailAddress);
+    }
+
+    public boolean verifyVietnamworksAccount(UserEntity userEntity) {
+        boolean result = vietnamworksUserService.existUser(userEntity.getEmailAddress());
+        if (result) {
+            userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
+        }
+        return result;
+    }
+
+    public boolean registerVietnamworksAccount(UserInfo userInfo) {
+        boolean registerSuccess = false;
+        if (userInfo.acceptRegisterVietnamworksAccount() &&
+                !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
+            userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
+        }
+        return registerSuccess;
+    }
+
+    public boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider) {
+        UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
+
         if (userImportEntity != null) {
-          userImportEntity.withProfile(socialProvider, user.getProfiles().get(socialProvider));
-          shouldBeSavedUsers.add(userImportEntity);
+            userImportEntity.withProfile(socialProvider, userImportData.getProfiles().get(socialProvider));
+        } else {
+            userImportEntity = dozerMapper.map(userImportData, UserImportEntity.class);
+            userImportEntity.withProfile(socialProvider, userImportData.getProfiles().get(socialProvider));
+            userImportEntity.setCrawled(true);
         }
-        else {
-          shouldBeSavedUsers.add(user);
+
+        return userImportRepository.save(userImportEntity) != null;
+    }
+
+    public int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider, UpdateModeEnum updateMode) {
+        List<UserImportEntity> shouldBeSavedUsers = new ArrayList<>();
+
+        for (UserImportEntity user : users) {
+            try {
+                UserImportEntity userImportEntity = findUserImportByEmail(user.getEmail());
+
+                switch (updateMode) {
+                    case ADD_NEW:
+                        if (userImportEntity == null) {
+                            shouldBeSavedUsers.add(user);
+                        }
+                        break;
+                    case OVERWRITE:
+                        if (userImportEntity != null) {
+                            userImportEntity.withProfile(socialProvider, user.getProfiles().get(socialProvider));
+                            shouldBeSavedUsers.add(userImportEntity);
+                        } else {
+                            shouldBeSavedUsers.add(user);
+                        }
+                    default: //MERGE
+                        if (userImportEntity != null) {
+                            userImportEntity.mergeProfile(socialProvider, user.getProfiles().get(socialProvider));
+                            shouldBeSavedUsers.add(userImportEntity);
+                        } else {
+                            shouldBeSavedUsers.add(user);
+                        }
+                }
+            } catch (Exception ex) {
+                LOGGER.error("User Import Fail : " + user.getEmail(), ex);
+            }
         }
-      }
-      catch (Exception ex) {
-        LOGGER.error("User Import Fail : " + user.getEmail(), ex);
-      }
+
+        return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
     }
 
-    return Lists.newArrayList(userImportRepository.save(shouldBeSavedUsers)).size();
-  }
+    public UserImportEntity findUserImportByEmail(String email) {
+        UserImportEntity userImportEntity = userImportRepository.findOne(email);
 
-  public UserImportEntity findUserImportByEmail(String email) {
-    UserImportEntity userImportEntity = userImportRepository.findOne(email);
+        if (userImportEntity != null) {
+            return userImportEntity;
+        } else {
+            QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(
+                    QueryBuilders.queryString(email).defaultOperator(QueryStringQueryBuilder.Operator.AND)).cache(true);
+            SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
+                    .withFilter(queryFilterBuilder)
+                    .withPageable(new PageRequest(0, 10))
+                    .build();
+            Page<UserImportEntity> result = userImportRepository.search(userSearchQuery);
+            if (result.getNumberOfElements() > 0) {
+                return result.getContent().get(0);
+            } else {
+                return null;
+            }
+        }
 
-    if (userImportEntity != null) {
-      return userImportEntity;
-    }
-    else {
-      QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(
-        QueryBuilders.queryString(email).defaultOperator(QueryStringQueryBuilder.Operator.AND)).cache(true);
-      SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
-        .withFilter(queryFilterBuilder)
-        .withPageable(new PageRequest(0, 10))
-        .build();
-      Page<UserImportEntity> result = userImportRepository.search(userSearchQuery);
-      if (result.getNumberOfElements() > 0) {
-        return result.getContent().get(0);
-      }
-      else {
-        return null;
-      }
     }
 
-  }
+    @Override
+    public List<UserImportEntity> getAll(int pageNumber, int pageSize) {
+        final SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(boolQuery()
+                        .mustNot(wildcardQuery("email", "*users.noreply.github.com"))
+                        .mustNot(wildcardQuery("email", "*missing.com")))
+                .withPageable(new PageRequest(pageNumber, pageSize))
+                .build();
 
-  @Override
-  public List<UserImportEntity> getAll(int pageNumber, int pageSize) {
-    final SearchQuery searchQuery = new NativeSearchQueryBuilder()
-      .withQuery(boolQuery()
-        .mustNot(wildcardQuery("email", "*users.noreply.github.com"))
-        .mustNot(wildcardQuery("email", "*missing.com")))
-      .withPageable(new PageRequest(pageNumber, pageSize))
-      .build();
-
-    return userImportRepository.search(searchQuery).getContent();
-  }
-
-  @Override
-  public TalentSearchResponse findTalent(final TalentSearchRequest param) {
-    List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
-    TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
-
-    socialProviders.forEach(provider -> {
-      TalentSearchQuery talentSearchQuery =
-        applicationContext.getBean(provider + "TalentSearchQuery", TalentSearchQuery.class);
-      ElasticsearchRepository talentSearchRepository =
-        applicationContext.getBean(provider + "TalentSearchRepository", ElasticsearchRepository.class);
-      TalentSearchDataProcessor talentSearchDataProcessor =
-        applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
-
-      talentSearchDataProcessor.normalizeInputParameter(param);
-      FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(param));
-      builder.withTotal(pageResult.getTotalElements());
-      builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
-    });
-
-    return builder.build();
-  }
-
-  @Override
-  public TalentProfile getTalentProfile(String email) {
-    TalentProfile.Builder builder = new TalentProfile.Builder();
-    UserImportEntity userImportEntity = findUserImportByEmail(email);
-    if (userImportEntity != null) {
-      Map<String, Long> skillMap = userEvaluationService.getSkillMap();
-      Map<String, Object> profile = (Map<String, Object>) userImportEntity.getProfiles().get(SocialProvider.GITHUB);
-      if (profile != null) {
-        List<String> skills = (List<String>) profile.get("skills");
-        Map<String, Long> talentSkillMap = new HashMap<>();
-        skills.stream().forEach(skill -> talentSkillMap.put(skill, skillMap.get(skill.toLowerCase())));
-        builder.withUserImportEntity(userImportEntity);
-        builder.withSkillMap(talentSkillMap);
-      }
+        return userImportRepository.search(searchQuery).getContent();
     }
-    return builder.build();
-  }
 
-  public void registerUser(UserInfo userInfo) {
-    UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
-    user.setId(userInfo.getEmailAddress());
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-    user.setCreatedDateTime(sdf.format(new Date()));
-    userRegistrationRepository.save(user);
-  }
+    @Override
+    public TalentSearchResponse findTalent(final TalentSearchRequest param) {
+        List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
+        TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
 
-  public long countRegisteredUser() {
-    return userRegistrationRepository.count();
-  }
+        socialProviders.forEach(provider -> {
+            TalentSearchQuery talentSearchQuery =
+                    applicationContext.getBean(provider + "TalentSearchQuery", TalentSearchQuery.class);
+            ElasticsearchRepository talentSearchRepository =
+                    applicationContext.getBean(provider + "TalentSearchRepository", ElasticsearchRepository.class);
+            TalentSearchDataProcessor talentSearchDataProcessor =
+                    applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
+
+            talentSearchDataProcessor.normalizeInputParameter(param);
+            FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(param));
+            builder.withTotal(pageResult.getTotalElements());
+            builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
+        });
+
+        return builder.build();
+    }
+
+    @Override
+    public TalentProfile getTalentProfile(String email) {
+        TalentProfile.Builder builder = new TalentProfile.Builder();
+        UserImportEntity userImportEntity = findUserImportByEmail(email);
+        if (userImportEntity != null) {
+            Map<String, Long> skillMap = userEvaluationService.getSkillMap();
+            Map<String, Object> profile = (Map<String, Object>) userImportEntity.getProfiles().get(SocialProvider.GITHUB);
+            if (profile != null) {
+                List<String> skills = (List<String>) profile.get("skills");
+                Map<String, Long> talentSkillMap = new HashMap<>();
+                skills.stream().forEach(skill -> talentSkillMap.put(skill, skillMap.get(skill.toLowerCase())));
+                builder.withUserImportEntity(userImportEntity);
+                builder.withSkillMap(talentSkillMap);
+            }
+        }
+        return builder.build();
+    }
+
+    public void registerUser(UserInfo userInfo) {
+        UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
+        user.setId(userInfo.getEmailAddress());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+        user.setCreatedDateTime(sdf.format(new Date()));
+        userRegistrationRepository.save(user);
+    }
+
+    public long countRegisteredUser() {
+        return userRegistrationRepository.count();
+    }
 
 }

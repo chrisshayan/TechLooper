@@ -87,7 +87,7 @@ public interface UserService {
      * @param socialProvider the social
      * @return number of successful saved users
      */
-    int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider);
+    int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider, UpdateModeEnum updateMode);
 
     /**
      * Find the user on ElasticSearch

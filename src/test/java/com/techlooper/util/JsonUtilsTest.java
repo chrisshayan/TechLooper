@@ -1,13 +1,17 @@
 package com.techlooper.util;
 
+import com.techlooper.entity.userimport.GithubUserImportProfile;
 import com.techlooper.model.TechnicalTerm;
 import com.techlooper.model.VNWConfigurationResponse;
 import org.apache.commons.io.IOUtils;
+import org.elasticsearch.common.collect.ImmutableMap;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -60,5 +64,22 @@ public class JsonUtilsTest {
         assertEquals(2, javaTerm.getUsefulLinks().size());
         assertEquals(18, javaTerm.getSkills().size());
 
+    }
+
+    @Test
+    public void testObject2Map() throws Exception {
+        GithubUserImportProfile githubUserImportProfile1 = new GithubUserImportProfile();
+        githubUserImportProfile1.setUsername("khoa-nd");
+        GithubUserImportProfile githubUserImportProfile2 = new GithubUserImportProfile();
+        githubUserImportProfile2.setCompany("techlooper");
+        Map<String,Object> map1 = JsonUtils.object2Map(githubUserImportProfile1);
+        Map<String,Object> map2 = JsonUtils.object2Map(githubUserImportProfile2);
+        map2.entrySet().stream().forEach(entry -> {
+            if (entry.getValue() != null) {
+                map1.put(entry.getKey(), entry.getValue());
+            }
+        });
+        assertTrue(map1.get("username") != null);
+        assertTrue(map1.get("company") != null);
     }
 }
