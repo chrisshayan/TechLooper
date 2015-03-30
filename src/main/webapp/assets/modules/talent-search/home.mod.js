@@ -9,6 +9,8 @@ techlooper.directive("talentSearch", function ($compile, $location, utils, jsonV
           return "modules/talent-search/search-result/search-result.tem.html";
         case jsonValue.views.talentProfile:
           return "modules/talent-search/talent-profile/talent-profile.tem.html";
+        case jsonValue.views.companyProfile:
+          return "modules/talent-search/company-profile/company-profile.tem.html";
       }
       return '';
     }
