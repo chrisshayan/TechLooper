@@ -41,7 +41,7 @@
           </div>
           <div class="main-skill">
             <ul>
-              <li ng-repeat="skill in talent.skills" >
+              <li ng-repeat="skill in talent.skills | limitTo:3" >
                 <span class="left"><span class="right">{{skill}}</span></span>
               </li>
             </ul>
