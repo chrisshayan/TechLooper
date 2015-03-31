@@ -26,7 +26,14 @@ techlooper.directive("companyInfo", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/company-profile/company-culture.tem.html"
+    templateUrl: "modules/talent-search/company-profile/company-culture.tem.html",
+    link: function(scope, elem, attrs) {
+      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'top'});
+      $('[data-toggle="cultureTooltip1"]').tooltip({html:true, placement: 'top'});
+      $('[data-toggle="cultureTooltip2"]').tooltip({html:true, placement: 'top'});
+      $('[data-toggle="cultureTooltip3"]').tooltip({html:true, placement: 'top'});
+      $('[data-toggle="cultureTooltip4"]').tooltip({html:true, placement: 'top'});
+    }
   }
 }).directive("companyEmployee", function () {
   return {

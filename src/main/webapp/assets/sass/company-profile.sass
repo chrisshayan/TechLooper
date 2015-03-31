@@ -4,6 +4,7 @@
   background-color: #fff
   padding-top: 50px
   color: #1d1d1d
+  float: left
   h2
     font-size: 24px
     text-transform: capitalize
@@ -26,19 +27,23 @@
       margin: auto
       text-align: left
     .company-logo-block
-      width: 15%
+      width: 22%
       float: left
+      line-height: 100px
+      vertical-align: middle
+      img
+        margin: auto
     .company-info-detail
-      width: 85%
+      width: 78%
       float: left
       h2
-        padding-bottom: 30px
+        padding-bottom: 20px
         font-size: 22px
         font-weight: 400
       li
         float: right
         padding-bottom: 5px
-        width: 60%
+        width: 70%
         font-size: 14px
         span
           font-weight: 400
@@ -47,7 +52,7 @@
           padding-right: 10px
       li:nth-of-type(2n+1)
         float: left
-        width: 40%
+        width: 30%
   .company-skills-block
     display: block
     float: left
@@ -125,9 +130,11 @@
     width: 100%
     clear: both
     padding: 30px 0
+    background-color: #f1f1f1
     .company-culture-content
       width: 600px
       clear: both
+      margin: auto
       ul
         width: 100%
         margin: auto
@@ -140,8 +147,8 @@
           padding: 10px
           span.dot
             display: inline-block
-            width: 10px
-            height: 10px
+            width: 6px
+            height: 6px
             -webkit-border-radius: 50%
             -moz-border-radius: 50%
             border-radius: 50%
@@ -159,58 +166,22 @@
         text-transform: uppercase
         font-size: 16px
         width: 220px
-      .left-top-side
-        width: 260px
+      .full-side
+        width: 100%
+        text-align: center
+        padding: 5px 0
         float: left
-        padding: 20px
-        height: 240px
-        position: relative
-        z-index: 777
-        ul
-          border: 2px solid #ffe2ac
-          span.dot
-            background-color: #ffe2ac
-        .title-side
-          bottom: 70px
-      .right-top-side
-        width: 260px
+        font-size: 16px
+      .top-side
+        width: 100%
+        padding: 0 35px
         float: left
-        padding: 20px
-        height: 240px
-        position: relative
-        z-index: 777
-        ul
-          border: 2px solid #f1fbda
-          span.dot
-            background-color: #f1fbda
-        .title-side
-          bottom: 70px
-      .left-bottom-side
-        width: 260px
+        background: url(../images/line-up.png) center top no-repeat
+      .bottom-side
+        width: 100%
+        padding: 0 35px
         float: left
-        padding: 20px
-        height: 240px
-        position: relative
-        z-index: 777
-        ul
-          border: 2px solid #f8cfcd
-          span.dot
-            background-color: #f8cfcd
-        .title-side
-          top: 70px
-      .right-bottom-side
-        width: 260px
-        float: left
-        padding: 20px
-        height: 240px
-        position: relative
-        z-index: 777
-        ul
-          border: 2px solid #c9e5ff
-          span.dot
-            background-color: #c9e5ff
-        .title-side
-          top: 70px
+        background: url(../images/line-down.png) center bottom no-repeat
       .company-dot
         position: absolute
         z-index: 999
@@ -221,58 +192,266 @@
           font-size: 0
           z-index: -9999px
           display: inline-block
-          width: 30px
-          height: 30px
+          width: 25px
+          height: 25px
           -webkit-border-radius: 50%
           -moz-border-radius: 50%
           border-radius: 50%
-          background-color: #227bbe
+      .dot-one
+        left: 25px
+        top: 15px
+      .dot-two
+        right: 120px
+        top: 15px
       .dot-three
         right: 30px
         top: 15px
+      .dot-four
+        left: 25px
+        top: 90px
+      .dot-five
+        right: 30px
+        top: 15px
+      .dot-six
+        right: 30px
+        top: 90px
+      .left-top-side
+        width: 260px
+        float: left
+        padding: 20px 20px 10px 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 1px solid #ffcf6e
+          background-color: #fff6e1
+          span.dot
+            background-color: #fff
+            border: 1px solid #ffcf6e
+        .title-side
+          bottom: 70px
+          color: #cc8d0f
+        .company-dot
+          span
+            background-color: #e3a711
+      .right-top-side
+        width: 260px
+        float: left
+        padding: 20px 20px 10px 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 1px solid #80ccfe
+          background-color: #def2ff
+          span.dot
+            background-color: #fff
+            border: 1px solid #80ccfe
+        .title-side
+          bottom: 70px
+          color: #1d89d0
+        .company-dot
+          span
+            background-color: #399ad9
+      .left-bottom-side
+        width: 260px
+        float: left
+        padding: 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 1px solid #fc9ec9
+          background-color: #ffe1ef
+          span.dot
+            background-color: #fff
+            border: 1px solid #fc9ec9
+        .title-side
+          top: 70px
+          color: #da3e86
+        .company-dot
+          span
+            background-color: #d12775
+      .right-bottom-side
+        width: 260px
+        float: left
+        padding: 20px
+        height: 240px
+        position: relative
+        z-index: 777
+        ul
+          border: 1px solid #ffbcb5
+          background-color: #ffe8e5
+          span.dot
+            background-color: #fff
+            border: 1px solid #ffbcb5
+        .title-side
+          top: 70px
+          color: #d92a18
+        .company-dot
+          span
+            background-color: #d23828
+      .line-up
+        float: left
+        width: 10px
+        height: 250px
+      .line-down
+        float: left
+        width: 10px
+        height: 250px
+      .axis-y
+        width: 100%
+        float: left
+        position: relative
+        background: url(../images/line-axis.png) center top repeat-y
+        padding: 0 20px
+        font-size: 16px
+        span
+          position: absolute
+          display: block
+          width: 150px
+          height: 50px
+        .line-left
+          width: 50%
+          float: left
+          height: 20px
+          background: url(../images/line-left.png) left top no-repeat
+          span
+            left: -140px
+            top: -13px
+            text-align: right
+        .line-right
+          width: 50%
+          float: left
+          height: 20px
+          background: url(../images/line-right.png) right top no-repeat
+          span
+            right: -140px
+            top: -13px
+            text-align: left
   .company-opportunities-block
     display: block
     float: left
     width: 100%
     clear: both
     padding: 30px 0
-    background-color: #f1f1f1
     .company-opportunities-content
       max-width: 1200px
       margin: auto
-      ul
+      .company-opportunities-list
         width: 70%
         margin: auto
-        li
+        ul
           width: 50%
           float: left
-          padding-bottom: 10px
-          span
-            display: inline-block
-            background-color: #fafafa
-            border: 1px solid #eae9e9
-            padding: 10px
-            font-size: 16px
+          li
+            width: 100%
             float: left
-          span.number
+            padding-bottom: 10px
+            span
+              display: inline-block
+              background-color: #fafafa
+              border: 1px solid #eae9e9
+              padding: 10px
+              font-size: 16px
+              float: left
+            span.number
+              font-weight: 400
+              background-color: #ececec
+              padding: 10px 20px
+              border-right: 0
+              -webkit-border-top-left-radius: 5px
+              -webkit-border-bottom-left-radius: 5px
+              -moz-border-radius-topleft: 5px
+              -moz-border-radius-bottomleft: 5px
+              border-top-left-radius: 5px
+              border-bottom-left-radius: 5px
+            span.name
+              border-left: 0
+              -webkit-border-top-right-radius: 5px
+              -webkit-border-bottom-right-radius: 5px
+              -moz-border-radius-topright: 5px
+              -moz-border-radius-bottomright: 5px
+              border-top-right-radius: 5px
+              border-bottom-right-radius: 5px
+              padding: 10px 25px
+              width: 235px
+              text-align: left
+  .company-employee-block
+    display: block
+    float: left
+    width: 100%
+    clear: both
+    padding: 30px 0
+    background-color: #f1f1f1
+    .company-employee-content
+      max-width: 1200px
+      margin: auto
+      ul
+        width: 80%
+        margin: auto
+        li
+          float: left
+          width: 31%
+          padding: 1%
+          span
+            display: block
+          span.employee-name
+            width: 100px
+            height: 100px
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            background-color: #fff
+            margin: auto
             font-weight: 400
-            background-color: #ececec
-            padding: 10px 20px
-            border-right: 0
-            -webkit-border-top-left-radius: 5px
-            -webkit-border-bottom-left-radius: 5px
-            -moz-border-radius-topleft: 5px
-            -moz-border-radius-bottomleft: 5px
-            border-top-left-radius: 5px
-            border-bottom-left-radius: 5px
-          span.name
-            border-left: 0
-            -webkit-border-top-right-radius: 5px
-            -webkit-border-bottom-right-radius: 5px
-            -moz-border-radius-topright: 5px
-            -moz-border-radius-bottomright: 5px
-            border-top-right-radius: 5px
-            border-bottom-right-radius: 5px
-            padding: 10px 25px
-            width: 235px
-            text-align: left
+            line-height: 100px
+            -webkit-transition: background-color 0.3s
+            -moz-transition: background-color 0.3s
+            transition: background-color 0.3s
+          span.job-title
+            padding-top: 10px
+          a
+            color: #1d1d1d
+            display: inline-block
+            width: 100px
+            height: 100px
+        li:hover
+          span.employee-name
+            background-color: #1d1d1d
+            -webkit-transition: background-color 0.8s
+            -moz-transition: background-color 0.8s
+            transition: background-color 0.8s
+          a
+            color: #fff
+  .company-follow-block
+    display: block
+    float: left
+    width: 100%
+    clear: both
+    padding: 30px 0
+    .company-follow-content
+      max-width: 340px
+      margin: auto
+      .follow-button
+        width: 150px
+        float: left
+        padding-right: 10px
+        button.btn
+          width: 150px
+      ul
+        width: auto
+        float: left
+        li
+          width: 100%
+          clear: both
+          text-align: left
+          line-height: 22px
+          padding-left: 10px
+          strong
+            font-weight: 400
+            font-size: 18px
+            padding-right: 10px
+            width: 60px
+            float: left
+            text-align: center
