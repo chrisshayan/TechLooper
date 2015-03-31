@@ -1,4 +1,4 @@
 techlooper.controller("companyProfileController",
-  function () {
-
+  function ($scope, companyProfileService) {
+    $scope.follow = companyProfileService.followManager;
   });
