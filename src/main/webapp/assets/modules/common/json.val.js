@@ -236,9 +236,12 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Html5',
     'logo': 'lg-html5.png'
+  },{
+    'text': 'Html',
+    'logo': 'lg-html.png'
   }, {
-    'text': 'Bootstrap',
-    'logo': 'lg-bootstrap.png'
+  'text': 'Bootstrap',
+  'logo': 'lg-bootstrap.png'
   }, {
     'text': 'AngularJS',
     'logo': 'lg-angularjs.png'
@@ -341,6 +344,18 @@ angular.module("Common").constant("jsonValue", {
   },{
     'text': 'VimL',
     'logo': 'lg-viml.png'
+  },{
+    'text': 'Objective-C',
+    'logo': 'lg-objective-c.png'
+  },{
+    'text': 'xml',
+    'logo': 'lg-xml.png'
+  },{
+    'text': 'Groovy',
+    'logo': 'lg-groovy.png'
+  },{
+    'text': 'Logos',
+    'logo': 'lg-logos.png'
   }],
   shortcuts: [{
     "id": 1,
