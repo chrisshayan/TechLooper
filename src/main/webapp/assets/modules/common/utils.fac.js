@@ -131,7 +131,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/landing/.test(path)) {
         return jsonValue.views.landing;
       }
-      else if (/\/company-profile/.test(path)) {
+      else if (/\/company\/vietnamworks/.test(path)) {
         return jsonValue.views.companyProfile;
       }
     },
