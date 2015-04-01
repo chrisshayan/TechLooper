@@ -17,7 +17,12 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
           mode: "multi",
           persist: false,
           createOnBlur: false,
-          create: true,
+          create: function(input) {
+            return {
+              value: input,
+              text: input
+            }
+          },
           valueField: "text",
           searchField: ['text'],
           labelField: "text",
