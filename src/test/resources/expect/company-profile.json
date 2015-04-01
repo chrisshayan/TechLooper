@@ -7,10 +7,26 @@
   "website" : "www.vietnamworks.com",
   "address" : "130 Sương Nguyệt Ánh, Phường Bến Thành, Quận 1, TP.Hồ Chí Minh",
   "skills" : [
-    "Java", "Scrum", "LeanStartup"
+    {
+      "skillId": 338,
+      "skillName": "Java",
+      "skillWeight": 100
+    },
+    {
+      "skillId": 206,
+      "skillName": "SCRUM",
+      "skillWeight": 23
+    }
   ],
   "benefits" : [
-    "Innovation Time Off", "Unlimited Annual Leave"
+    {
+      "benefitId": 1,
+      "benefitValue": "Innovation Time Off"
+    },
+    {
+      "benefitId": 2,
+      "benefitValue": "Unlimited Annual Leave"
+    }
   ],
   "jobs" : [
     {
