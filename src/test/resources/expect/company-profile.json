@@ -1,0 +1,31 @@
+{
+  "companyId" : 404,
+  "companyLogoURL" : "http://images.vietnamworks.com/pictureofcompany/82/23045.gif",
+  "companyName" : "Vietnamworks",
+  "companyCategory" : "IT - Software",
+  "companySizeId" : 4,
+  "website" : "www.vietnamworks.com",
+  "address" : "130 Sương Nguyệt Ánh, Phường Bến Thành, Quận 1, TP.Hồ Chí Minh",
+  "skills" : [
+    "Java", "Scrum", "LeanStartup"
+  ],
+  "benefits" : [
+    "Innovation Time Off", "Unlimited Annual Leave"
+  ],
+  "jobs" : [
+    {
+      "jobTitle" : "Senior PHP Developer",
+      "jobURL" : "http://www.vietnamworks.com/senior-php-developer-64-549288-jv"
+    },
+    {
+      "jobTitle" : "Senior Front-end Developer",
+      "jobURL" : "http://www.vietnamworks.com/senior-front-end-developer-25-549291-jv"
+    }
+  ],
+  "employees" : [
+    {
+      "userName": "khoa-nd",
+      "emailAddress": "khoa.nguyen@navigosgroup.com"
+    }
+  ]
+}
