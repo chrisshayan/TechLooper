@@ -31,11 +31,13 @@
   "jobs" : [
     {
       "jobTitle" : "Senior PHP Developer",
-      "jobURL" : "http://www.vietnamworks.com/senior-php-developer-64-549288-jv"
+      "jobURL" : "http://www.vietnamworks.com/senior-php-developer-64-549288-jv",
+      "expiredDate" : "2015-02-25T23:59:59+07:00"
     },
     {
       "jobTitle" : "Senior Front-end Developer",
-      "jobURL" : "http://www.vietnamworks.com/senior-front-end-developer-25-549291-jv"
+      "jobURL" : "http://www.vietnamworks.com/senior-front-end-developer-25-549291-jv",
+      "expiredDate" : "2015-02-25T23:59:59+07:00"
     }
   ],
   "employees" : [
