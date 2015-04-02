@@ -2,7 +2,6 @@ package com.techlooper.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class CompanyEntity {
 
   private String companyCategory;
 
-  private List<CompanySize> companySizes;
+  private Long companySizeId;
 
   private String website;
 
@@ -69,12 +68,12 @@ public class CompanyEntity {
     this.companyCategory = companyCategory;
   }
 
-  public List<CompanySize> getCompanySizes() {
-    return companySizes;
+  public Long getCompanySizeId() {
+    return companySizeId;
   }
 
-  public void setCompanySizes(List<CompanySize> companySizes) {
-    this.companySizes = companySizes;
+  public void setCompanySizeId(Long companySizeId) {
+    this.companySizeId = companySizeId;
   }
 
   public String getWebsite() {
