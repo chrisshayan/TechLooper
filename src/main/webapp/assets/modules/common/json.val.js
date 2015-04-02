@@ -704,6 +704,49 @@ angular.module("Common").constant("jsonValue", {
     }
   ],
 
+  "companySizes" : [
+      {
+        "companySizeId":"1",
+        "companySizeValue":"Less Than 10"
+      },
+      {
+        "companySizeId":"2",
+        "companySizeValue":"10-24"
+      },
+      {
+        "companySizeId":"3",
+        "companySizeValue":"25-99"
+      },
+      {
+        "companySizeId":"4",
+        "companySizeValue":"100-499"
+      },
+      {
+        "companySizeId":"5",
+        "companySizeValue":"500-999"
+      },
+      {
+        "companySizeId":"6",
+        "companySizeValue":"1,000-4,999"
+      },
+      {
+        "companySizeId":"7",
+        "companySizeValue":"5,000-9,999"
+      },
+      {
+        "companySizeId":"8",
+        "companySizeValue":"10,000-19,999"
+      },
+      {
+        "companySizeId":"9",
+        "companySizeValue":"20,000-49,999"
+      },
+      {
+        "companySizeId":"10",
+        "companySizeValue":"Over 50,000"
+      }
+  ],
+
   introTour: {
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
     pieHomePage: [
