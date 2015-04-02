@@ -748,6 +748,84 @@ angular.module("Common").constant("jsonValue", {
       }
   ],
 
+  "benefits" : [
+      {
+        "benefitId":"1",
+        "benefitName":"Bonus",
+        "benefitIconName":"fa-dollar"
+      },
+      {
+        "benefitId":"2",
+        "benefitName":"Healthcare Plan",
+        "benefitIconName":"fa-user-md"
+      },
+      {
+        "benefitId":"3",
+        "benefitName":"Paid Leave",
+        "benefitIconName":"fa-file-image-o"
+      },
+      {
+        "benefitId":"4",
+        "benefitName":"Training",
+        "benefitIconName":"fa-graduation-cap"
+      },
+      {
+        "benefitId":"5",
+        "benefitName":"Awards",
+        "benefitIconName":"fa-trophy"
+      },
+      {
+        "benefitId":"6",
+        "benefitName":"Library",
+        "benefitIconName":"fa-book"
+      },
+      {
+        "benefitId":"7",
+        "benefitName":"Laptop",
+        "benefitIconName":"fa-laptop"
+      },
+      {
+        "benefitId":"8",
+        "benefitName":"Mobile",
+        "benefitIconName":"fa-mobile"
+      },
+      {
+        "benefitId":"9",
+        "benefitName":"Travel Opportunities",
+        "benefitIconName":"fa-plane"
+      },
+      {
+        "benefitId":"10",
+        "benefitName":"Team Activities",
+        "benefitIconName":"fa-glass"
+      },
+      {
+        "benefitId":"11",
+        "benefitName":"Transportation",
+        "benefitIconName":"fa-cab"
+      },
+      {
+        "benefitId":"12",
+        "benefitName":"Canteen",
+        "benefitIconName":"fa-coffee"
+      },
+      {
+        "benefitId":"13",
+        "benefitName":"Vouchers",
+        "benefitIconName":"fa-gift"
+      },
+      {
+        "benefitId":"14",
+        "benefitName":"Kindergarten",
+        "benefitIconName":"fa-child"
+      },
+      {
+        "benefitId":"15",
+        "benefitName":"Others",
+        "benefitIconName":"fa-check-square-o"
+      }
+  ],
+
   introTour: {
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
     pieHomePage: [
