@@ -29,7 +29,7 @@ angular.module("Common").factory("connectionFactory",
       clearCache: function () {
         for (var uri in subscriptions) {
           if ($.type(subscriptions[uri]) !== "number") {
-            subscriptions[uri].unsubscribe();
+            try{subscriptions[uri].unsubscribe();}catch(e){};
           }
         }
         callbacks.length = 0;
