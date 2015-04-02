@@ -2,6 +2,7 @@ package com.techlooper.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 
@@ -28,45 +29,13 @@ public class CompanyEntity {
 
   private List<CompanySkillEntity> skills;
 
-  private List<CompanyBenefit> companyBenefits;
+  private List<CompanyBenefit> benefits;
 
-  private List<CompanyJob> companyJobs;
+  private List<CompanyJob> jobs;
 
-  private List<CompanyEmployee> companyEmployees;
+  private List<CompanyEmployee> employees;
 
-  private List<CompanyIndustry> companyIndustries;
-
-  public List<CompanyIndustry> getCompanyIndustries() {
-    return companyIndustries;
-  }
-
-  public void setCompanyIndustries(List<CompanyIndustry> companyIndustries) {
-    this.companyIndustries = companyIndustries;
-  }
-
-  public List<CompanyEmployee> getCompanyEmployees() {
-    return companyEmployees;
-  }
-
-  public void setCompanyEmployees(List<CompanyEmployee> companyEmployees) {
-    this.companyEmployees = companyEmployees;
-  }
-
-  public List<CompanyJob> getCompanyJobs() {
-    return companyJobs;
-  }
-
-  public void setCompanyJobs(List<CompanyJob> companyJobs) {
-    this.companyJobs = companyJobs;
-  }
-
-  public List<CompanyBenefit> getCompanyBenefits() {
-    return companyBenefits;
-  }
-
-  public void setCompanyBenefits(List<CompanyBenefit> companyBenefits) {
-    this.companyBenefits = companyBenefits;
-  }
+  private List<CompanyIndustry> industries;
 
   public Long getCompanyId() {
     return companyId;
@@ -100,6 +69,14 @@ public class CompanyEntity {
     this.companyCategory = companyCategory;
   }
 
+  public List<CompanySize> getCompanySizes() {
+    return companySizes;
+  }
+
+  public void setCompanySizes(List<CompanySize> companySizes) {
+    this.companySizes = companySizes;
+  }
+
   public String getWebsite() {
     return website;
   }
@@ -124,11 +101,35 @@ public class CompanyEntity {
     this.skills = skills;
   }
 
-  public List<CompanySize> getCompanySizes() {
-    return companySizes;
+  public List<CompanyBenefit> getBenefits() {
+    return benefits;
   }
 
-  public void setCompanySizes(List<CompanySize> companySizes) {
-    this.companySizes = companySizes;
+  public void setBenefits(List<CompanyBenefit> benefits) {
+    this.benefits = benefits;
+  }
+
+  public List<CompanyJob> getJobs() {
+    return jobs;
+  }
+
+  public void setJobs(List<CompanyJob> jobs) {
+    this.jobs = jobs;
+  }
+
+  public List<CompanyEmployee> getEmployees() {
+    return employees;
+  }
+
+  public void setEmployees(List<CompanyEmployee> employees) {
+    this.employees = employees;
+  }
+
+  public List<CompanyIndustry> getIndustries() {
+    return industries;
+  }
+
+  public void setIndustries(List<CompanyIndustry> industries) {
+    this.industries = industries;
   }
 }
