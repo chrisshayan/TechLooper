@@ -470,361 +470,97 @@ angular.module("Common").constant("jsonValue", {
     {"text": "Mexico"}
   ],
 
-  industries: [
-    {
-      "industryId": "1",
-      "industryValue": "Accounting"
-    },
-    {
-      "industryId": "2",
-      "industryValue": "Administrative/Clerical"
-    },
-    {
-      "industryId": "3",
-      "industryValue": "Advertising/Promotion/PR"
-    },
-    {
-      "industryId": "4",
-      "industryValue": "Agriculture/Forestry"
-    },
-    {
-      "industryId": "5",
-      "industryValue": "Architecture/Interior Design"
-    },
-    {
-      "industryId": "6",
-      "industryValue": "Pharmaceutical/Biotech"
-    },
-    {
-      "industryId": "7",
-      "industryValue": "Civil/Construction"
-    },
-    {
-      "industryId": "8",
-      "industryValue": "Consulting"
-    },
-    {
-      "industryId": "10",
-      "industryValue": "Arts/Design"
-    },
-    {
-      "industryId": "11",
-      "industryValue": "Customer Service"
-    },
-    {
-      "industryId": "12",
-      "industryValue": "Education/Training"
-    },
-    {
-      "industryId": "13",
-      "industryValue": "Engineering"
-    },
-    {
-      "industryId": "15",
-      "industryValue": "Entry level"
-    },
-    {
-      "industryId": "16",
-      "industryValue": "Environment/Waste Services"
-    },
-    {
-      "industryId": "17",
-      "industryValue": "Executive management"
-    },
-    {
-      "industryId": "18",
-      "industryValue": "Expatriate Jobs in Vietnam"
-    },
-    {
-      "industryId": "19",
-      "industryValue": "Export-Import"
-    },
-    {
-      "industryId": "21",
-      "industryValue": "NGO/Non-Profit"
-    },
-    {
-      "industryId": "22",
-      "industryValue": "Health/Medical Care"
-    },
-    {
-      "industryId": "23",
-      "industryValue": "Human Resources"
-    },
-    {
-      "industryId": "24",
-      "industryValue": "Insurance"
-    },
-    {
-      "industryId": "25",
-      "industryValue": "Legal/Contracts"
-    },
-    {
-      "industryId": "26",
-      "industryValue": "Production/Process"
-    },
-    {
-      "industryId": "27",
-      "industryValue": "Marketing"
-    },
-    {
-      "industryId": "28",
-      "industryValue": "Oil/Gas"
-    },
-    {
-      "industryId": "30",
-      "industryValue": "Real Estate"
-    },
-    {
-      "industryId": "32",
-      "industryValue": "Retail/Wholesale"
-    },
-    {
-      "industryId": "33",
-      "industryValue": "Sales"
-    },
-    {
-      "industryId": "34",
-      "industryValue": "Sales Technical"
-    },
-    {
-      "industryId": "35",
-      "industryValue": "IT - Software"
-    },
-    {
-      "industryId": "36",
-      "industryValue": "Freight/Logistics"
-    },
-    {
-      "industryId": "37",
-      "industryValue": "Airlines/Tourism/Hotel"
-    },
-    {
-      "industryId": "39",
-      "industryValue": "Other"
-    },
-    {
-      "industryId": "41",
-      "industryValue": "Telecommunications"
-    },
-    {
-      "industryId": "42",
-      "industryValue": "Banking"
-    },
-    {
-      "industryId": "43",
-      "industryValue": "Chemical/Biochemical"
-    },
-    {
-      "industryId": "47",
-      "industryValue": "Interpreter/Translator"
-    },
-    {
-      "industryId": "48",
-      "industryValue": "TV/Media/Newspaper"
-    },
-    {
-      "industryId": "49",
-      "industryValue": "Purchasing/Supply Chain"
-    },
-    {
-      "industryId": "51",
-      "industryValue": "Temporary/Contract"
-    },
-    {
-      "industryId": "52",
-      "industryValue": "Textiles/Garments/Footwear"
-    },
-    {
-      "industryId": "53",
-      "industryValue": "Warehouse"
-    },
-    {
-      "industryId": "54",
-      "industryValue": "Food & Beverage"
-    },
-    {
-      "industryId": "55",
-      "industryValue": "IT - Hardware/Networking"
-    },
-    {
-      "industryId": "56",
-      "industryValue": "Securities & Trading"
-    },
-    {
-      "industryId": "57",
-      "industryValue": "Internet/Online Media"
-    },
-    {
-      "industryId": "58",
-      "industryValue": "Auditing"
-    },
-    {
-      "industryId": "59",
-      "industryValue": "Finance/Investment"
-    },
-    {
-      "industryId": "62",
-      "industryValue": "Luxury Goods"
-    },
-    {
-      "industryId": "63",
-      "industryValue": "Fashion/Lifestyle"
-    },
-    {
-      "industryId": "64",
-      "industryValue": "Electrical/Electronics"
-    },
-    {
-      "industryId": "65",
-      "industryValue": "Mechanical"
-    },
-    {
-      "industryId": "66",
-      "industryValue": "High Technology"
-    },
-    {
-      "industryId": "67",
-      "industryValue": "Automotive"
-    },
-    {
-      "industryId": "68",
-      "industryValue": "Industrial Products"
-    },
-    {
-      "industryId": "69",
-      "industryValue": "Planning/Projects"
-    },
-    {
-      "industryId": "70",
-      "industryValue": "QA/QC"
-    },
-    {
-      "industryId": "71",
-      "industryValue": "Overseas Jobs"
-    }
-  ],
+  industries: {
+    "1": {"value": "Accounting"},
+    "2": {"value": "Administrative/Clerical"},
+    "3": {"value": "Advertising/Promotion/PR"},
+    "4": {"value": "Agriculture/Forestry"},
+    "5": {"value": "Architecture/Interior Design"},
+    "6": {"value": "Pharmaceutical/Biotech"},
+    "7": {"value": "Civil/Construction"},
+    "8": {"value": "Consulting"},
+    "10": {"value": "Arts/Design"},
+    "11": {"value": "Customer Service"},
+    "12": {"value": "Education/Training"},
+    "13": {"value": "Engineering"},
+    "15": {"value": "Entry level"},
+    "16": {"value": "Environment/Waste Services"},
+    "17": {"value": "Executive management"},
+    "18": {"value": "Expatriate Jobs in Vietnam"},
+    "19": {"value": "Export-Import"},
+    "21": {"value": "NGO/Non-Profit"},
+    "22": {"value": "Health/Medical Care"},
+    "23": {"value": "Human Resources"},
+    "24": {"value": "Insurance"},
+    "25": {"value": "Legal/Contracts"},
+    "26": {"value": "Production/Process"},
+    "27": {"value": "Marketing"},
+    "28": {"value": "Oil/Gas"},
+    "30": {"value": "Real Estate"},
+    "32": {"value": "Retail/Wholesale"},
+    "33": {"value": "Sales"},
+    "34": {"value": "Sales Technical"},
+    "35": {"value": "IT - Software"},
+    "36": {"value": "Freight/Logistics"},
+    "37": {"value": "Airlines/Tourism/Hotel"},
+    "39": {"value": "Other"},
+    "41": {"value": "Telecommunications"},
+    "42": {"value": "Banking"},
+    "43": {"value": "Chemical/Biochemical"},
+    "47": {"value": "Interpreter/Translator"},
+    "48": {"value": "TV/Media/Newspaper"},
+    "49": {"value": "Purchasing/Supply Chain"},
+    "51": {"value": "Temporary/Contract"},
+    "52": {"value": "Textiles/Garments/Footwear"},
+    "53": {"value": "Warehouse"},
+    "54": {"value": "Food & Beverage"},
+    "55": {"value": "IT - Hardware/Networking"},
+    "56": {"value": "Securities & Trading"},
+    "57": {"value": "Internet/Online Media"},
+    "58": {"value": "Auditing"},
+    "59": {"value": "Finance/Investment"},
+    "62": {"value": "Luxury Goods"},
+    "63": {"value": "Fashion/Lifestyle"},
+    "64": {"value": "Electrical/Electronics"},
+    "65": {"value": "Mechanical"},
+    "66": {"value": "High Technology"},
+    "67": {"value": "Automotive"},
+    "68": {"value": "Industrial Products"},
+    "69": {"value": "Planning/Projects"},
+    "70": {"value": "QA/QC"},
+    "71": {"value": "Overseas Jobs"}
+  },
 
-  "companySizes" : [
-      {
-        "companySizeId":"1",
-        "companySizeValue":"Less Than 10"
-      },
-      {
-        "companySizeId":"2",
-        "companySizeValue":"10-24"
-      },
-      {
-        "companySizeId":"3",
-        "companySizeValue":"25-99"
-      },
-      {
-        "companySizeId":"4",
-        "companySizeValue":"100-499"
-      },
-      {
-        "companySizeId":"5",
-        "companySizeValue":"500-999"
-      },
-      {
-        "companySizeId":"6",
-        "companySizeValue":"1,000-4,999"
-      },
-      {
-        "companySizeId":"7",
-        "companySizeValue":"5,000-9,999"
-      },
-      {
-        "companySizeId":"8",
-        "companySizeValue":"10,000-19,999"
-      },
-      {
-        "companySizeId":"9",
-        "companySizeValue":"20,000-49,999"
-      },
-      {
-        "companySizeId":"10",
-        "companySizeValue":"Over 50,000"
-      }
-  ],
+  "companySizes": {
+    "1": {"value": "Less Than 10"},
+    "2": {"value": "10-24"},
+    "3": {"value": "25-99"},
+    "4": {"value": "100-499"},
+    "5": {"value": "500-999"},
+    "6": {"value": "1,000-4,999"},
+    "7": {"value": "5,000-9,999"},
+    "8": {"value": "10,000-19,999"},
+    "9": {"value": "20,000-49,999"},
+    "10": {"value": "Over 50,000"}
+  },
 
-  "benefits" : [
-      {
-        "benefitId":"1",
-        "benefitName":"Bonus",
-        "benefitIconName":"fa-dollar"
-      },
-      {
-        "benefitId":"2",
-        "benefitName":"Healthcare Plan",
-        "benefitIconName":"fa-user-md"
-      },
-      {
-        "benefitId":"3",
-        "benefitName":"Paid Leave",
-        "benefitIconName":"fa-file-image-o"
-      },
-      {
-        "benefitId":"4",
-        "benefitName":"Training",
-        "benefitIconName":"fa-graduation-cap"
-      },
-      {
-        "benefitId":"5",
-        "benefitName":"Awards",
-        "benefitIconName":"fa-trophy"
-      },
-      {
-        "benefitId":"6",
-        "benefitName":"Library",
-        "benefitIconName":"fa-book"
-      },
-      {
-        "benefitId":"7",
-        "benefitName":"Laptop",
-        "benefitIconName":"fa-laptop"
-      },
-      {
-        "benefitId":"8",
-        "benefitName":"Mobile",
-        "benefitIconName":"fa-mobile"
-      },
-      {
-        "benefitId":"9",
-        "benefitName":"Travel Opportunities",
-        "benefitIconName":"fa-plane"
-      },
-      {
-        "benefitId":"10",
-        "benefitName":"Team Activities",
-        "benefitIconName":"fa-glass"
-      },
-      {
-        "benefitId":"11",
-        "benefitName":"Transportation",
-        "benefitIconName":"fa-cab"
-      },
-      {
-        "benefitId":"12",
-        "benefitName":"Canteen",
-        "benefitIconName":"fa-coffee"
-      },
-      {
-        "benefitId":"13",
-        "benefitName":"Vouchers",
-        "benefitIconName":"fa-gift"
-      },
-      {
-        "benefitId":"14",
-        "benefitName":"Kindergarten",
-        "benefitIconName":"fa-child"
-      },
-      {
-        "benefitId":"15",
-        "benefitName":"Others",
-        "benefitIconName":"fa-check-square-o"
-      }
-  ],
+  "benefits": {
+    "1": {"name": "Bonus", "iconName": "fa-dollar"},
+    "2": {"name": "Healthcare Plan", "iconName": "fa-user-md"},
+    "3": {"name": "Paid Leave", "iconName": "fa-file-image-o"},
+    "4": {"name": "Training", "iconName": "fa-graduation-cap"},
+    "5": {"name": "Awards", "iconName": "fa-trophy"},
+    "6": {"name": "Library", "iconName": "fa-book"},
+    "7": {"name": "Laptop", "iconName": "fa-laptop"},
+    "8": {"name": "Mobile", "iconName": "fa-mobile"},
+    "9": {"name": "Travel Opportunities", "iconName": "fa-plane"},
+    "10": {"name": "Team Activities", "iconName": "fa-glass"},
+    "11": {"name": "Transportation", "iconName": "fa-cab"},
+    "12": {"name": "Canteen", "iconName": "fa-coffee"},
+    "13": {"name": "Vouchers", "iconName": "fa-gift"},
+    "14": {"name": "Kindergarten", "iconName": "fa-child"},
+    "15": {"name": "Others", "iconName": "fa-check-square-o"}
+  },
 
   introTour: {
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
