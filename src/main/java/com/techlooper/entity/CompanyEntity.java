@@ -20,7 +20,7 @@ public class CompanyEntity {
 
   private String companyCategory;
 
-  private Long companySizeId;
+  private List<CompanySize> companySizes;
 
   private String website;
 
@@ -100,14 +100,6 @@ public class CompanyEntity {
     this.companyCategory = companyCategory;
   }
 
-  public Long getCompanySizeId() {
-    return companySizeId;
-  }
-
-  public void setCompanySizeId(Long companySizeId) {
-    this.companySizeId = companySizeId;
-  }
-
   public String getWebsite() {
     return website;
   }
@@ -132,4 +124,11 @@ public class CompanyEntity {
     this.skills = skills;
   }
 
+  public List<CompanySize> getCompanySizes() {
+    return companySizes;
+  }
+
+  public void setCompanySizes(List<CompanySize> companySizes) {
+    this.companySizes = companySizes;
+  }
 }
