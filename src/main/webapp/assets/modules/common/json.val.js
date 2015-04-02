@@ -218,10 +218,10 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': '.Net',
     'logo': 'lg-dotnet.png'
-  },{
+  }, {
     'text': 'C#',
     'logo': 'lg-c-sharp.png'
-  },{
+  }, {
     'text': 'Php',
     'logo': 'lg-php.png'
   }, {
@@ -236,12 +236,12 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Html5',
     'logo': 'lg-html5.png'
-  },{
+  }, {
     'text': 'Html',
     'logo': 'lg-html.png'
   }, {
-  'text': 'Bootstrap',
-  'logo': 'lg-bootstrap.png'
+    'text': 'Bootstrap',
+    'logo': 'lg-bootstrap.png'
   }, {
     'text': 'AngularJS',
     'logo': 'lg-angularjs.png'
@@ -308,52 +308,52 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Clojure',
     'logo': 'lg-clojure.png'
-  },{
-      'text': 'CoffeeScript',
-      'logo': 'lg-coffeescript.png'
-   }, {
+  }, {
+    'text': 'CoffeeScript',
+    'logo': 'lg-coffeescript.png'
+  }, {
     'text': 'Go',
     'logo': 'lg-go.png'
-  },{
+  }, {
     'text': 'Haskell',
     'logo': 'lg-haskell.png'
   }, {
     'text': 'Lua',
     'logo': 'lg-lua.png'
-  },{
+  }, {
     'text': 'Matlab',
     'logo': 'lg-matlab.png'
   }, {
     'text': 'Perl',
     'logo': 'lg-perl.png'
-  },{
+  }, {
     'text': 'R',
     'logo': 'lg-r.png'
   }, {
     'text': 'Scala',
     'logo': 'lg-scala.png'
-  },{
+  }, {
     'text': 'Swift',
     'logo': 'lg-swift.png'
   }, {
     'text': 'Clojure',
     'logo': 'lg-clojure.png'
-  },{
+  }, {
     'text': 'Tex',
     'logo': 'lg-tex.png'
-  },{
+  }, {
     'text': 'VimL',
     'logo': 'lg-viml.png'
-  },{
+  }, {
     'text': 'Objective-C',
     'logo': 'lg-objective-c.png'
-  },{
+  }, {
     'text': 'xml',
     'logo': 'lg-xml.png'
-  },{
+  }, {
     'text': 'Groovy',
     'logo': 'lg-groovy.png'
-  },{
+  }, {
     'text': 'Logos',
     'logo': 'lg-logos.png'
   }],
@@ -467,6 +467,241 @@ angular.module("Common").constant("jsonValue", {
     {"text": "Venezuela"},
     {"text": "Bolivia"},
     {"text": "Mexico"}
+  ],
+
+  industries: [
+    {
+      "industryId": "1",
+      "industryValue": "Accounting"
+    },
+    {
+      "industryId": "2",
+      "industryValue": "Administrative/Clerical"
+    },
+    {
+      "industryId": "3",
+      "industryValue": "Advertising/Promotion/PR"
+    },
+    {
+      "industryId": "4",
+      "industryValue": "Agriculture/Forestry"
+    },
+    {
+      "industryId": "5",
+      "industryValue": "Architecture/Interior Design"
+    },
+    {
+      "industryId": "6",
+      "industryValue": "Pharmaceutical/Biotech"
+    },
+    {
+      "industryId": "7",
+      "industryValue": "Civil/Construction"
+    },
+    {
+      "industryId": "8",
+      "industryValue": "Consulting"
+    },
+    {
+      "industryId": "10",
+      "industryValue": "Arts/Design"
+    },
+    {
+      "industryId": "11",
+      "industryValue": "Customer Service"
+    },
+    {
+      "industryId": "12",
+      "industryValue": "Education/Training"
+    },
+    {
+      "industryId": "13",
+      "industryValue": "Engineering"
+    },
+    {
+      "industryId": "15",
+      "industryValue": "Entry level"
+    },
+    {
+      "industryId": "16",
+      "industryValue": "Environment/Waste Services"
+    },
+    {
+      "industryId": "17",
+      "industryValue": "Executive management"
+    },
+    {
+      "industryId": "18",
+      "industryValue": "Expatriate Jobs in Vietnam"
+    },
+    {
+      "industryId": "19",
+      "industryValue": "Export-Import"
+    },
+    {
+      "industryId": "21",
+      "industryValue": "NGO/Non-Profit"
+    },
+    {
+      "industryId": "22",
+      "industryValue": "Health/Medical Care"
+    },
+    {
+      "industryId": "23",
+      "industryValue": "Human Resources"
+    },
+    {
+      "industryId": "24",
+      "industryValue": "Insurance"
+    },
+    {
+      "industryId": "25",
+      "industryValue": "Legal/Contracts"
+    },
+    {
+      "industryId": "26",
+      "industryValue": "Production/Process"
+    },
+    {
+      "industryId": "27",
+      "industryValue": "Marketing"
+    },
+    {
+      "industryId": "28",
+      "industryValue": "Oil/Gas"
+    },
+    {
+      "industryId": "30",
+      "industryValue": "Real Estate"
+    },
+    {
+      "industryId": "32",
+      "industryValue": "Retail/Wholesale"
+    },
+    {
+      "industryId": "33",
+      "industryValue": "Sales"
+    },
+    {
+      "industryId": "34",
+      "industryValue": "Sales Technical"
+    },
+    {
+      "industryId": "35",
+      "industryValue": "IT - Software"
+    },
+    {
+      "industryId": "36",
+      "industryValue": "Freight/Logistics"
+    },
+    {
+      "industryId": "37",
+      "industryValue": "Airlines/Tourism/Hotel"
+    },
+    {
+      "industryId": "39",
+      "industryValue": "Other"
+    },
+    {
+      "industryId": "41",
+      "industryValue": "Telecommunications"
+    },
+    {
+      "industryId": "42",
+      "industryValue": "Banking"
+    },
+    {
+      "industryId": "43",
+      "industryValue": "Chemical/Biochemical"
+    },
+    {
+      "industryId": "47",
+      "industryValue": "Interpreter/Translator"
+    },
+    {
+      "industryId": "48",
+      "industryValue": "TV/Media/Newspaper"
+    },
+    {
+      "industryId": "49",
+      "industryValue": "Purchasing/Supply Chain"
+    },
+    {
+      "industryId": "51",
+      "industryValue": "Temporary/Contract"
+    },
+    {
+      "industryId": "52",
+      "industryValue": "Textiles/Garments/Footwear"
+    },
+    {
+      "industryId": "53",
+      "industryValue": "Warehouse"
+    },
+    {
+      "industryId": "54",
+      "industryValue": "Food & Beverage"
+    },
+    {
+      "industryId": "55",
+      "industryValue": "IT - Hardware/Networking"
+    },
+    {
+      "industryId": "56",
+      "industryValue": "Securities & Trading"
+    },
+    {
+      "industryId": "57",
+      "industryValue": "Internet/Online Media"
+    },
+    {
+      "industryId": "58",
+      "industryValue": "Auditing"
+    },
+    {
+      "industryId": "59",
+      "industryValue": "Finance/Investment"
+    },
+    {
+      "industryId": "62",
+      "industryValue": "Luxury Goods"
+    },
+    {
+      "industryId": "63",
+      "industryValue": "Fashion/Lifestyle"
+    },
+    {
+      "industryId": "64",
+      "industryValue": "Electrical/Electronics"
+    },
+    {
+      "industryId": "65",
+      "industryValue": "Mechanical"
+    },
+    {
+      "industryId": "66",
+      "industryValue": "High Technology"
+    },
+    {
+      "industryId": "67",
+      "industryValue": "Automotive"
+    },
+    {
+      "industryId": "68",
+      "industryValue": "Industrial Products"
+    },
+    {
+      "industryId": "69",
+      "industryValue": "Planning/Projects"
+    },
+    {
+      "industryId": "70",
+      "industryValue": "QA/QC"
+    },
+    {
+      "industryId": "71",
+      "industryValue": "Overseas Jobs"
+    }
   ],
 
   introTour: {
