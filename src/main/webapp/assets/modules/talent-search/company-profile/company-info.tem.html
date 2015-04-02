@@ -8,9 +8,14 @@
     <div class="company-info-detail">
       <h2>{{companyInfo.companyName}}</h2>
       <ul>
-        <li><span>Category:</span>Recruitment/IT Software</li>
+        <li>
+          <span>Category:</span>
+          <p ng-repeat="item in companyInfo.industries | limitTo:3">
+            {{item.value}}
+          </p>
+        </li>
         <li><span>Website:</span><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></li>
-        <li><span>Size:</span>100 - 499</li>
+        <li><span>Size:</span>{{companyInfo.companySize.value}}</li>
         <li><span>Address:</span>{{companyInfo.address}}</li>
       </ul>
     </div>
