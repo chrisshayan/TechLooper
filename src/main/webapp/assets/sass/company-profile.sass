@@ -73,29 +73,31 @@
         ul
           margin: auto
         li
-          display: inline-block
           width: auto
           padding: 10px 5px
+          float: left
+          text-align: left
           span
             display: inline-block
             background: url(../images/company-skill.png) left top no-repeat
-            height: 38px
-            font-size: 16px
-            line-height: 38px
+            height: 32px
+            font-size: 14px
+            line-height: 32px
           span.left
-            background-position: 0px -45px
+            background-position: 0px -40px
             padding-left: 45px
-            height: 38px
+            height: 32px
           span.right
             background-position: right top
             padding-right: 25px
+            width: 180px
   .company-benefits-block
     display: block
     float: left
     width: 100%
     clear: both
     padding: 30px 0
-    border-bottom: 1px solid #f1f1f1
+    border-bottom: 1px dashed #ccc
     .company-benefits-content
       max-width: 1200px
       margin: auto
@@ -447,3 +449,7 @@
             width: 70px
             float: left
             text-align: right
+.ellipsis
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
