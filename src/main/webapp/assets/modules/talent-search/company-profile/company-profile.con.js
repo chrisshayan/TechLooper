@@ -11,10 +11,11 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
       industry.value = jsonValue.industries[industry.industryId].value;
     });
 
-    var totalViews = 0;
-    var totalApplications = 0;
+    data.totalViews = 0;
+    data.totalApplications = 0;
     $.each(data.jobs, function(i, job) {
-      
+      data.totalViews += job.numOfViews;
+      data.totalApplications += job.numOfApplications;
     });
 
     data.companySize = jsonValue.companySizes[data.companySizeId];
