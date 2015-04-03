@@ -10,14 +10,16 @@
       <ul>
         <li>
           <span>Category:</span>
-          <p ng-repeat="item in companyInfo.industries | limitTo:3">
-            <span ng-if="companyInfo.industries.length > 1">&nbsp <strong>&#8226;</strong> &nbsp</span>
-            {{item.value}}
+          <p class="name">
+            <small ng-repeat="item in companyInfo.industries | limitTo:3">
+              <span ng-if="companyInfo.industries.length > 1">&nbsp <strong>&#8226;</strong> &nbsp</span>
+              {{item.value}}
+            </small>
           </p>
         </li>
-        <li><span>Website:</span><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></li>
-        <li><span>Size:</span>{{companyInfo.companySize.value}}</li>
-        <li><span>Address:</span>{{companyInfo.address}}</li>
+        <li><span>Website:</span><p><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></p></li>
+        <li><span>Size:</span><p>{{companyInfo.companySize.value}}</p></li>
+        <li><span>Address:</span><p>{{companyInfo.address}}</p></li>
       </ul>
     </div>
   </div>
