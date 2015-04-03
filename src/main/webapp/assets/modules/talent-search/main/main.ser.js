@@ -17,6 +17,7 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
           mode: "multi",
           persist: false,
           createOnBlur: false,
+          preload: true,
           create: function(input) {
             return {
               value: input,
