@@ -17,7 +17,8 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
       data.totalViews += job.numOfViews;
       data.totalApplications += job.numOfApplications;
     });
-
+    data.totalViews = data.totalViews.toLocaleString();
+    data.totalApplications = data.totalApplications.toLocaleString();
     data.companySize = jsonValue.companySizes[data.companySizeId];
     $scope.companyInfo = data;
     console.log($scope.companyInfo);
