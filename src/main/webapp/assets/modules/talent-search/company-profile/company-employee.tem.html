@@ -2,21 +2,13 @@
   <div class="company-employee-content">
     <h2>Our Employees</h2>
     <ul>
-      <li>
-        <a href="http://vn.linkedin.com/in/chrisshayan" target="_blank">
-          <span class="employee-name">
-            Chris Shayan
+      <li ng-repeat="item in companyInfo.employees | limitTo: 3">
+        <a href="https://github.com/{{item.username}}" target="_blank">
+          <span class="employee-name ellipsis">
+            {{item.name || item.username}}
           </span>
         </a>
-        <span class="job-title">Head of Engineering</span>
-      </li>
-      <li>
-        <a href="http://vn.linkedin.com/in/eduardomorab/en" target="_blank"><span class="employee-name">Eduardo Mora</span></a>
-        <span class="job-title">Head of Product</span>
-      </li>
-      <li>
-        <a href="http://vn.linkedin.com/in/buivietduc" target="_blank"><span class="employee-name">Duc Bui</span></a>
-        <span class="job-title">Scrum Master</span>
+        <span class="job-title"></span>
       </li>
     </ul>
   </div>

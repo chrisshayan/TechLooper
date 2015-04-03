@@ -3,6 +3,7 @@ package com.techlooper.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class CompanyEntity {
 
   private List<CompanyJob> jobs;
 
-  private List<CompanyEmployee> employees;
+  private List<Object> employees = new ArrayList<>();
 
   private List<CompanyIndustry> industries;
 
@@ -116,11 +117,11 @@ public class CompanyEntity {
     this.jobs = jobs;
   }
 
-  public List<CompanyEmployee> getEmployees() {
+  public List<Object> getEmployees() {
     return employees;
   }
 
-  public void setEmployees(List<CompanyEmployee> employees) {
+  public void setEmployees(List<Object> employees) {
     this.employees = employees;
   }
 

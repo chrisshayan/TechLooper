@@ -10,8 +10,17 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
     $.each(data.industries, function(i, industry) {
       industry.value = jsonValue.industries[industry.industryId].value;
     });
+
+    data.totalViews = 0;
+    data.totalApplications = 0;
+    $.each(data.jobs, function(i, job) {
+      data.totalViews += job.numOfViews;
+      data.totalApplications += job.numOfApplications;
+    });
+    data.totalViews = data.totalViews.toLocaleString();
+    data.totalApplications = data.totalApplications.toLocaleString();
     data.companySize = jsonValue.companySizes[data.companySizeId];
     $scope.companyInfo = data;
-    console.log($scope.companyInfo)
+    console.log($scope.companyInfo);
   });
 });
