@@ -7,7 +7,7 @@
           <span ng-if="$index < companyInfo.jobs.length/2">
             <li>
               <span class="number">{{$index +1}}</span>
-              <span class="name ellipsis" title={{item.jobTitle}}><a ng-href="http://www.vietnamworks.com{{item.jobURL}}" target="_blank">{{item.jobTitle}}</a></span>
+              <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
             </li>
           </span>
         </span>
@@ -17,7 +17,7 @@
           <span ng-if="$index > companyInfo.jobs.length/2">
             <li>
               <span class="number">{{$index + 1}}</span>
-              <span class="name ellipsis" title={{item.jobTitle}}><a ng-href="http://www.vietnamworks.com{{item.jobURL}}" target="_blank">{{item.jobTitle}}</a></span>
+              <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
             </li>
           </span>
         </span>
