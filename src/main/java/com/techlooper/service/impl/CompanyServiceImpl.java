@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.CompanyEntity;
+import com.techlooper.entity.CompanyJob;
 import com.techlooper.repository.userimport.CompanyRepository;
 import com.techlooper.service.CompanyService;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by phuonghqh on 4/2/15.
@@ -37,11 +39,14 @@ public class CompanyServiceImpl implements CompanyService {
       .withTypes("company");//.withPageable();//.withSearchType(SearchType.COUNT);
     queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.matchPhraseQuery("companyName", companyName)));
 
-
+    CompanyEntity company = null;
     List<CompanyEntity> companies = elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), CompanyEntity.class);
     if (companies.size() > 0) {
-      return companies.get(0);
+      company = companies.get(0);
+      List<CompanyJob> topJobs = company.getJobs().stream().sorted((job1, job2) -> -1 * job1.getExpiredDate().compareTo(job2.getExpiredDate()))
+        .limit(10).collect(Collectors.toList());
+      company.setJobs(topJobs);
     }
-    return null;
+    return company;
   }
 }
