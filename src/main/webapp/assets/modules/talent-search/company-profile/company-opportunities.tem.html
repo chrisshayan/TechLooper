@@ -3,48 +3,24 @@
   <div class="company-opportunities-content">
     <div class="company-opportunities-list">
       <ul>
-        <li>
-          <span class="number">01</span>
-          <span class="name">Product Owner</span>
-        </li>
-        <li>
-          <span class="number">02</span>
-          <span class="name">Scrum Master</span>
-        </li>
-        <li>
-          <span class="number">03</span>
-          <span class="name">Senior PHP Developer</span>
-        </li>
-        <li>
-          <span class="number">04</span>
-          <span class="name">Content writer Evangelist</span>
-        </li>
-        <li>
-          <span class="number">05</span>
-          <span class="name">Senior Java Developer</span>
-        </li>
+        <span ng-repeat="item in companyInfo.jobs">
+          <span ng-if="$index < companyInfo.jobs.length/2">
+            <li>
+              <span class="number">{{$index +1}}</span>
+              <span class="name ellipsis" title={{item.jobTitle}}><a ng-href="http://www.vietnamworks.com{{item.jobURL}}" target="_blank">{{item.jobTitle}}</a></span>
+            </li>
+          </span>
+        </span>
       </ul>
       <ul>
-        <li>
-          <span class="number">06</span>
-          <span class="name">Data Specialist</span>
-        </li>
-        <li>
-          <span class="number">07</span>
-          <span class="name">UI/UX Expert</span>
-        </li>
-        <!--<li>-->
-          <!--<span class="number">08</span>-->
-          <!--<span class="name">Project Manager</span>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<span class="number">09</span>-->
-          <!--<span class="name">IT Director</span>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<span class="number">10</span>-->
-          <!--<span class="name">Technical Analysis</span>-->
-        <!--</li>-->
+        <span ng-repeat="item in companyInfo.jobs">
+          <span ng-if="$index > companyInfo.jobs.length/2">
+            <li>
+              <span class="number">{{$index + 1}}</span>
+              <span class="name ellipsis" title={{item.jobTitle}}><a ng-href="http://www.vietnamworks.com{{item.jobURL}}" target="_blank">{{item.jobTitle}}</a></span>
+            </li>
+          </span>
+        </span>
       </ul>
     </div>
   </div>

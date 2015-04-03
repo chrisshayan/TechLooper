@@ -7,12 +7,12 @@ Selectize.define('techlooper', function (options) {
     self.updatePlaceholder();
   }
 
-  //self.focusNoDropdown = (function () {
-  //  return function() {
-  //    triggeredOn.focusNoDropdown = true;
-  //    self.focus();
-  //  };
-  //})();
+  self.focusNoDropdown = (function () {
+    return function() {
+      triggeredOn.focusNoDropdown = true;
+      self.focus();
+    };
+  })();
 
   self.open = (function () {
     var original = self.open;

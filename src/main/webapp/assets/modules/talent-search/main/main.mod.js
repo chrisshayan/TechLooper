@@ -6,9 +6,10 @@ techlooper.directive("talentSearchForm", function (tsMainService) {
     link: function(scope, elem, attrs) {
       scope.contentLoaded = false;
       tsMainService.enableSelectOptions();
+
       scope.contentLoaded = true;
       $('.selectize-input').on('click', function(){
-          $(this).find('input').focus();
+        $(this).find('input').focus();
       });
     }
   }

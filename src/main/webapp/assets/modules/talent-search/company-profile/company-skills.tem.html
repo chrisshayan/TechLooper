@@ -3,16 +3,7 @@
     <h2>Our Skills</h2>
     <div class="company-skills-list">
       <ul>
-        <li><span class="left"><span class="right">Symfony 2</span></span></li>
-        <li><span class="left"><span class="right">Elastic Search</span></span></li>
-        <li><span class="left"><span class="right">jQuery</span></span></li>
-        <li><span class="left"><span class="right">HTML 5</span></span></li>
-        <li><span class="left"><span class="right">CSS</span></span></li>
-        <li><span class="left"><span class="right">SAAS</span></span></li>
-        <li><span class="left"><span class="right">XML</span></span></li>
-        <li><span class="left"><span class="right">SCRUM</span></span></li>
-        <li><span class="left"><span class="right">Couchbase</span></span></li>
-        <li><span class="left"><span class="right">Responsive web design</span></span></li>
+        <li ng-repeat="skill in companyInfo.skills"><span class="left"><span class="right ellipsis">{{skill.skillName}}</span></span></li>
       </ul>
     </div>
   </div>

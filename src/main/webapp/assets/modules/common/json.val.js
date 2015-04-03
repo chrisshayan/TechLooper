@@ -154,7 +154,7 @@ angular.module("Common").constant("jsonValue", {
     home: "/home",
     talentSearchResult: "/talent-search-result",
     talentProfile: "/talent-profile",
-    companyProfile: "/companies/vietnamworks",
+    companyProfile: "/companies",
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
@@ -190,6 +190,7 @@ angular.module("Common").constant("jsonValue", {
     searchTalent: "api/user/findTalent",
     talentProfile: "api/user/talentProfile",
     userRegister: "api/user/register",
+    company: "company",
     userRegisterCount: "api/user/register/count"
   },
 
@@ -218,10 +219,10 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': '.Net',
     'logo': 'lg-dotnet.png'
-  },{
+  }, {
     'text': 'C#',
     'logo': 'lg-c-sharp.png'
-  },{
+  }, {
     'text': 'Php',
     'logo': 'lg-php.png'
   }, {
@@ -236,12 +237,12 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Html5',
     'logo': 'lg-html5.png'
-  },{
+  }, {
     'text': 'Html',
     'logo': 'lg-html.png'
   }, {
-  'text': 'Bootstrap',
-  'logo': 'lg-bootstrap.png'
+    'text': 'Bootstrap',
+    'logo': 'lg-bootstrap.png'
   }, {
     'text': 'AngularJS',
     'logo': 'lg-angularjs.png'
@@ -308,52 +309,52 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Clojure',
     'logo': 'lg-clojure.png'
-  },{
-      'text': 'CoffeeScript',
-      'logo': 'lg-coffeescript.png'
-   }, {
+  }, {
+    'text': 'CoffeeScript',
+    'logo': 'lg-coffeescript.png'
+  }, {
     'text': 'Go',
     'logo': 'lg-go.png'
-  },{
+  }, {
     'text': 'Haskell',
     'logo': 'lg-haskell.png'
   }, {
     'text': 'Lua',
     'logo': 'lg-lua.png'
-  },{
+  }, {
     'text': 'Matlab',
     'logo': 'lg-matlab.png'
   }, {
     'text': 'Perl',
     'logo': 'lg-perl.png'
-  },{
+  }, {
     'text': 'R',
     'logo': 'lg-r.png'
   }, {
     'text': 'Scala',
     'logo': 'lg-scala.png'
-  },{
+  }, {
     'text': 'Swift',
     'logo': 'lg-swift.png'
   }, {
     'text': 'Clojure',
     'logo': 'lg-clojure.png'
-  },{
+  }, {
     'text': 'Tex',
     'logo': 'lg-tex.png'
-  },{
+  }, {
     'text': 'VimL',
     'logo': 'lg-viml.png'
-  },{
+  }, {
     'text': 'Objective-C',
     'logo': 'lg-objective-c.png'
-  },{
+  }, {
     'text': 'xml',
     'logo': 'lg-xml.png'
-  },{
+  }, {
     'text': 'Groovy',
     'logo': 'lg-groovy.png'
-  },{
+  }, {
     'text': 'Logos',
     'logo': 'lg-logos.png'
   }],
@@ -468,6 +469,98 @@ angular.module("Common").constant("jsonValue", {
     {"text": "Bolivia"},
     {"text": "Mexico"}
   ],
+
+  industries: {
+    "1": {"value": "Accounting"},
+    "2": {"value": "Administrative/Clerical"},
+    "3": {"value": "Advertising/Promotion/PR"},
+    "4": {"value": "Agriculture/Forestry"},
+    "5": {"value": "Architecture/Interior Design"},
+    "6": {"value": "Pharmaceutical/Biotech"},
+    "7": {"value": "Civil/Construction"},
+    "8": {"value": "Consulting"},
+    "10": {"value": "Arts/Design"},
+    "11": {"value": "Customer Service"},
+    "12": {"value": "Education/Training"},
+    "13": {"value": "Engineering"},
+    "15": {"value": "Entry level"},
+    "16": {"value": "Environment/Waste Services"},
+    "17": {"value": "Executive management"},
+    "18": {"value": "Expatriate Jobs in Vietnam"},
+    "19": {"value": "Export-Import"},
+    "21": {"value": "NGO/Non-Profit"},
+    "22": {"value": "Health/Medical Care"},
+    "23": {"value": "Human Resources"},
+    "24": {"value": "Insurance"},
+    "25": {"value": "Legal/Contracts"},
+    "26": {"value": "Production/Process"},
+    "27": {"value": "Marketing"},
+    "28": {"value": "Oil/Gas"},
+    "30": {"value": "Real Estate"},
+    "32": {"value": "Retail/Wholesale"},
+    "33": {"value": "Sales"},
+    "34": {"value": "Sales Technical"},
+    "35": {"value": "IT - Software"},
+    "36": {"value": "Freight/Logistics"},
+    "37": {"value": "Airlines/Tourism/Hotel"},
+    "39": {"value": "Other"},
+    "41": {"value": "Telecommunications"},
+    "42": {"value": "Banking"},
+    "43": {"value": "Chemical/Biochemical"},
+    "47": {"value": "Interpreter/Translator"},
+    "48": {"value": "TV/Media/Newspaper"},
+    "49": {"value": "Purchasing/Supply Chain"},
+    "51": {"value": "Temporary/Contract"},
+    "52": {"value": "Textiles/Garments/Footwear"},
+    "53": {"value": "Warehouse"},
+    "54": {"value": "Food & Beverage"},
+    "55": {"value": "IT - Hardware/Networking"},
+    "56": {"value": "Securities & Trading"},
+    "57": {"value": "Internet/Online Media"},
+    "58": {"value": "Auditing"},
+    "59": {"value": "Finance/Investment"},
+    "62": {"value": "Luxury Goods"},
+    "63": {"value": "Fashion/Lifestyle"},
+    "64": {"value": "Electrical/Electronics"},
+    "65": {"value": "Mechanical"},
+    "66": {"value": "High Technology"},
+    "67": {"value": "Automotive"},
+    "68": {"value": "Industrial Products"},
+    "69": {"value": "Planning/Projects"},
+    "70": {"value": "QA/QC"},
+    "71": {"value": "Overseas Jobs"}
+  },
+
+  "companySizes": {
+    "1": {"value": "Less Than 10"},
+    "2": {"value": "10-24"},
+    "3": {"value": "25-99"},
+    "4": {"value": "100-499"},
+    "5": {"value": "500-999"},
+    "6": {"value": "1,000-4,999"},
+    "7": {"value": "5,000-9,999"},
+    "8": {"value": "10,000-19,999"},
+    "9": {"value": "20,000-49,999"},
+    "10": {"value": "Over 50,000"}
+  },
+
+  "benefits": {
+    "1": {"name": "Bonus", "iconName": "fa-dollar"},
+    "2": {"name": "Healthcare Plan", "iconName": "fa-user-md"},
+    "3": {"name": "Paid Leave", "iconName": "fa-file-image-o"},
+    "4": {"name": "Training", "iconName": "fa-graduation-cap"},
+    "5": {"name": "Awards", "iconName": "fa-trophy"},
+    "6": {"name": "Library", "iconName": "fa-book"},
+    "7": {"name": "Laptop", "iconName": "fa-laptop"},
+    "8": {"name": "Mobile", "iconName": "fa-mobile"},
+    "9": {"name": "Travel Opportunities", "iconName": "fa-plane"},
+    "10": {"name": "Team Activities", "iconName": "fa-glass"},
+    "11": {"name": "Transportation", "iconName": "fa-cab"},
+    "12": {"name": "Canteen", "iconName": "fa-coffee"},
+    "13": {"name": "Vouchers", "iconName": "fa-gift"},
+    "14": {"name": "Kindergarten", "iconName": "fa-child"},
+    "15": {"name": "Others", "iconName": "fa-check-square-o"}
+  },
 
   introTour: {
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",

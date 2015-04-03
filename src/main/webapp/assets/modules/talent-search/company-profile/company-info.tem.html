@@ -1,17 +1,25 @@
 <div class="company-info-block">
   <div class="company-info-content">
     <div class="company-logo-block">
-      <a href="http://vietnamworks.com" target="_blank">
-        <img src="http://images.vietnamworks.com/img/jobseekers/logo.png" alt="" title="VietnamWorks"/>
+      <a href="{{companyInfo.website}}" target="_blank">
+        <img ng-src={{companyInfo.companyLogoURL}} alt="" title="{{companyInfo.companyName}}"/>
       </a>
     </div>
     <div class="company-info-detail">
-      <h2>VietnamWorks</h2>
+      <h2>{{companyInfo.companyName}}</h2>
       <ul>
-        <li><span>Category:</span>Recruitment/IT Software</li>
-        <li><span>Website:</span><a href="http://vietnamworks.com" target="_blank">http://vietnamworks.com</a></li>
-        <li><span>Size:</span>100 - 499</li>
-        <li><span>Address:</span>130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam </li>
+        <li>
+          <span>Category:</span>
+          <p class="name">
+            <small ng-repeat="item in companyInfo.industries | limitTo:3">
+              <span ng-if="companyInfo.industries.length > 1">&nbsp <strong>&#8226;</strong> &nbsp</span>
+              {{item.value}}
+            </small>
+          </p>
+        </li>
+        <li><span>Website:</span><p><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></p></li>
+        <li><span>Size:</span><p>{{companyInfo.companySize.value}}</p></li>
+        <li><span>Address:</span><p>{{companyInfo.address}}</p></li>
       </ul>
     </div>
   </div>

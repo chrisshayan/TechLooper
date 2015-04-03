@@ -3,17 +3,9 @@
     <h2>We Have Great Benefits</h2>
     <div class="company-benefits-content">
       <ul>
-        <li>
-          <span><i class="fa fa-stethoscope"></i></span>
-          <p>Premium HealthCare Plan</p>
-        </li>
-        <li>
-          <span><i class="fa fa-file-photo-o"></i></span>
-          <p>Unlimited Annual Leave</p>
-        </li>
-        <li>
-          <span><i class="fa fa-fw fa-glass"></i></span>
-          <p>Innovation Time Off</p>
+        <li ng-repeat="item in companyInfo.benefits | limitTo:3">
+          <span data-toggle="tooltip" data-original-title="<strong>{{item.benefitValue}}</strong>"><i class="fa {{item.iconName}}"></i></span>
+          <p>{{item.name}}</p>
         </li>
       </ul>
     </div>
