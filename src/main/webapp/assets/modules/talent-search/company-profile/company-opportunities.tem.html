@@ -6,7 +6,7 @@
         <span ng-repeat="item in companyInfo.jobs">
           <span ng-if="$index < companyInfo.jobs.length/2">
             <li>
-              <span class="number">{{$index}}</span>
+              <span class="number">{{$index +1}}</span>
               <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
             </li>
           </span>
@@ -16,7 +16,7 @@
         <span ng-repeat="item in companyInfo.jobs">
           <span ng-if="$index > companyInfo.jobs.length/2">
             <li>
-              <span class="number">{{$index}}</span>
+              <span class="number">{{$index + 1}}</span>
               <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
             </li>
           </span>
