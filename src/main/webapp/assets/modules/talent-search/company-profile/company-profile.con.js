@@ -12,5 +12,6 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
     });
     data.companySize = jsonValue.companySizes[data.companySizeId];
     $scope.companyInfo = data;
+    console.log($scope.companyInfo)
   });
 });
