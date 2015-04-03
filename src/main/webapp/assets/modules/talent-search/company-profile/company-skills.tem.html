@@ -3,7 +3,12 @@
     <h2>Our Skills</h2>
     <div class="company-skills-list">
       <ul>
-        <li ng-repeat="skill in companyInfo.skills"><span class="left"><span class="right ellipsis">{{skill.skillName}}</span></span></li>
+        <li ng-if = "companyInfo.skills.length > 1" ng-repeat="skill in companyInfo.skills">
+          <span class="left"><span class="right ellipsis">{{skill.skillName}}</span></span>
+        </li>
+        <li ng-if = "companyInfo.skills.length < 1">
+          <div class="no-find-content">Could not find data</div>
+        </li>
       </ul>
     </div>
   </div>
