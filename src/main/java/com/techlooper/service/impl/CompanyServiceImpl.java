@@ -44,7 +44,7 @@ public class CompanyServiceImpl implements CompanyService {
     if (companies.size() > 0) {
       company = companies.get(0);
       List<CompanyJob> topJobs = company.getJobs().stream().sorted((job1, job2) -> {
-        if (job1.getExpiredDate() == nu ll || job2.getExpiredDate() == null) {
+        if (job1.getExpiredDate() == null || job2.getExpiredDate() == null) {
           return -1;
         }
         return -1 * job1.getExpiredDate().compareTo(job2.getExpiredDate());
