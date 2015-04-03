@@ -11,6 +11,7 @@
         <li>
           <span>Category:</span>
           <p ng-repeat="item in companyInfo.industries | limitTo:3">
+            <span ng-if="companyInfo.industries.length > 1">&nbsp-&nbsp</span>
             {{item.value}}
           </p>
         </li>
