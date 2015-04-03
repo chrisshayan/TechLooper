@@ -154,7 +154,7 @@ angular.module("Common").constant("jsonValue", {
     home: "/home",
     talentSearchResult: "/talent-search-result",
     talentProfile: "/talent-profile",
-    companyProfile: "/companies/vietnamworks",
+    companyProfile: "/companies",
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
