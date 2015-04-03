@@ -13,6 +13,26 @@ public class CompanyJob {
 
   private String expiredDate;
 
+  private Long numOfApplications;
+
+  private Long numOfViews;
+
+  public Long getNumOfApplications() {
+    return numOfApplications;
+  }
+
+  public void setNumOfApplications(Long numOfApplications) {
+    this.numOfApplications = numOfApplications;
+  }
+
+  public Long getNumOfViews() {
+    return numOfViews;
+  }
+
+  public void setNumOfViews(Long numOfViews) {
+    this.numOfViews = numOfViews;
+  }
+
   public Long getJobId() {
     return jobId;
   }
