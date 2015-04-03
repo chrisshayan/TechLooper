@@ -3,10 +3,24 @@
   <div class="company-opportunities-content">
     <div class="company-opportunities-list">
       <ul>
-        <li ng-repeat="item in companyInfo.jobs">
-          <span class="number">{{$index}}</span>
-          <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
-        </li>
+        <span ng-repeat="item in companyInfo.jobs">
+          <span ng-if="$index < companyInfo.jobs.length/2">
+            <li>
+              <span class="number">{{$index}}</span>
+              <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
+            </li>
+          </span>
+        </span>
+      </ul>
+      <ul>
+        <span ng-repeat="item in companyInfo.jobs">
+          <span ng-if="$index > companyInfo.jobs.length/2">
+            <li>
+              <span class="number">{{$index}}</span>
+              <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
+            </li>
+          </span>
+        </span>
       </ul>
     </div>
   </div>
