@@ -43,7 +43,12 @@ public class CompanyServiceImpl implements CompanyService {
     List<CompanyEntity> companies = elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), CompanyEntity.class);
     if (companies.size() > 0) {
       company = companies.get(0);
-      List<CompanyJob> topJobs = company.getJobs().stream().sorted((job1, job2) -> -1 * job1.getExpiredDate().compareTo(job2.getExpiredDate()))
+      List<CompanyJob> topJobs = company.getJobs().stream().sorted((job1, job2) -> {
+        if (job1.getExpiredDate() == null || job2.getExpiredDate() == null) {
+          return -1;
+        }
+        return -1 * job1.getExpiredDate().compareTo(job2.getExpiredDate());
+      })
         .limit(10).collect(Collectors.toList());
       company.setJobs(topJobs);
     }
