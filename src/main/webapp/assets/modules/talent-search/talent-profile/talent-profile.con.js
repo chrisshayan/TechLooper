@@ -1,9 +1,8 @@
-techlooper.controller("talentProfileController", function ($timeout, jsonValue, talentProfileService, $scope, $routeParams, $http) {
+techlooper.controller("talentProfileController", function ($timeout, jsonValue, talentProfileService, $scope, $routeParams, $http, shortcutFactory) {
   //$timeout(function(){
   //  //talentProfileService.init();
   //  talentProfileService.showRating(parseFloat($scope.userProfile.rate));
   //}, 500);
-
   var hashEmail = $routeParams.text;//$.base64.decode($routeParams.text);
   $http.get(jsonValue.httpUri.talentProfile + "/" + hashEmail)
     .success(function (data, status, headers, config) {
@@ -37,6 +36,9 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       //console.log($scope.userProfile);
       $(window).scrollTop(0);
       $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'right'});
+      $('.back-search-talent-page').click(function () {
+        shortcutFactory.trigger('esc');
+      });
     });
 
   $scope.githubLink = function(userProfile) {
