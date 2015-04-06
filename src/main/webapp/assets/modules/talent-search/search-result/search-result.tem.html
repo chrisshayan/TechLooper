@@ -18,25 +18,22 @@
       <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? handleLastItem() : null">
         <div class="talent-item-content">
           <div class="avatar-block">
-            <img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
+            <a ng-href="{{talentLink(talent)}}"><img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/></a>
           </div>
           <div class="general-info">
-            <h3>{{talent.fullName || talent.username}}</h3>
+            <h3 class="ellipsis">
+              <a ng-href="{{talentLink(talent)}}">{{talent.fullName || talent.username}}</a>
+              <!--<span title="{{talent.jobTitle}}">{{talent.jobTitle || 'Job Title'}}</span>-->
+            </h3>
             <div class="looper-point" data-toggle="tooltip" data-original-title="Loopers is a measure of profile <strong>completeness</strong>, <strong>relevance</strong> and <strong>experience</strong>; the more points means profile contains <strong>more personal information</strong>, person skills’ are more <strong>relevant to market demand</strong> and this person has <strong>contributed more to open source</strong> projects">
               <strong>{{talent.score || "In Progress"}}</strong><span ng-show="talent.score > 0">Loopers &copy;</span>
             </div>
-            <p>{{talent.description.charAt(0).toUpperCase() + talent.description.slice(1)}}</p>
-            <!--<ul>-->
-              <!--<li><span class="view">View</span> 00</li>-->
-              <!--<li><span class="save">Save</span> 00</li>-->
-              <!--<li><span class="contact">Contacted</span> 00</li>-->
-            <!--</ul>-->
+            <!--<p>{{talent.description.charAt(0).toUpperCase() + talent.description.slice(1)}}</p>-->
           </div>
           <div class="job-info">
             <ul>
-              <li><span class="job-title" title="{{talent.jobTitle}}">{{talent.jobTitle || 'N/A'}}</span></li>
-              <li><span class="company" title="{{talent.company}}">{{talent.company || 'N/A'}}</span></li>
-              <li><span class="location" title="{{talent.location}}">{{talent.location || 'N/A'}}</span></li>
+              <li><span class="company ellipsis" title="{{talent.company}}">{{talent.company || 'N/A'}}</span></li>
+              <li><span class="location ellipsis" title="{{talent.location}}">{{talent.location || 'N/A'}}</span></li>
             </ul>
           </div>
           <div class="main-skill">

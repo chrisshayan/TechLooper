@@ -299,10 +299,7 @@ angular.module("Common").constant("jsonValue", {
     'logo': 'lg-c.png'
   }, {
     'text': 'CSS',
-    'logo': 'lg-css3.png'
-  }, {
-    'text': 'Shell',
-    'logo': 'lg-shell.png'
+    'logo': 'lg-css.png'
   }, {
     'text': 'Shell',
     'logo': 'lg-shell.png'
@@ -336,9 +333,6 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Swift',
     'logo': 'lg-swift.png'
-  }, {
-    'text': 'Clojure',
-    'logo': 'lg-clojure.png'
   }, {
     'text': 'Tex',
     'logo': 'lg-tex.png'

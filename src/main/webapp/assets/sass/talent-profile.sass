@@ -1,11 +1,12 @@
 .talent-detail-page
-  background: url("../images/bg.png") repeat scroll left top rgba(0, 0, 0, 0)
+  //background: url("../images/bg.png") repeat scroll left top rgba(0, 0, 0, 0)
+  background-color: #EDEAE6
   clear: both
   display: block
   float: left
   width: 100%
   padding: 20px
-  margin-top: 60px
+  margin-top: 50px
   .talent-general-info-section
     display:  flex
     flex-wrap:  wrap
@@ -22,7 +23,6 @@
       float: left
     .talent-info-content
       width: 100%
-      background-color: #fff
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
@@ -30,12 +30,20 @@
       padding: 20px
       clear: both
       display: block
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+      background-color: #fff
+      box-shadow: 0 1px 0 #e0e0e0
       min-height: 310px
       .left-side
         width: 30%
         float: left
         padding-right: 10px
+        .avatar-block
+          width: 100%
+          text-align: center
+          img
+            width: 120px
+            height: 120px
+            border: 0
       .right-side
         width: 70%
         float: left
@@ -125,13 +133,13 @@
       text-align: left
       width: 100%
       background-color: #fff
+      box-shadow: 0 1px 0 #e0e0e0
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
       border-radius: 5px
       padding: 20px
       clear: both
       display: block
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
       min-height: 310px
       h3
         font-size: 18px
@@ -226,6 +234,8 @@
     width: 100%
     text-align: left
     padding-top: 20px
+    clear: both
+    width: 100%
     h3
       font-weight: 400
       font-size: 18px
@@ -264,6 +274,7 @@
     padding: 20px 0
     .evaluation-content
       background-color: #fff
+      box-shadow: 0 1px 0 #e0e0e0
       width: 100%
       padding: 20px
       text-align: left
@@ -271,7 +282,6 @@
       -moz-border-radius: 5px
       border-radius: 5px
       display: flex
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
       float: left
   .rating-talent-ranking
     width: 25%
@@ -536,6 +546,7 @@
     .right-side
       padding: 20px
       background-color: #fff
+      box-shadow: 0 1px 0 #e0e0e0
       float: left
       -webkit-border-radius: 5px
       -moz-border-radius: 5px
@@ -544,7 +555,6 @@
       min-height: 300px
       text-align: left
       position: relative
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
       .resume-content-detail
         width: 100%
         display: flex
@@ -668,13 +678,13 @@
   .profile-activity-content
     display: block
     background-color: #fff
+    box-shadow: 0 1px 0 #e0e0e0
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
     position: relative
     min-height: 200px
     padding: 20px
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
     h2
       font-weight: 400
       font-size: 18px
@@ -687,3 +697,21 @@
         width: 100%
     .coming-soon
       opacity: 0.7
+
+.back-search-talent-page
+  width: 40px
+  height: 40px
+  -webkit-border-radius: 50%
+  -moz-border-radius: 50%
+  border-radius: 50%
+  position: fixed
+  z-index: 999
+  font-size: 25px
+  font-weight: 300
+  top: 70px
+  left: 10px
+  cursor: pointer
+  line-height: 40px
+  background-color: #248bd8
+  color: #fff
+  //background: url(../images/back-to-search.png) left top no-repeat
