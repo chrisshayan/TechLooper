@@ -11,7 +11,7 @@
       </div>
       <div class="right-side">
         <div class="general-info">
-          <h2>{{userProfile.fullName}}</h2>
+          <h2>{{userProfile.profiles.GITHUB.fullName || userProfile.profiles.GITHUB.username}}</h2>
           <p>{{userProfile.profiles.GITHUB.description.charAt(0).toUpperCase() + userProfile.profiles.GITHUB.description.slice(1)}}</p>
         </div>
         <div class="job-info">
