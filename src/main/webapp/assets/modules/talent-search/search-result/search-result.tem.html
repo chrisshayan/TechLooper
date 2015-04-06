@@ -18,7 +18,7 @@
       <div class="talent-item" ng-repeat="talent in search.talents" ng-init="$last ? handleLastItem() : null">
         <div class="talent-item-content">
           <div class="avatar-block">
-            <img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/>.
+            <a ng-href="{{talentLink(talent)}}"><img ng-src="{{talent.imageUrl.indexOf('http') === 0 ? talent.imageUrl : 'images/no-avatar.png'}}" alt=""/></a>
           </div>
           <div class="general-info">
             <h3 class="ellipsis">
