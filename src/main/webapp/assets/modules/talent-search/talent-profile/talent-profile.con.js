@@ -48,6 +48,8 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
     return "https://github.com/" + userProfile.profiles.GITHUB.username;
   }
 
+  $scope.showBackButton = window.history.length > 1 ? true : false;
+
   //$scope.$watch("contentLoaded", function() {
   //  if ($scope.contentLoaded === true) {
   //    talentProfileService.showRating(parseFloat($scope.userProfile.rate));
