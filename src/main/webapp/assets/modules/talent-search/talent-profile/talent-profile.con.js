@@ -36,9 +36,6 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
       //console.log($scope.userProfile);
       $(window).scrollTop(0);
       $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'right'});
-      $('.back-search-talent-page').click(function () {
-        shortcutFactory.trigger('esc');
-      });
     });
 
   $scope.githubLink = function(userProfile) {
@@ -48,7 +45,6 @@ techlooper.controller("talentProfileController", function ($timeout, jsonValue, 
     return "https://github.com/" + userProfile.profiles.GITHUB.username;
   }
 
-  $scope.showBackButton = window.history.length > 1 ? true : false;
 
   //$scope.$watch("contentLoaded", function() {
   //  if ($scope.contentLoaded === true) {
