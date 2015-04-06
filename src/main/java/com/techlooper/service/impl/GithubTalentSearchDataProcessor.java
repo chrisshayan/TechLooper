@@ -32,6 +32,7 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
 
             Talent.Builder talentBuilder = new Talent.Builder();
             String username = StringUtils.trimToEmpty((String) profile.get("username"));
+            String fullName = StringUtils.trimToEmpty((String) profile.get("fullName"));
             String description = StringUtils.trimToEmpty((String) profile.get("description"))
                     .replace(username, "")
                     .replace(" Follow their code on GitHub.", "")
@@ -41,7 +42,7 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
 
             talentBuilder.withEmail(userImportEntity.getEmail())
                     .withUsername(username)
-                    .withFullName(StringUtils.trimToEmpty((String) userImportEntity.getFullName()))
+                    .withFullName(fullName)
                     .withImageUrl(imageUrl)
                     .withCompany(StringUtils.trimToEmpty((String) profile.get("company")))
                     .withDescription(description)
