@@ -1,4 +1,4 @@
-techlooper.controller("companyProfileController", function ($scope, companyProfileService, $routeParams, $http, jsonValue) {
+techlooper.controller("companyProfileController", function ($scope, companyProfileService, $routeParams, $http, jsonValue, $timeout) {
   $scope.follow = companyProfileService.followManager;
 
   var companyName = $routeParams.companyName;
@@ -21,6 +21,27 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
     data.totalApplications = data.totalApplications.toLocaleString();
     data.companySize = jsonValue.companySizes[data.companySizeId];
     $scope.companyInfo = data;
-    console.log($scope.companyInfo);
+    $timeout(function(){
+      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'top'});
+    }, 200);
   });
+  $scope.playVideo = function (event) {
+    var url = $(event.currentTarget).attr('ng-url');
+    var myUrl = '//www.youtube.com/embed/' + getURL(url) + '?autoplay=1';
+    $('.modal-body').find('iframe').attr('src', myUrl);
+  }
+  function getURL(url) {
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match && match[2].length == 11) {
+      return match[2];
+    }
+    else {
+      return 'error';
+    }
+  }
+
+  $scope.checkPLayVideo = function () {
+    $(".playerVideo").attr("src", "");
+  }
 });

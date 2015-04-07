@@ -1,4 +1,4 @@
-techlooper.directive("companyInfo", function () {
+techlooper.directive("companyInfo", function ($timeout) {
   return {
     restrict: "A",
     replace: true,

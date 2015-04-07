@@ -4,7 +4,6 @@ techlooper.factory("companyProfileService", function () {
       $('.follow-button').find('button').prop('disabled', true).text('Following');
     }
   };
-
   return instance;
 
 });

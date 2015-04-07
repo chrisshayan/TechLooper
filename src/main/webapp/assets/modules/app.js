@@ -102,10 +102,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           templateUrl: "modules/talent-search/home.tem.html",
           controller: "companyProfileController"
         })
-      .when("/bubble-chart", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "chartController"
-      })
+      //.when("/bubble-chart", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "chartController"
+      //})
       .when("/pie-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
@@ -139,7 +139,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
-          return "/bubble-chart";
+          return "/pie-chart";
         }
       });
   }]);

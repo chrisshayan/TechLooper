@@ -6,7 +6,8 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       $.each([
         {key: "skills", selector: "#input-skill"},
         {key: "companies", selector: "#company"},
-        {key: "locations", selector: "#select-location", options: jsonValue.cities},
+        {key: "locations", selector: "#select-location"},
+        //{key: "locations", selector: "#select-location", options: jsonValue.cities},
       ], function (i, item) {
         searchRequest[item.key] = $(item.selector).selectize({
           plugins: {

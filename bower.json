@@ -33,7 +33,9 @@
     "satellizer": "latest",
     "angular-local-storage": "latest",
     "jquery.easing": "latest",
-    "bootstrap-select": "latest"
+    "bootstrap-select": "latest",
+    "blueimp-gallery":  "latest",
+    "blueimp-bootstrap-image-gallery": "latest"
   },
   "overrides": {
     "jquery": {
@@ -128,6 +130,12 @@
     },
     "bootstrap-select": {
       "main": "dist/js/bootstrap-select.js"
+    },
+    "blueimp-gallery":{
+      "main": "js/jquery.blueimp-gallery.min.js"
+    },
+    "blueimp-bootstrap-image-gallery":{
+      "main": "js/bootstrap-image-gallery.js"
     }
   },
   "resolutions": {
