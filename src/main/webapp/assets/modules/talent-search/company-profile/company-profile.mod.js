@@ -26,14 +26,7 @@ techlooper.directive("companyInfo", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/company-profile/company-culture.tem.html",
-    link: function(scope, elem, attrs) {
-      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'top'});
-      $('[data-toggle="cultureTooltip1"]').tooltip({html:true, placement: 'top'});
-      $('[data-toggle="cultureTooltip2"]').tooltip({html:true, placement: 'top'});
-      $('[data-toggle="cultureTooltip3"]').tooltip({html:true, placement: 'top'});
-      $('[data-toggle="cultureTooltip4"]').tooltip({html:true, placement: 'top'});
-    }
+    templateUrl: "modules/talent-search/company-profile/company-culture.tem.html"
   }
 }).directive("companyEmployee", function () {
   return {
@@ -45,6 +38,9 @@ techlooper.directive("companyInfo", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/talent-search/company-profile/company-follow.tem.html"
+    templateUrl: "modules/talent-search/company-profile/company-follow.tem.html",
+    link: function(scope, elem, attrs) {
+      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'top'});
+    }
   }
 });

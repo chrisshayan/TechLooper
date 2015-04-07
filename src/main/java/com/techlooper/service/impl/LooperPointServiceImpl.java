@@ -71,7 +71,7 @@ public class LooperPointServiceImpl implements LooperPointService {
     queryBuilder.withFilter(getCandidateByCountry(country));
 
     int total = (int) elasticsearchTemplateUserImport.count(queryBuilder.withSearchType(SearchType.COUNT).build());
-    int maxPageNumber = total / 50;
+    int maxPageNumber = total % 50 > 0 ? total / 50 + 1 : total / 50;
     for (int pageNumber = 0; pageNumber < maxPageNumber; ++pageNumber) {
       Instant start = Instant.now();
       queryBuilder.withSearchType(SearchType.DFS_QUERY_THEN_FETCH).withPageable(new PageRequest(pageNumber, 50));
