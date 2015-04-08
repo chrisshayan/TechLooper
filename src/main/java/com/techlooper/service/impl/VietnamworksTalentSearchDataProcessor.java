@@ -47,4 +47,9 @@ public class VietnamworksTalentSearchDataProcessor implements TalentSearchDataPr
         param.getLocations().removeAll(Arrays.asList(null, ""));
     }
 
+    @Override
+    public TalentSearchRequest getSearchAllRequestParameter() {
+        return new TalentSearchRequest();
+    }
+
 }

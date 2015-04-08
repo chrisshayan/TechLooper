@@ -2,10 +2,10 @@ angular.module("Common").factory("cleanupFactory", function (jsonValue, utils, l
 
   var $$ = {
     cleanHighCharts: function () {
-      $.each(Highcharts.charts, function (i, chart) {
-        chart !== undefined && chart.destroy();
-        return true;
-      });
+      //$.each(Highcharts.charts, function (i, chart) {
+      //  chart !== undefined && chart.destroy();
+      //  return true;
+      //});
       Highcharts.charts.length = 0;
     },
 

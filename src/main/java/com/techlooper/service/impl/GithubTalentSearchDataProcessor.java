@@ -76,4 +76,9 @@ public class GithubTalentSearchDataProcessor implements TalentSearchDataProcesso
         }
     }
 
+    @Override
+    public TalentSearchRequest getSearchAllRequestParameter() {
+        return new TalentSearchRequest();
+    }
+
 }

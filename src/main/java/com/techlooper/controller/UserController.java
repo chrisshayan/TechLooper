@@ -82,7 +82,7 @@ public class UserController {
 
   @ResponseBody
   @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
-  public TalentSearchResponse findTalent(@RequestBody TalentSearchRequest param, HttpServletResponse httpServletResponse) {
+  public TalentSearchResponse findTalent(@RequestBody(required = false) TalentSearchRequest param, HttpServletResponse httpServletResponse) {
     return userService.findTalent(param);
   }
 
