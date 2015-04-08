@@ -41,7 +41,9 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
           //values.push(text);
           values.push(text);
         });
-        searchRequest[prop] !== undefined && searchRequest[prop].val(values.join(","));
+        if (values.length > 0) {
+          searchRequest[prop] !== undefined && searchRequest[prop].val(values.join(","));
+        }
         //if (searchRequest[prop] !== undefined) {
         //  searchRequest[prop].addOption(options);
         //  searchRequest[prop].setValue(values);

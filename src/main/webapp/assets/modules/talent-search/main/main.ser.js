@@ -61,7 +61,9 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       //}
       var request = {};
       for (var prop in searchRequest) {
-        request[prop] = searchRequest[prop].val();
+        if (searchRequest[prop].val().trim().length > 0) {
+          request[prop] = searchRequest[prop].val();
+        }
       }
 
       var q = "";
@@ -74,7 +76,6 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         return;
       }
 
-      //var queryArray = CryptoJS.enc.Utf8.parse(JSON.stringify(request));
       $location.path(jsonValue.routerUris.talentSearchResult + "/" + $.base64.encode(q));
     },
 
@@ -117,10 +118,10 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
     getSearchRequest: function () {
       return searchRequest;
     },
-    scrollToReason: function(){
-      $('.scroll-btn').click(function(){
-        if($('.reasons').length > 0){
-          $('html,body').animate({ scrollTop: $('.reasons').offset().top - 45},800);
+    scrollToReason: function () {
+      $('.scroll-btn').click(function () {
+        if ($('.reasons').length > 0) {
+          $('html,body').animate({scrollTop: $('.reasons').offset().top - 45}, 800);
         }
       });
     }
