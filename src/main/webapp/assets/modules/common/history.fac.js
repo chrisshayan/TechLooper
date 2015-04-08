@@ -40,7 +40,7 @@ angular.module("Common").factory("historyFactory", function (jsonValue, $locatio
           return jsonValue.routerUris.jobsSearch;
 
         default:
-          return url !== undefined ? url : "/";
+          return url === undefined ? "/" : url;
       }
     }
   }

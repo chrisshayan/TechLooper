@@ -2,6 +2,17 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    isHome: function() {
+      var home = "/";
+      if (window.location.host.indexOf("hiring") >= 0) {
+        home = "/home";
+      }
+      else {
+        home = "/pie-chart";
+      }
+      return $location.path() === home;
+    },
+
     apply: function () {
       if (!$rootScope.$$phase) {
         $rootScope.$apply();
