@@ -3,7 +3,7 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
   var $$ = {
     goBack: function () {
       var path = historyFactory.popHistory();
-      if (path !== undefined) {
+      if (path === "/" && !utils.isHome()) {
         $location.path(path);
       }
     }
