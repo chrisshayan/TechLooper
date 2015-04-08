@@ -199,23 +199,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public TalentSearchResponse findTalent(final TalentSearchRequest param) {
+    public TalentSearchResponse findTalent(TalentSearchRequest param) {
         List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
         TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
 
-        socialProviders.forEach(provider -> {
+        for(SocialProvider socialProvider : socialProviders) {
             TalentSearchQuery talentSearchQuery =
-                    applicationContext.getBean(provider + "TalentSearchQuery", TalentSearchQuery.class);
+                    applicationContext.getBean(socialProvider + "TalentSearchQuery", TalentSearchQuery.class);
             ElasticsearchRepository talentSearchRepository =
-                    applicationContext.getBean(provider + "TalentSearchRepository", ElasticsearchRepository.class);
+                    applicationContext.getBean(socialProvider + "TalentSearchRepository", ElasticsearchRepository.class);
             TalentSearchDataProcessor talentSearchDataProcessor =
-                    applicationContext.getBean(provider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
+                    applicationContext.getBean(socialProvider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
 
-            talentSearchDataProcessor.normalizeInputParameter(param);
+            if (param != null) {
+                talentSearchDataProcessor.normalizeInputParameter(param);
+            } else {
+                param = talentSearchDataProcessor.getSearchAllRequestParameter();
+            }
+
             FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(param));
             builder.withTotal(pageResult.getTotalElements());
             builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
-        });
+        }
 
         return builder.build();
     }

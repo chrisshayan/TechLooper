@@ -14,4 +14,6 @@ public interface TalentSearchDataProcessor {
     List<Talent> process(List<UserImportEntity> users);
 
     void normalizeInputParameter(TalentSearchRequest param);
+
+    TalentSearchRequest getSearchAllRequestParameter();
 }
