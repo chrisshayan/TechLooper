@@ -1,17 +1,27 @@
 <div class="search-form-block">
   <h2>Reach <span>IT talent</span> you could never find</h2>
+
   <div class="search-form-content">
     <form autocomplete="off">
-    <div class="input-group">
-      <div class="key-word">
-        <input type="text" placeholder="Enter your skills: Php, java" id="input-skill" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="1"/>
+      <div class="input-group">
+        <!--<div class="key-word">-->
+        <!--</div>-->
+        <input class="selectize-input"
+               style="width: 45%;"
+               type="text" placeholder="Enter your skills: Php, java" id="input-skill"
+               autocomplete="off" autocorrect="off" spellcheck="false" tabindex="1"/>
+        <input class="selectize-input"
+               style="width: 25%;"
+               type="text" placeholder="Company" id="company" autocomplete="off"
+               autocorrect="off" spellcheck="false" tabindex="2"/>
+        <input class="selectize-input"
+               style="width: 25%;"
+               type="text" placeholder="Location" id="select-location" autocomplete="off"
+               autocorrect="off" spellcheck="false" tabindex="3"/>
       </div>
-      <input type="text" placeholder="Location" id="select-location" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="3"/>
-      <input type="text" placeholder="Company" id="company" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="2"/>
-    </div>
-    <div class="input-submit">
-      <button class="btn-blue" ng-click="startHiring()">Search</button>
-    </div>
+      <div class="input-submit">
+        <button class="btn-blue" ng-click="startHiring()">Search</button>
+      </div>
     </form>
   </div>
 </div>

@@ -9,48 +9,49 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         {key: "locations", selector: "#select-location"},
         //{key: "locations", selector: "#select-location", options: jsonValue.cities},
       ], function (i, item) {
-        searchRequest[item.key] = $(item.selector).selectize({
-          plugins: {
-            "remove_button": {},
-            "restore_on_backspace": {},
-            "techlooper": {onReturn: instance.searchTalent}
-          },
-          mode: "multi",
-          persist: false,
-          createOnBlur: false,
-          preload: true,
-          create: function(input) {
-            return {
-              value: input,
-              text: input
-            }
-          },
-          valueField: "text",
-          searchField: ['text'],
-          labelField: "text",
-          createFilter: function (input) {
-            var ok = true;
-            $.each(this.options, function (index, value) {
-              if (value.text.toLowerCase() === input.toLowerCase()) {
-                ok = false;
-                return false;
-              }
-            });
-            return ok;
-          },
-          render: {
-            item: function (item, escape) {
-              return "<div>" + item.text + " </div>";
-            },
-            option: function (item, escape) {
-              return "<div>" + item.text + " </div>";
-            }
-          }
-        })[0].selectize;
-
-        if (item.options !== undefined) {
-          searchRequest[item.key].addOption(item.options);
-        }
+        searchRequest[item.key] = $(item.selector);
+        //searchRequest[item.key] = $(item.selector).selectize({
+        //  plugins: {
+        //    "remove_button": {},
+        //    "restore_on_backspace": {},
+        //    "techlooper": {onReturn: instance.searchTalent}
+        //  },
+        //  mode: "multi",
+        //  persist: false,
+        //  createOnBlur: false,
+        //  preload: true,
+        //  create: function(input) {
+        //    return {
+        //      value: input,
+        //      text: input
+        //    }
+        //  },
+        //  valueField: "text",
+        //  searchField: ['text'],
+        //  labelField: "text",
+        //  createFilter: function (input) {
+        //    var ok = true;
+        //    $.each(this.options, function (index, value) {
+        //      if (value.text.toLowerCase() === input.toLowerCase()) {
+        //        ok = false;
+        //        return false;
+        //      }
+        //    });
+        //    return ok;
+        //  },
+        //  render: {
+        //    item: function (item, escape) {
+        //      return "<div>" + item.text + " </div>";
+        //    },
+        //    option: function (item, escape) {
+        //      return "<div>" + item.text + " </div>";
+        //    }
+        //  }
+        //})[0].selectize;
+        //
+        //if (item.options !== undefined) {
+        //  searchRequest[item.key].addOption(item.options);
+        //}
       });
     },
     searchTalent: function () {
@@ -60,13 +61,13 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       //}
       var request = {};
       for (var prop in searchRequest) {
-        request[prop] = searchRequest[prop].getValue().split(",");
+        request[prop] = searchRequest[prop].val();
       }
 
       var q = "";
       for (var prop in request) {
         if (request[prop][0] !== "") {
-          q += prop + ":" + request[prop].join(",") + "::";
+          q += prop + ":" + request[prop] + "::";
         }
       }
       if (q === "") {
@@ -74,7 +75,7 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
       }
 
       //var queryArray = CryptoJS.enc.Utf8.parse(JSON.stringify(request));
-      $location.path(jsonValue.routerUris.talentSearchResult + "/" + q);
+      $location.path(jsonValue.routerUris.talentSearchResult + "/" + $.base64.encode(q));
     },
 
     //validationFeedback: function () {
