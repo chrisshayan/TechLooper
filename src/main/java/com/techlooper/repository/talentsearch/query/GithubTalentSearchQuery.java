@@ -32,16 +32,16 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         if (!searchRequest.getSkills().isEmpty()) {
             boolQueryBuilder.must(QueryBuilders.matchPhraseQuery(SKILL_SEARCH_FIELDS, searchRequest.getSkills()));
-        }
-        if (!searchRequest.getCompanies().isEmpty()) {
+        } else if (!searchRequest.getCompanies().isEmpty()) {
             boolQueryBuilder.must(QueryBuilders.matchPhraseQuery(COMPANY_SEARCH_FIELDS, searchRequest.getCompanies()));
-        }
-        if (!searchRequest.getLocations().isEmpty()) {
+        } else if (!searchRequest.getLocations().isEmpty()) {
             BoolQueryBuilder locationBoolQueryBuilder = QueryBuilders.boolQuery();
             for (String location : searchRequest.getLocations()) {
                 locationBoolQueryBuilder.should(QueryBuilders.matchPhraseQuery(LOCATION_SEARCH_FIELDS, location));
             }
             boolQueryBuilder.must(locationBoolQueryBuilder);
+        } else {
+            boolQueryBuilder.should(QueryBuilders.matchAllQuery());
         }
 
         return new NativeSearchQueryBuilder()
