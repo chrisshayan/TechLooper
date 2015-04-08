@@ -76,7 +76,7 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
         return;
       }
 
-      $location.path(jsonValue.routerUris.talentSearchResult + "/" + $.base64.encode(q));
+      $location.path(jsonValue.routerUris.talentSearchResult + "/" + q);
     },
 
     //validationFeedback: function () {

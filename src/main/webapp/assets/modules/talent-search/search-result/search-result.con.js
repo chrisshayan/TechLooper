@@ -3,7 +3,7 @@ techlooper.controller("tsSearchResultController",
     var request = {};
     var loopresPoint = 'Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects';
 
-    var args = $.base64.decode($routeParams.text).split("::");
+    var args = $routeParams.text.split("::");
     $.each(args, function (i, q) {
       if (q.length > 0) {
         var qs = q.split(":");
