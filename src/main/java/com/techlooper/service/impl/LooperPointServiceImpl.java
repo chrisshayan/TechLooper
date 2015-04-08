@@ -9,6 +9,7 @@ import com.techlooper.service.UserEvaluationService;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +49,7 @@ public class LooperPointServiceImpl implements LooperPointService {
   @Resource
   private JobStatisticService jobStatisticService;
 
-  final String[] countries = {"vietnam", "japan", "singapore", "myanmar", "cambodia", "thailand", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
+  final String[] countries = {"japan", "singapore", "myanmar", "cambodia", "thailand", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
     "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
     "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
 //  final String[] countries = {"vietnam"};
@@ -68,10 +69,11 @@ public class LooperPointServiceImpl implements LooperPointService {
   private void scoringByCountry(String country, Map<String, Long> totalNumberOfJobPerSkill, Long totalITJobs) {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(indexName)
       .withTypes("user");//.withPageable();//.withSearchType(SearchType.COUNT);
-    queryBuilder.withFilter(getCandidateByCountry(country));
+    queryBuilder.withQuery(QueryBuilders.nestedQuery("profiles", QueryBuilders.matchQuery("profiles.GITHUB.location", country)))
+            .withFilter(FilterBuilders.notFilter(FilterBuilders.existsFilter("ranks")));
 
     int total = (int) elasticsearchTemplateUserImport.count(queryBuilder.withSearchType(SearchType.COUNT).build());
-    int maxPageNumber = total % 50 > 0 ? total / 50 + 1 : total / 50;
+    int maxPageNumber = total % 50 > 0 ? total / 50 + 1 : total / 50 ;
     for (int pageNumber = 0; pageNumber < maxPageNumber; ++pageNumber) {
       Instant start = Instant.now();
       queryBuilder.withSearchType(SearchType.DFS_QUERY_THEN_FETCH).withPageable(new PageRequest(pageNumber, 50));
@@ -83,7 +85,7 @@ public class LooperPointServiceImpl implements LooperPointService {
           userImportEntity.setRate(userEvaluationService.rate(userImportEntity, totalNumberOfJobPerSkill, totalITJobs));
           userImportEntity.setRanks(userEvaluationService.rank(userImportEntity));
           users.add(userImportEntity);
-          LOGGER.debug("Done evaluate user {}", userImportEntity.getEmail());
+          LOGGER.info("Done evaluate user {}", userImportEntity.getEmail() + " with score " + userImportEntity.getScore());
         });
       Iterable<UserImportEntity> savedUsers = userImportRepository.save(users);
       Instant end = Instant.now();
