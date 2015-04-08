@@ -1,4 +1,4 @@
-techlooper.directive("companyInfo", function () {
+techlooper.directive("companyInfo", function ($timeout) {
   return {
     restrict: "A",
     replace: true,
@@ -22,12 +22,12 @@ techlooper.directive("companyInfo", function () {
     replace: true,
     templateUrl: "modules/talent-search/company-profile/company-opportunities.tem.html"
   }
-}).directive("companyCulture", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/talent-search/company-profile/company-culture.tem.html"
-  }
+//}).directive("companyCulture", function () {
+//  return {
+//    restrict: "A",
+//    replace: true,
+//    templateUrl: "modules/talent-search/company-profile/company-culture.tem.html"
+//  }
 }).directive("companyEmployee", function () {
   return {
     restrict: "A",

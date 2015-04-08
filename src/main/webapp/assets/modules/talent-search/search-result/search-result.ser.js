@@ -37,13 +37,17 @@ techlooper.factory("tsSearchResultService", function (tsMainService) {
         var options = [];
         var values = [];
         $.each(request[prop], function (i, text) {
-          options.push({text: text});
+          //options.push({text: text});
+          //values.push(text);
           values.push(text);
         });
-        if (searchRequest[prop] !== undefined) {
-          searchRequest[prop].addOption(options);
-          searchRequest[prop].setValue(values);
+        if (values.length > 0) {
+          searchRequest[prop] !== undefined && searchRequest[prop].val(values.join(","));
         }
+        //if (searchRequest[prop] !== undefined) {
+        //  searchRequest[prop].addOption(options);
+        //  searchRequest[prop].setValue(values);
+        //}
       }
       //$(".job-info span").dotdotdot({height: 23});
     }

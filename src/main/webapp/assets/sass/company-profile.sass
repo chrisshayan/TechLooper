@@ -32,6 +32,7 @@
       line-height: 100px
       vertical-align: middle
       max-width: 150px
+      position: relative
       a
         width: 130px
         height: 130px
@@ -39,13 +40,21 @@
         display: block
         text-align: center
         vertical-align: middle
-        -webkit-border-radius: 50%
-        -moz-border-radius: 50%
-        border-radius: 50%
         line-height: 130px
       img
         margin: auto
         width: 75%
+      .video-company-profile
+        position: absolute
+        bottom: 5px
+        width: 20px
+        height: 20px
+        left: 55px
+        line-height: 20px
+        font-size: 20px
+        color: #248bd8
+        z-index: 999
+        cursor: pointer
     .company-info-detail
       width: 78%
       float: left
@@ -371,6 +380,38 @@
             right: -140px
             top: -13px
             text-align: left
+  .media-culture
+    width: 100%
+    max-width: 1200px
+    margin: auto
+    .photo-culture-company
+      width: 100%
+      clear: both
+      display: block
+      a
+        display: inline-block
+        width: 32%
+        padding: 10px 1%
+        img
+          width: 100%
+          border: 1px solid #b0b0b0
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          max-height: 220px
+          float: left
+          height: 220px
+    .company-video-profile
+      display: block
+      padding-top: 20px
+      clear: both
+      width: 100%
+      iframe
+        width: 95%
+        height: 500px
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
   .company-opportunities-block
     display: block
     float: left
@@ -499,3 +540,39 @@
   display: block
   clear: both
   padding: 0 20px 20px 20px
+.blueimp-gallery .modal-dialog
+  top: 0%
+  padding-top: 100px
+.company-video-info  .modal-dialog
+  top: 0%
+  padding-top: 100px
+.blueimp-gallery-display .modal-header
+  border: 0
+  position: absolute
+  z-index: 999
+  right: 0
+  button
+    width: 40px
+    height: 40px
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
+    border-radius: 50%
+    background-color: #000
+    color: #fff
+    line-height: 36px
+    font-weight: 300
+    font-size: 18px
+.blueimp-gallery .modal-body
+  padding: 0 0 67%
+  width: 100%
+  img
+    width: 100%
+    height: 100%
+.blueimp-gallery-display .modal-footer
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  border: 0
+  margin: auto
+  z-index: 999

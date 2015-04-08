@@ -23,6 +23,12 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
           }
           $$.goBack();
           break;
+        case jsonValue.views.companyProfile:
+          if ($("#companyVideoInfor").is(":visible")) {// ESC from others, such as: Video dialog, ...
+            $(".playerVideo").attr("src", "");
+            return;
+          }
+          break;
         default:
           $$.goBack();
           break;

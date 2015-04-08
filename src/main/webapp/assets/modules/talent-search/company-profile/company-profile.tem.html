@@ -7,3 +7,42 @@
   <div company-employee></div>
   <div company-follow></div>
 </div>
+<div id="blueimp-gallery" class="blueimp-gallery">
+  <!-- The container for the modal slides -->
+  <div class="slides"></div>
+  <!-- Controls for the borderless lightbox -->
+  <a class="prev">‹</a>
+  <a class="next">›</a>
+  <a class="close">×</a>
+  <a class="play-pause"></a>
+  <ol class="indicator"></ol>
+  <!-- The modal dialog, which will be used to wrap the lightbox content -->
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-hidden="true" title="Close">&times;</button>
+        </div>
+        <div class="modal-body next"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pull-left prev">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+          </button>
+          <button type="button" class="btn btn-primary next">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="companyVideoInfor" class="modal fade company-video-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" ng-click="checkPLayVideo()">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <iframe width="590" height="450" src="" frameborder="0" allowfullscreen class="playerVideo"></iframe>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,9 @@ techlooper.controller("tsSearchResultController",
   function ($scope, $timeout, tsMainService, tsSearchResultService, $routeParams, $http, jsonValue, $location) {
     var request = {};
     var loopresPoint = 'Loopers Rank is a measure of profile completeness, relevance and experience; the more points means profile contains more personal information, person skills’ are more relevant to market demand and this person has contributed more to open source projects';
-    $.each($routeParams.text.split("::"), function (i, q) {
+
+    var args = $.base64.decode($routeParams.text).split("::");
+    $.each(args, function (i, q) {
       if (q.length > 0) {
         var qs = q.split(":");
         request[qs[0]] = qs[1].split(",");
@@ -42,7 +44,7 @@ techlooper.controller("tsSearchResultController",
       if ($scope.contentLoaded === true) {
         tsSearchResultService.updateSearchText(request);
         tsSearchResultService.init();
-        $('[data-toggle="tooltip"]').tooltip({html:true,placement: 'right'});
+        $('[data-toggle="tooltip"]').tooltip({html:true,placement: 'right | auto'});
       }
     });
 
@@ -57,6 +59,6 @@ techlooper.controller("tsSearchResultController",
     }
 
     $scope.handleLastItem = function() {
-      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'right'});
+      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'right | auto'});
     }
   });
