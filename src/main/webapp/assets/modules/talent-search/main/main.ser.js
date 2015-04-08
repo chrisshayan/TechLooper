@@ -72,9 +72,9 @@ techlooper.factory("tsMainService", function (jsonValue, $http, $location) {
           q += prop + ":" + request[prop] + "::";
         }
       }
-      if (q === "") {
-        return;
-      }
+      //if (q === "") {
+      //  return;
+      //}
 
       $location.path(jsonValue.routerUris.talentSearchResult + "/" + q);
     },
