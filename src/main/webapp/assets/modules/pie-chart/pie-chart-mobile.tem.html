@@ -1,1 +1,19 @@
-{{terms}}
+<nav class="navbar navbar-inverse">
+    <div class="logo-block text-center">
+        <div class="logo" id="logo">
+            <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"></a></h1>
+        </div>
+    </div>
+</nav>
+<div class="text-guide">
+    <p>{{ 'clickOnSkillGuide' | translate }}</p>
+</div>
+<div class="row chart-block">
+    <div class="list-group">
+        <a ng-repeat="term in terms" href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">{{term.label}}</h4>
+            <p class="list-group-item-text">Jobs : {{term.count}}</p>
+        </a>
+    </div>
+</div>
+
