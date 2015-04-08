@@ -12,6 +12,8 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
     generateChartData: function ($terms) {
       terms = termService.toViewTerms($terms);
+      scope.terms = terms;
+      scope.$apply();
       $.each(terms, function (i, term) {
         data4PieChart.data.push([term.label, term.count]);
         data4PieChart.colors.push(term.color);
