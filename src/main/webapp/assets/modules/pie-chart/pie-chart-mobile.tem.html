@@ -1,5 +1,5 @@
 <nav class="navbar navbar-inverse mobile-header">
-    <div class="logo-block text-center">
+    <div class="logo-block text-left">
         <div class="logo" id="logo">
             <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"></a></h1>
         </div>
@@ -14,9 +14,11 @@
                 <div class="view-detail">View Detail</div>
             </li>
             <li ng-repeat="term in terms">
+                <a href="#/analytics/skill/{{term.term}}">
                 <div class="skill-name">{{term.label}}</div>
                 <div class="number-of-jobs">{{term.count}}</div>
-                <div class="view-detail"><a ng-href="#/analytics/skill/{{term.term}}"><i class="fa fa-chevron-right"></i></a></div>
+                <div class="view-detail"><i class="fa fa-chevron-right"></i></div>
+                </a>
             </li>
         </ul>
         <!--<a  href="#" class="list-group-item">-->
