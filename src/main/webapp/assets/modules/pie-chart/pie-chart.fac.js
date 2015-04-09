@@ -12,8 +12,14 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
     generateChartData: function ($terms) {
       terms = termService.toViewTerms($terms);
+      var total = $$.getTotalJob(terms);
+      $.each(terms, function (i, term) {
+        var per = term.count/total*100;
+        term.percent= per.toFixed(1);
+      });
       scope.terms = terms;
       scope.$apply();
+
       $.each(terms, function (i, term) {
         data4PieChart.data.push([term.label, term.count]);
         data4PieChart.colors.push(term.color);
@@ -25,6 +31,13 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
     switchScope: function ($scope) {
       scope = $scope;
       data4PieChart = {colors: [], data: [], labels: [], terms: []};
+    },
+    getTotalJob: function(terms){
+      var total = 0;
+      $.each(terms, function (index, item) {
+        total = total + item.count;
+      })
+      return total;
     }
   }
   utils.registerNotification(jsonValue.notifications.switchScope, $$.switchScope, $$.enableNotifications);

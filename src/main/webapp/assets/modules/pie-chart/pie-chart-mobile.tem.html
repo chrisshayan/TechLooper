@@ -14,9 +14,10 @@
                 <div class="view-detail">View Detail</div>
             </li>
             <li ng-repeat="term in terms">
+
                 <a href="#/analytics/skill/{{term.term}}">
                 <div class="skill-name">{{term.label}}</div>
-                <div class="number-of-jobs">{{term.count}}</div>
+                <div class="number-of-jobs"><strong>{{term.count}}</strong> <span>({{term.percent}} %)</span></div>
                 <div class="view-detail"><i class="fa fa-chevron-right"></i></div>
                 </a>
             </li>

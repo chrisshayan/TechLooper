@@ -12,6 +12,5 @@ angular.module('Chart').controller('chartController', function ($scope, jsonValu
       });
     });
   });
-
   connectionFactory.receiveTechnicalTerms();
 });
