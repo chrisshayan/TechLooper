@@ -16,7 +16,7 @@
             <li ng-repeat="term in terms">
                 <div class="skill-name">{{term.label}}</div>
                 <div class="number-of-jobs">{{term.count}}</div>
-                <div class="view-detail"><a href="#"><i class="fa fa-chevron-right"></i></a></div>
+                <div class="view-detail"><a ng-href="#/analytics/skill/{{term.term}}"><i class="fa fa-chevron-right"></i></a></div>
             </li>
         </ul>
         <!--<a  href="#" class="list-group-item">-->
