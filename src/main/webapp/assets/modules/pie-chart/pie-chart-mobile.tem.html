@@ -1,19 +1,28 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse mobile-header">
     <div class="logo-block text-center">
         <div class="logo" id="logo">
             <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"></a></h1>
         </div>
     </div>
 </nav>
-<div class="text-guide">
-    <p>{{ 'clickOnSkillGuide' | translate }}</p>
-</div>
 <div class="row chart-block">
-    <div class="list-group">
-        <a ng-repeat="term in terms" href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">{{term.label}}</h4>
-            <p class="list-group-item-text">Jobs : {{term.count}}</p>
-        </a>
+    <div class="mobile-pie-chart">
+        <ul>
+            <li class="header">
+                <div class="skill-name">Skill Name</div>
+                <div class="number-of-jobs">Number of Jobs</div>
+                <div class="view-detail">View Detail</div>
+            </li>
+            <li ng-repeat="term in terms">
+                <div class="skill-name">{{term.label}}</div>
+                <div class="number-of-jobs">{{term.count}}</div>
+                <div class="view-detail"><a href="#"><i class="fa fa-chevron-right"></i></a></div>
+            </li>
+        </ul>
+        <!--<a  href="#" class="list-group-item">-->
+            <!--<h4 class="list-group-item-heading">{{term.label}}</h4>-->
+            <!--<p class="list-group-item-text">Jobs : {{term.count}}</p>-->
+        <!--</a>-->
     </div>
 </div>
 
