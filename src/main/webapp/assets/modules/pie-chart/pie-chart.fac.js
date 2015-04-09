@@ -78,7 +78,8 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
             },
             marker: {
               lineColor: '#333'
-            }
+            },
+            animation: false
           },
           boxplot: {
             fillColor: '#505053'
