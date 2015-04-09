@@ -2,12 +2,15 @@ techlooper.directive("itProfessional", function ($compile, $location, utils, jso
 
   return {
     restrict: "A",
-    templateUrl: function(elem, attrs) {
+    templateUrl: function (elem, attrs) {
       switch (utils.getView()) {
         case jsonValue.views.bubbleChart:
           return "modules/bubble-chart/bubble-chart.tem.html";
 
         case jsonValue.views.pieChart:
+          if (utils.isMobile()) {
+            return "modules/pie-chart/pie-chart-mobile.tem.html";
+          }
           return "modules/pie-chart/pie-chart.tem.html";
 
         case jsonValue.views.jobsSearch:
