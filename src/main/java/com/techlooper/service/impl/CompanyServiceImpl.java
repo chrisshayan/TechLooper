@@ -70,6 +70,7 @@ public class CompanyServiceImpl implements CompanyService {
           employee.setProfileImageUrl((String) map.get("imageUrl"));
           employee.setName((String) map.get("fullName"));
           employee.setUsername((String) map.get("username"));
+          employee.setSkills((List) map.get("skills"));
           finalCompany.getEmployees().add(employee);
         });
       });
