@@ -10,7 +10,7 @@
         <ul>
             <li class="header">
                 <div class="skill-name" ng-click="orderByField='label'; reverseSort = !reverseSort">Skill Name</div>
-                <div class="number-of-jobs" ng-click="orderByField='count'; reverseSort = !reverseSort">Number of Jobs</div>
+                <div class="number-of-jobs" ng-click="orderByField='count'; reverseSort = !reverseSort" data-ng-init="orderByField='-count'">Number of Jobs</div>
                 <div class="view-detail">View Detail</div>
             </li>
             <li ng-repeat="term in terms | orderBy:orderByField:reverseSort">
