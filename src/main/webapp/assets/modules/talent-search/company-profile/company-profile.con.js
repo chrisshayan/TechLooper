@@ -1,4 +1,4 @@
-techlooper.controller("companyProfileController", function ($scope, companyProfileService, $routeParams,
+techlooper.controller("companyProfileController", function ($scope, $sce, companyProfileService, $routeParams,
                                                             $http, jsonValue, $timeout, utils, $rootScope, $location) {
   $scope.follow = companyProfileService.followManager;
 
@@ -31,6 +31,22 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
     data.totalApplications = data.totalApplications.toLocaleString();
     data.companySize = jsonValue.companySizes[data.companySizeId];
     $scope.companyInfo = data;
+    var fullURL = data.jobVideoURLs[0],
+        myUrl = '';
+
+    if(fullURL !== undefined){
+      var codeURL = getURL(fullURL);
+    }else{
+      codeURL = '';
+    }
+
+    if(codeURL.length > 0 && codeURL != 'error'){
+      myUrl = '//www.youtube.com/embed/' + codeURL;
+      $scope.companyInfo.jobVideoURLs = $sce.trustAsResourceUrl(myUrl);
+    }else{
+      $scope.companyInfo.jobVideoURLs = '';
+    }
+    console.log($scope.companyInfo)
     $timeout(function () {
       $('[data-toggle="tooltip"]').tooltip({html: true, placement: 'top'});
     }, 200);
