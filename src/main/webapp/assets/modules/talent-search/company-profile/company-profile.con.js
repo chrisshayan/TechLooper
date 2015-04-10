@@ -1,19 +1,29 @@
-techlooper.controller("companyProfileController", function ($scope, companyProfileService, $routeParams, $http, jsonValue, $timeout) {
+techlooper.controller("companyProfileController", function ($scope, companyProfileService, $routeParams,
+                                                            $http, jsonValue, $timeout, utils, $rootScope, $location) {
   $scope.follow = companyProfileService.followManager;
 
   var companyName = $routeParams.companyName;
-  $http.get(jsonValue.httpUri.company + "/" + companyName).success(function(data) {
-    $.each(data.benefits, function(i, benefit) {
+  if (utils.hasNonAsciiChar(companyName)) {
+    $rootScope.companyName = companyName;
+    $location.path(utils.toAscii(companyName));
+  }
+  else if ($rootScope.companyName !== undefined) {
+    companyName = $rootScope.companyName;
+    $rootScope.companyName = undefined;
+  }
+
+  $http.get(jsonValue.httpUri.company + "/" + companyName).success(function (data) {
+    $.each(data.benefits, function (i, benefit) {
       benefit.name = jsonValue.benefits[benefit.benefitId].name;
       benefit.iconName = jsonValue.benefits[benefit.benefitId].iconName;
     });
-    $.each(data.industries, function(i, industry) {
+    $.each(data.industries, function (i, industry) {
       industry.value = jsonValue.industries[industry.industryId].value;
     });
 
     data.totalViews = 0;
     data.totalApplications = 0;
-    $.each(data.jobs, function(i, job) {
+    $.each(data.jobs, function (i, job) {
       data.totalViews += job.numOfViews;
       data.totalApplications += job.numOfApplications;
     });
@@ -21,8 +31,8 @@ techlooper.controller("companyProfileController", function ($scope, companyProfi
     data.totalApplications = data.totalApplications.toLocaleString();
     data.companySize = jsonValue.companySizes[data.companySizeId];
     $scope.companyInfo = data;
-    $timeout(function(){
-      $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'top'});
+    $timeout(function () {
+      $('[data-toggle="tooltip"]').tooltip({html: true, placement: 'top'});
     }, 200);
   });
   $scope.playVideo = function (event) {
