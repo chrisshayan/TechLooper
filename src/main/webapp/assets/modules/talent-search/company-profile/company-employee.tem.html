@@ -3,7 +3,7 @@
     <h2>Our Employees</h2>
     <ul>
       <li ng-repeat="item in companyInfo.employees | limitTo: 3">
-        <a href="https://github.com/{{item.username}}" target="_blank" data-toggle="tooltip" data-original-title="<strong>skill name 1 - skill name 2 - skill name 3</strong>">
+        <a href="https://github.com/{{item.username}}" target="_blank" data-toggle="tooltip" data-original-title="<strong>{{item.skills.join(', ')}}<strong>">
           <span class="employee-name ellipsis">
             {{item.name || item.username}}
           </span>
