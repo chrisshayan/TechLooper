@@ -37,6 +37,36 @@ public class CompanyEntity {
 
   private List<CompanyIndustry> industries;
 
+  private List<String> jobImageURLs;
+
+  private List<String> jobVideoURLs;
+
+  private String companyProfile;
+
+  public String getCompanyProfile() {
+    return companyProfile;
+  }
+
+  public void setCompanyProfile(String companyProfile) {
+    this.companyProfile = companyProfile;
+  }
+
+  public List<String> getJobVideoURLs() {
+    return jobVideoURLs;
+  }
+
+  public void setJobVideoURLs(List<String> jobVideoURLs) {
+    this.jobVideoURLs = jobVideoURLs;
+  }
+
+  public List<String> getJobImageURLs() {
+    return jobImageURLs;
+  }
+
+  public void setJobImageURLs(List<String> jobImageURLs) {
+    this.jobImageURLs = jobImageURLs;
+  }
+
   public Long getCompanyId() {
     return companyId;
   }
