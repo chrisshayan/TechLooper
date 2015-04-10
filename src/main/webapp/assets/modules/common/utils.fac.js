@@ -3,7 +3,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
 
   var instance = {
     hasNonAsciiChar: function(str) {
-      var chars = str.split("");
+      var chars = str.split("-").join("").split("");
       var rs = false;
       $.each(chars, function(i, c) {
         rs = rs || (c < "0");
