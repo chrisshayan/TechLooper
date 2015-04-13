@@ -43,7 +43,6 @@ techlooper.controller("companyProfileController", function ($scope, $sce, compan
       data.totalApplications = data.totalApplications.toLocaleString();
       data.companySize = jsonValue.companySizes[data.companySizeId];
       $scope.companyInfo = data;
-      console.log($scope.companyInfo)
       if(data.jobVideoURLs != null){
         var fullURL = data.jobVideoURLs[0];
       }else{
