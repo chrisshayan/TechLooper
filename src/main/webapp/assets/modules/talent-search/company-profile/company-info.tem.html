@@ -19,7 +19,7 @@
     <div class="company-info-detail">
       <h2>{{companyInfo.companyName}}</h2>
       <ul>
-        <li>
+        <li ng-show="companyInfo.industries.length">
           <span>Category:</span>
           <p class="name">
             <small ng-repeat="item in companyInfo.industries | limitTo:3">
@@ -28,9 +28,9 @@
             </small>
           </p>
         </li>
-        <li><span>Website:</span><p><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></p></li>
-        <li><span>Size:</span><p>{{companyInfo.companySize.value}}</p></li>
-        <li><span>Address:</span><p>{{companyInfo.address}}</p></li>
+        <li ng-show="companyInfo.website.length"><span>Website:</span><p><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></p></li>
+        <li ng-show="companyInfo.companySize.value.length"><span>Size:</span><p>{{companyInfo.companySize.value}}</p></li>
+        <li ng-show="companyInfo.address.length"><span>Address:</span><p>{{companyInfo.address}}</p></li>
       </ul>
     </div>
   </div>
