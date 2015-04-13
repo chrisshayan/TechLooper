@@ -43,8 +43,13 @@ techlooper.controller("companyProfileController", function ($scope, $sce, compan
       data.totalApplications = data.totalApplications.toLocaleString();
       data.companySize = jsonValue.companySizes[data.companySizeId];
       $scope.companyInfo = data;
-      var fullURL = data.jobVideoURLs[0],
-        myUrl = '';
+      console.log($scope.companyInfo)
+      if(data.jobVideoURLs != null){
+        var fullURL = data.jobVideoURLs[0];
+      }else{
+        var fullURL = '';
+      }
+      var myUrl = '';
 
       if (fullURL !== undefined) {
         var codeURL = getURL(fullURL);
@@ -56,11 +61,10 @@ techlooper.controller("companyProfileController", function ($scope, $sce, compan
       if (codeURL.length > 0 && codeURL != 'error') {
         myUrl = '//www.youtube.com/embed/' + codeURL;
         $scope.companyInfo.jobVideoURLs = $sce.trustAsResourceUrl(myUrl);
-      }
-      else {
+      }else {
         $scope.companyInfo.jobVideoURLs = '';
       }
-      console.log($scope.companyInfo)
+
       $timeout(function () {
         $('[data-toggle="tooltip"]').tooltip({html: true, placement: 'top'});
       }, 200);
