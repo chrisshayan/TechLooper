@@ -7,6 +7,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.userimport.CompanyRepository;
 import com.techlooper.service.CompanyService;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,7 +68,17 @@ public class CompanyServiceImpl implements CompanyService {
     company.setJobs(topJobs);
 
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(indexName);
-    queryBuilder.withTypes("user").withFilter(FilterBuilders.nestedFilter("profiles", FilterBuilders.queryFilter(QueryBuilders.matchPhraseQuery("company", company.getCompanyName()))));
+    String[] prefixes = company.getCompanyName().split(" ");
+    BoolFilterBuilder shouldFilter = FilterBuilders.boolFilter().should();
+    StringBuilder prefixBuilder = new StringBuilder();
+    for (String prefix : prefixes) {
+      if (prefix.length() == 0) {
+        continue;
+      }
+      prefixBuilder.append(prefix).append(prefixBuilder.length() > 0 ? " " : "");
+      shouldFilter.should(FilterBuilders.prefixFilter("company", prefixBuilder.toString().toLowerCase().trim()));
+    }
+    queryBuilder.withTypes("user").withFilter(FilterBuilders.nestedFilter("profiles", shouldFilter));
 
     final CompanyEntity finalCompany = company;
     elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), UserImportEntity.class).forEach(userEntity -> {
