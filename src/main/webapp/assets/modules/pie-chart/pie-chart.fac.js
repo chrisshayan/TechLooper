@@ -79,7 +79,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
             cursor: 'pointer',
             dataLabels: {
               enabled: true,
-              format: '<b>{point.name}</b>: {point.y}',
+              format: '{point.y} jobs in <b>{point.name}</b>',
               style: {
                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
               }
