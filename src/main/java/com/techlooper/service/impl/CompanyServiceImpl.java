@@ -5,6 +5,7 @@ import com.techlooper.entity.CompanyJob;
 import com.techlooper.entity.GitHubUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.userimport.CompanyRepository;
 import com.techlooper.service.CompanyService;
 import org.elasticsearch.index.query.BoolFilterBuilder;
@@ -35,6 +36,9 @@ public class CompanyServiceImpl implements CompanyService {
 
   @Value("${elasticsearch.userimport.index.name}")
   private String indexName;
+
+  @Resource
+  private JsonConfigRepository jsonConfigRepository;
 
   public CompanyEntity findById(Long id) {
     CompanyEntity company = companyRepository.findOne(id);
@@ -68,7 +72,11 @@ public class CompanyServiceImpl implements CompanyService {
     company.setJobs(topJobs);
 
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(indexName);
-    String[] prefixes = company.getCompanyName().split(" ");
+    final String[] companyName = {company.getCompanyName().toLowerCase()};
+    jsonConfigRepository.getCommonTerm().forEach(term -> {
+      companyName[0] = companyName[0].replaceAll(term.toLowerCase(), "");
+    });
+    String[] prefixes = companyName[0].split(" ");
     BoolFilterBuilder shouldFilter = FilterBuilders.boolFilter().should();
     StringBuilder prefixBuilder = new StringBuilder();
     for (String prefix : prefixes) {
