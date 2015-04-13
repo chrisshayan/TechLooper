@@ -1,9 +1,16 @@
 <div class="company-info-block">
   <div class="company-info-content">
     <div class="company-logo-block">
-      <a href="{{companyInfo.website}}" target="_blank">
-        <img ng-src={{companyInfo.companyLogoURL}} alt="" title="{{companyInfo.companyName}}"/>
-      </a>
+      <div ng-if="companyInfo.companyLogoURL.length">
+        <a href="{{companyInfo.website}}" target="_blank">
+          <img ng-src={{companyInfo.companyLogoURL}} alt="" title="{{companyInfo.companyName}}"/>
+        </a>
+      </div>
+      <div ng-if="!companyInfo.companyLogoURL.length">
+        <a href="{{companyInfo.website}}" target="_blank">
+          <img src=images/no-logo-company.png alt="" title="{{companyInfo.companyName}}"/>
+        </a>
+      </div>
       <!--<div class="video-company-profile">-->
         <!--<i class="fa fa-play-circle-o" title="Click to view video" class="play-video" ng-click="playVideo($event)"-->
            <!--ng-url="https://www.youtube.com/embed/oZNtljcqtUc" data-toggle="modal" data-target="#companyVideoInfor"></i>-->
