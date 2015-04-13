@@ -2,7 +2,35 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
-    isHome: function() {
+    hasNonAsciiChar: function(str) {
+      var chars = str.split("-").join("").split("");
+      var rs = false;
+      $.each(chars, function(i, c) {
+        rs = rs || (c < "0");
+        rs = rs || (c > "9" && c < "A");
+        rs = rs || (c > "Z" && c < "a");
+        rs = rs || (c > "z");
+        return !rs;
+      });
+      return rs;
+    },
+
+    toAscii: function (str) {//Công ty Cổ phần Licogi 16.6
+      str = str.toLowerCase();
+      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+      str = str.replace(/đ/g, "d");
+      str = str.replace(/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g, "-");
+      str = str.replace(/-+-/g, "-"); //change "--" to "-"
+      str = str.replace(/^\-+|\-+$/g, "");//trim "-"
+      return str;
+    },
+
+    isHome: function () {
       var home = "/";
       if (window.location.host.indexOf("hiring") >= 0) {
         home = "/home";

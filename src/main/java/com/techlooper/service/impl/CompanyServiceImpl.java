@@ -5,9 +5,10 @@ import com.techlooper.entity.CompanyJob;
 import com.techlooper.entity.GitHubUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.repository.userimport.CompanyRepository;
 import com.techlooper.service.CompanyService;
-import org.dozer.Mapper;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,10 +38,14 @@ public class CompanyServiceImpl implements CompanyService {
   private String indexName;
 
   @Resource
-  private Mapper dozerMapper;
+  private JsonConfigRepository jsonConfigRepository;
 
   public CompanyEntity findById(Long id) {
-    return companyRepository.findOne(id);
+    CompanyEntity company = companyRepository.findOne(id);
+    if (company != null) {
+      refineCompany(company);
+    }
+    return company;
   }
 
   public CompanyEntity findByName(String companyName) {
@@ -52,28 +57,49 @@ public class CompanyServiceImpl implements CompanyService {
     List<CompanyEntity> companies = elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), CompanyEntity.class);
     if (companies.size() > 0) {
       company = companies.get(0);
-      List<CompanyJob> topJobs = company.getJobs().stream().sorted((job1, job2) -> {
-        if (job1.getExpiredDate() == null || job2.getExpiredDate() == null) {
-          return -1;
-        }
-        return -1 * job1.getExpiredDate().compareTo(job2.getExpiredDate());
-      }).collect(Collectors.toList());
-      company.setJobs(topJobs);
-
-      queryBuilder.withTypes("user").withFilter(FilterBuilders.nestedFilter("profiles", FilterBuilders.termFilter("profiles.GITHUB.company", companyName)));
-      final CompanyEntity finalCompany = company;
-      elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), UserImportEntity.class).forEach(userEntity -> {
-        Optional.ofNullable(userEntity.getProfiles().get(SocialProvider.GITHUB)).ifPresent(profile -> {
-          GitHubUserProfile employee = new GitHubUserProfile();
-          LinkedHashMap map = (LinkedHashMap) profile;
-          employee.setEmail((String) map.get("email"));
-          employee.setProfileImageUrl((String) map.get("imageUrl"));
-          employee.setName((String) map.get("fullName"));
-          employee.setUsername((String) map.get("username"));
-          finalCompany.getEmployees().add(employee);
-        });
-      });
+      refineCompany(company);
     }
     return company;
+  }
+
+  private void refineCompany(CompanyEntity company) {
+    List<CompanyJob> topJobs = company.getJobs().stream().sorted((job1, job2) -> {
+      if (job1.getExpiredDate() == null || job2.getExpiredDate() == null) {
+        return -1;
+      }
+      return -1 * job1.getExpiredDate().compareTo(job2.getExpiredDate());
+    }).collect(Collectors.toList());
+    company.setJobs(topJobs);
+
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(indexName);
+    final String[] companyName = {company.getCompanyName().toLowerCase()};
+    jsonConfigRepository.getCommonTerm().forEach(term -> {
+      companyName[0] = companyName[0].replaceAll(term.toLowerCase(), "");
+    });
+    String[] prefixes = companyName[0].split(" ");
+    BoolFilterBuilder shouldFilter = FilterBuilders.boolFilter().should();
+    StringBuilder prefixBuilder = new StringBuilder();
+    for (String prefix : prefixes) {
+      if (prefix.length() == 0) {
+        continue;
+      }
+      prefixBuilder.append(prefix).append(prefixBuilder.length() > 0 ? " " : "");
+      shouldFilter.should(FilterBuilders.prefixFilter("company", prefixBuilder.toString().toLowerCase().trim()));
+    }
+    queryBuilder.withTypes("user").withFilter(FilterBuilders.nestedFilter("profiles", shouldFilter));
+
+    final CompanyEntity finalCompany = company;
+    elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), UserImportEntity.class).forEach(userEntity -> {
+      Optional.ofNullable(userEntity.getProfiles().get(SocialProvider.GITHUB)).ifPresent(profile -> {
+        GitHubUserProfile employee = new GitHubUserProfile();
+        LinkedHashMap map = (LinkedHashMap) profile;
+        employee.setEmail((String) map.get("email"));
+        employee.setProfileImageUrl((String) map.get("imageUrl"));
+        employee.setName((String) map.get("fullName"));
+        employee.setUsername((String) map.get("username"));
+        employee.setSkills((List) map.get("skills"));
+        finalCompany.getEmployees().add(employee);
+      });
+    });
   }
 }

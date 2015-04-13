@@ -55,5 +55,14 @@
     {
       "industryId": "35"
     }
-  ]
+  ],
+  "jobImageURLs": [
+    "http://images.vietnamworks.com/company_profile/12956.jpg",
+    "http://images.vietnamworks.com/company_profile/12957.jpg",
+    "http://images.vietnamworks.com/company_profile/12958.jpg"
+  ],
+  "jobVideoURLs": [
+    "https://www.youtube.com/watch?v=CJdt3JbhqnM"
+  ],
+  "companyProfile": "EQuest Academy là một trong ba thành viên của EQuest Group."
 }

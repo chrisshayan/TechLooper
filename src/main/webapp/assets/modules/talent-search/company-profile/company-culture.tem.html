@@ -1,15 +1,19 @@
 <div class="company-culture-block">
   <h2>Our Culture</h2>
   <div class="media-culture">
-    <div id="links" class="photo-culture-company">
-      <a href="http://officesnapshots.com/wp-content/uploads/2012/11/CLIMATE_IMAGE_2.jpg" data-gallery=""><img src="http://officesnapshots.com/wp-content/uploads/2012/11/CLIMATE_IMAGE_2.jpg"></a>
-      <a href="http://www.cladding.com/cladding_wp/wp-content/uploads/2012/01/company-profile--e1335264900753-1024x665.jpg" data-gallery=""><img src="http://www.cladding.com/cladding_wp/wp-content/uploads/2012/01/company-profile--e1335264900753-1024x665.jpg"></a>
-      <a href="https://www.sheffield.ac.uk/polopoly_fs/1.257327!/image/working-together-generic.jpg" data-gallery=""><img src="https://www.sheffield.ac.uk/polopoly_fs/1.257327!/image/working-together-generic.jpg"></a>
+    <div id="links" class="photo-culture-company" ng-show="companyInfo.jobImageURLs.length > 0">
+      <a ng-repeat="photo in companyInfo.jobImageURLs" href="{{photo}}"  data-gallery="">
+        <img ng-src="{{photo}}">
+      </a>
     </div>
-    <div class="company-video-profile">
-      <iframe src="https://www.youtube.com/embed/oZNtljcqtUc" frameborder="0" allowfullscreen></iframe>
+    <div class="company-video-profile" ng-show="companyInfo.jobVideoURLs !== ''">
+      <iframe src="{{companyInfo.jobVideoURLs}}" frameborder="0" allowfullscreen class="company-video-info"></iframe>
+    </div>
+    <div class="company-profile-description">
+      <p>{{companyInfo.companyProfile}}</p>
     </div>
   </div>
+
   <div class="company-culture-content">
 
     <!--<div class="full-side">Flexibility</div>-->

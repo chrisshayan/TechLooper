@@ -51,6 +51,7 @@ public class CoreConfiguration {
     CompositeCacheManager manager = new CompositeCacheManager();
     manager.setCacheManagers(Arrays.asList(
       new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
+      new ConcurrentMapCacheManager("COMMON_TERM"),
       new ConcurrentMapCacheManager("SKILL_CONFIG")));
     return manager;
   }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by phuonghqh on 4/1/15.
@@ -20,8 +21,22 @@ public class CompanyController {
   private CompanyService companyService;
 
   @ResponseBody
+  @RequestMapping(value = "company/id/{companyId}", method = RequestMethod.GET)
+  public CompanyEntity getCompanyById(@PathVariable Long companyId, HttpServletResponse httpServletResponse) {
+    CompanyEntity company = companyService.findById(companyId);
+    if (company == null) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+    return company;
+  }
+
+  @ResponseBody
   @RequestMapping(value = "company/{companyName}", method = RequestMethod.GET)
-  public CompanyEntity getCompany(@PathVariable String companyName) {
-    return companyService.findByName(companyName);
+  public CompanyEntity getCompany(@PathVariable String companyName, HttpServletResponse httpServletResponse) {
+    CompanyEntity company = companyService.findByName(companyName);
+    if (company == null) {
+      httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+    return company;
   }
 }
