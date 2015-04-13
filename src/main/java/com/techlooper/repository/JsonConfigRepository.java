@@ -27,6 +27,9 @@ public class JsonConfigRepository {
     @Value("classpath:socialConfig.json")
     private Resource socialConfigResource;
 
+    @Value("classpath:commonTerm.json")
+    private Resource commonTerm;
+
 
     /**
      * Load technical term and skill from JSON file and put them into the cache
@@ -43,10 +46,15 @@ public class JsonConfigRepository {
         return JsonUtils.toList(skillJsonResource, TechnicalTerm.class).get();
     }
 
+    @Cacheable(value = "COMMON_TERM")
+    public List<String> getCommonTerm() {
+        return JsonUtils.toList(commonTerm, String.class).get();
+    }
+
     /**
      * Intentionally, this method is just used to invalidate the cache and trigger reloading new term and skill from JSON file
      */
-    @CacheEvict(value = {"SOCIAL_CONFIG", "SKILL_CONFIG"}, allEntries = true)
+    @CacheEvict(value = {"SOCIAL_CONFIG", "SKILL_CONFIG", "COMMON_TERM"}, allEntries = true)
     public void refresh() {
     }
 
