@@ -67,7 +67,7 @@ public class CompanyServiceImpl implements CompanyService {
     company.setJobs(topJobs);
 
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(indexName);
-    queryBuilder.withTypes("user").withFilter(FilterBuilders.nestedFilter("profiles", FilterBuilders.queryFilter(QueryBuilders.matchQuery("company", company.getCompanyName()))));
+    queryBuilder.withTypes("user").withFilter(FilterBuilders.nestedFilter("profiles", FilterBuilders.queryFilter(QueryBuilders.matchPhraseQuery("company", company.getCompanyName()))));
 
     final CompanyEntity finalCompany = company;
     elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), UserImportEntity.class).forEach(userEntity -> {
