@@ -191,6 +191,7 @@ angular.module("Common").constant("jsonValue", {
     talentProfile: "api/user/talentProfile",
     userRegister: "api/user/register",
     company: "company",
+    companyId: "company/id",
     userRegisterCount: "api/user/register/count"
   },
 
