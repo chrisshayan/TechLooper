@@ -71,7 +71,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           }
         },
         tooltip: {
-          pointFormat: '{series.name} <b>: {point.percentage:.1f}%</b>'
+          pointFormat: '<b>$1,000 - $2,000</b> a month in average for jobs in <b>{point.name}</b>'
         },
         plotOptions: {
           pie: {
@@ -79,7 +79,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
             cursor: 'pointer',
             dataLabels: {
               enabled: true,
-              format: '{point.y} jobs in <b>{point.name}</b>',
+              format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
               style: {
                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
               }
