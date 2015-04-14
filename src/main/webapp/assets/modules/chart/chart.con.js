@@ -7,13 +7,13 @@ angular.module('Chart').controller('chartController', function ($scope, jsonValu
   $scope.$on(events.terms, function (event, terms) {
     $.each(terms, function(i, term) {
       if ($.isNumeric(term.averageSalaryMin) &&  $.isNumeric(term.averageSalaryMax)) {
-        term.salRange = sprintf("%(averageSalaryMin)s - %(averageSalaryMax)s", term);
+        term.salRange = sprintf("$%(averageSalaryMin)s - $%(averageSalaryMax)s", term);
       }
       else if ($.isNumeric(term.averageSalaryMin)) {
-        term.salRange = sprintf("from %(averageSalaryMin)s", term);
+        term.salRange = sprintf("from $%(averageSalaryMin)s", term);
       }
       else {
-        term.salRange = sprintf("upto %(averageSalaryMax)s", term);
+        term.salRange = sprintf("upto $%(averageSalaryMax)s", term);
       }
     });
     chartFactory.renderView(terms);
