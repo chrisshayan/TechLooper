@@ -92,8 +92,11 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     @Override
     public Map<String,Double> getAverageSalaryBySkill(TechnicalTerm term) {
         final double LOWER_BOUND_SALARY = 250;
+        BoolQueryBuilder termSearchTextQuery = boolQuery();
+        term.getSearchTexts().forEach(termSearchText -> termSearchTextQuery.should(matchPhraseQuery("jobTitle", termSearchText)));
+
         BoolQueryBuilder queryJobBySkill = boolQuery().must(
-                matchPhraseQuery("jobTitle", term.getKey())).must(rangeQuery("expiredDate").from("now"));
+                termSearchTextQuery).must(rangeQuery("expiredDate").from("now"));
         FilterBuilder filterByAvailableSalary = andFilter(
                 rangeFilter("salaryMin").from(LOWER_BOUND_SALARY), rangeFilter("salaryMax").from(LOWER_BOUND_SALARY));
         FilteredQueryBuilder avgSalaryQuery = filteredQuery(queryJobBySkill, filterByAvailableSalary);
