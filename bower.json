@@ -35,7 +35,8 @@
     "jquery.easing": "latest",
     "bootstrap-select": "latest",
     "blueimp-gallery":  "latest",
-    "blueimp-bootstrap-image-gallery": "latest"
+    "blueimp-bootstrap-image-gallery": "latest",
+    "sprintf": "latest"
   },
   "overrides": {
     "jquery": {
