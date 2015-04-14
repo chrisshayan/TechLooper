@@ -1,4 +1,5 @@
-angular.module('Chart').controller('chartController', function ($scope, jsonValue, connectionFactory, utils, chartService, navigationService) {
+angular.module('Chart').controller('chartController', function ($scope, jsonValue, connectionFactory,
+                                                                utils, chartService, termService) {
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
   var events = jsonValue.events;

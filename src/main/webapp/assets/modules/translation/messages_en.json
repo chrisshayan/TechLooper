@@ -1,7 +1,7 @@
 {
     "language": "VI",
     "findjobs": "Find Jobs",
-    "note": "The digits are number of jobs",
+    "note": "This real-time data is powered by VietnamWorks",
     "tagLine": "Career Analytics. Open Source. Awesome!",
     "loadMore": "Scroll Down to Load More",
     "loading": "Loading data...",
@@ -34,5 +34,6 @@
     "alreadyRegisteredVietnamworks": "You have already registered to ",
     "registerVietnamworksQuestion": "You haven't registered to Vietnamworks yet. Do you want to create new account on ",
     "termAndCondition":"Terms and Conditions",
-    "clickOnSkillGuide":"Click on the Skills to see more details"
+    "clickOnSkillGuide":"Click on the Skills to see more details",
+    "slogan": "Get to know Technology market in Vietnam and Move Up"
 }

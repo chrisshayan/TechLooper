@@ -186,10 +186,7 @@ angular.module("Common").factory("connectionFactory",
           return true;
         }
         subscription = broadcastClient.subscribe(uri, function (response) {
-          scope.$emit(events.term + term.term, {
-            count: JSON.parse(response.body).count,
-            term: term.term
-          });
+          scope.$emit(events.term + term.term, JSON.parse(response.body));
         });
         subscriptions[uri] = subscription;
       },

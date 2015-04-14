@@ -14,8 +14,8 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       terms = termService.toViewTerms($terms);
       var total = $$.getTotalJob(terms);
       $.each(terms, function (i, term) {
-        var per = term.count/total*100;
-        term.percent= per.toFixed(1);
+        var per = term.count / total * 100;
+        term.percent = per.toFixed(1);
       });
       scope.terms = terms;
       scope.$apply();
@@ -32,7 +32,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       scope = $scope;
       data4PieChart = {colors: [], data: [], labels: [], terms: []};
     },
-    getTotalJob: function(terms){
+    getTotalJob: function (terms) {
       var total = 0;
       $.each(terms, function (index, item) {
         total = total + item.count;
@@ -71,7 +71,9 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           }
         },
         tooltip: {
-          pointFormat: '{series.name} <b>: {point.percentage:.1f}%</b>'
+          formatter: function () {
+            return sprintf("<b>%(salRange)s</b> <br/>a month in average for jobs in <b>%(label)s</b>", terms[this.point.index]);
+          }
         },
         plotOptions: {
           pie: {
@@ -79,7 +81,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
             cursor: 'pointer',
             dataLabels: {
               enabled: true,
-              format: '<b>{point.name}</b>: {point.y}',
+              format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
               style: {
                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
               }
@@ -111,7 +113,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           point: {
             events: {
               click: function (e) {
-                utils.go2SkillAnalyticPage(scope, terms[data4PieChart.labels.indexOf(this.name)].term);
+                utils.go2SkillAnalyticPage(scope, terms[this.index].term);
               }
             }
           },
@@ -123,8 +125,9 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
     },
 
     updateViewTerm: function (term) {
+      termService.refineTerm(term);
       Highcharts.charts[0].series[0]
-        .data[data4PieChart.terms.indexOf(term.term)].update([term.term, term.count]);
+        .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);
     }
   }
 
