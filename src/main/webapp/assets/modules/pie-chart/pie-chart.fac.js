@@ -72,6 +72,8 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         },
         tooltip: {
           formatter: function() {
+            //console.log(this);
+            //console.log(terms[data4PieChart.labels]);
             return sprintf("<b>%(salRange)s</b> <br/>a month in average for jobs in <b>%(label)s</b>",
               terms[data4PieChart.labels.indexOf(this.key)]);
           }
@@ -126,6 +128,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
     },
 
     updateViewTerm: function (term) {
+      termService.refineTerm(term);
       Highcharts.charts[0].series[0]
         .data[data4PieChart.terms.indexOf(term.term)].update([term.term, term.count]);
     }

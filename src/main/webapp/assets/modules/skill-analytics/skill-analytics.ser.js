@@ -21,11 +21,13 @@ angular.module("Skill").factory("skillAnalyticsService",
       },
 
       extractTableAndChartJson: function (mergeItems) {
-        var topItems = utils.getTopItems(viewJson.skills, ["previousCount", "currentCount"], 3);
+        var top3 = utils.getTopItems(viewJson.skills, ["previousCount", "currentCount"], 3);
+        var topItems = top3;
         var nonZeroMergeItems = utils.getNonZeroItems(mergeItems, ["previousCount", "currentCount"]);
         topItems = $.merge(nonZeroMergeItems,
           utils.getNonZeroItems(topItems, ["previousCount", "currentCount"]));
         viewJson.tableAndChartJson = topItems.distinct();
+        if (viewJson.tableAndChartJson.length === 0) { viewJson.tableAndChartJson = top3 }
         return viewJson.tableAndChartJson;
       },
 

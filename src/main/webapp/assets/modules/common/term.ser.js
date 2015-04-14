@@ -24,7 +24,24 @@ angular.module("Common").factory("termService", function (jsonValue) {
         }
         term.color = fnColor(term.term);//allow d3js select color for unlisted items
       }
+      instance.refineTerm(term);
       return term;
+    },
+
+    refineTerm: function(term) {
+      if (term['averageSalaryMin'] === undefined && term['averageSalaryMax'] === undefined) {
+        term.salRange = "";
+        return ;
+      }
+      if ($.isNumeric(term.averageSalaryMin) &&  $.isNumeric(term.averageSalaryMax)) {
+        term.salRange = sprintf("$%(averageSalaryMin)s - $%(averageSalaryMax)s", term);
+      }
+      else if ($.isNumeric(term.averageSalaryMin)) {
+        term.salRange = sprintf("from $%(averageSalaryMin)s", term);
+      }
+      else {
+        term.salRange = sprintf("upto $%(averageSalaryMax)s", term);
+      }
     }
   }
 
