@@ -60,7 +60,7 @@ angular.module("Common").constant("jsonValue", {
       label: "Java",
       color: "#bf06b7"
     }, {
-      term: ".Net",
+      term: "DOTNET",
       label: ".Net",
       color: "#d50708"
     }, {
