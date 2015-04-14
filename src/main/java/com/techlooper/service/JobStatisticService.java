@@ -5,6 +5,7 @@ import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -31,4 +32,6 @@ public interface JobStatisticService {
     public Long countJobsBySkillWithinPeriod(final String skill, final HistogramEnum period);
 
     public Long countTotalITJobsWithinPeriod(HistogramEnum period);
+
+    public Map<String,Double> getAverageSalaryBySkill(TechnicalTerm term);
 }

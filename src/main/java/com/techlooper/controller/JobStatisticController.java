@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class JobStatisticController {
@@ -37,10 +38,14 @@ public class JobStatisticController {
     @MessageMapping("/jobs/terms")
     public List<TechnicalTermResponse> countTechnicalTerms() {
         List<TechnicalTermResponse> terms = new LinkedList<>();
-        jsonConfigRepository.getSkillConfig().stream().forEach(term ->
+        jsonConfigRepository.getSkillConfig().stream().forEach(term -> {
+                        Map<String,Double> avgSalary = vietnamWorksJobStatisticService.getAverageSalaryBySkill(term);
                         terms.add(new TechnicalTermResponse.Builder().withTerm(term.getKey()).withLabel(term.getLabel())
-                                .withCount(vietnamWorksJobStatisticService.count(term)).build())
-        );
+                                .withCount(vietnamWorksJobStatisticService.count(term))
+                                .withAverageSalaryMin(avgSalary.get("SALARY_MIN"))
+                                .withAverageSalaryMax(avgSalary.get("SALARY_MAX"))
+                                .build());
+                        });
         return terms;
     }
 

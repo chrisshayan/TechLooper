@@ -5,13 +5,15 @@ import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
+import org.elasticsearch.search.aggregations.metrics.avg.AvgAggregator;
+import org.elasticsearch.search.aggregations.metrics.avg.AvgBuilder;
+import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by chrisshayan on 7/14/14.
@@ -73,15 +78,53 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     @Override
     public Long countTotalITJobsWithinPeriod(HistogramEnum period) {
         String lastPeriod = "now-" + period.getPeriod() + period.getUnit();
-        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery().withQuery(QueryBuilders.nestedQuery("industries",
-                QueryBuilders.boolQuery()
-                        .should(QueryBuilders.termQuery("industries.industryId", 35))
-                        .should(QueryBuilders.termQuery("industries.industryId", 55))
-                        .should(QueryBuilders.termQuery("industries.industryId", 57))
+        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery().withQuery(nestedQuery("industries",
+                boolQuery()
+                        .should(termQuery("industries.industryId", 35))
+                        .should(termQuery("industries.industryId", 55))
+                        .should(termQuery("industries.industryId", 57))
                         .minimumNumberShouldMatch(1))).withFilter(
-                FilterBuilders.rangeFilter("approvedDate").from(lastPeriod).to("now")).build();
+                rangeFilter("approvedDate").from(lastPeriod).to("now")).build();
 
         return elasticsearchTemplate.count(searchQuery);
+    }
+
+    @Override
+    public Map<String,Double> getAverageSalaryBySkill(TechnicalTerm term) {
+        final double LOWER_BOUND_SALARY = 250;
+        BoolQueryBuilder queryJobBySkill = boolQuery().must(
+                matchPhraseQuery("jobTitle", term.getKey())).must(rangeQuery("expiredDate").from("now"));
+        FilterBuilder filterByAvailableSalary = andFilter(
+                rangeFilter("salaryMin").from(LOWER_BOUND_SALARY), rangeFilter("salaryMax").from(LOWER_BOUND_SALARY));
+        FilteredQueryBuilder avgSalaryQuery = filteredQuery(queryJobBySkill, filterByAvailableSalary);
+
+        final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
+                .withQuery(avgSalaryQuery)
+                .addAggregation(AggregationBuilders.avg("avg_salary_min").field("salaryMin"))
+                .addAggregation(AggregationBuilders.avg("avg_salary_max").field("salaryMax"))
+                .build();
+
+        Aggregations aggregations = elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
+        double avgSalaryMin = ((InternalAvg)aggregations.get("avg_salary_min")).getValue();
+        double avgSalaryMax = ((InternalAvg)aggregations.get("avg_salary_max")).getValue();
+
+        Map<String,Double> result = new HashMap<>();
+        if (Double.isNaN(avgSalaryMin) && Double.isNaN(avgSalaryMax)) {
+            result.put("SALARY_MIN", LOWER_BOUND_SALARY);
+            result.put("SALARY_MAX", Double.NaN);
+        } else if (!Double.isNaN(avgSalaryMin) && !Double.isNaN(avgSalaryMax)) {
+            result.put("SALARY_MIN", Math.ceil(avgSalaryMin));
+            result.put("SALARY_MAX", Math.ceil(avgSalaryMax));
+        } else {
+            if (Double.isNaN(avgSalaryMin)) {
+                result.put("SALARY_MIN", Double.NaN);
+                result.put("SALARY_MAX", avgSalaryMax);
+            } else {
+                result.put("SALARY_MIN", avgSalaryMin);
+                result.put("SALARY_MAX", Double.NaN);
+            }
+        }
+        return result;
     }
 
     /**
