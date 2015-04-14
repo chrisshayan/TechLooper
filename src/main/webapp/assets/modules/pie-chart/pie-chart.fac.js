@@ -71,8 +71,10 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           }
         },
         tooltip: {
-          pointFormat: '<b>$1,000 - $2,000</b> <br/>a month in average for jobs in <b>{point.name}</b>',
-          headerFormat: ""
+          formatter: function() {
+            return sprintf("<b>%(salRange)s</b> <br/>a month in average for jobs in <b>%(label)s</b>",
+              terms[data4PieChart.labels.indexOf(this.key)]);
+          }
         },
         plotOptions: {
           pie: {
