@@ -1,4 +1,4 @@
-angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService) {
+angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService, $route) {
   var terms = [];
   var data4PieChart = {colors: [], data: [], labels: [], terms: []};
   var innerDonut = utils.isMobile() ? '0%' : '30%';
@@ -31,6 +31,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         }
         data4PieChart.colors.push(term.color);
       });
+      console.log(data4PieChart.data)
       data4PieChart.terms = terms.toArray("term");
       data4PieChart.labels = terms.toArray("label");
     },
@@ -153,13 +154,19 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       }
     },
     switchChartData: function(){
+      if(localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job){
+        $('.switch-data').find('li').removeClass('active');
+        $('.switch-data').find('li[data-chart=JOB]').addClass('active');
+      }
       //var key = instance.getChartData();
       $('.switch-data').find('li').on('click', function(){
         $('.switch-data').find('li').removeClass('active');
         if($(this).attr('data-chart') == 'JOB'){
           localStorage.setItem('PIE_CHART_ITEM_TYPE',jsonValue.pieChartType.job);
+          $route.reload();
         }else{
           localStorage.setItem('PIE_CHART_ITEM_TYPE',jsonValue.pieChartType.salary);
+          $route.reload();
         }
         $(this).addClass('active');
       });
