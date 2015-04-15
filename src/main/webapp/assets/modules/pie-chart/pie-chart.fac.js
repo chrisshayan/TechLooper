@@ -151,6 +151,18 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         Highcharts.charts[0].series[0]
           .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);
       }
+    },
+    switchChartData: function(){
+      //var key = instance.getChartData();
+      $('.switch-data').find('li').on('click', function(){
+        $('.switch-data').find('li').removeClass('active');
+        if($(this).attr('data-chart') == 'JOB'){
+          localStorage.setItem('PIE_CHART_ITEM_TYPE',jsonValue.pieChartType.job);
+        }else{
+          localStorage.setItem('PIE_CHART_ITEM_TYPE',jsonValue.pieChartType.salary);
+        }
+        $(this).addClass('active');
+      });
     }
   }
 
