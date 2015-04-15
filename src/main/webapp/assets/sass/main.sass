@@ -9,7 +9,10 @@ body
   font-weight: 300
   outline: 0
   min-height: 100%
-  margin: 0 auto -65px
+  height: 100%
+  width: 100%
+  margin: 0px
+  padding: 0px
 *:focus
   outline: 0
 textarea:focus, 
@@ -41,6 +44,8 @@ a:focus
   display: none
 .desktop
   display: block
+.body-content
+  min-height: 100%
 .techlooper-body
   display: block
   clear: both
@@ -158,6 +163,7 @@ ul.setting-items
   width: 50%
   text-align: center
   margin: auto
+  padding-bottom: 30px
   p
     width: auto
     margin: auto
@@ -175,15 +181,20 @@ ul.setting-items
 .chart-block
   width: 100%
   clear: both
-  min-height: 550px
   p
     text-align: center
-    font-size: 18px
-.chart-contrainer
+    font-size: 22px
+    color: #d6d6d6
+.chart-block:after
+  content: ""
+  display: block
+
+.chart-container
   width: 100%
   clear: both
   display: block
   text-align: center
+  padding-bottom: 30px
 .signin-header,
 .user-profile-header
   height: 70px
@@ -1646,54 +1657,92 @@ label.bootstrap-checkbox.disabled
 .icheckbox_polaris,
 .iradio_polaris
   background: url(../images/polaris.png) no-repeat
+.js-footer,
+.body-content:after
+  height: 60px
 .js-footer
-  footer
-    height: 60px
-    background-color: #000
-    border-top: 1px solid #292929
-    color: #eeeeee
+  height: 60px
+  background-color: #000
+  border-top: 1px solid #292929
+  padding-top: 10px
+  .footer-content-block
     width: 100%
-    clear: both
-    padding: 10px 25px
-    display: block
-    position: static
-    .vnw-logo
+    max-width: 1000px
+    margin: auto
+  .vnw-logo
+    width: auto
+    float: right
+    padding-top: 7px
+    img
+      max-width: 100px
+  .copyright-block
+    width: 60%
+    float: left
+    color: #585858
+    text-align: left
+    padding-top: 6px
+    p
+      font-size: 12px
+      line-height: 16px
+      margin: auto
+    span
+      color: #a3a3a3
+    a
+      color: #a3a3a3
+  .social-network-block
+    width: auto
+    float: right
+    text-align: right
+    ul
       width: auto
       float: right
-      padding-top: 7px
-      img
-        max-width: 100px
-    .copyright-block
-      width: 60%
-      float: left
-      color: #585858
-      text-align: left
-      padding-top: 6px
-      p
-        font-size: 12px
-        line-height: 16px
-        margin: auto
-      span
-        color: #a3a3a3
-      a
-        color: #a3a3a3
-    .social-network-block
-      width: auto
-      float: right
-      text-align: right
-      ul
-        width: auto
-        float: right
-        li
-          float: left
-          padding: 5px 0 0 5px
-          a
-            color: #585858
-          a:hover
-            color: #2c7abe
-          i
-            font-size: 30px
+      li
+        float: left
+        padding: 5px 0 0 5px
+        a
+          color: #585858
+        a:hover
+          color: #2c7abe
+        i
+          font-size: 30px
   .footer-content
     width: 100%
     max-width: 1000px
     margin: auto
+.technical-detail
+  float: left
+  width: 100%
+.switch-data
+  margin: auto
+  text-align: center
+  width: 250px
+  padding-top: 20px
+  ul
+    margin: 0
+    padding: 0
+    li
+      width: 50%
+      float: left
+      background-color: #312e2f
+      border-bottom: 1px solid #000
+      padding: 5px 10px
+      font-size: 20px
+      cursor: pointer
+      color: #eeeeee
+    li:last-child
+      -webkit-border-top-right-radius: 5px
+      -webkit-border-bottom-right-radius: 5px
+      -moz-border-radius-topright: 5px
+      -moz-border-radius-bottomright: 5px
+      border-top-right-radius: 5px
+      border-bottom-right-radius: 5px
+    li:first-child
+      -webkit-border-top-left-radius: 5px
+      -webkit-border-bottom-left-radius: 5px
+      -moz-border-radius-topleft: 5px
+      -moz-border-radius-bottomleft: 5px
+      border-top-left-radius: 5px
+      border-bottom-left-radius: 5px
+    li.active
+      background-color: #277cbe
+      color: #fff

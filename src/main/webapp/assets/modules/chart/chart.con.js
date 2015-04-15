@@ -1,5 +1,5 @@
 angular.module('Chart').controller('chartController', function ($scope, jsonValue, connectionFactory,
-                                                                utils, chartService, termService) {
+                                                                utils, chartService, termService, pieFactory) {
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
 
   var events = jsonValue.events;
@@ -12,6 +12,7 @@ angular.module('Chart').controller('chartController', function ($scope, jsonValu
         chartFactory.updateViewTerm(term);
       });
     });
+    pieFactory.switchChartData();
   });
   connectionFactory.receiveTechnicalTerms();
 });

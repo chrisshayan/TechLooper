@@ -32,6 +32,9 @@ techlooper.directive("itProfessional", function ($compile, $location, utils, jso
           return "modules/landing/landing.tem.html";
       }
       return '';
+    },
+    link: function(){
+      $('.js-footer').removeClass('technical-detail');
     }
   };
 });
