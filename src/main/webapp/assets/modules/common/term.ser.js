@@ -34,13 +34,17 @@ angular.module("Common").factory("termService", function (jsonValue) {
         return ;
       }
       if ($.isNumeric(term.averageSalaryMin) &&  $.isNumeric(term.averageSalaryMax)) {
+        term.averageSalaryMin = term.averageSalaryMin.toLocaleString();
+        term.averageSalaryMax = term.averageSalaryMax.toLocaleString();
         term.salRange = sprintf("$%(averageSalaryMin)s - $%(averageSalaryMax)s", term);
       }
       else if ($.isNumeric(term.averageSalaryMin)) {
-        term.salRange = sprintf("from $%(averageSalaryMin)s", term);
+        term.averageSalaryMin = term.averageSalaryMin.toLocaleString();
+        term.salRange = sprintf("From $%(averageSalaryMin)s", term);
       }
       else {
-        term.salRange = sprintf("upto $%(averageSalaryMax)s", term);
+        term.averageSalaryMax = term.averageSalaryMax.toLocaleString();
+        term.salRange = sprintf("Up To $%(averageSalaryMax)s", term);
       }
     }
   }
