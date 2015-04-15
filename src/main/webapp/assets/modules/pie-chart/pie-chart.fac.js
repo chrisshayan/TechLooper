@@ -31,7 +31,6 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         }
         data4PieChart.colors.push(term.color);
       });
-      console.log(data4PieChart.data)
       data4PieChart.terms = terms.toArray("term");
       data4PieChart.labels = terms.toArray("label");
     },
