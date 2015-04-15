@@ -4,6 +4,9 @@ angular.module("Skill").directive("skillcircle", function () {
     templateUrl: "modules/skill-circle/skill-circle.tem.html",
     scope: {
       viewJson: "="
+    },
+    link: function(){
+      $('.js-footer').addClass('technical-detail');
     }
   }
 }).directive("skillchart", function () {

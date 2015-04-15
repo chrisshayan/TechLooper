@@ -1,4 +1,4 @@
-angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils) {
+angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils, $timeout) {
 
   var $$ = {
     goBack: function () {
@@ -7,6 +7,9 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
         return;
       }
       $location.path(path);
+      $timeout(function(){
+        $('.js-footer').removeClass('technical-detail');
+      }, 600);
     }
   }
 
