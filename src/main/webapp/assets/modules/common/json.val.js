@@ -1,5 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
+  pieChartType: {
+    salary: "SALARY",
+    job: "JOB"
+  },
+
   messages: {
     successSave: "Your data has been successfully saved",
     errorFieldsSave: "Please correct the marked field(s) above"
