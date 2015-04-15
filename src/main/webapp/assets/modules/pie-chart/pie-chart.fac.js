@@ -14,14 +14,21 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       terms = termService.toViewTerms($terms);
       var total = $$.getTotalJob(terms);
       $.each(terms, function (i, term) {
-        var per = term.count / total * 100;
+        var per = term.averageSalaryMin / total * 100;
+        if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === "JOB") {
+          per = term.count / total * 100;
+        }
         term.percent = per.toFixed(1);
       });
       scope.terms = terms;
       scope.$apply();
 
       $.each(terms, function (i, term) {
-        data4PieChart.data.push([term.label, term.count]);
+        if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === "JOB") {
+          data4PieChart.data.push([term.label, term.count]);
+        } else {
+          data4PieChart.data.push([term.label, term.averageSalaryMin, term.salRange]);
+        }
         data4PieChart.colors.push(term.color);
       });
       data4PieChart.terms = terms.toArray("term");
@@ -81,7 +88,20 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
             cursor: 'pointer',
             dataLabels: {
               enabled: true,
-              format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
+              //format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
+              formatter: function () {
+                for (var i = 0; i  < data4PieChart.data.length; i++) {
+                  var currentTermKey = this.key.toLowerCase();
+                  var lookUpTermInChart = data4PieChart.data[i][0];
+                  if (lookUpTermInChart !== undefined && currentTermKey === lookUpTermInChart.toLowerCase()) {
+                    if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === "JOB") {
+                      return "<span>" + data4PieChart.data[i][1] + ' jobs in ' + this.key.toUpperCase() + "</span>";
+                    } else {
+                      return "<span>" + data4PieChart.data[i][2] + ' in ' + this.key.toUpperCase()+ "</span>";
+                    }
+                  }
+                }
+              },
               style: {
                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
               }
