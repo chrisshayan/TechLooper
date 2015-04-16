@@ -31,7 +31,6 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         }
         data4PieChart.colors.push(term.color);
       });
-      console.log(data4PieChart.data)
       data4PieChart.terms = terms.toArray("term");
       data4PieChart.labels = terms.toArray("label");
     },
@@ -98,7 +97,11 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
                 var index = data4PieChart.labels.indexOf(termLabel);
                 if (index !== -1) {
                   if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-                    return "<span>" + data4PieChart.data[index][1] + ' jobs in ' + termLabel + "</span>";
+                    if (data4PieChart.data[index] instanceof Array) {
+                      return "<span>" + data4PieChart.data[index][1] + ' jobs in ' + termLabel + "</span>";
+                    } else {
+                      return "<span>" + data4PieChart.data[index].y + ' jobs in ' + termLabel + "</span>";
+                    }
                   } else {
                     return "<span>" + data4PieChart.data[index][2] + ' in ' + termLabel + "</span>";
                   }
