@@ -1,0 +1,164 @@
+GET vietnamworks/job/_search?search_type=count
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "match_phrase": {
+                  "jobTitle": "java"
+                }
+              },
+              {
+                "match_phrase": {
+                  "jobTitle": "j2ee"
+                }
+              },
+              {
+                "match_phrase": {
+                  "jobTitle": "java ee"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "match": {
+            "jobLevelId": "5"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "avg_salary_min": {
+      "filter": {
+        "and": {
+          "filters": [
+            {
+              "range": {
+                "salaryMin": {
+                  "from": 250
+                }
+              }
+            },
+            {
+              "range": {
+                "salaryMax": {
+                  "from": 250
+                }
+              }
+            },
+            {
+              "range": {
+                "expiredDate": {
+                  "from": "now"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "aggs": {
+        "avg_salary_min": {
+          "avg": {
+            "field": "salaryMin"
+          }
+        }
+      }
+    },
+    "avg_salary_max": {
+      "filter": {
+        "and": {
+          "filters": [
+            {
+              "range": {
+                "salaryMin": {
+                  "from": 250
+                }
+              }
+            },
+            {
+              "range": {
+                "salaryMax": {
+                  "from": 250
+                }
+              }
+            },
+            {
+              "range": {
+                "expiredDate": {
+                  "from": "now"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "aggs": {
+        "avg_salary_max": {
+          "avg": {
+            "field": "salaryMax"
+          }
+        }
+      }
+    },
+    "top_companies": {
+      "filter": {
+        "range": {
+          "expiredDate": {
+            "from": "now"
+          }
+        }
+      },
+      "aggs": {
+        "top_companies": {
+          "terms": {
+            "field": "companyId"
+          }
+        }
+      }
+    },
+    "spring_one_year_analytics": {
+      "filter": {
+        "fquery": {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "multi_match": {
+                    "query": "Java spring",
+                    "fields": [
+                      "skillExperience",
+                      "jobDescription",
+                      "skillExperience"
+                    ],
+                    "operator": "and"
+                  }
+                },
+                {
+                  "range": {
+                    "expiredDate": {
+                      "from": "now-12M"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "aggs": {
+        "spring_m": {
+          "date_histogram": {
+            "field": "approvedDate",
+            "format": "yyyy-MM-dd",
+            "interval": "month"
+          }
+        }
+      }
+    }
+  }
+}

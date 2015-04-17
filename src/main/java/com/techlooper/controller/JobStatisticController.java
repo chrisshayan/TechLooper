@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @Controller
 public class JobStatisticController {
@@ -73,4 +72,9 @@ public class JobStatisticController {
       skillStatisticRequest.getHistograms());
   }
 
+  @SendTo("/topic/analytics/term")
+  @MessageMapping("/analytics/term")
+  public TermStatisticResponse analyticTermBySkill(TermStatisticRequest termStatisticRequest) {
+    return null;
+  }
 }
