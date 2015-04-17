@@ -23,6 +23,11 @@ GET vietnamworks/job/_search?search_type=count
               }
             ]
           }
+        },
+        {
+          "match": {
+            "jobLevelId": "5"
+          }
         }
       ]
     }
