@@ -6,6 +6,7 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
+import com.techlooper.model.TermStatisticRequest;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.JsonUtils;
@@ -20,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,5 +84,15 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testCountTotalITJobsWithinPeriod() throws Exception {
         Long totalITJobs = jobStatisticService.countTotalITJobsWithinPeriod(HistogramEnum.TWO_QUARTERS);
         assertTrue(totalITJobs > 0);
+    }
+
+    @Test
+    public void testGenerateTermStatistic() throws Exception {
+        TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
+        termStatisticRequest.setTerm("JAVA");
+        termStatisticRequest.setJobLevelId(5);
+        termStatisticRequest.setSkills(Arrays.asList("Spring", "Maven"));
+        jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+        System.out.print("Test Done");
     }
 }

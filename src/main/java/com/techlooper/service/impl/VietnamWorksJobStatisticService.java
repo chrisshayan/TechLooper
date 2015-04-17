@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.model.*;
+import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
@@ -11,11 +12,7 @@ import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
-import org.elasticsearch.search.aggregations.metrics.avg.AvgAggregator;
-import org.elasticsearch.search.aggregations.metrics.avg.AvgBuilder;
 import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -26,7 +23,8 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.FilterBuilders.andFilter;
+import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -42,6 +40,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     @Resource
     private JobQueryBuilder jobQueryBuilder;
+
+    @Resource
+    private JsonConfigRepository jsonConfigRepository;
 
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
@@ -90,7 +91,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     @Override
-    public Map<String,Double> getAverageSalaryBySkill(TechnicalTerm term) {
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term) {
         final double LOWER_BOUND_SALARY = 250;
         BoolQueryBuilder termSearchTextQuery = boolQuery();
         term.getSearchTexts().forEach(termSearchText -> termSearchTextQuery.should(matchPhraseQuery("jobTitle", termSearchText)));
@@ -108,10 +109,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 .build();
 
         Aggregations aggregations = elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
-        double avgSalaryMin = ((InternalAvg)aggregations.get("avg_salary_min")).getValue();
-        double avgSalaryMax = ((InternalAvg)aggregations.get("avg_salary_max")).getValue();
+        double avgSalaryMin = ((InternalAvg) aggregations.get("avg_salary_min")).getValue();
+        double avgSalaryMax = ((InternalAvg) aggregations.get("avg_salary_max")).getValue();
 
-        Map<String,Double> result = new HashMap<>();
+        Map<String, Double> result = new HashMap<>();
         if (Double.isNaN(avgSalaryMin) && Double.isNaN(avgSalaryMax)) {
             result.put("SALARY_MIN", LOWER_BOUND_SALARY);
             result.put("SALARY_MAX", Double.NaN);
@@ -203,5 +204,36 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         Arrays.stream(histogramEnums)
                 .forEach(histogramEnum -> list.addAll(jobQueryBuilder.toSkillAggregations(term.getSkills(), histogramEnum)));
         return list;
+    }
+
+    public TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
+        QueryBuilder termQueryBuilder = jobQueryBuilder.getTermQueryBuilder(term);
+
+        Integer jobLevelId = term.getJobLevelId();
+        if (jobLevelId != null && jobLevelId > 0) {
+            MatchQueryBuilder levelQueryBuilder = matchQuery("jobLevelId", term.getJobLevelId());
+            queryBuilder.withQuery(boolQuery().must(termQueryBuilder).must(levelQueryBuilder));
+        } else {
+            queryBuilder.withQuery(boolQuery().must(termQueryBuilder));
+        }
+
+        FilterAggregationBuilder salaryMinAggregation = jobQueryBuilder.getSalaryMinAggregation();
+        FilterAggregationBuilder salaryMaxAggregation = jobQueryBuilder.getSalaryMaxAggregation();
+        FilterAggregationBuilder topCompaniesAggregation = jobQueryBuilder.getTopCompaniesAggregation();
+        List<FilterAggregationBuilder> skillAnalyticsAggregations =
+                jobQueryBuilder.getSkillAnalyticsAggregations(term, histogramEnum);
+
+        queryBuilder.addAggregation(salaryMinAggregation)
+                .addAggregation(salaryMaxAggregation)
+                .addAggregation(topCompaniesAggregation);
+        skillAnalyticsAggregations.forEach(skillAnalyticsAggregation -> queryBuilder.addAggregation(skillAnalyticsAggregation));
+
+        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
+        return transformAggregationsToTermStatisticResponse(aggregations);
+    }
+
+    private TermStatisticResponse transformAggregationsToTermStatisticResponse(Aggregations aggregations) {
+        return null;
     }
 }
