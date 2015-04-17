@@ -7,9 +7,27 @@ import java.util.List;
  */
 public class TermStatisticRequest {
 
+  private String term;
+
   private List<String> skills;
 
   private Integer jobLevelId;
+
+  public String getTerm() {
+    return term;
+  }
+
+  public void setTerm(String term) {
+    this.term = term;
+  }
+
+  public Integer getJobLevelId() {
+    return jobLevelId;
+  }
+
+  public void setJobLevelId(Integer jobLevelId) {
+    this.jobLevelId = jobLevelId;
+  }
 
   public List<String> getSkills() {
     return skills;
