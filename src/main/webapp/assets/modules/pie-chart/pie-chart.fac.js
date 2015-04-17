@@ -55,35 +55,36 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       $('.pie-Chart-Container').highcharts({
         colors: data4PieChart.colors,
         chart: {
-          backgroundColor: '#201d1e',
-          plotBorderColor: '#efefef'
+          backgroundColor: '#fff',
+          plotBorderColor: '#1f1f1f'
         },
         title: {
           text: ''
         },
         legend: {
           itemStyle: {
-            color: '#efefef'
+            color: '#1f1f1f'
           },
           itemHoverStyle: {
-            color: '#efefef'
+            color: '#1f1f1f'
           },
           itemHiddenStyle: {
-            color: '#efefef'
+            color: '#1f1f1f'
           }
         },
         labels: {
           style: {
-            color: '#efefef'
+            color: '#1f1f1f'
           }
         },
         tooltip: {
           formatter: function () {
             if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-              return sprintf("<b>%(salRange)s</b> <br/>a month in average for jobs in <b>%(label)s</b>", terms[this.point.index]);
+              return sprintf("<b>%(salRange)s</b> <br/>a month in average for jobs in <b>%(label)s</b><br/><small>Click to View Detail</small>", terms[this.point.index]);
             }
-            return sprintf("<b>%(count)s</b> jobs in <b>%(label)s</b>", terms[this.point.index]);
-          }
+            return sprintf("<b>%(count)s</b> jobs in <b>%(label)s</b><br/><small>Click to View Detail</small>", terms[this.point.index]);
+          },
+          useHTML: true
         },
         plotOptions: {
           pie: {
@@ -114,7 +115,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           },
           series: {
             dataLabels: {
-              color: '#efefef'
+              color: '#1f1f1f'
             },
             marker: {
               lineColor: '#333'

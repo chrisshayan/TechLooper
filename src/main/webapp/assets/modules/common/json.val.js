@@ -63,53 +63,53 @@ angular.module("Common").constant("jsonValue", {
     listedItems: [{
       term: "JAVA",
       label: "Java",
-      color: "#bf06b7"
+      color: "#92c3f2"
     }, {
       term: "DOTNET",
       label: ".Net",
-      color: "#d50708"
+      color: "#6baed6"
     }, {
       term: "PHP",
       label: "Php",
-      color: "#450770"
+      color: "#d9d9d9"
     }, {
       term: "RUBY",
       label: "Ruby",
-      color: "#d5876a"
+      color: "#fdae6b"
     }, {
       term: "PYTHON",
       label: "Python",
-      color: "#d7c500"
+      color: "#fdd0a2"
     }, {
       term: "PROJECT_MANAGER",
       label: "Project Manager",
-      color: "#17875f"
+      color: "#bcbddc"
     }, {
       term: "DBA",
       label: "DBA",
-      color: "#666600"
+      color: "#d9f3d4"
     }, {
       term: "QA",
       label: "QA",
-      color: "#0576cd"
+      color: "#c6dbef"
     }, {
       term: "BA",
       label: "BA",
-      color: "#996600"
+      color: "#f2c56c"
     }, {
       term: "CPLUSPLUS",
       label: "C++",
-      color: "#00CFA1"
+      color: "#bdbdbd"
     },
       {
         term: "WEB",
         label: "Web Development",
-        color: "#AA9439"
+        color: "#dadaeb"
       },
       {
         term: "MOBILE",
         label: "Mobile Development",
-        color: "#6F256F"
+        color: "#a1d99b"
       }
     ]
   },
