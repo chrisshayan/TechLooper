@@ -8,13 +8,16 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class JobStatisticController {
 
   @Resource
@@ -25,6 +28,9 @@ public class JobStatisticController {
 
   @Resource
   private JsonConfigRepository jsonConfigRepository;
+
+  @Resource
+  private JobStatisticService jobStatisticService;
 
   @Scheduled(cron = "${scheduled.cron}")
   public void countTechnicalJobs() {
@@ -72,9 +78,8 @@ public class JobStatisticController {
       skillStatisticRequest.getHistograms());
   }
 
-  @SendTo("/topic/analytics/term")
-  @MessageMapping("/analytics/term")
+  @RequestMapping("/term/statistic")
   public TermStatisticResponse analyticTermBySkill(TermStatisticRequest termStatisticRequest) {
-    return null;
+    return jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
   }
 }
