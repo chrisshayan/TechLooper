@@ -2,9 +2,9 @@
   <h2>Top 3 Companies</h2>
   <div class="list-companies-content">
     <ul>
-      <li><a href="#" target="_blank"><img src="images/cp-logo-harveynash.png" alt=""/></a></li>
-      <li><a href="#" target="_blank"><img src="images/cp-logo-google.png" alt=""/></a></li>
-      <li><a href="#" target="_blank"><img src="images/cp-logo-fpt.png" alt=""/></a></li>
+      <li ng-repeat="company in termStatistic.companies">
+        <a href="{{companyUrl(company)}}" target="_blank"><img ng-src="{{company.companyLogoURL}}" alt=""/></a>
+      </li>
     </ul>
   </div>
 </div>
