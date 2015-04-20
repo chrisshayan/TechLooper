@@ -155,8 +155,9 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     public List<FilterAggregationBuilder> getSkillAnalyticsAggregations(TermStatisticRequest term, HistogramEnum histogramEnum) {
         String lastPeriod = histogramEnum.getTotal() * histogramEnum.getPeriod() + histogramEnum.getUnit();
         List<FilterAggregationBuilder> skillAnalyticsAggregations = new ArrayList<>();
+        TechnicalTerm technicalTerm = jsonConfigRepository.findByKey(term.getTerm());
         for (String skill : term.getSkills()) {
-            String searchQuery = term.getTerm() + " " + skill;
+            String searchQuery = technicalTerm.getLabel() + " " + skill;
             String aggName = EncryptionUtils.encodeHexa(skill) + "_" + histogramEnum + "_analytics";
             FilterBuilder skillFilter = queryFilter(boolQuery()
                     .must(multiMatchQuery(searchQuery, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
