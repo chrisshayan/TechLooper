@@ -206,7 +206,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     public TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum) {
-        preprocessStatisticRequestParameter(term, histogramEnum);
+        // When page init, pick top 5 term from JSON configuration
+        TechnicalTerm configuredTechnicalTerm = preprocessStatisticRequestParameter(term, histogramEnum);
 
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
         QueryBuilder termQueryBuilder = jobQueryBuilder.getTermQueryBuilder(term);
@@ -233,24 +234,35 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         skillAnalyticsAggregations.forEach(skillAnalyticsAggregation -> queryBuilder.addAggregation(skillAnalyticsAggregation));
 
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
-        return transformAggregationsToTermStatisticResponse(term, histogramEnum, aggregations);
+        return transformAggregationsToTermStatisticResponse(term, configuredTechnicalTerm, histogramEnum, aggregations);
     }
 
-    private void preprocessStatisticRequestParameter(TermStatisticRequest term, HistogramEnum histogramEnum) {
+    private TechnicalTerm preprocessStatisticRequestParameter(TermStatisticRequest term, HistogramEnum histogramEnum) {
         // when init page, it should return top 5 default skill from JSON configuration
+        TechnicalTerm technicalTerm = jsonConfigRepository.findByKey(term.getTerm());
+        List<Skill> technicalSkills = new ArrayList<>();
         if (term.getSkills() == null || term.getSkills().isEmpty()) {
             term.setSkills(new ArrayList<>());
-            TechnicalTerm technicalTerm = jsonConfigRepository.findByKey(term.getTerm());
             if (technicalTerm != null) {
-                List<Skill> technicalSkills = technicalTerm.getSkills();
-                technicalSkills.forEach(skill -> {
-                    skill.setCount(countJobsBySkillWithinPeriod(skill.getName(), HistogramEnum.ONE_YEAR));
+                technicalSkills = technicalTerm.getSkills();
+                technicalSkills.stream().limit(LIMIT_NUMBER_OF_COMPANIES).forEach(technicalSkill -> {
+                    term.getSkills().add(technicalSkill.getName());
                 });
-                technicalSkills.sort((skill1, skill2) -> skill2.getCount().intValue() - skill1.getCount().intValue());
-                technicalSkills.stream().limit(LIMIT_NUMBER_OF_COMPANIES).forEach(technicalSkill ->
-                    term.getSkills().add(technicalSkill.getName()));
             }
+        } else {
+            for (String skill : term.getSkills()) {
+                Skill technicalSkill = new Skill();
+                technicalSkill.setName(skill);
+                technicalSkills.add(technicalSkill);
+            }
+            technicalTerm.setSkills(technicalSkills);
         }
+
+        technicalSkills.forEach(skill -> {
+            skill.setCount(countJobsBySkillWithinPeriod(skill.getName(), HistogramEnum.ONE_YEAR));
+        });
+        technicalSkills.sort((skill1, skill2) -> skill2.getCount().intValue() - skill1.getCount().intValue());
+
 
         if (term.getJobLevelId() == null) {
             term.setJobLevelId(0);
@@ -259,10 +271,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         if (histogramEnum == null) {
             histogramEnum = HistogramEnum.ONE_YEAR;
         }
+
+        return technicalTerm;
     }
 
     private TermStatisticResponse transformAggregationsToTermStatisticResponse(TermStatisticRequest term,
-                         HistogramEnum histogramEnum, Aggregations aggregations) {
+                   TechnicalTerm configuredTechnicalTerm, HistogramEnum histogramEnum, Aggregations aggregations) {
         TermStatisticResponse termStatisticResponse = new TermStatisticResponse();
 
         termStatisticResponse.setTerm(term.getTerm());
@@ -275,11 +289,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Get salary max aggregation
         double avgSalaryMax = ((InternalAvg) (
                 (InternalFilter) aggregations.get("avg_salary_max")).getAggregations().get("avg_salary_max")).getValue();
-        termStatisticResponse.setSalaryMax(avgSalaryMax);
 
         Map<String,Double> formattedSalary = processSalaryData(avgSalaryMin, avgSalaryMax);
-        termStatisticResponse.setSalaryMin(formattedSalary.get("SALARY_MIN"));
-        termStatisticResponse.setSalaryMax(formattedSalary.get("SALARY_MAX"));
+        termStatisticResponse.setAverageSalaryMin(formattedSalary.get("SALARY_MIN"));
+        termStatisticResponse.setAverageSalaryMax(formattedSalary.get("SALARY_MAX"));
 
         // Get list of top companies
         List<Terms.Bucket> topCompanyBuckets = ((LongTerms)
@@ -303,8 +316,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Get list of skill trends
         List<String> skillRequest = term.getSkills();
         List<SkillStatistic> skillStatistics = new ArrayList<>();
-        for (String skill : skillRequest) {
-            String encodedSkillAgg = EncryptionUtils.encodeHexa(skill) + "_" + histogramEnum + "_analytics";
+        for (int i = 0; i < skillRequest.size(); i++) {
+            String encodedSkillAgg = EncryptionUtils.encodeHexa(skillRequest.get(i)) + "_" + histogramEnum + "_analytics";
             DateHistogram skillHistogram = ((DateHistogram) ((InternalAggregations) ((InternalFilter) aggregations.get(encodedSkillAgg)).getAggregations())
                     .get(encodedSkillAgg));
             List<Long> histogramValues = new ArrayList<>();
@@ -312,7 +325,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 histogramValues.add(bucket.getDocCount());
             });
             SkillStatistic skillStatistic = new SkillStatistic();
-            skillStatistic.setSkillName(skill);
+            skillStatistic.setSkillName(skillRequest.get(i));
+            skillStatistic.setTotalJob(configuredTechnicalTerm.getSkills().get(i).getCount());
             Histogram histogram = new Histogram();
             histogram.setName(histogramEnum);
             histogram.setValues(histogramValues);
