@@ -24,10 +24,7 @@ techlooper
     return {
       restrict: "A",
       replace: true,
-      templateUrl: "modules/technical-detail/trend-skills.tem.html",
-      link: function () {
-        technicalDetailService.trendSkills();
-      }
+      templateUrl: "modules/technical-detail/trend-skills.tem.html"
     }
   })
   .directive("companiesList", function () {

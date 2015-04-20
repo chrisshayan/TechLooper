@@ -5,11 +5,10 @@ techlooper.factory("technicalDetailService", function () {
      * @param {object} skill - Skill object @see skill-level-analytics.json
      */
     showSkillsList: function (skill) {
-      var currentValueIndex = skill.histograms[0].values.length - 1;
       Circles.create({
         id: 'circles-' + skill.skillName,
         radius: 60,
-        value: skill.histograms[0].values[currentValueIndex],
+        value: skill.totalJob,
         maxValue: 100,
         width: 10,
         text: function (value) {return value;},
@@ -21,7 +20,23 @@ techlooper.factory("technicalDetailService", function () {
         styleText: true
       });
     },
-    trendSkills: function () {
+
+    /**
+     * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
+     */
+    prepareTrendSkills: function(termStatistic) {
+      var data = [];
+      $.each(termStatistic.skills, function(i, skill) {
+        data.push({name: skill.skillName, data: skill.histograms[0].values});
+      });
+      return data;
+    },
+
+    /**
+     * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
+     */
+    trendSkills: function (termStatistic) {
+      var series = instance.prepareTrendSkills(termStatistic);
       $('.trend-chart').highcharts({
         chart: {
           //backgroundColor: '#201d1e',
@@ -102,21 +117,7 @@ techlooper.factory("technicalDetailService", function () {
             }
           }
         },
-        series: [{
-          name: 'Hestavollane',
-          data: [4.3, 5.1, 4.3, 5.2, 5.4, 4.7, 3.5, 4.1, 5.6, 7.4, 6.9, 7.1,
-            7.9, 7.9, 7.5, 6.7, 7.7, 7.7, 7.4, 7.0, 7.1, 5.8, 5.9, 7.4,
-            8.2, 8.5, 9.4, 8.1, 10.9, 10.4, 10.9, 12.4, 12.1, 9.5, 7.5,
-            7.1, 7.5, 8.1, 6.8, 3.4, 2.1, 1.9, 2.8, 2.9, 1.3, 4.4, 4.2,
-            3.0, 3.0]
-
-        }, {
-          name: 'Voll',
-          data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0, 0.3, 0.0,
-            0.0, 0.4, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.6, 1.2, 1.7, 0.7, 2.9, 4.1, 2.6, 3.7, 3.9, 1.7, 2.3,
-            3.0, 3.3, 4.8, 5.0, 4.8, 5.0, 3.2, 2.0, 0.9, 0.4, 0.3, 0.5, 0.4]
-        }]
+        series: series
       });
     }
   };

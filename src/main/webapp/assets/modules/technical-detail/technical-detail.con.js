@@ -11,6 +11,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   connectionFactory.termStatisticInOneYear({term: term})
     .success(function (data, status, headers, config) {
       $scope.termStatistic = data;
+      technicalDetailService.trendSkills($scope.termStatistic);
     })
     .error(function (data, status, headers, config) {
     });
