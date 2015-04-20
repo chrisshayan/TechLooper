@@ -4,12 +4,12 @@ techlooper.factory("technicalDetailService", function () {
     /**
      * @param {object} skill - Skill object @see skill-level-analytics.json
      */
-    showSkillsList: function (skill) {
+    showSkillsList: function (skill, maxValue) {
       Circles.create({
         id: 'circles-' + skill.skillName,
         radius: 60,
         value: skill.totalJob,
-        maxValue: 100,
+        maxValue: maxValue,
         width: 10,
         text: function (value) {return value;},
         colors: ['#D3B6C6', '#4B253A'],

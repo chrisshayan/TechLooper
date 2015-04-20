@@ -4,7 +4,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
 
   // TODO: write a blog about dom manipulation with angularjs
   $scope.showCircle = function(skill) {
-    technicalDetailService.showSkillsList(skill);
+    technicalDetailService.showSkillsList(skill, $scope.termStatistic.totalJob);
     return true;
   }
 
@@ -15,7 +15,6 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   connectionFactory.termStatisticInOneYear({term: term})
     .success(function (data, status, headers, config) {
       $scope.termStatistic = termService.toViewTerm(data);
-      console.log($scope.termStatistic);
       technicalDetailService.trendSkills($scope.termStatistic);
     })
     .error(function (data, status, headers, config) {
