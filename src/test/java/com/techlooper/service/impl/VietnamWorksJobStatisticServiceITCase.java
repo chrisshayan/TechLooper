@@ -3,10 +3,8 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.SkillStatisticResponse;
-import com.techlooper.model.TechnicalTerm;
-import com.techlooper.model.TermStatisticRequest;
+import com.techlooper.entity.Company;
+import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
@@ -28,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -101,17 +100,45 @@ public class VietnamWorksJobStatisticServiceITCase {
         TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
         termStatisticRequest.setTerm("JAVA");
         termStatisticRequest.setJobLevelId(5);
-        jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
-        System.out.print("Test Done");
+        TermStatisticResponse termStatisticResponse =
+                jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+        assertTrue(termStatisticResponse.getSalaryMin() > 250);
+        assertTrue(termStatisticResponse.getSalaryMax() > 250);
+
+        List<SkillStatistic> skillStatistics = termStatisticResponse.getSkills();
+        List<Company> companies = termStatisticResponse.getCompanies();
+
+        // Maximum number of top hiring companies
+        assertTrue(companies.size() > 0 && companies.size() <= 5);
+
+        // Maximum number of skills can be added
+        assertTrue(skillStatistics.size() > 0 && skillStatistics.size() <= 5);
+
+        // One skill should be analyzed by 12 months per year
+        assertTrue(skillStatistics.get(0).getHistograms().get(0).getValues().size() >= 12);
     }
 
     @Test
-    public void testGenerateTermStatistic() throws Exception {
+    public void testGenerateTermStatisticWithCustomAddedSkill() throws Exception {
         TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
         termStatisticRequest.setTerm("JAVA");
         termStatisticRequest.setJobLevelId(5);
         termStatisticRequest.setSkills(Arrays.asList("Spring", "Maven"));
-        jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
-        System.out.print("Test Done");
+        TermStatisticResponse termStatisticResponse =
+                jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+        assertTrue(termStatisticResponse.getSalaryMin() > 250);
+        assertTrue(termStatisticResponse.getSalaryMax() > 250);
+
+        List<SkillStatistic> skillStatistics = termStatisticResponse.getSkills();
+        List<Company> companies = termStatisticResponse.getCompanies();
+
+        // Maximum number of top hiring companies
+        assertTrue(companies.size() > 0 && companies.size() <= 5);
+
+        // Maximum number of skills can be added
+        assertTrue(skillStatistics.size() > 0 && skillStatistics.size() <= 5);
+
+        // One skill should be analyzed by 12 months per year
+        assertTrue(skillStatistics.get(0).getHistograms().get(0).getValues().size() >= 12);
     }
 }
