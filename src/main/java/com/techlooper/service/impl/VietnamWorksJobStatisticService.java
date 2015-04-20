@@ -288,7 +288,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         termStatisticResponse.setJobLevelId(term.getJobLevelId());
 
         // Get salary min aggregation
-        long totalJob = ((InternalValueCount) aggregations.get("total_job")).getValue();
+        long totalJob = count(configuredTechnicalTerm);
         termStatisticResponse.setTotalJob(totalJob);
 
         // Get salary min aggregation
