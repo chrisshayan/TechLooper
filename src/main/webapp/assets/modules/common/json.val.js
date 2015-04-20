@@ -222,23 +222,27 @@ angular.module("Common").constant("jsonValue", {
     subscribeTermStatistic: "/topic/analytics/term"
   },
 
-
   technicalSkill: [{
+    term: "JAVA",
     'text': 'Java',
     'logo': 'lg-java.png'
   }, {
+    term: "DOTNET",
     'text': '.Net',
     'logo': 'lg-dotnet.png'
   }, {
     'text': 'C#',
     'logo': 'lg-c-sharp.png'
   }, {
+    term: "PHP",
     'text': 'Php',
     'logo': 'lg-php.png'
   }, {
+    term: "RUBY",
     'text': 'Ruby',
     'logo': 'lg-ruby.png'
   }, {
+    term: "PYTHON",
     'text': 'Python',
     'logo': 'lg-python.png'
   }, {
@@ -362,6 +366,7 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Logos',
     'logo': 'lg-logos.png'
   }],
+
   shortcuts: [{
     "id": 1,
     "name": "Career Analytics",

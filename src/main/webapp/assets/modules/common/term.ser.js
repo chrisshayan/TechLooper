@@ -24,11 +24,21 @@ angular.module("Common").factory("termService", function (jsonValue) {
         }
         term.color = fnColor(term.term);//allow d3js select color for unlisted items
       }
-      instance.refineTerm(term);
+      instance.refineSalary(term);
+      instance.refineLogo(term);
       return term;
     },
 
-    refineTerm: function(term) {
+    refineLogo: function(term) {
+      $.each(jsonValue.technicalSkill, function(i, skill) {
+        if (skill.term === term.term) {
+          term.logo = skill.logo;
+          return false;
+        }
+      });
+    },
+
+    refineSalary: function(term) {
       if (term['averageSalaryMin'] === undefined && term['averageSalaryMax'] === undefined) {
         term.salRange = "";
         return ;

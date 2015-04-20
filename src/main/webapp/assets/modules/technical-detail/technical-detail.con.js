@@ -1,5 +1,5 @@
 techlooper.controller("technicalDetailController", function (utils, connectionFactory, $routeParams,
-                                                             technicalDetailService, $scope, $timeout, jsonValue) {
+                                                             technicalDetailService, $scope, $timeout, jsonValue, termService) {
   var term = $routeParams.term;
 
   // TODO: write a blog about dom manipulation with angularjs
@@ -14,7 +14,8 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
 
   connectionFactory.termStatisticInOneYear({term: term})
     .success(function (data, status, headers, config) {
-      $scope.termStatistic = data;
+      $scope.termStatistic = termService.toViewTerm(data);
+      console.log($scope.termStatistic);
       technicalDetailService.trendSkills($scope.termStatistic);
     })
     .error(function (data, status, headers, config) {
