@@ -199,7 +199,8 @@ angular.module("Common").constant("jsonValue", {
     userRegister: "api/user/register",
     company: "company",
     companyId: "company/id",
-    userRegisterCount: "api/user/register/count"
+    userRegisterCount: "api/user/register/count",
+    termStatistic: "term/statistic"
   },
 
   socketUri: {
@@ -217,7 +218,8 @@ angular.module("Common").constant("jsonValue", {
 
     getUserInfoByKey: "/app/user/findByKey",
     subscribeUserInfo: "/user/queue/info",
-    subscribeUserRegistration: "/topic/api/user/register/count"
+    subscribeUserRegistration: "/topic/api/user/register/count",
+    subscribeTermStatistic: "/topic/analytics/term"
   },
 
 

@@ -1,5 +1,6 @@
 package com.techlooper.model;
 
+import com.techlooper.entity.Company;
 import com.techlooper.entity.CompanyEntity;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class TermStatisticResponse {
 
   private Double salaryMax;
 
-  private List<CompanyEntity> companies;
+  private List<Company> companies;
 
   private List<SkillStatistic> skills;
 
@@ -53,11 +54,11 @@ public class TermStatisticResponse {
     this.salaryMax = salaryMax;
   }
 
-  public List<CompanyEntity> getCompanies() {
+  public List<Company> getCompanies() {
     return companies;
   }
 
-  public void setCompanies(List<CompanyEntity> companies) {
+  public void setCompanies(List<Company> companies) {
     this.companies = companies;
   }
 

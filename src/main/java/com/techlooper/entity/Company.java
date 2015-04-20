@@ -8,7 +8,17 @@ public class Company {
 
     private String name;
 
+    private String companyLogoURL;
+
     private String logoUrl;
+
+    public String getCompanyLogoURL() {
+        return companyLogoURL;
+    }
+
+    public void setCompanyLogoURL(String companyLogoURL) {
+        this.companyLogoURL = companyLogoURL;
+    }
 
     public String getWebsiteUrl() {
         return websiteUrl;

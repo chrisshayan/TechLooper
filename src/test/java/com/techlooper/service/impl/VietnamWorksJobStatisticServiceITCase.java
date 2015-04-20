@@ -7,6 +7,8 @@ import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.SkillStatisticResponse;
 import com.techlooper.model.TechnicalTerm;
 import com.techlooper.model.TermStatisticRequest;
+import com.techlooper.repository.JsonConfigRepository;
+import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.JsonUtils;
@@ -46,12 +48,20 @@ public class VietnamWorksJobStatisticServiceITCase {
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
 
+    @Resource
+    private CompanyService companyService;
+
+    @Resource
+    private JsonConfigRepository jsonConfigRepository;
+
     @Before
     public void before() {
         jobStatisticService = new VietnamWorksJobStatisticService();
         ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
         ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
         ReflectionTestUtils.setField(jobStatisticService, "elasticSearchIndexName", elasticSearchIndexName);
+        ReflectionTestUtils.setField(jobStatisticService, "companyService", companyService);
+        ReflectionTestUtils.setField(jobStatisticService, "jsonConfigRepository", jsonConfigRepository);
     }
 
     @Test
@@ -84,6 +94,15 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testCountTotalITJobsWithinPeriod() throws Exception {
         Long totalITJobs = jobStatisticService.countTotalITJobsWithinPeriod(HistogramEnum.TWO_QUARTERS);
         assertTrue(totalITJobs > 0);
+    }
+
+    @Test
+    public void testGenerateTermStatisticWithDefaultSkill() throws Exception {
+        TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
+        termStatisticRequest.setTerm("JAVA");
+        termStatisticRequest.setJobLevelId(5);
+        jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+        System.out.print("Test Done");
     }
 
     @Test
