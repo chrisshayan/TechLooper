@@ -14,9 +14,9 @@ public class TermStatisticResponse {
 
   private Integer jobLevelId;
 
-  private Double salaryMin;
+  private Double averageSalaryMin;
 
-  private Double salaryMax;
+  private Double averageSalaryMax;
 
   private List<Company> companies;
 
@@ -38,20 +38,20 @@ public class TermStatisticResponse {
     this.jobLevelId = jobLevelId;
   }
 
-  public Double getSalaryMin() {
-    return salaryMin;
+  public Double getAverageSalaryMin() {
+    return averageSalaryMin;
   }
 
-  public void setSalaryMin(Double salaryMin) {
-    this.salaryMin = salaryMin;
+  public void setAverageSalaryMin(Double averageSalaryMin) {
+    this.averageSalaryMin = averageSalaryMin;
   }
 
-  public Double getSalaryMax() {
-    return salaryMax;
+  public Double getAverageSalaryMax() {
+    return averageSalaryMax;
   }
 
-  public void setSalaryMax(Double salaryMax) {
-    this.salaryMax = salaryMax;
+  public void setAverageSalaryMax(Double averageSalaryMax) {
+    this.averageSalaryMax = averageSalaryMax;
   }
 
   public List<Company> getCompanies() {
