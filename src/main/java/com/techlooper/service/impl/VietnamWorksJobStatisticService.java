@@ -213,10 +213,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
         Integer jobLevelId = term.getJobLevelId();
         if (jobLevelId > 0) {
-            MatchQueryBuilder levelQueryBuilder = matchQuery("jobLevelId", term.getJobLevelId());
-            queryBuilder.withQuery(boolQuery().must(termQueryBuilder).must(levelQueryBuilder));
+            FilterBuilder jobLevelFilter = FilterBuilders.termFilter("jobLevelId", jobLevelId);
+            // Using filtered query to improve performance, refer from
+            // http://www.elastic.co/guide/en/elasticsearch/guide/master/_finding_exact_values.html
+            queryBuilder.withQuery(filteredQuery(termQueryBuilder, jobLevelFilter));
         } else {
-            queryBuilder.withQuery(boolQuery().must(termQueryBuilder));
+            queryBuilder.withQuery(filteredQuery(termQueryBuilder, FilterBuilders.matchAllFilter()));
         }
 
         FilterAggregationBuilder salaryMinAggregation = jobQueryBuilder.getSalaryMinAggregation();
