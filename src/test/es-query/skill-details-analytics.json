@@ -1,35 +1,33 @@
 GET vietnamworks/job/_search?search_type=count
 {
   "query": {
-    "bool": {
-      "must": [
-        {
-          "bool": {
-            "should": [
-              {
-                "match_phrase": {
-                  "jobTitle": "java"
-                }
-              },
-              {
-                "match_phrase": {
-                  "jobTitle": "j2ee"
-                }
-              },
-              {
-                "match_phrase": {
-                  "jobTitle": "java ee"
-                }
+    "filtered": {
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "match_phrase": {
+                "jobTitle": "java"
               }
-            ]
-          }
-        },
-        {
-          "match": {
-            "jobLevelId": "5"
-          }
+            },
+            {
+              "match_phrase": {
+                "jobTitle": "j2ee"
+              }
+            },
+            {
+              "match_phrase": {
+                "jobTitle": "java ee"
+              }
+            }
+          ]
         }
-      ]
+      },
+      "filter": {
+        "term": {
+          "jobLevelId": 5
+        }
+      }
     }
   },
   "aggs": {
@@ -121,7 +119,7 @@ GET vietnamworks/job/_search?search_type=count
         }
       }
     },
-    "spring_one_year_analytics": {
+    "Web_Services_one_year_analytics": {
       "filter": {
         "fquery": {
           "query": {
@@ -129,7 +127,7 @@ GET vietnamworks/job/_search?search_type=count
               "must": [
                 {
                   "multi_match": {
-                    "query": "Java spring",
+                    "query": "Java Web Services",
                     "fields": [
                       "skillExperience",
                       "jobDescription",
@@ -141,7 +139,7 @@ GET vietnamworks/job/_search?search_type=count
                 {
                   "range": {
                     "expiredDate": {
-                      "from": "now-12M"
+                      "from": "now-372d"
                     }
                   }
                 }
@@ -160,10 +158,21 @@ GET vietnamworks/job/_search?search_type=count
         }
       }
     },
-      "total_job": {
-            "value_count": {
-              "field": "jobId"
-         }
+    "total_job": {
+      "filter": {
+        "range": {
+          "expiredDate": {
+            "from": "now"
+          }
+        }
+      },
+      "aggs": {
+        "total_job": {
+          "value_count": {
+            "field": "jobId"
+          }
+        }
       }
+    }
   }
 }
