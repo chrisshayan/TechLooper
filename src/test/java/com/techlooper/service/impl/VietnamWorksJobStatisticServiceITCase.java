@@ -108,6 +108,8 @@ public class VietnamWorksJobStatisticServiceITCase {
         List<SkillStatistic> skillStatistics = termStatisticResponse.getSkills();
         List<Company> companies = termStatisticResponse.getCompanies();
 
+        assertTrue(termStatisticResponse.getTotalJob() > 0);
+
         // Maximum number of top hiring companies
         assertTrue(companies.size() > 0 && companies.size() <= 5);
 
@@ -131,6 +133,8 @@ public class VietnamWorksJobStatisticServiceITCase {
 
         List<SkillStatistic> skillStatistics = termStatisticResponse.getSkills();
         List<Company> companies = termStatisticResponse.getCompanies();
+
+        assertTrue(termStatisticResponse.getTotalJob() > 0);
 
         // Maximum number of top hiring companies
         assertTrue(companies.size() > 0 && companies.size() <= 5);

@@ -20,6 +20,9 @@ import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
 import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
+import org.elasticsearch.search.aggregations.metrics.valuecount.InternalValueCount;
+import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountAggregator;
+import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -222,13 +225,15 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             queryBuilder.withQuery(filteredQuery(termQueryBuilder, FilterBuilders.matchAllFilter()));
         }
 
+        ValueCountBuilder totalJobAggregation = jobQueryBuilder.getTotalJobAggregation();
         FilterAggregationBuilder salaryMinAggregation = jobQueryBuilder.getSalaryMinAggregation();
         FilterAggregationBuilder salaryMaxAggregation = jobQueryBuilder.getSalaryMaxAggregation();
         FilterAggregationBuilder topCompaniesAggregation = jobQueryBuilder.getTopCompaniesAggregation();
         List<FilterAggregationBuilder> skillAnalyticsAggregations =
                 jobQueryBuilder.getSkillAnalyticsAggregations(term, histogramEnum);
 
-        queryBuilder.addAggregation(salaryMinAggregation)
+        queryBuilder.addAggregation(totalJobAggregation)
+                .addAggregation(salaryMinAggregation)
                 .addAggregation(salaryMaxAggregation)
                 .addAggregation(topCompaniesAggregation);
         skillAnalyticsAggregations.forEach(skillAnalyticsAggregation -> queryBuilder.addAggregation(skillAnalyticsAggregation));
@@ -281,6 +286,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
         termStatisticResponse.setTerm(term.getTerm());
         termStatisticResponse.setJobLevelId(term.getJobLevelId());
+
+        // Get salary min aggregation
+        long totalJob = ((InternalValueCount) aggregations.get("total_job")).getValue();
+        termStatisticResponse.setTotalJob(totalJob);
 
         // Get salary min aggregation
         double avgSalaryMin = ((InternalAvg) (

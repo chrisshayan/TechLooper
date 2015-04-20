@@ -1,7 +1,6 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.Company;
-import com.techlooper.entity.CompanyEntity;
 
 import java.util.List;
 
@@ -10,63 +9,73 @@ import java.util.List;
  */
 public class TermStatisticResponse {
 
-  private String term;
+    private String term;
 
-  private Integer jobLevelId;
+    private Integer jobLevelId;
 
-  private Double averageSalaryMin;
+    private Double averageSalaryMin;
 
-  private Double averageSalaryMax;
+    private Double averageSalaryMax;
 
-  private List<Company> companies;
+    private List<Company> companies;
 
-  private List<SkillStatistic> skills;
+    private List<SkillStatistic> skills;
 
-  public String getTerm() {
-    return term;
-  }
+    private Long totalJob;
 
-  public void setTerm(String term) {
-    this.term = term;
-  }
+    public String getTerm() {
+        return term;
+    }
 
-  public Integer getJobLevelId() {
-    return jobLevelId;
-  }
+    public void setTerm(String term) {
+        this.term = term;
+    }
 
-  public void setJobLevelId(Integer jobLevelId) {
-    this.jobLevelId = jobLevelId;
-  }
+    public Integer getJobLevelId() {
+        return jobLevelId;
+    }
 
-  public Double getAverageSalaryMin() {
-    return averageSalaryMin;
-  }
+    public void setJobLevelId(Integer jobLevelId) {
+        this.jobLevelId = jobLevelId;
+    }
 
-  public void setAverageSalaryMin(Double averageSalaryMin) {
-    this.averageSalaryMin = averageSalaryMin;
-  }
+    public Double getAverageSalaryMin() {
+        return averageSalaryMin;
+    }
 
-  public Double getAverageSalaryMax() {
-    return averageSalaryMax;
-  }
+    public void setAverageSalaryMin(Double averageSalaryMin) {
+        this.averageSalaryMin = averageSalaryMin;
+    }
 
-  public void setAverageSalaryMax(Double averageSalaryMax) {
-    this.averageSalaryMax = averageSalaryMax;
-  }
+    public Double getAverageSalaryMax() {
+        return averageSalaryMax;
+    }
 
-  public List<Company> getCompanies() {
-    return companies;
-  }
+    public void setAverageSalaryMax(Double averageSalaryMax) {
+        this.averageSalaryMax = averageSalaryMax;
+    }
 
-  public void setCompanies(List<Company> companies) {
-    this.companies = companies;
-  }
+    public List<Company> getCompanies() {
+        return companies;
+    }
 
-  public List<SkillStatistic> getSkills() {
-    return skills;
-  }
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
 
-  public void setSkills(List<SkillStatistic> skills) {
-    this.skills = skills;
-  }
+    public List<SkillStatistic> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<SkillStatistic> skills) {
+        this.skills = skills;
+    }
+
+    public Long getTotalJob() {
+        return totalJob;
+    }
+
+    public void setTotalJob(Long totalJob) {
+        this.totalJob = totalJob;
+    }
 }

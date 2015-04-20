@@ -13,6 +13,7 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
@@ -166,5 +167,10 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
         }
         return skillAnalyticsAggregations;
+    }
+
+    @Override
+    public ValueCountBuilder getTotalJobAggregation() {
+        return AggregationBuilders.count("total_job").field("jobId");
     }
 }

@@ -159,6 +159,11 @@ GET vietnamworks/job/_search?search_type=count
           }
         }
       }
-    }
+    },
+      "total_job": {
+            "value_count": {
+              "field": "jobId"
+         }
+      }
   }
 }
