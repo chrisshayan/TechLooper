@@ -44,6 +44,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final long LIMIT_NUMBER_OF_COMPANIES = 5;
 
+    private static final double LOWER_BOUND_SALARY = 250;
+
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
 
@@ -124,22 +126,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         double avgSalaryMin = ((InternalAvg) aggregations.get("avg_salary_min")).getValue();
         double avgSalaryMax = ((InternalAvg) aggregations.get("avg_salary_max")).getValue();
 
-        Map<String, Double> result = new HashMap<>();
-        if (Double.isNaN(avgSalaryMin) && Double.isNaN(avgSalaryMax)) {
-            result.put("SALARY_MIN", LOWER_BOUND_SALARY);
-            result.put("SALARY_MAX", Double.NaN);
-        } else if (!Double.isNaN(avgSalaryMin) && !Double.isNaN(avgSalaryMax)) {
-            result.put("SALARY_MIN", Math.ceil(avgSalaryMin));
-            result.put("SALARY_MAX", Math.ceil(avgSalaryMax));
-        } else {
-            if (Double.isNaN(avgSalaryMin)) {
-                result.put("SALARY_MIN", Double.NaN);
-                result.put("SALARY_MAX", avgSalaryMax);
-            } else {
-                result.put("SALARY_MIN", avgSalaryMin);
-                result.put("SALARY_MAX", Double.NaN);
-            }
-        }
+        Map<String, Double> result = processSalaryData(avgSalaryMin, avgSalaryMax);
         return result;
     }
 
@@ -282,12 +269,15 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Get salary min aggregation
         double avgSalaryMin = ((InternalAvg) (
                 (InternalFilter) aggregations.get("avg_salary_min")).getAggregations().get("avg_salary_min")).getValue();
-        termStatisticResponse.setSalaryMin(avgSalaryMin);
 
         // Get salary max aggregation
         double avgSalaryMax = ((InternalAvg) (
                 (InternalFilter) aggregations.get("avg_salary_max")).getAggregations().get("avg_salary_max")).getValue();
         termStatisticResponse.setSalaryMax(avgSalaryMax);
+
+        Map<String,Double> formattedSalary = processSalaryData(avgSalaryMin, avgSalaryMax);
+        termStatisticResponse.setSalaryMin(formattedSalary.get("SALARY_MIN"));
+        termStatisticResponse.setSalaryMax(formattedSalary.get("SALARY_MAX"));
 
         // Get list of top companies
         List<Terms.Bucket> topCompanyBuckets = ((LongTerms)
@@ -330,5 +320,25 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         termStatisticResponse.setSkills(skillStatistics);
 
         return termStatisticResponse;
+    }
+
+    private Map<String, Double> processSalaryData(double avgSalaryMin, double avgSalaryMax) {
+        Map<String, Double> result = new HashMap<>();
+        if (Double.isNaN(avgSalaryMin) && Double.isNaN(avgSalaryMax)) {
+            result.put("SALARY_MIN", LOWER_BOUND_SALARY);
+            result.put("SALARY_MAX", Double.NaN);
+        } else if (!Double.isNaN(avgSalaryMin) && !Double.isNaN(avgSalaryMax)) {
+            result.put("SALARY_MIN", Math.ceil(avgSalaryMin));
+            result.put("SALARY_MAX", Math.ceil(avgSalaryMax));
+        } else {
+            if (Double.isNaN(avgSalaryMin)) {
+                result.put("SALARY_MIN", Double.NaN);
+                result.put("SALARY_MAX", avgSalaryMax);
+            } else {
+                result.put("SALARY_MIN", avgSalaryMin);
+                result.put("SALARY_MAX", Double.NaN);
+            }
+        }
+        return result;
     }
 }
