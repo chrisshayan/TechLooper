@@ -30,6 +30,9 @@ techlooper.directive("itProfessional", function ($compile, $location, utils, jso
 
         case jsonValue.views.landing:
           return "modules/landing/landing.tem.html";
+
+        case jsonValue.views.technicalDetail:
+          return "modules/technical-detail/technical-detail.tem.html";
       }
       return '';
     },
