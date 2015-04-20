@@ -277,11 +277,11 @@ angular.module("Common").factory("connectionFactory",
        *
        * @param {object} request
        * @param {string} request.term - The name of term , see jsonValue.viewTerms.listedItems
-       * @param {string[]} request.skills - List of skill name, ex: "spring framework", "log4j"...
-       * @param {int} request.jobLevelId - The level of Jobs
+       * @param {string[]} [request.skills] - List of skill name, ex: "spring framework", "log4j"...
+       * @param {int} [request.jobLevelId] - The level of Jobs
        */
       termStatisticInOneYear: function(request) {
-        return $http.get(jsonValue.httpUri.termStatistic, request);
+        return $http.post(jsonValue.httpUri.termStatistic, request);
       }
     }
     utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.connectSocket);

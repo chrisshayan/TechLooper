@@ -594,6 +594,7 @@ angular.module("Common").constant("jsonValue", {
         content: "Click to this button, you can find job on search job page"
       }
     ],
+
     bubbleHomePage: [
       {
         element: ".setting-content",
@@ -619,6 +620,12 @@ angular.module("Common").constant("jsonValue", {
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
       }
+    ],
+
+    jobLevel: [
+      {id: 1, title: "New Grad/Entry Level/Internship"},
+      {id: 5, title: "Experienced (Non-Manager)"},
+      {id: 7, title: "Manager"}
     ]
   }
 });
