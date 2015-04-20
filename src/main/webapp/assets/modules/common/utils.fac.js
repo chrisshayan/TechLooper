@@ -152,6 +152,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/analytics\/skill/.test(path)) {
         return jsonValue.views.analyticsSkill;
       }
+      else if (/\/technical-detail/.test(path)) {
+        return jsonValue.views.technicalDetail;
+      }
+
       else if (/\/signin/.test(path)) {
         return jsonValue.views.signIn;
       }

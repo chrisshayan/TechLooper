@@ -97,6 +97,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/talent-search-result/:text?", {
         templateUrl: "modules/talent-search/home.tem.html",
         controller: "tsSearchResultController"
+      }).
+      when("/technical-detail", {
+        templateUrl: "modules/technical-detail/technical-detail.tem.html",
+        controller: "technicalDetailController"
       })
       .when("/companies/:companyName", {//vietnamworks
           templateUrl: "modules/talent-search/home.tem.html",
