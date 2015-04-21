@@ -86,19 +86,19 @@ angular.module("Common").constant("jsonValue", {
       color: "#9ea0d3"
     }, {
       term: "DBA",
-      label: "DBA",
+      label: "Database Administrator",
       color: "#999966"
     }, {
       term: "QA",
-      label: "QA",
+      label: "Quality Assurance",
       color: "#dff48b"
     }, {
       term: "BA",
-      label: "BA",
+      label: "Business Analyst",
       color: "#ffa2fc"
     }, {
       term: "CPLUSPLUS",
-      label: "C++",
+      label: "C/C++",
       color: "#939191"
     },
       {
