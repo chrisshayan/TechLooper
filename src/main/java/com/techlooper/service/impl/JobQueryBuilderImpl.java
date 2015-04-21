@@ -161,7 +161,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             String aggName = EncryptionUtils.encodeHexa(skill) + "_" + histogramEnum + "_analytics";
             FilterBuilder skillFilter = queryFilter(boolQuery()
                     .must(multiMatchQuery(searchQuery, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
-                    .must(rangeQuery("expiredDate").from("now-" + lastPeriod)));
+                    .must(rangeQuery("approvedDate").from("now-" + lastPeriod)));
             AggregationBuilder skillHistogramAgg = AggregationBuilders.dateHistogram(aggName)
                     .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH).minDocCount(0);
 
