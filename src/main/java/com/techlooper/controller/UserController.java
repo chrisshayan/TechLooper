@@ -125,16 +125,16 @@ public class UserController {
 
 //  @ResponseBody
 //  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
-  @Scheduled(cron = "0/1 * * * * *")
-  public void countRegisterUser() {
-    messagingTemplate.convertAndSend("/topic/api/user/register/count", userService.countRegisteredUser());
-  }
+//  @Scheduled(cron = "0/1 * * * * *")
+//  public void countRegisterUser() {
+//    messagingTemplate.convertAndSend("/topic/api/user/register/count", userService.countRegisteredUser());
+//  }
 
-  @ResponseBody
-  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
-  public long getRegisterUserNumber() {
-    return userService.countRegisteredUser();
-  }
+//  @ResponseBody
+//  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
+//  public long getRegisterUserNumber() {
+//    return userService.countRegisteredUser();
+//  }
 
 
 }
