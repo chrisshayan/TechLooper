@@ -31,7 +31,7 @@
     <meta itemprop="name" content="TechLooper is a career analytics platform." />
     <meta itemprop="image" content="images/logo.png" />
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,300italic,400italic,500,500italic&subset=latin,vietnamese,latin-ext' rel='stylesheet' type='text/css'>
 
     <!-- build:css generate-resources/techlooper.min.css -->
 
@@ -40,20 +40,24 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css">
     <link href="bower_components/jScrollPane/style/jquery.jscrollpane.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/blueimp-bootstrap-image-gallery/css/bootstrap-image-gallery.min.css" rel="stylesheet" type="text/css">
     <!-- include: "type": "css", "files": "css/**/*.css" -->
     <!-- endbuild -->
 
 </head>
 
 <body ng-app="Techlooper">
-    <script>
+<script>
     (function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
             (i[r].q = i[r].q || []).push(arguments)
         }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
+          m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
@@ -61,43 +65,34 @@
 
     ga('create', 'UA-55364092-1', 'auto');
     ga('send', 'pageview');
-    </script>
+</script>
 
-    <!--[if lt IE 7]>
+<!--[if lt IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-  your browser</a> to improve your experience.</p>
+    your browser</a> to improve your experience.</p>
 <![endif]-->
-    <div navigation></div>
-    <div ng-view class="techlooper-body"></div>
-    <div class="bg-tour-giude"></div>
-    <div class="loading-data">
-        <div class="windows8">
-            <div class="wBall" id="wBall_1">
-                <div class="wInnerBall">
-                </div>
-            </div>
-            <div class="wBall" id="wBall_2">
-                <div class="wInnerBall">
-                </div>
-            </div>
-            <div class="wBall" id="wBall_3">
-                <div class="wInnerBall">
-                </div>
-            </div>
-            <div class="wBall" id="wBall_4">
-                <div class="wInnerBall">
-                </div>
-            </div>
-            <div class="wBall" id="wBall_5">
-                <div class="wInnerBall">
-                </div>
-            </div>
+<div class="body-content" ng-view>
+</div>
+<div class="js-footer">
+    <div class="footer-content-block">
+        <div class="copyright-block">
+        <p>Copyright &copy; <span><a href="http://www.navigosgroup.com/" target="_blank">Navigos Group</a></span> Joint Stock Company</p>
+        <p class="address">130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam </p>
+        </div>
+
+        <div class="social-network-block">
+        <ul>
+        <!--<li><a href="#"><i class="fa fa-facebook-square"></i></a></li>-->
+        <li><a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+        <!--<li><a href="#"><i class="fa fa-twitter-square"></i></a></li>-->
+        <!--<li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>-->
+        </ul>
+        </div>
+        <div class="vnw-logo">
+        <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/logo-vnw.png" alt="Career Analytics. Awesome!"></a>
         </div>
     </div>
-    <div role="alert" class="messager-block alert">
-        <p></p>
-        <span class="close" on-click="">x</span>
-    </div>
+</div>
 </body>
 <!-- build:js generate-resources/techlooper.min.js -->
 

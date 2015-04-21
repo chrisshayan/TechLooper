@@ -1,0 +1,24 @@
+<div class="company-employee-block" ng-show="companyInfo.employees.length > 0">
+  <div class="company-employee-content">
+    <h2>Our Employees</h2>
+    <ul>
+      <li ng-repeat="item in companyInfo.employees | limitTo: 3">
+        <any ng-if="item.skills.length">
+          <a href="https://github.com/{{item.username}}" target="_blank" data-toggle="tooltip" data-original-title="<strong>{{item.skills.join(', ')}}<strong>">
+          <span class="employee-name ellipsis">
+            {{item.name || item.username}}
+          </span>
+          </a>
+        </any>
+        <any ng-if="!item.skills.length">
+          <a href="https://github.com/{{item.username}}" target="_blank">
+          <span class="employee-name ellipsis">
+            {{item.name || item.username}}
+          </span>
+          </a>
+        </any>
+        <span class="job-title"></span>
+      </li>
+    </ul>
+  </div>
+</div>

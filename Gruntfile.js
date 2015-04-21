@@ -61,10 +61,16 @@ module.exports = function (grunt) {
       }
     },
 
+
     usemin: {
       html: ["<%=pkg.public%>index.html"],
       options: {
-        publicDirs: ["<%=pkg.public%>css"]
+        publicDirs: ["<%=pkg.public%>css"],
+        blockReplacements: {
+          js: function (block) {
+            return '<script src="' + block.dest + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
+          }
+        }
       }
     },
 
@@ -107,7 +113,12 @@ module.exports = function (grunt) {
       options: {
         basePath: "<%=pkg.public%>",
         duplicates: false,
-        debug: true
+        debug: true,
+        templates: {
+          html: {
+            js: '<script src="{filePath}" charset="utf-8"></script>'
+          }
+        }
       },
       target: {
         files: {
@@ -170,8 +181,8 @@ module.exports = function (grunt) {
         replacements: [
           {from: "};", to: "}"},
           {from: "../fonts", to: "fonts"},
-          {from: ".tmp/concat/", to: ""},
-          {from: "images/", to: "../images/"}
+          {from: ".tmp/concat/", to: ""}
+          //{from: "images/", to: "../images/"}
         ]
       }
     },

@@ -23,9 +23,11 @@ public class UserEntity {
 
     private String lastName;
 
+    private String createdDateTime;
+
     private SocialProvider loginSource;
 
-    private Map<SocialProvider, Object> profiles = new HashMap<>();
+    private Map<SocialProvider, Object> profiles;
 
     private AccessGrant accessGrant;
 
@@ -119,6 +121,14 @@ public class UserEntity {
         this.profiles = profiles;
     }
 
+    public String getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(String createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
     public static class UserEntityBuilder {
         private UserEntity userEntity;
 
@@ -151,7 +161,15 @@ public class UserEntity {
         }
 
         public UserEntityBuilder withProfile(SocialProvider provider, Object profile) {
+            if (userEntity.profiles == null) {
+                userEntity.profiles = new HashMap<>();
+            }
             userEntity.profiles.put(provider, profile);
+            return this;
+        }
+
+        public UserEntityBuilder withCreatedDateTime(String createdDateTime) {
+            userEntity.createdDateTime = createdDateTime;
             return this;
         }
     }

@@ -19,6 +19,7 @@
     "highcharts-release": "latest",
     "ngInfiniteScroll": "latest",
     "selectize": "latest",
+    "perfect-scrollbar": "latest",
     "mousetrap": "latest",
     "JSONPath": "latest",
     "DateJS": "latest",
@@ -30,7 +31,12 @@
     "bootstrap-tour": "latest",
     "jScrollPane": "latest",
     "satellizer": "latest",
-    "angular-local-storage": "latest"
+    "angular-local-storage": "latest",
+    "jquery.easing": "latest",
+    "bootstrap-select": "latest",
+    "blueimp-gallery":  "latest",
+    "blueimp-bootstrap-image-gallery": "latest",
+    "sprintf": "latest"
   },
   "overrides": {
     "jquery": {
@@ -78,6 +84,9 @@
     "selectize": {
       "main": "dist/js/standalone/selectize.min.js"
     },
+    "perfect-scrollbar": {
+      "main": "js/perfect-scrollbar.js"
+    },
     "jQuery.dotdotdot": {
       "main": "src/js/jquery.dotdotdot.min.js"
     },
@@ -116,6 +125,18 @@
     },
     "angular-local-storage": {
       "main": "dist/angular-local-storage.min.js"
+    },
+    "jquery.easing": {
+      "main": "js/jquery.easing.js"
+    },
+    "bootstrap-select": {
+      "main": "dist/js/bootstrap-select.js"
+    },
+    "blueimp-gallery":{
+      "main": "js/jquery.blueimp-gallery.min.js"
+    },
+    "blueimp-bootstrap-image-gallery":{
+      "main": "js/bootstrap-image-gallery.js"
     }
   },
   "resolutions": {

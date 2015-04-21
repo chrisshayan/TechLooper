@@ -1,23 +1,58 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar">
   <div class="logo-block text-center">
     <div class="logo" id="logo">
-      <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"></a></h1>
+      <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Awesome!"></a></h1>
+    </div>
+    <div class="vnw-logo">
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/logo-vnw.png" alt="Career Analytics. Awesome!"></a>
     </div>
   </div>
 </nav>
 <div class="row chart-block">
-  <div class="col-md-12">
-    <div class="row chart-container">
-      <div class="pie-Chart-Container" style="min-width: 200px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+  <div class="pie-chart-desktop">
+    <p>{{ 'slogan' | translate }}</p>
+    <div class="switch-data">
+      <ul>
+        <li class="active" data-chart = 'SALARY'>Salary</li>
+        <li data-chart = 'JOB'>Jobs</li>
+      </ul>
     </div>
-    <div class="row">
-      <div class="note">
-        <div translate>note</div>
+    <div class="col-md-12">
+      <div class="row chart-container">
+        <div class="pie-Chart-Container" style="min-width: 200px; height: 550px; max-width: 1000px; margin: 0 auto"></div>
+      </div>
+      <div class="row">
+        <div class="note">
+          <div translate>note</div>
+        </div>
+        <div class="text-guide">
+          <p>{{ 'clickOnSkillGuide' | translate }}</p>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 analystic-find-jobs-block">
-        <div findjobs></div>
+  </div>
+  <div class="pie-chart-mobile">
+    <div class="row chart-block">
+      <p>{{ 'sloganMobile' | translate }}</p>
+      <div class="mobile-pie-chart">
+        <ul>
+          <li class="header">
+            <div class="skill-name" ng-click="orderByField='label'; reverseSort = !reverseSort">Skill Name</div>
+            <div class="number-of-jobs" ng-click="orderByField='count'; reverseSort = !reverseSort" data-ng-init="orderByField='-count'">Number of Jobs</div>
+            <div class="view-detail">View Detail</div>
+          </li>
+          <li ng-repeat="term in terms | orderBy:orderByField:reverseSort">
+
+            <a href="#/analytics/skill/{{term.term}}">
+              <div class="skill-name">{{term.label}}</div>
+              <div class="number-of-jobs">
+                <strong>{{term.count}}</strong> <span>({{term.percent}} %)</span>
+                <br/>Salary: {{term.salRange}}
+              </div>
+              <div class="view-detail"><i class="fa fa-chevron-right"></i></div>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

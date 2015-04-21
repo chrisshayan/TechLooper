@@ -1,0 +1,33 @@
+<div class="company-info-block">
+  <div class="company-info-content">
+    <div class="company-logo-block">
+        <a  ng-if="companyInfo.companyLogoURL.length" href="{{companyInfo.website}}" target="_blank">
+          <img ng-src={{companyInfo.companyLogoURL}} alt="" title="{{companyInfo.companyName}}"/>
+        </a>
+        <a ng-if="!companyInfo.companyLogoURL.length" href="{{companyInfo.website}}" target="_blank">
+          <img src=images/no-logo-company.png alt="" title="{{companyInfo.companyName}}"/>
+        </a>
+      <!--<div class="video-company-profile">-->
+        <!--<i class="fa fa-play-circle-o" title="Click to view video" class="play-video" ng-click="playVideo($event)"-->
+           <!--ng-url="https://www.youtube.com/embed/oZNtljcqtUc" data-toggle="modal" data-target="#companyVideoInfor"></i>-->
+      <!--</div>-->
+    </div>
+    <div class="company-info-detail">
+      <h2>{{companyInfo.companyName}}</h2>
+      <ul>
+        <li ng-show="companyInfo.industries.length">
+          <span>Category:</span>
+          <p class="name">
+            <small ng-repeat="item in companyInfo.industries | limitTo:3">
+              <span ng-if="companyInfo.industries.length > 1">&nbsp <strong>&#8226;</strong> &nbsp</span>
+              {{item.value}}
+            </small>
+          </p>
+        </li>
+        <li ng-show="companyInfo.website.length"><span>Website:</span><p><a href="{{companyInfo.website}}" target="_blank">{{companyInfo.website}}</a></p></li>
+        <li ng-show="companyInfo.companySize.value.length"><span>Size:</span><p>{{companyInfo.companySize.value}}</p></li>
+        <li ng-show="companyInfo.address.length"><span>Address:</span><p>{{companyInfo.address}}</p></li>
+      </ul>
+    </div>
+  </div>
+</div>

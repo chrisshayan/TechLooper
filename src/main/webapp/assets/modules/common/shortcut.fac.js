@@ -1,9 +1,15 @@
-angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils) {
+angular.module("Common").factory("shortcutFactory", function (jsonValue, $location, $rootScope, historyFactory, utils, $timeout) {
 
   var $$ = {
     goBack: function () {
       var path = historyFactory.popHistory();
-      $location.path(path === undefined ? "/" : path);
+      if (path === "/" && utils.isHome()) {
+        return;
+      }
+      $location.path(path);
+      $timeout(function(){
+        $('.js-footer').removeClass('technical-detail');
+      }, 600);
     }
   }
 
@@ -22,6 +28,12 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
             return;
           }
           $$.goBack();
+          break;
+        case jsonValue.views.companyProfile:
+          if ($("#companyVideoInfor").is(":visible")) {// ESC from others, such as: Video dialog, ...
+            $(".playerVideo").attr("src", "");
+            return;
+          }
           break;
         default:
           $$.goBack();

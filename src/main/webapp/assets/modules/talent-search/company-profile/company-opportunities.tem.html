@@ -1,0 +1,27 @@
+<div class="company-opportunities-block">
+  <h2>Our Latest Opportunities</h2>
+  <div class="company-opportunities-content">
+    <div class="company-opportunities-list">
+      <ul>
+        <span ng-repeat="item in companyInfo.jobs | limitTo:10">
+          <span ng-if="$index < 10/2">
+            <li>
+              <span class="number">{{$index +1}}</span>
+              <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
+            </li>
+          </span>
+        </span>
+      </ul>
+      <ul>
+        <span ng-repeat="item in companyInfo.jobs | limitTo:10">
+          <span ng-if="$index >= 10/2">
+            <li>
+              <span class="number">{{$index + 1}}</span>
+              <span class="name ellipsis" title={{item.jobTitle}}>{{item.jobTitle}}</span>
+            </li>
+          </span>
+        </span>
+      </ul>
+    </div>
+  </div>
+</div>

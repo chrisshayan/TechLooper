@@ -79,4 +79,6 @@ public interface JobQueryBuilder {
      * @return {@link org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder}
      */
     FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTerm term);
+
+    FilterBuilder getTechnicalTermQueryAvailableWithinPeriod(String term, HistogramEnum period);
 }

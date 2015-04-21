@@ -2,10 +2,11 @@ package com.techlooper.service;
 
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.SocialProvider;
-import com.techlooper.model.UserInfo;
+import com.techlooper.model.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -86,7 +87,7 @@ public interface UserService {
      * @param socialProvider the social
      * @return number of successful saved users
      */
-    int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider);
+    int addCrawledUserAll(List<UserImportEntity> users, SocialProvider socialProvider, UpdateModeEnum updateMode);
 
     /**
      * Find the user on ElasticSearch
@@ -99,9 +100,24 @@ public interface UserService {
 
     /**
      * Find users
+     *
      * @param pageNumber the page number to fetch users
-     * @param pageSize the size of each page
+     * @param pageSize   the size of each page
      * @return list of {@linkplain com.techlooper.entity.userimport.UserImportEntity}
      */
     List<UserImportEntity> getAll(final int pageNumber, final int pageSize);
+
+    /**
+     * Find talent users
+     *
+     * @param param search criteria
+     * @return list of {@linkplain com.techlooper.model.TalentSearchResponse}
+     */
+    TalentSearchResponse findTalent(TalentSearchRequest param);
+
+    TalentProfile getTalentProfile(String email);
+
+    void registerUser(UserInfo userInfo);
+
+    long countRegisteredUser();
 }

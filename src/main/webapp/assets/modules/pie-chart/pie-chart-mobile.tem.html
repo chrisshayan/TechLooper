@@ -1,0 +1,31 @@
+<nav class="navbar navbar-inverse mobile-header">
+    <div class="logo-block text-center">
+        <div class="logo" id="logo">
+            <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Open Source. Awesome!"></a></h1>
+        </div>
+    </div>
+</nav>
+<div class="row chart-block">
+    <p>{{ 'sloganMobile' | translate }}</p>
+    <div class="mobile-pie-chart">
+        <ul>
+            <li class="header">
+                <div class="skill-name" ng-click="orderByField='label'; reverseSort = !reverseSort">Skill Name</div>
+                <div class="number-of-jobs" ng-click="orderByField='count'; reverseSort = !reverseSort" data-ng-init="orderByField='-count'">Number of Jobs</div>
+                <div class="view-detail">View Detail</div>
+            </li>
+            <li ng-repeat="term in terms | orderBy:orderByField:reverseSort">
+
+                <a href="#/analytics/skill/{{term.term}}">
+                <div class="skill-name">{{term.label}}</div>
+                <div class="number-of-jobs">
+                    <strong>{{term.count}}</strong> <span>({{term.percent}} %)</span>
+                    <br/>Salary: {{term.salRange}}
+                </div>
+                <div class="view-detail"><i class="fa fa-chevron-right"></i></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+

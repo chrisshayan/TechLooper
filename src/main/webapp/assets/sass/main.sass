@@ -2,17 +2,22 @@ html
   height: 100%
 
 body
-  height: 100%
+  height: auto
   background-color: #201d1e
   color: #727272
   font-family: 'roboto', arial
   font-weight: 300
   outline: 0
+  min-height: 100%
+  height: 100%
+  width: 100%
+  margin: 0px
+  padding: 0px
 *:focus
   outline: 0
 textarea:focus, 
 input:focus,
-span:focus, 
+span:focus,
   outline: 0
 
 ul
@@ -21,6 +26,9 @@ a img
   border: 0
 a:hover
   text-decoration: none
+a:focus
+  border: 0
+  outline: none
 .hide
   display: none
 .show
@@ -36,11 +44,16 @@ a:hover
   display: none
 .desktop
   display: block
+.body-content
+  min-height: 100%
 .techlooper-body
   display: block
   clear: both
   float: left
   width: 100%
+.text-left
+  text-align: left
+  padding-left: 10px
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
@@ -61,6 +74,9 @@ a:hover
 .navbar-inverse
   background: url(../images/line-header.png) #201d1e center bottom no-repeat
   border: 0
+  width: 100%
+  float: left
+  padding: 5px 0
 
 .setting-content
   background-color: #323232
@@ -124,27 +140,61 @@ ul.setting-items
 .logo-block
   width: 100%
   float: left
-  height: 70px
-  padding: 5px 0
+  padding: 5px 10px
+  background-color: #0f0f0f
+  border-bottom: 1px solid #292929
 
 .logo-block h1
   margin: 0
   padding: 0
+.logo
+  width: 50%
+  float: left
+.vnw-logo
+  float: right
+  width: 50%
 .note
   width: 100%
   text-align: center
   color: #727272
   font-size: 11px
   padding-bottom: 5px
+.text-guide
+  width: 50%
+  text-align: center
+  margin: auto
+  padding-bottom: 30px
+  p
+    width: auto
+    margin: auto
+    height: 40px
+    line-height: 40px
+    font-size: 18px
+    border-radius: 50%
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    width: auto
+    display: inline-block
+    padding: 0 20px
+    color: #cdcdcd
 .chart-block
   width: 100%
   clear: both
-  min-height: 550px
-.chart-contrainer
+  p
+    text-align: center
+    font-size: 22px
+    color: #d6d6d6
+.chart-block:after
+  content: ""
+  display: block
+
+.chart-container
   width: 100%
   clear: both
   display: block
   text-align: center
+  padding-bottom: 30px
 .signin-header,
 .user-profile-header
   height: 70px
@@ -374,9 +424,9 @@ a.m-languages.en:hover
       display: inline-block
       a
         border: 0
-        border-radius: none
-        -webkit-border-radius: none
-        -moz-border-radius: none
+        border-radius: 0
+        -webkit-border-radius: 0
+        -moz-border-radius: 0
         font-size: 20px
         width: 40px
         height: 40px
@@ -606,14 +656,64 @@ a.m-languages.en:hover
     font-weight: 300
     &:hover
       background-color: #007bdc
+.pie-chart-mobile
+  display: none
+.pie-chart-desktop
+  display: block
 .pie-Chart-Container
-  padding-top: 50px
+  padding-top: 30px
   min-height: 450px
 
 .analystic-find-jobs-block
   display: block
-/* --- Style for footer ---*/
 
+.mobile-header
+  background: none #201d1e
+.mobile-pie-chart
+  width: 100%
+  ul
+    margin: 0
+    padding: 0
+    width: 100%
+    float: left
+    background-color: #222222
+    li
+      width: 100%
+      display: block
+      clear: both
+      border-bottom: 1px solid #292929
+      padding: 10px 5px
+      font-size: 14px
+      font-weight: 300
+      float: left
+      cursor: pointer
+      .skill-name
+        width: 40%
+        float: left
+        padding: 5px 0
+        color: #8d8d8d
+      .number-of-jobs
+        width: 35%
+        float: left
+        padding: 5px 0
+        color: #8d8d8d
+        span
+          font-style: italic
+      .view-detail
+        float: left
+        width: 25%
+        text-align: center
+        padding: 5px 0
+        color: #8d8d8d
+
+    li:nth-child(2n+1)
+      background-color: #201d1e
+    li.header
+      border-top: 1px solid #292929
+      background-color: #0d0d0d
+      font-size: 14px
+      font-weight: 400
+/* --- Style for footer ---*/
 footer
   position: fixed
   bottom: 0
@@ -697,7 +797,7 @@ footer
   left: 0
   right: 0
   bottom: 0
-  background-color: #000
+  background-color: #201d1e
   opacity: 0.9
   display: none
 .windows8
@@ -1218,7 +1318,7 @@ label.bootstrap-checkbox.disabled
     font-weight: 400
 
 .modal-dialog
-  top: 25%
+  top: 15%
 .signin-popup
   width: 100%
   text-align: center
@@ -1557,3 +1657,92 @@ label.bootstrap-checkbox.disabled
 .icheckbox_polaris,
 .iradio_polaris
   background: url(../images/polaris.png) no-repeat
+.js-footer,
+.body-content:after
+  height: 60px
+.js-footer
+  height: 60px
+  background-color: #000
+  border-top: 1px solid #292929
+  padding-top: 10px
+  .footer-content-block
+    width: 100%
+    max-width: 1000px
+    margin: auto
+  .vnw-logo
+    width: auto
+    float: right
+    padding-top: 7px
+    img
+      max-width: 100px
+  .copyright-block
+    width: 60%
+    float: left
+    color: #585858
+    text-align: left
+    padding-top: 6px
+    p
+      font-size: 12px
+      line-height: 16px
+      margin: auto
+    span
+      color: #a3a3a3
+    a
+      color: #a3a3a3
+  .social-network-block
+    width: auto
+    float: right
+    text-align: right
+    ul
+      width: auto
+      float: right
+      li
+        float: left
+        padding: 5px 0 0 5px
+        a
+          color: #585858
+        a:hover
+          color: #2c7abe
+        i
+          font-size: 30px
+  .footer-content
+    width: 100%
+    max-width: 1000px
+    margin: auto
+.technical-detail
+  float: left
+  width: 100%
+.switch-data
+  margin: auto
+  text-align: center
+  width: 250px
+  padding-top: 20px
+  ul
+    margin: 0
+    padding: 0
+    li
+      width: 50%
+      float: left
+      background-color: #312e2f
+      border-bottom: 1px solid #000
+      padding: 5px 10px
+      font-size: 20px
+      cursor: pointer
+      color: #eeeeee
+    li:last-child
+      -webkit-border-top-right-radius: 5px
+      -webkit-border-bottom-right-radius: 5px
+      -moz-border-radius-topright: 5px
+      -moz-border-radius-bottomright: 5px
+      border-top-right-radius: 5px
+      border-bottom-right-radius: 5px
+    li:first-child
+      -webkit-border-top-left-radius: 5px
+      -webkit-border-bottom-left-radius: 5px
+      -moz-border-radius-topleft: 5px
+      -moz-border-radius-bottomleft: 5px
+      border-top-left-radius: 5px
+      border-bottom-left-radius: 5px
+    li.active
+      background-color: #277cbe
+      color: #fff

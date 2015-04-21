@@ -26,4 +26,16 @@ public class LoggingAspect {
     public void logServiceCountResult(final JoinPoint joinPoint, final Object returnValue) {
         LOGGER.info("Result for searching by [{}] is [{}]", joinPoint.getSignature().getName(), returnValue);
     }
+
+    /* location / {
+    proxy_pass  ;
+    proxy_redirect off;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_read_timeout 300s;
+    proxy_buffering off;
+    rewrite ^/(.*) /#/bubble-chart/ break;
+  }
+}*/
 }

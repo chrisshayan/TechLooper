@@ -1,5 +1,10 @@
 angular.module("Common").constant("jsonValue", {
 
+  pieChartType: {
+    salary: "SALARY",
+    job: "JOB"
+  },
+
   messages: {
     successSave: "Your data has been successfully saved",
     errorFieldsSave: "Please correct the marked field(s) above"
@@ -43,7 +48,8 @@ angular.module("Common").constant("jsonValue", {
     http404: "HTTP code 404",
     logoutSuccess: "Logout success",
     cleanSession: "Clean session",
-    serverError: "Server error"
+    serverError: "Server error",
+    userRegistrationCount: "User registration count"
   },
 
   viewTerms: {
@@ -149,6 +155,11 @@ angular.module("Common").constant("jsonValue", {
   },
 
   routerUris: {
+    landing: "/landing",
+    home: "/home",
+    talentSearchResult: "/talent-search-result",
+    talentProfile: "/talent-profile",
+    companyProfile: "/companies",
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
@@ -159,6 +170,11 @@ angular.module("Common").constant("jsonValue", {
   },
 
   views: {
+    landing: "landing",
+    home: "home",
+    talentSearchResult: "talentSearchResult",
+    talentProfile: "talentProfile",
+    companyProfile: "companyProfile",
     jobsSearch: "jobSearch",
     jobsSearchText: "jobSearchText",
     analyticsSkill: "analyticsSkill",
@@ -175,7 +191,13 @@ angular.module("Common").constant("jsonValue", {
     login: "login",
     logout: "logout",
     verifyUserLogin: "user/verifyUserLogin",
-    getUserInfoByKey: "user/findByKey"
+    getUserInfoByKey: "user/findByKey",
+    searchTalent: "api/user/findTalent",
+    talentProfile: "api/user/talentProfile",
+    userRegister: "api/user/register",
+    company: "company",
+    companyId: "company/id",
+    userRegisterCount: "api/user/register/count"
   },
 
   socketUri: {
@@ -192,7 +214,8 @@ angular.module("Common").constant("jsonValue", {
     subscribeAnalyticsSkill: "/topic/analytics/skill",
 
     getUserInfoByKey: "/app/user/findByKey",
-    subscribeUserInfo: "/user/queue/info"
+    subscribeUserInfo: "/user/queue/info",
+    subscribeUserRegistration: "/topic/api/user/register/count"
   },
 
 
@@ -202,6 +225,9 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': '.Net',
     'logo': 'lg-dotnet.png'
+  }, {
+    'text': 'C#',
+    'logo': 'lg-c-sharp.png'
   }, {
     'text': 'Php',
     'logo': 'lg-php.png'
@@ -217,6 +243,9 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Html5',
     'logo': 'lg-html5.png'
+  }, {
+    'text': 'Html',
+    'logo': 'lg-html.png'
   }, {
     'text': 'Bootstrap',
     'logo': 'lg-bootstrap.png'
@@ -242,6 +271,9 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Photoshop',
     'logo': 'lg-photoshop.png'
   }, {
+    'text': 'ABAP',
+    'logo': 'lg-sap.png'
+  }, {
     'text': 'Less',
     'logo': 'lg-less.png'
   }, {
@@ -265,6 +297,66 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Illustrator',
     'logo': 'lg-illustrator.png'
+  }, {
+    'text': 'JavaScript',
+    'logo': 'lg-javascript.png'
+  }, {
+    'text': 'C',
+    'logo': 'lg-c.png'
+  }, {
+    'text': 'CSS',
+    'logo': 'lg-css.png'
+  }, {
+    'text': 'Shell',
+    'logo': 'lg-shell.png'
+  }, {
+    'text': 'Clojure',
+    'logo': 'lg-clojure.png'
+  }, {
+    'text': 'CoffeeScript',
+    'logo': 'lg-coffeescript.png'
+  }, {
+    'text': 'Go',
+    'logo': 'lg-go.png'
+  }, {
+    'text': 'Haskell',
+    'logo': 'lg-haskell.png'
+  }, {
+    'text': 'Lua',
+    'logo': 'lg-lua.png'
+  }, {
+    'text': 'Matlab',
+    'logo': 'lg-matlab.png'
+  }, {
+    'text': 'Perl',
+    'logo': 'lg-perl.png'
+  }, {
+    'text': 'R',
+    'logo': 'lg-r.png'
+  }, {
+    'text': 'Scala',
+    'logo': 'lg-scala.png'
+  }, {
+    'text': 'Swift',
+    'logo': 'lg-swift.png'
+  }, {
+    'text': 'Tex',
+    'logo': 'lg-tex.png'
+  }, {
+    'text': 'VimL',
+    'logo': 'lg-viml.png'
+  }, {
+    'text': 'Objective-C',
+    'logo': 'lg-objective-c.png'
+  }, {
+    'text': 'xml',
+    'logo': 'lg-xml.png'
+  }, {
+    'text': 'Groovy',
+    'logo': 'lg-groovy.png'
+  }, {
+    'text': 'Logos',
+    'logo': 'lg-logos.png'
   }],
   shortcuts: [{
     "id": 1,
@@ -338,6 +430,138 @@ angular.module("Common").constant("jsonValue", {
     }
   ],
 
+  cities: [
+    {"text": "Vietnam"},
+    {"text": "Ho Chi Minh"},
+    {"text": "Ha Noi"},
+    {"text": "Da Nang"},
+    {"text": "Cambodia"},
+    {"text": "Myanmar"},
+    {"text": "Japan"},
+    {"text": "Thailand"},
+    {"text": "Singapore"},
+    {"text": "Malaysia"},
+    {"text": "Indonesia"},
+    {"text": "Australia"},
+    {"text": "China"},
+    {"text": "India"},
+    {"text": "Korea"},
+    {"text": "Taiwan"},
+    {"text": "Spain"},
+    {"text": "Ukraine"},
+    {"text": "Poland"},
+    {"text": "Russia"},
+    {"text": "Bulgaria"},
+    {"text": "Turkey"},
+    {"text": "Greece"},
+    {"text": "Serbia"},
+    {"text": "Romania"},
+    {"text": "Belarus"},
+    {"text": "Lithuania"},
+    {"text": "Estonia"},
+    {"text": "Italy"},
+    {"text": "Portugal"},
+    {"text": "Colombia"},
+    {"text": "Brazil"},
+    {"text": "Chile"},
+    {"text": "Argentina"},
+    {"text": "Venezuela"},
+    {"text": "Bolivia"},
+    {"text": "Mexico"}
+  ],
+
+  industries: {
+    "1": {"value": "Accounting"},
+    "2": {"value": "Administrative/Clerical"},
+    "3": {"value": "Advertising/Promotion/PR"},
+    "4": {"value": "Agriculture/Forestry"},
+    "5": {"value": "Architecture/Interior Design"},
+    "6": {"value": "Pharmaceutical/Biotech"},
+    "7": {"value": "Civil/Construction"},
+    "8": {"value": "Consulting"},
+    "10": {"value": "Arts/Design"},
+    "11": {"value": "Customer Service"},
+    "12": {"value": "Education/Training"},
+    "13": {"value": "Engineering"},
+    "15": {"value": "Entry level"},
+    "16": {"value": "Environment/Waste Services"},
+    "17": {"value": "Executive management"},
+    "18": {"value": "Expatriate Jobs in Vietnam"},
+    "19": {"value": "Export-Import"},
+    "21": {"value": "NGO/Non-Profit"},
+    "22": {"value": "Health/Medical Care"},
+    "23": {"value": "Human Resources"},
+    "24": {"value": "Insurance"},
+    "25": {"value": "Legal/Contracts"},
+    "26": {"value": "Production/Process"},
+    "27": {"value": "Marketing"},
+    "28": {"value": "Oil/Gas"},
+    "30": {"value": "Real Estate"},
+    "32": {"value": "Retail/Wholesale"},
+    "33": {"value": "Sales"},
+    "34": {"value": "Sales Technical"},
+    "35": {"value": "IT - Software"},
+    "36": {"value": "Freight/Logistics"},
+    "37": {"value": "Airlines/Tourism/Hotel"},
+    "39": {"value": "Other"},
+    "41": {"value": "Telecommunications"},
+    "42": {"value": "Banking"},
+    "43": {"value": "Chemical/Biochemical"},
+    "47": {"value": "Interpreter/Translator"},
+    "48": {"value": "TV/Media/Newspaper"},
+    "49": {"value": "Purchasing/Supply Chain"},
+    "51": {"value": "Temporary/Contract"},
+    "52": {"value": "Textiles/Garments/Footwear"},
+    "53": {"value": "Warehouse"},
+    "54": {"value": "Food & Beverage"},
+    "55": {"value": "IT - Hardware/Networking"},
+    "56": {"value": "Securities & Trading"},
+    "57": {"value": "Internet/Online Media"},
+    "58": {"value": "Auditing"},
+    "59": {"value": "Finance/Investment"},
+    "62": {"value": "Luxury Goods"},
+    "63": {"value": "Fashion/Lifestyle"},
+    "64": {"value": "Electrical/Electronics"},
+    "65": {"value": "Mechanical"},
+    "66": {"value": "High Technology"},
+    "67": {"value": "Automotive"},
+    "68": {"value": "Industrial Products"},
+    "69": {"value": "Planning/Projects"},
+    "70": {"value": "QA/QC"},
+    "71": {"value": "Overseas Jobs"}
+  },
+
+  "companySizes": {
+    "1": {"value": "Less Than 10"},
+    "2": {"value": "10-24"},
+    "3": {"value": "25-99"},
+    "4": {"value": "100-499"},
+    "5": {"value": "500-999"},
+    "6": {"value": "1,000-4,999"},
+    "7": {"value": "5,000-9,999"},
+    "8": {"value": "10,000-19,999"},
+    "9": {"value": "20,000-49,999"},
+    "10": {"value": "Over 50,000"}
+  },
+
+  "benefits": {
+    "1": {"name": "Bonus", "iconName": "fa-dollar"},
+    "2": {"name": "Healthcare Plan", "iconName": "fa-user-md"},
+    "3": {"name": "Paid Leave", "iconName": "fa-file-image-o"},
+    "4": {"name": "Training", "iconName": "fa-graduation-cap"},
+    "5": {"name": "Awards", "iconName": "fa-trophy"},
+    "6": {"name": "Library", "iconName": "fa-book"},
+    "7": {"name": "Laptop", "iconName": "fa-laptop"},
+    "8": {"name": "Mobile", "iconName": "fa-mobile"},
+    "9": {"name": "Travel Opportunities", "iconName": "fa-plane"},
+    "10": {"name": "Team Activities", "iconName": "fa-glass"},
+    "11": {"name": "Transportation", "iconName": "fa-cab"},
+    "12": {"name": "Canteen", "iconName": "fa-coffee"},
+    "13": {"name": "Vouchers", "iconName": "fa-gift"},
+    "14": {"name": "Kindergarten", "iconName": "fa-child"},
+    "15": {"name": "Others", "iconName": "fa-check-square-o"}
+  },
+
   introTour: {
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
     pieHomePage: [
@@ -392,71 +616,5 @@ angular.module("Common").constant("jsonValue", {
         content: "Click to this button, you can find job on search job page"
       }
     ]
-    //technicalDetail: [
-    //  {
-    //    element: ".term-infor",
-    //    placement: "right",
-    //    title: "Term chart",
-    //    content: "The number of jobs of The Term, and job percent of term on total jobs."
-    //  },
-    //  {
-    //    element: "#circle-1",
-    //    placement: "right",
-    //    title: "Skill chart",
-    //    content: "The number of jobs of skill"
-    //  },
-    //  {
-    //    element: ".chart-management ul",
-    //    placement: "bottom",
-    //    title: "Period of Line chart",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  },
-    //  {
-    //    element: ".highcharts-container",
-    //    placement: "top",
-    //    title: "Line chart",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  },
-    //  {
-    //    element: ".rwd-table",
-    //    placement: "top",
-    //    title: "table chart",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  },
-    //  {
-    //    element: ".term-useful-links",
-    //    placement: "top",
-    //    title: "Useful link for the Term",
-    //    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //  }
-    //],
-    //signIn: [
-    //  {
-    //    element: ".signin-contianer",
-    //    placement: "left",
-    //    title: "Sign with social account",
-    //    content: "You can choose one account you like to sign in."
-    //  }
-    //],
-    //searchForm: [
-    //  {
-    //    element: ".selectize-input ",
-    //    placement: "bottom",
-    //    title: "Search Box",
-    //    content: "Enter text to search..."
-    //  },
-    //  {
-    //    element: ".technical-Skill-List",
-    //    placement: "top",
-    //    title: "choose Term logo for search box ",
-    //    content: "You can click to Term logo to selection for the search."
-    //  },
-    //  {
-    //    element: ".btn-close",
-    //    placement: "left",
-    //    title: "Close",
-    //    content: "Click here to close Search page and back to Home page."
-    //  }
-    //]
   }
 });

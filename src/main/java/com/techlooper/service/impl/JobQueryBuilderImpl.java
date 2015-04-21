@@ -43,10 +43,13 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     public FilterBuilder getTechnicalTermQuery(TechnicalTerm term) {
         BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
-        term.getSearchTexts().stream().map(termName ->
-                FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(termName, SEARCH_JOB_FIELDS)
-                        .operator(MatchQueryBuilder.Operator.AND))).forEach(boolFilter::should);
+        term.getSearchTexts().stream().map(termName -> getTechnicalTermQuery(termName)).forEach(boolFilter::should);
         return boolFilter;
+    }
+
+    public FilterBuilder getTechnicalTermQuery(String term) {
+        return FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS)
+                .operator(MatchQueryBuilder.Operator.AND));
     }
 
     public FilterBuilder getTechnicalSkillQuery(Skill skill) {
@@ -104,5 +107,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     public FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTerm term) {
         return FilterBuilders.boolFilter().must(this.getTechnicalTermQuery(term), this.getExpiredDateQuery("now"));
+    }
+
+    public FilterBuilder getTechnicalTermQueryAvailableWithinPeriod(String term, HistogramEnum period) {
+        String lastPeriod = "now-" + period.getPeriod() + period.getUnit();
+        FilterBuilder periodFilter = FilterBuilders.rangeFilter("approvedDate").from(lastPeriod).to("now").cache(true);
+        return FilterBuilders.boolFilter().must(this.getTechnicalTermQuery(term), periodFilter);
     }
 }

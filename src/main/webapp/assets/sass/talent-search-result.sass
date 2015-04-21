@@ -1,0 +1,296 @@
+.no-result
+  min-height: 500px
+  width: 100%
+  clear: both
+.ts-main.search-page
+  //background: url(../images/bg_light.png) left top repeat
+  background-color: #EDEAE6
+  display: block
+  clear: both
+  width: 100%
+  float: left
+  text-align: center
+  color: #525252
+  padding-bottom: 10px
+  .main-banner
+    .img-banner
+      min-height: 200px
+  .search-form-block
+    background: transparent
+    height: auto
+    top: 35px
+    width: 100%
+    max-width: 1200px
+    h2
+      display: none
+  .search-results-content
+    display: block
+    clear: both
+    padding: 35px 1% 40px 1%
+    text-align: left
+    width: 100%
+    max-width: 1252px
+    margin: auto
+    h2
+      font-size: 25px
+      font-weight: 300
+      text-transform: capitalize
+      padding: 0 1%
+      margin: 0
+      strong
+        font-weight: 400
+  .talent-results
+    display: block
+    clear: both
+    padding: 10px 0 0
+    .talent-item
+      width: 23%
+      float: left
+      background-color: #fff
+      box-shadow: 0 1px 0 #e0e0e0
+      //border: 1px solid #f5f5f3
+      margin: 1%
+      -webkit-border-radius: 3px
+      -moz-border-radius: 3px
+      border-radius: 3px
+      padding-bottom: 15px
+      .talent-item-content
+        width: 100%
+        display: block
+        padding: 10px
+        min-height: 220px
+      .main-skill
+        width: 100%
+        clear: both
+        display: block
+        padding-top: 5px
+        ul
+          width: 100%
+          margin: 0
+          padding: 0
+          li
+            width: auto
+            display: inline-block
+            padding: 5px 5px 0 0
+            span
+              display: block
+              font-size: 11px
+            span.left
+              background: url(../images/left-tag.png) left -39px no-repeat
+              padding-left: 20px
+            span.right
+              background: url(../images/right-tag.png) right -39px no-repeat
+              padding-right: 5px
+              line-height: 23px
+              height: 30px
+          li.highlight
+            span.left
+              background: url(../images/left-tag.png) left 0 no-repeat
+              padding-left: 20px
+            span.right
+              background: url(../images/right-tag.png) right 0 no-repeat
+              padding-right: 5px
+              line-height: 23px
+              height: 30px
+      .view-info-detail:before
+        width: 100%
+        clear: both
+        display: block
+        height: 10px
+      .view-info-detail:after
+        width: 100%
+        clear: both
+        display: block
+        height: 10px
+      .view-info-detail
+        width: 100%
+        display: block
+        clear: both
+        height: 40px
+        a
+          color: #248bd8
+          display: block
+          width: 60%
+          text-align: center
+          font-size: 16px
+          font-weight: 300
+          line-height: 40px
+          height: 40px
+          -webkit-border-radius: 3px
+          -moz-border-radius-: 3px
+          border-radius: 3px
+          cursor: pointer
+          margin: auto
+          //background-color: #f5f3f3
+          border: 1px solid #248bd8
+          //border-width: 0 0 2px
+      .save-list
+        width: 80px
+        height: 80px
+        background: url(../images/overlap-bg-blue.png) left top no-repeat
+        display: inline-block
+        padding: 5px 0 0 40px
+        position: absolute
+        top: 0
+        right: 0
+        z-index: 999
+        opacity: 0
+        display: none
+        span
+          background: url(../images/icon.png) center -267px no-repeat
+          width: 50px
+          height: 50px
+          cursor: pointer
+          display: block
+          font-size: 0
+          text-indent: -9999
+      .saved
+        span
+          background-position: center -311px
+          transition: background-position 0.8s ease
+          -moz-transition: background-position 0.8s ease
+          -webkit-transition: background-position 0.8s ease
+    .item-hover
+      border-color: #85c9fd
+      background-color: #ffffff
+      cursor: pointer
+    .talent-item:hover
+      background-color: #fcfcfc
+  .last-date-view
+    width: 100%
+    text-align: center
+    color: #9f9e9e
+    font-size: 14px
+    padding-top: 10px
+    display: none
+  .info-completed-status
+    width: 80%
+    display: block
+    overflow: hidden
+    height: 8px
+    margin: 5px auto
+    background: #b8b8b8
+    border-radius: 4px
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%)
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%)
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%)
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 60%)
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6)
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6)
+
+  .info-completed .real-status
+    display: block
+    min-width: 8px
+    height: 8px
+    background: #1997e6
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #147cd6, #24c1fc)
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #147cd6, #24c1fc)
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), -o-linear-gradient(left, #147cd6, #24c1fc)
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0) 61%, rgba(0, 0, 0, 0.2)), linear-gradient(to right, #147cd6, #24c1fc)
+    border-radius: 4px
+    -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2)
+  .general-info
+    width: 70%
+    display: inline-block
+    text-align: center
+    float: left
+    text-align: left
+    h3
+      font-weight: 300
+      font-size: 22px
+      text-align: left
+      padding: 5px 0
+      text-transform: capitalize
+      margin: 0
+      span
+        font-size: 12px
+        font-style: italic
+        color: #797979
+        display: block
+        clear: both
+        font-weight: 300
+      a
+        color: #525252
+    p
+      display: block
+      clear: both
+      font-size: 14px
+      text-align: left
+      line-height: 18px
+      margin: 0
+      height: 35px
+    ul
+      width: 100%
+      padding: 10px 0 0 0
+      margin: 0
+    li
+      width: auto
+      display: inline-block
+      padding: 5px 10px 5px 0
+      font-weight: 400
+      span
+        font-weight: 300
+        padding-right: 5px
+        display: inline-block
+.looper-point
+  width: auto
+  display: inline-block
+  clear: both
+  padding: 0 0 10px 0
+  text-align: center
+  font-size: 14px
+  margin: auto
+  strong
+    font-size: 16px
+    font-weight: 400
+    padding-right: 5px
+  span
+    width: 38px
+    line-height: 12px
+.job-info
+  width: 100%
+  clear: both
+  display: block
+  padding-top: 10px
+  border-top: 1px solid #dbdbdb
+  ul
+    width: 100%
+    margin: 0
+    padding: 0
+  li
+    width: 100%
+    clear: both
+    display: block
+    padding: 0 0 2px 0
+    span
+      display: block
+      background: url(../images/icon.png) left top no-repeat
+      padding-left: 38px
+      line-height: 34px
+    span.job-title
+      background-position: 0 0px
+    span.company
+      background-position: 0 -79px
+    span.location
+      background-position: 0 -35px
+.avatar-block
+  width: 30%
+  text-align: left
+  padding-bottom: 10px
+  float: left
+.avatar-block img
+  width: 60px
+  height: 60px
+  -webkit-border-radius: 50%
+  -moz-border-radius: 50%
+  border-radius: 50%
+  border: 1px solid #d1d1d1
+.info-completed
+  width: 100%
+  clear: both
+  display: none
+  padding-bottom: 20px
+  text-align: center
+  p
+    margin: 0

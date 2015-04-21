@@ -1,5 +1,5 @@
 angular.module("Common").factory("connectionFactory",
-  function (jsonValue, utils, $http, $q, $location, localStorageService, $rootScope) {
+  function (jsonValue, utils, $http, $q, $location, localStorageService, $rootScope, $timeout) {
     var socketUri = jsonValue.socketUri;
     var events = jsonValue.events;
     var callbacks = [];
@@ -13,6 +13,11 @@ angular.module("Common").factory("connectionFactory",
     var broadcastClient = Stomp.over(new SockJS(stompUrl));
     broadcastClient.debug = function () {};
 
+    var stompClient = {
+      stomp: Stomp.over(new SockJS(stompUrl)),
+      deferred: $q.defer()
+    };
+
     // private functions
     var $$ = {
       /** must to call when controller initialized */
@@ -24,7 +29,7 @@ angular.module("Common").factory("connectionFactory",
       clearCache: function () {
         for (var uri in subscriptions) {
           if ($.type(subscriptions[uri]) !== "number") {
-            subscriptions[uri].unsubscribe();
+            try{subscriptions[uri].unsubscribe();}catch(e){};
           }
         }
         callbacks.length = 0;
@@ -65,7 +70,7 @@ angular.module("Common").factory("connectionFactory",
     }
 
     var instance = {
-      verifyUserLogin: function() {
+      verifyUserLogin: function () {
         return $$.post(jsonValue.httpUri.verifyUserLogin, {
           emailAddress: $rootScope.userInfo !== undefined ? $rootScope.userInfo.emailAddress : ""
         });
@@ -95,11 +100,11 @@ angular.module("Common").factory("connectionFactory",
       findUserInfoByKey: function () {
         //HTTP version
         $$.post(jsonValue.httpUri.getUserInfoByKey)
-          .then(function(userInfo) {
+          .then(function (userInfo) {
             $rootScope.userInfo = userInfo;
             utils.sendNotification(jsonValue.notifications.userInfo, userInfo);
           })
-          .catch(function() {
+          .catch(function () {
             utils.sendNotification(jsonValue.notifications.notUserInfo);
           });
 
@@ -181,10 +186,7 @@ angular.module("Common").factory("connectionFactory",
           return true;
         }
         subscription = broadcastClient.subscribe(uri, function (response) {
-          scope.$emit(events.term + term.term, {
-            count: JSON.parse(response.body).count,
-            term: term.term
-          });
+          scope.$emit(events.term + term.term, JSON.parse(response.body));
         });
         subscriptions[uri] = subscription;
       },
@@ -207,6 +209,27 @@ angular.module("Common").factory("connectionFactory",
           $$.errorHandler(error);
         });//onreceipt
         isConnecting = true;
+      },
+
+      reconnectSocket: function () {
+        if (stompClient.isConnecting === true) {
+          return stompClient.deferred.promise;
+        }
+        else if (stompClient.stomp.connected === true) {
+          $timeout(function () {stompClient.deferred.resolve();}, 100);
+          return stompClient.deferred.promise;
+        }
+        stompClient.stomp = Stomp.over(new SockJS(stompUrl));
+        stompClient.stomp.debug = function () {};
+        stompClient.isConnecting = true;
+        stompClient.stomp.connect({}, function (frame) {
+          stompClient.isConnecting = false;
+          stompClient.deferred.resolve();
+        }, function (error) {
+          stompClient.isConnecting = false;
+          $$.errorHandler(error);
+        });
+        return stompClient.deferred.promise;
       },
 
       /* @subscription */
@@ -234,7 +257,21 @@ angular.module("Common").factory("connectionFactory",
         return false;
       },
 
-      initialize: function () {}
+      initialize: function () {},
+
+      subscribeUserRegistration: function () {
+        var uri = jsonValue.socketUri.subscribeUserRegistration;
+        if (subscriptions[uri] === undefined) {
+          subscriptions[uri] = {};
+        }
+        instance.reconnectSocket().then(function () {
+          if (subscriptions[uri].subscribe === undefined) {
+            subscriptions[uri].subscribe = stompClient.stomp.subscribe(uri, function (response) {
+              utils.sendNotification(jsonValue.notifications.userRegistrationCount, response.body);
+            });
+          }
+        });
+      }
     }
     utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.connectSocket);
     utils.registerNotification(jsonValue.notifications.loginSuccess, instance.connectSocket);

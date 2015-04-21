@@ -9,103 +9,112 @@ import java.util.List;
  */
 public class GitHubUserProfile extends UserProfile implements Serializable {
 
-    private long id;
-    private String name;
-    private String username;
-    private String location;
-    private String company;
-    private String blog;
-    private String email;
-    private Date createdDate;
-    private String profileImageUrl;
-    private List<GitHubRepo> repos;
-    private List<GitHubFollower> followers;
+  private long id;
+  private String name;
+  private String username;
+  private String location;
+  private String company;
+  private String blog;
+  private String email;
+  private Date createdDate;
+  private String profileImageUrl;
+  private List<GitHubRepo> repos;
+  private List<GitHubFollower> followers;
+  private List<String> skills;
 
-    public List<GitHubFollower> getFollowers() {
-        return followers;
-    }
+  public List<String> getSkills() {
+    return skills;
+  }
 
-    public void setFollowers(List<GitHubFollower> followers) {
-        this.followers = followers;
-    }
+  public void setSkills(List<String> skills) {
+    this.skills = skills;
+  }
 
-    public List<GitHubRepo> getRepos() {
-        return repos;
-    }
+  public List<GitHubFollower> getFollowers() {
+    return followers;
+  }
 
-    public void setRepos(List<GitHubRepo> repos) {
-        this.repos = repos;
-    }
+  public void setFollowers(List<GitHubFollower> followers) {
+    this.followers = followers;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public List<GitHubRepo> getRepos() {
+    return repos;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public void setRepos(List<GitHubRepo> repos) {
+    this.repos = repos;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getLocation() {
-        return location;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getCompany() {
-        return company;
-    }
+  public String getLocation() {
+    return location;
+  }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+  public void setLocation(String location) {
+    this.location = location;
+  }
 
-    public String getBlog() {
-        return blog;
-    }
+  public String getCompany() {
+    return company;
+  }
 
-    public void setBlog(String blog) {
-        this.blog = blog;
-    }
+  public void setCompany(String company) {
+    this.company = company;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getBlog() {
+    return blog;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setBlog(String blog) {
+    this.blog = blog;
+  }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
+  public Date getCreatedDate() {
+    return createdDate;
+  }
 
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
+
+  public String getProfileImageUrl() {
+    return profileImageUrl;
+  }
+
+  public void setProfileImageUrl(String profileImageUrl) {
+    this.profileImageUrl = profileImageUrl;
+  }
 }
