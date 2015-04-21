@@ -98,11 +98,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           gridLineWidth: 1
         },
         yAxis: {
-          plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#313131'
-          }],
           labels: {
             formatter: function () {
               return this.value;
@@ -113,9 +108,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           },
           min: trendSkillChart.config.yAxis.min,
           max: trendSkillChart.config.yAxis.max,
-          tickInterval: 10,
-          gridLineWidth: 1,
-          gridLineColor: '#353233'
+          tickInterval: 5
         },
         tooltip: {
           valueSuffix: ' Jobs'

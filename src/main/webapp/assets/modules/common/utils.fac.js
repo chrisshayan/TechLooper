@@ -70,7 +70,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
     formatDateByPeriod: function (date, period) {
       //TODO : It should be able to autodectect period base on the value in json.val.js
       if (period === "oneYear") {
-        return date.toString("MMM yy");
+        return date.toString("MMM 'yy");
       }
       return date.toString("MMM dd");
     },
