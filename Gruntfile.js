@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+  var timestamp = Date.now();
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
@@ -68,7 +69,10 @@ module.exports = function (grunt) {
         publicDirs: ["<%=pkg.public%>css"],
         blockReplacements: {
           js: function (block) {
-            return '<script src="' + block.dest + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<script src="' + block.dest + "?v=" + timestamp + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
+          },
+          css: function (block) {
+            return '<link rel="stylesheet" href="' + block.dest + "?v=" + timestamp + '">';//'<link rel="stylesheet" href="' + block.dest + '">';
           }
         }
       }
