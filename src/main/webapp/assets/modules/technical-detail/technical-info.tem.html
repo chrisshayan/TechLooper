@@ -2,10 +2,11 @@
   <div class="technical-logo">
     <h2>
       <img ng-if="termStatistic.logo.length" ng-src="images/{{termStatistic.logo}}" alt=""/>
+      <img ng-if="!termStatistic.logo.length" src="images/no-logo-company.png" alt=""/>
     </h2>
   </div>
   <div class="technical-info-detail">
     <h4><strong>{{termStatistic.totalJob}}</strong> <span translate>technicalNumberJobs</span> <strong>{{termStatistic.label}}</strong></h4>
-    <h3><span translate>technicalSalaryRange </span><strong>{{termStatistic.salRange}}</strong></h3>
+    <h3><span translate>technicalSalaryRange</span> <strong>{{termStatistic.salRange}}</strong></h3>
   </div>
 </div>
