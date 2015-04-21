@@ -8,6 +8,7 @@ import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -309,16 +310,20 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                         .get("top_companies")).getBuckets();
         if (!topCompanyBuckets.isEmpty()) {
             List<Company> companies = new ArrayList<>();
-            topCompanyBuckets.stream().limit(LIMIT_NUMBER_OF_COMPANIES).forEach(companyBucket -> {
-                String companyId = companyBucket.getKey();
+            int i = 0;
+            while (i < topCompanyBuckets.size() && companies.size() < LIMIT_NUMBER_OF_COMPANIES) {
+                String companyId = topCompanyBuckets.get(i).getKey();
                 CompanyEntity companyEntity = companyService.findById(Long.valueOf(companyId));
-                if (companyEntity != null) {
+                String companyLogoUrl = companyEntity.getCompanyLogoURL();
+                if (companyEntity != null && StringUtils.isNotEmpty(companyLogoUrl)) {
                     Company company = new Company();
+                    company.setCompanyId(companyId);
                     company.setName(companyEntity.getCompanyName());
-                    company.setCompanyLogoURL(companyEntity.getCompanyLogoURL());
+                    company.setCompanyLogoURL(companyLogoUrl);
                     companies.add(company);
                 }
-            });
+                i++;
+            }
             termStatisticResponse.setCompanies(companies);
         }
 
