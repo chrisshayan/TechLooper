@@ -63,7 +63,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
         yAxis: {min: yMin, max: yMax},
         xAxis: {labels: labels}
       }
-      console.log(chartConfig);
       return chartConfig;
     },
 

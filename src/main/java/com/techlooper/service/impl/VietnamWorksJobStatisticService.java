@@ -314,12 +314,11 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             while (i < topCompanyBuckets.size() && companies.size() < LIMIT_NUMBER_OF_COMPANIES) {
                 String companyId = topCompanyBuckets.get(i).getKey();
                 CompanyEntity companyEntity = companyService.findById(Long.valueOf(companyId));
-                String companyLogoUrl = companyEntity.getCompanyLogoURL();
-                if (companyEntity != null && StringUtils.isNotEmpty(companyLogoUrl)) {
+                if (companyEntity != null && StringUtils.isNotEmpty(companyEntity.getCompanyLogoURL())) {
                     Company company = new Company();
                     company.setCompanyId(companyId);
                     company.setName(companyEntity.getCompanyName());
-                    company.setCompanyLogoURL(companyLogoUrl);
+                    company.setCompanyLogoURL(companyEntity.getCompanyLogoURL());
                     companies.add(company);
                 }
                 i++;
