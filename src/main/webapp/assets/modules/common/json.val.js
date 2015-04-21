@@ -246,6 +246,10 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Ruby',
     'logo': 'lg-ruby.png'
   }, {
+    term: "BA",
+    'text': 'Ba',
+    'logo': 'lg-ba.png'
+  }, {
     term: "PYTHON",
     'text': 'Python',
     'logo': 'lg-python.png'
