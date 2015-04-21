@@ -3,9 +3,10 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.SkillStatisticResponse;
-import com.techlooper.model.TechnicalTerm;
+import com.techlooper.entity.Company;
+import com.techlooper.model.*;
+import com.techlooper.repository.JsonConfigRepository;
+import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.JsonUtils;
@@ -20,10 +21,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -44,12 +47,20 @@ public class VietnamWorksJobStatisticServiceITCase {
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
 
+    @Resource
+    private CompanyService companyService;
+
+    @Resource
+    private JsonConfigRepository jsonConfigRepository;
+
     @Before
     public void before() {
         jobStatisticService = new VietnamWorksJobStatisticService();
         ReflectionTestUtils.setField(jobStatisticService, "elasticsearchTemplate", elasticsearchTemplate);
         ReflectionTestUtils.setField(jobStatisticService, "jobQueryBuilder", jobQueryBuilder);
         ReflectionTestUtils.setField(jobStatisticService, "elasticSearchIndexName", elasticSearchIndexName);
+        ReflectionTestUtils.setField(jobStatisticService, "companyService", companyService);
+        ReflectionTestUtils.setField(jobStatisticService, "jsonConfigRepository", jsonConfigRepository);
     }
 
     @Test
@@ -82,5 +93,56 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testCountTotalITJobsWithinPeriod() throws Exception {
         Long totalITJobs = jobStatisticService.countTotalITJobsWithinPeriod(HistogramEnum.TWO_QUARTERS);
         assertTrue(totalITJobs > 0);
+    }
+
+    @Test
+    public void testGenerateTermStatisticWithDefaultSkill() throws Exception {
+        TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
+        termStatisticRequest.setTerm("JAVA");
+        termStatisticRequest.setJobLevelId(5);
+        TermStatisticResponse termStatisticResponse =
+                jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+        assertTrue(termStatisticResponse.getAverageSalaryMin() > 250);
+        assertTrue(termStatisticResponse.getAverageSalaryMax() > 250);
+
+        List<SkillStatistic> skillStatistics = termStatisticResponse.getSkills();
+        List<Company> companies = termStatisticResponse.getCompanies();
+
+        assertTrue(termStatisticResponse.getTotalJob() > 0);
+
+        // Maximum number of top hiring companies
+        assertTrue(companies.size() > 0 && companies.size() <= 5);
+
+        // Maximum number of skills can be added
+        assertTrue(skillStatistics.size() > 0 && skillStatistics.size() <= 5);
+
+        // One skill should be analyzed by 12 months per year
+        assertTrue(skillStatistics.get(0).getHistograms().get(0).getValues().size() >= 12);
+    }
+
+    @Test
+    public void testGenerateTermStatisticWithCustomAddedSkill() throws Exception {
+        TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
+        termStatisticRequest.setTerm("JAVA");
+        termStatisticRequest.setJobLevelId(5);
+        termStatisticRequest.setSkills(Arrays.asList("Jenkins", "Maven"));
+        TermStatisticResponse termStatisticResponse =
+                jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+        assertTrue(termStatisticResponse.getAverageSalaryMin() > 250);
+        assertTrue(termStatisticResponse.getAverageSalaryMax() > 250);
+
+        List<SkillStatistic> skillStatistics = termStatisticResponse.getSkills();
+        List<Company> companies = termStatisticResponse.getCompanies();
+
+        assertTrue(termStatisticResponse.getTotalJob() > 0);
+
+        // Maximum number of top hiring companies
+        assertTrue(companies.size() > 0 && companies.size() <= 5);
+
+        // Maximum number of skills can be added
+        assertTrue(skillStatistics.size() > 0 && skillStatistics.size() <= 5);
+
+        // One skill should be analyzed by 12 months per year
+        assertTrue(skillStatistics.get(0).getHistograms().get(0).getValues().size() > 0);
     }
 }

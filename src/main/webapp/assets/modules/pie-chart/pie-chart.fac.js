@@ -55,26 +55,26 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       $('.pie-Chart-Container').highcharts({
         colors: data4PieChart.colors,
         chart: {
-          backgroundColor: '#201d1e',
-          plotBorderColor: '#efefef'
+          backgroundColor: '#f1f3f7',
+          plotBorderColor: '#1f1f1f'
         },
         title: {
           text: ''
         },
         legend: {
           itemStyle: {
-            color: '#efefef'
+            color: '#1f1f1f'
           },
           itemHoverStyle: {
-            color: '#efefef'
+            color: '#1f1f1f'
           },
           itemHiddenStyle: {
-            color: '#efefef'
+            color: '#1f1f1f'
           }
         },
         labels: {
           style: {
-            color: '#efefef'
+            color: '#1f1f1f'
           }
         },
         tooltip: {
@@ -114,7 +114,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           },
           series: {
             dataLabels: {
-              color: '#efefef'
+              color: '#1f1f1f'
             },
             marker: {
               lineColor: '#333'
@@ -150,7 +150,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
     },
 
     updateViewTerm: function (term) {
-      termService.refineTerm(term);
+      termService.toViewTerm(term);
       if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
         Highcharts.charts[0].series[0]
           .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);

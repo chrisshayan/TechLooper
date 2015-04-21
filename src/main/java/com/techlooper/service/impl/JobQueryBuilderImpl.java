@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
+import com.techlooper.model.TermStatisticRequest;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
@@ -11,6 +12,8 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
@@ -18,10 +21,13 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by phuonghqh on 11/8/14.
@@ -36,25 +42,25 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     private JsonConfigRepository jsonConfigRepository;
 
     public FilterBuilder getTechnicalTermsQuery() {
-        BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+        BoolFilterBuilder boolFilter = boolFilter();
         jsonConfigRepository.getSkillConfig().stream().map(this::getTechnicalTermQuery).forEach(boolFilter::should);
         return boolFilter;
     }
 
     public FilterBuilder getTechnicalTermQuery(TechnicalTerm term) {
-        BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+        BoolFilterBuilder boolFilter = boolFilter();
         term.getSearchTexts().stream().map(termName -> getTechnicalTermQuery(termName)).forEach(boolFilter::should);
         return boolFilter;
     }
 
     public FilterBuilder getTechnicalTermQuery(String term) {
-        return FilterBuilders.queryFilter(QueryBuilders.multiMatchQuery(term, SEARCH_JOB_FIELDS)
+        return queryFilter(multiMatchQuery(term, SEARCH_JOB_FIELDS)
                 .operator(MatchQueryBuilder.Operator.AND));
     }
 
     public FilterBuilder getTechnicalSkillQuery(Skill skill) {
-        return FilterBuilders.queryFilter(
-                QueryBuilders.multiMatchQuery(skill.getName(), SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND)).cache(true);
+        return queryFilter(
+                multiMatchQuery(skill.getName(), SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND)).cache(true);
     }
 
     public NativeSearchQueryBuilder getVietnamworksJobCountQuery() {
@@ -78,9 +84,9 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
                                                                  HistogramEnum histogramEnum, Integer total) {
         String intervalDate = LocalDate.now().minusDays(total).format(DateTimeFormatter.ofPattern("YYYYMMdd"));
         String to = "now-" + (total * histogramEnum.getPeriod()) + histogramEnum.getUnit();
-        RangeFilterBuilder approveDateQuery = FilterBuilders.rangeFilter("approvedDate").to(to).cache(true);
-        RangeFilterBuilder expiredDateQuery = FilterBuilders.rangeFilter("expiredDate").gte(to).cache(true);
-        BoolFilterBuilder filterQuery = FilterBuilders.boolFilter().must(skillQuery, approveDateQuery, expiredDateQuery);
+        RangeFilterBuilder approveDateQuery = rangeFilter("approvedDate").to(to).cache(true);
+        RangeFilterBuilder expiredDateQuery = rangeFilter("expiredDate").gte(to).cache(true);
+        BoolFilterBuilder filterQuery = boolFilter().must(skillQuery, approveDateQuery, expiredDateQuery);
         return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill.getName()) + "-" + histogramEnum + "-" + intervalDate).filter(filterQuery);
     }
 
@@ -97,7 +103,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     public FilterBuilder getExpiredDateQuery(String from) {
-        return FilterBuilders.rangeFilter("expiredDate").from(from).cache(true);
+        return rangeFilter("expiredDate").from(from).cache(true);
     }
 
     public FilterBuilder getTechnicalTermsQueryNotExpired() {
@@ -106,12 +112,64 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     public FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTerm term) {
-        return FilterBuilders.boolFilter().must(this.getTechnicalTermQuery(term), this.getExpiredDateQuery("now"));
+        return boolFilter().must(this.getTechnicalTermQuery(term), this.getExpiredDateQuery("now"));
     }
 
     public FilterBuilder getTechnicalTermQueryAvailableWithinPeriod(String term, HistogramEnum period) {
         String lastPeriod = "now-" + period.getPeriod() + period.getUnit();
-        FilterBuilder periodFilter = FilterBuilders.rangeFilter("approvedDate").from(lastPeriod).to("now").cache(true);
-        return FilterBuilders.boolFilter().must(this.getTechnicalTermQuery(term), periodFilter);
+        FilterBuilder periodFilter = rangeFilter("approvedDate").from(lastPeriod).to("now").cache(true);
+        return boolFilter().must(this.getTechnicalTermQuery(term), periodFilter);
+    }
+
+    @Override
+    public QueryBuilder getTermQueryBuilder(TermStatisticRequest term) {
+        List<String> searchTexts = jsonConfigRepository.findByKey(term.getTerm()).getSearchTexts();
+        BoolQueryBuilder termQueryBuilder = boolQuery();
+        searchTexts.forEach(searchText -> termQueryBuilder.should(matchPhraseQuery("jobTitle", searchText)));
+        return termQueryBuilder;
+    }
+
+    @Override
+    public FilterAggregationBuilder getSalaryMinAggregation() {
+        FilterBuilder salaryMinFilter = andFilter(rangeFilter("salaryMin").from(250), rangeFilter("salaryMax").from(250),
+                rangeFilter("expiredDate").from("now"));
+        return AggregationBuilders.filter("avg_salary_min").filter(salaryMinFilter).subAggregation(
+                AggregationBuilders.avg("avg_salary_min").field("salaryMin"));
+    }
+
+    @Override
+    public FilterAggregationBuilder getSalaryMaxAggregation() {
+        FilterBuilder salaryMaxFilter = andFilter(rangeFilter("salaryMin").from(250), rangeFilter("salaryMax").from(250),
+                rangeFilter("expiredDate").from("now"));
+        return AggregationBuilders.filter("avg_salary_max").filter(salaryMaxFilter).subAggregation(
+                AggregationBuilders.avg("avg_salary_max").field("salaryMax"));
+    }
+
+    @Override
+    public FilterAggregationBuilder getTopCompaniesAggregation() {
+        return AggregationBuilders.filter("top_companies").filter(rangeFilter("expiredDate").from("now")).subAggregation(
+                AggregationBuilders.terms("top_companies").field("companyId"));
+    }
+
+    @Override
+    public List<FilterAggregationBuilder> getSkillAnalyticsAggregations(TermStatisticRequest term, HistogramEnum histogramEnum) {
+        String lastPeriod = histogramEnum.getTotal() * histogramEnum.getPeriod() + histogramEnum.getUnit();
+        List<FilterAggregationBuilder> skillAnalyticsAggregations = new ArrayList<>();
+        for (String skill : term.getSkills()) {
+            String aggName = EncryptionUtils.encodeHexa(skill) + "_" + histogramEnum + "_analytics";
+            FilterBuilder skillFilter = queryFilter(boolQuery()
+                    .must(multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
+                    .must(rangeQuery("approvedDate").from("now-" + lastPeriod)));
+            AggregationBuilder skillHistogramAgg = AggregationBuilders.dateHistogram(aggName)
+                    .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH).minDocCount(0);
+
+            skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
+        }
+        return skillAnalyticsAggregations;
+    }
+
+    @Override
+    public ValueCountBuilder getTotalJobAggregation() {
+        return AggregationBuilders.count("total_job").field("jobId");
     }
 }

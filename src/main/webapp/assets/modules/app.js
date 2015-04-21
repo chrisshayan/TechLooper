@@ -98,6 +98,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/talent-search/home.tem.html",
         controller: "tsSearchResultController"
       })
+      .when("/analytics/skill/:term", {
+        templateUrl: "modules/technical-detail/technical-detail.tem.html",
+        controller: "technicalDetailController"
+      })
       .when("/companies/:companyName", {//vietnamworks
           templateUrl: "modules/talent-search/home.tem.html",
           controller: "companyProfileController"
@@ -118,10 +122,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "searchResultController"
       })
-      .when("/analytics/skill/:term/:period?", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "skillAnalyticsController"
-      })
+      //.when("/analytics/skill/:term/:period?", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "skillAnalyticsController"
+      //})
       .when("/signin", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "signInController"

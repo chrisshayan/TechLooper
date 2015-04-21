@@ -7,9 +7,12 @@ package com.techlooper.service;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
+import com.techlooper.model.TermStatisticRequest;
 import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.util.List;
@@ -81,4 +84,16 @@ public interface JobQueryBuilder {
     FilterBuilder getTechnicalTermQueryNotExpired(TechnicalTerm term);
 
     FilterBuilder getTechnicalTermQueryAvailableWithinPeriod(String term, HistogramEnum period);
+
+    QueryBuilder getTermQueryBuilder(TermStatisticRequest term);
+
+    FilterAggregationBuilder getSalaryMinAggregation();
+
+    FilterAggregationBuilder getSalaryMaxAggregation();
+
+    FilterAggregationBuilder getTopCompaniesAggregation();
+
+    List<FilterAggregationBuilder> getSkillAnalyticsAggregations(TermStatisticRequest term, HistogramEnum histogramEnum);
+
+    ValueCountBuilder getTotalJobAggregation();
 }

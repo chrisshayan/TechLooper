@@ -1,0 +1,46 @@
+{
+  "term" : "CPLUSPLUS",
+  "jobLevelId" : 5,
+  "salaryMin" : 1000,
+  "salaryMax" : 2000,
+  "companies" : [
+    {
+      "name" : "Vietnamworks",
+      "companyLogoURL" : "http://images.vietnamworks.com/pictureofcompany/7b/331483.jpg"
+    },
+    {
+      "name" : "Harvey Nash",
+      "companyLogoURL" : "http://images.vietnamworks.com/pictureofcompany/7b/331483.jpg"
+    }
+  ],
+  "skills" : [
+    {
+      "skillName" : "REST",
+      "histograms" : [
+        {
+          "name" : "ONE_YEARS",
+          "values" : [2, 5, 7 ,9, 15, 17, 20, 27, 29, 100]
+        }
+      ]
+    },
+    {
+      "skillName" : "Maven",
+      "histograms" : [
+        {
+          "name" : "ONE_YEARS",
+          "values" : [2, 5, 7 ,9, 15, 17, 20, 27, 29, 45]
+        }
+      ]
+    },
+    {
+      "skillName" : "Hibernate",
+      "histograms" : [
+        {
+          "name" : "ONE_YEARS",
+          "values" : [2, 5, 7 ,9, 15, 17, 20, 27, 29, 56]
+        }
+      ]
+    }
+  ]
+
+}

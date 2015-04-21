@@ -1,20 +1,10 @@
-<nav class="navbar">
-  <div class="logo-block text-center">
-    <div class="logo" id="logo">
-      <h1><a href="#/"> <img src="images/logo.png" alt="Career Analytics. Awesome!"></a></h1>
-    </div>
-    <div class="vnw-logo">
-      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/logo-vnw.png" alt="Career Analytics. Awesome!"></a>
-    </div>
-  </div>
-</nav>
 <div class="row chart-block">
   <div class="pie-chart-desktop">
     <p>{{ 'slogan' | translate }}</p>
     <div class="switch-data">
       <ul>
-        <li class="active" data-chart = 'SALARY'>Salary</li>
-        <li data-chart = 'JOB'>Jobs</li>
+        <li class="active" data-chart = 'SALARY' translate>monthlySalary</li>
+        <li data-chart = 'JOB' translate>currentJobs</li>
       </ul>
     </div>
     <div class="col-md-12">
@@ -25,9 +15,9 @@
         <div class="note">
           <div translate>note</div>
         </div>
-        <div class="text-guide">
-          <p>{{ 'clickOnSkillGuide' | translate }}</p>
-        </div>
+        <!--<div class="text-guide">-->
+          <!--<p>{{ 'clickOnSkillGuide' | translate }}</p>-->
+        <!--</div>-->
       </div>
     </div>
   </div>
