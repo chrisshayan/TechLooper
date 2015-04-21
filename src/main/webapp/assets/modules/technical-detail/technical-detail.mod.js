@@ -13,14 +13,14 @@ techlooper
       templateUrl: "modules/technical-detail/technical-info.tem.html"
     }
   })
-  .directive("technicalSkills", function (technicalDetailService) {
+  .directive("technicalSkills", function () {
     return {
       restrict: "A",
       replace: true,
       templateUrl: "modules/technical-detail/technical-skills.tem.html"
     }
   })
-  .directive("trendSkills", function (technicalDetailService) {
+  .directive("trendSkills", function () {
     return {
       restrict: "A",
       replace: true,
