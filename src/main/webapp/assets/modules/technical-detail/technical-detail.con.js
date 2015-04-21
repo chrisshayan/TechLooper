@@ -2,6 +2,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
                                                              technicalDetailService, $scope, $timeout, jsonValue, termService) {
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
   var term = $routeParams.term;
+  var termView = termService.toViewTerm({term: term});
 
   $scope.showCircle = function(skill) {
     technicalDetailService.showSkillsList(skill, $scope.termStatistic.totalJob);
@@ -9,7 +10,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   }
 
   $scope.companyUrl = function(company) {//java-fpt+at-it-software-i35-en
-    return sprintf("http://vietnamworks.com/%s-%s+at-it-software-i35-en", term.toLowerCase(), company.name);
+    return sprintf("http://vietnamworks.com/%s-%s+at-it-software-i35-en", termView.label, company.name);
   }
 
   connectionFactory.termStatisticInOneYear({term: term})

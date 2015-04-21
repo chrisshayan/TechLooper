@@ -48,5 +48,7 @@
     "jobNumber": "<b>%s</b> jobs in <b>%s</b>",
     "jobNumberLabel": "%s jobs in %s",
     "salaryRangeInJob": "%s in %s",
-    "jobs": "jobs"
+    "jobs": "jobs",
+    "from": "From",
+    "upto": "Up to"
 }

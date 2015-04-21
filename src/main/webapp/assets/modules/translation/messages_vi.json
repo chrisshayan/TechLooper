@@ -48,7 +48,9 @@
     "jobNumber": "<b>%s</b> công việc <b>%s</b>",
     "jobNumberLabel": "%s công việc %s",
     "salaryRangeInJob": "%s cho %s",
-    "jobs": "việc"
+    "jobs": "việc",
+    "from": "Từ",
+    "upto": "Lên đến"
 }
 
 
