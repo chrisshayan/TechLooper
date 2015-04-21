@@ -101,9 +101,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           labels: {
             formatter: function () {
               return this.value;
-            },
-            style: {
-              color: '#8a8a8a'
             }
           },
           min: trendSkillChart.config.yAxis.min,
