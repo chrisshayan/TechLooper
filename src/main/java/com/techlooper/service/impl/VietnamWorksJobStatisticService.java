@@ -48,6 +48,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final long LIMIT_NUMBER_OF_COMPANIES = 5;
 
+    private static final long LIMIT_NUMBER_OF_MONTHS = 13;
+
     private static final double LOWER_BOUND_SALARY = 250;
 
     @Resource
@@ -337,6 +339,11 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             skillHistogram.getBuckets().forEach(bucket -> {
                 histogramValues.add(bucket.getDocCount());
             });
+
+            while(histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
+                histogramValues.add(0L);
+            }
+
             SkillStatistic skillStatistic = new SkillStatistic();
             skillStatistic.setSkillName(skillRequest.get(i));
             skillStatistic.setTotalJob(configuredTechnicalTerm.getSkills().get(i).getCount());
