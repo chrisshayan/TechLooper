@@ -89,9 +89,10 @@
         display: inline-block
         padding-left: 30px
     .technical-skills-list
-      display: block
+      display: inline-block
       clear: both
       padding: 20px 0
+      width: 100%
       -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
@@ -104,9 +105,15 @@
         li
           width: 20%
           padding: 10px 1%
-          display: inline-block
+          float: left
           text-align: center
-
+          .circle
+            clear: both
+            width: 100%
+          .skill-name
+            width: 100%
+            clear: both
+            text-align: center
   .trend-skills-companies-block
     display: block
     clear: both
