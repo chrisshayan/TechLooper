@@ -227,6 +227,10 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Java',
     'logo': 'lg-java.png'
   }, {
+    term: "MOBILE",
+    'text': 'Mobile',
+    'logo': 'lg-mobile.png'
+  },{
     term: "DOTNET",
     'text': '.Net',
     'logo': 'lg-dotnet.png'
@@ -246,6 +250,7 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Python',
     'logo': 'lg-python.png'
   }, {
+    term: "CPLUSPLUS",
     'text': 'C++',
     'logo': 'lg-cplusplus.png'
   }, {
