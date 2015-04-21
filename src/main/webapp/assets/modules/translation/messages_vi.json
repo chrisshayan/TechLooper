@@ -43,7 +43,11 @@
     "technicalSalaryRange": "Lương:",
     "skillNumberJobs": "Số lượng công việc của kỹ năng",
     "skillsTrend": "Xu hướng",
-    "hiringCompanies": "Tuyển dụng"
+    "hiringCompanies": "Tuyển dụng",
+    "salaryRangeJob": "<b>%s</b> <br/>trung bình trong một tháng cho <b>%s</b>",
+    "jobNumber": "<b>%s</b> công việc <b>%s</b>",
+    "jobNumberLabel": "%s công việc %s",
+    "salaryRangeInJob": "%s cho %s"
 }
 
 
