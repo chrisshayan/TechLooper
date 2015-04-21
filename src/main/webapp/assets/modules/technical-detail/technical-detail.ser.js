@@ -56,14 +56,14 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       $.each(termStatistic.skills[0].histograms[0].values, function (i, item) {
         labels.unshift(utils.formatDateByPeriod((i * period).days().ago(), "oneYear"));
       });
-      
+
       chartConfig = {
         series: series,
         colors: colors,
         yAxis: {min: yMin, max: yMax},
         xAxis: {labels: labels}
       }
-
+      console.log(chartConfig);
       return chartConfig;
     },
 
@@ -74,6 +74,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
       trendSkillChart.instance = new Highcharts.Chart({
         chart: {
+          //backgroundColor: '#201d1e',
           renderTo: 'trendSkills',
           type: 'spline'
         },
@@ -153,7 +154,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           }
         },
         series: trendSkillChart.config.series,
-        credits: {
+        credits: {//disable Highchart.com text
           enabled: false
         }
       });
@@ -174,7 +175,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return utils.getView() === jsonValue.views.analyticsSkill;
     }
   };
-  
   utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, instance.enableNotifications);
   return instance;
 
