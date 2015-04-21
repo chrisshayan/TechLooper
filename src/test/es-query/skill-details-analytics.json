@@ -153,8 +153,7 @@ GET vietnamworks/job/_search?search_type=count
           "date_histogram": {
             "field": "approvedDate",
             "format": "yyyy-MM-dd",
-            "interval": "month",
-            "min_doc_count": 0
+            "interval": "month"
           }
         }
       }

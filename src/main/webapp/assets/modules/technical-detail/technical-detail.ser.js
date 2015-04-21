@@ -63,7 +63,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
         yAxis: {min: yMin, max: yMax},
         xAxis: {labels: labels}
       }
-
+      console.log(chartConfig);
       return chartConfig;
     },
 
@@ -74,17 +74,13 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
       trendSkillChart.instance = new Highcharts.Chart({
         chart: {
+          //backgroundColor: '#201d1e',
           renderTo: 'trendSkills',
           type: 'spline'
         },
         colors: trendSkillChart.config.colors,
         title: {
-          text: '',
-          style: {
-            color: '#E0E0E3',
-            textTransform: 'uppercase',
-            fontSize: '20px'
-          }
+          text: ''
         },
         subtitle: {
           text: ''
@@ -102,24 +98,20 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           gridLineWidth: 1
         },
         yAxis: {
-          plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#313131'
-          }],
           labels: {
             formatter: function () {
-              return this.value;
+              return this.value + " abc";
             },
             style: {
-              color: '#8a8a8a'
-            }
+              color: "black"
+            },
+            lineColor: '#FF0000',
+            lineWidth: 1
           },
-          min: trendSkillChart.config.yAxis.min,
+          min: 0,
           max: trendSkillChart.config.yAxis.max,
-          tickInterval: 10,
-          gridLineWidth: 1,
-          gridLineColor: '#353233'
+          //minRange: 0.1,
+          tickInterval: 5
         },
         tooltip: {
           valueSuffix: ' Jobs'
@@ -153,7 +145,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           }
         },
         series: trendSkillChart.config.series,
-        credits: {
+        credits: {//disable Highchart.com text
           enabled: false
         }
       });
@@ -174,7 +166,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return utils.getView() === jsonValue.views.analyticsSkill;
     }
   };
-
   utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, instance.enableNotifications);
   return instance;
 
