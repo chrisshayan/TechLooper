@@ -163,7 +163,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
                     .must(multiMatchQuery(searchQuery, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
                     .must(rangeQuery("expiredDate").from("now-" + lastPeriod)));
             AggregationBuilder skillHistogramAgg = AggregationBuilders.dateHistogram(aggName)
-                    .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH);
+                    .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH).minDocCount(0);
 
             skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
         }
