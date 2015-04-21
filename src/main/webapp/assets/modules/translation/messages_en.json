@@ -36,5 +36,10 @@
     "termAndCondition":"Terms and Conditions",
     "clickOnSkillGuide":"Click on the Skills to see more details",
     "slogan": "Know the Technology Market in Vietnam and Move Up",
-    "sloganMobile": "Technology Market in Vietnam"
+    "sloganMobile": "Technology Market in Vietnam",
+    "technicalNumberJobs": "jobs in",
+    "technicalSalaryRange": "The salary range for all job levels is",
+    "skillNumberJobs": "Number of Jobs per Skill",
+    "skillsTrend": "Skills Trend",
+    "hiringCompanies": "Hiring Companies"
 }
