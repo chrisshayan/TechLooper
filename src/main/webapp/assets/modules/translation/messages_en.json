@@ -47,5 +47,6 @@
     "salaryRangeJob": "<b>%s</b> <br/>a month in average for jobs in <b>%s</b>",
     "jobNumber": "<b>%s</b> jobs in <b>%s</b>",
     "jobNumberLabel": "%s jobs in %s",
-    "salaryRangeInJob": "%s in %s"
+    "salaryRangeInJob": "%s in %s",
+    "jobs": "jobs"
 }

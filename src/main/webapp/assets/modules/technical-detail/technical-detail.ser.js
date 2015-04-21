@@ -1,4 +1,4 @@
-techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue) {
+techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $q) {
   var trendSkillChart = {};
   var fnColor = d3.scale.category10();
   var instance = {
@@ -70,88 +70,84 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
      * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
      */
     trendSkills: function (termStatistic) {
-      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
-      trendSkillChart.instance = new Highcharts.Chart({
-        chart: {
-          //backgroundColor: '#201d1e',
-          renderTo: 'trendSkills',
-          type: 'spline'
-        },
-        colors: trendSkillChart.config.colors,
-        title: {
-          text: ''
-        },
-        subtitle: {
-          text: ''
-        },
-        xAxis: {
-          categories: trendSkillChart.config.xAxis.labels,
-          gridLineColor: '#353233',
-          labels: {
-            style: {
-              color: '#8a8a8a'
-            }
+      $translate(["timeline", "numberOfJobs", "jobs"]).then(function(translate) {
+        trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
+        trendSkillChart.instance = new Highcharts.Chart({
+          chart: {
+            renderTo: 'trendSkills',
+            type: 'spline'
           },
-          tickInterval: 1,
-          tickmarkPlacement: 'on',
-          gridLineWidth: 1
-        },
-        yAxis: {
-          labels: {
-            formatter: function () {
-              return this.value;
-            }
+          colors: trendSkillChart.config.colors,
+          title: {
+            text: ''
           },
-          min: trendSkillChart.config.yAxis.min,
-          max: trendSkillChart.config.yAxis.max,
-          tickInterval: 5
-        },
-        tooltip: {
-          valueSuffix: ' Jobs'
-        },
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'top',
-          borderWidth: 0,
-          itemStyle: {
-            color: '#636363'
+          subtitle: {
+            text: ''
           },
-          itemHoverStyle: {
-            color: '#E0E0E3'
-          },
-          itemHiddenStyle: {
-            color: '#606063'
-          }
-        },
-        plotOptions: {
-          series: {
-            marker: {
-              enabled: false
+          xAxis: {
+            categories: trendSkillChart.config.xAxis.labels,
+            gridLineColor: '#353233',
+            labels: {
+              style: {
+                color: '#8a8a8a'
+              }
             },
-            lineWidth: 1,
-            states: {
-              hover: {
-                lineWidth: 3
+            title: {
+              text: translate.timeline
+            },
+            tickInterval: 1,
+            tickmarkPlacement: 'on',
+            gridLineWidth: 1
+          },
+          yAxis: {
+            labels: {
+              formatter: function () {
+                return this.value;
+              }
+            },
+            title: {
+              text: translate.numberOfJobs
+            },
+            min: trendSkillChart.config.yAxis.min,
+            max: trendSkillChart.config.yAxis.max,
+            tickInterval: 5
+          },
+          tooltip: {
+            valueSuffix: ' ' + translate.jobs
+          },
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'top',
+            borderWidth: 0,
+            itemStyle: {
+              color: '#636363'
+            },
+            itemHoverStyle: {
+              color: '#E0E0E3'
+            },
+            itemHiddenStyle: {
+              color: '#606063'
+            }
+          },
+          plotOptions: {
+            series: {
+              marker: {
+                enabled: false
+              },
+              lineWidth: 1,
+              states: {
+                hover: {
+                  lineWidth: 3
+                }
               }
             }
+          },
+          series: trendSkillChart.config.series,
+          credits: {//disable Highchart.com text
+            enabled: false
           }
-        },
-        series: trendSkillChart.config.series,
-        credits: {//disable Highchart.com text
-          enabled: false
-        }
-      });
-      instance.translation();
-    },
-
-    translation: function () {
-      var chart = trendSkillChart.instance;
-      $translate("timeline").then(function (translation) {
-        chart.xAxis[0].setTitle({text: translation});
-      });
-      $translate("numberOfJobs").then(function (translation) {
-        chart.yAxis[0].setTitle({text: translation});
+        });
       });
     },
 
@@ -159,7 +155,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return utils.getView() === jsonValue.views.analyticsSkill;
     }
   };
-  utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, instance.enableNotifications);
-  return instance;
 
+  return instance;
 });
