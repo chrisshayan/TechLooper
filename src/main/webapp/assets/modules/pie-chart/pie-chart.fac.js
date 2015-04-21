@@ -3,7 +3,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
   var data4PieChart = {colors: [], data: [], labels: [], terms: []};
   var innerDonut = utils.isMobile() ? '0%' : '30%';
   var scope;
-  var translate = {};
+  //var translate = {};
 
   var $$ = {
     enableNotifications: function () {
@@ -52,128 +52,100 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
   var instance = {
     renderView: function ($terms) {
-      instance.translation();
-      $$.generateChartData($terms);
-      $('.pie-Chart-Container').highcharts({
-        colors: data4PieChart.colors,
-        chart: {
-          backgroundColor: '#f1f3f7',
-          plotBorderColor: '#1f1f1f'
-        },
-        title: {
-          text: ''
-        },
-        legend: {
-          itemStyle: {
-            color: '#1f1f1f'
+      $translate(["salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel"]).then(function (translate) {
+        $$.generateChartData($terms);
+        $('.pie-Chart-Container').highcharts({
+          colors: data4PieChart.colors,
+          chart: {
+            backgroundColor: '#f1f3f7',
+            plotBorderColor: '#1f1f1f'
           },
-          itemHoverStyle: {
-            color: '#1f1f1f'
+          title: {
+            text: ''
           },
-          itemHiddenStyle: {
-            color: '#1f1f1f'
-          }
-        },
-        labels: {
-          style: {
-            color: '#1f1f1f'
-          }
-        },
-        tooltip: {
-          formatter: function () {
-            var term = terms[this.point.index];
-            if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-              return sprintf(translate.salaryRangeJob, term.salRange, term.label);
-            }
-            return sprintf(translate.jobNumber, term.count, term.label);
-          }
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              //format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
-              formatter: function () {
-                var term = terms[this.point.index];
-                if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-                  return sprintf(translate.jobNumberLabel, term.count, term.label);
-                }
-                else {
-                  return sprintf(translate.salaryRangeInJob, term.salRange, term.label);
-                }
-
-                //var key = this.key;
-                //var index = data4PieChart.labels.indexOf(key);
-                //if (index !== -1) {
-                //  if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-                //    if (data4PieChart.data[index] instanceof Array) {
-                //      return "<span>" + data4PieChart.data[index][1] + ' jobs in ' + key + "</span>";
-                //    }
-                //    else {
-                //      return "<span>" + data4PieChart.data[index].y + ' jobs in ' + key + "</span>";
-                //    }
-                //  }
-                //  else {
-                //    return "<span>" + data4PieChart.data[index][2] + ' in ' + key + "</span>";
-                //  }
-                //}
-              },
-              style: {
-                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-              }
-            }
-          },
-          series: {
-            dataLabels: {
+          legend: {
+            itemStyle: {
               color: '#1f1f1f'
             },
-            marker: {
-              lineColor: '#333'
+            itemHoverStyle: {
+              color: '#1f1f1f'
             },
-            animation: false
-          },
-          boxplot: {
-            fillColor: '#505053'
-          },
-          candlestick: {
-            lineColor: 'white'
-          },
-          errorbar: {
-            color: 'white'
-          }
-        },
-        series: [{
-          type: 'pie',
-          name: 'Jobs',
-          innerSize: innerDonut,
-          point: {
-            events: {
-              click: function (e) {
-                utils.go2SkillAnalyticPage(scope, terms[this.index].term);
-              }
+            itemHiddenStyle: {
+              color: '#1f1f1f'
             }
           },
-          data: data4PieChart.data
-        }]
-      });
-      $('tspan[dx=0]').css('font-size', '14px');
-      $('text[text-anchor=end]').css('display', 'none');
-    },
-
-    translation: function () {
-      $translate("salaryRangeJob").then(function (translation) {
-        translate.salaryRangeJob = translation;
-      });
-      $translate("jobNumber").then(function (translation) {
-        translate.jobNumber = translation;
-      });
-      $translate("salaryRangeInJob").then(function (translation) {
-        translate.salaryRangeInJob = translation;
-      });
-      $translate("jobNumberLabel").then(function (translation) {
-        translate.jobNumberLabel = translation;
+          labels: {
+            style: {
+              color: '#1f1f1f'
+            }
+          },
+          tooltip: {
+            formatter: function () {
+              var term = terms[this.point.index];
+              if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+                return sprintf(translate.salaryRangeJob, term.salRange, term.label);
+              }
+              return sprintf(translate.jobNumber, term.count, term.label);
+            }
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                //format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
+                formatter: function () {
+                  var term = terms[this.point.index];
+                  if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+                    return sprintf(translate.jobNumberLabel, term.count, term.label);
+                  }
+                  else {
+                    return sprintf(translate.salaryRangeInJob, term.salRange, term.label);
+                  }
+                },
+                style: {
+                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+              }
+            },
+            series: {
+              dataLabels: {
+                color: '#1f1f1f'
+              },
+              marker: {
+                lineColor: '#333'
+              },
+              animation: false
+            },
+            boxplot: {
+              fillColor: '#505053'
+            },
+            candlestick: {
+              lineColor: 'white'
+            },
+            errorbar: {
+              color: 'white'
+            }
+          },
+          series: [{
+            type: 'pie',
+            name: 'Jobs',
+            innerSize: innerDonut,
+            point: {
+              events: {
+                click: function (e) {
+                  utils.go2SkillAnalyticPage(scope, terms[this.index].term);
+                }
+              }
+            },
+            data: data4PieChart.data
+          }],
+          credits: {//disable Highchart.com text
+            enabled: false
+          }
+        });
+        $('tspan[dx=0]').css('font-size', '14px');
       });
     },
 
@@ -204,7 +176,6 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       });
     }
   }
-  utils.registerNotification(jsonValue.notifications.changeLang, $$.translation, $$.enableNotifications);
 
   return instance;
 });
