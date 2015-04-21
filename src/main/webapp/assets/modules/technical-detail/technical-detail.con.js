@@ -9,7 +9,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   }
 
   $scope.companyUrl = function(company) {//java-fpt+at-it-software-i35-en
-    return sprintf("http://vietnamworks.com/%s-%s+at-it-software-i35-en", term.toLowerCase(), company.name);
+    return sprintf("http://vietnamworks.com/%s-%s", term.toLowerCase(), company.companyId);
   }
 
   connectionFactory.termStatisticInOneYear({term: term})

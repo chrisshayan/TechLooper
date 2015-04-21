@@ -4,6 +4,9 @@ package com.techlooper.entity;
  * Created by phuonghqh on 12/12/14.
  */
 public class Company {
+
+    private String companyId;
+
     private String websiteUrl;
 
     private String name;
@@ -11,6 +14,14 @@ public class Company {
     private String companyLogoURL;
 
     private String logoUrl;
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 
     public String getCompanyLogoURL() {
         return companyLogoURL;
