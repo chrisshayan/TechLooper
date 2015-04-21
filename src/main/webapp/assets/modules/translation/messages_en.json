@@ -43,5 +43,10 @@
     "technicalSalaryRange": "The salary range for all job levels is",
     "skillNumberJobs": "Number of Jobs per Skill",
     "skillsTrend": "Skills Trend",
-    "hiringCompanies": "Hiring Companies"
+    "hiringCompanies": "Hiring Companies",
+    "salaryRangeJob": "<b>%s</b> <br/>a month in average for jobs in <b>%s</b>",
+    "jobNumber": "<b>%s</b> jobs in <b>%s</b>",
+    "jobNumberLabel": "%s jobs in %s",
+    "salaryRangeInJob": "%s in %s",
+    "jobs": "jobs"
 }
