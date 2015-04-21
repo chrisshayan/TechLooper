@@ -80,12 +80,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
         },
         colors: trendSkillChart.config.colors,
         title: {
-          text: '',
-          style: {
-            color: '#E0E0E3',
-            textTransform: 'uppercase',
-            fontSize: '20px'
-          }
+          text: ''
         },
         subtitle: {
           text: ''
