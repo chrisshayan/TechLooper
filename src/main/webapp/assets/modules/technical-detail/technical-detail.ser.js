@@ -74,7 +74,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
       trendSkillChart.instance = new Highcharts.Chart({
         chart: {
-          //backgroundColor: '#201d1e',
           renderTo: 'trendSkills',
           type: 'spline'
         },
@@ -154,7 +153,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
           }
         },
         series: trendSkillChart.config.series,
-        credits: {//disable Highchart.com text
+        credits: {
           enabled: false
         }
       });
@@ -175,6 +174,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return utils.getView() === jsonValue.views.analyticsSkill;
     }
   };
+  
   utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, instance.enableNotifications);
   return instance;
 
