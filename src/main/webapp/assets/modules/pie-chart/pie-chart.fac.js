@@ -150,7 +150,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
     },
 
     updateViewTerm: function (term) {
-      termService.refineTerm(term);
+      termService.toViewTerm(term);
       if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
         Highcharts.charts[0].series[0]
           .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);

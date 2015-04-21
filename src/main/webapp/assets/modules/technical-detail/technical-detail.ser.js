@@ -1,8 +1,9 @@
-techlooper.factory("technicalDetailService", function () {
+techlooper.factory("technicalDetailService", function (utils) {
   var instance = {
 
     /**
-     * @param {object} skill - Skill object @see skill-level-analytics.json
+     * @param {object} skill - Skill object
+     * @see skill-level-analytics.json
      */
     showSkillsList: function (skill, maxValue) {
       Circles.create({
@@ -22,21 +23,42 @@ techlooper.factory("technicalDetailService", function () {
     },
 
     /**
-     * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
+     * Return Trend skill Line chart configuration
+     *
+     * @param {object} termStatistic - Term Statistic object
+     * @see skill-level-analytics.json
+     *
+     * @return {object} chartConfig - Trend skill chart configuration
      */
-    prepareTrendSkills: function(termStatistic) {
-      var data = [];
-      $.each(termStatistic.skills, function(i, skill) {
-        data.push({name: skill.skillName, data: skill.histograms[0].values});
+    prepareTrendSkills: function (termStatistic) {
+      var chartConfig = {};
+
+      var series = [];
+      var yMax = 0;
+      var yMin = termStatistic.skills[0].histograms[0].values[0];
+      $.each(termStatistic.skills, function (i, skill) {
+        series.push({name: skill.skillName, data: skill.histograms[0].values});
+        yMax = Math.max(yMax, skill.histograms[0].values.max());
+        yMin = Math.min(yMin, skill.histograms[0].values.min());
       });
-      return data;
+      chartConfig.series = series;
+      chartConfig.yAxis = {min: yMin, max: yMax};
+
+      var labels = [];
+      var period = utils.getHistogramPeriod(termStatistic.skills[0].histograms[0].name);
+      $.each(termStatistic.skills[0].histograms[0].values, function (i, item) {
+        labels.unshift(utils.formatDateByPeriod((i * period).days().ago(), "oneYear"));
+      });
+      chartConfig.xAxis = {labels: labels};
+
+      return chartConfig;
     },
 
     /**
      * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
      */
     trendSkills: function (termStatistic) {
-      var series = instance.prepareTrendSkills(termStatistic);
+      var chartConfig = instance.prepareTrendSkills(termStatistic);
       $('.trend-chart').highcharts({
         chart: {
           //backgroundColor: '#201d1e',
@@ -55,7 +77,7 @@ techlooper.factory("technicalDetailService", function () {
           text: ''
         },
         xAxis: {
-          //categories: chartMetadata.xAxisLabels,
+          categories: chartConfig.xAxis.labels,
           gridLineColor: '#353233',
           labels: {
             style: {
@@ -80,8 +102,8 @@ techlooper.factory("technicalDetailService", function () {
               color: '#8a8a8a'
             }
           },
-          //min: chartMetadata.minMax.min,
-          //max: chartMetadata.minMax.max,
+          min: chartConfig.yAxis.min,
+          max: chartConfig.yAxis.max,
           tickInterval: 10,
           gridLineWidth: 1,
           gridLineColor: '#353233'
@@ -117,7 +139,7 @@ techlooper.factory("technicalDetailService", function () {
             }
           }
         },
-        series: series
+        series: chartConfig.series
       });
     }
   };
