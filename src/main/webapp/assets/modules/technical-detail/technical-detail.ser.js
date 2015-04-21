@@ -1,4 +1,5 @@
-techlooper.factory("technicalDetailService", function (utils) {
+techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue) {
+  var trendSkillChart = {};
   var instance = {
 
     /**
@@ -58,10 +59,11 @@ techlooper.factory("technicalDetailService", function (utils) {
      * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
      */
     trendSkills: function (termStatistic) {
-      var chartConfig = instance.prepareTrendSkills(termStatistic);
-      $('.trend-chart').highcharts({
+      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
+      trendSkillChart.instance =  new Highcharts.Chart({
         chart: {
           //backgroundColor: '#201d1e',
+          renderTo: 'trendSkills',
           type: 'spline'
         },
         //colors: chartMetadata.skillColors,
@@ -77,7 +79,7 @@ techlooper.factory("technicalDetailService", function (utils) {
           text: ''
         },
         xAxis: {
-          categories: chartConfig.xAxis.labels,
+          categories: trendSkillChart.config.xAxis.labels,
           gridLineColor: '#353233',
           labels: {
             style: {
@@ -102,8 +104,8 @@ techlooper.factory("technicalDetailService", function (utils) {
               color: '#8a8a8a'
             }
           },
-          min: chartConfig.yAxis.min,
-          max: chartConfig.yAxis.max,
+          min: trendSkillChart.config.yAxis.min,
+          max: trendSkillChart.config.yAxis.max,
           tickInterval: 10,
           gridLineWidth: 1,
           gridLineColor: '#353233'
@@ -139,10 +141,29 @@ techlooper.factory("technicalDetailService", function (utils) {
             }
           }
         },
-        series: chartConfig.series
+        series: trendSkillChart.config.series,
+        credits: {//disable Highchart.com text
+          enabled: false
+        }
       });
+      instance.translation();
+    },
+
+    translation: function () {
+      var chart = trendSkillChart.instance;
+      $translate("timeline").then(function (translation) {
+        chart.xAxis[0].setTitle({text: translation});
+      });
+      $translate("numberOfJobs").then(function (translation) {
+        chart.yAxis[0].setTitle({text: translation});
+      });
+    },
+
+    enableNotifications: function() {
+      return utils.getView() === jsonValue.views.analyticsSkill;
     }
   };
+  utils.registerNotification(jsonValue.notifications.changeLang, instance.translation, instance.enableNotifications);
   return instance;
 
 });
