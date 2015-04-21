@@ -1,9 +1,9 @@
-angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService, $route) {
+angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService, $route, $translate) {
   var terms = [];
   var data4PieChart = {colors: [], data: [], labels: [], terms: []};
   var innerDonut = utils.isMobile() ? '0%' : '30%';
   var scope;
-  //var labels = [];
+  var translate = {};
 
   var $$ = {
     enableNotifications: function () {
@@ -26,7 +26,8 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       $.each(terms, function (i, term) {
         if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
           data4PieChart.data.push([term.label, term.count]);
-        } else {
+        }
+        else {
           data4PieChart.data.push([term.label, term.averageSalaryMin, term.salRange]);
         }
         data4PieChart.colors.push(term.color);
@@ -51,6 +52,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
   var instance = {
     renderView: function ($terms) {
+      instance.translation();
       $$.generateChartData($terms);
       $('.pie-Chart-Container').highcharts({
         colors: data4PieChart.colors,
@@ -79,10 +81,11 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         },
         tooltip: {
           formatter: function () {
+            var term = terms[this.point.index];
             if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-              return sprintf("<b>%(salRange)s</b> <br/>a month in average for jobs in <b>%(label)s</b>", terms[this.point.index]);
+              return sprintf(translate.salaryRangeJob, term.salRange, term.label);
             }
-            return sprintf("<b>%(count)s</b> jobs in <b>%(label)s</b>", terms[this.point.index]);
+            return sprintf(translate.jobNumber, term.count, term.label);
           }
         },
         plotOptions: {
@@ -93,19 +96,29 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
               enabled: true,
               //format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
               formatter: function () {
-                var termLabel = this.key;
-                var index = data4PieChart.labels.indexOf(termLabel);
-                if (index !== -1) {
-                  if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-                    if (data4PieChart.data[index] instanceof Array) {
-                      return "<span>" + data4PieChart.data[index][1] + ' jobs in ' + termLabel + "</span>";
-                    } else {
-                      return "<span>" + data4PieChart.data[index].y + ' jobs in ' + termLabel + "</span>";
-                    }
-                  } else {
-                    return "<span>" + data4PieChart.data[index][2] + ' in ' + termLabel + "</span>";
-                  }
+                var term = terms[this.point.index];
+                if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+                  return sprintf(translate.jobNumberLabel, term.count, term.label);
                 }
+                else {
+                  return sprintf(translate.salaryRangeInJob, term.salRange, term.label);
+                }
+
+                //var key = this.key;
+                //var index = data4PieChart.labels.indexOf(key);
+                //if (index !== -1) {
+                //  if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+                //    if (data4PieChart.data[index] instanceof Array) {
+                //      return "<span>" + data4PieChart.data[index][1] + ' jobs in ' + key + "</span>";
+                //    }
+                //    else {
+                //      return "<span>" + data4PieChart.data[index].y + ' jobs in ' + key + "</span>";
+                //    }
+                //  }
+                //  else {
+                //    return "<span>" + data4PieChart.data[index][2] + ' in ' + key + "</span>";
+                //  }
+                //}
               },
               style: {
                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
@@ -149,6 +162,21 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       $('text[text-anchor=end]').css('display', 'none');
     },
 
+    translation: function () {
+      $translate("salaryRangeJob").then(function (translation) {
+        translate.salaryRangeJob = translation;
+      });
+      $translate("jobNumber").then(function (translation) {
+        translate.jobNumber = translation;
+      });
+      $translate("salaryRangeInJob").then(function (translation) {
+        translate.salaryRangeInJob = translation;
+      });
+      $translate("jobNumberLabel").then(function (translation) {
+        translate.jobNumberLabel = translation;
+      });
+    },
+
     updateViewTerm: function (term) {
       termService.toViewTerm(term);
       if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
@@ -156,25 +184,27 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
           .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);
       }
     },
-    switchChartData: function(){
-      if(localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job){
+    switchChartData: function () {
+      if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
         $('.switch-data').find('li').removeClass('active');
         $('.switch-data').find('li[data-chart=JOB]').addClass('active');
       }
       //var key = instance.getChartData();
-      $('.switch-data').find('li').on('click', function(){
+      $('.switch-data').find('li').on('click', function () {
         $('.switch-data').find('li').removeClass('active');
-        if($(this).attr('data-chart') == 'JOB'){
-          localStorage.setItem('PIE_CHART_ITEM_TYPE',jsonValue.pieChartType.job);
+        if ($(this).attr('data-chart') == 'JOB') {
+          localStorage.setItem('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
           $route.reload();
-        }else{
-          localStorage.setItem('PIE_CHART_ITEM_TYPE',jsonValue.pieChartType.salary);
+        }
+        else {
+          localStorage.setItem('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
           $route.reload();
         }
         $(this).addClass('active');
       });
     }
   }
+  utils.registerNotification(jsonValue.notifications.changeLang, $$.translation, $$.enableNotifications);
 
   return instance;
 });
