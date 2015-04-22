@@ -155,15 +155,14 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
      * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
      */
     trendSkills: function (termStatistic) {
-      trendSkillChart.termStatistic = termStatistic;
-      trendSkillChart.config = instance.prepareTrendSkills(trendSkillChart.termStatistic);
+      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
       trendSkillChart.instance && trendSkillChart.instance.destroy();
-      return instance.hasSkillValues() && (trendSkillChart.instance = instance.createTrendSkillsChart());
+      return instance.hasSkillValues(termStatistic) && (trendSkillChart.instance = instance.createTrendSkillsChart());
     },
 
-    hasSkillValues: function () {
+    hasSkillValues: function (termStatistic) {
       var values = "";
-      $.each(trendSkillChart.termStatistic.skills, function (i, skill) {values += skill.histograms[0].values.join("");});
+      $.each(termStatistic.skills, function (i, skill) {values += skill.histograms[0].values.join("");});
       return values.replace(/0/g, "").length > 0;
     },
 
