@@ -32,6 +32,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
       $scope.termStatistic = termService.toViewTerm(data);
       technicalDetailService.trendSkills($scope.termStatistic);
       utils.sendNotification(jsonValue.notifications.loaded);
+      technicalDetailService.skillManger();
     })
     .error(function (data, status, headers, config) {
     });

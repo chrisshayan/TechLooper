@@ -152,6 +152,73 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
 
     enableNotifications: function () {
       return utils.getView() === jsonValue.views.analyticsSkill;
+    },
+    skillManger: function(){
+      instance.removeSkill();
+      instance.removeAllSKills();
+      instance.addSkillButton();
+      instance.addSkillEnter();
+    },
+    removeSkill: function(){
+      var listSkill = $('.added-list-skills').find('.close');
+      listSkill.on('click', function(){
+        $(this).parent().parent().parent().remove();
+        var flg = instance.updateNumberSkill();
+        if( flg == 4){
+          $('.max-skill-alert').html('');
+        }
+      });
+    },
+    removeAllSKills: function(){
+      $('p.removeAll').click(function(){
+        $('.added-list-skills').find('ul').html('');
+      });
+    },
+    updateNumberSkill: function(){
+      var numberSkill = $('.added-list-skills').find('li').length;
+      return numberSkill;
+    },
+    addSkills: function(){
+      var flgNumber = instance.updateNumberSkill(),
+          skillName = $('.add-skill-input').find('input').val();
+      var exist = instance.checkExistSkill(skillName);
+      if($.trim(skillName) !== ''){
+        if(flgNumber < 5){
+            if(exist == 1){
+              $('.max-skill-alert').html('This skill has already');
+            }else{
+              $('.added-list-skills').find('ul').append('<li><span class="left"><span class="right"><i>'+ skillName +'</i><span class="close" title="Remove">x</span></span></span></li>');
+              $('.add-skill-input').find('input').val('');
+              $('.max-skill-alert').html('');
+              instance.removeSkill();
+            }
+          }else{
+          $('.max-skill-alert').html('Maximum 5 skills');
+        }
+      }
+    },
+    checkExistSkill: function(skillName){
+      var listSkill = $('.added-list-skills').find('i'),
+          exist = 0;
+      listSkill.each(function(){
+        if($(this).text().toUpperCase() == skillName.toUpperCase()){
+          exist = 1;
+        }
+      });
+      return exist;
+    },
+    addSkillButton: function(){
+      $('.add-skill-input').find('button').click(function(){
+        instance.addSkills();
+      });
+    },
+    addSkillEnter: function(){
+      $(document).keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+          instance.addSkills();
+        }
+      });
     }
   };
 
