@@ -28,7 +28,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
-import static org.elasticsearch.index.query.MatchQueryBuilder.*;
+import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -159,11 +159,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         List<FilterAggregationBuilder> skillAnalyticsAggregations = new ArrayList<>();
         for (String skill : term.getSkills()) {
             String aggName = EncryptionUtils.encodeHexa(skill) + "_" + histogramEnum + "_analytics";
-            BoolQueryBuilder skillQueryBuilder = boolQuery().should(matchPhraseQuery("jobTitle", skill))
-                    .should(matchPhraseQuery("jobDescription", skill))
-                    .should(matchPhraseQuery("skillExperience", skill));
             FilterBuilder skillFilter = queryFilter(boolQuery()
-                    .must(skillQueryBuilder)
+                    .must(multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(Operator.AND))
                     .must(rangeQuery("approvedDate").from("now-" + lastPeriod)));
             AggregationBuilder skillHistogramAgg = AggregationBuilders.dateHistogram(aggName)
                     .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH).minDocCount(0);

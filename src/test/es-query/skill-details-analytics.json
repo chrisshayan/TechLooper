@@ -3,106 +3,19 @@ GET vietnamworks/job/_search?search_type=count
   "query": {
     "filtered": {
       "query": {
-        "bool": {
-          "should": [
-            {
-              "match_phrase": {
-                "jobTitle": "java"
-              }
-            },
-            {
-              "match_phrase": {
-                "jobTitle": "j2ee"
-              }
-            },
-            {
-              "match_phrase": {
-                "jobTitle": "java ee"
-              }
-            }
-          ]
-        }
-      },
-      "filter": {
-        "term": {
-          "jobLevelId": 5
+        "multi_match": {
+          "query": "php",
+          "fields": [
+            "jobTitle",
+            "jobDescription",
+            "skillExperience"
+          ],
+          "operator": "or"
         }
       }
     }
   },
   "aggs": {
-    "avg_salary_min": {
-      "filter": {
-        "and": {
-          "filters": [
-            {
-              "range": {
-                "salaryMin": {
-                  "from": 250
-                }
-              }
-            },
-            {
-              "range": {
-                "salaryMax": {
-                  "from": 250
-                }
-              }
-            },
-            {
-              "range": {
-                "expiredDate": {
-                  "from": "now"
-                }
-              }
-            }
-          ]
-        }
-      },
-      "aggs": {
-        "avg_salary_min": {
-          "avg": {
-            "field": "salaryMin"
-          }
-        }
-      }
-    },
-    "avg_salary_max": {
-      "filter": {
-        "and": {
-          "filters": [
-            {
-              "range": {
-                "salaryMin": {
-                  "from": 250
-                }
-              }
-            },
-            {
-              "range": {
-                "salaryMax": {
-                  "from": 250
-                }
-              }
-            },
-            {
-              "range": {
-                "expiredDate": {
-                  "from": "now"
-                }
-              }
-            }
-          ]
-        }
-      },
-      "aggs": {
-        "avg_salary_max": {
-          "avg": {
-            "field": "salaryMax"
-          }
-        }
-      }
-    },
     "top_companies": {
       "filter": {
         "range": {
@@ -119,7 +32,7 @@ GET vietnamworks/job/_search?search_type=count
         }
       }
     },
-    "Web_Services_one_year_analytics": {
+    "spring_one_year_analytics": {
       "filter": {
         "fquery": {
           "query": {
@@ -127,9 +40,9 @@ GET vietnamworks/job/_search?search_type=count
               "must": [
                 {
                   "multi_match": {
-                    "query": "Java Web Services",
+                    "query": "laravel",
                     "fields": [
-                      "skillExperience",
+                      "jobTitle",
                       "jobDescription",
                       "skillExperience"
                     ],
@@ -138,8 +51,8 @@ GET vietnamworks/job/_search?search_type=count
                 },
                 {
                   "range": {
-                    "expiredDate": {
-                      "from": "now-372d"
+                    "approvedDate": {
+                      "gt": "now-365d"
                     }
                   }
                 }
@@ -153,23 +66,8 @@ GET vietnamworks/job/_search?search_type=count
           "date_histogram": {
             "field": "approvedDate",
             "format": "yyyy-MM-dd",
-            "interval": "month"
-          }
-        }
-      }
-    },
-    "total_job": {
-      "filter": {
-        "range": {
-          "expiredDate": {
-            "from": "now"
-          }
-        }
-      },
-      "aggs": {
-        "total_job": {
-          "value_count": {
-            "field": "jobId"
+            "interval": "month",
+            "min_doc_count": 0
           }
         }
       }

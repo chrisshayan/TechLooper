@@ -183,19 +183,7 @@
         ]
       },
       {
-        "name": "Agile",
-        "logoUrl": "",
-        "webSite": "http://agilemanifesto.org/",
-        "usefulLinks": [
-          {
-            "name": "Agile Methodology",
-            "url": "http://agilemethodology.org/"
-          },
-          {
-            "name": "Agile Vietnam",
-            "url": "http://www.agilevietnam.org/"
-          }
-        ]
+        "name": "Struts"
       },
       {
         "name": "Continuous Integration",
@@ -537,10 +525,6 @@
         "logoUrl": "lg-dotnet.png"
       },
       {
-        "name": "ASP.NET Web Forms",
-        "logoUrl": "lg-dotnet.png"
-      },
-      {
         "name": "Web Services",
         "logoUrl": "lg-dotnet.png"
       },
@@ -596,15 +580,8 @@
         "logoUrl": "lg-rails.png"
       },
       {
-        "name": "Javascript",
-        "logoUrl": "lg-nginx.png"
-      },
-      {
         "name": "NoSQL",
         "logoUrl": "lg-nosql.png"
-      },
-      {
-        "name": "HTML"
       },
       {
         "name": "Redis",
@@ -653,11 +630,7 @@
         "logoUrl": "lg-git.png"
       },
       {
-        "name": "RESTful",
-        "logoUrl": "lg-jersey.png"
-      },
-      {
-        "name": "Javascript"
+        "name": "Python"
       },
       {
         "name": "JSON",
@@ -665,9 +638,6 @@
       },
       {
         "name": "Pyramid"
-      },
-      {
-        "name": "Web Services"
       }
     ]
   },
@@ -878,7 +848,7 @@
         "logoUrl": "lg-mockup.png"
       },
       {
-        "name": "Analytical Skills"
+        "name": "Analytical"
       },
       {
         "name": "User Experience"
