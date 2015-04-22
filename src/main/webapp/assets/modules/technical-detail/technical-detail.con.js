@@ -32,7 +32,9 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
         $scope.termRequest.skills = data.skills.map(function (skill) {return skill.skillName;});
         $.each(data.skills, function (i, skill) {skill.id = i;});
         $scope.termStatistic = termService.toViewTerm(data);
-        technicalDetailService.trendSkills($scope.termStatistic);
+        if (!technicalDetailService.trendSkills($scope.termStatistic)) {
+          console.log("Empty Chart");
+        }
         utils.sendNotification(jsonValue.notifications.loaded);
       })
       .error(function (data, status, headers, config) {
