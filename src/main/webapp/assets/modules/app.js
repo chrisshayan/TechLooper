@@ -149,7 +149,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, userService, routerService, $location, utils, $rootScope) {
+                         tourService, signInService, historyFactory, userService, routerService, $location, utils, $rootScope, $translate) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -166,6 +166,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     utils.apply();
     return rsLocationPathFn;
   }
+
+  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs",
+    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel"]).then(function(translate) {
+    $rootScope.translate = translate;
+  });
 });
 
 techlooper.directive("navigation", function () {
