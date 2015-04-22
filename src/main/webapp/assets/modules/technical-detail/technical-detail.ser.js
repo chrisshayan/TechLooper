@@ -169,12 +169,14 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
     enableNotifications: function () {
       return utils.getView() === jsonValue.views.analyticsSkill;
     },
-    skillManger: function(){
+
+    skillManager: function(){
       instance.removeSkill();
       instance.removeAllSKills();
       instance.addSkillButton();
       instance.addSkillEnter();
     },
+
     removeSkill: function(){
       var listSkill = $('.added-list-skills').find('.close');
       listSkill.on('click', function(){
