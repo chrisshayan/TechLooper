@@ -1,4 +1,4 @@
-techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $q) {
+techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $rootScope) {
   var trendSkillChart = {};
   var fnColor = d3.scale.category10();
   var instance = {
@@ -70,84 +70,83 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
      * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
      */
     trendSkills: function (termStatistic) {
-      $translate(["timeline", "numberOfJobs", "jobs"]).then(function(translate) {
-        trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
-        trendSkillChart.instance = new Highcharts.Chart({
-          chart: {
-            renderTo: 'trendSkills',
-            type: 'spline'
+      var translate = $rootScope.translate;
+      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
+      trendSkillChart.instance = new Highcharts.Chart({
+        chart: {
+          renderTo: 'trendSkills',
+          type: 'spline'
+        },
+        colors: trendSkillChart.config.colors,
+        title: {
+          text: ''
+        },
+        subtitle: {
+          text: ''
+        },
+        xAxis: {
+          categories: trendSkillChart.config.xAxis.labels,
+          gridLineColor: '#353233',
+          labels: {
+            style: {
+              color: '#8a8a8a'
+            }
           },
-          colors: trendSkillChart.config.colors,
           title: {
-            text: ''
+            text: translate.timeline
           },
-          subtitle: {
-            text: ''
-          },
-          xAxis: {
-            categories: trendSkillChart.config.xAxis.labels,
-            gridLineColor: '#353233',
-            labels: {
-              style: {
-                color: '#8a8a8a'
-              }
-            },
-            title: {
-              text: translate.timeline
-            },
-            tickInterval: 1,
-            tickmarkPlacement: 'on',
-            gridLineWidth: 1
-          },
-          yAxis: {
-            labels: {
-              formatter: function () {
-                return this.value;
-              }
-            },
-            title: {
-              text: translate.numberOfJobs
-            },
-            min: trendSkillChart.config.yAxis.min,
-            max: trendSkillChart.config.yAxis.max,
-            tickInterval: 5
-          },
-          tooltip: {
-            valueSuffix: ' ' + translate.jobs
-          },
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'top',
-            borderWidth: 0,
-            itemStyle: {
-              color: '#636363'
-            },
-            itemHoverStyle: {
-              color: '#E0E0E3'
-            },
-            itemHiddenStyle: {
-              color: '#606063'
+          tickInterval: 1,
+          tickmarkPlacement: 'on',
+          gridLineWidth: 1
+        },
+        yAxis: {
+          labels: {
+            formatter: function () {
+              return this.value;
             }
           },
-          plotOptions: {
-            series: {
-              marker: {
-                enabled: false
-              },
-              lineWidth: 1,
-              states: {
-                hover: {
-                  lineWidth: 3
-                }
-              }
-            }
+          title: {
+            text: translate.numberOfJobs
           },
-          series: trendSkillChart.config.series,
-          credits: {//disable Highchart.com text
-            enabled: false
+          min: trendSkillChart.config.yAxis.min,
+          max: trendSkillChart.config.yAxis.max,
+          tickInterval: 5
+        },
+        tooltip: {
+          valueSuffix: ' ' + translate.jobs
+        },
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'top',
+          borderWidth: 0,
+          itemStyle: {
+            color: '#636363'
+          },
+          itemHoverStyle: {
+            color: '#E0E0E3'
+          },
+          itemHiddenStyle: {
+            color: '#606063'
           }
-        });
+        },
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: false
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 3
+              }
+            }
+          }
+        },
+        series: trendSkillChart.config.series,
+        credits: {//disable Highchart.com text
+          enabled: false
+        }
       });
     },
 

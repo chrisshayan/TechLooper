@@ -50,5 +50,8 @@
     "salaryRangeInJob": "%s in %s",
     "jobs": "jobs",
     "from": "From",
-    "upto": "Up to"
+    "upto": "Up to",
+    "newGradLevel": "New Grad/Entry Level/Internship",
+    "experienced": "Experienced (Non-Manager)",
+    "manager": "Manager"
 }
