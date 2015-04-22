@@ -15,7 +15,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   var termView = termService.toViewTerm($scope.termRequest);
 
   $scope.showCircle = function (skill) {
-    var shownMe = $("#circles-" + skill.skillName + " > .circles-wrp").length > 0;
+    var shownMe = $("#circles-" + skill.id + " > .circles-wrp").length > 0;
     if (shownMe) return true;
     technicalDetailService.showSkillsList(skill, $scope.termStatistic.totalJob);
     return true;
@@ -28,6 +28,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   connectionFactory.termStatisticInOneYear($scope.termRequest)
     .success(function (data, status, headers, config) {
       $scope.termRequest.skills = data.skills.map(function (skill) {return skill.skillName;});
+      $.each(data.skills, function (i, skill) {skill.id = i;})
       $scope.termStatistic = termService.toViewTerm(data);
       technicalDetailService.trendSkills($scope.termStatistic);
       utils.sendNotification(jsonValue.notifications.loaded);
