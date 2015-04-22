@@ -50,7 +50,10 @@
     "salaryRangeInJob": "%s cho %s",
     "jobs": "việc",
     "from": "Từ",
-    "upto": "Lên đến"
+    "upto": "Lên đến",
+    "newGradLevel": "Mới tốt nghiệp / Thực tập sinh",
+    "experienced": "Có kinh nghiệm",
+    "manager": "Quản lý"
 }
 
 
