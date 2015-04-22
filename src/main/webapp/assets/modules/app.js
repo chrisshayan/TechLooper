@@ -149,7 +149,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, userService, routerService, $location, utils, $rootScope, $translate) {
+                         tourService, signInService, historyFactory, userService, routerService, $location,
+                         utils, $rootScope, $translate) {
+
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();

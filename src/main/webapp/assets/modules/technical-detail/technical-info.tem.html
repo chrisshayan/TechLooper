@@ -15,10 +15,9 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">All Job Levels</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">New Grad/Entry Level/Internship</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Experienced</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Manager</a></li>
+          <li ng-repeat="level in jobLevels" role="presentation" ng-model="termInfo.jobLevelId">
+            <a role="menuitem" tabindex="-1">{{level.translate | translate}}</a>
+          </li>
         </ul>
       </div>
       is

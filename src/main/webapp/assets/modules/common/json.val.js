@@ -650,12 +650,13 @@ angular.module("Common").constant("jsonValue", {
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
       }
-    ],
-
-    jobLevels: [
-      {id: 1, translate: "newGradLevel"},
-      {id: 5, translate: "experienced"},
-      {id: 7, translate: "manager"}
     ]
-  }
+  },
+
+  jobLevels: [
+    {id: 0, translate: "allLevel"},
+    {id: 1, translate: "newGradLevel"},
+    {id: 5, translate: "experienced"},
+    {id: 7, translate: "manager"}
+  ]
 });

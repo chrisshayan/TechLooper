@@ -1,7 +1,14 @@
 techlooper.controller("technicalDetailController", function (utils, connectionFactory, $routeParams,
                                                              technicalDetailService, $scope, $timeout, jsonValue, termService) {
   utils.sendNotification(jsonValue.notifications.switchScope, $scope);
+
+  $scope.jobLevels = jsonValue.jobLevels;
+
   var term = $routeParams.term;
+  //$scope.termInfo = {
+  //  term: term
+  //}
+
   var termView = termService.toViewTerm({term: term});
 
   $scope.showCircle = function(skill) {

@@ -51,6 +51,7 @@
     "jobs": "jobs",
     "from": "From",
     "upto": "Up to",
+    "allLevel": "All Job Levels",
     "newGradLevel": "New Grad/Entry Level/Internship",
     "experienced": "Experienced (Non-Manager)",
     "manager": "Manager"
