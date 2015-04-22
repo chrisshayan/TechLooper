@@ -15,8 +15,8 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <li ng-repeat="level in jobLevels" role="presentation" ng-model="termInfo.jobLevelId">
-            <a role="menuitem" tabindex="-1">{{level.translate | translate}}</a>
+          <li ng-repeat="level in jobLevels" role="presentation">
+            <a role="menuitem" tabindex="-1" ng-click="selectJobLevel(level)">{{level.translate | translate}}</a>
           </li>
         </ul>
       </div>
