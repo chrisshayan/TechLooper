@@ -220,21 +220,18 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         if (jobLevelId > 0) {
             FilterBuilder jobLevelFilter = FilterBuilders.termFilter("jobLevelId", jobLevelId);
             // Using filtered query to improve performance, refer from
-            // http://www.elastic.co/guide/en/elasticsearch/guide/master/_finding_exact_values.html
             queryBuilder.withQuery(filteredQuery(termQueryBuilder, jobLevelFilter));
         } else {
             queryBuilder.withQuery(filteredQuery(termQueryBuilder, FilterBuilders.matchAllFilter()));
         }
 
-        ValueCountBuilder totalJobAggregation = jobQueryBuilder.getTotalJobAggregation();
         FilterAggregationBuilder salaryMinAggregation = jobQueryBuilder.getSalaryMinAggregation();
         FilterAggregationBuilder salaryMaxAggregation = jobQueryBuilder.getSalaryMaxAggregation();
         FilterAggregationBuilder topCompaniesAggregation = jobQueryBuilder.getTopCompaniesAggregation();
         List<FilterAggregationBuilder> skillAnalyticsAggregations =
                 jobQueryBuilder.getSkillAnalyticsAggregations(term, histogramEnum);
 
-        queryBuilder.addAggregation(totalJobAggregation)
-                .addAggregation(salaryMinAggregation)
+        queryBuilder.addAggregation(salaryMinAggregation)
                 .addAggregation(salaryMaxAggregation)
                 .addAggregation(topCompaniesAggregation);
         skillAnalyticsAggregations.forEach(skillAnalyticsAggregation -> queryBuilder.addAggregation(skillAnalyticsAggregation));
@@ -251,7 +248,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             term.setSkills(new ArrayList<>());
             if (technicalTerm != null) {
                 technicalSkills = technicalTerm.getSkills();
-                technicalSkills.stream().limit(LIMIT_NUMBER_OF_COMPANIES).forEach(technicalSkill -> {
+                technicalSkills.forEach(skill -> {
+                    skill.setCount(countJobsBySkillWithinPeriod(skill.getName(), HistogramEnum.ONE_YEAR));
+                });
+                technicalSkills.sort((skill1, skill2) -> skill2.getCount().intValue() - skill1.getCount().intValue());
+                technicalSkills = technicalSkills.stream().limit(LIMIT_NUMBER_OF_COMPANIES).collect(Collectors.toList());
+                technicalSkills.forEach(technicalSkill -> {
                     term.getSkills().add(technicalSkill.getName());
                 });
             }
@@ -263,12 +265,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             }
             technicalTerm.setSkills(technicalSkills);
         }
-
-        technicalSkills.forEach(skill -> {
-            skill.setCount(countJobsBySkillWithinPeriod(skill.getName(), HistogramEnum.ONE_YEAR));
-        });
-        technicalSkills.sort((skill1, skill2) -> skill2.getCount().intValue() - skill1.getCount().intValue());
-
 
         if (term.getJobLevelId() == null) {
             term.setJobLevelId(0);

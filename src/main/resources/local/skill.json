@@ -183,7 +183,7 @@
         ]
       },
       {
-        "name": "Agile Software Development",
+        "name": "Agile",
         "logoUrl": "",
         "webSite": "http://agilemanifesto.org/",
         "usefulLinks": [
@@ -952,27 +952,27 @@
     "logoUrl": "lg-web.png",
     "skills": [
       {
-        "name": "html",
+        "name": "HTML",
         "logoUrl": "lg-html5.png"
       },
       {
-        "name": "css",
+        "name": "CSS",
         "logoUrl": "lg-css3.png"
       },
       {
-        "name": "javascript",
+        "name": "Javascript",
         "logoUrl": "lg-javascript.png"
       },
       {
-        "name": "sass",
+        "name": "SASS",
         "logoUrl": "lg-sass.png"
       },
       {
-        "name": "less",
+        "name": "LESS",
         "logoUrl": "lg-less.png"
       },
       {
-        "name": "photoshop",
+        "name": "Photoshop",
         "logoUrl": "lg-photoshop.png"
       },
       {
@@ -1020,7 +1020,7 @@
         "logoUrl": "lg-ios.png"
       },
       {
-        "name": "Windows phone",
+        "name": "Windows Phone",
         "logoUrl": "lg-windows-phone.png"
       },
       {
@@ -1040,11 +1040,11 @@
         "logoUrl": "lg-ios.png"
       },
       {
-        "name": "Sencha Touch",
+        "name": "Sencha",
         "logoUrl": "lg-sencha.png"
       },
       {
-        "name": "Responsive Design",
+        "name": "Responsive",
         "logoUrl": "lg-responsive-design.png"
       },
       {
