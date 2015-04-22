@@ -1,6 +1,7 @@
 techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $rootScope) {
   var trendSkillChart = {};
   var fnColor = d3.scale.category10();
+
   var instance = {
 
     /**
@@ -66,13 +67,9 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return chartConfig;
     },
 
-    /**
-     * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
-     */
-    trendSkills: function (termStatistic) {
+    generateTrendSkillsChartOptions: function () {
       var translate = $rootScope.translate;
-      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
-      trendSkillChart.instance = new Highcharts.Chart({
+      return {
         chart: {
           renderTo: 'trendSkills',
           type: 'spline'
@@ -147,7 +144,26 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
         credits: {//disable Highchart.com text
           enabled: false
         }
-      });
+      }
+    },
+
+    createTrendSkillsChart: function () {
+      return new Highcharts.Chart(instance.generateTrendSkillsChartOptions());
+    },
+
+    /**
+     * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
+     */
+    trendSkills: function (termStatistic) {
+      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
+      trendSkillChart.instance && trendSkillChart.instance.destroy();
+      return instance.hasSkillValues(termStatistic) && (trendSkillChart.instance = instance.createTrendSkillsChart());
+    },
+
+    hasSkillValues: function (termStatistic) {
+      var values = "";
+      $.each(termStatistic.skills, function (i, skill) {values += skill.histograms[0].values.join("");});
+      return values.replace(/0/g, "").length > 0;
     },
 
     enableNotifications: function () {
