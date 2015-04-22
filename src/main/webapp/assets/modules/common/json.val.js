@@ -636,7 +636,7 @@ angular.module("Common").constant("jsonValue", {
       }
     ],
 
-    jobLevel: [
+    jobLevels: [
       {id: 1, title: "New Grad/Entry Level/Internship"},
       {id: 5, title: "Experienced (Non-Manager)"},
       {id: 7, title: "Manager"}
