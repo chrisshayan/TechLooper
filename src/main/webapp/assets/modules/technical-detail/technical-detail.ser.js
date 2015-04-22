@@ -9,11 +9,11 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
      */
     showSkillsList: function (skill, maxValue) {
       skill.colors = [];
-      skill.colors.unshift(fnColor(skill.skillName));
+      skill.colors.unshift(fnColor(skill.id));
       skill.colors.unshift("#e9e8e7");
 
       Circles.create({
-        id: 'circles-' + skill.skillName,
+        id: 'circles-' + skill.id,
         radius: 60,
         value: skill.totalJob,
         maxValue: maxValue,
