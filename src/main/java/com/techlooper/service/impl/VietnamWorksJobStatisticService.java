@@ -31,8 +31,7 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.elasticsearch.index.query.FilterBuilders.andFilter;
-import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
+import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -110,16 +109,25 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     @Override
-    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term) {
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, Integer jobLevelId) {
         final double LOWER_BOUND_SALARY = 250;
+
+        // Build the term query
         BoolQueryBuilder termSearchTextQuery = boolQuery();
         term.getSearchTexts().forEach(termSearchText -> termSearchTextQuery.should(matchPhraseQuery("jobTitle", termSearchText)));
 
-        BoolQueryBuilder queryJobBySkill = boolQuery().must(
-                termSearchTextQuery).must(rangeQuery("expiredDate").from("now"));
-        FilterBuilder filterByAvailableSalary = andFilter(
-                rangeFilter("salaryMin").from(LOWER_BOUND_SALARY), rangeFilter("salaryMax").from(LOWER_BOUND_SALARY));
-        FilteredQueryBuilder avgSalaryQuery = filteredQuery(queryJobBySkill, filterByAvailableSalary);
+        // Build the list of filters
+        BoolFilterBuilder availableJobByLevelFilter = boolFilter();
+        // Using 'now/d' to leverage filter cache for performance improvement
+        availableJobByLevelFilter.must(rangeFilter("expiredDate").from("now/d"));
+
+        if (jobLevelId != null && jobLevelId > 0) {
+            availableJobByLevelFilter.must(termFilter("jobLevelId", jobLevelId));
+        }
+        availableJobByLevelFilter.must(rangeFilter("salaryMin").from(LOWER_BOUND_SALARY));
+        availableJobByLevelFilter.must(rangeFilter("salaryMax").from(LOWER_BOUND_SALARY));
+
+        FilteredQueryBuilder avgSalaryQuery = filteredQuery(termSearchTextQuery, availableJobByLevelFilter);
 
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
                 .withQuery(avgSalaryQuery)
@@ -218,9 +226,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
         Integer jobLevelId = term.getJobLevelId();
         if (jobLevelId != null && jobLevelId > 0) {
-            FilterBuilder jobLevelFilter = FilterBuilders.termFilter("jobLevelId", jobLevelId);
-            // Using filtered query to improve performance
-            queryBuilder.withQuery(filteredQuery(termQueryBuilder, jobLevelFilter));
+            queryBuilder.withQuery(filteredQuery(termQueryBuilder, termFilter("jobLevelId", jobLevelId)));
         } else {
             queryBuilder.withQuery(filteredQuery(termQueryBuilder, FilterBuilders.matchAllFilter()));
         }
@@ -262,7 +268,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         termStatisticResponse.setTotalJob(totalJob);
 
         // Get the average salary for term
-        Map<String, Double> avgSalary = getAverageSalaryBySkill(configuredTechnicalTerm);
+        Map<String, Double> avgSalary = getAverageSalaryBySkill(configuredTechnicalTerm, term.getJobLevelId());
         termStatisticResponse.setAverageSalaryMin(avgSalary.get("SALARY_MIN"));
         termStatisticResponse.setAverageSalaryMax(avgSalary.get("SALARY_MAX"));
 

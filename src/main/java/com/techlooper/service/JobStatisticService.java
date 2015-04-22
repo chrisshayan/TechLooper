@@ -30,7 +30,7 @@ public interface JobStatisticService {
 
     public Long countTotalITJobsWithinPeriod(HistogramEnum period);
 
-    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term);
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, Integer jobLevelId);
 
     TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum);
 }
