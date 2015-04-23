@@ -42,14 +42,16 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     }
 
     if ($scope.termRequestShadow.skills.length === 5) {
-      $scope.error.newSkillName = "Maximum 5 skills";
+      var translate = $rootScope.translate;
+      $scope.error.newSkillName = translate.maximum5;
       return;
     }
     delete $scope.error.newSkillName;
 
     var skillLowerCases = $scope.termRequestShadow.skills.map(function (skill) {return skill.toLowerCase();});
-    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
-      $scope.error.existSkillName = "This skill has already";
+    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0){
+      var translate = $rootScope.translate;
+      $scope.error.existSkillName = translate.hasExist;
       return;
     }
     delete $scope.error.existSkillName;

@@ -51,8 +51,18 @@
     "jobs": "jobs",
     "from": "From",
     "upto": "Up to",
+    "salaryRangeLabel": "The salary range for",
+    "is": "is",
     "allLevel": "All Job Levels",
     "newGradLevel": "New Grad/Entry Level/Internship",
     "experienced": "Experienced (Non-Manager)",
-    "manager": "Manager"
+    "manager": "Manager",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "changeSkills": "Change Skills",
+    "deleteAll": "Delete All",
+    "add": "Add",
+    "maximum5": "Maximum 5 skills",
+    "hasExist": "This skill has already",
+    "noDataChart": "No data available now"
 }
