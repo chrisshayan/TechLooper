@@ -34,14 +34,18 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   }
 
   $scope.addSkill = function () {
+    var newSkillName = $scope.newSkillName.trim();
+    $scope.newSkillName = newSkillName;
+    if (newSkillName.length == 0) {
+      $scope.error = {};
+      return;
+    }
+
     if ($scope.termRequestShadow.skills.length === 5) {
       $scope.error.newSkillName = "Maximum 5 skills";
       return;
     }
     delete $scope.error.newSkillName;
-
-    var newSkillName = $scope.newSkillName;
-    $scope.newSkillName = newSkillName.trim();
 
     var skillLowerCases = $scope.termRequestShadow.skills.map(function (skill) {return skill.toLowerCase();});
     if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
@@ -81,7 +85,8 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
         $scope.termStatistic = termService.toViewTerm(data);
         if (!technicalDetailService.trendSkills($scope.termStatistic)) {
           $('.no-data-chart').addClass('active');
-        }else{
+        }
+        else {
           $('.no-data-chart').removeClass('active');
         }
         utils.sendNotification(jsonValue.notifications.loaded);
