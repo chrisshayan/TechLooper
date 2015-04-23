@@ -231,7 +231,7 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       });
     },
     addSkillEnter: function(){
-      $(document).keypress(function(event){
+      $('.add-skill-input').find('input').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13'){
           instance.addSkills();
