@@ -65,7 +65,10 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     return true;
   }
 
-  $scope.companyUrl = function (company) {//java-fpt+at-it-software-i35-en
+  $scope.companyUrl = function (company) {//java-fpt+at-it-software-i35l5-en
+    if ($scope.termRequest.jobLevelId > 0) {
+      return sprintf("http://vietnamworks.com/%s-%s+at-it-software-i35l%d-en", termView.label, company.name, $scope.termRequest.jobLevelId);
+    }
     return sprintf("http://vietnamworks.com/%s-%s+at-it-software-i35-en", termView.label, company.name);
   }
 
