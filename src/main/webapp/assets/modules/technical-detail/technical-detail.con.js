@@ -7,7 +7,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   $scope.termRequest = {term: $routeParams.term};
   $scope.selectJobLevel = function (jobLevel) {
     var translate = $rootScope.translate;
-    console.log(translate[jobLevel.translate]);
+    $('span.lavelName').text(translate[jobLevel.translate]);
     $scope.termRequest.jobLevelId = jobLevel.id;
     if ($scope.termRequest.jobLevelId === -1) {
       delete $scope.termRequest.jobLevelId;
