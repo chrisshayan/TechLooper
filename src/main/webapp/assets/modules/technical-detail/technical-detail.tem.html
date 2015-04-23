@@ -29,11 +29,9 @@
               <p class="removeAll">Delete All</p>
               <div class="added-list-skills">
                 <ul>
-                  <li><span class="left"><span class="right"><i>Java</i><span class="close" title="Remove">x</span></span></span></li>
-                  <li><span class="left"><span class="right"><i>Project Manager</i><span class="close" title="Remove">x</span></span></span></li>
-                  <li><span class="left"><span class="right"><i>RESTful</i><span class="close" title="Remove">x</span></span></span></li>
-                  <li><span class="left"><span class="right"><i>Software Development Life Cycle</i><span class="close" title="Remove">x</span></span></span></li>
-                  <li><span class="left"><span class="right"><i>Angular JS</i><span class="close" title="Remove">x</span></span></span></li>
+                  <li ng-repeat="skill in termRequest.skills" ng-show="removeSkill(skill)">
+                    <span class="left"><span class="right"><i>{{skill}}</i><span class="close" title="Remove">x</span></span></span>
+                  </li>
                 </ul>
               </div>
               <div class="max-skill-alert"></div>
@@ -46,7 +44,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Apply</button>
+          <button type="button" class="btn btn-primary" ng-click="applySkills()" data-dismiss="modal">Apply</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
