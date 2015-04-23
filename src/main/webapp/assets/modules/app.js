@@ -170,7 +170,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   }
 
   $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs",
-    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel"]).then(function(translate) {
+    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel",
+    "experienced", "manager"]).then(function(translate) {
     $rootScope.translate = translate;
   });
 });
