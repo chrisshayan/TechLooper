@@ -51,10 +51,20 @@
     "jobs": "việc",
     "from": "Từ",
     "upto": "Lên đến",
-    "allLevel": "Tất cả",
-    "newGradLevel": "Mới tốt nghiệp / Thực tập sinh",
-    "experienced": "Có kinh nghiệm",
-    "manager": "Quản lý"
+    "salaryRangeLabel": "Lương của",
+    "is": "là",
+    "allLevel": "Tất cả ứng viên",
+    "newGradLevel": "Ứng viên mới tốt nghiệp / Thực tập sinh",
+    "experienced": "Ứng viên có kinh nghiệm",
+    "manager": "Nhà Quản lý",
+    "apply": "Thay đổi",
+    "cancel": "Hủy",
+    "changeSkills": "Thay đổi kỹ năng khác",
+    "deleteAll": "Xóa hết",
+    "add": "Thêm",
+    "maximum5": "Tối đa 5 kỹ năng",
+    "hasExist": "Kỹ năng này đã tồn tại",
+    "noDataChart": "Không có dữ liệu"
 }
 
 
