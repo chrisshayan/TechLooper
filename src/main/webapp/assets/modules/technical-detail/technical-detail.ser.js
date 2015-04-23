@@ -1,7 +1,6 @@
 techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $rootScope) {
   var trendSkillChart = {};
   var fnColor = d3.scale.category10();
-  var $scope;
 
   var instance = {
 
@@ -169,10 +168,6 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
 
     enableNotifications: function () {
       return utils.getView() === jsonValue.views.analyticsSkill;
-    },
-
-    init: function (scope) {
-      $scope = scope;
     }
   };
 

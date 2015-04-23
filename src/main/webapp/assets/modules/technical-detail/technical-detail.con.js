@@ -1,8 +1,6 @@
 techlooper.controller("technicalDetailController", function (utils, connectionFactory, $routeParams, $rootScope,
                                                              technicalDetailService, $scope, $timeout, jsonValue, termService) {
 
-  technicalDetailService.init($scope);
-
   $scope.error= {};
   $scope.jobLevels = jsonValue.jobLevels;
   $scope.termRequest = {term: $routeParams.term};
