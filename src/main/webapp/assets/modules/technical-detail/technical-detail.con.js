@@ -20,6 +20,10 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     return true;
   }
 
+  $scope.applySkills = function() {
+    $scope.loadData();
+  }
+
   var termView = termService.toViewTerm($scope.termRequest);
 
   $scope.showCircle = function (skill) {

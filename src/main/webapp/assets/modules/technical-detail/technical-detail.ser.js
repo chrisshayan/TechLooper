@@ -1,6 +1,7 @@
 techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $rootScope) {
   var trendSkillChart = {};
   var fnColor = d3.scale.category10();
+  var $scope;
 
   var instance = {
 
@@ -170,73 +171,89 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return utils.getView() === jsonValue.views.analyticsSkill;
     },
 
-    skillManager: function(){
+    skillManager: function () {
       instance.removeSkill();
       instance.removeAllSKills();
       instance.addSkillButton();
       instance.addSkillEnter();
     },
 
-    removeSkill: function(){
+    removeSkill: function () {
       var listSkill = $('.added-list-skills').find('.close');
-      listSkill.on('click', function(){
+      listSkill.on('click', function () {
+        var selectedSkill = $(this).prev().text();
+        var index = $scope.termRequest.skills.indexOf(selectedSkill);
+        if (index > -1) {
+          $scope.termRequest.skills.splice(index, 1);
+        }
         $(this).parent().parent().parent().remove();
         var flg = instance.updateNumberSkill();
-        if( flg == 4){
+        if (flg == 4) {
           $('.max-skill-alert').html('');
         }
       });
     },
-    removeAllSKills: function(){
-      $('p.removeAll').click(function(){
+    removeAllSKills: function () {
+      $('p.removeAll').click(function () {
+        $scope.termRequest.skills.length = 0;
         $('.added-list-skills').find('ul').html('');
       });
     },
-    updateNumberSkill: function(){
+    updateNumberSkill: function () {
       var numberSkill = $('.added-list-skills').find('li').length;
       return numberSkill;
     },
-    addSkills: function(){
+    addSkills: function () {
       var flgNumber = instance.updateNumberSkill(),
-          skillName = $('.add-skill-input').find('input').val();
+        skillName = $('.add-skill-input').find('input').val();
       var exist = instance.checkExistSkill(skillName);
-      if($.trim(skillName) !== ''){
-        if(flgNumber < 5){
-            if(exist == 1){
-              $('.max-skill-alert').html('This skill has already');
-            }else{
-              $('.added-list-skills').find('ul').append('<li><span class="left"><span class="right"><i>'+ skillName +'</i><span class="close" title="Remove">x</span></span></span></li>');
-              $('.add-skill-input').find('input').val('');
-              $('.max-skill-alert').html('');
-              instance.removeSkill();
+      if ($.trim(skillName) !== '') {
+        if (flgNumber < 5) {
+          if (exist == 1) {
+            $('.max-skill-alert').html('This skill has already');
+          }
+          else {
+            var index = $scope.termRequest.skills.indexOf(skillName);
+            if (index < 0) {
+              $scope.termRequest.skills.push(skillName);
             }
-          }else{
+            //$('.added-list-skills').find('ul').append('<li><span class="left"><span class="right"><i>' + skillName + '</i><span class="close" title="Remove">x</span></span></span></li>');
+            $('.add-skill-input').find('input').val('');
+            $('.max-skill-alert').html('');
+            instance.removeSkill();
+          }
+        }
+        else {
           $('.max-skill-alert').html('Maximum 5 skills');
         }
       }
     },
-    checkExistSkill: function(skillName){
+    checkExistSkill: function (skillName) {
       var listSkill = $('.added-list-skills').find('i'),
-          exist = 0;
-      listSkill.each(function(){
-        if($(this).text().toUpperCase() == skillName.toUpperCase()){
+        exist = 0;
+      listSkill.each(function () {
+        if ($(this).text().toUpperCase() == skillName.toUpperCase()) {
           exist = 1;
         }
       });
       return exist;
     },
-    addSkillButton: function(){
-      $('.add-skill-input').find('button').click(function(){
+    addSkillButton: function () {
+      $('.add-skill-input').find('button').click(function () {
         instance.addSkills();
       });
     },
-    addSkillEnter: function(){
-      $(document).keypress(function(event){
+    addSkillEnter: function () {
+      $(document).keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13'){
+        if (keycode == '13') {
           instance.addSkills();
         }
       });
+    },
+
+    init: function (scope) {
+      $scope = scope;
     }
   };
 
