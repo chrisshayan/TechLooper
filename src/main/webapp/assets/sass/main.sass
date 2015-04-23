@@ -74,6 +74,21 @@ a:focus
   background-color: #fff
   border-bottom: 1px solid #dadcdf
   width: 100%
+  .backPage
+    width: auto
+    padding: 0 15px
+    border: 1px solid #c7c7c7
+    margin: 6px 0 0 10px
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    float: left
+    line-height: 32px
+    height: 34px
+  .backPage:hover
+    background-color: #277cbe
+    color: #fff
+    border: 1px solid #277cbe
 .navbar-inverse
   background: url(../images/line-header.png) #201d1e center bottom no-repeat
   border: 0
@@ -176,7 +191,6 @@ ul.setting-items
     height: 40px
     line-height: 40px
     font-size: 18px
-    border-radius: 50%
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
@@ -1336,7 +1350,19 @@ label.bootstrap-checkbox.disabled
     font-weight: 400
 
 .modal-dialog
-  top: 15%
+  top: 25%
+  position: absolute
+  left: 0
+  right: 0
+  margin: auto
+  .modal-header
+    padding: 10px 15px
+    .close
+      margin-top: 0
+  .modal-footer
+    -webkit-border-radius: 6px
+    -moz-border-radius: 6px
+    border-radius: 6px
 .signin-popup
   width: 100%
   text-align: center
