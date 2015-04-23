@@ -354,6 +354,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         List<Long> histogramValues = new ArrayList<>();
         List<? extends DateHistogram.Bucket> buckets = skillHistogram.getBuckets();
 
+        if (buckets.isEmpty()) {
+            return Collections.nCopies(LIMIT_NUMBER_OF_MONTHS, 0L);
+        }
+
         // Start from the point of last year, month over month
         DateTime loopDateTime = DateTime.now().minusYears(1);
         int i = 0;
@@ -368,6 +372,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 histogramValues.add(0L);
             }
             loopDateTime = loopDateTime.plusMonths(1);
+        }
+
+        while(histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
+            histogramValues.add(0L);
         }
 
         return histogramValues;
