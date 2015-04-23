@@ -1,9 +1,9 @@
 techlooper.controller("technicalDetailController", function (utils, connectionFactory, $routeParams, $rootScope,
                                                              technicalDetailService, $scope, $timeout, jsonValue, termService) {
 
+  technicalDetailService.init($scope);
+
   $scope.jobLevels = jsonValue.jobLevels;
-  //var translate = $rootScope.translate;
-  //console.log(translate);
   $scope.termRequest = {term: $routeParams.term};
   $scope.selectJobLevel = function (jobLevel) {
     var translate = $rootScope.translate;
@@ -13,6 +13,11 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
       delete $scope.termRequest.jobLevelId;
     }
     $scope.loadData();
+  }
+
+  $scope.removeSkill = function(skill) {
+    technicalDetailService.removeSkill();
+    return true;
   }
 
   var termView = termService.toViewTerm($scope.termRequest);
