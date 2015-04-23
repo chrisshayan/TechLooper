@@ -125,7 +125,7 @@ public class VietnamWorksJobStatisticServiceITCase {
         TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
         termStatisticRequest.setTerm("JAVA");
         termStatisticRequest.setJobLevelId(5);
-        termStatisticRequest.setSkills(Arrays.asList("Jenkins", "Maven"));
+        termStatisticRequest.setSkills(Arrays.asList("Hadoop", "Scala"));
         TermStatisticResponse termStatisticResponse =
                 jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
         assertTrue(termStatisticResponse.getAverageSalaryMin() > 250);

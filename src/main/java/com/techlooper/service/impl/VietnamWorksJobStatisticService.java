@@ -10,6 +10,7 @@ import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.joda.time.DateTime;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -46,7 +47,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final long LIMIT_NUMBER_OF_SKILLS = 5;
 
-    private static final long LIMIT_NUMBER_OF_MONTHS = 13;
+    private static final int LIMIT_NUMBER_OF_MONTHS = 13;
 
     private static final double LOWER_BOUND_SALARY = 250;
 
@@ -275,7 +276,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Get list of top companies
         extractTopCompaniesData(aggregations, termStatisticResponse);
 
-        // Get list of skill trends
+        // Get list of skill trends analytics
         extractSkillTrendAnalyticsData(term, histogramEnum, aggregations, termStatisticResponse);
 
         return termStatisticResponse;
@@ -332,15 +333,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             String encodedSkillAgg = EncryptionUtils.encodeHexa(trendingSkills.get(i)) + "_" + histogramEnum + "_analytics";
             DateHistogram skillHistogram = ((DateHistogram) ((InternalAggregations) ((InternalFilter) aggregations.get(encodedSkillAgg)).getAggregations())
                     .get(encodedSkillAgg));
-            List<Long> histogramValues = new ArrayList<>();
-            skillHistogram.getBuckets().forEach(bucket -> {
-                histogramValues.add(bucket.getDocCount());
-            });
 
-            // Fill zero for trailing month which contains empty data, this is the limitation of ES histogram
-            while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
-                histogramValues.add(0L);
-            }
+            List<Long> histogramValues = processSkillHistogramValues(skillHistogram);
 
             SkillStatistic skillStatistic = new SkillStatistic();
             skillStatistic.setSkillName(trendingSkills.get(i));
@@ -353,6 +347,30 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
         // Sort list of trending skills by current total number of jobs and limit up to 5 skills per request
         termStatisticResponse.setSkills(sortTrendingSkillsByTotalJobs(skillStatistics));
+    }
+
+    // Fill zero for trailing month which contains empty data, this is the limitation of ES histogram
+    private List<Long> processSkillHistogramValues(DateHistogram skillHistogram) {
+        List<Long> histogramValues = new ArrayList<>();
+        List<? extends DateHistogram.Bucket> buckets = skillHistogram.getBuckets();
+
+        // Start from the point of last year, month over month
+        DateTime loopDateTime = DateTime.now().minusYears(1);
+        int i = 0;
+        while(i < buckets.size()) {
+            DateHistogram.Bucket bucket = buckets.get(i);
+            DateTime bucketDateTime = bucket.getKeyAsDate();
+            if (bucketDateTime.getYear() == loopDateTime.getYear() &&
+                    bucketDateTime.getMonthOfYear() == loopDateTime.getMonthOfYear()) {
+                histogramValues.add(bucket.getDocCount());
+                i++;
+            } else {
+                histogramValues.add(0L);
+            }
+            loopDateTime = loopDateTime.plusMonths(1);
+        }
+
+        return histogramValues;
     }
 
     private List<SkillStatistic> sortTrendingSkillsByTotalJobs(List<SkillStatistic> skillStatistics) {
