@@ -21,6 +21,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         term.percent = per.toFixed(1);
       });
       scope.terms = terms;
+      scope.$apply();
 
       $.each(terms, function (i, term) {
         if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
