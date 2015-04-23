@@ -1,6 +1,7 @@
-techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $q) {
+techlooper.factory("technicalDetailService", function (utils, $translate, jsonValue, $rootScope) {
   var trendSkillChart = {};
   var fnColor = d3.scale.category10();
+
   var instance = {
 
     /**
@@ -9,11 +10,11 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
      */
     showSkillsList: function (skill, maxValue) {
       skill.colors = [];
-      skill.colors.unshift(fnColor(skill.skillName));
+      skill.colors.unshift(fnColor(skill.id));
       skill.colors.unshift("#e9e8e7");
 
       Circles.create({
-        id: 'circles-' + skill.skillName,
+        id: 'circles-' + skill.id,
         radius: 60,
         value: skill.totalJob,
         maxValue: maxValue,
@@ -66,89 +67,103 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
       return chartConfig;
     },
 
+    generateTrendSkillsChartOptions: function () {
+      var translate = $rootScope.translate;
+      return {
+        chart: {
+          renderTo: 'trendSkills',
+          type: 'spline'
+        },
+        colors: trendSkillChart.config.colors,
+        title: {
+          text: ''
+        },
+        subtitle: {
+          text: ''
+        },
+        xAxis: {
+          categories: trendSkillChart.config.xAxis.labels,
+          gridLineColor: '#353233',
+          labels: {
+            style: {
+              color: '#8a8a8a'
+            }
+          },
+          title: {
+            text: translate.timeline
+          },
+          tickInterval: 1,
+          tickmarkPlacement: 'on',
+          gridLineWidth: 1
+        },
+        yAxis: {
+          labels: {
+            formatter: function () {
+              return this.value;
+            }
+          },
+          title: {
+            text: translate.numberOfJobs
+          },
+          min: trendSkillChart.config.yAxis.min,
+          max: trendSkillChart.config.yAxis.max,
+          tickInterval: 5
+        },
+        tooltip: {
+          valueSuffix: ' ' + translate.jobs
+        },
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'top',
+          borderWidth: 0,
+          itemStyle: {
+            color: '#636363'
+          },
+          itemHoverStyle: {
+            color: '#E0E0E3'
+          },
+          itemHiddenStyle: {
+            color: '#606063'
+          }
+        },
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: false
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 3
+              }
+            }
+          }
+        },
+        series: trendSkillChart.config.series,
+        credits: {//disable Highchart.com text
+          enabled: false
+        }
+      }
+    },
+
+    createTrendSkillsChart: function () {
+      return new Highcharts.Chart(instance.generateTrendSkillsChartOptions());
+    },
+
     /**
      * @param {object} termStatistic - Term Statistic object @see skill-level-analytics.json
      */
     trendSkills: function (termStatistic) {
-      $translate(["timeline", "numberOfJobs", "jobs"]).then(function(translate) {
-        trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
-        trendSkillChart.instance = new Highcharts.Chart({
-          chart: {
-            renderTo: 'trendSkills',
-            type: 'spline'
-          },
-          colors: trendSkillChart.config.colors,
-          title: {
-            text: ''
-          },
-          subtitle: {
-            text: ''
-          },
-          xAxis: {
-            categories: trendSkillChart.config.xAxis.labels,
-            gridLineColor: '#353233',
-            labels: {
-              style: {
-                color: '#8a8a8a'
-              }
-            },
-            title: {
-              text: translate.timeline
-            },
-            tickInterval: 1,
-            tickmarkPlacement: 'on',
-            gridLineWidth: 1
-          },
-          yAxis: {
-            labels: {
-              formatter: function () {
-                return this.value;
-              }
-            },
-            title: {
-              text: translate.numberOfJobs
-            },
-            min: trendSkillChart.config.yAxis.min,
-            max: trendSkillChart.config.yAxis.max,
-            tickInterval: 5
-          },
-          tooltip: {
-            valueSuffix: ' ' + translate.jobs
-          },
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'top',
-            borderWidth: 0,
-            itemStyle: {
-              color: '#636363'
-            },
-            itemHoverStyle: {
-              color: '#E0E0E3'
-            },
-            itemHiddenStyle: {
-              color: '#606063'
-            }
-          },
-          plotOptions: {
-            series: {
-              marker: {
-                enabled: false
-              },
-              lineWidth: 1,
-              states: {
-                hover: {
-                  lineWidth: 3
-                }
-              }
-            }
-          },
-          series: trendSkillChart.config.series,
-          credits: {//disable Highchart.com text
-            enabled: false
-          }
-        });
-      });
+      trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
+      trendSkillChart.instance && trendSkillChart.instance.destroy();
+      return instance.hasSkillValues(termStatistic) && (trendSkillChart.instance = instance.createTrendSkillsChart());
+    },
+
+    hasSkillValues: function (termStatistic) {
+      var values = "";
+      $.each(termStatistic.skills, function (i, skill) {values += skill.histograms[0].values.join("");});
+      return values.replace(/0/g, "").length > 0;
     },
 
     enableNotifications: function () {

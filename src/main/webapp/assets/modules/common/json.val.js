@@ -231,6 +231,10 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Mobile',
     'logo': 'lg-mobile.png'
   },{
+    term: "PROJECT_MANAGER",
+    'text': 'PM',
+    'logo': 'lg-pm.png'
+  },{
     term: "DOTNET",
     'text': '.Net',
     'logo': 'lg-dotnet.png'
@@ -245,6 +249,10 @@ angular.module("Common").constant("jsonValue", {
     term: "RUBY",
     'text': 'Ruby',
     'logo': 'lg-ruby.png'
+  }, {
+    term: "QA",
+    'text': 'Qa',
+    'logo': 'lg-qa.png'
   }, {
     term: "BA",
     'text': 'Ba',
@@ -371,6 +379,14 @@ angular.module("Common").constant("jsonValue", {
   }, {
     'text': 'Groovy',
     'logo': 'lg-groovy.png'
+  }, {
+    term: "DBA",
+    'text': 'DB',
+    'logo': 'lg-db.png'
+  }, {
+    term: "WEB",
+    'text': 'Web',
+    'logo': 'lg-web.png'
   }, {
     'text': 'Logos',
     'logo': 'lg-logos.png'
@@ -634,12 +650,13 @@ angular.module("Common").constant("jsonValue", {
         title: "Find Jobs",
         content: "Click to this button, you can find job on search job page"
       }
-    ],
-
-    jobLevel: [
-      {id: 1, title: "New Grad/Entry Level/Internship"},
-      {id: 5, title: "Experienced (Non-Manager)"},
-      {id: 7, title: "Manager"}
     ]
-  }
+  },
+
+  jobLevels: [
+    {id: -1, translate: "allLevel"},
+    {id: 1, translate: "newGradLevel"},
+    {id: 5, translate: "experienced"},
+    {id: 7, translate: "manager"}
+  ]
 });

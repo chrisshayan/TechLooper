@@ -7,6 +7,7 @@ import com.techlooper.model.TermStatisticRequest;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.MatchQueryBuilder.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -55,12 +57,12 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     public FilterBuilder getTechnicalTermQuery(String term) {
         return queryFilter(multiMatchQuery(term, SEARCH_JOB_FIELDS)
-                .operator(MatchQueryBuilder.Operator.AND));
+                .operator(Operator.AND));
     }
 
     public FilterBuilder getTechnicalSkillQuery(Skill skill) {
         return queryFilter(
-                multiMatchQuery(skill.getName(), SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND)).cache(true);
+                multiMatchQuery(skill.getName(), SEARCH_JOB_FIELDS).operator(Operator.AND)).cache(true);
     }
 
     public NativeSearchQueryBuilder getVietnamworksJobCountQuery() {
@@ -124,8 +126,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     @Override
     public QueryBuilder getTermQueryBuilder(TermStatisticRequest term) {
         List<String> searchTexts = jsonConfigRepository.findByKey(term.getTerm()).getSearchTexts();
-        BoolQueryBuilder termQueryBuilder = boolQuery();
-        searchTexts.forEach(searchText -> termQueryBuilder.should(matchPhraseQuery("jobTitle", searchText)));
+        String querySearchText = StringUtils.join(searchTexts.toArray(), ' ');
+        MultiMatchQueryBuilder termQueryBuilder = multiMatchQuery(querySearchText, SEARCH_JOB_FIELDS).operator(Operator.OR);
         return termQueryBuilder;
     }
 
@@ -157,8 +159,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         List<FilterAggregationBuilder> skillAnalyticsAggregations = new ArrayList<>();
         for (String skill : term.getSkills()) {
             String aggName = EncryptionUtils.encodeHexa(skill) + "_" + histogramEnum + "_analytics";
+            BoolQueryBuilder skillQueryBuilder = boolQuery().should(matchPhraseQuery("jobTitle", skill))
+                    .should(matchPhraseQuery("jobDescription", skill))
+                    .should(matchPhraseQuery("skillExperience", skill));
             FilterBuilder skillFilter = queryFilter(boolQuery()
-                    .must(multiMatchQuery(skill, SEARCH_JOB_FIELDS).operator(MatchQueryBuilder.Operator.AND))
+                    .must(skillQueryBuilder)
                     .must(rangeQuery("approvedDate").from("now-" + lastPeriod)));
             AggregationBuilder skillHistogramAgg = AggregationBuilders.dateHistogram(aggName)
                     .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH).minDocCount(0);
