@@ -26,10 +26,10 @@
         <div class="modal-body">
           <div class="change-skill-block">
             <form autocomplete="off">
-              <p class="removeAll">Delete All</p>
+              <p class="removeAll" ng-click="deleteAllSkills()">Delete All</p>
               <div class="added-list-skills">
                 <ul>
-                  <li ng-repeat="skill in termRequest.skills">
+                  <li ng-repeat="skill in termRequestShadow.skills">
                     <span class="left"><span class="right"><i>{{skill}}</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
                   </li>
                 </ul>

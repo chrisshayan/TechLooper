@@ -1,9 +1,18 @@
 techlooper.controller("technicalDetailController", function (utils, connectionFactory, $routeParams, $rootScope,
                                                              technicalDetailService, $scope, $timeout, jsonValue, termService) {
 
-  $scope.error= {};
+  $scope.error = {};
   $scope.jobLevels = jsonValue.jobLevels;
   $scope.termRequest = {term: $routeParams.term};
+
+  $scope.createTermRequestShadow = function () {
+    $scope.termRequestShadow = $.extend(true, {}, $scope.termRequest);
+  }
+
+  $scope.deleteAllSkills = function () {
+    $scope.termRequestShadow.skills.length = 0
+  }
+
   $scope.selectJobLevel = function (jobLevel) {
     var translate = $rootScope.translate;
     $('span.lavelName').text(translate[jobLevel.translate]);
@@ -15,16 +24,17 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   }
 
   $scope.removeSkill = function (skill) {
-    $scope.termRequest.skills.splice($scope.termRequest.skills.indexOf(skill), 1);
+    $scope.termRequestShadow.skills.splice($scope.termRequestShadow.skills.indexOf(skill), 1);
     delete $scope.error.newSkillName;
   }
 
   $scope.applySkills = function () {
+    $scope.termRequest = $.extend(true, {}, $scope.termRequestShadow);
     $scope.loadData();
   }
 
-  $scope.addSkill = function() {
-    if ($scope.termRequest.skills.length === 5) {
+  $scope.addSkill = function () {
+    if ($scope.termRequestShadow.skills.length === 5) {
       $scope.error.newSkillName = "Maximum 5 skills";
       return;
     }
@@ -33,7 +43,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     var newSkillName = $scope.newSkillName;
     $scope.newSkillName = newSkillName.trim();
 
-    var skillLowerCases = $scope.termRequest.skills.map(function(skill) {return skill.toLowerCase();});
+    var skillLowerCases = $scope.termRequestShadow.skills.map(function (skill) {return skill.toLowerCase();});
     if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
       $scope.error.existSkillName = "This skill has already";
       return;
@@ -41,7 +51,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     delete $scope.error.existSkillName;
 
     if (newSkillName.length > 0) {
-      $scope.termRequest.skills.push(newSkillName);
+      $scope.termRequestShadow.skills.push(newSkillName);
       $scope.newSkillName = "";
     }
   }
