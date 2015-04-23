@@ -80,7 +80,9 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
         $.each(data.skills, function (i, skill) {skill.id = i;});
         $scope.termStatistic = termService.toViewTerm(data);
         if (!technicalDetailService.trendSkills($scope.termStatistic)) {
-          console.log("Empty Chart");
+          $('.no-data-chart').addClass('active');
+        }else{
+          $('.no-data-chart').removeClass('active');
         }
         utils.sendNotification(jsonValue.notifications.loaded);
       })
