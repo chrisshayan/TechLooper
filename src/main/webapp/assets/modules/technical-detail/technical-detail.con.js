@@ -3,6 +3,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
 
   technicalDetailService.init($scope);
 
+  $scope.error= {};
   $scope.jobLevels = jsonValue.jobLevels;
   $scope.termRequest = {term: $routeParams.term};
   $scope.selectJobLevel = function (jobLevel) {
@@ -15,13 +16,36 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     $scope.loadData();
   }
 
-  $scope.removeSkill = function(skill) {
-    technicalDetailService.removeSkill();
-    return true;
+  $scope.removeSkill = function (skill) {
+    $scope.termRequest.skills.splice($scope.termRequest.skills.indexOf(skill), 1);
+    delete $scope.error.newSkillName;
   }
 
-  $scope.applySkills = function() {
+  $scope.applySkills = function () {
     $scope.loadData();
+  }
+
+  $scope.addSkill = function() {
+    if ($scope.termRequest.skills.length === 5) {
+      $scope.error.newSkillName = "Maximum 5 skills";
+      return;
+    }
+    delete $scope.error.newSkillName;
+
+    var newSkillName = $scope.newSkillName;
+    $scope.newSkillName = newSkillName.trim();
+
+    var skillLowerCases = $scope.termRequest.skills.map(function(skill) {return skill.toLowerCase();});
+    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
+      $scope.error.existSkillName = "This skill has already";
+      return;
+    }
+    delete $scope.error.existSkillName;
+
+    if (newSkillName.length > 0) {
+      $scope.termRequest.skills.push(newSkillName);
+      $scope.newSkillName = "";
+    }
   }
 
   var termView = termService.toViewTerm($scope.termRequest);
@@ -53,7 +77,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
       });
   }
 
-  technicalDetailService.skillManager();
+  //technicalDetailService.skillManager();
 
   $scope.loadData();
 });

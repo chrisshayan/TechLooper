@@ -29,15 +29,15 @@
               <p class="removeAll">Delete All</p>
               <div class="added-list-skills">
                 <ul>
-                  <li ng-repeat="skill in termRequest.skills" ng-show="removeSkill(skill)">
-                    <span class="left"><span class="right"><i>{{skill}}</i><span class="close" title="Remove">x</span></span></span>
+                  <li ng-repeat="skill in termRequest.skills">
+                    <span class="left"><span class="right"><i>{{skill}}</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
                   </li>
                 </ul>
               </div>
-              <div class="max-skill-alert"></div>
+              <div class="max-skill-alert">{{error.newSkillName}}{{error.existSkillName}}</div>
               <div class="add-skill-input">
-                <input type="text"/>
-                <button>Add</button>
+                <input ng-model="newSkillName" type="text"/>
+                <button ng-click="addSkill()">Add</button>
               </div>
             </form>
           </div>
