@@ -655,8 +655,9 @@ angular.module("Common").constant("jsonValue", {
 
   jobLevels: [
     {id: -1, translate: "allLevel"},
-    {id: 1, translate: "newGradLevel"},
-    {id: 5, translate: "experienced"},
-    {id: 7, translate: "manager"}
+    {id: 1, translate: "newGradLevel", ids: [1]},
+    {id: 5, translate: "experienced", ids: [5, 6]},
+    {id: 7, translate: "manager", ids: [7]},
+    {id: 10, translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
   ]
 });

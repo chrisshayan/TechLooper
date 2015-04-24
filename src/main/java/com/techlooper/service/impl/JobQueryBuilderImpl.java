@@ -14,7 +14,6 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
-import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
-import static org.elasticsearch.index.query.MatchQueryBuilder.*;
+import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -39,6 +38,9 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
+
+    @Value("${vnw.api.configuration.category.it.software.en}")
+    private String itSoftwareIndustry;
 
     @Resource
     private JsonConfigRepository jsonConfigRepository;
@@ -132,19 +134,13 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
-    public FilterAggregationBuilder getSalaryMinAggregation() {
-        FilterBuilder salaryMinFilter = andFilter(rangeFilter("salaryMin").from(250), rangeFilter("salaryMax").from(250),
-                rangeFilter("expiredDate").from("now"));
-        return AggregationBuilders.filter("avg_salary_min").filter(salaryMinFilter).subAggregation(
-                AggregationBuilders.avg("avg_salary_min").field("salaryMin"));
-    }
-
-    @Override
-    public FilterAggregationBuilder getSalaryMaxAggregation() {
-        FilterBuilder salaryMaxFilter = andFilter(rangeFilter("salaryMin").from(250), rangeFilter("salaryMax").from(250),
-                rangeFilter("expiredDate").from("now"));
-        return AggregationBuilders.filter("avg_salary_max").filter(salaryMaxFilter).subAggregation(
-                AggregationBuilders.avg("avg_salary_max").field("salaryMax"));
+    public FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds) {
+        BoolFilterBuilder jobLevelFilterBuilder = FilterBuilders.boolFilter();
+        jobLevelFilterBuilder.must(nestedFilter("industries", termFilter("industries.industryId", itSoftwareIndustry)));
+        for (Integer jobLevelId : jobLevelIds) {
+            jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
+        }
+        return jobLevelFilterBuilder;
     }
 
     @Override
@@ -171,10 +167,5 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
         }
         return skillAnalyticsAggregations;
-    }
-
-    @Override
-    public ValueCountBuilder getTotalJobAggregation() {
-        return AggregationBuilders.count("total_job").field("jobId");
     }
 }

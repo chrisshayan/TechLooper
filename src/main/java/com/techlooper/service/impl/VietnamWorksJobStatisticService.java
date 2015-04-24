@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.Company;
-import com.techlooper.entity.CompanyEntity;
+import com.techlooper.entity.EmployerEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.CompanyService;
@@ -32,7 +32,8 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -49,7 +50,19 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final int LIMIT_NUMBER_OF_MONTHS = 13;
 
-    private static final double LOWER_BOUND_SALARY = 250;
+    private static final int EXPERIENCED_LEVEL_ID = 5;
+
+    private static final int MANAGER_LEVEL_ID = 7;
+
+    private static final int DIRECTOR_LEVEL_ID = 3;
+
+    private static final double LOWER_BOUND_SALARY_ENTRY_LEVEL = 250D;
+
+    private static final double LOWER_BOUND_SALARY_EXPERIENCED_LEVEL = 500D;
+
+    private static final double LOWER_BOUND_SALARY_MANAGER_LEVEL = 1000D;
+
+    private static final double LOWER_BOUND_SALARY_DIRECTOR_LEVEL = 2000D;
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
@@ -110,7 +123,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     @Override
-    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, Integer jobLevelId) {
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds) {
         final double LOWER_BOUND_SALARY = 250;
 
         // Build the term query
@@ -122,8 +135,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Using 'now/d' to leverage filter cache for performance improvement
         availableJobByLevelFilter.must(rangeFilter("expiredDate").from("now/d"));
 
-        if (jobLevelId != null && jobLevelId > 0) {
-            availableJobByLevelFilter.must(termFilter("jobLevelId", jobLevelId));
+        if (jobLevelIds != null && !jobLevelIds.isEmpty()) {
+            availableJobByLevelFilter.must(jobQueryBuilder.getJobLevelFilterBuilder(jobLevelIds));
         }
         availableJobByLevelFilter.must(rangeFilter("salaryMin").from(LOWER_BOUND_SALARY));
         availableJobByLevelFilter.must(rangeFilter("salaryMax").from(LOWER_BOUND_SALARY));
@@ -140,7 +153,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         double avgSalaryMin = ((InternalAvg) aggregations.get("avg_salary_min")).getValue();
         double avgSalaryMax = ((InternalAvg) aggregations.get("avg_salary_max")).getValue();
 
-        Map<String, Double> result = processSalaryData(avgSalaryMin, avgSalaryMax);
+        Map<String, Double> result = processSalaryData(avgSalaryMin, avgSalaryMax, jobLevelIds);
         return result;
     }
 
@@ -225,9 +238,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
         QueryBuilder termQueryBuilder = jobQueryBuilder.getTermQueryBuilder(term);
 
-        Integer jobLevelId = term.getJobLevelId();
-        if (jobLevelId != null && jobLevelId > 0) {
-            queryBuilder.withQuery(filteredQuery(termQueryBuilder, termFilter("jobLevelId", jobLevelId)));
+        List<Integer> jobLevelIds = term.getJobLevelIds();
+        if (jobLevelIds != null && !jobLevelIds.isEmpty()) {
+            queryBuilder.withQuery(filteredQuery(termQueryBuilder, jobQueryBuilder.getJobLevelFilterBuilder(jobLevelIds)));
         } else {
             queryBuilder.withQuery(filteredQuery(termQueryBuilder, FilterBuilders.matchAllFilter()));
         }
@@ -261,7 +274,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         TermStatisticResponse termStatisticResponse = new TermStatisticResponse();
 
         termStatisticResponse.setTerm(term.getTerm());
-        termStatisticResponse.setJobLevelId(term.getJobLevelId());
 
         // Get the total number of jobs for term
         TechnicalTerm configuredTechnicalTerm = jsonConfigRepository.findByKey(term.getTerm());
@@ -269,7 +281,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         termStatisticResponse.setTotalJob(totalJob);
 
         // Get the average salary for term
-        Map<String, Double> avgSalary = getAverageSalaryBySkill(configuredTechnicalTerm, term.getJobLevelId());
+        Map<String, Double> avgSalary = getAverageSalaryBySkill(configuredTechnicalTerm, term.getJobLevelIds());
         termStatisticResponse.setAverageSalaryMin(avgSalary.get("SALARY_MIN"));
         termStatisticResponse.setAverageSalaryMax(avgSalary.get("SALARY_MAX"));
 
@@ -291,12 +303,15 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             int i = 0;
             while (i < topCompanyBuckets.size() && companies.size() < LIMIT_NUMBER_OF_COMPANIES) {
                 String companyId = topCompanyBuckets.get(i).getKey();
-                CompanyEntity companyEntity = companyService.findById(Long.valueOf(companyId));
-                if (companyEntity != null && StringUtils.isNotEmpty(companyEntity.getCompanyLogoURL())) {
+                EmployerEntity employerEntity = companyService.findEmployerByCompanyId(Long.valueOf(companyId));
+                if (employerEntity != null && StringUtils.isNotEmpty(employerEntity.getCompanyLogoURL())) {
                     Company company = new Company();
                     company.setCompanyId(companyId);
-                    company.setName(companyEntity.getCompanyName());
-                    company.setCompanyLogoURL(companyEntity.getCompanyLogoURL());
+                    company.setName(employerEntity.getCompanyName());
+                    company.setCompanyLogoURL(employerEntity.getCompanyLogoURL());
+                    List<Long> employerIds = employerEntity.getEmployers().stream().filter(employer -> employer.getIsActive() == 1)
+                            .map(employer -> employer.getUserId()).collect(Collectors.toList());
+                    company.setEmployerIds(employerIds);
                     companies.add(company);
                 }
                 i++;
@@ -305,10 +320,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
     }
 
-    private Map<String, Double> processSalaryData(double avgSalaryMin, double avgSalaryMax) {
+    private Map<String, Double> processSalaryData(double avgSalaryMin, double avgSalaryMax, List<Integer> jobLevelIds) {
         Map<String, Double> result = new HashMap<>();
         if (Double.isNaN(avgSalaryMin) && Double.isNaN(avgSalaryMax)) {
-            result.put("SALARY_MIN", LOWER_BOUND_SALARY);
+            result.put("SALARY_MIN", getLowerBoundSalaryByJobLevel(jobLevelIds));
             result.put("SALARY_MAX", Double.NaN);
         } else if (!Double.isNaN(avgSalaryMin) && !Double.isNaN(avgSalaryMax)) {
             result.put("SALARY_MIN", Math.ceil(avgSalaryMin));
@@ -323,6 +338,17 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             }
         }
         return result;
+    }
+
+    private Double getLowerBoundSalaryByJobLevel(List<Integer> jobLevelIds) {
+        if (jobLevelIds.contains(EXPERIENCED_LEVEL_ID)) {
+            return LOWER_BOUND_SALARY_EXPERIENCED_LEVEL;
+        } else if (jobLevelIds.contains(MANAGER_LEVEL_ID)) {
+            return LOWER_BOUND_SALARY_MANAGER_LEVEL;
+        } else if (jobLevelIds.contains(DIRECTOR_LEVEL_ID)) {
+            return LOWER_BOUND_SALARY_DIRECTOR_LEVEL;
+        }
+        return LOWER_BOUND_SALARY_ENTRY_LEVEL;
     }
 
     private void extractSkillTrendAnalyticsData(TermStatisticRequest term, HistogramEnum histogramEnum,
@@ -361,7 +387,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Start from the point of last year, month over month
         DateTime loopDateTime = DateTime.now().minusYears(1);
         int i = 0;
-        while(i < buckets.size()) {
+        while (i < buckets.size()) {
             DateHistogram.Bucket bucket = buckets.get(i);
             DateTime bucketDateTime = bucket.getKeyAsDate();
             if (bucketDateTime.getYear() == loopDateTime.getYear() &&
@@ -374,7 +400,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             loopDateTime = loopDateTime.plusMonths(1);
         }
 
-        while(histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
+        while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
             histogramValues.add(0L);
         }
 

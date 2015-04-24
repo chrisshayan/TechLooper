@@ -99,7 +99,7 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testGenerateTermStatisticWithDefaultSkill() throws Exception {
         TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
         termStatisticRequest.setTerm("JAVA");
-        termStatisticRequest.setJobLevelId(5);
+        termStatisticRequest.setJobLevelIds(Arrays.asList(1, 5));
         TermStatisticResponse termStatisticResponse =
                 jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
         assertTrue(termStatisticResponse.getAverageSalaryMin() > 250);
@@ -124,7 +124,7 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testGenerateTermStatisticWithCustomAddedSkill() throws Exception {
         TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
         termStatisticRequest.setTerm("JAVA");
-        termStatisticRequest.setJobLevelId(5);
+        termStatisticRequest.setJobLevelIds(Arrays.asList(5, 6));
         termStatisticRequest.setSkills(Arrays.asList("Hadoop", "Scala"));
         TermStatisticResponse termStatisticResponse =
                 jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);

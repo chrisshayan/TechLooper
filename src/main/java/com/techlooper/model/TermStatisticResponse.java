@@ -11,8 +11,6 @@ public class TermStatisticResponse {
 
     private String term;
 
-    private Integer jobLevelId;
-
     private Double averageSalaryMin;
 
     private Double averageSalaryMax;
@@ -29,14 +27,6 @@ public class TermStatisticResponse {
 
     public void setTerm(String term) {
         this.term = term;
-    }
-
-    public Integer getJobLevelId() {
-        return jobLevelId;
-    }
-
-    public void setJobLevelId(Integer jobLevelId) {
-        this.jobLevelId = jobLevelId;
     }
 
     public Double getAverageSalaryMin() {

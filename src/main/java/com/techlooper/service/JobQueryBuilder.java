@@ -12,7 +12,6 @@ import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
-import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCountBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.util.List;
@@ -87,13 +86,9 @@ public interface JobQueryBuilder {
 
     QueryBuilder getTermQueryBuilder(TermStatisticRequest term);
 
-    FilterAggregationBuilder getSalaryMinAggregation();
-
-    FilterAggregationBuilder getSalaryMaxAggregation();
+    FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds);
 
     FilterAggregationBuilder getTopCompaniesAggregation();
 
     List<FilterAggregationBuilder> getSkillAnalyticsAggregations(TermStatisticRequest term, HistogramEnum histogramEnum);
-
-    ValueCountBuilder getTotalJobAggregation();
 }

@@ -7,33 +7,33 @@ import java.util.List;
  */
 public class TermStatisticRequest {
 
-  private String term;
+    private String term;
 
-  private List<String> skills;
+    private List<String> skills;
 
-  private Integer jobLevelId;
+    private List<Integer> jobLevelIds;
 
-  public String getTerm() {
-    return term;
-  }
+    public String getTerm() {
+        return term;
+    }
 
-  public void setTerm(String term) {
-    this.term = term;
-  }
+    public void setTerm(String term) {
+        this.term = term;
+    }
 
-  public Integer getJobLevelId() {
-    return jobLevelId;
-  }
+    public List<Integer> getJobLevelIds() {
+        return jobLevelIds;
+    }
 
-  public void setJobLevelId(Integer jobLevelId) {
-    this.jobLevelId = jobLevelId;
-  }
+    public void setJobLevelIds(List<Integer> jobLevelIds) {
+        this.jobLevelIds = jobLevelIds;
+    }
 
-  public List<String> getSkills() {
-    return skills;
-  }
+    public List<String> getSkills() {
+        return skills;
+    }
 
-  public void setSkills(List<String> skills) {
-    this.skills = skills;
-  }
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
 }
