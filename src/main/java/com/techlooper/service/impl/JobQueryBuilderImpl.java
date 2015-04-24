@@ -39,6 +39,9 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
 
+    @Value("${vnw.api.configuration.category.it.software.en}")
+    private String itSoftwareIndustry;
+
     @Resource
     private JsonConfigRepository jsonConfigRepository;
 
@@ -133,6 +136,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     @Override
     public FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds) {
         BoolFilterBuilder jobLevelFilterBuilder = FilterBuilders.boolFilter();
+        jobLevelFilterBuilder.must(nestedFilter("industries", termFilter("industries.industryId", itSoftwareIndustry)));
         for (Integer jobLevelId : jobLevelIds) {
             jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
         }
