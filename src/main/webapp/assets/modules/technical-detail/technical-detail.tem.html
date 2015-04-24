@@ -31,13 +31,13 @@
               <div class="added-list-skills">
                 <ul>
                   <li ng-repeat="skill in termRequestShadow.skills">
-                    <span class="left"><span class="right"><i>{{skill}}</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
+                    <span class="left"><span class="right"><i cl>{{skill}}</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
                   </li>
                 </ul>
               </div>
               <div class="max-skill-alert">{{error.newSkillName}}{{error.existSkillName}}</div>
               <div class="add-skill-input">
-                <input ng-model="newSkillName" type="text"/>
+                <input ng-model="newSkillName" type="text" maxlength="30"/>
                 <button ng-click="addSkill()" translate>add</button>
               </div>
             </form>
