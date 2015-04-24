@@ -35,8 +35,19 @@ GET vietnamworks/job/_search?search_type=count
               }
             },
             {
-              "term": {
-                "jobLevelId": 5
+              "bool": {
+                "should": [
+                  {
+                    "term": {
+                      "jobLevelId": 5
+                    }
+                  },
+                  {
+                    "term": {
+                      "jobLevelId": 1
+                    }
+                  }
+                ]
               }
             },
             {

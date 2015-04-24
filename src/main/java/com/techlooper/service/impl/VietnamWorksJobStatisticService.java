@@ -32,7 +32,8 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -110,7 +111,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     @Override
-    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, Integer jobLevelId) {
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds) {
         final double LOWER_BOUND_SALARY = 250;
 
         // Build the term query
@@ -122,8 +123,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Using 'now/d' to leverage filter cache for performance improvement
         availableJobByLevelFilter.must(rangeFilter("expiredDate").from("now/d"));
 
-        if (jobLevelId != null && jobLevelId > 0) {
-            availableJobByLevelFilter.must(termFilter("jobLevelId", jobLevelId));
+        if (jobLevelIds != null && !jobLevelIds.isEmpty()) {
+            availableJobByLevelFilter.must(jobQueryBuilder.getJobLevelFilterBuilder(jobLevelIds));
         }
         availableJobByLevelFilter.must(rangeFilter("salaryMin").from(LOWER_BOUND_SALARY));
         availableJobByLevelFilter.must(rangeFilter("salaryMax").from(LOWER_BOUND_SALARY));
@@ -225,9 +226,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
         QueryBuilder termQueryBuilder = jobQueryBuilder.getTermQueryBuilder(term);
 
-        Integer jobLevelId = term.getJobLevelId();
-        if (jobLevelId != null && jobLevelId > 0) {
-            queryBuilder.withQuery(filteredQuery(termQueryBuilder, termFilter("jobLevelId", jobLevelId)));
+        List<Integer> jobLevelIds = term.getJobLevelIds();
+        if (jobLevelIds != null && !jobLevelIds.isEmpty()) {
+            queryBuilder.withQuery(filteredQuery(termQueryBuilder, jobQueryBuilder.getJobLevelFilterBuilder(jobLevelIds)));
         } else {
             queryBuilder.withQuery(filteredQuery(termQueryBuilder, FilterBuilders.matchAllFilter()));
         }
@@ -261,7 +262,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         TermStatisticResponse termStatisticResponse = new TermStatisticResponse();
 
         termStatisticResponse.setTerm(term.getTerm());
-        termStatisticResponse.setJobLevelId(term.getJobLevelId());
 
         // Get the total number of jobs for term
         TechnicalTerm configuredTechnicalTerm = jsonConfigRepository.findByKey(term.getTerm());
@@ -269,7 +269,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         termStatisticResponse.setTotalJob(totalJob);
 
         // Get the average salary for term
-        Map<String, Double> avgSalary = getAverageSalaryBySkill(configuredTechnicalTerm, term.getJobLevelId());
+        Map<String, Double> avgSalary = getAverageSalaryBySkill(configuredTechnicalTerm, term.getJobLevelIds());
         termStatisticResponse.setAverageSalaryMin(avgSalary.get("SALARY_MIN"));
         termStatisticResponse.setAverageSalaryMax(avgSalary.get("SALARY_MAX"));
 
@@ -361,7 +361,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         // Start from the point of last year, month over month
         DateTime loopDateTime = DateTime.now().minusYears(1);
         int i = 0;
-        while(i < buckets.size()) {
+        while (i < buckets.size()) {
             DateHistogram.Bucket bucket = buckets.get(i);
             DateTime bucketDateTime = bucket.getKeyAsDate();
             if (bucketDateTime.getYear() == loopDateTime.getYear() &&
@@ -374,7 +374,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             loopDateTime = loopDateTime.plusMonths(1);
         }
 
-        while(histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
+        while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
             histogramValues.add(0L);
         }
 

@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.model.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,5 +33,5 @@ public interface JobStatisticService {
 
     public TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum);
 
-    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, Integer jobLevelId);
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds);
 }

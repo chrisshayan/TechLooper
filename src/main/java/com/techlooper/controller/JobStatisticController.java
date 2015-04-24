@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class JobStatisticController {
@@ -31,7 +29,7 @@ public class JobStatisticController {
     @Resource
     private JobStatisticService jobStatisticService;
 
-    private final static Integer JOB_LEVEL_ALL = 0;
+    private final static List<Integer> JOB_LEVEL_ALL = Collections.EMPTY_LIST;
 
     @Scheduled(cron = "${scheduled.cron}")
     public void countTechnicalJobs() {
