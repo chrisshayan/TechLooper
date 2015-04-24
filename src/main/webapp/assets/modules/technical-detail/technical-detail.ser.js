@@ -157,7 +157,12 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
     trendSkills: function (termStatistic) {
       trendSkillChart.config = instance.prepareTrendSkills(termStatistic);
       trendSkillChart.instance && trendSkillChart.instance.destroy();
-      return instance.hasSkillValues(termStatistic) && (trendSkillChart.instance = instance.createTrendSkillsChart());
+      if (instance.hasSkillValues(termStatistic)) {
+        trendSkillChart.instance = instance.createTrendSkillsChart();
+        return true;
+      }
+      trendSkillChart = {};
+      return false;
     },
 
     hasSkillValues: function (termStatistic) {
