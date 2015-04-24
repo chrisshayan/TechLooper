@@ -29,6 +29,9 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   }
 
   $scope.applySkills = function () {
+    if ($scope.termRequestShadow.skills.length === 0) {
+      return;
+    }
     $scope.termRequest = $.extend(true, {}, $scope.termRequestShadow);
     $scope.loadData();
   }
