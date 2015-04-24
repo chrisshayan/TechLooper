@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.Company;
-import com.techlooper.entity.CompanyEntity;
+import com.techlooper.entity.EmployerEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.CompanyService;
@@ -291,12 +291,15 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             int i = 0;
             while (i < topCompanyBuckets.size() && companies.size() < LIMIT_NUMBER_OF_COMPANIES) {
                 String companyId = topCompanyBuckets.get(i).getKey();
-                CompanyEntity companyEntity = companyService.findById(Long.valueOf(companyId));
-                if (companyEntity != null && StringUtils.isNotEmpty(companyEntity.getCompanyLogoURL())) {
+                EmployerEntity employerEntity = companyService.findEmployerByCompanyId(Long.valueOf(companyId));
+                if (employerEntity != null && StringUtils.isNotEmpty(employerEntity.getCompanyLogoURL())) {
                     Company company = new Company();
                     company.setCompanyId(companyId);
-                    company.setName(companyEntity.getCompanyName());
-                    company.setCompanyLogoURL(companyEntity.getCompanyLogoURL());
+                    company.setName(employerEntity.getCompanyName());
+                    company.setCompanyLogoURL(employerEntity.getCompanyLogoURL());
+                    List<Long> employerIds = employerEntity.getEmployers().stream().filter(employer -> employer.getIsActive() == 1)
+                            .map(employer -> employer.getUserId()).collect(Collectors.toList());
+                    company.setEmployerIds(employerIds);
                     companies.add(company);
                 }
                 i++;

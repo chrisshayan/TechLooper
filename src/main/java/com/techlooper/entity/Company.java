@@ -1,5 +1,7 @@
 package com.techlooper.entity;
 
+import java.util.List;
+
 /**
  * Created by phuonghqh on 12/12/14.
  */
@@ -14,6 +16,8 @@ public class Company {
     private String companyLogoURL;
 
     private String logoUrl;
+
+    private List<Long> employerIds;
 
     public String getCompanyId() {
         return companyId;
@@ -53,5 +57,13 @@ public class Company {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public List<Long> getEmployerIds() {
+        return employerIds;
+    }
+
+    public void setEmployerIds(List<Long> employerIds) {
+        this.employerIds = employerIds;
     }
 }
