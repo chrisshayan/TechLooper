@@ -50,7 +50,19 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final int LIMIT_NUMBER_OF_MONTHS = 13;
 
-    private static final double LOWER_BOUND_SALARY = 250;
+    private static final int EXPERIENCED_LEVEL_ID = 5;
+
+    private static final int MANAGER_LEVEL_ID = 7;
+
+    private static final int DIRECTOR_LEVEL_ID = 3;
+
+    private static final double LOWER_BOUND_SALARY_ENTRY_LEVEL = 250D;
+
+    private static final double LOWER_BOUND_SALARY_EXPERIENCED_LEVEL = 500D;
+
+    private static final double LOWER_BOUND_SALARY_MANAGER_LEVEL = 1000D;
+
+    private static final double LOWER_BOUND_SALARY_DIRECTOR_LEVEL = 2000D;
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
@@ -141,7 +153,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         double avgSalaryMin = ((InternalAvg) aggregations.get("avg_salary_min")).getValue();
         double avgSalaryMax = ((InternalAvg) aggregations.get("avg_salary_max")).getValue();
 
-        Map<String, Double> result = processSalaryData(avgSalaryMin, avgSalaryMax);
+        Map<String, Double> result = processSalaryData(avgSalaryMin, avgSalaryMax, jobLevelIds);
         return result;
     }
 
@@ -308,10 +320,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
     }
 
-    private Map<String, Double> processSalaryData(double avgSalaryMin, double avgSalaryMax) {
+    private Map<String, Double> processSalaryData(double avgSalaryMin, double avgSalaryMax, List<Integer> jobLevelIds) {
         Map<String, Double> result = new HashMap<>();
         if (Double.isNaN(avgSalaryMin) && Double.isNaN(avgSalaryMax)) {
-            result.put("SALARY_MIN", LOWER_BOUND_SALARY);
+            result.put("SALARY_MIN", getLowerBoundSalaryByJobLevel(jobLevelIds));
             result.put("SALARY_MAX", Double.NaN);
         } else if (!Double.isNaN(avgSalaryMin) && !Double.isNaN(avgSalaryMax)) {
             result.put("SALARY_MIN", Math.ceil(avgSalaryMin));
@@ -326,6 +338,17 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             }
         }
         return result;
+    }
+
+    private Double getLowerBoundSalaryByJobLevel(List<Integer> jobLevelIds) {
+        if (jobLevelIds.contains(EXPERIENCED_LEVEL_ID)) {
+            return LOWER_BOUND_SALARY_EXPERIENCED_LEVEL;
+        } else if (jobLevelIds.contains(MANAGER_LEVEL_ID)) {
+            return LOWER_BOUND_SALARY_MANAGER_LEVEL;
+        } else if (jobLevelIds.contains(DIRECTOR_LEVEL_ID)) {
+            return LOWER_BOUND_SALARY_DIRECTOR_LEVEL;
+        }
+        return LOWER_BOUND_SALARY_ENTRY_LEVEL;
     }
 
     private void extractSkillTrendAnalyticsData(TermStatisticRequest term, HistogramEnum histogramEnum,
