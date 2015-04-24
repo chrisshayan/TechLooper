@@ -74,6 +74,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $authProvider.loginRedirect = undefined;
 
+    $translateProvider.useLocalStorage();
     $translateProvider.useStaticFilesLoader({
       prefix: "modules/translation/messages_",
       suffix: ".json"
@@ -82,8 +83,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
     $translateProvider.registerAvailableLanguageKeys(['en', 'vi']);
     $translateProvider.fallbackLanguage("en");
     $translateProvider.preferredLanguage("en");
-    $translateProvider.useLocalStorage();
-    $translateProvider.use((window.navigator.userLanguage || window.navigator.language).substring(0, 2));
 
     $routeProvider
       .when("/home", {
@@ -91,7 +90,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "tsMainController"
       })
       .when("/talent-profile/:text", {
-          templateUrl: "modules/talent-search/home.tem.html",
+        templateUrl: "modules/talent-search/home.tem.html",
         controller: "talentProfileController"
       })
       .when("/talent-search-result/:text?", {
@@ -103,9 +102,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "technicalDetailController"
       })
       .when("/companies/:companyName", {//vietnamworks
-          templateUrl: "modules/talent-search/home.tem.html",
-          controller: "companyProfileController"
-        })
+        templateUrl: "modules/talent-search/home.tem.html",
+        controller: "companyProfileController"
+      })
       //.when("/bubble-chart", {
       //  templateUrl: "modules/it-professional/main.tem.html",
       //  controller: "chartController"
@@ -139,7 +138,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "userProfileController"
       })
       .otherwise({
-        redirectTo: function() {
+        redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
@@ -169,12 +168,19 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
+  if ($translate.proposedLanguage() === undefined) {
+    var langKey = (window.navigator.userLanguage || window.navigator.language).substring(0, 2);
+    $translate.use(langKey);
+  }
+  else {
+    $translate.preferredLanguage($translate.proposedLanguage());
+  }
+
   $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs",
     "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel",
-    "experienced", "manager", "maximum5", "hasExist", "directorAndAbove"]).then(function(translate) {
+    "experienced", "manager", "maximum5", "hasExist", "directorAndAbove"]).then(function (translate) {
     $rootScope.translate = translate;
   });
-
 });
 
 techlooper.directive("navigation", function () {
