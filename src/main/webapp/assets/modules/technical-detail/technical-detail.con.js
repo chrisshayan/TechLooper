@@ -16,9 +16,9 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   $scope.selectJobLevel = function (jobLevel) {
     var translate = $rootScope.translate;
     $('span.lavelName').text(translate[jobLevel.translate]);
-    $scope.termRequest.jobLevelId = jobLevel.id;
-    if ($scope.termRequest.jobLevelId === -1) {
-      delete $scope.termRequest.jobLevelId;
+    $scope.termRequest.jobLevelIds = jobLevel.ids;
+    if (jobLevel.id === -1) {
+      delete $scope.termRequest.jobLevelIds;
     }
     $scope.loadData();
   }
@@ -49,7 +49,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     delete $scope.error.newSkillName;
 
     var skillLowerCases = $scope.termRequestShadow.skills.map(function (skill) {return skill.toLowerCase();});
-    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0){
+    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
       var translate = $rootScope.translate;
       $scope.error.existSkillName = translate.hasExist;
       return;
