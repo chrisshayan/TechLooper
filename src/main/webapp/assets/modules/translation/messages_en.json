@@ -64,7 +64,7 @@
     "changeSkills": "Change Skills",
     "deleteAll": "Delete All",
     "add": "Add",
-    "maximum5": "Maximum 5 skills",
+    "maximum5": "Maximum 5 skills. To add one, remove another one.",
     "hasExist": "This skill has already",
     "noDataChart": "No data available now"
 }
