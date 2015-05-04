@@ -177,6 +177,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/companies\//i.test(path)) {
         return jsonValue.views.companyProfile;
       }
+      else if (/\/offer-letter\/salary-sharing/.test(path)) {
+        return jsonValue.views.salarySharing;
+      }
+      else if (/\/offer-letter\/salary-report/.test(path)) {
+        return jsonValue.views.salaryReport;
+      }
     },
 
     sum: function (array, prop) {
