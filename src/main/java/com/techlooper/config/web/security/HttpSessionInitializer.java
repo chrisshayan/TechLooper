@@ -6,9 +6,9 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
 /**
  * Created by phuonghqh on 1/2/15.
  */
-public class HttpSessionInitializer extends AbstractHttpSessionApplicationInitializer {
+public class HttpSessionInitializer {} /*extends AbstractHttpSessionApplicationInitializer {
 
     protected String getDispatcherWebApplicationContextSuffix() {
         return AbstractDispatcherServletInitializer.DEFAULT_SERVLET_NAME;
     }
-}
+}*/
