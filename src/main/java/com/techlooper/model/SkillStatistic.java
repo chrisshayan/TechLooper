@@ -13,6 +13,7 @@ public class SkillStatistic {
     private String logoUrl;
     private String webSite;
     private List<SkillLink> usefulLinks;
+    private Long totalJob;
 
     private List<Histogram> histograms = new ArrayList<>();
 
@@ -54,6 +55,14 @@ public class SkillStatistic {
 
     public void setUsefulLinks(List<SkillLink> usefulLinks) {
         this.usefulLinks = usefulLinks;
+    }
+
+    public Long getTotalJob() {
+        return totalJob;
+    }
+
+    public void setTotalJob(Long totalJob) {
+        this.totalJob = totalJob;
     }
 
     public static class Builder {

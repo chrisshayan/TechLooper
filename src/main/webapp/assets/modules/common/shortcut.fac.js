@@ -35,6 +35,13 @@ angular.module("Common").factory("shortcutFactory", function (jsonValue, $locati
             return;
           }
           break;
+        case jsonValue.views.analyticsSkill:
+          if ($("#changeSkill").is(":visible")) {
+            $('#changeSkill').modal('hide');
+            return;
+          }
+          $$.goBack();
+          break;
         default:
           $$.goBack();
           break;

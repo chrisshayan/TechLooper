@@ -11,6 +11,7 @@ public class Skill {
     private String logoUrl;
     private String webSite;
     private List<SkillLink> usefulLinks;
+    private Long count;
 
     public Skill() {
 
@@ -46,5 +47,13 @@ public class Skill {
 
     public void setUsefulLinks(List<SkillLink> usefulLinks) {
         this.usefulLinks = usefulLinks;
+    }
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
     }
 }

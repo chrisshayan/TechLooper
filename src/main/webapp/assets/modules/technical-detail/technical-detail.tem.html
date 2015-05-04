@@ -1,0 +1,53 @@
+<nav class="navbar">
+  <div class="logo-block text-center">
+    <div class="logo" id="logo">
+      <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+      <a href="#/" class="backPage" translate>home</a>
+    </div>
+    <div class="vnw-logo">
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
+    </div>
+  </div>
+</nav>
+<div class="technical-detail-page">
+  <div technical-info></div>
+  <div technical-skills></div>
+  <div class="trend-skills-companies-block">
+    <div trend-skills></div>
+    <div companies-list></div>
+  </div>
+  <!--<div career-alert></div>-->
+  <div class="modal fade" id="changeSkill">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Close">×</button>
+          <h4 class="modal-title" translate>changeSkills</h4>
+        </div>
+        <div class="modal-body">
+          <div class="change-skill-block">
+            <form autocomplete="off">
+              <p class="removeAll" ng-click="deleteAllSkills()" translate>deleteAll</p>
+              <div class="added-list-skills">
+                <ul>
+                  <li ng-repeat="skill in termRequestShadow.skills">
+                    <span class="left"><span class="right"><i cl>{{skill}}</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="max-skill-alert">{{error.newSkillName}}{{error.existSkillName}}</div>
+              <div class="add-skill-input">
+                <input ng-model="newSkillName" type="text" maxlength="40"/>
+                <button ng-click="addSkill()" translate>add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" translate>cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="applySkills()" data-dismiss="modal" translate>apply</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>

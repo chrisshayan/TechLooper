@@ -1,8 +1,6 @@
 package com.techlooper.service;
 
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.SkillStatisticResponse;
-import com.techlooper.model.TechnicalTerm;
+import com.techlooper.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -33,5 +31,7 @@ public interface JobStatisticService {
 
     public Long countTotalITJobsWithinPeriod(HistogramEnum period);
 
-    public Map<String,Double> getAverageSalaryBySkill(TechnicalTerm term);
+    public TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum);
+
+    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds);
 }

@@ -1,0 +1,92 @@
+GET vietnamworks/job/_search?search_type=count
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "multi_match": {
+          "query": "Java J2EE",
+          "fields": [
+            "jobTitle",
+            "jobDescription",
+            "skillExperience"
+          ],
+          "operator": "or"
+        }
+      },
+      "filter": {
+        "bool": {
+          "should": [
+            {
+              "term": {
+                "jobLevelId": 5
+              }
+            },
+            {
+              "term": {
+                "jobLevelId": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "top_companies": {
+      "filter": {
+        "range": {
+          "expiredDate": {
+            "from": "now"
+          }
+        }
+      },
+      "aggs": {
+        "top_companies": {
+          "terms": {
+            "field": "companyId"
+          }
+        }
+      }
+    },
+    "spring_one_year_analytics": {
+      "filter": {
+        "fquery": {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "multi_match": {
+                    "query": "Scala",
+                    "fields": [
+                      "jobTitle",
+                      "jobDescription",
+                      "skillExperience"
+                    ],
+                    "operator": "and"
+                  }
+                },
+                {
+                  "range": {
+                    "approvedDate": {
+                      "gt": "now-365d"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "aggs": {
+        "spring_m": {
+          "date_histogram": {
+            "field": "approvedDate",
+            "format": "yyyy-MM-dd",
+            "interval": "month",
+            "min_doc_count": 0
+          }
+        }
+      }
+    }
+  }
+}

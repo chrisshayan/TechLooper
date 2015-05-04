@@ -3,8 +3,8 @@ html
 
 body
   height: auto
-  background-color: #201d1e
-  color: #727272
+  background-color: #f4f4f4
+  color: #1f1f1f
   font-family: 'roboto', arial
   font-weight: 300
   outline: 0
@@ -70,7 +70,25 @@ a:focus
   color: #a4a4a4
 .fa-pie-chart.active
   color: #428bca
-
+.navbar
+  background-color: #fff
+  border-bottom: 1px solid #dadcdf
+  width: 100%
+  .backPage
+    width: auto
+    padding: 0 15px
+    border: 1px solid #c7c7c7
+    margin: 6px 0 0 10px
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    float: left
+    line-height: 32px
+    height: 34px
+  .backPage:hover
+    background-color: #277cbe
+    color: #fff
+    border: 1px solid #277cbe
 .navbar-inverse
   background: url(../images/line-header.png) #201d1e center bottom no-repeat
   border: 0
@@ -139,20 +157,23 @@ ul.setting-items
 
 .logo-block
   width: 100%
-  float: left
-  padding: 5px 10px
-  background-color: #0f0f0f
-  border-bottom: 1px solid #292929
-
+  padding: 5px 0
+  max-width: 1000px
+  margin: auto
+  text-align: left
 .logo-block h1
   margin: 0
   padding: 0
+  float: left
 .logo
   width: 50%
   float: left
 .vnw-logo
   float: right
   width: 50%
+  text-align: right
+  img
+    max-width: 150px
 .note
   width: 100%
   text-align: center
@@ -170,7 +191,6 @@ ul.setting-items
     height: 40px
     line-height: 40px
     font-size: 18px
-    border-radius: 50%
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
@@ -183,8 +203,7 @@ ul.setting-items
   clear: both
   p
     text-align: center
-    font-size: 22px
-    color: #d6d6d6
+    font-size: 26px
 .chart-block:after
   content: ""
   display: block
@@ -437,7 +456,18 @@ a.m-languages.en:hover
         right: 0
         top: 0
         bottom: 0
-
+.chart-page
+  max-width: 1000px
+  //background-color: #fff
+  border-radius: 5px
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  width: 100%
+  margin: 20px auto
+  padding: 20px 10px
+  //-webkit-box-shadow: 1px 1px 0px 0px rgba(219, 218, 217, 0.55)
+  //-moz-box-shadow: 1px 1px 0px 0px rgba(219, 218, 217, 0.75)
+  //box-shadow: 1px 1px 0px 0px rgba(219, 218, 217, 0.75)
 .signin-signout-block
   padding-top: 10px
   float: right
@@ -663,7 +693,8 @@ a.m-languages.en:hover
 .pie-Chart-Container
   padding-top: 30px
   min-height: 450px
-
+  small
+    font-size: 10px !important
 .analystic-find-jobs-block
   display: block
 
@@ -676,12 +707,12 @@ a.m-languages.en:hover
     padding: 0
     width: 100%
     float: left
-    background-color: #222222
+    background-color: #ffffff
     li
       width: 100%
       display: block
       clear: both
-      border-bottom: 1px solid #292929
+      border-bottom: 1px solid #f0f0f0
       padding: 10px 5px
       font-size: 14px
       font-weight: 300
@@ -691,26 +722,27 @@ a.m-languages.en:hover
         width: 40%
         float: left
         padding: 5px 0
-        color: #8d8d8d
+        color: #1f1f1f
       .number-of-jobs
-        width: 35%
+        width: 45%
         float: left
         padding: 5px 0
-        color: #8d8d8d
+        color: #1f1f1f
         span
           font-style: italic
+          color: #1f1f1f
       .view-detail
         float: left
-        width: 25%
+        width: 15%
         text-align: center
         padding: 5px 0
-        color: #8d8d8d
+        color: #1f1f1f
 
     li:nth-child(2n+1)
-      background-color: #201d1e
+      background-color: #f7f6f6
     li.header
-      border-top: 1px solid #292929
-      background-color: #0d0d0d
+      border-top: 1px solid #f0f0f0
+      background-color: #e2e1e1
       font-size: 14px
       font-weight: 400
 /* --- Style for footer ---*/
@@ -798,7 +830,7 @@ footer
   right: 0
   bottom: 0
   background-color: #201d1e
-  opacity: 0.9
+  opacity: 0.6
   display: none
 .windows8
   position: absolute
@@ -990,10 +1022,10 @@ footer
     -ms-origin: 30%
 
   70%
-  opacity: 1
-  -ms-transform: rotate(770deg)
-  -ms-animation-timing-function: ease-out
-  -ms-origin: 39%
+    opacity: 1
+    -ms-transform: rotate(770deg)
+    -ms-animation-timing-function: ease-out
+    -ms-origin: 39%
 
   75%
     opacity: 1
@@ -1070,10 +1102,10 @@ footer
     origin: 0%
 
   30%
-  opacity: 1
-  transform: rotate(410deg)
-  animation-timing-function: ease-in-out
-  origin: 7%
+    opacity: 1
+    transform: rotate(410deg)
+    animation-timing-function: ease-in-out
+    origin: 7%
 
   39%
     opacity: 1
@@ -1318,7 +1350,19 @@ label.bootstrap-checkbox.disabled
     font-weight: 400
 
 .modal-dialog
-  top: 15%
+  top: 25%
+  position: absolute
+  left: 0
+  right: 0
+  margin: auto
+  .modal-header
+    padding: 10px 15px
+    .close
+      margin-top: 0
+  .modal-footer
+    -webkit-border-radius: 6px
+    -moz-border-radius: 6px
+    border-radius: 6px
 .signin-popup
   width: 100%
   text-align: center
@@ -1646,14 +1690,14 @@ label.bootstrap-checkbox.disabled
     font-weight: 300
     color: #000
     opacity: 1
-.modal-header
-  border-bottom: 1px solid #494647
+//.modal-header
+//  border-bottom: 1px solid #494647
 #terms-conditions
   .modal-body
     padding: 20px 20px 30px 20px
     text-align: justify
-.modal-footer
-  border-top: 1px solid #494647
+//.modal-footer
+//  border-top: 1px solid #494647
 .icheckbox_polaris,
 .iradio_polaris
   background: url(../images/polaris.png) no-repeat
@@ -1662,9 +1706,9 @@ label.bootstrap-checkbox.disabled
   height: 60px
 .js-footer
   height: 60px
-  background-color: #000
-  border-top: 1px solid #292929
+  background-color: #333333
   padding-top: 10px
+  color: #fff
   .footer-content-block
     width: 100%
     max-width: 1000px
@@ -1678,7 +1722,7 @@ label.bootstrap-checkbox.disabled
   .copyright-block
     width: 60%
     float: left
-    color: #585858
+    color: #898989
     text-align: left
     padding-top: 6px
     p
@@ -1688,7 +1732,7 @@ label.bootstrap-checkbox.disabled
     span
       color: #a3a3a3
     a
-      color: #a3a3a3
+      color: #eeeeee
   .social-network-block
     width: auto
     float: right
@@ -1700,11 +1744,12 @@ label.bootstrap-checkbox.disabled
         float: left
         padding: 5px 0 0 5px
         a
-          color: #585858
+          color: #525252
         a:hover
           color: #2c7abe
         i
           font-size: 30px
+          color: #bdbdbd
   .footer-content
     width: 100%
     max-width: 1000px
@@ -1715,7 +1760,7 @@ label.bootstrap-checkbox.disabled
 .switch-data
   margin: auto
   text-align: center
-  width: 250px
+  width: 310px
   padding-top: 20px
   ul
     margin: 0
@@ -1723,12 +1768,11 @@ label.bootstrap-checkbox.disabled
     li
       width: 50%
       float: left
-      background-color: #312e2f
-      border-bottom: 1px solid #000
+      background-color: #d9d9d9
       padding: 5px 10px
       font-size: 20px
       cursor: pointer
-      color: #eeeeee
+      color: #1f1f1f
     li:last-child
       -webkit-border-top-right-radius: 5px
       -webkit-border-bottom-right-radius: 5px

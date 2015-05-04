@@ -1,601 +1,1064 @@
 [
-    {
-        "key" : "JAVA",
-        "searchTexts" : ["java","j2ee"],
-        "label" : "Java",
-        "logoUrl" : "java-logo.png",
-        "webSite" : "www.java.com",
-        "usefulLinks" : [
-            {
-                "name" : "Dzone",
-                "url" : "java.dzone.com"
-            },
-            {
-                "name" : "JavaWorld",
-                "url" : "www.javaworld.com"
-            }
-        ],
-        "skills" : [
-            {
-                "name" : "Spring",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
-                "usefulLinks" : [
-                    {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
-                    }
-                ]
-
-            },
-            {
-                "name" : "Hibernate",
-                "logoUrl" : "spring.png",
-                "webSite" : "spring.io",
-                "usefulLinks" : [
-                    {
-                        "name" : "Spring Framework - Projects",
-                        "url" : "projects.spring.io/spring-framework"
-                    },
-                    {
-                        "name" : "Spring Framework - GitHub",
-                        "url" : "https://github.com/spring-projects/spring-framework"
-                    }
-                ]
-
-            },
-            {
-                "name" : "Tomcat"
-            },
-            {
-                "name" : "REST"
-            },
-            {
-                "name" : "Maven"
-            },
-            {
-                "name" : "Git"
-            },
-            {
-                "name" : "JUnit"
-            },
-            {
-                "name" : "Jenkins"
-            },
-            {
-                "name" : "Eclipse"
-            },
-            {
-                "name" : "JSP"
-            },
-            {
-                "name" : "J2EE"
-            },
-            {
-                "name" : "XML"
-            },
-            {
-                "name" : "Web Services"
-            },
-            {
-                "name" : "REST"
-            },
-            {
-                "name" : "JSON"
-            },
-            {
-                "name" : "JMS"
-            },
-            {
-                "name" : "Agile Software Development"
-            },
-            {
-                "name" : "Continuous Integration"
-            }
+  {
+    "key": "JAVA",
+    "searchTexts": [
+      "java",
+      "j2ee"
+    ],
+    "label": "Java",
+    "logoUrl": "lg-java.png",
+    "webSite": "https://www.java.com",
+    "usefulLinks": [
+      {
+        "name": "Dzone",
+        "url": "https://java.dzone.com"
+      },
+      {
+        "name": "JavaWorld",
+        "url": "https://www.javaworld.com"
+      }
+    ],
+    "skills": [
+      {
+        "name": "Spring",
+        "logoUrl": "lg-spring.png",
+        "webSite": "https://spring.io",
+        "usefulLinks": [
+          {
+            "name": "Spring Framework - Projects",
+            "url": "projects.spring.io/spring-framework"
+          },
+          {
+            "name": "Spring Framework - GitHub",
+            "url": "https://github.com/spring-projects/spring-framework"
+          }
         ]
-    },
-    {
-        "key" : "PHP",
-        "searchTexts" : ["php"],
-        "label" : "PHP",
-        "skills" : [
-            {
-                "name" : "Symfony"
-            },
-            {
-                "name" : "Zend"
-            },
-            {
-                "name" : "WordPress"
-            },
-            {
-                "name" : "Drupal"
-            },
-            {
-                "name" : "Magento"
-            },
-            {
-                "name" : "OpenCart"
-            },
-            {
-                "name" : "Joomla"
-            },
-            {
-                "name" : "MySQL"
-            },
-            {
-                "name" : "LAMP"
-            },
-            {
-                "name" : "drupal"
-            },
-            {
-                "name" : "PostgreSQL"
-            },
-            {
-                "name" : "PHPUnit"
-            },
-            {
-                "name" : "Ajax"
-            },
-            {
-                "name" : "Linux"
-            },
-            {
-                "name" : "Varnish"
-            },
-            {
-                "name" : "Puppet"
-            },
-            {
-                "name" : "CodeIgniter"
-            },
-            {
-                "name" : "CakePHP"
-            },
-            {
-                "name" : "Yii"
-            }
+      },
+      {
+        "name": "Hibernate",
+        "logoUrl": "lg-hibernate.png",
+        "webSite": "http://hibernate.org/",
+        "usefulLinks": [
+          {
+            "name": "Hibernate Tutorial",
+            "url": "http://www.tutorialspoint.com/hibernate"
+          }
         ]
-    },
-    {
-        "key" : "DOTNET",
-        "searchTexts" : [".net", "asp.net"],
-        "label" : ".NET",
-        "skills" : [
-            {
-                "name" : "ASP.NET"
-            },
-            {
-                "name" : "SQL Server"
-            },
-            {
-                "name" : "MVC"
-            },
-            {
-                "name" : "Web Form"
-            },
-            {
-                "name" : "C#"
-            },
-            {
-                "name" : "SharePoint"
-            },
-            {
-                "name" : "Azure"
-            },
-            {
-                "name" : "Dynamics CRM"
-            },
-            {
-                "name" : "Visual Studio"
-            },
-            {
-                "name" : "NUnit"
-            },
-            {
-                "name" : "Git"
-            },
-            {
-                "name" : ".NET Framework"
-            },
-            {
-                "name" : "LINQ"
-            },
-            {
-                "name" : "ASP.NET Web Forms"
-            },
-            {
-                "name" : "Web Services"
-            },
-            {
-                "name" : "IIS"
-            },
-            {
-                "name" : "Agile Software Development"
-            },
-            {
-                "name" : "Windows Server"
-            },
-            {
-                "name" : "Active Directory"
-            },
-            {
-                "name" : "Sitecore"
-            },
-            {
-                "name" : "Umbraco"
-            },
-            {
-                "name" : "NHibernate"
-            },
-            {
-                "name" : "Dynamics AX"
-            }
+      },
+      {
+        "name": "Tomcat",
+        "logoUrl": "lg-tomcat.png",
+        "webSite": "http://tomcat.apache.org/",
+        "usefulLinks": [
+          {
+            "name": "Blogs",
+            "url": "https://blogs.apache.org/tomcat/"
+          }
         ]
-    },
-    {
-        "key" : "RUBY",
-        "searchTexts" : ["ruby","ruby on rails"],
-        "label" : "Ruby",
-        "skills" : [
-            {
-                "name" : "Ruby on Rails"
-            },
-            {
-                "name" : "nginx"
-            },
-            {
-                "name" : "NoSQL"
-            },
-            {
-                "name" : "grape"
-            },
-            {
-                "name" : "Redis"
-            },
-            {
-                "name" : "Git"
-            },
-            {
-                "name" : "REST"
-            },
-            {
-                "name" : "Agile Software Development"
-            },
-            {
-                "name" : "JSON"
-            },
-            {
-                "name" : "XML"
-            },
-            {
-                "name" : "Web Service"
-            }
+      },
+      {
+        "name": "RESTful",
+        "logoUrl": "lg-jersey.png",
+        "webSite": "http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming",
+        "usefulLinks": [
+          {
+            "name": "A RESTfulful Tutorial",
+            "url": "http://www.restapitutorial.com/"
+          },
+          {
+            "name": "Building a RESTfulful Web Service",
+            "url": "http://spring.io/guides/gs/rest-service/"
+          }
         ]
-    },
-    {
-        "key" : "PYTHON",
-        "searchTexts" : ["python"],
-        "label" : "Python",
-        "skills" : [
-            {
-                "name" : "django"
-            },
-            {
-                "name" : "linux"
-            },
-            {
-                "name" : "Git"
-            },
-            {
-                "name" : "REST"
-            },
-            {
-                "name" : "Agile Software Development"
-            },
-            {
-                "name" : "JSON"
-            },
-            {
-                "name" : "XML"
-            }
+      },
+      {
+        "name": "Maven",
+        "logoUrl": "lg-apache_maven.png",
+        "webSite": "http://maven.apache.org/",
+        "usefulLinks": [
+          {
+            "name": "Create a Customized Build Process in Maven",
+            "url": "http://blog.sonatype.com/2009/08/create-a-customized-build-process-in-maven/"
+          },
+          {
+            "name": "Repository Manager",
+            "url": "http://www.sonatype.com/nexus"
+          },
+          {
+            "name": "Testing Stages in Maven",
+            "url": "http://java.dzone.com/articles/testing-stages-maven"
+          },
+          {
+            "name": "Server Staging",
+            "url": "http://architects.dzone.com/articles/server-staging-maven-and-some"
+          }
         ]
-    },
-    {
-        "key" : "PROJECT_MANAGER",
-        "searchTexts" : ["project manager"],
-        "label" : "Project Manager",
-        "skills" : [
-            {
-                "name" : "scrum"
-            },
-            {
-                "name" : "Project Management"
-            },
-            {
-                "name" : "PMP"
-            },
-            {
-                "name" : "kanban"
-            },
-            {
-                "name" : "SLA"
-            },
-            {
-                "name" : "Organizational Awareness"
-            },
-            {
-                "name" : "Vendor Management"
-            },
-            {
-                "name" : "Agile Software Development"
-            },
-            {
-                "name" : "CMMI"
-            },
-            {
-                "name" : "Supplier Management"
-            },
-            {
-                "name" : "itil"
-            }
+      },
+      {
+        "name": "Git",
+        "logoUrl": "lg-git.png",
+        "webSite": "http://git-scm.com/",
+        "usefulLinks": [
+          {
+            "name": "GitHub",
+            "url": "http://github.com/"
+          },
+          {
+            "name": "Bitbucket",
+            "url": "https://bitbucket.org/"
+          }
         ]
-    },
-    {
-        "key" : "DBA",
-        "searchTexts" : ["database", "database administrator", "data analyst", "data scientist"],
-        "label" : "DBA",
-        "skills" : [
-            {
-                "name" : "MySql"
-            },
-            {
-                "name" : "Oracle"
-            },
-            {
-                "name" : "NoSQL"
-            },
-            {
-                "name" : "Hadoop"
-            },
-            {
-                "name" : "MongoDB"
-            },
-            {
-                "name" : "Cassandra"
-            },
-            {
-                "name" : "Couchbase"
-            },
-            {
-                "name" : "DynamoDB"
-            },
-            {
-                "name" : "SQL Server"
-            },
-            {
-                "name" : "Relational Database"
-            },
-            {
-                "name" : "Database Design"
-            },
-            {
-                "name" : "Database Analysis"
-            },
-            {
-                "name" : "Data Warehouse"
-            }
+      },
+      {
+        "name": "JUnit",
+        "logoUrl": "lg-junit.png",
+        "webSite": "http://junit.org/",
+        "usefulLinks": [
+          {
+            "name": "mockito",
+            "url": "https://code.google.com/p/mockito/"
+          },
+          {
+            "name": "EasyMock",
+            "url": "http://easymock.org/"
+          },
+          {
+            "name": "DbUnit",
+            "url": "http://dbunit.sourceforge.net/"
+          }
         ]
-    },
-    {
-        "key" : "QA",
-        "searchTexts" : ["qa", "qc"],
-        "label" : "QA",
-        "skills" : [
-            {
-                "name" : "Selenium"
-            },
-            {
-                "name" : "Automation Testing"
-            },
-            {
-                "name" : "Test Script"
-            },
-            {
-                "name" : "BDD"
-            },
-            {
-                "name" : "JIRA"
-            },
-            {
-                "name" : "WebDriver"
-            },
-            {
-                "name" : "Cucumber"
-            },
-            {
-                "name" : "QuickTest Pro"
-            },
-            {
-                "name" : "JMeter"
-            },
-            {
-                "name" : "Continuous Integration"
-            },
-            {
-                "name" : "Test Planning"
-            },
-            {
-                "name" : "User Acceptance Testing"
-            },
-            {
-                "name" : "Regression Testing"
-            },
-            {
-                "name" : "Test Strategy"
-            }
+      },
+      {
+        "name": "Jenkins",
+        "logoUrl": "lg-jenkins.png",
+        "webSite": "http://jenkins-ci.org/",
+        "usefulLinks": [
+          {
+            "name": "CI Game",
+            "url": "https://wiki.jenkins-ci.org/display/JENKINS/The+Continuous+Integration+Game+plugin"
+          },
+          {
+            "name": "Continuous Delivery",
+            "url": "http://continuousdelivery.com/"
+          },
+          {
+            "name": "Continuous Delivery Matrix",
+            "url": "https://www.linkedin.com/pulse/article/20140602090113-56410746-our-continuous-delivery-matrix"
+          },
+          {
+            "name": "Four Days Delivery based on Open Source",
+            "url": "https://www.linkedin.com/pulse/article/20140723041230-56410746-four-days-delivery-based-on-open-source"
+          }
         ]
-    },
-    {
-        "key" :"BA",
-        "searchTexts" : ["business analyst", "business consultant"],
-        "label" : "BA",
-        "skills" : [
-            {
-                "name" : "business analyst"
-            },
-            {
-                "name" : "SAP"
-            },
-            {
-                "name" : "ERP"
-            },
-            {
-                "name" : "prototype"
-            },
-            {
-                "name" : "mockup"
-            },
-            {
-                "name" : "Analytical Skills"
-            },
-            {
-                "name" : "User Experience"
-            },
-            {
-                "name" : "Stakeholder Management"
-            },
-            {
-                "name" : "UML"
-            },
-            {
-                "name" : "User Acceptance Testing"
-            },
-            {
-                "name" : "Business Intelligence"
-            },
-            {
-                "name" : "CRM"
-            }
+      },
+      {
+        "name": "J2EE",
+        "logoUrl": "lg-java.png",
+        "webSite": "http://www.oracle.com/technetwork/java/javaee/overview/index.html",
+        "usefulLinks": [
+          {
+            "name": "Core J2EE Patterns",
+            "url": "http://www.corej2eepatterns.com/"
+          },
+          {
+            "name": "Real World Java EE Patterns",
+            "url": "http://realworldpatterns.com/"
+          }
         ]
-    },
-    {
-        "key" :"CPLUSPLUS",
-        "searchTexts" : ["C", "C++"],
-        "label" : "C/C++",
-        "skills" : [
-            {
-                "name" : "C"
-            },
-            {
-                "name" : "C++"
-            },
-            {
-                "name" : "Embedded Systems"
-            },
-            {
-                "name" : "Linux"
-            },
-            {
-                "name" : "GCC"
-            },
-            {
-                "name" : "TCP/IP"
-            },
-            {
-                "name" : "DirectX"
-            }
+      },
+      {
+        "name": "Web Services",
+        "logoUrl": "",
+        "webSite": "http://javabrains.koushik.org/tutorials/javaee_jaxws/Introduction-to-Web-Services.html"
+      },
+      {
+        "name": "JSON",
+        "logoUrl": "lg-json.png",
+        "webSite": "http://www.json.org/",
+        "usefulLinks": [
+          {
+            "name": "JSON Validator",
+            "url": "http://jsonlint.com/"
+          }
         ]
-    },
-    {
-        "key" :"WEB",
-        "searchTexts" : ["web", "front-end"],
-        "label" : "Web",
-        "skills" : [
-            {
-                "name" : "html"
-            },
-            {
-                "name" : "css"
-            },
-            {
-                "name" : "javascript"
-            },
-            {
-                "name" : "saas"
-            },
-            {
-                "name" : "less"
-            },
-            {
-                "name" : "photoshop"
-            },
-            {
-                "name" : "UI/UX"
-            },
-            {
-                "name" : "jQuery"
-            },
-            {
-                "name" : "AngularJS"
-            },
-            {
-                "name" : "BackboneJS"
-            },
-            {
-                "name" : "EmberJS"
-            },
-            {
-                "name" : "NodeJS"
-            }
+      },
+      {
+        "name": "Agile",
+        "logoUrl": "",
+        "webSite": "http://agilemanifesto.org/",
+        "usefulLinks": [
+          {
+            "name": "Agile Methodology",
+            "url": "http://agilemethodology.org/"
+          },
+          {
+            "name": "Agile Vietnam",
+            "url": "http://www.agilevietnam.org/"
+          }
         ]
-    },
-    {
-        "key" :"MOBILE",
-        "searchTexts" : ["mobile", "android", "ios"],
-        "label" : "Mobile",
-        "skills" : [
-            {
-                "name" : "Android"
-            },
-            {
-                "name" : "iOS"
-            },
-            {
-                "name" : "Windows phone"
-            },
-            {
-                "name" : "PhoneGap"
-            },
-            {
-                "name" : "Xamarin"
-            },
-            {
-                "name" : "Blackberry"
-            },
-            {
-                "name" : "Cocoa"
-            },
-            {
-                "name" : "Sencha Touch"
-            },
-            {
-                "name" : "Responsive Design"
-            },
-            {
-                "name" : "Swift"
-            },
-            {
-                "name" : "Objective C"
-            },
-            {
-                "name" : "SQLite"
-            }
+      },
+      {
+        "name": "Continuous Integration",
+        "logoUrl": "",
+        "webSite": "http://www.martinfowler.com/articles/continuousIntegration.html",
+        "usefulLinks": [
+          {
+            "name": "Travis",
+            "url": "https://travis-ci.org/"
+          },
+          {
+            "name": "Jenkins",
+            "url": "http://jenkins-ci.org/"
+          },
+          {
+            "name": "Bamboo",
+            "url": "https://www.atlassian.com/software/bamboo"
+          },
+          {
+            "name": "Teamcity",
+            "url": "https://www.jetbrains.com/teamcity/"
+          },
+          {
+            "name": "CircleCI",
+            "url": "https://circleci.com/"
+          },
+          {
+            "name": "Buildbot",
+            "url": "http://buildbot.net/"
+          }
         ]
-    }
+      }
+    ]
+  },
+  {
+    "key": "PHP",
+    "searchTexts": ["php"],
+    "label": "PHP",
+    "logoUrl": "lg-php.png",
+    "webSite": "http://php.net/",
+    "usefulLinks": [
+      {
+        "name": "First Look at Themosis, a Framework for WordPress Developers.",
+        "url": "http://www.sitepoint.com/first-look-themosis-framework-wordpress-developers/"
+      },
+      {
+        "name": "A better PHP testing experience Part I: Moving away from assertion-centric unit testing.",
+        "url": "http://php-and-symfony.matthiasnoback.nl/2014/07/descriptive-unit-tests/"
+      },
+      {
+        "name": "10 Essential Sublime Text Plugins for Full-Stack Developers",
+        "url": "http://www.sitepoint.com/10-essential-sublime-text-plugins-full-stack-developer/"
+      },
+      {
+        "name": "Automate PHP with Phake – Real World Examples",
+        "url": "http://www.sitepoint.com/automate-php-phake-real-world-examples/"
+      },
+      {
+        "name": "How to Customize the WordPress Dashboard to Minimize Confusion",
+        "url": "http://code.tutsplus.com/tutorials/how-to-customize-the-wordpress-dashboard-to-minimize-confusion--cms-20344"
+      },
+      {
+        "name": "In The Next Few Years, 90% Of WordPress Development Could Be JavaScript Based",
+        "url": "http://wptavern.com/in-the-next-few-years-90-of-wordpress-development-could-be-javascript-based"
+      },
+      {
+        "name": "FlexMovies – Internet Movie Database PHP Script",
+        "url": "http://www.developerslane.com/flexmovies-internet-movie-database-php-script/"
+      },
+      {
+        "name": "The Future of WordPress",
+        "url": "http://inside.envato.com/the-future-of-wordpress/"
+      },
+      {
+        "name": "Unbreakable Laravel Migrations",
+        "url": "https://antoniocarlosribeiro.com/technology/articles/unbreakable-laravel-migrations"
+      },
+      {
+        "name": "Delving into CakePHP with James Watts",
+        "url": "http://threedevsandamaybe.com/delving-into-cakephp-with-james-watts/"
+      }
+    ],
+    "skills": [
+      {
+        "name": "Symfony",
+        "logoUrl": "lg-symfony2.png",
+        "webSite": "http://symfony.com/",
+        "usefulLinks": [
+          {
+            "name": "Creating a blog in Symfony2",
+            "url": "http://tutorial.symblog.co.uk/"
+          },
+          {
+            "name": "Databases and Doctrine",
+            "url": "http://symfony.com/doc/current/book/doctrine.html"
+          },
+          {
+            "name": "Security",
+            "url": "http://symfony.com/doc/current/book/security.html"
+          }
+        ]
+      },
+      {
+        "name": "Zend",
+        "logoUrl": "lg-zend.png",
+        "webSite": "http://framework.zend.com/",
+        "usefulLinks": [
+          {
+            "name": "Zend Framework 2",
+            "url": "http://zf2.readthedocs.org/en/latest/ref/overview.html"
+          }
+        ]
+      },
+      {
+        "name": "WordPress",
+        "logoUrl": "lg-wordpress.png",
+        "webSite": "https://wordpress.org/",
+        "usefulLinks": [
+          {
+            "name": "Theme Frameworks",
+            "url": "http://codex.wordpress.org/Theme_Frameworks"
+          },
+          {
+            "name": "cherry framework",
+            "url": "http://www.cherryframework.com/"
+          },
+          {
+            "name": "Roots",
+            "url": "http://roots.io/"
+          }
+        ]
+      },
+      {
+        "name": "Drupal",
+        "logoUrl": "lg-drupal.png",
+        "webSite": "https://www.drupal.org/",
+        "usefulLinks": [
+          {
+            "name": "Drupal Modules",
+            "url": "http://drupalmodules.com/"
+          },
+          {
+            "name": "Drupal Tutorial",
+            "url": "http://www.siteground.com/tutorials/drupal/"
+          }
+        ]
+      },
+      {
+        "name": "Magento",
+        "logoUrl": "lg-magento.png",
+        "webSite": "http://magento.com/",
+        "usefulLinks": [
+          {
+            "name": "Magento Themes",
+            "url": "http://www.rockettheme.com/magento/themes"
+          },
+          {
+            "name": "Magento Tutorial",
+            "url": "http://magentotutorial.org/"
+          }
+        ]
+      },
+      {
+        "name": "OpenCart",
+        "logoUrl": "lg-opencart.png",
+        "webSite": "http://www.opencart.com/",
+        "usefulLinks": [
+          {
+            "name": "OpenCart Training",
+            "url": "https://opencart-training.com/"
+          }
+        ]
+      },
+      {
+        "name": "Joomla",
+        "logoUrl": "lg-joomla.png",
+        "webSite": "http://www.joomla.org/",
+        "usefulLinks": [
+          {
+            "name": "Joomla Tutorials",
+            "url": "http://www.joomlatutorials.com/"
+          }
+        ]
+      },
+      {
+        "name": "PHPUnit",
+        "logoUrl": "lg-phpunit.png",
+        "webSite": "https://phpunit.de/",
+        "usefulLinks": [
+          {
+            "name": "PHPUnit tests real example",
+            "url": "http://stackoverflow.com/questions/6346690/phpunit-tests-real-example"
+          },
+          {
+            "name": "Codeception",
+            "url": "http://codeception.com/"
+          },
+          {
+            "name": "php the right way",
+            "url": "http://www.phptherightway.com/"
+          },
+          {
+            "name": "Simple Test",
+            "url": "http://www.simpletest.org/"
+          }
+        ]
+      },
+      {
+        "name": "Varnish",
+        "logoUrl": "lg-varnish.png",
+        "webSite": "https://www.varnish-cache.org/",
+        "usefulLinks": [
+          {
+            "name": "Varnish and Symfony",
+            "url": "http://symfony.com/doc/current/cookbook/cache/varnish.html"
+          }
+        ]
+      },
+      {
+        "name": "CodeIgniter",
+        "logoUrl": "lg-codeigniter.png",
+        "webSite": "http://www.codeigniter.com/",
+        "usefulLinks": [
+          {
+            "name": "JQuery Ajax POST in Codeigniter",
+            "url": "http://stackoverflow.com/questions/17590688/jquery-ajax-post-in-codeigniter"
+          },
+          {
+            "name": "Tutorial Codeigniter",
+            "url": "http://tutorialcodeigniter.com/"
+          }
+        ]
+      },
+      {
+        "name": "CakePHP",
+        "logoUrl": "lg-cakephp.png",
+        "webSite": "http://cakephp.org/",
+        "usefulLinks": [
+          {
+            "name": "Tutorials & Examples",
+            "url": "http://book.cakephp.org/2.0/en/tutorials-and-examples.html"
+          }
+        ]
+      },
+      {
+        "name": "Yii",
+        "logoUrl": "lg-yii.png",
+        "webSite": "http://www.yiiframework.com/",
+        "usefulLinks": [
+          {
+            "name": "Yiistrap",
+            "url": "http://www.getyiistrap.com/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "DOTNET",
+    "searchTexts": [
+      ".net",
+      "asp.net"
+    ],
+    "label": ".NET",
+    "logoUrl": "lg-dotnet.png",
+    "webSite": "http://www.microsoft.com/net",
+    "usefulLinks": [
+      {
+        "name": ".NET Foundation",
+        "url": "http://www.dotnetfoundation.org/"
+      },
+      {
+        "name": "Open Sources in C#",
+        "url": "http://csharp-source.net/"
+      }
+    ],
+    "skills": [
+      {
+        "name": "ASP.NET",
+        "logoUrl": "lg-dotnet.png",
+        "webSite": "http://www.asp.net/",
+        "usefulLinks": [
+          {
+            "name": "Learn About ASP.NET MVC",
+            "url": "http://www.asp.net/mvc"
+          },
+          {
+            "name": "stackoverflow",
+            "url": "http://stackoverflow.com/questions/tagged/asp.net"
+          }
+        ]
+      },
+      {
+        "name": "SQL Server",
+        "logoUrl": "lg-sqlserver.png"
+      },
+      {
+        "name": "MVC",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "Web Form",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "C#",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "SharePoint",
+        "logoUrl": "lg-sharepoint.png"
+      },
+      {
+        "name": "Azure",
+        "logoUrl": "lg-azure.png"
+      },
+      {
+        "name": "Dynamics CRM",
+        "logoUrl": "lg-dynamics-crm.png"
+      },
+      {
+        "name": "Visual Studio",
+        "logoUrl": "lg-visual-studio.png"
+      },
+      {
+        "name": "NUnit",
+        "logoUrl": "lg-nunit.png"
+      },
+      {
+        "name": "Git",
+        "logoUrl": "lg-git.png"
+      },
+      {
+        "name": ".NET Framework",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "LINQ",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "ASP.NET Web Forms",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "Web Services",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "IIS",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "Agile Software Development",
+        "logoUrl": "lg-dotnet.png"
+      },
+      {
+        "name": "Windows Server",
+        "logoUrl": "lg-windows-server.png"
+      },
+      {
+        "name": "Active Directory",
+        "logoUrl": "lg-windows-server.png"
+      },
+      {
+        "name": "Sitecore",
+        "logoUrl": "lg-sitecore.png"
+      },
+      {
+        "name": "Umbraco",
+        "logoUrl": "lg-umbraco.png"
+      },
+      {
+        "name": "NHibernate",
+        "logoUrl": "lg-nhibernate.png"
+      },
+      {
+        "name": "Dynamics AX",
+        "logoUrl": "lg-dynamics-ax.png"
+      },
+      {
+        "name": "unity",
+        "logoUrl": "lg-dotnet.png"
+      }
+    ]
+  },
+  {
+    "key": "RUBY",
+    "searchTexts": [
+      "ruby",
+      "ruby on rails"
+    ],
+    "label": "Ruby",
+    "logoUrl": "lg-ruby.png",
+    "skills": [
+      {
+        "name": "Ruby on Rails",
+        "logoUrl": "lg-rails.png"
+      },
+      {
+        "name": "Javascript",
+        "logoUrl": "lg-nginx.png"
+      },
+      {
+        "name": "NoSQL",
+        "logoUrl": "lg-nosql.png"
+      },
+      {
+        "name": "HTML"
+      },
+      {
+        "name": "Redis",
+        "logoUrl": "lg-redis.png"
+      },
+      {
+        "name": "Git",
+        "logoUrl": "lg-git.png"
+      },
+      {
+        "name": "RESTful",
+        "logoUrl": "lg-jersey.png"
+      },
+      {
+        "name": "Agile Software Development"
+      },
+      {
+        "name": "JSON",
+        "logoUrl": "lg-json.png"
+      },
+      {
+        "name": "XML",
+        "logoUrl": "lg-xml.png"
+      },
+      {
+        "name": "Web Service"
+      }
+    ]
+  },
+  {
+    "key": "PYTHON",
+    "searchTexts": ["python"],
+    "label": "Python",
+    "logoUrl": "lg-python.png",
+    "skills": [
+      {
+        "name": "Django",
+        "logoUrl": "lg-djangocms.png"
+      },
+      {
+        "name": "Linux",
+        "logoUrl": "lg-linux.png"
+      },
+      {
+        "name": "Git",
+        "logoUrl": "lg-git.png"
+      },
+      {
+        "name": "RESTful",
+        "logoUrl": "lg-jersey.png"
+      },
+      {
+        "name": "Javascript"
+      },
+      {
+        "name": "JSON",
+        "logoUrl": "lg-json.png"
+      },
+      {
+        "name": "Pyramid"
+      },
+      {
+        "name": "Web Services"
+      }
+    ]
+  },
+  {
+    "key": "PROJECT_MANAGER",
+    "searchTexts": ["project manager"],
+    "label": "Project Manager",
+    "logoUrl": "",
+    "skills": [
+      {
+        "name": "Scrum",
+        "logoUrl": "lg-scrum.png"
+      },
+      {
+        "name": "Project Management"
+      },
+      {
+        "name": "PMP"
+      },
+      {
+        "name": "Kanban"
+      },
+      {
+        "name": "Software Development Life Cycle"
+      },
+      {
+        "name": "Organizational Awareness"
+      },
+      {
+        "name": "Vendor Management"
+      },
+      {
+        "name": "Agile Software Development"
+      },
+      {
+        "name": "CMMI",
+        "logoUrl": "lg-cmmi.png"
+      },
+      {
+        "name": "Supplier Management"
+      },
+      {
+        "name": "Itil",
+        "logoUrl": "lg-itil.png"
+      }
+    ]
+  },
+  {
+    "key": "DBA",
+    "searchTexts": [
+      "database",
+      "database administrator",
+      "data analyst",
+      "data scientist"
+    ],
+    "label": "Database Administrator",
+    "logoUrl": "",
+    "skills": [
+      {
+        "name": "MySql",
+        "logoUrl": "lg-mysql.png"
+      },
+      {
+        "name": "Oracle",
+        "logoUrl": "lg-oracle.png"
+      },
+      {
+        "name": "NoSQL",
+        "logoUrl": "lg-nosql.png"
+      },
+      {
+        "name": "Hadoop",
+        "logoUrl": "lg-hadoop.png"
+      },
+      {
+        "name": "MongoDB",
+        "logoUrl": "lg-mongodb.png"
+      },
+      {
+        "name": "Cassandra",
+        "logoUrl": "lg-cassandra.png"
+      },
+      {
+        "name": "Couchbase",
+        "logoUrl": "lg-couchbase.png"
+      },
+      {
+        "name": "DynamoDB",
+        "logoUrl": "lg-dynamodb.png"
+      },
+      {
+        "name": "SQL Server",
+        "logoUrl": "lg-sqlserver.png"
+      },
+      {
+        "name": "Relational Database"
+      },
+      {
+        "name": "Database Design"
+      },
+      {
+        "name": "Database Analysis"
+      },
+      {
+        "name": "Data Warehouse",
+        "logoUrl": "lg-data-warehouse-logo.png"
+      }
+    ]
+  },
+  {
+    "key": "QA",
+    "searchTexts": [
+      "quality assurance",
+      "quality controller",
+      "quality specialist",
+      "qa",
+      "qc"
+    ],
+    "label": "Quality Assurance",
+    "logoUrl": "lg-qa.png",
+    "skills": [
+      {
+        "name": "Selenium",
+        "logoUrl": "lg-selenium.png"
+      },
+      {
+        "name": "Automation Testing",
+        "logoUrl": "lg-automation-testing.png"
+      },
+      {
+        "name": "Test Script",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "BDD",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "JIRA",
+        "logoUrl": "lg-jira.png"
+      },
+      {
+        "name": "WebDriver",
+        "logoUrl": "lg-webdrive.png"
+      },
+      {
+        "name": "Cucumber",
+        "logoUrl": "lg-cucumber.png"
+      },
+      {
+        "name": "QuickTest Pro",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "JMeter",
+        "logoUrl": "lg-jmeter.png"
+      },
+      {
+        "name": "Continuous Integration",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "Test Planning",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "User Acceptance Testing",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "Regression Testing",
+        "logoUrl": "lg-qa.png"
+      },
+      {
+        "name": "Test Strategy",
+        "logoUrl": "lg-qa.png"
+      }
+    ]
+  },
+  {
+    "key": "BA",
+    "searchTexts": [
+      "business analyst",
+      "business consultant"
+    ],
+    "label": "Business Analyst",
+    "logoUrl": "lg-ba.png",
+    "webSite": "http://www.thebusinessanalyst.com/",
+    "skills": [
+      {
+        "name": "Business Analyst"
+      },
+      {
+        "name": "SAP",
+        "logoUrl": "lg-sap.png",
+        "webSite": "http://www.thebusinessanalyst.com/"
+      },
+      {
+        "name": "ERP",
+        "logoUrl": "lg-erp.png"
+      },
+      {
+        "name": "Prototype",
+        "logoUrl": "lg-prototype.png"
+      },
+      {
+        "name": "Mockup",
+        "logoUrl": "lg-mockup.png"
+      },
+      {
+        "name": "Analytical Skills"
+      },
+      {
+        "name": "User Experience"
+      },
+      {
+        "name": "Stakeholder Management",
+        "logoUrl": "lg-stakeholder-management.png"
+      },
+      {
+        "name": "UML",
+        "logoUrl": "lg-uml.png"
+      },
+      {
+        "name": "User Acceptance Testing"
+      },
+      {
+        "name": "Business Intelligence"
+      },
+      {
+        "name": "CRM",
+        "logoUrl": "lg-crm.png"
+      }
+    ]
+  },
+  {
+    "key": "CPLUSPLUS",
+    "searchTexts": [
+      "C",
+      "C++"
+    ],
+    "label": "C/C++",
+    "logoUrl": "lg-cplusplus.png",
+    "skills": [
+      {
+        "name": "C",
+        "logoUrl": "lg-c.png"
+      },
+      {
+        "name": "C++",
+        "logoUrl": "lg-cplusplus.png"
+      },
+      {
+        "name": "Embedded",
+        "logoUrl": "lg-cplusplus.png"
+      },
+      {
+        "name": "Linux",
+        "logoUrl": "lg-linux.png"
+      },
+      {
+        "name": "Visual C++",
+        "logoUrl": "lg-gcc.png"
+      },
+      {
+        "name": "TCP/IP",
+        "logoUrl": "lg-tcp-ip.png"
+      },
+      {
+        "name": "DirectX",
+        "logoUrl": "lg-directx.png"
+      }
+    ]
+  },
+  {
+    "key": "WEB",
+    "searchTexts": [
+      "web",
+      "front-end"
+    ],
+    "label": "Web",
+    "logoUrl": "lg-web.png",
+    "skills": [
+      {
+        "name": "HTML",
+        "logoUrl": "lg-html5.png"
+      },
+      {
+        "name": "CSS",
+        "logoUrl": "lg-css3.png"
+      },
+      {
+        "name": "Javascript",
+        "logoUrl": "lg-javascript.png"
+      },
+      {
+        "name": "SASS",
+        "logoUrl": "lg-sass.png"
+      },
+      {
+        "name": "LESS",
+        "logoUrl": "lg-less.png"
+      },
+      {
+        "name": "Photoshop",
+        "logoUrl": "lg-photoshop.png"
+      },
+      {
+        "name": "UI/UX",
+        "logoUrl": "lg-ui-ux.png"
+      },
+      {
+        "name": "jQuery",
+        "logoUrl": "lg-jquery.png"
+      },
+      {
+        "name": "AngularJS",
+        "logoUrl": "lg-angularjs.png"
+      },
+      {
+        "name": "BackboneJS",
+        "logoUrl": "lg-backbone.png"
+      },
+      {
+        "name": "EmberJS",
+        "logoUrl": "lg-emberjs.png"
+      },
+      {
+        "name": "NodeJS",
+        "logoUrl": "lg-notejs.png"
+      }
+    ]
+  },
+  {
+    "key": "MOBILE",
+    "searchTexts": [
+      "mobile",
+      "android",
+      "ios"
+    ],
+    "label": "Mobile",
+    "logoUrl": "lg-mobile.png",
+    "skills": [
+      {
+        "name": "Android",
+        "logoUrl": "lg-android.png"
+      },
+      {
+        "name": "iOS",
+        "logoUrl": "lg-ios.png"
+      },
+      {
+        "name": "Windows Phone",
+        "logoUrl": "lg-windows-phone.png"
+      },
+      {
+        "name": "PhoneGap",
+        "logoUrl": "lg-phonegap.png"
+      },
+      {
+        "name": "Xamarin",
+        "logoUrl": "lg-mobile.png"
+      },
+      {
+        "name": "Blackberry",
+        "logoUrl": "lg-blackberry.png"
+      },
+      {
+        "name": "Cocoa",
+        "logoUrl": "lg-ios.png"
+      },
+      {
+        "name": "Sencha",
+        "logoUrl": "lg-sencha.png"
+      },
+      {
+        "name": "Responsive",
+        "logoUrl": "lg-responsive-design.png"
+      },
+      {
+        "name": "Swift",
+        "logoUrl": "lg-swift.png"
+      },
+      {
+        "name": "Objective C",
+        "logoUrl": "lg-objective-c.png"
+      },
+      {
+        "name": "SQLite",
+        "logoUrl": "lg-sqlite.png"
+      }
+    ]
+  }
 ]

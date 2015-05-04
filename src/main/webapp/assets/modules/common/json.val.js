@@ -63,53 +63,53 @@ angular.module("Common").constant("jsonValue", {
     listedItems: [{
       term: "JAVA",
       label: "Java",
-      color: "#bf06b7"
+      color: "#76b4f0"
     }, {
       term: "DOTNET",
       label: ".Net",
-      color: "#d50708"
+      color: "#5a9dc5"
     }, {
       term: "PHP",
       label: "Php",
-      color: "#450770"
+      color: "#c3c0c0"
     }, {
       term: "RUBY",
       label: "Ruby",
-      color: "#d5876a"
+      color: "#ffa152"
     }, {
       term: "PYTHON",
       label: "Python",
-      color: "#d7c500"
+      color: "#f8bd81"
     }, {
       term: "PROJECT_MANAGER",
       label: "Project Manager",
-      color: "#17875f"
+      color: "#9ea0d3"
     }, {
       term: "DBA",
-      label: "DBA",
-      color: "#666600"
+      label: "Database Administrator",
+      color: "#999966"
     }, {
       term: "QA",
-      label: "QA",
-      color: "#0576cd"
+      label: "Quality Assurance",
+      color: "#dff48b"
     }, {
       term: "BA",
-      label: "BA",
-      color: "#996600"
+      label: "Business Analyst",
+      color: "#ffa2fc"
     }, {
       term: "CPLUSPLUS",
-      label: "C++",
-      color: "#00CFA1"
+      label: "C/C++",
+      color: "#939191"
     },
       {
         term: "WEB",
         label: "Web Development",
-        color: "#AA9439"
+        color: "#dadaeb"
       },
       {
         term: "MOBILE",
         label: "Mobile Development",
-        color: "#6F256F"
+        color: "#a1d99b"
       }
     ]
   },
@@ -160,6 +160,9 @@ angular.module("Common").constant("jsonValue", {
     talentSearchResult: "/talent-search-result",
     talentProfile: "/talent-profile",
     companyProfile: "/companies",
+    technicalDetail: "/technical-detail",
+    salarySharing: "/salary-sharing",
+    salaryReport: "/salary-report",
     pie: "/pie-chart",
     bubble: "/bubble-chart",
     jobsSearch: "/jobs/search",
@@ -178,6 +181,9 @@ angular.module("Common").constant("jsonValue", {
     jobsSearch: "jobSearch",
     jobsSearchText: "jobSearchText",
     analyticsSkill: "analyticsSkill",
+    technicalDetail: "technicalDetail",
+    salarySharing: "salarySharing",
+    salaryReport: "salaryReport",
     bubbleChart: "bubbleChart",
     pieChart: "pieChart",
     signIn: "signin",
@@ -197,7 +203,8 @@ angular.module("Common").constant("jsonValue", {
     userRegister: "api/user/register",
     company: "company",
     companyId: "company/id",
-    userRegisterCount: "api/user/register/count"
+    userRegisterCount: "api/user/register/count",
+    termStatistic: "term/statistic"
   },
 
   socketUri: {
@@ -215,29 +222,51 @@ angular.module("Common").constant("jsonValue", {
 
     getUserInfoByKey: "/app/user/findByKey",
     subscribeUserInfo: "/user/queue/info",
-    subscribeUserRegistration: "/topic/api/user/register/count"
+    subscribeUserRegistration: "/topic/api/user/register/count",
+    subscribeTermStatistic: "/topic/analytics/term"
   },
 
-
   technicalSkill: [{
+    term: "JAVA",
     'text': 'Java',
     'logo': 'lg-java.png'
   }, {
+    term: "MOBILE",
+    'text': 'Mobile',
+    'logo': 'lg-mobile.png'
+  },{
+    term: "PROJECT_MANAGER",
+    'text': 'PM',
+    'logo': 'lg-pm.png'
+  },{
+    term: "DOTNET",
     'text': '.Net',
     'logo': 'lg-dotnet.png'
   }, {
     'text': 'C#',
     'logo': 'lg-c-sharp.png'
   }, {
+    term: "PHP",
     'text': 'Php',
     'logo': 'lg-php.png'
   }, {
+    term: "RUBY",
     'text': 'Ruby',
     'logo': 'lg-ruby.png'
   }, {
+    term: "QA",
+    'text': 'Qa',
+    'logo': 'lg-qa.png'
+  }, {
+    term: "BA",
+    'text': 'Ba',
+    'logo': 'lg-ba.png'
+  }, {
+    term: "PYTHON",
     'text': 'Python',
     'logo': 'lg-python.png'
   }, {
+    term: "CPLUSPLUS",
     'text': 'C++',
     'logo': 'lg-cplusplus.png'
   }, {
@@ -355,9 +384,18 @@ angular.module("Common").constant("jsonValue", {
     'text': 'Groovy',
     'logo': 'lg-groovy.png'
   }, {
+    term: "DBA",
+    'text': 'DB',
+    'logo': 'lg-db.png'
+  }, {
+    term: "WEB",
+    'text': 'Web',
+    'logo': 'lg-web.png'
+  }, {
     'text': 'Logos',
     'logo': 'lg-logos.png'
   }],
+
   shortcuts: [{
     "id": 1,
     "name": "Career Analytics",
@@ -590,6 +628,7 @@ angular.module("Common").constant("jsonValue", {
         content: "Click to this button, you can find job on search job page"
       }
     ],
+
     bubbleHomePage: [
       {
         element: ".setting-content",
@@ -616,5 +655,13 @@ angular.module("Common").constant("jsonValue", {
         content: "Click to this button, you can find job on search job page"
       }
     ]
-  }
+  },
+
+  jobLevels: [
+    {id: -1, translate: "allLevel"},
+    {id: 1, translate: "newGradLevel", ids: [1]},
+    {id: 5, translate: "experienced", ids: [5, 6]},
+    {id: 7, translate: "manager", ids: [7]},
+    {id: 10, translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
+  ]
 });

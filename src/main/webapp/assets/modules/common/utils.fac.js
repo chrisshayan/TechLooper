@@ -152,6 +152,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/analytics\/skill/.test(path)) {
         return jsonValue.views.analyticsSkill;
       }
+      else if (/\/technical-detail/.test(path)) {
+        return jsonValue.views.technicalDetail;
+      }
+
       else if (/\/signin/.test(path)) {
         return jsonValue.views.signIn;
       }
@@ -172,6 +176,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/companies\//i.test(path)) {
         return jsonValue.views.companyProfile;
+      }
+      else if (/\/offer-letter\/salary-sharing/.test(path)) {
+        return jsonValue.views.salarySharing;
+      }
+      else if (/\/offer-letter\/salary-report/.test(path)) {
+        return jsonValue.views.salaryReport;
       }
     },
 

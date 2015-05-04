@@ -178,7 +178,6 @@ angular.module("Common").factory("connectionFactory",
         });
       },
 
-      // {term: "JAVA", name: "java"}
       subscribeTerm: function (term) {
         var uri = socketUri.subscribeTerm + term.term;
         var subscription = subscriptions[uri];
@@ -271,6 +270,19 @@ angular.module("Common").factory("connectionFactory",
             });
           }
         });
+      },
+
+      /**
+       * Get Tem statistic by name
+       *
+       * @param {object} request
+       * @param {string} request.term - The name of term , see jsonValue.viewTerms.listedItems
+       * @param {string[]} [request.skills] - List of skill name, ex: "spring framework", "log4j"...
+       * @param {int} [request.jobLevelId] - The level of Jobs
+       * @return {object} $http object
+       */
+      termStatisticInOneYear: function(request) {
+        return $http.post(jsonValue.httpUri.termStatistic, request);
       }
     }
     utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.connectSocket);
