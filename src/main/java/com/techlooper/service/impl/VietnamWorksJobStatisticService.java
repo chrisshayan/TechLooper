@@ -385,23 +385,23 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
 
         // Start from the point of last year, month over month
-        DateTime loopDateTime = DateTime.now().minusYears(1);
+        DateTime loopDateTime = DateTime.now().minusMonths(LIMIT_NUMBER_OF_MONTHS);
         int i = 0;
-        while (i < buckets.size()) {
-            DateHistogram.Bucket bucket = buckets.get(i);
-            DateTime bucketDateTime = bucket.getKeyAsDate();
-            if (bucketDateTime.getYear() == loopDateTime.getYear() &&
-                    bucketDateTime.getMonthOfYear() == loopDateTime.getMonthOfYear()) {
-                histogramValues.add(bucket.getDocCount());
-                i++;
+        while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
+            if (i < buckets.size()) {
+                DateHistogram.Bucket bucket = buckets.get(i);
+                DateTime bucketDateTime = bucket.getKeyAsDate();
+                if (bucketDateTime.getYear() == loopDateTime.getYear() &&
+                        bucketDateTime.getMonthOfYear() == loopDateTime.getMonthOfYear()) {
+                    histogramValues.add(bucket.getDocCount());
+                    i++;
+                } else {
+                    histogramValues.add(0L);
+                }
             } else {
                 histogramValues.add(0L);
             }
             loopDateTime = loopDateTime.plusMonths(1);
-        }
-
-        while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
-            histogramValues.add(0L);
         }
 
         return histogramValues;
