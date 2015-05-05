@@ -14,6 +14,8 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesAggregator;
+import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
@@ -144,6 +146,15 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
+    public FilterBuilder getJobLevelsFilterBuilder(List<Integer> jobLevelIds) {
+        BoolFilterBuilder jobLevelFilterBuilder = boolFilter();
+        for (Integer jobLevelId : jobLevelIds) {
+            jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
+        }
+        return jobLevelFilterBuilder;
+    }
+
+    @Override
     public FilterAggregationBuilder getTopCompaniesAggregation() {
         return AggregationBuilders.filter("top_companies").filter(rangeFilter("expiredDate").from("now")).subAggregation(
                 AggregationBuilders.terms("top_companies").field("companyId"));
@@ -167,5 +178,40 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
         }
         return skillAnalyticsAggregations;
+    }
+
+    @Override
+    public QueryBuilder jobTitleQueryBuilder(String jobTitle) {
+        return matchQuery("jobTitle", jobTitle).minimumShouldMatch("75%");
+    }
+
+    @Override
+    public FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories) {
+        BoolFilterBuilder jobIndustriesFilterBuilder = boolFilter();
+        if (!jobCategories.isEmpty()) {
+            jobCategories.forEach(industryId -> jobIndustriesFilterBuilder.should(termFilter("industries.industryId", industryId)));
+        }
+        return nestedFilter("industries", jobIndustriesFilterBuilder);
+    }
+
+    @Override
+    public FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue) {
+        RangeFilterBuilder rangeFilterBuilder = rangeFilter(fieldName);
+        if (fromValue != null) {
+            rangeFilterBuilder.from(fromValue);
+        }
+        if (toValue != null) {
+            rangeFilterBuilder.to(toValue);
+        }
+        return rangeFilterBuilder;
+    }
+
+    @Override
+    public PercentilesBuilder salaryPercentileAggregationBuilder(double[] percents) {
+        String script = "doc['salaryMin'].value == 0 ? doc['salaryMax'].value * 0.75 : " +
+                "doc['salaryMax'].value == 0 ? doc['salaryMin'].value * 1.25 : " +
+                "(doc['salaryMin'].value + doc['salaryMax'].value) / 2";
+        return AggregationBuilders.percentiles("salary_percentile")
+                .script(script).percentiles(percents).compression(100D);
     }
 }

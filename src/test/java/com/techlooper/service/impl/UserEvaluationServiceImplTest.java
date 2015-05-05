@@ -3,7 +3,9 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
+import com.techlooper.entity.JobOfferInfo;
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.model.JobOfferEvaluation;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserService;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -60,5 +63,16 @@ public class UserEvaluationServiceImplTest {
     public void testGetTotalNumberOfJobPerSkill() throws Exception {
         Map<String,Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
         assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void testEvaluateJobOffer() throws Exception {
+        JobOfferInfo jobOfferInfo = new JobOfferInfo();
+        jobOfferInfo.setJobTitle("Senior Java Developer");
+        jobOfferInfo.setJobLevelIds(Arrays.asList(5));
+        jobOfferInfo.setJobCategories(Arrays.asList(35L));
+        jobOfferInfo.setNetSalary(1000);
+        JobOfferEvaluation jobOfferEvaluation = userEvaluationService.evaluateJobOffer(jobOfferInfo);
+        assertTrue(jobOfferEvaluation.getPercentRank() > 0);
     }
 }

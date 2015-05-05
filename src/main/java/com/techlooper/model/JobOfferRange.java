@@ -5,15 +5,23 @@ package com.techlooper.model;
  */
 public class JobOfferRange {
 
-    private Integer percent;
+    private Double percent;
 
     private Double percentile;
 
-    public Integer getPercent() {
+    public JobOfferRange() {
+    }
+
+    public JobOfferRange(Double percent, Double percentile) {
+        this.percent = percent;
+        this.percentile = percentile;
+    }
+
+    public Double getPercent() {
         return percent;
     }
 
-    public void setPercent(Integer percent) {
+    public void setPercent(Double percent) {
         this.percent = percent;
     }
 

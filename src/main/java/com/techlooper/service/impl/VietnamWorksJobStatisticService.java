@@ -56,13 +56,13 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final int DIRECTOR_LEVEL_ID = 3;
 
-    private static final double LOWER_BOUND_SALARY_ENTRY_LEVEL = 250D;
+    public static final double LOWER_BOUND_SALARY_ENTRY_LEVEL = 250D;
 
-    private static final double LOWER_BOUND_SALARY_EXPERIENCED_LEVEL = 500D;
+    public static final double LOWER_BOUND_SALARY_EXPERIENCED_LEVEL = 500D;
 
-    private static final double LOWER_BOUND_SALARY_MANAGER_LEVEL = 1000D;
+    public static final double LOWER_BOUND_SALARY_MANAGER_LEVEL = 1000D;
 
-    private static final double LOWER_BOUND_SALARY_DIRECTOR_LEVEL = 2000D;
+    public static final double LOWER_BOUND_SALARY_DIRECTOR_LEVEL = 2000D;
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
