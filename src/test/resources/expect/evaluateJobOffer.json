@@ -2,9 +2,8 @@
   "jobTitle": "java developer",
   "jobLevel": "EXPERIENCED",
   "location": "ho chi minh",
-  "baseSalary": 1000,
-  "bonus": 1000,
-  "profitShare": 1000,
+  "numberOfEmployees": "1-49",
+  "netSalary": 1000,
   "skills": [
     "java",
     "j2ee",
