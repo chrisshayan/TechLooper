@@ -16,6 +16,7 @@
       <h3>Let's start building your report with the basics, like your job title, location, level... VietnamWorks has collected salary and career data from millions of people and thousands of jobs.</h3>
       <div class="salary-info-form">
         <form autocomplete="off">
+          <div class="error-messages">Please enter: <strong></strong></div>
           <div class="row salary-field">
               <label for="txtJobTitle">Expected Job Title <strong>*</strong>:</label>
               <input type="text" id="txtJobTitle" placeholder="Ex: Java Developer"/>
@@ -23,34 +24,98 @@
           <div class="row salary-field">
             <label for="selJobLevel">Expected Job Level <strong>*</strong>:</label>
             <select name="" id="selJobLevel" class="selection-box" placeholder="Ex: Experienced">
-              <option value="EL">Entry Level</option>
-              <option value="E">Experienced</option>
-              <option value="M">Manager</option>
-              <option value="DA">Director and Above</option>
+              <option value="Entry Level">Entry Level</option>
+              <option value="Experienced">Experienced</option>
+              <option value="Manager">Manager</option>
+              <option value="Director and Above">Director and Above</option>
             </select>
           </div>
           <div class="row salary-field">
             <label for="selLocation">Where do you work <strong>*</strong>?</label>
             <select name="" id="selLocation" class="selection-box" placeholder="Ex: Ho Chi Minh">
               <option value="">Select a state...</option>
-              <option value="HCM">Ho Chi Minh</option>
-              <option value="HN">Ha Noi</option>
-              <option value="HP">Hai Phong</option>
-              <option value="DN">Da Nang</option>
-              <option value="CT">Can Tho</option>
+              <option value="-1">Any location</option>
+              <option value="29">Ho Chi Minh</option>
+              <option value="24">Ha Noi</option>
+              <option value="71">Mekong Delta</option>
+              <option value="2">An Giang</option>
+              <option value="3">Ba Ria - Vung Tau</option>
+              <option value="4">Bac Can</option>
+              <option value="5">Bac Giang</option>
+              <option value="6">Bac Lieu</option>
+              <option value="7">Bac Ninh</option>
+              <option value="8">Ben Tre</option>
+              <option value="9">Bien Hoa</option>
+              <option value="10">Binh Dinh</option>
+              <option value="11">Binh Duong</option>
+              <option value="12">Binh Phuoc</option>
+              <option value="13">Binh Thuan</option>
+              <option value="14">Ca Mau</option>
+              <option value="15">Can Tho</option>
+              <option value="16">Cao Bang</option>
+              <option value="17">Da Nang</option>
+              <option value="18">Dac Lac</option>
+              <option value="69">Dien Bien</option>
+              <option value="19">Dong Nai</option>
+              <option value="20">Dong Thap</option>
+              <option value="21">Gia Lai</option>
+              <option value="22">Ha Giang</option>
+              <option value="23">Ha Nam</option>
+              <option value="25">Ha Tay</option>
+              <option value="26">Ha Tinh</option>
+              <option value="27">Hai Duong</option>
+              <option value="28">Hai Phong</option>
+              <option value="30">Hoa Binh</option>
+              <option value="31">Hue</option>
+              <option value="32">Hung Yen</option>
+              <option value="33">Khanh Hoa</option>
+              <option value="34">Kon Tum</option>
+              <option value="35">Lai Chau</option>
+              <option value="36">Lam Dong</option>
+              <option value="37">Lang Son</option>
+              <option value="38">Lao Cai</option>
+              <option value="40">Nam Dinh</option>
+              <option value="41">Nghe An</option>
+              <option value="42">Ninh Binh</option>
+              <option value="43">Ninh Thuan</option>
+              <option value="44">Phu Tho</option>
+              <option value="45">Phu Yen</option>
+              <option value="46">Quang Binh</option>
+              <option value="47">Quang Nam</option>
+              <option value="48">Quang Ngai</option>
+              <option value="49">Quang Ninh</option>
+              <option value="50">Quang Tri</option>
+              <option value="51">Soc Trang</option>
+              <option value="52">Son La</option>
+              <option value="53">Tay Ninh</option>
+              <option value="54">Thai Binh</option>
+              <option value="55">Thai Nguyen</option>
+              <option value="56">Thanh Hoa</option>
+              <option value="57">Thua Thien-Hue</option>
+              <option value="58">Tien Giang</option>
+              <option value="59">Tra Vinh</option>
+              <option value="60">Tuyen Quang</option>
+              <option value="61">Kien Giang</option>
+              <option value="62">Vinh Long</option>
+              <option value="63">Vinh Phuc</option>
+              <option value="65">Yen Bai</option>
+              <option value="66">Other</option>
+              <option value="70">International</option>
+              <option value="72">Hau Giang</option>
+              <option value="39">Long An</option>
             </select>
           </div>
           <div class="row salary-field">
             <label for="selCategories">Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
-            <select name="" id="selCategories" class="selection-box" placeholder="Ex: IT - Software, IT - Hardware/Networking">
+            <select name="" id="selCategories" class="selection-categories" placeholder="Ex: IT - Software, IT - Hardware/Networking">
               <option value="">Select a state...</option>
               <option value="HCM">IT - Software</option>
               <option value="HN">Hardware/Networking</option>
-              <option value="HP">Internet/Online Media</option>
-              <option value="HP">Production/Process</option>
-              <option value="HP">Administrative/Clerical</option>
-              <option value="HP">Electrical/Electronics</option>
-              <option value="HP">Accounting</option>
+              <option value="IO">Internet/Online Media</option>
+              <option value="PP">Production/Process</option>
+              <option value="AC">Administrative/Clerical</option>
+              <option value="EE">Electrical/Electronics</option>
+              <option value="AC">Accounting</option>
             </select>
           </div>
           <div class="row salary-field">
@@ -64,10 +129,10 @@
           </div>
           <div class="row salary-field">
             <label for="txtBaseSalary">Current Monthly NET base Salary (USD) <strong>*</strong>:</label>
-            <input type="text" id="txtBaseSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
+            <input type="number" id="txtBaseSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
           </div>
           <div class="row salary-field">
-            <label for="txtTopSkills">Top 3 Skills Critical To Your Job <strong>*</strong>:</label>
+            <label for="txtTopSkills">Top 3 Skills Critical To Your Job:</label>
             <div class="top-three-skills">
               <div class="added-list-skills">
                 <ul>
@@ -88,11 +153,11 @@
             </div>
           </div>
           <div class="row salary-field">
-            <label for="txtReportinge">Who are you reporting to? Job/Title/Position:</label>
-            <input type="text" id="txtReportinge" placeholder="Ex: Software Delivery Manager"/>
+            <label for="txtReporting">Who are you reporting to? Job/Title/Position <strong>*</strong>:</label>
+            <input type="text" id="txtReporting" placeholder="Ex: Software Delivery Manager"/>
           </div>
           <div class="row salary-field-submit">
-            <button class="btn btn-primary">Create Report</button>
+            <button class="btn btn-primary" ng-click="createReport()" >Create Report</button>
           </div>
         </form>
       </div>
