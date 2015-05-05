@@ -1,7 +1,7 @@
 {
   "totalPay": 3000,
   "percentRank": 35,
-  "jobLevelRanks": [
+  "jobOfferRanges": [
     {
       "jobLevel": "ENTRY",
       "salaryRange": {
