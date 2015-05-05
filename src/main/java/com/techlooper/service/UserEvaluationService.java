@@ -18,4 +18,6 @@ public interface UserEvaluationService {
     Map<String,Long> getSkillMap();
 
     Map<String,Long> getTotalNumberOfJobPerSkill();
+
+
 }
