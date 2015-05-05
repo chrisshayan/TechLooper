@@ -234,11 +234,11 @@ angular.module("Common").constant("jsonValue", {
     term: "MOBILE",
     'text': 'Mobile',
     'logo': 'lg-mobile.png'
-  },{
+  }, {
     term: "PROJECT_MANAGER",
     'text': 'PM',
     'logo': 'lg-pm.png'
-  },{
+  }, {
     term: "DOTNET",
     'text': '.Net',
     'logo': 'lg-dotnet.png'
@@ -658,10 +658,10 @@ angular.module("Common").constant("jsonValue", {
   },
 
   jobLevels: [
-    {id: -1, translate: "allLevel"},
-    {id: 1, translate: "newGradLevel", ids: [1]},
-    {id: 5, translate: "experienced", ids: [5, 6]},
-    {id: 7, translate: "manager", ids: [7]},
-    {id: 10, translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
+    {id: -1, name: "ALL", translate: "allLevel"},
+    {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1]},
+    {id: 5, name: "EXPERIENCED",translate: "experienced", ids: [5, 6]},
+    {id: 7, name: "MANAGER",translate: "manager", ids: [7]},
+    {id: 10, name: "DIRECTOR_PLUS",translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
   ]
 });

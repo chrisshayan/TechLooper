@@ -1,0 +1,19 @@
+{
+  "totalPay": 3000,
+  "percentRank": 35,
+  "jobLevelRanks": [
+    {
+      "jobLevel": "ENTRY",
+      "salaryRange": {
+        "min": 12000,
+        "max": 15000
+      }
+    },
+    {
+      "jobLevel": "EXPERIENCED",
+      "salaryRange": {
+        "min": 20000
+      }
+    }
+  ]
+}
