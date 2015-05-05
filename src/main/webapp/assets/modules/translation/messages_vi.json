@@ -66,6 +66,7 @@
     "deleteAll": "Xóa hết",
     "add": "Thêm",
     "maximum5": "Tối đa 5 kỹ năng. Để thêm 1 kỹ năng phải xóa bớt 1 kỹ năng.",
+    "maximum3": "Tối đa 3 kỹ năng. Để thêm 1 kỹ năng phải xóa bớt 1 kỹ năng.",
     "hasExist": "Kỹ năng này đã tồn tại",
     "noDataChart": "Không có dữ liệu"
 }

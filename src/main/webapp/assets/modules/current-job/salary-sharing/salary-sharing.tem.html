@@ -71,19 +71,19 @@
             <div class="top-three-skills">
               <div class="added-list-skills">
                 <ul>
-                  <li>
-                    <span class="left"><span class="right"><i>Java</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
-                    </li><li>
-                    <span class="left"><span class="right"><i>Agile Software Development</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
-                </li><li>
-                    <span class="left"><span class="right"><i>AngularJS</i><span ng-click="removeSkill(skill)" class="close" title="Remove">x</span></span></span>
+                  <li ng-repeat="skill in jobOfferInfo.skills">
+                    <span class="left">
+                      <span class="right"><i>{{skill}}</i>
+                        <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
+                      </span>
+                    </span>
                   </li>
                 </ul>
               </div>
-              <div class="max-skill-alert">{{error.newSkillName}}{{error.existSkillName}}</div>
+              <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
               <div class="add-skill-input">
                 <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="Ex: Php"/>
-                <button ng-click="addSkill()">Add</button>
+                <button ng-click="addNewSkill()" ng-disabled="jobOfferInfo.skills.length >= 3">Add</button>
               </div>
             </div>
           </div>

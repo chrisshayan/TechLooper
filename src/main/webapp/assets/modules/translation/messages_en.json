@@ -66,6 +66,7 @@
     "deleteAll": "Delete All",
     "add": "Add",
     "maximum5": "Maximum 5 skills. To add one, remove another one.",
+    "maximum3": "Maximum 3 skills. To add one, remove another one.",
     "hasExist": "This skill has already",
     "noDataChart": "No data available now"
 }
