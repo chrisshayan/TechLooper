@@ -1,7 +1,8 @@
-techlooper.controller("salarySharingController", function (salarySharingService, $scope, $rootScope) {
-  $('.selection-box').selectize({
-    allowEmptyOption: true
-  });
+techlooper.controller("salarySharingController", function ($scope, salarySharingService, $rootScope) {
+  salarySharingService.init();
+  $scope.createReport = function () {
+    salarySharingService.validationForm();
+  }
 
   $scope.error = {};
   $scope.jobOfferInfo = {
