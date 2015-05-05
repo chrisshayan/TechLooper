@@ -30,7 +30,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     delete $scope.error.newSkillName;
 
     var skillLowerCases = $scope.jobOfferInfo.skills.map(function (skill) {return skill.toLowerCase();});
-    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
+    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) >= 0) {
       var translate = $rootScope.translate;
       $scope.error.existSkillName = translate.hasExist;
       return;
@@ -40,6 +40,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     if (newSkillName.length > 0) {
       $scope.jobOfferInfo.skills.push(newSkillName);
       $scope.newSkillName = "";
+      $("#txtTopSkills").focus();
     }
   }
 });

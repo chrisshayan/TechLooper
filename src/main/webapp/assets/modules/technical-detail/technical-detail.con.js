@@ -52,7 +52,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
     delete $scope.error.newSkillName;
 
     var skillLowerCases = $scope.termRequestShadow.skills.map(function (skill) {return skill.toLowerCase();});
-    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) > 0) {
+    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) >= 0) {
       var translate = $rootScope.translate;
       $scope.error.existSkillName = translate.hasExist;
       return;
