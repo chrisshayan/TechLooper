@@ -136,6 +136,11 @@ public class ConfigurationTest implements ApplicationContextAware {
         return new VietnamWorksJobStatisticService();
     }
 
+    @Bean
+    public CompanyService companyService() {
+        return new CompanyServiceImpl();
+    }
+
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }

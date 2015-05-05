@@ -1,0 +1,84 @@
+GET vietnamworks/job/_search?search_type=count
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "bool": {
+                "should": [
+                  {
+                    "match_phrase": {
+                      "jobTitle": "java"
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "jobTitle": "j2ee"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "expiredDate": {
+                  "from": "now/d"
+                }
+              }
+            },
+            {
+              "bool": {
+                "should": [
+                  {
+                    "term": {
+                      "jobLevelId": 5
+                    }
+                  },
+                  {
+                    "term": {
+                      "jobLevelId": 1
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "range": {
+                "salaryMin": {
+                  "from": 250
+                }
+              }
+            },
+            {
+              "range": {
+                "salaryMax": {
+                  "from": 250
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "avg_salary_min": {
+      "avg": {
+        "field": "salaryMin"
+      }
+    },
+    "avg_salary_max": {
+      "avg": {
+        "field": "salaryMax"
+      }
+    }
+  }
+}

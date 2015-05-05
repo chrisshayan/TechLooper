@@ -1,0 +1,11 @@
+<div class="list-companies-block">
+  <h2 translate>hiringCompanies</h2>
+  <div class="list-companies-content">
+    <ul ng-show="termStatistic.companies.length">
+      <li ng-repeat="company in termStatistic.companies">
+        <a href="{{companyUrl(company)}}" target="_blank"><img ng-src="{{company.companyLogoURL}}" alt=""/></a>
+      </li>
+    </ul>
+    <div ng-show="!termStatistic.companies.length" class="no-data-chart" translate>noDataChart</div>
+  </div>
+</div>

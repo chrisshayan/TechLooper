@@ -1,5 +1,9 @@
-angular.module("Common").factory("termService", function (jsonValue) {
+angular.module("Common").factory("termService", function (jsonValue, $translate) {
   var fnColor = d3.scale.category20();
+  var translate = {};
+  $translate(["from", "to"]).then(function(translation) {
+    translate = translation;
+  });
 
   var instance = {
     toViewTerms: function (terms) {
@@ -24,11 +28,21 @@ angular.module("Common").factory("termService", function (jsonValue) {
         }
         term.color = fnColor(term.term);//allow d3js select color for unlisted items
       }
-      instance.refineTerm(term);
+      instance.refineSalary(term);
+      instance.refineLogo(term);
       return term;
     },
 
-    refineTerm: function(term) {
+    refineLogo: function(term) {
+      $.each(jsonValue.technicalSkill, function(i, skill) {
+        if (skill.term === term.term) {
+          term.logo = skill.logo;
+          return false;
+        }
+      });
+    },
+
+    refineSalary: function(term) {
       if (term['averageSalaryMin'] === undefined && term['averageSalaryMax'] === undefined) {
         term.salRange = "";
         return ;
@@ -37,10 +51,10 @@ angular.module("Common").factory("termService", function (jsonValue) {
         term.salRange = "$" + term.averageSalaryMin.toLocaleString() + " - " + "$" + term.averageSalaryMax.toLocaleString();
       }
       else if ($.isNumeric(term.averageSalaryMin)) {
-        term.salRange = "From $" + term.averageSalaryMin.toLocaleString();
+        term.salRange = translate.from + " $" + term.averageSalaryMin.toLocaleString();
       }
       else {
-        term.salRange = "Up To $" + term.averageSalaryMax.toLocaleString();
+        term.salRange = translate.upto + " $" + term.averageSalaryMax.toLocaleString();
       }
     }
   }
