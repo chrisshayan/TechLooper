@@ -1,10 +1,10 @@
 package com.techlooper.entity;
 
-import com.techlooper.model.JobLevelEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import java.util.List;
 
 /**
  * Created by phuonghqh on 5/5/15.
@@ -18,8 +18,8 @@ public class JobOfferInfo {
     @Field
     private String jobTitle;
 
-    @Field(type = FieldType.String)
-    private JobLevelEnum jobLevel;
+    @Field
+    private List<Integer> jobLevelIds;
 
     @Field
     private String location;
@@ -28,21 +28,21 @@ public class JobOfferInfo {
     private Integer netSalary;
 
     @Field
-    private String[] skills;
+    private List<String> skills;
 
     @Field
     private String reportTo;
 
     @Field
-    private Long[] jobCategories;
+    private List<Long> jobCategories;
 
     private Integer numberOfEmployees;
 
-    public Long[] getJobCategories() {
+    public List<Long> getJobCategories() {
         return jobCategories;
     }
 
-    public void setJobCategories(Long[] jobCategories) {
+    public void setJobCategories(List<Long> jobCategories) {
         this.jobCategories = jobCategories;
     }
 
@@ -70,12 +70,12 @@ public class JobOfferInfo {
         this.jobTitle = jobTitle;
     }
 
-    public JobLevelEnum getJobLevel() {
-        return jobLevel;
+    public List<Integer> getJobLevelIds() {
+        return jobLevelIds;
     }
 
-    public void setJobLevel(JobLevelEnum jobLevel) {
-        this.jobLevel = jobLevel;
+    public void setJobLevelIds(List<Integer> jobLevelIds) {
+        this.jobLevelIds = jobLevelIds;
     }
 
     public String getLocation() {
@@ -94,11 +94,11 @@ public class JobOfferInfo {
         this.netSalary = netSalary;
     }
 
-    public String[] getSkills() {
+    public List<String> getSkills() {
         return skills;
     }
 
-    public void setSkills(String[] skills) {
+    public void setSkills(List<String> skills) {
         this.skills = skills;
     }
 
