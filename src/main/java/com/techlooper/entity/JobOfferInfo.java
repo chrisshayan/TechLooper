@@ -25,19 +25,34 @@ public class JobOfferInfo {
   private String location;
 
   @Field
-  private Integer baseSalary;
-
-  @Field
-  private Integer bonus;
-
-  @Field
-  private Integer profitShare;
+  private Integer netSalary;
 
   @Field
   private String[] skills;
 
   @Field
   private String reportTo;
+
+  @Field
+  private String[] jobCategories;
+
+  private String numberOfEmployees;
+
+  public String[] getJobCategories() {
+    return jobCategories;
+  }
+
+  public void setJobCategories(String[] jobCategories) {
+    this.jobCategories = jobCategories;
+  }
+
+  public String getNumberOfEmployees() {
+    return numberOfEmployees;
+  }
+
+  public void setNumberOfEmployees(String numberOfEmployees) {
+    this.numberOfEmployees = numberOfEmployees;
+  }
 
   public Long getId() {
     return id;
@@ -71,28 +86,12 @@ public class JobOfferInfo {
     this.location = location;
   }
 
-  public Integer getBaseSalary() {
-    return baseSalary;
+  public Integer getNetSalary() {
+    return netSalary;
   }
 
-  public void setBaseSalary(Integer baseSalary) {
-    this.baseSalary = baseSalary;
-  }
-
-  public Integer getBonus() {
-    return bonus;
-  }
-
-  public void setBonus(Integer bonus) {
-    this.bonus = bonus;
-  }
-
-  public Integer getProfitShare() {
-    return profitShare;
-  }
-
-  public void setProfitShare(Integer profitShare) {
-    this.profitShare = profitShare;
+  public void setNetSalary(Integer netSalary) {
+    this.netSalary = netSalary;
   }
 
   public String[] getSkills() {
