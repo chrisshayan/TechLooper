@@ -1,19 +1,26 @@
 {
-  "totalPay": 3000,
-  "percentRank": 35,
+  "totalPay": 1200,
+  "percentRank": 85,
   "jobOfferRanges": [
     {
-      "jobLevel": "ENTRY",
-      "salaryRange": {
-        "min": 12000,
-        "max": 15000
-      }
+      "percent": 10,
+      "percentile": 350
     },
     {
-      "jobLevel": "EXPERIENCED",
-      "salaryRange": {
-        "min": 20000
-      }
+      "percent": 25,
+      "percentile": 750
+    },
+    {
+      "percent": 50,
+      "percentile": 800
+    },
+    {
+      "percent": 75,
+      "percentile": 1000
+    },
+    {
+      "percent": 90,
+      "percentile": 1300
     }
   ]
 }

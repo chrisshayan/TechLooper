@@ -5,23 +5,23 @@ package com.techlooper.model;
  */
 public class JobOfferRange {
 
-  private JobLevelEnum jobLevel;
+    private Integer percent;
 
-  private SalaryRange salaryRange;
+    private Double percentile;
 
-  public JobLevelEnum getJobLevel() {
-    return jobLevel;
-  }
+    public Integer getPercent() {
+        return percent;
+    }
 
-  public void setJobLevel(JobLevelEnum jobLevel) {
-    this.jobLevel = jobLevel;
-  }
+    public void setPercent(Integer percent) {
+        this.percent = percent;
+    }
 
-  public SalaryRange getSalaryRange() {
-    return salaryRange;
-  }
+    public Double getPercentile() {
+        return percentile;
+    }
 
-  public void setSalaryRange(SalaryRange salaryRange) {
-    this.salaryRange = salaryRange;
-  }
+    public void setPercentile(Double percentile) {
+        this.percentile = percentile;
+    }
 }
