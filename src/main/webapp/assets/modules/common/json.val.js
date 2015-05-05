@@ -518,7 +518,7 @@ angular.module("Common").constant("jsonValue", {
     "7": {"value": "Civil/Construction"},
     "8": {"value": "Consulting"},
     "10": {"value": "Arts/Design"},
-    "11": {"value": "Customer Service"},
+    "100": {"value": "Customer Service"},
     "12": {"value": "Education/Training"},
     "13": {"value": "Engineering"},
     "15": {"value": "Entry level"},
@@ -663,5 +663,12 @@ angular.module("Common").constant("jsonValue", {
     {id: 5, name: "EXPERIENCED",translate: "experienced", ids: [5, 6]},
     {id: 7, name: "MANAGER",translate: "manager", ids: [7]},
     {id: 10, name: "DIRECTOR_PLUS",translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
+  ],
+  locations: [
+    {id: -1, name: "Any location"},
+    {id: 29, name: "Ho Chi Minh"},
+    {id: 24, name: "Ha Noi"},
+    {id: 71, name: "Mekong Delta"},
+    {id: 2, name: "An Giang"}
   ]
 });
