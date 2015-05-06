@@ -1,0 +1,109 @@
+<nav class="navbar">
+  <div class="logo-block text-center">
+    <div class="logo" id="logo">
+      <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+      <a href="#/" class="backPage" translate>home</a>
+    </div>
+    <div class="vnw-logo">
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
+    </div>
+  </div>
+</nav>
+<div class="salary-review-page">
+  <div class="salary-review-block">
+    <div class="navi-step-salary-review">
+      <ul>
+        <li class="active" date-content="your-salary-info-content"><h2>Your Info</h2></li>
+        <li date-content="your-employer-content"><h2>Your Employer</h2></li>
+        <li date-content="your-report-content"><h2>Your Report</h2></li>
+      </ul>
+    </div>
+    <div class="salary-review-content">
+      <div class="data-content your-salary-info-content active">
+        <h3>Let's start building your report with the basics, like your job title, location, level... VietnamWorks has collected salary and career data from millions of people and thousands of jobs.</h3>
+        <div class="salary-info-form">
+          <form autocomplete="off">
+            <div class="error-messages">{{error.jobTitle || error.jobLevel || error.netSalary || error.reportTo}}</div>
+            <div class="row salary-field">
+              <label for="txtJobTitle">Your Current Job Title <strong>*</strong>:</label>
+              <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle" placeholder="Ex: Java Developer"/>
+            </div>
+            <div class="row salary-field">
+              <label>Your Current Job Level <strong>*</strong>:</label>
+              <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelIds"></selectize>
+            </div>
+            <div class="row salary-field">
+              <label for="txtTopSkills">Top 3 Skills Important To Your Job:</label>
+              <div class="top-three-skills">
+                <div class="added-list-skills">
+                  <ul>
+                    <li ng-repeat="skill in salaryReview.skills">
+                    <span class="left">
+                      <span class="right"><i>{{skill}}</i>
+                        <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
+                      </span>
+                    </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
+                <div class="add-skill-input">
+                  <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="Ex: Php"/>
+                  <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">Add</button>
+                </div>
+              </div>
+            </div>
+            <div class="row salary-field">
+              <label for="txtBaseSalary">Current Monthly NET base Salary (USD) <strong>*</strong>:</label>
+              <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
+            </div>
+            <div class="row salary-field">
+              <label for="txtReporting">Who are you reporting to? Job title/Position <strong>*</strong>:</label>
+              <input type="text" id="txtReporting" ng-model="salaryReview.reportTo" placeholder="Ex: Software Delivery Manager"/>
+            </div>
+            <div class="row salary-field-submit">
+              <button class="btn btn-primary" ng-click="doNextStep()" >Next</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="data-content your-employer-content">
+        <div class="salary-info-form">
+          <form autocomplete="off">
+            <div class="error-messages">{{error.locationId || error.jobCategories}}</div>
+            <div class="row salary-field">
+              <label>Where do you work <strong>*</strong>?</label>
+              <selectize config='selectize.locations.config' options='selectize.locations.items' ng-model="salaryReview.locationId"></selectize>
+            </div>
+            <div class="row salary-field">
+              <label>Company Size:</label>
+              <selectize config='selectize.companySize.config' options='selectize.companySize.items' ng-model="salaryReview.companySizeId"></selectize>
+            </div>
+            <div class="row salary-field">
+              <label>Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
+              <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.jobCategories"></selectize>
+            </div>
+            <div class="row salary-field-submit">
+              <button class="btn btn-primary" ng-click="doSalaryReport()" >Next</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="data-content your-report-content">
+        <div class="user-personal-info">
+          <ul>
+            <li><span>Role:</span> <p>Java Developer</p></li>
+            <li><span>Level:</span> <p>Technical Architect</p></li>
+            <li><span>Categories:</span> <p>Banking, IT-Software, Agriculture/Forestry</p></li>
+          </ul>
+        </div>
+        <div class="your-pay-snapshot-block">
+          <h3>Your Pay Snapshot</h3>
+          <div class="your-pay-snapshot-content">
+            dsvsdv
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

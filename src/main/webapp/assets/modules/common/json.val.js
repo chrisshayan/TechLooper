@@ -163,6 +163,7 @@ angular.module("Common").constant("jsonValue", (function () {
       technicalDetail: "/technical-detail",
       salarySharing: "/salary-sharing",
       salaryReport: "/salary-report",
+      salaryReview: "/salary-review",
       pie: "/pie-chart",
       bubble: "/bubble-chart",
       jobsSearch: "/jobs/search",
@@ -184,6 +185,7 @@ angular.module("Common").constant("jsonValue", (function () {
       technicalDetail: "technicalDetail",
       salarySharing: "salarySharing",
       salaryReport: "salaryReport",
+      salaryReview: "salaryReview",
       bubbleChart: "bubbleChart",
       pieChart: "pieChart",
       signIn: "signin",
@@ -204,7 +206,8 @@ angular.module("Common").constant("jsonValue", (function () {
       company: "company",
       companyId: "company/id",
       userRegisterCount: "api/user/register/count",
-      termStatistic: "term/statistic"
+      termStatistic: "term/statistic",
+      salaryReview: "salaryReview"
     },
 
     socketUri: {
@@ -681,6 +684,9 @@ angular.module("Common").constant("jsonValue", (function () {
   instance.industriesArray = $.map(instance.industries, function (value, key) {
     return {id: key, name: value.value};
   });
+
+  instance.jobLevelsMap = {};
+  $.each(instance.jobLevels, function (i, jobLevel) {instance.jobLevelsMap[jobLevel.id] = jobLevel;});
 
   return instance;
 })());
