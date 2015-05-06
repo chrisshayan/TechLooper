@@ -19,12 +19,12 @@
           <div class="error-messages">Please enter: <strong></strong></div>
           <div class="row salary-field">
               <label for="txtJobTitle">Expected Job Title <strong>*</strong>:</label>
-              <input type="text" id="txtJobTitle" placeholder="Ex: Java Developer"/>
+              <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle" placeholder="Ex: Java Developer"/>
           </div>
 
           <div class="row salary-field">
             <label>Expected Job Level <strong>*</strong>:</label>
-            <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelId"></selectize>
+            <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelIds"></selectize>
 
           </div>
           <div class="row salary-field">
@@ -33,7 +33,7 @@
           </div>
           <div class="row salary-field">
             <label>Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
-            <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.industryId"></selectize>
+            <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.industryIds"></selectize>
           </div>
           <div class="row salary-field">
             <label>Number of Employee:</label>

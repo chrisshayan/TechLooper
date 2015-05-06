@@ -1,6 +1,6 @@
 techlooper.factory("salarySharingService", function () {
   var $$ = {
-    checkError: function(){
+    checkError: function () {
       var txtJobTitile = $('#txtJobTitle').val();
 
       var txtJobLevel = $("#selJobLevel").selectize();
@@ -15,29 +15,30 @@ techlooper.factory("salarySharingService", function () {
       var txtBaseSalary = $('#txtBaseSalary').val();
       var txtReporting = $('#txtReporting').val();
 
-      var inputVal = new Array(txtJobTitile, valJobLevel , valLocation, valCategories, txtBaseSalary, txtReporting);
+      var inputVal = new Array(txtJobTitile, valJobLevel, valLocation, valCategories, txtBaseSalary, txtReporting);
       var inputENMessage = new Array('Job title', 'Job level', 'Where do you work?', 'Job categories', 'Net salary', 'Who are you reporting to?');
       var errorMassages = '';
       $('.error-messages').hide();
-      for(var i = 0; i < inputVal.length ; i ++){
-        if(inputVal[i] == ""){
-          if(errorMassages != ''){
+      for (var i = 0; i < inputVal.length; i++) {
+        if (inputVal[i] == "") {
+          if (errorMassages != '') {
             errorMassages = errorMassages + ', ';
           }
           errorMassages = errorMassages + inputENMessage[i];
         }
       }
-      if(errorMassages != ''){
+      if (errorMassages != '') {
         $('.error-messages strong').text(errorMassages);
         $('.error-messages').show();
-      }else{
+      }
+      else {
         $('.error-messages').hide();
       }
-
+      return errorMassages;
     }
-};
+  };
   var instance = {
-    init: function(){
+    init: function () {
       $('.selection-box').selectize({
         allowEmptyOption: true
       });
@@ -47,8 +48,8 @@ techlooper.factory("salarySharingService", function () {
         sortField: 'text'
       });
     },
-    validationForm: function(){
-      $$.checkError();
+    validationForm: function () {
+      return $$.checkError();
     }
   };
 

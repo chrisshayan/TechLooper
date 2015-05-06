@@ -1,8 +1,8 @@
 techlooper.controller("salarySharingController", function ($scope, salarySharingService, $rootScope, jsonValue, $http) {
   salarySharingService.init();
-  $scope.createReport = function () {
-    salarySharingService.validationForm();
-  }
+  //$scope.createReport = function () {
+  //
+  //}
 
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
@@ -58,8 +58,8 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
   $scope.salaryReview = {
     skills: [],
     locationId: '',
-    jobLevelId: '',
-    industryId: '',
+    jobLevelIds: [],
+    industryIds: [],
     companySizeId: ''
   };
 
@@ -69,6 +69,9 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
   }
 
   $scope.addNewSkill = function () {
+    if ($scope.newSkillName === undefined) {
+      return;
+    }
     var newSkillName = $scope.newSkillName.trim();
     $scope.newSkillName = newSkillName;
     if (newSkillName.length == 0) {
@@ -76,14 +79,14 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
       return;
     }
 
-    if ($scope.jobOfferInfo.skills.length === 3) {
+    if ($scope.salaryReview.skills.length === 3) {
       var translate = $rootScope.translate;
       $scope.error.newSkillName = translate.maximum3;
       return;
     }
     delete $scope.error.newSkillName;
 
-    var skillLowerCases = $scope.jobOfferInfo.skills.map(function (skill) {return skill.toLowerCase();});
+    var skillLowerCases = $scope.salaryReview.skills.map(function (skill) {return skill.toLowerCase();});
     if (skillLowerCases.indexOf(newSkillName.toLowerCase()) >= 0) {
       var translate = $rootScope.translate;
       $scope.error.existSkillName = translate.hasExist;
@@ -92,14 +95,23 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     delete $scope.error.existSkillName;
 
     if (newSkillName.length > 0) {
-      $scope.jobOfferInfo.skills.push(newSkillName);
+      $scope.salaryReview.skills.push(newSkillName);
       $scope.newSkillName = "";
       $("#txtTopSkills").focus();
     }
   }
 
   $scope.doSalaryReview = function () {
-    console.log($scope.salaryReview);
+    //if (salarySharingService.validationForm()) {
+    //  return;
+    //}
+    $scope.salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + $scope.salaryReview.jobLevelIds].ids;
+    $http.post(jsonValue.httpUri.salaryReview, $scope.salaryReview)
+      .success(function (data, status, headers, config) {
+        console.log(data);
+      })
+      .error(function (data, status, headers, config) {
+      });
   }
 })
 ;
