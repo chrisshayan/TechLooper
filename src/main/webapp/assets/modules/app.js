@@ -192,6 +192,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel",
     "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove"]).then(function (translate) {
     $rootScope.translate = translate;
+    utils.sendNotification("translate is ready");
   });
 });
 

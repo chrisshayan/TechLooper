@@ -2,7 +2,7 @@ techlooper.factory("salaryReviewService", function () {
 
   var instance = {
     init: function () {
-      instance.naviStepSalaryReview();
+      //instance.naviStepSalaryReview();
     },
     naviStepSalaryReview: function(){
       var tabs = $('.navi-step-salary-review').find('li');

@@ -28,7 +28,7 @@
               <label for="txtJobTitle">Your Current Job Title <strong>*</strong>:</label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle" placeholder="Ex: Java Developer"/>
             </div>
-            <div class="row salary-field">
+            <div class="row salary-field" jobLevels>
               <label>Your Current Job Level <strong>*</strong>:</label>
               <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelIds"></selectize>
             </div>
