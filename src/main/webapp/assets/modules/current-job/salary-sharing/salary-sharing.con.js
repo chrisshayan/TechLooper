@@ -4,18 +4,19 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     salarySharingService.validationForm();
   }
 
-  var jobLevels = $.extend(true, {}, jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-  $.each(jobLevels, function(index, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
+  var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
+  $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
 
   $scope.selectize = {
     locations: {
-      items: jsonValue.locations,
+      items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
       config: {
         valueField: 'id',
         labelField: 'name',
         delimiter: '|',
         placeholder: 'Ex: Ho Chi Minh',
-        maxItems: 1
+        maxItems: 1,
+        searchField: ['name']
       }
     },
     jobLevels: {
@@ -25,7 +26,8 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
         labelField: 'translate',
         delimiter: '|',
         placeholder: 'Ex: Manager',
-        maxItems: 1
+        maxItems: 1,
+        searchField: ['translate']
       }
     },
     industries: {
@@ -35,10 +37,11 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
         labelField: 'name',
         delimiter: '|',
         placeholder: 'Ex: IT - Software, IT - Hardware/Networking',
-        maxItems: 3
+        maxItems: 3,
+        plugins: ['remove_button'],
+        searchField: ['name']
       }
-    }
-    ,
+    },
     companySize: {
       items: jsonValue.companySizesArray,
       config: {
@@ -50,10 +53,9 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
       }
     }
   }
-  ;
 
   $scope.error = {};
-  $scope.jobOfferInfo = {
+  $scope.salaryReview = {
     skills: [],
     locationId: '',
     jobLevelId: '',
@@ -62,7 +64,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
   };
 
   $scope.removeSkill = function (skill) {
-    $scope.jobOfferInfo.skills.splice($scope.jobOfferInfo.skills.indexOf(skill), 1);
+    $scope.salaryReview.skills.splice($scope.salaryReview.skills.indexOf(skill), 1);
     $scope.error = {};
   }
 
@@ -97,7 +99,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
   }
 
   $scope.doSalaryReview = function () {
-
+    console.log($scope.salaryReview);
   }
 })
 ;

@@ -24,20 +24,20 @@
 
           <div class="row salary-field">
             <label>Expected Job Level <strong>*</strong>:</label>
-            <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="jobOfferInfo.jobLevelId"></selectize>
+            <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelId"></selectize>
 
           </div>
           <div class="row salary-field">
             <label>Where do you work <strong>*</strong>?</label>
-            <selectize config='selectize.locations.config' options='selectize.locations.items' ng-model="jobOfferInfo.locationId"></selectize>
+            <selectize config='selectize.locations.config' options='selectize.locations.items' ng-model="salaryReview.locationId"></selectize>
           </div>
           <div class="row salary-field">
             <label>Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
-            <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="jobOfferInfo.industryId"></selectize>
+            <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.industryId"></selectize>
           </div>
           <div class="row salary-field">
             <label>Number of Employee:</label>
-            <selectize config='selectize.companySize.config' options='selectize.companySize.items' ng-model="jobOfferInfo.companySizeId"></selectize>
+            <selectize config='selectize.companySize.config' options='selectize.companySize.items' ng-model="salaryReview.companySizeId"></selectize>
           </div>
           <div class="row salary-field">
             <label for="txtBaseSalary">Current Monthly NET base Salary (USD) <strong>*</strong>:</label>
@@ -48,7 +48,7 @@
             <div class="top-three-skills">
               <div class="added-list-skills">
                 <ul>
-                  <li ng-repeat="skill in jobOfferInfo.skills">
+                  <li ng-repeat="skill in salaryReview.skills">
                     <span class="left">
                       <span class="right"><i>{{skill}}</i>
                         <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
@@ -60,7 +60,7 @@
               <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
               <div class="add-skill-input">
                 <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="Ex: Php"/>
-                <button ng-click="addNewSkill()" ng-disabled="jobOfferInfo.skills.length >= 3">Add</button>
+                <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">Add</button>
               </div>
             </div>
           </div>
