@@ -1,11 +1,11 @@
-.salary-sharing-page
+.salary-review-page
   clear: both
   display: table
   margin: auto
   max-width: 1000px
   padding: 0 0 20px 0
   width: 100%
-  .salary-sharing-block
+  .salary-review-block
     display: block
     clear: both
     -webkit-border-bottom-right-radius: 5px
@@ -19,21 +19,58 @@
     -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
     box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
     padding-bottom: 30px
-    h2
+    .navi-step-salary-review
       display: block
       clear: both
       font-weight: 400
       font-size: 17px
       text-transform: capitalize
-      background-color: #f3fafe
-      border-bottom: 1px solid #d4d7d8
-      padding: 12px 20px
+      background-color: #e7e7e7
       margin: 0
-    .salary-sharing-content
+      float: left
+      width: 100%
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: 33.3333%
+          float: left
+          border-bottom: 1px solid #d4d7d8
+          text-align: center
+          cursor: not-allowed
+        li:nth-child(2n)
+          border-right: 1px solid #d4d7d8
+          border-left: 1px solid #d4d7d8
+        li.active
+          border-bottom: 1px solid #333
+          background-color: #f3fafe
+          cursor: pointer
+          transition: border-bottom 1.5s linear
+          -moz-transition: border-bottom 1.5s linear
+          -webkit-transition: border-bottom 1.5s linear
+        h2
+          display: inline-block
+          clear: both
+          font-weight: 400
+          font-size: 18px
+          text-transform: capitalize
+          padding: 12px 20px
+          margin: 0
+    .salary-review-content
       display: block
       clear: both
       padding: 20px
       text-align: center
+      .data-content
+        display: none
+        transition: display 0.8s ease
+        -moz-transition: display 0.8s ease
+        -webkit-transition: display 0.8s ease
+      .data-content.active
+        display: block
+        transition: display 0.8s ease
+        -moz-transition: display 0.8s ease
+        -webkit-transition: display 0.8s ease
       h3
         font-weight: 300
         font-size: 14px
@@ -83,6 +120,8 @@
             padding: 0 10px
         .salary-field-submit
           text-align: center
+          button
+            min-width: 100px
         .top-three-skills
           border: 1px solid #d4d7d8
           -webkit-border-radius: 5px
@@ -110,3 +149,25 @@
             -moz-border-radius: 0
             border-radius: 0
             background-color: #333
+      .user-personal-info
+        display: block
+        width: 100%
+        clear: both
+        ul
+          margin: 0
+          padding: 0
+          li
+            width: 100%
+            clear: both
+            padding: 5px 0
+            text-align: left
+            span
+              display: block
+              width: 10%
+              float: left
+              font-weight: 400
+            p
+              width: 90%
+              float: left
+              margin: 0
+              padding: 0
