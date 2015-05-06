@@ -49,7 +49,8 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
         labelField: 'size',
         delimiter: '|',
         placeholder: 'Ex: 1-49',
-        maxItems: 1
+        maxItems: 1,
+        searchField: ['size']
       }
     }
   }
