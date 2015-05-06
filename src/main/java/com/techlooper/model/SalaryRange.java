@@ -5,23 +5,31 @@ package com.techlooper.model;
  */
 public class SalaryRange {
 
-  private Double min;
+    private Double percent;
 
-  private Double max;
+    private Double percentile;
 
-  public Double getMin() {
-    return min;
-  }
+    public SalaryRange() {
+    }
 
-  public void setMin(Double min) {
-    this.min = min;
-  }
+    public SalaryRange(Double percent, Double percentile) {
+        this.percent = percent;
+        this.percentile = percentile;
+    }
 
-  public Double getMax() {
-    return max;
-  }
+    public Double getPercent() {
+        return percent;
+    }
 
-  public void setMax(Double max) {
-    this.max = max;
-  }
+    public void setPercent(Double percent) {
+        this.percent = percent;
+    }
+
+    public Double getPercentile() {
+        return percentile;
+    }
+
+    public void setPercentile(Double percentile) {
+        this.percentile = percentile;
+    }
 }

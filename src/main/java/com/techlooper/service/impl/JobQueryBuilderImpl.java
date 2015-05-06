@@ -182,7 +182,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Override
     public QueryBuilder jobTitleQueryBuilder(String jobTitle) {
-        return matchQuery("jobTitle", jobTitle).minimumShouldMatch("75%");
+        return matchQuery("jobTitle", jobTitle).minimumShouldMatch("100%");
     }
 
     @Override
