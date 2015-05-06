@@ -1,6 +1,6 @@
 package com.techlooper.controller;
 
-import com.techlooper.entity.JobOfferInfo;
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
 import com.techlooper.service.UserEvaluationService;
@@ -114,9 +114,9 @@ public class UserController {
     }
   }
 
-  @RequestMapping(value = "/api/user/register/count", method = RequestMethod.GET)
-  public JobOfferEvaluation evaluateJobOffer(JobOfferInfo jobOfferInfo) {
-    return userEvaluationService.evaluateJobOffer(jobOfferInfo);
+  @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
+  public JobOfferEvaluation evaluateJobOffer(SalaryReview salaryReview) {
+    return userEvaluationService.evaluateJobOffer(salaryReview);
   }
 
 

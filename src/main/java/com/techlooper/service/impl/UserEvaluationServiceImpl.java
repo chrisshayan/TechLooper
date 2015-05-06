@@ -1,12 +1,12 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.JobOfferInfo;
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.JobOfferEvaluation;
 import com.techlooper.model.JobOfferRange;
 import com.techlooper.model.SocialProvider;
-import com.techlooper.repository.elasticsearch.JobOfferInfoRepository;
+import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
@@ -50,7 +50,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     private GithubTalentSearchQuery githubTalentSearchQuery;
 
     @Resource
-    private JobOfferInfoRepository jobOfferInfoRepository;
+    private SalaryReviewRepository salaryReviewRepository;
 
     @Resource
     private JobQueryBuilder jobQueryBuilder;
@@ -151,12 +151,12 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return totalJobPerSkillMap;
     }
 
-    public JobOfferEvaluation evaluateJobOffer(JobOfferInfo jobOfferInfo) {
+    public JobOfferEvaluation evaluateJobOffer(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
 
-        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(jobOfferInfo.getJobTitle());
-        FilterBuilder jobLevelFilterBuilder = jobQueryBuilder.getJobLevelsFilterBuilder(jobOfferInfo.getJobLevelIds());
-        FilterBuilder jobIndustriesFilterBuilder = jobQueryBuilder.getJobIndustriesFilterBuilder(jobOfferInfo.getJobCategories());
+        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
+        FilterBuilder jobLevelFilterBuilder = jobQueryBuilder.getJobLevelsFilterBuilder(salaryReview.getJobLevelIds());
+        FilterBuilder jobIndustriesFilterBuilder = jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryMinRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMin",
                 VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
@@ -175,13 +175,13 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
 
-        jobOfferInfoRepository.save(jobOfferInfo);
-        return transformAggregationsToEvaluationReport(jobOfferInfo, aggregations);
+        salaryReviewRepository.save(salaryReview);
+        return transformAggregationsToEvaluationReport(salaryReview, aggregations);
     }
 
-    private JobOfferEvaluation transformAggregationsToEvaluationReport(JobOfferInfo jobOfferInfo, Aggregations aggregations) {
+    private JobOfferEvaluation transformAggregationsToEvaluationReport(SalaryReview salaryReview, Aggregations aggregations) {
         JobOfferEvaluation jobOfferEvaluation = new JobOfferEvaluation();
-        jobOfferEvaluation.setTotalPay(jobOfferInfo.getNetSalary());
+        jobOfferEvaluation.setTotalPay(salaryReview.getNetSalary());
 
 
         InternalPercentiles salaryPercentiles = (InternalPercentiles) aggregations.get("salary_percentile");

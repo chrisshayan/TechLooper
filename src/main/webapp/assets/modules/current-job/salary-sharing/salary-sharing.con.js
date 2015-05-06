@@ -1,11 +1,11 @@
-techlooper.controller("salarySharingController", function ($scope, salarySharingService, $rootScope, jsonValue) {
+techlooper.controller("salarySharingController", function ($scope, salarySharingService, $rootScope, jsonValue, $http) {
   salarySharingService.init();
   $scope.createReport = function () {
     salarySharingService.validationForm();
   }
 
-  var industriesJson = jsonValue.industriesArray;
-  var companiesJson = jsonValue.companySizesArray;
+  var jobLevels = $.extend(true, {}, jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
+  $.each(jobLevels, function(index, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
 
   $scope.selectize = {
     locations: {
@@ -19,7 +19,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
       }
     },
     jobLevels: {
-      items: jsonValue.jobLevels,
+      items: jobLevels,
       config: {
         valueField: 'id',
         labelField: 'translate',
@@ -29,7 +29,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
       }
     },
     industries: {
-      items: industriesJson,
+      items: jsonValue.industriesArray,
       config: {
         valueField: 'id',
         labelField: 'name',
@@ -37,9 +37,10 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
         placeholder: 'Ex: IT - Software, IT - Hardware/Networking',
         maxItems: 3
       }
-    },
+    }
+    ,
     companySize: {
-      items: companiesJson,
+      items: jsonValue.companySizesArray,
       config: {
         valueField: 'id',
         labelField: 'size',
@@ -48,8 +49,8 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
         maxItems: 1
       }
     }
-  };
-  //$scope.jobLevels = jsonValue.jobLevels;
+  }
+  ;
 
   $scope.error = {};
   $scope.jobOfferInfo = {
@@ -58,14 +59,14 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     jobLevelId: '',
     industryId: '',
     companySizeId: ''
-  };//jobOfferInfo.skills.splice(jobOfferInfo.skills.indexOf(skill),1)
+  };
 
   $scope.removeSkill = function (skill) {
     $scope.jobOfferInfo.skills.splice($scope.jobOfferInfo.skills.indexOf(skill), 1);
     $scope.error = {};
   }
 
-  $scope.addNewSkill = function() {
+  $scope.addNewSkill = function () {
     var newSkillName = $scope.newSkillName.trim();
     $scope.newSkillName = newSkillName;
     if (newSkillName.length == 0) {
@@ -94,4 +95,9 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
       $("#txtTopSkills").focus();
     }
   }
-});
+
+  $scope.doSalaryReview = function () {
+
+  }
+})
+;

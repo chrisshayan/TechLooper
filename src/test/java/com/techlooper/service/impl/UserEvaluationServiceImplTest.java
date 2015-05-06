@@ -3,7 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
-import com.techlooper.entity.JobOfferInfo;
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.JobOfferEvaluation;
 import com.techlooper.service.UserEvaluationService;
@@ -67,12 +67,12 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testEvaluateJobOffer() throws Exception {
-        JobOfferInfo jobOfferInfo = new JobOfferInfo();
-        jobOfferInfo.setJobTitle("Senior Java Developer");
-        jobOfferInfo.setJobLevelIds(Arrays.asList(5));
-        jobOfferInfo.setJobCategories(Arrays.asList(35L));
-        jobOfferInfo.setNetSalary(1000);
-        JobOfferEvaluation jobOfferEvaluation = userEvaluationService.evaluateJobOffer(jobOfferInfo);
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("Senior Java Developer");
+        salaryReview.setJobLevelIds(Arrays.asList(5));
+        salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setNetSalary(1000);
+        JobOfferEvaluation jobOfferEvaluation = userEvaluationService.evaluateJobOffer(salaryReview);
         assertTrue(jobOfferEvaluation.getPercentRank() > 0);
     }
 }

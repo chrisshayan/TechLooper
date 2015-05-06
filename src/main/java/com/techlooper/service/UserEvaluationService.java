@@ -1,6 +1,6 @@
 package com.techlooper.service;
 
-import com.techlooper.entity.JobOfferInfo;
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.JobOfferEvaluation;
 
@@ -21,5 +21,5 @@ public interface UserEvaluationService {
 
   Map<String, Long> getTotalNumberOfJobPerSkill();
 
-  JobOfferEvaluation evaluateJobOffer(JobOfferInfo jobOfferInfo);
+  JobOfferEvaluation evaluateJobOffer(SalaryReview salaryReview);
 }
