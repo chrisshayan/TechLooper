@@ -5,7 +5,7 @@ import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.JobOfferEvaluation;
+import com.techlooper.model.SalaryReport;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserService;
 import org.junit.Test;
@@ -72,7 +72,8 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobLevelIds(Arrays.asList(5));
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setNetSalary(1000);
-        JobOfferEvaluation jobOfferEvaluation = userEvaluationService.evaluateJobOffer(salaryReview);
-        assertTrue(jobOfferEvaluation.getPercentRank() > 0);
+        salaryReview.setCompanySizeId(1L);
+        SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
+        assertTrue(salaryReport.getPercentRank() > 0);
     }
 }

@@ -115,7 +115,7 @@ public class UserController {
   }
 
   @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-  public JobOfferEvaluation evaluateJobOffer(SalaryReview salaryReview) {
+  public SalaryReport evaluateJobOffer(SalaryReview salaryReview) {
     return userEvaluationService.evaluateJobOffer(salaryReview);
   }
 

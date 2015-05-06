@@ -1,18 +1,21 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.JobOfferEvaluation;
-import com.techlooper.model.JobOfferRange;
+import com.techlooper.model.SalaryRange;
+import com.techlooper.model.SalaryReport;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
+import com.techlooper.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -20,6 +23,8 @@ import org.elasticsearch.search.aggregations.bucket.nested.InternalNested;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.metrics.percentiles.InternalPercentiles;
 import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesBuilder;
+import org.springframework.core.env.Environment;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -54,6 +59,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     @Resource
     private JobQueryBuilder jobQueryBuilder;
+
+    @Resource
+    private Environment environment;
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
@@ -151,7 +159,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return totalJobPerSkillMap;
     }
 
-    public JobOfferEvaluation evaluateJobOffer(SalaryReview salaryReview) {
+    public SalaryReport evaluateJobOffer(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
 
         QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
@@ -172,31 +180,74 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                         .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
 
         queryBuilder.addAggregation(salaryPercentileAggregationBuilder);
-
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
 
+        // Get the list of jobs search result for user percentile rank calculation
+        List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+
+        // It's only enabled on test scope for checking whether our calculation is right or wrong
+        boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class);
+        if (isExportToExcel) {
+            ExcelUtils.export(jobs);
+        }
+
+        SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, aggregations, jobs);
+        salaryReview.setSalaryReport(salaryReport);
+        salaryReview.setCreatedDateTime(new Date().getTime());
         salaryReviewRepository.save(salaryReview);
-        return transformAggregationsToEvaluationReport(salaryReview, aggregations);
+        return salaryReport;
     }
 
-    private JobOfferEvaluation transformAggregationsToEvaluationReport(SalaryReview salaryReview, Aggregations aggregations) {
-        JobOfferEvaluation jobOfferEvaluation = new JobOfferEvaluation();
-        jobOfferEvaluation.setTotalPay(salaryReview.getNetSalary());
-
+    private SalaryReport transformAggregationsToEvaluationReport(
+            SalaryReview salaryReview, Aggregations aggregations, List<JobEntity> jobs) {
+        SalaryReport salaryReport = new SalaryReport();
+        salaryReport.setNetSalary(salaryReview.getNetSalary());
 
         InternalPercentiles salaryPercentiles = (InternalPercentiles) aggregations.get("salary_percentile");
-        List<JobOfferRange> jobOfferRanges = new ArrayList<>();
+        List<SalaryRange> salaryRanges = new ArrayList<>();
         for (double percent : percents) {
-            jobOfferRanges.add(new JobOfferRange(percent, salaryPercentiles.value(percent)));
+            salaryRanges.add(new SalaryRange(percent, salaryPercentiles.value(percent)));
         }
-        jobOfferEvaluation.setJobOfferRanges(jobOfferRanges);
+        salaryReport.setSalaryRanges(salaryRanges);
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
-        JobOfferRange medianPercentile = jobOfferRanges.get(percents.length / 2);
-        double percentileRank = jobOfferEvaluation.getTotalPay() * medianPercentile.getPercent() / medianPercentile.getPercentile();
-        jobOfferEvaluation.setPercentRank(percentileRank);
+        double[] salaries = extractSalariesFromJob(jobs);
+        double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
+        salaryReport.setPercentRank(Math.floor(percentRank));
 
-        return jobOfferEvaluation;
+        return salaryReport;
+    }
+
+    private List<JobEntity> getJobSearchResult(NativeSearchQueryBuilder queryBuilder) {
+        queryBuilder.withSearchType(SearchType.DEFAULT);
+        long totalJobs = elasticsearchTemplate.count(queryBuilder.build());
+        long totalPage = totalJobs % 100 == 0 ? totalJobs / 100 : totalJobs / 100 + 1;
+        int pageIndex = 0;
+        List<JobEntity> jobs = new ArrayList<>();
+        while (pageIndex < totalPage) {
+            queryBuilder.withPageable(new PageRequest(pageIndex, 100));
+            jobs.addAll(elasticsearchTemplate.queryForPage(queryBuilder.build(), JobEntity.class).getContent());
+            pageIndex++;
+        }
+        return jobs;
+    }
+
+    private double[] extractSalariesFromJob(List<JobEntity> jobs) {
+        return jobs.stream().mapToDouble(job -> {
+            if (job.getSalaryMin() == 0) {
+                return job.getSalaryMax() * 0.75D;
+            } else if (job.getSalaryMax() == 0) {
+                return job.getSalaryMin() * 1.25D;
+            } else {
+                return (job.getSalaryMin() + job.getSalaryMax()) / 2;
+            }
+        }).toArray();
+    }
+
+    //Percentile Ranking Reference : http://www.regentsprep.org/regents/math/algebra/AD6/quartiles.htm
+    private double calculatePercentRank(double[] salaries, double evaluatedSalary) {
+        long countSalaryBelow = Arrays.stream(salaries).filter(salary -> salary < evaluatedSalary).count();
+        return (countSalaryBelow * 1.0) / salaries.length * 100;
     }
 
 }

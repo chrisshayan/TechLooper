@@ -1,8 +1,10 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.SalaryReport;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
@@ -12,102 +14,113 @@ import java.util.List;
 @Document(indexName = "techlooper", type = "salaryReview")
 public class SalaryReview {
 
-  @Id
-  private Long id;
+    @Id
+    private Long createdDateTime;
 
-  @Field
-  private String jobTitle;
+    @Field
+    private String jobTitle;
 
-  @Field
-  private List<Integer> jobLevelIds;
+    @Field
+    private List<Integer> jobLevelIds;
 
-  @Field
-  private Long locationId;
+    @Field
+    private Long locationId;
 
-  @Field
-  private Integer netSalary;
+    @Field
+    private Integer netSalary;
 
-  @Field
-  private List<String> skills;
+    @Field
+    private List<String> skills;
 
-  @Field
-  private String reportTo;
+    @Field
+    private String reportTo;
 
-  @Field
-  private List<Long> jobCategories;
+    @Field
+    private List<Long> jobCategories;
 
-  @Field
-  private Long companySizeId;
+    @Field
+    private Long companySizeId;
 
-  public Long getId() {
-    return id;
-  }
+    @Field(type = FieldType.Nested)
+    private SalaryReport salaryReport;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Long getCreatedDateTime() {
+        return createdDateTime;
+    }
 
-  public String getJobTitle() {
-    return jobTitle;
-  }
+    public void setCreatedDateTime(Long createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
 
-  public void setJobTitle(String jobTitle) {
-    this.jobTitle = jobTitle;
-  }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-  public List<Integer> getJobLevelIds() {
-    return jobLevelIds;
-  }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-  public void setJobLevelIds(List<Integer> jobLevelIds) {
-    this.jobLevelIds = jobLevelIds;
-  }
+    public List<Integer> getJobLevelIds() {
+        return jobLevelIds;
+    }
 
-  public Long getLocationId() {
-    return locationId;
-  }
+    public void setJobLevelIds(List<Integer> jobLevelIds) {
+        this.jobLevelIds = jobLevelIds;
+    }
 
-  public void setLocationId(Long locationId) {
-    this.locationId = locationId;
-  }
+    public Long getLocationId() {
+        return locationId;
+    }
 
-  public Integer getNetSalary() {
-    return netSalary;
-  }
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
 
-  public void setNetSalary(Integer netSalary) {
-    this.netSalary = netSalary;
-  }
+    public Integer getNetSalary() {
+        return netSalary;
+    }
 
-  public List<String> getSkills() {
-    return skills;
-  }
+    public void setNetSalary(Integer netSalary) {
+        this.netSalary = netSalary;
+    }
 
-  public void setSkills(List<String> skills) {
-    this.skills = skills;
-  }
+    public List<String> getSkills() {
+        return skills;
+    }
 
-  public String getReportTo() {
-    return reportTo;
-  }
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
 
-  public void setReportTo(String reportTo) {
-    this.reportTo = reportTo;
-  }
+    public String getReportTo() {
+        return reportTo;
+    }
 
-  public List<Long> getJobCategories() {
-    return jobCategories;
-  }
+    public void setReportTo(String reportTo) {
+        this.reportTo = reportTo;
+    }
 
-  public void setJobCategories(List<Long> jobCategories) {
-    this.jobCategories = jobCategories;
-  }
+    public List<Long> getJobCategories() {
+        return jobCategories;
+    }
 
-  public Long getCompanySizeId() {
-    return companySizeId;
-  }
+    public void setJobCategories(List<Long> jobCategories) {
+        this.jobCategories = jobCategories;
+    }
 
-  public void setCompanySizeId(Long companySizeId) {
-    this.companySizeId = companySizeId;
-  }
+    public Long getCompanySizeId() {
+        return companySizeId;
+    }
+
+    public void setCompanySizeId(Long companySizeId) {
+        this.companySizeId = companySizeId;
+    }
+
+    public SalaryReport getSalaryReport() {
+        return salaryReport;
+    }
+
+    public void setSalaryReport(SalaryReport salaryReport) {
+        this.salaryReport = salaryReport;
+    }
 }

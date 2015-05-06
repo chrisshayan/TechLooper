@@ -1,7 +1,7 @@
 {
-  "totalPay": 1200,
+  "netSalary": 1200,
   "percentRank": 85,
-  "jobOfferRanges": [
+  "salaryRanges": [
     {
       "percent": 10,
       "percentile": 350
