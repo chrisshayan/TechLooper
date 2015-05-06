@@ -33,7 +33,7 @@
           </div>
           <div class="row salary-field">
             <label>Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
-            <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.industryIds"></selectize>
+            <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.jobCategories"></selectize>
           </div>
           <div class="row salary-field">
             <label>Number of Employee:</label>
@@ -41,7 +41,7 @@
           </div>
           <div class="row salary-field">
             <label for="txtBaseSalary">Current Monthly NET base Salary (USD) <strong>*</strong>:</label>
-            <input type="number" id="txtBaseSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
+            <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
           </div>
           <div class="row salary-field">
             <label for="txtTopSkills">Top 3 Skills Critical To Your Job:</label>
@@ -66,7 +66,7 @@
           </div>
           <div class="row salary-field">
             <label for="txtReporting">Who are you reporting to? Job/Title/Position <strong>*</strong>:</label>
-            <input type="text" id="txtReporting" placeholder="Ex: Software Delivery Manager"/>
+            <input type="text" id="txtReporting" ng="salaryReview.reportTo" placeholder="Ex: Software Delivery Manager"/>
           </div>
           <div class="row salary-field-submit">
             <button class="btn btn-primary" ng-click="doSalaryReview()" >Create Report</button>
