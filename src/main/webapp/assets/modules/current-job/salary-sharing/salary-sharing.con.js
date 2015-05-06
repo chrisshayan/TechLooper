@@ -59,7 +59,7 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     skills: [],
     locationId: '',
     jobLevelIds: [],
-    industryIds: [],
+    jobCategories: [],
     companySizeId: ''
   };
 
