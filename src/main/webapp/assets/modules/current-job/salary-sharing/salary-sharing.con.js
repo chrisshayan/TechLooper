@@ -4,12 +4,9 @@ techlooper.controller("salarySharingController", function ($scope, salarySharing
     salarySharingService.validationForm();
   }
 
-  var industriesJson = $.map(jsonValue.industries, function(value, key) {
-    return {id: key, name: value.value};
-  });
-  var companiesJson = $.map(jsonValue.companySizes, function(value, key){
-    return {id: key, size: value.value }
-  });
+  var industriesJson = jsonValue.industriesArray;
+  var companiesJson = jsonValue.companySizesArray;
+
   $scope.selectize = {
     locations: {
       items: jsonValue.locations,
