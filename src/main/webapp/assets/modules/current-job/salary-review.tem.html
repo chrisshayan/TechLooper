@@ -13,13 +13,13 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li class="active" date-content="your-salary-info-content"><h2>Your Info</h2></li>
+        <li date-content="your-salary-info-content"><h2>Your Info</h2></li>
         <li date-content="your-employer-content"><h2>Your Employer</h2></li>
-        <li date-content="your-report-content"><h2>Your Report</h2></li>
+        <li class="active" date-content="your-report-content"><h2>Your Report</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
-      <div class="data-content your-salary-info-content active">
+      <div class="data-content your-salary-info-content">
         <h3>Let's start building your report with the basics, like your job title, location, level... VietnamWorks has collected salary and career data from millions of people and thousands of jobs.</h3>
         <div class="salary-info-form">
           <form autocomplete="off">
@@ -89,18 +89,72 @@
           </form>
         </div>
       </div>
-      <div class="data-content your-report-content">
+      <div class="data-content your-report-content active">
         <div class="user-personal-info">
           <ul>
-            <li><span>Role:</span> <p>Java Developer</p></li>
-            <li><span>Level:</span> <p>Technical Architect</p></li>
-            <li><span>Categories:</span> <p>Banking, IT-Software, Agriculture/Forestry</p></li>
+            <li><span>Role:</span> <p>{{salaryReview.jobTitle}}</p></li>
+            <li><span>Level:</span> <p>{{salaryReview.jobLevelIds}}</p></li>
+            <li><span>Categories:</span> <p>{{salaryReview.jobCategories}}</p></li>
           </ul>
         </div>
         <div class="your-pay-snapshot-block">
           <h3>Your Pay Snapshot</h3>
           <div class="your-pay-snapshot-content">
-            dsvsdv
+            <div class="your-pay-snapshot-info">
+              <ul>
+                <li>
+                  <h4>My Total Pay</h4>
+                  <strong>$1,500</strong>
+                </li>
+                <li>
+                  <h4>Percentile Rank</h4>
+                  <strong>37 <sup>th</sup> </strong>
+                </li>
+                <li>You are making more money than <strong>35%</strong> of people like you</li>
+              </ul>
+            </div>
+            <div class="your-pay-snapshot-chart">
+              <p>Median</p>
+              <div class="percent-data zero">
+                <div class="salary-number-label">$0</div>
+                <div class="percent-color"></div>
+                <div class="percent-number-label">0%</div>
+              </div>
+              <div class="percent-data ten">
+                <div class="salary-number-label">16K</div>
+                <div class="percent-color"></div>
+                <div class="percent-number-label">10%</div>
+              </div>
+              <div class="percent-data twenty-five">
+                <div class="salary-number-label">26K</div>
+                <div class="percent-color"></div>
+                <div class="percent-number-label">25%</div>
+              </div>
+              <div class="percent-data fifty-five">
+                <div class="salary-number-label">46K</div>
+                <div class="percent-color"></div>
+                <div class="percent-number-label">50%</div>
+              </div>
+              <div class="percent-data seventy-five">
+                <div class="salary-number-label">26K</div>
+                <div class="percent-color"></div>
+                <div class="percent-number-label">75%</div>
+              </div>
+              <div class="percent-data ninety">
+                <div class="salary-number-label">46K</div>
+                <div class="percent-color"></div>
+                <div class="percent-number-label">90%</div>
+              </div>
+              <p class="note">Monthly Net Pay. Currency: US Dollar</p>
+              <div class="my-current-rank">
+                <div class="my-current-salary">
+                  <span>Me: $1,500</span>
+                </div>
+                <div class="my-position">
+                  <i class="fa fa-star"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

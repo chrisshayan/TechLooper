@@ -25,7 +25,7 @@
       font-weight: 400
       font-size: 17px
       text-transform: capitalize
-      background-color: #e7e7e7
+      background-color: #edecec
       margin: 0
       float: left
       width: 100%
@@ -38,16 +38,18 @@
           border-bottom: 1px solid #d4d7d8
           text-align: center
           cursor: not-allowed
+          color: #a6a6a6
         li:nth-child(2n)
           border-right: 1px solid #d4d7d8
           border-left: 1px solid #d4d7d8
         li.active
           border-bottom: 1px solid #333
-          background-color: #dff2fd
+          background-color: #f1faff
           cursor: pointer
           transition: border-bottom 1.5s linear
           -moz-transition: border-bottom 1.5s linear
           -webkit-transition: border-bottom 1.5s linear
+          color: #333
         h2
           display: inline-block
           clear: both
@@ -66,17 +68,18 @@
         transition: display 0.8s ease
         -moz-transition: display 0.8s ease
         -webkit-transition: display 0.8s ease
+        h3
+          font-weight: 300
+          font-size: 14px
+          text-align: center
+          padding: 0 10%
+          line-height: 22px
       .data-content.active
         display: block
         transition: display 0.8s ease
         -moz-transition: display 0.8s ease
         -webkit-transition: display 0.8s ease
-      h3
-        font-weight: 300
-        font-size: 14px
-        text-align: center
-        padding: 0 10%
-        line-height: 22px
+
       .salary-info-form
         display: block
         clear: both
@@ -152,6 +155,8 @@
         display: block
         width: 100%
         clear: both
+        float: left
+        padding-bottom: 30px
         ul
           margin: 0
           padding: 0
@@ -170,3 +175,149 @@
               float: left
               margin: 0
               padding: 0
+      .your-pay-snapshot-block
+        display: inline-block
+        clear: both
+        margin: auto
+        text-align: left
+        border: 1px solid #d4d7d8
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        width: 100%
+        padding: 15px
+        position: relative
+        h3
+          font-weight: 400
+          font-size: 14px
+          text-transform: uppercase
+          text-align: left
+          padding: 0 5px
+          position: absolute
+          display: inline-block
+          background-color: #fff
+          top: -32px
+          left: 10px
+        .your-pay-snapshot-content
+          display: block
+          clear: both
+          .your-pay-snapshot-info
+            display: block
+            clear: both
+            float: left
+            background-color: #f4f4f4
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            width: 100%
+            ul
+              margin: 0
+              padding: 0
+              li
+                float: left
+                width: 20%
+                border-right: 1px solid #fff
+                padding: 20px
+                h4
+                  font-size: 14px
+                  font-weight: 300
+                  text-align: center
+                strong
+                  font-weight: 400
+                  font-size: 25px
+                  display: block
+                  text-align: center
+                  sup
+                    font-size: 14px
+                    font-weight: 300
+              li:first-child
+
+              li:last-child
+                width: 60%
+                border-right: 0
+                text-align: center
+                padding-top: 45px
+                strong
+                  display: inline-block
+                  font-size: 18px
+          .your-pay-snapshot-chart
+            display: block
+            clear: both
+            padding-top: 20px
+            width: 100%
+            position: relative
+            p
+              text-align: center
+              color: #a6a6a6
+            p.note
+              text-align: center
+              color: #333
+              padding-top: 10px
+              font-size: 14px
+              width: 100%
+              float: left
+            .percent-data
+              float: left
+              color: #a6a6a6
+              text-align: left
+              font-size: 12px
+              .salary-number-label
+                display: block
+                clear: both
+                height: 60px
+                border-left: 1px dashed #dddddd
+                padding-left: 5px
+              .percent-number-label
+                display: block
+                clear: both
+              .percent-color
+                display: block
+                clear: both
+                height: 40px
+            .percent-data.zero
+              width: 10%
+              .percent-color
+                background-color: #dddddd
+            .percent-data.ten
+              width: 15%
+              .percent-color
+                background-color: #bbe1fe
+            .percent-data.twenty-five
+              width: 25%
+              .percent-color
+                background-color: #7fc6fa
+            .percent-data.fifty-five
+              width: 25%
+              .percent-color
+                background-color: #7fc6fa
+                border-left: 1px dashed #fff
+            .percent-data.seventy-five
+              width: 15%
+              .percent-color
+                background-color: #4398da
+            .percent-data.ninety
+              width: 10%
+              .percent-color
+                background-color: #dddddd
+            .my-current-rank
+              position: absolute
+              top: 121px
+              left: 30%
+              .my-current-salary
+                background-color: #892890
+                -webkit-border-radius: 5px
+                -moz-border-radius: 5px
+                border-radius: 5px
+                padding: 5px 10px
+              .my-position
+                background-color: #892890
+                -webkit-border-radius: 50%
+                -moz-border-radius: 50%
+                border-radius: 50%
+                height: 20px
+                width: 20px
+                line-height: 20px
+                text-align: center
+                i
+                  color: #fff
+                  font-size: 15px
