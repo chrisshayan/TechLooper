@@ -204,7 +204,8 @@ angular.module("Common").constant("jsonValue", (function () {
       company: "company",
       companyId: "company/id",
       userRegisterCount: "api/user/register/count",
-      termStatistic: "term/statistic"
+      termStatistic: "term/statistic",
+      salaryReview: "salaryReview"
     },
 
     socketUri: {
@@ -681,6 +682,9 @@ angular.module("Common").constant("jsonValue", (function () {
   instance.industriesArray = $.map(instance.industries, function (value, key) {
     return {id: key, name: value.value};
   });
+
+  instance.jobLevelsMap = {};
+  $.each(instance.jobLevels, function (i, jobLevel) {instance.jobLevelsMap[jobLevel.id] = jobLevel;});
 
   return instance;
 })());
