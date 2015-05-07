@@ -152,11 +152,11 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       case "step3":
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
-        utils.sendNotification("loading");
+        utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
             $scope.salaryReport = data;
-            utils.sendNotification("loaded");
+            utils.sendNotification(jsonValue.notifications.loaded);
           })
           .error(function (data, status, headers, config) {
           });
