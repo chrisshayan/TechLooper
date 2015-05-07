@@ -46,7 +46,7 @@
               <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
               <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                      name="{{'netSalary' | translate}}"
-                     placeholder="{{'netSalary.placeholder' | translate}}" oninput="maxLengthCheck(this)" maxlength="5" onkeypress="return isNumeric(event)"/>
+                     placeholder="{{'netSalary.placeholder' | translate}}" oninput="maxLengthCheck(this)" maxlength="5"/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
             </div>
