@@ -118,7 +118,7 @@
         </div>
       </div>
       <div class="your-report-content" ng-show="step==='step3'">
-        <h3>Here is your <strong>Salary Report</strong> based on the information you have shared with us</h3>
+        <!--<h3>Here is your <strong>Salary Report</strong> based on the information you have shared with us</h3>-->
         <!--<h3>We could not get a  <strong>Salary Report</strong> for you</h3>-->
         <div class="user-personal-info">
           <ul>
@@ -138,8 +138,6 @@
               <ul>
                 <li>
                   Getting <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> a month means you are making more money than <strong>{{salaryReport.percentRank}}%</strong> of people like you.
-
-                  <span>No Salary Report available for you. <a href="#/salary-review">Update your information here</a> to get your Salary Report.</span>
                 </li>
               </ul>
             </div>
@@ -173,6 +171,64 @@
               <div class="arrow-right"></div>
               <p class="note">Monthly Net Pay (US Dollars)</p>
 
+            </div>
+          </div>
+        </div>
+        <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank == 'NaN'">
+          <h3>Your Pay Snapshot</h3>
+          <div class="your-pay-snapshot-content">
+            <div class="your-pay-snapshot-info">
+              <ul>
+                <li>
+                  No Salary Report available for you. <a href="#/salary-review">Update your information here</a> to get your Salary Report.
+                </li>
+              </ul>
+            </div>
+            <div class="your-pay-snapshot-chart gray-background">
+              <p>Median</p>
+              <div class="chart-percent-line">
+                <div class="percent-data zero">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">0%</div>
+                </div>
+                <div class="percent-data percent10">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">10%</div>
+                </div>
+                <div class="percent-data percent25">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">25%</div>
+                </div>
+                <div class="percent-data percent50">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">50%</div>
+                </div>
+                <div class="percent-data percent75">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">75%</div>
+                </div>
+                <div class="percent-data percent90">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">90%</div>
+                </div>
+                <div class="my-current-rank" style="left: 0%">
+                  <div class="my-current-salary">
+                    <span>You: $0</span>
+                    <i class="fa fa-sort-down"></i>
+                  </div>
+                  <div class="my-position">
+                    <i class="fa fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="arrow-right"></div>
+              <p class="note">Monthly Net Pay (US Dollars)</p>
             </div>
           </div>
         </div>
@@ -216,7 +272,7 @@
             <!--<div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>-->
           <!--</div>-->
         <!--</div>-->
-        <div class="thanks-for-share-salary">
+        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN'">
           <h3>Thanks for helping us improve. TechLooper wants to help you Move Up, <strong>Do you deserve a salary raise?</strong></h3>
           <div class="thanks-for-share-salary-content">
             <ul>
