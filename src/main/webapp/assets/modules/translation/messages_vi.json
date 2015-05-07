@@ -70,13 +70,14 @@
     "hasExist": "Kỹ năng này đã tồn tại",
     "noDataChart": "Không có dữ liệu",
     "jobTitle": "Chức danh",
-    "jobLevel": "Cap bac",
+    "jobLevel": "Cấp bậc",
     "netSalary": "Luong thuc nhan",
     "reportTo": "Bao cao cho ai",
     "location": "Vi tri",
     "companySize": "Kich co cong ty",
     "jobCategory": "Loai cong viec",
-    "isRequired": "Duoc Yeu Cau"
+    "isRequired": "Duoc Yeu Cau",
+    "aboutYourJob": "About Your Job"
 }
 
 
