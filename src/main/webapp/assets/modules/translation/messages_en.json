@@ -76,5 +76,6 @@
     "location": "Location",
     "companySize": "Company Size",
     "jobCategory": "Job Category",
-    "isRequired": "Is Required"
+    "isRequired": "Is Required",
+    "aboutYourJob": "About Your Job"
 }
