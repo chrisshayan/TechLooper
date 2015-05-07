@@ -245,7 +245,13 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     //Percentile Ranking Reference : http://www.regentsprep.org/regents/math/algebra/AD6/quartiles.htm
     private double calculatePercentRank(double[] salaries, double evaluatedSalary) {
         long countSalaryBelow = Arrays.stream(salaries).filter(salary -> salary < evaluatedSalary).count();
-        return (countSalaryBelow * 1.0) / salaries.length * 100;
+        double percentRank = (countSalaryBelow * 1.0) / salaries.length * 100;
+        if (percentRank == 0D) {
+            return 1D;
+        } else if (percentRank == 100D) {
+            return 99D;
+        }
+        return percentRank;
     }
 
 }
