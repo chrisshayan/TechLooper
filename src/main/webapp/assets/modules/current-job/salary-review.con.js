@@ -133,7 +133,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     var swstep = step || $scope.step;
     $scope.step = swstep;
     $scope.error = {};
-    
+
     switch (swstep) {
       case "step3":
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
