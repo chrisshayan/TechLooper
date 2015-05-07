@@ -167,7 +167,4 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.createNewReport = function(){
     $route.reload();
   }
-  $scope.updateSalaryInfo = function(){
-    
-  }
 });
