@@ -78,6 +78,7 @@
   "companySize": "Company Size",
   "jobCategory": "Job Category",
   "isRequired": "Is Required",
+  "requiredThisField": "This Field is required",
   "aboutYourJob": "About Your Job",
   "aboutYourCompany": "About Your Company",
   "yourSalaryReport": "Your Salary Report",

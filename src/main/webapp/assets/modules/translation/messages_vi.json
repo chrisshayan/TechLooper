@@ -78,6 +78,7 @@
   "companySize": "Qui mô công ty",
   "jobCategory": "Ngành nghề",
   "isRequired": "bắt buộc nhập",
+  "requiredThisField": "Trường bắt buộc",
   "aboutYourJob": "Thông Tin Về Công Việc",
   "aboutYourCompany": "Thông Tin Về Công Ty",
   "yourSalaryReport": "Báo Cáo Lương",
