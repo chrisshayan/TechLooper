@@ -1,11 +1,25 @@
-techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $compile) {
+techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
       return;
     }
-    $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
-  })
+    var translate = $rootScope.translate;
+    $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
+
+    //$.each([
+    //  {item: "locations", translate: "exHoChiMinh"},
+    //  {item: "jobLevels", translate: "exManager"},
+    //  {item: "industries", translate: "exItSoftware"},
+    //  {item: "companySize", translate: "ex149"}
+    //], function (i, select) {
+    //  console.log(select);
+    //  $scope.selectize[select.item].$elem.settings.placeholder = translate[select.translate];
+    //  $scope.selectize[select.item].$elem.updatePlaceholder();
+    //});
+  });
+
+  //console.log($translate.instant("exHoChiMinh"));
 
   $scope.selectize = {
     locations: {
@@ -14,9 +28,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         valueField: 'id',
         labelField: 'name',
         delimiter: '|',
-        placeholder: 'Ex: Ho Chi Minh',
         maxItems: 1,
-        searchField: ['name']
+        searchField: ['name'],
+        placeholder: $translate.instant("exHoChiMinh")
       }
     },
     jobLevels: {
@@ -25,9 +39,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         valueField: 'id',
         labelField: 'translate',
         delimiter: '|',
-        placeholder: 'Ex: Manager',
         maxItems: 1,
-        searchField: ['translate']
+        searchField: ['translate'],
+        placeholder: $translate.instant("exManager")
       }
     },
     industries: {
@@ -36,10 +50,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         valueField: 'id',
         labelField: 'name',
         delimiter: '|',
-        placeholder: 'Ex: IT - Software, IT - Hardware/Networking',
         maxItems: 3,
         plugins: ['remove_button'],
-        searchField: ['name']
+        searchField: ['name'],
+        placeholder: $translate.instant("exItSoftware")
       }
     },
     companySize: {
@@ -48,9 +62,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         valueField: 'id',
         labelField: 'size',
         delimiter: '|',
-        placeholder: 'Ex: 1-49',
         maxItems: 1,
-        searchField: ['size']
+        searchField: ['size'],
+        placeholder: $translate.instant("ex149")
       }
     }
   }
@@ -138,11 +152,11 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       case "step3":
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
-        utils.sendNotification("loading");
+        utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
             $scope.salaryReport = data;
-            utils.sendNotification("loaded");
+            utils.sendNotification(jsonValue.notifications.loaded);
           })
           .error(function (data, status, headers, config) {
           });
