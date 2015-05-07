@@ -1,5 +1,4 @@
-techlooper.controller("salaryReviewController", function ($scope, salaryReviewService, $rootScope, jsonValue, $http, utils, $compile) {
-  salaryReviewService.init();
+techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $compile) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   $scope.$watch("translate", function() {
     if (utils.getView() !== jsonValue.views.salaryReview) {
@@ -126,6 +125,7 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
   $scope.step = "step1";
 
   $scope.nextStep = function (step) {
+    console.log($scope.step);
     if ($scope.step === "step3") {
       return;
     }
@@ -134,6 +134,7 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
       return;
     }
     $scope.step = swstep;
+    console.log($scope.step);
 
     switch (swstep) {
       case "step1":
