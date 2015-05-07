@@ -22,7 +22,7 @@ public class ExcelUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUtils.class);
 
-    public static void export(List<JobEntity> jobs) {
+    public static void exportSalaryReport(List<JobEntity> jobs) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Jobs");
 
@@ -55,6 +55,11 @@ public class ExcelUtils {
                 } else if (obj instanceof Long)
                     contentCell.setCellValue((Long) obj);
             }
+            Cell avgSalaryCell = contentRow.createCell(cellNum++);
+            String salaryMinCell = "C" + rowNum;
+            String salaryMaxCell = "D" + rowNum;
+            avgSalaryCell.setCellType(Cell.CELL_TYPE_FORMULA);
+            avgSalaryCell.setCellFormula("IF("+salaryMinCell+"=0,"+salaryMaxCell+"*0.75,IF("+salaryMaxCell+"=0,"+salaryMinCell+"*1.25,("+salaryMinCell+"+"+salaryMaxCell+")/2))");
         }
 
         try {

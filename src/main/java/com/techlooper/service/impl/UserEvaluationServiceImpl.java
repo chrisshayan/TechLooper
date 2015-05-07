@@ -182,7 +182,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class);
         if (isExportToExcel) {
-            ExcelUtils.export(jobs);
+            ExcelUtils.exportSalaryReport(jobs);
         }
 
         SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, jobs);
