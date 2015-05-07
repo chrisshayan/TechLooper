@@ -13,8 +13,8 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1'}"><h2>Your Info</h2></li>
-        <li ng-click="nextStep('step2')" ng-class="{active: step==='step2'}"><h2>Your Employer</h2></li>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3'}"><h2>Your Info</h2></li>
+        <li ng-click="nextStep('step2')" ng-class="{active: step==='step2' || step==='step3'}"><h2>Your Employer</h2></li>
         <li ng-click="nextStep('step3')" ng-class="{active: step==='step3'}"><h2>Your Report</h2></li>
       </ul>
     </div>
@@ -23,15 +23,22 @@
         <h3>Let's start building your report with the basics, like your job title, location, level... VietnamWorks has collected salary and career data from millions of people and thousands of jobs.</h3>
         <div class="salary-info-form">
           <form autocomplete="off">
-            <div class="error-messages">{{error.jobTitle || error.jobLevel || error.netSalary || error.reportTo}}</div>
+            <div class="error-messages">
+              {{error['salaryReview.jobTitle']}}<br/>
+              {{error['salaryReview.jobLevelIds']}}<br/>
+              {{error['salaryReview.netSalary']}}<br/>
+              {{error['salaryReview.reportTo']}}
+            </div>
             <div class="row salary-field">
               <label for="txtJobTitle">Your Current Job Title <strong>*</strong>:</label>
-              <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle" placeholder="Ex: Java Developer"/>
+              <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
+                     name="{{'jobTitle' | translate}}"
+                     placeholder="Ex: Java Developer"/>
             </div>
             <div class="row salary-field" jobLevels>
               <label>Your Current Job Level <strong>*</strong>:</label>
               <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
-                         ng-model="salaryReview.jobLevelIds"></selectize>
+                         ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
             </div>
             <div class="row salary-field">
               <label for="txtTopSkills">Top 3 Skills Important To Your Job:</label>
@@ -56,14 +63,18 @@
             </div>
             <div class="row salary-field">
               <label for="txtBaseSalary">Current Monthly NET base Salary (USD) <strong>*</strong>:</label>
-              <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
+              <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary"
+                     name="{{'netSalary' | translate}}"
+                     placeholder="Ex: $1000 (as NET USD/month)"/>
             </div>
             <div class="row salary-field">
               <label for="txtReporting">Who are you reporting to? Job title/Position <strong>*</strong>:</label>
-              <input type="text" id="txtReporting" ng-model="salaryReview.reportTo" placeholder="Ex: Software Delivery Manager"/>
+              <input type="text" id="txtReporting" ng-model="salaryReview.reportTo"
+                     name="{{'reportTo' | translate}}"
+                     placeholder="Ex: Software Delivery Manager"/>
             </div>
             <div class="row salary-field-submit">
-              <button class="btn btn-primary" ng-click="doNextStep()" >Next</button>
+              <button class="btn btn-primary" ng-click="nextStep('step2')" >Next</button>
             </div>
           </form>
         </div>
@@ -71,21 +82,29 @@
       <div class="your-employer-content" ng-show="step==='step2'" >
         <div class="salary-info-form">
           <form autocomplete="off">
-            <div class="error-messages">{{error.locationId || error.jobCategories}}</div>
+            <div class="error-messages">
+              {{error['salaryReview.locationId']}}<br/>
+              {{error['salaryReview.jobCategories']}}
+            </div>
             <div class="row salary-field">
               <label>Where do you work <strong>*</strong>?</label>
-              <selectize config='selectize.locations.config' options='selectize.locations.items' ng-model="salaryReview.locationId"></selectize>
+              <selectize config='selectize.locations.config' options='selectize.locations.items'
+                         ng-model="salaryReview.locationId"
+                         name="{{'location' | translate}}"></selectize>
             </div>
             <div class="row salary-field">
               <label>Company Size:</label>
-              <selectize config='selectize.companySize.config' options='selectize.companySize.items' ng-model="salaryReview.companySizeId"></selectize>
+              <selectize config='selectize.companySize.config' options='selectize.companySize.items'
+                         ng-model="salaryReview.companySizeId"></selectize>
             </div>
             <div class="row salary-field">
               <label>Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
-              <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.jobCategories"></selectize>
+              <selectize config='selectize.industries.config' options='selectize.industries.items'
+                         ng-model="salaryReview.jobCategories"
+                         name="{{'jobCategory' | translate}}"></selectize>
             </div>
             <div class="row salary-field-submit">
-              <button class="btn btn-primary" ng-click="doSalaryReport()" >Next</button>
+              <button class="btn btn-primary" ng-click="nextStep('step3')" >Next</button>
             </div>
           </form>
         </div>

@@ -1,11 +1,9 @@
 techlooper.controller("salaryReviewController", function ($scope, salaryReviewService, $rootScope, jsonValue, $http, utils, $compile) {
   salaryReviewService.init();
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-  utils.registerNotification("translate is ready", function() {
+  $scope.$watch("translate", function() {
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
-    $compile($("div[jobLevels]").contents())($scope);
-    console.log("done");
-  });
+  })
 
   $scope.selectize = {
     locations: {
@@ -105,97 +103,94 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
     }
   }
 
-  $scope.doNextStep = function () {
-    var obj = $scope.salaryReview;
-    if(obj.jobTitle.length < 1){
-      $scope.error.jobTitle = 'Job title is required ';
-    }else{
-      delete $scope.error.jobTitle;
-    }
-    if(obj.jobLevelIds.length < 1){
-      $scope.error.jobLevel = 'Job level is required ';
-    }else{
-      delete $scope.error.jobLevel;
-      $scope.salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + $scope.salaryReview.jobLevelIds].ids;
-    }
-    if(obj.netSalary == null){
-      $scope.error.netSalary = 'Net salary is required ';
-    }else{
-      delete $scope.error.netSalary;
-    }
-    if(obj.reportTo.length < 1){
-      $scope.error.reportTo = 'Who are you report to? is required ';
-    }else{
-      delete $scope.error.reportTo;
-    }
+  //$scope.doNextStep = function () {
+  //  var obj = $scope.salaryReview;
+  //  if (obj.jobTitle.length < 1) {
+  //    $scope.error.jobTitle = 'Job title is required ';
+  //  }
+  //  else {
+  //    delete $scope.error.jobTitle;
+  //  }
+  //  if (obj.jobLevelIds.length < 1) {
+  //    $scope.error.jobLevel = 'Job level is required ';
+  //  }
+  //  else {
+  //    delete $scope.error.jobLevel;
+  //    $scope.salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + $scope.salaryReview.jobLevelIds].ids;
+  //  }
+  //  if (obj.netSalary == null) {
+  //    $scope.error.netSalary = 'Net salary is required ';
+  //  }
+  //  else {
+  //    delete $scope.error.netSalary;
+  //  }
+  //  if (obj.reportTo.length < 1) {
+  //    $scope.error.reportTo = 'Who are you report to? is required ';
+  //  }
+  //  else {
+  //    delete $scope.error.reportTo;
+  //  }
+  //
+  //  if ($.isEmptyObject($scope.error)) {
+  //    var nextStepNavi = $('.navi-step-salary-review').find('li[date-content=your-employer-content]');
+  //    var nextStepContent = nextStepNavi.attr('date-content');
+  //    nextStepNavi.addClass('active');
+  //    $('.data-content').removeClass('active');
+  //    $('.' + nextStepContent).addClass('active');
+  //  }
+  //}
 
-    if($.isEmptyObject($scope.error)){
-      var nextStepNavi = $('.navi-step-salary-review').find('li[date-content=your-employer-content]');
-      var nextStepContent = nextStepNavi.attr('date-content');
-      nextStepNavi.addClass('active');
-      $('.data-content').removeClass('active');
-      $('.'+nextStepContent).addClass('active');
-    }
-  }
+  //$scope.doSalaryReport = function () {
+  //  if ($scope.salaryReview.locationId.length < 1) {
+  //    $scope.error.locationId = 'Location is required ';
+  //  }
+  //  else {
+  //    delete $scope.error.locationId;
+  //  }
+  //  if ($scope.salaryReview.jobCategories.length < 1) {
+  //    $scope.error.jobCategories = 'Categories is required ';
+  //  }
+  //  else {
+  //    delete $scope.error.jobCategories;
+  //  }
+  //  if ($.isEmptyObject($scope.error)) {
+  //    var nextStepNavi = $('.navi-step-salary-review').find('li[date-content=your-report-content]');
+  //    var nextStepContent = nextStepNavi.attr('date-content');
+  //    nextStepNavi.addClass('active');
+  //    $('.data-content').removeClass('active');
+  //    $('.' + nextStepContent).addClass('active');
+  //  }
+  //  //$http.post(jsonValue.httpUri.salaryReview, $scope.salaryReview)
+  //  //.success(function (data, status, headers, config) {
+  //  //  console.log(data);
+  //  //})
+  //  //.error(function (data, status, headers, config) {
+  //  //});
+  //}
 
-  $scope.doSalaryReport = function () {
-    if($scope.salaryReview.locationId.length < 1){
-      $scope.error.locationId = 'Location is required ';
-    }else{
-      delete $scope.error.locationId;
-    }
-    if($scope.salaryReview.jobCategories.length < 1){
-      $scope.error.jobCategories = 'Categories is required ';
-    }else{
-      delete $scope.error.jobCategories;
-    }
-    if($.isEmptyObject($scope.error)){
-      var nextStepNavi = $('.navi-step-salary-review').find('li[date-content=your-report-content]');
-      var nextStepContent = nextStepNavi.attr('date-content');
-      nextStepNavi.addClass('active');
-      $('.data-content').removeClass('active');
-      $('.'+nextStepContent).addClass('active');
-    }
-    //$http.post(jsonValue.httpUri.salaryReview, $scope.salaryReview)
-    //.success(function (data, status, headers, config) {
-    //  console.log(data);
-    //})
-    //.error(function (data, status, headers, config) {
-    //});
-  }
-
-  $scope.validate = function() {
+  $scope.validate = function () {
     var inputs = $(".salary-review-content").find("div:visible").find("[ng-model]");
-    console.log(inputs);
-    $.each(inputs, function(i, input) {
+    var translate = $rootScope.translate;
+    $.each(inputs, function (i, input) {
       var modelName = $(input).attr("ng-model");
-      console.log(modelName);
-      if (modelName === 'newSkillName') {
+      if (modelName === 'newSkillName' || $(input).attr("name") === undefined) {
         return true;
       }
+      delete $scope.error[modelName];
       var inputValue = $scope.$eval(modelName);
-      console.log(inputValue);
-      $.type(inputValue) === "array" && ($scope.error[modelName] = "abc");
-      inputValue || ($scope.error[modelName] = "abc");
+      var notHasValue = ($.type(inputValue) === "array") && inputValue.length > 0;
+      notHasValue = notHasValue || ('' + inputValue).length > 0;
+      notHasValue || ($scope.error[modelName] = sprintf("%s %s", $(input).attr("name"), translate.isRequired.toLowerCase()));
     });
-
-    //if($scope.salaryReview.locationId.length < 1){
-    //  $scope.error.locationId = 'Location is required ';
-    //}else{
-    //  delete $scope.error.locationId;
-    //}
-    //if($scope.salaryReview.jobCategories.length < 1){
-    //  $scope.error.jobCategories = 'Categories is required ';
-    //}else{
-    //  delete $scope.error.jobCategories;
-    //}
-    console.log($scope.error);
     return $.isEmptyObject($scope.error);
   }
 
   $scope.step = "step1";
 
-  $scope.nextStep = function(step) {
+  $scope.nextStep = function (step) {
+    if ($scope.step === "step3") {
+      return;
+    }
     var swstep = step || $scope.step;
     if (!$scope.validate()) {
       return;
@@ -210,6 +205,14 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
         break;
 
       case "step3":
+        var salaryReview = $.extend(true, {}, $scope.salaryReview);
+        salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
+        $http.post(jsonValue.httpUri.salaryReview, salaryReview)
+        .success(function (data, status, headers, config) {
+          console.log(data);
+        })
+        .error(function (data, status, headers, config) {
+        });
         break;
     }
 

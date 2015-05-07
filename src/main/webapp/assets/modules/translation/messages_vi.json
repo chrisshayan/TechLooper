@@ -68,7 +68,15 @@
     "maximum5": "Tối đa 5 kỹ năng. Để thêm 1 kỹ năng phải xóa bớt 1 kỹ năng.",
     "maximum3": "Tối đa 3 kỹ năng. Để thêm 1 kỹ năng phải xóa bớt 1 kỹ năng.",
     "hasExist": "Kỹ năng này đã tồn tại",
-    "noDataChart": "Không có dữ liệu"
+    "noDataChart": "Không có dữ liệu",
+    "jobTitle": "Chức danh",
+    "jobLevel": "Cap bac",
+    "netSalary": "Luong thuc nhan",
+    "reportTo": "Bao cao cho ai",
+    "location": "Vi tri",
+    "companySize": "Kich co cong ty",
+    "jobCategory": "Loai cong viec",
+    "isRequired": "Duoc Yeu Cau"
 }
 
 
