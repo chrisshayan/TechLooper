@@ -115,5 +115,8 @@
     "exHoChiMinh": "Ex: Ho Chi Minh",
     "exManager": "Ex: Manager",
     "exItSoftware": "Ex: IT - Software, IT - Hardware/Networking",
-    "ex149": "Ex: 1-49"
+    "ex149": "Ex: 1-49",
+    "role" : "Role",
+    "categories": "Categories",
+    "level" : "Level"
 }

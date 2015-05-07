@@ -115,7 +115,10 @@
     "exHoChiMinh": "Ví dụ: Hồ Chí Minh",
     "exManager": "Ví dụ: Quản Lý",
     "exItSoftware": "Ví dụ: IT - Software, IT - Hardware/Networking",
-    "ex149": "Ví dụ: 1-49"
+    "ex149": "Ví dụ: 1-49",
+    "role" : "Vai Trò",
+    "categories": "Ngành Nghề Công Việc",
+    "level" : "Cấp Bậc"
 }
 
 
