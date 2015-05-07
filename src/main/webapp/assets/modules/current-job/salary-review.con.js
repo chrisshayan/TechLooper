@@ -151,8 +151,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.step = "step1";
 
   $scope.nextStep = function (step, priorStep) {
-    console.log(arguments);
-    if (($scope.step === priorStep && !$scope.validate()) || $scope.step === "step3") {
+    if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
 
