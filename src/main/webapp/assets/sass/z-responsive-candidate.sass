@@ -445,27 +445,36 @@
               img
                 max-height: 60px
   // style for salary page
-  .salary-sharing-page
+  .salary-review-page
     width: 100%
     padding: 10px 5px
-    .salary-sharing-block
-      .salary-sharing-content
+    .salary-review-block
+      padding-bottom: 10px
+      .navi-step-salary-review
         width: 100%
-        padding: 10px
+        ul
+          li
+            width: 100%
+            text-align: left
+            border-bottom: 1px solid #ebebeb
+          li.active
+            border-bottom: 1px solid #333
         h3
           width: 100%
           padding: 0
           text-align: left
+      .salary-review-content
+        padding: 10px 0 20px 0
+        h3
+          padding: 0 5px 10px 5px
         .salary-info-form
           width: 100%
+          padding: 0 5px
           .top-three-skills
             input
-              width: 85%
+              width: 80%
             button
-              width: 15%
-          .salary-field
-            label
-              font-weight: 300
+              width: 20%
 
 @media (min-width: 778px)
   .fa-bars

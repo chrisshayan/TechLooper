@@ -28,12 +28,10 @@
           border-bottom: 2px solid #d4d7d8
           text-align: center
           cursor: not-allowed
+          color: #8d8d8d
         li.active
           border-bottom: 2px solid #333
           cursor: pointer
-          transition: border-bottom 1.5s linear
-          -moz-transition: border-bottom 1.5s linear
-          -webkit-transition: border-bottom 1.5s linear
           color: #333
         h2
           display: inline-block
@@ -58,25 +56,14 @@
       -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
-      .data-content
-        display: none
-        transition: display 0.8s ease
-        -moz-transition: display 0.8s ease
-        -webkit-transition: display 0.8s ease
-        h3
-          font-weight: 300
-          font-size: 14px
-          text-align: center
-          padding: 0 10%
-          line-height: 22px
-          strong
-            font-weight: 400
-      .data-content.active
-        display: block
-        //transition: display 0.8s ease
-        //-moz-transition: display 0.8s ease
-        //-webkit-transition: display 0.8s ease
-
+      h3
+        font-weight: 300
+        font-size: 14px
+        text-align: center
+        padding: 0 10%
+        line-height: 22px
+        strong
+          font-weight: 400
       .salary-info-form
         display: block
         clear: both
@@ -86,14 +73,15 @@
         width: 50%
         .error-messages
           color: red
-          font-size: 14px
+          font-size: 12px
           width: 100%
-          text-align: center
+          text-align: left
           padding-bottom: 10px
+          font-style: italic
           strong
             font-weight: 400
         .salary-field
-          padding-bottom: 20px
+          padding-bottom: 10px
           .selectize-input
             padding: 0 10px
           .item
