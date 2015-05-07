@@ -125,7 +125,9 @@
             <li><span>Role:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>Level:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
             <li><span>Categories:</span>
-              <span ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
+              <p>
+                <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
+              </p>
             </li>
           </ul>
         </div>
@@ -143,36 +145,19 @@
             </div>
             <div class="your-pay-snapshot-chart">
               <p>Median</p>
-              <div class="percent-data zero">
-                <div class="salary-number-label">$0</div>
-                <div class="percent-color"></div>
-                <div class="percent-number-label">0%</div>
+              <div class="chart-percent-line">
+                <div class="percent-data zero">
+                  <div class="salary-number-label">$0</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">0%</div>
+                </div>
+                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data percent{{range.percent}}">
+                  <div class="salary-number-label">${{range.percentile.toLocaleString()}}</div>
+                  <div class="percent-color"></div>
+                  <div class="percent-number-label">{{range.percent}}%</div>
+                </div>
               </div>
-              <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data percent{{range.percent}}">
-                <div class="salary-number-label">${{range.percentile.toLocaleString()}}</div>
-                <div class="percent-color"></div>
-                <div class="percent-number-label">{{range.percent}}%</div>
-              </div>
-              <!--<div class="percent-data twenty-five">-->
-                <!--<div class="salary-number-label">26K</div>-->
-                <!--<div class="percent-color"></div>-->
-                <!--<div class="percent-number-label">25%</div>-->
-              <!--</div>-->
-              <!--<div class="percent-data fifty-five">-->
-                <!--<div class="salary-number-label">46K</div>-->
-                <!--<div class="percent-color"></div>-->
-                <!--<div class="percent-number-label">50%</div>-->
-              <!--</div>-->
-              <!--<div class="percent-data seventy-five">-->
-                <!--<div class="salary-number-label">26K</div>-->
-                <!--<div class="percent-color"></div>-->
-                <!--<div class="percent-number-label">75%</div>-->
-              <!--</div>-->
-              <!--<div class="percent-data ninety">-->
-                <!--<div class="salary-number-label">46K</div>-->
-                <!--<div class="percent-color"></div>-->
-                <!--<div class="percent-number-label">90%</div>-->
-              <!--</div>-->
+              <div class="arrow-right"></div>
               <p class="note">Monthly Net Pay (US Dollars)</p>
               <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
                 <div class="my-current-salary">
