@@ -133,7 +133,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.validate = function () {
     var inputs = $(".salary-review-content").find("div:visible").find("[ng-model]");
-    var translate = $rootScope.translate;
     $.each(inputs, function (i, input) {
       var modelName = $(input).attr("ng-model");
       if (modelName === 'newSkillName' || $(input).attr("name") === undefined) {
@@ -144,7 +143,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
       notHasValue = notHasValue || (inputValue === null);
       notHasValue = notHasValue || (inputValue.length <= 0);
-      notHasValue && ($scope.error[modelName] = translate.requiredThisField);
+      notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
     return $.isEmptyObject($scope.error);
   }
@@ -152,6 +151,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.step = "step1";
 
   $scope.nextStep = function (step, priorStep) {
+    console.log(arguments);
     if (($scope.step === priorStep && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
@@ -174,9 +174,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           });
         break;
     }
-
   }
-  $scope.createNewReport = function(){
+
+  $scope.createNewReport = function () {
     $route.reload();
   }
 });
