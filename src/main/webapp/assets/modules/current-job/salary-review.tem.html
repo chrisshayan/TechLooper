@@ -13,13 +13,13 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li date-content="your-salary-info-content"><h2>Your Info</h2></li>
-        <li date-content="your-employer-content"><h2>Your Employer</h2></li>
-        <li class="active" date-content="your-report-content"><h2>Your Report</h2></li>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1'}"><h2>Your Info</h2></li>
+        <li ng-click="nextStep('step2')" ng-class="{active: step==='step2'}"><h2>Your Employer</h2></li>
+        <li ng-click="nextStep('step3')" ng-class="{active: step==='step3'}"><h2>Your Report</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
-      <div class="data-content your-salary-info-content">
+      <div class="your-salary-info-content" ng-show="step==='step1'">
         <h3>Let's start building your report with the basics, like your job title, location, level... VietnamWorks has collected salary and career data from millions of people and thousands of jobs.</h3>
         <div class="salary-info-form">
           <form autocomplete="off">
@@ -30,7 +30,8 @@
             </div>
             <div class="row salary-field" jobLevels>
               <label>Your Current Job Level <strong>*</strong>:</label>
-              <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelIds"></selectize>
+              <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+                         ng-model="salaryReview.jobLevelIds"></selectize>
             </div>
             <div class="row salary-field">
               <label for="txtTopSkills">Top 3 Skills Important To Your Job:</label>
@@ -67,7 +68,7 @@
           </form>
         </div>
       </div>
-      <div class="data-content your-employer-content">
+      <div class="your-employer-content" ng-show="step==='step2'" >
         <div class="salary-info-form">
           <form autocomplete="off">
             <div class="error-messages">{{error.locationId || error.jobCategories}}</div>
@@ -89,7 +90,7 @@
           </form>
         </div>
       </div>
-      <div class="data-content your-report-content active">
+      <div class="your-report-content" ng-show="step==='step3'"  >
         <div class="user-personal-info">
           <ul>
             <li><span>Role:</span> <p>{{salaryReview.jobTitle}}</p></li>

@@ -4,6 +4,7 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
   utils.registerNotification("translate is ready", function() {
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
     $compile($("div[jobLevels]").contents())($scope);
+    console.log("done");
   });
 
   $scope.selectize = {
@@ -138,13 +139,12 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
   }
 
   $scope.doSalaryReport = function () {
-    var obj = $scope.salaryReview;
-    if(obj.locationId.length < 1){
+    if($scope.salaryReview.locationId.length < 1){
       $scope.error.locationId = 'Location is required ';
     }else{
       delete $scope.error.locationId;
     }
-    if(obj.jobCategories.length < 1){
+    if($scope.salaryReview.jobCategories.length < 1){
       $scope.error.jobCategories = 'Categories is required ';
     }else{
       delete $scope.error.jobCategories;
@@ -162,6 +162,57 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
     //})
     //.error(function (data, status, headers, config) {
     //});
+  }
+
+  $scope.validate = function() {
+    var inputs = $(".salary-review-content").find("div:visible").find("[ng-model]");
+    console.log(inputs);
+    $.each(inputs, function(i, input) {
+      var modelName = $(input).attr("ng-model");
+      console.log(modelName);
+      if (modelName === 'newSkillName') {
+        return true;
+      }
+      var inputValue = $scope.$eval(modelName);
+      console.log(inputValue);
+      $.type(inputValue) === "array" && ($scope.error[modelName] = "abc");
+      inputValue || ($scope.error[modelName] = "abc");
+    });
+
+    //if($scope.salaryReview.locationId.length < 1){
+    //  $scope.error.locationId = 'Location is required ';
+    //}else{
+    //  delete $scope.error.locationId;
+    //}
+    //if($scope.salaryReview.jobCategories.length < 1){
+    //  $scope.error.jobCategories = 'Categories is required ';
+    //}else{
+    //  delete $scope.error.jobCategories;
+    //}
+    console.log($scope.error);
+    return $.isEmptyObject($scope.error);
+  }
+
+  $scope.step = "step1";
+
+  $scope.nextStep = function(step) {
+    var swstep = step || $scope.step;
+    if (!$scope.validate()) {
+      return;
+    }
+    $scope.step = swstep;
+
+    switch (swstep) {
+      case "step1":
+        break;
+
+      case "step2":
+        break;
+
+      case "step3":
+        break;
+    }
+
   }
 
 });
