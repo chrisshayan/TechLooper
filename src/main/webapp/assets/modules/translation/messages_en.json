@@ -119,5 +119,5 @@
     "role" : "Role",
     "categories": "Categories",
     "level" : "Level",
-    "requiredThisField": "This Field is required"
+    "requiredThisField": "This field is required"
 }
