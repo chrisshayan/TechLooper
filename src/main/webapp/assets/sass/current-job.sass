@@ -8,16 +8,6 @@
   .salary-review-block
     display: block
     clear: both
-    -webkit-border-bottom-right-radius: 5px
-    -webkit-border-bottom-left-radius: 5px
-    -moz-border-radius-bottomright: 5px
-    -moz-border-radius-bottomleft: 5px
-    border-bottom-right-radius: 5px
-    border-bottom-left-radius: 5px
-    background-color: #fff
-    -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
-    -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
-    box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
     padding-bottom: 30px
     .navi-step-salary-review
       display: block
@@ -25,7 +15,7 @@
       font-weight: 400
       font-size: 17px
       text-transform: capitalize
-      background-color: #edecec
+      background-color: #f4f4f4
       margin: 0
       float: left
       width: 100%
@@ -35,16 +25,11 @@
         li
           width: 33.3333%
           float: left
-          border-bottom: 1px solid #d4d7d8
+          border-bottom: 2px solid #d4d7d8
           text-align: center
           cursor: not-allowed
-          color: #a6a6a6
-        li:nth-child(2n)
-          border-right: 1px solid #d4d7d8
-          border-left: 1px solid #d4d7d8
         li.active
-          border-bottom: 1px solid #333
-          background-color: #f1faff
+          border-bottom: 2px solid #333
           cursor: pointer
           transition: border-bottom 1.5s linear
           -moz-transition: border-bottom 1.5s linear
@@ -63,6 +48,16 @@
       clear: both
       padding: 20px
       text-align: center
+      -webkit-border-bottom-right-radius: 5px
+      -webkit-border-bottom-left-radius: 5px
+      -moz-border-radius-bottomright: 5px
+      -moz-border-radius-bottomleft: 5px
+      border-bottom-right-radius: 5px
+      border-bottom-left-radius: 5px
+      background-color: #fff
+      -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       .data-content
         display: none
         transition: display 0.8s ease
@@ -233,13 +228,13 @@
               li:first-child
 
               li:last-child
-                width: 60%
+                width: 80%
                 border-right: 0
                 text-align: center
-                padding-top: 45px
+                padding-top: 25px
                 strong
                   display: inline-block
-                  font-size: 18px
+                  font-size: 25px
           .your-pay-snapshot-chart
             display: block
             clear: both
@@ -277,7 +272,7 @@
             .percent-data.zero
               width: 10%
               .percent-color
-                background-color: #dddddd
+                background-color: #ebf6ff
             .percent-data.ten
               width: 15%
               .percent-color
@@ -298,17 +293,27 @@
             .percent-data.ninety
               width: 10%
               .percent-color
-                background-color: #dddddd
+                background-color: #1266a8
             .my-current-rank
               position: absolute
-              top: 121px
+              top: 79px
               left: 30%
               .my-current-salary
                 background-color: #892890
-                -webkit-border-radius: 5px
-                -moz-border-radius: 5px
-                border-radius: 5px
+                -webkit-border-radius: 3px
+                -moz-border-radius: 3px
+                border-radius: 3px
                 padding: 5px 10px
+                color: #fff
+                font-weight: 400
+                margin-bottom: 10px
+                position: relative
+                i
+                  color: #892890
+                  font-size: 20px
+                  position: absolute
+                  left: 7px
+                  bottom: -7px
               .my-position
                 background-color: #892890
                 -webkit-border-radius: 50%
@@ -318,6 +323,33 @@
                 width: 20px
                 line-height: 20px
                 text-align: center
+                margin-left: 5px
                 i
                   color: #fff
                   font-size: 15px
+      .salary-report-feedback
+        display: inline-block
+        clear: both
+        margin: 30px auto auto auto
+        text-align: left
+        border: 1px solid #d4d7d8
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        width: 100%
+        padding: 15px
+        position: relative
+        h3
+          font-weight: 400
+          font-size: 14px
+          text-transform: uppercase
+          text-align: left
+          padding: 0 5px
+          position: absolute
+          display: inline-block
+          background-color: #fff
+          top: -32px
+          left: 10px
+        .salary-report-feedback-content
+          display: block
+          clear: both
