@@ -145,7 +145,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Override
     public FilterBuilder getJobLevelsFilterBuilder(List<Integer> jobLevelIds) {
-        BoolFilterBuilder jobLevelFilterBuilder = boolFilter().should(termFilter("jobLevelId", itSoftwareIndustry));
+        BoolFilterBuilder jobLevelFilterBuilder = boolFilter();
         for (Integer jobLevelId : jobLevelIds) {
             jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
         }
@@ -180,7 +180,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Override
     public QueryBuilder jobTitleQueryBuilder(String jobTitle) {
-        return matchQuery("jobTitle", jobTitle).minimumShouldMatch("100%");
+        return matchQuery("jobTitle", jobTitle).minimumShouldMatch("75%");
     }
 
     @Override

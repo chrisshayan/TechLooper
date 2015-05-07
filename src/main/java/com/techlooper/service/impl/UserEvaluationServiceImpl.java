@@ -113,9 +113,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         List<String> skills = (List<String>) profile.get("skills");
         for (String skill : skills) {
             List<String> userIds = elasticsearchTemplateUserImport.queryForIds(
-                    githubTalentSearchQuery.getSearchBySkillQuery(skill, "score"));
+              githubTalentSearchQuery.getSearchBySkillQuery(skill, "score"));
             OptionalInt rank = IntStream.range(0, userIds.size())
-                    .filter(index -> userIds.get(index).equals(user.getEmail())).findFirst();
+              .filter(index -> userIds.get(index).equals(user.getEmail())).findFirst();
             if (rank.isPresent()) {
                 resultMap.put(skill, rank.getAsInt());
             } else {
@@ -123,9 +123,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             }
         }
         List<String> allUserIds = elasticsearchTemplateUserImport.queryForIds(
-                githubTalentSearchQuery.sortUser("score"));
+          githubTalentSearchQuery.sortUser("score"));
         OptionalInt overallRank = IntStream.range(0, allUserIds.size())
-                .filter(index -> allUserIds.get(index).equals(user.getEmail())).findFirst();
+          .filter(index -> allUserIds.get(index).equals(user.getEmail())).findFirst();
         if (overallRank.isPresent()) {
             resultMap.put("Overall", overallRank.getAsInt());
         } else {
@@ -137,7 +137,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     public Map<String, Long> getSkillMap() {
         Map<String, Long> skillMap = new HashMap<>();
         Aggregations aggregations =
-                elasticsearchTemplateUserImport.query(githubTalentSearchQuery.getSkillStatsQuery(), SearchResponse::getAggregations);
+          elasticsearchTemplateUserImport.query(githubTalentSearchQuery.getSkillStatsQuery(), SearchResponse::getAggregations);
         InternalNested agg = (InternalNested) aggregations.getAsMap().get("skill_list");
         StringTerms stringTerms = (StringTerms) agg.getAggregations().getAsMap().get("skill_list");
         stringTerms.getBuckets().stream().forEach(bucket -> skillMap.put(bucket.getKey(), bucket.getDocCount()));
@@ -153,8 +153,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         Map<String, Long> totalJobPerSkillMap = new HashMap<>();
         Map<String, Long> skillMap = getSkillMap();
         skillMap.entrySet().stream().forEach(skillEntry ->
-                totalJobPerSkillMap.put(skillEntry.getKey(), jobStatisticService.countJobsBySkillWithinPeriod(
-                        skillEntry.getKey(), HistogramEnum.TWO_QUARTERS)));
+          totalJobPerSkillMap.put(skillEntry.getKey(), jobStatisticService.countJobsBySkillWithinPeriod(
+            skillEntry.getKey(), HistogramEnum.TWO_QUARTERS)));
         return totalJobPerSkillMap;
     }
 
@@ -166,15 +166,15 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         FilterBuilder jobIndustriesFilterBuilder = jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryMinRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMin",
-                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+          VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
         FilterBuilder salaryMaxRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMax",
-                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+          VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
-                boolFilter().must(approvedDateRangeFilterBuilder)
-                        .must(jobIndustriesFilterBuilder)
-                        .must(jobLevelFilterBuilder)
-                        .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
+          boolFilter().must(approvedDateRangeFilterBuilder)
+            .must(jobIndustriesFilterBuilder)
+            .must(jobLevelFilterBuilder)
+            .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
 
         // Get the list of jobs search result for user percentile rank calculation
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
@@ -196,7 +196,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(
-            SalaryReview salaryReview, List<JobEntity> jobs) {
+      SalaryReview salaryReview, List<JobEntity> jobs) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
