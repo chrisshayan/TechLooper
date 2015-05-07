@@ -678,11 +678,11 @@ angular.module("Common").constant("jsonValue", (function () {
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
-    return {id: key, size: value.value}
+    return {id: parseInt(key), size: value.value}
   });
 
   instance.industriesArray = $.map(instance.industries, function (value, key) {
-    return {id: key, name: value.value};
+    return {id: parseInt(key), name: value.value};
   });
 
   instance.jobLevelsMap = {};
