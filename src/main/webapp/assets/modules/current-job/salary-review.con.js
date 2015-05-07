@@ -145,7 +145,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       notHasValue = notHasValue || (inputValue.length <= 0);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
-    return $.isEmptyObject($scope.error);
+    var error = $.extend(true, {}, $scope.error);
+    delete error.existSkillName;
+    delete error.newSkillName;
+    return $.isEmptyObject(error);
   }
 
   $scope.step = "step1";
