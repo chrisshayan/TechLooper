@@ -14,6 +14,7 @@ import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
@@ -21,8 +22,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.nested.InternalNested;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-import org.elasticsearch.search.aggregations.metrics.percentiles.InternalPercentiles;
-import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesBuilder;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -171,16 +170,11 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         FilterBuilder salaryMaxRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMax",
                 VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
 
-        PercentilesBuilder salaryPercentileAggregationBuilder = jobQueryBuilder.salaryPercentileAggregationBuilder(percents);
-
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
                 boolFilter().must(approvedDateRangeFilterBuilder)
                         .must(jobIndustriesFilterBuilder)
                         .must(jobLevelFilterBuilder)
                         .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
-
-        queryBuilder.addAggregation(salaryPercentileAggregationBuilder);
-        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
 
         // Get the list of jobs search result for user percentile rank calculation
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
@@ -191,27 +185,30 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             ExcelUtils.export(jobs);
         }
 
-        SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, aggregations, jobs);
-        salaryReview.setSalaryReport(salaryReport);
-        salaryReview.setCreatedDateTime(new Date().getTime());
-        salaryReviewRepository.save(salaryReview);
+        SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, jobs);
+
+        if (!salaryReport.getPercentRank().isNaN()) {
+            salaryReview.setSalaryReport(salaryReport);
+            salaryReview.setCreatedDateTime(new Date().getTime());
+            salaryReviewRepository.save(salaryReview);
+        }
         return salaryReport;
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(
-            SalaryReview salaryReview, Aggregations aggregations, List<JobEntity> jobs) {
+            SalaryReview salaryReview, List<JobEntity> jobs) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
-        InternalPercentiles salaryPercentiles = (InternalPercentiles) aggregations.get("salary_percentile");
+        double[] salaries = extractSalariesFromJob(jobs);
         List<SalaryRange> salaryRanges = new ArrayList<>();
+        Percentile percentile = new Percentile();
         for (double percent : percents) {
-            salaryRanges.add(new SalaryRange(percent, salaryPercentiles.value(percent)));
+            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
         }
         salaryReport.setSalaryRanges(salaryRanges);
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
-        double[] salaries = extractSalariesFromJob(jobs);
         double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
         salaryReport.setPercentRank(Math.floor(percentRank));
 
