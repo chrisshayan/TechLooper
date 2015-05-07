@@ -156,18 +156,19 @@
                   <div class="percent-color"></div>
                   <div class="percent-number-label">{{range.percent}}%</div>
                 </div>
+                <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
+                  <div class="my-current-salary">
+                    <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
+                    <i class="fa fa-sort-down"></i>
+                  </div>
+                  <div class="my-position">
+                    <i class="fa fa-star"></i>
+                  </div>
+                </div>
               </div>
               <div class="arrow-right"></div>
               <p class="note">Monthly Net Pay (US Dollars)</p>
-              <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
-                <div class="my-current-salary">
-                  <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
-                  <i class="fa fa-sort-down"></i>
-                </div>
-                <div class="my-position">
-                  <i class="fa fa-star"></i>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
