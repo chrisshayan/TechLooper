@@ -96,5 +96,20 @@
     "thanksForShare.item2.content": "Salary negotiation is always challenging, keep it professional, friendly, data driven and timely. Leverage your skills and experience to justify you salary raise request.",
     "thanksForShare.item3.headline": "3 - Negotiate",
     "thanksForShare.item3.content": "Be ambitious but realistic yearly salary increases vary depends on industry but average stands between 2% to 5% while average promotions are between 10% to 20%",
-    "createNewReport" : "Create New Report"
+    "createNewReport" : "Create New Report",
+    "companyInfo.headline":"You are one step away from getting your Salary Report, just let us know more about your current company.",
+    "companyInfo.location" :"What city do you work?",
+    "companyInfo.companySize" : "How many employees has your Company?",
+    "companyInfo.companyCategory" : "What is your company activity? (Limited to 3)",
+    "goBack" : "Go Back",
+    "getSalaryReport" : "Get Salary Report",
+    "yourPaySnapshot": "Your Pay Snapshot",
+    "getting" : "Getting",
+    "makeMoneyMonth" : "a month means you are making more money than",
+    "peopleLikeYou" : "of people like you.",
+    "noSalaryAvailable" : "No Salary Report available for you.",
+    "updateInformation": "Update your information here",
+    "toGetSalaryReport": "to get your Salary Report.",
+    "you" : "You",
+    "median" : "Median"
 }

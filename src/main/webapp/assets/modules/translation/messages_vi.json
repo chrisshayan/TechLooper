@@ -86,7 +86,7 @@
     "noticeLine" : "Chú ý: Bạn càng cung cấp thông tin chi tiết bao nhiêu thì báo cáo sẽ càng chính xác bấy nhiêu. Tất cả những thông tin bạn chia sẻ với chúng tôi đều được bảo mật.",
     "jobTitle.placeholder": "Ví dụ: Lập Trình Viên Java",
     "jobLevel.placeholder": "Ví dụ: Nhân Viên / Trưởng Nhóm / Giám Sát",
-    "netSalary.placeholder": "Ví dụ: $1000 (lương tháng thực nhận)",
+    "netSalary.placeholder": "Ví dụ: $1000 (lương  thực nhận)",
     "mostRelevantSkills.placeholder" : "Ví dụ: Agile, Git or Web Service",
     "reportTo.placeholder" : "Ví dụ: Trưởng Nhóm",
     "thanksForShare.headline" : "Cảm ơn bạn đã giúp chúng tôi cải thiện. TechLooper muốn giúp bạn Move Up, bạn có xứng đáng được tăng lương ?",
@@ -96,7 +96,22 @@
     "thanksForShare.item2.content": "Thỏa thuận lương luôn luôn thách thức chúng ta, hãy chuyên nghiệp, thân thiện, thỏa thuận có cơ sở và đúng lúc. Hãy chứng minh bằng kinh nghiệm và kĩ năng bạn đang sở hữu để đề nghị nâng lương.",
     "thanksForShare.item3.headline": "3 - Thỏa thuận",
     "thanksForShare.item3.content": "Tham vọng nhưng thực tế, mức tăng lương hằng năm còn phụ thuộc vào thị trường nhưng trung bình khoảng từ 2% đến 5%, trong khi đó, mức tăng khi thăng cấp khoảng 10% - 20%",
-    "createNewReport" : "Tạo báo cáo lương mới"
+    "createNewReport" : "Tạo báo cáo lương mới",
+    "companyInfo.headline":"Một bước nữa thôi là bạn có được bảng báo cáo lương, chỉ cần cho chúng tôi biết thêm về công ty hiện tại của bạn.",
+    "companyInfo.location" :"Bạn làm ở tỉnh/thành phố nào?",
+    "companyInfo.companySize" : "Có bao nhiêu nhân viên trong công ty bạn?",
+    "companyInfo.companyCategory" : "Công ty bạn thuộc ngành nghề gì? (tối đa 3 ngành nghề)",
+    "goBack" : "Quay Lại",
+    "getSalaryReport" : "Lấy Báo Cáo Lương",
+    "yourPaySnapshot": "Xem nhanh bảng lương của bạn",
+    "getting" : "Kiếm được",
+    "makeMoneyMonth" : "một tháng đồng nghĩa với việc bạn kiếm được nhiều tiền hơn",
+    "peopleLikeYou" : "những người giống như bạn.",
+    "noSalaryAvailable" : "Không có báo cáo lương nào ứng với bạn.",
+    "updateInformation":"Hãy cập nhật thông tin của bạn tại đây",
+    "toGetSalaryReport": "để có được bảng báo cáo lương.",
+    "you" : "Bạn",
+    "median" : "Phân vị"
 }
 
 
