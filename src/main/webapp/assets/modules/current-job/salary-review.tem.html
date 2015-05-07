@@ -13,42 +13,42 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3'}"><h2>About Your Job</h2></li>
-        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3'}"><h2>About Your Company</h2></li>
-        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3'}"><h2>Your Salary Report</h2></li>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3'}"><h2>{{'aboutYourJob' | translate}}</h2></li>
+        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3'}"><h2>{{'aboutYourCompany' | translate}}</h2></li>
+        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3'}"><h2>{{'yourSalaryReport' | translate}}</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
       <div class="your-salary-info-content" ng-show="step==='step1'">
-        <h3>Let's start building your salary report with information about <strong>your current job</strong>. All the information you share with us will be kept <strong>strictly confidential</strong> and <strong>will not be shared</strong> with any third party.</h3>
+        <h3>{{'instructionMessage' | translate}}</h3>
         <div class="salary-info-form">
 
           <form autocomplete="off">
             <div class="row salary-field">
-              <label for="txtJobTitle">Your Current Job Title <strong>*</strong>:</label>
+              <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
                      name="{{'jobTitle' | translate}}"
-                     placeholder="Ex: Java Developer"/>
+                     placeholder="{{'jobTitle.placeholder' | translate}}"/>
               <div class="error-messages">
                 {{error['salaryReview.jobTitle']}}</div>
             </div>
             <div class="row salary-field" jobLevels>
-              <label>Your Current Job Level <strong>*</strong>:</label>
+              <label>{{'jobLevel' | translate}} <strong>*</strong></label>
               <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
                          ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
               <div class="error-messages">
                 {{error['salaryReview.jobLevelIds']}}</div>
             </div>
             <div class="row salary-field">
-              <label for="txtBaseSalary">Your NET Monthly Salary (USD)? <strong>*</strong>:</label>
+              <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
               <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                      name="{{'netSalary' | translate}}"
-                     placeholder="Ex: $1000 (as NET USD/month)"/>
+                     placeholder="{{'netSalary.placeholder' | translate}}"/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
             </div>
             <div class="row salary-field">
-              <label for="txtTopSkills">The 3 Most Relevant Skills To Your Job:</label>
+              <label for="txtTopSkills">{{'mostRelevantSkills' | translate}}</label>
               <div class="top-three-skills">
                 <div class="added-list-skills">
                   <ul>
@@ -63,24 +63,24 @@
                 </div>
                 <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
                 <div class="add-skill-input">
-                  <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="Ex: Php"/>
-                  <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">Add</button>
+                  <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="{{'mostRelevantSkills.placeholder' | translate}}"/>
+                  <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
                 </div>
               </div>
             </div>
             <div class="row salary-field">
-              <label for="txtReporting">Who are you reporting to? <strong>*</strong>:</label>
+              <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
               <input type="text" id="txtReporting" ng-model="salaryReview.reportTo"
                      name="{{'reportTo' | translate}}"
-                     placeholder="Ex: Software Delivery Manager"/>
+                     placeholder="{{'reportTo.placeholder' | translate}}"/>
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
               </div>
             </div>
             <div class="row salary-field-submit">
-              <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >Next</button>
+              <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
             </div>
-            <div class="note"><strong>Remember</strong>: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be kept confidential.</div>
+            <div class="note">{{'noticeLine' | translate}}</div>
           </form>
         </div>
       </div>
