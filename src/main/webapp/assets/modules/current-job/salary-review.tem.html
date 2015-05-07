@@ -159,11 +159,11 @@
                 </div>
                 <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
                   <div class="my-current-salary" ng-if="salaryReport.percentRank <= 90">
-                    <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
+                    <span>{{'you' | translate}}: ${{salaryReport.netSalary.toLocaleString()}}</span>
                     <i class="fa fa-sort-down"></i>
                   </div>
                   <div class="my-current-salary right-position" ng-if="salaryReport.percentRank > 90">
-                    <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
+                    <span>{{'you' | translate}}: ${{salaryReport.netSalary.toLocaleString()}}</span>
                     <i class="fa fa-sort-down"></i>
                   </div>
                   <div class="my-position">
