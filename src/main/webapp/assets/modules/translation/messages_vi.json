@@ -88,7 +88,15 @@
     "jobLevel.placeholder": "Ví dụ: Nhân Viên / Trưởng Nhóm / Giám Sát",
     "netSalary.placeholder": "Ví dụ: $1000 (lương tháng thực nhận)",
     "mostRelevantSkills.placeholder" : "Ví dụ: Agile, Git or Web Service",
-    "reportTo.placeholder" : "Ví dụ: Trưởng Nhóm"
+    "reportTo.placeholder" : "Ví dụ: Trưởng Nhóm",
+    "thanksForShare.headline" : "Cảm ơn bạn đã giúp chúng tôi cải thiện. TechLooper muốn giúp bạn Move Up, bạn có xứng đáng được tăng lương ?",
+    "thanksForShare.item1.headline": "1 - Đọc báo cáo lương của bạn",
+    "thanksForShare.item1.content": "Bảng khảo sát lương của TechLooper sẽ giúp bạn so sánh với những đồng nghiệp cùng ngành, cùng công ty, cùng kinh nghiệm và ở cùng nơi có mức sống như nhau. Nhìn chung, nếu mức lương của bạn thấp hơn dưới 50% thì bạn nên bắt đầu nghĩ về việc đề nghị tăng lương.",
+    "thanksForShare.item2.headline": "2 - Chiến lược",
+    "thanksForShare.item2.content": "Thỏa thuận lương luôn luôn thách thức chúng ta, hãy chuyên nghiệp, thân thiện, thỏa thuận có cơ sở và đúng lúc. Hãy chứng minh bằng kinh nghiệm và kĩ năng bạn đang sở hữu để đề nghị nâng lương.",
+    "thanksForShare.item3.headline": "3 - Thỏa thuận",
+    "thanksForShare.item3.content": "Tham vọng nhưng thực tế, mức tăng lương hằng năm còn phụ thuộc vào thị trường nhưng trung bình khoảng từ 2% đến 5%, trong khi đó, mức tăng khi thăng cấp khoảng 10% - 20%",
+    "createNewReport" : "Tạo báo cáo lương mới"
 }
 
 
