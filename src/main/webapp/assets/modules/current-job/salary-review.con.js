@@ -7,19 +7,19 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     var translate = $rootScope.translate;
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
 
-    //$.each([
-    //  {item: "locations", translate: "exHoChiMinh"},
-    //  {item: "jobLevels", translate: "exManager"},
-    //  {item: "industries", translate: "exItSoftware"},
-    //  {item: "companySize", translate: "ex149"}
-    //], function (i, select) {
-    //  console.log(select);
-    //  $scope.selectize[select.item].$elem.settings.placeholder = translate[select.translate];
-    //  $scope.selectize[select.item].$elem.updatePlaceholder();
-    //});
+    $.each([
+      {item: "locations", translate: "exHoChiMinh"},
+      {item: "jobLevels", translate: "exManager"},
+      {item: "industries", translate: "exItSoftware"},
+      {item: "companySize", translate: "ex149"}
+    ], function (i, select) {
+      if (!$scope.selectize[select.item].$elem) {
+        return true;
+      }
+      $scope.selectize[select.item].$elem.settings.placeholder = translate[select.translate];
+      $scope.selectize[select.item].$elem.updatePlaceholder();
+    });
   });
-
-  //console.log($translate.instant("exHoChiMinh"));
 
   $scope.selectize = {
     locations: {
@@ -30,7 +30,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         delimiter: '|',
         maxItems: 1,
         searchField: ['name'],
-        placeholder: $translate.instant("exHoChiMinh")
+        placeholder: $translate.instant("exHoChiMinh"),
+        onInitialize: function (selectize) {
+          $scope.selectize.locations.$elem = selectize;
+        }
       }
     },
     jobLevels: {
@@ -41,7 +44,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         delimiter: '|',
         maxItems: 1,
         searchField: ['translate'],
-        placeholder: $translate.instant("exManager")
+        placeholder: $translate.instant("exManager"),
+        onInitialize: function (selectize) {
+          $scope.selectize.jobLevels.$elem = selectize;
+        }
       }
     },
     industries: {
@@ -53,7 +59,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         maxItems: 3,
         plugins: ['remove_button'],
         searchField: ['name'],
-        placeholder: $translate.instant("exItSoftware")
+        placeholder: $translate.instant("exItSoftware"),
+        onInitialize: function (selectize) {
+          $scope.selectize.industries.$elem = selectize;
+        }
       }
     },
     companySize: {
@@ -64,7 +73,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         delimiter: '|',
         maxItems: 1,
         searchField: ['size'],
-        placeholder: $translate.instant("ex149")
+        placeholder: $translate.instant("ex149"),
+        onInitialize: function (selectize) {
+          $scope.selectize.companySize.$elem = selectize;
+        }
       }
     }
   }

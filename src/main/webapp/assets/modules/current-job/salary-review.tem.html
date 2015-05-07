@@ -88,11 +88,11 @@
         </div>
       </div>
       <div class="your-employer-content" ng-show="step==='step2'" >
-        <h3>You are one step away from getting your Salary Report, just let us know more about your current company.</h3>
+        <h3>{{'companyInfo.headline' | translate}}</h3>
         <div class="salary-info-form">
           <form autocomplete="off">
             <div class="row salary-field">
-              <label>What city do you work? <strong>*</strong></label>
+              <label>{{'companyInfo.location' | translate}} <strong>*</strong></label>
               <selectize config='selectize.locations.config' options='selectize.locations.items'
                          ng-model="salaryReview.locationId"
                          name="{{'location' | translate}}"></selectize>
@@ -100,12 +100,12 @@
                 {{error['salaryReview.locationId']}}</div>
             </div>
             <div class="row salary-field">
-              <label>How many employees has your Company?</label>
+              <label>{{'companyInfo.companySize' | translate}}</label>
               <selectize config='selectize.companySize.config' options='selectize.companySize.items'
                          ng-model="salaryReview.companySizeId"></selectize>
             </div>
             <div class="row salary-field">
-              <label>What is your company activity? (Limited to 3) <strong>*</strong>:</label>
+              <label>{{'companyInfo.companyCategory' | translate}} <strong>*</strong></label>
               <selectize config='selectize.industries.config' options='selectize.industries.items'
                          ng-model="salaryReview.jobCategories"
                          name="{{'jobCategory' | translate}}"></selectize>
@@ -114,10 +114,10 @@
               </div>
             </div>
             <div class="row salary-field-submit">
-              <a ng-click="nextStep('step1')">Go Back</a> <button class="btn btn-primary" ng-click="nextStep('step3', 'step2')">Get Salary Report</button>
+              <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
             </div>
           </form>
-          <div class="note"><strong>Remember</strong>: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be kept confidential.</div>
+          <div class="note">{{'noticeLine' | translate}}</div>
         </div>
       </div>
       <div class="your-report-content" ng-show="step==='step3'">
@@ -135,12 +135,12 @@
           </ul>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank !== 'NaN'">
-          <h3>Your Pay Snapshot</h3>
+          <h3>{{'yourPaySnapshot' | translate}}</h3>
           <div class="your-pay-snapshot-content">
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                  Getting <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> a month means you are making more money than <strong>{{salaryReport.percentRank}}%</strong> of people like you.
+                    {{'getting' | translate}} <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
                 </li>
               </ul>
             </div>
@@ -172,18 +172,18 @@
                 </div>
               </div>
               <div class="arrow-right"></div>
-              <p class="note">Monthly Net Pay (US Dollars)</p>
+              <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
 
             </div>
           </div>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank == 'NaN'">
-          <h3>Your Pay Snapshot</h3>
+          <h3>{{'yourPaySnapshot' | translate}}</h3>
           <div class="your-pay-snapshot-content">
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                  No Salary Report available for you. <a ng-click="nextStep('step1')">Update your information here</a> to get your Salary Report.
+                    {{'noSalaryAvailable' | translate}} <a ng-click="nextStep('step1')">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}
                 </li>
               </ul>
             </div>
@@ -222,7 +222,7 @@
                 </div>
                 <div class="my-current-rank" style="left: 0%">
                   <div class="my-current-salary">
-                    <span>You: $0</span>
+                    <span>{{'you' | translate}}: $0</span>
                     <i class="fa fa-sort-down"></i>
                   </div>
                   <div class="my-position">
@@ -231,7 +231,7 @@
                 </div>
               </div>
               <div class="arrow-right"></div>
-              <p class="note">Monthly Net Pay (US Dollars)</p>
+              <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
             </div>
           </div>
         </div>
