@@ -161,7 +161,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          tourService, signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate) {
+                         utils, $rootScope, $translate, jsonValue) {
 
   shortcutFactory.initialize();
   connectionFactory.initialize();
@@ -193,6 +193,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove"]).then(function (translate) {
     $rootScope.translate = translate;
   });
+
+  $rootScope.jsonValue = jsonValue;
 });
 
 techlooper.directive("navigation", function () {
