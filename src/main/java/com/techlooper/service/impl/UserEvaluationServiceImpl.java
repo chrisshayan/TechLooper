@@ -162,7 +162,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
 
         QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
-        FilterBuilder jobLevelFilterBuilder = jobQueryBuilder.getJobLevelsFilterBuilder(salaryReview.getJobLevelIds());
+        //FilterBuilder jobLevelFilterBuilder = jobQueryBuilder.getJobLevelsFilterBuilder(salaryReview.getJobLevelIds());
         FilterBuilder jobIndustriesFilterBuilder = jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryMinRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMin",
@@ -173,7 +173,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
                 boolFilter().must(approvedDateRangeFilterBuilder)
                         .must(jobIndustriesFilterBuilder)
-                        .must(jobLevelFilterBuilder)
+        //                .must(jobLevelFilterBuilder)
                         .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
 
         // Get the list of jobs search result for user percentile rank calculation
