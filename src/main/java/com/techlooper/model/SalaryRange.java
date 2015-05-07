@@ -1,7 +1,7 @@
 package com.techlooper.model;
 
 /**
- * Created by phuonghqh on 5/5/15.
+ * Created by NguyenDangKhoa on 5/7/15.
  */
 public class SalaryRange {
 
@@ -9,8 +9,7 @@ public class SalaryRange {
 
     private Double percentile;
 
-    public SalaryRange() {
-    }
+    public SalaryRange(){}
 
     public SalaryRange(Double percent, Double percentile) {
         this.percent = percent;

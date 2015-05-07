@@ -1,10 +1,7 @@
-techlooper.controller("salaryReviewController", function ($scope, salaryReviewService, $rootScope, jsonValue, $http, utils, $compile) {
+techlooper.controller("salaryReviewController", function ($scope, salaryReviewService, $rootScope, jsonValue, $http) {
   salaryReviewService.init();
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-  utils.registerNotification("translate is ready", function() {
-    $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
-    $compile($("div[jobLevels]").contents())($scope);
-  });
+  $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = $rootScope.translate[jobLevel.translate];});
 
   $scope.selectize = {
     locations: {
@@ -135,8 +132,7 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
       $('.data-content').removeClass('active');
       $('.'+nextStepContent).addClass('active');
     }
-  }
-
+  },
   $scope.doSalaryReport = function () {
     var obj = $scope.salaryReview;
     if(obj.locationId.length < 1){
@@ -163,5 +159,5 @@ techlooper.controller("salaryReviewController", function ($scope, salaryReviewSe
     //.error(function (data, status, headers, config) {
     //});
   }
-
-});
+})
+;

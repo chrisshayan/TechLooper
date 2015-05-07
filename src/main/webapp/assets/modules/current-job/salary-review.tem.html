@@ -13,15 +13,16 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li date-content="your-salary-info-content"><h2>Your Info</h2></li>
-        <li date-content="your-employer-content"><h2>Your Employer</h2></li>
-        <li class="active" date-content="your-report-content"><h2>Your Report</h2></li>
+        <li date-content="your-salary-info-content"><h2>About Your Job</h2></li>
+        <li date-content="your-employer-content"><h2>About Your Company</h2></li>
+        <li date-content="your-report-content" class="active"><h2>Your Salary Report</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
       <div class="data-content your-salary-info-content">
-        <h3>Let's start building your report with the basics, like your job title, location, level... VietnamWorks has collected salary and career data from millions of people and thousands of jobs.</h3>
+        <h3>Let's start building your salary report with information about <strong>your current job</strong>. All the information you share with us will be kept <strong>strictly confidential</strong> and <strong>will not be shared</strong> with any third party.</h3>
         <div class="salary-info-form">
+
           <form autocomplete="off">
             <div class="error-messages">{{error.jobTitle || error.jobLevel || error.netSalary || error.reportTo}}</div>
             <div class="row salary-field">
@@ -33,7 +34,11 @@
               <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items' ng-model="salaryReview.jobLevelIds"></selectize>
             </div>
             <div class="row salary-field">
-              <label for="txtTopSkills">Top 3 Skills Important To Your Job:</label>
+              <label for="txtBaseSalary">Your NET Monthly Salary (USD)? <strong>*</strong>:</label>
+              <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
+            </div>
+            <div class="row salary-field">
+              <label for="txtTopSkills">The 3 Most Relevant Skills To Your Job:</label>
               <div class="top-three-skills">
                 <div class="added-list-skills">
                   <ul>
@@ -53,43 +58,45 @@
                 </div>
               </div>
             </div>
+
             <div class="row salary-field">
-              <label for="txtBaseSalary">Current Monthly NET base Salary (USD) <strong>*</strong>:</label>
-              <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary" placeholder="Ex: $1000 (as NET USD/month)"/>
-            </div>
-            <div class="row salary-field">
-              <label for="txtReporting">Who are you reporting to? Job title/Position <strong>*</strong>:</label>
+              <label for="txtReporting">Who are you reporting to? <strong>*</strong>:</label>
               <input type="text" id="txtReporting" ng-model="salaryReview.reportTo" placeholder="Ex: Software Delivery Manager"/>
             </div>
             <div class="row salary-field-submit">
               <button class="btn btn-primary" ng-click="doNextStep()" >Next</button>
             </div>
+            <div class="note"><strong>Remember</strong>: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be kept confidential.</div>
           </form>
         </div>
       </div>
       <div class="data-content your-employer-content">
+        <h3>You are one step away from getting your Salary Report, just let us know more about your current company.</h3>
         <div class="salary-info-form">
           <form autocomplete="off">
             <div class="error-messages">{{error.locationId || error.jobCategories}}</div>
             <div class="row salary-field">
-              <label>Where do you work <strong>*</strong>?</label>
+              <label>What city do you work?<strong>*</strong></label>
               <selectize config='selectize.locations.config' options='selectize.locations.items' ng-model="salaryReview.locationId"></selectize>
             </div>
             <div class="row salary-field">
-              <label>Company Size:</label>
+              <label>How many employees has your Company?</label>
               <selectize config='selectize.companySize.config' options='selectize.companySize.items' ng-model="salaryReview.companySizeId"></selectize>
             </div>
             <div class="row salary-field">
-              <label>Your Employer Job Categories (Limited to 3) <strong>*</strong>:</label>
+              <label>What is your company activity? (Limited to 3) <strong>*</strong>:</label>
               <selectize config='selectize.industries.config' options='selectize.industries.items' ng-model="salaryReview.jobCategories"></selectize>
             </div>
             <div class="row salary-field-submit">
-              <button class="btn btn-primary" ng-click="doSalaryReport()" >Next</button>
+              <a href="#">Go Back</a> <button class="btn btn-primary" ng-click="doSalaryReport()" >Get Salary Report</button>
             </div>
           </form>
+          <div class="note"><strong>Remember</strong>: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be kept confidential.</div>
         </div>
       </div>
       <div class="data-content your-report-content active">
+        <h3>Here is your <strong>Salary Report</strong> based on the information you have shared with us</h3>
+        <!--<h3>We could not get a  <strong>Salary Report</strong> for you</h3>-->
         <div class="user-personal-info">
           <ul>
             <li><span>Role:</span> <p>{{salaryReview.jobTitle}}</p></li>
@@ -103,10 +110,10 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                  <h4>My Total Pay</h4>
-                  <strong>$1,500</strong>
+                  Getting <strong>$1,500</strong> a month means you are making more money than <strong>35%</strong> of people like you.
+
+                  <span>No Salary Report available for you. <a href="#">Update your information here</a> to get your Salary Report.</span>
                 </li>
-                <li>You are making more money than <strong>35%</strong> of people like you</li>
               </ul>
             </div>
             <div class="your-pay-snapshot-chart">
@@ -141,10 +148,10 @@
                 <div class="percent-color"></div>
                 <div class="percent-number-label">90%</div>
               </div>
-              <p class="note">Monthly Net Pay. Currency: US Dollar</p>
+              <p class="note">Monthly Net Pay (US Dollars)</p>
               <div class="my-current-rank">
                 <div class="my-current-salary">
-                  <span>Me: $1,500</span>
+                  <span>You: $1,500</span>
                   <i class="fa fa-sort-down"></i>
                 </div>
                 <div class="my-position">
@@ -157,31 +164,40 @@
         <div class="salary-report-feedback">
           <h3>What do you think about this report?</h3>
           <div class="salary-report-feedback-form">
-            <ul>
-              <li>
-                <p>Do you understand the report?</p>
-                <div class="select-group">
-                  <div class="select-item">
-                    <input type="radio" name="understand" selected="selected"/><label for="">Yes</label>
-                  </div>
-                  <div class="select-item">
-                    <input type="radio" name="understand"/><label for="">No</label>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <p>Do you think the results of the report are accurate?</p>
-                <div class="select-group">
-                  <div class="select-item">
-                    <input type="radio" name="accurate" selected="selected"/><label for="">Yes</label>
-                  </div>
-                  <div class="select-item">
-                    <input type="radio" name="accurate"/><label for="">No</label>
-                  </div>
-                </div>
-              </li>
-              <li><label for=""></label></li>
-            </ul>
+            <form autocomplete="off">
+              <ul>
+                  <li>
+                    <p>Do you understand this report?</p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <p>Do you think the results of the report are accurate?</p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <label for="txtFeedback">Do you have any feedback for us to improve?</label>
+                    <textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+                  </li>
+                  <li>
+                    <button class="btn btn-primary">Submit</button>
+                  </li>
+                </ul>
+              </form>
+            <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
           </div>
         </div>
       </div>

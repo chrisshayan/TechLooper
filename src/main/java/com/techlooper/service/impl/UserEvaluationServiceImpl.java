@@ -180,7 +180,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
-        boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class);
+        boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
+                environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) : false;
         if (isExportToExcel) {
             ExcelUtils.exportSalaryReport(jobs);
         }

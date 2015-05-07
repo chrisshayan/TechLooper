@@ -69,6 +69,8 @@
           text-align: center
           padding: 0 10%
           line-height: 22px
+          strong
+            font-weight: 400
       .data-content.active
         display: block
         transition: display 0.8s ease
@@ -91,7 +93,7 @@
           strong
             font-weight: 400
         .salary-field
-          padding-bottom: 10px
+          padding-bottom: 20px
           .selectize-input
             padding: 0 10px
           .item
@@ -117,6 +119,7 @@
             padding: 0 10px
         .salary-field-submit
           text-align: center
+          padding-bottom: 20px
           button
             min-width: 100px
         .top-three-skills
@@ -180,12 +183,12 @@
         -moz-border-radius: 5px
         border-radius: 5px
         width: 100%
-        padding: 15px
+        padding: 30px 15px 15px 15px
         position: relative
         h3
           font-weight: 400
           font-size: 14px
-          text-transform: uppercase
+          text-transform: capitalize
           text-align: left
           padding: 0 5px
           position: absolute
@@ -210,31 +213,32 @@
               padding: 0
               li
                 float: left
-                width: 20%
+                width: 100%
                 border-right: 1px solid #fff
                 padding: 20px
+                text-align: center
                 h4
                   font-size: 14px
                   font-weight: 300
                   text-align: center
                 strong
                   font-weight: 400
-                  font-size: 25px
-                  display: block
+                  font-size: 30px
                   text-align: center
                   sup
                     font-size: 14px
                     font-weight: 300
               li:first-child
 
-              li:last-child
-                width: 80%
-                border-right: 0
-                text-align: center
-                padding-top: 25px
-                strong
-                  display: inline-block
-                  font-size: 25px
+              //li:last-child
+              //  width: 70%
+              //  border-right: 0
+              //  text-align: left
+              //  padding-top: 55px
+              //  font-size: 18px
+              //  strong
+              //    display: inline-block
+              //    font-size: 30px
           .your-pay-snapshot-chart
             display: block
             clear: both
@@ -246,11 +250,13 @@
               color: #a6a6a6
             p.note
               text-align: center
-              color: #333
+              color: #a6a6a6
               padding-top: 10px
               font-size: 14px
               width: 100%
               float: left
+              strong
+                font-weight: 400
             .percent-data
               float: left
               color: #a6a6a6
@@ -342,7 +348,7 @@
         h3
           font-weight: 400
           font-size: 14px
-          text-transform: uppercase
+          text-transform: capitalize
           text-align: left
           padding: 0 5px
           position: absolute
@@ -350,6 +356,55 @@
           background-color: #fff
           top: -32px
           left: 10px
-        .salary-report-feedback-content
+        .salary-report-feedback-form
           display: block
           clear: both
+          text-align: center
+          width: 60%
+          margin: auto
+          ul
+            margin: 0
+            padding: 20px 0
+            width: 100%
+            text-align: left
+            display: inline-block
+            li
+              width: 100%
+              clear: both
+              display: block
+              padding: 5px 0
+              float: left
+              label
+                font-weight: 300
+              textarea
+                width: 100%
+                clear: both
+                border: 1px solid #d4d7d8
+                -webkit-border-radius: 5px
+                -moz-border-radius: 5px
+                border-radius: 5px
+                height: 80px
+                padding: 10px
+              p
+                font-size: 14px
+                clear: both
+                width: auto
+                float: left
+              .select-group
+                width: 30%
+                float: right
+                .select-item
+                  float: left
+                  width: 50%
+                  label
+                    font-weight: 400
+                    padding-left: 5px
+            li:last-child
+              text-align: center
+              button
+                min-width: 100px
+                margin: auto
+        .note
+          clear: both
+          display: block
+          width: 100%

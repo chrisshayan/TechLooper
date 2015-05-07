@@ -118,5 +118,5 @@ public class UserController {
   public SalaryReport evaluateJobOffer(@RequestBody SalaryReview salaryReview) {
       return userEvaluationService.evaluateJobOffer(salaryReview);
   }
-    
+
 }
