@@ -110,6 +110,7 @@
           a
             display: inline-block
             margin-right: 10px
+            cursor: pointer
           button
             min-width: 100px
         .top-three-skills
@@ -253,7 +254,7 @@
               position: relative
               display: inline-block
             .arrow-right
-              background: url(../images/arrow-right.png) right 50px no-repeat
+              background: url(../images/arrow-right.png) right 49px no-repeat
               width: 5%
               float: left
               height: 120px
@@ -303,7 +304,7 @@
 
             .my-current-rank
               position: absolute
-              top: 79px
+              top: 30px
               left: 30%
               .my-current-salary
                 background-color: #892890
@@ -334,6 +335,13 @@
                 i
                   color: #fff
                   font-size: 15px
+            .my-current-salary.right-position
+              width: 110px
+              left: -60px
+              text-align: center
+              i
+                right: 30px
+                left: auto
       .salary-report-feedback
         display: inline-block
         clear: both
@@ -409,6 +417,60 @@
           clear: both
           display: block
           width: 100%
+    .thanks-for-share-salary
+      display: inline-block
+      clear: both
+      margin: 30px auto auto auto
+      text-align: left
+      border: 1px solid #d4d7d8
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      width: 100%
+      padding: 15px
+      position: relative
+      .thanks-for-share-salary-content
+        display: block
+        clear: both
+        padding-top: 20px
+        ul
+          margin: 0
+          padding: 10px 0 0 0
+          li
+            width: 33.333%
+            float: left
+            padding: 0 15px
+            .thanks-for-share-salary-item
+              border: 1px solid #ededed
+              display: inline-block
+              clear: both
+              position: relative
+              -webkit-border-radius: 5px
+              -moz-border-radius: 5px
+              border-radius: 5px
+              padding: 20px
+            h4
+              font-weight: 400
+              font-size: 14px
+              display: block
+              clear: both
+              position: absolute
+              top: -25px
+              left: 10px
+              background-color: #fff
+              padding: 5px
+            p
+              text-align: justify
+              margin: 0
+              padding: 0
+              strong
+                font-weight: 400
+        .create-new-report
+          clear: both
+          display: block
+          text-align: center
+          padding-top: 10px
+          font-weight: 400
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove
