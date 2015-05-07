@@ -68,5 +68,13 @@
     "maximum5": "Maximum 5 skills. To add one, remove another one.",
     "maximum3": "Maximum 3 skills. To add one, remove another one.",
     "hasExist": "This skill has already",
-    "noDataChart": "No data available now"
+    "noDataChart": "No data available now",
+    "jobTitle": "Job Title",
+    "jobLevel": "Job Level",
+    "netSalary": "Net Salary",
+    "reportTo": "Report To",
+    "location": "Location",
+    "companySize": "Company Size",
+    "jobCategory": "Job Category",
+    "isRequired": "Is Required"
 }

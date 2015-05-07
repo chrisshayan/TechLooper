@@ -188,7 +188,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     $translate.preferredLanguage($translate.proposedLanguage());
   }
 
-  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs",
+  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired",
     "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel",
     "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove"]).then(function (translate) {
     $rootScope.translate = translate;
