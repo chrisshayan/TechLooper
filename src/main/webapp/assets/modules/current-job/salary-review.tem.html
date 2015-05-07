@@ -89,7 +89,7 @@
         <div class="salary-info-form">
           <form autocomplete="off">
             <div class="row salary-field">
-              <label>What city do you work? <strong>*</strong>?</label>
+              <label>What city do you work? <strong>*</strong></label>
               <selectize config='selectize.locations.config' options='selectize.locations.items'
                          ng-model="salaryReview.locationId"
                          name="{{'location' | translate}}"></selectize>
@@ -139,7 +139,7 @@
                 <li>
                   Getting <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> a month means you are making more money than <strong>{{salaryReport.percentRank}}%</strong> of people like you.
 
-                  <span>No Salary Report available for you. <a href="#">Update your information here</a> to get your Salary Report.</span>
+                  <span>No Salary Report available for you. <a href="#/salary-review">Update your information here</a> to get your Salary Report.</span>
                 </li>
               </ul>
             </div>
@@ -157,7 +157,11 @@
                   <div class="percent-number-label">{{range.percent}}%</div>
                 </div>
                 <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
-                  <div class="my-current-salary">
+                  <div class="my-current-salary" ng-if="salaryReport.percentRank <= 90">
+                    <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
+                    <i class="fa fa-sort-down"></i>
+                  </div>
+                  <div class="my-current-salary right-position" ng-if="salaryReport.percentRank > 90">
                     <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
                     <i class="fa fa-sort-down"></i>
                   </div>
@@ -172,43 +176,72 @@
             </div>
           </div>
         </div>
-        <div class="salary-report-feedback">
-          <h3>What do you think about this report?</h3>
-          <div class="salary-report-feedback-form">
-            <form autocomplete="off">
-              <ul>
-                  <li>
-                    <p>Do you understand this report?</p>
-                    <div class="select-group">
-                      <div class="select-item">
-                        <input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>
-                      </div>
-                      <div class="select-item">
-                        <input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <p>Do you think the results of the report are accurate?</p>
-                    <div class="select-group">
-                      <div class="select-item">
-                        <input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>
-                      </div>
-                      <div class="select-item">
-                        <input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <label for="txtFeedback">Do you have any feedback for us to improve?</label>
-                    <textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
-                  </li>
-                  <li>
-                    <button class="btn btn-primary">Submit</button>
-                  </li>
-                </ul>
-              </form>
-            <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
+        <!-- to do for next sprint -->
+        <!--<div class="salary-report-feedback">-->
+          <!--<h3>What do you think about this report?</h3>-->
+          <!--<div class="salary-report-feedback-form">-->
+            <!--<form autocomplete="off">-->
+              <!--<ul>-->
+                  <!--<li>-->
+                    <!--<p>Do you understand this report?</p>-->
+                    <!--<div class="select-group">-->
+                      <!--<div class="select-item">-->
+                        <!--<input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>-->
+                      <!--</div>-->
+                      <!--<div class="select-item">-->
+                        <!--<input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<p>Do you think the results of the report are accurate?</p>-->
+                    <!--<div class="select-group">-->
+                      <!--<div class="select-item">-->
+                        <!--<input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>-->
+                      <!--</div>-->
+                      <!--<div class="select-item">-->
+                        <!--<input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<label for="txtFeedback">Do you have any feedback for us to improve?</label>-->
+                    <!--<textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<button class="btn btn-primary">Submit</button>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</form>-->
+            <!--<div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <div class="thanks-for-share-salary">
+          <h3>Thanks for helping us improve. TechLooper wants to help you Move Up, <strong>Do you deserve a salary raise?</strong></h3>
+          <div class="thanks-for-share-salary-content">
+            <ul>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4>1 - Read Your Salary Report</h4>
+                  <p>Talking TechLooper Salary Survey help you compare with people who do the same job at a similar company, have similar experience and live where the cost of living is comparable. In general if your earnings fall <strong>below the 50%</strong> you probably want to start thinking about <strong>asking for a raise</strong></p>
+                </div>
+              </li>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4>2 - Strategize </h4>
+                  <p>Salary negotiation is always challenging, keep it <strong>professional, friendly, data driven and timely</strong>. Leverage your skills and experience to justify you salary raise request.</p>
+                </div>
+              </li>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4>3 - Negotiate</h4>
+                  <p>Be ambitious but realistic <strong>yearly salary increases</strong> vary depends on industry but average stands <strong>between 2% to 5%</strong> while average promotions are between 10% to 20%</p>
+                </div>
+              </li>
+            </ul>
+            <div class="create-new-report">
+              <a href="#">Create New Report</a>
+            </div>
           </div>
         </div>
       </div>
