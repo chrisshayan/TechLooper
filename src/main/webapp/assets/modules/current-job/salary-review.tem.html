@@ -14,8 +14,8 @@
     <div class="navi-step-salary-review">
       <ul>
         <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3'}"><h2>About Your Job</h2></li>
-        <li ng-click="nextStep('step2')" ng-class="{active: step==='step2' || step==='step3'}"><h2>About Your Company</h2></li>
-        <li ng-click="nextStep('step3')" ng-class="{active: step==='step3'}"><h2>Your Salary Report</h2></li>
+        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3'}"><h2>About Your Company</h2></li>
+        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3'}"><h2>Your Salary Report</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
