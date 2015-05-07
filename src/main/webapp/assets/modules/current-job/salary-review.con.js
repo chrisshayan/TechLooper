@@ -1,6 +1,6 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $compile) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-  $scope.$watch("translate", function() {
+  $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
       return;
     }
@@ -115,38 +115,31 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
       delete $scope.error[modelName];
       var inputValue = $scope.$eval(modelName);
-      var notHasValue = ($.type(inputValue) === "array") && inputValue.length > 0;
-      notHasValue = notHasValue || ('' + inputValue).length > 0;
-      notHasValue || ($scope.error[modelName] = sprintf("%s %s", $(input).attr("name"), translate.isRequired.toLowerCase()));
+      var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
+      notHasValue = notHasValue || (inputValue === null);
+      notHasValue = notHasValue || (inputValue.length <= 0);
+      notHasValue && ($scope.error[modelName] = sprintf("%s %s", $(input).attr("name"), translate.isRequired.toLowerCase()));
     });
     return $.isEmptyObject($scope.error);
   }
 
   $scope.step = "step1";
 
-  $scope.nextStep = function (step) {
-    if ($scope.step === "step3") {
+  $scope.nextStep = function (step, priorStep) {
+    if (($scope.step === priorStep && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
+
     var swstep = step || $scope.step;
-    if (!$scope.validate()) {
-      return;
-    }
     $scope.step = swstep;
+    $scope.error = {};
 
     switch (swstep) {
-      case "step1":
-        break;
-
-      case "step2":
-        break;
-
       case "step3":
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
-            console.log(data);
             $scope.salaryReport = data;
           })
           .error(function (data, status, headers, config) {
