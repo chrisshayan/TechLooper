@@ -19,6 +19,9 @@
       </ul>
     </div>
     <div class="salary-review-content">
+      <div class="arrow-up-active step1" ng-show="step==='step1'"><i class="fa fa-sort-down"></i></div>
+      <div class="arrow-up-active step2" ng-show="step==='step2'"><i class="fa fa-sort-down"></i></div>
+      <div class="arrow-up-active step3" ng-show="step==='step3'"><i class="fa fa-sort-down"></i></div>
       <div class="your-salary-info-content" ng-show="step==='step1'">
         <h3>{{'instructionMessage' | translate}}</h3>
         <div class="salary-info-form">
@@ -180,7 +183,7 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                    {{'noSalaryAvailable' | translate}} <a href="#/salary-review">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}
+                    {{'noSalaryAvailable' | translate}} <a ng-click="updateSalaryInfo()">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}
                 </li>
               </ul>
             </div>
@@ -296,7 +299,7 @@
               </li>
             </ul>
             <div class="create-new-report">
-              <a href="#">{{'createNewReport' | translate}}</a>
+              <a ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
             </div>
           </div>
         </div>

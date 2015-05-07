@@ -16,19 +16,19 @@
       font-size: 17px
       text-transform: capitalize
       background-color: #f4f4f4
-      margin: 0
       float: left
       width: 100%
       ul
         margin: 0
         padding: 0
         li
-          width: 33.3333%
+          width: 32.5%
           float: left
           border-bottom: 2px solid #d4d7d8
           text-align: center
           cursor: not-allowed
           color: #8d8d8d
+          margin-right: 1%
         li.active
           border-bottom: 2px solid #333
           cursor: pointer
@@ -41,6 +41,9 @@
           text-transform: capitalize
           padding: 12px 20px
           margin: 0
+        li:last-child
+          margin-right: 0
+          width: 33%
     .salary-review-content
       display: block
       clear: both
@@ -56,6 +59,20 @@
       -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      position: relative
+      .arrow-up-active
+        position: absolute
+        z-index: 99
+        top: -19px
+        i
+          font-size: 30px
+      .arrow-up-active.step1
+        left: 15%
+      .arrow-up-active.step2
+        left: 0
+        right: 0
+      .arrow-up-active.step3
+        right: 15%
       h3
         font-weight: 300
         font-size: 14px
@@ -231,6 +248,8 @@
                   font-style: italic
                   font-size: 14px
                   color: #707070
+                  a
+                    cursor: pointer
           .your-pay-snapshot-chart
             display: block
             clear: both
@@ -473,6 +492,7 @@
           text-align: center
           padding-top: 10px
           font-weight: 400
+          cursor: pointer
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove

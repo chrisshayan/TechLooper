@@ -457,14 +457,19 @@
             width: 100%
             text-align: left
             border-bottom: 1px solid #ebebeb
+            margin: 0
           li.active
             border-bottom: 1px solid #333
+          li:last-child
+            width: 100%
         h3
           width: 100%
           padding: 0
           text-align: left
       .salary-review-content
         padding: 10px 0 20px 0
+        .arrow-up-active
+          display: none
         h3
           padding: 0 5px 10px 5px
         .salary-info-form
@@ -475,6 +480,35 @@
               width: 80%
             button
               width: 20%
+        .user-personal-info
+          ul
+            li
+              span
+                width: 35%
+              p
+                width: 65%
+        .your-pay-snapshot-block
+          .your-pay-snapshot-content
+            .your-pay-snapshot-info
+              ul
+                li
+                  font-size: 14px
+                  strong
+                    font-size: 18px
+            .your-pay-snapshot-chart
+              .my-current-salary
+                font-size: 12px
+                width: 95px
+      .thanks-for-share-salary
+        .thanks-for-share-salary-content
+          ul
+            li
+              width: 100%
+              padding: 20px 0
+              .thanks-for-share-salary-item
+                min-height: inherit
+            li:first-child
+              padding-top: 0
 
 @media (min-width: 778px)
   .fa-bars

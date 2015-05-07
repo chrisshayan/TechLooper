@@ -111,5 +111,9 @@
     "updateInformation": "Update your information here",
     "toGetSalaryReport": "to get your Salary Report.",
     "you" : "You",
-    "median" : "Median"
+    "median" : "Median",
+    "exHoChiMinh": "Ex: Ho Chi Minh",
+    "exManager": "Ex: Manager",
+    "exItSoftware": "Ex: IT - Software, IT - Hardware/Networking",
+    "ex149": "Ex: 1-49"
 }

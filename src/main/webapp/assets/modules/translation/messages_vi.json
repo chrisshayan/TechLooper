@@ -111,7 +111,11 @@
     "updateInformation":"Hãy cập nhật thông tin của bạn tại đây",
     "toGetSalaryReport": "để có được bảng báo cáo lương.",
     "you" : "Bạn",
-    "median" : "Phân vị"
+    "median" : "Phân vị",
+    "exHoChiMinh": "Ví dụ: Hồ Chí Minh",
+    "exManager": "Ví dụ: Quản Lý",
+    "exItSoftware": "Ví dụ: IT - Software, IT - Hardware/Networking",
+    "ex149": "Ví dụ: 1-49"
 }
 
 
