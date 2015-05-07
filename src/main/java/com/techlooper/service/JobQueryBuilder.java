@@ -88,7 +88,15 @@ public interface JobQueryBuilder {
 
     FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds);
 
+    FilterBuilder getJobLevelsFilterBuilder(List<Integer> jobLevelIds);
+
     FilterAggregationBuilder getTopCompaniesAggregation();
 
     List<FilterAggregationBuilder> getSkillAnalyticsAggregations(TermStatisticRequest term, HistogramEnum histogramEnum);
+
+    QueryBuilder jobTitleQueryBuilder(String jobTitle);
+
+    FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories);
+
+    FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue);
 }

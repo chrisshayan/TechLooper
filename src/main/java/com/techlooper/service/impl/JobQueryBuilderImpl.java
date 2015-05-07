@@ -144,6 +144,15 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
+    public FilterBuilder getJobLevelsFilterBuilder(List<Integer> jobLevelIds) {
+        BoolFilterBuilder jobLevelFilterBuilder = boolFilter().should(termFilter("jobLevelId", itSoftwareIndustry));
+        for (Integer jobLevelId : jobLevelIds) {
+            jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
+        }
+        return jobLevelFilterBuilder;
+    }
+
+    @Override
     public FilterAggregationBuilder getTopCompaniesAggregation() {
         return AggregationBuilders.filter("top_companies").filter(rangeFilter("expiredDate").from("now")).subAggregation(
                 AggregationBuilders.terms("top_companies").field("companyId"));
@@ -167,5 +176,31 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
         }
         return skillAnalyticsAggregations;
+    }
+
+    @Override
+    public QueryBuilder jobTitleQueryBuilder(String jobTitle) {
+        return matchQuery("jobTitle", jobTitle).minimumShouldMatch("100%");
+    }
+
+    @Override
+    public FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories) {
+        BoolFilterBuilder jobIndustriesFilterBuilder = boolFilter();
+        if (!jobCategories.isEmpty()) {
+            jobCategories.forEach(industryId -> jobIndustriesFilterBuilder.should(termFilter("industries.industryId", industryId)));
+        }
+        return nestedFilter("industries", jobIndustriesFilterBuilder);
+    }
+
+    @Override
+    public FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue) {
+        RangeFilterBuilder rangeFilterBuilder = rangeFilter(fieldName);
+        if (fromValue != null) {
+            rangeFilterBuilder.from(fromValue);
+        }
+        if (toValue != null) {
+            rangeFilterBuilder.to(toValue);
+        }
+        return rangeFilterBuilder;
     }
 }

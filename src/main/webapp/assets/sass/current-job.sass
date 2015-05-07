@@ -1,0 +1,500 @@
+.salary-review-page
+  clear: both
+  display: table
+  margin: auto
+  max-width: 1000px
+  padding: 0 0 20px 0
+  width: 100%
+  .salary-review-block
+    display: block
+    clear: both
+    padding-bottom: 30px
+    .navi-step-salary-review
+      display: block
+      clear: both
+      font-weight: 400
+      font-size: 17px
+      text-transform: capitalize
+      background-color: #f4f4f4
+      float: left
+      width: 100%
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: 32.5%
+          float: left
+          border-bottom: 2px solid #d4d7d8
+          text-align: center
+          cursor: not-allowed
+          color: #8d8d8d
+          margin-right: 1%
+        li.active
+          border-bottom: 2px solid #333
+          cursor: pointer
+          color: #333
+        h2
+          display: inline-block
+          clear: both
+          font-weight: 400
+          font-size: 18px
+          text-transform: capitalize
+          padding: 12px 20px
+          margin: 0
+        li:last-child
+          margin-right: 0
+          width: 33%
+    .salary-review-content
+      display: block
+      clear: both
+      padding: 20px
+      text-align: center
+      -webkit-border-bottom-right-radius: 5px
+      -webkit-border-bottom-left-radius: 5px
+      -moz-border-radius-bottomright: 5px
+      -moz-border-radius-bottomleft: 5px
+      border-bottom-right-radius: 5px
+      border-bottom-left-radius: 5px
+      background-color: #fff
+      -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      position: relative
+      .arrow-up-active
+        position: absolute
+        z-index: 99
+        top: -19px
+        i
+          font-size: 30px
+      .arrow-up-active.step1
+        left: 15%
+      .arrow-up-active.step2
+        left: 0
+        right: 0
+      .arrow-up-active.step3
+        right: 15%
+      h3
+        font-weight: 300
+        font-size: 14px
+        text-align: center
+        padding: 0 10%
+        line-height: 22px
+        strong
+          font-weight: 400
+      .salary-info-form
+        display: block
+        clear: both
+        padding-top: 30px
+        margin: auto
+        text-align: left
+        width: 50%
+        .error-messages
+          color: red
+          font-size: 12px
+          width: 100%
+          text-align: left
+          font-style: italic
+          strong
+            font-weight: 400
+        .salary-field
+          padding-bottom: 20px
+          .selectize-input
+            padding: 0 10px
+          .item
+            margin-top: 7px
+          label
+            font-size: 14px
+            font-weight: 400
+            clear: both
+            display: block
+            padding: 0
+            text-transform: capitalize
+            strong
+              color: red
+              font-weight: 400
+          input
+            width: 100%
+            clear: both
+            border: 1px solid #d4d7d8
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            height: 34px
+            line-height: 34px
+            padding: 0 10px
+        .salary-field-submit
+          text-align: center
+          padding-bottom: 20px
+          a
+            display: inline-block
+            margin-right: 10px
+            cursor: pointer
+          button
+            min-width: 100px
+        .top-three-skills
+          border: 1px solid #d4d7d8
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          padding: 10px
+          display: block
+          float: left
+          width: 100%
+          .added-list-skills
+            border: 0
+            background-color: transparent
+            min-height: inherit
+            ul
+              padding: 0
+              li
+                padding: 0 5px 5px 0
+          input
+            width: 90%
+            -webkit-border-radius: 0
+            -moz-border-radius: 0
+            border-radius: 0
+          button
+            -webkit-border-radius: 0
+            -moz-border-radius: 0
+            border-radius: 0
+            background-color: #333
+      .user-personal-info
+        display: block
+        width: 100%
+        clear: both
+        float: left
+        padding-bottom: 30px
+        ul
+          margin: 0
+          padding: 0
+          li
+            width: 100%
+            clear: both
+            padding: 5px 0
+            text-align: left
+            span
+              display: block
+              width: 10%
+              float: left
+              font-weight: 400
+            p
+              width: 90%
+              float: left
+              margin: 0
+              padding: 0
+              text-transform: capitalize
+              span.items
+                font-weight: 300
+                width: auto
+                clear: both
+      .your-pay-snapshot-block
+        display: inline-block
+        clear: both
+        margin: auto
+        text-align: left
+        border: 1px solid #d4d7d8
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        width: 100%
+        padding: 30px 15px 15px 15px
+        position: relative
+        h3
+          font-weight: 400
+          font-size: 14px
+          text-transform: capitalize
+          text-align: left
+          padding: 0 5px
+          position: absolute
+          display: inline-block
+          background-color: #fff
+          top: -32px
+          left: 10px
+        .your-pay-snapshot-content
+          display: block
+          clear: both
+          .your-pay-snapshot-info
+            display: block
+            clear: both
+            float: left
+            background-color: #f4f4f4
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            width: 100%
+            ul
+              margin: 0
+              padding: 0
+              li
+                float: left
+                width: 100%
+                border-right: 1px solid #fff
+                padding: 20px
+                text-align: center
+                font-size: 16px
+                h4
+                  font-size: 14px
+                  font-weight: 300
+                  text-align: center
+                strong
+                  font-weight: 400
+                  font-size: 30px
+                  text-align: center
+                  sup
+                    font-size: 14px
+                    font-weight: 300
+                span
+                  display: block
+                  clear: both
+                  font-style: italic
+                  font-size: 14px
+                  color: #707070
+                a
+                  cursor: pointer
+          .your-pay-snapshot-chart
+            display: block
+            clear: both
+            padding-top: 20px
+            width: 100%
+            position: relative
+            p
+              text-align: center
+              color: #a6a6a6
+            p.note
+              text-align: center
+              color: #a6a6a6
+              padding-top: 10px
+              font-size: 14px
+              width: 100%
+              float: left
+              strong
+                font-weight: 400
+            .chart-percent-line
+              width: 95%
+              float: left
+              position: relative
+              display: inline-block
+            .arrow-right
+              background: url(../images/arrow-right.png) right 49px no-repeat
+              width: 5%
+              float: left
+              height: 120px
+            .percent-data
+              float: left
+              color: #a6a6a6
+              text-align: left
+              font-size: 12px
+              .salary-number-label
+                display: block
+                clear: both
+                height: 60px
+                border-left: 1px dashed #dddddd
+                padding-left: 5px
+              .percent-number-label
+                display: block
+                clear: both
+              .percent-color
+                display: block
+                clear: both
+                height: 40px
+            .percent-data.zero
+              width: 10%
+              .percent-color
+                background-color: #ebf6ff
+            .percent-data.percent10
+              width: 15%
+              .percent-color
+                background-color: #bbe1fe
+            .percent-data.percent25
+              width: 25%
+              .percent-color
+                background-color: #7fc6fa
+            .percent-data.percent50
+              width: 25%
+              .percent-color
+                background-color: #7fc6fa
+                border-left: 1px dashed #fff
+            .percent-data.percent75
+              width: 15%
+              .percent-color
+                background-color: #4398da
+            .percent-data.percent90
+              width: 10%
+              .percent-color
+                background-color: #1266a8
+
+            .my-current-rank
+              position: absolute
+              top: 30px
+              left: 30%
+              .my-current-salary
+                background-color: #892890
+                -webkit-border-radius: 3px
+                -moz-border-radius: 3px
+                border-radius: 3px
+                padding: 5px 10px
+                color: #fff
+                font-weight: 400
+                margin-bottom: 10px
+                position: relative
+                i
+                  color: #892890
+                  font-size: 20px
+                  position: absolute
+                  left: 7px
+                  bottom: -7px
+              .my-position
+                background-color: #892890
+                -webkit-border-radius: 50%
+                -moz-border-radius: 50%
+                border-radius: 50%
+                height: 20px
+                width: 20px
+                line-height: 20px
+                text-align: center
+                margin-left: 5px
+                i
+                  color: #fff
+                  font-size: 15px
+            .my-current-salary.right-position
+              width: 110px
+              left: -60px
+              text-align: center
+              i
+                right: 30px
+                left: auto
+      .salary-report-feedback
+        display: inline-block
+        clear: both
+        margin: 30px auto auto auto
+        text-align: left
+        border: 1px solid #d4d7d8
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        width: 100%
+        padding: 15px
+        position: relative
+        h3
+          font-weight: 400
+          font-size: 14px
+          text-transform: capitalize
+          text-align: left
+          padding: 0 5px
+          position: absolute
+          display: inline-block
+          background-color: #fff
+          top: -32px
+          left: 10px
+        .salary-report-feedback-form
+          display: block
+          clear: both
+          text-align: center
+          width: 60%
+          margin: auto
+          ul
+            margin: 0
+            padding: 20px 0
+            width: 100%
+            text-align: left
+            display: inline-block
+            li
+              width: 100%
+              clear: both
+              display: block
+              padding: 5px 0
+              float: left
+              label
+                font-weight: 300
+              textarea
+                width: 100%
+                clear: both
+                border: 1px solid #d4d7d8
+                -webkit-border-radius: 5px
+                -moz-border-radius: 5px
+                border-radius: 5px
+                height: 80px
+                padding: 10px
+              p
+                font-size: 14px
+                clear: both
+                width: auto
+                float: left
+              .select-group
+                width: 30%
+                float: right
+                .select-item
+                  float: left
+                  width: 50%
+                  label
+                    font-weight: 400
+                    padding-left: 5px
+            li:last-child
+              text-align: center
+              button
+                min-width: 100px
+                margin: auto
+        .note
+          clear: both
+          display: block
+          width: 100%
+    .thanks-for-share-salary
+      display: inline-block
+      clear: both
+      margin: 30px auto auto auto
+      text-align: left
+      border: 1px solid #d4d7d8
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      width: 100%
+      padding: 15px
+      position: relative
+      .thanks-for-share-salary-content
+        display: block
+        clear: both
+        padding-top: 20px
+        ul
+          margin: 0
+          padding: 10px 0 0 0
+          li
+            width: 33.333%
+            float: left
+            padding: 0 15px
+            .thanks-for-share-salary-item
+              border: 1px solid #ededed
+              display: inline-block
+              clear: both
+              position: relative
+              -webkit-border-radius: 5px
+              -moz-border-radius: 5px
+              border-radius: 5px
+              padding: 20px
+              min-height: 210px
+            h4
+              font-weight: 400
+              font-size: 14px
+              display: block
+              clear: both
+              position: absolute
+              top: -25px
+              left: 10px
+              background-color: #fff
+              padding: 5px
+            p
+              text-align: justify
+              margin: 0
+              padding: 0
+              strong
+                font-weight: 400
+        .create-new-report
+          clear: both
+          display: block
+          text-align: center
+          padding-top: 10px
+          font-weight: 400
+          cursor: pointer
+.selectize-control.plugin-remove_button
+  .active[data-value]
+    .remove
+      color: #fff

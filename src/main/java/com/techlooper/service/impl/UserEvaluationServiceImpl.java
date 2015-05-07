@@ -1,25 +1,39 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.JobEntity;
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.HistogramEnum;
+import com.techlooper.model.SalaryRange;
+import com.techlooper.model.SalaryReport;
 import com.techlooper.model.SocialProvider;
+import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
+import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
+import com.techlooper.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.nested.InternalNested;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.springframework.core.env.Environment;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalInt;
+import java.util.*;
 import java.util.stream.IntStream;
+
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 
 /**
  * Created by NguyenDangKhoa on 3/19/15.
@@ -33,10 +47,23 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
+
     @Resource(name = "GITHUBTalentSearchQuery")
     private GithubTalentSearchQuery githubTalentSearchQuery;
 
-    @Override
+    @Resource
+    private SalaryReviewRepository salaryReviewRepository;
+
+    @Resource
+    private JobQueryBuilder jobQueryBuilder;
+
+    @Resource
+    private Environment environment;
+
+    private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
+
     public long score(UserImportEntity user, Map<String, Long> totalJobPerSkillMap) {
         long score = 0L;
 
@@ -57,7 +84,6 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return score;
     }
 
-    @Override
     public double rate(UserImportEntity user, Map<String, Long> totalJobPerSkillMap, Long totalITJobs) {
         long score = 0L;
 
@@ -81,7 +107,6 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         }
     }
 
-    @Override
     public Map<String, Integer> rank(UserImportEntity user) {
         Map<String, Integer> resultMap = new HashMap<>();
         Map<String, Object> profile = (Map<String, Object>) user.getProfiles().get(SocialProvider.GITHUB);
@@ -109,7 +134,6 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return resultMap;
     }
 
-    @Override
     public Map<String, Long> getSkillMap() {
         Map<String, Long> skillMap = new HashMap<>();
         Aggregations aggregations =
@@ -125,7 +149,6 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return skillMap;
     }
 
-    @Override
     public Map<String, Long> getTotalNumberOfJobPerSkill() {
         Map<String, Long> totalJobPerSkillMap = new HashMap<>();
         Map<String, Long> skillMap = getSkillMap();
@@ -133,6 +156,96 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                 totalJobPerSkillMap.put(skillEntry.getKey(), jobStatisticService.countJobsBySkillWithinPeriod(
                         skillEntry.getKey(), HistogramEnum.TWO_QUARTERS)));
         return totalJobPerSkillMap;
+    }
+
+    public SalaryReport evaluateJobOffer(SalaryReview salaryReview) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
+
+        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
+        //FilterBuilder jobLevelFilterBuilder = jobQueryBuilder.getJobLevelsFilterBuilder(salaryReview.getJobLevelIds());
+        FilterBuilder jobIndustriesFilterBuilder = jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
+        FilterBuilder approvedDateRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("approvedDate", "now-6M/M", null);
+        FilterBuilder salaryMinRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMin",
+                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+        FilterBuilder salaryMaxRangeFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("salaryMax",
+                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
+                boolFilter().must(approvedDateRangeFilterBuilder)
+                        .must(jobIndustriesFilterBuilder)
+        //                .must(jobLevelFilterBuilder)
+                        .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
+
+        // Get the list of jobs search result for user percentile rank calculation
+        List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+
+        // It's only enabled on test scope for checking whether our calculation is right or wrong
+        boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
+                environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) : false;
+        if (isExportToExcel) {
+            ExcelUtils.exportSalaryReport(jobs);
+        }
+
+        SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, jobs);
+
+        if (!salaryReport.getPercentRank().isNaN()) {
+            salaryReview.setSalaryReport(salaryReport);
+            salaryReview.setCreatedDateTime(new Date().getTime());
+            salaryReviewRepository.save(salaryReview);
+        }
+        return salaryReport;
+    }
+
+    private SalaryReport transformAggregationsToEvaluationReport(
+            SalaryReview salaryReview, List<JobEntity> jobs) {
+        SalaryReport salaryReport = new SalaryReport();
+        salaryReport.setNetSalary(salaryReview.getNetSalary());
+
+        double[] salaries = extractSalariesFromJob(jobs);
+        List<SalaryRange> salaryRanges = new ArrayList<>();
+        Percentile percentile = new Percentile();
+        for (double percent : percents) {
+            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
+        }
+        salaryReport.setSalaryRanges(salaryRanges);
+
+        // Calculate salary percentile rank for user based on list of salary percentiles from above result
+        double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
+        salaryReport.setPercentRank(Math.floor(percentRank));
+
+        return salaryReport;
+    }
+
+    private List<JobEntity> getJobSearchResult(NativeSearchQueryBuilder queryBuilder) {
+        queryBuilder.withSearchType(SearchType.DEFAULT);
+        long totalJobs = elasticsearchTemplate.count(queryBuilder.build());
+        long totalPage = totalJobs % 100 == 0 ? totalJobs / 100 : totalJobs / 100 + 1;
+        int pageIndex = 0;
+        List<JobEntity> jobs = new ArrayList<>();
+        while (pageIndex < totalPage) {
+            queryBuilder.withPageable(new PageRequest(pageIndex, 100));
+            jobs.addAll(elasticsearchTemplate.queryForPage(queryBuilder.build(), JobEntity.class).getContent());
+            pageIndex++;
+        }
+        return jobs;
+    }
+
+    private double[] extractSalariesFromJob(List<JobEntity> jobs) {
+        return jobs.stream().mapToDouble(job -> {
+            if (job.getSalaryMin() == 0) {
+                return job.getSalaryMax() * 0.75D;
+            } else if (job.getSalaryMax() == 0) {
+                return job.getSalaryMin() * 1.25D;
+            } else {
+                return (job.getSalaryMin() + job.getSalaryMax()) / 2;
+            }
+        }).toArray();
+    }
+
+    //Percentile Ranking Reference : http://www.regentsprep.org/regents/math/algebra/AD6/quartiles.htm
+    private double calculatePercentRank(double[] salaries, double evaluatedSalary) {
+        long countSalaryBelow = Arrays.stream(salaries).filter(salary -> salary < evaluatedSalary).count();
+        return (countSalaryBelow * 1.0) / salaries.length * 100;
     }
 
 }
