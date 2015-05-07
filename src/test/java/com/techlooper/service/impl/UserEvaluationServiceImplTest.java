@@ -68,12 +68,24 @@ public class UserEvaluationServiceImplTest {
     @Test
     public void testEvaluateJobOffer() throws Exception {
         SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Senior Java Developer");
+        salaryReview.setJobTitle("Project Manager");
         salaryReview.setJobLevelIds(Arrays.asList(5));
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setNetSalary(1000);
         salaryReview.setCompanySizeId(1L);
         SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
         assertTrue(salaryReport.getPercentRank() > 0);
+    }
+
+    @Test
+    public void testEvaluateJobOfferWithInvalidInput() throws Exception {
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("ABC");
+        salaryReview.setJobLevelIds(Arrays.asList(5));
+        salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setNetSalary(1000);
+        salaryReview.setCompanySizeId(1L);
+        SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
+        assertTrue(salaryReport.getPercentRank().isNaN());
     }
 }
