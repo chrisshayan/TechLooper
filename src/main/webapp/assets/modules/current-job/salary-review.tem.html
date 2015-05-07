@@ -109,6 +109,7 @@
               <div class="error-messages">
                 {{error['salaryReview.jobCategories']}}
               </div>
+            </div>
             <div class="row salary-field-submit">
               <a href="#">Go Back</a> <button class="btn btn-primary" ng-click="nextStep('step3')">Get Salary Report</button>
             </div>
@@ -147,8 +148,8 @@
                 <div class="percent-color"></div>
                 <div class="percent-number-label">0%</div>
               </div>
-              <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data {{range.percent}}-percent">
-                <div class="salary-number-label">{{salaryReport.percentile.toLocaleString()}}</div>
+              <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data percent{{range.percent}}">
+                <div class="salary-number-label">${{range.percentile.toLocaleString()}}</div>
                 <div class="percent-color"></div>
                 <div class="percent-number-label">{{range.percent}}%</div>
               </div>
