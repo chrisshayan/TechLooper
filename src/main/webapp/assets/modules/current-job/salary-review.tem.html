@@ -125,9 +125,9 @@
         <!--<h3>We could not get a  <strong>Salary Report</strong> for you</h3>-->
         <div class="user-personal-info">
           <ul>
-            <li><span>Role:</span> <p>{{salaryReview.jobTitle}}</p></li>
-            <li><span>Level:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>Categories:</span>
+            <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
+            <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
+            <li><span>{{'categories' | translate}}:</span>
               <p>
                 <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
               </p>
@@ -145,7 +145,7 @@
               </ul>
             </div>
             <div class="your-pay-snapshot-chart">
-              <p>Median</p>
+              <p>{{'median' | translate}}</p>
               <div class="chart-percent-line">
                 <div class="percent-data zero">
                   <div class="salary-number-label">$0</div>
