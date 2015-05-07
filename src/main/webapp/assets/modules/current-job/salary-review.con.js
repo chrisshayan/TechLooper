@@ -1,4 +1,4 @@
-techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate) {
+techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
@@ -176,5 +176,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     }
 
   }
-
+  $scope.createNewReport = function(){
+    $route.reload();
+  }
 });

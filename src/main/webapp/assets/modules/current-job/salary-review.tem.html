@@ -183,7 +183,7 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                  No Salary Report available for you. <a href="#/salary-review">Update your information here</a> to get your Salary Report.
+                  No Salary Report available for you. <a ng-click="nextStep('step1')">Update your information here</a> to get your Salary Report.
                 </li>
               </ul>
             </div>
@@ -299,7 +299,7 @@
               </li>
             </ul>
             <div class="create-new-report">
-              <a href="#">{{'createNewReport' | translate}}</a>
+              <a ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
             </div>
           </div>
         </div>
