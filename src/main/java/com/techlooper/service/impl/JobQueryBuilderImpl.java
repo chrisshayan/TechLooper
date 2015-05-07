@@ -14,6 +14,8 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesAggregator;
+import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
@@ -202,5 +204,14 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             rangeFilterBuilder.to(toValue);
         }
         return rangeFilterBuilder;
+    }
+
+    @Override
+    public PercentilesBuilder salaryPercentileAggregationBuilder(double[] percents) {
+        String script = "doc['salaryMin'].value == 0 ? doc['salaryMax'].value * 0.75 : " +
+                "doc['salaryMax'].value == 0 ? doc['salaryMin'].value * 1.25 : " +
+                "(doc['salaryMin'].value + doc['salaryMax'].value) / 2";
+        return AggregationBuilders.percentiles("salary_percentile")
+                .script(script).percentiles(percents).compression(100D);
     }
 }

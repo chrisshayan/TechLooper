@@ -12,6 +12,7 @@ import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.percentiles.PercentilesBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.util.List;
@@ -99,4 +100,6 @@ public interface JobQueryBuilder {
     FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories);
 
     FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue);
+
+    PercentilesBuilder salaryPercentileAggregationBuilder(double[] percents);
 }
