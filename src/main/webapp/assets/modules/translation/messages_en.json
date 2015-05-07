@@ -118,5 +118,6 @@
     "ex149": "Ex: 1-49",
     "role" : "Role",
     "categories": "Categories",
-    "level" : "Level"
+    "level" : "Level",
+    "requiredThisField": "This Field is required"
 }
