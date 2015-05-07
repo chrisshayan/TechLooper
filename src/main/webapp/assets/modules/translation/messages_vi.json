@@ -88,7 +88,11 @@
     "jobLevel.placeholder": "Ví dụ: Nhân Viên / Trưởng Nhóm / Giám Sát",
     "netSalary.placeholder": "Ví dụ: $1000 (lương tháng thực nhận)",
     "mostRelevantSkills.placeholder" : "Ví dụ: Agile, Git or Web Service",
-    "reportTo.placeholder" : "Ví dụ: Trưởng Nhóm"
+    "reportTo.placeholder" : "Ví dụ: Trưởng Nhóm",
+    "exHoChiMinh": "Ví dụ: Hồ Chí Minh",
+    "exManager": "Ví dụ: Quản Lý",
+    "exItSoftware": "Ví dụ: IT - Software, IT - Hardware/Networking",
+    "ex149": "Ví dụ: 1-49"
 }
 
 

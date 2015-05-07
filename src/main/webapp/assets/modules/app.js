@@ -188,8 +188,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     $translate.preferredLanguage($translate.proposedLanguage());
   }
 
-  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired",
-    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel",
+  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
+    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
     "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove"]).then(function (translate) {
     $rootScope.translate = translate;
   });

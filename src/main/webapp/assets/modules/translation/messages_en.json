@@ -88,5 +88,9 @@
     "jobLevel.placeholder": "Ex: Experienced(Non-Manager)",
     "netSalary.placeholder": "Ex: $1000 (as NET USD/month)",
     "mostRelevantSkills.placeholder" : "Ex: Agile, Git or Web Service",
-    "reportTo.placeholder" : "Ex: Team Leader"
+    "reportTo.placeholder" : "Ex: Team Leader",
+    "exHoChiMinh": "Ex: Ho Chi Minh",
+    "exManager": "Ex: Manager",
+    "exItSoftware": "Ex: IT - Software, IT - Hardware/Networking",
+    "ex149": "Ex: 1-49"
 }
