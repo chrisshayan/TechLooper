@@ -31,7 +31,7 @@
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
                      name="{{'jobTitle' | translate}}"
-                     placeholder="{{'jobTitle.placeholder' | translate}}"/>
+                     placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.jobTitle']}}</div>
             </div>
@@ -46,7 +46,7 @@
               <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
               <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                      name="{{'netSalary' | translate}}"
-                     placeholder="{{'netSalary.placeholder' | translate}}"/>
+                     placeholder="{{'netSalary.placeholder' | translate}}"  max="5"/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
             </div>
@@ -75,7 +75,7 @@
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
               <input type="text" id="txtReporting" ng-model="salaryReview.reportTo"
                      name="{{'reportTo' | translate}}"
-                     placeholder="{{'reportTo.placeholder' | translate}}"/>
+                     placeholder="{{'reportTo.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
               </div>
