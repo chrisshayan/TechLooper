@@ -132,6 +132,7 @@
                 <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
               </p>
             </li>
+            <li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>
           </ul>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank !== 'NaN'">
@@ -140,7 +141,12 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                    {{'getting' | translate}} <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
+                  {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
+                </li>
+                <li>
+                  <a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=http://www.techlooper.com/%23/salary-review','name','width=450 ,height=350')" target="popup" class="salary-report-share">
+                    <i class="fa fa-facebook"></i> <span class="text">Facebook Share</span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -220,15 +226,15 @@
                   <div class="percent-color"></div>
                   <div class="percent-number-label">90%</div>
                 </div>
-                <div class="my-current-rank" style="left: 0%">
-                  <div class="my-current-salary">
-                    <span>{{'you' | translate}}: $0</span>
-                    <i class="fa fa-sort-down"></i>
-                  </div>
-                  <div class="my-position">
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
+                <!--<div class="my-current-rank" style="left: 0%">-->
+                  <!--<div class="my-current-salary">-->
+                    <!--<span>{{'you' | translate}}: $0</span>-->
+                    <!--<i class="fa fa-sort-down"></i>-->
+                  <!--</div>-->
+                  <!--<div class="my-position">-->
+                    <!--<i class="fa fa-star"></i>-->
+                  <!--</div>-->
+                <!--</div>-->
               </div>
               <div class="arrow-right"></div>
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>

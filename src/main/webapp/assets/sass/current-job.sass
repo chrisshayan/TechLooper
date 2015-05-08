@@ -188,7 +188,11 @@
               span.items
                 font-weight: 300
                 width: auto
-                clear: both
+                display: inline-block
+                padding-right: 10px
+              strong
+                font-weight: 400
+                font-size: 18px
       .your-pay-snapshot-block
         display: inline-block
         clear: both
@@ -229,7 +233,7 @@
               padding: 0
               li
                 float: left
-                width: 100%
+                width: 70%
                 border-right: 1px solid #fff
                 padding: 20px
                 text-align: center
@@ -253,6 +257,30 @@
                   color: #707070
                 a
                   cursor: pointer
+              li:last-child
+                width: 30%
+                float: left
+                padding-top: 22px
+                a.salary-report-share
+                  background-color: #335bb0
+                  display: inline-block
+                  height: 40px
+                  width: auto
+                  padding: 0 10px
+                  color: #fff
+                  line-height: 40px
+                  -webkit-border-radius: 5px
+                  -moz-border-radius: 5px
+                  border-radius: 5px
+                  i
+                    border-right: 1px solid #517bcd
+                    padding-right: 10px
+                  span.text
+                    font-size: 14px
+                    padding-left: 5px
+                    display: inline-block
+                    color: #fff
+                    font-style: normal
           .your-pay-snapshot-chart
             display: block
             clear: both

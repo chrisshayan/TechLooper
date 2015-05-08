@@ -57,4 +57,21 @@ public class JobEntity {
     public void setSalaryMax(Long salaryMax) {
         this.salaryMax = salaryMax;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JobEntity jobEntity = (JobEntity) o;
+
+        if (!id.equals(jobEntity.id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
