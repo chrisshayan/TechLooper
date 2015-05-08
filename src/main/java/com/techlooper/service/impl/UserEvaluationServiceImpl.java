@@ -41,6 +41,8 @@ import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 @Service
 public class UserEvaluationServiceImpl implements UserEvaluationService {
 
+    private static final int MINIMUM_NUMBER_OF_JOBS = 10;
+
     @Resource
     private JobStatisticService jobStatisticService;
 
@@ -173,11 +175,24 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
                 boolFilter().must(approvedDateRangeFilterBuilder)
                         .must(jobIndustriesFilterBuilder)
-        //                .must(jobLevelFilterBuilder)
+                                //                .must(jobLevelFilterBuilder)
                         .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
 
         // Get the list of jobs search result for user percentile rank calculation
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+
+        // In case total number of jobs search result is less than 10, add more jobs from search by skills
+        if (jobs.size() < MINIMUM_NUMBER_OF_JOBS && salaryReview.getSkills() != null && !salaryReview.getSkills().isEmpty()) {
+            QueryBuilder skillQueryBuilder = jobQueryBuilder.skillQueryBuilder(salaryReview.getSkills());
+            queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
+                    boolFilter().must(approvedDateRangeFilterBuilder)
+                            .must(jobIndustriesFilterBuilder)
+                            .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
+            List<JobEntity> jobBySkills = getJobSearchResult(queryBuilder);
+            Set<JobEntity> noDuplicatedJobs = new HashSet<>(jobs);
+            noDuplicatedJobs.addAll(jobBySkills);
+            jobs = new ArrayList<>(noDuplicatedJobs);
+        }
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
@@ -187,12 +202,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         }
 
         SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, jobs);
-
-        if (!salaryReport.getPercentRank().isNaN()) {
-            salaryReview.setSalaryReport(salaryReport);
-            salaryReview.setCreatedDateTime(new Date().getTime());
-            salaryReviewRepository.save(salaryReview);
-        }
+        salaryReview.setSalaryReport(salaryReport);
+        salaryReview.setCreatedDateTime(new Date().getTime());
+        salaryReviewRepository.save(salaryReview);
         return salaryReport;
     }
 
@@ -201,17 +213,22 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
-        double[] salaries = extractSalariesFromJob(jobs);
-        List<SalaryRange> salaryRanges = new ArrayList<>();
-        Percentile percentile = new Percentile();
-        for (double percent : percents) {
-            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
-        }
-        salaryReport.setSalaryRanges(salaryRanges);
+        // Only generate percentile report if total number of jobs is greater than 10
+        if (jobs.size() >= MINIMUM_NUMBER_OF_JOBS) {
+            double[] salaries = extractSalariesFromJob(jobs);
+            List<SalaryRange> salaryRanges = new ArrayList<>();
+            Percentile percentile = new Percentile();
+            for (double percent : percents) {
+                salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
+            }
+            salaryReport.setSalaryRanges(salaryRanges);
 
-        // Calculate salary percentile rank for user based on list of salary percentiles from above result
-        double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
-        salaryReport.setPercentRank(Math.floor(percentRank));
+            // Calculate salary percentile rank for user based on list of salary percentiles from above result
+            double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
+            salaryReport.setPercentRank(Math.floor(percentRank));
+        } else {
+            salaryReport.setPercentRank(Double.NaN);
+        }
 
         return salaryReport;
     }

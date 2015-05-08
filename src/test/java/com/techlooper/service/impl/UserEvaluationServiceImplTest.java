@@ -67,11 +67,45 @@ public class UserEvaluationServiceImplTest {
     @Test
     public void testEvaluateJobOffer() throws Exception {
         SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Senior Java Developer");
-        salaryReview.setJobLevelIds(Arrays.asList(5));
+        salaryReview.setJobTitle("Java Developer");
+        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
         salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setNetSalary(1000);
+        salaryReview.setNetSalary(2000);
         SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
         assertTrue(salaryReport.getPercentRank() > 0);
+    }
+
+    @Test
+    public void testEvaluateJobOfferWithoutJobs() throws Exception {
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("ABC XYZ");
+        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setNetSalary(2000);
+        SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
+        assertTrue(salaryReport.getPercentRank().isNaN());
+    }
+
+    @Test
+    public void testEvaluateJobOfferTotalJobLessThan10() throws Exception {
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("Product Manager");
+        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setSkills(Arrays.asList("Agile", "Software Architecture", "Java"));
+        salaryReview.setNetSalary(2000);
+        SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
+        assertTrue(salaryReport.getPercentRank() > 0);
+    }
+
+    @Test
+    public void testEvaluateJobOfferTotalJobLessThan10WithEmptySkill() throws Exception {
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("Software Architect");
+        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setNetSalary(2000);
+        SalaryReport salaryReport = userEvaluationService.evaluateJobOffer(salaryReview);
+        assertTrue(salaryReport.getPercentRank().isNaN());
     }
 }
