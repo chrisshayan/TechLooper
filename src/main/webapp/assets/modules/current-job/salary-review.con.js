@@ -143,6 +143,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
       notHasValue = notHasValue || (inputValue === null);
       notHasValue = notHasValue || (inputValue.length <= 0);
+      console.log(modelName, inputValue);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
     var error = $.extend(true, {}, $scope.error);
@@ -182,18 +183,3 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $route.reload();
   }
 });
-maxLengthCheck = function(object)
-{
-  if (object.value.length > object.maxLength)
-    object.value = object.value.slice(0, object.maxLength)
-}
-function isNumeric (evt) {
-  var theEvent = evt || window.event;
-  var key = theEvent.keyCode || theEvent.which;
-  key = String.fromCharCode (key);
-  var regex = /[0-9]|\./;
-  if ( !regex.test(key) ) {
-    theEvent.returnValue = false;
-    if(theEvent.preventDefault) theEvent.preventDefault();
-  }
-}

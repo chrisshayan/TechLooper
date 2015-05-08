@@ -458,10 +458,15 @@
             text-align: left
             border-bottom: 1px solid #ebebeb
             margin: 0
+            display: none
+            h2
+              padding-left: 10px
           li.active
             border-bottom: 1px solid #333
           li:last-child
             width: 100%
+          li.showNavi
+            display: block
         h3
           width: 100%
           padding: 0
@@ -493,8 +498,14 @@
               ul
                 li
                   font-size: 14px
+                  width: 100%
+                  clear: both
+                  padding: 10px 0
                   strong
                     font-size: 18px
+                li:last-child
+                  width: 100%
+                  padding-top: 0
             .your-pay-snapshot-chart
               .my-current-salary
                 font-size: 12px

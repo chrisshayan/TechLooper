@@ -203,4 +203,24 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         }
         return rangeFilterBuilder;
     }
+
+    @Override
+    public QueryBuilder skillQueryBuilder(List<String> skills) {
+        List<String> analyzedSkills = processSkillsBeforeSearch(skills);
+        BoolQueryBuilder skillQueryBuilder = boolQuery();
+        for (String skill : analyzedSkills) {
+            skillQueryBuilder.should(matchQuery("skills.skillName", skill).minimumShouldMatch("100%"));
+        }
+        return QueryBuilders.nestedQuery("skills", skillQueryBuilder);
+    }
+
+    private List<String> processSkillsBeforeSearch(List<String> skills) {
+        List<String> analyzedSkills = new ArrayList<>();
+        for (String skill : skills) {
+            analyzedSkills.add(skill.toLowerCase());
+            analyzedSkills.add(skill.toUpperCase());
+            analyzedSkills.add(StringUtils.capitalize(skill));
+        }
+        return analyzedSkills;
+    }
 }

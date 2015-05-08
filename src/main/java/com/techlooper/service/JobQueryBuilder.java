@@ -99,4 +99,6 @@ public interface JobQueryBuilder {
     FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories);
 
     FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue);
+
+    QueryBuilder skillQueryBuilder(List<String> skills);
 }

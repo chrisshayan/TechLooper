@@ -13,9 +13,9 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3'}"><h2>{{'aboutYourJob' | translate}}</h2></li>
-        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3'}"><h2>{{'aboutYourCompany' | translate}}</h2></li>
-        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3'}"><h2>{{'yourSalaryReport' | translate}}</h2></li>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}"><h2>{{'aboutYourJob' | translate}}</h2></li>
+        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}"><h2>{{'aboutYourCompany' | translate}}</h2></li>
+        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}"><h2>{{'yourSalaryReport' | translate}}</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
@@ -44,9 +44,9 @@
             </div>
             <div class="row salary-field">
               <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
-              <input type="number" id="txtBaseSalary" ng-model="salaryReview.netSalary"
-                     name="{{'netSalary' | translate}}"
-                     placeholder="{{'netSalary.placeholder' | translate}}" oninput="maxLengthCheck(this)" maxlength="5"/>
+              <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
+                     name="{{'netSalary' | translate}}" maxlength="5"
+                     placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
             </div>
@@ -132,6 +132,7 @@
                 <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
               </p>
             </li>
+            <li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>
           </ul>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank !== 'NaN'">
@@ -140,7 +141,12 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li>
-                    {{'getting' | translate}} <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
+                  {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
+                </li>
+                <li>
+                  <a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=http://www.techlooper.com/%23/salary-review','name','width=450 ,height=350')" target="popup" class="salary-report-share">
+                    <i class="fa fa-facebook"></i> <span class="text">Facebook Share</span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -220,15 +226,15 @@
                   <div class="percent-color"></div>
                   <div class="percent-number-label">90%</div>
                 </div>
-                <div class="my-current-rank" style="left: 0%">
-                  <div class="my-current-salary">
-                    <span>{{'you' | translate}}: $0</span>
-                    <i class="fa fa-sort-down"></i>
-                  </div>
-                  <div class="my-position">
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
+                <!--<div class="my-current-rank" style="left: 0%">-->
+                  <!--<div class="my-current-salary">-->
+                    <!--<span>{{'you' | translate}}: $0</span>-->
+                    <!--<i class="fa fa-sort-down"></i>-->
+                  <!--</div>-->
+                  <!--<div class="my-position">-->
+                    <!--<i class="fa fa-star"></i>-->
+                  <!--</div>-->
+                <!--</div>-->
               </div>
               <div class="arrow-right"></div>
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
