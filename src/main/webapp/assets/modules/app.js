@@ -204,10 +204,34 @@ techlooper.directive("navigation", function () {
     templateUrl: "modules/navigation/navigation.tem.html",
     controller: "navigationController"
   }
-}).directive("findjobs", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/job/findJobs.tem.html"
-  }
-});
+})
+  .directive("findjobs", function () {
+    return {
+      restrict: "A",
+      replace: true,
+      templateUrl: "modules/job/findJobs.tem.html"
+    }
+  })
+  .directive('onlyDigits', function () {
+    return {
+      require: 'ngModel',
+      restrict: 'A',
+      link: function (scope, element, attr, ctrl) {
+        function inputValue(val) {
+          if (val) {
+            var digits = val.replace(/[^0-9.]/g, '');
+
+            if (digits !== val) {
+              ctrl.$setViewValue(digits);
+              ctrl.$render();
+            }
+            var number = parseFloat(digits);
+            return isNaN(number) ? "" : number;
+          }
+          return '';
+        }
+
+        ctrl.$parsers.push(inputValue);
+      }
+    }
+  });
