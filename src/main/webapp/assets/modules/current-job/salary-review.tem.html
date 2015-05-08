@@ -13,9 +13,9 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3'}"><h2>{{'aboutYourJob' | translate}}</h2></li>
-        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3'}"><h2>{{'aboutYourCompany' | translate}}</h2></li>
-        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3'}"><h2>{{'yourSalaryReport' | translate}}</h2></li>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}"><h2>{{'aboutYourJob' | translate}}</h2></li>
+        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}"><h2>{{'aboutYourCompany' | translate}}</h2></li>
+        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}"><h2>{{'yourSalaryReport' | translate}}</h2></li>
       </ul>
     </div>
     <div class="salary-review-content">
@@ -159,11 +159,11 @@
                 </div>
                 <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
                   <div class="my-current-salary" ng-if="salaryReport.percentRank <= 90">
-                    <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
+                    <span>{{'you' | translate}}: ${{salaryReport.netSalary.toLocaleString()}}</span>
                     <i class="fa fa-sort-down"></i>
                   </div>
                   <div class="my-current-salary right-position" ng-if="salaryReport.percentRank > 90">
-                    <span>You: ${{salaryReport.netSalary.toLocaleString()}}</span>
+                    <span>{{'you' | translate}}: ${{salaryReport.netSalary.toLocaleString()}}</span>
                     <i class="fa fa-sort-down"></i>
                   </div>
                   <div class="my-position">
