@@ -143,7 +143,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
       notHasValue = notHasValue || (inputValue === null);
       notHasValue = notHasValue || (inputValue.length <= 0);
-      console.log(modelName, inputValue);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
     var error = $.extend(true, {}, $scope.error);
