@@ -121,8 +121,6 @@
         </div>
       </div>
       <div class="your-report-content" ng-show="step==='step3'">
-        <!--<h3>Here is your <strong>Salary Report</strong> based on the information you have shared with us</h3>-->
-        <!--<h3>We could not get a  <strong>Salary Report</strong> for you</h3>-->
         <div class="user-personal-info">
           <ul>
             <li>You are a <strong>{{salaryReview.jobTitle}}</strong> professional in <strong>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</strong> level, who have skills: …. , and your salary is <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> </li>
@@ -192,7 +190,8 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li class="fullCol">
-                    {{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}
+                  We could not create a report for <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{Location}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">Update your information here</a> to try another Salary Report.
+                    <!--{{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}-->
                 </li>
               </ul>
             </div>
