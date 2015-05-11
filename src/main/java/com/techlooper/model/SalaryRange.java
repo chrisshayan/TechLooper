@@ -31,4 +31,21 @@ public class SalaryRange {
     public void setPercentile(Double percentile) {
         this.percentile = percentile;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SalaryRange that = (SalaryRange) o;
+
+        if (!percentile.equals(that.percentile)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return percentile.hashCode();
+    }
 }

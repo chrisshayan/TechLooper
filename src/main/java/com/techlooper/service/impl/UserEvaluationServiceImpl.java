@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
@@ -213,22 +214,17 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
-        // Only generate percentile report if total number of jobs is greater than 10
-        if (jobs.size() >= MINIMUM_NUMBER_OF_JOBS) {
-            double[] salaries = extractSalariesFromJob(jobs);
-            List<SalaryRange> salaryRanges = new ArrayList<>();
-            Percentile percentile = new Percentile();
-            for (double percent : percents) {
-                salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
-            }
-            salaryReport.setSalaryRanges(salaryRanges);
-
-            // Calculate salary percentile rank for user based on list of salary percentiles from above result
-            double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
-            salaryReport.setPercentRank(Math.floor(percentRank));
-        } else {
-            salaryReport.setPercentRank(Double.NaN);
+        double[] salaries = extractSalariesFromJob(jobs);
+        List<SalaryRange> salaryRanges = new ArrayList<>();
+        Percentile percentile = new Percentile();
+        for (double percent : percents) {
+            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
         }
+        salaryReport.setSalaryRanges(salaryRanges);
+
+        // Calculate salary percentile rank for user based on list of salary percentiles from above result
+        double percentRank = calculatePercentPosition(salaryReport);
+        salaryReport.setPercentRank(Math.floor(percentRank));
 
         return salaryReport;
     }
@@ -269,6 +265,46 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             return 99D;
         }
         return percentRank;
+    }
+
+
+    private double calculatePercentPosition(SalaryReport salaryReport) {
+        //Remove duplicated percentiles if any
+        List<SalaryRange> noDuplicatedSalaryRanges = salaryReport.getSalaryRanges().stream().distinct().collect(Collectors.toList());
+        if (noDuplicatedSalaryRanges.size() >= 2) {
+            SalaryRange basedPercentile;
+            int size = noDuplicatedSalaryRanges.size();
+            int i = 0;
+            while (i < size && salaryReport.getNetSalary() >= noDuplicatedSalaryRanges.get(i).getPercentile()) {
+                i++;
+            }
+
+            double position = 0D;
+            if (i == 0) {
+                SalaryRange firstPercentile = noDuplicatedSalaryRanges.get(0);
+                position = salaryReport.getNetSalary() / firstPercentile.getPercentile() * firstPercentile.getPercent();
+            } else if (i == size) {
+                SalaryRange lastPercentile = noDuplicatedSalaryRanges.get(size - 1);
+                position = salaryReport.getNetSalary() / lastPercentile.getPercentile() * lastPercentile.getPercent();
+            } else {
+                SalaryRange lessPercentile = noDuplicatedSalaryRanges.get(i - 1);
+                SalaryRange greaterPercentile = noDuplicatedSalaryRanges.get(i);
+                double relativePercentBetweenTwoPercentile = (salaryReport.getNetSalary() - lessPercentile.getPercentile()) /
+                        (greaterPercentile.getPercentile() - lessPercentile.getPercentile());
+                position = (greaterPercentile.getPercent() - lessPercentile.getPercent()) * relativePercentBetweenTwoPercentile
+                        +lessPercentile.getPercent();
+            }
+
+            position = Math.floor(position);
+            if (position == 0D) {
+                return 1D;
+            } else if (position >= 100D) {
+                return 99D;
+            } else {
+                return position;
+            }
+        }
+        return Double.NaN;
     }
 
 }
