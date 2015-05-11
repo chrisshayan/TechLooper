@@ -165,7 +165,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return totalJobPerSkillMap;
     }
 
-    public SalaryReport evaluateJobOffer(SalaryReview salaryReview) {
+    public void evaluateJobOffer(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
 
         QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
@@ -213,7 +213,6 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // get top 3 higher salary jobs
         jobSearchService.getHigherSalaryJobs(salaryReview);
-        return salaryReport;
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(

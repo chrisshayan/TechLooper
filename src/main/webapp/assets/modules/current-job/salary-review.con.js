@@ -169,7 +169,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
-            $scope.salaryReport = data;
+            $scope.salaryReview = data;
+            $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
           })
           .error(function (data, status, headers, config) {
@@ -180,5 +181,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.createNewReport = function () {
     $route.reload();
+  }
+
+  $scope.openFacebookShare = function() {
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $rootScope.language + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
   }
 });
