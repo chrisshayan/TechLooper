@@ -160,7 +160,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return totalJobPerSkillMap;
     }
 
-    public SalaryReport evaluateJobOffer(SalaryReview salaryReview) {
+    public void evaluateJobOffer(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
 
         QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
@@ -205,7 +205,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReview.setSalaryReport(salaryReport);
         salaryReview.setCreatedDateTime(new Date().getTime());
         salaryReviewRepository.save(salaryReview);
-        return salaryReport;
+//        return salaryReview;
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(

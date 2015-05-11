@@ -180,8 +180,9 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
+  var langKey = 'en';
   if ($translate.proposedLanguage() === undefined) {
-    var langKey = (window.navigator.userLanguage || window.navigator.language).substring(0, 2);
+    langKey = (window.navigator.userLanguage || window.navigator.language).substring(0, 2);
     $translate.use(langKey);
   }
   else {
@@ -193,6 +194,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField"]).then(function (translate) {
     $rootScope.translate = translate;
   });
+
+  $rootScope.language = langKey;
 
   $rootScope.jsonValue = jsonValue;
 });
