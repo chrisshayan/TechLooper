@@ -241,46 +241,45 @@
             </div>
           </div>
         </div>
-        <!-- to do for next sprint -->
-        <!--<div class="salary-report-feedback">-->
-          <!--<h3>What do you think about this report?</h3>-->
-          <!--<div class="salary-report-feedback-form">-->
-            <!--<form autocomplete="off">-->
-              <!--<ul>-->
-                  <!--<li>-->
-                    <!--<p>Do you understand this report?</p>-->
-                    <!--<div class="select-group">-->
-                      <!--<div class="select-item">-->
-                        <!--<input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>-->
-                      <!--</div>-->
-                      <!--<div class="select-item">-->
-                        <!--<input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                    <!--<p>Do you think the results of the report are accurate?</p>-->
-                    <!--<div class="select-group">-->
-                      <!--<div class="select-item">-->
-                        <!--<input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>-->
-                      <!--</div>-->
-                      <!--<div class="select-item">-->
-                        <!--<input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                    <!--<label for="txtFeedback">Do you have any feedback for us to improve?</label>-->
-                    <!--<textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                    <!--<button class="btn btn-primary">Submit</button>-->
-                  <!--</li>-->
-                <!--</ul>-->
-              <!--</form>-->
-            <!--<div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>-->
-          <!--</div>-->
-        <!--</div>-->
+        <div class="salary-report-feedback">
+          <h3>What do you think about this report?</h3>
+          <div class="salary-report-feedback-form">
+            <form autocomplete="off">
+              <ul>
+                  <li>
+                    <p>Do you understand this report?</p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <p>Do you think the results of the report are accurate?</p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <label for="txtFeedback">Do you have any feedback for us to improve?</label>
+                    <textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+                  </li>
+                  <li>
+                    <button class="btn btn-primary">Submit</button>
+                  </li>
+                </ul>
+              </form>
+            <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
+          </div>
+        </div>
         <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN'">
           <h3>{{'thanksForShare.headline' | translate}}</h3>
           <div class="thanks-for-share-salary-content">
