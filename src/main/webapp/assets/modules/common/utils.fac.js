@@ -155,7 +155,15 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/technical-detail/.test(path)) {
         return jsonValue.views.technicalDetail;
       }
-
+      else if (/\/salary-sharing/.test(path)) {
+        return jsonValue.views.salarySharing;
+      }
+      else if (/\/salary-report/.test(path)) {
+        return jsonValue.views.salaryReport;
+      }
+      else if (/\/salary-review/.test(path)) {
+        return jsonValue.views.salaryReview;
+      }
       else if (/\/signin/.test(path)) {
         return jsonValue.views.signIn;
       }
