@@ -10,6 +10,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.service.JobSearchService;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.util.ExcelUtils;
@@ -46,6 +47,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     @Resource
     private JobStatisticService jobStatisticService;
+
+    @Resource
+    private JobSearchService jobSearchService;
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
@@ -189,7 +193,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                     boolFilter().must(approvedDateRangeFilterBuilder)
                             .must(jobIndustriesFilterBuilder)
                             .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
-            List<JobEntity> jobBySkills = getJobSearchResult(queryBuilder);
+            List<JobEntity> jobBySkills = jobSearchService.getJobSearchResult(queryBuilder);
             Set<JobEntity> noDuplicatedJobs = new HashSet<>(jobs);
             noDuplicatedJobs.addAll(jobBySkills);
             jobs = new ArrayList<>(noDuplicatedJobs);
@@ -206,6 +210,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReview.setSalaryReport(salaryReport);
         salaryReview.setCreatedDateTime(new Date().getTime());
         salaryReviewRepository.save(salaryReview);
+
+        // get top 3 higher salary jobs
+        jobSearchService.getHigherSalaryJobs(salaryReview);
         return salaryReport;
     }
 
@@ -244,15 +251,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     }
 
     private double[] extractSalariesFromJob(List<JobEntity> jobs) {
-        return jobs.stream().mapToDouble(job -> {
-            if (job.getSalaryMin() == 0) {
-                return job.getSalaryMax() * 0.75D;
-            } else if (job.getSalaryMax() == 0) {
-                return job.getSalaryMin() * 1.25D;
-            } else {
-                return (job.getSalaryMin() + job.getSalaryMax()) / 2;
-            }
-        }).toArray();
+        return jobs.stream().mapToDouble(job ->
+                jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax())).toArray();
     }
 
     //Percentile Ranking Reference : http://www.regentsprep.org/regents/math/algebra/AD6/quartiles.htm
@@ -294,6 +294,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                 position = (greaterPercentile.getPercent() - lessPercentile.getPercent()) * relativePercentBetweenTwoPercentile
                         +lessPercentile.getPercent();
             }
+
+            salaryReport.setSalaryRanges(noDuplicatedSalaryRanges);
 
             position = Math.floor(position);
             if (position == 0D) {

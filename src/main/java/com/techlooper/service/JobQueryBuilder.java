@@ -101,4 +101,6 @@ public interface JobQueryBuilder {
     FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue);
 
     QueryBuilder skillQueryBuilder(List<String> skills);
+
+    NativeSearchQueryBuilder getVietnamworksJobSearchQuery();
 }
