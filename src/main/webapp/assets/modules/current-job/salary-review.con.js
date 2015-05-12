@@ -184,6 +184,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.openFacebookShare = function() {
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $rootScope.language + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
   }
 });
