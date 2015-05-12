@@ -1,13 +1,22 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.JobEntity;
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -16,6 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -27,6 +38,9 @@ import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLoc
 import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LEVEL;
 import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LOCATION;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.FilterBuilders.termFilter;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 
 /**
  * @author khoa-nd
@@ -42,6 +56,12 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     private JobSearchAPIConfigurationRepository apiConfiguration;
 
     private VNWConfigurationResponse configurationResponse;
+
+    @Resource
+    private JobQueryBuilder jobQueryBuilder;
+
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
     /**
      * Get the configuration from Vietnamworks API such as job locations, categories, degree, etc
@@ -148,5 +168,44 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                 return degreeOptional.isPresent() ? degreeOptional.get().getEnglish() : EMPTY;
         }
         return EMPTY;
+    }
+
+    public List<JobEntity> getHigherSalaryJobs(SalaryReview salaryReview) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobSearchQuery();
+
+        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
+        FilterBuilder expiredDateFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("expiredDate", "now/d", null);
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilter()
+                .must(expiredDateFilterBuilder)
+                .must(termFilter("isActive", 1))
+                .must(termFilter("isApproved", 1))));
+        List<JobEntity> higherSalaryJobs = getJobSearchResult(queryBuilder);
+        return higherSalaryJobs.stream()
+                .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReview.getNetSalary())
+                .limit(3).collect(Collectors.toList());
+    }
+
+    public Double getAverageSalary(Long salaryMin, Long salaryMax) {
+        if (salaryMin == 0) {
+            return salaryMax * 0.75D;
+        } else if (salaryMax == 0) {
+            return salaryMin * 1.25D;
+        }
+        return (salaryMin + salaryMax) / 2D;
+    }
+
+    public List<JobEntity> getJobSearchResult(NativeSearchQueryBuilder queryBuilder) {
+        queryBuilder.withSearchType(SearchType.DEFAULT);
+        long totalJobs = elasticsearchTemplate.count(queryBuilder.build());
+        long totalPage = totalJobs % 100 == 0 ? totalJobs / 100 : totalJobs / 100 + 1;
+        int pageIndex = 0;
+        List<JobEntity> jobs = new ArrayList<>();
+        while (pageIndex < totalPage) {
+            queryBuilder.withPageable(new PageRequest(pageIndex, 100));
+            jobs.addAll(elasticsearchTemplate.queryForPage(queryBuilder.build(), JobEntity.class).getContent());
+            pageIndex++;
+        }
+        return jobs;
     }
 }

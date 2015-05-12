@@ -10,6 +10,7 @@ import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.service.JobSearchService;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.util.ExcelUtils;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
@@ -45,6 +47,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     @Resource
     private JobStatisticService jobStatisticService;
+
+    @Resource
+    private JobSearchService jobSearchService;
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
@@ -160,7 +165,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return totalJobPerSkillMap;
     }
 
-    public SalaryReport evaluateJobOffer(SalaryReview salaryReview) {
+    public void evaluateJobOffer(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobCountQuery();
 
         QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
@@ -188,7 +193,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                     boolFilter().must(approvedDateRangeFilterBuilder)
                             .must(jobIndustriesFilterBuilder)
                             .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
-            List<JobEntity> jobBySkills = getJobSearchResult(queryBuilder);
+            List<JobEntity> jobBySkills = jobSearchService.getJobSearchResult(queryBuilder);
             Set<JobEntity> noDuplicatedJobs = new HashSet<>(jobs);
             noDuplicatedJobs.addAll(jobBySkills);
             jobs = new ArrayList<>(noDuplicatedJobs);
@@ -205,7 +210,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReview.setSalaryReport(salaryReport);
         salaryReview.setCreatedDateTime(new Date().getTime());
         salaryReviewRepository.save(salaryReview);
-        return salaryReport;
+
+        // get top 3 higher salary jobs
+        jobSearchService.getHigherSalaryJobs(salaryReview);
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(
@@ -213,22 +220,17 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
-        // Only generate percentile report if total number of jobs is greater than 10
-        if (jobs.size() >= MINIMUM_NUMBER_OF_JOBS) {
-            double[] salaries = extractSalariesFromJob(jobs);
-            List<SalaryRange> salaryRanges = new ArrayList<>();
-            Percentile percentile = new Percentile();
-            for (double percent : percents) {
-                salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
-            }
-            salaryReport.setSalaryRanges(salaryRanges);
-
-            // Calculate salary percentile rank for user based on list of salary percentiles from above result
-            double percentRank = calculatePercentRank(salaries, salaryReview.getNetSalary().doubleValue());
-            salaryReport.setPercentRank(Math.floor(percentRank));
-        } else {
-            salaryReport.setPercentRank(Double.NaN);
+        double[] salaries = extractSalariesFromJob(jobs);
+        List<SalaryRange> salaryRanges = new ArrayList<>();
+        Percentile percentile = new Percentile();
+        for (double percent : percents) {
+            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
         }
+        salaryReport.setSalaryRanges(salaryRanges);
+
+        // Calculate salary percentile rank for user based on list of salary percentiles from above result
+        double percentRank = calculatePercentPosition(salaryReport);
+        salaryReport.setPercentRank(Math.floor(percentRank));
 
         return salaryReport;
     }
@@ -248,15 +250,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     }
 
     private double[] extractSalariesFromJob(List<JobEntity> jobs) {
-        return jobs.stream().mapToDouble(job -> {
-            if (job.getSalaryMin() == 0) {
-                return job.getSalaryMax() * 0.75D;
-            } else if (job.getSalaryMax() == 0) {
-                return job.getSalaryMin() * 1.25D;
-            } else {
-                return (job.getSalaryMin() + job.getSalaryMax()) / 2;
-            }
-        }).toArray();
+        return jobs.stream().mapToDouble(job ->
+                jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax())).toArray();
     }
 
     //Percentile Ranking Reference : http://www.regentsprep.org/regents/math/algebra/AD6/quartiles.htm
@@ -269,6 +264,48 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             return 99D;
         }
         return percentRank;
+    }
+
+
+    private double calculatePercentPosition(SalaryReport salaryReport) {
+        //Remove duplicated percentiles if any
+        List<SalaryRange> noDuplicatedSalaryRanges = salaryReport.getSalaryRanges().stream().distinct().collect(Collectors.toList());
+        if (noDuplicatedSalaryRanges.size() >= 2) {
+            SalaryRange basedPercentile;
+            int size = noDuplicatedSalaryRanges.size();
+            int i = 0;
+            while (i < size && salaryReport.getNetSalary() >= noDuplicatedSalaryRanges.get(i).getPercentile()) {
+                i++;
+            }
+
+            double position = 0D;
+            if (i == 0) {
+                SalaryRange firstPercentile = noDuplicatedSalaryRanges.get(0);
+                position = salaryReport.getNetSalary() / firstPercentile.getPercentile() * firstPercentile.getPercent();
+            } else if (i == size) {
+                SalaryRange lastPercentile = noDuplicatedSalaryRanges.get(size - 1);
+                position = salaryReport.getNetSalary() / lastPercentile.getPercentile() * lastPercentile.getPercent();
+            } else {
+                SalaryRange lessPercentile = noDuplicatedSalaryRanges.get(i - 1);
+                SalaryRange greaterPercentile = noDuplicatedSalaryRanges.get(i);
+                double relativePercentBetweenTwoPercentile = (salaryReport.getNetSalary() - lessPercentile.getPercentile()) /
+                        (greaterPercentile.getPercentile() - lessPercentile.getPercentile());
+                position = (greaterPercentile.getPercent() - lessPercentile.getPercent()) * relativePercentBetweenTwoPercentile
+                        +lessPercentile.getPercent();
+            }
+
+            salaryReport.setSalaryRanges(noDuplicatedSalaryRanges);
+
+            position = Math.floor(position);
+            if (position == 0D) {
+                return 1D;
+            } else if (position >= 100D) {
+                return 99D;
+            } else {
+                return position;
+            }
+        }
+        return Double.NaN;
     }
 
 }

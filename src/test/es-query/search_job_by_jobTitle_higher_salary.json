@@ -1,0 +1,38 @@
+GET vietnamworks/job/_search
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "jobTitle": {
+            "query": "Java Developer",
+            "minimum_should_match": "100%"
+          }
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "isActive": 1
+              }
+            },
+            {
+              "term": {
+                "isApproved": 1
+              }
+            },
+            {
+              "range": {
+                "expiredDate": {
+                  "from": "now/d"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

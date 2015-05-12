@@ -214,6 +214,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         return QueryBuilders.nestedQuery("skills", skillQueryBuilder);
     }
 
+    @Override
+    public NativeSearchQueryBuilder getVietnamworksJobSearchQuery() {
+        return new NativeSearchQueryBuilder().withIndices(elasticSearchIndexName).withTypes("job");
+    }
+
     private List<String> processSkillsBeforeSearch(List<String> skills) {
         List<String> analyzedSkills = new ArrayList<>();
         for (String skill : skills) {
