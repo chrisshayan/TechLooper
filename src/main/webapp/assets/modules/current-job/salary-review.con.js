@@ -9,7 +9,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
 
     $.each([
-      {item: "genders", translate: "exMale"},
+      //{item: "genders", translate: "exMale"},
       {item: "locations", translate: "exHoChiMinh"},
       {item: "jobLevels", translate: "exManager"},
       {item: "industries", translate: "exItSoftware"},
@@ -219,7 +219,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
    http://localhost:8080/#/salary-review?jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000&reportTo="manager"
    * */
   var campaign = $location.search();
-  if (campaign) {
+  if (!$.isEmptyObject(campaign)) {
     for (var prop in campaign) {
       try {
         campaign[prop] = JSON.parse(campaign[prop]);
@@ -227,6 +227,19 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       catch (e) {}
     }
     $scope.salaryReview = campaign;
+    $scope.salaryReview.campaign = true;
     $scope.step = "step2";
   }
+
+  //$.isEmptyObject($location.search()) || ($scope.campaign = $location.search());
+  //if ($scope.campaign) {
+  //  for (var prop in $scope.campaign) {
+  //    try {
+  //      $scope.campaign[prop] = JSON.parse(campaign[prop]);
+  //    }
+  //    catch (e) {}
+  //  }
+  //  $scope.salaryReview = $.extend(true, {}, $scope.campaign);
+  //  //$scope.step = "step2";
+  //}
 });
