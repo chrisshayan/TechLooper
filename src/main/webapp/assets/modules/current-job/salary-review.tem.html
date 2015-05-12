@@ -134,7 +134,7 @@
             </li>
           </ul>
           <div class="verified-data">
-
+            <img src="images/verified-data.png" alt=""/>
           </div>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank !== 'NaN'">
@@ -156,12 +156,12 @@
             <div class="your-pay-snapshot-chart">
               <p>{{'median' | translate}}</p>
               <div class="chart-percent-line">
-                <div class="percent-data zero">
+                <div class="percent-data">
                   <div class="salary-number-label">$0</div>
                   <div class="percent-color"></div>
                   <div class="percent-number-label">0%</div>
                 </div>
-                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data" ng-style="{width: range.percent+'%'}%">
+                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data" ng-style="{width: range.percent +'%'}">
                   <div class="salary-number-label">${{range.percentile.toLocaleString()}}</div>
                   <div class="percent-color"></div>
                   <div class="percent-number-label">{{range.percent}}%</div>
