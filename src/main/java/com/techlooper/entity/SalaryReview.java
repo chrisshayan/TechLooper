@@ -1,6 +1,7 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.SalaryReport;
+import com.techlooper.model.TopPaidJob;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -43,6 +44,8 @@ public class SalaryReview {
 
     @Field(type = FieldType.Nested)
     private SalaryReport salaryReport;
+
+    private List<TopPaidJob> topPaidJobs;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -122,5 +125,13 @@ public class SalaryReview {
 
     public void setSalaryReport(SalaryReport salaryReport) {
         this.salaryReport = salaryReport;
+    }
+
+    public List<TopPaidJob> getTopPaidJobs() {
+        return topPaidJobs;
+    }
+
+    public void setTopPaidJobs(List<TopPaidJob> topPaidJobs) {
+        this.topPaidJobs = topPaidJobs;
     }
 }

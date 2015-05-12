@@ -3,6 +3,7 @@ package com.techlooper.controller;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
+import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserImportDataProcessor;
 import com.techlooper.service.UserService;
@@ -38,6 +39,9 @@ public class UserController {
 
   @Resource
   private UserEvaluationService userEvaluationService;
+
+  @Resource
+  private SalaryReviewRepository salaryReviewRepository;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -115,8 +119,9 @@ public class UserController {
   }
 
   @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-  public SalaryReport evaluateJobOffer(@RequestBody SalaryReview salaryReview) {
-      return userEvaluationService.evaluateJobOffer(salaryReview);
+  public SalaryReview evaluateJobOffer(@RequestBody SalaryReview salaryReview) {
+    userEvaluationService.evaluateJobOffer(salaryReview);
+    return salaryReview;
   }
 
 }
