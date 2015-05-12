@@ -3,9 +3,11 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
+import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SalaryReport;
+import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserService;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
@@ -28,6 +31,9 @@ public class UserEvaluationServiceImplTest {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private JobSearchService jobSearchService;
 
     @Test
     public void testScore() throws Exception {
@@ -124,5 +130,14 @@ public class UserEvaluationServiceImplTest {
         userEvaluationService.evaluateJobOffer(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
+    }
+
+    @Test
+    public void testGetHigherSalaryJobs() {
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("Java Developer");
+        salaryReview.setNetSalary(1000);
+        List<JobEntity> jobEntities = jobSearchService.getHigherSalaryJobs(salaryReview);
+        assertTrue(jobEntities.size() == 3);
     }
 }

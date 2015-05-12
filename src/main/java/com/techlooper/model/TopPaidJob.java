@@ -13,6 +13,16 @@ public class TopPaidJob {
 
     private Double addedPercent;
 
+    public TopPaidJob() {
+    }
+
+    public TopPaidJob(String jobId, String jobTitle, String companyDesc, Double addedPercent) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.companyDesc = companyDesc;
+        this.addedPercent = addedPercent;
+    }
+
     public String getJobId() {
         return jobId;
     }
