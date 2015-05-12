@@ -27,6 +27,15 @@
         <div class="salary-info-form">
 
           <form autocomplete="off">
+            <!--<div class="row salary-field">-->
+              <!--<label>{{'gender' | translate}}</label>-->
+              <!--<selectize config='selectize.genders.config' options='selectize.genders.items'-->
+                         <!--ng-model="salaryReview.genderId"-->
+                         <!--name="{{'gender' | translate}}"></selectize>-->
+              <!--<div class="error-messages">-->
+                <!--{{error['salaryReview.gender']}}-->
+              <!--</div>-->
+            <!--</div>-->
             <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
@@ -125,7 +134,7 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>{{'skill' | translate}}:</span> <p>Java, Php, AngularJS</p></li>
+            <li><span>{{'skill' | translate}}:</span> <p>{{salaryReview.skills}}</p></li>
             <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
             <li><span>{{'categories' | translate}}:</span>
               <p>
@@ -309,6 +318,44 @@
             </ul>
             <div class="create-new-report">
               <a class="btn btn-primary" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="best-paid-jobs-block">
+          <div class="title-header">
+            <h3>Best Paid [Job Title] in [Location] for You</h3>
+            <div class="hidden-box">X</div>
+          </div>
+          <div class="best-paid-list">
+            <div class="best-paid-company">
+              <ul>
+                <li>Job title</li>
+                <li>company name</li>
+                <li>Estimated you can make 10% more if you get this job.</li>
+              </ul>
+              <div class="btn-see-more">
+                <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
+              </div>
+            </div>
+            <div class="best-paid-company">
+              <ul>
+                <li>Job title</li>
+                <li>company name</li>
+                <li>Estimated you can make 10% more if you get this job.</li>
+              </ul>
+              <div class="btn-see-more">
+                <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
+              </div>
+            </div>
+            <div class="best-paid-company">
+              <ul>
+                <li>Job title</li>
+                <li>company name</li>
+                <li>Estimated you can make 10% more if you get this job.</li>
+              </ul>
+              <div class="btn-see-more">
+                <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
+              </div>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
 
     $.each([
+      {item: "genders", translate: "exMale"},
       {item: "locations", translate: "exHoChiMinh"},
       {item: "jobLevels", translate: "exManager"},
       {item: "industries", translate: "exItSoftware"},
@@ -37,6 +38,20 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         }
       }
     },
+    //gender: {
+    //  items: jsonValue.genders,
+    //  config: {
+    //    valueField: 'id',
+    //    labelField: 'name',
+    //    delimiter: '|',
+    //    maxItems: 1,
+    //    searchField: ['translate'],
+    //    placeholder: $translate.instant("exMale"),
+    //    onInitialize: function (selectize) {
+    //      $scope.selectize.genders.$elem = selectize;
+    //    }
+    //  }
+    //},
     jobLevels: {
       items: jobLevels,
       config: {
@@ -84,6 +99,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.error = {};
   $scope.salaryReview = {
+    genderId: '',
     jobTitle: '',
     skills: [],
     locationId: '',

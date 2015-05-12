@@ -42,6 +42,12 @@ public class SalaryReview {
     @Field
     private Long companySizeId;
 
+    @Field
+    private int gender;
+
+    @Field
+    private int age;
+
     @Field(type = FieldType.Nested)
     private SalaryReport salaryReport;
 
@@ -117,6 +123,22 @@ public class SalaryReview {
 
     public void setCompanySizeId(Long companySizeId) {
         this.companySizeId = companySizeId;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public SalaryReport getSalaryReport() {
