@@ -123,18 +123,19 @@
       <div class="your-report-content" ng-show="step==='step3'">
         <div class="user-personal-info">
           <ul>
-            <li>You are a <strong>{{salaryReview.jobTitle}}</strong> professional in <strong>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</strong> level, who have skills: …. , and your salary is <strong>${{salaryReport.netSalary.toLocaleString()}}</strong> </li>
-            <li>Your job categories: <span class="items" ng-repeat="cat in salaryReview.jobCategories"><strong>{{jsonValue.industries['' + cat].value}}</strong></span></li>
-            <!--<li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>-->
-            <!--<li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>-->
-            <!--<li><span>{{'skill' | translate}}:</span> <p>Java, Php, AngularJS</p></li>-->
+            <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
+            <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
+            <li><span>{{'skill' | translate}}:</span> <p>Java, Php, AngularJS</p></li>
             <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
-            <!--<li><span>{{'categories' | translate}}:</span>-->
-              <!--<p>-->
-                <!--<span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>-->
-              <!--</p>-->
-            <!--</li>-->
+            <li><span>{{'categories' | translate}}:</span>
+              <p>
+                <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
+              </p>
+            </li>
           </ul>
+          <div class="verified-data">
+
+          </div>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank !== 'NaN'">
           <h3>{{'yourPaySnapshot' | translate}}</h3>
@@ -159,7 +160,7 @@
                   <div class="percent-color"></div>
                   <div class="percent-number-label">0%</div>
                 </div>
-                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data percent{{range.percent}}">
+                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data" ng-style="{width: range.percent+'%'}%">
                   <div class="salary-number-label">${{range.percentile.toLocaleString()}}</div>
                   <div class="percent-color"></div>
                   <div class="percent-number-label">{{range.percent}}%</div>
