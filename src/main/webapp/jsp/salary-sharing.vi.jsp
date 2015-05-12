@@ -13,7 +13,7 @@
     <!-- Facebook & LinkedIn -->
     <meta property="og:title" content="TechLooper is a career analytics platform."/>
     <meta property="og:description"
-          content="WOW! ${report.getPercentRank()}"/>
+          content="WOW! Bạn kiếm được nhiều tiền hơn ${report.getPercentRank()} những người giống như bạn."/>
     <meta property="og:image" content="http://techlooper.com/images/logo-social.png"/>
     <meta property="og:image:width" content="200"/>
 
