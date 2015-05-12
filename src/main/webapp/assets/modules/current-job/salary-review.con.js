@@ -1,4 +1,5 @@
-techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route) {
+techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
+                                                          $route, $location) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
@@ -167,6 +168,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
         utils.sendNotification(jsonValue.notifications.switchScope);
+
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
             $scope.salaryReview = data;
@@ -185,5 +187,30 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.openFacebookShare = function() {
     window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
+  }
+
+  /*
+   {
+     "jobTitle": "java developer",
+     "skills": ["java", "j2ee", "spring framework"],
+     "locationId": "29",
+     "jobLevelIds": [5, 6],
+     "jobCategories": ["35"],
+     "companySizeId": "",
+     "netSalary": 1000,
+     "reportTo": "manager"
+   }
+   http://localhost:8080/#/salary-review?jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000&reportTo="manager"
+   * */
+  var campaign = $location.search();
+  if (campaign) {
+    for (var prop in campaign) {
+      try {
+        campaign[prop] = JSON.parse(campaign[prop]);
+      }
+      catch (e) {}
+    }
+    $scope.salaryReview = campaign;
+    $scope.step = "step2";
   }
 });
