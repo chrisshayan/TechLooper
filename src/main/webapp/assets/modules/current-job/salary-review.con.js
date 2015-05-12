@@ -37,20 +37,20 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         }
       }
     },
-    gender: {
-      items: jsonValue.genders,
-      config: {
-        valueField: 'id',
-        labelField: 'name',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['translate'],
-        placeholder: $translate.instant("exMale"),
-        onInitialize: function (selectize) {
-          $scope.selectize.genders.$elem = selectize;
-        }
-      }
-    },
+    //gender: {
+    //  items: jsonValue.genders,
+    //  config: {
+    //    valueField: 'id',
+    //    labelField: 'name',
+    //    delimiter: '|',
+    //    maxItems: 1,
+    //    searchField: ['translate'],
+    //    placeholder: $translate.instant("exMale"),
+    //    onInitialize: function (selectize) {
+    //      $scope.selectize.genders.$elem = selectize;
+    //    }
+    //  }
+    //},
     jobLevels: {
       items: jobLevels,
       config: {

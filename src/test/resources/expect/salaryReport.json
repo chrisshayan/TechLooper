@@ -22,5 +22,19 @@
       "percent": 90,
       "percentile": 1300
     }
+  ],
+  "topPaidJobs" : [
+    {
+      "jobId" : "555555",
+      "jobTitle" : "Senior Java Developer",
+      "companyDesc" : "Navigos Group",
+      "addedPercent" : 10.5
+    },
+    {
+      "jobId" : "555556",
+      "jobTitle" : "Senior Java Developer",
+      "companyDesc" : "Vietnamworks",
+      "addedPercent" : 20.3
+    }
   ]
 }

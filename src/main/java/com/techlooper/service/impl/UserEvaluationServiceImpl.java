@@ -3,10 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.SalaryRange;
-import com.techlooper.model.SalaryReport;
-import com.techlooper.model.SocialProvider;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
@@ -212,7 +209,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReviewRepository.save(salaryReview);
 
         // get top 3 higher salary jobs
-        jobSearchService.getHigherSalaryJobs(salaryReview);
+        List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReview), salaryReview.getNetSalary());
+        salaryReview.setTopPaidJobs(topPaidJobs);
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(
@@ -306,6 +304,16 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             }
         }
         return Double.NaN;
+    }
+
+    private List<TopPaidJob> findTopPaidJob(List<JobEntity> higherSalaryJobs, Integer netSalary) {
+        List<TopPaidJob> topPaidJobs = new ArrayList<>();
+        for(JobEntity jobEntity : higherSalaryJobs) {
+            double addedPercent = (jobSearchService.getAverageSalary(jobEntity.getSalaryMin(), jobEntity.getSalaryMax()) - netSalary) /
+                    netSalary;
+            topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), addedPercent));
+        }
+        return topPaidJobs;
     }
 
 }
