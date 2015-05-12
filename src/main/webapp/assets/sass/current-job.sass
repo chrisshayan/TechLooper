@@ -169,13 +169,21 @@
         ul
           margin: 0
           padding: 0
+          width: 60%
+          float: left
           li
             width: 100%
             clear: both
             padding: 5px 0
-            text-align: center
+            text-align: left
+            span
+              display: block
+              width: 20%
+              float: left
+              font-weight: 400
+              text-align: left
             p
-              width: 90%
+              width: 80%
               float: left
               margin: 0
               padding: 0
@@ -188,6 +196,9 @@
               strong
                 font-weight: 400
                 font-size: 16px
+        .verified-data
+          width: 40%
+          float: left
       .your-pay-snapshot-block
         display: inline-block
         clear: both
@@ -326,29 +337,23 @@
                 display: block
                 clear: both
                 height: 40px
-            .percent-data.zero
-              width: 10%
+            .chart-percent-line:first-child
               .percent-color
                 background-color: #ebf6ff
-            .percent-data.percent10
-              width: 15%
+            .chart-percent-line:nth-child(2)
               .percent-color
                 background-color: #bbe1fe
-            .percent-data.percent25
-              width: 25%
+            .chart-percent-line:nth-child(3)
               .percent-color
                 background-color: #7fc6fa
-            .percent-data.percent50
-              width: 25%
+            .chart-percent-line:nth-child(4)
               .percent-color
                 background-color: #7fc6fa
                 border-left: 1px dashed #fff
-            .percent-data.percent75
-              width: 15%
+            .chart-percent-line:nth-child(5)
               .percent-color
                 background-color: #4398da
-            .percent-data.percent90
-              width: 10%
+            .chart-percent-line:last-child
               .percent-color
                 background-color: #1266a8
 
