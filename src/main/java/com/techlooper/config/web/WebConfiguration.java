@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import javax.annotation.Resource;
 
@@ -32,7 +31,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
   public ViewResolver viewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
     viewResolver.setSuffix("");
-    viewResolver.setViewClass(JstlView.class);
     return viewResolver;
   }
 
