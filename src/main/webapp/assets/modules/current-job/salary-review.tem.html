@@ -134,7 +134,7 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>{{'skill' | translate}}:</span> <p>Java, Php, AngularJS</p></li>
+            <li><span>{{'skill' | translate}}:</span> <p>{{salaryReview.skills}}</p></li>
             <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
             <li><span>{{'categories' | translate}}:</span>
               <p>
