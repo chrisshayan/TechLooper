@@ -1,6 +1,7 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
                                                           $route, $location) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
+  var genders = $.extend(true, [], jsonValue.genders.filter(function (value) {return value.id > 0;}));
   var campaign = $location.search();
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
@@ -8,9 +9,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     }
     var translate = $rootScope.translate;
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
+    $.each(genders, function (i, item) {item.translate = translate[item.translate];});
 
     $.each([
-      //{item: "genders", translate: "exMale"},
+      {item: "genders", translate: "exMale"},
       {item: "locations", translate: "exHoChiMinh"},
       {item: "jobLevels", translate: "exManager"},
       {item: "industries", translate: "exItSoftware"},
@@ -39,20 +41,20 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         }
       }
     },
-    //gender: {
-    //  items: jsonValue.genders,
-    //  config: {
-    //    valueField: 'id',
-    //    labelField: 'name',
-    //    delimiter: '|',
-    //    maxItems: 1,
-    //    searchField: ['translate'],
-    //    placeholder: $translate.instant("exMale"),
-    //    onInitialize: function (selectize) {
-    //      $scope.selectize.genders.$elem = selectize;
-    //    }
-    //  }
-    //},
+    genders: {
+      items: genders,
+      config: {
+        valueField: 'id',
+        labelField: 'translate',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['translate'],
+        placeholder: $translate.instant("exMale"),
+        onInitialize: function (selectize) {
+          $scope.selectize.genders.$elem = selectize;
+        }
+      }
+    },
     jobLevels: {
       items: jobLevels,
       config: {
