@@ -212,7 +212,7 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li class="fullCol">
-                  {{'noSalaryAvailable' | translate}} <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{jsonValue.locationsMap[salaryReview.locationId].name}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetSalaryReport' | translate}}.
+                  {{'noSalaryAvailable' | translate}} <strong>{{salaryReview.jobTitle}}</strong> {{'in' | translate}} <strong>{{jsonValue.locationsMap[salaryReview.locationId].name}}</strong>. {{'whileImprove' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetSalaryReport' | translate}}.
                     <!--{{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}-->
                 </li>
               </ul>
@@ -245,27 +245,13 @@
                   <div class="percent-color"></div>
                   <div class="percent-number-label">75%</div>
                 </div>
-                <div class="percent-data percent90">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">90%</div>
-                </div>
-                <!--<div class="my-current-rank" style="left: 0%">-->
-                  <!--<div class="my-current-salary">-->
-                    <!--<span>{{'you' | translate}}: $0</span>-->
-                    <!--<i class="fa fa-sort-down"></i>-->
-                  <!--</div>-->
-                  <!--<div class="my-position">-->
-                    <!--<i class="fa fa-star"></i>-->
-                  <!--</div>-->
-                <!--</div>-->
               </div>
               <div class="arrow-right"></div>
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
             </div>
           </div>
         </div>
-        <div class="salary-report-feedback" ng-show="!salaryReview.campaign">
+        <div class="salary-report-feedback" ng-show="!salaryReview.campaign" ng-show="salaryReport.percentRank == 'NaN'">
           <h3>What do you think about this report?</h3>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
