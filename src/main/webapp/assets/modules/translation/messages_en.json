@@ -137,7 +137,7 @@
   "between10to20": "while average promotions are between 10% to 20%.",
   "yob": "Year of birth",
   "exYob": "Ex: 1988",
-  "incYourSalary": "Increase Your Salary",
+  "doYouWantToEarnMore": "Do you want to earn more?",
   "haveAnyFeedback": "Do you have any feedback for us to improve?",
   "resultReportAccurate": "Do you think the results of the report are accurate?",
   "submit": "Submit",
@@ -146,5 +146,8 @@
   "whatYouThinkReport": "What do you think about this report?",
   "yes": "Yes",
   "no": "No",
-  "seeMore": "See More"
+  "seeMore": "See More",
+  "higherJobOffer" : "These jobs offer you a salary increase of:",
+  "higherJobOfferDisclaimer" : "(*) The salary increases shown above are just an estimation.",
+  "seeMoreHigherSalaryJob" : "See More Higher Salary Jobs"
 }
