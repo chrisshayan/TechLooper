@@ -317,7 +317,7 @@
         <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN'" class="best-paid-jobs-block">
           <div class="title-header">
             <h3 translate="incYourSalary"></h3>
-            <div class="hidden-box" title="Close">X</div>
+            <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
           </div>
           <div class="best-paid-list">
             <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
