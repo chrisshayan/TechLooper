@@ -30,11 +30,7 @@
             <div class="row salary-field">
               <label>{{'gender' | translate}}</label>
               <selectize config='selectize.genders.config' options='selectize.genders.items'
-                         ng-model="salaryReview.gender"
-                         name="{{'gender' | translate}}"></selectize>
-              <div class="error-messages">
-                {{error['salaryReview.gender']}}
-              </div>
+                         ng-model="salaryReview.gender"></selectize>
             </div>
             <div class="row salary-field">
               <label for="yob">{{'yob' | translate}}</label>
@@ -266,42 +262,42 @@
           </div>
         </div>
         <div class="salary-report-feedback" ng-show="!salaryReview.campaign">
-          <h3>What do you think about this report?</h3>
+          <h3 translate="whatYouThinkReport"></h3>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
               <ul>
                   <li>
-                    <p>Do you understand this report?</p>
+                    <p translate="understandReport?"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>
+                        <input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
                       </div>
                       <div class="select-item">
-                        <input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>
+                        <input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
                       </div>
                     </div>
                   </li>
                   <li>
-                    <p>Do you think the results of the report are accurate?</p>
+                    <p translate="resultReportAccurate"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>
+                        <input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
                       </div>
                       <div class="select-item">
-                        <input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>
+                        <input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
                       </div>
                     </div>
                   </li>
                   <li>
-                    <label for="txtFeedback">Do you have any feedback for us to improve?</label>
+                    <label for="txtFeedback" translate="haveAnyFeedback"></label>
                     <textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
                   </li>
                   <li>
-                    <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" translate="submit"></button>
                   </li>
                 </ul>
               </form>
-            <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
+            <div class="note" translate="thanksForHelp"></div>
           </div>
         </div>
         <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN' && !salaryReview.campaign">
@@ -334,38 +330,18 @@
         </div>
         <div ng-show="!salaryReview.campaign" class="best-paid-jobs-block">
           <div class="title-header">
-            <h3>Increase Your Salary</h3>
+            <h3 translate="incYourSalary"></h3>
             <div class="hidden-box" title="Close">X</div>
           </div>
           <div class="best-paid-list">
-            <div class="best-paid-company">
+            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
               <ul>
-                <li>20%</li>
-                <li>Senior Php Developer</li>
-                <li>Navigos Group VietNam</li>
+                <li>{{job.addedPercent}}%</li>
+                <li>{{job.jobTitle}}</li>
+                <li>{{job.companyDesc}}</li>
               </ul>
               <div class="btn-see-more">
-                <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
-              </div>
-            </div>
-            <div class="best-paid-company">
-              <ul>
-                <li>34%</li>
-                <li>Project Manager</li>
-                <li>Sony Vietnam</li>
-              </ul>
-              <div class="btn-see-more">
-                <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
-              </div>
-            </div>
-            <div class="best-paid-company">
-              <ul>
-                <li>12%</li>
-                <li>Java Developer</li>
-                <li>Navigos Group VietNam</li>
-              </ul>
-              <div class="btn-see-more">
-                <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
+                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">See More</a>
               </div>
             </div>
           </div>
