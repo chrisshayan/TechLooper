@@ -70,6 +70,7 @@
                   <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
                 </div>
               </div>
+              <div class="error-messages">{{error.skills}}</div>
             </div>
             <div class="row salary-field">
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
