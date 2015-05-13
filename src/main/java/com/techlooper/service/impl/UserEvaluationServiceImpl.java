@@ -295,7 +295,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                 double relativePercentBetweenTwoPercentile = (salaryReport.getNetSalary() - lessPercentile.getPercentile()) /
                         (greaterPercentile.getPercentile() - lessPercentile.getPercentile());
                 position = (greaterPercentile.getPercent() - lessPercentile.getPercent()) * relativePercentBetweenTwoPercentile
-                        +lessPercentile.getPercent();
+                        + lessPercentile.getPercent();
             }
 
             salaryReport.setSalaryRanges(noDuplicatedSalaryRanges);
@@ -314,10 +314,10 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     private List<TopPaidJob> findTopPaidJob(List<JobEntity> higherSalaryJobs, Integer netSalary) {
         List<TopPaidJob> topPaidJobs = new ArrayList<>();
-        for(JobEntity jobEntity : higherSalaryJobs) {
+        for (JobEntity jobEntity : higherSalaryJobs) {
             double addedPercent = (jobSearchService.getAverageSalary(jobEntity.getSalaryMin(), jobEntity.getSalaryMax()) - netSalary) /
                     netSalary;
-            topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), addedPercent));
+            topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), Math.ceil(addedPercent)));
         }
         return topPaidJobs;
     }
