@@ -3,10 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.SalaryRange;
-import com.techlooper.model.SalaryReport;
-import com.techlooper.model.SocialProvider;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.service.JobQueryBuilder;
@@ -209,10 +206,17 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, jobs);
         salaryReview.setSalaryReport(salaryReport);
         salaryReview.setCreatedDateTime(new Date().getTime());
-        salaryReviewRepository.save(salaryReview);
+
+        // Save user salary information should happen only in production environment
+        boolean allowToSave = environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) != null ?
+                environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
+        if (allowToSave) {
+            salaryReviewRepository.save(salaryReview);
+        }
 
         // get top 3 higher salary jobs
-        jobSearchService.getHigherSalaryJobs(salaryReview);
+        List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReview), salaryReview.getNetSalary());
+        salaryReview.setTopPaidJobs(topPaidJobs);
     }
 
     private SalaryReport transformAggregationsToEvaluationReport(
@@ -291,7 +295,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                 double relativePercentBetweenTwoPercentile = (salaryReport.getNetSalary() - lessPercentile.getPercentile()) /
                         (greaterPercentile.getPercentile() - lessPercentile.getPercentile());
                 position = (greaterPercentile.getPercent() - lessPercentile.getPercent()) * relativePercentBetweenTwoPercentile
-                        +lessPercentile.getPercent();
+                        + lessPercentile.getPercent();
             }
 
             salaryReport.setSalaryRanges(noDuplicatedSalaryRanges);
@@ -306,6 +310,30 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             }
         }
         return Double.NaN;
+    }
+
+    private List<TopPaidJob> findTopPaidJob(List<JobEntity> higherSalaryJobs, Integer netSalary) {
+        List<TopPaidJob> topPaidJobs = new ArrayList<>();
+        for (JobEntity jobEntity : higherSalaryJobs) {
+            double addedPercent = (jobSearchService.getAverageSalary(jobEntity.getSalaryMin(), jobEntity.getSalaryMax()) - netSalary) /
+                    netSalary * 100;
+            topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), Math.ceil(addedPercent)));
+        }
+        return topPaidJobs;
+    }
+
+    public void deleteSalaryReview(SalaryReview salaryReview) {
+        salaryReviewRepository.delete(salaryReview.getCreatedDateTime());
+    }
+
+    public boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey) {
+        SalaryReview salaryReview = salaryReviewRepository.findOne(salaryReviewSurvey.getSalaryReviewId());
+        if (salaryReview != null) {
+            salaryReview.setSalaryReviewSurvey(salaryReviewSurvey);
+            salaryReviewRepository.save(salaryReview);
+            return true;
+        }
+        return false;
     }
 
 }

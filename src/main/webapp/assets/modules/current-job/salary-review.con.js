@@ -1,13 +1,18 @@
-techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route) {
+techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
+                                                          $route, $location) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
+  var genders = $.extend(true, [], jsonValue.genders.filter(function (value) {return value.id > 0;}));
+  var campaign = $location.search();
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
       return;
     }
     var translate = $rootScope.translate;
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
+    $.each(genders, function (i, item) {item.translate = translate[item.translate];});
 
     $.each([
+      {item: "genders", translate: "exMale"},
       {item: "locations", translate: "exHoChiMinh"},
       {item: "jobLevels", translate: "exManager"},
       {item: "industries", translate: "exItSoftware"},
@@ -33,6 +38,20 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         placeholder: $translate.instant("exHoChiMinh"),
         onInitialize: function (selectize) {
           $scope.selectize.locations.$elem = selectize;
+        }
+      }
+    },
+    genders: {
+      items: genders,
+      config: {
+        valueField: 'id',
+        labelField: 'translate',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['translate'],
+        placeholder: $translate.instant("exMale"),
+        onInitialize: function (selectize) {
+          $scope.selectize.genders.$elem = selectize;
         }
       }
     },
@@ -83,6 +102,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.error = {};
   $scope.salaryReview = {
+    genderId: '',
     jobTitle: '',
     skills: [],
     locationId: '',
@@ -141,10 +161,13 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       delete $scope.error[modelName];
       var inputValue = $scope.$eval(modelName);
       var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
-      notHasValue = notHasValue || (inputValue === null);
+      notHasValue = notHasValue || !inputValue;
       notHasValue = notHasValue || (inputValue.length <= 0);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
+    $scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
+    $scope.salaryReview.skills.length && (delete $scope.error.skills);
+
     var error = $.extend(true, {}, $scope.error);
     delete error.existSkillName;
     delete error.newSkillName;
@@ -167,9 +190,11 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
         utils.sendNotification(jsonValue.notifications.switchScope);
+
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
             $scope.salaryReview = data;
+            $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
             $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
           })
@@ -184,6 +209,45 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.openFacebookShare = function() {
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $rootScope.language + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
+  }
+
+  /*
+   {
+     "jobTitle": "java developer",
+     "skills": ["java", "j2ee", "spring framework"],
+     "locationId": "29",
+     "jobLevelIds": [5, 6],
+     "jobCategories": ["35"],
+     "companySizeId": "",
+     "netSalary": 1000,
+     "reportTo": "manager"
+   }
+   http://localhost:8080/#/salary-review?jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
+   * */
+  if (!$.isEmptyObject(campaign)) {
+    for (var prop in campaign) {
+      try {
+        campaign[prop] = JSON.parse(campaign[prop]);
+      }
+      catch (e) {}
+    }
+    $scope.salaryReview = campaign;
+    $scope.salaryReview.campaign = true;
+    $scope.step = "step1";
+  }
+
+  $scope.submitSurvey = function() {
+    $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
+    $http.post("saveSurvey", $scope.survey)
+      .success(function (data, status, headers, config) {
+        $scope.survey.submitted = true;
+      })
+      .error(function (data, status, headers, config) {
+      });
+  }
+
+  $scope.hiddenPaidJobs = function(){
+    $('.best-paid-jobs-block').slideUp("normal", function() { $(this).remove(); } );
   }
 });

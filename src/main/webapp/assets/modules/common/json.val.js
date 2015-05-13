@@ -659,7 +659,10 @@ angular.module("Common").constant("jsonValue", (function () {
         }
       ]
     },
-
+    genders: [
+      {id: 1, translate: "genderMale"},
+      {id: 2, translate: "genderFemale"}
+    ],
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
       {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1]},
@@ -750,6 +753,9 @@ angular.module("Common").constant("jsonValue", (function () {
 
   instance.jobLevelsMap = {};
   $.each(instance.jobLevels, function (i, jobLevel) {instance.jobLevelsMap[jobLevel.id] = jobLevel;});
+
+  instance.locationsMap = {};
+  $.each(instance.locations, function (i, location) {instance.locationsMap[location.id] = location;});
 
   return instance;
 })());

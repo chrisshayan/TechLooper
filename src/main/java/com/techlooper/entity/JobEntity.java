@@ -26,6 +26,9 @@ public class JobEntity {
     @Field(type = Long)
     private Long salaryMax;
 
+    @Field(type = String)
+    private String companyDesc;
+
     public String getId() {
         return id;
     }
@@ -56,6 +59,14 @@ public class JobEntity {
 
     public void setSalaryMax(Long salaryMax) {
         this.salaryMax = salaryMax;
+    }
+
+    public String getCompanyDesc() {
+        return companyDesc;
+    }
+
+    public void setCompanyDesc(String companyDesc) {
+        this.companyDesc = companyDesc;
     }
 
     @Override

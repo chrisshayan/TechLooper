@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar" ng-show="!salaryReview.campaign">
   <div class="logo-block text-center">
     <div class="logo" id="logo">
       <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
@@ -51,7 +51,7 @@
                 {{error['salaryReview.netSalary']}}</div>
             </div>
             <div class="row salary-field">
-              <label for="txtTopSkills">{{'mostRelevantSkills' | translate}}</label>
+              <label for="txtTopSkills">{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
               <div class="top-three-skills">
                 <div class="added-list-skills">
                   <ul>
@@ -70,6 +70,7 @@
                   <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
                 </div>
               </div>
+              <div class="error-messages">{{error.skills}}</div>
             </div>
             <div class="row salary-field">
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
@@ -79,6 +80,15 @@
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
               </div>
+            </div>
+            <div class="row salary-field">
+              <label>{{'gender' | translate}}</label>
+              <selectize config='selectize.genders.config' options='selectize.genders.items'
+                         ng-model="salaryReview.gender"></selectize>
+            </div>
+            <div class="row salary-field">
+              <label for="yob">{{'yob' | translate}}</label>
+              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>
             </div>
             <div class="row salary-field-submit">
               <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
@@ -125,16 +135,23 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>{{'skill' | translate}}:</span> <p>Java, Php, AngularJS</p></li>
+            <li ng-show="salaryReview.skills.length"><span>{{'skill' | translate}}:</span> <p>
+              <span class="left" ng-repeat="skill in salaryReview.skills">
+                <span class="right">{{skill}}</span>
+              </span>
+            </p></li>
             <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
             <li><span>{{'categories' | translate}}:</span>
               <p>
-                <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
+                <span class="items" ng-repeat="cat in salaryReview.jobCategories">
+                  {{jsonValue.industries['' + cat].value}}
+                  <span class="dot-line" ng-if="$index > 0">|</span>
+                </span>
               </p>
             </li>
           </ul>
           <div class="verified-data">
-
+            <img src="images/verified-data.png" alt=""/>
           </div>
         </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank !== 'NaN'">
@@ -146,8 +163,7 @@
                   {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
                 </li>
                 <li>
-                  <a ng-click="openFacebookShare()"
-                     target="popup" class="salary-report-share">
+                  <a ng-click="openFacebookShare()" target="popup" class="salary-report-share">
                     <i class="fa fa-facebook"></i> <span class="text">Facebook Share</span>
                   </a>
                 </li>
@@ -156,12 +172,12 @@
             <div class="your-pay-snapshot-chart">
               <p>{{'median' | translate}}</p>
               <div class="chart-percent-line">
-                <div class="percent-data zero">
+                <div class="percent-data">
                   <div class="salary-number-label">$0</div>
                   <div class="percent-color"></div>
                   <div class="percent-number-label">0%</div>
                 </div>
-                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data" ng-style="{width: range.percent+'%'}%">
+                <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data" ng-style="{width: range.percent +'%'}">
                   <div class="salary-number-label">${{range.percentile.toLocaleString()}}</div>
                   <div class="percent-color"></div>
                   <div class="percent-number-label">{{range.percent}}%</div>
@@ -192,7 +208,7 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li class="fullCol">
-                  We could not create a report for <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{Location}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">Update your information here</a> to try another Salary Report.
+                  {{'noSalaryAvailable' | translate}} <strong>{{salaryReview.jobTitle}}</strong> {{'in' | translate}} <strong>{{jsonValue.locationsMap[salaryReview.locationId].name}}</strong>. {{'whileImprove' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetSalaryReport' | translate}}.
                     <!--{{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}-->
                 </li>
               </ul>
@@ -225,66 +241,75 @@
                   <div class="percent-color"></div>
                   <div class="percent-number-label">75%</div>
                 </div>
-                <div class="percent-data percent90">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">90%</div>
-                </div>
-                <!--<div class="my-current-rank" style="left: 0%">-->
-                  <!--<div class="my-current-salary">-->
-                    <!--<span>{{'you' | translate}}: $0</span>-->
-                    <!--<i class="fa fa-sort-down"></i>-->
-                  <!--</div>-->
-                  <!--<div class="my-position">-->
-                    <!--<i class="fa fa-star"></i>-->
-                  <!--</div>-->
-                <!--</div>-->
               </div>
               <div class="arrow-right"></div>
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
             </div>
           </div>
         </div>
-        <div class="salary-report-feedback">
-          <h3>What do you think about this report?</h3>
+        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length" class="best-paid-jobs-block">
+          <div class="title-header">
+            <h3 translate="doYouWantToEarnMore"></h3>
+            <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
+          </div>
+          <div class="best-paid-list">
+            <p translate="higherJobOffer"></p>
+            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
+              <ul>
+                <li><span class="up">{{job.addedPercent}}%</span></li>
+                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+              </ul>
+              <div class="btn-see-more">
+                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
+              </div>
+            </div>
+            <p translate="higherJobOfferDisclaimer" class="note"></p>
+            <div class="see-more-jobs">
+              <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="salary-report-feedback" ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
+          <h3 translate="whatYouThinkReport"></h3>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
               <ul>
                   <li>
-                    <p>Do you understand this report?</p>
+                    <p translate="understandReport?"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes">Yes</label>
+                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
                       </div>
                       <div class="select-item">
-                        <input type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo">No</label>
+                        <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
                       </div>
                     </div>
                   </li>
                   <li>
-                    <p>Do you think the results of the report are accurate?</p>
+                    <p translate="resultReportAccurate"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes">Yes</label>
+                        <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
                       </div>
                       <div class="select-item">
-                        <input type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo">No</label>
+                        <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
                       </div>
                     </div>
                   </li>
                   <li>
-                    <label for="txtFeedback">Do you have any feedback for us to improve?</label>
-                    <textarea cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+                    <label for="txtFeedback" translate="haveAnyFeedback"></label>
+                    <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
                   </li>
                   <li>
-                    <button class="btn btn-primary">Submit</button>
+                    <button ng-click="submitSurvey()" class="btn btn-primary" translate="submit"></button>
                   </li>
                 </ul>
               </form>
-            <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
+            <div class="note" translate="thanksForHelp"></div>
           </div>
         </div>
-        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN'">
+        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN' && !salaryReview.campaign && survey.submitted">
           <h3>{{'thanksForShare.headline' | translate}}</h3>
           <div class="thanks-for-share-salary-content">
             <ul>
@@ -307,7 +332,7 @@
                 </div>
               </li>
             </ul>
-            <div class="create-new-report">
+            <div class="create-new-report" ng-show="!salaryReview.campaign">
               <a class="btn btn-primary" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
             </div>
           </div>

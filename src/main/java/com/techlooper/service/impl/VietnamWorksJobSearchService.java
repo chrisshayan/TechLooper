@@ -14,6 +14,7 @@ import com.techlooper.util.RestTemplateUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -62,6 +63,14 @@ public class VietnamWorksJobSearchService implements JobSearchService {
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
+
+    private static final long VIETNAM_CURRENCY_SALARY_DETECTOR = 1000000L;
+
+    private static final long VND_USD_RATE = 21000L;
+
+    private static final int SORT_ORDER_ASC = 1;
+
+    private static final int SORT_ORDER_DESC = -1;
 
     /**
      * Get the configuration from Vietnamworks API such as job locations, categories, degree, etc
@@ -183,10 +192,25 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         List<JobEntity> higherSalaryJobs = getJobSearchResult(queryBuilder);
         return higherSalaryJobs.stream()
                 .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReview.getNetSalary())
+                .sorted((job1, job2) -> jobSalaryComparator(job1, job2, SORT_ORDER_DESC))
                 .limit(3).collect(Collectors.toList());
     }
 
+    private int jobSalaryComparator(JobEntity job1, JobEntity job2, int sortOrder) {
+        double avgSalaryJob1 = getAverageSalary(job1.getSalaryMin(), job1.getSalaryMax());
+        double avgSalaryJob2 = getAverageSalary(job2.getSalaryMin(), job2.getSalaryMax());
+
+        if (avgSalaryJob1 > avgSalaryJob2) {
+            return 1 * sortOrder;
+        } else if (avgSalaryJob2 > avgSalaryJob1) {
+            return -1 * sortOrder;
+        }
+        return 0;
+    }
+
     public Double getAverageSalary(Long salaryMin, Long salaryMax) {
+        salaryMin = convertVND2ToUSD(salaryMin);
+        salaryMax = convertVND2ToUSD(salaryMax);
         if (salaryMin == 0) {
             return salaryMax * 0.75D;
         } else if (salaryMax == 0) {
@@ -207,5 +231,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
             pageIndex++;
         }
         return jobs;
+    }
+
+    private Long convertVND2ToUSD(Long salary) {
+        return salary > VIETNAM_CURRENCY_SALARY_DETECTOR ? salary / VND_USD_RATE : salary;
     }
 }

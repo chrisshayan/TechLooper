@@ -169,7 +169,7 @@
         ul
           margin: 0
           padding: 0
-          width: 60%
+          width: 80%
           float: left
           li
             width: 100%
@@ -193,12 +193,32 @@
                 width: auto
                 display: inline-block
                 padding-right: 10px
+              span.dot-line
+                width: auto
+                display: inline-block
+                padding-right: 10px
+              span.left
+                background: url(../images/left-tag.png) left -39px no-repeat
+                padding-left: 25px
+                width: auto
+                margin-right: 10px
+                font-weight: 300
+              span.right
+                background: url(../images/right-tag.png) right -39px no-repeat
+                padding-right: 10px
+                line-height: 23px
+                height: 25px
+                width: auto
+                font-weight: 300 !important
               strong
                 font-weight: 400
                 font-size: 16px
         .verified-data
-          width: 40%
+          width: 20%
           float: left
+          text-align: left
+          img
+            width: 100px
       .your-pay-snapshot-block
         display: inline-block
         clear: both
@@ -297,6 +317,7 @@
             padding-top: 20px
             width: 100%
             position: relative
+            height: 200px
             p
               text-align: center
               color: #a6a6a6
@@ -314,53 +335,99 @@
               float: left
               position: relative
               display: inline-block
+              background: url(../images/bg-salary-chart.jpg) left 60px repeat-x
+              height: 125px
             .arrow-right
               background: url(../images/arrow-right.png) right 49px no-repeat
               width: 5%
-              float: left
               height: 120px
+              position: absolute
+              z-index: 99
+              right: 0
+              left: inherit
             .percent-data
               float: left
               color: #a6a6a6
-              text-align: left
+              text-align: right
               font-size: 12px
+              position: absolute
               .salary-number-label
                 display: block
                 clear: both
                 height: 60px
-                border-left: 1px dashed #dddddd
-                padding-left: 5px
+                border-right: 1px dashed #dddddd
+                padding-right: 5px
               .percent-number-label
                 display: block
                 clear: both
+                text-align: right
               .percent-color
                 display: block
                 clear: both
                 height: 40px
-            .chart-percent-line:first-child
+            .percent-data:first-child
+              z-index: 99
+              width: 10%
               .percent-color
                 background-color: #ebf6ff
-            .chart-percent-line:nth-child(2)
+              .salary-number-label
+                text-align: left
+                border-left: 1px dashed #dddddd
+                padding-left: 5px
+              .percent-number-label
+                text-align: left
+            .percent-data:nth-child(2)
+              z-index: 88
               .percent-color
                 background-color: #bbe1fe
-            .chart-percent-line:nth-child(3)
+            .percent-data:nth-child(3)
+              z-index: 77
               .percent-color
-                background-color: #7fc6fa
-            .chart-percent-line:nth-child(4)
+                background-color: #99d1fa
+            .percent-data:nth-child(4)
+              z-index: 66
               .percent-color
-                background-color: #7fc6fa
+                background-color: #61b9fa
                 border-left: 1px dashed #fff
-            .chart-percent-line:nth-child(5)
+            .percent-data:nth-child(5)
+              z-index: 55
               .percent-color
                 background-color: #4398da
-            .chart-percent-line:last-child
+            .percent-data:nth-child(6)
+              z-index: 44
               .percent-color
                 background-color: #1266a8
 
+            .percent-data.zero
+              width: 10%
+              .percent-color
+                background-color: #ebf6ff
+            .percent-data.percent10
+              width: 15%
+              .percent-color
+                background-color: #bbe1fe
+            .percent-data.percent25
+              width: 25%
+              .percent-color
+                background-color: #99d1fa
+            .percent-data.percent50
+              width: 25%
+              .percent-color
+                background-color: #61b9fa
+                border-left: 1px dashed #fff
+            .percent-data.percent75
+              width: 25%
+              .percent-color
+                background-color: #4398da
+            .percent-data.percent90
+              width: 15%
+              .percent-color
+                background-color: #1266a8
             .my-current-rank
               position: absolute
               top: 30px
               left: 30%
+              z-index: 990
               .my-current-salary
                 background-color: #892890
                 -webkit-border-radius: 3px
@@ -397,6 +464,9 @@
               i
                 right: 30px
                 left: auto
+        .gray-background
+          .percent-data
+            position: inherit !important
       .salary-report-feedback
         display: inline-block
         clear: both
@@ -455,7 +525,7 @@
                 width: auto
                 float: left
               .select-group
-                width: 30%
+                width: 38%
                 float: right
                 .select-item
                   float: left
@@ -528,6 +598,98 @@
           padding-top: 10px
           font-weight: 400
           cursor: pointer
+    .best-paid-jobs-block
+      border: 1px solid #d4d7d8
+      border-radius: 5px
+      clear: both
+      display: inline-block
+      margin: 30px auto auto
+      padding: 15px
+      position: relative
+      text-align: left
+      width: 100%
+      .title-header
+        display: block
+        clear: both
+        h3
+          background-color: white
+          display: inline-block
+          font-size: 14px
+          font-weight: 400
+          left: 10px
+          padding: 0 5px
+          position: absolute
+          text-align: left
+          text-transform: capitalize
+          top: -32px
+        .hidden-box
+          width: auto
+          position: absolute
+          right: 10px
+          top: -17px
+          background-color: #fff
+          padding: 5px 10px
+          font-weight: 500
+          cursor: pointer
+      .best-paid-list
+        display: block
+        clear: both
+        padding: 20px 0 0 0
+        p
+          text-align: center
+          padding: 5px 0
+          height: auto
+        p.note
+          padding-top: 15px
+          clear: both
+          width: 100%
+        .see-more-jobs
+          display: block
+          text-align: center
+    .best-paid-company
+      display: inline-block
+      float: left
+      background-color: #f7f7f7
+      padding: 15px
+      width: 31%
+      margin: 0 1%
+      ul
+        margin: 0
+        padding: 0
+        width: 100%
+        float: left
+        li
+          display: block
+          clear: both
+          padding-bottom: 5px
+          span
+            display: inline-block
+            background: url(../images/icon.png) left top no-repeat
+            padding-left: 38px
+            line-height: 34px
+            width: 100%
+          span.job-title
+            background-position: 0 0px
+          span.company
+            background-position: 0 -79px
+          span.up
+            background-position: 0 -871px
+            width: auto
+            display: inline-block
+            padding-left: 25px
+        li:first-child
+          font-weight: 400
+          font-size: 30px
+          text-align: center
+        li:last-child
+          padding-bottom: 0
+      .btn-see-more
+        width: 100%
+        float: left
+        text-align: center
+        padding: 15px 0 0 0
+    .best-paid-company:first-child
+      margin-left: 1.5%
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove
