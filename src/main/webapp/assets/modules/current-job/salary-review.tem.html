@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar" ng-show="!salaryReview.campaign">
   <div class="logo-block text-center">
     <div class="logo" id="logo">
       <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
@@ -39,7 +39,7 @@
             <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
-                     name="{{'jobTitle' | translate}}"
+                     name="{{'jobTitle' | translate}}" required
                      placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.jobTitle']}}</div>
@@ -54,7 +54,7 @@
             <div class="row salary-field">
               <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
               <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
-                     name="{{'netSalary' | translate}}" maxlength="5"
+                     name="{{'netSalary' | translate}}" maxlength="5" required
                      placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
@@ -83,7 +83,7 @@
             <div class="row salary-field">
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
               <input type="text" id="txtReporting" ng-model="salaryReview.reportTo"
-                     name="{{'reportTo' | translate}}"
+                     name="{{'reportTo' | translate}}" required
                      placeholder="{{'reportTo.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
@@ -327,7 +327,7 @@
             </div>
           </div>
         </div>
-        <div class="best-paid-jobs-block">
+        <div ng-show="!salaryReview.campaign" class="best-paid-jobs-block">
           <div class="title-header">
             <h3>Best Paid [Job Title] in [Location] for You</h3>
             <div class="hidden-box">X</div>

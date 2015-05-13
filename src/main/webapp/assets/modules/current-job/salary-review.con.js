@@ -1,6 +1,7 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
                                                           $route, $location) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
+  var campaign = $location.search();
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
       return;
@@ -157,8 +158,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
       delete $scope.error[modelName];
       var inputValue = $scope.$eval(modelName);
+      console.log(inputValue, modelName);
       var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
-      notHasValue = notHasValue || (inputValue === null);
+      notHasValue = notHasValue || !inputValue;
       notHasValue = notHasValue || (inputValue.length <= 0);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
@@ -188,6 +190,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
             $scope.salaryReview = data;
+            $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
             $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
           })
@@ -216,9 +219,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
      "netSalary": 1000,
      "reportTo": "manager"
    }
-   http://localhost:8080/#/salary-review?jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000&reportTo="manager"
+   http://localhost:8080/#/salary-review?jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
    * */
-  var campaign = $location.search();
   if (!$.isEmptyObject(campaign)) {
     for (var prop in campaign) {
       try {
@@ -228,18 +230,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     }
     $scope.salaryReview = campaign;
     $scope.salaryReview.campaign = true;
-    $scope.step = "step2";
+    $scope.step = "step1";
   }
-
-  //$.isEmptyObject($location.search()) || ($scope.campaign = $location.search());
-  //if ($scope.campaign) {
-  //  for (var prop in $scope.campaign) {
-  //    try {
-  //      $scope.campaign[prop] = JSON.parse(campaign[prop]);
-  //    }
-  //    catch (e) {}
-  //  }
-  //  $scope.salaryReview = $.extend(true, {}, $scope.campaign);
-  //  //$scope.step = "step2";
-  //}
 });

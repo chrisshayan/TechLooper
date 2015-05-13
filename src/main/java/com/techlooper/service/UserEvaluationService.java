@@ -10,15 +10,17 @@ import java.util.Map;
  */
 public interface UserEvaluationService {
 
-  long score(UserImportEntity user, Map<String, Long> totalJobPerSkillMap);
+    long score(UserImportEntity user, Map<String, Long> totalJobPerSkillMap);
 
-  double rate(UserImportEntity user, Map<String, Long> totalJobPerSkillMap, Long totalITJobs);
+    double rate(UserImportEntity user, Map<String, Long> totalJobPerSkillMap, Long totalITJobs);
 
-  Map<String, Integer> rank(UserImportEntity user);
+    Map<String, Integer> rank(UserImportEntity user);
 
-  Map<String, Long> getSkillMap();
+    Map<String, Long> getSkillMap();
 
-  Map<String, Long> getTotalNumberOfJobPerSkill();
+    Map<String, Long> getTotalNumberOfJobPerSkill();
 
-  void evaluateJobOffer(SalaryReview salaryReview);
+    void evaluateJobOffer(SalaryReview salaryReview);
+
+    void deleteSalaryReview(SalaryReview salaryReview);
 }
