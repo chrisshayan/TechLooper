@@ -207,7 +207,7 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li class="fullCol">
-                  We could not create a report for <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{salaryReview.Location}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">Update your information here</a> to try another Salary Report.
+                  {{'noSalaryAvailable' | translate}} <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{jsonValue.locationsMap[salaryReview.locationId].name}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetSalaryReport' | translate}}.
                     <!--{{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}-->
                 </li>
               </ul>
@@ -329,15 +329,15 @@
         </div>
         <div ng-show="!salaryReview.campaign" class="best-paid-jobs-block">
           <div class="title-header">
-            <h3>Best Paid [Job Title] in [Location] for You</h3>
-            <div class="hidden-box">X</div>
+            <h3>Increase Your Salary</h3>
+            <div class="hidden-box" title="Close">X</div>
           </div>
           <div class="best-paid-list">
             <div class="best-paid-company">
               <ul>
-                <li>Job title</li>
-                <li>company name</li>
-                <li>Estimated you can make 10% more if you get this job.</li>
+                <li>20%</li>
+                <li>Senior Php Developer</li>
+                <li>Navigos Group VietNam</li>
               </ul>
               <div class="btn-see-more">
                 <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
@@ -345,9 +345,9 @@
             </div>
             <div class="best-paid-company">
               <ul>
-                <li>Job title</li>
-                <li>company name</li>
-                <li>Estimated you can make 10% more if you get this job.</li>
+                <li>34%</li>
+                <li>Project Manager</li>
+                <li>Sony Vietnam</li>
               </ul>
               <div class="btn-see-more">
                 <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>
@@ -355,9 +355,9 @@
             </div>
             <div class="best-paid-company">
               <ul>
-                <li>Job title</li>
-                <li>company name</li>
-                <li>Estimated you can make 10% more if you get this job.</li>
+                <li>12%</li>
+                <li>Java Developer</li>
+                <li>Navigos Group VietNam</li>
               </ul>
               <div class="btn-see-more">
                 <a href="http://www.vietnamworks.com/{}-jd" class="btn btn-primary" target="_blank">See More</a>

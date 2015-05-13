@@ -609,27 +609,33 @@
         padding: 20px 0 0 0
     .best-paid-company
       display: inline-block
-      clear: both
+      float: left
       background-color: #f7f7f7
       padding: 15px
-      width: 100%
-      margin-bottom: 5px
+      width: 31%
+      margin: 0 1%
       ul
         margin: 0
         padding: 0
-        width: 80%
+        width: 100%
         float: left
         li
           display: block
           clear: both
           padding-bottom: 10px
+        li:first-child
+          font-weight: 400
+          font-size: 30px
+          text-align: center
         li:last-child
           padding-bottom: 0
       .btn-see-more
-        width: 20%
+        width: 100%
         float: left
-        text-align: right
+        text-align: center
         padding: 25px 0 0 0
+    .best-paid-company:first-child
+      margin-left: 1.5%
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove

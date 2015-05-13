@@ -754,5 +754,8 @@ angular.module("Common").constant("jsonValue", (function () {
   instance.jobLevelsMap = {};
   $.each(instance.jobLevels, function (i, jobLevel) {instance.jobLevelsMap[jobLevel.id] = jobLevel;});
 
+  instance.locationsMap = {};
+  $.each(instance.locations, function (i, location) {instance.locationsMap[location.id] = location;});
+
   return instance;
 })());
