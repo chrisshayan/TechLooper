@@ -88,8 +88,7 @@
             </div>
             <div class="row salary-field">
               <label for="yob">{{'yob' | translate}}</label>
-              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4"
-                     placeholder="{{'exYob' | translate}}" only-digits/>
+              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>
             </div>
             <div class="row salary-field-submit">
               <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
