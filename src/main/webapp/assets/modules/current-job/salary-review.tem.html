@@ -247,6 +247,29 @@
             </div>
           </div>
         </div>
+        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length" class="best-paid-jobs-block">
+          <div class="title-header">
+            <h3 translate="doYouWantToEarnMore"></h3>
+            <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
+          </div>
+          <div class="best-paid-list">
+            <p translate="higherJobOffer"></p>
+            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
+              <ul>
+                <li><span class="up">{{job.addedPercent}}%</span></li>
+                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+              </ul>
+              <div class="btn-see-more">
+                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
+              </div>
+            </div>
+            <p translate="higherJobOfferDisclaimer" class="note"></p>
+            <div class="see-more-jobs">
+              <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+            </div>
+          </div>
+        </div>
         <div class="salary-report-feedback" ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
           <h3 translate="whatYouThinkReport"></h3>
           <div class="salary-report-feedback-form">
@@ -311,29 +334,6 @@
             </ul>
             <div class="create-new-report" ng-show="!salaryReview.campaign">
               <a class="btn btn-primary" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
-            </div>
-          </div>
-        </div>
-        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length" class="best-paid-jobs-block">
-          <div class="title-header">
-            <h3 translate="doYouWantToEarnMore"></h3>
-            <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
-          </div>
-          <div class="best-paid-list">
-            <p translate="higherJobOffer"></p>
-            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
-              <ul>
-                <li><span class="up">{{job.addedPercent}}%</span></li>
-                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
-                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-              </ul>
-              <div class="btn-see-more">
-                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
-              </div>
-            </div>
-            <p translate="higherJobOfferDisclaimer" class="note"></p>
-            <div class="see-more-jobs">
-              <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
             </div>
           </div>
         </div>
