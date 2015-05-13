@@ -322,9 +322,9 @@
           <div class="best-paid-list">
             <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
               <ul>
-                <li>{{job.addedPercent}}%</li>
-                <li class="ellipsis" title="{{job.jobTitle}}">{{job.jobTitle}}</li>
-                <li class="ellipsis" title="{{job.companyDesc}}">{{job.companyDesc}}</li>
+                <li><span class="up">{{job.addedPercent}}%</span></li>
+                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
               </ul>
               <div class="btn-see-more">
                 <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
