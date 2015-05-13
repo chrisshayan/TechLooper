@@ -316,7 +316,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         List<TopPaidJob> topPaidJobs = new ArrayList<>();
         for (JobEntity jobEntity : higherSalaryJobs) {
             double addedPercent = (jobSearchService.getAverageSalary(jobEntity.getSalaryMin(), jobEntity.getSalaryMax()) - netSalary) /
-                    netSalary;
+                    netSalary * 100;
             topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), Math.ceil(addedPercent)));
         }
         return topPaidJobs;
