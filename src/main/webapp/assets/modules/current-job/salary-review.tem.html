@@ -260,7 +260,7 @@
             </div>
           </div>
         </div>
-        <div class="salary-report-feedback">
+        <div class="salary-report-feedback" ng-show="!salaryReview.campaign">
           <h3>What do you think about this report?</h3>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
@@ -299,7 +299,7 @@
             <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
           </div>
         </div>
-        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN'">
+        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN' && !salaryReview.campaign">
           <h3>{{'thanksForShare.headline' | translate}}</h3>
           <div class="thanks-for-share-salary-content">
             <ul>
