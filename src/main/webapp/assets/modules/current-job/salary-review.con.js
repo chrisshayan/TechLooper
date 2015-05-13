@@ -168,6 +168,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     var error = $.extend(true, {}, $scope.error);
     delete error.existSkillName;
     delete error.newSkillName;
+    $scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
+    $scope.salaryReview.skills.length && (delete $scope.error.skills);
+    console.log(error);
     return $.isEmptyObject(error);
   }
 
@@ -233,6 +236,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.salaryReview.campaign = true;
     $scope.step = "step1";
   }
+
+  $scope.submitSurvey = function() {
+    $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
+    $http.post("saveSurvey", $scope.survey)
+      .success(function (data, status, headers, config) {
+        $scope.survey.submitted = true;
+      })
+      .error(function (data, status, headers, config) {
+      });
+  }
+
   $scope.hiddenPaidJobs = function(){
     $('.best-paid-jobs-block').slideUp("normal", function() { $(this).remove(); } );
   }
