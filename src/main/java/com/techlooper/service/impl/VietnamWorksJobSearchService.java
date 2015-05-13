@@ -63,6 +63,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
 
+    private static final long VIETNAM_CURRENCY_SALARY_DETECTOR = 1000000L;
+
+    private static final long VND_USD_RATE = 21000L;
+
     /**
      * Get the configuration from Vietnamworks API such as job locations, categories, degree, etc
      *
@@ -200,6 +204,8 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     }
 
     public Double getAverageSalary(Long salaryMin, Long salaryMax) {
+        salaryMin = convertVND2ToUSD(salaryMin);
+        salaryMax = convertVND2ToUSD(salaryMax);
         if (salaryMin == 0) {
             return salaryMax * 0.75D;
         } else if (salaryMax == 0) {
@@ -220,5 +226,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
             pageIndex++;
         }
         return jobs;
+    }
+
+    private Long convertVND2ToUSD(Long salary) {
+        return salary > VIETNAM_CURRENCY_SALARY_DETECTOR ? salary / VND_USD_RATE : salary;
     }
 }
