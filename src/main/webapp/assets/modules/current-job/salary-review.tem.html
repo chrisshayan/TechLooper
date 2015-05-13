@@ -145,7 +145,7 @@
               <p>
                 <span class="items" ng-repeat="cat in salaryReview.jobCategories">
                   {{jsonValue.industries['' + cat].value}}
-                  <span class="dot-line" ng-if="salaryReview.jobCategories.length > 1">*</span>
+                  <span class="dot-line" ng-if="$index > 0">|</span>
                 </span>
               </p>
             </li>
