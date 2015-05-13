@@ -70,6 +70,7 @@
                   <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
                 </div>
               </div>
+              <div class="error-messages">{{error.skills}}</div>
             </div>
             <div class="row salary-field">
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
@@ -87,8 +88,7 @@
             </div>
             <div class="row salary-field">
               <label for="yob">{{'yob' | translate}}</label>
-              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4"
-                     placeholder="{{'exYob' | translate}}" only-digits/>
+              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>
             </div>
             <div class="row salary-field-submit">
               <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
@@ -323,9 +323,9 @@
             <p translate="higherJobOffer"></p>
             <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
               <ul>
-                <li>{{job.addedPercent}}%</li>
-                <li class="ellipsis" title="{{job.jobTitle}}">{{job.jobTitle}}</li>
-                <li class="ellipsis" title="{{job.companyDesc}}">{{job.companyDesc}}</li>
+                <li><span class="up">{{job.addedPercent}}%</span></li>
+                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
               </ul>
               <div class="btn-see-more">
                 <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>

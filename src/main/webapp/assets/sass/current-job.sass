@@ -427,7 +427,7 @@
               position: absolute
               top: 30px
               left: 30%
-              z-index: 9999
+              z-index: 990
               .my-current-salary
                 background-color: #892890
                 -webkit-border-radius: 3px
@@ -650,7 +650,21 @@
         li
           display: block
           clear: both
-          padding-bottom: 10px
+          padding-bottom: 5px
+          span
+            display: block
+            background: url(../images/icon.png) left top no-repeat
+            padding-left: 38px
+            line-height: 34px
+          span.job-title
+            background-position: 0 0px
+          span.company
+            background-position: 0 -79px
+          span.up
+            background-position: 0 -871px
+            width: auto
+            display: inline-block
+            padding-left: 25px
         li:first-child
           font-weight: 400
           font-size: 30px
@@ -661,7 +675,7 @@
         width: 100%
         float: left
         text-align: center
-        padding: 25px 0 0 0
+        padding: 15px 0 0 0
     .best-paid-company:first-child
       margin-left: 1.5%
 .selectize-control.plugin-remove_button
