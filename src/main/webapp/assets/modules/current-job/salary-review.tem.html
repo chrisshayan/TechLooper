@@ -88,8 +88,7 @@
             </div>
             <div class="row salary-field">
               <label for="yob">{{'yob' | translate}}</label>
-              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4"
-                     placeholder="{{'exYob' | translate}}" only-digits/>
+              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>
             </div>
             <div class="row salary-field-submit">
               <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
@@ -317,10 +316,11 @@
         </div>
         <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN'" class="best-paid-jobs-block">
           <div class="title-header">
-            <h3 translate="incYourSalary"></h3>
+            <h3 translate="doYouWantToEarnMore"></h3>
             <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
           </div>
           <div class="best-paid-list">
+            <p translate="higherJobOffer"></p>
             <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
               <ul>
                 <li><span class="up">{{job.addedPercent}}%</span></li>
@@ -331,6 +331,8 @@
                 <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
               </div>
             </div>
+            <p translate="higherJobOfferDisclaimer"></p>
+            <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank">{{'seeMoreHigherSalaryJob' | translate}}</a>
           </div>
         </div>
       </div>
