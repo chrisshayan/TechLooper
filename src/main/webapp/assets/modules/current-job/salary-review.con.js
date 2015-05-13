@@ -184,6 +184,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     switch (swstep) {
       case "step3":
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
+        console.log($scope.salaryReview.skills)
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
         utils.sendNotification(jsonValue.notifications.switchScope);
 

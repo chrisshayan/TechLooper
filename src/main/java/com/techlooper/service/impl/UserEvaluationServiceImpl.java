@@ -206,7 +206,13 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         SalaryReport salaryReport = transformAggregationsToEvaluationReport(salaryReview, jobs);
         salaryReview.setSalaryReport(salaryReport);
         salaryReview.setCreatedDateTime(new Date().getTime());
-        salaryReviewRepository.save(salaryReview);
+
+        // Save user salary information should happen only in production environment
+        boolean allowToSave = environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) != null ?
+                environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
+        if (allowToSave) {
+            salaryReviewRepository.save(salaryReview);
+        }
 
         // get top 3 higher salary jobs
         List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReview), salaryReview.getNetSalary());
@@ -314,6 +320,10 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), addedPercent));
         }
         return topPaidJobs;
+    }
+
+    public void deleteSalaryReview(SalaryReview salaryReview) {
+        elasticsearchTemplate.delete(SalaryReview.class, salaryReview.getCreatedDateTime().toString());
     }
 
 }
