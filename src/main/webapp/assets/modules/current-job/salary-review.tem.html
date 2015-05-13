@@ -39,7 +39,7 @@
             <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
-                     name="{{'jobTitle' | translate}}" required
+                     name="{{'jobTitle' | translate}}"
                      placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.jobTitle']}}</div>
@@ -54,7 +54,7 @@
             <div class="row salary-field">
               <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
               <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
-                     name="{{'netSalary' | translate}}" maxlength="5" required
+                     name="{{'netSalary' | translate}}" maxlength="5"
                      placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
@@ -83,7 +83,7 @@
             <div class="row salary-field">
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
               <input type="text" id="txtReporting" ng-model="salaryReview.reportTo"
-                     name="{{'reportTo' | translate}}" required
+                     name="{{'reportTo' | translate}}"
                      placeholder="{{'reportTo.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
@@ -134,7 +134,7 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>{{'skill' | translate}}:</span> <p>
+            <li ng-show="salaryReview.skills.length"><span>{{'skill' | translate}}:</span> <p>
               <span class="left" ng-repeat="skill in salaryReview.skills">
                 <span class="right">{{skill}}</span>
               </span>
