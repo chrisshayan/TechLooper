@@ -51,7 +51,7 @@
                 {{error['salaryReview.netSalary']}}</div>
             </div>
             <div class="row salary-field">
-              <label for="txtTopSkills">{{'mostRelevantSkills' | translate}}</label>
+              <label for="txtTopSkills">{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
               <div class="top-three-skills">
                 <div class="added-list-skills">
                   <ul>
@@ -314,7 +314,7 @@
             </div>
           </div>
         </div>
-        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN'" class="best-paid-jobs-block">
+        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length" class="best-paid-jobs-block">
           <div class="title-header">
             <h3 translate="doYouWantToEarnMore"></h3>
             <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
@@ -331,8 +331,10 @@
                 <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
               </div>
             </div>
-            <p translate="higherJobOfferDisclaimer"></p>
-            <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank">{{'seeMoreHigherSalaryJob' | translate}}</a>
+            <p translate="higherJobOfferDisclaimer" class="note"></p>
+            <div class="see-more-jobs">
+              <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+            </div>
           </div>
         </div>
       </div>
