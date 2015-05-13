@@ -170,7 +170,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete error.newSkillName;
     $scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
     $scope.salaryReview.skills.length && (delete $scope.error.skills);
-    console.log(error);
     return $.isEmptyObject(error);
   }
 
