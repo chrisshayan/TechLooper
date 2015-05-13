@@ -233,4 +233,14 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.salaryReview.campaign = true;
     $scope.step = "step1";
   }
+
+  $scope.submitSurvey = function() {
+    $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
+    $http.post("saveSurvey", $scope.survey)
+      .success(function (data, status, headers, config) {
+        $scope.survey.submitted = true;
+      })
+      .error(function (data, status, headers, config) {
+      });
+  }
 });
