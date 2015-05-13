@@ -37,6 +37,11 @@
               </div>
             </div>
             <div class="row salary-field">
+              <label for="yob">{{'yob' | translate}}</label>
+              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4"
+                     placeholder="{{'yob' | translate}}" only-digits/>
+            </div>
+            <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
                      name="{{'jobTitle' | translate}}"
