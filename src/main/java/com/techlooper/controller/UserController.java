@@ -124,4 +124,14 @@ public class UserController {
     return salaryReview;
   }
 
+    @RequestMapping(value = "/saveSurvey", method = RequestMethod.POST)
+    public void saveSurvey(@RequestBody SalaryReviewSurvey salaryReviewSurvey, HttpServletResponse httpServletResponse) {
+        boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
+        if (isSaved) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
+    }
+
 }

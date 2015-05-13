@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.model.SalaryReviewSurvey;
 
 import java.util.Map;
 
@@ -23,4 +24,6 @@ public interface UserEvaluationService {
     void evaluateJobOffer(SalaryReview salaryReview);
 
     void deleteSalaryReview(SalaryReview salaryReview);
+
+    boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey);
 }

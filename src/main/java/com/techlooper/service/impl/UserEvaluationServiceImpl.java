@@ -323,7 +323,17 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     }
 
     public void deleteSalaryReview(SalaryReview salaryReview) {
-        elasticsearchTemplate.delete(SalaryReview.class, salaryReview.getCreatedDateTime().toString());
+        salaryReviewRepository.delete(salaryReview.getCreatedDateTime());
+    }
+
+    public boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey) {
+        SalaryReview salaryReview = salaryReviewRepository.findOne(salaryReviewSurvey.getSalaryReviewId());
+        if (salaryReview != null) {
+            salaryReview.setSalaryReviewSurvey(salaryReviewSurvey);
+            salaryReviewRepository.save(salaryReview);
+            return true;
+        }
+        return false;
     }
 
 }
