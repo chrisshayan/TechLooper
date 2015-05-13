@@ -113,7 +113,8 @@
   "makeMoneyMonth": "You are making more money than",
   "peopleLikeYou": "of people like you.",
   "noSalaryAvailable": "We could not create a report for",
-  "updateInformation": "Update your information here",
+  "whileImprove":"While we are improving, you could",
+  "updateInformation": "update your information here",
   "toGetSalaryReport": "to get your Salary Report.",
   "you": "You",
   "median": "Median",
@@ -143,5 +144,6 @@
   "understandReport?": "Do you understand this report?",
   "whatYouThinkReport": "What do you think about this report?",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "seeMore": "See More"
 }

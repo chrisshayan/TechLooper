@@ -243,4 +243,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       .error(function (data, status, headers, config) {
       });
   }
+
+  $scope.hiddenPaidJobs = function(){
+    $('.best-paid-jobs-block').slideUp("normal", function() { $(this).remove(); } );
+  }
 });

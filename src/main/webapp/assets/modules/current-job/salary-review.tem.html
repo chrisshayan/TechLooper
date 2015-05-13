@@ -28,16 +28,6 @@
 
           <form autocomplete="off">
             <div class="row salary-field">
-              <label>{{'gender' | translate}}</label>
-              <selectize config='selectize.genders.config' options='selectize.genders.items'
-                         ng-model="salaryReview.gender"></selectize>
-            </div>
-            <div class="row salary-field">
-              <label for="yob">{{'yob' | translate}}</label>
-              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4"
-                     placeholder="{{'yob' | translate}}" only-digits/>
-            </div>
-            <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
                      name="{{'jobTitle' | translate}}"
@@ -89,6 +79,16 @@
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
               </div>
+            </div>
+            <div class="row salary-field">
+              <label>{{'gender' | translate}}</label>
+              <selectize config='selectize.genders.config' options='selectize.genders.items'
+                         ng-model="salaryReview.gender"></selectize>
+            </div>
+            <div class="row salary-field">
+              <label for="yob">{{'yob' | translate}}</label>
+              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4"
+                     placeholder="{{'yob' | translate}}" only-digits/>
             </div>
             <div class="row salary-field-submit">
               <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
@@ -247,7 +247,7 @@
             </div>
           </div>
         </div>
-        <div class="salary-report-feedback" ng-show="!(salaryReview.campaign || survey.submitted)">
+        <div class="salary-report-feedback" ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
           <h3 translate="whatYouThinkReport"></h3>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
@@ -314,20 +314,20 @@
             </div>
           </div>
         </div>
-        <div ng-show="!salaryReview.campaign" class="best-paid-jobs-block">
+        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN'" class="best-paid-jobs-block">
           <div class="title-header">
             <h3 translate="incYourSalary"></h3>
-            <div class="hidden-box" title="Close">X</div>
+            <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
           </div>
           <div class="best-paid-list">
             <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
               <ul>
                 <li>{{job.addedPercent}}%</li>
-                <li>{{job.jobTitle}}</li>
-                <li>{{job.companyDesc}}</li>
+                <li class="ellipsis" title="{{job.jobTitle}}">{{job.jobTitle}}</li>
+                <li class="ellipsis" title="{{job.companyDesc}}">{{job.companyDesc}}</li>
               </ul>
               <div class="btn-see-more">
-                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">See More</a>
+                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
               </div>
             </div>
           </div>

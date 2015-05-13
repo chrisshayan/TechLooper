@@ -183,7 +183,20 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         List<JobEntity> higherSalaryJobs = getJobSearchResult(queryBuilder);
         return higherSalaryJobs.stream()
                 .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReview.getNetSalary())
+                .sorted((job1, job2) -> jobSalaryComparator(job1, job2))
                 .limit(3).collect(Collectors.toList());
+    }
+
+    private int jobSalaryComparator(JobEntity job1, JobEntity job2) {
+        double avgSalaryJob1 = getAverageSalary(job1.getSalaryMin(), job1.getSalaryMax());
+        double avgSalaryJob2 = getAverageSalary(job2.getSalaryMin(), job2.getSalaryMax());
+
+        if (avgSalaryJob1 > avgSalaryJob2) {
+            return 1;
+        } else if (avgSalaryJob2 > avgSalaryJob1) {
+            return -1;
+        }
+        return 0;
     }
 
     public Double getAverageSalary(Long salaryMin, Long salaryMax) {

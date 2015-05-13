@@ -115,7 +115,7 @@
   "noSalaryAvailable": "Chúng tôi không thể tạo ra một báo cáo cho",
   "in": "ở",
   "whileImprove":"Trong khi chúng tôi đang cải thiện, bạn có thể",
-  "updateInformation": "Hãy cập nhật thông tin của bạn tại đây",
+  "updateInformation": "cập nhật thông tin của bạn tại đây",
   "toGetSalaryReport": "để có được bảng báo cáo lương.",
   "you": "Bạn",
   "median": "Phân vị",
@@ -145,7 +145,8 @@
   "understandReport?": "Báo cáo lương có dễ hiểu không?",
   "whatYouThinkReport": "Bạn nghĩ gì về báo cáo lương này?",
   "yes": "Đồng ý",
-  "no": "Không đồng ý"
+  "no": "Không đồng ý",
+  "seeMore": "Xem Chi Tiết"
 }
 
 
