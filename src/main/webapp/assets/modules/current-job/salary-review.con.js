@@ -160,7 +160,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
       delete $scope.error[modelName];
       var inputValue = $scope.$eval(modelName);
-      console.log(inputValue, modelName);
       var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
       notHasValue = notHasValue || !inputValue;
       notHasValue = notHasValue || (inputValue.length <= 0);
@@ -186,7 +185,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     switch (swstep) {
       case "step3":
         var salaryReview = $.extend(true, {}, $scope.salaryReview);
-        console.log($scope.salaryReview.skills)
         salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + salaryReview.jobLevelIds].ids;
         utils.sendNotification(jsonValue.notifications.switchScope);
 

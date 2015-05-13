@@ -39,7 +39,7 @@
             <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
               <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
-                     name="{{'jobTitle' | translate}}" required
+                     name="{{'jobTitle' | translate}}"
                      placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.jobTitle']}}</div>
@@ -54,7 +54,7 @@
             <div class="row salary-field">
               <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
               <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
-                     name="{{'netSalary' | translate}}" maxlength="5" required
+                     name="{{'netSalary' | translate}}" maxlength="5"
                      placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
               <div class="error-messages">
                 {{error['salaryReview.netSalary']}}</div>
@@ -83,7 +83,7 @@
             <div class="row salary-field">
               <label for="txtReporting">{{'reportTo' | translate}} <strong>*</strong></label>
               <input type="text" id="txtReporting" ng-model="salaryReview.reportTo"
-                     name="{{'reportTo' | translate}}" required
+                     name="{{'reportTo' | translate}}"
                      placeholder="{{'reportTo.placeholder' | translate}}" maxlength="60"/>
               <div class="error-messages">
                 {{error['salaryReview.reportTo']}}
@@ -134,13 +134,18 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>{{'skill' | translate}}:</span> <p><span class="items" ng-repeat="skill in salaryReview.skills">
-              {{skill}}
-            </span></p></li>
+            <li ng-show="salaryReview.skills.length"><span>{{'skill' | translate}}:</span> <p>
+              <span class="left" ng-repeat="skill in salaryReview.skills">
+                <span class="right">{{skill}}</span>
+              </span>
+            </p></li>
             <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
             <li><span>{{'categories' | translate}}:</span>
               <p>
-                <span class="items" ng-repeat="cat in salaryReview.jobCategories">{{jsonValue.industries['' + cat].value}}</span>
+                <span class="items" ng-repeat="cat in salaryReview.jobCategories">
+                  {{jsonValue.industries['' + cat].value}}
+                  <span class="dot-line" ng-if="salaryReview.jobCategories.length > 1">*</span>
+                </span>
               </p>
             </li>
           </ul>
@@ -157,8 +162,7 @@
                   {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' | translate}}
                 </li>
                 <li>
-                  <a ng-click="openFacebookShare()"
-                     target="popup" class="salary-report-share">
+                  <a ng-click="openFacebookShare()" target="popup" class="salary-report-share">
                     <i class="fa fa-facebook"></i> <span class="text">Facebook Share</span>
                   </a>
                 </li>
@@ -203,7 +207,7 @@
             <div class="your-pay-snapshot-info">
               <ul>
                 <li class="fullCol">
-                  We could not create a report for <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{Location}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">Update your information here</a> to try another Salary Report.
+                  We could not create a report for <strong>{{salaryReview.jobTitle}}</strong> in <strong>{{salaryReview.Location}}</strong>. While we are improving, you could <a ng-click="step = 'step1'">Update your information here</a> to try another Salary Report.
                     <!--{{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}-->
                 </li>
               </ul>
@@ -256,7 +260,7 @@
             </div>
           </div>
         </div>
-        <div class="salary-report-feedback">
+        <div class="salary-report-feedback" ng-show="!salaryReview.campaign">
           <h3>What do you think about this report?</h3>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
@@ -295,7 +299,7 @@
             <div class="note">Many thanks for helping us improve, We are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential</div>
           </div>
         </div>
-        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN'">
+        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN' && !salaryReview.campaign">
           <h3>{{'thanksForShare.headline' | translate}}</h3>
           <div class="thanks-for-share-salary-content">
             <ul>
