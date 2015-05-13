@@ -660,8 +660,8 @@ angular.module("Common").constant("jsonValue", (function () {
       ]
     },
     genders: [
-      {id: 1, name: "Male", translate: "genderMale"},
-      {id: 2, name: "Female", translate: "genderFemale"}
+      {id: 1, translate: "genderMale"},
+      {id: 2, translate: "genderFemale"}
     ],
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},

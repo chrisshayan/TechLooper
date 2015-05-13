@@ -133,5 +133,6 @@
     "salaryIncrease": "salary increases",
     "dependOnIndustry": "vary depends on industry but average stands",
     "between2to5": "between 2% to 5%",
-    "between10to20": "while average promotions are between 10% to 20%."
+    "between10to20": "while average promotions are between 10% to 20%.",
+    "yob": "Year of birth"
 }
