@@ -165,11 +165,12 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       notHasValue = notHasValue || (inputValue.length <= 0);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
+    $scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
+    $scope.salaryReview.skills.length && (delete $scope.error.skills);
+
     var error = $.extend(true, {}, $scope.error);
     delete error.existSkillName;
     delete error.newSkillName;
-    $scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
-    $scope.salaryReview.skills.length && (delete $scope.error.skills);
     return $.isEmptyObject(error);
   }
 
