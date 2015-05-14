@@ -55,6 +55,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         }
       }
     },
+    yobs: {
+      items: jsonValue.yobs,
+      config: {
+        valueField: 'value',
+        labelField: 'value',
+        delimiter: '|',
+        searchField: ['value'],
+        maxItems: 1,
+        placeholder: $translate.instant("exYob")
+      }
+    },
     jobLevels: {
       items: jobLevels,
       config: {
