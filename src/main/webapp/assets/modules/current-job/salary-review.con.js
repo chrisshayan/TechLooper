@@ -55,6 +55,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         }
       }
     },
+    yobs: {
+      items: jsonValue.yobs,
+      config: {
+        valueField: 'value',
+        labelField: 'value',
+        delimiter: '|',
+        searchField: ['value'],
+        maxItems: 1,
+        placeholder: $translate.instant("exYob")
+      }
+    },
     jobLevels: {
       items: jobLevels,
       config: {
@@ -179,6 +190,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.nextStep = function (step, priorStep) {
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
+    }
+    if(step === "step2"){
+      $().
     }
 
     var swstep = step || $scope.step;
