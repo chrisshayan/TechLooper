@@ -1,9 +1,10 @@
+<%@page language="java" contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <head>
 
     <!-- Meta-Information -->
     <title>Techlooper | Career Analytics. Open Source. Awesome!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon"/>
     <meta name="description"

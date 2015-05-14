@@ -209,7 +209,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.openFacebookShare = function() {
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime, 'name','width=450 ,height=350');
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime,
+      'name','width=450,height=350');
   }
 
   /*
@@ -221,9 +223,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
      "jobCategories": ["35"],
      "companySizeId": "",
      "netSalary": 1000,
-     "reportTo": "manager"
+     "reportTo": "manager",
    }
-   http://localhost:8080/#/salary-review?jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
+   http://localhost:8080/#/salary-review?lang=vi&jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
    * */
   if (!$.isEmptyObject(campaign)) {
     for (var prop in campaign) {
