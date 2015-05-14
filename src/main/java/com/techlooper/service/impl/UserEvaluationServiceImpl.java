@@ -184,7 +184,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
-        if (jobs.size() < MINIMUM_NUMBER_OF_JOBS && salaryReview.getSkills() != null && !salaryReview.getSkills().isEmpty()) {
+        if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS && salaryReview.getSkills() != null && !salaryReview.getSkills().isEmpty()) {
             QueryBuilder skillQueryBuilder = jobQueryBuilder.skillQueryBuilder(salaryReview.getSkills());
             queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
                     boolFilter().must(approvedDateRangeFilterBuilder)
