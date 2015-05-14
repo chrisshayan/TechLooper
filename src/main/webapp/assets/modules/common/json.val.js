@@ -757,7 +757,6 @@ angular.module("Common").constant("jsonValue", (function () {
   instance.locationsMap = {};
   $.each(instance.locations, function (i, location) {instance.locationsMap[location.id] = location;});
 
-  instance.yobs = [];
   var currentYear = new Date().getFullYear();
   instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
 
