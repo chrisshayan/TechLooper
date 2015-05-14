@@ -87,11 +87,13 @@
                          ng-model="salaryReview.gender"></selectize>
             </div>
             <div class="row salary-field">
-              <label for="yob">{{'yob' | translate}}</label>
-              <input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>
+              <label translate="yob"></label>
+              <!--<input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>-->
+              <selectize config='selectize.yobs.config' options='selectize.yobs.items'
+                         ng-model="salaryReview.age"></selectize>
             </div>
             <div class="row salary-field-submit">
-              <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
+              <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
             </div>
             <div class="note">{{'noticeLine' | translate}}</div>
           </form>
@@ -105,7 +107,7 @@
               <label>{{'companyInfo.location' | translate}} <strong>*</strong></label>
               <selectize config='selectize.locations.config' options='selectize.locations.items'
                          ng-model="salaryReview.locationId"
-                         name="{{'location' | translate}}"></selectize>
+                         name="{{'location' | translate}}" class="locationSelectbox"></selectize>
               <div class="error-messages">
                 {{error['salaryReview.locationId']}}</div>
             </div>
@@ -124,7 +126,7 @@
               </div>
             </div>
             <div class="row salary-field-submit">
-              <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
+              <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
             </div>
           </form>
           <div class="note">{{'noticeLine' | translate}}</div>
@@ -135,10 +137,11 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li ng-show="salaryReview.skills.length"><span>{{'skill' | translate}}:</span> <p>
-              <span class="left" ng-repeat="skill in salaryReview.skills">
-                <span class="right">{{skill}}</span>
-              </span>
+            <li><span>{{'skill' | translate}}:</span> <p>
+              <span class="items" ng-repeat="skill in salaryReview.skills">
+                  {{skill}}
+                  <span class="dot-line" ng-if="$index > 0">|</span>
+                </span>
             </p></li>
             <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
             <li><span>{{'categories' | translate}}:</span>
@@ -164,7 +167,7 @@
                 </li>
                 <li>
                   <a ng-click="openFacebookShare()" target="popup" class="salary-report-share">
-                    <i class="fa fa-facebook"></i> <span class="text">Facebook Share</span>
+                    <i class="fa fa-facebook"></i> <span class="text">Share</span>
                   </a>
                 </li>
               </ul>
@@ -198,7 +201,34 @@
               </div>
               <div class="arrow-right"></div>
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
-
+            </div>
+            <div class="thanks-for-share-salary">
+              <h3>{{'thanksForShare.headline' | translate}}</h3>
+              <div class="thanks-for-share-salary-content">
+                <ul>
+                  <li>
+                    <div class="thanks-for-share-salary-item">
+                      <h4>{{'thanksForShare.item1.headline' | translate}}</h4>
+                      <p>{{'thanksForShare.item1.content' | translate}} <strong>{{'below50percent' | translate}}</strong> {{'startThinking' | translate}} <strong>{{'askForRaise' | translate}}</strong></p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thanks-for-share-salary-item">
+                      <h4>{{'thanksForShare.item2.headline' | translate}}</h4>
+                      <p>{{'thanksForShare.item2.content' | translate}} <strong>{{'professionalFriendlyTimely' | translate}}</strong> .{{'leverageSkills' | translate}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thanks-for-share-salary-item">
+                      <h4>{{'thanksForShare.item3.headline' | translate}}</h4>
+                      <p>{{'thanksForShare.item3.content' | translate}} <strong>{{'salaryIncrease' | translate}}</strong> {{'dependOnIndustry' | translate}} <strong>{{'between2to5' | translate}}</strong> {{'between10to20' | translate}}</p>
+                    </div>
+                  </li>
+                </ul>
+                <div class="create-new-report" ng-show="!salaryReview.campaign">
+                  <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -247,31 +277,11 @@
             </div>
           </div>
         </div>
-        <div ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length" class="best-paid-jobs-block">
-          <div class="title-header">
-            <h3 translate="doYouWantToEarnMore"></h3>
-            <div class="hidden-box" title="Close" ng-click="hiddenPaidJobs()">X</div>
-          </div>
-          <div class="best-paid-list">
-            <p translate="higherJobOffer"></p>
-            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
-              <ul>
-                <li><span class="up">{{job.addedPercent}}%</span></li>
-                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
-                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-              </ul>
-              <div class="btn-see-more">
-                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
-              </div>
-            </div>
-            <p translate="higherJobOfferDisclaimer" class="note"></p>
-            <div class="see-more-jobs">
-              <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
-            </div>
-          </div>
-        </div>
         <div class="salary-report-feedback" ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
+          <div class="title-header">
           <h3 translate="whatYouThinkReport"></h3>
+          <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
+            </div>
           <div class="salary-report-feedback-form">
             <form autocomplete="off">
               <ul>
@@ -302,38 +312,32 @@
                     <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
                   </li>
                   <li>
-                    <button ng-click="submitSurvey()" class="btn btn-primary" translate="submit"></button>
+                    <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
                   </li>
                 </ul>
               </form>
             <div class="note" translate="thanksForHelp"></div>
           </div>
         </div>
-        <div class="thanks-for-share-salary" ng-show="salaryReport.percentRank !== 'NaN' && !salaryReview.campaign && survey.submitted">
-          <h3>{{'thanksForShare.headline' | translate}}</h3>
-          <div class="thanks-for-share-salary-content">
-            <ul>
-              <li>
-                <div class="thanks-for-share-salary-item">
-                  <h4>{{'thanksForShare.item1.headline' | translate}}</h4>
-                  <p>{{'thanksForShare.item1.content' | translate}} <strong>{{'below50percent' | translate}}</strong> {{'startThinking' | translate}} <strong>{{'askForRaise' | translate}}</strong></p>
-                </div>
-              </li>
-              <li>
-                <div class="thanks-for-share-salary-item">
-                  <h4>{{'thanksForShare.item2.headline' | translate}}</h4>
-                  <p>{{'thanksForShare.item2.content' | translate}} <strong>{{'professionalFriendlyTimely' | translate}}</strong> .{{'leverageSkills' | translate}}</p>
-                </div>
-              </li>
-              <li>
-                <div class="thanks-for-share-salary-item">
-                  <h4>{{'thanksForShare.item3.headline' | translate}}</h4>
-                  <p>{{'thanksForShare.item3.content' | translate}} <strong>{{'salaryIncrease' | translate}}</strong> {{'dependOnIndustry' | translate}} <strong>{{'between2to5' | translate}}</strong> {{'between10to20' | translate}}</p>
-                </div>
-              </li>
-            </ul>
-            <div class="create-new-report" ng-show="!salaryReview.campaign">
-              <a class="btn btn-primary" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+        <div class="best-paid-jobs-block" ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length && survey.submitted">
+          <div class="title-header">
+            <h3 translate="doYouWantToEarnMore"></h3>
+            <div class="hidden-box" title="Close"  ng-click="removeBoxContent('best-paid-jobs-block')">X</div>
+          </div>
+          <div class="best-paid-list">
+            <p translate="higherJobOffer"></p>
+            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
+              <ul>
+                <li><span class="up">{{job.addedPercent}}%</span></li>
+                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+              </ul>
+              <div class="btn-see-more">
+                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary btn-flat" target="_blank">{{'seeMore' | translate}}</a>
+              </div>
+            </div>
+            <div class="see-more-jobs">
+              <p translate="higherJobOfferDisclaimer" class="note"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
             </div>
           </div>
         </div>

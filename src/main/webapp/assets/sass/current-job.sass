@@ -15,9 +15,14 @@
       font-weight: 400
       font-size: 17px
       text-transform: capitalize
-      background-color: #f4f4f4
+      background-color: #fff
       float: left
       width: 100%
+      //border-right: 1px solid #ebebeb
+      //border-top: 1px solid #ebebeb
+      //-webkit-box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
+      //-moz-box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
+      //box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
       ul
         margin: 0
         padding: 0
@@ -197,6 +202,7 @@
                 width: auto
                 display: inline-block
                 padding-right: 10px
+                font-weight: 700
               span.left
                 background: url(../images/left-tag.png) left -39px no-repeat
                 padding-left: 25px
@@ -259,7 +265,7 @@
               padding: 0
               li
                 float: left
-                width: 70%
+                width: 80%
                 border-right: 1px solid #fff
                 padding: 20px
                 text-align: center
@@ -284,7 +290,7 @@
                 a
                   cursor: pointer
               li:last-child
-                width: 30%
+                width: 20%
                 float: left
                 padding-top: 22px
                 a.salary-report-share
@@ -479,17 +485,29 @@
         width: 100%
         padding: 15px
         position: relative
-        h3
-          font-weight: 400
-          font-size: 14px
-          text-transform: capitalize
-          text-align: left
-          padding: 0 5px
-          position: absolute
-          display: inline-block
-          background-color: #fff
-          top: -32px
-          left: 10px
+        .title-header
+          display: block
+          clear: both
+          h3
+            background-color: white
+            display: inline-block
+            font-size: 14px
+            font-weight: 400
+            left: 10px
+            padding: 0 5px
+            position: absolute
+            text-align: left
+            text-transform: capitalize
+            top: -32px
+          .hidden-box
+            width: auto
+            position: absolute
+            right: 10px
+            top: -17px
+            background-color: #fff
+            padding: 5px 10px
+            font-weight: 500
+            cursor: pointer
         .salary-report-feedback-form
           display: block
           clear: both
@@ -547,24 +565,24 @@
       clear: both
       margin: 30px auto auto auto
       text-align: left
-      border: 1px solid #d4d7d8
-      -webkit-border-radius: 5px
-      -moz-border-radius: 5px
-      border-radius: 5px
       width: 100%
-      padding: 15px
       position: relative
+      h3
+        text-align: center !important
+        width: 100%
+        position: inherit  !important
+        font-size: 16px !important
+        text-transform: inherit !important
       .thanks-for-share-salary-content
         display: block
         clear: both
-        padding-top: 20px
         ul
           margin: 0
           padding: 10px 0 0 0
           li
             width: 33.333%
             float: left
-            padding: 0 15px
+            padding: 0 10px
             .thanks-for-share-salary-item
               border: 1px solid #ededed
               display: inline-block
@@ -573,8 +591,8 @@
               -webkit-border-radius: 5px
               -moz-border-radius: 5px
               border-radius: 5px
-              padding: 20px
-              min-height: 210px
+              padding: 20px 10px
+              min-height: 195px
             h4
               font-weight: 400
               font-size: 14px
@@ -636,16 +654,21 @@
         clear: both
         padding: 20px 0 0 0
         p
-          text-align: center
+          text-align: left
           padding: 5px 0
           height: auto
-        p.note
-          padding-top: 15px
-          clear: both
-          width: 100%
         .see-more-jobs
           display: block
-          text-align: center
+          width: 100%
+          a
+            float: right
+            width: auto
+          p.note
+            padding-top: 10px
+            display: inline-block
+            width: 50%
+            height: auto
+            loat: left
     .best-paid-company
       display: inline-block
       float: left

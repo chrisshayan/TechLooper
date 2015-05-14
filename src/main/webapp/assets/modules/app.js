@@ -86,8 +86,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $routeProvider
       .when("/home", {
-        templateUrl: "modules/talent-search/home.tem.html",
-        controller: "tsMainController"
+        templateUrl: "modules/home-page/home-page.tem.html",
+        controller: "homePageController"
       })
       .when("/talent-profile/:text", {
         templateUrl: "modules/talent-search/home.tem.html",
@@ -161,8 +161,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          tourService, signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue) {
-
+                         utils, $rootScope, $translate, jsonValue, $location) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -180,13 +179,20 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
-  var langKey = 'en';
-  if ($translate.proposedLanguage() === undefined) {
-    langKey = (window.navigator.userLanguage || window.navigator.language).substring(0, 2);
-    $translate.use(langKey);
+
+  var campaign = $location.search();
+  if (campaign.lang) {
+    $translate.use(campaign.lang);
   }
   else {
-    $translate.preferredLanguage($translate.proposedLanguage());
+    var langKey = 'en';
+    if ($translate.proposedLanguage() === undefined) {
+      langKey = (window.navigator.userLanguage || window.navigator.language).substring(0, 2);
+      $translate.use(langKey);
+    }
+    else {
+      $translate.preferredLanguage($translate.proposedLanguage());
+    }
   }
 
   $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
@@ -195,8 +201,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     "genderMale", "genderFemale", "exMale"]).then(function (translate) {
     $rootScope.translate = translate;
   });
-
-  $rootScope.language = langKey;
 
   $rootScope.jsonValue = jsonValue;
 });
