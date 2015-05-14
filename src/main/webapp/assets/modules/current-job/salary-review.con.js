@@ -247,7 +247,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       });
   }
 
-  $scope.hiddenPaidJobs = function(){
-    $('.best-paid-jobs-block').slideUp("normal", function() { $(this).remove(); } );
+  $scope.removeBoxContent = function(cls){
+    $('.'+cls).slideUp("normal", function() { $(this).remove(); } );
   }
 });
