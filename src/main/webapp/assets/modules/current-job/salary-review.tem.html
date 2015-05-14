@@ -107,7 +107,7 @@
               <label>{{'companyInfo.location' | translate}} <strong>*</strong></label>
               <selectize config='selectize.locations.config' options='selectize.locations.items'
                          ng-model="salaryReview.locationId"
-                         name="{{'location' | translate}}"></selectize>
+                         name="{{'location' | translate}}" class="locationSelectbox"></selectize>
               <div class="error-messages">
                 {{error['salaryReview.locationId']}}</div>
             </div>

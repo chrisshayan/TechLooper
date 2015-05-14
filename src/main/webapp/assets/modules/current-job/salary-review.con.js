@@ -191,10 +191,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-    if(step === "step2"){
-      $().
-    }
 
+    if(step === "step2"){
+      $('.locationSelectbox input').click();
+    }
     var swstep = step || $scope.step;
     $scope.step = swstep;
     $scope.error = {};
