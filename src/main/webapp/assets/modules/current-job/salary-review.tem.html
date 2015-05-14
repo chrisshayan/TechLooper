@@ -93,7 +93,7 @@
                          ng-model="salaryReview.age"></selectize>
             </div>
             <div class="row salary-field-submit">
-              <button class="btn btn-primary" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
+              <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
             </div>
             <div class="note">{{'noticeLine' | translate}}</div>
           </form>
@@ -126,7 +126,7 @@
               </div>
             </div>
             <div class="row salary-field-submit">
-              <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
+              <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
             </div>
           </form>
           <div class="note">{{'noticeLine' | translate}}</div>
@@ -226,7 +226,7 @@
                   </li>
                 </ul>
                 <div class="create-new-report" ng-show="!salaryReview.campaign">
-                  <a class="btn btn-primary" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+                  <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
                 </div>
               </div>
             </div>
@@ -312,7 +312,7 @@
                     <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
                   </li>
                   <li>
-                    <button ng-click="submitSurvey()" class="btn btn-primary" translate="submit"></button>
+                    <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
                   </li>
                 </ul>
               </form>
@@ -333,7 +333,7 @@
                 <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
               </ul>
               <div class="btn-see-more">
-                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary" target="_blank">{{'seeMore' | translate}}</a>
+                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn btn-primary btn-flat" target="_blank">{{'seeMore' | translate}}</a>
               </div>
             </div>
             <div class="see-more-jobs">
