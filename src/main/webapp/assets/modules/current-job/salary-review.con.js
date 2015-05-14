@@ -191,6 +191,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
+    if(step === "step2"){
+      $().
+    }
 
     var swstep = step || $scope.step;
     $scope.step = swstep;
