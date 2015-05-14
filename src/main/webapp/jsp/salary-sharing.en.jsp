@@ -22,8 +22,7 @@
 
 </head>
 
-<body>
-    <%response.sendRedirect("/#/salary-review");%>
+<body onload="window.location='/#/salary-review'">
 </body>
 
 </html>

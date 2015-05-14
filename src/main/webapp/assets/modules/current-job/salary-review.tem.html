@@ -137,7 +137,7 @@
           <ul>
             <li><span>{{'role' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
             <li><span>{{'level' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-            <li><span>{{'skill' | translate}}:</span> <p>
+            <li><span>{{'skills' | translate}}:</span> <p>
               <span class="items" ng-repeat="skill in salaryReview.skills">
                   {{skill}}
                   <span class="dot-line" ng-if="$index > 0">|</span>
