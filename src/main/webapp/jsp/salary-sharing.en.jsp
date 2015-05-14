@@ -14,7 +14,7 @@
     <!-- Facebook & LinkedIn -->
     <meta property="og:title" content="TechLooper is a career analytics platform."/>
     <meta property="og:description"
-          content="WOW! You are making more money than ${report.getPercentRank()}% of people like you."/>
+          content="I am making more money than ${report.getPercentRank()}% of people like me. What about you?"/>
     <meta property="og:image" content="http://techlooper.com/images/logo-social.png"/>
     <meta property="og:image:width" content="200"/>
 
@@ -23,7 +23,7 @@
 </head>
 
 <body>
-<p>You are making more money than ${report.getPercentRank()}% of people like you.</p>
+    <%response.sendRedirect("/#/salary-review");%>
 </body>
 
 </html>
