@@ -19,7 +19,6 @@ public class ReportController {
 
   @RequestMapping(value = "renderSalaryReport/{language}/{salaryReviewId}")
   public String renderReport(@PathVariable String language, @PathVariable Long salaryReviewId, ModelMap model) {
-    model.put("msg", "Hello Spring 4 Web MVC!");
     model.put("report", salaryReviewRepository.findOne(salaryReviewId).getSalaryReport());
     return "/jsp/salary-sharing." + language + ".jsp";
   }
