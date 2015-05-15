@@ -216,6 +216,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           });
         break;
     }
+
+    $(window).scrollTop(0);
   }
 
   $scope.createNewReport = function () {
