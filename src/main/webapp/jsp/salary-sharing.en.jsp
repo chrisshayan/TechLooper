@@ -14,8 +14,8 @@
     <!-- Facebook & LinkedIn -->
     <meta property="og:title" content="TechLooper is a career analytics platform."/>
     <meta property="og:description"
-          content="I am making more money than ${report.getPercentRank()}% of people like me. What about you?"/>
-    <meta property="og:image" content="http://techlooper.com/images/logo-social.png"/>
+          content="I am making more money than ${report.percentRankToString()}% of people like me. What about you?"/>
+    <meta property="og:image" content="/images/logo-social.png"/>
     <meta property="og:image:width" content="200"/>
 
     <!-- Twitter -->

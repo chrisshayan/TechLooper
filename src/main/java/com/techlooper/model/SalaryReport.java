@@ -1,5 +1,6 @@
 package com.techlooper.model;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -7,33 +8,38 @@ import java.util.List;
  */
 public class SalaryReport {
 
-    private Integer netSalary;
+  private Integer netSalary;
 
-    private Double percentRank;
+  private Double percentRank;
 
-    private List<SalaryRange> salaryRanges;
+  private List<SalaryRange> salaryRanges;
 
-    public Integer getNetSalary() {
-        return netSalary;
-    }
+  public Integer getNetSalary() {
+    return netSalary;
+  }
 
-    public void setNetSalary(Integer netSalary) {
-        this.netSalary = netSalary;
-    }
+  public void setNetSalary(Integer netSalary) {
+    this.netSalary = netSalary;
+  }
 
-    public Double getPercentRank() {
-        return percentRank;
-    }
+  public Double getPercentRank() {
+    return percentRank;
+  }
 
-    public void setPercentRank(Double percentRank) {
-        this.percentRank = percentRank;
-    }
+  public void setPercentRank(Double percentRank) {
+    this.percentRank = percentRank;
+  }
 
-    public List<SalaryRange> getSalaryRanges() {
-        return salaryRanges;
-    }
+  public List<SalaryRange> getSalaryRanges() {
+    return salaryRanges;
+  }
 
-    public void setSalaryRanges(List<SalaryRange> salaryRanges) {
-        this.salaryRanges = salaryRanges;
-    }
+  public void setSalaryRanges(List<SalaryRange> salaryRanges) {
+    this.salaryRanges = salaryRanges;
+  }
+
+  public String percentRankToString() {
+    DecimalFormat df = new DecimalFormat("###.#");
+    return df.format(percentRank);
+  }
 }
