@@ -15,7 +15,8 @@
     <meta property="og:title" content="Salary Report powered by VietnamWorks"/>
     <meta property="og:description"
           content="I am making more money than ${report.percentRankToString()}% of people like me. What about you?"/>
-    <meta property="og:image" content="/images/logo-social.png"/>
+    <meta property="og:image" content="http://techlooper.com/images/logo-social.png"/>
+    <meta property="og:image:url" content="http://techlooper.com/images/logo-social.png"/>
     <meta property="og:image:width" content="200"/>
 
     <!-- Twitter -->
