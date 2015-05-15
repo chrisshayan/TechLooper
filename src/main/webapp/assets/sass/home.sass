@@ -8,7 +8,7 @@
     height: 60px
     width: 100%
     clear: both
-    position: relative
+    position: absolute
     z-index: 99
     text-align: center
     .homepage-header-content
@@ -27,7 +27,7 @@
   .main-banner-block
     width: 100%
     height: 600px
-    position: absolute
+    position: relative
     top: 0
     left: 0
     z-index: 66
@@ -124,3 +124,55 @@
           margin-left: 0
         .main-feature-item.right
           margin-right: 0
+  .how-does-it-work-block
+    display: inline-block
+    clear: both
+    padding: 50px 0 10px 0
+    text-align: center
+    width: 100%
+    h2
+      margin: 0
+      padding: 0
+      font-size: 35px
+      font-weight: 300
+      text-transform: capitalize
+      text-align: center
+    .how-does-it-work-content
+      width: 100%
+      margin: auto
+      clear: both
+      max-width: 1000px
+      text-align: left
+      ul
+        width: 100%
+        margin: 0
+        padding: 30px 0 0
+        li
+          width: 32%
+          float: left
+          margin: 0 1%
+          min-height: 200px
+          text-align: center
+          h3
+            font-weight: 300
+            font-size: 22px
+            text-transform: capitalize
+          strong
+            font-weight: 500
+          .ic-how-does-it-work
+            background: url(../images/ic-how-does-it-work.png) center top no-repeat
+            width: 100%
+            clear: both
+            height: 60px
+            padding: 15px 0
+          .ic-how-does-it-work.study
+            background-position: center 10px
+          .ic-how-does-it-work.salary
+            background-position: center -68px
+          .ic-how-does-it-work.job
+            background-position: center -148px
+        li:first-child
+          margin-left: 0
+        li:last-child
+          margin-right: 0
+
