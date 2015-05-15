@@ -88,7 +88,7 @@
   "yourSalaryReport": "Your Salary Report",
   "instructionMessage": "Let's start building your salary report with information about your current job. All the information you share with us will be <strong>kept strictly confidential</strong> and <strong>will not be shared</strong> with any third party.",
   "mostRelevantSkills": "Top 3 Most Relevant Skills To Your Job",
-  "noticeLine": "Remember: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be kept confidential.",
+  "noticeLine": "Remember: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be <strong>kept confidential</strong>.",
   "jobTitle.placeholder": "Ex: Java Developer",
   "jobLevel.placeholder": "Ex: Experienced(Non-Manager)",
   "netSalary.placeholder": "Ex: $1000 (as NET USD/month)",
