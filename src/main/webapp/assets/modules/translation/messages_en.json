@@ -86,7 +86,7 @@
   "aboutYourJob": "About Your Job",
   "aboutYourCompany": "About Your Company",
   "yourSalaryReport": "Your Salary Report",
-  "instructionMessage": "Let's start building your salary report with information about your current job. All the information you share with us will be kept strictly confidential and will not be shared with any third party.",
+  "instructionMessage": "Let's start building your salary report with information about your current job. All the information you share with us will be <strong>kept strictly confidential</strong> and <strong>will not be shared</strong> with any third party.",
   "mostRelevantSkills": "Top 3 Most Relevant Skills To Your Job",
   "noticeLine": "Remember: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be kept confidential.",
   "jobTitle.placeholder": "Ex: Java Developer",

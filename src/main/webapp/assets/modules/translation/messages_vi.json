@@ -86,7 +86,7 @@
   "aboutYourJob": "Thông Tin Về Công Việc",
   "aboutYourCompany": "Thông Tin Về Công Ty",
   "yourSalaryReport": "Báo Cáo Lương",
-  "instructionMessage": "Hãy bắt đầu xây dựng báo cáo lương bằng những thông tin về công việc hiện tại của bạn. Tất cả những thông tin bạn chia sẻ với chúng tôi đều được bảo mật và không được chia sẻ với bất kỳ ai.",
+  "instructionMessage": "Hãy bắt đầu xây dựng báo cáo lương bằng những thông tin về công việc hiện tại của bạn. Tất cả những thông tin bạn chia sẻ với chúng tôi đều <strong>được bảo mật</strong> và <strong>không được chia sẻ</strong> với bất kỳ ai.",
   "mostRelevantSkills": "Top 3 kĩ năng then chốt cho công việc của bạn",
   "noticeLine": "Chú ý: Bạn càng cung cấp thông tin chi tiết bao nhiêu thì báo cáo sẽ càng chính xác bấy nhiêu. Tất cả những thông tin bạn chia sẻ với chúng tôi đều được bảo mật.",
   "jobTitle.placeholder": "Ví dụ: Lập Trình Viên Java",
