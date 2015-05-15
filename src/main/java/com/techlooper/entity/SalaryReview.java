@@ -57,6 +57,9 @@ public class SalaryReview {
     @Field(type = FieldType.Nested)
     private SalaryReviewSurvey salaryReviewSurvey;
 
+    @Field
+    private String campaign;
+
     public Long getCreatedDateTime() {
         return createdDateTime;
     }
@@ -167,5 +170,13 @@ public class SalaryReview {
 
     public void setSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey) {
         this.salaryReviewSurvey = salaryReviewSurvey;
+    }
+
+    public String getCampaign() {
+        return campaign;
+    }
+
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
     }
 }
