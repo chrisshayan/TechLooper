@@ -206,7 +206,9 @@
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
             </div>
             <div class="thanks-for-share-salary">
-              <h3>{{'thanksForShare.headline' | translate}}</h3>
+              <h3 ng-if="salaryReport.percentRank < 50" translate="thanksForShare.headline.under50percent"></h3>
+              <h3 ng-if="salaryReport.percentRank >= 50 && salaryReport.percentRank < 70" translate="thanksForShare.headline.under70percent"></h3>
+              <h3 ng-if="salaryReport.percentRank >= 70 && salaryReport.percentRank < 100" translate="thanksForShare.headline.under100percent"></h3>
               <div class="thanks-for-share-salary-content">
                 <ul>
                   <li>
