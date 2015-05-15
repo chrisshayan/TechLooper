@@ -1,5 +1,5 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
-                                                          $route, $location) {
+                                                          $route, $location, $anchorScroll) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   var genders = $.extend(true, [], jsonValue.genders.filter(function (value) {return value.id > 0;}));
   var campaign = $location.search();
@@ -216,8 +216,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           });
         break;
     }
-
-    $(window).scrollTop(0);
   }
 
   $scope.createNewReport = function () {
@@ -266,6 +264,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.removeBoxContent = function(cls){
+    $scope.survey = {closed: true};
     $('.'+cls).slideUp("normal", function() { $(this).remove(); } );
   }
+
+  //$anchorScroll();
 });
