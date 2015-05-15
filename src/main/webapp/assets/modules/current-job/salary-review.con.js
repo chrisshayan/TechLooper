@@ -130,6 +130,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.addNewSkill = function () {
+    $scope.salaryReview.skills || ($scope.salaryReview.skills = []);
     if ($scope.newSkillName === undefined) {
       return;
     }
