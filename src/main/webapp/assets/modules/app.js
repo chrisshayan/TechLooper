@@ -154,7 +154,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
-          return "/pie-chart";
+          return "/home";
         }
       });
   }]);
