@@ -1,5 +1,5 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
-                                                          $route, $location) {
+                                                          $route, $location, $anchorScroll) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   var genders = $.extend(true, [], jsonValue.genders.filter(function (value) {return value.id > 0;}));
   var campaign = $location.search();
@@ -239,7 +239,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
      "netSalary": 1000,
      "reportTo": "manager",
    }
-   http://localhost:8080/#/salary-review?lang=vi&jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
+   http://localhost:8080/#/salary-review?campaign=vnw&lang=vi&jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
    * */
   if (!$.isEmptyObject(campaign)) {
     for (var prop in campaign) {
@@ -249,7 +249,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       catch (e) {}
     }
     $scope.salaryReview = campaign;
-    $scope.salaryReview.campaign = true;
+    //$scope.salaryReview.campaign = true;
     $scope.step = "step1";
   }
 
@@ -264,6 +264,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.removeBoxContent = function(cls){
+    $scope.survey = {closed: true};
     $('.'+cls).slideUp("normal", function() { $(this).remove(); } );
   }
+
+  //$anchorScroll();
 });
