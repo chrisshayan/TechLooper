@@ -26,6 +26,10 @@ import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 @Service
 public class SalaryReviewServiceImpl implements SalaryReviewService {
 
+    public static final long MIN_SALARY_ACCEPTABLE = 250L;
+
+    public static final long MAX_SALARY_ACCEPTABLE = 5000L;
+
     @Resource
     private SalaryReviewRepository salaryReviewRepository;
 
@@ -42,7 +46,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         now.add(Calendar.MONTH, -6);
         QueryBuilder queryBuilder = filteredQuery(jobQueryBuilder.jobTitleQueryBuilder(jobTitle),
                 boolFilter().must(termsFilter("jobCategories", jobCategories))
-                            .must(rangeFilter("createdDateTime").from(now.getTimeInMillis())));
+                        .must(rangeFilter("netSalary").from(MIN_SALARY_ACCEPTABLE).to(MAX_SALARY_ACCEPTABLE))
+                        .must(rangeFilter("createdDateTime").from(now.getTimeInMillis())));
 
         List<SalaryReview> salaryReviews = new ArrayList<>();
         FacetedPage<SalaryReview> salaryReviewFirstPage = salaryReviewRepository.search(queryBuilder, new PageRequest(0, 100));

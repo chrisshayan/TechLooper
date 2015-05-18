@@ -6,10 +6,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
-import com.techlooper.service.JobQueryBuilder;
-import com.techlooper.service.JobSearchService;
-import com.techlooper.service.JobStatisticService;
-import com.techlooper.service.UserEvaluationService;
+import com.techlooper.service.*;
 import com.techlooper.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
@@ -65,6 +62,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     @Resource
     private Environment environment;
+
+    @Resource
+    private SalaryReviewService salaryReviewService;
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
@@ -182,6 +182,11 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // Get the list of jobs search result for user percentile rank calculation
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+
+        // In order to make our report more accurate, we should add data from generated report in calculation
+        List<SalaryReview> salaryReviews = salaryReviewService.searchSalaryReview(
+                salaryReview.getJobTitle(), salaryReview.getJobCategories());
+        mergeSalaryReviewWithJobList(jobs, salaryReviews);
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS && salaryReview.getSkills() != null && !salaryReview.getSkills().isEmpty()) {
@@ -320,6 +325,16 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
             topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), Math.ceil(addedPercent)));
         }
         return topPaidJobs;
+    }
+
+    private void mergeSalaryReviewWithJobList(List<JobEntity> jobs, List<SalaryReview> salaryReviews) {
+        for(SalaryReview salaryReview : salaryReviews) {
+            JobEntity jobEntity = new JobEntity();
+            jobEntity.setJobTitle(salaryReview.getJobTitle());
+            jobEntity.setSalaryMin(salaryReview.getNetSalary().longValue());
+            jobEntity.setSalaryMax(salaryReview.getNetSalary().longValue());
+            jobs.add(jobEntity);
+        }
     }
 
     public void deleteSalaryReview(SalaryReview salaryReview) {
