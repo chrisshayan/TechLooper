@@ -167,5 +167,6 @@
   "homepage.howitworks.item2.title" : "Check Your Salary",
   "homepage.howitworks.item2.desc" : "Complete a simple survey to know <strong>how much you are worth</strong> and if you deserve a salary raise.",
   "homepage.howitworks.item3.title" : "Get Better Job",
-  "homepage.howitworks.item3.desc" : "TechLooper can send you <strong>best paid jobs</strong> for your skillset, experience and location. Perhaps it is time to <strong>Move Up</strong>!"
+  "homepage.howitworks.item3.desc" : "TechLooper can send you <strong>best paid jobs</strong> for your skillset, experience and location. Perhaps it is time to <strong>Move Up</strong>!",
+  "exDay": "Ex: Day"
 }

@@ -28,7 +28,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       $scope.selectize[select.item].$elem.updatePlaceholder();
     });
   });
-
+  console.log(timeToSends)
   $scope.selectize = {
     locations: {
       items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
@@ -120,6 +120,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         delimiter: '|',
         maxItems: 1,
         searchField: ['translate'],
+        placeholder: $translate.instant("exDay"),
         onInitialize: function (selectize) {
           $scope.selectize.timeToSends.$elem = selectize;
         }
