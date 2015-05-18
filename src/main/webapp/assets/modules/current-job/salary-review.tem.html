@@ -409,7 +409,7 @@
             <input type="text" id="txtEmail" placeholder="" class="email-get-similar-jobs"/>
             <label class="time-to-send">every: </label>
             <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
-                       ng-model="salaryReview.timeToSendId"></selectize>
+                       ng-model="salaryReview.timeToSendId" name="{{'jobCategory' | translate}}"></selectize>
             <div class="error-messages"></div>
           </div>
           <div class="row email-similar-jobs-field">
