@@ -2,6 +2,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
                                                           $route, $location, $anchorScroll) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   var genders = $.extend(true, [], jsonValue.genders.filter(function (value) {return value.id > 0;}));
+  var timeToSends = $.extend(true, [], jsonValue.timeToSends.filter(function (value) {return value.id > 0;}));
   var campaign = $location.search();
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
@@ -10,13 +11,15 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     var translate = $rootScope.translate;
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
     $.each(genders, function (i, item) {item.translate = translate[item.translate];});
+    $.each(timeToSends, function (i, item) {item.translate = translate[item.translate];});
 
     $.each([
       {item: "genders", translate: "exMale"},
       {item: "locations", translate: "exHoChiMinh"},
       {item: "jobLevels", translate: "exManager"},
       {item: "industries", translate: "exItSoftware"},
-      {item: "companySize", translate: "ex149"}
+      {item: "companySize", translate: "ex149"},
+      {item: "timeToSends", translate: "exDay"}
     ], function (i, select) {
       if (!$scope.selectize[select.item].$elem) {
         return true;
@@ -108,6 +111,19 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $scope.selectize.companySize.$elem = selectize;
         }
       }
+    },
+    timeToSends: {
+      items: timeToSends,
+      config: {
+        valueField: 'id',
+        labelField: 'translate',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['translate'],
+        onInitialize: function (selectize) {
+          $scope.selectize.timeToSends.$elem = selectize;
+        }
+      }
     }
   }
 
@@ -121,7 +137,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     jobCategories: [],
     companySizeId: '',
     netSalary: '',
-    reportTo: ''
+    reportTo: '',
+    timeToSendId: ''
   };
 
   $scope.removeSkill = function (skill) {
