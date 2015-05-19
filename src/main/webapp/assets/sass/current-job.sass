@@ -565,6 +565,9 @@
                 clear: both
                 width: auto
                 float: left
+                margin: 0
+                strong
+                  color: red
               .select-group
                 width: 38%
                 float: right
@@ -579,6 +582,13 @@
               button
                 min-width: 100px
                 margin: auto
+            .error-messages
+              color: red
+              display: block
+              clear: both
+              text-align: left
+              font-size: 12px
+              font-style: italic
         .note
           clear: both
           display: block
@@ -753,13 +763,19 @@
         padding: 15px 0 0 0
     .best-paid-company:first-child
       margin-left: 1.5%
+
 .email-similar-jobs
+  text-align: left
+  .modal-dialog
+    top: 15%
   h4
     font-size: 16px
     font-weight: 400
+    text-align: left
   .email-similar-jobs-form
     padding: 20px
     width: 100%
+    text-align: left
     .email-similar-jobs-field
       display: block
       clear: both
@@ -778,7 +794,7 @@
         border: 1px solid #d4d7d8
         border-radius: 5px
         line-height: 34px
-        padding: 0 5px
+        padding: 0 10px
         width: 75%
         float: left
         margin-bottom: 5px
