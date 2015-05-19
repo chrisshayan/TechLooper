@@ -57,6 +57,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         int pageIndex = 1;
         while (pageIndex < totalPage) {
             salaryReviews.addAll(salaryReviewRepository.search(queryBuilder, new PageRequest(pageIndex, 100)).getContent());
+            pageIndex++;
         }
         return salaryReviews;
     }
