@@ -1,8 +1,8 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
                                                           $route, $location, $anchorScroll) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-  var genders = $.extend(true, [], jsonValue.genders.filter(function (value) {return value.id > 0;}));
-  var timeToSends = $.extend(true, [], jsonValue.timeToSends.filter(function (value) {return value.id > 0;}));
+  var genders = $.extend(true, [], jsonValue.genders);
+  var timeToSends = $.extend(true, [], jsonValue.timeToSends);
   var campaign = $location.search();
   $scope.$watch("translate", function () {
     if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
@@ -28,7 +28,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       $scope.selectize[select.item].$elem.updatePlaceholder();
     });
   });
-  console.log(timeToSends)
   $scope.selectize = {
     locations: {
       items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
@@ -271,15 +270,38 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     //$scope.salaryReview.campaign = true;
     $scope.step = "step1";
   }
+  $scope.errorFeedback = {};
+  $scope.validateFeedback = function(){
+    if($scope.survey === undefined){
+      $scope.errorFeedback.understand = $rootScope.translate.requiredThisField;
+      $scope.errorFeedback.accurate = $rootScope.translate.requiredThisField;
+    }else{
+      if($scope.survey.isUnderstandable){
+        delete $scope.errorFeedback.understand;
+      }else{
+        $scope.errorFeedback.understand = $rootScope.translate.requiredThisField;
+      }
+      if($scope.survey.isAccurate){
+        delete $scope.errorFeedback.accurate;
+      }else{
+        $scope.errorFeedback.accurate = $rootScope.translate.requiredThisField;
+      }
 
+    }
+    return $.isEmptyObject($scope.errorFeedback);
+  }
   $scope.submitSurvey = function() {
-    $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
-    $http.post("saveSurvey", $scope.survey)
-      .success(function (data, status, headers, config) {
-        $scope.survey.submitted = true;
-      })
-      .error(function (data, status, headers, config) {
-      });
+    if($scope.validateFeedback() == true){
+      $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
+      $http.post("saveSurvey", $scope.survey)
+          .success(function (data, status, headers, config) {
+            $scope.survey.submitted = true;
+          })
+          .error(function (data, status, headers, config) {
+          });
+    }else{
+      return;
+    }
   }
 
   $scope.removeBoxContent = function(cls){
