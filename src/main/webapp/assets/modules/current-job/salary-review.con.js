@@ -299,6 +299,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           })
           .error(function (data, status, headers, config) {
           });
+      $('.email-get-similar-jobs').focus();
     }else{
       return;
     }
@@ -306,6 +307,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.removeBoxContent = function(cls){
     $scope.survey = {closed: true};
+    $('.salary-report-feedback').addClass('hide');
     $('.'+cls).slideUp("normal", function() { $(this).remove(); } );
   }
 

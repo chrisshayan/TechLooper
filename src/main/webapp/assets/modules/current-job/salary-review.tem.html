@@ -366,7 +366,7 @@
             <div class="modal-body">
               <div class="email-similar-jobs-form">
                 <div class="row email-similar-jobs-field">
-                  <label for="txtJobTitle">Send Me:</label>
+                  <label for="txtJobTitle">Job Title <strong>*</strong></label>
                   <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
                          name="{{'jobTitle' | translate}}"
                          placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
@@ -374,7 +374,7 @@
                     {{error['salaryReview.jobTitle']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label>Job In (Category):</label>
+                  <label>Job Category <strong>*</strong></label>
                   <selectize config='selectize.industries.config' options='selectize.industries.items'
                              ng-model="salaryReview.jobCategories"
                              name="{{'jobCategory' | translate}}"></selectize>
@@ -383,14 +383,14 @@
                   </div>
                 </div>
                 <div class="row email-similar-jobs-field" jobLevels>
-                  <label>For (Job Level):</label>
+                  <label>Job Level <strong>*</strong></label>
                   <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
                              ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
                   <div class="error-messages">
                     {{error['salaryReview.jobLevelIds']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label>That Are Located In:</label>
+                  <label>City <strong>*</strong></label>
                   <selectize config='selectize.locations.config' options='selectize.locations.items'
                              ng-model="salaryReview.locationId"
                              name="{{'location' | translate}}" class="locationSelectbox"></selectize>
@@ -398,7 +398,7 @@
                     {{error['salaryReview.locationId']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label for="txtBaseSalary">With Salary Of:</label>
+                  <label for="txtBaseSalary">Net Salary from (USD) <strong>*</strong></label>
                   <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                          name="{{'netSalary' | translate}}" maxlength="5"
                          placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
@@ -406,21 +406,20 @@
                     {{error['salaryReview.netSalary']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label for="txtEmail">To My Email:</label>
+                  <label for="txtEmail">Send to Email <strong>*</strong></label>
                   <input type="text" id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
-                  <label class="time-to-send">every: </label>
                   <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
                              ng-model="selectedTime" name="{{'jobCategory' | translate}}"></selectize>
                   <div class="error-messages"></div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <p>1209 Jobs Match this Job Alert</p>
+                  <p>1209 Jobs Match These Criteria</p>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="getJobAlert()">Save Job Alert</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="getJobAlert()">Save</button>
             </div>
           </div>
         </div>
