@@ -664,7 +664,7 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 2, translate: "genderFemale"}
     ],
     timeToSends: [
-      {id: 1, translate: "day"},
+      //{id: 1, translate: "day"},
       {id: 2, translate: "week"},
       {id: 3, translate: "month"}
     ],

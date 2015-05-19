@@ -299,6 +299,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           })
           .error(function (data, status, headers, config) {
           });
+      $('.email-get-similar-jobs').focus();
     }else{
       return;
     }
