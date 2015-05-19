@@ -1,0 +1,38 @@
+GET techlooper/salaryReview/_search
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "jobTitle": {
+            "query": "Java Developer",
+            "minimum_should_match": "100%"
+          }
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "jobCategories": [
+                  35,
+                  55,
+                  57
+                ]
+              }
+            },
+            {
+              "range": {
+                "netSalary": {
+                  "from": 250,
+                  "to": 5000
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

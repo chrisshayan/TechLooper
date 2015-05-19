@@ -14,6 +14,7 @@
   "current": "Current",
   "previous": "Previous",
   "percentageChange": "Percentage Change",
+  "day": "Day",
   "week": "Week",
   "month": "Month",
   "quarter": "Quarter",
@@ -133,10 +134,10 @@
   "exYob": "Ex: 1988",
   "doYouWantToEarnMore": "Do you want to earn more?",
   "haveAnyFeedback": "Do you have any feedback for us to improve?",
-  "resultReportAccurate": "Do you think the results of the report are accurate?",
+  "resultReportAccurate": "Do you think the results of the report are accurate? <strong>*</strong>",
   "submit": "Submit",
   "thanksForHelp": "Many thanks for helping us improve, we are here to help you Move Up. Remember that all the information you have share with us will be kept strictly confidential",
-  "understandReport?": "Do you understand this report?",
+  "understandReport?": "Do you understand this report? <strong>*</strong>",
   "whatYouThinkReport": "What do you think about this report?",
   "yes": "Yes",
   "no": "No",
@@ -166,5 +167,6 @@
   "homepage.howitworks.item2.title" : "Check Your Salary",
   "homepage.howitworks.item2.desc" : "Complete a simple survey to know <strong>how much you are worth</strong> and if you deserve a salary raise.",
   "homepage.howitworks.item3.title" : "Get Better Job",
-  "homepage.howitworks.item3.desc" : "TechLooper can send you <strong>best paid jobs</strong> for your skillset, experience and location. Perhaps it is time to <strong>Move Up</strong>!"
+  "homepage.howitworks.item3.desc" : "TechLooper can send you <strong>best paid jobs</strong> for your skillset, experience and location. Perhaps it is time to <strong>Move Up</strong>!",
+  "exDay": "Ex: Day"
 }

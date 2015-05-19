@@ -663,6 +663,11 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 1, translate: "genderMale"},
       {id: 2, translate: "genderFemale"}
     ],
+    timeToSends: [
+      {id: 1, translate: "day"},
+      {id: 2, translate: "week"},
+      {id: 3, translate: "month"}
+    ],
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
       {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1]},

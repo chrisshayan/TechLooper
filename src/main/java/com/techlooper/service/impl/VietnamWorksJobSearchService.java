@@ -188,7 +188,8 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilter()
                 .must(expiredDateFilterBuilder)
                 .must(termFilter("isActive", 1))
-                .must(termFilter("isApproved", 1))));
+                .must(termFilter("isApproved", 1))
+                .must(jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReview.getJobCategories()))));
         List<JobEntity> higherSalaryJobs = getJobSearchResult(queryBuilder);
         return higherSalaryJobs.stream()
                 .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReview.getNetSalary())

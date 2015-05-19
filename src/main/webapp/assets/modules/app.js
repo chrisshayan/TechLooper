@@ -74,15 +74,20 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $authProvider.loginRedirect = undefined;
 
-    $translateProvider.useLocalStorage();
-    $translateProvider.useStaticFilesLoader({
-      prefix: "modules/translation/messages_",
-      suffix: ".json"
-    });
-
-    $translateProvider.registerAvailableLanguageKeys(['en', 'vi']);
-    $translateProvider.fallbackLanguage("en");
-    $translateProvider.preferredLanguage("en");
+    $translateProvider
+      .useLocalStorage()
+      .useStaticFilesLoader({
+        prefix: "modules/translation/messages_",
+        suffix: ".json"
+      })
+      .registerAvailableLanguageKeys(['en', 'vi'], {
+        'en_US': 'en',
+        'en_UK': 'en'
+      })
+      .fallbackLanguage("en")
+      .uniformLanguageTag('bcp47') // enable BCP-47, must be before determinePreferredLanguage!
+      .determinePreferredLanguage()
+      .useSanitizeValueStrategy('escaped');
 
     $routeProvider
       .when("/home", {
@@ -181,24 +186,16 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
 
   var campaign = $location.search();
-  if (campaign.lang) {
-    $translate.use(campaign.lang);
-  }
-  else {
-    var langKey = 'en';
-    if ($translate.proposedLanguage() === undefined) {
-      langKey = (window.navigator.userLanguage || window.navigator.language).substring(0, 2);
-      $translate.use(langKey);
-    }
-    else {
-      $translate.preferredLanguage($translate.proposedLanguage());
-    }
-  }
+  var langKey = (campaign && campaign.lang);
+  langKey !== $translate.use() && ($translate.use(langKey));
+  $rootScope.$on('$translateChangeSuccess', function () {
+    langKey !== $translate.use() && ($translate.use(langKey));
+  });
 
   $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
     "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
     "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-    "genderMale", "genderFemale", "exMale", "exYob"]).then(function (translate) {
+    "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month']).then(function (translate) {
     $rootScope.translate = translate;
   });
 

@@ -14,6 +14,7 @@
   "current": "Hiện thời",
   "previous": "Trước đây",
   "percentageChange": "Phần trăm thay đổi",
+  "day": "Ngày",
   "week": "Tuần",
   "month": "Tháng",
   "quarter": "Quý",
@@ -134,10 +135,10 @@
   "exYob": "Ví dụ: 1988",
   "doYouWantToEarnMore": "Bạn có muốn tăng thu nhập nhiều hơn?",
   "haveAnyFeedback": "Bạn có phản hồi gì giúp cho chúng tôi tiếp tục phát triển?",
-  "resultReportAccurate": "Báo cáo lương có chính xác không?",
+  "resultReportAccurate": "Báo cáo lương có chính xác không? <strong>*</strong>",
   "submit": "Gửi đi",
   "thanksForHelp": "Cám ơn thông tin của bạn, chúng sẽ không được chia sẻ cho bất cứ ai.",
-  "understandReport?": "Báo cáo lương có dễ hiểu không?",
+  "understandReport?": "Báo cáo lương có dễ hiểu không? <strong>*</strong>",
   "whatYouThinkReport": "Bạn nghĩ gì về báo cáo lương này?",
   "yes": "Đồng ý",
   "no": "Không đồng ý",
@@ -167,7 +168,8 @@
   "homepage.howitworks.item2.title" : "Đánh Giá Mức Lương Của Bạn",
   "homepage.howitworks.item2.desc" : "Giúp bạn <strong>đánh giá thu nhập</strong> của mình so với thị trường chung.",
   "homepage.howitworks.item3.title" : "Đề Nghị Các Công Việc Tốt Hơn",
-  "homepage.howitworks.item3.desc" : "TechLooper sẽ gửi cho bạn các công việc phù hợp và <strong>được trả lương tốt nhất</strong>. Từ đó bạn sẽ dễ dàng <strong>thăng tiến trong sự nghiệp</strong> của mình."
+  "homepage.howitworks.item3.desc" : "TechLooper sẽ gửi cho bạn các công việc phù hợp và <strong>được trả lương tốt nhất</strong>. Từ đó bạn sẽ dễ dàng <strong>thăng tiến trong sự nghiệp</strong> của mình.",
+  "exDay": "Ví dụ: Ngày"
 }
 
 

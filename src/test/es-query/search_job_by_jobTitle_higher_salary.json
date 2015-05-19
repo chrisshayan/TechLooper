@@ -5,7 +5,7 @@ GET vietnamworks/job/_search
       "query": {
         "match": {
           "jobTitle": {
-            "query": "Java Developer",
+            "query": "Product Manager",
             "minimum_should_match": "100%"
           }
         }
@@ -29,10 +29,35 @@ GET vietnamworks/job/_search
                   "from": "now/d"
                 }
               }
+            },
+            {
+              "nested": {
+                "path": "industries",
+                "query": {
+                  "bool": {
+                    "minimum_should_match": 1,
+                    "should": [
+                      {
+                        "term": {
+                          "industries.industryId": {
+                            "value": 35
+                          }
+                        }
+                      },
+                      {
+                        "term": {
+                          "industries.industryId": {
+                            "value": 55
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
             }
           ]
         }
       }
     }
   }
-}

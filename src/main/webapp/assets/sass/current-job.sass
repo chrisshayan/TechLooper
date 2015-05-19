@@ -565,6 +565,9 @@
                 clear: both
                 width: auto
                 float: left
+                margin: 0
+                strong
+                  color: red
               .select-group
                 width: 38%
                 float: right
@@ -579,6 +582,13 @@
               button
                 min-width: 100px
                 margin: auto
+            .error-messages
+              color: red
+              display: block
+              clear: both
+              text-align: left
+              font-size: 12px
+              font-style: italic
         .note
           clear: both
           display: block
@@ -693,6 +703,19 @@
             width: 50%
             height: auto
             loat: left
+        .email-me-similar-jobs
+          display: none
+          clear: both
+          width: 100%
+          padding-top: 10px
+          text-align: center
+          a
+            margin: auto
+            cursor: pointer
+    .best-paid-companies
+      display: inline-block
+      clear: both
+      width: 100%
     .best-paid-company
       display: inline-block
       float: left
@@ -740,6 +763,58 @@
         padding: 15px 0 0 0
     .best-paid-company:first-child
       margin-left: 1.5%
+
+.email-similar-jobs
+  text-align: left
+  .modal-dialog
+    top: 15%
+  .modal-header
+    background-color: #f7f7f7
+  h4
+    font-size: 16px
+    font-weight: 400
+    text-align: left
+  .email-similar-jobs-form
+    padding: 20px
+    width: 100%
+    text-align: left
+    .email-similar-jobs-field
+      display: block
+      clear: both
+      padding-bottom: 5px
+      label
+        float: left
+        width: 25%
+        font-size: 14px
+        font-weight: 300
+        padding-top: 7px
+      label.time-to-send
+        width: 15%
+        padding-right: 10px
+        text-align: right
+      input
+        border: 1px solid #d4d7d8
+        border-radius: 5px
+        line-height: 34px
+        padding: 0 10px
+        width: 75%
+        float: left
+        margin-bottom: 5px
+      input.email-get-similar-jobs
+        width: 40%
+      .selectize-control
+        width: 75%
+        float: left
+      .selectize-control.select-time-to-send
+        width: 20%
+      .selectize-control.multi .selectize-input.has-items
+        padding-left: 4px
+      p
+        width: 100%
+        padding-left: 25%
+        font-weight: 400
+        font-size: 16px
+        margin: 0
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove

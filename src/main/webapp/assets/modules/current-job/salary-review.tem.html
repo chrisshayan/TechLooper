@@ -29,7 +29,6 @@
       <div class="your-salary-info-content" ng-show="step==='step1'">
         <h3 translate="instructionMessage"></h3>
         <div class="salary-info-form">
-
           <form autocomplete="off">
             <div class="row salary-field">
               <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
@@ -295,12 +294,13 @@
                     <p translate="understandReport?"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" checked id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
+                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
                       </div>
                       <div class="select-item">
                         <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
                       </div>
                     </div>
+                    <div class="error-messages">{{errorFeedback.understand}}</div>
                   </li>
                   <li>
                     <p translate="resultReportAccurate"></p>
@@ -312,6 +312,7 @@
                         <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
                       </div>
                     </div>
+                    <div class="error-messages">{{errorFeedback.accurate}}</div>
                   </li>
                   <li>
                     <label for="txtFeedback" translate="haveAnyFeedback"></label>
@@ -333,18 +334,93 @@
           </div>
           <div class="best-paid-list">
             <p translate="higherJobOffer"></p>
-            <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
-              <ul>
-                <li><strong>+ {{job.addedPercent}}%</strong></li>
-                <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
-                <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-              </ul>
-              <div class="btn-see-more">
-                <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn-blue" target="_blank">{{'seeMore' | translate}}</a>
+            <div class="best-paid-companies">
+              <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
+                <ul>
+                  <li><strong>+ {{job.addedPercent}}%</strong></li>
+                  <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                  <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+                </ul>
+                <div class="btn-see-more">
+                  <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn-blue" target="_blank">{{'seeMore' | translate}}</a>
+                </div>
               </div>
             </div>
             <div class="see-more-jobs">
               <p translate="higherJobOfferDisclaimer" class="note"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+            </div>
+
+            <div class="email-me-similar-jobs">
+              <a class="btn btn-primary btn-flat" data-toggle="modal" data-target="#email-me-similar-jobs">Email Me Similar Jobs</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal email-similar-jobs fade" id="email-me-similar-jobs" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+              <h4 class="modal-title" id="myModalLabel">Don't miss any opportunities to Move Up!</h4>
+            </div>
+            <div class="modal-body">
+              <div class="email-similar-jobs-form">
+                <div class="row email-similar-jobs-field">
+                  <label for="txtJobTitle">Send Me:</label>
+                  <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
+                         name="{{'jobTitle' | translate}}"
+                         placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
+                  <div class="error-messages">
+                    {{error['salaryReview.jobTitle']}}</div>
+                </div>
+                <div class="row email-similar-jobs-field">
+                  <label>Job In (Category):</label>
+                  <selectize config='selectize.industries.config' options='selectize.industries.items'
+                             ng-model="salaryReview.jobCategories"
+                             name="{{'jobCategory' | translate}}"></selectize>
+                  <div class="error-messages">
+                    {{error['salaryReview.jobCategories']}}
+                  </div>
+                </div>
+                <div class="row email-similar-jobs-field" jobLevels>
+                  <label>For (Job Level):</label>
+                  <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+                             ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+                  <div class="error-messages">
+                    {{error['salaryReview.jobLevelIds']}}</div>
+                </div>
+                <div class="row email-similar-jobs-field">
+                  <label>That Are Located In:</label>
+                  <selectize config='selectize.locations.config' options='selectize.locations.items'
+                             ng-model="salaryReview.locationId"
+                             name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+                  <div class="error-messages">
+                    {{error['salaryReview.locationId']}}</div>
+                </div>
+                <div class="row email-similar-jobs-field">
+                  <label for="txtBaseSalary">With Salary Of:</label>
+                  <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
+                         name="{{'netSalary' | translate}}" maxlength="5"
+                         placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
+                  <div class="error-messages">
+                    {{error['salaryReview.netSalary']}}</div>
+                </div>
+                <div class="row email-similar-jobs-field">
+                  <label for="txtEmail">To My Email:</label>
+                  <input type="text" id="txtEmail" placeholder="" class="email-get-similar-jobs"/>
+                  <label class="time-to-send">every: </label>
+                  <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
+                             ng-model="salaryReview.timeToSendId" name="{{'jobCategory' | translate}}"></selectize>
+                  <div class="error-messages"></div>
+                </div>
+                <div class="row email-similar-jobs-field">
+                  <p>1209 Jobs Match this Job Alert</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="getJobAlert()">Save Job Alert</button>
             </div>
           </div>
         </div>
@@ -352,3 +428,4 @@
     </div>
   </div>
 </div>
+
