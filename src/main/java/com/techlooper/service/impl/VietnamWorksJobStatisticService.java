@@ -48,7 +48,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final long LIMIT_NUMBER_OF_SKILLS = 5;
 
-    private static final int LIMIT_NUMBER_OF_MONTHS = 13;
+    private static final int LIMIT_NUMBER_OF_MONTHS = 12;
 
     private static final int EXPERIENCED_LEVEL_ID = 5;
 
