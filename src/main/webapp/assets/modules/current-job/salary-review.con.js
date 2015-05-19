@@ -126,7 +126,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
     }
   }
-
+  $scope.selectedTime = $translate.instant("day");
   $scope.error = {};
   $scope.salaryReview = {
     genderId: '',
