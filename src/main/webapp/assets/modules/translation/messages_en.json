@@ -168,5 +168,11 @@
   "homepage.howitworks.item2.desc" : "Complete a simple survey to know <strong>how much you are worth</strong> and if you deserve a salary raise.",
   "homepage.howitworks.item3.title" : "Get Better Job",
   "homepage.howitworks.item3.desc" : "TechLooper can send you <strong>best paid jobs</strong> for your skillset, experience and location. Perhaps it is time to <strong>Move Up</strong>!",
-  "exDay": "Ex: Daily"
+  "exDay": "Ex: Daily",
+  "jobAlertTitle": "Don't miss any opportunities to Move Up!",
+  "jobCategory": "Job Category",
+  "city": "City",
+  "netSalary": "Net Salary from (USD)",
+  "myEmail": "My Email",
+  "jobMatch": "Job match these riteria ... SEND ME TO"
 }

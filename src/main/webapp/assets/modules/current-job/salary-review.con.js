@@ -306,10 +306,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.removeBoxContent = function(cls){
-    $scope.survey = {closed: true};
-    $('.salary-report-feedback').addClass('hide');
+    //$scope.survey = {closed: true};
     $('.'+cls).slideUp("normal", function() { $(this).remove(); } );
   }
-
-  //$anchorScroll();
 });

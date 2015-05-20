@@ -665,8 +665,7 @@ angular.module("Common").constant("jsonValue", (function () {
     ],
     timeToSends: [
       //{id: 1, translate: "day"},
-      {id: 2, translate: "week"},
-      {id: 3, translate: "month"}
+      {id: 1, translate: "week"}
     ],
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},

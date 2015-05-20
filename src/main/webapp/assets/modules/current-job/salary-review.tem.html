@@ -281,6 +281,35 @@
             </div>
           </div>
         </div>
+        <div class="best-paid-jobs-block"
+             ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length">
+          <div class="title-header">
+            <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span translate="doYouWantToEarnMore"></span></h3>
+            <div class="hidden-box" title="Close"  ng-click="removeBoxContent('best-paid-jobs-block')">X</div>
+          </div>
+          <div class="best-paid-list">
+            <p translate="higherJobOffer"></p>
+            <div class="best-paid-companies">
+              <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
+                <ul>
+                  <li><strong>+ {{job.addedPercent}}%</strong></li>
+                  <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+                  <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+                </ul>
+                <div class="btn-see-more">
+                  <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn-blue" target="_blank">{{'seeMore' | translate}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="see-more-jobs">
+              <p translate="higherJobOfferDisclaimer" class="note"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+            </div>
+
+            <div class="email-me-similar-jobs">
+              <a class="btn btn-primary btn-flat" data-toggle="modal" data-target="#email-me-similar-jobs">Email Me Similar Jobs</a>
+            </div>
+          </div>
+        </div>
         <div class="salary-report-feedback"
              ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
           <div class="title-header">
@@ -326,47 +355,18 @@
             <div class="note" translate="thanksForHelp"></div>
           </div>
         </div>
-        <div class="best-paid-jobs-block"
-             ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length && (survey.submitted || survey.closed)">
-          <div class="title-header">
-            <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span translate="doYouWantToEarnMore"></span></h3>
-            <div class="hidden-box" title="Close"  ng-click="removeBoxContent('best-paid-jobs-block')">X</div>
-          </div>
-          <div class="best-paid-list">
-            <p translate="higherJobOffer"></p>
-            <div class="best-paid-companies">
-              <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
-                <ul>
-                  <li><strong>+ {{job.addedPercent}}%</strong></li>
-                  <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
-                  <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-                </ul>
-                <div class="btn-see-more">
-                  <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn-blue" target="_blank">{{'seeMore' | translate}}</a>
-                </div>
-              </div>
-            </div>
-            <div class="see-more-jobs">
-              <p translate="higherJobOfferDisclaimer" class="note"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
-            </div>
-
-            <div class="email-me-similar-jobs">
-              <a class="btn btn-primary btn-flat" data-toggle="modal" data-target="#email-me-similar-jobs">Email Me Similar Jobs</a>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="modal email-similar-jobs fade" id="email-me-similar-jobs" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-              <h4 class="modal-title" id="myModalLabel">Don't miss any opportunities to Move Up!</h4>
+              <h4 class="modal-title" id="myModalLabel">{{'jobAlertTitle' | translate}}</h4>
             </div>
             <div class="modal-body">
               <div class="email-similar-jobs-form">
                 <div class="row email-similar-jobs-field">
-                  <label for="txtJobTitle">Job Title <strong>*</strong></label>
+                  <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
                   <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
                          name="{{'jobTitle' | translate}}"
                          placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
@@ -374,7 +374,7 @@
                     {{error['salaryReview.jobTitle']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label>Job Category <strong>*</strong></label>
+                  <label>{{'jobCategory' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.industries.config' options='selectize.industries.items'
                              ng-model="salaryReview.jobCategories"
                              name="{{'jobCategory' | translate}}"></selectize>
@@ -383,14 +383,14 @@
                   </div>
                 </div>
                 <div class="row email-similar-jobs-field" jobLevels>
-                  <label>Job Level <strong>*</strong></label>
+                  <label>{{'jobLevel' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
                              ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
                   <div class="error-messages">
                     {{error['salaryReview.jobLevelIds']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label>City <strong>*</strong></label>
+                  <label>{{'city' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.locations.config' options='selectize.locations.items'
                              ng-model="salaryReview.locationId"
                              name="{{'location' | translate}}" class="locationSelectbox"></selectize>
@@ -398,7 +398,7 @@
                     {{error['salaryReview.locationId']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label for="txtBaseSalary">Net Salary from (USD) <strong>*</strong></label>
+                  <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
                   <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                          name="{{'netSalary' | translate}}" maxlength="5"
                          placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
@@ -406,14 +406,14 @@
                     {{error['salaryReview.netSalary']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <label for="txtEmail">Send to Email <strong>*</strong></label>
+                  <p>{{'jobMatch' | translate}}</p>
+                </div>
+                <div class="row email-similar-jobs-field">
+                  <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
                   <input type="text" id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
                   <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
                              ng-model="selectedTime" name="{{'jobCategory' | translate}}"></selectize>
                   <div class="error-messages"></div>
-                </div>
-                <div class="row email-similar-jobs-field">
-                  <p>1209 Jobs Match These Criteria</p>
                 </div>
               </div>
             </div>

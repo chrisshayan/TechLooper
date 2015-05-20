@@ -169,7 +169,13 @@
   "homepage.howitworks.item2.desc" : "Giúp bạn <strong>đánh giá thu nhập</strong> của mình so với thị trường chung.",
   "homepage.howitworks.item3.title" : "Đề Nghị Các Công Việc Tốt Hơn",
   "homepage.howitworks.item3.desc" : "TechLooper sẽ gửi cho bạn các công việc phù hợp và <strong>được trả lương tốt nhất</strong>. Từ đó bạn sẽ dễ dàng <strong>thăng tiến trong sự nghiệp</strong> của mình.",
-  "exDay": "Ví dụ: Ngày"
+  "exDay": "Ví dụ: Ngày",
+  "jobAlertTitle": "Đừng bỏ lỡ cơ hội để Vươn Xa!",
+  "jobCategory": "Ngành Nghề",
+  "city": "Tỉnh/ Thành phố",
+  "netSalary": "Lương Thực từ (USD)",
+  "myEmail": "Hộp thư",
+  "jobMatch": "Công việc đáp ứng Tiêu chí trên ... GỬI THÔNG TIN VỀ "
 }
 
 
