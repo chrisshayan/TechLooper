@@ -330,6 +330,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     private void mergeSalaryReviewWithJobList(List<JobEntity> jobs, List<SalaryReview> salaryReviews) {
         for(SalaryReview salaryReview : salaryReviews) {
             JobEntity jobEntity = new JobEntity();
+            jobEntity.setId(salaryReview.getCreatedDateTime().toString());
             jobEntity.setJobTitle(salaryReview.getJobTitle());
             jobEntity.setSalaryMin(salaryReview.getNetSalary().longValue());
             jobEntity.setSalaryMax(salaryReview.getNetSalary().longValue());
