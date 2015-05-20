@@ -97,6 +97,45 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     timeToSendId: ''
   };
 
+  $scope.removeSkill = function (skill) {
+    $scope.salaryReview.skills.splice($scope.salaryReview.skills.indexOf(skill), 1);
+    $scope.error = {};
+  }
+
+  $scope.addNewSkill = function () {
+    $scope.salaryReview.skills || ($scope.salaryReview.skills = []);
+    if ($scope.newSkillName === undefined) {
+      return;
+    }
+    var newSkillName = $scope.newSkillName.trim();
+    $scope.newSkillName = newSkillName;
+    if (newSkillName.length == 0) {
+      $scope.error = {};
+      return;
+    }
+
+    if ($scope.salaryReview.skills.length === 3) {
+      var translate = $rootScope.translate;
+      $scope.error.newSkillName = translate.maximum3;
+      return;
+    }
+    delete $scope.error.newSkillName;
+
+    var skillLowerCases = $scope.salaryReview.skills.map(function (skill) {return skill.toLowerCase();});
+    if (skillLowerCases.indexOf(newSkillName.toLowerCase()) >= 0) {
+      var translate = $rootScope.translate;
+      $scope.error.existSkillName = translate.hasExist;
+      return;
+    }
+    delete $scope.error.existSkillName;
+
+    if (newSkillName.length > 0) {
+      $scope.salaryReview.skills.push(newSkillName);
+      $scope.newSkillName = "";
+      $("#txtTopSkills").focus();
+    }
+  }
+
   $scope.step = "step1";
   $scope.validate = function(){
     return true;

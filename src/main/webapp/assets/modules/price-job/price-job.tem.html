@@ -58,7 +58,8 @@
           </div>
           <div class="price-job-step-field">
             <label>For Which Job Level<strong>*</strong></label>
-            <input type="text"/>
+            <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+                       ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
           </div>
           <div class="price-job-step-field">
             <label>Years of Experience Required<strong>*</strong></label>
@@ -70,7 +71,24 @@
           </div>
           <div class="price-job-step-field">
             <label>Top Most Relevant Skills<strong>*</strong></label>
-            <input type="text"/>
+            <div class="top-three-skills">
+              <div class="added-list-skills">
+                <ul>
+                  <li ng-repeat="skill in salaryReview.skills">
+                    <span class="left">
+                      <span class="right"><i>{{skill}}</i>
+                        <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
+                      </span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
+              <div class="add-skill-input">
+                <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="{{'mostRelevantSkills.placeholder' | translate}}"/>
+                <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
+              </div>
+            </div>
           </div>
           <div class="price-job-step-field">
             <label>Languages Required<strong>*</strong></label>
