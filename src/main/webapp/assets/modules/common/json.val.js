@@ -218,7 +218,9 @@ angular.module("Common").constant("jsonValue", (function () {
       subscribeTerm: "/topic/jobs/term/",
 
       sendJobsSearch: "/app/jobs/search",
+      sendSearchJobAlert: "/app/jobs/searchJobAlert",
       subscribeJobsSearch: "/topic/jobs/search",
+      subscribeSearchJobAlert: "/topic/jobs/searchJobAlert",
 
       analyticsSkill: "/app/analytics/skill",
       subscribeAnalyticsSkill: "/topic/analytics/skill",
