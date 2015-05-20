@@ -157,6 +157,7 @@ angular.module("Common").constant("jsonValue", (function () {
     routerUris: {
       landing: "/landing",
       home: "/home",
+      hiring: "/hiring",
       talentSearchResult: "/talent-search-result",
       talentProfile: "/talent-profile",
       companyProfile: "/companies",
@@ -177,6 +178,7 @@ angular.module("Common").constant("jsonValue", (function () {
     views: {
       landing: "landing",
       home: "home",
+      hiring: "hiring",
       talentSearchResult: "talentSearchResult",
       talentProfile: "talentProfile",
       companyProfile: "companyProfile",
