@@ -170,7 +170,8 @@ angular.module("Common").constant("jsonValue", (function () {
       analyticsSkill: "/analytics/skill",
       signIn: "/signin",
       register: "/register",
-      userProfile: "/user"
+      userProfile: "/user",
+      priceJob: "/price-job"
     },
 
     views: {
@@ -190,7 +191,8 @@ angular.module("Common").constant("jsonValue", (function () {
       pieChart: "pieChart",
       signIn: "signin",
       register: "register",
-      userProfile: "userProfile"
+      userProfile: "userProfile",
+      priceJob: "priceJob"
     },
 
     httpUri: {
