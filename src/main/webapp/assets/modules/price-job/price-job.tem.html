@@ -14,6 +14,38 @@
     <h2>Price Your Job</h2>
     <p>Attract and Retain The Best Talent</p>
   </div>
-  
+  <div class="price-job-block">
+    <div class="navi-step-price-job">
+      <ul>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}"><h2>Your Company</h2></li>
+        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}"><h2>Your Job Requirements</h2></li>
+        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}"><h2>Get Report</h2></li>
+      </ul>
+    </div>
+    <div class="price-job-content">
+      <div class="arrow-up-active" ng-class="{step1: step ==='step1',step2: step ==='step2', step3: step ==='step3'}"><i class="fa fa-sort-down"></i></div>
+      <div class="price-job-step-content" ng-show="step==='step1'">
+        <h3>Our salary reports are based on real-time salary data that is collected and processed on a daily basis, so you can be confident in your pay decisions.</h3>
+        <div class="price-job-step-form">
+          <div class="price-job-step-field">
+            <label>In Which City Is The Job <strong>*</strong></label>
+            <input type="text"/>
+          </div>
+          <div class="price-job-step-field">
+            <label>How Many Employees Have Your Company? <strong>*</strong></label>
+            <input type="text"/>
+          </div>
+          <div class="price-job-step-field">
+            <label>What is Your Company Main Activity? <strong>*</strong></label>
+            <input type="text"/>
+          </div>
+          <div class="price-job-step-field next-step">
+            <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')">Next</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>
 
