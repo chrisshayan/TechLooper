@@ -29,15 +29,20 @@
         <div class="price-job-step-form">
           <div class="price-job-step-field">
             <label>In Which City Is The Job <strong>*</strong></label>
-            <input type="text"/>
+            <selectize config='selectize.locations.config' options='selectize.locations.items'
+                       ng-model="salaryReview.locationId"
+                       name="{{'location' | translate}}" class="locationSelectbox"></selectize>
           </div>
           <div class="price-job-step-field">
             <label>How Many Employees Have Your Company? <strong>*</strong></label>
-            <input type="text"/>
+            <selectize config='selectize.companySize.config' options='selectize.companySize.items'
+                       ng-model="salaryReview.companySizeId"></selectize>
           </div>
           <div class="price-job-step-field">
             <label>What is Your Company Main Activity? <strong>*</strong></label>
-            <input type="text"/>
+            <selectize config='selectize.industries.config' options='selectize.industries.items'
+                       ng-model="salaryReview.jobCategories"
+                       name="{{'jobCategory' | translate}}"></selectize>
           </div>
           <div class="price-job-step-field next-step">
             <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')">Next</button>
