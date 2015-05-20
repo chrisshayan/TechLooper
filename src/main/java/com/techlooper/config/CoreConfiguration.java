@@ -107,7 +107,8 @@ public class CoreConfiguration {
         mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
 
         mapping(SalaryReview.class, VNWJobSearchRequest.class)
-          .fields("jobLevelIds", "jobLevel", FieldsMappingOptions.customConverter(List2CSVStringConverter.class))
+          .fields("jobLevelIds", "jobLevel")
+          .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(List2CSVStringConverter.class))
           .fields("netSalary", "jobSalary")
           .fields("locationId", "jobLocation");
       }

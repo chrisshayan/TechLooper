@@ -20,32 +20,16 @@ public class VNWJobSearchRequest {
   private String jobLocation;
 
   @JsonProperty(value = "job_category")
-  private List<Long> jobCategories;
+  private String jobCategories;
 
   @JsonProperty(value = "job_level")
-  private String jobLevel;
+  private List<Long> jobLevel;
 
   @JsonProperty(value = "page_number")
   private String pageNumber;
 
   @JsonProperty(value = "job_salary")
   private Integer jobSalary;
-
-  public Integer getJobSalary() {
-    return jobSalary;
-  }
-
-  public void setJobSalary(Integer jobSalary) {
-    this.jobSalary = jobSalary;
-  }
-
-  public List<Long> getJobCategories() {
-    return jobCategories;
-  }
-
-  public void setJobCategories(List<Long> jobCategories) {
-    this.jobCategories = jobCategories;
-  }
 
   public String getJobTitle() {
     return jobTitle;
@@ -63,11 +47,19 @@ public class VNWJobSearchRequest {
     this.jobLocation = jobLocation;
   }
 
-  public String getJobLevel() {
+  public String getJobCategories() {
+    return jobCategories;
+  }
+
+  public void setJobCategories(String jobCategories) {
+    this.jobCategories = jobCategories;
+  }
+
+  public List<Long> getJobLevel() {
     return jobLevel;
   }
 
-  public void setJobLevel(String jobLevel) {
+  public void setJobLevel(List<Long> jobLevel) {
     this.jobLevel = jobLevel;
   }
 
@@ -77,5 +69,13 @@ public class VNWJobSearchRequest {
 
   public void setPageNumber(String pageNumber) {
     this.pageNumber = pageNumber;
+  }
+
+  public Integer getJobSalary() {
+    return jobSalary;
+  }
+
+  public void setJobSalary(Integer jobSalary) {
+    this.jobSalary = jobSalary;
   }
 }

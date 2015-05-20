@@ -39,10 +39,9 @@ public class JobSearchController {
   @SendTo("/topic/jobs/searchJobAlert")
   @MessageMapping("/jobs/searchJobAlert")
   public VNWJobSearchResponse searchJobAlert(SalaryReview salaryReview) {
-    salaryReview.getJobLevelIds().remove(0);
     VNWJobSearchRequest vnwJobSearchRequest = dozerMapper.map(salaryReview, VNWJobSearchRequest.class);
     VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-    vnwJobSearchResponse.getData().setJobs(null);
+    vnwJobSearchResponse.getData().setJobs(null);//remove jobs because we dont need it
     return vnwJobSearchResponse;
   }
 
