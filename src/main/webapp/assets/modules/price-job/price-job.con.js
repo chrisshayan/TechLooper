@@ -84,17 +84,10 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   }
   $scope.selectedTime = $translate.instant("day");
   $scope.error = {};
-  $scope.salaryReview = {
-    genderId: '',
-    jobTitle: '',
-    skills: [],
-    locationId: '',
-    jobLevelIds: [],
+  $scope.priceJob = {
     jobCategories: [],
     companySizeId: '',
-    netSalary: '',
-    reportTo: '',
-    timeToSendId: ''
+    locationId: ''
   };
 
   $scope.removeSkill = function (skill) {
@@ -138,7 +131,26 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
 
   $scope.step = "step1";
   $scope.validate = function(){
-    return true;
+    var inputs = $(".price-job-step-content").find("div:visible").find("[ng-model]");
+    $.each(inputs, function (i, input) {
+      var modelName = $(input).attr("ng-model");
+      if (modelName === 'newSkillName' || $(input).attr("name") === undefined) {
+        return true;
+      }
+      delete $scope.error[modelName];
+      var inputValue = $scope.$eval(modelName);
+      var notHasValue = ($.type(inputValue) === "array") && (inputValue.length === 0);
+      notHasValue = notHasValue || !inputValue;
+      notHasValue = notHasValue || (inputValue.length <= 0);
+      notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
+    });
+    //$scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
+    //$scope.salaryReview.skills.length && (delete $scope.error.skills);
+
+    var error = $.extend(true, {}, $scope.error);
+    //delete error.existSkillName;
+    //delete error.newSkillName;
+    return $.isEmptyObject(error);
   }
   $scope.nextStep = function (step, priorStep) {
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {

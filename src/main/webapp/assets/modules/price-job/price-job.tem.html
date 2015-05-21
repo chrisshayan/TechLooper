@@ -30,20 +30,23 @@
           <div class="price-job-step-field">
             <label>What is Your Company Main Activity? <strong>*</strong></label>
             <selectize config='selectize.industries.config' options='selectize.industries.items'
-                       ng-model="salaryReview.jobCategories"
+                       ng-model="priceJob.jobCategories"
                        name="{{'jobCategory' | translate}}"></selectize>
+            <div class="error-messages">{{error['priceJob.jobCategories']}}</div>
           </div>
 
           <div class="price-job-step-field">
             <label>How Many Employees Have Your Company? <strong>*</strong></label>
             <selectize config='selectize.companySize.config' options='selectize.companySize.items'
-                       ng-model="salaryReview.companySizeId"></selectize>
+                       ng-model="priceJob.companySizeId"></selectize>
+            <div class="error-messages">{{error['priceJob.companySizeId']}}</div>
           </div>
           <div class="price-job-step-field">
             <label>Your Company Is Looking To Hire In: <strong>*</strong></label>
             <selectize config='selectize.locations.config' options='selectize.locations.items'
-                       ng-model="salaryReview.locationId"
+                       ng-model="priceJob.locationId"
                        name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+            <div class="error-messages">{{error['priceJob.locationId']}}</div>
           </div>
           <div class="price-job-step-field next-step">
             <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')">Next</button>
@@ -61,7 +64,7 @@
           <div class="price-job-step-field">
             <label>For Which Job Level: <strong>*</strong></label>
             <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
-                       ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+                       ng-model="priceJob.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
           </div>
           <div class="price-job-step-field">
             <label>Years of Experience Required: <strong>*</strong></label>
@@ -76,7 +79,7 @@
             <div class="top-three-skills">
               <div class="added-list-skills">
                 <ul>
-                  <li ng-repeat="skill in salaryReview.skills">
+                  <li ng-repeat="skill in priceJob.skills">
                     <span class="left">
                       <span class="right"><i>{{skill}}</i>
                         <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
@@ -88,7 +91,7 @@
               <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
               <div class="add-skill-input">
                 <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="{{'mostRelevantSkills.placeholder' | translate}}"/>
-                <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
+                <button ng-click="addNewSkill()" ng-disabled="priceJob.skills.length >= 3">{{'add' | translate}}</button>
               </div>
             </div>
           </div>
