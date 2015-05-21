@@ -175,7 +175,21 @@
   "city": "Tỉnh/ Thành phố",
   "netSalary": "Lương Thực từ (USD)",
   "myEmail": "Hộp thư",
-  "jobMatch": " công việc đáp ứng Tiêu chí trên ... GỬI THÔNG TIN VỀ "
+  "jobMatch": " công việc đáp ứng Tiêu chí trên ... GỬI THÔNG TIN VỀ ",
+  "hiringTagLine": "Bạn Đang Tìm Kiếm Nhân Tài Công Nghệ?",
+  "subHiringTagLine": "Hãy Thông Thạo Thị Trường để Thu Hút Các Ứng Viên Xuất Sắc Nhất",
+  "evaluateJobPost": "Đánh giá Tin Đăng Tuyển",
+  "tellAboutYourJob": "Mô tả Công Việc Của Bạn",
+  "desAboutYourJob": "<strong>Chỉ với một khảo sát đơn giản</strong>, bạn sẽ xác đinh được nhu cầu và vị trí tuyển dụng bạn đang có. ",
+  "getInsights": "Hiểu Sâu Thị Trường",
+  "desGetInsights": "Giúp bạn <strong>định giá chính xác mức lương</strong> của các tin tuyển dụng, và ước lượng có bao nhiêu lượt ứng tuyển, cũng như hồ sơ ứng viên có chất lượng.",
+  "attractTalent": "Thu Hút Nhân Tài",
+  "desAttractTalent": "<strong>Tối ưu hoá tin tuyển dụng</strong> bằng cách hiểu sâu về thị trường và đăng tuyển tại VietnamWorks",
+  "buyJobPostNow": "Đăng Tuyển Ngay",
+  "jobPostAssessment": "Job Post Assessment",
+  "desPriceJobStep1": "Let's start building your job report with information about your company. All the information you share with us will be <strong>kept strictly confidential</strong> and <strong>will not be shared</strong> with any third party.",
+  "desPriceJobStep2": "Our job reports are based on <strong>real-time data</strong> that is collected and processed on a daily basis, so you can be confident in your decisions.",
+  "yourJobReport": "Your Job Report"
 }
 
 
