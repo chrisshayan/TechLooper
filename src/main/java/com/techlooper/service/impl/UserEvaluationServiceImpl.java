@@ -1,12 +1,9 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobEntity;
-import com.techlooper.entity.PriceJobReport;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
-import com.techlooper.model.SalaryRange;
-import com.techlooper.model.SalaryReport;
-import com.techlooper.model.SalaryReviewSurvey;
-import com.techlooper.model.TopPaidJob;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
@@ -93,6 +90,43 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         // get top 3 higher salary jobs
         List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReview), salaryReview.getNetSalary());
         salaryReview.setTopPaidJobs(topPaidJobs);
+    }
+
+    @Override
+    public void priceJob(PriceJobEntity priceJobEntity) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getSearchQueryForPriceJobReport(priceJobEntity);
+
+        List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+
+        // It's only enabled on test scope for checking whether our calculation is right or wrong
+        boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
+                environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) : false;
+        if (isExportToExcel) {
+            ExcelUtils.exportSalaryReport(jobs);
+        }
+
+        calculateSalaryPercentile(priceJobEntity, jobs);
+    }
+
+    private void calculateSalaryPercentile(PriceJobEntity priceJobEntity, List<JobEntity> jobs) {
+        PriceJobReport priceJobReport = new PriceJobReport();
+
+        double[] salaries = extractSalariesFromJob(jobs);
+        List<SalaryRange> salaryRanges = new ArrayList<>();
+        Percentile percentile = new Percentile();
+        for (double percent : percents) {
+            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
+        }
+        priceJobReport.setPriceJobSalaries(salaryRanges);
+
+        // Calculate salary percentile rank for user based on list of salary percentiles from above result
+        double targetPay = salaryRanges.stream().filter(
+                salaryRange -> salaryRange.getPercent() == 50D).findFirst().get().getPercentile();
+        priceJobReport.setTargetPay(Math.floor(targetPay));
+
+        double averagePay = salaryRanges.stream().mapToDouble(
+                salaryRange -> salaryRange.getPercentile()).average().getAsDouble();
+        priceJobReport.setAverageSalary(averagePay);
     }
 
     private void calculateSalaryPercentile(SalaryReview salaryReview, List<JobEntity> jobs) {
@@ -209,8 +243,4 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return false;
     }
 
-    @Override
-    public void priceJob(PriceJobReport priceJobReport) {
-
-    }
 }

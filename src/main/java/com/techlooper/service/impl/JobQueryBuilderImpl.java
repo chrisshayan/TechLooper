@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.PriceJobReport;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.techlooper.service.impl.SalaryReviewServiceImpl.*;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
@@ -137,7 +138,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Override
     public FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds) {
-        BoolFilterBuilder jobLevelFilterBuilder = FilterBuilders.boolFilter();
+        BoolFilterBuilder jobLevelFilterBuilder = boolFilter();
         jobLevelFilterBuilder.must(nestedFilter("industries", termFilter("industries.industryId", itSoftwareIndustry)));
         for (Integer jobLevelId : jobLevelIds) {
             jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
@@ -217,6 +218,18 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
+    public FilterBuilder getLocationFilterBuilder(Integer locationId) {
+        return termFilter("cityList", locationId);
+    }
+
+    @Override
+    public FilterBuilder getSalaryRangeFilterBuilder(Long salaryMin, Long salaryMax) {
+        return boolFilter()
+                .should(getRangeFilterBuilder("salaryMin", salaryMin, salaryMax))
+                .should(getRangeFilterBuilder("salaryMax", salaryMin, salaryMax));
+    }
+
+    @Override
     public NativeSearchQueryBuilder getVietnamworksJobSearchQuery() {
         return new NativeSearchQueryBuilder().withIndices(elasticSearchIndexName).withTypes("job");
     }
@@ -228,35 +241,45 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         QueryBuilder jobTitleQueryBuilder = jobTitleQueryBuilder(salaryReview.getJobTitle());
         FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
-        FilterBuilder salaryMinRangeFilterBuilder = getRangeFilterBuilder("salaryMin",
-                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
-        FilterBuilder salaryMaxRangeFilterBuilder = getRangeFilterBuilder("salaryMax",
-                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+        FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
                 boolFilter().must(approvedDateRangeFilterBuilder)
-                        .must(jobIndustriesFilterBuilder)
-                                //                .must(jobLevelFilterBuilder)
-                        .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
+                            .must(jobIndustriesFilterBuilder)
+                            .must(salaryRangeFilterBuilder)));
         return queryBuilder;
     }
 
     @Override
     public NativeSearchQueryBuilder getJobSearchQueryBySkill(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
+
         QueryBuilder skillQueryBuilder = skillQueryBuilder(salaryReview.getSkills());
         queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
                 boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
                             .must(getJobIndustriesFilterBuilder(salaryReview.getJobCategories()))
-                            .must(boolFilter()
-                                    .should(getRangeFilterBuilder("salaryMin", VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null))
-                                    .should(getRangeFilterBuilder("salaryMax", VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null)))));
+                            .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
         return queryBuilder;
     }
 
     @Override
-    public NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobReport priceJobReport) {
-        return null;
+    public NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobEntity priceJobEntity) {
+        NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
+
+        QueryBuilder jobTitleQueryBuilder = jobTitleQueryBuilder(priceJobEntity.getJobTitle());
+        FilterBuilder locationFilterBuilder = getLocationFilterBuilder(priceJobEntity.getLocationId());
+        FilterBuilder jobLevelFilterBuilder = getJobLevelFilterBuilder(priceJobEntity.getJobLevelIds());
+        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(priceJobEntity.getJobCategories());
+        FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
+        FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
+                boolFilter().must(locationFilterBuilder)
+                            .must(jobLevelFilterBuilder)
+                            .must(approvedDateRangeFilterBuilder)
+                            .must(jobIndustriesFilterBuilder)
+                            .must(salaryRangeFilterBuilder)));
+        return queryBuilder;
     }
 
     private List<String> processSkillsBeforeSearch(List<String> skills) {
