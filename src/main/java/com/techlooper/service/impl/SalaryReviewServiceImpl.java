@@ -40,12 +40,12 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     private String elasticSearchIndexName;
 
     @Override
-    public List<SalaryReview> searchSalaryReview(String jobTitle, List<Long> jobCategories) {
+    public List<SalaryReview> searchSalaryReview(SalaryReview salaryReview) {
 
         Calendar now = Calendar.getInstance();
         now.add(Calendar.MONTH, -6);
-        QueryBuilder queryBuilder = filteredQuery(jobQueryBuilder.jobTitleQueryBuilder(jobTitle),
-                boolFilter().must(termsFilter("jobCategories", jobCategories))
+        QueryBuilder queryBuilder = filteredQuery(jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle()),
+                boolFilter().must(termsFilter("jobCategories", salaryReview.getJobCategories()))
                         .must(rangeFilter("netSalary").from(MIN_SALARY_ACCEPTABLE).to(MAX_SALARY_ACCEPTABLE))
                         .must(rangeFilter("createdDateTime").from(now.getTimeInMillis())));
 

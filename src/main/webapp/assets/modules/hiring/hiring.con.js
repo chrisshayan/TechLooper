@@ -1,3 +1,3 @@
-techlooper.controller('homePageController', function () {
+techlooper.controller('hiringController', function () {
 
 });

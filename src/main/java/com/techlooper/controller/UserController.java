@@ -85,12 +85,6 @@ public class UserController {
     return userService.findTalent(param);
   }
 
-  @RequestMapping(value = "/api/user/talentProfile/{hashEmail}", method = RequestMethod.GET)
-  public TalentProfile getTalentProfile(@PathVariable String hashEmail, HttpServletResponse httpServletResponse) {
-    String email = new String(Base64.getDecoder().decode(hashEmail));
-    return userService.getTalentProfile(email);
-  }
-
   @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
   public List<FieldError> registerUser(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
     if (result.getFieldErrorCount() > 0) {
