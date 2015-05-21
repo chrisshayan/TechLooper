@@ -351,7 +351,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         $('.success-alert-box').addClass('show');
         $timeout(function(){
           $('.success-alert-box').removeClass('show');
-        }, 1500);
+        }, 2500);
       });
     });
   }
