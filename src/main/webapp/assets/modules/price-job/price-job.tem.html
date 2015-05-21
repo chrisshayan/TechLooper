@@ -72,7 +72,9 @@
           </div>
           <div class="price-job-step-field">
             <label>Years of Experience Required: <strong>*</strong></label>
-            <input type="text"/>
+            <selectize config='selectize.experience.config' options='selectize.experience.items'
+                       ng-model="priceJob.experienceId" name="{{'experienceId' | translate}}"></selectize>
+            <div class="error-messages">{{error['priceJob.experienceId']}}</div>
           </div>
           <div class="price-job-step-field">
             <label>Minimum Education Level: <strong>*</strong></label>

@@ -109,6 +109,20 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
           $scope.selectize.education.$elem = selectize;
         }
       }
+    },
+    experience: {
+      items: jsonValue.yearsOfExperience,
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['name'],
+        placeholder: $translate.instant("exExperience"),
+        onInitialize: function (selectize) {
+          $scope.selectize.education.$elem = selectize;
+        }
+      }
     }
   }
 
