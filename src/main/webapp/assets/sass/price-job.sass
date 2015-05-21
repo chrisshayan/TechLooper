@@ -85,6 +85,66 @@
       -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
       position: relative
+      .user-personal-info
+        display: block
+        width: 100%
+        clear: both
+        float: left
+        padding-bottom: 30px
+        ul
+          margin: 0
+          padding: 0
+          width: 80%
+          float: left
+          li
+            width: 100%
+            clear: both
+            padding: 5px 0
+            text-align: left
+            span
+              display: block
+              width: 20%
+              float: left
+              font-weight: 400
+              text-align: left
+            p
+              width: 80%
+              float: left
+              margin: 0
+              padding: 0
+              text-transform: capitalize
+              span.items
+                font-weight: 300
+                width: auto
+                display: inline-block
+                padding-right: 10px
+              span.dot-line
+                width: auto
+                display: inline-block
+                padding-right: 10px
+                font-weight: 700
+              span.left
+                background: url(../images/left-tag.png) left -39px no-repeat
+                padding-left: 25px
+                width: auto
+                margin-right: 10px
+                font-weight: 300
+              span.right
+                background: url(../images/right-tag.png) right -39px no-repeat
+                padding-right: 10px
+                line-height: 23px
+                height: 25px
+                width: auto
+                font-weight: 300 !important
+              strong
+                font-weight: 400
+                font-size: 16px
+        .verified-data
+          width: 20%
+          float: left
+          text-align: left
+          img
+            width: 100px
       .arrow-up-active
         position: absolute
         z-index: 99
@@ -216,6 +276,7 @@
             padding-bottom: 30px
             width: 100%
           .your-target-pay-block
+            background-color: #f4f4f4
             display: inline-block
             float: left
             text-align: left
@@ -223,10 +284,9 @@
             -webkit-border-radius: 5px
             -moz-border-radius: 5px
             border-radius: 5px
-            width: 30%
-            padding: 30px 15px
+            width: 100%
+            padding: 15px
             position: relative
-            min-height: 145px
             h4
               background-color: white
               display: inline-block
@@ -246,10 +306,9 @@
                 font-weight: 400
                 font-size: 30px
                 width: 100%
-                clear: both
-                display: block
               p
                 margin: 0
+                font-size: 16px
           .job-info-block
             display: inline-block
             float: left
@@ -332,6 +391,111 @@
                 width: 70%
                 float: left
                 display: inline-block
+        .salary-report-feedback
+          display: inline-block
+          clear: both
+          margin: 30px auto auto auto
+          text-align: left
+          border: 1px solid #d4d7d8
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          width: 100%
+          padding: 15px
+          position: relative
+          .title-header
+            display: block
+            clear: both
+            h3
+              background-color: white
+              display: inline-block
+              font-size: 14px
+              font-weight: 400
+              left: 10px
+              padding: 0 5px
+              position: absolute
+              text-align: left
+              text-transform: capitalize
+              top: -32px
+            .hidden-box
+              width: auto
+              position: absolute
+              right: 10px
+              top: -17px
+              background-color: #fff
+              padding: 5px 10px
+              font-weight: 500
+              cursor: pointer
+        .salary-report-feedback-form
+          display: block
+          clear: both
+          text-align: center
+          width: 60%
+          margin: auto
+          ul
+            margin: 0
+            padding: 20px 0
+            width: 100%
+            text-align: left
+            display: inline-block
+            li
+              width: 100%
+              clear: both
+              display: block
+              padding: 5px 0
+              float: left
+              label
+                font-weight: 300
+              textarea
+                width: 100%
+                clear: both
+                border: 1px solid #d4d7d8
+                -webkit-border-radius: 5px
+                -moz-border-radius: 5px
+                border-radius: 5px
+                height: 80px
+                padding: 10px
+              p
+                font-size: 14px
+                clear: both
+                width: auto
+                float: left
+                margin: 0
+                strong
+                  color: red
+              .select-group
+                width: 38%
+                float: right
+                .select-item
+                  float: left
+                  width: 50%
+                  label
+                    font-weight: 400
+                    padding-left: 5px
+            li:last-child
+              text-align: center
+              button
+                min-width: 100px
+                margin: auto
+            .error-messages
+              color: red
+              display: block
+              clear: both
+              text-align: left
+              font-size: 12px
+              font-style: italic
+        .note
+          clear: both
+          display: block
+          width: 100%
+        .create-new-report
+          clear: both
+          display: block
+          text-align: center
+          padding-top: 10px
+          font-weight: 400
+          cursor: pointer
+
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove

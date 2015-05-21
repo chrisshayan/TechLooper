@@ -119,7 +119,25 @@
         </div>
       </div>
       <div class="price-job-step-content" ng-show="step==='step3'">
-        <div class="price-job-step-title">
+        <div class="user-personal-info">
+          <ul>
+            <li>
+              <span>Job Title</span>
+              <p>Java Developer</p>
+            </li>
+            <li>
+              <span>Experience Level</span>
+              <p>Manager</p>
+            </li>
+            <li>
+              <span>Skill</span>
+              <p>Skill 1 |  Skill 2  | Skill 3</p>
+            </li>
+            <li>
+              <span>Category</span>
+              <p>Category 1 |  Category 2  | Category 3</p>
+            </li>
+          </ul>
           <div class="verified-data">
             <img src="images/verified-data.png" alt=""/>
           </div>
@@ -127,31 +145,11 @@
         <div class="price-job-report">
           <div class="price-job-report-item">
             <div class="your-target-pay-block">
-              <h4>Your Target Pay</h4>
+              <!--<h4>Your Target Pay</h4>-->
               <div class="your-target-pay-content">
 
                 <p>Your target pay for this job is <strong>$1,200</strong> NET a month</p>
               </div>
-            </div>
-            <div class="job-info-block">
-              <ul>
-                <li>
-                  <span>Job Title</span>
-                  <p>Java Developer</p>
-                </li>
-                <li>
-                  <span>Experience Level</span>
-                  <p>Manager</p>
-                </li>
-                <li>
-                  <span>Skill</span>
-                  <p>Skill 1 |  Skill 2  | Skill 3</p>
-                </li>
-                <li>
-                  <span>Category</span>
-                  <p>Category 1 |  Category 2  | Category 3</p>
-                </li>
-              </ul>
             </div>
           </div>
           <div class="price-job-report-item">
@@ -171,7 +169,54 @@
                 <div class="salary-percentile-chart">
                   Coming Soon...
                 </div>
+                <div class="create-new-report">
+                  <a ng-click="createNewReport()" class="btn btn-primary btn-flat ng-binding">{{'createNewReport' | translate}}</a>
+                </div>
               </div>
+            </div>
+          </div>
+          <div class="salary-report-feedback">
+            <div class="title-header">
+              <h3 translate="whatYouThinkReport"></h3>
+              <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
+            </div>
+            <div class="salary-report-feedback-form">
+              <form autocomplete="off">
+                <ul>
+                  <li>
+                    <p translate="understandReport?"></p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
+                      </div>
+                      <div class="select-item">
+                        <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
+                      </div>
+                    </div>
+                    <div class="error-messages">{{errorFeedback.understand}}</div>
+                  </li>
+                  <li>
+                    <p translate="resultReportAccurate"></p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
+                      </div>
+                    </div>
+                    <div class="error-messages">{{errorFeedback.accurate}}</div>
+                  </li>
+                  <li>
+                    <label for="txtFeedback" translate="haveAnyFeedback"></label>
+                    <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+                  </li>
+                  <li>
+                    <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
+                  </li>
+                </ul>
+              </form>
+              <div class="note" translate="thanksForHelp"></div>
             </div>
           </div>
         </div>
