@@ -65,18 +65,12 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         mergeSalaryReviewWithJobList(jobs, salaryReviews);
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
-        if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS && salaryReview.getSkills() != null && !salaryReview.getSkills().isEmpty()) {
-            NativeSearchQueryBuilder higherSalaryQueryBuilder = jobQueryBuilder.getJobSearchQueryBySkill(salaryReview);
-            List<JobEntity> jobBySkills = getJobSearchResult(higherSalaryQueryBuilder);
-            jobs.addAll(jobBySkills);
+        if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
+            jobs.addAll(searchMoreJobBySkills(salaryReview.getSkills(), salaryReview.getJobCategories()));
         }
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
-        boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
-                environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) : false;
-        if (isExportToExcel) {
-            ExcelUtils.exportSalaryReport(jobs);
-        }
+        exportJobToExcel(jobs);
 
         calculateSalaryPercentile(salaryReview, jobs);
 
@@ -98,14 +92,34 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         List<JobEntity> jobs = getJobSearchResult(queryBuilder);
 
+        // In case total number of jobs search result is less than 10, add more jobs from search by skills
+        if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
+            jobs.addAll(searchMoreJobBySkills(priceJobEntity.getSkills(), priceJobEntity.getJobCategories()));
+        }
+
         // It's only enabled on test scope for checking whether our calculation is right or wrong
+        exportJobToExcel(jobs);
+
+        calculateSalaryPercentile(priceJobEntity, jobs);
+    }
+
+    private void exportJobToExcel(List<JobEntity> jobs) {
         boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
                 environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) : false;
         if (isExportToExcel) {
             ExcelUtils.exportSalaryReport(jobs);
         }
+    }
 
-        calculateSalaryPercentile(priceJobEntity, jobs);
+    private List<JobEntity> searchMoreJobBySkills(List<String> skills, List<Long> jobCategories) {
+        List<JobEntity> jobs = new ArrayList<>();
+        if (skills != null && !skills.isEmpty()) {
+            NativeSearchQueryBuilder higherSalaryQueryBuilder =
+                    jobQueryBuilder.getJobSearchQueryBySkill(skills, jobCategories);
+            List<JobEntity> jobBySkills = getJobSearchResult(higherSalaryQueryBuilder);
+            jobs.addAll(jobBySkills);
+        }
+        return jobs;
     }
 
     private void calculateSalaryPercentile(PriceJobEntity priceJobEntity, List<JobEntity> jobs) {
@@ -117,7 +131,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         for (double percent : percents) {
             salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
         }
-        priceJobReport.setPriceJobSalaries(salaryRanges);
+        priceJobReport.setPriceJobSalaries(salaryRanges.stream().distinct().collect(Collectors.toList()));
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
         double targetPay = salaryRanges.stream().filter(
@@ -127,6 +141,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         double averagePay = salaryRanges.stream().mapToDouble(
                 salaryRange -> salaryRange.getPercentile()).average().getAsDouble();
         priceJobReport.setAverageSalary(averagePay);
+
+        priceJobEntity.setPriceJobReport(priceJobReport);
     }
 
     private void calculateSalaryPercentile(SalaryReview salaryReview, List<JobEntity> jobs) {

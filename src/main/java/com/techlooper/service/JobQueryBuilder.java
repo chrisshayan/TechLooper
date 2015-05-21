@@ -112,7 +112,7 @@ public interface JobQueryBuilder {
 
     NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReview salaryReview);
 
-    NativeSearchQueryBuilder getJobSearchQueryBySkill(SalaryReview salaryReview);
+    NativeSearchQueryBuilder getJobSearchQueryBySkill(List<String> skills, List<Long> jobCategories);
 
     NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobEntity priceJobEntity);
 }

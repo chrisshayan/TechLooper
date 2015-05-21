@@ -251,13 +251,13 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
-    public NativeSearchQueryBuilder getJobSearchQueryBySkill(SalaryReview salaryReview) {
+    public NativeSearchQueryBuilder getJobSearchQueryBySkill(List<String> skills, List<Long> jobCategories) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
-        QueryBuilder skillQueryBuilder = skillQueryBuilder(salaryReview.getSkills());
+        QueryBuilder skillQueryBuilder = skillQueryBuilder(skills);
         queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
                 boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
-                            .must(getJobIndustriesFilterBuilder(salaryReview.getJobCategories()))
+                            .must(getJobIndustriesFilterBuilder(jobCategories))
                             .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
         return queryBuilder;
     }

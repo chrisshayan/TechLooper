@@ -7,25 +7,25 @@ import java.util.List;
  */
 public class PriceJobReport {
 
-    private double targetPay;
+    private Double targetPay;
 
-    private double averageSalary;
+    private Double averageSalary;
 
     private List<SalaryRange> priceJobSalaries;
 
-    public double getTargetPay() {
+    public Double getTargetPay() {
         return targetPay;
     }
 
-    public void setTargetPay(double targetPay) {
+    public void setTargetPay(Double targetPay) {
         this.targetPay = targetPay;
     }
 
-    public double getAverageSalary() {
+    public Double getAverageSalary() {
         return averageSalary;
     }
 
-    public void setAverageSalary(double averageSalary) {
+    public void setAverageSalary(Double averageSalary) {
         this.averageSalary = averageSalary;
     }
 
