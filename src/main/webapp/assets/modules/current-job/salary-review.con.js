@@ -315,6 +315,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.doJobAlert = function () {
+    $('.email-me-similar-jobs').hide();
+    $('.email-similar-jobs-block').slideDown("normal");
     var jobAlert = $.extend({}, $scope.salaryReview);
     delete jobAlert.salaryReport;
     delete jobAlert.topPaidJobs;
@@ -344,6 +346,13 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     var jobAlert = $.extend({}, $scope.jobAlert);
     jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
     jobAlert.lang = jsonValue.languages['' + $translate.use()];
-    connectionFactory.createJobAlert(jobAlert).then(function () {console.log("success");});
+    connectionFactory.createJobAlert(jobAlert).then(function () {
+      $('.email-similar-jobs-block').slideUp("normal", function(){
+        $('.success-alert-box').addClass('show');
+        $timeout(function(){
+          $('.success-alert-box').removeClass('show');
+        }, 1500);
+      });
+    });
   }
 });
