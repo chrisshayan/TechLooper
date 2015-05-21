@@ -223,6 +223,7 @@ angular.module("Common").constant("jsonValue", (function () {
 
       sendJobsSearch: "/app/jobs/search",
       sendSearchJobAlert: "/app/jobs/searchJobAlert",
+      createSearchJobAlert: "/app/jobs/createJobAlert",
       subscribeJobsSearch: "/topic/jobs/search",
       subscribeSearchJobAlert: "/topic/jobs/searchJobAlert",
 
@@ -670,15 +671,20 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 2, translate: "genderFemale"}
     ],
     timeToSends: [
-      //{id: 1, translate: "day"},
-      {id: 1, translate: "week"}
+      {id: 1, translate: "day"},
+      {id: 3, translate: "week"}
     ],
+    languages: {
+      undefined: 2,
+      en: 2,
+      vi: 1
+    },
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
-      {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1]},
-      {id: 5, name: "EXPERIENCED", translate: "experienced", ids: [5, 6]},
-      {id: 7, name: "MANAGER", translate: "manager", ids: [7]},
-      {id: 10, name: "DIRECTOR_PLUS", translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
+      {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1], alertId: 1},
+      {id: 5, name: "EXPERIENCED", translate: "experienced", ids: [5, 6], alertId: 5},
+      {id: 7, name: "MANAGER", translate: "manager", ids: [7], alertId: 7},
+      {id: 10, name: "DIRECTOR_PLUS", translate: "directorAndAbove", ids: [10, 3, 4, 8, 9], alertId: 3}
     ],
 
     locations: [

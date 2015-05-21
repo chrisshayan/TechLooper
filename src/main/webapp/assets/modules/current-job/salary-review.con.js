@@ -126,7 +126,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
     }
   }
-  $scope.selectedTime = $translate.instant("day");
+  //$scope.selectedTime = $translate.instant("day");
   $scope.error = {};
   $scope.salaryReview = {
     genderId: '',
@@ -314,7 +314,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $('.' + cls).slideUp("normal", function () { $(this).remove(); });
   }
 
-  $scope.doJobAlert = function() {
+  $scope.doJobAlert = function () {
     var jobAlert = $.extend({}, $scope.salaryReview);
     delete jobAlert.salaryReport;
     delete jobAlert.topPaidJobs;
@@ -333,10 +333,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     jobAlertTimeout = $timeout(function () {
       var jobAlert = $.extend({}, $scope.jobAlert);
       jobAlert.jobLevelIds = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].ids;
-      connectionFactory.searchJobAlert(jobAlert).finally(null, function(data) {
+      connectionFactory.searchJobAlert(jobAlert).finally(null, function (data) {
         $scope.jobsTotal = data.total;
       });
       jobAlertTimeout = undefined;
     }, 500);
   }, true);
+
+  $scope.createJobAlert = function () {
+    var jobAlert = $.extend({}, $scope.jobAlert);
+    jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
+    jobAlert.lang = jsonValue.languages['' + $translate.use()];
+    connectionFactory.createJobAlert(jobAlert).then(function () {console.log("success");});
+  }
 });

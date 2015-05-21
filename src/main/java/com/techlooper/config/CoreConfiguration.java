@@ -1,11 +1,13 @@
 package com.techlooper.config;
 
 import com.techlooper.converter.LocaleConverter;
-import com.techlooper.converter.List2CSVStringConverter;
+import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.ProfileNameConverter;
 import com.techlooper.entity.*;
 import com.techlooper.model.UserInfo;
 import com.techlooper.model.VNWJobSearchRequest;
+import com.techlooper.model.VnwJobAlert;
+import com.techlooper.model.VnwJobAlertRequest;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -108,9 +110,13 @@ public class CoreConfiguration {
 
         mapping(SalaryReview.class, VNWJobSearchRequest.class)
           .fields("jobLevelIds", "jobLevel")
-          .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(List2CSVStringConverter.class))
+          .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
           .fields("netSalary", "jobSalary")
           .fields("locationId", "jobLocation");
+
+        mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
+          .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
+          .fields("minSalary", "netSalary");
       }
     });
     return dozerBeanMapper;

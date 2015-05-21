@@ -11,7 +11,7 @@ angular.module("Common").factory("connectionFactory",
     //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
     var stompUrl = baseUrl + '/' + socketUri.sockjs;
     var broadcastClient = Stomp.over(new SockJS(stompUrl));
-    broadcastClient.debug = function () {};
+    //broadcastClient.debug = function () {};
 
     var stompClient = {
       stomp: Stomp.over(new SockJS(stompUrl)),
@@ -173,7 +173,6 @@ angular.module("Common").factory("connectionFactory",
         broadcastClient.send(socketUri.sendJobsSearch, {}, JSON.stringify(json));
       },
 
-      /* @subscription */
       searchJobAlert: function (json) {
         var uri = socketUri.subscribeSearchJobAlert;
         if ($.isEmptyObject(subscriptions[uri])) {
@@ -303,7 +302,16 @@ angular.module("Common").factory("connectionFactory",
        */
       termStatisticInOneYear: function (request) {
         return $http.post(jsonValue.httpUri.termStatistic, request);
-      }
+      },
+
+      createJobAlert: function (json) {
+        var defer = $q.defer();
+        instance.reconnectSocket().then(function() {
+          stompClient.stomp.send(socketUri.createSearchJobAlert, {}, JSON.stringify(json));
+          defer.resolve();
+        });
+        return defer.promise;
+      },
     }
     utils.registerNotification(jsonValue.notifications.logoutSuccess, instance.connectSocket);
     utils.registerNotification(jsonValue.notifications.loginSuccess, instance.connectSocket);

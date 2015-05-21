@@ -84,4 +84,9 @@ public class JobStatisticController {
   public TermStatisticResponse analyticTermBySkill(@RequestBody TermStatisticRequest termStatisticRequest) {
     return jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
   }
+
+  @MessageMapping("/jobs/createJobAlert")
+  public void createJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
+    jobStatisticService.createVnwJobAlert(vnwJobAlertRequest);
+  }
 }
