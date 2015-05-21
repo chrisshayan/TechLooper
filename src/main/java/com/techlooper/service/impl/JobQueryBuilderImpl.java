@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
@@ -217,6 +218,39 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     @Override
     public NativeSearchQueryBuilder getVietnamworksJobSearchQuery() {
         return new NativeSearchQueryBuilder().withIndices(elasticSearchIndexName).withTypes("job");
+    }
+
+    @Override
+    public NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReview salaryReview) {
+        NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
+
+        QueryBuilder jobTitleQueryBuilder = jobTitleQueryBuilder(salaryReview.getJobTitle());
+        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
+        FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
+        FilterBuilder salaryMinRangeFilterBuilder = getRangeFilterBuilder("salaryMin",
+                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+        FilterBuilder salaryMaxRangeFilterBuilder = getRangeFilterBuilder("salaryMax",
+                VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null);
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
+                boolFilter().must(approvedDateRangeFilterBuilder)
+                        .must(jobIndustriesFilterBuilder)
+                                //                .must(jobLevelFilterBuilder)
+                        .must(boolFilter().should(salaryMinRangeFilterBuilder).should(salaryMaxRangeFilterBuilder))));
+        return queryBuilder;
+    }
+
+    @Override
+    public NativeSearchQueryBuilder getJobSearchQueryBySkill(SalaryReview salaryReview) {
+        NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
+        QueryBuilder skillQueryBuilder = skillQueryBuilder(salaryReview.getSkills());
+        queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
+                boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
+                            .must(getJobIndustriesFilterBuilder(salaryReview.getJobCategories()))
+                            .must(boolFilter()
+                                    .should(getRangeFilterBuilder("salaryMin", VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null))
+                                    .should(getRangeFilterBuilder("salaryMax", VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null)))));
+        return queryBuilder;
     }
 
     private List<String> processSkillsBeforeSearch(List<String> skills) {
