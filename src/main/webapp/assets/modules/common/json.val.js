@@ -756,6 +756,46 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 70, name: "International"},
       {id: 71, name: "Mekong Delta"},
       {id: 72, name: "Hau Giang"}
+    ],
+    "languagesJob": [
+      {id: 1, name: "Arabic"},
+      {id: 2, name: "Bengali"},
+      {id: 3, name: "Bulgarian"},
+      {id: 4, name: "Burmese"},
+      {id: 5, name: "Cambodian"},
+      {id: 6, name: "Cebuano"},
+      {id: 7, name: "Chinese (Cantonese)"}
+    ],
+    "educationLevel": [
+      {id: 1, name: "None"},
+      {id: 2, name: "High school"},
+      {id: 3, name: "Associate’s degree"},
+      {id: 4, name: "College"},
+      {id: 5, name: "Bachelors"},
+      {id: 6, name: "Bachelor of Engineering"},
+      {id: 7, name: "Post-graduate"},
+      {id: 8, name: "CPA"},
+      {id: 9, name: "Masters"},
+      {id: 10, name: "MBA"},
+      {id: 11, name: "JD"},
+      {id: 12, name: "Doctorate"},
+      {id: 13, name: "Doctor of Pharmacy (PharmD)"},
+      {id: 14, name: "MD"},
+      {id: 15, name: "Others"}
+    ],
+    "yearsOfExperience": [
+      {id: 1, name: "Entry-Level"},
+      {id: 2, name: "0"},
+      {id: 3, name: "1"},
+      {id: 4, name: "2"},
+      {id: 5, name: "3"},
+      {id: 6, name: "4"},
+      {id: 7, name: "5"},
+      {id: 8, name: "6"},
+      {id: 9, name: "7"},
+      {id: 10, name: "8"},
+      {id: 11, name: "9"},
+      {id: 12, name: "10 or more"}
     ]
   }
 
