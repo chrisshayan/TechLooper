@@ -81,12 +81,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         suffix: ".json"
       })
       .registerAvailableLanguageKeys(['en', 'vi'], {
-        'en-US': 'en', 'en-UK': 'en', 'en_US': 'en', 'en_UK': 'en'
+        'en-US': 'en', 'en-UK': 'en', 'en_US': 'en', 'en_UK': 'en', "*": "en"
       })
-      .fallbackLanguage("en")
+      .fallbackLanguage('en')
       .uniformLanguageTag('bcp47') // enable BCP-47, must be before determinePreferredLanguage!
-      .determinePreferredLanguage()
-      .useSanitizeValueStrategy('escaped');
+      .determinePreferredLanguage();
 
     $routeProvider
       .when("/home", {
