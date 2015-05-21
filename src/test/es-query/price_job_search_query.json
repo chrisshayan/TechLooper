@@ -1,0 +1,100 @@
+GET vietnamworks/job/_search?size=100
+{
+  "fields": [
+    "jobTitle",
+    "skills.skillName"
+  ],
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "match": {
+                "jobTitle": {
+                  "query": "Senior Java Developer",
+                  "minimum_should_match": "100%",
+                  "boost": 5
+                }
+              }
+            }
+          ]
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "cityList": 29
+              }
+            },
+            {
+              "terms": {
+                "jobLevelId": [5, 6]
+              }
+            },
+            {
+              "range": {
+                "approvedDate": {
+                  "from": "now-6M/M"
+                }
+              }
+            },
+            {
+              "nested": {
+                "path": "industries",
+                "filter": {
+                  "term": {
+                    "industries.industryId": 35
+                  }
+                }
+              }
+            },
+            {
+              "bool": {
+                "should": [
+                  {
+                    "range": {
+                      "salaryMin": {
+                        "from": 250
+                      }
+                    }
+                  },
+                  {
+                    "range": {
+                      "salaryMax": {
+                        "from": 250
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "avgSalary": {
+      "avg": {
+        "script": "doc['salaryMin'].value == 0 ? doc['salaryMax'].value * 0.75 : doc['salaryMax'].value == 0 ? doc['salaryMin'].value * 1.25 : (doc['salaryMin'].value + doc['salaryMax'].value) / 2"
+      }
+    },
+    "salary_percentile": {
+      "percentiles": {
+        "script": "doc['salaryMin'].value == 0 ? doc['salaryMax'].value * 0.75 : doc['salaryMax'].value == 0 ? doc['salaryMin'].value * 1.25 : (doc['salaryMin'].value + doc['salaryMax'].value) / 2",
+        "percents": [
+          10,
+          25,
+          50,
+          75,
+          90,
+          99
+        ],
+        "compression": 100
+      }
+    }
+  }
+}
