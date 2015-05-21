@@ -1,6 +1,6 @@
 package com.techlooper.controller;
 
-import com.techlooper.entity.PriceJobReport;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
@@ -126,9 +126,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/priceJob", method = RequestMethod.POST)
-    public PriceJobReport priceJob(@RequestBody PriceJobReport priceJobReport) {
-        userEvaluationService.priceJob(priceJobReport);
-        return priceJobReport;
+    public PriceJobEntity priceJob(@RequestBody PriceJobEntity priceJobEntity) {
+        userEvaluationService.priceJob(priceJobEntity);
+        return priceJobEntity;
     }
 
 }

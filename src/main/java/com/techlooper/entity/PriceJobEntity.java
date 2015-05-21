@@ -1,11 +1,13 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.PriceJobReport;
+
 import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 5/21/15.
  */
-public class PriceJobReport {
+public class PriceJobEntity {
 
     private Integer locationId;
 
@@ -24,6 +26,8 @@ public class PriceJobReport {
     private List<String> skills;
 
     private List<String> languages;
+
+    private PriceJobReport priceJobReport;
 
     public Integer getLocationId() {
         return locationId;
@@ -95,5 +99,13 @@ public class PriceJobReport {
 
     public void setLanguages(List<String> languages) {
         this.languages = languages;
+    }
+
+    public PriceJobReport getPriceJobReport() {
+        return priceJobReport;
+    }
+
+    public void setPriceJobReport(PriceJobReport priceJobReport) {
+        this.priceJobReport = priceJobReport;
     }
 }

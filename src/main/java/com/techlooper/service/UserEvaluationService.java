@@ -1,6 +1,6 @@
 package com.techlooper.service;
 
-import com.techlooper.entity.PriceJobReport;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.SalaryReviewSurvey;
 
@@ -15,5 +15,5 @@ public interface UserEvaluationService {
 
     boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey);
 
-    void priceJob(PriceJobReport priceJobReport);
+    void priceJob(PriceJobEntity priceJobEntity);
 }
