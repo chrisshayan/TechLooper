@@ -80,6 +80,20 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
           $scope.selectize.companySize.$elem = selectize;
         }
       }
+    },
+    education: {
+      items: jsonValue.educationLevel,
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['name'],
+        placeholder: $translate.instant("exEducation"),
+        onInitialize: function (selectize) {
+          $scope.selectize.education.$elem = selectize;
+        }
+      }
     }
   }
 
@@ -91,7 +105,8 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     locationId: '',
     jobTitle: '',
     jobLevelIds: [],
-    skills: []
+    skills: [],
+    languagesId: []
   };
 
   $scope.removeSkill = function (skill) {
@@ -148,9 +163,10 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
       notHasValue = notHasValue || (inputValue.length <= 0);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
-    $scope.priceJob.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
-    $scope.priceJob.skills.length && (delete $scope.error.skills);
-
+    if($scope.step == "step2"){
+      $scope.priceJob.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
+      $scope.priceJob.skills.length && (delete $scope.error.skills);
+    }
     var error = $.extend(true, {}, $scope.error);
     delete error.existSkillName;
     delete error.newSkillName;
