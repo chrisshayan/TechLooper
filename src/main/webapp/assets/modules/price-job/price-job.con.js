@@ -87,16 +87,19 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   $scope.priceJob = {
     jobCategories: [],
     companySizeId: '',
-    locationId: ''
+    locationId: '',
+    jobTitle: '',
+    jobLevelIds: [],
+    skills: []
   };
 
   $scope.removeSkill = function (skill) {
-    $scope.salaryReview.skills.splice($scope.salaryReview.skills.indexOf(skill), 1);
+    $scope.priceJob.skills.splice($scope.priceJob.skills.indexOf(skill), 1);
     $scope.error = {};
   }
 
   $scope.addNewSkill = function () {
-    $scope.salaryReview.skills || ($scope.salaryReview.skills = []);
+    $scope.priceJob.skills || ($scope.priceJob.skills = []);
     if ($scope.newSkillName === undefined) {
       return;
     }
@@ -107,14 +110,14 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
       return;
     }
 
-    if ($scope.salaryReview.skills.length === 3) {
+    if ($scope.priceJob.skills.length === 3) {
       var translate = $rootScope.translate;
       $scope.error.newSkillName = translate.maximum3;
       return;
     }
     delete $scope.error.newSkillName;
 
-    var skillLowerCases = $scope.salaryReview.skills.map(function (skill) {return skill.toLowerCase();});
+    var skillLowerCases = $scope.priceJob.skills.map(function (skill) {return skill.toLowerCase();});
     if (skillLowerCases.indexOf(newSkillName.toLowerCase()) >= 0) {
       var translate = $rootScope.translate;
       $scope.error.existSkillName = translate.hasExist;
@@ -123,7 +126,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     delete $scope.error.existSkillName;
 
     if (newSkillName.length > 0) {
-      $scope.salaryReview.skills.push(newSkillName);
+      $scope.priceJob.skills.push(newSkillName);
       $scope.newSkillName = "";
       $("#txtTopSkills").focus();
     }
@@ -144,12 +147,12 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
       notHasValue = notHasValue || (inputValue.length <= 0);
       notHasValue && ($scope.error[modelName] = $rootScope.translate.requiredThisField);
     });
-    //$scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
-    //$scope.salaryReview.skills.length && (delete $scope.error.skills);
+    $scope.priceJob.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
+    $scope.priceJob.skills.length && (delete $scope.error.skills);
 
     var error = $.extend(true, {}, $scope.error);
-    //delete error.existSkillName;
-    //delete error.newSkillName;
+    delete error.existSkillName;
+    delete error.newSkillName;
     return $.isEmptyObject(error);
   }
   $scope.nextStep = function (step, priorStep) {
@@ -161,7 +164,6 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
 
     switch (swstep) {
       case "step3":
-
         break;
     }
   }
