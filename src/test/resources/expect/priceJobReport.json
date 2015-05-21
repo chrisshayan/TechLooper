@@ -1,0 +1,31 @@
+{
+  "jobTitle" : "Java Developer",
+  "jobLevelIds" : [5, 6],
+  "jobCategories" : [35, 55],
+  "priceJobReport" : {
+    "targetPay" : 1200,
+    "averageSalary" : 1300,
+    "priceJobSalaries" : [
+      {
+        "percent" : 10,
+        "value" : 400
+      },
+      {
+        "percent" : 25,
+        "value" : 700
+      },
+      {
+        "percent" : 50,
+        "value" : 900
+      },
+      {
+        "percent" : 75,
+        "value" : 1000
+      },
+      {
+        "percent" : 90,
+        "value" : 1200
+      }
+    ]
+  }
+}
