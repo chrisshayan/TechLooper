@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobEntity;
+import com.techlooper.entity.PriceJobReport;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.SalaryRange;
 import com.techlooper.model.SalaryReport;
@@ -56,7 +57,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
-    public void evaluateJobOffer(SalaryReview salaryReview) {
+    public void reviewSalary(SalaryReview salaryReview) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getJobSearchQueryForSalaryReview(salaryReview);
 
         // Get the list of jobs search result for user percentile rank calculation
@@ -208,4 +209,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return false;
     }
 
+    @Override
+    public void priceJob(PriceJobReport priceJobReport) {
+
+    }
 }
