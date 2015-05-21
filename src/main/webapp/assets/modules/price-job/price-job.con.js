@@ -82,6 +82,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
       }
     }
   }
+
   $scope.selectedTime = $translate.instant("day");
   $scope.error = {};
   $scope.priceJob = {

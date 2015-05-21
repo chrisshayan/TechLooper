@@ -313,53 +313,54 @@
                 <div class="row email-similar-jobs-field">
                   <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
                   <input type="text" ng-model="jobAlert.jobTitle"
+                         required tl-model
                          name="{{'jobTitle' | translate}}"
-                         placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
-                  <div class="error-messages">
-                    {{error['jobAlert.jobTitle']}}</div>
+                         placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="6"/>
+                  <div class="error-messages">{{error['jobAlert.jobTitle']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label>{{'jobCategory' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.industries.config' options='selectize.industries.items'
                              ng-model="jobAlert.jobCategories"
+                             required tl-model
                              name="{{'jobCategory' | translate}}"></selectize>
-                  <div class="error-messages">
-                    {{error['jobAlert.jobCategories']}}
-                  </div>
+                  <div class="error-messages">{{error['jobAlert.jobCategories']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field" jobLevels>
                   <label>{{'jobLevel' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+                             required tl-model
                              ng-model="jobAlert.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
-                  <div class="error-messages">
-                    {{error['jobAlert.jobLevelIds']}}</div>
+                  <div class="error-messages">{{error['jobAlert.jobLevelIds']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label>{{'city' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.locations.config' options='selectize.locations.items'
                              ng-model="jobAlert.locationId"
+                             required tl-model
                              name="{{'location' | translate}}" class="locationSelectbox"></selectize>
-                  <div class="error-messages">
-                    {{error['jobAlert.locationId']}}</div>
+                  <div class="error-messages">{{error['jobAlert.locationId']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
                   <input type="text" ng-model="jobAlert.netSalary"
+                         required tl-model
                          name="{{'netSalary' | translate}}" maxlength="5"
                          placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
-                  <div class="error-messages">
-                    {{error['jobAlert.netSalary']}}</div>
+                  <div class="error-messages">{{error['jobAlert.netSalary']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <p><span>{{jobsTotal}}</span><span translate="jobMatch"></span></p>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
-                  <input ng-model="jobAlert.email" type="text" id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
+                  <input ng-model="jobAlert.email" type="email" required tl-model
+                         id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
+                  <div class="error-messages">{{error['jobAlert.email']}}</div>
                   <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
+                             required tl-model
                              ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>
-
-                  <div class="error-messages"></div>
+                  <div class="error-messages">{{error['jobAlert.frequency']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field submit">
                   <button class="btn btn-primary btn-flat" ng-click="createJobAlert()">Save</button>

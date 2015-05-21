@@ -1,5 +1,5 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
-                                                          $route, $location, connectionFactory, $timeout) {
+                                                          $route, $location, connectionFactory, $timeout, validatorService) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   var genders = $.extend(true, [], jsonValue.genders);
   var timeToSends = $.extend(true, [], jsonValue.timeToSends);
@@ -318,6 +318,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $('.email-me-similar-jobs').hide();
     $('.email-similar-jobs-block').slideDown("normal");
     var jobAlert = $.extend({}, $scope.salaryReview);
+    jobAlert.frequency = timeToSends[0].id;
     delete jobAlert.salaryReport;
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
@@ -343,6 +344,11 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }, true);
 
   $scope.createJobAlert = function () {
+    var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+    if (!$.isEmptyObject(error)) {
+      $scope.error = error;
+      return;
+    }
     var jobAlert = $.extend({}, $scope.jobAlert);
     jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
     jobAlert.lang = jsonValue.languages['' + $translate.use()];
