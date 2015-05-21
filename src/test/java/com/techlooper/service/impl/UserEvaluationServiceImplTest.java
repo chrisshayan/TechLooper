@@ -37,7 +37,7 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setNetSalary(1500);
         salaryReview.setSkills(Arrays.asList("Liferay", "Spring", "Hibernate"));
-        userEvaluationService.evaluateJobOffer(salaryReview);
+        userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
@@ -51,7 +51,7 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobLevelIds(Arrays.asList(5, 6));
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setNetSalary(2200);
-        userEvaluationService.evaluateJobOffer(salaryReview);
+        userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
@@ -65,7 +65,7 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobLevelIds(Arrays.asList(5, 6));
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setNetSalary(2000);
-        userEvaluationService.evaluateJobOffer(salaryReview);
+        userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank().isNaN());
         // delete data after test
@@ -80,7 +80,7 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setSkills(Arrays.asList("Agile", "Software Architecture", "Java"));
         salaryReview.setNetSalary(2000);
-        userEvaluationService.evaluateJobOffer(salaryReview);
+        userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
@@ -94,7 +94,7 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobLevelIds(Arrays.asList(5, 6));
         salaryReview.setJobCategories(Arrays.asList(35L));
         salaryReview.setNetSalary(2000);
-        userEvaluationService.evaluateJobOffer(salaryReview);
+        userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
