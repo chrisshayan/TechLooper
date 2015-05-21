@@ -304,66 +304,11 @@
             <div class="see-more-jobs">
               <p translate="higherJobOfferDisclaimer" class="note"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary.toLocaleString()}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
             </div>
-
             <div class="email-me-similar-jobs">
-              <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#email-me-similar-jobs">Email Me Similar Jobs</a>
+              <a ng-click="doJobAlert()" class="btn btn-primary btn-flat">Email Me Similar Jobs</a>
             </div>
-          </div>
-        </div>
-        <div class="salary-report-feedback"
-             ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
-          <div class="title-header">
-          <h3 translate="whatYouThinkReport"></h3>
-          <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
-            </div>
-          <div class="salary-report-feedback-form">
-            <form autocomplete="off">
-              <ul>
-                  <li>
-                    <p translate="understandReport?"></p>
-                    <div class="select-group">
-                      <div class="select-item">
-                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
-                      </div>
-                      <div class="select-item">
-                        <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
-                      </div>
-                    </div>
-                    <div class="error-messages">{{errorFeedback.understand}}</div>
-                  </li>
-                  <li>
-                    <p translate="resultReportAccurate"></p>
-                    <div class="select-group">
-                      <div class="select-item">
-                        <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
-                      </div>
-                      <div class="select-item">
-                        <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
-                      </div>
-                    </div>
-                    <div class="error-messages">{{errorFeedback.accurate}}</div>
-                  </li>
-                  <li>
-                    <label for="txtFeedback" translate="haveAnyFeedback"></label>
-                    <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
-                  </li>
-                  <li>
-                    <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
-                  </li>
-                </ul>
-              </form>
-            <div class="note" translate="thanksForHelp"></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal email-similar-jobs fade" id="email-me-similar-jobs" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-              <h4 class="modal-title" id="myModalLabel">{{'jobAlertTitle' | translate}}</h4>
-            </div>
-            <div class="modal-body">
+            <div class="email-similar-jobs-block">
+              <h3 translate="jobAlertTitle"></h3>
               <div class="email-similar-jobs-form">
                 <div class="row email-similar-jobs-field">
                   <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
@@ -416,16 +361,62 @@
 
                   <div class="error-messages"></div>
                 </div>
+                <div class="row email-similar-jobs-field submit">
+                  <button class="btn btn-primary btn-flat" ng-click="createJobAlert()">Save</button>
+                </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="createJobAlert()">Save</button>
+            <div class="success-alert-box">
+              <span class="alert alert-success">Success! We will verify your email.</span>
             </div>
+          </div>
+        </div>
+        <div class="salary-report-feedback"
+             ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
+          <div class="title-header">
+          <h3 translate="whatYouThinkReport"></h3>
+          <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
+            </div>
+          <div class="salary-report-feedback-form">
+            <form autocomplete="off">
+              <ul>
+                  <li>
+                    <p translate="understandReport?"></p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
+                      </div>
+                      <div class="select-item">
+                        <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
+                      </div>
+                    </div>
+                    <div class="error-messages">{{errorFeedback.understand}}</div>
+                  </li>
+                  <li>
+                    <p translate="resultReportAccurate"></p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
+                      </div>
+                    </div>
+                    <div class="error-messages">{{errorFeedback.accurate}}</div>
+                  </li>
+                  <li>
+                    <label for="txtFeedback" translate="haveAnyFeedback"></label>
+                    <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+                  </li>
+                  <li>
+                    <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
+                  </li>
+                </ul>
+              </form>
+            <div class="note" translate="thanksForHelp"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
