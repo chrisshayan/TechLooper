@@ -174,5 +174,16 @@
   "city": "City",
   "netSalary": "Net Salary from (USD)",
   "myEmail": "My Email",
-  "jobMatch": " job(s) match these criteria ... SEND ME TO"
+  "jobMatch": " job(s) match these criteria ... SEND ME TO",
+  "hiringTagLine": "Looking To Hire The Perfect Talent?",
+  "subHiringTagLine": "Eliminate Guesswork and Attract The Best Talent",
+  "evaluateJobPort": "Evaluate My Job Port",
+  "aboutYourJob": "Tell Us About Your Job",
+  "desAboutYourJob": "<strong>Complete a simple survey</strong> to let us know your job requirements and job offerings.",
+  "getInsights": "Get Insights",
+  "desGetInsights": "Get insights on how much job posts like yours <strong>are paying</strong>, how many views, applications and quality applications they are getting",
+  "attractTalent": "Attract Talent",
+  "desAttractTalent": "<strong>Optimize your job post</strong> based on the provided insights and publish your post at VietnamWorks",
+  "buyJobPortNow": "buy Job Port now"
+
 }
