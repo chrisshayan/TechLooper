@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.PriceJobReport;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
@@ -251,6 +252,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
                                     .should(getRangeFilterBuilder("salaryMin", VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null))
                                     .should(getRangeFilterBuilder("salaryMax", VietnamWorksJobStatisticService.LOWER_BOUND_SALARY_ENTRY_LEVEL, null)))));
         return queryBuilder;
+    }
+
+    @Override
+    public NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobReport priceJobReport) {
+        return null;
     }
 
     private List<String> processSkillsBeforeSearch(List<String> skills) {
