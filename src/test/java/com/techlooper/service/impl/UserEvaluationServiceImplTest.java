@@ -4,7 +4,9 @@ import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.JobEntity;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
+import com.techlooper.model.PriceJobReport;
 import com.techlooper.model.SalaryReport;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserEvaluationService;
@@ -14,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -109,5 +112,44 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobCategories(Arrays.asList(35L));
         List<JobEntity> jobEntities = jobSearchService.getHigherSalaryJobs(salaryReview);
         assertTrue(jobEntities.size() <= 3);
+    }
+
+    @Test
+    public void testPriceJob() throws Exception {
+        PriceJobEntity priceJobEntity = new PriceJobEntity();
+        priceJobEntity.setJobTitle("Senior Java Developer");
+        priceJobEntity.setLocationId(29);
+        priceJobEntity.setJobLevelIds(Arrays.asList(5, 6));
+        priceJobEntity.setJobCategories(Arrays.asList(35L, 55L, 57L));
+        userEvaluationService.priceJob(priceJobEntity);
+        assertTrue(priceJobEntity.getPriceJobReport().getTargetPay() > 0);
+        assertTrue(priceJobEntity.getPriceJobReport().getAverageSalary() > 0);
+        assertTrue(priceJobEntity.getPriceJobReport().getPriceJobSalaries().size() == 5);
+    }
+
+    @Test
+    public void testPriceJobNoJob() throws Exception {
+        PriceJobEntity priceJobEntity = new PriceJobEntity();
+        priceJobEntity.setJobTitle("ABC XYZ");
+        priceJobEntity.setLocationId(29);
+        priceJobEntity.setJobLevelIds(Arrays.asList(5, 6));
+        priceJobEntity.setJobCategories(Arrays.asList(35L, 55L, 57L));
+        userEvaluationService.priceJob(priceJobEntity);
+        assertTrue(priceJobEntity.getPriceJobReport().getTargetPay().isNaN());
+        assertTrue(priceJobEntity.getPriceJobReport().getAverageSalary().isNaN());
+    }
+
+    @Test
+    public void testPriceJobBySkills() throws Exception {
+        PriceJobEntity priceJobEntity = new PriceJobEntity();
+        priceJobEntity.setJobTitle("Technical Architect");
+        priceJobEntity.setLocationId(29);
+        priceJobEntity.setJobLevelIds(Arrays.asList(5, 6));
+        priceJobEntity.setJobCategories(Arrays.asList(35L, 55L, 57L));
+        priceJobEntity.setSkills(Arrays.asList("Java", "Spring", "Hibernate"));
+        userEvaluationService.priceJob(priceJobEntity);
+        assertTrue(priceJobEntity.getPriceJobReport().getTargetPay() > 0);
+        assertTrue(priceJobEntity.getPriceJobReport().getAverageSalary() > 0);
+        assertTrue(priceJobEntity.getPriceJobReport().getPriceJobSalaries().size() == 5);
     }
 }
