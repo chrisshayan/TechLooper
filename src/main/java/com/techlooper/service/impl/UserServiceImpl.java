@@ -225,24 +225,6 @@ public class UserServiceImpl implements UserService {
         return builder.build();
     }
 
-    @Override
-    public TalentProfile getTalentProfile(String email) {
-        TalentProfile.Builder builder = new TalentProfile.Builder();
-        UserImportEntity userImportEntity = findUserImportByEmail(email);
-        if (userImportEntity != null) {
-            Map<String, Long> skillMap = userEvaluationService.getSkillMap();
-            Map<String, Object> profile = (Map<String, Object>) userImportEntity.getProfiles().get(SocialProvider.GITHUB);
-            if (profile != null) {
-                List<String> skills = (List<String>) profile.get("skills");
-                Map<String, Long> talentSkillMap = new HashMap<>();
-                skills.stream().forEach(skill -> talentSkillMap.put(skill, skillMap.get(skill.toLowerCase())));
-                builder.withUserImportEntity(userImportEntity);
-                builder.withSkillMap(talentSkillMap);
-            }
-        }
-        return builder.build();
-    }
-
     public void registerUser(UserInfo userInfo) {
         UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
         user.setId(userInfo.getEmailAddress());

@@ -25,8 +25,10 @@ public class SalaryReviewServiceImplTest {
 
     @Test
     public void testSearchSalaryReview() throws Exception {
-        List<SalaryReview> salaryReviews =
-                salaryReviewService.searchSalaryReview("Java Developer", Arrays.asList(35L, 55L, 57L));
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("Java Developer");
+        salaryReview.setJobCategories(Arrays.asList(35L, 55L, 57L));
+        List<SalaryReview> salaryReviews = salaryReviewService.searchSalaryReview(salaryReview);
         assertTrue(salaryReviews.size() > 0);
     }
 }

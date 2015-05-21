@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface SalaryReviewService {
 
-    List<SalaryReview> searchSalaryReview(String jobTitle, List<Long> jobCategories);
+    List<SalaryReview> searchSalaryReview(SalaryReview salaryReview);
 
 }

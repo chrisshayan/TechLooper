@@ -1,9 +1,11 @@
 package com.techlooper.config;
 
 import com.techlooper.converter.LocaleConverter;
+import com.techlooper.converter.List2CSVStringConverter;
 import com.techlooper.converter.ProfileNameConverter;
 import com.techlooper.entity.*;
 import com.techlooper.model.UserInfo;
+import com.techlooper.model.VNWJobSearchRequest;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -103,6 +105,12 @@ public class CoreConfiguration {
           .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
         mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
+
+        mapping(SalaryReview.class, VNWJobSearchRequest.class)
+          .fields("jobLevelIds", "jobLevel")
+          .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(List2CSVStringConverter.class))
+          .fields("netSalary", "jobSalary")
+          .fields("locationId", "jobLocation");
       }
     });
     return dozerBeanMapper;

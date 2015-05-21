@@ -115,8 +115,6 @@ public interface UserService {
      */
     TalentSearchResponse findTalent(TalentSearchRequest param);
 
-    TalentProfile getTalentProfile(String email);
-
     void registerUser(UserInfo userInfo);
 
     long countRegisteredUser();

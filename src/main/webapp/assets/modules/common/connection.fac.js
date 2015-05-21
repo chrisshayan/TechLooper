@@ -29,7 +29,9 @@ angular.module("Common").factory("connectionFactory",
       clearCache: function () {
         for (var uri in subscriptions) {
           if ($.type(subscriptions[uri]) !== "number") {
-            try{subscriptions[uri].unsubscribe();}catch(e){};
+            try {subscriptions[uri].unsubscribe();}
+            catch (e) {}
+            ;
           }
         }
         callbacks.length = 0;
@@ -172,6 +174,23 @@ angular.module("Common").factory("connectionFactory",
       },
 
       /* @subscription */
+      searchJobAlert: function (json) {
+        var uri = socketUri.subscribeSearchJobAlert;
+        if ($.isEmptyObject(subscriptions[uri])) {
+          subscriptions[uri] = {deferred: $q.defer()}
+        }
+        instance.reconnectSocket().then(function() {
+          if (!subscriptions[uri].subscribe) {
+            subscriptions[uri].subscribe = stompClient.stomp.subscribe(uri, function (response) {
+              subscriptions[uri].deferred.notify(JSON.parse(response.body).data);
+            });
+          }
+          stompClient.stomp.send(socketUri.sendSearchJobAlert, {}, JSON.stringify(json));
+        });
+        return subscriptions[uri].deferred.promise;
+      },
+
+      /* @subscription */
       registerTermsSubscription: function (terms) {
         $.each(terms, function (index, term) {
           instance.subscribeTerm(term);
@@ -198,7 +217,7 @@ angular.module("Common").factory("connectionFactory",
         }
         subscriptions = {};
         broadcastClient = Stomp.over(new SockJS(stompUrl));
-        broadcastClient.debug = function () {};
+        //broadcastClient.debug = function () {};
 
         broadcastClient.connect({}, function (frame) {
           isConnecting = false;
@@ -219,7 +238,7 @@ angular.module("Common").factory("connectionFactory",
           return stompClient.deferred.promise;
         }
         stompClient.stomp = Stomp.over(new SockJS(stompUrl));
-        stompClient.stomp.debug = function () {};
+        //stompClient.stomp.debug = function () {};
         stompClient.isConnecting = true;
         stompClient.stomp.connect({}, function (frame) {
           stompClient.isConnecting = false;
@@ -256,7 +275,8 @@ angular.module("Common").factory("connectionFactory",
         return false;
       },
 
-      initialize: function () {},
+      initialize: function () {
+      },
 
       subscribeUserRegistration: function () {
         var uri = jsonValue.socketUri.subscribeUserRegistration;
@@ -281,7 +301,7 @@ angular.module("Common").factory("connectionFactory",
        * @param {int} [request.jobLevelId] - The level of Jobs
        * @return {object} $http object
        */
-      termStatisticInOneYear: function(request) {
+      termStatisticInOneYear: function (request) {
         return $http.post(jsonValue.httpUri.termStatistic, request);
       }
     }

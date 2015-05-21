@@ -5,11 +5,9 @@ import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReview;
-import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.SalaryReport;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserEvaluationService;
-import com.techlooper.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
@@ -30,45 +27,7 @@ public class UserEvaluationServiceImplTest {
     private UserEvaluationService userEvaluationService;
 
     @Resource
-    private UserService userService;
-
-    @Resource
     private JobSearchService jobSearchService;
-
-    @Test
-    public void testScore() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("thach.nguyenngoc@imipgroup.com");
-        Map<String, Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
-        long score = userEvaluationService.score(userImportEntity, result);
-        assertTrue(score > 0);
-    }
-
-    @Test
-    public void testRate() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("thach.nguyenngoc@imipgroup.com");
-        Map<String, Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
-        double rate = userEvaluationService.rate(userImportEntity, result, 100000L);
-        assertTrue(rate > 0 && rate <= 5);
-    }
-
-    @Test
-    public void testRank() throws Exception {
-        UserImportEntity userImportEntity = userService.findUserImportByEmail("thach.nguyenngoc@imipgroup.com");
-        Map<String, Integer> result = userEvaluationService.rank(userImportEntity);
-        assertTrue(userImportEntity.getScore() > 0 ? result.size() > 0 : result.size() == 0);
-    }
-
-    @Test
-    public void testGetSkillMap() throws Exception {
-        Map<String, Long> result = userEvaluationService.getSkillMap();
-        assertTrue(result.size() > 0);
-    }
-
-    @Test
-    public void testGetTotalNumberOfJobPerSkill() throws Exception {
-        Map<String, Long> result = userEvaluationService.getTotalNumberOfJobPerSkill();
-        assertTrue(result.size() > 0);
-    }
 
     @Test
     public void testEvaluateJobOffer() throws Exception {
@@ -147,6 +106,7 @@ public class UserEvaluationServiceImplTest {
         SalaryReview salaryReview = new SalaryReview();
         salaryReview.setJobTitle("Java Developer");
         salaryReview.setNetSalary(1000);
+        salaryReview.setJobCategories(Arrays.asList(35L));
         List<JobEntity> jobEntities = jobSearchService.getHigherSalaryJobs(salaryReview);
         assertTrue(jobEntities.size() <= 3);
     }

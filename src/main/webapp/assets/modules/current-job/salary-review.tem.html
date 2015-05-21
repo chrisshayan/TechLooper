@@ -306,7 +306,7 @@
             </div>
 
             <div class="email-me-similar-jobs">
-              <a class="btn btn-primary btn-flat" data-toggle="modal" data-target="#email-me-similar-jobs">Email Me Similar Jobs</a>
+              <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#email-me-similar-jobs">Email Me Similar Jobs</a>
             </div>
           </div>
         </div>
@@ -367,46 +367,46 @@
               <div class="email-similar-jobs-form">
                 <div class="row email-similar-jobs-field">
                   <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
-                  <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
+                  <input type="text" ng-model="jobAlert.jobTitle"
                          name="{{'jobTitle' | translate}}"
                          placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
                   <div class="error-messages">
-                    {{error['salaryReview.jobTitle']}}</div>
+                    {{error['jobAlert.jobTitle']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label>{{'jobCategory' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.industries.config' options='selectize.industries.items'
-                             ng-model="salaryReview.jobCategories"
+                             ng-model="jobAlert.jobCategories"
                              name="{{'jobCategory' | translate}}"></selectize>
                   <div class="error-messages">
-                    {{error['salaryReview.jobCategories']}}
+                    {{error['jobAlert.jobCategories']}}
                   </div>
                 </div>
                 <div class="row email-similar-jobs-field" jobLevels>
                   <label>{{'jobLevel' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
-                             ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+                             ng-model="jobAlert.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
                   <div class="error-messages">
-                    {{error['salaryReview.jobLevelIds']}}</div>
+                    {{error['jobAlert.jobLevelIds']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label>{{'city' | translate}} <strong>*</strong></label>
                   <selectize config='selectize.locations.config' options='selectize.locations.items'
-                             ng-model="salaryReview.locationId"
+                             ng-model="jobAlert.locationId"
                              name="{{'location' | translate}}" class="locationSelectbox"></selectize>
                   <div class="error-messages">
-                    {{error['salaryReview.locationId']}}</div>
+                    {{error['jobAlert.locationId']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
-                  <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
+                  <input type="text" ng-model="jobAlert.netSalary"
                          name="{{'netSalary' | translate}}" maxlength="5"
                          placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
                   <div class="error-messages">
-                    {{error['salaryReview.netSalary']}}</div>
+                    {{error['jobAlert.netSalary']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">
-                  <p>{{'jobMatch' | translate}}</p>
+                  <p><span>{{jobsTotal}}</span><span translate="jobMatch"></span></p>
                 </div>
                 <div class="row email-similar-jobs-field">
                   <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
