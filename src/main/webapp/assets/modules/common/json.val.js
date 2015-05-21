@@ -757,6 +757,15 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 71, name: "Mekong Delta"},
       {id: 72, name: "Hau Giang"}
     ],
+    "languagesJob": [
+      {id: 1, name: "Arabic"},
+      {id: 2, name: "Bengali"},
+      {id: 3, name: "Bulgarian"},
+      {id: 4, name: "Burmese"},
+      {id: 5, name: "Cambodian"},
+      {id: 6, name: "Cebuano"},
+      {id: 7, name: "Chinese (Cantonese)"}
+    ],
     "educationLevel": [
       {id: 1, name: "None"},
       {id: 2, name: "High school"},

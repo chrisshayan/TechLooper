@@ -81,6 +81,21 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         }
       }
     },
+    languages: {
+      items: jsonValue.languagesJob,
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 3,
+        plugins: ['remove_button'],
+        searchField: ['name'],
+        placeholder: $translate.instant("exLanguages"),
+        onInitialize: function (selectize) {
+          $scope.selectize.languages.$elem = selectize;
+        }
+      }
+    },
     education: {
       items: jsonValue.educationLevel,
       config: {
