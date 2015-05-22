@@ -1,33 +1,59 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.PriceJobReport;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 5/21/15.
  */
+@Document(indexName = "techlooper", type = "priceJob")
 public class PriceJobEntity {
 
+    @Id
+    private Long createdDateTime;
+
+    @Field
     private Integer locationId;
 
+    @Field
     private Integer companySizeId;
 
+    @Field
     private List<Long> jobCategories;
 
+    @Field
     private String jobTitle;
 
+    @Field
     private List<Integer> jobLevelIds;
 
+    @Field
     private Integer yearsExperienceId;
 
+    @Field
     private Integer educationRequiredId;
 
+    @Field
     private List<String> skills;
 
+    @Field
     private List<String> languages;
 
+    @Field(type = FieldType.Nested)
     private PriceJobReport priceJobReport;
+
+    public Long getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(Long createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
 
     public Integer getLocationId() {
         return locationId;
