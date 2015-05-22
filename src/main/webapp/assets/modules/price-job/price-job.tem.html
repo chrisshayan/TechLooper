@@ -57,6 +57,7 @@
       <div class="price-job-step-content" ng-show="step==='step2'">
         <h3 translate="desPriceJobStep2"></h3>
         <div class="price-job-step-form">
+          <form autocomplete="off">
           <div class="price-job-step-field">
             <label>What is The Job Title? <strong>*</strong></label>
             <input type="text" id="txtJobTitle" ng-model="priceJob.jobTitle"
@@ -73,15 +74,15 @@
           <div class="price-job-step-field">
             <label>Years of Experience Required: <strong>*</strong></label>
             <selectize config='selectize.experience.config' options='selectize.experience.items'
-                       ng-model="priceJob.experienceId" name="{{'experienceId' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.experienceId']}}</div>
+                       ng-model="priceJob.yearsExperienceId" name="{{'experienceId' | translate}}"></selectize>
+            <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
           </div>
           <div class="price-job-step-field">
             <label>Minimum Education Level: <strong>*</strong></label>
             <selectize config='selectize.education.config' options='selectize.education.items'
-                       ng-model="priceJob.educationId"
+                       ng-model="priceJob.educationRequiredId"
                        name="{{'educationId' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.educationId']}}</div>
+            <div class="error-messages">{{error['priceJob.educationRequiredId']}}</div>
           </div>
           <div class="price-job-step-field">
             <label>Top Most Relevant Skills: (from 1 to 3) <strong>*</strong></label>
@@ -108,7 +109,7 @@
           <div class="price-job-step-field">
             <label>Languages Required:  (Limited to 3) <strong>*</strong></label>
             <selectize config='selectize.languages.config' options='selectize.languages.items'
-                       ng-model="priceJob.languagesId"
+                       ng-model="priceJob.languages"
                        name="{{'languagesId' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.languagesId']}}</div>
           </div>
@@ -116,6 +117,7 @@
             <a ng-click="nextStep('step1')">Go Back</a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')">Next</button>
           </div>
           <div class="note" translate="noticeLine"></div>
+          </form>
         </div>
       </div>
       <div class="price-job-step-content" ng-show="step==='step3'">

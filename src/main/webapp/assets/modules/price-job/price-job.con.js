@@ -3,9 +3,10 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
 
   $scope.$watch("translate", function () {
-    if (utils.getView() !== jsonValue.views.salaryReview || $rootScope.translate === undefined) {
+    if ($rootScope.translate === undefined) {
       return;
     }
+
     var translate = $rootScope.translate;
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
 
@@ -84,7 +85,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     languages: {
       items: jsonValue.languagesJob,
       config: {
-        valueField: 'id',
+        valueField: 'name',
         labelField: 'name',
         delimiter: '|',
         maxItems: 3,
@@ -201,6 +202,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     delete error.newSkillName;
     return $.isEmptyObject(error);
   }
+
   $scope.nextStep = function (step, priorStep) {
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
@@ -210,6 +212,12 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
 
     switch (swstep) {
       case "step3":
+        var priceJob = $.extend(true, {}, $scope.priceJob);
+        priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
+        $http.post("priceJob", priceJob)
+          .success(function (data, status, headers, config) {
+            console.log(data);
+          });
         break;
     }
   }
