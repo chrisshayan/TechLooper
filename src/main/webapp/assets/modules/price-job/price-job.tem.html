@@ -78,14 +78,14 @@
             <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label>Minimum Education Level: <strong>*</strong></label>
+            <label>{{'minEduLevel' | translate}}: <strong>*</strong></label>
             <selectize config='selectize.education.config' options='selectize.education.items'
                        ng-model="priceJob.educationRequiredId"
                        name="{{'educationId' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.educationRequiredId']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label>Top Most Relevant Skills: (from 1 to 3) <strong>*</strong></label>
+            <label> {{'mostRelevantSkills' | translate}} <strong>*</strong></label>
             <div class="top-three-skills">
               <div class="added-list-skills">
                 <ul>
@@ -124,19 +124,19 @@
         <div class="user-personal-info">
           <ul>
             <li>
-              <span>Job Title</span>
-              <p>Java Developer</p>
+              <span translate="jobTitle"/>
+              <p>{{priceJob.jobTitle}}</p>
             </li>
             <li>
-              <span>Experience Level</span>
+              <span translate="experienceLevel" />
               <p>Manager</p>
             </li>
             <li>
-              <span>Skill</span>
+              <span translate="skill" />
               <p>{{priceJob.skills.join(" | ")}}</p>
             </li>
             <li>
-              <span>Category</span>
+              <span translate="jobCategory" />
               <p>{{priceJob.jobCategoryLabels.join(" | ")}}</p>
             </li>
           </ul>
@@ -149,13 +149,14 @@
             <div class="your-target-pay-block">
               <!--<h4>Your Target Pay</h4>-->
               <div class="your-target-pay-content">
-                <p>Your target pay for this job is <strong>${{priceJob.priceJobReport.averageSalary}}</strong> NET a month</p>
+                <!--<p>Your target pay for this job is <strong>${{priceJob.priceJobReport.averageSalary}}</strong> NET a month</p>-->
+                <p translate="yourTargetPay" translate-value-average-salary="{{priceJob.priceJobReport.averageSalary}}"></p>
               </div>
             </div>
           </div>
           <div class="price-job-report-item">
             <div class="job-title-salary-report">
-              <h4>Your Detailed Salary Report</h4>
+              <h4 translate="yourDetailedSalaryReport" />
               <div class="job-title-salary-report-content">
                 <div class="salary-percentile-block">
                   <ul>

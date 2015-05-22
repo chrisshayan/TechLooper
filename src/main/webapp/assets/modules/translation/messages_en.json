@@ -193,5 +193,9 @@
   "emailInvalid": "This field is invalid email",
   "exExperience": "Ex: Entry level",
   "exEducation": "Ex: High school",
-  "exLanguages": "Ex: English"
+  "exLanguages": "Ex: English",
+  "minEduLevel": "Minimum Education Level",
+  "experienceLevel": "Experience Level",
+  "yourTargetPay": "Your target pay for this job is <strong>${{averageSalary}}</strong> NET a month",
+  "yourDetailedSalaryReport": "Your Detailed Salary Report"
 }
