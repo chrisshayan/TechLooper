@@ -197,5 +197,8 @@
   "minEduLevel": "Minimum Education Level",
   "experienceLevel": "Experience Level",
   "yourTargetPay": "Your target pay for this job is <strong>${{averageSalary}}</strong> NET a month",
-  "yourDetailedSalaryReport": "Your Detailed Salary Report"
+  "yourDetailedSalaryReport": "Your Detailed Salary Report",
+  "companyMainActivity": "What is Your Company Main Activity? (Limited to 3)",
+  "companyEmployeeSize": "How Many Employees Have Your Company?",
+  "cityHiring": "Where Your Company Is Looking To Hire?"
 }
