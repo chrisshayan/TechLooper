@@ -4,6 +4,7 @@ import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.*;
+import com.techlooper.repository.elasticsearch.PriceJobReportRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
@@ -52,6 +53,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     @Resource
     private SalaryReviewService salaryReviewService;
 
+    @Resource
+    private PriceJobReportRepository priceJobReportRepository;
+
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
     public void reviewSalary(SalaryReview salaryReview) {
@@ -75,9 +79,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         calculateSalaryPercentile(salaryReview, jobs);
 
         // Save user salary information should happen only in production environment
-        boolean allowToSave = environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) != null ?
-                environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
-        if (allowToSave) {
+        if (isAllowToSave()) {
             salaryReviewRepository.save(salaryReview);
         }
 
@@ -101,6 +103,16 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         exportJobToExcel(jobs);
 
         calculateSalaryPercentile(priceJobEntity, jobs);
+
+        // Save user salary information should happen only in production environment
+        if (isAllowToSave()) {
+            priceJobReportRepository.save(priceJobEntity);
+        }
+    }
+
+    private boolean isAllowToSave() {
+        return environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) != null ?
+                environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
     }
 
     private void exportJobToExcel(List<JobEntity> jobs) {
@@ -143,6 +155,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         priceJobReport.setAverageSalary(averagePay);
 
         priceJobEntity.setPriceJobReport(priceJobReport);
+        priceJobEntity.setCreatedDateTime(new Date().getTime());
     }
 
     private void calculateSalaryPercentile(SalaryReview salaryReview, List<JobEntity> jobs) {
