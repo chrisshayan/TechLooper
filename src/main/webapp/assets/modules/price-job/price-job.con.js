@@ -216,7 +216,10 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
-            console.log(data);
+            $scope.priceJob = data;
+            $scope.priceJob.jobCategoryLabels = $scope.priceJob.jobCategories.map(function(cat) {
+              return jsonValue.industries[cat].value;
+            });
           });
         break;
     }

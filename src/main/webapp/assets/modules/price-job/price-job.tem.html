@@ -133,11 +133,11 @@
             </li>
             <li>
               <span>Skill</span>
-              <p>Skill 1 |  Skill 2  | Skill 3</p>
+              <p>{{priceJob.skills.join(" | ")}}</p>
             </li>
             <li>
               <span>Category</span>
-              <p>Category 1 |  Category 2  | Category 3</p>
+              <p>{{priceJob.jobCategoryLabels.join(" | ")}}</p>
             </li>
           </ul>
           <div class="verified-data">
@@ -149,7 +149,7 @@
             <div class="your-target-pay-block">
               <!--<h4>Your Target Pay</h4>-->
               <div class="your-target-pay-content">
-                <p>Your target pay for this job is <strong>$1,200</strong> NET a month</p>
+                <p>Your target pay for this job is <strong>${{priceJob.priceJobReport.averageSalary}}</strong> NET a month</p>
               </div>
             </div>
           </div>
