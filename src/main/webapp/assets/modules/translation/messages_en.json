@@ -200,5 +200,9 @@
   "yourDetailedSalaryReport": "Your Detailed Salary Report",
   "companyMainActivity": "What is Your Company Main Activity? (Limited to 3)",
   "companyEmployeeSize": "How Many Employees Have Your Company?",
-  "cityHiring": "Where Your Company Is Looking To Hire?"
+  "cityHiring": "Where Your Company Is Looking To Hire?",
+  "whatIsYourJob": "What Is The Job Title?",
+  "forWhichJobLevel:": "For Which Job Level:",
+  "yearsExperienceRequired": "Years of Experience Required:",
+  "languagesRequired": "Languages Required (Limited To 3):"
 }

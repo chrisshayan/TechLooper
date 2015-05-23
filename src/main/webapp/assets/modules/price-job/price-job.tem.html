@@ -59,20 +59,20 @@
         <div class="price-job-step-form">
           <form autocomplete="off">
           <div class="price-job-step-field">
-            <label>What is The Job Title? <strong>*</strong></label>
+            <label translate="whatIsYourJob"><strong>*</strong></label>
             <input type="text" id="txtJobTitle" ng-model="priceJob.jobTitle"
                    name="{{'jobTitle' | translate}}"
                    placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
             <div class="error-messages">{{error['priceJob.jobTitle']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label>For Which Job Level: <strong>*</strong></label>
+            <label>{{'whatIsYourJob' | translate}}<strong>*</strong></label>
             <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
                        ng-model="priceJob.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.jobLevelIds']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label>Years of Experience Required: <strong>*</strong></label>
+            <label translate="yearsExperienceRequired"><strong>*</strong></label>
             <selectize config='selectize.experience.config' options='selectize.experience.items'
                        ng-model="priceJob.yearsExperienceId" name="{{'experienceId' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
@@ -107,7 +107,7 @@
             <div class="error-messages">{{error.skills}}</div>
           </div>
           <div class="price-job-step-field">
-            <label>Languages Required:  (Limited to 3) <strong>*</strong></label>
+            <label translate="languagesRequired">Languages Required:  (Limited to 3) <strong>*</strong></label>
             <selectize config='selectize.languages.config' options='selectize.languages.items'
                        ng-model="priceJob.languages"
                        name="{{'languagesId' | translate}}"></selectize>

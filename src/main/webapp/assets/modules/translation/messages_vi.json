@@ -188,7 +188,7 @@
   "buyJobPostNow": "Đăng Tuyển Ngay",
   "jobPostAssessment": "Khảo Sát Tin Đăng Tuyển",
   "desPriceJobStep1": "Hãy bắt đầu xây dựng báo cáo công việc bằng những thông tin về công ty hiện tại của bạn. Tất cả những thông tin bạn chia sẻ với chúng tôi đều <strong>được bảo mật</strong> và <strong>không được chia</strong> sẻ với bất kỳ ai.",
-  "desPriceJobStep2": "Our job reports are based on <strong>real-time data</strong> that is collected and processed on a daily basis, so you can be confident in your decisions.",
+  "desPriceJobStep2": "Báo cáo công việc dựa trên <strong>dữ liệu mới nhất được cập nhật mỗi ngày</strong>, nên bạn có thể hoàn toàn tự tin với mọi quyết định. ",
   "yourJobReport": "Báo Cáo Công Việc",
   "emailMeSimilarJob": "Gửi công việc tương tự",
   "emailInvalid": "Sai định dạng email",
@@ -201,7 +201,11 @@
   "yourDetailedSalaryReport": "Báo cáo lương chi tiết",
   "companyMainActivity": "Công Ty Bạn Thuộc Ngành Nghề Gì? (Tối Đa 3 Ngành Nghề) *",
   "companyEmployeeSize": "Có Bao Nhiêu Nhân Viên Trong Công Ty Bạn?",
-  "cityHiring": "Công Ty Bạn Tuyển Dụng Ở Tỉnh/Thành Phố Nào?"
+  "cityHiring": "Công Ty Bạn Tuyển Dụng Ở Tỉnh/Thành Phố Nào?",
+  "whatIsYourJob": "Chức Danh:",
+  "forWhichJobLevel:": "Cấp Bậc:",
+  "yearsExperienceRequired": "Số Năm Kinh Nghiệm:",
+  "languagesRequired": "Ngôn Ngữ (Limited To 3):"
 }
 
 
