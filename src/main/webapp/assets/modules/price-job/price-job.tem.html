@@ -28,7 +28,7 @@
         <h3 translate="desPriceJobStep1"></h3>
         <div class="price-job-step-form">
           <div class="price-job-step-field">
-            <label translate="companyMainActivity"><strong>*</strong></label>
+            <label>{{'companyMainActivity' | translate}} <strong>*</strong></label>
             <selectize config='selectize.industries.config' options='selectize.industries.items'
                        ng-model="priceJob.jobCategories"
                        name="{{'jobCategory' | translate}}"></selectize>
@@ -36,13 +36,13 @@
           </div>
 
           <div class="price-job-step-field">
-            <label translate="companyEmployeeSize"> <strong>*</strong></label>
+            <label>{{'companyEmployeeSize' | translate}} <strong>*</strong></label>
             <selectize config='selectize.companySize.config' options='selectize.companySize.items'
                        ng-model="priceJob.companySizeId" name="{{'companySizeId' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.companySizeId']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label translate="cityHiring"> <strong>*</strong></label>
+            <label>{{'cityHiring' | translate}} <strong>*</strong></label>
             <selectize config='selectize.locations.config' options='selectize.locations.items'
                        ng-model="priceJob.locationId"
                        name="{{'location' | translate}}" class="locationSelectbox"></selectize>
