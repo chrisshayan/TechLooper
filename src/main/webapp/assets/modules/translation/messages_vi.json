@@ -199,13 +199,13 @@
   "experienceLevel": "Cấp bậc kinh nghiệm",
   "yourTargetPay": "Mức lương cho công việc này là <strong>${{averageSalary}}</strong> một tháng",
   "yourDetailedSalaryReport": "Báo cáo lương chi tiết",
-  "companyMainActivity": "Công Ty Bạn Thuộc Ngành Nghề Gì? (Tối Đa 3 Ngành Nghề) *",
+  "companyMainActivity": "Công Ty Bạn Thuộc Ngành Nghề Gì? (Tối Đa 3)",
   "companyEmployeeSize": "Có Bao Nhiêu Nhân Viên Trong Công Ty Bạn?",
   "cityHiring": "Công Ty Bạn Tuyển Dụng Ở Tỉnh/Thành Phố Nào?",
   "whatIsYourJob": "Chức Danh:",
-  "forWhichJobLevel:": "Cấp Bậc:",
+  "forWhichJobLevel": "Cấp Bậc:",
   "yearsExperienceRequired": "Số Năm Kinh Nghiệm:",
-  "languagesRequired": "Ngôn Ngữ (Limited To 3):"
+  "languagesRequired": "Ngôn Ngữ (Tối đa 3):"
 }
 
 
