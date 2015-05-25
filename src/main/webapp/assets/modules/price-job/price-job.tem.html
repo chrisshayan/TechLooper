@@ -130,7 +130,7 @@
             <li>
               <span translate="experienceLevel" />
               <p>
-                {{priceJob.jobLevelsMap[priceJob.jobLevelIds].translate | translate}}
+                {{jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate | translate}}
               </p>
             </li>
             <li>
@@ -150,13 +150,17 @@
           <div class="price-job-report-item">
             <div class="your-target-pay-block">
               <!--<h4>Your Target Pay</h4>-->
-              <div class="your-target-pay-content">
-                <!--<p>Your target pay for this job is <strong>${{priceJob.priceJobReport.averageSalary}}</strong> NET a month</p>-->
+              <div class="your-target-pay-content" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
                 <p translate="yourTargetPay" translate-value-average-salary="{{priceJob.priceJobReport.targetPay}}"></p>
+              </div>
+              <div class="your-target-pay-content" ng-show="priceJob.priceJobReport.targetPay === 'NaN'">
+                <p>
+                  {{'noSalaryAvailable' | translate}} <strong>{{priceJob.jobTitle}}</strong> {{'in' | translate}} <strong>{{jsonValue.locationsMap[priceJob.locationId].name}}</strong>. {{'whileImprove' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetJobReport' | translate}}
+                </p>
               </div>
             </div>
           </div>
-          <div class="price-job-report-item">
+          <div class="price-job-report-item" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
             <div class="job-title-salary-report">
               <h4 translate="yourDetailedSalaryReport" />
               <div class="job-title-salary-report-content">
@@ -170,11 +174,11 @@
                         <span>{{item.percent}}<sup>th</sup></span> ${{item.percentile}}
                       </div>
                     </li>
-                    <li><span>Average:</span>{{priceJob.priceJobReport.averageSalary}}</li>
+                    <li><span translate="average"></span>{{priceJob.priceJobReport.averageSalary}}</li>
                   </ul>
                 </div>
                 <div class="salary-percentile-chart">
-                  <div class="coming-soon-chart">Coming Soon...</div>
+                  <div class="coming-soon-chart" translate="comingSoon"></div>
                   <img src="images/price-job-chart.png" alt="" class="demo"/>
                 </div>
                 <div class="create-new-report">
