@@ -139,7 +139,6 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     @Override
     public FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds) {
         BoolFilterBuilder jobLevelFilterBuilder = boolFilter();
-        jobLevelFilterBuilder.must(nestedFilter("industries", termFilter("industries.industryId", itSoftwareIndustry)));
         for (Integer jobLevelId : jobLevelIds) {
             jobLevelFilterBuilder.should(termFilter("jobLevelId", jobLevelId));
         }
