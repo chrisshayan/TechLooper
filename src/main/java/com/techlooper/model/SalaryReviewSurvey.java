@@ -7,9 +7,9 @@ public class SalaryReviewSurvey {
 
     private Long salaryReviewId;
 
-    private boolean isUnderstandable;
+    private Boolean isUnderstandable;
 
-    private boolean isAccurate;
+    private Boolean isAccurate;
 
     private String feedback;
 
@@ -21,19 +21,19 @@ public class SalaryReviewSurvey {
         this.salaryReviewId = salaryReviewId;
     }
 
-    public boolean isUnderstandable() {
+    public Boolean getIsUnderstandable() {
         return isUnderstandable;
     }
 
-    public void setUnderstandable(boolean isUnderstandable) {
+    public void setIsUnderstandable(Boolean isUnderstandable) {
         this.isUnderstandable = isUnderstandable;
     }
 
-    public boolean isAccurate() {
+    public Boolean getIsAccurate() {
         return isAccurate;
     }
 
-    public void setAccurate(boolean isAccurate) {
+    public void setIsAccurate(Boolean isAccurate) {
         this.isAccurate = isAccurate;
     }
 
