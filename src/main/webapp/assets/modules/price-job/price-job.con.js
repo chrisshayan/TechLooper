@@ -226,4 +226,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         break;
     }
   }
+  $scope.createNewReport = function () {
+    $route.reload();
+  }
 });
