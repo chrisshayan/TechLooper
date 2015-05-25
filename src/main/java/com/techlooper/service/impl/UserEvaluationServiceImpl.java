@@ -272,4 +272,15 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return false;
     }
 
+    @Override
+    public boolean savePriceJobSurvey(PriceJobSurvey priceJobSurvey) {
+        PriceJobEntity priceJobEntity = priceJobReportRepository.findOne(priceJobSurvey.getPriceJobId());
+        if (priceJobEntity != null) {
+            priceJobEntity.setPriceJobSurvey(priceJobSurvey);
+            priceJobReportRepository.save(priceJobEntity);
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.PriceJobReport;
+import com.techlooper.model.PriceJobSurvey;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -46,6 +47,9 @@ public class PriceJobEntity {
 
     @Field(type = FieldType.Nested)
     private PriceJobReport priceJobReport;
+
+    @Field
+    private PriceJobSurvey priceJobSurvey;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -133,5 +137,13 @@ public class PriceJobEntity {
 
     public void setPriceJobReport(PriceJobReport priceJobReport) {
         this.priceJobReport = priceJobReport;
+    }
+
+    public PriceJobSurvey getPriceJobSurvey() {
+        return priceJobSurvey;
+    }
+
+    public void setPriceJobSurvey(PriceJobSurvey priceJobSurvey) {
+        this.priceJobSurvey = priceJobSurvey;
     }
 }

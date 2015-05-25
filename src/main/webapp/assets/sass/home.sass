@@ -26,7 +26,7 @@
         text-align: right
   .main-banner-block
     width: 100%
-    height: 600px
+    height: 650px
     position: relative
     top: 0
     left: 0
@@ -35,7 +35,7 @@
     .overlap-background
       background: url(../images/overlap-bg.png) left top repeat
       opacity: 0.7
-      height: 600px
+      height: 650px
       width: 100%
       display: block
       position: absolute
@@ -45,7 +45,7 @@
     .img-banner
       background: url(../images/banner.jpg) center top fixed no-repeat
       background-size: cover
-      height: 600px
+      height: 650px
       padding: 60px 25px
       position: absolute
       z-index: 77
@@ -72,7 +72,7 @@
         display: inline-block
         clear: both
         width: 100%
-        padding-top: 80px
+        padding-top: 70px
         .main-feature-item
           width: 480px
           background: url(../images/overlap-bg.png) left top repeat
@@ -124,30 +124,38 @@
           margin-left: 0
         .main-feature-item.right
           margin-right: 0
+        .main-feature-item.center
+          margin: auto
+          float: none
   .main-banner-block.hiring
+    text-align: center
     .img-banner
       background: url(../images/banner-hiring.jpg) center top fixed no-repeat
     .main-banner-content
-      padding: 200px 0 0
+      padding: 120px 0 0
+      text-align: center
       h2
         font-size: 45px
-    .evaluate-my-job-post
-      clear: both
-      display: inline-block
-      width: 100%
-      text-align: center
-      color: #fff
-      p
-        font-size: 22px
-      .evaluate-my-job-post-btn
-        display: inline-block
+      .evaluate-my-job-post
+        background: url(../images/overlap-bg.png) left top repeat
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
         clear: both
-        padding-top: 30px
-        .btn-purple
-          background-color: #007bdc
-          border: 0
-        a.btn-purple:active
-          color: #fff
+        display: inline-block
+        width: auto
+        text-align: center
+        color: #fff
+        padding: 15px 20px
+        margin: 20px auto auto auto
+        p
+          font-size: 22px
+          margin: 0
+          padding: 0 0 10px 0
+        .evaluate-my-job-post-btn
+          display: inline-block
+          clear: both
+          padding: 10px 0 20px 0
 
   .how-does-it-work-block
     display: inline-block

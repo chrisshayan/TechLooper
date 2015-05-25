@@ -1,4 +1,4 @@
-techlooper.controller("priceJobController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route, $location) {
+techlooper.controller("priceJobController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route, validatorService) {
 
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
 
@@ -114,7 +114,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     experience: {
       items: jsonValue.yearsOfExperience,
       config: {
-        valueField: 'id',
+        valueField: 'name',
         labelField: 'name',
         delimiter: '|',
         maxItems: 1,
@@ -214,6 +214,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
       case "step3":
         var priceJob = $.extend(true, {}, $scope.priceJob);
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
+        priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].id;
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
@@ -228,5 +229,19 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   }
   $scope.createNewReport = function () {
     $route.reload();
+  }
+
+  $scope.submitSurvey = function() {
+    $scope.error = validatorService.validate($(".salary-report-feedback-form").find("input"));
+    $scope.error = $.extend(true, $scope.error, validatorService.validate($(".salary-report-feedback-form").find("input")));
+
+    $http.post("savePriceJobSurvey", $scope.survey)
+      .success(function() {
+        $scope.survey.saved = true;
+      })
+  }
+  $scope.removeBoxContent = function (cls) {
+    //$scope.survey = {closed: true};
+    $('.' + cls).slideUp("normal", function () { $(this).remove(); });
   }
 });

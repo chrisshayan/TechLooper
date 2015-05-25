@@ -115,7 +115,7 @@ public class UserController {
         return salaryReview;
     }
 
-    @RequestMapping(value = "/saveSurvey", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveSalaryReviewSurvey", method = RequestMethod.POST)
     public void saveSurvey(@RequestBody SalaryReviewSurvey salaryReviewSurvey, HttpServletResponse httpServletResponse) {
         boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
         if (isSaved) {
@@ -129,6 +129,16 @@ public class UserController {
     public PriceJobEntity priceJob(@RequestBody PriceJobEntity priceJobEntity) {
         userEvaluationService.priceJob(priceJobEntity);
         return priceJobEntity;
+    }
+
+    @RequestMapping(value = "/savePriceJobSurvey", method = RequestMethod.POST)
+    public void savePriceJobSurvey(@RequestBody PriceJobSurvey priceJobSurvey, HttpServletResponse httpServletResponse) {
+        boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
+        if (isSaved) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
     }
 
 }

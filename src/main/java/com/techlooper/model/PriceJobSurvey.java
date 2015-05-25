@@ -1,11 +1,14 @@
 package com.techlooper.model;
 
-/**
- * Created by NguyenDangKhoa on 5/13/15.
- */
-public class SalaryReviewSurvey {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-    private Long salaryReviewId;
+/**
+ * Created by NguyenDangKhoa on 5/25/15.
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PriceJobSurvey {
+
+    private Long priceJobId;
 
     private Boolean isUnderstandable;
 
@@ -13,12 +16,12 @@ public class SalaryReviewSurvey {
 
     private String feedback;
 
-    public Long getSalaryReviewId() {
-        return salaryReviewId;
+    public Long getPriceJobId() {
+        return priceJobId;
     }
 
-    public void setSalaryReviewId(Long salaryReviewId) {
-        this.salaryReviewId = salaryReviewId;
+    public void setPriceJobId(Long priceJobId) {
+        this.priceJobId = priceJobId;
     }
 
     public Boolean getIsUnderstandable() {

@@ -296,7 +296,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.submitSurvey = function () {
     if ($scope.validateFeedback() == true) {
       $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
-      $http.post("saveSurvey", $scope.survey)
+      $http.post("saveSalaryReviewSurvey", $scope.survey)
         .success(function (data, status, headers, config) {
           $scope.survey.submitted = true;
         })
