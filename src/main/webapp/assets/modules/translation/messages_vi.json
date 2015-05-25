@@ -197,7 +197,7 @@
   "exLanguages": "Ví dụ: Tiếng Anh",
   "minEduLevel": "Trình độ học vấn",
   "experienceLevel": "Cấp Bậc",
-  "yourTargetPay": "Mức lương cho công việc này là <strong>${{averageSalary}}</strong> một tháng",
+  "yourTargetPay": "Bạn nên trả mức lương thực nhận <strong>${{averageSalary}}</strong> cho công việc này.",
   "yourDetailedSalaryReport": "Báo cáo lương chi tiết",
   "companyMainActivity": "Công Ty Bạn Thuộc Ngành Nghề Gì? (Tối Đa 3)",
   "companyEmployeeSize": "Có Bao Nhiêu Nhân Viên Trong Công Ty Bạn?",
