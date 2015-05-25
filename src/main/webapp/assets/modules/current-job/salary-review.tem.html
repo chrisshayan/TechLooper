@@ -356,14 +356,17 @@
                   <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
                   <input ng-model="jobAlert.email" type="email" required tl-model
                          id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
-                  <div class="error-messages">{{error['jobAlert.email']}}</div>
                   <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
                              required tl-model
                              ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>
-                  <div class="error-messages">{{error['jobAlert.frequency']}}</div>
+                  <div class="error-messages">
+                    {{error['jobAlert.email'] }}
+                    <span ng-if="error['jobAlert.email'].length && error['jobAlert.frequency'].length">; </span>
+                    {{error['jobAlert.frequency']}}
+                  </div>
                 </div>
                 <div class="row email-similar-jobs-field submit">
-                  <button class="btn btn-primary btn-flat" ng-click="createJobAlert()">Save</button>
+                  <button class="btn btn-primary btn-flat" ng-click="createJobAlert()" translate="save"></button>
                 </div>
               </div>
             </div>
