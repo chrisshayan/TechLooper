@@ -1,8 +1,11 @@
 package com.techlooper.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by NguyenDangKhoa on 5/25/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PriceJobSurvey {
 
     private Long priceJobId;

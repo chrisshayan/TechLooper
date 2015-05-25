@@ -13,225 +13,272 @@
     <h2 translate="jobPostEvaluation"></h2>
     <p translate>{{'salarySurveyContent' | translate}}</p>
   </div>
-  <div class="price-job-block">
-    <div class="navi-step-price-job">
-      <ul>
-        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}"><h2 translate="aboutYourCompany"></h2></li>
-        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}"><h2 translate="aboutYourJob"></h2></li>
-        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}"><h2 translate="yourJobReport"></h2></li>
-      </ul>
-    </div>
-    <div class="price-job-content">
-      <div class="arrow-up-active" ng-class="{step1: step ==='step1',step2: step ==='step2', step3: step ==='step3'}"><i class="fa fa-sort-down"></i></div>
-      <div class="price-job-step-content" ng-show="step==='step1'">
-        <h3 translate="desPriceJobStep1"></h3>
-        <div class="price-job-step-form">
-          <div class="price-job-step-field">
-            <label>{{'companyMainActivity' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.industries.config' options='selectize.industries.items'
-                       ng-model="priceJob.jobCategories"
-                       name="{{'jobCategory' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.jobCategories']}}</div>
-          </div>
-
-          <div class="price-job-step-field">
-            <label>{{'companyEmployeeSize' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.companySize.config' options='selectize.companySize.items'
-                       ng-model="priceJob.companySizeId" name="{{'companySizeId' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.companySizeId']}}</div>
-          </div>
-          <div class="price-job-step-field">
-            <label>{{'cityHiring' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.locations.config' options='selectize.locations.items'
-                       ng-model="priceJob.locationId"
-                       name="{{'location' | translate}}" class="locationSelectbox"></selectize>
-            <div class="error-messages">{{error['priceJob.locationId']}}</div>
-          </div>
-          <div class="price-job-step-field next-step">
-            <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')" translate="next"></button>
-          </div>
-          <div class="note" translate="noticeLine"></div>
-        </div>
+    <div class="price-job-block">
+      <div class="navi-step-price-job">
+        <ul>
+          <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}"><h2 translate="aboutYourCompany"></h2></li>
+          <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}"><h2 translate="aboutYourJob"></h2></li>
+          <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}"><h2 translate="yourJobReport"></h2></li>
+        </ul>
       </div>
-      <div class="price-job-step-content" ng-show="step==='step2'">
-        <h3 translate="desPriceJobStep2"></h3>
-        <div class="price-job-step-form">
-          <form autocomplete="off">
-          <div class="price-job-step-field">
-            <label>{{'whatIsYourJob' | translate}} <strong>*</strong></label>
-            <input type="text" id="txtJobTitle" ng-model="priceJob.jobTitle"
-                   name="{{'jobTitle' | translate}}"
-                   placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
-            <div class="error-messages">{{error['priceJob.jobTitle']}}</div>
+      <div class="price-job-content">
+        <div class="arrow-up-active" ng-class="{step1: step ==='step1',step2: step ==='step2', step3: step ==='step3'}"><i class="fa fa-sort-down"></i></div>
+        <div class="price-job-step-content" ng-show="step==='step1'">
+          <h3 translate="desPriceJobStep1"></h3>
+          <div class="price-job-step-form">
+            <div class="price-job-step-field">
+              <label>{{'companyMainActivity' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.industries.config' options='selectize.industries.items'
+                         ng-model="priceJob.jobCategories"
+                         name="{{'jobCategory' | translate}}"></selectize>
+              <div class="error-messages">{{error['priceJob.jobCategories']}}</div>
+            </div>
+
+            <div class="price-job-step-field">
+              <label>{{'companyEmployeeSize' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.companySize.config' options='selectize.companySize.items'
+                         ng-model="priceJob.companySizeId" name="{{'companySizeId' | translate}}"></selectize>
+              <div class="error-messages">{{error['priceJob.companySizeId']}}</div>
+            </div>
+            <div class="price-job-step-field">
+              <label>{{'cityHiring' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.locations.config' options='selectize.locations.items'
+                         ng-model="priceJob.locationId"
+                         name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+              <div class="error-messages">{{error['priceJob.locationId']}}</div>
+            </div>
+            <div class="price-job-step-field next-step">
+              <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')" translate="next"></button>
+            </div>
+            <div class="note" translate="noticeLine"></div>
           </div>
-          <div class="price-job-step-field">
-            <label>{{'forWhichJobLevel' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
-                       ng-model="priceJob.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.jobLevelIds']}}</div>
-          </div>
-          <div class="price-job-step-field">
-            <label>{{'yearsExperienceRequired' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.experience.config' options='selectize.experience.items'
-                       ng-model="priceJob.yearsExperienceId" name="{{'experienceId' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
-          </div>
-          <div class="price-job-step-field">
-            <label>{{'minEduLevel' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.education.config' options='selectize.education.items'
-                       ng-model="priceJob.educationRequiredId"
-                       name="{{'educationId' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.educationRequiredId']}}</div>
-          </div>
-          <div class="price-job-step-field">
-            <label> {{'mostRelevantSkills' | translate}}: <strong>*</strong></label>
-            <div class="top-three-skills">
-              <div class="added-list-skills">
-                <ul>
-                  <li ng-repeat="skill in priceJob.skills">
-                    <span class="left">
-                      <span class="right"><i>{{skill}}</i>
-                        <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
+        </div>
+        <div class="price-job-step-content" ng-show="step==='step2'">
+          <h3 translate="desPriceJobStep2"></h3>
+          <div class="price-job-step-form">
+            <form autocomplete="off">
+            <div class="price-job-step-field">
+              <label>{{'whatIsYourJob' | translate}} <strong>*</strong></label>
+              <input type="text" id="txtJobTitle" ng-model="priceJob.jobTitle"
+                     name="{{'jobTitle' | translate}}"
+                     placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
+              <div class="error-messages">{{error['priceJob.jobTitle']}}</div>
+            </div>
+            <div class="price-job-step-field">
+              <label>{{'forWhichJobLevel' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+                         ng-model="priceJob.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+              <div class="error-messages">{{error['priceJob.jobLevelIds']}}</div>
+            </div>
+            <div class="price-job-step-field">
+              <label>{{'yearsExperienceRequired' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.experience.config' options='selectize.experience.items'
+                         ng-model="priceJob.yearsExperienceId" name="{{'experienceId' | translate}}"></selectize>
+              <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
+            </div>
+            <div class="price-job-step-field">
+              <label>{{'minEduLevel' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.education.config' options='selectize.education.items'
+                         ng-model="priceJob.educationRequiredId"
+                         name="{{'educationId' | translate}}"></selectize>
+              <div class="error-messages">{{error['priceJob.educationRequiredId']}}</div>
+            </div>
+            <div class="price-job-step-field">
+              <label> {{'mostRelevantSkills' | translate}}: <strong>*</strong></label>
+              <div class="top-three-skills">
+                <div class="added-list-skills">
+                  <ul>
+                    <li ng-repeat="skill in priceJob.skills">
+                      <span class="left">
+                        <span class="right"><i>{{skill}}</i>
+                          <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
+                        </span>
                       </span>
-                    </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
+                <div class="add-skill-input">
+                  <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="{{'mostRelevantSkills.placeholder' | translate}}"/>
+                  <button ng-click="addNewSkill()" ng-disabled="priceJob.skills.length >= 3">{{'add' | translate}}</button>
+                </div>
+              </div>
+              <div class="error-messages">{{error.skills}}</div>
+            </div>
+            <div class="price-job-step-field">
+              <label>{{'languagesRequired' | translate}} <strong>*</strong></label>
+              <selectize config='selectize.languages.config' options='selectize.languages.items'
+                         ng-model="priceJob.languagesId"
+                         name="{{'languagesId' | translate}}"></selectize>
+              <div class="error-messages">{{error['priceJob.languagesId']}}</div>
+            </div>
+            <div class="price-job-step-field  next-step">
+              <a ng-click="nextStep('step1')" translate="goBack"></a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')" translate="next"></button>
+            </div>
+            <div class="note" translate="noticeLine"></div>
+            </form>
+          </div>
+        </div>
+        <div class="price-job-step-content" ng-show="step==='step3'">
+          <div class="user-personal-info">
+            <ul>
+              <li>
+                <span translate="jobTitle"/>
+                <p>{{priceJob.jobTitle}}</p>
+              </li>
+              <li>
+                <span translate="experienceLevel" />
+                <p>
+                  {{jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate | translate}}
+                </p>
+              </li>
+              <li>
+                <span translate="skills" />
+                <p>{{priceJob.skills.join(" | ")}}</p>
+              </li>
+              <li>
+                <span translate="jobCategory" />
+                <p>{{priceJob.jobCategoryLabels.join(" | ")}}</p>
+              </li>
+            </ul>
+            <div class="verified-data">
+              <img src="images/verified-data.png" alt=""/>
+            </div>
+          </div>
+          <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
+            <h3>{{'yourTargetPay' | translate}}</h3>
+            <div class="your-pay-snapshot-content">
+              <div class="your-pay-snapshot-info">
+                <ul>
+                  <li class="fullCol">
+                    <p translate="yourShouldPay" translate-value-average-salary="{{priceJob.priceJobReport.targetPay.toLocaleString()}}"></p>
                   </li>
                 </ul>
               </div>
-              <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
-              <div class="add-skill-input">
-                <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="{{'mostRelevantSkills.placeholder' | translate}}"/>
-                <button ng-click="addNewSkill()" ng-disabled="priceJob.skills.length >= 3">{{'add' | translate}}</button>
-              </div>
-            </div>
-            <div class="error-messages">{{error.skills}}</div>
-          </div>
-          <div class="price-job-step-field">
-            <label>{{'languagesRequired' | translate}} <strong>*</strong></label>
-            <selectize config='selectize.languages.config' options='selectize.languages.items'
-                       ng-model="priceJob.languagesId"
-                       name="{{'languagesId' | translate}}"></selectize>
-            <div class="error-messages">{{error['priceJob.languagesId']}}</div>
-          </div>
-          <div class="price-job-step-field  next-step">
-            <a ng-click="nextStep('step1')" translate="goBack"></a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')" translate="next"></button>
-          </div>
-          <div class="note" translate="noticeLine"></div>
-          </form>
-        </div>
-      </div>
-      <div class="price-job-step-content" ng-show="step==='step3'">
-        <div class="user-personal-info">
-          <ul>
-            <li>
-              <span translate="jobTitle"/>
-              <p>{{priceJob.jobTitle}}</p>
-            </li>
-            <li>
-              <span translate="experienceLevel" />
-              <p>
-                {{jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate | translate}}
-              </p>
-            </li>
-            <li>
-              <span translate="skills" />
-              <p>{{priceJob.skills.join(" | ")}}</p>
-            </li>
-            <li>
-              <span translate="jobCategory" />
-              <p>{{priceJob.jobCategoryLabels.join(" | ")}}</p>
-            </li>
-          </ul>
-          <div class="verified-data">
-            <img src="images/verified-data.png" alt=""/>
-          </div>
-        </div>
-        <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
-          <h3>{{'yourTargetPay' | translate}}</h3>
-          <div class="your-pay-snapshot-content">
-            <div class="your-pay-snapshot-info">
-              <ul>
-                <li class="fullCol">
-                  <p translate="yourShouldPay" translate-value-average-salary="{{priceJob.priceJobReport.targetPay.toLocaleString()}}"></p>
-                </li>
-              </ul>
-            </div>
-            <div class="your-pay-snapshot-chart">
-              <p>{{'median' | translate}}</p>
-              <div class="chart-percent-line">
-                <div class="percent-data">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">0%</div>
-                </div>
-                <div ng-repeat="item in priceJob.priceJobReport.priceJobSalaries" class="percent-data" ng-style="{width: item.percent +'%'}">
-                  <div class="salary-number-label">${{item.percentile.toLocaleString()}}</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">{{item.percent}}%</div>
-                </div>
-                <div class="my-current-rank" style="left: 50%">
-                  <div class="my-current-salary">
-                    <span>{{'targetPay' | translate}}: ${{priceJob.priceJobReport.targetPay.toLocaleString()}}</span>
-                    <i class="fa fa-sort-down"></i>
+              <div class="your-pay-snapshot-chart">
+                <p>{{'median' | translate}}</p>
+                <div class="chart-percent-line">
+                  <div class="percent-data">
+                    <div class="salary-number-label">$0</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">0%</div>
                   </div>
-                  <div class="my-position">
-                    <i class="fa fa-star"></i>
+                  <div ng-repeat="item in priceJob.priceJobReport.priceJobSalaries" class="percent-data" ng-style="{width: item.percent +'%'}">
+                    <div class="salary-number-label">${{item.percentile.toLocaleString()}}</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">{{item.percent}}%</div>
+                  </div>
+                  <div class="my-current-rank" style="left: 50%">
+                    <div class="my-current-salary">
+                      <span>{{'targetPay' | translate}}: ${{priceJob.priceJobReport.targetPay.toLocaleString()}}</span>
+                      <i class="fa fa-sort-down"></i>
+                    </div>
+                    <div class="my-position">
+                      <i class="fa fa-star"></i>
+                    </div>
                   </div>
                 </div>
+                <div class="arrow-right"></div>
+                <p class="note">{{'netSalary' | translate}}</p>
               </div>
-              <div class="arrow-right"></div>
-              <p class="note">{{'netSalary' | translate}}</p>
+              <div class="create-new-report">
+              <a ng-click="createNewReport()" class="btn btn-primary btn-flat ng-binding">{{'createNewReport' | translate}}</a>
+              </div>
             </div>
-            <div class="create-new-report">
-            <a ng-click="createNewReport()" class="btn btn-primary btn-flat ng-binding">{{'createNewReport' | translate}}</a>
+          </div>
+          <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport.targetPay == 'NaN'">
+            <h3>{{'yourPaySnapshot' | translate}}</h3>
+            <div class="your-pay-snapshot-content">
+              <div class="your-pay-snapshot-info">
+                <ul>
+                  <li class="fullCol">
+                    {{'noSalaryAvailable' | translate}} <strong>{{priceJob.jobTitle}}</strong> {{'in' | translate}} <strong>{{jsonValue.locationsMap[priceJob.locationId].name}}</strong>. {{'whileImprove' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetJobReport' | translate}}
+                  </li>
+                </ul>
+              </div>
+              <div class="your-pay-snapshot-chart gray-background">
+                <p>Median</p>
+                <div class="chart-percent-line">
+                  <div class="percent-data zero">
+                    <div class="salary-number-label">$0</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">0%</div>
+                  </div>
+                  <div class="percent-data percent10">
+                    <div class="salary-number-label">$0</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">10%</div>
+                  </div>
+                  <div class="percent-data percent25">
+                    <div class="salary-number-label">$0</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">25%</div>
+                  </div>
+                  <div class="percent-data percent50">
+                    <div class="salary-number-label">$0</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">50%</div>
+                  </div>
+                  <div class="percent-data percent75">
+                    <div class="salary-number-label">$0</div>
+                    <div class="percent-color"></div>
+                    <div class="percent-number-label">75%</div>
+                  </div>
+                </div>
+                <div class="arrow-right"></div>
+                <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
             </div>
           </div>
         </div>
-        <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport.targetPay == 'NaN'">
-          <h3>{{'yourPaySnapshot' | translate}}</h3>
-          <div class="your-pay-snapshot-content">
-            <div class="your-pay-snapshot-info">
-              <ul>
-                <li class="fullCol">
-                  {{'noSalaryAvailable' | translate}} <strong>{{priceJob.jobTitle}}</strong> {{'in' | translate}} <strong>{{jsonValue.locationsMap[priceJob.locationId].name}}</strong>. {{'whileImprove' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}}</a> {{'toGetJobReport' | translate}}
-                </li>
-              </ul>
+          <div class="salary-report-feedback">
+            <div class="title-header">
+              <h3 translate="whatYouThinkReport"></h3>
+              <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
             </div>
-            <div class="your-pay-snapshot-chart gray-background">
-              <p>Median</p>
-              <div class="chart-percent-line">
-                <div class="percent-data zero">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">0%</div>
-                </div>
-                <div class="percent-data percent10">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">10%</div>
-                </div>
-                <div class="percent-data percent25">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">25%</div>
-                </div>
-                <div class="percent-data percent50">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">50%</div>
-                </div>
-                <div class="percent-data percent75">
-                  <div class="salary-number-label">$0</div>
-                  <div class="percent-color"></div>
-                  <div class="percent-number-label">75%</div>
-                </div>
-              </div>
-              <div class="arrow-right"></div>
-              <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
+            <div class="salary-report-feedback-form">
+              <form autocomplete="off" ng-show="!survey.saved">
+                <ul>
+                  <li>
+                    <p translate="understandReport?"></p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input ng-model="survey.isUnderstandable" value="true" required
+                               type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
+                      </div>
+                      <div class="select-item">
+                        <input ng-model="survey.isUnderstandable" value="false"  required
+                               type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
+                      </div>
+                    </div>
+                    <div class="error-messages">{{error['survey.isUnderstandable']}}</div>
+                  </li>
+                  <li>
+                    <p translate="resultReportAccurate"></p>
+                    <div class="select-group">
+                      <div class="select-item">
+                        <input ng-model="survey.isAccurate" value="true" type="radio" required
+                               name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
+                      </div>
+                      <div class="select-item">
+                        <input ng-model="survey.isAccurate" value="false" type="radio" required
+                               name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
+                      </div>
+                    </div>
+                    <div class="error-messages">{{error['survey.isAccurate']}}</div>
+                  </li>
+                  <li>
+                    <label for="txtFeedback" translate="haveAnyFeedback"></label>
+                    <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+                  </li>
+                  <li>
+                    <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
+                  </li>
+                </ul>
+              </form>
+              <div ng-show="survey.saved" translate="thanksForHelp"></div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
-
