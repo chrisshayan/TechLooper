@@ -77,14 +77,14 @@
             <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label>{{'minEduLevel' | translate}}: <strong>*</strong></label>
+            <label>{{'minEduLevel' | translate}} <strong>*</strong></label>
             <selectize config='selectize.education.config' options='selectize.education.items'
                        ng-model="priceJob.educationRequiredId"
                        name="{{'educationId' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.educationRequiredId']}}</div>
           </div>
           <div class="price-job-step-field">
-            <label> {{'mostRelevantSkills' | translate}} <strong>*</strong></label>
+            <label> {{'mostRelevantSkills' | translate}}: <strong>*</strong></label>
             <div class="top-three-skills">
               <div class="added-list-skills">
                 <ul>
@@ -150,7 +150,7 @@
             <div class="your-target-pay-block">
               <!--<h4>Your Target Pay</h4>-->
               <div class="your-target-pay-content" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
-                <p translate="yourTargetPay" translate-value-average-salary="{{priceJob.priceJobReport.targetPay}}"></p>
+                <p translate="yourTargetPay" translate-value-average-salary="{{priceJob.priceJobReport.targetPay.toLocaleString()}}"></p>
               </div>
               <div class="your-target-pay-content" ng-show="priceJob.priceJobReport.targetPay === 'NaN'">
                 <p>
@@ -167,13 +167,12 @@
                   <ul>
                     <li ng-repeat="item in priceJob.priceJobReport.priceJobSalaries">
                       <div ng-if="item.percent === 50">
-                        <strong><span>{{item.percent}}<sup>th</sup></span> ${{item.percentile}}</strong>
+                        <strong><span>{{item.percent}}<sup>th</sup></span> ${{item.percentile.toLocaleString()}}</strong>
                       </div>
                       <div ng-if="item.percent != 50">
-                        <span>{{item.percent}}<sup>th</sup></span> ${{item.percentile}}
+                        <span>{{item.percent}}<sup>th</sup></span> ${{item.percentile.toLocaleString()}}
                       </div>
                     </li>
-                    <li><span translate="average"></span> ${{priceJob.priceJobReport.averageSalary}}</li>
                   </ul>
                 </div>
                 <div class="salary-percentile-chart">
