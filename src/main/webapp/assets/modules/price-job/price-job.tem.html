@@ -191,31 +191,35 @@
               <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
             </div>
             <div class="salary-report-feedback-form">
-              <form autocomplete="off">
+              <form autocomplete="off" ng-show="!survey.saved">
                 <ul>
                   <li>
                     <p translate="understandReport?"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
+                        <input ng-model="survey.isUnderstandable" value="true" required
+                               type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
                       </div>
                       <div class="select-item">
-                        <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
+                        <input ng-model="survey.isUnderstandable" value="false"  required
+                               type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
                       </div>
                     </div>
-                    <div class="error-messages">{{errorFeedback.understand}}</div>
+                    <div class="error-messages">{{error['survey.isUnderstandable']}}</div>
                   </li>
                   <li>
                     <p translate="resultReportAccurate"></p>
                     <div class="select-group">
                       <div class="select-item">
-                        <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
+                        <input ng-model="survey.isAccurate" value="true" type="radio" required
+                               name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
                       </div>
                       <div class="select-item">
-                        <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
+                        <input ng-model="survey.isAccurate" value="false" type="radio" required
+                               name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
                       </div>
                     </div>
-                    <div class="error-messages">{{errorFeedback.accurate}}</div>
+                    <div class="error-messages">{{error['survey.isAccurate']}}</div>
                   </li>
                   <li>
                     <label for="txtFeedback" translate="haveAnyFeedback"></label>
@@ -226,7 +230,7 @@
                   </li>
                 </ul>
               </form>
-              <div class="note" translate="thanksForHelp"></div>
+              <div ng-show="survey.saved" translate="thanksForHelp"></div>
             </div>
           </div>
         </div>
