@@ -109,7 +109,7 @@
           <div class="price-job-step-field">
             <label>{{'languagesRequired' | translate}} <strong>*</strong></label>
             <selectize config='selectize.languages.config' options='selectize.languages.items'
-                       ng-model="priceJob.languages"
+                       ng-model="priceJob.languagesId"
                        name="{{'languagesId' | translate}}"></selectize>
             <div class="error-messages">{{error['priceJob.languagesId']}}</div>
           </div>
