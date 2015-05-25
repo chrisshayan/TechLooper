@@ -196,7 +196,7 @@
   "exLanguages": "Ex: English",
   "minEduLevel": "What is the minimum education level required?",
   "experienceLevel": "Job Level",
-  "yourTargetPay": "Your target pay for this job is <strong>${{averageSalary}}</strong> NET a month",
+  "yourTargetPay": "You should pay <strong>${{averageSalary}}</strong> NET a month for this job.",
   "yourDetailedSalaryReport": "Your Detailed Salary Report",
   "companyMainActivity": "What is Your Company Main Activity? (Limited to 3)",
   "companyEmployeeSize": "How Many Employees Does Your Company Have?",
