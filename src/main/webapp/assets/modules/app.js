@@ -81,17 +81,20 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         suffix: ".json"
       })
       .registerAvailableLanguageKeys(['en', 'vi'], {
-        'en-US': 'en', 'en-UK': 'en', 'en_US': 'en', 'en_UK': 'en'
+        'en-US': 'en', 'en-UK': 'en', 'en_US': 'en', 'en_UK': 'en', "*": "en"
       })
-      .fallbackLanguage("en")
+      .fallbackLanguage('en')
       .uniformLanguageTag('bcp47') // enable BCP-47, must be before determinePreferredLanguage!
-      .determinePreferredLanguage()
-      .useSanitizeValueStrategy('escaped');
+      .determinePreferredLanguage();
 
     $routeProvider
       .when("/home", {
         templateUrl: "modules/home-page/home-page.tem.html",
         controller: "homePageController"
+      })
+      .when("/hiring", {
+        templateUrl: "modules/hiring/hiring.tem.html",
+        controller: "hiringController"
       })
       .when("/talent-profile/:text", {
         templateUrl: "modules/talent-search/home.tem.html",
@@ -152,6 +155,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/salary-review", {
         templateUrl: "modules/current-job/salary-review.tem.html",
         controller: "salaryReviewController"
+      })
+      .when("/price-job", {
+        templateUrl: "modules/price-job/price-job.tem.html",
+        controller: "priceJobController"
       })
       .otherwise({
         redirectTo: function () {

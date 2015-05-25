@@ -1,5 +1,5 @@
 techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
-                                                          $route, $location, $anchorScroll) {
+                                                          $route, $location, connectionFactory, $timeout, validatorService) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   var genders = $.extend(true, [], jsonValue.genders);
   var timeToSends = $.extend(true, [], jsonValue.timeToSends);
@@ -126,7 +126,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
     }
   }
-  $scope.selectedTime = $translate.instant("day");
+  //$scope.selectedTime = $translate.instant("day");
   $scope.error = {};
   $scope.salaryReview = {
     genderId: '',
@@ -210,7 +210,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       return;
     }
 
-    if(step === "step2"){
+    if (step === "step2") {
       $('.locationSelectbox input').click();
     }
     var swstep = step || $scope.step;
@@ -240,22 +240,22 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $route.reload();
   }
 
-  $scope.openFacebookShare = function() {
+  $scope.openFacebookShare = function () {
     window.open(
       'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime,
-      'name','width=450,height=350');
+      'name', 'width=450,height=350');
   }
 
   /*
    {
-     "jobTitle": "java developer",
-     "skills": ["java", "j2ee", "spring framework"],
-     "locationId": "29",
-     "jobLevelIds": [5, 6],
-     "jobCategories": ["35"],
-     "companySizeId": "",
-     "netSalary": 1000,
-     "reportTo": "manager",
+   "jobTitle": "java developer",
+   "skills": ["java", "j2ee", "spring framework"],
+   "locationId": "29",
+   "jobLevelIds": [5, 6],
+   "jobCategories": ["35"],
+   "companySizeId": "",
+   "netSalary": 1000,
+   "reportTo": "manager",
    }
    http://localhost:8080/#/salary-review?campaign=vnw&lang=vi&jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
    * */
@@ -271,45 +271,94 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.step = "step1";
   }
   $scope.errorFeedback = {};
-  $scope.validateFeedback = function(){
-    if($scope.survey === undefined){
+  $scope.validateFeedback = function () {
+    if ($scope.survey === undefined) {
       $scope.errorFeedback.understand = $rootScope.translate.requiredThisField;
       $scope.errorFeedback.accurate = $rootScope.translate.requiredThisField;
-    }else{
-      if($scope.survey.isUnderstandable){
+    }
+    else {
+      if ($scope.survey.isUnderstandable) {
         delete $scope.errorFeedback.understand;
-      }else{
+      }
+      else {
         $scope.errorFeedback.understand = $rootScope.translate.requiredThisField;
       }
-      if($scope.survey.isAccurate){
+      if ($scope.survey.isAccurate) {
         delete $scope.errorFeedback.accurate;
-      }else{
+      }
+      else {
         $scope.errorFeedback.accurate = $rootScope.translate.requiredThisField;
       }
 
     }
     return $.isEmptyObject($scope.errorFeedback);
   }
-  $scope.submitSurvey = function() {
-    if($scope.validateFeedback() == true){
+  $scope.submitSurvey = function () {
+    if ($scope.validateFeedback() == true) {
       $scope.survey.salaryReviewId = $scope.salaryReview.createdDateTime;
       $http.post("saveSurvey", $scope.survey)
-          .success(function (data, status, headers, config) {
-            $scope.survey.submitted = true;
-          })
-          .error(function (data, status, headers, config) {
-          });
+        .success(function (data, status, headers, config) {
+          $scope.survey.submitted = true;
+        })
+        .error(function (data, status, headers, config) {
+        });
       $('.email-get-similar-jobs').focus();
-    }else{
+    }
+    else {
       return;
     }
   }
 
-  $scope.removeBoxContent = function(cls){
-    $scope.survey = {closed: true};
-    $('.salary-report-feedback').addClass('hide');
-    $('.'+cls).slideUp("normal", function() { $(this).remove(); } );
+  $scope.removeBoxContent = function (cls) {
+    //$scope.survey = {closed: true};
+    $('.' + cls).slideUp("normal", function () { $(this).remove(); });
   }
 
-  //$anchorScroll();
+  $scope.doJobAlert = function () {
+    $('.email-me-similar-jobs').hide();
+    $('.email-similar-jobs-block').slideDown("normal");
+    var jobAlert = $.extend({}, $scope.salaryReview);
+    jobAlert.frequency = timeToSends[0].id;
+    delete jobAlert.salaryReport;
+    delete jobAlert.topPaidJobs;
+    $scope.jobAlert = jobAlert;
+  }
+
+  var jobAlertTimeout;
+  $scope.$watch("jobAlert", function () {
+    if (jobAlertTimeout !== undefined) {
+      $timeout.cancel(jobAlertTimeout);
+    }
+    if (!$scope.jobAlert) {
+      return;
+    }
+
+    jobAlertTimeout = $timeout(function () {
+      var jobAlert = $.extend({}, $scope.jobAlert);
+      jobAlert.jobLevelIds = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].ids;
+      connectionFactory.searchJobAlert(jobAlert).finally(null, function (data) {
+        $scope.jobsTotal = data.total;
+      });
+      jobAlertTimeout = undefined;
+    }, 500);
+  }, true);
+
+  $scope.createJobAlert = function () {
+    var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+    if (!$.isEmptyObject(error)) {
+      $scope.error = error;
+      return;
+    }
+    var jobAlert = $.extend({}, $scope.jobAlert);
+    jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
+    jobAlert.lang = jsonValue.languages['' + $translate.use()];
+    connectionFactory.createJobAlert(jobAlert).then(function () {
+      $('.email-similar-jobs-block').slideUp("normal", function(){
+        $('.success-alert-box').addClass('show');
+        $timeout(function(){
+          $('.success-alert-box').removeClass('show');
+        }, 2500);
+      });
+    });
+  }
 });

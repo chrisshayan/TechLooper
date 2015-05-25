@@ -143,6 +143,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/jobs\/search/i.test(path)) {
         return jsonValue.views.jobsSearch;
       }
+      else if (/\/hiring/.test(path)) {
+        return jsonValue.views.hiring;
+      }
       else if (/\/bubble-chart/.test(path)) {
         return jsonValue.views.bubbleChart;
       }
@@ -184,6 +187,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/companies\//i.test(path)) {
         return jsonValue.views.companyProfile;
+      }
+      else if (/\/price-job/.test(path)) {
+        return jsonValue.views.priceJob;
       }
     },
 

@@ -157,6 +157,7 @@ angular.module("Common").constant("jsonValue", (function () {
     routerUris: {
       landing: "/landing",
       home: "/home",
+      hiring: "/hiring",
       talentSearchResult: "/talent-search-result",
       talentProfile: "/talent-profile",
       companyProfile: "/companies",
@@ -170,12 +171,14 @@ angular.module("Common").constant("jsonValue", (function () {
       analyticsSkill: "/analytics/skill",
       signIn: "/signin",
       register: "/register",
-      userProfile: "/user"
+      userProfile: "/user",
+      priceJob: "/price-job"
     },
 
     views: {
       landing: "landing",
       home: "home",
+      hiring: "hiring",
       talentSearchResult: "talentSearchResult",
       talentProfile: "talentProfile",
       companyProfile: "companyProfile",
@@ -190,7 +193,8 @@ angular.module("Common").constant("jsonValue", (function () {
       pieChart: "pieChart",
       signIn: "signin",
       register: "register",
-      userProfile: "userProfile"
+      userProfile: "userProfile",
+      priceJob: "priceJob"
     },
 
     httpUri: {
@@ -218,7 +222,10 @@ angular.module("Common").constant("jsonValue", (function () {
       subscribeTerm: "/topic/jobs/term/",
 
       sendJobsSearch: "/app/jobs/search",
+      sendSearchJobAlert: "/app/jobs/searchJobAlert",
+      createSearchJobAlert: "/app/jobs/createJobAlert",
       subscribeJobsSearch: "/topic/jobs/search",
+      subscribeSearchJobAlert: "/topic/jobs/searchJobAlert",
 
       analyticsSkill: "/app/analytics/skill",
       subscribeAnalyticsSkill: "/topic/analytics/skill",
@@ -664,16 +671,20 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 2, translate: "genderFemale"}
     ],
     timeToSends: [
-      //{id: 1, translate: "day"},
-      {id: 2, translate: "week"},
-      {id: 3, translate: "month"}
+      {id: 1, translate: "day"},
+      {id: 3, translate: "week"}
     ],
+    languages: {
+      undefined: 2,
+      en: 2,
+      vi: 1
+    },
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
-      {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1]},
-      {id: 5, name: "EXPERIENCED", translate: "experienced", ids: [5, 6]},
-      {id: 7, name: "MANAGER", translate: "manager", ids: [7]},
-      {id: 10, name: "DIRECTOR_PLUS", translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
+      {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1], alertId: 1},
+      {id: 5, name: "EXPERIENCED", translate: "experienced", ids: [5, 6], alertId: 5},
+      {id: 7, name: "MANAGER", translate: "manager", ids: [7], alertId: 7},
+      {id: 10, name: "DIRECTOR_PLUS", translate: "directorAndAbove", ids: [10, 3, 4, 8, 9], alertId: 3}
     ],
 
     locations: [
@@ -745,6 +756,77 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 70, name: "International"},
       {id: 71, name: "Mekong Delta"},
       {id: 72, name: "Hau Giang"}
+    ],
+    "languagesJob": [
+      {id: 38, name: "Vietnamese"},
+      {id: 12, name: "English"},
+      {id: 21, name: "Japanese"},
+      {id: 1, name: "Arabic"},
+      {id: 2, name: "Bengali"},
+      {id: 3, name: "Bulgarian"},
+      {id: 4, name: "Burmese"},
+      {id: 5, name: "Cambodian"},
+      {id: 6, name: "Cebuano"},
+      {id: 7, name: "Chinese (Cantonese)"},
+      {id: 8, name: "Chinese (Mandarin)"},
+      {id: 9, name: "Czech"},
+      {id: 10, name: "Danish"},
+      {id: 11, name: "Dutch"},
+      {id: 13, name: "Finnish"},
+      {id: 14, name: "French"},
+      {id: 15, name: "German"},
+      {id: 16, name: "Greek"},
+      {id: 17, name: "Hindi"},
+      {id: 18, name: "Hungarian"},
+      {id: 19, name: "Indonesian"},
+      {id: 20, name: "Italian"},
+      {id: 22, name: "Javanese"},
+      {id: 23, name: "Korean"},
+      {id: 24, name: "Laotian"},
+      {id: 25, name: "Malay"},
+      {id: 26, name: "Norwegian"},
+      {id: 27, name: "Polish"},
+      {id: 28, name: "Portuguese"},
+      {id: 29, name: "Romanian"},
+      {id: 30, name: "Russian"},
+      {id: 31, name: "Spanish"},
+      {id: 32, name: "Swedish"},
+      {id: 33, name: "Tagolog"},
+      {id: 34, name: "Taiwanese"},
+      {id: 35, name: "Thai"},
+      {id: 36, name: "Turkish"},
+      {id: 37, name: "Ukranian"},
+      {id: 39, name: "Other"}
+    ],
+    "educationLevel": [
+      {id: 2, name: "High school"},
+      {id: 3, name: "Associate’s degree"},
+      {id: 4, name: "College"},
+      {id: 5, name: "Bachelors"},
+      {id: 6, name: "Bachelor of Engineering"},
+      {id: 7, name: "Post-graduate"},
+      {id: 8, name: "CPA"},
+      {id: 9, name: "Masters"},
+      {id: 10, name: "MBA"},
+      {id: 11, name: "JD"},
+      {id: 12, name: "Doctorate"},
+      {id: 13, name: "Doctor of Pharmacy (PharmD)"},
+      {id: 14, name: "MD"},
+      {id: 15, name: "Others"}
+    ],
+    "yearsOfExperience": [
+      {id: 1, name: "Entry-Level"},
+      {id: 2, name: "0"},
+      {id: 3, name: "1"},
+      {id: 4, name: "2"},
+      {id: 5, name: "3"},
+      {id: 6, name: "4"},
+      {id: 7, name: "5"},
+      {id: 8, name: "6"},
+      {id: 9, name: "7"},
+      {id: 10, name: "8"},
+      {id: 11, name: "9"},
+      {id: 12, name: "10 or more"}
     ]
   }
 

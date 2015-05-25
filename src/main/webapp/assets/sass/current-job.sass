@@ -704,7 +704,7 @@
             height: auto
             loat: left
         .email-me-similar-jobs
-          display: none
+          display: block
           clear: both
           width: 100%
           padding-top: 10px
@@ -763,68 +763,96 @@
         padding: 15px 0 0 0
     .best-paid-company:first-child
       margin-left: 1.5%
-
-.email-similar-jobs
-  text-align: left
-  .modal-dialog
-    top: 15%
-  .modal-header
-    background-color: #f7f7f7
-    -webkit-border-top-left-radius: 5px
-    -webkit-border-top-right-radius: 5px
-    -moz-border-radius-topleft: 5px
-    -moz-border-radius-topright: 5px
-    border-top-left-radius: 5px
-      border-top-right-radius: 5px
-  h4
-    font-size: 16px
-    font-weight: 400
-    text-align: left
-  .email-similar-jobs-form
-    padding: 20px
-    width: 100%
-    text-align: left
-    .email-similar-jobs-field
-      display: block
-      clear: both
-      padding-bottom: 5px
-      label
-        float: left
-        width: 28%
-        font-size: 14px
-        font-weight: 300
-        padding-top: 7px
-        strong
-          color: red
-          font-weight: 300
-      label.time-to-send
-        width: 15%
-        padding-right: 10px
-        text-align: right
-      input
-        border: 1px solid #d4d7d8
+.salary-review-page
+  .salary-review-block
+    .salary-review-content
+      .email-similar-jobs-block
+        text-align: center
+        background-color: #f4f4f4
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
         border-radius: 5px
-        line-height: 32px
-        padding: 0 10px
-        width: 72%
-        float: left
-        margin-bottom: 5px
-      input.email-get-similar-jobs
-        width: 51%
-      .selectize-control
-        width: 72%
-        float: left
-      .selectize-control.select-time-to-send
-        width: 20%
-        margin-left: 1%
-      .selectize-control.multi .selectize-input.has-items
-        padding-left: 4px
-      p
-        width: 100%
-        padding-left: 28%
-        font-weight: 400
-        font-size: 16px
-        margin: 0
+        padding: 15px 0 0
+        display: none
+        h3
+          font-size: 16px
+          font-weight: 400
+        .email-similar-jobs-form
+          padding: 20px
+          width: 70%
+          text-align: left
+          margin: auto
+          .email-similar-jobs-field
+            display: block
+            clear: both
+            padding-bottom: 5px
+            .error-messages
+              font-style: italic
+              color: red
+              font-size: 12px
+              padding-left: 28%
+              width: 100%
+              clear: both
+            label
+              float: left
+              width: 28%
+              font-size: 14px
+              font-weight: 300
+              padding-top: 7px
+              strong
+                color: red
+                font-weight: 300
+            label.time-to-send
+              width: 15%
+              padding-right: 10px
+              text-align: right
+            input
+              border: 1px solid #d4d7d8
+              border-radius: 5px
+              line-height: 32px
+              padding: 0 10px
+              width: 72%
+              float: left
+              margin-bottom: 5px
+            input.email-get-similar-jobs
+              width: 51%
+            .selectize-control
+              width: 72%
+              float: left
+            .selectize-control.select-time-to-send
+              width: 20%
+              margin-left: 1%
+            .selectize-control.multi .selectize-input.has-items
+              padding-left: 4px
+            p
+              width: 100%
+              padding-left: 28%
+              font-weight: 400
+              font-size: 16px
+              margin: 0
+          .email-similar-jobs-field.submit
+            text-align: left
+            padding-left: 28%
+            button
+              margin: auto
+              padding: 6px 25px
+.success-alert-box
+  width: 100%
+  text-align: center
+  display: none
+  transition: display 1s ease
+  -moz-transition: display 1s ease
+  -webkit-transition: display 1s ease
+  .alert-success
+    width: 100%
+    display: inline-block
+    padding: 10px
+    background-image: none
+.success-alert-box.show
+  display: block
+  transition: display 1s ease
+  -moz-transition: display 0.8s ease
+  -webkit-transition: display 0.8s ease
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove
