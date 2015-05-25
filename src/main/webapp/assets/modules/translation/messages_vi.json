@@ -205,7 +205,9 @@
   "whatIsYourJob": "Chức Danh:",
   "forWhichJobLevel": "Cấp Bậc:",
   "yearsExperienceRequired": "Số Năm Kinh Nghiệm:",
-  "languagesRequired": "Ngôn Ngữ (Tối đa 3):"
+  "languagesRequired": "Ngôn Ngữ (Tối đa 3):",
+  "average": "Trung bình",
+  "comingSoon": "Sắp Có..."
 }
 
 

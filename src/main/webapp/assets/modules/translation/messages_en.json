@@ -204,5 +204,7 @@
   "whatIsYourJob": "What Is The Job Title?",
   "forWhichJobLevel": "For Which Job Level?",
   "yearsExperienceRequired": "Years of Experience Required:",
-  "languagesRequired": "Languages Required (Limited To 3):"
+  "languagesRequired": "Languages Required (Limited To 3):",
+  "average": "Average",
+  "comingSoon": "Coming Soon..."
 }
