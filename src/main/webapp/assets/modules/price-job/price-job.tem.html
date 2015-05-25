@@ -129,7 +129,9 @@
             </li>
             <li>
               <span translate="experienceLevel" />
-              <p>Manager</p>
+              <p>
+                {{priceJob.jobLevelsMap[priceJob.jobLevelIds].translate | translate}}
+              </p>
             </li>
             <li>
               <span translate="skill" />
@@ -150,7 +152,7 @@
               <!--<h4>Your Target Pay</h4>-->
               <div class="your-target-pay-content">
                 <!--<p>Your target pay for this job is <strong>${{priceJob.priceJobReport.averageSalary}}</strong> NET a month</p>-->
-                <p translate="yourTargetPay" translate-value-average-salary="{{priceJob.priceJobReport.averageSalary}}"></p>
+                <p translate="yourTargetPay" translate-value-average-salary="{{priceJob.priceJobReport.targetPay}}"></p>
               </div>
             </div>
           </div>
@@ -160,12 +162,15 @@
               <div class="job-title-salary-report-content">
                 <div class="salary-percentile-block">
                   <ul>
-                    <li><span>10 <sup>th</sup></span> $400</li>
-                    <li><span>25 <sup>th</sup></span>$900</li>
-                    <li><strong><span>50 <sup>th</sup></span>$1,200</strong></li>
-                    <li><span>75 <sup>th</sup></span>$1,400</li>
-                    <li><span>90 <sup>th</sup></span>$1,700</li>
-                    <li><span>Average:</span>$1,300</li>
+                    <li ng-repeat="item in priceJob.priceJobReport.priceJobSalaries">
+                      <div ng-if="item.percent === 50">
+                        <strong><span>{{item.percent}}<sup>th</sup></span> ${{item.percentile}}</strong>
+                      </div>
+                      <div ng-if="item.percent != 50">
+                        <span>{{item.percent}}<sup>th</sup></span> ${{item.percentile}}
+                      </div>
+                    </li>
+                    <li><span>Average:</span>{{priceJob.priceJobReport.averageSalary}}</li>
                   </ul>
                 </div>
                 <div class="salary-percentile-chart">
