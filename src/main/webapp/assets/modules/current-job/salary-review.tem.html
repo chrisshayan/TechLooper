@@ -2,7 +2,6 @@
   <div class="logo-block text-center">
     <div class="logo" id="logo">
       <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
-      <a href="#/" class="backPage" translate>home</a>
     </div>
     <div class="vnw-logo">
       <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
@@ -315,7 +314,7 @@
                   <input type="text" ng-model="jobAlert.jobTitle"
                          required tl-model
                          name="{{'jobTitle' | translate}}"
-                         placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="6"/>
+                         placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
                   <div class="error-messages">{{error['jobAlert.jobTitle']}}</div>
                 </div>
                 <div class="row email-similar-jobs-field">

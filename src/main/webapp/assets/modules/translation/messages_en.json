@@ -82,7 +82,7 @@
   "reportTo": "Who are you reporting to?",
   "location": "Location",
   "companySize": "Company Size",
-  "jobCategory": "Job Category",
+  "jobCategory": "Job Categories",
   "isRequired": "Is Required",
   "aboutYourJob": "About Your Job",
   "aboutYourCompany": "About Your Company",
@@ -195,7 +195,7 @@
   "exEducation": "Ex: High school",
   "exLanguages": "Ex: English",
   "minEduLevel": "Minimum Education Level",
-  "experienceLevel": "Experience Level",
+  "experienceLevel": "Job Level",
   "yourTargetPay": "Your target pay for this job is <strong>${{averageSalary}}</strong> NET a month",
   "yourDetailedSalaryReport": "Your Detailed Salary Report",
   "companyMainActivity": "What is Your Company Main Activity? (Limited to 3)",
@@ -204,5 +204,8 @@
   "whatIsYourJob": "What Is The Job Title?",
   "forWhichJobLevel": "For Which Job Level?",
   "yearsExperienceRequired": "Years of Experience Required:",
-  "languagesRequired": "Languages Required (Limited To 3):"
+  "languagesRequired": "Languages Required (Limited To 3):",
+  "average": "Average",
+  "comingSoon": "Coming Soon...",
+  "toGetJobReport": "to get your Job Report."
 }

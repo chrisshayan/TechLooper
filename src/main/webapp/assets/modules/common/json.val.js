@@ -799,7 +799,6 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 39, name: "Other"}
     ],
     "educationLevel": [
-      {id: 1, name: "None"},
       {id: 2, name: "High school"},
       {id: 3, name: "Associate’s degree"},
       {id: 4, name: "College"},
