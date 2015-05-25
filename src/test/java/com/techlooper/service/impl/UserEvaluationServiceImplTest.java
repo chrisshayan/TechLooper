@@ -7,6 +7,7 @@ import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.PriceJobReport;
+import com.techlooper.model.PriceJobSurvey;
 import com.techlooper.model.SalaryReport;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.UserEvaluationService;
@@ -152,4 +153,26 @@ public class UserEvaluationServiceImplTest {
         assertTrue(priceJobEntity.getPriceJobReport().getAverageSalary() > 0);
         assertTrue(priceJobEntity.getPriceJobReport().getPriceJobSalaries().size() == 5);
     }
-}
+
+    @Test
+    public void testSavePriceJobSurvey() throws Exception {
+        PriceJobSurvey priceJobSurvey = new PriceJobSurvey();
+        priceJobSurvey.setPriceJobId(1432523709005L);
+        priceJobSurvey.setIsAccurate(true);
+        priceJobSurvey.setIsUnderstandable(true);
+        priceJobSurvey.setFeedback("Good Report");
+        boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
+        assertTrue(isSaved == true);
+    }
+
+    @Test
+    public void testSavePriceJobSurveyNotSave() throws Exception {
+        PriceJobSurvey priceJobSurvey = new PriceJobSurvey();
+        priceJobSurvey.setPriceJobId(0L);
+        priceJobSurvey.setIsAccurate(true);
+        priceJobSurvey.setIsUnderstandable(true);
+        priceJobSurvey.setFeedback("Bad Report");
+        boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
+        assertTrue(isSaved == false);
+    }
+ }
