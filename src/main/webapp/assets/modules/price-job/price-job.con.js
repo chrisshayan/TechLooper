@@ -114,7 +114,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     experience: {
       items: jsonValue.yearsOfExperience,
       config: {
-        valueField: 'id',
+        valueField: 'name',
         labelField: 'name',
         delimiter: '|',
         maxItems: 1,
@@ -214,6 +214,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
       case "step3":
         var priceJob = $.extend(true, {}, $scope.priceJob);
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
+        priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].id;
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
