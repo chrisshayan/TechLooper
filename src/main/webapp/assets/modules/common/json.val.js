@@ -815,18 +815,28 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 15, name: "Others"}
     ],
     "yearsOfExperience": [
-      {id: 1, name: "Entry-Level"},
-      {id: 2, name: "0"},
-      {id: 3, name: "1"},
-      {id: 4, name: "2"},
-      {id: 5, name: "3"},
-      {id: 6, name: "4"},
-      {id: 7, name: "5"},
-      {id: 8, name: "6"},
-      {id: 9, name: "7"},
-      {id: 10, name: "8"},
-      {id: 11, name: "9"},
-      {id: 12, name: "10 or more"}
+      {id: 1, name: "New to workforce"},
+      {id: 2, name: "Less than one year"},
+      {id: 3, name: "1 year"},
+      {id: 4, name: "2 years"},
+      {id: 5, name: "3 years"},
+      {id: 6, name: "4 years"},
+      {id: 7, name: "5 years"},
+      {id: 8, name: "6 years"},
+      {id: 9, name: "7 years"},
+      {id: 10, name: "8 years"},
+      {id: 11, name: "9 years"},
+      {id: 12, name: "10 years"},
+      {id: 12, name: "11 years"},
+      {id: 12, name: "12 years"},
+      {id: 12, name: "13 years"},
+      {id: 12, name: "14 years"},
+      {id: 12, name: "15 years"},
+      {id: 12, name: "16 years"},
+      {id: 12, name: "17 years"},
+      {id: 12, name: "18 years"},
+      {id: 12, name: "19 years"},
+      {id: 12, name: "> 20 years"}
     ]
   }
 
@@ -840,6 +850,9 @@ angular.module("Common").constant("jsonValue", (function () {
 
   instance.jobLevelsMap = {};
   $.each(instance.jobLevels, function (i, jobLevel) {instance.jobLevelsMap[jobLevel.id] = jobLevel;});
+
+  instance.yearsOfExperienceMap = {};
+  $.each(instance.yearsOfExperience, function (i, item) {instance.yearsOfExperienceMap[item.name] = item;});
 
   instance.locationsMap = {};
   $.each(instance.locations, function (i, location) {instance.locationsMap[location.id] = location;});
