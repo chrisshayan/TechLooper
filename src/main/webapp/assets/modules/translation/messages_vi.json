@@ -214,7 +214,10 @@
   "languagesRequired": "Ngôn Ngữ (Tối đa 3):",
   "average": "Trung bình",
   "comingSoon": "Đang cập nhật...",
-  "toGetJobReport": "để có được bảng báo cáo công việc"
+  "toGetJobReport": "để có được bảng báo cáo công việc",
+  "save": "Lưu",
+  "emailMeSimilarJobs": "Gửi Cho Tôi",
+  "share": "Chia sẻ"
 }
 
 

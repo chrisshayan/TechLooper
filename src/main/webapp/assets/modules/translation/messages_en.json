@@ -213,5 +213,8 @@
   "languagesRequired": "Languages Required (Limited To 3):",
   "average": "Average",
   "comingSoon": "Coming Soon...",
-  "toGetJobReport": "to get your Job Report."
+  "toGetJobReport": "to get your Job Report.",
+  "save": "Save",
+  "emailMeSimilarJobs": "Email Me Similar Jobs",
+  "share": "Share"
 }
