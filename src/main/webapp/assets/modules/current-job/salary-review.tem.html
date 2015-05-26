@@ -279,6 +279,9 @@
               <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
             </div>
           </div>
+          <div class="create-new-report" ng-show="!salaryReview.campaign">
+            <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+          </div>
         </div>
         <div class="best-paid-jobs-block"
              ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length">
