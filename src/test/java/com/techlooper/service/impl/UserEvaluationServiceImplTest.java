@@ -43,6 +43,8 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setSkills(Arrays.asList("Liferay", "Spring", "Hibernate"));
         userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
+        assertTrue(salaryReport.getNumberOfJobs() > 0);
+        assertTrue(salaryReport.getNumberOfSurveys() > 0);
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
         userEvaluationService.deleteSalaryReview(salaryReview);
@@ -72,6 +74,7 @@ public class UserEvaluationServiceImplTest {
         userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
         assertTrue(salaryReport.getPercentRank().isNaN());
+        assertTrue(salaryReport.getNumberOfJobs() + salaryReport.getNumberOfSurveys() < 10);
         // delete data after test
         userEvaluationService.deleteSalaryReview(salaryReview);
     }

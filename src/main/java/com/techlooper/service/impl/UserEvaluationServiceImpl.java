@@ -76,7 +76,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         exportJobToExcel(jobs);
 
-        calculateSalaryPercentile(salaryReview, jobs);
+        generateSalaryReport(salaryReview, jobs, salaryReviews.size());
 
         // Save user salary information should happen only in production environment
         if (isAllowToSave()) {
@@ -158,7 +158,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         priceJobEntity.setCreatedDateTime(new Date().getTime());
     }
 
-    private void calculateSalaryPercentile(SalaryReview salaryReview, List<JobEntity> jobs) {
+    private void generateSalaryReport(SalaryReview salaryReview, List<JobEntity> jobs, int numberOfSurveys) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
@@ -173,6 +173,10 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
         double percentRank = calculatePercentPosition(salaryReport);
         salaryReport.setPercentRank(Math.floor(percentRank));
+
+        // update the total number of jobs and surveys which match the criteria for keeping track
+        salaryReport.setNumberOfSurveys(numberOfSurveys);
+        salaryReport.setNumberOfJobs(jobs.size() > 0 ? jobs.size() - numberOfSurveys : 0);
 
         salaryReview.setSalaryReport(salaryReport);
         salaryReview.setCreatedDateTime(new Date().getTime());
