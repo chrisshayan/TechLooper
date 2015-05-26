@@ -235,6 +235,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     $scope.error = validatorService.validate($(".salary-report-feedback-form").find("input"));
     $scope.error = $.extend(true, $scope.error, validatorService.validate($(".salary-report-feedback-form").find("input")));
 
+    $scope.survey.priceJobId = $scope.priceJob.createdDateTime;
     $http.post("savePriceJobSurvey", $scope.survey)
       .success(function() {
         $scope.survey.saved = true;
