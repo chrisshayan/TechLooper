@@ -140,7 +140,7 @@
   "haveAnyFeedback": "Bạn có phản hồi gì giúp cho chúng tôi tiếp tục phát triển?",
   "resultReportAccurate": "Báo cáo lương có chính xác không? <strong>*</strong>",
   "submit": "Gửi đi",
-  "thanksForHelp": "Cám ơn thông tin của bạn, chúng sẽ không được chia sẻ cho bất cứ ai.",
+  "thanksForHelp": "Cám ơn bạn đã phản hồi. Mọi thông tin của bạn sẽ được bảo mật cẩn thận và không được chia sẻ ra ngoài.",
   "understandReport?": "Báo cáo lương có dễ hiểu không? <strong>*</strong>",
   "whatYouThinkReport": "Bạn nghĩ gì về báo cáo lương này?",
   "yes": "Đồng ý",
@@ -218,7 +218,7 @@
   "save": "Lưu",
   "emailMeSimilarJobs": "Gửi Cho Tôi",
   "share": "Chia sẻ",
-  "alertSuccessJobAlert": "Great! We have just sent you an email to verify your account. Please confirm it and you will start receiving Job Recommendations"
+  "alertSuccessJobAlert": "Chúc mừng! Chúng tôi vừa gửi email cho bạn. Hãy kiểm tra và xác nhận đăng ký. Sau khi xác nhận, bạn sẽ nhận được thông tin về các việc làm phù hợp."
 }
 
 
