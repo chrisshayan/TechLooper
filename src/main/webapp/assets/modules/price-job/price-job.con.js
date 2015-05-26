@@ -241,4 +241,8 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         $scope.survey.saved = true;
       })
   }
+  $scope.removeBoxContent = function (cls) {
+    //$scope.survey = {closed: true};
+    $('.' + cls).slideUp("normal", function () { $(this).remove(); });
+  }
 });

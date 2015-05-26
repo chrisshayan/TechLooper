@@ -799,19 +799,13 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 39, name: "Other"}
     ],
     "educationLevel": [
-      {id: 2, name: "High school"},
-      {id: 3, name: "Associate’s degree"},
-      {id: 4, name: "College"},
-      {id: 5, name: "Bachelors"},
-      {id: 6, name: "Bachelor of Engineering"},
-      {id: 7, name: "Post-graduate"},
-      {id: 8, name: "CPA"},
-      {id: 9, name: "Masters"},
-      {id: 10, name: "MBA"},
-      {id: 11, name: "JD"},
       {id: 12, name: "Doctorate"},
-      {id: 13, name: "Doctor of Pharmacy (PharmD)"},
-      {id: 14, name: "MD"},
+      {id: 9, name: "Master"},
+      {id: 3, name: "Degree"},
+      {id: 4, name: "Diploma"},
+      {id: 2, name: "High school"},
+      {id: 15, name: "Primary School"},
+      {id: 1, name: "None"},
       {id: 15, name: "Others"}
     ],
     "yearsOfExperience": [
