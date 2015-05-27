@@ -186,9 +186,6 @@ public class CoreConfiguration {
   @Bean
   public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
     SimpleMailMessage mailMessage = new SimpleMailMessage();
-//    mailMessage.setFrom("techlooperbyvnw@gmail.com");
-//    mailMessage.setTo("phuonghqh@gmail.com");
-//    mailMessage.setSubject("techlooper");
     mailMessage.setFrom(mailForm);
     mailMessage.setTo(mailCitibankCreditCardPromotionTo);
     mailMessage.setReplyTo(mailReplyTo);
@@ -205,27 +202,10 @@ public class CoreConfiguration {
     return cfg;
   }
 
-//  @Bean
-//  public freemarker.template.Configuration freemakerConfig() throws IOException, TemplateException {
-//    FreeMarkerConfigurationFactory factory = new FreeMarkerConfigurationFactory();
-//    factory.setDefaultEncoding("UTF-8");
-//    factory.setTemplateLoaderPath("classpath:template/");
-////    factory.setConfigLocation(new ClassPathResource("classpath:template"));
-//    return factory.createConfiguration();
-//  }
-
   @Bean
   @DependsOn("freemakerConfig")
   public Template citibankCreditCardPromotionTemplate() throws IOException {
     Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
     return template;
   }
-
-//  public static void main(String[] args) {
-//    CoreConfiguration config = new CoreConfiguration();
-//    MailSender sender = config.mailSender();
-//    SimpleMailMessage simpleMessage = config.citibankCreditCardPromotionMailMessage();
-//    simpleMessage.setText("khakha kha");
-//    sender.send(simpleMessage);
-//  }
 }
