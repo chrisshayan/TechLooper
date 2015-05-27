@@ -208,4 +208,12 @@ public class CoreConfiguration {
     Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
     return template;
   }
+
+//  public static void main(String[] args) {
+//    CoreConfiguration config = new CoreConfiguration();
+//    MailSender sender = config.mailSender();
+//    SimpleMailMessage simpleMessage = config.citibankCreditCardPromotionMailMessage();
+//    simpleMessage.setText("khakha kha");
+//    sender.send(simpleMessage);
+//  }
 }
