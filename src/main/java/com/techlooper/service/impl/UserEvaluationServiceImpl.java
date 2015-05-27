@@ -20,9 +20,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -62,7 +60,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getJobSearchQueryForSalaryReview(salaryReview);
 
         // Get the list of jobs search result for user percentile rank calculation
-        List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+        Set<JobEntity> jobs = new HashSet<>(getJobSearchResult(queryBuilder));
 
         // In order to make our report more accurate, we should add data from generated report in calculation
         List<SalaryReview> salaryReviews = salaryReviewService.searchSalaryReview(salaryReview);
@@ -71,6 +69,11 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
             jobs.addAll(searchMoreJobBySkills(salaryReview.getSkills(), salaryReview.getJobCategories()));
+        }
+
+        // In case total number of jobs search result is less than 10, add more jobs from search only by job title
+        if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
+            jobs.addAll(searchMoreJobByJobTitle(salaryReview.getJobTitle()));
         }
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
@@ -92,7 +95,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     public void priceJob(PriceJobEntity priceJobEntity) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getSearchQueryForPriceJobReport(priceJobEntity);
 
-        List<JobEntity> jobs = getJobSearchResult(queryBuilder);
+        Set<JobEntity> jobs = new HashSet<>(getJobSearchResult(queryBuilder));
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
@@ -115,7 +118,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
                 environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
     }
 
-    private void exportJobToExcel(List<JobEntity> jobs) {
+    private void exportJobToExcel(Set<JobEntity> jobs) {
         boolean isExportToExcel = environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) != null ?
                 environment.getProperty("salaryEvaluation.exportResultToExcel", Boolean.class) : false;
         if (isExportToExcel) {
@@ -126,15 +129,20 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     private List<JobEntity> searchMoreJobBySkills(List<String> skills, List<Long> jobCategories) {
         List<JobEntity> jobs = new ArrayList<>();
         if (skills != null && !skills.isEmpty()) {
-            NativeSearchQueryBuilder higherSalaryQueryBuilder =
+            NativeSearchQueryBuilder jobSearchQueryBySkill =
                     jobQueryBuilder.getJobSearchQueryBySkill(skills, jobCategories);
-            List<JobEntity> jobBySkills = getJobSearchResult(higherSalaryQueryBuilder);
+            List<JobEntity> jobBySkills = getJobSearchResult(jobSearchQueryBySkill);
             jobs.addAll(jobBySkills);
         }
         return jobs;
     }
 
-    private void calculateSalaryPercentile(PriceJobEntity priceJobEntity, List<JobEntity> jobs) {
+    private List<JobEntity> searchMoreJobByJobTitle(String jobTitle) {
+        NativeSearchQueryBuilder jobSearchQueryByJobTitle = jobQueryBuilder.getJobSearchQueryByJobTitle(jobTitle);
+        return getJobSearchResult(jobSearchQueryByJobTitle);
+    }
+
+    private void calculateSalaryPercentile(PriceJobEntity priceJobEntity, Set<JobEntity> jobs) {
         PriceJobReport priceJobReport = new PriceJobReport();
 
         double[] salaries = extractSalariesFromJob(jobs);
@@ -158,7 +166,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         priceJobEntity.setCreatedDateTime(new Date().getTime());
     }
 
-    private void generateSalaryReport(SalaryReview salaryReview, List<JobEntity> jobs, int numberOfSurveys) {
+    private void generateSalaryReport(SalaryReview salaryReview, Set<JobEntity> jobs, int numberOfSurveys) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReview.getNetSalary());
 
@@ -182,7 +190,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReview.setCreatedDateTime(new Date().getTime());
     }
 
-    private double[] extractSalariesFromJob(List<JobEntity> jobs) {
+    private double[] extractSalariesFromJob(Set<JobEntity> jobs) {
         return jobs.stream().mapToDouble(job ->
                 jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax())).toArray();
     }
@@ -237,7 +245,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return topPaidJobs;
     }
 
-    private void mergeSalaryReviewWithJobList(List<JobEntity> jobs, List<SalaryReview> salaryReviews) {
+    private void mergeSalaryReviewWithJobList(Set<JobEntity> jobs, List<SalaryReview> salaryReviews) {
         for (SalaryReview salaryReview : salaryReviews) {
             JobEntity jobEntity = new JobEntity();
             jobEntity.setId(salaryReview.getCreatedDateTime().toString());

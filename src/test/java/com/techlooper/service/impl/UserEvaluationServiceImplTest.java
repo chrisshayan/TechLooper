@@ -85,7 +85,7 @@ public class UserEvaluationServiceImplTest {
         salaryReview.setJobTitle("Product Manager");
         salaryReview.setJobLevelIds(Arrays.asList(5, 6));
         salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setSkills(Arrays.asList("Agile", "Software Architecture", "Java"));
+        salaryReview.setSkills(Arrays.asList("Product Management", "UI/UX", "Product Strategy"));
         salaryReview.setNetSalary(2000);
         userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();
@@ -97,9 +97,10 @@ public class UserEvaluationServiceImplTest {
     @Test
     public void testEvaluateJobOfferTotalJobLessThan10WithEmptySkill() throws Exception {
         SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Software Architect");
+        salaryReview.setJobTitle("Solution Architect");
         salaryReview.setJobLevelIds(Arrays.asList(5, 6));
         salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setSkills(Arrays.asList("Software Testing", "Software Architecture", "Software Construction"));
         salaryReview.setNetSalary(2000);
         userEvaluationService.reviewSalary(salaryReview);
         SalaryReport salaryReport = salaryReview.getSalaryReport();

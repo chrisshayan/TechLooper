@@ -281,6 +281,16 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         return queryBuilder;
     }
 
+    @Override
+    public NativeSearchQueryBuilder getJobSearchQueryByJobTitle(String jobTitle) {
+        NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder(jobTitle),
+                boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
+                            .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
+        return queryBuilder;
+    }
+
     private List<String> processSkillsBeforeSearch(List<String> skills) {
         List<String> analyzedSkills = new ArrayList<>();
         for (String skill : skills) {

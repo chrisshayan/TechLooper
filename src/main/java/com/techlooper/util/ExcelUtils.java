@@ -22,7 +22,7 @@ public class ExcelUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUtils.class);
 
-    public static void exportSalaryReport(List<JobEntity> jobs) {
+    public static void exportSalaryReport(Set<JobEntity> jobs) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Jobs");
 
@@ -37,9 +37,10 @@ public class ExcelUtils {
         cell.setCellValue("Salary Max");
 
         Map<String, Object[]> data = new HashMap<>();
-        for (int i = 0; i < jobs.size(); i++) {
-            JobEntity job = jobs.get(i);
+        int i = 0;
+        for (JobEntity job : jobs) {
             data.put(String.valueOf(i), new Object[]{job.getId(), job.getJobTitle(), job.getSalaryMin(), job.getSalaryMax()});
+            i++;
         }
 
         Set<String> keySet = data.keySet();
