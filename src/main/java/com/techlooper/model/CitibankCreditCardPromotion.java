@@ -26,8 +26,27 @@ public class CitibankCreditCardPromotion {
   @NotNull
   private PaymentMethod paymentMethod;
 
-  @NotNull
+  private String location;
+
+  private String netIncome;
+
   private Boolean agree;
+
+  public String getNetIncome() {
+    return netIncome;
+  }
+
+  public void setNetIncome(String netIncome) {
+    this.netIncome = netIncome;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
 
   public Long getSalaryReviewId() {
     return salaryReviewId;

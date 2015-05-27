@@ -10,5 +10,5 @@ import java.io.IOException;
  */
 public interface PromotionService {
 
-  void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException;
+  boolean placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException;
 }

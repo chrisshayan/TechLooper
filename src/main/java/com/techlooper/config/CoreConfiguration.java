@@ -1,5 +1,6 @@
 package com.techlooper.config;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
@@ -41,6 +42,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @Configuration
@@ -82,6 +85,13 @@ public class CoreConfiguration {
 
   @Resource
   private freemarker.template.Configuration freemakerConfig;
+
+  @Resource
+  private RestTemplate restTemplate;
+
+  @Value("${api.exchangeRateUrl}")
+  private String apiExchangeRateUrl;
+
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -209,11 +219,17 @@ public class CoreConfiguration {
     return template;
   }
 
-//  public static void main(String[] args) {
-//    CoreConfiguration config = new CoreConfiguration();
-//    MailSender sender = config.mailSender();
-//    SimpleMailMessage simpleMessage = config.citibankCreditCardPromotionMailMessage();
-//    simpleMessage.setText("khakha kha");
-//    sender.send(simpleMessage);
-//  }
+  @Bean
+  public Map<Long, String> locationMap() {
+    Map<Long, String> locations = new HashMap<>();
+    locations.put(29L, "Ho Chi Minh");
+    locations.put(24L, "Ha Noi");
+    return locations;
+  }
+
+  @Bean
+  public Long usdToVndRate() {
+    String url = String.format(apiExchangeRateUrl, "USD_VND");
+    return restTemplate.getForEntity(url, JsonNode.class).getBody().findPath("val").asLong(0L);
+  }
 }

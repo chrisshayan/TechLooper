@@ -331,18 +331,18 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         console.log("abc");
       })
 
-    //var formContent = $('.partner-company-form');
-    //if(!formContent.hasClass('active')){
-    //  formContent.slideDown("normal");
-    //  formContent.addClass('active');
-    //  $('.note-Partner-Company-Form').show();
-    //}else{
-    //  $('.partner-company-detail').find('h4').hide();
-    //  formContent.hide();
-    //  $('.apply-now-block').hide();
-    //  $('.note-Partner-Company-Form').hide();
-    //  $('.partner-company-thanks').slideDown("normal");
-    //}
+    var formContent = $('.partner-company-form');
+    if(!formContent.hasClass('active')){
+      formContent.slideDown("normal");
+      formContent.addClass('active');
+      $('.note-Partner-Company-Form').show();
+    }else{
+      //$('.partner-company-detail').find('h4').hide();
+      //formContent.hide();
+      //$('.apply-now-block').hide();
+      //$('.note-Partner-Company-Form').hide();
+      //$('.partner-company-thanks').slideDown("normal");
+    }
   }
   $scope.validationCompanyPartner = function(){
 

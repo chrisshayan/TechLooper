@@ -4,7 +4,7 @@ package com.techlooper.model;
  * Created by phuonghqh on 5/27/15.
  */
 public enum PaymentMethod {
-  CASH("cash"), BANK_TRANSFER("bank transfer");
+  CASH("Cash"), BANK_TRANSFER("Bank Transfer");
 
   private String value;
 

@@ -1,6 +1,6 @@
 Full Name: ${fullName}
-Mobile Number:
-Email Address:
-Location:
-Monthly income:
-Salary Payment Method:
+Mobile Number: ${mobileNumber}
+Email Address: ${email}
+Location: ${location}
+Monthly income: ${netIncome}
+Salary Payment Method: ${paymentMethod.value}
