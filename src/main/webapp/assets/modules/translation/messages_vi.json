@@ -218,7 +218,20 @@
   "save": "Lưu",
   "emailMeSimilarJobs": "Gửi Cho Tôi",
   "share": "Chia sẻ",
-  "alertSuccessJobAlert": "Chúc mừng! Chúng tôi vừa gửi email cho bạn. Hãy kiểm tra và xác nhận đăng ký. Sau khi xác nhận, bạn sẽ nhận được thông tin về các việc làm phù hợp."
+  "alertSuccessJobAlert": "Chúc mừng! Chúng tôi vừa gửi email cho bạn. Hãy kiểm tra và xác nhận đăng ký. Sau khi xác nhận, bạn sẽ nhận được thông tin về các việc làm phù hợp.",
+  "companyTitle": "Xin chúc mừng! Bạn nhận được đề nghị mở Thẻ Tín Dụng từ ngân hàng Citibank",
+  "companyThanks": "Cảm ơn bạn đã tham gia đăng ký Thẻ Tín Dụng của ngân hàng Citibank.",
+  "companyMessages": "Cùng VietnamWorks Và Citibank Chào Hè Với Vé Máy Bay Đi Hồng Kông Miễn Phí",
+  "desHowToGetIt": "Vui lòng điền thông tin của bạn bên dưới và các tư vấn viên của chúng tôi sẽ tiến hành những bước tiếp theo để hoàn thành việc đăng ký thẻ.",
+  "fullName": "Tên Đầy Đủ:",
+  "mobileNumber": "Điện Thoại Di Động:",
+  "emailAddress": "Địa Chỉ Email:",
+  "salaryPaymentMethod": "Cách Thức Nhận Lương",
+  "paymentMethodOption1": "Bằng Tài Khoản Ngân Hàng",
+  "paymentMethodOption2": "Bằng Tiền Mặt",
+  "iAgree": "Tôi đồng ý rằng Citibank có thể sử dụng thông tin trên đây để liên hệ với tôi nhằm giới thiệu những sản phẩm, dịch vụ và chương trình khuyến mãi của Citibank từ nay trở về sau.",
+  "committed": "Mọi thông tin của bạn sẽ được bảo mật cẩn thận và không được chia sẻ ra ngoài.",
+  "applyNow": "Đăng Ký Ngay"
 }
 
 
