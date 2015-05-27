@@ -283,6 +283,63 @@
             <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
           </div>
         </div>
+        <div class="partner-company-block">
+          <h3 translate="companyTitle"></h3>
+          <div class="partner-company-content">
+            <div class="partner-company-logo">
+              <img src="https://www.citibank.com.vn/Landing_Pages/vietnamese/dining-program/images/overviewBanner/sorae-sushi-sake.jpg" alt=""/>
+            </div>
+            <div class="partner-company-detail">
+              <h4 translate="companyMessages"></h4>
+              <div class="partner-company-form">
+                <p translate="desHowToGetIt"></p>
+                <div class="partner-company-field">
+                  <label>{{'fullName' | translate}} <strong>*</strong></label>
+                  <input type="text" class="input-text"/>
+                  <div class="error-messages">error</div>
+                </div>
+                <div class="partner-company-field">
+                  <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
+                  <input type="text" class="input-text"/>
+                  <div class="error-messages">error</div>
+                </div>
+                <div class="partner-company-field">
+                  <label>{{'emailAddress' | translate}} <strong>*</strong></label>
+                  <input type="text" class="input-text"/>
+                  <div class="error-messages">error</div>
+                </div>
+                <div class="partner-company-field">
+                  <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
+                  <div class="selection-group">
+                    <ul>
+                      <li>
+                        <input type="radio" name="paymentMethod" id="rdPayment01"/>
+                        <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="paymentMethod" id="rdPayment02"/>
+                        <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="error-messages">error</div>
+                </div>
+                <div class="partner-company-field">
+                  <div class="agree-registration">
+                    <input type="checkbox" id="iAgree"/> <label for="iAgree">{{'iAgree' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="apply-now-block">
+                <button class="btn btn-primary btn-flat" ng-click="applyNow()" translate="applyNow"></button>
+              </div>
+              <div class="note-Partner-Company-Form">
+                <p>{{'committed' | translate }}</p>
+              </div>
+              <div class="partner-company-thanks" translate="companyThanks"></div>
+            </div>
+          </div>
+        </div>
         <div class="best-paid-jobs-block"
              ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length">
           <div class="title-header">
