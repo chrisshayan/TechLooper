@@ -323,19 +323,25 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
   }
-  $scope.applyNow = function(){
-    var formContent = $('.partner-company-form');
-    if(!formContent.hasClass('active')){
-      formContent.slideDown("normal");
-      formContent.addClass('active');
-      $('.note-Partner-Company-Form').show();
-    }else{
-      $('.partner-company-detail').find('h4').hide();
-      formContent.hide();
-      $('.apply-now-block').hide();
-      $('.note-Partner-Company-Form').hide();
-      $('.partner-company-thanks').slideDown("normal");
-    }
+
+  $scope.sendCitibankPromotion = function(){
+    $http.post("promotion/citibank/creditCard", $scope.promotion)
+      .success(function() {
+        console.log("abc");
+      })
+
+    //var formContent = $('.partner-company-form');
+    //if(!formContent.hasClass('active')){
+    //  formContent.slideDown("normal");
+    //  formContent.addClass('active');
+    //  $('.note-Partner-Company-Form').show();
+    //}else{
+    //  $('.partner-company-detail').find('h4').hide();
+    //  formContent.hide();
+    //  $('.apply-now-block').hide();
+    //  $('.note-Partner-Company-Form').hide();
+    //  $('.partner-company-thanks').slideDown("normal");
+    //}
   }
   $scope.validationCompanyPartner = function(){
 

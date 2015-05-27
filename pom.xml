@@ -62,7 +62,7 @@
     <jedis.version>2.6.1</jedis.version>
     <embedded-redis.version>0.3</embedded-redis.version>
     <mail.version>1.4.7</mail.version>
-    <activation.version>1.0.2</activation.version>
+    <activation.version>1.1.1</activation.version>
     <freemarker.version>2.3.22</freemarker.version>
   </properties>
   <build>
@@ -274,6 +274,10 @@
                     <resource>
                       <directory>src/main/resources/couchbase_view</directory>
                       <targetPath>couchbase_view</targetPath>
+                    </resource>
+                    <resource>
+                      <directory>src/main/resources/template</directory>
+                      <targetPath>template</targetPath>
                     </resource>
                   </resources>
                 </configuration>
@@ -808,7 +812,7 @@
       <version>${mail.version}</version>
     </dependency>
     <dependency>
-      <groupId>jaf</groupId>
+      <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
       <version>${activation.version}</version>
     </dependency>
