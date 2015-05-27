@@ -323,29 +323,30 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
   }
-
   $scope.sendCitibankPromotion = function(){
-    $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
-    $http.post("promotion/citibank/creditCard", $scope.promotion)
-      .success(function() {
-        console.log("abc");
-      })
-
-    //var formContent = $('.partner-company-form');
-    //if(!formContent.hasClass('active')){
-    //  formContent.slideDown("normal");
-    //  formContent.addClass('active');
-    //  $('.note-Partner-Company-Form').show();
-    //}else{
-    //  $('.partner-company-detail').find('h4').hide();
-    //  formContent.hide();
-    //  $('.apply-now-block').hide();
-    //  $('.note-Partner-Company-Form').hide();
-    //  $('.partner-company-thanks').slideDown("normal");
-    //}
-  }
-  $scope.validationCompanyPartner = function(){
-
+    var formContent = $('.partner-company-form');
+    if(!formContent.hasClass('active')){
+      formContent.slideDown("normal");
+      formContent.addClass('active');
+      $('.note-Partner-Company-Form').show();
+    }else{
+      var error = validatorService.validate($(".partner-company-form").find('input'));
+      if (!$.isEmptyObject(error)) {
+        $scope.error = error;
+        return;
+      }else{
+        $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
+        $http.post("promotion/citibank/creditCard", $scope.promotion)
+            .success(function() {
+              console.log("abc");
+            });
+        $('.partner-company-detail').find('h4').hide();
+        //formContent.hide();
+        //$('.apply-now-block').hide();
+        $('.note-Partner-Company-Form').hide();
+        //$('.partner-company-thanks').slideDown("normal");
+      }
+    }
   }
   var jobAlertTimeout;
   $scope.$watch("jobAlert", function () {
