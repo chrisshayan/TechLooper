@@ -1,7 +1,11 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.CitibankCreditCardPromotion;
+import com.techlooper.model.SalaryReviewSurvey;
+import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.PromotionService;
+import com.techlooper.service.SalaryReviewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.mail.MailSender;
@@ -27,7 +31,13 @@ public class PromotionServiceImpl implements PromotionService {
   @Resource
   private Template citibankCreditCardPromotionTemplate;
 
+  @Resource
+  private SalaryReviewRepository salaryReviewRepository;
+
   public void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
+    SalaryReview salaryReview = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
+    salaryReview.
+
 
     StringWriter stringWriter = new StringWriter();
     citibankCreditCardPromotionTemplate.process(citibankCreditCardPromotion, stringWriter);

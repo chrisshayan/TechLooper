@@ -326,7 +326,8 @@
                 </div>
                 <div class="partner-company-field">
                   <div class="agree-registration">
-                    <input ng-model="promotion.agree" type="checkbox" id="iAgree"/> <label for="iAgree">{{'iAgree' | translate }}</label>
+                    <input ng-model="promotion.agree" ng-init="promotion.agree = true"
+                           type="checkbox" id="iAgree"/> <label for="iAgree">{{'iAgree' | translate }}</label>
                   </div>
                 </div>
               </div>

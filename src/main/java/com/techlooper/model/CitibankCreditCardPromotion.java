@@ -11,6 +11,9 @@ import javax.validation.constraints.NotNull;
 public class CitibankCreditCardPromotion {
 
   @NotNull
+  private Long salaryReviewId;
+
+  @NotNull
   private String fullName;
 
   @NotNull
@@ -25,6 +28,14 @@ public class CitibankCreditCardPromotion {
 
   @NotNull
   private Boolean agree;
+
+  public Long getSalaryReviewId() {
+    return salaryReviewId;
+  }
+
+  public void setSalaryReviewId(Long salaryReviewId) {
+    this.salaryReviewId = salaryReviewId;
+  }
 
   public String getFullName() {
     return fullName;

@@ -325,6 +325,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.sendCitibankPromotion = function(){
+    $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
     $http.post("promotion/citibank/creditCard", $scope.promotion)
       .success(function() {
         console.log("abc");
