@@ -37,6 +37,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -177,9 +179,9 @@ public class CoreConfiguration {
   }
 
   @Bean
-  public freemarker.template.Configuration freemakerConfig() throws IOException {
+  public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
     freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
-    cfg.setDirectoryForTemplateLoading(new java.io.File(this.getClass().getClassLoader().getResource("/").getFile() + "template"));
+    cfg.setDirectoryForTemplateLoading(Paths.get(this.getClass().getClassLoader().getResource("/template").toURI()).toFile());
     cfg.setDefaultEncoding("UTF-8");
     cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     return cfg;
@@ -199,4 +201,9 @@ public class CoreConfiguration {
     locations.put(24L, "Ha Noi");
     return locations;
   }
+
+//  public static void main(String[] args ) {
+////    System.out.println("d:\\abc".replaceAll("\\", "/"));
+//    System.out.println(FilenameUtils.normalize("d:\\abc" + "/def"));
+//  }
 }
