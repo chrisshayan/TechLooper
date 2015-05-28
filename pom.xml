@@ -323,6 +323,10 @@
                       <directory>src/main/resources/couchbase_view</directory>
                       <targetPath>couchbase_view</targetPath>
                     </resource>
+                    <resource>
+                      <directory>src/main/resources/template</directory>
+                      <targetPath>template</targetPath>
+                    </resource>
                   </resources>
                 </configuration>
               </execution>
@@ -366,6 +370,10 @@
                       <directory>src/main/resources/couchbase_view</directory>
                       <targetPath>couchbase_view</targetPath>
                     </resource>
+                    <resource>
+                      <directory>src/main/resources/template</directory>
+                      <targetPath>template</targetPath>
+                    </resource>
                   </resources>
                 </configuration>
               </execution>
@@ -408,6 +416,10 @@
                     <resource>
                       <directory>src/main/resources/couchbase_view</directory>
                       <targetPath>couchbase_view</targetPath>
+                    </resource>
+                    <resource>
+                      <directory>src/main/resources/template</directory>
+                      <targetPath>template</targetPath>
                     </resource>
                   </resources>
                 </configuration>
