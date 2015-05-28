@@ -150,8 +150,7 @@ public class UserController {
   }
 
   @RequestMapping("promotion/citibank/creditCard")
-  public void placeCitibankCreditCardPromotion(@Valid @RequestBody CitibankCreditCardPromotion citibankCreditCardPromotion, HttpServletResponse response) throws IOException, TemplateException {
-    response.setStatus(promotionService.placePromotion(citibankCreditCardPromotion) ?
-      HttpServletResponse.SC_OK : HttpServletResponse.SC_BAD_REQUEST);
+  public void placeCitibankCreditCardPromotion(@Valid @RequestBody CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
+    promotionService.placePromotion(citibankCreditCardPromotion);
   }
 }

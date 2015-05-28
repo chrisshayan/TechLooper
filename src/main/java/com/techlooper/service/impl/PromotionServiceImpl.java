@@ -2,12 +2,12 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.CitibankCreditCardPromotion;
-import com.techlooper.model.PaymentMethod;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.CurrencyService;
 import com.techlooper.service.PromotionService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -39,8 +39,8 @@ public class PromotionServiceImpl implements PromotionService {
   @Value("${citibank.cc_promotion.minIncome.vnd}")
   private Long minIncome;
 
-  @Value("${citibank.accept.city.ids}")
-  private String acceptCityIds;
+//  @Value("${citibank.accept.city.ids}")
+//  private String acceptCityIds;
 
   @Resource
   private Map<Long, String> locationMap;
@@ -48,15 +48,15 @@ public class PromotionServiceImpl implements PromotionService {
   @Resource
   private CurrencyService currencyService;
 
-  public boolean placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
+  public void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
     SalaryReview salaryReview = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
     Long netIncome = currencyService.usdToVndRate() * salaryReview.getNetSalary();
-    if (citibankCreditCardPromotion.getAgree() != Boolean.TRUE ||
-      citibankCreditCardPromotion.getPaymentMethod() != PaymentMethod.BANK_TRANSFER ||
-      netIncome < minIncome ||
-      !acceptCityIds.contains(salaryReview.getLocationId().toString())) {
-      return false;
-    }
+//    if (citibankCreditCardPromotion.getAgree() != Boolean.TRUE ||
+//      citibankCreditCardPromotion.getPaymentMethod() != PaymentMethod.BANK_TRANSFER ||
+//      netIncome < minIncome ||
+//      !acceptCityIds.contains(salaryReview.getLocationId().toString())) {
+//      return false;
+//    }
 
     citibankCreditCardPromotion.setNetIncome("VND " + netIncome);
 
@@ -66,6 +66,10 @@ public class PromotionServiceImpl implements PromotionService {
     citibankCreditCardPromotionTemplate.process(citibankCreditCardPromotion, stringWriter);
     citibankCreditCardPromotionMailMessage.setText(stringWriter.toString());
     mailSender.send(citibankCreditCardPromotionMailMessage);
-    return true;
   }
+
+//  public static void main(String[] args) {
+//    Money money = Money.parse("VND 10000");
+//    System.out.println(String.format("%.2f", 10000));
+//  }
 }
