@@ -313,12 +313,12 @@
                   <div class="selection-group">
                     <ul>
                       <li>
-                        <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'CASH'" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
-                        <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
+                        <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
+                        <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
                       </li>
                       <li>
-                        <input ng-model="promotion.paymentMethod" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
-                        <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
+                        <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
+                        <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
                       </li>
                     </ul>
                   </div>
