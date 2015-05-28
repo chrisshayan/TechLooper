@@ -229,6 +229,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
             $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
             $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
+
+              $scope.checkCompanyPromotionRole();
           })
           .error(function (data, status, headers, config) {
           });
@@ -239,7 +241,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.createNewReport = function () {
     $route.reload();
   }
-
   $scope.openFacebookShare = function () {
     window.open(
       'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime,
@@ -344,16 +345,25 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
       else {
         $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
-        $http.post("promotion/citibank/creditCard", $scope.promotion)
-        .success(function () {
+        if($scope.promotion.paymentMethod == 'BANK_TRANSFER'){
+          $http.post("promotion/citibank/creditCard", $scope.promotion)
+          .success(function () {
             $('.partner-company-detail').find('h4').hide();
             formContent.hide();
             $('.apply-now-block').hide();
             $('.note-Partner-Company-Form').hide();
             $('.partner-company-thanks').slideDown("normal");
-        });
+          });
+        }
       }
     }
+  }
+  $scope.promotionRule = false;
+  $scope.checkCompanyPromotionRole = function(){
+    if(($scope.salaryReview.usdToVndRate * $scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary && jsonValue.companyPromotion.AcceptedCity.indexOf($scope.salaryReview.locationId) >= 0){
+      $scope.promotionRule = true;
+    }
+    return $scope.promotionRule;
   }
   $scope.checkSelect = function(){
     var flg = $('#iAgree').hasClass("ng-invalid-required");

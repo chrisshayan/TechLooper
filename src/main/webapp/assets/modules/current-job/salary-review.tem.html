@@ -280,10 +280,10 @@
             </div>
           </div>
           <div class="create-new-report" ng-show="!salaryReview.campaign">
-            <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+            <a class="btn btn-primary btn-flat" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
           </div>
         </div>
-        <div class="partner-company-block">
+        <div class="partner-company-block" ng-show="promotionRule">
           <h3>{{promotionCompanyInfo.title | translate}}</h3>
           <div class="partner-company-content">
             <div class="partner-company-logo">
@@ -300,7 +300,7 @@
                 </div>
                 <div class="partner-company-field">
                   <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
-                  <input ng-model="promotion.mobileNumber" type="text" class="input-text" required/>
+                  <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="11" required only-digits/>
                   <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
                 </div>
                 <div class="partner-company-field">
