@@ -339,7 +339,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         $http.post("promotion/citibank/creditCard", $scope.promotion)
             .success(function() {
               console.log("abc");
-            });
+            })
         $('.partner-company-detail').find('h4').hide();
         //formContent.hide();
         //$('.apply-now-block').hide();
