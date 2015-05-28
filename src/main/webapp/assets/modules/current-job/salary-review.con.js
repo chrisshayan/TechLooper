@@ -339,14 +339,13 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       else {
         $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", $scope.promotion)
-          .success(function () {
-            console.log("abc");
-          })
-        $('.partner-company-detail').find('h4').hide();
-        //formContent.hide();
-        //$('.apply-now-block').hide();
-        $('.note-Partner-Company-Form').hide();
-        //$('.partner-company-thanks').slideDown("normal");
+        .success(function () {
+            $('.partner-company-detail').find('h4').hide();
+            formContent.hide();
+            $('.apply-now-block').hide();
+            $('.note-Partner-Company-Form').hide();
+            $('.partner-company-thanks').slideDown("normal");
+        });
       }
     }
   }
