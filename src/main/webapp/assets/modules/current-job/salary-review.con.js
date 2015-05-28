@@ -323,12 +323,18 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
   }
+  $scope.promotionCompanyInfo = {
+    "title": jsonValue.companyPromotion.title,
+    "tagLine": jsonValue.companyPromotion.tagLine,
+    "images": jsonValue.companyPromotion.images
+  };
   $scope.sendCitibankPromotion = function () {
     var formContent = $('.partner-company-form');
     if (!formContent.hasClass('active')) {
       formContent.slideDown("normal");
       formContent.addClass('active');
       $('.note-Partner-Company-Form').show();
+      $('.apply-now-block').find('button').addClass('disabled');
     }
     else {
       var error = validatorService.validate($(".partner-company-form").find('input'));
@@ -339,15 +345,22 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       else {
         $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", $scope.promotion)
-          .success(function () {
-            console.log("abc");
-          })
-        $('.partner-company-detail').find('h4').hide();
-        //formContent.hide();
-        //$('.apply-now-block').hide();
-        $('.note-Partner-Company-Form').hide();
-        //$('.partner-company-thanks').slideDown("normal");
+        .success(function () {
+            $('.partner-company-detail').find('h4').hide();
+            formContent.hide();
+            $('.apply-now-block').hide();
+            $('.note-Partner-Company-Form').hide();
+            $('.partner-company-thanks').slideDown("normal");
+        });
       }
+    }
+  }
+  $scope.checkSelect = function(){
+    var flg = $('#iAgree').hasClass("ng-invalid-required");
+    if(flg){
+      $('.apply-now-block').find('button').addClass('disabled');
+    }else{
+      $('.apply-now-block').find('button').removeClass('disabled');
     }
   }
   var jobAlertTimeout;

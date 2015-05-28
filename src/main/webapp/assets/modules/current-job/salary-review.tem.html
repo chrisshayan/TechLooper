@@ -284,13 +284,13 @@
           </div>
         </div>
         <div class="partner-company-block">
-          <h3 translate="companyTitle"></h3>
+          <h3>{{promotionCompanyInfo.title | translate}}</h3>
           <div class="partner-company-content">
             <div class="partner-company-logo">
-              <img src="https://www.citibank.com.vn/Landing_Pages/vietnamese/dining-program/images/overviewBanner/sorae-sushi-sake.jpg" alt=""/>
+              <img ng-src="{{promotionCompanyInfo.images}}" alt=""/>
             </div>
             <div class="partner-company-detail">
-              <h4 translate="companyMessages"></h4>
+              <h4>{{promotionCompanyInfo.tagLine | translate}}</h4>
               <div class="partner-company-form">
                 <p translate="desHowToGetIt"></p>
                 <div class="partner-company-field">
@@ -313,12 +313,12 @@
                   <div class="selection-group">
                     <ul>
                       <li>
-                        <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'CASH'" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
-                        <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
+                        <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
+                        <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
                       </li>
                       <li>
-                        <input ng-model="promotion.paymentMethod" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
-                        <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
+                        <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
+                        <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
                       </li>
                     </ul>
                   </div>
@@ -326,9 +326,8 @@
                 <div class="partner-company-field">
                   <div class="agree-registration">
                     <input ng-model="promotion.agree"
-                           type="checkbox" id="iAgree" required/>
+                           type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
                     <label for="iAgree">{{'iAgree' | translate }}</label>
-                    <div class="error-messages">{{error['promotion.agree']}}</div>
                   </div>
                 </div>
               </div>
