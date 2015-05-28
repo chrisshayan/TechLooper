@@ -19,13 +19,15 @@
     "highcharts-release": "latest",
     "ngInfiniteScroll": "latest",
     "selectize": "latest",
-    "angular-selectize2": "latest",
     "perfect-scrollbar": "latest",
     "mousetrap": "latest",
     "JSONPath": "latest",
     "DateJS": "latest",
+    "d3": "latest",
+    "parallax": "latest",
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
+    "bootstrap-tour": "latest",
     "jScrollPane": "latest",
     "satellizer": "latest",
     "angular-local-storage": "latest",
@@ -81,9 +83,6 @@
     "selectize": {
       "main": "dist/js/standalone/selectize.min.js"
     },
-    "angular-selectize2": {
-      "main": "dist/selectize.js"
-    },
     "perfect-scrollbar": {
       "main": "js/perfect-scrollbar.js"
     },
@@ -99,6 +98,12 @@
     "DateJS": {
       "main": "build/date.js"
     },
+    "d3": {
+      "main": "d3.min.js"
+    },
+    "parallax": {
+      "main": "deploy/jquery.parallax.min.js"
+    },
     "seiyria-bootstrap-slider": {
       "main": "dist/bootstrap-slider.min.js"
     },
@@ -107,6 +112,9 @@
         "script/jquery.jscrollpane.js",
         "script/jquery.mousewheel.js"
       ]
+    },
+    "bootstrap-tour": {
+      "main": "build/js/bootstrap-tour-standalone.min.js"
     },
     "satellizer": {
       "main": "satellizer.min.js"
