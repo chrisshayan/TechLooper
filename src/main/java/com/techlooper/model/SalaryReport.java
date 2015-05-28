@@ -8,38 +8,58 @@ import java.util.List;
  */
 public class SalaryReport {
 
-  private Integer netSalary;
+    private Integer netSalary;
 
-  private Double percentRank;
+    private Double percentRank;
 
-  private List<SalaryRange> salaryRanges;
+    private Integer numberOfJobs;
 
-  public Integer getNetSalary() {
-    return netSalary;
-  }
+    private Integer numberOfSurveys;
 
-  public void setNetSalary(Integer netSalary) {
-    this.netSalary = netSalary;
-  }
+    private List<SalaryRange> salaryRanges;
 
-  public Double getPercentRank() {
-    return percentRank;
-  }
+    public Integer getNetSalary() {
+        return netSalary;
+    }
 
-  public void setPercentRank(Double percentRank) {
-    this.percentRank = percentRank;
-  }
+    public void setNetSalary(Integer netSalary) {
+        this.netSalary = netSalary;
+    }
 
-  public List<SalaryRange> getSalaryRanges() {
-    return salaryRanges;
-  }
+    public Double getPercentRank() {
+        return percentRank;
+    }
 
-  public void setSalaryRanges(List<SalaryRange> salaryRanges) {
-    this.salaryRanges = salaryRanges;
-  }
+    public void setPercentRank(Double percentRank) {
+        this.percentRank = percentRank;
+    }
 
-  public String percentRankToString() {
-    DecimalFormat df = new DecimalFormat("###.#");
-    return df.format(percentRank);
-  }
+    public Integer getNumberOfJobs() {
+        return numberOfJobs;
+    }
+
+    public void setNumberOfJobs(Integer numberOfJobs) {
+        this.numberOfJobs = numberOfJobs;
+    }
+
+    public Integer getNumberOfSurveys() {
+        return numberOfSurveys;
+    }
+
+    public void setNumberOfSurveys(Integer numberOfSurveys) {
+        this.numberOfSurveys = numberOfSurveys;
+    }
+
+    public List<SalaryRange> getSalaryRanges() {
+        return salaryRanges;
+    }
+
+    public void setSalaryRanges(List<SalaryRange> salaryRanges) {
+        this.salaryRanges = salaryRanges;
+    }
+
+    public String percentRankToString() {
+        DecimalFormat df = new DecimalFormat("###.#");
+        return df.format(percentRank);
+    }
 }

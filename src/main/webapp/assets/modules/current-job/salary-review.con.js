@@ -209,7 +209,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-
+    if ($scope.citiBankSubmit) {
+      $('.partner-company-block').hide();
+    }
     if (step === "step2") {
       $('.locationSelectbox input').click();
     }
@@ -229,6 +231,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
             $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
             $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
+
+              $scope.checkCompanyPromotionRole();
           })
           .error(function (data, status, headers, config) {
           });
@@ -239,7 +243,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.createNewReport = function () {
     $route.reload();
   }
-
   $scope.openFacebookShare = function () {
     window.open(
       'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + $scope.salaryReview.createdDateTime,
@@ -323,7 +326,59 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
   }
-
+  $scope.promotionCompanyInfo = {
+    "title": jsonValue.companyPromotion.title,
+    "tagLine": jsonValue.companyPromotion.tagLine,
+    "images": jsonValue.companyPromotion.images
+  };
+  $scope.sendCitibankPromotion = function () {
+    var formContent = $('.partner-company-form');
+    if (!formContent.hasClass('active')) {
+      formContent.slideDown("normal");
+      formContent.addClass('active');
+      $('.note-Partner-Company-Form').show();
+      $('.apply-now-block').find('button').addClass('disabled');
+    }
+    else {
+      var error = validatorService.validate($(".partner-company-form").find('input'));
+      $scope.error = error;
+      if (!$.isEmptyObject(error)) {
+        return;
+      }
+      else {
+        $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
+        $('.partner-company-detail').find('h4').hide();
+        formContent.hide();
+        $('.apply-now-block').hide();
+        $('.note-Partner-Company-Form').hide();
+        if($scope.promotion.paymentMethod == 'BANK_TRANSFER'){
+          $http.post("promotion/citibank/creditCard", $scope.promotion)
+          .success(function () {
+            $('.transfer').slideDown("normal");
+          });
+        }else{
+          $('.cash').slideDown("normal");
+        }
+        $scope.citiBankSubmit = true;
+      }
+    }
+  }
+  $scope.citiBankSubmit = false;
+  $scope.promotionRule = false;
+  $scope.checkCompanyPromotionRole = function(){
+    if(($scope.salaryReview.usdToVndRate * $scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary && jsonValue.companyPromotion.AcceptedCity.indexOf($scope.salaryReview.locationId) >= 0){
+      $scope.promotionRule = true;
+    }
+    return $scope.promotionRule;
+  }
+  $scope.checkSelect = function(){
+    var flg = $('#iAgree').hasClass("ng-invalid-required");
+    if(flg){
+      $('.apply-now-block').find('button').addClass('disabled');
+    }else{
+      $('.apply-now-block').find('button').removeClass('disabled');
+    }
+  }
   var jobAlertTimeout;
   $scope.$watch("jobAlert", function () {
     if (jobAlertTimeout !== undefined) {
@@ -345,17 +400,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.createJobAlert = function () {
     var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+    $scope.error = error;
     if (!$.isEmptyObject(error)) {
-      $scope.error = error;
       return;
     }
     var jobAlert = $.extend({}, $scope.jobAlert);
     jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
     jobAlert.lang = jsonValue.languages['' + $translate.use()];
     connectionFactory.createJobAlert(jobAlert).then(function () {
-      $('.email-similar-jobs-block').slideUp("normal", function(){
+      $('.email-similar-jobs-block').slideUp("normal", function () {
         $('.success-alert-box').addClass('show');
-        $timeout(function(){
+        $timeout(function () {
           $('.success-alert-box').removeClass('show');
         }, 2500);
       });

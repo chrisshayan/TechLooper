@@ -1,13 +1,15 @@
 package com.techlooper.config;
 
-import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ListCSVStringConverter;
+import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
 import com.techlooper.entity.*;
 import com.techlooper.model.UserInfo;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VnwJobAlert;
 import com.techlooper.model.VnwJobAlertRequest;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -15,6 +17,7 @@ import org.dozer.loader.api.FieldsMappingOptions;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -22,6 +25,9 @@ import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.google.api.plus.Person;
@@ -30,7 +36,11 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
@@ -44,6 +54,21 @@ public class CoreConfiguration {
 
   @Resource
   private Environment environment;
+
+  @Value("${mail.form}")
+  private String mailForm;
+
+  @Value("${mail.reply_to}")
+  private String mailReplyTo;
+
+  @Value("${mail.citibank.cc_promotion.to}")
+  private String mailCitibankCreditCardPromotionTo;
+
+  @Value("${mail.citibank.cc_promotion.subject}")
+  private String mailCitibankCreditCardPromotionSubject;
+
+  @Resource
+  private freemarker.template.Configuration freemakerConfig;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -127,5 +152,51 @@ public class CoreConfiguration {
     BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
     textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
     return textEncryptor;
+  }
+
+  @Bean
+  public MailSender mailSender() {
+    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    mailSender.setHost("localhost");
+    mailSender.setPort(25);
+
+    Properties javaMailProperties = new Properties();
+    javaMailProperties.put("mail.transport.protocol", "smtp");
+    mailSender.setJavaMailProperties(javaMailProperties);
+    return mailSender;
+  }
+
+  @Bean
+  public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
+    SimpleMailMessage mailMessage = new SimpleMailMessage();
+    mailMessage.setFrom(mailForm);
+    mailMessage.setTo(mailCitibankCreditCardPromotionTo);
+    mailMessage.setReplyTo(mailReplyTo);
+    mailMessage.setSubject(mailCitibankCreditCardPromotionSubject);
+    return mailMessage;
+  }
+
+  @Bean
+  public freemarker.template.Configuration freemakerConfig() throws IOException {
+    freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
+    cfg.setDirectoryForTemplateLoading(new java.io.File(this.getClass().getClassLoader().getResource("/").getFile() + "template"));
+    cfg.setDefaultEncoding("UTF-8");
+    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+    return cfg;
+  }
+
+  @Bean
+  @DependsOn("freemakerConfig")
+  public Template citibankCreditCardPromotionTemplate() throws IOException {
+    Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
+    return template;
+  }
+
+  @Bean
+  public Map<Long, String> locationMap() {
+    Map<Long, String> locations = new HashMap<>();
+    locations.put(29L, "Ho Chi Minh");
+    locations.put(24L, "Ha Noi");
+    return locations;
   }
 }

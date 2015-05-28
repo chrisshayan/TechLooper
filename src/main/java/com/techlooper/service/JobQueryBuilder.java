@@ -115,4 +115,6 @@ public interface JobQueryBuilder {
     NativeSearchQueryBuilder getJobSearchQueryBySkill(List<String> skills, List<Long> jobCategories);
 
     NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobEntity priceJobEntity);
+
+    NativeSearchQueryBuilder getJobSearchQueryByJobTitle(String jobTitle);
 }

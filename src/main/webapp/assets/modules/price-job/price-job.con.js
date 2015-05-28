@@ -136,7 +136,9 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     jobTitle: '',
     jobLevelIds: [],
     skills: [],
-    languagesId: []
+    languagesId: [],
+    yearsExperienceId: '',
+    educationRequiredId: ''
   };
 
   $scope.removeSkill = function (skill) {

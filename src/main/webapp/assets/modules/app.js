@@ -171,13 +171,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
   }]);
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         tourService, signInService, historyFactory, userService, routerService, $location,
+                         signInService, historyFactory, userService, routerService, $location,
                          utils, $rootScope, $translate, jsonValue, $location, $anchorScroll) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
   cleanupFactory.initialize();
-  //tourService.initialize();
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
@@ -252,4 +251,28 @@ techlooper.directive("navigation", function () {
         ctrl.$parsers.push(inputValue);
       }
     }
-  });
+  })
+    .directive('onlyDigitsString', function () {
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function (scope, element, attr, ctrl) {
+          function inputValue(val) {
+            if (val) {
+              var digits = val.replace(/[^0-9.]/g, '');
+
+              if (digits !== val) {
+                ctrl.$setViewValue(digits);
+                ctrl.$render();
+              }
+              var number = parseFloat(digits);
+              return isNaN(number) ? "" : val;
+
+            }
+            return '';
+          }
+
+          ctrl.$parsers.push(inputValue);
+        }
+      }
+    });
