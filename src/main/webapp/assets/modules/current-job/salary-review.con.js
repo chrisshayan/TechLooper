@@ -355,6 +355,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $http.post("promotion/citibank/creditCard", $scope.promotion)
           .success(function () {
             $('.transfer').slideDown("normal");
+          }).error(function(data, status, headers, config) {
+            $('.cash').slideDown("normal");
           });
         }else{
           $('.cash').slideDown("normal");
