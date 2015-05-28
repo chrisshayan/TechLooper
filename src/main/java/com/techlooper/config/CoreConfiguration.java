@@ -1,6 +1,5 @@
 package com.techlooper.config;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
@@ -10,7 +9,6 @@ import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VnwJobAlert;
 import com.techlooper.model.VnwJobAlertRequest;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -27,14 +25,12 @@ import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.google.api.plus.Person;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -73,13 +69,6 @@ public class CoreConfiguration {
 
   @Resource
   private freemarker.template.Configuration freemakerConfig;
-
-  @Resource
-  private RestTemplate restTemplate;
-
-  @Value("${api.exchangeRateUrl}")
-  private String apiExchangeRateUrl;
-
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -209,11 +198,5 @@ public class CoreConfiguration {
     locations.put(29L, "Ho Chi Minh");
     locations.put(24L, "Ha Noi");
     return locations;
-  }
-
-  @Bean
-  public Long usdToVndRate() {
-    String url = String.format(apiExchangeRateUrl, "USD_VND");
-    return restTemplate.getForEntity(url, JsonNode.class).getBody().findPath("val").asLong(0L);
   }
 }

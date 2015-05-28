@@ -4,10 +4,7 @@ import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
-import com.techlooper.service.PromotionService;
-import com.techlooper.service.UserEvaluationService;
-import com.techlooper.service.UserImportDataProcessor;
-import com.techlooper.service.UserService;
+import com.techlooper.service.*;
 import freemarker.template.TemplateException;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.context.ApplicationContext;
@@ -44,6 +41,9 @@ public class UserController {
 
   @Resource
   private PromotionService promotionService;
+
+  @Resource
+  private CurrencyService currencyService;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -117,6 +117,7 @@ public class UserController {
   @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
   public SalaryReview reviewSalary(@RequestBody SalaryReview salaryReview) {
     userEvaluationService.reviewSalary(salaryReview);
+    salaryReview.setUsdToVndRate(currencyService.usdToVndRate());
     return salaryReview;
   }
 
