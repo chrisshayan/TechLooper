@@ -7,7 +7,6 @@ import com.techlooper.service.CurrencyService;
 import com.techlooper.service.PromotionService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -58,7 +59,7 @@ public class PromotionServiceImpl implements PromotionService {
 //      return false;
 //    }
 
-    citibankCreditCardPromotion.setNetIncome("VND " + netIncome);
+    citibankCreditCardPromotion.setNetIncome("VND " + NumberFormat.getNumberInstance(Locale.US).format(netIncome));
 
     String location = locationMap.get(salaryReview.getLocationId());
     citibankCreditCardPromotion.setLocation(location);
@@ -67,9 +68,4 @@ public class PromotionServiceImpl implements PromotionService {
     citibankCreditCardPromotionMailMessage.setText(stringWriter.toString());
     mailSender.send(citibankCreditCardPromotionMailMessage);
   }
-
-//  public static void main(String[] args) {
-//    Money money = Money.parse("VND 10000");
-//    System.out.println(String.format("%.2f", 10000));
-//  }
 }
