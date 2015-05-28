@@ -440,12 +440,12 @@
           </div>
         </div>
         <div class="salary-report-feedback"
-             ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
+             ng-show="!(salaryReview.campaign &&  salaryReport.percentRank !== 'NaN'">
           <div class="title-header">
-          <h3 translate="whatYouThinkReport"></h3>
+          <h3 translate="whatYouThinkReport" ng-show="!survey.submitted"></h3>
           <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
             </div>
-          <div class="salary-report-feedback-form">
+          <div class="salary-report-feedback-form" ng-show="!survey.submitted">
             <form autocomplete="off">
               <ul>
                   <li>
@@ -481,8 +481,8 @@
                   </li>
                 </ul>
               </form>
-            <div class="note" translate="thanksForHelp"></div>
           </div>
+          <div class="thanksMessages" ng-show="survey.submitted" translate="thanksForHelp"></div>
         </div>
       </div>
     </div>
