@@ -19,6 +19,7 @@
     "highcharts-release": "latest",
     "ngInfiniteScroll": "latest",
     "selectize": "latest",
+    "angular-selectize2": "latest",
     "perfect-scrollbar": "latest",
     "mousetrap": "latest",
     "JSONPath": "latest",
@@ -82,6 +83,9 @@
     },
     "selectize": {
       "main": "dist/js/standalone/selectize.min.js"
+    },
+    "angular-selectize2": {
+      "main": "dist/selectize.js"
     },
     "perfect-scrollbar": {
       "main": "js/perfect-scrollbar.js"
