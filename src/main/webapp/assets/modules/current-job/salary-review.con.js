@@ -323,23 +323,25 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
   }
-  $scope.sendCitibankPromotion = function(){
+  $scope.sendCitibankPromotion = function () {
     var formContent = $('.partner-company-form');
-    if(!formContent.hasClass('active')){
+    if (!formContent.hasClass('active')) {
       formContent.slideDown("normal");
       formContent.addClass('active');
       $('.note-Partner-Company-Form').show();
-    }else{
+    }
+    else {
       var error = validatorService.validate($(".partner-company-form").find('input'));
+      $scope.error = error;
       if (!$.isEmptyObject(error)) {
-        $scope.error = error;
         return;
-      }else{
+      }
+      else {
         $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", $scope.promotion)
-            .success(function() {
-              console.log("abc");
-            })
+          .success(function () {
+            console.log("abc");
+          })
         $('.partner-company-detail').find('h4').hide();
         //formContent.hide();
         //$('.apply-now-block').hide();
@@ -369,17 +371,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.createJobAlert = function () {
     var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+    $scope.error = error;
     if (!$.isEmptyObject(error)) {
-      $scope.error = error;
       return;
     }
     var jobAlert = $.extend({}, $scope.jobAlert);
     jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
     jobAlert.lang = jsonValue.languages['' + $translate.use()];
     connectionFactory.createJobAlert(jobAlert).then(function () {
-      $('.email-similar-jobs-block').slideUp("normal", function(){
+      $('.email-similar-jobs-block').slideUp("normal", function () {
         $('.success-alert-box').addClass('show');
-        $timeout(function(){
+        $timeout(function () {
           $('.success-alert-box').removeClass('show');
         }, 2500);
       });
