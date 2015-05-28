@@ -209,7 +209,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-    if ($scope.citiBankSubmit) {
+    if (localStorage.getItem('PROMOTION-KEY') ==='yes') {
       $('.partner-company-block').hide();
     }
     if (step === "step2") {
@@ -362,6 +362,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $('.cash').slideDown("normal");
         }
         $scope.citiBankSubmit = true;
+        localStorage.setItem('PROMOTION-KEY', 'yes');
       }
     }
   }
