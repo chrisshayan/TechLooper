@@ -69,10 +69,10 @@ module.exports = function (grunt) {
         publicDirs: ["<%=pkg.public%>css"],
         blockReplacements: {
           js: function (block) {
-            return '<script src="' + block.dest + "?v=" + timestamp + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<script src="' + block.dest.replace(".js", "_v" + timestamp + ".js") + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
           },
           css: function (block) {
-            return '<link rel="stylesheet" href="' + block.dest + "?v=" + timestamp + '">';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<link rel="stylesheet" href="' + block.dest.replace(".css", "_v" + timestamp + ".css") + '">';//'<link rel="stylesheet" href="' + block.dest + '">';
           }
         }
       }
