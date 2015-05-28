@@ -779,7 +779,9 @@ angular.module("Common").constant("jsonValue", (function () {
     "companyPromotion": {
       "title": "companyTitle",
       "tagLine": "companyMessages",
-      "images": "https://www.citibank.com.vn/Landing_Pages/vietnamese/dining-program/images/overviewBanner/sorae-sushi-sake.jpg"
+      "images": "https://www.citibank.com.vn/Landing_Pages/vietnamese/dining-program/images/overviewBanner/sorae-sushi-sake.jpg",
+      "minSalary": 10000000,
+      "AcceptedCity": [24, 29]
     }
   }
 

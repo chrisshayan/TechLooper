@@ -283,7 +283,7 @@
             <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
           </div>
         </div>
-        <div class="partner-company-block">
+        <div class="partner-company-block" ng-show="promotionRule">
           <h3>{{promotionCompanyInfo.title | translate}}</h3>
           <div class="partner-company-content">
             <div class="partner-company-logo">

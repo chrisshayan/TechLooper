@@ -229,6 +229,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
             $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
             $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
+
+              $scope.checkCompanyPromotionRole();
           })
           .error(function (data, status, headers, config) {
           });
@@ -354,6 +356,14 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         });
       }
     }
+  }
+  $scope.promotionRule = false;
+  $scope.checkCompanyPromotionRole = function(){
+    console.log($scope.salaryReview.usdToVndRate);
+    if(($scope.salaryReview.usdToVndRate * $scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary && jsonValue.companyPromotion.AcceptedCity.indexOf($scope.salaryReview.locationId) > 0){
+      $scope.promotionRule = true;
+    }
+    return $scope.promotionRule;
   }
   $scope.checkSelect = function(){
     var flg = $('#iAgree').hasClass("ng-invalid-required");
