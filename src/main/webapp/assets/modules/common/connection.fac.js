@@ -11,7 +11,7 @@ angular.module("Common").factory("connectionFactory",
     //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
     var stompUrl = baseUrl + '/' + socketUri.sockjs;
     var broadcastClient = Stomp.over(new SockJS(stompUrl));
-    //broadcastClient.debug = function () {};
+    broadcastClient.debug = function () {};
 
     var stompClient = {
       stomp: Stomp.over(new SockJS(stompUrl)),
@@ -216,7 +216,7 @@ angular.module("Common").factory("connectionFactory",
         }
         subscriptions = {};
         broadcastClient = Stomp.over(new SockJS(stompUrl));
-        //broadcastClient.debug = function () {};
+        broadcastClient.debug = function () {};
 
         broadcastClient.connect({}, function (frame) {
           isConnecting = false;
@@ -237,7 +237,7 @@ angular.module("Common").factory("connectionFactory",
           return stompClient.deferred.promise;
         }
         stompClient.stomp = Stomp.over(new SockJS(stompUrl));
-        //stompClient.stomp.debug = function () {};
+        stompClient.stomp.debug = function () {};
         stompClient.isConnecting = true;
         stompClient.stomp.connect({}, function (frame) {
           stompClient.isConnecting = false;
