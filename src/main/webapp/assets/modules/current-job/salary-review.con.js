@@ -334,6 +334,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       formContent.slideDown("normal");
       formContent.addClass('active');
       $('.note-Partner-Company-Form').show();
+      $('.apply-now-block').find('button').addClass('disabled');
     }
     else {
       var error = validatorService.validate($(".partner-company-form").find('input'));
@@ -352,6 +353,14 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
             $('.partner-company-thanks').slideDown("normal");
         });
       }
+    }
+  }
+  $scope.checkSelect = function(){
+    var flg = $('#iAgree').hasClass("ng-invalid-required");
+    if(flg){
+      $('.apply-now-block').find('button').addClass('disabled');
+    }else{
+      $('.apply-now-block').find('button').removeClass('disabled');
     }
   }
   var jobAlertTimeout;

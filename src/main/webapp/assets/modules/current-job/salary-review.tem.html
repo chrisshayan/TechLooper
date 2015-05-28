@@ -326,9 +326,8 @@
                 <div class="partner-company-field">
                   <div class="agree-registration">
                     <input ng-model="promotion.agree"
-                           type="checkbox" id="iAgree" required/>
+                           type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
                     <label for="iAgree">{{'iAgree' | translate }}</label>
-                    <div class="error-messages">{{error['promotion.agree']}}</div>
                   </div>
                 </div>
               </div>
