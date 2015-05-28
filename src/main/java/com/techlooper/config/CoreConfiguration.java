@@ -59,23 +59,11 @@ public class CoreConfiguration {
   @Resource
   private Environment environment;
 
-  @Value("${mail.host}")
-  private String mailHost;
-
   @Value("${mail.form}")
   private String mailForm;
 
-  @Value("${mail.username}")
-  private String mailUsername;
-
-  @Value("${mail.password}")
-  private String mailPassword;
-
   @Value("${mail.reply_to}")
   private String mailReplyTo;
-
-  @Value("${mail.port}")
-  private Integer mailPort;
 
   @Value("${mail.citibank.cc_promotion.to}")
   private String mailCitibankCreditCardPromotionTo;
@@ -180,15 +168,11 @@ public class CoreConfiguration {
   @Bean
   public MailSender mailSender() {
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-    mailSender.setHost(mailHost);
-//    mailSender.setHost("smtp.gmail.com");
-    mailSender.setPort(mailPort);
-    mailSender.setUsername(mailUsername);
-    mailSender.setPassword(mailPassword);
+    mailSender.setHost("localhost");
+    mailSender.setPort(25);
 
     Properties javaMailProperties = new Properties();
-    javaMailProperties.put("mail.smtp.auth", true);
-    javaMailProperties.put("mail.smtp.starttls.enable", true);
+    javaMailProperties.put("mail.transport.protocol", "smtp");
     mailSender.setJavaMailProperties(javaMailProperties);
     return mailSender;
   }

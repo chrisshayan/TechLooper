@@ -610,62 +610,6 @@ angular.module("Common").constant("jsonValue", (function () {
       "15": {"name": "Others", "iconName": "fa-check-square-o"}
     },
 
-    introTour: {
-      template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
-      pieHomePage: [
-        {
-          element: ".setting-content",
-          placement: "right",
-          title: "Setting",
-          content: "You can change chart type (Bubble/Pie) or language here."
-        },
-        {
-          element: ".signin-signout-container",
-          placement: "left",
-          title: "Sign In/Sign Out",
-          content: "You can sign in with Vietnamworks account, Github account, LinkedIn account..."
-        },
-        {
-          element: ".highcharts-container",
-          placement: "top",
-          title: "Pie Chart",
-          content: "In this chart, you can see how many jobs of the Term"
-        },
-        {
-          element: ".find-jobs-button",
-          placement: "top",
-          title: "Find Jobs",
-          content: "Click to this button, you can find job on search job page"
-        }
-      ],
-
-      bubbleHomePage: [
-        {
-          element: ".setting-content",
-          placement: "right",
-          title: "Setting",
-          content: "You can change chart type (Bubble/Pie) or language here."
-        },
-        {
-          element: ".signin-signout-container",
-          placement: "left",
-          title: "Sign In/Sign Out",
-          content: "You can sign in with Vietnamworks account, Github account, LinkedIn account..."
-        },
-        {
-          element: "#box",
-          placement: "top",
-          title: "Bubble Chart",
-          content: "In this chart, you can see how many jobs of the Term"
-        },
-        {
-          element: ".find-jobs-button",
-          placement: "top",
-          title: "Find Jobs",
-          content: "Click to this button, you can find job on search job page"
-        }
-      ]
-    },
     genders: [
       {id: 1, translate: "genderMale"},
       {id: 2, translate: "genderFemale"}

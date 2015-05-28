@@ -1,4 +1,4 @@
-angular.module("Navigation").factory("navigationService", function (shortcutFactory, localStorageService, utils, jsonValue, $rootScope, $http, $location, tourService, userService) {
+angular.module("Navigation").factory("navigationService", function (shortcutFactory, localStorageService, utils, jsonValue, $rootScope, $http, $location, userService) {
 
   var $$ = {
     naviControl: function () {
