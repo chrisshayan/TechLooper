@@ -1,64 +1,47 @@
-package com.techlooper.entity;
+package com.techlooper.model;
 
-import com.techlooper.model.SalaryReport;
-import com.techlooper.model.SalaryReviewSurvey;
-import com.techlooper.model.TopPaidJob;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
 /**
- * Created by phuonghqh on 5/5/15.
+ * Created by phuonghqh on 5/28/15.
  */
-@Document(indexName = "techlooper", type = "salaryReview")
-public class SalaryReview {
+public class SalaryReviewDto {
 
-  @Id
   private Long createdDateTime;
 
-  @Field
   private String jobTitle;
 
-  @Field
   private List<Integer> jobLevelIds;
 
-  @Field
   private Long locationId;
 
-  @Field
   private Integer netSalary;
 
-  @Field
   private List<String> skills;
 
-  @Field
   private String reportTo;
 
-  @Field
   private List<Long> jobCategories;
 
-  @Field
   private Long companySizeId;
 
-  @Field
   private int gender;
 
-  @Field
   private int age;
 
-  @Field(type = FieldType.Nested)
   private SalaryReport salaryReport;
 
   private List<TopPaidJob> topPaidJobs;
 
-  @Field(type = FieldType.Nested)
   private SalaryReviewSurvey salaryReviewSurvey;
 
-  @Field
   private String campaign;
+
+  private Long usdToVndRate;
 
   public Long getCreatedDateTime() {
     return createdDateTime;
@@ -178,5 +161,13 @@ public class SalaryReview {
 
   public void setCampaign(String campaign) {
     this.campaign = campaign;
+  }
+
+  public Long getUsdToVndRate() {
+    return usdToVndRate;
+  }
+
+  public void setUsdToVndRate(Long usdToVndRate) {
+    this.usdToVndRate = usdToVndRate;
   }
 }

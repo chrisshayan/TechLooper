@@ -6,6 +6,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
 import freemarker.template.TemplateException;
+import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -44,6 +45,9 @@ public class UserController {
 
   @Resource
   private CurrencyService currencyService;
+
+  @Resource
+  private Mapper dozerMapper;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -115,10 +119,11 @@ public class UserController {
   }
 
   @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-  public SalaryReview reviewSalary(@RequestBody SalaryReview salaryReview) {
+  public SalaryReviewDto reviewSalary(@RequestBody SalaryReview salaryReview) {
     userEvaluationService.reviewSalary(salaryReview);
-    salaryReview.setUsdToVndRate(currencyService.usdToVndRate());
-    return salaryReview;
+    SalaryReviewDto salaryReviewDto = dozerMapper.map(salaryReview, SalaryReviewDto.class);
+    salaryReviewDto.setUsdToVndRate(currencyService.usdToVndRate());
+    return salaryReviewDto;
   }
 
   @RequestMapping(value = "/saveSalaryReviewSurvey", method = RequestMethod.POST)
