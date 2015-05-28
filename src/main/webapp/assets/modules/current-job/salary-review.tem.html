@@ -284,13 +284,13 @@
           </div>
         </div>
         <div class="partner-company-block">
-          <h3 translate="companyTitle"></h3>
+          <h3>{{promotionCompanyInfo.title | translate}}</h3>
           <div class="partner-company-content">
             <div class="partner-company-logo">
-              <img src="https://www.citibank.com.vn/Landing_Pages/vietnamese/dining-program/images/overviewBanner/sorae-sushi-sake.jpg" alt=""/>
+              <img ng-src="{{promotionCompanyInfo.images}}" alt=""/>
             </div>
             <div class="partner-company-detail">
-              <h4 translate="companyMessages"></h4>
+              <h4>{{promotionCompanyInfo.tagLine | translate}}</h4>
               <div class="partner-company-form">
                 <p translate="desHowToGetIt"></p>
                 <div class="partner-company-field">

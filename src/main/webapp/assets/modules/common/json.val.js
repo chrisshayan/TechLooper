@@ -775,7 +775,12 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 12, name: "18 years"},
       {id: 12, name: "19 years"},
       {id: 12, name: "> 20 years"}
-    ]
+    ],
+    "companyPromotion": {
+      "title": "companyTitle",
+      "tagLine": "companyMessages",
+      "images": "https://www.citibank.com.vn/Landing_Pages/vietnamese/dining-program/images/overviewBanner/sorae-sushi-sake.jpg"
+    }
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {

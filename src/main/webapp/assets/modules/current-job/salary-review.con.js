@@ -323,6 +323,11 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     delete jobAlert.topPaidJobs;
     $scope.jobAlert = jobAlert;
   }
+  $scope.promotionCompanyInfo = {
+    "title": jsonValue.companyPromotion.title,
+    "tagLine": jsonValue.companyPromotion.tagLine,
+    "images": jsonValue.companyPromotion.images
+  };
   $scope.sendCitibankPromotion = function () {
     var formContent = $('.partner-company-form');
     if (!formContent.hasClass('active')) {
