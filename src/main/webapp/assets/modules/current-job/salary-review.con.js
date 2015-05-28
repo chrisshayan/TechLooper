@@ -209,7 +209,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-
+    if ($scope.citiBankSubmit) {
+      $('.partner-company-block').hide();
+    }
     if (step === "step2") {
       $('.locationSelectbox input').click();
     }
@@ -345,19 +347,23 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
       else {
         $scope.promotion.salaryReviewId = $scope.salaryReview.createdDateTime;
+        $('.partner-company-detail').find('h4').hide();
+        formContent.hide();
+        $('.apply-now-block').hide();
+        $('.note-Partner-Company-Form').hide();
         if($scope.promotion.paymentMethod == 'BANK_TRANSFER'){
           $http.post("promotion/citibank/creditCard", $scope.promotion)
           .success(function () {
-            $('.partner-company-detail').find('h4').hide();
-            formContent.hide();
-            $('.apply-now-block').hide();
-            $('.note-Partner-Company-Form').hide();
-            $('.partner-company-thanks').slideDown("normal");
+            $('.transfer').slideDown("normal");
           });
+        }else{
+          $('.cash').slideDown("normal");
         }
+        $scope.citiBankSubmit = true;
       }
     }
   }
+  $scope.citiBankSubmit = false;
   $scope.promotionRule = false;
   $scope.checkCompanyPromotionRole = function(){
     if(($scope.salaryReview.usdToVndRate * $scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary && jsonValue.companyPromotion.AcceptedCity.indexOf($scope.salaryReview.locationId) >= 0){
