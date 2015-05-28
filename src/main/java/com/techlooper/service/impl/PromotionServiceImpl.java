@@ -37,8 +37,8 @@ public class PromotionServiceImpl implements PromotionService {
   @Resource
   private SalaryReviewRepository salaryReviewRepository;//USD_VND
 
-  @Value("${citibank.cc_promotion.minIncome.vnd}")
-  private Long minIncome;
+//  @Value("${citibank.cc_promotion.minIncome.vnd}")
+//  private Long minIncome;
 
 //  @Value("${citibank.accept.city.ids}")
 //  private String acceptCityIds;
