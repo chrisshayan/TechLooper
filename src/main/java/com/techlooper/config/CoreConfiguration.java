@@ -27,7 +27,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.google.api.plus.Person;
@@ -36,6 +38,10 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
@@ -69,8 +75,8 @@ public class CoreConfiguration {
   @Value("${mail.citibank.cc_promotion.subject}")
   private String mailCitibankCreditCardPromotionSubject;
 
-  @Resource
-  private freemarker.template.Configuration freemakerConfig;
+  @Value("${mail.salaryReview.subject}")
+  private String salaryReviewSubject;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -157,7 +163,7 @@ public class CoreConfiguration {
   }
 
   @Bean
-  public MailSender mailSender() {
+  public JavaMailSender mailSender() {
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
     mailSender.setHost("localhost");
     mailSender.setPort(25);
@@ -188,8 +194,7 @@ public class CoreConfiguration {
   }
 
   @Bean
-  @DependsOn("freemakerConfig")
-  public Template citibankCreditCardPromotionTemplate() throws IOException {
+  public Template citibankCreditCardPromotionTemplate(freemarker.template.Configuration freemakerConfig) throws IOException {
     Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
     return template;
   }
@@ -202,8 +207,37 @@ public class CoreConfiguration {
     return locations;
   }
 
-//  public static void main(String[] args ) {
-////    System.out.println("d:\\abc".replaceAll("\\", "/"));
-//    System.out.println(FilenameUtils.normalize("d:\\abc" + "/def"));
+  @Bean
+  public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
+    MimeMessage mailMessage = mailSender.createMimeMessage();
+    mailMessage.setReplyTo(InternetAddress.parse(mailReplyTo));
+    mailMessage.setSubject(salaryReviewSubject);
+    mailMessage.setFrom(InternetAddress.parse(mailForm)[0]);
+    return mailMessage;
+  }
+
+  @Bean
+  public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
+    return template;
+  }
+
+  @Bean
+  public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("salaryReviewReport.vi.ftl");
+    return template;
+  }
+
+//  public static void main(String[] args) throws MessagingException {
+//    CoreConfiguration config = new CoreConfiguration();
+//    JavaMailSender sender = config.mailSender();
+//    MimeMessage message = config.salaryReviewMailMessage(sender);
+//    message.setText("<!DOCTYPE html><html><body><a href='http://google.com'>click me</a><b>bold<b/></body></html>", "utf-8", "html");
+//    message.setRecipients(Message.RecipientType.TO, "phuonghqh@gmail.com");
+//    sender.send(message);
+//
+//    message.setText("<!DOCTYPE html><html><body><a href='http://google.com'>click me</a><b>khakha<b/></body></html>", "utf-8", "html");
+//    message.setRecipients(Message.RecipientType.TO, "phuong.hqh@gmail.com");
+//    sender.send(message);
 //  }
 }

@@ -7,9 +7,8 @@ import com.techlooper.service.CurrencyService;
 import com.techlooper.service.PromotionService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +25,7 @@ import java.util.Map;
 public class PromotionServiceImpl implements PromotionService {
 
   @Resource
-  private MailSender mailSender;
+  private JavaMailSender mailSender;
 
   @Resource
   private SimpleMailMessage citibankCreditCardPromotionMailMessage;
@@ -37,12 +36,6 @@ public class PromotionServiceImpl implements PromotionService {
   @Resource
   private SalaryReviewRepository salaryReviewRepository;//USD_VND
 
-//  @Value("${citibank.cc_promotion.minIncome.vnd}")
-//  private Long minIncome;
-
-//  @Value("${citibank.accept.city.ids}")
-//  private String acceptCityIds;
-
   @Resource
   private Map<Long, String> locationMap;
 
@@ -51,20 +44,15 @@ public class PromotionServiceImpl implements PromotionService {
 
   public void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
     SalaryReview salaryReview = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
-    Long netIncome = currencyService.usdToVndRate() * salaryReview.getNetSalary();
-//    if (citibankCreditCardPromotion.getAgree() != Boolean.TRUE ||
-//      citibankCreditCardPromotion.getPaymentMethod() != PaymentMethod.BANK_TRANSFER ||
-//      netIncome < minIncome ||
-//      !acceptCityIds.contains(salaryReview.getLocationId().toString())) {
-//      return false;
-//    }
 
+    Long netIncome = currencyService.usdToVndRate() * salaryReview.getNetSalary();
     citibankCreditCardPromotion.setNetIncome("VND " + NumberFormat.getNumberInstance(Locale.US).format(netIncome));
 
     String location = locationMap.get(salaryReview.getLocationId());
     citibankCreditCardPromotion.setLocation(location);
     StringWriter stringWriter = new StringWriter();
     citibankCreditCardPromotionTemplate.process(citibankCreditCardPromotion, stringWriter);
+    stringWriter.flush();
     citibankCreditCardPromotionMailMessage.setText(stringWriter.toString());
     mailSender.send(citibankCreditCardPromotionMailMessage);
   }
