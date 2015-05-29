@@ -232,5 +232,9 @@
   "paymentMethodOption2": "By Cash",
   "iAgree": "I agree to be contacted by Citibank at the contact details above for Citibank products and services and for other promotions from time to time.",
   "committed": "This information will be kept strictly confidential and will not be shared with any third party.",
-  "applyNow": "Apply Now"
+  "applyNow": "Apply Now",
+  "sendMeReport": "Send Me Report",
+  "desSendMeReport": "Help us filling the information below so we can send report to you.",
+  "sendMeNow": "Send Me Now",
+  "thanksSendMeReport": "Thanks for your information. We have just sent you email. We are here to help you Move Up!"
 }
