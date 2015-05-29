@@ -235,6 +235,18 @@
             </div>
           </div>
         </div>
+        <div class="send-me-report-block">
+          <h3 translate="sendMeReport"></h3>
+          <div class="send-me-form">
+            <p translate="desSendMeReport"></p>
+            <input ng-model="sendMeReport.email" type="email" required/>
+            <button translate="sendMeNow" class="btn btn-primary btn-flat" ng-click="sendMeNow()"></button>
+            <div class="error-messages">{{error['sendMeReport.email']}}</div>
+          </div>
+          <div class="success-alert-box thanks-message-for-send-me">
+            <p translate="thanksSendMeReport"></p>
+          </div>
+        </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank == 'NaN'">
           <h3>{{'yourPaySnapshot' | translate}}</h3>
           <div class="your-pay-snapshot-content">
