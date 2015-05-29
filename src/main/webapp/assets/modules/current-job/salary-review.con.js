@@ -209,7 +209,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-    if (localStorage.getItem('PROMOTION-KEY') ==='yes') {
+    if (localStorage.getItem('PROMOTION-KEY') === 'yes') {
       $('.partner-company-block').hide();
     }
     if (step === "step2") {
@@ -232,7 +232,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
             $scope.salaryReport = data.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
 
-              $scope.checkCompanyPromotionRole();
+            $scope.checkCompanyPromotionRole();
           })
           .error(function (data, status, headers, config) {
           });
@@ -351,14 +351,15 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         formContent.hide();
         $('.apply-now-block').hide();
         $('.note-Partner-Company-Form').hide();
-        if($scope.promotion.paymentMethod == 'BANK_TRANSFER'){
+        if ($scope.promotion.paymentMethod == 'BANK_TRANSFER') {
           $http.post("promotion/citibank/creditCard", $scope.promotion)
-          .success(function () {
-            $('.transfer').slideDown("normal");
-          }).error(function(data, status, headers, config) {
-            $('.cash').slideDown("normal");
-          });
-        }else{
+            .success(function () {
+              $('.transfer').slideDown("normal");
+            }).error(function (data, status, headers, config) {
+              $('.cash').slideDown("normal");
+            });
+        }
+        else {
           $('.cash').slideDown("normal");
         }
         $scope.citiBankSubmit = true;
@@ -368,17 +369,18 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
   $scope.citiBankSubmit = false;
   $scope.promotionRule = false;
-  $scope.checkCompanyPromotionRole = function(){
-    if(($scope.salaryReview.usdToVndRate * $scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary && jsonValue.companyPromotion.AcceptedCity.indexOf($scope.salaryReview.locationId) >= 0){
+  $scope.checkCompanyPromotionRole = function () {
+    if (($scope.salaryReview.usdToVndRate * $scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary && jsonValue.companyPromotion.AcceptedCity.indexOf($scope.salaryReview.locationId) >= 0) {
       $scope.promotionRule = true;
     }
     return $scope.promotionRule;
   }
-  $scope.checkSelect = function(){
+  $scope.checkSelect = function () {
     var flg = $('#iAgree').hasClass("ng-invalid-required");
-    if(flg){
+    if (flg) {
       $('.apply-now-block').find('button').addClass('disabled');
-    }else{
+    }
+    else {
       $('.apply-now-block').find('button').removeClass('disabled');
     }
   }
@@ -420,14 +422,26 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     });
   }
 
-  $scope.sendMeNow = function(){
+  $scope.sendMeNow = function () {
     var error = validatorService.validate($(".send-me-form").find('input'));
     $scope.error = error;
     if (!$.isEmptyObject(error)) {
       return;
-    }else{
-      $('.send-me-form').hide();
-      $('.thanks-message-for-send-me').addClass('show');
     }
+
+    $scope.sendMeReport.salaryReviewId = $scope.salaryReview.createdDateTime;
+    $scope.sendMeReport.lang = $translate.use();
+    $http.post("salaryReview/placeSalaryReviewReport", $scope.sendMeReport)
+      .success(function() {
+
+        $('.thanks-message-for-send-me').addClass('show');
+      })
+      .error(function() {
+        $('.thanks-message-for-send-me').addClass('show');
+      });
+
+    //$('.send-me-form').hide();
   }
+
+  console.log($translate.use());
 });

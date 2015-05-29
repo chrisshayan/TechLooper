@@ -86,7 +86,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
 
     StringWriter stringWriter = new StringWriter();
-    Template template = emailRequest.getLang() == Language.VI ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
+    Template template = emailRequest.getLang() == Language.vi ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
     template.process(salaryReview, stringWriter);
     salaryReviewMailMessage.setText(stringWriter.toString(), "utf-8", "html");
     stringWriter.flush();

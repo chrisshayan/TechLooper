@@ -163,7 +163,7 @@ public class UserController {
     promotionService.placePromotion(citibankCreditCardPromotion);
   }
 
-  @RequestMapping("salaryReview/placeSalaryReviewReport")
+  @RequestMapping(value = "salaryReview/placeSalaryReviewReport", method = RequestMethod.POST)
   public void placeSalaryReviewReport(@Valid @RequestBody EmailRequest emailRequest) throws TemplateException, IOException, MessagingException {
     salaryReviewService.sendReportEmail(emailRequest);
   }
