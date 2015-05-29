@@ -419,4 +419,15 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       });
     });
   }
+
+  $scope.sendMeNow = function(){
+    var error = validatorService.validate($(".send-me-form").find('input'));
+    $scope.error = error;
+    if (!$.isEmptyObject(error)) {
+      return;
+    }else{
+      $('.send-me-form').hide();
+      $('.thanks-message-for-send-me').addClass('show');
+    }
+  }
 });
