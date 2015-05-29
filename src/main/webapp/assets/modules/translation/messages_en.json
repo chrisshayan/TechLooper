@@ -79,7 +79,7 @@
   "exMale": "Ex: Male",
   "jobTitle": "Job Title",
   "jobLevel": "Job Level",
-  "netSalary": "Net Salary (USD net a month)",
+  "netSalary": "Net Salary (USD/month)",
   "reportTo": "Who are you reporting to?",
   "location": "Location",
   "companySize": "Company Size",
@@ -93,7 +93,7 @@
   "noticeLine": "Remember: the more specific your answers are the more accurate your salary report will be. Any information you share with us will be <strong>kept confidential</strong>.",
   "jobTitle.placeholder": "Ex: Java Developer",
   "jobLevel.placeholder": "Ex: Experienced(Non-Manager)",
-  "netSalary.placeholder": "Ex: $1000 (as NET USD/month)",
+  "netSalary.placeholder": "Ex: $1000",
   "mostRelevantSkills.placeholder": "Ex: Agile, Git or Web Service",
   "reportTo.placeholder": "Ex: Team Leader",
   "thanksForShare.headline.under50percent": "Your Salary is <strong>at the bottom </strong>of the scale, do you deserve a pay raise?",
@@ -175,7 +175,6 @@
   "exDay": "Ex: Daily",
   "jobAlertTitle": "Don't miss any opportunities to Move Up!",
   "city": "City",
-  "netSalary": "Net Salary from (USD)",
   "myEmail": "My Email",
   "jobMatch": " job(s) match these criteria ... SEND ME TO",
   "hiringTagLine": "Know How To Attract Talent In Vietnam",
@@ -232,5 +231,9 @@
   "paymentMethodOption2": "By Cash",
   "iAgree": "I agree to be contacted by Citibank at the contact details above for Citibank products and services and for other promotions from time to time.",
   "committed": "This information will be kept strictly confidential and will not be shared with any third party.",
-  "applyNow": "Apply Now"
+  "applyNow": "Apply Now",
+  "sendMeReport": "Send Me Report",
+  "desSendMeReport": "Help us filling the information below so we can send report to you.",
+  "sendMeNow": "Send Me Now",
+  "thanksSendMeReport": "Thanks for your information. We have just sent you email. We are here to help you Move Up!"
 }

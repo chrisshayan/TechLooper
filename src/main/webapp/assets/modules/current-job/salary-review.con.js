@@ -209,7 +209,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-    if ($scope.citiBankSubmit) {
+    if (localStorage.getItem('PROMOTION-KEY') ==='yes') {
       $('.partner-company-block').hide();
     }
     if (step === "step2") {
@@ -355,11 +355,14 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $http.post("promotion/citibank/creditCard", $scope.promotion)
           .success(function () {
             $('.transfer').slideDown("normal");
+          }).error(function(data, status, headers, config) {
+            $('.cash').slideDown("normal");
           });
         }else{
           $('.cash').slideDown("normal");
         }
         $scope.citiBankSubmit = true;
+        localStorage.setItem('PROMOTION-KEY', 'yes');
       }
     }
   }
@@ -415,5 +418,16 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         }, 2500);
       });
     });
+  }
+
+  $scope.sendMeNow = function(){
+    var error = validatorService.validate($(".send-me-form").find('input'));
+    $scope.error = error;
+    if (!$.isEmptyObject(error)) {
+      return;
+    }else{
+      $('.send-me-form').hide();
+      $('.thanks-message-for-send-me').addClass('show');
+    }
   }
 });

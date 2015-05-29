@@ -235,6 +235,18 @@
             </div>
           </div>
         </div>
+        <div class="send-me-report-block" ng-show="salaryReport.percentRank !== 'NaN'">
+          <h3 translate="sendMeReport"></h3>
+          <div class="send-me-form">
+            <p translate="desSendMeReport"></p>
+            <input ng-model="sendMeReport.email" type="email" required/>
+            <button translate="sendMeNow" class="btn btn-primary btn-flat" ng-click="sendMeNow()"></button>
+            <div class="error-messages">{{error['sendMeReport.email']}}</div>
+          </div>
+          <div class="success-alert-box thanks-message-for-send-me">
+            <p translate="thanksSendMeReport"></p>
+          </div>
+        </div>
         <div class="your-pay-snapshot-block" ng-show="salaryReport.percentRank == 'NaN'">
           <h3>{{'yourPaySnapshot' | translate}}</h3>
           <div class="your-pay-snapshot-content">
@@ -284,7 +296,10 @@
           </div>
         </div>
         <div class="partner-company-block" ng-show="promotionRule">
-          <h3>{{promotionCompanyInfo.title | translate}}</h3>
+          <div class="title-header">
+            <h3>{{promotionCompanyInfo.title | translate}}</h3>
+            <div class="hidden-box" title="Close"  ng-click="removeBoxContent('partner-company-block')">X</div>
+          </div>
           <div class="partner-company-content">
             <div class="partner-company-logo">
               <img ng-src="{{promotionCompanyInfo.images}}" alt=""/>
@@ -300,7 +315,7 @@
                 </div>
                 <div class="partner-company-field">
                   <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
-                  <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="11" required only-digits-string/>
+                  <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="20" required only-digits-string/>
                   <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
                 </div>
                 <div class="partner-company-field">
@@ -437,12 +452,12 @@
           </div>
         </div>
         <div class="salary-report-feedback"
-             ng-show="!(salaryReview.campaign || survey.submitted) &&  salaryReport.percentRank !== 'NaN'">
+             ng-show="!(salaryReview.campaign &&  salaryReport.percentRank !== 'NaN'">
           <div class="title-header">
-          <h3 translate="whatYouThinkReport"></h3>
+          <h3 translate="whatYouThinkReport" ng-show="!survey.submitted"></h3>
           <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
             </div>
-          <div class="salary-report-feedback-form">
+          <div class="salary-report-feedback-form" ng-show="!survey.submitted">
             <form autocomplete="off">
               <ul>
                   <li>
@@ -478,8 +493,8 @@
                   </li>
                 </ul>
               </form>
-            <div class="note" translate="thanksForHelp"></div>
           </div>
+          <div class="thanksMessages" ng-show="survey.submitted" translate="thanksForHelp"></div>
         </div>
       </div>
     </div>

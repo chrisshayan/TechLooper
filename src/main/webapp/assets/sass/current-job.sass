@@ -261,7 +261,7 @@
         padding: 30px 15px 15px 15px
         position: relative
         h3
-          font-weight: 300
+          font-weight: 400
           font-size: 14px
           text-transform: capitalize
           text-align: left
@@ -596,9 +596,15 @@
               text-align: left
               font-size: 12px
               font-style: italic
-        .note
+        .thanksMessages
           clear: both
           display: block
+          width: 100%
+          text-align: center
+          font-size: 16px
+        .note
+          clear: both
+          display: none
           width: 100%
     .thanks-for-share-salary
       display: inline-block
@@ -771,6 +777,10 @@
     .best-paid-company:first-child
       margin-left: 1.5%
 .salary-review-page
+  .error-messages
+    font-size: 12px
+    font-style: italic
+    color: red
   .salary-review-block
     .salary-review-content
       .email-similar-jobs-block
@@ -853,17 +863,29 @@
       position: relative
       text-align: left
       width: 100%
-      h3
-        background-color: white
-        display: inline-block
-        font-size: 14px
-        font-weight: 400
-        left: 10px
-        padding: 0 5px
-        position: absolute
-        text-align: left
-        text-transform: capitalize
-        top: -33px
+      .title-header
+        display: block
+        clear: both
+        h3
+          background-color: white
+          display: inline-block
+          font-size: 14px
+          font-weight: 400
+          left: 10px
+          padding: 0 5px
+          position: absolute
+          text-align: left
+          text-transform: capitalize
+          top: -32px
+        .hidden-box
+          width: auto
+          position: absolute
+          right: 10px
+          top: -17px
+          background-color: #fff
+          padding: 5px 10px
+          font-weight: 500
+          cursor: pointer
       .partner-company-content
         display: inline-block
         clear: both
@@ -918,9 +940,6 @@
               padding: 0 10px
             .error-messages
               padding-left: 30%
-              font-size: 12px
-              font-style: italic
-              color: red
             .selection-group
               width: 70%
               float: left
@@ -969,6 +988,57 @@
           padding: 20px
           font-size: 18px
           font-weight: 400
+    .salary-review-content
+      .send-me-report-block
+        display: inline-block
+        clear: both
+        margin: 30px auto auto auto
+        border: 1px solid #d4d7d8
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        width: 100%
+        padding: 30px 15px
+        position: relative
+        text-align: center
+        h3
+          font-weight: 400
+          font-size: 14px
+          text-transform: capitalize
+          text-align: left
+          padding: 0 5px
+          position: absolute
+          display: inline-block
+          background-color: #fff
+          top: -32px
+          left: 10px
+        .send-me-form
+          display: block
+          clear: both
+          margin: auto
+          width: 600px
+          p
+            clear: both
+            display: block
+            text-align: left
+            padding-bottom: 10px
+          input
+            width: 76%
+            margin-right: 1%
+            float: left
+            border: 1px solid #d4d7d8
+            border-radius: 5px
+            clear: both
+            height: 37px
+            line-height: 37px
+            padding: 0 10px
+          button
+            width: 23%
+            float: left
+          .error-messages
+            clear: both
+            text-align: left
+            padding-top: 3px
 .success-alert-box
   width: 100%
   text-align: center
@@ -986,6 +1056,7 @@
   transition: display 1s ease
   -moz-transition: display 0.8s ease
   -webkit-transition: display 0.8s ease
+
 .selectize-control.plugin-remove_button
   .active[data-value]
     .remove
