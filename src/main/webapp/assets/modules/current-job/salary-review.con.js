@@ -275,17 +275,16 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         .success(function (data, status, headers, config) {
           $scope.salaryReview = data;
           $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
-          $scope.salaryReport = data.salaryReport;
+          //$scope.salaryReport = data.salaryReport;
           utils.sendNotification(jsonValue.notifications.loaded);
 
-          $scope.checkCompanyPromotionRole();
-          $scope.step = "step3";
+          //$scope.checkCompanyPromotionRole();
         });
     }
     else {
       $scope.salaryReview = campaign;
-      $scope.step = "step1";
     }
+    $scope.step = "step1";
   }
   $scope.errorFeedback = {};
   $scope.validateFeedback = function () {
@@ -446,10 +445,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.sendMeReport.salaryReviewId = $scope.salaryReview.createdDateTime;
     $scope.sendMeReport.lang = $translate.use();
     $http.post("salaryReview/placeSalaryReviewReport", $scope.sendMeReport)
-      .success(function() {
+      .success(function () {
         $('.thanks-message-for-send-me-success').addClass('show');
       })
-      .error(function() {
+      .error(function () {
         $('.thanks-message-for-send-me-fail').addClass('show');
       });
     $('.send-me-form').hide();
