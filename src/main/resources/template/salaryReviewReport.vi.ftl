@@ -206,7 +206,7 @@
                                     Cấp Bậc:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    Java Developer
+                                  ${jobLevel}
                                   </td>
                                 </tr>
                                 <tr>
@@ -222,7 +222,7 @@
                                     Kỹ Năng:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    Angularjs | Php | Java
+                                  ${jobSkills}
                                   </td>
                                 </tr>
                                 <tr>
@@ -238,7 +238,7 @@
                                     Ngành Nghề Công Việc:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    IT-Software | Internet Media
+                                  ${jobCategories}
                                   </td>
                                 </tr>
                                 <tr>
@@ -254,7 +254,7 @@
                                     Lương Thực Lãnh (USD):
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    $1,300
+                                    $ ${salaryReview.netSalary?string[",##0"]}
                                   </td>
                                 </tr>
                                 <tr>
@@ -270,7 +270,7 @@
                                     Tỉnh/Thành Phố:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    Ho Chi Minh City
+                                    ${location}
                                   </td>
                                 </tr>
                               </table>
@@ -286,7 +286,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        Theo thống kê dữ liệu ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">27/05/2015</strong>, bạn kiếm được nhiều tiền hơn <strong style="font-size: 20px; font-weight: 600; color:#000000">10%</strong> những người giống như bạn.
+                        Theo thống kê dữ liệu ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>, bạn kiếm được nhiều tiền hơn <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank} %</strong> những người giống như bạn.
                       </td>
                     </tr>
                     <tr>
@@ -300,27 +300,13 @@
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 16px">Phân vị</td>
-                                        <td align="left" style="padding: 10px; font-size: 16px">Lương Thực Lãnh (USD/Tháng)</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
+                              <#list moreSalaryRanges as salaryRange>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">90<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$2,300</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$ ${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -330,27 +316,14 @@
                                     <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">75<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$1,800</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
+                              </#list>
+
                                 <tr bgcolor="#e8f5fd">
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#000">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">67<sup>th</sup></strong></td>
-                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$1,300</strong></td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}<sup>th</sup></strong></td>
+                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$ ${salaryReview.salaryReport.netSalary?string[",##0"]}</strong></td>
                                       </tr>
                                     </table>
                                   </td>
@@ -360,12 +333,14 @@
                                     <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
+
+                              <#list lessSalaryRanges as salaryRange>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">50<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$1,000</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$ ${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -375,31 +350,8 @@
                                     <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">25<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$650</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">10<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$300</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
+                              </#list>
+
                               </table>
                             </td>
                           </tr>
@@ -425,7 +377,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?lang=en&id=${id}" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Create New Report</a>
+                              <a href="${webBaseUrl}#/salary-review?lang=vi&id=${id}" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Tạo mới Báo Cáo</a>
                             </td>
                           </tr>
                         </table>

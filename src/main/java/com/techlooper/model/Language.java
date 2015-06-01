@@ -4,7 +4,7 @@ package com.techlooper.model;
  * Created by phuonghqh on 5/29/15.
  */
 public enum Language {
-  vi("vi"), en("en");
+  vi("vn"), en("en");
 
   private final String value;
 
