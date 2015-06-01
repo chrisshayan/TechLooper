@@ -28,7 +28,65 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       $scope.selectize[select.item].$elem.updatePlaceholder();
     });
   });
+  $('#select-repo').selectize({
+    valueField: 'name',
+    labelField: 'name',
+    searchField: 'name',
+    options: [],
+    create: true,
+    items: {
+      option: function(item, escape) {
+        return '<div>' +
+            '<span class="title">' +
+            '<span class="name"><i class="icon ' + (item.fork ? 'fork' : 'source') + '"></i>' + escape(item.name) + '</span>' +
+            '<span class="by">' + escape(item.username) + '</span>' +
+            '</span>' +
+            '<span class="description">' + escape(item.description) + '</span>' +
+            '<ul class="meta">' +
+            (item.language ? '<li class="language">' + escape(item.language) + '</li>' : '') +
+            '<li class="watchers"><span>' + escape(item.watchers) + '</span> watchers</li>' +
+            '<li class="forks"><span>' + escape(item.forks) + '</span> forks</li>' +
+            '</ul>' +
+            '</div>';
+      }
+    },
+    score: function(search) {
+      var score = this.getScoreFunction(search);
+      return function(item) {
+        return score(item) * (1 + Math.min(item.option / 100, 1));
+      };
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/suggestion/jobTitle/' + encodeURIComponent(query),
+        type: 'GET',
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res.repositories.slice(0, 10));
+        }
+      });
+    }
+  });
   $scope.selectize = {
+    jobTitles: {
+      items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
+      config: {
+        create:true,
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 1,
+        maxOptions: 10,
+        searchField: ['name'],
+        placeholder: $translate.instant("jobTitle.placeholder"),
+        onInitialize: function (selectize) {
+          $scope.selectize.locations.$elem = selectize;
+        }
+      }
+    },
     locations: {
       items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
       config: {
@@ -126,7 +184,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
     }
   }
-  //$scope.selectedTime = $translate.instant("day");
   $scope.error = {};
   $scope.salaryReview = {
     genderId: '',
@@ -275,16 +332,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         .success(function (data, status, headers, config) {
           $scope.salaryReview = data;
           $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
-          //$scope.salaryReport = data.salaryReport;
+          $scope.salaryReport = data.salaryReport;
           utils.sendNotification(jsonValue.notifications.loaded);
 
-          //$scope.checkCompanyPromotionRole();
+          $scope.checkCompanyPromotionRole();
+          $scope.step = "step3";
         });
     }
     else {
       $scope.salaryReview = campaign;
+      $scope.step = "step1";
     }
-    $scope.step = "step1";
   }
   $scope.errorFeedback = {};
   $scope.validateFeedback = function () {
@@ -445,10 +503,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.sendMeReport.salaryReviewId = $scope.salaryReview.createdDateTime;
     $scope.sendMeReport.lang = $translate.use();
     $http.post("salaryReview/placeSalaryReviewReport", $scope.sendMeReport)
-      .success(function () {
+      .success(function() {
         $('.thanks-message-for-send-me-success').addClass('show');
       })
-      .error(function () {
+      .error(function() {
         $('.thanks-message-for-send-me-fail').addClass('show');
       });
     $('.send-me-form').hide();
