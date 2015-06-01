@@ -417,7 +417,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         $('.success-alert-box').addClass('show');
         $timeout(function () {
           $('.success-alert-box').removeClass('show');
-        }, 2500);
+        }, 2000);
       });
     });
   }
@@ -433,14 +433,12 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.sendMeReport.lang = $translate.use();
     $http.post("salaryReview/placeSalaryReviewReport", $scope.sendMeReport)
       .success(function() {
-
-        $('.thanks-message-for-send-me').addClass('show');
+        $('.thanks-message-for-send-me-success').addClass('show');
       })
       .error(function() {
-        $('.thanks-message-for-send-me').addClass('show');
+        $('.thanks-message-for-send-me-fail').addClass('show');
       });
-
-    //$('.send-me-form').hide();
+    $('.send-me-form').hide();
   }
 
   console.log($translate.use());
