@@ -21,9 +21,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -59,6 +57,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   @Resource
   private Template salaryReviewReportTemplateVi;
 
+  @Value("${web.baseUrl}")
+  private String webBaseUrl;
+
   @Override
   public List<SalaryReview> searchSalaryReview(SalaryReview salaryReview) {
     Calendar now = Calendar.getInstance();
@@ -82,12 +83,17 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   }
 
   public void sendReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException {
-    SalaryReview salaryReview = salaryReviewRepository.findOne(emailRequest.getSalaryReviewId());
-    salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
 
+    salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
     StringWriter stringWriter = new StringWriter();
     Template template = emailRequest.getLang() == Language.vi ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
-    template.process(salaryReview, stringWriter);
+
+    Map<String, Object> templateModel = new HashMap<>();
+    SalaryReview salaryReview = salaryReviewRepository.findOne(emailRequest.getSalaryReviewId());
+    templateModel.put("id", Base64.getEncoder().encodeToString(salaryReview.getCreatedDateTime().toString().getBytes()));
+    templateModel.put("salaryReview", salaryReview);
+    templateModel.put("webBaseUrl", webBaseUrl);
+    template.process(templateModel, stringWriter);
     salaryReviewMailMessage.setText(stringWriter.toString(), "utf-8", "html");
     stringWriter.flush();
 

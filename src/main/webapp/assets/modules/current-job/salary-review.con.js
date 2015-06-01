@@ -269,9 +269,23 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       }
       catch (e) {}
     }
-    $scope.salaryReview = campaign;
-    //$scope.salaryReview.campaign = true;
-    $scope.step = "step1";
+
+    if (campaign.id) {
+      $http.get(jsonValue.httpUri.salaryReview + "/" + campaign.id)
+        .success(function (data, status, headers, config) {
+          $scope.salaryReview = data;
+          $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
+          $scope.salaryReport = data.salaryReport;
+          utils.sendNotification(jsonValue.notifications.loaded);
+
+          $scope.checkCompanyPromotionRole();
+          $scope.step = "step3";
+        });
+    }
+    else {
+      $scope.salaryReview = campaign;
+      $scope.step = "step1";
+    }
   }
   $scope.errorFeedback = {};
   $scope.validateFeedback = function () {

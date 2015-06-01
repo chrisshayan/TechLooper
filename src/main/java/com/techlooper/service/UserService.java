@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
@@ -118,4 +119,6 @@ public interface UserService {
     void registerUser(UserInfo userInfo);
 
     long countRegisteredUser();
+
+    SalaryReviewDto findSalaryReviewById(String base64Id);
 }
