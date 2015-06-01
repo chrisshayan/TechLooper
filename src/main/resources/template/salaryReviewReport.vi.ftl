@@ -286,7 +286,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        Theo thống kê dữ liệu ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>, bạn kiếm được nhiều tiền hơn <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank} %</strong> những người giống như bạn.
+                        Theo thống kê dữ liệu ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>, bạn kiếm được nhiều tiền hơn <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> những người giống như bạn.
                       </td>
                     </tr>
                     <tr>
@@ -366,7 +366,7 @@
                   <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px; padding-bottom:10px;" />
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
-                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: right">Để xác định mức lương xứng đáng, bạn có thể xem báo cáo lương mới bất cứ lúc nào.</td>
+                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: center">Để xác định mức lương xứng đáng, bạn có thể xem báo cáo lương mới bất cứ lúc nào.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
@@ -395,7 +395,7 @@
                     <tr>
                       <td style="text-align: center; margin-top:0px">
                         <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; width:20px; height:20px; display: inline-block">
-                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="VietnamWorks LinkedIn" alt="LinkedIn" style="border:0">
+                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="Techlooper LinkedIn" alt="LinkedIn" style="border:0">
                         </a>
                       </td>
                     </tr>
