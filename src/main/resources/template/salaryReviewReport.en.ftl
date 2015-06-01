@@ -254,7 +254,7 @@
                                     NET Salary From (USD):
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    $ ${salaryReview.netSalary?string[",##0"]}
+                                    $${salaryReview.netSalary?string[",##0"]}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        According to data on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>, you were/are making money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank} %</strong> of people like you.
+                        According to data on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>, you were/are making money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> of people like you.
                       </td>
                     </tr>
                     <tr>
@@ -306,7 +306,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$ ${salaryRange.percentile?string[",##0"]}</td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -324,7 +324,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#000">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}<sup>th</sup></strong></td>
-                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$ ${salaryReview.netSalary?string[",##0"]}</strong></td>
+                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$${salaryReview.netSalary?string[",##0"]}</strong></td>
                                       </tr>
                                     </table>
                                   </td>
@@ -341,7 +341,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$ ${salaryRange.percentile?string[",##0"]}</td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -367,7 +367,7 @@
                   <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px; padding-bottom:10px;" />
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
-                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: right">You can revise your salary report anytime to know how much you should be paid.</td>
+                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: center">You can revise your salary report anytime to know how much you should be paid.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
@@ -396,7 +396,7 @@
                     <tr>
                       <td style="text-align: center; margin-top:0px">
                         <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; width:20px; height:20px; display: inline-block">
-                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="VietnamWorks LinkedIn" alt="LinkedIn" style="border:0">
+                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="Techlooper LinkedIn" alt="LinkedIn" style="border:0">
                         </a>
                       </td>
                     </tr>
