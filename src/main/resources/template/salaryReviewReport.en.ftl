@@ -384,7 +384,8 @@
                           <tr>
                             <td width="30%"><img height="1" src="http://images.vietnamworks.com/x.gif"/></td>
                             <td bgcolor="#277cbd" width="30%" style="padding: 10px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;" class="cta-large">Create New Report</a>
+                              <!-- Click here to see report again -->
+                              <a href="${webBaseUrl}#/salary-review?campaign=techlooper&lang=en&id=${id}" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;" class="cta-large">Create New Report</a>
                             </td>
                             <td width="30%"><img height="1" src="http://images.vietnamworks.com/x.gif"/></td>
                           </tr>

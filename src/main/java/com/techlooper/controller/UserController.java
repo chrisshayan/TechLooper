@@ -130,6 +130,11 @@ public class UserController {
     return salaryReviewDto;
   }
 
+  @RequestMapping(value = "/salaryReview/{id}", method = RequestMethod.GET)
+  public SalaryReviewDto getReviewSalary(@PathVariable("id") String id) {
+    return userService.findSalaryReviewById(id);
+  }
+
   @RequestMapping(value = "/saveSalaryReviewSurvey", method = RequestMethod.POST)
   public void saveSurvey(@RequestBody SalaryReviewSurvey salaryReviewSurvey, HttpServletResponse httpServletResponse) {
     boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
