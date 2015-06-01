@@ -31,12 +31,11 @@
           <form autocomplete="off">
             <div class="row salary-field">
               <label>{{'jobTitle' | translate}} <strong>*</strong></label>
-              <select id="select-repo" class="repositories" placeholder="Pick a repository..."></select>
-              <!--<input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"-->
-                     <!--name="{{'jobTitle' | translate}}"-->
-                     <!--placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>-->
-              <!--<div class="error-messages">-->
-                <!--{{error['salaryReview.jobTitle']}}</div>-->
+              <input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"
+                     name="{{'jobTitle' | translate}}"
+                     placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
+              <div class="error-messages">
+                {{error['salaryReview.jobTitle']}}</div>
             </div>
             <div class="row salary-field" jobLevels>
               <label>{{'jobLevel' | translate}} <strong>*</strong></label>
