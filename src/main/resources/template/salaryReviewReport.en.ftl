@@ -1,55 +1,106 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<meta content="telephone=no" name="format-detection"/>
-<meta content="width=device-width, initial-scale=1.0;" name="viewport"/>
-<title></title>
-<p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta content="telephone=no" name="format-detection" />
+  <meta content="width=device-width, initial-scale=1.0;" name="viewport" />
+  <title></title>
   <style type="text/css">
-    body{
-      width:100%;
-      color:#555;
-      font-family:Arial, Verdana, sans-serif;
-      font-size:13px;
-      background-color:#ffffff;
-      margin:0;
-      padding:0;
-      -webkit-font-smoothing:antialiased;
+    body {
+      width: 100%;
+      color: #555;
+      font-family: Arial, Verdana, sans-serif;
+      font-size: 13px;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
-    p{
-      font-family:Arial, Verdana, sans-serif;
-      font-size:13px;
-      line-height:25px
+
+    p {
+      font-family: Arial, Verdana, sans-serif;
+      font-size: 13px;
+      line-height: 25px
     }
-    .social a{
-      width:35px !important;
-      height:35px !important;
+
+    .social a {
+      width: 35px !important;
+      height: 35px !important;
     }
-    .body-content{
+
+    .body-content {
       width: 100%;
     }
-    .template-content{
+
+    .template-content {
       max-width: 650px;
     }
-    table{
-      mso-table-lspace:0pt;
-      mso-table-rspace:0pt;
+
+    table {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
     }
-    @media (device-width:320px){
-      body{
-        font-size:24px !important; max-width:100% !important; line-height:30px !important;
+
+    @media (device-width: 320px) {
+      body {
+        font-size: 24px !important;
+        max-width: 100% !important;
+        line-height: 30px !important;
       }
-      [hidden]{ display:none }
-      [class=body-content]{ max-width:100% !important; width:100% !important; font-size:24px !important; line-height:30px !important; }
-      p[class=bottom-links] span{ display:block; }
-      [class=cta-large]{ font-size:24px !important; }
-      [class=candidate] td{ font-size:24px !important; line-height:30px !important; }
-      [class=content-padding]{ padding:20px !important; }
-      [class=email]{ color:#00b9f2; display:inline-block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; vertical-align:middle; width:240px; }
-      [class=small-text]{ font-size:13px !important; white-space:nowrap !important }
-      [class=logo] img{width: 100px;}
+      [class=hidden] {
+        display: none
+      }
+      [class=body-content] {
+        max-width: 100% !important;
+        width: 100% !important;
+        font-size: 24px !important;
+        line-height: 30px !important;
+      }
+      p[class=bottom-links] span {
+        display: block;
+      }
+      [class=cta-large] {
+        font-size: 24px !important;
+      }
+      [class=candidate] td {
+        font-size: 24px !important;
+        line-height: 30px !important;
+      }
+      [class=content-padding] {
+        padding: 20px !important;
+      }
+      [class=email] {
+        color: #00b9f2;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        vertical-align: middle;
+        width: 240px;
+      }
+      [class=small-text] {
+        font-size: 13px !important;
+        white-space: nowrap !important
+      }
+      [class=logo] img {
+        width: 100px;
+      }
+      [class=fullWidth] {
+        width: 100% !important;
+      }
+      [class=btnFull] {
+        width: 100%!important;
+        padding: 10px 0 !important
+      }
+      .fullWidth{
+        width: 100% !important;
+      }
     }
   </style>
-</p><!--Main Table-->
-<body class="email-body" yahoo="fix">
+  <!--Main Table-->
+</head>
+<body class="email-body" yahoo="fix" marginheight="0" topmargin="0" marginwidth="0">
 <table style="margin:0 auto; background: #eee; color: #555" align="center" width="100%" class="deviceWidth">
   <tr>
     <td class="box-padding" style="margin: 0 auto; padding:5px;">
@@ -63,28 +114,28 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.vietnamworks.com" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150"/>
+                    <a href="http://www.techlooper.com/" style="border:none; outline:none" target="_blank">
+                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
                     <a href="http://www.vietnamworks.com" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150"/>
+                      <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                 </tr>
               </table>
               <!-- Brand lines-->
-              <table style="background:#fff; border-collapse: collapse;margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
+              <table style="background:#fff; border-collapse: collapse; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
                 <tr>
                   <td style="background:#277cbd; height:5px; line-height: 5px; width: 33%">
-                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                   </td>
                   <td style="background:#892890; height:5px; line-height: 5px; width: 33%">
-                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                   </td>
                   <td style="background:#a4a6a4; height:5px; line-height: 5px; width: 33%">
-                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                   </td>
                 </tr>
               </table>
@@ -100,12 +151,12 @@
                     </tr>
                     <tr>
                       <td align="left">
-                        <p style="font-size: 14px; font-style: italic; line-height: 18px">We understand how sensitive is the information collected on this site, We take your privacy seriously.</p>
+                        <p style="font-size: 14px; font-style: italic; line-height: 18px">We understand how sensitive the collected information is. We take your privacy seriously.</p>
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;">
-                        <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
@@ -114,8 +165,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;">
-                        <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
@@ -124,18 +175,15 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:10px; line-height: 10px;">
-                        <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                      <td style="height:10px; line-height: 20px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
                           <tr>
-                            <td width="5%">
-                              <img height="3" src="http://images.vietnamworks.com/x.gif"/>
-                            </td>
-                            <td width="95%" align="left">
+                            <td width="100%" align="left" class="fullWidth">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px;">
@@ -147,10 +195,10 @@
                                 </tr>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -163,10 +211,10 @@
                                 </tr>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -179,10 +227,10 @@
                                 </tr>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -195,15 +243,15 @@
                                 </tr>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px;">
-                                    Net Salary From (USD):
+                                    NET Salary From (USD):
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                     $1,300
@@ -211,10 +259,10 @@
                                 </tr>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                   <td style="height:5px; line-height: 5px;">
-                                    <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -232,8 +280,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;">
-                        <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
@@ -242,77 +290,59 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;">
-                        <img height="3" src="http://images.vietnamworks.com/x.gif"/>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
-                      <td width="100%" align="left">
-                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                      <td width="100%" align="center">
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%"  class="fullWidth">
                           <tr>
-                            <td width="25%">
-                              <img height="1" src="http://images.vietnamworks.com/x.gif"/>
-                            </td>
-                            <td width="50%" align="left">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                            <td width="100%" align="left">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
                                 <tr>
                                   <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px">Median</td>
-                                        <td align="left" style="padding: 10px">Net Salary From (USD)</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 16px">Median</td>
+                                        <td align="left" style="padding: 10px; font-size: 16px">Net Salary From (USD)</td>
                                       </tr>
                                     </table>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td width="100%" height="1" style="background-color: #d4d7d8">
-                                    <img height="1" src="http://images.vietnamworks.com/x.gif"/>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px">10<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px">$300</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="background-color: #d4d7d8">
-                                    <img height="1" src="http://images.vietnamworks.com/x.gif"/>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px">25<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px">$650</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">90<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$2,300</td>
                                       </tr>
                                     </table>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td width="100%" height="1" style="background-color: #d4d7d8">
-                                    <img height="1" src="http://images.vietnamworks.com/x.gif"/>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px">50<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px">$1,000</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">75<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$1,800</td>
                                       </tr>
                                     </table>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td width="100%" height="1" style="background-color: #d4d7d8">
-                                    <img height="1" src="http://images.vietnamworks.com/x.gif"/>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr bgcolor="#e8f5fd">
@@ -326,39 +356,51 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td width="100%" height="1" style="background-color: #d4d7d8">
-                                    <img height="1" src="http://images.vietnamworks.com/x.gif"/>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px">75<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px">$1,800</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">50<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$1,000</td>
                                       </tr>
                                     </table>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td width="100%" height="1" style="background-color: #d4d7d8">
-                                    <img height="1" src="http://images.vietnamworks.com/x.gif"/>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px">90<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px">$2,300</td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">25<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$650</td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left">
+                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                                      <tr style="color:#555">
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">10<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$300</td>
                                       </tr>
                                     </table>
                                   </td>
                                 </tr>
                               </table>
-                            </td>
-                            <td width="25%">
-                              <img height="1" src="http://images.vietnamworks.com/x.gif"/>
                             </td>
                           </tr>
                         </table>
@@ -369,31 +411,29 @@
               </tr>
               <tr>
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
-                  <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px; padding-bottom:10px;"/>
+                  <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px; padding-bottom:10px;" />
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
-                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: right">You can revise salary report anytime to know how much you should be paid.</td>
+                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: right">You can revise your salary report anytime to know how much you should be paid.</td>
                     </tr>
                     <tr>
-                      <td width="100%" height="5"><img height="1" src="http://images.vietnamworks.com/x.gif"/>
+                      <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
                       </td>
                     </tr>
                     <tr>
-                      <td  width="100%">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                      <td width="100%" align="center">
+                        <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
-                            <td width="30%"><img height="1" src="http://images.vietnamworks.com/x.gif"/></td>
-                            <td bgcolor="#277cbd" width="30%" style="padding: 10px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;" class="cta-large">Create New Report</a>
+                            <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
+                              <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Create New Report</a>
                             </td>
-                            <td width="30%"><img height="1" src="http://images.vietnamworks.com/x.gif"/></td>
                           </tr>
                         </table>
                       </td>
                     </tr>
                   </table>
                   <br/>
-                  <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:5px 0 0 0; padding-top:5px;padding-bottom:5px;"/>
+                  <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:5px 0 0 0; padding-top:5px;padding-bottom:5px;" />
                   <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
                     <tr>
                       <td style="text-align: center; margin-top:0px">
@@ -402,8 +442,8 @@
                     </tr>
                     <tr>
                       <td style="text-align: center; margin-top:0px">
-                        <a href="http://www.linkedin.com/company/vietnamworks" style="padding:0 8px; width:20px; height:20px; display: inline-block">
-                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="VietnamWorks LinkedIn" alt="LinkedIn">
+                        <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; width:20px; height:20px; display: inline-block">
+                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="VietnamWorks LinkedIn" alt="LinkedIn" style="border:0">
                         </a>
                       </td>
                     </tr>
@@ -427,3 +467,4 @@
   </tr>
 </table>
 </body>
+</html>
