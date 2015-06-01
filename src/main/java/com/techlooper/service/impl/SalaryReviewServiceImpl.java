@@ -116,7 +116,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     List<String> locationIds = vietnamworksConfiguration.findValuesAsText("location_id");
     templateModel.put("location", locations.get(locationIds.indexOf(salaryReview.getLocationId().toString())).get(configLang).asText());
 
-    templateModel.put("date", new SimpleDateFormat("dd/mm/yyyy").format(new Date(salaryReview.getCreatedDateTime())));
+    templateModel.put("date", new SimpleDateFormat("dd/MM/yyyy").format(new Date(salaryReview.getCreatedDateTime())));
 
     List<SalaryRange> lessSalaryRanges = new ArrayList<>();
     List<SalaryRange> moreSalaryRanges = new ArrayList<>();
@@ -130,6 +130,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
       }
     });
 
+    lessSalaryRanges.sort((sala, salb) -> salb.getPercent().compareTo(sala.getPercent()));
+    moreSalaryRanges.sort((sala, salb) -> salb.getPercent().compareTo(sala.getPercent()));
+
     templateModel.put("lessSalaryRanges", lessSalaryRanges);
     templateModel.put("moreSalaryRanges", moreSalaryRanges);
 
@@ -140,10 +143,13 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     mailSender.send(salaryReviewMailMessage);
   }
 
-  public static void main(String[] args) {
-    Integer inc = 0;
-    Arrays.asList(1,2,4,3,4,6,5).forEach(integer -> {
-      System.out.println(integer + inc);
-    });
-  }
+//  public static void main(String[] args) {
+//    List<Integer> integers = Arrays.asList(1, 2, 4, 3, 4, 6, 5);
+//    integers.sort((o1, o2) -> o1.compareTo(o2));
+//    System.out.println(integers);
+//
+//    integers = Arrays.asList(1, 2, 4, 3, 4, 6, 5);
+//    integers.sort((o1, o2) -> o2.compareTo(o1));
+//    System.out.println(integers);
+//  }
 }
