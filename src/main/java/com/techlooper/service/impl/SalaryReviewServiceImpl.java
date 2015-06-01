@@ -99,4 +99,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     mailSender.send(salaryReviewMailMessage);
   }
+
+  public static void main(String[] args) {
+    System.out.println(Arrays.asList(1,2).toString());
+  }
 }
