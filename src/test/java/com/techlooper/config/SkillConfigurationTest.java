@@ -1,7 +1,7 @@
 package com.techlooper.config;
 
-import com.techlooper.service.SkillSuggestionService;
-import com.techlooper.service.impl.SkillSuggestionServiceImpl;
+import com.techlooper.service.SuggestionService;
+import com.techlooper.service.impl.SuggestionServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -34,8 +34,8 @@ public class SkillConfigurationTest implements ApplicationContextAware {
     }
 
     @Bean
-    public SkillSuggestionService skillSuggestionService() {
-        return new SkillSuggestionServiceImpl();
+    public SuggestionService skillSuggestionService() {
+        return new SuggestionServiceImpl();
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

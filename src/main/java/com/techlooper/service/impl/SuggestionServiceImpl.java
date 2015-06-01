@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.service.SkillSuggestionService;
+import com.techlooper.service.SuggestionService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Created by NguyenDangKhoa on 5/29/15.
  */
 @Service
-public class SkillSuggestionServiceImpl implements SkillSuggestionService {
+public class SuggestionServiceImpl implements SuggestionService {
 
     @Resource
     private TransportClient transportClient;
@@ -41,6 +41,27 @@ public class SkillSuggestionServiceImpl implements SkillSuggestionService {
         }
 
         return skills;
+    }
+
+    @Override
+    public List<String> suggestJobTitles(String query) {
+        List<String> jobTitles = new ArrayList<>();
+        CompletionSuggestionBuilder jobTitleNameSuggest = new CompletionSuggestionBuilder("jobTitleNameSuggest");
+        jobTitleNameSuggest.text(query);
+        jobTitleNameSuggest.field("jobTitleNameSuggest");
+
+        SearchResponse searchResponse = transportClient.prepareSearch("suggester").setTypes("jobTitle")
+                .setQuery(QueryBuilders.matchAllQuery())
+                .addSuggestion(jobTitleNameSuggest).execute().actionGet();
+
+        CompletionSuggestion jobTitleNameCompletionSuggestion = searchResponse.getSuggest().getSuggestion("jobTitleNameSuggest");
+        List<CompletionSuggestion.Entry> entries = jobTitleNameCompletionSuggestion.getEntries();
+        if (!entries.isEmpty()) {
+            CompletionSuggestion.Entry entry = entries.get(0);
+            jobTitles = entry.getOptions().stream().map(option -> option.getText().string()).collect(Collectors.toList());
+        }
+
+        return jobTitles;
     }
 
 }

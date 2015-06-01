@@ -2,7 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.SkillConfigurationTest;
-import com.techlooper.service.SkillSuggestionService;
+import com.techlooper.service.SuggestionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,22 +15,22 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SkillConfigurationTest.class, ElasticsearchConfiguration.class})
-public class SkillSuggestionServiceImplTest {
+public class SuggestionServiceImplTest {
 
     @Resource
-    private SkillSuggestionService skillSuggestionService;
+    private SuggestionService suggestionService;
 
     @Test
     public void testSuggestSkills() throws Exception {
         String query = "Java";
-        List<String> skills = skillSuggestionService.suggestSkills(query);
+        List<String> skills = suggestionService.suggestSkills(query);
         skills.forEach(skill -> assertTrue(skill.toLowerCase().contains(query.toLowerCase())));
     }
 
     @Test
     public void testSuggestSkillsNoSkill() throws Exception {
         String query = "ABC XYZ";
-        List<String> skills = skillSuggestionService.suggestSkills(query);
+        List<String> skills = suggestionService.suggestSkills(query);
         assertTrue(skills.isEmpty());
     }
 }
