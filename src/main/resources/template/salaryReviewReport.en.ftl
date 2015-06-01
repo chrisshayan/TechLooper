@@ -254,7 +254,7 @@
                                     NET Salary From (USD):
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    $ ${salaryReview.netSalary?string[",##0"]}
+                                    $${salaryReview.netSalary?string[",##0"]}
                                   </td>
                                 </tr>
                                 <tr>
@@ -306,7 +306,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$ ${salaryRange.percentile?string[",##0"]}</td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -324,7 +324,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#000">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}<sup>th</sup></strong></td>
-                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$ ${salaryReview.netSalary?string[",##0"]}</strong></td>
+                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$${salaryReview.netSalary?string[",##0"]}</strong></td>
                                       </tr>
                                     </table>
                                   </td>
@@ -341,7 +341,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$ ${salaryRange.percentile?string[",##0"]}</td>
+                                        <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
                                   </td>
