@@ -1,13 +1,13 @@
 package com.techlooper.model;
 
 /**
- * Created by S-MIS-TRINHPT on 6/1/15.
+ * Created by NguyenDangKhoa on 6/1/15.
  */
-public class SuggestionJobTitleItem {
+public class SuggestionItem {
 
     private String name;
 
-    public SuggestionJobTitleItem(String name) {
+    public SuggestionItem(String name) {
         this.name = name;
     }
 
