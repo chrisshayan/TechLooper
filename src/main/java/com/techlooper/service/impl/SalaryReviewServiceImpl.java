@@ -1,8 +1,10 @@
 package com.techlooper.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.EmailRequest;
 import com.techlooper.model.Language;
+import com.techlooper.model.SalaryRange;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.SalaryReviewService;
@@ -21,7 +23,9 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -60,6 +64,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   @Value("${web.baseUrl}")
   private String webBaseUrl;
 
+  @Resource
+  private JsonNode vietnamworksConfiguration;
+
   @Override
   public List<SalaryReview> searchSalaryReview(SalaryReview salaryReview) {
     Calendar now = Calendar.getInstance();
@@ -83,16 +90,49 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   }
 
   public void sendReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException {
-
     salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
     StringWriter stringWriter = new StringWriter();
     Template template = emailRequest.getLang() == Language.vi ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
 
     Map<String, Object> templateModel = new HashMap<>();
+
     SalaryReview salaryReview = salaryReviewRepository.findOne(emailRequest.getSalaryReviewId());
     templateModel.put("id", Base64.getEncoder().encodeToString(salaryReview.getCreatedDateTime().toString().getBytes()));
     templateModel.put("salaryReview", salaryReview);
     templateModel.put("webBaseUrl", webBaseUrl);
+    String configLang = "lang_" + emailRequest.getLang().getValue();
+    templateModel.put("jobLevel", vietnamworksConfiguration.findPath(salaryReview.getJobLevelIds().toString()).get(configLang).asText());
+    templateModel.put("jobSkills", salaryReview.getSkills().stream().collect(Collectors.joining(" | ")));
+
+    JsonNode categories = vietnamworksConfiguration.findPath("categories");
+    List<String> categoryIds = categories.findValuesAsText("category_id");
+    List<String> list = new ArrayList<>();
+    salaryReview.getJobCategories().stream()
+      .map(aLong -> aLong.toString())
+      .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
+    templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
+
+    JsonNode locations = vietnamworksConfiguration.findPath("locations");
+    List<String> locationIds = vietnamworksConfiguration.findValuesAsText("location_id");
+    templateModel.put("location", locations.get(locationIds.indexOf(salaryReview.getLocationId().toString())).get(configLang).asText());
+
+    templateModel.put("date", new SimpleDateFormat("dd/mm/yyyy").format(new Date(salaryReview.getCreatedDateTime())));
+
+    List<SalaryRange> lessSalaryRanges = new ArrayList<>();
+    List<SalaryRange> moreSalaryRanges = new ArrayList<>();
+    List<SalaryRange> salaryRanges = salaryReview.getSalaryReport().getSalaryRanges();
+    salaryRanges.forEach(salaryRange -> {
+      if (salaryRange.getPercent() > salaryReview.getSalaryReport().getPercentRank()) {
+        moreSalaryRanges.add(salaryRange);
+      }
+      else if (salaryRange.getPercent() < salaryReview.getSalaryReport().getPercentRank()) {
+        lessSalaryRanges.add(salaryRange);
+      }
+    });
+
+    templateModel.put("lessSalaryRanges", lessSalaryRanges);
+    templateModel.put("moreSalaryRanges", moreSalaryRanges);
+
     template.process(templateModel, stringWriter);
     salaryReviewMailMessage.setText(stringWriter.toString(), "utf-8", "html");
     stringWriter.flush();
@@ -101,6 +141,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   }
 
   public static void main(String[] args) {
-    System.out.println(Arrays.asList(1,2).toString());
+    Integer inc = 0;
+    Arrays.asList(1,2,4,3,4,6,5).forEach(integer -> {
+      System.out.println(integer + inc);
+    });
   }
 }
