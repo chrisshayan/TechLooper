@@ -33,4 +33,18 @@ public class SuggestionServiceImplTest {
         List<String> skills = suggestionService.suggestSkills(query);
         assertTrue(skills.isEmpty());
     }
+
+    @Test
+    public void testSuggestJobTitles() throws Exception {
+        String query = "Sales";
+        List<String> suggestJobTitles = suggestionService.suggestJobTitles(query);
+        suggestJobTitles.forEach(jobTitle -> assertTrue(jobTitle.toLowerCase().contains(query.toLowerCase())));
+    }
+
+    @Test
+    public void testSuggestJobTitlesNoJobTitle() throws Exception {
+        String query = "ABC XYZ";
+        List<String> suggestJobTitles = suggestionService.suggestJobTitles(query);
+        assertTrue(suggestJobTitles.isEmpty());
+    }
 }
