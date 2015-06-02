@@ -15,5 +15,5 @@ public interface SalaryReviewService {
 
   List<SalaryReview> searchSalaryReview(SalaryReview salaryReview);
 
-  void sendReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException;
+  void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException;
 }

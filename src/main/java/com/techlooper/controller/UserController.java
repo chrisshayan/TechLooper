@@ -170,6 +170,6 @@ public class UserController {
 
   @RequestMapping(value = "salaryReview/placeSalaryReviewReport", method = RequestMethod.POST)
   public void placeSalaryReviewReport(@Valid @RequestBody EmailRequest emailRequest) throws TemplateException, IOException, MessagingException {
-    salaryReviewService.sendReportEmail(emailRequest);
+    salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
   }
 }

@@ -89,7 +89,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     return salaryReviews;
   }
 
-  public void sendReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException {
+  public void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException {
     salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
     StringWriter stringWriter = new StringWriter();
     Template template = emailRequest.getLang() == Language.vi ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
@@ -100,6 +100,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     templateModel.put("id", Base64.getEncoder().encodeToString(salaryReview.getCreatedDateTime().toString().getBytes()));
     templateModel.put("salaryReview", salaryReview);
     templateModel.put("webBaseUrl", webBaseUrl);
+
     String configLang = "lang_" + emailRequest.getLang().getValue();
     templateModel.put("jobLevel", vietnamworksConfiguration.findPath(salaryReview.getJobLevelIds().toString()).get(configLang).asText());
     templateModel.put("jobSkills", salaryReview.getSkills().stream().collect(Collectors.joining(" | ")));
