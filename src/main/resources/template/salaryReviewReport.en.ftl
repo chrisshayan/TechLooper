@@ -286,7 +286,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        You were/are making money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> of people like you.
+                        You are making money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> of people like you.
                       </td>
                     </tr>
                     <tr>
