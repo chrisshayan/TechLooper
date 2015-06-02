@@ -187,7 +187,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Job Title:
+                                    Title:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                   ${salaryReview.jobTitle}
@@ -203,7 +203,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Job Level:
+                                    Level:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                   ${jobLevel}
@@ -219,7 +219,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Job Skills:
+                                    Skills:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                   ${jobSkills}
@@ -235,7 +235,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Job Categories:
+                                    Categories:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                   ${jobCategories}
@@ -251,7 +251,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    NET Salary From (USD):
+                                    Salary:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                     $${salaryReview.netSalary?string[",##0"]}
@@ -267,7 +267,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Location
+                                    Location:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                   ${location}
@@ -404,7 +404,7 @@
                     </tr>
                     <tr>
                       <td style="text-align: center; margin-top:0px">
-                        <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; width:20px; height:20px; display: inline-block">
+                        <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; height:20px; display: inline-block">
                           <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
                         </a>
                       </td>
