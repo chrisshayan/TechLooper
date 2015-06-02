@@ -158,9 +158,9 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       return;
     }
 
-    if ($scope.salaryReview.skills.length === 3) {
+    if ($scope.salaryReview.skills.length === 50) {
       var translate = $rootScope.translate;
-      $scope.error.newSkillName = translate.maximum3;
+      $scope.error.newSkillName = translate.maximumSkill;
       return;
     }
     delete $scope.error.newSkillName;
@@ -469,6 +469,18 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       .success(function(data) {
         $scope.jobTitles = data.items.map(function(item) {return item.name;});
       });
+    }
+
+  }
+
+  $scope.suggestSkills = function(typed){
+    if(typed === undefined) {
+      $scope.jobTitles = [];
+    }else{
+      $.get("suggestion/skill/" + typed)
+          .success(function(data) {
+            $scope.skills = data.items.map(function(item) {return item.name;});
+          });
     }
 
   }

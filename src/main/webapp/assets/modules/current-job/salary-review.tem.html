@@ -51,7 +51,7 @@
                 {{error['salaryReview.netSalary']}}</div>
             </div>
             <div class="row salary-field">
-              <label for="txtTopSkills">{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
+              <label>{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
               <div class="top-three-skills">
                 <div class="added-list-skills">
                   <ul>
@@ -66,8 +66,8 @@
                 </div>
                 <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
                 <div class="add-skill-input">
-                  <input ng-model="newSkillName" type="text" maxlength="40" id="txtTopSkills" placeholder="{{'mostRelevantSkills.placeholder' | translate}}"/>
-                  <button ng-click="addNewSkill()" ng-disabled="salaryReview.skills.length >= 3">{{'add' | translate}}</button>
+                  <autocomplete required ng-model="newSkillName" data="skills" on-type="suggestSkills" attr-placeholder="{{'mostRelevantSkills.placeholder' | translate}}"></autocomplete>
+                  <button ng-click="addNewSkill()">{{'add' | translate}}</button>
                 </div>
               </div>
               <div class="error-messages">{{error.skills}}</div>
