@@ -182,6 +182,12 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
   $scope.validate = function () {
     var inputs = $(".salary-review-content").find("div:visible").find("[ng-model]");
+
+    if($scope.salaryReview.jobTitle === ''){
+      $scope.jobTitleError = $translate.instant('requiredThisField');
+    }else{
+      delete $scope.jobTitleError;
+    }
     $.each(inputs, function (i, input) {
       var modelName = $(input).attr("ng-model");
       if (modelName === 'newSkillName' || $(input).attr("name") === undefined) {
@@ -196,6 +202,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     });
     $scope.salaryReview.skills.length || ($scope.error.skills = $rootScope.translate.requiredThisField);
     $scope.salaryReview.skills.length && (delete $scope.error.skills);
+
 
     var error = $.extend(true, {}, $scope.error);
     delete error.existSkillName;
@@ -453,13 +460,6 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       });
     $('.send-me-form').hide();
   }
-
-
-  $scope.movies = ["Lord of the Rings",
-    "Drive",
-    "Science of Sleep",
-    "Back to the Future",
-    "Oldboy"];
 
   $scope.suggestJobTitle = function(typed){
     if(typed === undefined) {

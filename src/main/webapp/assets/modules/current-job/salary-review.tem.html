@@ -32,12 +32,8 @@
             <div class="row salary-field">
               <label>{{'jobTitle' | translate}} <strong>*</strong></label>
               <autocomplete required ng-model="salaryReview.jobTitle" data="jobTitles" on-type="suggestJobTitle"></autocomplete>
-
-              <!--<input type="text" id="txtJobTitle" ng-model="salaryReview.jobTitle"-->
-                     <!--name="{{'jobTitle' | translate}}"-->
-                     <!--placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>-->
               <div class="error-messages">
-                {{error['salaryReview.jobTitle']}}</div>
+                {{jobTitleError}}</div>
             </div>
             <div class="row salary-field" jobLevels>
               <label>{{'jobLevel' | translate}} <strong>*</strong></label>
@@ -79,11 +75,6 @@
             <div class="row salary-field">
               <label>{{'reportTo' | translate}}</label>
               <autocomplete required ng-model="salaryReview.reportTo" data="jobTitles" on-type="suggestJobTitle"></autocomplete>
-              <!--<input type="text" id="txtReporting" ng-model="salaryReview.reportTo"-->
-                     <!--placeholder="{{'reportTo.placeholder' | translate}}" maxlength="60"/>-->
-              <div class="error-messages">
-                {{error['salaryReview.reportTo']}}
-              </div>
             </div>
             <div class="row salary-field">
               <label>{{'gender' | translate}}</label>
