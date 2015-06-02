@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -147,8 +148,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     String emailSubject = String.format(emailRequest.getLang().getValue().equalsIgnoreCase("vn") ?
             salaryReviewSubjectVn : salaryReviewSubjectEn, salaryReview.getJobTitle());
-    salaryReviewMailMessage.setSubject(emailSubject, "utf-8");
-    salaryReviewMailMessage.setText(stringWriter.toString(), "utf-8", "html");
+    salaryReviewMailMessage.setSubject(MimeUtility.encodeText(emailSubject, "UTF-8", null));
+    salaryReviewMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
     stringWriter.flush();
 
