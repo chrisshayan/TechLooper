@@ -267,7 +267,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Location
+                                    Location:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
                                   ${location}
