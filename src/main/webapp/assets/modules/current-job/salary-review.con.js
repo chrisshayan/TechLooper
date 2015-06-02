@@ -462,14 +462,22 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     "Oldboy"];
 
   $scope.suggestJobTitle = function(typed){
-    $.get("suggestion/jobTitle/" + $scope.searchMe)
+    if(typed === undefined) {
+      $scope.jobTitles = [];
+    }else{
+      $.get("suggestion/jobTitle/" + typed)
       .success(function(data) {
         $scope.jobTitles = data.items.map(function(item) {return item.name;});
       });
+    }
+
   }
 
   $scope.items = ["item 1", "item 2"];
   $scope.$watch("searchMe", function() {
+
+  });
+  $scope.$watch("searchBoss", function() {
 
   });
 });
