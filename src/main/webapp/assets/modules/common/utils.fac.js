@@ -2,6 +2,21 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    visit: function (obj, func) {
+      for (var prop in obj) {
+        func.apply(this, [prop, obj[prop]]);
+        if ($.type(obj[prop]) === "object") {
+          instance.visit(obj[prop], func);
+        }
+        else if ($.type(obj[prop]) === "array") {
+          var array = obj[prop];
+          $.each(array, function (i, item) {
+            instance.visit(item, func);
+          })
+        }
+      }
+    },
+
     hasNonAsciiChar: function(str) {
       var chars = str.split("-").join("").split("");
       var rs = false;

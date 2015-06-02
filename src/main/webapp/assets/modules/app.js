@@ -20,7 +20,8 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile", "selectize"
+  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
+  "UserProfile", "selectize", "autocomplete"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
@@ -193,7 +194,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
       "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
       "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month']).then(function (translate) {
+      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
       $rootScope.translate = translate;
     });
   }
@@ -252,27 +253,27 @@ techlooper.directive("navigation", function () {
       }
     }
   })
-    .directive('onlyDigitsString', function () {
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: function (scope, element, attr, ctrl) {
-          function inputValue(val) {
-            if (val) {
-              var digits = val.replace(/[^0-9.]/g, '');
+  .directive('onlyDigitsString', function () {
+    return {
+      require: 'ngModel',
+      restrict: 'A',
+      link: function (scope, element, attr, ctrl) {
+        function inputValue(val) {
+          if (val) {
+            var digits = val.replace(/[^0-9.]/g, '');
 
-              if (digits !== val) {
-                ctrl.$setViewValue(digits);
-                ctrl.$render();
-              }
-              var number = parseFloat(digits);
-              return isNaN(number) ? "" : val;
-
+            if (digits !== val) {
+              ctrl.$setViewValue(digits);
+              ctrl.$render();
             }
-            return '';
-          }
+            var number = parseFloat(digits);
+            return isNaN(number) ? "" : val;
 
-          ctrl.$parsers.push(inputValue);
+          }
+          return '';
         }
+
+        ctrl.$parsers.push(inputValue);
       }
-    });
+    }
+  });

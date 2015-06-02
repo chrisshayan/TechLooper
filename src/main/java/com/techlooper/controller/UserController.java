@@ -16,6 +16,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -48,6 +49,9 @@ public class UserController {
 
   @Resource
   private Mapper dozerMapper;
+
+  @Resource
+  private SalaryReviewService salaryReviewService;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -126,6 +130,11 @@ public class UserController {
     return salaryReviewDto;
   }
 
+  @RequestMapping(value = "/salaryReview/{id}", method = RequestMethod.GET)
+  public SalaryReviewDto getReviewSalary(@PathVariable("id") String id) {
+    return userService.findSalaryReviewById(id);
+  }
+
   @RequestMapping(value = "/saveSalaryReviewSurvey", method = RequestMethod.POST)
   public void saveSurvey(@RequestBody SalaryReviewSurvey salaryReviewSurvey, HttpServletResponse httpServletResponse) {
     boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
@@ -157,5 +166,10 @@ public class UserController {
   @RequestMapping("promotion/citibank/creditCard")
   public void placeCitibankCreditCardPromotion(@Valid @RequestBody CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
     promotionService.placePromotion(citibankCreditCardPromotion);
+  }
+
+  @RequestMapping(value = "salaryReview/placeSalaryReviewReport", method = RequestMethod.POST)
+  public void placeSalaryReviewReport(@Valid @RequestBody EmailRequest emailRequest) throws TemplateException, IOException, MessagingException {
+    salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
   }
 }
