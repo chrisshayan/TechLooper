@@ -183,9 +183,10 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   $scope.validate = function () {
     var inputs = $(".salary-review-content").find("div:visible").find("[ng-model]");
 
-    if($scope.salaryReview.jobTitle === ''){
+    if ($scope.salaryReview.jobTitle === '') {
       $scope.jobTitleError = $translate.instant('requiredThisField');
-    }else{
+    }
+    else {
       delete $scope.jobTitleError;
     }
     $.each(inputs, function (i, input) {
@@ -461,35 +462,62 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $('.send-me-form').hide();
   }
 
-  $scope.suggestJobTitle = function(typed){
-    if(typed === undefined) {
-      $scope.jobTitles = [];
-    }else{
-      $.get("suggestion/jobTitle/" + typed)
-      .success(function(data) {
-        $scope.jobTitles = data.items.map(function(item) {return item.name;});
-      });
+  var timeoutFn;
+  $scope.$watch("salaryReview.jobTitle", function () {
+    if (timeoutFn !== undefined) {
+      $timeout.cancel(timeoutFn);
+    }
+    $scope.jobTitles = [];
+    if (!$scope.salaryReview.jobTitle) {
+      return;
     }
 
-  }
+    timeoutFn = $timeout(function () {
+      $.get("suggestion/jobTitle/" + $scope.salaryReview.jobTitle)
+        .success(function (data) {
+          $scope.jobTitles = data.items.map(function (item) {return item.name;});
+          $scope.$apply();
+        });
+      timeoutFn = undefined;
+    }, 500);
+  }, true);
 
-  $scope.suggestSkills = function(typed){
-    if(typed === undefined) {
-      $scope.jobTitles = [];
-    }else{
-      $.get("suggestion/skill/" + typed)
-          .success(function(data) {
-            $scope.skills = data.items.map(function(item) {return item.name;});
-          });
+  $scope.$watch("salaryReview.reportTo", function () {
+    if (timeoutFn !== undefined) {
+      $timeout.cancel(timeoutFn);
+    }
+    $scope.jobTitles = [];
+    if (!$scope.salaryReview.reportTo) {
+      return;
     }
 
-  }
+    timeoutFn = $timeout(function () {
+      $.get("suggestion/jobTitle/" + $scope.salaryReview.reportTo)
+        .success(function (data) {
+          $scope.jobTitles = data.items.map(function (item) {return item.name;});
+          $scope.$apply();
+        });
+      timeoutFn = undefined;
+    }, 500);
+  }, true);
 
-  $scope.items = ["item 1", "item 2"];
-  $scope.$watch("searchMe", function() {
+  $scope.$watch("newSkillName", function () {
+    if (timeoutFn !== undefined) {
+      $timeout.cancel(timeoutFn);
+    }
+    $scope.skills = [];
+    if (!$scope.newSkillName) {
+      return;
+    }
 
-  });
-  $scope.$watch("searchBoss", function() {
+    timeoutFn = $timeout(function () {
+      $.get("suggestion/skill/" + $scope.newSkillName)
+        .success(function (data) {
+          $scope.skills = data.items.map(function (item) {return item.name;});
+          $scope.$apply();
+        });
+      timeoutFn = undefined;
+    }, 500);
+  }, true);
 
-  });
 });
