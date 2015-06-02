@@ -160,7 +160,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
 
     if ($scope.salaryReview.skills.length === 50) {
       var translate = $rootScope.translate;
-      $scope.error.newSkillName = translate.maximumSkill;
+      $scope.error.newSkillName = translate.maximum50;
       return;
     }
     delete $scope.error.newSkillName;

@@ -71,7 +71,7 @@
   "next": "Next",
   "maximum5": "Maximum 5 skills. To add one, remove another one.",
   "maximum3": "Maximum 3 skills. To add one, remove another one.",
-  "maximumSkill": "Maximum 50 skills. To add one, remove another one.",
+  "maximum50": "Maximum 50 skills. To add one, remove another one.",
   "hasExist": "This skill has already",
   "noDataChart": "No data available now",
   "gender": "Your Gender",
