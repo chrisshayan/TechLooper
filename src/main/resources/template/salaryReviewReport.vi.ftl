@@ -114,12 +114,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.techlooper.com/#/home?utm_source=salaryreportemail&utm_medium=techlooperlogo&utm_campaign=sendmereport" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=salaryreportemail&utm_medium=vietnamworkslogo&utm_campaign=sendmereport" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -145,13 +145,13 @@
                 <td style="font-family: Arial, sans-serif; padding: 20px; margin: 0 auto; " class="content-padding">
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
-                      <td align="left" style="padding: 10px 0 5px 0">
-                        <h2 style="font-size: 18px; font-weight: 500; padding:0; margin: 0;">Báo Cáo Lương</h2>
+                      <td align="center" style="padding: 10px 0 5px 0">
+                        <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Báo Cáo Lương</h2>
                       </td>
                     </tr>
                     <tr>
-                      <td align="left">
-                        <p style="font-size: 14px; font-style: italic; line-height: 18px">Thông tin dưới đây sẽ được bảo mật cẩn thận vì chúng tôi hiểu rằng đó là những thông tin nhạy cảm và không thể chia sẻ ra ngoài.</p>
+                      <td align="center">
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px">Thông tin dưới đây sẽ được bảo mật cẩn thận vì chúng tôi hiểu rằng đó là những thông tin nhạy cảm và không thể chia sẻ ra ngoài.</p>
                       </td>
                     </tr>
                     <tr>
@@ -160,8 +160,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left">
-                        Xin chào,
+                      <td align="left" style="font-size: 14px;">
+                        Cảm ơn đã sử dụng Báo Cáo Lương của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới. Dưới đây là báo cáo lương của bạn.
                       </td>
                     </tr>
                     <tr>
@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Hồ sơ hiện tại của bạn:
+                        Dựa trên hồ sơ hiện tại của bạn:
                       </td>
                     </tr>
                     <tr>
@@ -186,7 +186,7 @@
                             <td width="100%" align="left" class="fullWidth">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                 <tr>
-                                  <td align="left" width="35%" style="font-size: 14px;">
+                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Chức Danh:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
@@ -202,7 +202,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left" width="35%" style="font-size: 14px;">
+                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Cấp Bậc:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
@@ -218,7 +218,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left" width="35%" style="font-size: 14px;">
+                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Kỹ Năng:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
@@ -234,7 +234,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left" width="35%" style="font-size: 14px;">
+                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Ngành Nghề Công Việc:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
@@ -250,7 +250,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left" width="35%" style="font-size: 14px;">
+                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Lương Thực Lãnh (USD):
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
@@ -266,11 +266,11 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left" width="35%" style="font-size: 14px;">
+                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Tỉnh/Thành Phố:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    ${location}
+                                  ${location}
                                   </td>
                                 </tr>
                               </table>
@@ -285,8 +285,18 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 14px;">
-                        Theo thống kê dữ liệu ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>, bạn kiếm được nhiều tiền hơn <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> những người giống như bạn.
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        Bạn kiếm được nhiều tiền hơn <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> những người giống như bạn.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        Chi tiết báo cáo lương ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong> như sau
                       </td>
                     </tr>
                     <tr>
@@ -363,10 +373,9 @@
               </tr>
               <tr>
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
-                  <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px; padding-bottom:10px;" />
-                  <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                  <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%">
                     <tr>
-                      <td width="70%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: center">Để xác định mức lương xứng đáng, bạn có thể xem báo cáo lương mới bất cứ lúc nào.</td>
+                      <td width="100%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Để xác định mức lương xứng đáng, bạn có thể xem báo cáo lương mới bất cứ lúc nào.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
@@ -377,7 +386,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?lang=vi&id=${id}" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Tạo mới Báo Cáo</a>
+                              <a href="${webBaseUrl}#/salary-review?lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
                             </td>
                           </tr>
                         </table>
@@ -395,7 +404,7 @@
                     <tr>
                       <td style="text-align: center; margin-top:0px">
                         <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; width:20px; height:20px; display: inline-block">
-                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="Techlooper LinkedIn" alt="LinkedIn" style="border:0">
+                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
                         </a>
                       </td>
                     </tr>
