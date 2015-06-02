@@ -463,12 +463,13 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   var timeoutFn;
+  $scope.jobTitles = [];
   $scope.$watch("salaryReview.jobTitle", function () {
     if (timeoutFn !== undefined) {
       $timeout.cancel(timeoutFn);
     }
-    $scope.jobTitles = [];
     if (!$scope.salaryReview.jobTitle) {
+      $scope.jobTitles.length = 0;
       return;
     }
 
@@ -479,15 +480,15 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $scope.$apply();
         });
       timeoutFn = undefined;
-    }, 500);
+    }, 0);
   }, true);
 
   $scope.$watch("salaryReview.reportTo", function () {
     if (timeoutFn !== undefined) {
       $timeout.cancel(timeoutFn);
     }
-    $scope.jobTitles = [];
     if (!$scope.salaryReview.reportTo) {
+      $scope.jobTitles = [];
       return;
     }
 
@@ -498,7 +499,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $scope.$apply();
         });
       timeoutFn = undefined;
-    }, 500);
+    }, 0);
   }, true);
 
   $scope.$watch("newSkillName", function () {
@@ -517,7 +518,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $scope.$apply();
         });
       timeoutFn = undefined;
-    }, 500);
+    }, 0);
   }, true);
 
 });
