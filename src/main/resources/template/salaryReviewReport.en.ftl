@@ -404,7 +404,7 @@
                     </tr>
                     <tr>
                       <td style="text-align: center; margin-top:0px">
-                        <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; width:20px; height:20px; display: inline-block">
+                        <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; height:20px; display: inline-block">
                           <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
                         </a>
                       </td>
