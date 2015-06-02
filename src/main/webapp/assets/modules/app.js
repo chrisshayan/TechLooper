@@ -20,7 +20,7 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile", "selectize"
+  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile", "selectize", "angucomplete-alt"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
@@ -252,27 +252,39 @@ techlooper.directive("navigation", function () {
       }
     }
   })
-    .directive('onlyDigitsString', function () {
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: function (scope, element, attr, ctrl) {
-          function inputValue(val) {
-            if (val) {
-              var digits = val.replace(/[^0-9.]/g, '');
+  .directive('onlyDigitsString', function () {
+    return {
+      require: 'ngModel',
+      restrict: 'A',
+      link: function (scope, element, attr, ctrl) {
+        function inputValue(val) {
+          if (val) {
+            var digits = val.replace(/[^0-9.]/g, '');
 
-              if (digits !== val) {
-                ctrl.$setViewValue(digits);
-                ctrl.$render();
-              }
-              var number = parseFloat(digits);
-              return isNaN(number) ? "" : val;
-
+            if (digits !== val) {
+              ctrl.$setViewValue(digits);
+              ctrl.$render();
             }
-            return '';
-          }
+            var number = parseFloat(digits);
+            return isNaN(number) ? "" : val;
 
-          ctrl.$parsers.push(inputValue);
+          }
+          return '';
         }
+
+        ctrl.$parsers.push(inputValue);
       }
-    });
+    }
+  })
+  .directive('autoComplete', function($timeout) {
+    return function(scope, iElement, iAttrs) {
+      iElement.autocomplete({
+        source: scope[iAttrs.uiItems],
+        select: function() {
+          $timeout(function() {
+            iElement.trigger('input');
+          }, 0);
+        }
+      });
+    };
+  });
