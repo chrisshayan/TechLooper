@@ -474,14 +474,13 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     }
 
     timeoutFn = $timeout(function () {
-      console.log($scope.jobTitles);
       $.get("suggestion/jobTitle/" + $scope.salaryReview.jobTitle)
         .success(function (data) {
           $scope.jobTitles = data.items.map(function (item) {return item.name;});
           $scope.$apply();
         });
       timeoutFn = undefined;
-    }, 100);
+    }, 0);
   }, true);
 
   $scope.$watch("salaryReview.reportTo", function () {
@@ -500,7 +499,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $scope.$apply();
         });
       timeoutFn = undefined;
-    }, 100);
+    }, 0);
   }, true);
 
   $scope.$watch("newSkillName", function () {
@@ -519,7 +518,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
           $scope.$apply();
         });
       timeoutFn = undefined;
-    }, 100);
+    }, 0);
   }, true);
 
 });
