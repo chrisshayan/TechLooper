@@ -453,4 +453,23 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       });
     $('.send-me-form').hide();
   }
+
+
+  $scope.movies = ["Lord of the Rings",
+    "Drive",
+    "Science of Sleep",
+    "Back to the Future",
+    "Oldboy"];
+
+  $scope.suggestJobTitle = function(typed){
+    $.get("suggestion/jobTitle/" + $scope.searchMe)
+      .success(function(data) {
+        $scope.jobTitles = data.items.map(function(item) {return item.name;});
+      });
+  }
+
+  $scope.items = ["item 1", "item 2"];
+  $scope.$watch("searchMe", function() {
+
+  });
 });

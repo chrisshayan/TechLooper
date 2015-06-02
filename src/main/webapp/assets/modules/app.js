@@ -20,7 +20,8 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register", "UserProfile", "selectize", "angucomplete-alt"
+  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
+  "UserProfile", "selectize", "autocomplete"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
@@ -275,16 +276,4 @@ techlooper.directive("navigation", function () {
         ctrl.$parsers.push(inputValue);
       }
     }
-  })
-  .directive('autoComplete', function($timeout) {
-    return function(scope, iElement, iAttrs) {
-      iElement.autocomplete({
-        source: scope[iAttrs.uiItems],
-        select: function() {
-          $timeout(function() {
-            iElement.trigger('input');
-          }, 0);
-        }
-      });
-    };
   });

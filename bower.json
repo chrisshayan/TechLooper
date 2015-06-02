@@ -36,7 +36,8 @@
     "bootstrap-select": "latest",
     "blueimp-gallery":  "latest",
     "blueimp-bootstrap-image-gallery": "latest",
-    "sprintf": "latest"
+    "sprintf": "latest",
+    "allmighty-autocomplete": "latest"
   },
   "overrides": {
     "jquery": {
