@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Cảm ơn đã sử dụng Báo Cáo Lương của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới nhất. Dưới đây là báo cáo lương của bạn.
+                        Cảm ơn đã sử dụng Báo Cáo Lương của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới nhất.
                       </td>
                     </tr>
                     <tr>
@@ -296,7 +296,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Chi tiết báo cáo lương ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong> như sau
+                        Chi tiết báo cáo lương ngày <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong> như sau:
                       </td>
                     </tr>
                     <tr>
@@ -375,7 +375,7 @@
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%">
                     <tr>
-                      <td width="100%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Để xác định mức lương xứng đáng, bạn có thể xem báo cáo lương mới bất cứ lúc nào.</td>
+                      <td width="100%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Để xác định mức lương xứng đáng, bạn có thể xem Báo Cáo Lương mới bất cứ lúc nào.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
