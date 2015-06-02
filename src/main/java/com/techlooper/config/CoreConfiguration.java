@@ -91,7 +91,7 @@ public class CoreConfiguration {
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
+      return new PropertySourcesPlaceholderConfigurer();
   }
 
   @Bean
