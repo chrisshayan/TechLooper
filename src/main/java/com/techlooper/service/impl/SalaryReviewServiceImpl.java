@@ -145,7 +145,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     template.process(templateModel, stringWriter);
 
-    String emailSubject = String.format(emailRequest.getLang().getValue().equalsIgnoreCase("vn") ?
+    String emailSubject = String.format("vn".equalsIgnoreCase(emailRequest.getLang().getValue()) ?
             salaryReviewSubjectVn : salaryReviewSubjectEn, salaryReview.getJobTitle());
     salaryReviewMailMessage.setSubject(emailSubject, "utf-8");
     salaryReviewMailMessage.setText(stringWriter.toString(), "utf-8", "html");
