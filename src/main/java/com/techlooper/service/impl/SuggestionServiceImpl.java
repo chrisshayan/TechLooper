@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.service.SuggestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 /**
  * Created by NguyenDangKhoa on 5/29/15.
@@ -37,7 +41,7 @@ public class SuggestionServiceImpl implements SuggestionService {
         List<CompletionSuggestion.Entry> entries = skilCompletionSuggestion.getEntries();
         if (!entries.isEmpty()) {
             CompletionSuggestion.Entry entry = entries.get(0);
-            skills = entry.getOptions().stream().map(option -> option.getText().string()).collect(Collectors.toList());
+            skills = entry.getOptions().stream().map(processString()).distinct().collect(Collectors.toList());
         }
 
         return skills;
@@ -58,10 +62,16 @@ public class SuggestionServiceImpl implements SuggestionService {
         List<CompletionSuggestion.Entry> entries = jobTitleNameCompletionSuggestion.getEntries();
         if (!entries.isEmpty()) {
             CompletionSuggestion.Entry entry = entries.get(0);
-            jobTitles = entry.getOptions().stream().map(option -> option.getText().string()).collect(Collectors.toList());
+            jobTitles = entry.getOptions().stream().map(processString()).distinct().collect(Collectors.toList());
         }
 
         return jobTitles;
+    }
+
+    private Function<CompletionSuggestion.Entry.Option, String> processString() {
+        return option -> {
+            return strip(trim(option.getText().string()), ",");
+        };
     }
 
 }
