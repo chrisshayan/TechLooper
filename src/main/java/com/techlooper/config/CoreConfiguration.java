@@ -10,8 +10,6 @@ import com.techlooper.model.UserInfo;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VnwJobAlert;
 import com.techlooper.model.VnwJobAlertRequest;
-import com.techlooper.repository.JobSearchAPIConfigurationRepository;
-import com.techlooper.util.RestTemplateUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
@@ -29,10 +27,6 @@ import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -68,6 +62,12 @@ public class CoreConfiguration {
   @Resource
   private Environment environment;
 
+  @Value("${mail.techlooper.form}")
+  private String mailTechlooperForm;
+
+  @Value("${mail.techlooper.reply_to}")
+  private String mailTechlooperReplyTo;
+
   @Value("${mail.form}")
   private String mailForm;
 
@@ -80,18 +80,14 @@ public class CoreConfiguration {
   @Value("${mail.citibank.cc_promotion.subject}")
   private String mailCitibankCreditCardPromotionSubject;
 
-//  @Value("${mail.salaryReview.subject}")
-//  private String salaryReviewSubject;
-
-//  @Resource
-//  private JobSearchAPIConfigurationRepository jobSearchAPIConfigurationRepository;
-
   @Value("classpath:vnwConfig.json")
   private org.springframework.core.io.Resource vnwConfigRes;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
+    PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+    configurer.setFileEncoding("UTF-8");
+    return configurer;
   }
 
   @Bean
@@ -221,9 +217,8 @@ public class CoreConfiguration {
   @Bean
   public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
     MimeMessage mailMessage = mailSender.createMimeMessage();
-    mailMessage.setReplyTo(InternetAddress.parse(mailReplyTo));
-//    mailMessage.setSubject(salaryReviewSubject);
-    mailMessage.setFrom(InternetAddress.parse(mailForm)[0]);
+    mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+    mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
     return mailMessage;
   }
 
@@ -242,8 +237,5 @@ public class CoreConfiguration {
   @Bean
   public JsonNode vietnamworksConfiguration() throws IOException {
     return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
-//    HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(
-//      MediaType.APPLICATION_JSON, jobSearchAPIConfigurationRepository.getApiKeyName(), jobSearchAPIConfigurationRepository.getApiKeyValue(), null);
-//    return restTemplate().exchange(jobSearchAPIConfigurationRepository.getConfigurationUrl(), HttpMethod.GET, requestEntity, JsonNode.class).getBody();
   }
 }
