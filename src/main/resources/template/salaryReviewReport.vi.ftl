@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Cảm ơn đã sử dụng Báo Cáo Lương của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới. Dưới đây là báo cáo lương của bạn.
+                        Cảm ơn đã sử dụng Báo Cáo Lương của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới nhất. Dưới đây là báo cáo lương của bạn.
                       </td>
                     </tr>
                     <tr>
