@@ -80,8 +80,8 @@ public class CoreConfiguration {
   @Value("${mail.citibank.cc_promotion.subject}")
   private String mailCitibankCreditCardPromotionSubject;
 
-  @Value("${mail.salaryReview.subject}")
-  private String salaryReviewSubject;
+//  @Value("${mail.salaryReview.subject}")
+//  private String salaryReviewSubject;
 
 //  @Resource
 //  private JobSearchAPIConfigurationRepository jobSearchAPIConfigurationRepository;
@@ -222,7 +222,7 @@ public class CoreConfiguration {
   public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
     MimeMessage mailMessage = mailSender.createMimeMessage();
     mailMessage.setReplyTo(InternetAddress.parse(mailReplyTo));
-    mailMessage.setSubject(salaryReviewSubject);
+//    mailMessage.setSubject(salaryReviewSubject);
     mailMessage.setFrom(InternetAddress.parse(mailForm)[0]);
     return mailMessage;
   }

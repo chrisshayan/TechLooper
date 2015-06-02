@@ -67,6 +67,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   @Resource
   private JsonNode vietnamworksConfiguration;
 
+  @Value("${mail.salaryReview.subject}")
+  private String salaryReviewSubject;
+
   @Override
   public List<SalaryReview> searchSalaryReview(SalaryReview salaryReview) {
     Calendar now = Calendar.getInstance();
@@ -138,7 +141,10 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     templateModel.put("moreSalaryRanges", moreSalaryRanges);
 
     template.process(templateModel, stringWriter);
+
+    salaryReviewMailMessage.setSubject(String.format(salaryReviewSubject, salaryReview.getJobTitle()));
     salaryReviewMailMessage.setText(stringWriter.toString(), "utf-8", "html");
+
     stringWriter.flush();
 
     mailSender.send(salaryReviewMailMessage);
