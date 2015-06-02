@@ -31,7 +31,7 @@
           <form autocomplete="off">
             <div class="row salary-field">
               <label>{{'jobTitle' | translate}} <strong>*</strong></label>
-              <autocomplete required ng-model="salaryReview.jobTitle" data="jobTitles" on-type="suggestJobTitle"></autocomplete>
+              <autocomplete required ng-model="salaryReview.jobTitle" data="jobTitles"></autocomplete>
               <div class="error-messages">
                 {{jobTitleError}}</div>
             </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="row salary-field">
               <label>{{'reportTo' | translate}}</label>
-              <autocomplete required ng-model="salaryReview.reportTo" data="jobTitles" on-type="suggestJobTitle"></autocomplete>
+              <autocomplete required ng-model="salaryReview.reportTo" data="jobTitles"></autocomplete>
             </div>
             <div class="row salary-field">
               <label>{{'gender' | translate}}</label>

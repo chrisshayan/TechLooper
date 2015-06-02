@@ -461,6 +461,7 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $('.send-me-form').hide();
   }
 
+  $scope.jobTitles = [];
   $scope.suggestJobTitle = function(typed){
     if(typed === undefined) {
       $scope.jobTitles = [];
@@ -470,14 +471,53 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         $scope.jobTitles = data.items.map(function(item) {return item.name;});
       });
     }
-
   }
 
-  $scope.items = ["item 1", "item 2"];
-  $scope.$watch("searchMe", function() {
+  var timeoutFn;
+  $scope.$watch("salaryReview.jobTitle", function () {
+    if (timeoutFn !== undefined) {
+      $timeout.cancel(timeoutFn);
+    }
+    $scope.jobTitles = [];
+    if (!$scope.salaryReview.jobTitle) {
+      return;
+    }
 
-  });
-  $scope.$watch("searchBoss", function() {
+    timeoutFn = $timeout(function () {
+      $.get("suggestion/jobTitle/" + $scope.salaryReview.jobTitle)
+        .success(function(data) {
+          $scope.jobTitles = data.items.map(function(item) {return item.name;});
+          $scope.$apply();
+        });
+      timeoutFn = undefined;
+    }, 500);
+  }, true);
 
-  });
+
+  $scope.$watch("salaryReview.reportTo", function () {
+    if (timeoutFn !== undefined) {
+      $timeout.cancel(timeoutFn);
+    }
+    $scope.jobTitles = [];
+    if (!$scope.salaryReview.reportTo) {
+      return;
+    }
+
+    timeoutFn = $timeout(function () {
+      $.get("suggestion/jobTitle/" + $scope.salaryReview.reportTo)
+        .success(function(data) {
+          $scope.jobTitles = data.items.map(function(item) {return item.name;});
+          $scope.$apply();
+        });
+      timeoutFn = undefined;
+    }, 500);
+  }, true);
+
+  //$scope.items = ["item 1", "item 2"];
+  //$scope.$watch("searchMe", function() {
+  //
+  //});
+  //$scope.$watch("searchBoss", function() {
+  //
+  //});
 });
