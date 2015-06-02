@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Thanks for using Salary Report from TechLooper. We are continuing improving it. Don't forget to come back and take it. Below is your report.
+                        Thanks for using Salary Report from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
                       </td>
                     </tr>
                     <tr>
@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Your current profile:
+                        Based on your current profile:
                       </td>
                     </tr>
                     <tr>
@@ -286,7 +286,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        You were/are making money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> of people like you.
+                        You are making more money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> of people like you.
                       </td>
                     </tr>
                     <tr>
@@ -296,7 +296,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Here is the detailed salary report on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>
+                        See below the full details of this report which was generated on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>:
                       </td>
                     </tr>
                     <tr>
@@ -376,7 +376,7 @@
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%" width="100%">
                     <tr>
-                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">You can revise your salary report anytime to know how much you should be paid.</td>
+                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">You can revise your Salary Report anytime to know how much you should be paid.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
@@ -387,7 +387,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Create New Report</a>
+                              <a href="${webBaseUrl}#/salary-review?lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
                             </td>
                           </tr>
                         </table>
