@@ -25,24 +25,25 @@
       </div>
       <div class="row salary-field">
         <label>{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
-        <div class="top-three-skills">
-          <div class="added-list-skills">
-            <ul>
-              <li ng-repeat="skill in salaryReview.skills">
-                    <span class="left">
-                      <span class="right"><i>{{skill}}</i>
-                        <span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>
-                      </span>
-                    </span>
-              </li>
-            </ul>
-          </div>
-          <div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>
-          <div class="add-skill-input">
-            <autocomplete required ng-model="newSkillName" data="skills" attr-placeholder="{{'mostRelevantSkills.placeholder' | translate}}"></autocomplete>
-            <button ng-click="addNewSkill()">{{'add' | translate}}</button>
-          </div>
-        </div>
+        <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig"></auto-tagbox>
+        <!--<div class="top-three-skills">-->
+          <!--<div class="added-list-skills">-->
+            <!--<ul>-->
+              <!--<li ng-repeat="skill in salaryReview.skills">-->
+                    <!--<span class="left">-->
+                      <!--<span class="right"><i>{{skill}}</i>-->
+                        <!--<span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>-->
+                      <!--</span>-->
+                    <!--</span>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+          <!--<div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>-->
+          <!--<div class="add-skill-input">-->
+            <!--<autocomplete required ng-model="newSkillName" data="skills" attr-placeholder="{{'mostRelevantSkills.placeholder' | translate}}"></autocomplete>-->
+            <!--<button ng-click="addNewSkill()">{{'add' | translate}}</button>-->
+          <!--</div>-->
+        <!--</div>-->
         <div class="error-messages">{{error.skills}}</div>
       </div>
       <div class="row salary-field">
