@@ -1,0 +1,62 @@
+<div class="partner-company-block" ng-show="promotionRule">
+  <div class="title-header">
+    <h3>{{promotionCompanyInfo.title | translate}}</h3>
+    <div class="hidden-box" title="Close"  ng-click="removeBoxContent('partner-company-block')">X</div>
+  </div>
+  <div class="partner-company-content">
+    <div class="partner-company-logo">
+      <img ng-src="{{promotionCompanyInfo.images}}" alt=""/>
+    </div>
+    <div class="partner-company-detail">
+      <h4>{{promotionCompanyInfo.tagLine | translate}}</h4>
+      <div class="partner-company-form">
+        <p translate="desHowToGetIt"></p>
+        <div class="partner-company-field">
+          <label>{{'fullName' | translate}} <strong>*</strong></label>
+          <input ng-model="promotion.fullName" type="text" class="input-text" required/>
+          <div class="error-messages">{{error['promotion.fullName']}}</div>
+        </div>
+        <div class="partner-company-field">
+          <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
+          <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="20" required only-digits-string/>
+          <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
+        </div>
+        <div class="partner-company-field">
+          <label>{{'emailAddress' | translate}} <strong>*</strong></label>
+          <input ng-model="promotion.email" type="email" class="input-text" required/>
+          <div class="error-messages">{{error['promotion.email']}}</div>
+        </div>
+        <div class="partner-company-field">
+          <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
+          <div class="selection-group">
+            <ul>
+              <li>
+                <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
+                <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
+              </li>
+              <li>
+                <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
+                <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="partner-company-field">
+          <div class="agree-registration">
+            <input ng-model="promotion.agree"
+                   type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
+            <label for="iAgree">{{'iAgree' | translate }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="apply-now-block">
+        <button class="btn btn-primary btn-flat" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
+      </div>
+      <div class="note-Partner-Company-Form">
+        <p>{{'committed' | translate }}</p>
+      </div>
+      <div class="partner-company-thanks transfer" translate="companyThanks1"></div>
+      <div class="partner-company-thanks cash" translate="companyThanks2"></div>
+    </div>
+  </div>
+</div>
