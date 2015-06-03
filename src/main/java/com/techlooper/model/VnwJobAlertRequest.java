@@ -1,6 +1,6 @@
 package com.techlooper.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -9,83 +9,93 @@ import java.util.List;
  */
 public class VnwJobAlertRequest {
 
-  private String email;
+    private String email;
 
-  private String jobTitle;
+    private String jobTitle;
 
-  private List<Long> jobCategories;
+    private List<Long> jobCategories;
 
-  private Long locationId;
+    private Long locationId;
 
-  private Long netSalary;
+    private Long netSalary;
 
-  private Long frequency;
+    private Long frequency;
 
-  private Long lang;
+    private Long lang;
 
-  private Long jobLevel;
+    private Long jobLevel;
 
-  public String getEmail() {
-    return email;
-  }
+    private Long salaryReviewId;
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public String getJobTitle() {
-    return jobTitle;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setJobTitle(String jobTitle) {
-    this.jobTitle = jobTitle;
-  }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-  public List<Long> getJobCategories() {
-    return jobCategories;
-  }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-  public void setJobCategories(List<Long> jobCategories) {
-    this.jobCategories = jobCategories;
-  }
+    public List<Long> getJobCategories() {
+        return jobCategories;
+    }
 
-  public Long getLocationId() {
-    return locationId;
-  }
+    public void setJobCategories(List<Long> jobCategories) {
+        this.jobCategories = jobCategories;
+    }
 
-  public void setLocationId(Long locationId) {
-    this.locationId = locationId;
-  }
+    public Long getLocationId() {
+        return locationId;
+    }
 
-  public Long getNetSalary() {
-    return netSalary;
-  }
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
 
-  public void setNetSalary(Long netSalary) {
-    this.netSalary = netSalary;
-  }
+    public Long getNetSalary() {
+        return netSalary;
+    }
 
-  public Long getFrequency() {
-    return frequency;
-  }
+    public void setNetSalary(Long netSalary) {
+        this.netSalary = netSalary;
+    }
 
-  public void setFrequency(Long frequency) {
-    this.frequency = frequency;
-  }
+    public Long getFrequency() {
+        return frequency;
+    }
 
-  public Long getLang() {
-    return lang;
-  }
+    public void setFrequency(Long frequency) {
+        this.frequency = frequency;
+    }
 
-  public void setLang(Long lang) {
-    this.lang = lang;
-  }
+    public Long getLang() {
+        return lang;
+    }
 
-  public Long getJobLevel() {
-    return jobLevel;
-  }
+    public void setLang(Long lang) {
+        this.lang = lang;
+    }
 
-  public void setJobLevel(Long jobLevel) {
-    this.jobLevel = jobLevel;
-  }
+    public Long getJobLevel() {
+        return jobLevel;
+    }
+
+    public void setJobLevel(Long jobLevel) {
+        this.jobLevel = jobLevel;
+    }
+
+    public Long getSalaryReviewId() {
+        return salaryReviewId;
+    }
+
+    public void setSalaryReviewId(Long salaryReviewId) {
+        this.salaryReviewId = salaryReviewId;
+    }
 }
