@@ -74,6 +74,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   @Value("${mail.salaryReview.subject.en}")
   private String salaryReviewSubjectEn;
 
+
   @Override
   public List<SalaryReview> searchSalaryReview(SalaryReview salaryReview) {
     Calendar now = Calendar.getInstance();
@@ -154,6 +155,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     stringWriter.flush();
 
     mailSender.send(salaryReviewMailMessage);
+
+    salaryReview.setEmail(emailRequest.getEmail());
+    salaryReviewRepository.save(salaryReview);
   }
 
 //  public static void main(String[] args) {
