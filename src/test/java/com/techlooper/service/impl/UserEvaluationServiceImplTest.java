@@ -65,6 +65,23 @@ public class UserEvaluationServiceImplTest {
     }
 
     @Test
+    public void testSalaryReviewRecommendationJobSkills() throws Exception {
+        SalaryReview salaryReview = new SalaryReview();
+        salaryReview.setJobTitle("Java Developer");
+        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReview.setJobCategories(Arrays.asList(35L));
+        salaryReview.setNetSalary(500);
+        userEvaluationService.reviewSalary(salaryReview);
+        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        assertTrue(salaryReport.getPercentRank() > 0);
+        assertTrue(salaryReview.getTopPaidJobs().size() > 0);
+        int numberOfSkills = salaryReview.getTopPaidJobs().get(0).getSkills().size();
+        assertTrue(numberOfSkills > 0 && numberOfSkills <= 3);
+        // delete data after test
+        userEvaluationService.deleteSalaryReview(salaryReview);
+    }
+
+    @Test
     public void testEvaluateJobOfferWithoutJobs() throws Exception {
         SalaryReview salaryReview = new SalaryReview();
         salaryReview.setJobTitle("ABC XYZ");
