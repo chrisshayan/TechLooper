@@ -1,24 +1,33 @@
 techlooper.directive('autoTagbox', function ($timeout) {
   return {
-    restrict: "A",
+    restrict: "E",
     replace: true,
-    templateUrl: "modules/common/tag-box.tem.html",
+    templateUrl: "modules/common/auto-tagbox.tem.html",
     scope: {
       tags: "=",
       config: "="
     },
     link: function (scope, element, attr, ctrl) {
+      scope.errors = [];
       scope.removeTag = function(tag) {
         scope.tags.splice(scope.tags.indexOf(tag), 1);
-        scope.error = [];
+        scope.errors.length = 0;
       }
 
       scope.addTag = function(tag) {
-        console.log(tag);
-        console.log(scope.config.newTag);
+        scope.tags = scope.tags || [];
+        scope.errors.length = 0;
+
+        if (scope.tags.length >= 3) {
+          return scope.errors.push("maximum50");
+        }
+        else if (scope.tags.indexOf(scope.config.newTag) > -1) {
+          return scope.errors.push("hasExist");
+        }
+
+        scope.tags.push(scope.config.newTag);
+        scope.config.newTag = "";
       }
-
-
     }
   }
 });

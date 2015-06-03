@@ -31,16 +31,17 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
   }
 
   $scope.$watch("state.skillBoxConfig.newTag", function () {
+    console.log($scope.state.skillBoxConfig.newTag);
 
     if (!$scope.state.skillBoxConfig.newTag) {
       $scope.state.skillBoxConfig.items = [];
       return;
     }
 
-    $.get("suggestion/skill/" + $scope.newTag)
+    $.get("suggestion/skill/" + $scope.state.skillBoxConfig.newTag)
       .success(function (data) {
         $scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
-        //$scope.$apply();
+        $scope.$apply();
       });
   }, true);
 
