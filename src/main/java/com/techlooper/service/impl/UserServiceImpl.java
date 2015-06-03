@@ -48,13 +48,13 @@ public class UserServiceImpl implements UserService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-  @Resource
+  //@Resource
   private UserRepository userRepository;
 
   @Resource
   private UserImportRepository userImportRepository;
 
-  @Resource
+  //@Resource
   private UserRegistrationRepository userRegistrationRepository;
 
   @Resource
