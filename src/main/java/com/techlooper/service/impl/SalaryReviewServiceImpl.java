@@ -74,6 +74,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
   @Value("${mail.salaryReview.subject.en}")
   private String salaryReviewSubjectEn;
 
+
   @Override
   public List<SalaryReview> searchSalaryReview(SalaryReview salaryReview) {
     Calendar now = Calendar.getInstance();
@@ -104,6 +105,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     Map<String, Object> templateModel = new HashMap<>();
 
     SalaryReview salaryReview = salaryReviewRepository.findOne(emailRequest.getSalaryReviewId());
+    salaryReview.setEmail(emailRequest.getEmail());
+    salaryReviewRepository.save(salaryReview);
+    
     templateModel.put("id", Base64.getEncoder().encodeToString(salaryReview.getCreatedDateTime().toString().getBytes()));
     templateModel.put("salaryReview", salaryReview);
     templateModel.put("webBaseUrl", webBaseUrl);
