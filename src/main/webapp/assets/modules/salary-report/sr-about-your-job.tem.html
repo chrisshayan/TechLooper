@@ -4,9 +4,9 @@
     <form autocomplete="off">
       <div class="row salary-field">
         <label>{{'jobTitle' | translate}} <strong>*</strong></label>
-        <autocomplete required ng-model="salaryReview.jobTitle" data="jobTitles" attr-placeholder="{{'jobTitle.placeholder' | translate}}"></autocomplete>
-        <div class="error-messages">
-          {{jobTitleError}}</div>
+        <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
+                      attr-placeholder="{{'jobTitle.placeholder' | translate}}"></autocomplete>
+        <div class="error-messages">{{jobTitleError}}</div>
       </div>
       <div class="row salary-field" jobLevels>
         <label>{{'jobLevel' | translate}} <strong>*</strong></label>
@@ -26,29 +26,12 @@
       <div class="row salary-field">
         <label>{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
         <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig"></auto-tagbox>
-        <!--<div class="top-three-skills">-->
-          <!--<div class="added-list-skills">-->
-            <!--<ul>-->
-              <!--<li ng-repeat="skill in salaryReview.skills">-->
-                    <!--<span class="left">-->
-                      <!--<span class="right"><i>{{skill}}</i>-->
-                        <!--<span ng-click="removeSkill(skill)" class="close" title="Remove">x</span>-->
-                      <!--</span>-->
-                    <!--</span>-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</div>-->
-          <!--<div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>-->
-          <!--<div class="add-skill-input">-->
-            <!--<autocomplete required ng-model="newSkillName" data="skills" attr-placeholder="{{'mostRelevantSkills.placeholder' | translate}}"></autocomplete>-->
-            <!--<button ng-click="addNewSkill()">{{'add' | translate}}</button>-->
-          <!--</div>-->
-        <!--</div>-->
         <div class="error-messages">{{error.skills}}</div>
       </div>
       <div class="row salary-field">
         <label>{{'reportTo' | translate}}</label>
-        <autocomplete required ng-model="salaryReview.reportTo" data="jobTitles" attr-placeholder="{{'reportTo.placeholder' | translate}}"></autocomplete>
+        <autocomplete required ng-model="salaryReview.reportTo" data="state.jobTitles"
+                      attr-placeholder="{{'reportTo.placeholder' | translate}}"></autocomplete>
       </div>
       <div class="row salary-field">
         <label>{{'gender' | translate}}</label>

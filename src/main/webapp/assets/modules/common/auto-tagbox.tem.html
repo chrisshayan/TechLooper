@@ -15,7 +15,7 @@
   </div>
   <!--<div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>-->
   <div class="add-skill-input">
-    <autocomplete required ng-model="config.newTag" data="config.items"
+    <autocomplete ng-required='config.required' ng-model="config.newTag" data="config.items"
                   attr-placeholder="{{config.placeholder | translate}}"></autocomplete>
     <button ng-click="addTag()">{{'add' | translate}}</button>
   </div>

@@ -7,7 +7,8 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
       showJob: true,
       skillBoxConfig: {
         placeholder: "mostRelevantSkills.placeholder",
-        items: []
+        items: [],
+        required: true
       }
     },
 
@@ -30,15 +31,24 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     $scope.state = preferState;
   }
 
+  var jobTitleSuggestion = function (jobTitle) {
+    if (!jobTitle) {return;}
+
+    $.get("suggestion/jobTitle/" + jobTitle)
+      .success(function (data) {
+        $scope.state.jobTitles = data.items.map(function (item) {return item.name;});
+        $scope.$apply();
+      });
+  }
+
+  $scope.$watch("salaryReview.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
+  $scope.$watch("salaryReview.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
+
   $scope.$watch("state.skillBoxConfig.newTag", function () {
-    console.log($scope.state.skillBoxConfig.newTag);
+    var newTag = $scope.state.skillBoxConfig.newTag;
+    if (!newTag) {return;}
 
-    if (!$scope.state.skillBoxConfig.newTag) {
-      $scope.state.skillBoxConfig.items = [];
-      return;
-    }
-
-    $.get("suggestion/skill/" + $scope.state.skillBoxConfig.newTag)
+    $.get("suggestion/skill/" + newTag)
       .success(function (data) {
         $scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
         $scope.$apply();
