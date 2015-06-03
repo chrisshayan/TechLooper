@@ -16,15 +16,24 @@
   <div class="salary-review-block">
     <div class="navi-step-salary-review">
       <ul>
-        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}"><h2>{{'aboutYourJob' | translate}}</h2></li>
-        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}"><h2>{{'aboutYourCompany' | translate}}</h2></li>
-        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}"><h2>{{'yourSalaryReport' | translate}}</h2></li>
+        <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}">
+          <h2>{{'aboutYourJob' | translate}}</h2>
+          <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+        </li>
+        <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}">
+          <h2>{{'aboutYourCompany' | translate}}</h2>
+          <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+        </li>
+        <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}">
+          <h2>{{'yourSalaryReport' | translate}}</h2>
+          <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+        </li>
       </ul>
     </div>
     <div class="salary-review-content">
-      <div class="arrow-up-active step1" ng-show="step==='step1'"><i class="fa fa-sort-down"></i></div>
-      <div class="arrow-up-active step2" ng-show="step==='step2'"><i class="fa fa-sort-down"></i></div>
-      <div class="arrow-up-active step3" ng-show="step==='step3'"><i class="fa fa-sort-down"></i></div>
+      <!--<div class="arrow-up-active step1" ng-show="step==='step1'"><i class="fa fa-sort-down"></i></div>-->
+      <!--<div class="arrow-up-active step2" ng-show="step==='step2'"><i class="fa fa-sort-down"></i></div>-->
+      <!--<div class="arrow-up-active step3" ng-show="step==='step3'"><i class="fa fa-sort-down"></i></div>-->
       <div class="your-salary-info-content" ng-show="step==='step1'">
         <h3 translate="instructionMessage"></h3>
         <div class="salary-info-form">
@@ -230,7 +239,9 @@
           </div>
         </div>
         <div class="send-me-report-block" ng-show="salaryReport.percentRank !== 'NaN'">
+
           <h3>{{'sendMeReport' | translate}}</h3>
+
           <form>
           <div class="send-me-form">
             <p>{{'desSendMeReport' | translate }}</p>

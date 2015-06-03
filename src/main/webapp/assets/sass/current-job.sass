@@ -41,11 +41,12 @@
       background-color: #fff
       float: left
       width: 100%
-      //border-right: 1px solid #ebebeb
-      //border-top: 1px solid #ebebeb
-      //-webkit-box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
-      //-moz-box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
-      //box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
+      position: relative
+      text-align: center
+      .arrow-up-active
+        display: none
+        i
+          font-size: 25px
       ul
         margin: 0
         padding: 10px 0 0 0
@@ -57,6 +58,7 @@
           cursor: inherit
           color: #8d8d8d
           margin-right: 1%
+          position: relative
         li.active
           border-bottom: 2px solid #333
           cursor: pointer
@@ -74,6 +76,22 @@
         li:last-child
           margin-right: 0
           width: 33%
+    .navi-step-salary-review.fixed
+      position: fixed
+      left: 0
+      right: 0
+      margin: auto
+      top: 0
+      z-index: 9999
+      max-width: 1000px
+    .navi-step-salary-review li.showNavi
+      .arrow-up-active
+        position: absolute
+        bottom: -14px
+        display: block
+        left: 0
+        right: 0
+        margin: auto
     .salary-review-content
       display: block
       clear: both
