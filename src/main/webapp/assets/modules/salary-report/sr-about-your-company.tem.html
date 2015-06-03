@@ -1,0 +1,33 @@
+<div class="your-employer-content" ng-show="step==='step2'" >
+  <h3>{{'companyInfo.headline' | translate}}</h3>
+  <div class="salary-info-form">
+    <form autocomplete="off">
+      <div class="row salary-field">
+        <label>{{'companyInfo.location' | translate}} <strong>*</strong></label>
+        <selectize config='selectize.locations.config' options='selectize.locations.items'
+                   ng-model="salaryReview.locationId"
+                   name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+        <div class="error-messages">
+          {{error['salaryReview.locationId']}}</div>
+      </div>
+      <div class="row salary-field">
+        <label>{{'companyInfo.companySize' | translate}}</label>
+        <selectize config='selectize.companySize.config' options='selectize.companySize.items'
+                   ng-model="salaryReview.companySizeId"></selectize>
+      </div>
+      <div class="row salary-field">
+        <label>{{'companyInfo.companyCategory' | translate}} <strong>*</strong></label>
+        <selectize config='selectize.industries.config' options='selectize.industries.items'
+                   ng-model="salaryReview.jobCategories"
+                   name="{{'jobCategory' | translate}}"></selectize>
+        <div class="error-messages">
+          {{error['salaryReview.jobCategories']}}
+        </div>
+      </div>
+      <div class="row salary-field-submit">
+        <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
+      </div>
+    </form>
+    <div class="note" translate="noticeLine"></div>
+  </div>
+</div>
