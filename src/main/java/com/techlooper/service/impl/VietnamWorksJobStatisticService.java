@@ -416,7 +416,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
 
         // Start from the point of last year, month over month
-        DateTime loopDateTime = DateTime.now().minusMonths(LIMIT_NUMBER_OF_MONTHS);
+        DateTime loopDateTime = DateTime.now().minusMonths(LIMIT_NUMBER_OF_MONTHS + 1);
         int i = 0;
         while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
             if (i < buckets.size()) {
