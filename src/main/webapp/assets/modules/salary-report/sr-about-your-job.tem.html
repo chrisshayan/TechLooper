@@ -10,7 +10,7 @@
       </div>
       <div class="row salary-field" jobLevels>
         <label>{{'jobLevel' | translate}} <strong>*</strong></label>
-        <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+        <selectize config='state.jobLevelsSelectize.config' options='state.jobLevelsSelectize.items'
                    ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
         <div class="error-messages">
           {{error['salaryReview.jobLevelIds']}}</div>
@@ -35,17 +35,17 @@
       </div>
       <div class="row salary-field">
         <label>{{'gender' | translate}}</label>
-        <selectize config='selectize.genders.config' options='selectize.genders.items'
+        <selectize config='state.gendersSelectize.config' options='state.gendersSelectize.items'
                    ng-model="salaryReview.gender"></selectize>
       </div>
       <div class="row salary-field">
         <label translate="yob"></label>
         <!--<input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>-->
-        <selectize config='selectize.yobs.config' options='selectize.yobs.items'
+        <selectize config='state.yobsSelectize.config' options='state.yobsSelectize.items'
                    ng-model="salaryReview.age"></selectize>
       </div>
       <div class="row salary-field-submit">
-        <button class="btn btn-primary btn-flat" ng-click="nextStep('step2', 'step1')" >{{'next' | translate}}</button>
+        <button class="btn btn-primary btn-flat" ng-click="changeState('company')" >{{'next' | translate}}</button>
       </div>
       <div class="note" translate="noticeLine"></div>
     </form>

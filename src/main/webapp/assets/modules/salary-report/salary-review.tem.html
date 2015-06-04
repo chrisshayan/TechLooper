@@ -16,9 +16,9 @@
   <div class="salary-review-block">
     <div sr-navigation></div>
     <div class="salary-review-content">
-      <div sr-about-your-job ng-show="state.showJob"></div>
-      <div sr-about-your-company></div>
-      <div sr-about-your-report></div>
+      <sr-about-your-job ng-show="state.showJob" salary-review="salaryReview"></sr-about-your-job>
+      <sr-about-your-company ng-show="state.showCompany" salary-review="salaryReview"></sr-about-your-company>
+      <sr-about-your-report ng-show="state.showReport" salary-review="salaryReview"></sr-about-your-report>
     </div>
   </div>
 </div>

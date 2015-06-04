@@ -1,15 +1,7 @@
 <div class="navi-step-salary-review">
   <ul>
-    <li ng-click="nextStep('step1')" ng-class="{active: step==='step1' || step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step1'}">
-      <h2>{{'aboutYourJob' | translate}}</h2>
-      <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
-    </li>
-    <li ng-click="nextStep('step2', 'step1')" ng-class="{active: step==='step2' || step==='step3', noPointer: step==='step3', showNavi: step==='step2'}">
-      <h2>{{'aboutYourCompany' | translate}}</h2>
-      <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
-    </li>
-    <li ng-click="nextStep('step3', 'step2')" ng-class="{active: step==='step3', noPointer: step==='step3', showNavi: step==='step3'}">
-      <h2>{{'yourSalaryReport' | translate}}</h2>
+    <li ng-repeat="tab in state.tabs" class="{{tab.class}}">
+      <h2 translate="{{tab.title}}"></h2>
       <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
     </li>
   </ul>
