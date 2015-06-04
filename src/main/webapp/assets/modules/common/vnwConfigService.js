@@ -23,8 +23,51 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
     yobsSelectize: {
       items: jsonValue.yobs,
-      config: $.extend(true, {placeholder: $translate.instant("exYob")}, translateConfigBase)
+      config: {
+        valueField: 'value',
+        labelField: 'value',
+        delimiter: '|',
+        searchField: ['value'],
+        maxItems: 1,
+        placeholder: $translate.instant("exYob")
+      }
+    },
+
+    locationsSelectize: {
+      items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['name'],
+        placeholder: $translate.instant("exHoChiMinh")
+      }
+    },
+
+    companySizeSelectize: {
+      items: jsonValue.companySizesArray,
+      config: $.extend(true, translateConfigBase, {
+        valueField: 'id',
+        labelField: 'size',
+        searchField: ['size'],
+        placeholder: $translate.instant("ex149")
+      })
+    },
+
+    industriesSelectize: {
+      items: jsonValue.industriesArray,
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 3,
+        plugins: ['remove_button'],
+        searchField: ['name'],
+        placeholder: $translate.instant("exItSoftware")
+      }
     }
   }
+
   return instance;
 });

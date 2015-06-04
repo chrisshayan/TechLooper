@@ -10,10 +10,6 @@ techlooper.controller("salaryReviewController", function ($scope, vnwConfigServi
         required: true
       },
 
-      jobLevelsSelectize: vnwConfigService.jobLevelsSelectize,
-      gendersSelectize: vnwConfigService.gendersSelectize,
-      yobsSelectize: vnwConfigService.yobsSelectize,
-
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany"},
@@ -23,6 +19,7 @@ techlooper.controller("salaryReviewController", function ($scope, vnwConfigServi
 
     company: {
       showCompany: true,
+
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
@@ -40,20 +37,7 @@ techlooper.controller("salaryReviewController", function ($scope, vnwConfigServi
     }
   }
 
-  //$scope.jobLevelsSelectize = {
-  //  items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
-  //  config: {
-  //    valueField: 'id',
-  //    labelField: 'translate',
-  //    delimiter: '|',
-  //    maxItems: 1,
-  //    searchField: ['translate'],
-  //    placeholder: $translate.instant("exManager"),
-  //    onInitialize: function (selectize) {
-  //      console.log('Initialized', selectize);
-  //    }
-  //  }
-  //}
+  $scope.selectize = vnwConfigService;
 
   $scope.changeState = function (st) {
     st = st || state.default;
@@ -78,11 +62,10 @@ techlooper.controller("salaryReviewController", function ($scope, vnwConfigServi
   $scope.$watch("salaryReview.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
   $scope.$watch("salaryReview.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
 
-  $scope.$watch("state.skillBoxConfig.newTag", function () {
-    var newTag = $scope.state.skillBoxConfig.newTag;
-    if (!newTag) {return;}
+  $scope.$watch("state.skillBoxConfig.newTag", function (newVal) {
+    if (!newVal) {return;}
 
-    $.get("suggestion/skill/" + newTag)
+    $.get("suggestion/skill/" + newVal)
       .success(function (data) {
         $scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
         $scope.$apply();
