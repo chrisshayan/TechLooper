@@ -3,8 +3,8 @@
   <div class="title-header" ng-model="surveyFormShowed" ng-click="surveyFormShowed=!surveyFormShowed">
     <h3 translate="whatYouThinkReport"></h3>
     <div class="ic-hidden" title="Minimise">
-      <span ng-show="!surveyFormShowed"><i class="fa fa-caret-up"></i></span>
-      <span ng-show="surveyFormShowed"><i class="fa fa-caret-down"></i></span>
+      <span ng-show="surveyFormShowed"><i class="fa fa-caret-up"></i></span>
+      <span ng-show="!surveyFormShowed"><i class="fa fa-caret-down"></i></span>
     </div>
   </div>
   <div class="salary-report-feedback-form" ng-show="surveyFormShowed">
@@ -44,4 +44,5 @@
       </ul>
     </form>
   </div>
+  <div class="thanksMessages" ng-show="state.showThanksSurvey" translate="thanksForHelp"></div>
 </div>
