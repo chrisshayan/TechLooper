@@ -547,109 +547,74 @@
           text-align: center
           a
             margin: auto
-      .salary-report-feedback
-        display: inline-block
+      .salary-report-feedback-form
+        display: block
         clear: both
-        margin: 30px auto auto auto
-        text-align: left
-        border: 1px solid #d4d7d8
-        -webkit-border-radius: 5px
-        -moz-border-radius: 5px
-        border-radius: 5px
-        width: 100%
-        padding: 15px
-        position: relative
-        .title-header
-          display: block
-          clear: both
-          h3
-            background-color: white
-            display: inline-block
-            font-size: 14px
-            font-weight: 400
-            left: 10px
-            padding: 0 5px
-            position: absolute
-            text-align: left
-            text-transform: capitalize
-            top: -32px
-          .hidden-box
-            width: auto
-            position: absolute
-            right: 10px
-            top: -17px
-            background-color: #fff
-            padding: 5px 10px
-            font-weight: 500
-            cursor: pointer
-        .salary-report-feedback-form
-          display: block
-          clear: both
-          text-align: center
-          width: 60%
-          margin: auto
-          ul
-            margin: 0
-            padding: 20px 0
+        text-align: center
+        width: 60%
+        margin: auto
+        ul
+          margin: 0
+          padding: 20px 0
+          width: 100%
+          text-align: left
+          display: inline-block
+          li
             width: 100%
-            text-align: left
-            display: inline-block
-            li
+            clear: both
+            display: block
+            padding: 5px 0
+            float: left
+            label
+              font-weight: 300
+            textarea
               width: 100%
               clear: both
-              display: block
-              padding: 5px 0
-              float: left
-              label
-                font-weight: 300
-              textarea
-                width: 100%
-                clear: both
-                border: 1px solid #d4d7d8
-                -webkit-border-radius: 5px
-                -moz-border-radius: 5px
-                border-radius: 5px
-                height: 80px
-                padding: 10px
-              p
-                font-size: 14px
-                clear: both
-                width: auto
-                float: left
-                margin: 0
-                strong
-                  color: red
-              .select-group
-                width: 38%
-                float: right
-                .select-item
-                  float: left
-                  width: 50%
-                  label
-                    font-weight: 400
-                    padding-left: 5px
-            li:last-child
-              text-align: center
-              button
-                min-width: 100px
-                margin: auto
-            .error-messages
-              color: red
-              display: block
+              border: 1px solid #d4d7d8
+              -webkit-border-radius: 5px
+              -moz-border-radius: 5px
+              border-radius: 5px
+              height: 80px
+              padding: 10px
+            p
+              font-size: 14px
               clear: both
-              text-align: left
-              font-size: 12px
-              font-style: italic
-        .thanksMessages
-          clear: both
-          display: block
-          width: 100%
-          text-align: center
-          font-size: 14px
-        .note
-          clear: both
-          display: none
-          width: 100%
+              width: auto
+              float: left
+              margin: 0
+              strong
+                color: red
+            .select-group
+              width: 38%
+              float: right
+              .select-item
+                float: left
+                width: 50%
+                label
+                  font-weight: 400
+                  padding-left: 5px
+          li:last-child
+            text-align: center
+            button
+              min-width: 100px
+              margin: auto
+          .error-messages
+            color: red
+            display: block
+            clear: both
+            text-align: left
+            font-size: 12px
+            font-style: italic
+      .thanksMessages
+        clear: both
+        display: block
+        width: 100%
+        text-align: center
+        font-size: 14px
+      .note
+        clear: both
+        display: none
+        width: 100%
     .thanks-for-share-salary
       display: inline-block
       clear: both
@@ -699,76 +664,50 @@
               padding: 0
               strong
                 font-weight: 400
-        .create-new-report
+        .btn-tabs-manager
           clear: both
           display: block
           text-align: center
           padding-top: 10px
           font-weight: 400
           cursor: pointer
-    .best-paid-jobs-block
-      border: 1px solid #d4d7d8
-      border-radius: 5px
-      clear: both
-      display: inline-block
-      margin: 30px auto auto
-      padding: 15px 15px 20px
-      position: relative
-      text-align: left
-      width: 100%
-      .title-header
-        display: block
-        clear: both
-        h3
-          background-color: white
-          display: inline-block
-          font-size: 14px
-          font-weight: 400
-          left: 10px
-          padding: 0 5px
-          position: absolute
-          text-align: left
-          text-transform: capitalize
-          top: -32px
-        .hidden-box
-          width: auto
-          position: absolute
-          right: 10px
-          top: -17px
-          background-color: #fff
-          padding: 5px 10px
-          font-weight: 500
-          cursor: pointer
-      .best-paid-list
-        display: block
-        clear: both
-        padding: 20px 0 0 0
-        p
-          text-align: left
-          padding: 5px 0 5px 10px
-          height: auto
-        .see-more-jobs
-          display: block
-          width: 100%
-          padding-right: 5px
           a
-            float: right
-            width: auto
-          p.note
-            padding-top: 10px
-            display: inline-block
-            width: 50%
-            height: auto
-            loat: left
-        .email-me-similar-jobs
-          display: block
-          clear: both
-          width: 100%
-          padding-top: 10px
-          text-align: center
-          a
-            margin: auto
             cursor: pointer
+            font-size: 16px
+          a.create-new
+            float: right
+          a.go-back
+            float: left
+    .best-paid-list
+      display: block
+      clear: both
+      padding: 20px 0 0 0
+      p
+        text-align: left
+        padding: 5px 0 5px 10px
+        height: auto
+      .see-more-jobs
+        display: block
+        width: 100%
+        padding-right: 5px
+        a
+          float: right
+          width: auto
+        p.note
+          padding-top: 10px
+          display: inline-block
+          width: 50%
+          height: auto
+          loat: left
+      .email-me-similar-jobs
+        display: block
+        clear: both
+        width: 100%
+        padding-top: 10px
+        text-align: center
+        a
+          margin: auto
+          cursor: pointer
     .best-paid-companies
       display: inline-block
       clear: both
@@ -820,6 +759,47 @@
         padding: 15px 0 0 0
     .best-paid-company:first-child
       margin-left: 1.5%
+    .box-content-collapse
+      background-color: #fff
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      border: 1px solid #d4d7d8
+      display: inline-block
+      margin-bottom: 20px
+      width: 100%
+      .title-header
+        background-color: #f3fafe
+        -webkit-border-top-left-radius: 5px
+        -webkit-border-top-right-radius: 5px
+        -moz-border-radius-topleft: 5px
+        -moz-border-radius-topright: 5px
+        border-top-left-radius: 5px
+        border-top-right-radius: 5px
+        clear: both
+        display: block
+        float: left
+        width: 100%
+        height: 40px
+        line-height: 40px
+        padding: 0 10px
+        cursor: pointer
+        h3
+          display: inline-block
+          float: left
+          font-size: 14px
+          font-weight: 400
+          left: 10px
+          padding: 0 5px
+          text-align: left
+          text-transform: capitalize
+          width: auto
+          margin: 0
+          height: 40px
+          line-height: 40px
+        .ic-hidden
+          float: right
+          width: auto
 .salary-review-page
   .error-messages
     font-size: 12px
@@ -899,192 +879,146 @@
             button
               margin: auto
               padding: 6px 25px
-    .partner-company-block
-      border: 1px solid #d4d7d8
-      border-radius: 5px
-      clear: both
+    .partner-company-content
       display: inline-block
-      margin: 30px auto auto
-      padding: 15px 15px 10px
-      position: relative
-      text-align: left
+      clear: both
+      padding: 20px 0
       width: 100%
-      .title-header
-        display: block
-        clear: both
-        h3
-          background-color: white
-          display: inline-block
-          font-size: 14px
-          font-weight: 400
-          left: 10px
-          padding: 0 5px
-          position: absolute
-          text-align: left
-          text-transform: capitalize
-          top: -32px
-        .hidden-box
-          width: auto
-          position: absolute
-          right: 10px
-          top: -17px
-          background-color: #fff
-          padding: 5px 10px
-          font-weight: 500
-          cursor: pointer
-      .partner-company-content
-        display: inline-block
-        clear: both
-        padding: 20px 0
-        width: 100%
+      text-align: center
+      .partner-company-logo
+        width: 25%
+        float: left
+        img
+          width: 100%
+      .partner-company-detail
+        width: 75%
+        float: left
         text-align: center
-        .partner-company-logo
-          width: 25%
-          float: left
-          img
-            width: 100%
-        .partner-company-detail
-          width: 75%
-          float: left
+        h4
+          font-size: 18px
+          font-weight: 400
+      .partner-company-form
+        width: 100%
+        clear: both
+        display: none
+        margin: auto
+        padding: 20px 0 0 40px
+        text-align: left
+        p
+          font-size: 14px
+          margin: 0
+          padding: 0 0 20px 0
           text-align: center
-          h4
-            font-size: 18px
-            font-weight: 400
-        .partner-company-form
-          width: 100%
-          clear: both
-          display: none
-          margin: auto
-          padding: 20px 0 0 40px
-          text-align: left
-          p
-            font-size: 14px
-            margin: 0
-            padding: 0 0 20px 0
-            text-align: center
-          .partner-company-field
-            display: inline-block
-            clear: both
-            padding-bottom: 10px
-            width: 100%
-            label
-              width: 30%
-              float: left
-              text-align: right
-              padding: 5px 10px 0 0
-              font-weight: 300
-              strong
-                font-width: 400
-                color: red
-            input.input-text
-              width: 70%
-              float: left
-              border: 1px solid #d4d7d8
-              border-radius: 5px
-              height: 34px
-              line-height: 34px
-              padding: 0 10px
-            .error-messages
-              padding-left: 30%
-            .selection-group
-              width: 70%
-              float: left
-              padding-top: 5px
-              ul
-                margin: 0
-                padding: 0
-                width: 80%
-                li
-                  width: 50%
-                  float: left
-                  input
-                    float: left
-                  label
-                    width: auto
-                    padding: 0px 0 0 5px
-          .agree-registration
-            display: block
-            clear: both
-            input
-              float: left
-            label
-              width: 95%
-              text-align: left
-              padding: 0 0 0 5px
-            .error-messages
-              padding-left: 0
-        .apply-now-block
-          padding-top: 20px
-          display: block
-          clear: both
-          .btn-primary
-            padding: 6px 20px
-        //.partner-company-form.active
-        //  display: block
-        .note-Partner-Company-Form
-          color: #727272
-          font-size: 11px
-          font-style: italic
-          width: 100%
-          clear: both
-          padding: 20px 0 0
-          display: none
-        .partner-company-thanks
-          display: none
-          padding: 20px
-          font-size: 14px
-          font-weight: 400
-    .salary-review-content
-      .send-me-report-block
-        display: inline-block
-        clear: both
-        margin: 30px auto auto auto
-        border: 1px solid #d4d7d8
-        -webkit-border-radius: 5px
-        -moz-border-radius: 5px
-        border-radius: 5px
-        width: 100%
-        padding: 30px 15px
-        position: relative
-        text-align: center
-        h3
-          font-weight: 400
-          font-size: 14px
-          text-transform: capitalize
-          text-align: left
-          padding: 0 5px
-          position: absolute
+        .partner-company-field
           display: inline-block
-          background-color: #fff
-          top: -32px
-          left: 10px
-        .send-me-form
-          display: block
           clear: both
-          margin: auto
-          width: 600px
-          p
-            clear: both
-            display: block
-            text-align: left
-            padding-bottom: 10px
-          input
-            width: 76%
-            margin-right: 1%
+          padding-bottom: 10px
+          width: 100%
+          label
+            width: 30%
+            float: left
+            text-align: right
+            padding: 5px 10px 0 0
+            font-weight: 300
+            strong
+              font-width: 400
+              color: red
+          input.input-text
+            width: 70%
             float: left
             border: 1px solid #d4d7d8
             border-radius: 5px
-            clear: both
-            height: 37px
-            line-height: 37px
+            height: 34px
+            line-height: 34px
             padding: 0 10px
-          button
-            width: 23%
-            float: left
           .error-messages
-            clear: both
+            padding-left: 30%
+          .selection-group
+            width: 70%
+            float: left
+            padding-top: 5px
+            ul
+              margin: 0
+              padding: 0
+              width: 80%
+              li
+                width: 50%
+                float: left
+                input
+                  float: left
+                label
+                  width: auto
+                  padding: 0px 0 0 5px
+        .agree-registration
+          display: block
+          clear: both
+          input
+            float: left
+          label
+            width: 95%
             text-align: left
-            padding-top: 3px
+            padding: 0 0 0 5px
+          .error-messages
+            padding-left: 0
+      .apply-now-block
+        padding-top: 20px
+        display: block
+        clear: both
+        .btn-primary
+          padding: 6px 20px
+      //.partner-company-form.active
+      //  display: block
+      .note-Partner-Company-Form
+        color: #727272
+        font-size: 11px
+        font-style: italic
+        width: 100%
+        clear: both
+        padding: 20px 0 0
+        display: none
+      .partner-company-thanks
+        display: none
+        padding: 20px
+        font-size: 14px
+        font-weight: 400
+    .send-me-report-block
+      display: inline-block
+      clear: both
+      margin: 30px auto auto auto
+      border: 1px solid #d4d7d8
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      width: 100%
+      position: relative
+      text-align: center
+      .send-me-form
+        display: block
+        clear: both
+        margin: auto
+        width: 600px
+        p
+          clear: both
+          display: block
+          text-align: left
+          padding-bottom: 10px
+        input
+          width: 76%
+          margin-right: 1%
+          float: left
+          border: 1px solid #d4d7d8
+          border-radius: 5px
+          clear: both
+          height: 37px
+          line-height: 37px
+          padding: 0 10px
+        button
+          width: 23%
+          float: left
+        .error-messages
+          clear: both
+          text-align: left
+          padding-top: 3px
 .success-alert-box
   width: 100%
   text-align: center

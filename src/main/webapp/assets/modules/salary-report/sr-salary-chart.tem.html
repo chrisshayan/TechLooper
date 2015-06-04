@@ -81,8 +81,9 @@
               </div>
             </li>
           </ul>
-          <div class="create-new-report" ng-show="!salaryReview.campaign">
-            <a class="btn btn-primary btn-flat" ng-click="createNewReport()">{{'createNewReport' | translate}}</a>
+          <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
+            <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
+            <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
           </div>
         </div>
       </div>
@@ -136,8 +137,9 @@
         <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
       </div>
     </div>
-    <div class="create-new-report" ng-show="!salaryReview.campaign">
-      <a class="btn btn-primary btn-flat" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
+    <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
+      <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
+      <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
     </div>
   </div>
 </div>
