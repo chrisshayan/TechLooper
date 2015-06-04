@@ -10,7 +10,7 @@
       </div>
       <div class="row salary-field" jobLevels>
         <label>{{'jobLevel' | translate}} <strong>*</strong></label>
-        <selectize config='state.jobLevelsSelectize.config' options='state.jobLevelsSelectize.items'
+        <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
                    ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
         <div class="error-messages">
           {{error['salaryReview.jobLevelIds']}}</div>
@@ -35,13 +35,13 @@
       </div>
       <div class="row salary-field">
         <label>{{'gender' | translate}}</label>
-        <selectize config='state.gendersSelectize.config' options='state.gendersSelectize.items'
+        <selectize config='selectize.gendersSelectize.config' options='selectize.gendersSelectize.items'
                    ng-model="salaryReview.gender"></selectize>
       </div>
       <div class="row salary-field">
         <label translate="yob"></label>
         <!--<input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>-->
-        <selectize config='state.yobsSelectize.config' options='state.yobsSelectize.items'
+        <selectize config='selectize.yobsSelectize.config' options='selectize.yobsSelectize.items'
                    ng-model="salaryReview.age"></selectize>
       </div>
       <div class="row salary-field-submit">

@@ -4,20 +4,21 @@
     <form autocomplete="off">
       <div class="row salary-field">
         <label>{{'companyInfo.location' | translate}} <strong>*</strong></label>
-        <selectize config='selectize.locations.config' options='selectize.locations.items'
+        <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
                    ng-model="salaryReview.locationId"
                    name="{{'location' | translate}}" class="locationSelectbox"></selectize>
         <div class="error-messages">
           {{error['salaryReview.locationId']}}</div>
       </div>
+
       <div class="row salary-field">
         <label>{{'companyInfo.companySize' | translate}}</label>
-        <selectize config='selectize.companySize.config' options='selectize.companySize.items'
+        <selectize config='selectize.companySizeSelectize.config' options='selectize.companySizeSelectize.items'
                    ng-model="salaryReview.companySizeId"></selectize>
       </div>
       <div class="row salary-field">
         <label>{{'companyInfo.companyCategory' | translate}} <strong>*</strong></label>
-        <selectize config='selectize.industries.config' options='selectize.industries.items'
+        <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
                    ng-model="salaryReview.jobCategories"
                    name="{{'jobCategory' | translate}}"></selectize>
         <div class="error-messages">
