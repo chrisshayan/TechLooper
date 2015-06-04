@@ -95,6 +95,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     if (!salaryReport) {return;}
 
     if ($.type(salaryReport.percentRank) === "number") {
+      $scope.state.showSendReport = true;
       $scope.state.showSurvey = true;
       //$scope.changeState(state.reportSurvey);
     }

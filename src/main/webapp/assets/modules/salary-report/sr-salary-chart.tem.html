@@ -90,7 +90,10 @@
         </div>
       </div>
     </div>
-    <div sr-send-me-report></div>
+    <div sr-send-me-report ng-show="state.showSendReport"></div>
+    <div class="alert alert-success" ng-show="state.showThanksSendMeReport" role="alert">{{'thanksSendMeReport' | translate}}
+      <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+    </div>
     <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
       <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
       <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>

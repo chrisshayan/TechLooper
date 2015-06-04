@@ -17,7 +17,14 @@ techlooper
       return {
         restrict: "A",
         replace: true,
-        templateUrl: "modules/salary-report/sr-send-me-report.tem.html"
+        templateUrl: "modules/salary-report/sr-send-me-report.tem.html",
+        link: function (scope, element, attr, ctrl) {
+          scope.sendMeNow = function () {
+            //TODO validation
+            delete scope.state.showSendReport;
+            scope.state.showThanksSendMeReport = true;
+          }
+        }
       }
     })
     .directive("srPromotionCompany", function ($http) {
