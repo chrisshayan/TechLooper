@@ -306,7 +306,7 @@
       .your-pay-snapshot-content
         display: inline-block
         clear: both
-        padding: 10px 20px
+        padding: 10px 20px 0 20px
         width: 100%
         .your-pay-snapshot-info
           display: block
@@ -621,34 +621,41 @@
         padding: 5px 0
         a
           cursor: pointer
+      p.short-content
+        padding-bottom: 20px
       .thanks-for-share-salary-content
         display: inline-block
         clear: both
         width: 100%
+        .title-header
+          background-color: #fff
+          padding: 5px
+          position: absolute
+          right: 10px
+          top: -27px
+          width: auto
         ul
           margin: 0
-          padding: 10px 0 0 0
+          padding: 10px 0
           width: 100%
+          float: left
           li
             width: 33.333%
             float: left
             padding: 0 10px
+            border-left: 1px solid #d4d7d8
             .thanks-for-share-salary-item
               display: inline-block
               clear: both
               position: relative
-              padding: 20px 10px
+              padding: 10px
               min-height: 195px
             h4
               font-weight: 400
               font-size: 14px
               display: block
               clear: both
-              position: absolute
-              top: -15px
-              left: 10px
-              background-color: #fff
-              padding: 5px
+              padding: 5px 5px 5px 0
               width: auto
             p
               text-align: justify
@@ -656,6 +663,8 @@
               padding: 0
               strong
                 font-weight: 400
+          li:first-child
+            border-left: 0
     .btn-tabs-manager
       clear: both
       display: inline-block
@@ -796,6 +805,13 @@
           width: auto
           font-size: 20px
           font-weight: 400
+          cursor: pointer
+        .ic-close
+          float: right
+          width: auto
+          font-size: 20px
+          font-weight: 400
+          cursor: pointer
 .salary-review-page
   .error-messages
     font-size: 12px
@@ -982,7 +998,7 @@
     .send-me-report-content
       display: inline-block
       clear: both
-      padding: 10px 20px
+      padding: 0 20px 10px 20px
       width: 100%
     .send-me-form
       display: block
