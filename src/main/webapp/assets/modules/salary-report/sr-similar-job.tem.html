@@ -1,9 +1,12 @@
 <div class="box-content-collapse" ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length">
-  <div class="title-header">
+  <div class="title-header" ng-model="sendMeSimilarJob" ng-click="sendMeSimilarJob=!sendMeSimilarJob">
     <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span translate="doYouWantToEarnMore"></span></h3>
-    <div class="ic-hidden" title="Close"  ng-click="removeBoxContent('best-paid-jobs-block')">X</div>
+    <div class="ic-hidden" title="Close">
+      <span ng-show="!sendMeSimilarJob"><i class="fa fa-caret-up"></i></span>
+      <span ng-show="sendMeSimilarJob"><i class="fa fa-caret-down"></i></span>
+    </div>
   </div>
-  <div class="best-paid-list">
+  <div class="best-paid-list" ng-show="sendMeSimilarJob">
     <p translate="higherJobOffer"></p>
     <div class="best-paid-companies">
       <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">

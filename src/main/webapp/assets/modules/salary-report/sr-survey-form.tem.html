@@ -1,9 +1,12 @@
 <div class="box-content-collapse" ng-show="!salaryReview.campaign &&  salaryReport.percentRank !== 'NaN'">
-  <div class="title-header">
+  <div class="title-header" ng-model="surveyFormShowed" ng-click="surveyFormShowed=!surveyFormShowed">
     <h3 translate="whatYouThinkReport" ng-show="!survey.submitted"></h3>
-    <div class="ic-hidden" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
+    <div class="ic-hidden" title="Close">
+      <span ng-show="!surveyFormShowed"><i class="fa fa-caret-up"></i></span>
+      <span ng-show="surveyFormShowed"><i class="fa fa-caret-down"></i></span>
+    </div>
   </div>
-  <div class="salary-report-feedback-form" ng-show="!survey.submitted">
+  <div class="salary-report-feedback-form" ng-show="surveyFormShowed">
     <form autocomplete="off">
       <ul>
         <li>

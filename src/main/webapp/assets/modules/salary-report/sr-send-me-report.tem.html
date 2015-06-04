@@ -1,11 +1,14 @@
 <div class="box-content-collapse" ng-show="salaryReport.percentRank !== 'NaN'">
-  <div class="title-header">
+  <div class="title-header" ng-model="sendMeReport" ng-click="sendMeReport=!sendMeReport">
     <h3>{{'sendMeReport' | translate}}</h3>
-    <div class="ic-hidden" title="Close"  ng-click="removeBoxContent('send-me-report-block')">-</div>
+    <div class="ic-hidden" title="Close">
+      <span ng-show="!sendMeReport"><i class="fa fa-caret-up"></i></span>
+      <span ng-show="sendMeReport"><i class="fa fa-caret-down"></i></span>
+    </div>
   </div>
   <h3></h3>
   <form>
-    <div class="send-me-form">
+    <div class="send-me-form" ng-show="!sendMeReport">
       <p>{{'desSendMeReport' | translate }}</p>
       <input ng-model="sendMeReport.email" type="email" placeholder="{{'exEmailAddress' | translate}}" required/>
       <button translate="sendMeNow" class="btn btn-primary btn-flat" ng-click="sendMeNow()" type="submit"></button>

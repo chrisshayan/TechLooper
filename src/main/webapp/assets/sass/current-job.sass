@@ -292,261 +292,236 @@
           text-align: left
           img
             width: 100px
-      .your-pay-snapshot-block
+      .your-pay-snapshot-content
         display: inline-block
         clear: both
-        margin: auto
-        text-align: left
-        border: 1px solid #d4d7d8
-        -webkit-border-radius: 5px
-        -moz-border-radius: 5px
-        border-radius: 5px
-        width: 100%
-        padding: 30px 15px 15px 15px
-        position: relative
-        h3
-          font-weight: 400
-          font-size: 14px
-          text-transform: capitalize
-          text-align: left
-          padding: 0 5px
-          position: absolute
-          display: inline-block
-          background-color: #fff
-          top: -32px
-          left: 10px
-          strong
-            font-weight: 500
-            font-size: 18px
-        .your-pay-snapshot-content
+        padding: 10px
+        .your-pay-snapshot-info
           display: block
           clear: both
-          .your-pay-snapshot-info
-            display: block
-            clear: both
-            float: left
-            background-color: #f4f4f4
-            -webkit-border-radius: 5px
-            -moz-border-radius: 5px
-            border-radius: 5px
-            width: 100%
-            ul
-              margin: 0
-              padding: 0
-              li
-                float: left
-                width: 80%
-                border-right: 1px solid #fff
-                padding: 20px
-                text-align: center
-                font-size: 16px
-                h4
-                  font-size: 14px
-                  font-weight: 300
-                  text-align: center
-                strong
-                  font-weight: 400
-                  font-size: 30px
-                  text-align: center
-                  sup
-                    font-size: 14px
-                    font-weight: 300
-                span
-                  display: block
-                  clear: both
-                  font-style: italic
-                  font-size: 14px
-                  color: #707070
-                a
-                  cursor: pointer
-              li:last-child
-                width: 20%
-                float: left
-                padding-top: 22px
-                a.salary-report-share
-                  background-color: #335bb0
-                  display: inline-block
-                  height: 40px
-                  width: auto
-                  padding: 0 10px
-                  color: #fff
-                  line-height: 40px
-                  -webkit-border-radius: 5px
-                  -moz-border-radius: 5px
-                  border-radius: 5px
-                  i
-                    border-right: 1px solid #517bcd
-                    padding-right: 10px
-                  span.text
-                    font-size: 14px
-                    padding-left: 5px
-                    display: inline-block
-                    color: #fff
-                    font-style: normal
-              li.fullCol
-                width: 100%
-                strong
-                  font-size: 16px
-          .your-pay-snapshot-chart
-            display: block
-            clear: both
-            padding-top: 20px
-            width: 100%
-            position: relative
-            height: 200px
-            p
-              text-align: center
-              color: #a6a6a6
-            p.note
-              text-align: center
-              color: #a6a6a6
-              padding-top: 10px
-              font-size: 14px
-              width: 100%
+          float: left
+          background-color: #f4f4f4
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          width: 100%
+          ul
+            margin: 0
+            padding: 0
+            li
               float: left
+              width: 80%
+              border-right: 1px solid #fff
+              padding: 20px
+              text-align: center
+              font-size: 16px
+              h4
+                font-size: 14px
+                font-weight: 300
+                text-align: center
               strong
                 font-weight: 400
-            .chart-percent-line
-              width: 95%
-              float: left
-              position: relative
-              display: inline-block
-              background: url(../images/bg-salary-chart.jpg) left 60px repeat-x
-              height: 125px
-            .arrow-right
-              background: url(../images/arrow-right.png) right 49px no-repeat
-              width: 5%
-              height: 120px
-              position: absolute
-              z-index: 99
-              right: 0
-              left: inherit
-            .percent-data
-              float: left
-              color: #a6a6a6
-              text-align: right
-              font-size: 12px
-              position: absolute
-              .salary-number-label
-                display: block
-                clear: both
-                height: 60px
-                border-right: 1px dashed #dddddd
-                padding-right: 5px
-              .percent-number-label
-                display: block
-                clear: both
-                text-align: right
-              .percent-color
-                display: block
-                clear: both
-                height: 40px
-            .percent-data:first-child
-              z-index: 99
-              width: 10%
-              .percent-color
-                background-color: #ebf6ff
-              .salary-number-label
-                text-align: left
-                border-left: 1px dashed #dddddd
-                padding-left: 5px
-              .percent-number-label
-                text-align: left
-            .percent-data:nth-child(2)
-              z-index: 88
-              .percent-color
-                background-color: #bbe1fe
-            .percent-data:nth-child(3)
-              z-index: 77
-              .percent-color
-                background-color: #99d1fa
-            .percent-data:nth-child(4)
-              z-index: 66
-              .percent-color
-                background-color: #61b9fa
-                border-left: 1px dashed #fff
-            .percent-data:nth-child(5)
-              z-index: 55
-              .percent-color
-                background-color: #4398da
-            .percent-data:nth-child(6)
-              z-index: 44
-              .percent-color
-                background-color: #1266a8
-
-            .percent-data.zero
-              width: 10%
-              .percent-color
-                background-color: #ebf6ff
-            .percent-data.percent10
-              width: 15%
-              .percent-color
-                background-color: #bbe1fe
-            .percent-data.percent25
-              width: 25%
-              .percent-color
-                background-color: #99d1fa
-            .percent-data.percent50
-              width: 25%
-              .percent-color
-                background-color: #61b9fa
-                border-left: 1px dashed #fff
-            .percent-data.percent75
-              width: 25%
-              .percent-color
-                background-color: #4398da
-            .percent-data.percent90
-              width: 15%
-              .percent-color
-                background-color: #1266a8
-            .my-current-rank
-              position: absolute
-              top: 30px
-              left: 30%
-              z-index: 990
-              .my-current-salary
-                background-color: #892890
-                -webkit-border-radius: 3px
-                -moz-border-radius: 3px
-                border-radius: 3px
-                padding: 5px 10px
-                color: #fff
-                font-weight: 400
-                margin-bottom: 10px
-                position: relative
-                i
-                  color: #892890
-                  font-size: 20px
-                  position: absolute
-                  left: 7px
-                  bottom: -7px
-              .my-position
-                background-color: #892890
-                -webkit-border-radius: 50%
-                -moz-border-radius: 50%
-                border-radius: 50%
-                height: 20px
-                width: 20px
-                line-height: 20px
+                font-size: 30px
                 text-align: center
-                margin-left: 5px
+                sup
+                  font-size: 14px
+                  font-weight: 300
+              span
+                display: block
+                clear: both
+                font-style: italic
+                font-size: 14px
+                color: #707070
+              a
+                cursor: pointer
+            li:last-child
+              width: 20%
+              float: left
+              padding-top: 22px
+              a.salary-report-share
+                background-color: #335bb0
+                display: inline-block
+                height: 40px
+                width: auto
+                padding: 0 10px
+                color: #fff
+                line-height: 40px
+                -webkit-border-radius: 5px
+                -moz-border-radius: 5px
+                border-radius: 5px
                 i
+                  border-right: 1px solid #517bcd
+                  padding-right: 10px
+                span.text
+                  font-size: 14px
+                  padding-left: 5px
+                  display: inline-block
                   color: #fff
-                  font-size: 15px
-            .my-current-salary.right-position
-              width: 110px
-              left: -60px
-              text-align: center
-              i
-                right: 30px
-                left: auto
-        .gray-background
+                  font-style: normal
+            li.fullCol
+              width: 100%
+              strong
+                font-size: 16px
+        .your-pay-snapshot-chart
+          display: block
+          clear: both
+          padding-top: 20px
+          width: 100%
+          position: relative
+          height: 200px
+          p
+            text-align: center
+            color: #a6a6a6
+          p.note
+            text-align: center
+            color: #a6a6a6
+            padding-top: 10px
+            font-size: 14px
+            width: 100%
+            float: left
+            strong
+              font-weight: 400
+          .chart-percent-line
+            width: 95%
+            float: left
+            position: relative
+            display: inline-block
+            background: url(../images/bg-salary-chart.jpg) left 60px repeat-x
+            height: 125px
+          .arrow-right
+            background: url(../images/arrow-right.png) right 49px no-repeat
+            width: 5%
+            height: 120px
+            position: absolute
+            z-index: 99
+            right: 0
+            left: inherit
           .percent-data
-            position: inherit !important
-        .create-new-report
-          text-align: center
-          a
-            margin: auto
+            float: left
+            color: #a6a6a6
+            text-align: right
+            font-size: 12px
+            position: absolute
+            .salary-number-label
+              display: block
+              clear: both
+              height: 60px
+              border-right: 1px dashed #dddddd
+              padding-right: 5px
+            .percent-number-label
+              display: block
+              clear: both
+              text-align: right
+            .percent-color
+              display: block
+              clear: both
+              height: 40px
+          .percent-data:first-child
+            z-index: 99
+            width: 10%
+            .percent-color
+              background-color: #ebf6ff
+            .salary-number-label
+              text-align: left
+              border-left: 1px dashed #dddddd
+              padding-left: 5px
+            .percent-number-label
+              text-align: left
+          .percent-data:nth-child(2)
+            z-index: 88
+            .percent-color
+              background-color: #bbe1fe
+          .percent-data:nth-child(3)
+            z-index: 77
+            .percent-color
+              background-color: #99d1fa
+          .percent-data:nth-child(4)
+            z-index: 66
+            .percent-color
+              background-color: #61b9fa
+              border-left: 1px dashed #fff
+          .percent-data:nth-child(5)
+            z-index: 55
+            .percent-color
+              background-color: #4398da
+          .percent-data:nth-child(6)
+            z-index: 44
+            .percent-color
+              background-color: #1266a8
+
+          .percent-data.zero
+            width: 10%
+            .percent-color
+              background-color: #ebf6ff
+          .percent-data.percent10
+            width: 15%
+            .percent-color
+              background-color: #bbe1fe
+          .percent-data.percent25
+            width: 25%
+            .percent-color
+              background-color: #99d1fa
+          .percent-data.percent50
+            width: 25%
+            .percent-color
+              background-color: #61b9fa
+              border-left: 1px dashed #fff
+          .percent-data.percent75
+            width: 25%
+            .percent-color
+              background-color: #4398da
+          .percent-data.percent90
+            width: 15%
+            .percent-color
+              background-color: #1266a8
+          .my-current-rank
+            position: absolute
+            top: 30px
+            left: 30%
+            z-index: 990
+            .my-current-salary
+              background-color: #892890
+              -webkit-border-radius: 3px
+              -moz-border-radius: 3px
+              border-radius: 3px
+              padding: 5px 10px
+              color: #fff
+              font-weight: 400
+              margin-bottom: 10px
+              position: relative
+              i
+                color: #892890
+                font-size: 20px
+                position: absolute
+                left: 7px
+                bottom: -7px
+            .my-position
+              background-color: #892890
+              -webkit-border-radius: 50%
+              -moz-border-radius: 50%
+              border-radius: 50%
+              height: 20px
+              width: 20px
+              line-height: 20px
+              text-align: center
+              margin-left: 5px
+              i
+                color: #fff
+                font-size: 15px
+          .my-current-salary.right-position
+            width: 110px
+            left: -60px
+            text-align: center
+            i
+              right: 30px
+              left: auto
+      .gray-background
+        .percent-data
+          position: inherit !important
+      .create-new-report
+        text-align: center
+        a
+          margin: auto
       .salary-report-feedback-form
         display: block
         clear: both
@@ -800,6 +775,8 @@
         .ic-hidden
           float: right
           width: auto
+          font-size: 20px
+          font-weight: 400
 .salary-review-page
   .error-messages
     font-size: 12px
@@ -807,6 +784,7 @@
     color: red
   .salary-review-block
     .salary-review-content
+      display: inline-block
       .email-similar-jobs-block
         text-align: center
         background-color: #f4f4f4
@@ -981,44 +959,40 @@
         padding: 20px
         font-size: 14px
         font-weight: 400
-    .send-me-report-block
-      display: inline-block
+
+    .send-me-form
+      display: block
       clear: both
-      margin: 30px auto auto auto
-      border: 1px solid #d4d7d8
-      -webkit-border-radius: 5px
-      -moz-border-radius: 5px
-      border-radius: 5px
-      width: 100%
-      position: relative
-      text-align: center
-      .send-me-form
-        display: block
+      margin: auto
+      width: 600px
+      -webkit-transition: all linear 0.8s
+      transition: all linear 0.8s
+      p
         clear: both
-        margin: auto
-        width: 600px
-        p
-          clear: both
-          display: block
-          text-align: left
-          padding-bottom: 10px
-        input
-          width: 76%
-          margin-right: 1%
-          float: left
-          border: 1px solid #d4d7d8
-          border-radius: 5px
-          clear: both
-          height: 37px
-          line-height: 37px
-          padding: 0 10px
-        button
-          width: 23%
-          float: left
-        .error-messages
-          clear: both
-          text-align: left
-          padding-top: 3px
+        display: block
+        text-align: left
+        padding-bottom: 10px
+      input
+        width: 76%
+        margin-right: 1%
+        float: left
+        border: 1px solid #d4d7d8
+        border-radius: 5px
+        clear: both
+        height: 37px
+        line-height: 37px
+        padding: 0 10px
+      button
+        width: 23%
+        float: left
+      .error-messages
+        clear: both
+        text-align: left
+        padding-top: 3px
+    .send-me-form.ng-hide
+      opacity: 0
+      -webkit-transition: all linear 0.8s
+      transition: all linear 0.8s
 .success-alert-box
   width: 100%
   text-align: center
