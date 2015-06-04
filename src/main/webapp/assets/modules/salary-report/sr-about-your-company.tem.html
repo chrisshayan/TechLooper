@@ -1,4 +1,4 @@
-<div class="your-employer-content" ng-show="step==='step2'" >
+<div class="your-employer-content">
   <h3>{{'companyInfo.headline' | translate}}</h3>
   <div class="salary-info-form">
     <form autocomplete="off">
@@ -25,7 +25,8 @@
         </div>
       </div>
       <div class="row salary-field-submit">
-        <a ng-click="nextStep('step1')">{{'goBack' | translate}}</a> <button class="btn btn-primary btn-flat" ng-click="nextStep('step3', 'step2')">{{'getSalaryReport' | translate}}</button>
+        <a ng-click="changeState('default')">{{'goBack' | translate}}</a>
+        <button class="btn btn-primary btn-flat" ng-click="changeState('report')">{{'getSalaryReport' | translate}}</button>
       </div>
     </form>
     <div class="note" translate="noticeLine"></div>

@@ -6,25 +6,27 @@ techlooper
       templateUrl: "modules/salary-report/sr-navigation.tem.html"
     }
   })
-  .directive("srAboutYourJob", function () {
+  .directive("srAboutYourReport", function () {
     return {
-      restrict: "A",
+      restrict: "E",
       replace: true,
-      templateUrl: "modules/salary-report/sr-about-your-job.tem.html"
+      templateUrl: "modules/salary-report/sr-about-your-report.tem.html"
     }
   })
   .directive("srAboutYourCompany", function () {
     return {
-      restrict: "A",
+      restrict: "E",
       replace: true,
       templateUrl: "modules/salary-report/sr-about-your-company.tem.html"
     }
   })
-  .directive("srAboutYourReport", function () {
+  .directive("srAboutYourJob", function ($translate, vnwConfigService, $compile) {
     return {
-      restrict: "A",
+      restrict: "E",
       replace: true,
-      templateUrl: "modules/salary-report/sr-about-your-report.tem.html"
+      templateUrl: "modules/salary-report/sr-about-your-job.tem.html",
+      link: function (scope, element, attr, ctrl) {
+      }
     }
   })
   .directive("srJobInformation", function () {

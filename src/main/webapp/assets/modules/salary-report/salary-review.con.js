@@ -1,5 +1,4 @@
-techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
-                                                          $route, $location, connectionFactory, $timeout, validatorService) {
+techlooper.controller("salaryReviewController", function ($scope, vnwConfigService) {
   var state = {
     init: true,
 
@@ -9,17 +8,52 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
         placeholder: "mostRelevantSkills.placeholder",
         items: [],
         required: true
-      }
+      },
+
+      jobLevelsSelectize: vnwConfigService.jobLevelsSelectize,
+      gendersSelectize: vnwConfigService.gendersSelectize,
+      yobsSelectize: vnwConfigService.yobsSelectize,
+
+      tabs: [
+        {title: "aboutYourJob", class: "active"},
+        {title: "aboutYourCompany"},
+        {title: "yourSalaryReport"}
+      ]
     },
 
     company: {
-      showCompany: true
+      showCompany: true,
+      tabs: [
+        {title: "aboutYourJob", class: "active"},
+        {title: "aboutYourCompany", class: "active"},
+        {title: "yourSalaryReport"}
+      ]
     },
 
     report: {
-      showReport: true
+      showReport: true,
+      tabs: [
+        {title: "aboutYourJob", class: "active"},
+        {title: "aboutYourCompany", class: "active"},
+        {title: "yourSalaryReport", class: "active"}
+      ]
     }
   }
+
+  //$scope.jobLevelsSelectize = {
+  //  items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
+  //  config: {
+  //    valueField: 'id',
+  //    labelField: 'translate',
+  //    delimiter: '|',
+  //    maxItems: 1,
+  //    searchField: ['translate'],
+  //    placeholder: $translate.instant("exManager"),
+  //    onInitialize: function (selectize) {
+  //      console.log('Initialized', selectize);
+  //    }
+  //  }
+  //}
 
   $scope.changeState = function (st) {
     st = st || state.default;
