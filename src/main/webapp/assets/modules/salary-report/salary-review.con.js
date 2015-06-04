@@ -29,6 +29,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
     report: {
       showReport: true,
+      ableCreateNewReport: true,
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
@@ -39,6 +40,16 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     reportSurvey: {
       showReport: true,
       showSurvey: true,
+      tabs: [
+        {title: "aboutYourJob", class: "active"},
+        {title: "aboutYourCompany", class: "active"},
+        {title: "yourSalaryReport", class: "active"}
+      ]
+    },
+
+    reportSubmitSurvey: {
+      showReport: true,
+      showThanksSurvey: true,
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
@@ -101,10 +112,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
   $scope.changeState(preferState);
 
-  $scope.$watch("salaryReport", function(salaryReport) {
-    if (!salaryReport) {
-      return;
-    }
+  $scope.$watch("salaryReport", function (salaryReport) {
+    if (!salaryReport) {return;}
 
     if ($.type(salaryReport.percentRank) === "number") {
       $scope.changeState(state.reportSurvey);

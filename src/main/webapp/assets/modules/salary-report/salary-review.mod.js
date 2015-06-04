@@ -26,7 +26,7 @@ techlooper
         }
 
         scope.$watch("state", function (newVal) {
-          if (!scope.state.showReport) {
+          if (!scope.state.ableCreateNewReport) {
             return;
           }
 
@@ -120,7 +120,8 @@ techlooper
           scope.survey.salaryReviewId = scope.salaryReview.createdDateTime;
           $http.post("saveSalaryReviewSurvey", scope.survey)
             .success(function (data, status, headers, config) {
-              scope.survey.submitted = true;
+              //scope.survey.submitted = true;
+              scope.changeState("reportSubmitSurvey");
             });
           $('.email-get-similar-jobs').focus();
         }

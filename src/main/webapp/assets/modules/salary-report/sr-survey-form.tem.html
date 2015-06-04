@@ -1,7 +1,7 @@
 <div class="box-content-collapse">
 <!--ng-show="!salaryReview.campaign &&  salaryReport.percentRank !== 'NaN'"-->
   <div class="title-header" ng-model="surveyFormShowed" ng-click="surveyFormShowed=!surveyFormShowed">
-    <h3 translate="whatYouThinkReport" ng-show="!survey.submitted"></h3>
+    <h3 translate="whatYouThinkReport"></h3>
     <div class="ic-hidden" title="Close">
       <span ng-show="!surveyFormShowed"><i class="fa fa-caret-up"></i></span>
       <span ng-show="surveyFormShowed"><i class="fa fa-caret-down"></i></span>
@@ -44,5 +44,4 @@
       </ul>
     </form>
   </div>
-  <div class="thanksMessages" ng-show="survey.submitted" translate="thanksForHelp"></div>
 </div>
