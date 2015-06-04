@@ -1,24 +1,19 @@
-<div class="box-content-collapse" ng-show="salaryReport.percentRank !== 'NaN'">
-  <div class="title-header" ng-model="sendMeReport" ng-click="sendMeReport=!sendMeReport">
-    <h3>{{'sendMeReport' | translate}}</h3>
-    <div class="ic-hidden" title="Close">
-      <span ng-show="!sendMeReport"><i class="fa fa-caret-up"></i></span>
-      <span ng-show="sendMeReport"><i class="fa fa-caret-down"></i></span>
+<div class="send-me-report-block">
+  <div class="send-me-report-content">
+    <form>
+      <div class="send-me-form">
+        <h4>{{'sendMeReport' | translate}}</h4>
+        <p>{{'desSendMeReport' | translate }}</p>
+        <input ng-model="sendMeReport.email" type="email" placeholder="{{'exEmailAddress' | translate}}" required/>
+        <button translate="sendMeNow" class="btn btn-primary btn-flat" ng-click="sendMeNow()" type="submit"></button>
+        <div class="error-messages">{{error['sendMeReport.email']}}</div>
+      </div>
+    </form>
+    <div class="success-alert-box thanks-message-for-send-me-success">
+      <p translate="thanksSendMeReport1"></p>
     </div>
-  </div>
-  <h3></h3>
-  <form>
-    <div class="send-me-form" ng-show="!sendMeReport">
-      <p>{{'desSendMeReport' | translate }}</p>
-      <input ng-model="sendMeReport.email" type="email" placeholder="{{'exEmailAddress' | translate}}" required/>
-      <button translate="sendMeNow" class="btn btn-primary btn-flat" ng-click="sendMeNow()" type="submit"></button>
-      <div class="error-messages">{{error['sendMeReport.email']}}</div>
+    <div class="success-alert-box thanks-message-for-send-me-fail">
+      <p translate="thanksSendMeReport2"></p>
     </div>
-  </form>
-  <div class="success-alert-box thanks-message-for-send-me-success">
-    <p translate="thanksSendMeReport1"></p>
-  </div>
-  <div class="success-alert-box thanks-message-for-send-me-fail">
-    <p translate="thanksSendMeReport2"></p>
   </div>
 </div>

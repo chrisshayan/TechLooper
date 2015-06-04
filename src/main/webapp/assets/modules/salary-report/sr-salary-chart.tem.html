@@ -1,9 +1,10 @@
-<div>
+<div class="salary-chart-block">
   <div class="box-content-collapse" ng-show="salaryReport.percentRank !== 'NaN'">
     <div class="title-header">
       <h3 translate="yourPaySnapshot"></h3>
     </div>
     <div class="your-pay-snapshot-content">
+      <h4>Based on <strong>278</strong> job posts/resumes/applicants</h4>
       <div class="your-pay-snapshot-info">
         <ul>
           <li>
@@ -51,43 +52,43 @@
       </div>
       <div class="thanks-for-share-salary">
         <h3 ng-if="salaryReport.percentRank < 50" translate="thanksForShare.headline.under50percent"></h3>
-
         <h3 ng-if="salaryReport.percentRank >= 50 && salaryReport.percentRank < 70"
             translate="thanksForShare.headline.under70percent"></h3>
-
         <h3 ng-if="salaryReport.percentRank >= 70 && salaryReport.percentRank < 100"
             translate="thanksForShare.headline.under100percent"></h3>
+        <p>{{'thanksShortContent' | translate}} <a ng-model="showThanksContent" ng-click="showThanksContent=!showThanksContent">see more</a></p>
+        <div class="thanks-for-share-salary-content"  ng-show="showThanksContent">
+          <div class="box-content-collapse">
+            <ul>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4>{{'thanksForShare.item1.headline' | translate}}</h4>
+                  <p translate="thanksForShare.item1.content"></p>
+                </div>
+              </li>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4>{{'thanksForShare.item2.headline' | translate}}</h4>
 
-        <div class="thanks-for-share-salary-content">
-          <ul>
-            <li>
-              <div class="thanks-for-share-salary-item">
-                <h4>{{'thanksForShare.item1.headline' | translate}}</h4>
+                  <p translate="thanksForShare.item2.content"></p>
+                </div>
+              </li>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4>{{'thanksForShare.item3.headline' | translate}}</h4>
 
-                <p translate="thanksForShare.item1.content"></p>
-              </div>
-            </li>
-            <li>
-              <div class="thanks-for-share-salary-item">
-                <h4>{{'thanksForShare.item2.headline' | translate}}</h4>
-
-                <p translate="thanksForShare.item2.content"></p>
-              </div>
-            </li>
-            <li>
-              <div class="thanks-for-share-salary-item">
-                <h4>{{'thanksForShare.item3.headline' | translate}}</h4>
-
-                <p translate="thanksForShare.item3.content"></p>
-              </div>
-            </li>
-          </ul>
-          <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
-            <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
-            <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
+                  <p translate="thanksForShare.item3.content"></p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+    </div>
+    <div sr-send-me-report></div>
+    <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
+      <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
+      <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
     </div>
   </div>
   <div class="box-content-collapse" ng-show="salaryReport.percentRank == 'NaN'">
