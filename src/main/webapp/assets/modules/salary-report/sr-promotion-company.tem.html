@@ -1,6 +1,6 @@
-<div class="box-content-collapse" ng-show="promotionRule">
+<div class="box-content-collapse">
   <div class="title-header" ng-model="promotionCompanyShow" ng-click="promotionCompanyShow=!promotionCompanyShow">
-    <h3>{{promotionCompanyInfo.title | translate}}</h3>
+    <h3>{{jsonValue.companyPromotion.title | translate}}</h3>
     <div class="ic-hidden" title="Close">
       <span ng-show="!promotionCompanyShow"><i class="fa fa-caret-up"></i></span>
       <span ng-show="promotionCompanyShow"><i class="fa fa-caret-down"></i></span>
@@ -8,11 +8,15 @@
   </div>
   <div class="partner-company-content" ng-show="promotionCompanyShow">
     <div class="partner-company-logo">
-      <img ng-src="{{promotionCompanyInfo.images}}" alt=""/>
+      <img ng-src="{{jsonValue.companyPromotion.images}}" alt=""/>
     </div>
     <div class="partner-company-detail">
-      <h4>{{promotionCompanyInfo.tagLine | translate}}</h4>
-      <div class="partner-company-form">
+      <h4>{{jsonValue.companyPromotion.tagLine | translate}}</h4>
+      <div class="apply-now-block" ng-show="state.showAskPromotion">
+        <button class="btn btn-primary btn-flat" ng-click="showPromotion()" translate="applyNow"></button>
+      </div>
+
+      <div class="partner-company-form" ng-show="state.showPromotionForm">
         <p translate="desHowToGetIt"></p>
         <div class="partner-company-field">
           <label>{{'fullName' | translate}} <strong>*</strong></label>
@@ -51,15 +55,16 @@
             <label for="iAgree">{{'iAgree' | translate }}</label>
           </div>
         </div>
+
+        <div class="apply-now-block">
+          <button class="btn btn-primary btn-flat" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
+        </div>
       </div>
-      <div class="apply-now-block">
-        <button class="btn btn-primary btn-flat" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
-      </div>
+
       <div class="note-Partner-Company-Form">
         <p>{{'committed' | translate }}</p>
       </div>
-      <div class="partner-company-thanks transfer" translate="companyThanks1"></div>
-      <div class="partner-company-thanks cash" translate="companyThanks2"></div>
     </div>
   </div>
+
 </div>

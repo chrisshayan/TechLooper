@@ -30,26 +30,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     report: {
       showReport: true,
       ableCreateNewReport: true,
-      tabs: [
-        {title: "aboutYourJob", class: "active"},
-        {title: "aboutYourCompany", class: "active"},
-        {title: "yourSalaryReport", class: "active"}
-      ]
-    },
 
-    reportSurvey: {
-      showReport: true,
-      showSurvey: true,
-      tabs: [
-        {title: "aboutYourJob", class: "active"},
-        {title: "aboutYourCompany", class: "active"},
-        {title: "yourSalaryReport", class: "active"}
-      ]
-    },
-
-    reportSubmitSurvey: {
-      showReport: true,
-      showThanksSurvey: true,
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
@@ -57,8 +38,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       ]
     }
   }
-
-  //state.sur = $.extend(true, state, {})
 
   var campaign = $location.search();
 
@@ -116,7 +95,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     if (!salaryReport) {return;}
 
     if ($.type(salaryReport.percentRank) === "number") {
-      $scope.changeState(state.reportSurvey);
+      $scope.state.showSurvey = true;
+      //$scope.changeState(state.reportSurvey);
     }
   });
 });

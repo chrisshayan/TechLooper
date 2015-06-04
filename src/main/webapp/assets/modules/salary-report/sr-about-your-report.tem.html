@@ -2,10 +2,15 @@
   <div sr-job-information></div>
   <div sr-salary-chart></div>
   <div sr-send-me-report></div>
-  <div sr-promotion-company></div>
+
+  <sr-promotion-company ng-show="state.showPromotion"></sr-promotion-company>
+  <div ng-show="state.showThanksBankTransfer" class="partner-company-thanks transfer" translate="companyThanks1"></div>
+  <div ng-show="state.showThanksCash" class="partner-company-thanks cash" translate="companyThanks2"></div>
+
+
   <div sr-similar-job></div>
+
+
   <sr-survey-form ng-show="state.showSurvey"></sr-survey-form>
-
-
   <div class="thanksMessages" ng-show="state.showThanksSurvey" translate="thanksForHelp"></div>
 </div>

@@ -14,13 +14,13 @@ techlooper
       link: function (scope, element, attr, ctrl) {
         var campaign = $location.search();
 
-        var beforeSendSalaryReport = function(salaryReview) {
+        var beforeSendSalaryReport = function (salaryReview) {
           var jobLevelIds = salaryReview.jobLevelIds;
           salaryReview.jobLevelIds = jsonValue.jobLevelsMap['' + jobLevelIds].ids;
           return salaryReview;
         }
 
-        var afterSendSalaryReport = function(salaryReview) {
+        var afterSendSalaryReport = function (salaryReview) {
           salaryReview.campaign = !$.isEmptyObject(campaign);
           return salaryReview;
         }
@@ -37,10 +37,16 @@ techlooper
             .success(function (data, status, headers, config) {
               scope.salaryReview = afterSendSalaryReport(data);
               scope.salaryReport = scope.salaryReview.salaryReport;
+
+              var hasCity = jsonValue.companyPromotion.AcceptedCity.indexOf(scope.salaryReview.locationId) >= 0;
+              var enoughMoney = (scope.salaryReview.usdToVndRate * scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary;
+              var hasDone = localStorage.getItem('PROMOTION-KEY') === 'yes';
+              scope.state.showPromotion = hasCity && enoughMoney && !hasDone;
+              scope.state.showAskPromotion = scope.state.showPromotion;
+
               utils.sendNotification(jsonValue.notifications.loaded);
-              //$scope.checkCompanyPromotionRole();
             });
-        }, true);
+        });
       }
     }
   })
@@ -101,14 +107,40 @@ techlooper
       templateUrl: "modules/salary-report/sr-send-me-report.tem.html"
     }
   })
-  .directive("srPromotionCompany", function () {
+  .directive("srPromotionCompany", function ($http) {
     return {
-      restrict: "A",
+      restrict: "E",
       replace: true,
-      templateUrl: "modules/salary-report/sr-promotion-company.tem.html"
+      templateUrl: "modules/salary-report/sr-promotion-company.tem.html",
+      link: function (scope, element, attr, ctrl) {
+        //TODO validation
+
+        scope.showPromotion = function () {
+          delete scope.state.showAskPromotion;
+          scope.state.showPromotionForm = true;
+        }
+
+        scope.sendCitibankPromotion = function () {
+          //TODO validation
+
+          if (scope.promotion.paymentMethod !== 'BANK_TRANSFER') {
+            scope.state.showThanksCash = true;
+            return;
+          }
+
+          scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
+          $http.post("promotion/citibank/creditCard", scope.promotion)
+            .success(function () {
+              localStorage.setItem('PROMOTION-KEY', 'yes');
+            });
+
+          delete scope.state.showPromotion;
+          scope.state.showThanksBankTransfer = true;
+        }
+      }
     }
   })
-  .directive("srSurveyForm", function ($http) {
+  .directive("srSurveyForm", function ($http, jsonValue) {
     return {
       restrict: "E",
       replace: true,
@@ -120,8 +152,8 @@ techlooper
           scope.survey.salaryReviewId = scope.salaryReview.createdDateTime;
           $http.post("saveSalaryReviewSurvey", scope.survey)
             .success(function (data, status, headers, config) {
-              //scope.survey.submitted = true;
-              scope.changeState("reportSubmitSurvey");
+              delete scope.state.showSurvey;
+              scope.state.showThanksSurvey = true;
             });
           $('.email-get-similar-jobs').focus();
         }
