@@ -1,4 +1,4 @@
-techlooper.controller("salaryReviewController", function ($scope, vnwConfigService) {
+techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue, utils) {
   var state = {
     init: true,
 
@@ -34,8 +34,22 @@ techlooper.controller("salaryReviewController", function ($scope, vnwConfigServi
         {title: "aboutYourCompany", class: "active"},
         {title: "yourSalaryReport", class: "active"}
       ]
+    },
+
+    reportSurvey: {
+      showReport: true,
+      showSurvey: true,
+      tabs: [
+        {title: "aboutYourJob", class: "active"},
+        {title: "aboutYourCompany", class: "active"},
+        {title: "yourSalaryReport", class: "active"}
+      ]
     }
   }
+
+  //state.sur = $.extend(true, state, {})
+
+  var campaign = $location.search();
 
   $scope.selectize = vnwConfigService;
 
@@ -49,28 +63,51 @@ techlooper.controller("salaryReviewController", function ($scope, vnwConfigServi
     $scope.state = preferState;
   }
 
-  var jobTitleSuggestion = function (jobTitle) {
-    if (!jobTitle) {return;}
+  /*
+   {
+   "jobTitle": "java developer",
+   "skills": ["java", "j2ee", "spring framework"],
+   "locationId": "29",
+   "jobLevelIds": [5, 6],
+   "jobCategories": ["35"],
+   "companySizeId": "",
+   "netSalary": 1000,
+   "reportTo": "manager",
+   }
+   http://localhost:8080/#/salary-review?campaign=vnw&lang=vi&jobTitle=java&skills=["swing","hibernate"]&locationId="29"&jobLevelIds=[5, 6]&jobCategories=["35"]&companySizeId=""&netSalary=1000
+   * */
 
-    $.get("suggestion/jobTitle/" + jobTitle)
-      .success(function (data) {
-        $scope.state.jobTitles = data.items.map(function (item) {return item.name;});
-        $scope.$apply();
-      });
+  var preferState = state.default;
+  if (!$.isEmptyObject(campaign)) {
+    for (var prop in campaign) {
+      try {
+        campaign[prop] = JSON.parse(campaign[prop]);
+      }
+      catch (e) {}
+    }
+
+    if (campaign.id) {
+      $http.get(jsonValue.httpUri.salaryReview + "/" + campaign.id)
+        .success(function (data, status, headers, config) {
+          $scope.salaryReview = data;
+          $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
+          utils.sendNotification(jsonValue.notifications.loaded);
+        });
+    }
+    else {
+      $scope.salaryReview = campaign;
+    }
   }
 
-  $scope.$watch("salaryReview.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
-  $scope.$watch("salaryReview.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
+  $scope.changeState(preferState);
 
-  $scope.$watch("state.skillBoxConfig.newTag", function (newVal) {
-    if (!newVal) {return;}
+  $scope.$watch("salaryReport", function(salaryReport) {
+    if (!salaryReport) {
+      return;
+    }
 
-    $.get("suggestion/skill/" + newVal)
-      .success(function (data) {
-        $scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
-        $scope.$apply();
-      });
-  }, true);
-
-  $scope.changeState(state.default);
+    if ($.type(salaryReport.percentRank) === "number") {
+      $scope.changeState(state.reportSurvey);
+    }
+  });
 });
