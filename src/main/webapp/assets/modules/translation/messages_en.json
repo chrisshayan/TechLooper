@@ -97,7 +97,7 @@
   "netSalary.placeholder": "Ex: $1000",
   "mostRelevantSkills.placeholder": "Ex: Agile, Git or Web Service",
   "reportTo.placeholder": "Ex: Team Leader",
-  "minimiseContent": "Annual salary increases average stand between <strong>2% to 5%</strong>, while a <strong>promotion or a new job</strong> might get you a salary raise between <strong>10% to 20%</strong>...",
+  "minimiseContent": "Annual salary increases stand between <strong>2% - 5%</strong>, while a <strong>promotion or a new job</strong> might get you a salary raise between <strong>10% - 20%</strong>...",
   "thanksForShare.headline.under50percent": "Your Salary is <strong>at the bottom </strong>of the scale, do you deserve a pay raise?",
   "thanksForShare.headline.under70percent": "Your Salary is <strong>in the middle </strong>of the scale, would you consider better paid jobs?",
   "thanksForShare.headline.under100percent": "Congratulations, your Salary is <strong>at the top</strong> of the scale, is time for getting a promotion?",
@@ -178,7 +178,7 @@
   "jobAlertTitle": "Don't miss any opportunities to Move Up!",
   "city": "City",
   "myEmail": "My Email",
-  "jobMatch": " job(s) match these criteria ... SEND ME TO",
+  "jobMatch": " job(s) match these criteria ... <strong>SEND ME TO</strong>",
   "hiringTagLine": "Know How To Attract Talent In Vietnam",
   "subHiringTagLine": "Evaluate My Job Post",
   "desSubHiringTagLine": "Looking To Hire The Perfect Talent?",
@@ -240,5 +240,6 @@
   "thanksSendMeReport": "Thanks for your information. We have just sent you email. We are here to help you Move Up!",
   "thanksSendMeReport2": "Thanks for your information.",
   "exEmailAddress": "Email",
-  "emailMeJobs": "Email Me Jobs"
+  "emailMeJobs": "Email Me Jobs",
+  "desJobAlert": "As soon as a job matches your search criteria below, you will be notified via email. Be the first to apply and increase your chances of getting your dream job!"
 }
