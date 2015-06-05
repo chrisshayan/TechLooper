@@ -124,8 +124,12 @@ techlooper
             delete jobAlert.salaryReport;
             delete jobAlert.topPaidJobs;
             scope.jobAlert = jobAlert;
+            $('#txtEmailJobAlert').focus();
           }
-
+          scope.hiddenJobAlertForm = function(){
+            $('.email-similar-jobs-block').hide();
+            $('.email-me-similar-jobs').slideDown("normal");
+          }
           scope.createJobAlert = function () {
             var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
             scope.error = error;

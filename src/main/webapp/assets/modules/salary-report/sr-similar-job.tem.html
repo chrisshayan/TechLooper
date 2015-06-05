@@ -33,6 +33,7 @@
       <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
     </div>
     <div class="email-similar-jobs-block">
+      <div class="ic-close" ng-click="hiddenJobAlertForm()" title="Close"> x </div>
       <div class="email-similar-jobs-form">
         <h3 translate="jobAlertTitle"></h3>
         <p translate="desJobAlert"></p>
@@ -79,9 +80,9 @@
           <p><span>{{jobsTotal}}</span><span translate="jobMatch"></span></p>
         </div>
         <div class="row email-similar-jobs-field">
-          <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
+          <label for="txtEmailJobAlert">{{'myEmail' | translate}} <strong>*</strong></label>
           <input ng-model="jobAlert.email" type="email" required tl-model
-                 id="txtEmail" placeholder="" tabindex="1"/>
+                 id="txtEmailJobAlert" placeholder="" tabindex="1"/>
           <!--<selectize class="select-time-to-send" config='selectize.timeToSendsSelectize.config' options='selectize.timeToSendsSelectize.items'-->
                      <!--required tl-model-->
                      <!--ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>-->
