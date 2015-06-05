@@ -66,6 +66,18 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         searchField: ['name'],
         placeholder: $translate.instant("exItSoftware")
       }
+    },
+
+    timeToSendsSelectize: {
+      items: $.extend(true, [], jsonValue.timeToSends),
+      config: {
+        valueField: 'id',
+        labelField: 'translate',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['translate'],
+        placeholder: $translate.instant("exDay")
+      }
     }
   }
 

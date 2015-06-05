@@ -80,10 +80,44 @@ techlooper
         }
       }
     })
-    .directive("srSimilarJob", function () {
+    .directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate) {
       return {
-        restrict: "A",
+        restrict: "E",
         replace: true,
-        templateUrl: "modules/salary-report/sr-similar-job.tem.html"
+        templateUrl: "modules/salary-report/sr-similar-job.tem.html",
+        link: function (scope, element, attr, ctrl) {
+          var timeToSends = $.extend(true, [], jsonValue.timeToSends);
+
+          scope.doJobAlert = function () {
+            $('.email-me-similar-jobs').hide();
+            $('.email-similar-jobs-block').slideDown("normal");
+            var jobAlert = $.extend({}, scope.salaryReview);
+            jobAlert.frequency = timeToSends[0].id;
+            delete jobAlert.salaryReport;
+            delete jobAlert.topPaidJobs;
+            scope.jobAlert = jobAlert;
+          }
+
+          scope.createJobAlert = function () {
+            //var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+            //scope.error = error;
+            //if (!$.isEmptyObject(error)) {
+            //  return;
+            //}
+            //TODO validation
+
+            var jobAlert = $.extend({}, scope.jobAlert);
+            jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
+            jobAlert.lang = jsonValue.languages['' + $translate.use()];
+            connectionFactory.createJobAlert(jobAlert).then(function () {
+              $('.email-similar-jobs-block').slideUp("normal", function () {
+                $('.success-alert-box').addClass('show');
+                $timeout(function () {
+                  $('.success-alert-box').removeClass('show');
+                }, 2000);
+              });
+            });
+          }
+        }
       }
     });

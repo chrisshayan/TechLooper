@@ -8,7 +8,8 @@
   <div ng-show="state.showThanksCash" class="alert alert-success cash" role="alert">{{'companyThanks2' | translate}}
     <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
   </div>
-  <div sr-similar-job></div>
+
+  <sr-similar-job ng-show="state.showJobAlert"></sr-similar-job>
   <sr-survey-form ng-show="state.showSurvey"></sr-survey-form>
   <div class="alert alert-success" ng-show="state.showThanksSurvey" role="alert">{{'thanksForHelp' | translate}}
     <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->

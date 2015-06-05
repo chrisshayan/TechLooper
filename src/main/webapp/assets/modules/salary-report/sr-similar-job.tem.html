@@ -1,4 +1,5 @@
-<div class="box-content-collapse" ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length">
+<div class="box-content-collapse">
+  <!-- ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length"-->
   <div class="title-header" ng-model="sendMeSimilarJob" ng-click="sendMeSimilarJob=!sendMeSimilarJob">
     <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span translate="doYouWantToEarnMore"></span></h3>
     <div class="ic-hidden" title="Minimise">
@@ -39,7 +40,7 @@
         </div>
         <div class="row email-similar-jobs-field">
           <label>{{'jobCategory' | translate}} <strong>*</strong></label>
-          <selectize config='selectize.industries.config' options='selectize.industries.items'
+          <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
                      ng-model="jobAlert.jobCategories"
                      required tl-model
                      name="{{'jobCategory' | translate}}"></selectize>
@@ -47,14 +48,14 @@
         </div>
         <div class="row email-similar-jobs-field" jobLevels>
           <label>{{'jobLevel' | translate}} <strong>*</strong></label>
-          <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
+          <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
                      required tl-model
                      ng-model="jobAlert.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
           <div class="error-messages">{{error['jobAlert.jobLevelIds']}}</div>
         </div>
         <div class="row email-similar-jobs-field">
           <label>{{'city' | translate}} <strong>*</strong></label>
-          <selectize config='selectize.locations.config' options='selectize.locations.items'
+          <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
                      ng-model="jobAlert.locationId"
                      required tl-model
                      name="{{'location' | translate}}" class="locationSelectbox"></selectize>
@@ -75,7 +76,7 @@
           <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
           <input ng-model="jobAlert.email" type="email" required tl-model
                  id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
-          <selectize class="select-time-to-send" config='selectize.timeToSends.config' options='selectize.timeToSends.items'
+          <selectize class="select-time-to-send" config='selectize.timeToSendsSelectize.config' options='selectize.timeToSendsSelectize.items'
                      required tl-model
                      ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>
           <div class="error-messages">

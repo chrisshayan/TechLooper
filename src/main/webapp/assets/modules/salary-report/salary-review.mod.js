@@ -37,6 +37,11 @@ techlooper
             .success(function (data, status, headers, config) {
               scope.salaryReview = afterSendSalaryReport(data);
               scope.salaryReport = scope.salaryReview.salaryReport;
+              utils.sendNotification(jsonValue.notifications.loaded);
+
+              if (scope.salaryReview.campaign) {
+                return;
+              }
 
               var hasCity = jsonValue.companyPromotion.AcceptedCity.indexOf(scope.salaryReview.locationId) >= 0;
               var enoughMoney = (scope.salaryReview.usdToVndRate * scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary;
@@ -44,7 +49,7 @@ techlooper
               scope.state.showPromotion = hasCity && enoughMoney && !hasDone;
               scope.state.showAskPromotion = scope.state.showPromotion;
 
-              utils.sendNotification(jsonValue.notifications.loaded);
+              scope.state.showJobAlert = $.type(scope.salaryReport.percentRank) === "number" && scope.salaryReview.topPaidJobs.length;
             });
         });
       }
@@ -82,7 +87,7 @@ techlooper
             .success(function (data) {
               scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
             });
-        }, true);
+        });
       }
     }
   });
