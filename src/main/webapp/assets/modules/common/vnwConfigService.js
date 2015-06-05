@@ -353,6 +353,294 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     }
   ];
 
+  var categories = [
+    {
+      "category_id": "1",
+      "lang_vn": "Kế toán",
+      "lang_en": "Accounting"
+    },
+    {
+      "category_id": "58",
+      "lang_vn": "Kiểm toán",
+      "lang_en": "Auditing"
+    },
+    {
+      "category_id": "67",
+      "lang_vn": "Ô tô",
+      "lang_en": "Automotive"
+    },
+    {
+      "category_id": "2",
+      "lang_vn": "Hành chánh/Thư ký",
+      "lang_en": "Administrative/Clerical"
+    },
+    {
+      "category_id": "3",
+      "lang_vn": "Quảng cáo/Khuyến mãi/Đối ngoại",
+      "lang_en": "Advertising/Promotion/PR"
+    },
+    {
+      "category_id": "4",
+      "lang_vn": "Nông nghiệp/Lâm nghiệp",
+      "lang_en": "Agriculture/Forestry"
+    },
+    {
+      "category_id": "5",
+      "lang_vn": "Kiến trúc/Thiết kế nội thất ",
+      "lang_en": "Architecture/Interior Design"
+    },
+    {
+      "category_id": "22",
+      "lang_vn": "Y tế/Chăm sóc sức khỏe",
+      "lang_en": "Health/Medical Care"
+    },
+    {
+      "category_id": "10",
+      "lang_vn": "Mỹ thuật/Thiết kế",
+      "lang_en": "Arts/Design"
+    },
+    {
+      "category_id": "42",
+      "lang_vn": "Ngân hàng",
+      "lang_en": "Banking"
+    },
+    {
+      "category_id": "43",
+      "lang_vn": "Hóa học/Hóa sinh",
+      "lang_en": "Chemical/Biochemical"
+    },
+    {
+      "category_id": "7",
+      "lang_vn": "Xây dựng",
+      "lang_en": "Civil/Construction"
+    },
+    {
+      "category_id": "68",
+      "lang_vn": "Sản phẩm công nghiệp",
+      "lang_en": "Industrial Products"
+    },
+    {
+      "category_id": "8",
+      "lang_vn": "Tư vấn",
+      "lang_en": "Consulting"
+    },
+    {
+      "category_id": "11",
+      "lang_vn": "Dịch vụ khách hàng",
+      "lang_en": "Customer Service"
+    },
+    {
+      "category_id": "12",
+      "lang_vn": "Giáo dục/Đào tạo",
+      "lang_en": "Education/Training"
+    },
+    {
+      "category_id": "64",
+      "lang_vn": "Điện/Điện tử",
+      "lang_en": "Electrical/Electronics"
+    },
+    {
+      "category_id": "15",
+      "lang_vn": "Mới tốt nghiệp",
+      "lang_en": "Entry level"
+    },
+    {
+      "category_id": "16",
+      "lang_vn": "Môi trường/Xử lý chất thải",
+      "lang_en": "Environment/Waste Services"
+    },
+    {
+      "category_id": "17",
+      "lang_vn": "Cấp quản lý điều hành",
+      "lang_en": "Executive management"
+    },
+    {
+      "category_id": "18",
+      "lang_vn": "Người nước ngoài/Việt Kiều",
+      "lang_en": "Expatriate Jobs in Vietnam"
+    },
+    {
+      "category_id": "19",
+      "lang_vn": "Xuất nhập khẩu",
+      "lang_en": "Export-Import"
+    },
+    {
+      "category_id": "54",
+      "lang_vn": "Thực phẩm & Đồ uống",
+      "lang_en": "Food & Beverage"
+    },
+    {
+      "category_id": "59",
+      "lang_vn": "Tài chính/Đầu tư",
+      "lang_en": "Finance/Investment"
+    },
+    {
+      "category_id": "63",
+      "lang_vn": "Thời trang/Lifestyle",
+      "lang_en": "Fashion/Lifestyle"
+    },
+    {
+      "category_id": "66",
+      "lang_vn": "Công nghệ cao",
+      "lang_en": "High Technology"
+    },
+    {
+      "category_id": "23",
+      "lang_vn": "Nhân sự",
+      "lang_en": "Human Resources"
+    },
+    {
+      "category_id": "24",
+      "lang_vn": "Bảo hiểm",
+      "lang_en": "Insurance"
+    },
+    {
+      "category_id": "47",
+      "lang_vn": "Biên phiên dịch",
+      "lang_en": "Interpreter/Translator"
+    },
+    {
+      "category_id": "55",
+      "lang_vn": "IT-Phần cứng/Mạng",
+      "lang_en": "IT - Hardware/Networking"
+    },
+    {
+      "category_id": "57",
+      "lang_vn": "Internet/Online Media",
+      "lang_en": "Internet/Online Media"
+    },
+    {
+      "category_id": "35",
+      "lang_vn": "IT - Phần mềm",
+      "lang_en": "IT - Software"
+    },
+    {
+      "category_id": "25",
+      "lang_vn": "Pháp lý",
+      "lang_en": "Legal/Contracts"
+    },
+    {
+      "category_id": "62",
+      "lang_vn": "Hàng cao cấp",
+      "lang_en": "Luxury Goods"
+    },
+    {
+      "category_id": "65",
+      "lang_vn": "Cơ khí",
+      "lang_en": "Mechanical"
+    },
+    {
+      "category_id": "27",
+      "lang_vn": "Marketing",
+      "lang_en": "Marketing"
+    },
+    {
+      "category_id": "21",
+      "lang_vn": "Phi chính phủ/Phi lợi nhuận",
+      "lang_en": "NGO/Non-Profit"
+    },
+    {
+      "category_id": "28",
+      "lang_vn": "Dầu khí",
+      "lang_en": "Oil/Gas"
+    },
+    {
+      "category_id": "6",
+      "lang_vn": "Dược Phẩm/Công nghệ sinh học",
+      "lang_en": "Pharmaceutical/Biotech"
+    },
+    {
+      "category_id": "69",
+      "lang_vn": "Hoạch định/Dự án",
+      "lang_en": "Planning/Projects"
+    },
+    {
+      "category_id": "26",
+      "lang_vn": "Sản Xuất",
+      "lang_en": "Production/Process"
+    },
+    {
+      "category_id": "49",
+      "lang_vn": "Vật Tư/Cung vận",
+      "lang_en": "Purchasing/Supply Chain"
+    },
+    {
+      "category_id": "30",
+      "lang_vn": "Bất động sản",
+      "lang_en": "Real Estate"
+    },
+    {
+      "category_id": "32",
+      "lang_vn": "Bán lẻ/Bán sỉ",
+      "lang_en": "Retail/Wholesale"
+    },
+    {
+      "category_id": "33",
+      "lang_vn": "Bán hàng",
+      "lang_en": "Sales"
+    },
+    {
+      "category_id": "34",
+      "lang_vn": "Bán hàng kỹ thuật",
+      "lang_en": "Sales Technical"
+    },
+    {
+      "category_id": "56",
+      "lang_vn": "Chứng khoán",
+      "lang_en": "Securities & Trading"
+    },
+    {
+      "category_id": "41",
+      "lang_vn": "Viễn Thông",
+      "lang_en": "Telecommunications"
+    },
+    {
+      "category_id": "51",
+      "lang_vn": "Thời vụ/Hợp đồng ngắn hạn",
+      "lang_en": "Temporary/Contract"
+    },
+    {
+      "category_id": "52",
+      "lang_vn": "Dệt may/Da giày",
+      "lang_en": "Textiles/Garments/Footwear"
+    },
+    {
+      "category_id": "37",
+      "lang_vn": "Hàng không/Du lịch/Khách sạn",
+      "lang_en": "Airlines/Tourism/Hotel"
+    },
+    {
+      "category_id": "48",
+      "lang_vn": "Truyền hình/Truyền thông/Báo chí",
+      "lang_en": "TV/Media/Newspaper"
+    },
+    {
+      "category_id": "36",
+      "lang_vn": "Vận chuyển/Giao nhận",
+      "lang_en": "Freight/Logistics"
+    },
+    {
+      "category_id": "53",
+      "lang_vn": "Kho vận",
+      "lang_en": "Warehouse"
+    },
+    {
+      "category_id": "70",
+      "lang_vn": "QA/QC",
+      "lang_en": "QA/QC"
+    },
+    {
+      "category_id": "71",
+      "lang_vn": "Overseas Jobs",
+      "lang_en": "Overseas Jobs"
+    },
+    {
+      "category_id": "39",
+      "lang_vn": "Khác",
+      "lang_en": "Other"
+    }
+  ]
+
   //TODO 1. Translation, 2. Validation
 
   var instance = {
@@ -387,23 +675,20 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
     companySizeSelectize: {
       items: jsonValue.companySizesArray,
-      config: $.extend(true, translateConfigBase, {
+      config: {
         valueField: 'id',
         labelField: 'size',
+        delimiter: '|',
+        maxItems: 1,
         searchField: ['size']
-      })
+      }
     },
 
     industriesSelectize: {
-      items: jsonValue.industriesArray,
-      config: {
-        valueField: 'id',
-        labelField: 'name',
-        delimiter: '|',
-        maxItems: 3,
-        plugins: ['remove_button'],
-        searchField: ['name']
-      }
+      items: categories.map(function (cate) {
+        return {id: cate.category_id, translate: cate["lang_" + vnwLang]};
+      }),
+      config: $.extend(true, {plugins: ['remove_button'], maxItems: 3}, translateConfigBase)
     },
 
     timeToSendsSelectize: {
@@ -418,15 +703,15 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     }
   }
 
-  var doTranslate = function(i, item) {
-    $translate(item.translate).then(function(translate) {item.translate = translate;});
+  var doTranslate = function (i, item) {
+    $translate(item.translate).then(function (translate) {item.translate = translate;});
   }
 
   $.each(instance.jobLevelsSelectize.items, doTranslate);
   $.each(instance.gendersSelectize.items, doTranslate);
   $.each(instance.timeToSendsSelectize.items, doTranslate);
 
-  $translate(["exManager", "exMale", "exYob", "exHoChiMinh", "ex149", "exItSoftware", "exDay"]).then(function(trans) {
+  $translate(["exManager", "exMale", "exYob", "exHoChiMinh", "ex149", "exItSoftware", "exDay"]).then(function (trans) {
     instance.jobLevelsSelectize.config.placeholder = trans.exManager;
     instance.gendersSelectize.config.placeholder = trans.exMale;
     instance.yobsSelectize.config.placeholder = trans.exYob;
