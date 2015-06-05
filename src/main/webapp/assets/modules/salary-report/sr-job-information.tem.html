@@ -1,23 +1,30 @@
 <div class="user-personal-info">
-  <ul>
-    <li><span>{{'jobTitle' | translate}}:</span> <p>{{salaryReview.jobTitle}}</p></li>
-    <li><span>{{'jobLevel' | translate}}:</span> <p>{{jsonValue.jobLevelsMap[salaryReview.jobLevelIds].translate | translate}}</p></li>
-    <li><span>{{'jobSkills' | translate}}:</span> <p>
-              <span class="items" ng-repeat="skill in salaryReview.skills">
-                  {{skill}}
-                  <span class="dot-line" ng-if="$index > 0">|</span>
-                </span>
-    </p></li>
-    <!--<li><span>{{'youSalary' | translate}}:</span> <p><strong>${{salaryReport.netSalary.toLocaleString()}}</strong></p></li>-->
-    <li><span>{{'jobCategory' | translate}}:</span>
-      <p>
-                <span class="items" ng-repeat="cat in salaryReview.jobCategories">
-                  {{jsonValue.industries['' + cat].value}}
-                  <span class="dot-line" ng-if="$index > 0">|</span>
-                </span>
-      </p>
-    </li>
-  </ul>
+  <div class="update-job-information only-read">
+    <div class="update-job-information-field">
+      <label>{{'jobTitle' | translate}}:</label>
+      <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
+                    attr-placeholder="{{'jobTitle.placeholder' | translate}}"></autocomplete>
+      <div class="error-messages">{{jobTitleError}}</div>
+    </div>
+    <div class="update-job-information-field">
+      <label>{{'jobLevel' | translate}}:</label>
+      <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
+                 ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+      <div class="error-messages">{{error['salaryReview.jobLevelIds']}}</div>
+    </div>
+    <div class="update-job-information-field">
+      <label>{{'jobSkills' | translate}}:</label>
+      <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig"></auto-tagbox>
+      <div class="error-messages">{{error.skills}}</div>
+    </div>
+    <div class="update-job-information-field">
+      <label>{{'jobCategory' | translate}}:</label>
+      <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
+                 ng-model="salaryReview.jobCategories"
+                 name="{{'jobCategory' | translate}}"></selectize>
+      <div class="error-messages">{{error['salaryReview.jobCategories']}}</div>
+    </div>
+  </div>
   <div class="verified-data">
     <img src="images/verified-data.png" alt=""/>
   </div>
