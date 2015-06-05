@@ -1,9 +1,13 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.JobSkill;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import java.util.List;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
@@ -28,6 +32,9 @@ public class JobEntity {
 
     @Field(type = String)
     private String companyDesc;
+
+    @Field(type = FieldType.Nested)
+    private List<JobSkill> skills;
 
     public String getId() {
         return id;
@@ -67,6 +74,14 @@ public class JobEntity {
 
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
+    }
+
+    public List<JobSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<JobSkill> skills) {
+        this.skills = skills;
     }
 
     @Override

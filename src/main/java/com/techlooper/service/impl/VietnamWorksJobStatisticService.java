@@ -9,8 +9,6 @@ import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
-import com.techlooper.util.JsonUtils;
-import com.techlooper.util.RestTemplateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
@@ -30,9 +28,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,7 +35,6 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -74,9 +68,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     public static final double LOWER_BOUND_SALARY_DIRECTOR_LEVEL = 2000D;
 
     @Resource
-    private RestTemplate restTemplate;
-
-    @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
 
     @Resource
@@ -91,21 +82,11 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
 
-    @Value("${vnw.api.users.createJobAlert.url}")
-    private String vnwCreateJobAlertUrl;
-
-
     @Value("${vnw.api.key.name}")
     private String vnwApiKeyName;
 
     @Value("${vnw.api.key.value}")
     private String vnwApiKeyValue;
-
-    @Resource
-    private Mapper dozerMapper;
-
-    @Resource
-    private JobSearchAPIConfigurationRepository apiConfiguration;
 
     public Long count(final TechnicalTerm term) {
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
@@ -445,11 +426,4 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 .limit(LIMIT_NUMBER_OF_SKILLS).collect(Collectors.toList());
     }
 
-    public void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
-        VnwJobAlert jobAlert = dozerMapper.map(vnwJobAlertRequest, VnwJobAlert.class);
-        String params = JsonUtils.toJSON(jobAlert).orElse(EMPTY);
-        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(
-                MediaType.APPLICATION_JSON, apiConfiguration.getApiKeyName(), apiConfiguration.getApiKeyValue(), params);
-        restTemplate.exchange(vnwCreateJobAlertUrl, HttpMethod.POST, requestEntity, String.class);
-    }
 }

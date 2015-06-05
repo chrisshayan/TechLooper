@@ -1,4 +1,4 @@
-techlooper.controller("salaryReviewController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
+techlooper.controller("salaryReviewRelevantController", function ($scope, $rootScope, jsonValue, $http, utils, $translate,
                                                           $route, $location, connectionFactory, $timeout, validatorService) {
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
   var genders = $.extend(true, [], jsonValue.genders);
@@ -521,4 +521,18 @@ techlooper.controller("salaryReviewController", function ($scope, $rootScope, js
     }, 0);
   }, true);
 
+  var windScroll = $(window).scrollTop();
+  if ($('.salary-review-block').position().top <= windScroll) {
+    $('.navi-step-salary-review').addClass('fixed');
+  }
+  $(window).scroll(function() {
+    windScroll = $(window).scrollTop();
+    if (windScroll > 0) {
+      if ($('.salary-review-block').position().top <= windScroll) {
+        $('.navi-step-salary-review').addClass('fixed');
+      } else {
+        $('.navi-step-salary-review').removeClass('fixed');
+      }
+    }
+  });
 });

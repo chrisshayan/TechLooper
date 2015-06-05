@@ -44,10 +44,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")

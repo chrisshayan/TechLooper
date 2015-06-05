@@ -154,7 +154,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "salaryReportController"
       })
       .when("/salary-review", {
-        templateUrl: "modules/current-job/salary-review.tem.html",
+        templateUrl: "modules/salary-report/salary-review.tem.html",
         controller: "salaryReviewController"
       })
       .when("/price-job", {

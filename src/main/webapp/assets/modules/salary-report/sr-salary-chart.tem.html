@@ -1,0 +1,158 @@
+<div class="salary-chart-block">
+  <div class="box-content-collapse" ng-show="salaryReport.percentRank !== 'NaN'">
+    <div class="title-header">
+      <h3 translate="yourPaySnapshot"></h3>
+    </div>
+    <div class="your-pay-snapshot-content">
+      <h4>Based on <strong>{{salaryReport.numberOfJobs + salaryReport.numberOfSurveys}}</strong> job posts/resumes/applicants</h4>
+      <div class="your-pay-snapshot-info">
+        <ul>
+          <li>
+            {{'makeMoneyMonth' | translate}} <strong>{{salaryReport.percentRank}}%</strong> {{'peopleLikeYou' |
+            translate}}
+          </li>
+          <li>
+            <a ng-click="openFacebookShare()" target="popup" class="salary-report-share">
+              <i class="fa fa-facebook"></i> <span class="text" translate="share"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="your-pay-snapshot-chart">
+        <p>{{'median' | translate}}</p>
+
+        <div class="chart-percent-line">
+          <div class="percent-data">
+            <div class="salary-number-label">$0</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">0%</div>
+          </div>
+          <div ng-repeat="range in salaryReport.salaryRanges" class="percent-data"
+               ng-style="{width: range.percent +'%'}">
+            <div class="salary-number-label">${{range.percentile | number:0}}</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">{{range.percent}}%</div>
+          </div>
+          <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
+            <div class="my-current-salary" ng-if="salaryReport.percentRank <= 85">
+              <span>{{'you' | translate}}: ${{salaryReport.netSalary | number:0}}</span>
+              <i class="fa fa-sort-down"></i>
+            </div>
+            <div class="my-current-salary right-position" ng-if="salaryReport.percentRank > 85">
+              <span>{{'you' | translate}}: ${{salaryReport.netSalary | number:0}}</span>
+              <i class="fa fa-sort-down"></i>
+            </div>
+            <div class="my-position">
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <div class="arrow-right"></div>
+        <p class="note">{{'netSalary' | translate}}</p>
+      </div>
+      <div class="thanks-for-share-salary">
+        <h3 ng-if="salaryReport.percentRank < 50" translate="thanksForShare.headline.under50percent"></h3>
+        <h3 ng-if="salaryReport.percentRank >= 50 && salaryReport.percentRank < 70"
+            translate="thanksForShare.headline.under70percent"></h3>
+        <h3 ng-if="salaryReport.percentRank >= 70 && salaryReport.percentRank < 100"
+            translate="thanksForShare.headline.under100percent"></h3>
+        <p class="short-content" ng-show="!showThanksContent">
+          <span translate="minimiseContent"></span>
+          <a ng-model="showThanksContent" ng-click="showThanksContent=!showThanksContent">see more</a>
+        </p>
+        <div class="thanks-for-share-salary-content" ng-show="showThanksContent">
+          <div class="box-content-collapse">
+            <div class="title-header">
+              <div class="ic-close" title="Close" ng-click="showThanksContent=!showThanksContent">
+                x
+              </div>
+            </div>
+            <ul>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4 translate="thanksForShare.item1.headline"></h4>
+                  <p translate="thanksForShare.item1.content"></p>
+                </div>
+              </li>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4 translate="thanksForShare.item2.headline"></h4>
+
+                  <p translate="thanksForShare.item2.content"></p>
+                </div>
+              </li>
+              <li>
+                <div class="thanks-for-share-salary-item">
+                  <h4 translate="thanksForShare.item3.headline"></h4>
+
+                  <p translate="thanksForShare.item3.content"></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <sr-send-me-report ng-show="state.showSendReport"></sr-send-me-report>
+    <!--<div sr-send-me-report ng-show="state.showSendReport"></div>-->
+    <div class="alert alert-success" ng-show="state.showThanksSendMeReport" role="alert" translate="thanksSendMeReport"></div>
+    <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
+      <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
+      <a class="create-new" ng-click="reload()">{{'createNewReport' | translate}}</a>
+    </div>
+  </div>
+  <div class="box-content-collapse" ng-show="salaryReport.percentRank == 'NaN'">
+    <div class="title-header">
+      <h3 translate="yourPaySnapshot"></h3>
+    </div>
+    <div class="your-pay-snapshot-content">
+      <div class="your-pay-snapshot-info">
+        <ul>
+          <li class="fullCol">
+            {{'noSalaryAvailable' | translate}} <strong>{{salaryReview.jobTitle}}</strong> {{'in' | translate}} <strong>{{jsonValue.locationsMap[salaryReview.locationId].name}}</strong>.
+            {{'whileImprove' | translate}} <a ng-click="changeState('default')">{{'updateInformation' | translate}}</a>
+            {{'toGetSalaryReport' | translate}}
+            <!--{{'noSalaryAvailable' | translate}} <a ng-click="step = 'step1'">{{'updateInformation' | translate}} </a> {{'toGetSalaryReport' | translate}}-->
+          </li>
+        </ul>
+      </div>
+      <div class="your-pay-snapshot-chart gray-background">
+        <p>Median</p>
+
+        <div class="chart-percent-line">
+          <div class="percent-data zero">
+            <div class="salary-number-label">$0</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">0%</div>
+          </div>
+          <div class="percent-data percent10">
+            <div class="salary-number-label">$0</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">10%</div>
+          </div>
+          <div class="percent-data percent25">
+            <div class="salary-number-label">$0</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">25%</div>
+          </div>
+          <div class="percent-data percent50">
+            <div class="salary-number-label">$0</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">50%</div>
+          </div>
+          <div class="percent-data percent75">
+            <div class="salary-number-label">$0</div>
+            <div class="percent-color"></div>
+            <div class="percent-number-label">75%</div>
+          </div>
+        </div>
+        <div class="arrow-right"></div>
+        <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
+      </div>
+    </div>
+    <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
+      <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
+      <a class="create-new" ng-click="reload()">{{'createNewReport' | translate}}</a>
+    </div>
+  </div>
+</div>

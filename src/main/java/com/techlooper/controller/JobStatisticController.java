@@ -85,8 +85,4 @@ public class JobStatisticController {
     return jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
   }
 
-  @MessageMapping("/jobs/createJobAlert")
-  public void createJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
-    jobStatisticService.createVnwJobAlert(vnwJobAlertRequest);
-  }
 }

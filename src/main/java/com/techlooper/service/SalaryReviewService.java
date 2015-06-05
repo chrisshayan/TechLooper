@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.SalaryReview;
 import com.techlooper.model.EmailRequest;
+import com.techlooper.model.VnwJobAlertRequest;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -13,7 +14,9 @@ import java.util.List;
  */
 public interface SalaryReviewService {
 
-  List<SalaryReview> searchSalaryReview(SalaryReview salaryReview);
+    List<SalaryReview> searchSalaryReview(SalaryReview salaryReview);
 
-  void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException;
+    void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException;
+
+    void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
 }

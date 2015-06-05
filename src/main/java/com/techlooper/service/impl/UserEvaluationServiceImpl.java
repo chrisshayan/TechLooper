@@ -23,6 +23,8 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.*;
+
 /**
  * Created by NguyenDangKhoa on 3/19/15.
  */
@@ -151,7 +153,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         for (double percent : percents) {
             salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
         }
-        priceJobReport.setPriceJobSalaries(salaryRanges.stream().distinct().collect(Collectors.toList()));
+        priceJobReport.setPriceJobSalaries(salaryRanges.stream().distinct().collect(toList()));
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
         double targetPay = salaryRanges.stream().filter(
@@ -197,7 +199,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     private double calculatePercentPosition(SalaryReport salaryReport) {
         //Remove duplicated percentiles if any
-        List<SalaryRange> noDuplicatedSalaryRanges = salaryReport.getSalaryRanges().stream().distinct().collect(Collectors.toList());
+        List<SalaryRange> noDuplicatedSalaryRanges = salaryReport.getSalaryRanges().stream().distinct().collect(toList());
         if (noDuplicatedSalaryRanges.size() >= TWO_PERCENTILES) {
             int size = noDuplicatedSalaryRanges.size();
             int i = 0;
@@ -240,7 +242,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         for (JobEntity jobEntity : higherSalaryJobs) {
             double addedPercent = (jobSearchService.getAverageSalary(jobEntity.getSalaryMin(), jobEntity.getSalaryMax()) - netSalary) /
                     netSalary * 100;
-            topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(), jobEntity.getCompanyDesc(), Math.ceil(addedPercent)));
+            List<String> skills = jobEntity.getSkills().stream().limit(3).map(skill -> skill.getSkillName()).collect(toList());
+            topPaidJobs.add(new TopPaidJob(jobEntity.getId(), jobEntity.getJobTitle(),
+                    jobEntity.getCompanyDesc(), Math.ceil(addedPercent), skills));
         }
         return topPaidJobs;
     }

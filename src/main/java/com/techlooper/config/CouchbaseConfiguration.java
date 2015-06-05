@@ -16,31 +16,31 @@ import java.util.List;
 /**
  * Created by khoa-nd on 12/10/14.
  */
-@Configuration
-@EnableCouchbaseRepositories(basePackages = "com.techlooper.repository.couchbase")
+//@Configuration
+//@EnableCouchbaseRepositories(basePackages = "com.techlooper.repository.couchbase")
 public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
 
     @Resource
     private Environment env;
 
-    @Bean
-    public CouchbaseBucketCreator couchbaseBucketCreator() throws Exception {
-        return new CouchbaseBucketCreator(getCouchbaseConnectionUri(), getCouchbaseAdminUser(), getCouchbaseAdminPassword(),
-                getBucketName(), getBucketPassword());
-    }
+//    @Bean
+//    public CouchbaseBucketCreator couchbaseBucketCreator() throws Exception {
+//        return new CouchbaseBucketCreator(getCouchbaseConnectionUri(), getCouchbaseAdminUser(), getCouchbaseAdminPassword(),
+//                getBucketName(), getBucketPassword());
+//    }
 
-    @Bean
-    @Override
-    @DependsOn("couchbaseBucketCreator")
-    public CouchbaseClient couchbaseClient() throws Exception {
-        return super.couchbaseClient();
-    }
+//    @Bean
+//    @Override
+//    @DependsOn("couchbaseBucketCreator")
+//    public CouchbaseClient couchbaseClient() throws Exception {
+//        return super.couchbaseClient();
+//    }
 
-    @Bean
-    @DependsOn("couchbaseClient")
-    public CouchbaseViewCreator couchbaseViewCreator() throws Exception {
-        return new CouchbaseViewCreator();
-    }
+//    @Bean
+//    @DependsOn("couchbaseClient")
+//    public CouchbaseViewCreator couchbaseViewCreator() throws Exception {
+//        return new CouchbaseViewCreator();
+//    }
 
     @Override
     protected List<String> bootstrapHosts() {

@@ -35,5 +35,4 @@ public interface JobStatisticService {
 
   Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds);
 
-  void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
 }

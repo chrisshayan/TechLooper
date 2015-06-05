@@ -1,5 +1,7 @@
 package com.techlooper.model;
 
+import java.util.List;
+
 /**
  * Created by NguyenDangKhoa on 5/11/15.
  */
@@ -13,14 +15,17 @@ public class TopPaidJob {
 
     private Double addedPercent;
 
+    private List<String> skills;
+
     public TopPaidJob() {
     }
 
-    public TopPaidJob(String jobId, String jobTitle, String companyDesc, Double addedPercent) {
+    public TopPaidJob(String jobId, String jobTitle, String companyDesc, Double addedPercent, List<String> skills) {
         this.jobId = jobId;
         this.jobTitle = jobTitle;
         this.companyDesc = companyDesc;
         this.addedPercent = addedPercent;
+        this.skills = skills;
     }
 
     public String getJobId() {
@@ -53,5 +58,13 @@ public class TopPaidJob {
 
     public void setAddedPercent(Double addedPercent) {
         this.addedPercent = addedPercent;
+    }
+
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
     }
 }

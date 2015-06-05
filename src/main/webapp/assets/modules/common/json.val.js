@@ -615,7 +615,7 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 2, translate: "genderFemale"}
     ],
     timeToSends: [
-      {id: 1, translate: "day"},
+      {id: 2, translate: "day"},
       {id: 3, translate: "week"}
     ],
     languages: {
@@ -804,6 +804,23 @@ angular.module("Common").constant("jsonValue", (function () {
 
   var currentYear = new Date().getFullYear();//yrs old from 15 to 99
   instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
+
+  //instance.jobLevelsSelectize = {};
+  //instance.jobLevelsSelectize.items = $.extend(true, [], instance.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;}));
+  //jobLevels: {
+  //  items: jobLevels,
+  //    config: {
+  //    valueField: 'id',
+  //      labelField: 'translate',
+  //      delimiter: '|',
+  //      maxItems: 1,
+  //      searchField: ['translate'],
+  //      placeholder: $translate.instant("exManager"),
+  //      onInitialize: function (selectize) {
+  //      $scope.selectize.jobLevels.$elem = selectize;
+  //    }
+  //  }
+  //}
 
   return instance;
 })());
