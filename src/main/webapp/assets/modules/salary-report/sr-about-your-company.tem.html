@@ -1,12 +1,12 @@
 <div class="your-employer-content">
   <h3>{{'companyInfo.headline' | translate}}</h3>
-  <div class="salary-info-form">
+  <div class="salary-info-form companyRoot">
     <form autocomplete="off">
       <div class="row salary-field">
         <label>{{'companyInfo.location' | translate}} <strong>*</strong></label>
         <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
-                   ng-model="salaryReview.locationId"
-                   name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+                   ng-model="salaryReview.locationId" required
+                   name="{{'location' | translate}}" class="locationSelectbox" validate></selectize>
         <div class="error-messages">
           {{error['salaryReview.locationId']}}</div>
       </div>
@@ -19,8 +19,8 @@
       <div class="row salary-field">
         <label>{{'companyInfo.companyCategory' | translate}} <strong>*</strong></label>
         <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
-                   ng-model="salaryReview.jobCategories"
-                   name="{{'jobCategory' | translate}}"></selectize>
+                   ng-model="salaryReview.jobCategories" required
+                   name="{{'jobCategory' | translate}}" validate></selectize>
         <div class="error-messages">
           {{error['salaryReview.jobCategories']}}
         </div>
