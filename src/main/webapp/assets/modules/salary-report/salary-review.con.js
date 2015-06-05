@@ -80,7 +80,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       $http.get(jsonValue.httpUri.salaryReview + "/" + campaign.id)
         .success(function (data, status, headers, config) {
           $scope.salaryReview = data;
-          $scope.salaryReview.campaign = !$.isEmptyObject(campaign);
+          //$scope.salaryReview.hasCam = !$.isEmptyObject(campaign);
           utils.sendNotification(jsonValue.notifications.loaded);
         });
     }
