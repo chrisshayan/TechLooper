@@ -122,6 +122,7 @@ techlooper
             var jobAlert = $.extend({}, scope.jobAlert);
             jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
             jobAlert.lang = jsonValue.languages['' + $translate.use()];
+            jobAlert.salaryReviewId = jobAlert.createdDateTime;
             connectionFactory.createJobAlert(jobAlert).then(function () {
               $('.email-similar-jobs-block').slideUp("normal", function () {
                 $('.success-alert-box').addClass('show');

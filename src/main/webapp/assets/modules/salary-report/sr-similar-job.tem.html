@@ -15,6 +15,7 @@
           <li><strong>+ {{job.addedPercent}}%</strong></li>
           <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
           <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+          <li title=""><span ng-repeat="skill in job.skills" class="company ellipsis">{{skill}}</span></li>
         </ul>
         <div class="btn-see-more">
           <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn-blue" target="_blank">{{'seeMore' | translate}}</a>
