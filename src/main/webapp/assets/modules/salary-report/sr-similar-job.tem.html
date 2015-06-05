@@ -7,18 +7,22 @@
       <span ng-show="sendMeSimilarJob"><i class="fa fa-caret-down"></i></span>
     </div>
   </div>
-  <div class="best-paid-list" ng-show="sendMeSimilarJob">
+  <div class="best-paid-list" ng-show="!sendMeSimilarJob">
     <p translate="higherJobOffer"></p>
     <div class="best-paid-companies">
-      <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs">
+      <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs" ng-class="{oneColl: salaryReview.topPaidJobs.length===1, twoColl: salaryReview.topPaidJobs.length===2}">
         <ul>
           <li><strong>+ {{job.addedPercent}}%</strong></li>
           <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
           <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-          <li title=""><span ng-repeat="skill in job.skills" class="company ellipsis">{{skill}}</span></li>
+          <li title="">
+            <span class="skills ellipsis">
+              <i ng-repeat="skill in job.skills">{{skill}}</i>
+            </span>
+          </li>
         </ul>
         <div class="btn-see-more">
-          <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" class="btn-blue" target="_blank">{{'seeMore' | translate}}</a>
+          <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
         </div>
       </div>
     </div>
@@ -29,8 +33,9 @@
       <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
     </div>
     <div class="email-similar-jobs-block">
-      <h3 translate="jobAlertTitle"></h3>
       <div class="email-similar-jobs-form">
+        <h3 translate="jobAlertTitle"></h3>
+        <p translate="desJobAlert"></p>
         <div class="row email-similar-jobs-field">
           <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
           <input id="txtJobTitle" type="text" ng-model="jobAlert.jobTitle"
@@ -63,7 +68,7 @@
           <div class="error-messages">{{error['jobAlert.locationId']}}</div>
         </div>
         <div class="row email-similar-jobs-field">
-          <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
+          <label for="txtBaseSalary"><span>{{'netSalary' | translate}}</span> <strong>*</strong></label>
           <input id="txtBaseSalary" type="text" ng-model="jobAlert.netSalary"
                  required tl-model
                  name="{{'netSalary' | translate}}" maxlength="5"
