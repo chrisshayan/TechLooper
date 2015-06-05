@@ -13,20 +13,18 @@ techlooper
         templateUrl: "modules/salary-report/sr-salary-chart.tem.html"
       }
     })
-    .directive("srSendMeReport", function ($http, $translate) {
+    .directive("srSendMeReport", function ($http, $translate, validatorService) {
       return {
         restrict: "E",
         replace: true,
         templateUrl: "modules/salary-report/sr-send-me-report.tem.html",
         link: function (scope, element, attr, ctrl) {
           scope.sendMeNow = function () {
-            //var error = validatorService.validate($(".send-me-form").find('input'));
-            //scope.error = error;
-            //if (!$.isEmptyObject(error)) {
-            //  return;
-            //}
-
-            //TODO: validation
+            var error = validatorService.validate($(".send-me-form").find('input'));
+            scope.error = error;
+            if (!$.isEmptyObject(error)) {
+              return;
+            }
 
             scope.sendMeReport.salaryReviewId = scope.salaryReview.createdDateTime;
             scope.sendMeReport.lang = $translate.use();
@@ -42,21 +40,23 @@ techlooper
         }
       }
     })
-    .directive("srPromotionCompany", function ($http) {
+    .directive("srPromotionCompany", function ($http, validatorService) {
       return {
         restrict: "E",
         replace: true,
         templateUrl: "modules/salary-report/sr-promotion-company.tem.html",
         link: function (scope, element, attr, ctrl) {
-          //TODO validation
-
           scope.showPromotion = function () {
             delete scope.state.showAskPromotion;
             scope.state.showPromotionForm = true;
           }
 
           scope.sendCitibankPromotion = function () {
-            //TODO validation
+            var error = validatorService.validate($(".partner-company-form").find('input'));
+            scope.error = error;
+            if (!$.isEmptyObject(error)) {
+              return;
+            }
 
             if (scope.promotion.paymentMethod !== 'BANK_TRANSFER') {
               scope.state.showThanksCash = true;
@@ -95,7 +95,7 @@ techlooper
         }
       }
     })
-    .directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate) {
+    .directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService) {
       return {
         restrict: "E",
         replace: true,
@@ -114,13 +114,11 @@ techlooper
           }
 
           scope.createJobAlert = function () {
-            //var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
-            //scope.error = error;
-            //if (!$.isEmptyObject(error)) {
-            //  return;
-            //}
-            //TODO validation
-
+            var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+            scope.error = error;
+            if (!$.isEmptyObject(error)) {
+              return;
+            }
             var jobAlert = $.extend({}, scope.jobAlert);
             jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
             jobAlert.lang = jsonValue.languages['' + $translate.use()];

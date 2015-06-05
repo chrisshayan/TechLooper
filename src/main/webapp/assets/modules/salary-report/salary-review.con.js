@@ -1,4 +1,4 @@
-techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue, utils) {
+techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue, utils, $route, validatorService, $translate) {
   var state = {
     init: true,
 
@@ -14,7 +14,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany"},
         {title: "yourSalaryReport"}
-      ]
+      ],
+
+      rootClass: "jobRoot"
     },
 
     company: {
@@ -24,7 +26,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
         {title: "yourSalaryReport"}
-      ]
+      ],
+
+      rootClass: "companyRoot"
     },
 
     report: {
@@ -42,13 +46,29 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   var campaign = $location.search();
 
   $scope.selectize = vnwConfigService;
+  $scope.salaryReview = {}
 
   $scope.changeState = function (st) {
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
-    if (state.init) {
-      //TODO: check validation and return if any error
+    if (!state.init) {
+      var elems = $("." + $scope.state.rootClass).find("[validate]");
+      var error = validatorService.validate(elems);
+
+      $scope.salaryReview.skills = $scope.salaryReview.skills || [];
+      if ($scope.salaryReview.skills.length === 0) {
+        error.skills = $translate.instant('requiredThisField');
+      }
+
+      $scope.error = error;
+
+      if (!$.isEmptyObject(error)) {
+        return;
+      }
+
+
     }
+
     delete state.init;
     $scope.state = preferState;
   }
@@ -100,4 +120,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       //$scope.changeState(state.reportSurvey);
     }
   });
+
+  $scope.reload = function() {
+    $route.reload();
+  }
 });

@@ -98,7 +98,7 @@
     <div class="alert alert-success" ng-show="state.showThanksSendMeReport" role="alert" translate="thanksSendMeReport"></div>
     <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
       <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
-      <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
+      <a class="create-new" ng-click="reload()">{{'createNewReport' | translate}}</a>
     </div>
   </div>
   <div class="box-content-collapse" ng-show="salaryReport.percentRank == 'NaN'">
@@ -152,7 +152,7 @@
     </div>
     <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
       <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
-      <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>
+      <a class="create-new" ng-click="reload()">{{'createNewReport' | translate}}</a>
     </div>
   </div>
 </div>
