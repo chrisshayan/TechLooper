@@ -240,7 +240,9 @@
   "thanksSendMeReport": "Cảm ơn thông tin của bạn. Chúng tôi đã gửi email cho bạn.",
   "thanksSendMeReport2": "Cảm ơn thông tin của bạn.",
   "exEmailAddress": "Địa chỉ email",
-  "emailMeJobs": "Gửi Email Cho Tôi"
+  "emailMeJobs": "Gửi Email Cho Tôi",
+  "Less Than 10": "Thấp hơn 10",
+  "Over 50,000": "Trên 50,000"
 }
 
 

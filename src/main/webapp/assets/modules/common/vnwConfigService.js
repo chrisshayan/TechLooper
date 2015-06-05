@@ -710,6 +710,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   $.each(instance.jobLevelsSelectize.items, doTranslate);
   $.each(instance.gendersSelectize.items, doTranslate);
   $.each(instance.timeToSendsSelectize.items, doTranslate);
+  $.each(instance.companySizeSelectize.items, function (i, item) {
+    $translate(item.size).then(function (trans) {
+      if (!trans) {return true;}
+      item.size = trans;
+    });
+  });
 
   $translate(["exManager", "exMale", "exYob", "exHoChiMinh", "ex149", "exItSoftware", "exDay"]).then(function (trans) {
     instance.jobLevelsSelectize.config.placeholder = trans.exManager;
