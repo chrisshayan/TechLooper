@@ -56,7 +56,10 @@
             translate="thanksForShare.headline.under70percent"></h3>
         <h3 ng-if="salaryReport.percentRank >= 70 && salaryReport.percentRank < 100"
             translate="thanksForShare.headline.under100percent"></h3>
-        <p class="short-content" ng-show="!showThanksContent">{{'minimiseContent' | translate}} <a ng-model="showThanksContent" ng-click="showThanksContent=!showThanksContent">see more</a></p>
+        <p class="short-content" ng-show="!showThanksContent">
+          <span translate="minimiseContent"></span>
+          <a ng-model="showThanksContent" ng-click="showThanksContent=!showThanksContent">see more</a>
+        </p>
         <div class="thanks-for-share-salary-content" ng-show="showThanksContent">
           <div class="box-content-collapse">
             <div class="title-header">
@@ -67,20 +70,20 @@
             <ul>
               <li>
                 <div class="thanks-for-share-salary-item">
-                  <h4>{{'thanksForShare.item1.headline' | translate}}</h4>
+                  <h4 translate="thanksForShare.item1.headline"></h4>
                   <p translate="thanksForShare.item1.content"></p>
                 </div>
               </li>
               <li>
                 <div class="thanks-for-share-salary-item">
-                  <h4>{{'thanksForShare.item2.headline' | translate}}</h4>
+                  <h4 translate="thanksForShare.item2.headline"></h4>
 
                   <p translate="thanksForShare.item2.content"></p>
                 </div>
               </li>
               <li>
                 <div class="thanks-for-share-salary-item">
-                  <h4>{{'thanksForShare.item3.headline' | translate}}</h4>
+                  <h4 translate="thanksForShare.item3.headline"></h4>
 
                   <p translate="thanksForShare.item3.content"></p>
                 </div>
@@ -90,10 +93,9 @@
         </div>
       </div>
     </div>
-    <div sr-send-me-report ng-show="state.showSendReport"></div>
-    <div class="alert alert-success" ng-show="state.showThanksSendMeReport" role="alert">{{'thanksSendMeReport' | translate}}
-      <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
-    </div>
+    <sr-send-me-report ng-show="state.showSendReport"></sr-send-me-report>
+    <!--<div sr-send-me-report ng-show="state.showSendReport"></div>-->
+    <div class="alert alert-success" ng-show="state.showThanksSendMeReport" role="alert" translate="thanksSendMeReport"></div>
     <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
       <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
       <a class="create-new" ng-click="step = 'step1'">{{'createNewReport' | translate}}</a>

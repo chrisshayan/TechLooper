@@ -43,12 +43,13 @@ techlooper
                 return;
               }
 
+              //TODO: refactor flag to show/hide sub-views
               var hasCity = jsonValue.companyPromotion.AcceptedCity.indexOf(scope.salaryReview.locationId) >= 0;
               var enoughMoney = (scope.salaryReview.usdToVndRate * scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary;
               var hasDone = localStorage.getItem('PROMOTION-KEY') === 'yes';
               scope.state.showPromotion = hasCity && enoughMoney && !hasDone;
               scope.state.showAskPromotion = scope.state.showPromotion;
-
+              scope.state.showSendReport = true;
               scope.state.showJobAlert = $.type(scope.salaryReport.percentRank) === "number" && scope.salaryReview.topPaidJobs.length;
             });
         });
