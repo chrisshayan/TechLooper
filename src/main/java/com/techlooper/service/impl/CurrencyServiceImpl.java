@@ -20,8 +20,12 @@ public class CurrencyServiceImpl implements CurrencyService {
   @Value("${api.exchangeRateUrl}")
   private String apiExchangeRateUrl;
 
+  @Value("${usd2vnd}")
+  private Long usd2vnd;
+
   public Long usdToVndRate() {
-    String url = String.format(apiExchangeRateUrl, "USD_VND");
-    return restTemplate.getForEntity(url, JsonNode.class).getBody().findPath("val").asLong(0L);
+//    String url = String.format(apiExchangeRateUrl, "USD_VND");
+//    return restTemplate.getForEntity(url, JsonNode.class).getBody().findPath("val").asLong(0L);
+    return usd2vnd;
   }
 }
