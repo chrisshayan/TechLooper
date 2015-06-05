@@ -82,13 +82,11 @@
           <label for="txtEmail">{{'myEmail' | translate}} <strong>*</strong></label>
           <input ng-model="jobAlert.email" type="email" required tl-model
                  id="txtEmail" placeholder="" class="email-get-similar-jobs" tabindex="1"/>
-          <selectize class="select-time-to-send" config='selectize.timeToSendsSelectize.config' options='selectize.timeToSendsSelectize.items'
-                     required tl-model
-                     ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>
+          <!--<selectize class="select-time-to-send" config='selectize.timeToSendsSelectize.config' options='selectize.timeToSendsSelectize.items'-->
+                     <!--required tl-model-->
+                     <!--ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>-->
           <div class="error-messages">
             {{error['jobAlert.email'] }}
-            <span ng-if="error['jobAlert.email'].length && error['jobAlert.frequency'].length">; </span>
-            {{error['jobAlert.frequency']}}
           </div>
         </div>
         <div class="row email-similar-jobs-field submit">
