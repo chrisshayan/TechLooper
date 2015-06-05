@@ -6,11 +6,18 @@ techlooper
         templateUrl: "modules/salary-report/sr-job-information.tem.html"
       }
     })
-    .directive("srSalaryChart", function () {
+    .directive("srSalaryChart", function ($translate) {
       return {
         restrict: "A",
         replace: true,
-        templateUrl: "modules/salary-report/sr-salary-chart.tem.html"
+        templateUrl: "modules/salary-report/sr-salary-chart.tem.html",
+        link: function (scope, element, attr, ctrl) {
+          scope.openFacebookShare = function() {
+            window.open(
+              'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + scope.salaryReview.createdDateTime,
+              'name', 'width=450,height=350');
+          }
+        }
       }
     })
     .directive("srSendMeReport", function ($http, $translate, validatorService) {
