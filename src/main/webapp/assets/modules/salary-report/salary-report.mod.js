@@ -136,6 +136,7 @@ techlooper
             jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
             jobAlert.lang = jsonValue.languages['' + $translate.use()];
             jobAlert.salaryReviewId = jobAlert.createdDateTime;
+            jobAlert.frequency = 3;// is Weekly, @see vnwConfigService.timeToSendsSelectize
             connectionFactory.createJobAlert(jobAlert).then(function () {
               $('.email-similar-jobs-block').slideUp("normal", function () {
                 $('.success-alert-box').addClass('show');
@@ -145,6 +146,23 @@ techlooper
               });
             });
           }
+
+          var timeout;
+          scope.$watch("jobAlert", function () {
+            timeout && $timeout.cancel(timeout);
+            if (!scope.jobAlert) {
+              return;
+            }
+
+            timeout = $timeout(function () {
+              var jobAlert = $.extend({}, scope.jobAlert);
+              jobAlert.jobLevelIds = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].ids;
+              connectionFactory.searchJobAlert(jobAlert).finally(null, function (data) {
+                scope.jobsTotal = data.total;
+              });
+              timeout = undefined;
+            }, 200);
+          }, true);
         }
       }
     });
