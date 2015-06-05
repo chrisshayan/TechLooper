@@ -688,7 +688,14 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       items: categories.map(function (cate) {
         return {id: cate.category_id, translate: cate["lang_" + vnwLang]};
       }),
-      config: $.extend(true, {plugins: ['remove_button'], maxItems: 3}, translateConfigBase)
+      config: {
+        valueField: 'id',
+        labelField: 'translate',
+        delimiter: '|',
+        plugins: ['remove_button'],
+        maxItems: 3,
+        searchField: ['translate']
+      }
     },
 
     timeToSendsSelectize: {
