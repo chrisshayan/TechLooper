@@ -238,11 +238,19 @@
             min-width: 100px
 
       .user-personal-info
-        display: block
+        display: inline-block
         width: 100%
         clear: both
         float: left
         padding-bottom: 30px
+        position: relative
+        .ic-edit
+          display: none
+        .update-info-manager
+          position: absolute
+          right: 10px
+          bottom: 20px
+          display: none
         .update-job-information
           width: 70%
           float: left
@@ -331,6 +339,16 @@
               .item:first-child
                 border: 0
                 padding-left: 0
+        .update-job-information.ic-update-info
+          border: 1px solid #cccccc
+          .ic-edit
+            position: absolute
+            z-index: 888
+            display: block
+            right: 0
+            top: 0
+            width: 25px
+            height: 25px
         .verified-data
           width: 20%
           float: right
