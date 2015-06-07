@@ -664,12 +664,14 @@
             font-size: 18px
   .salary-review-page
     .salary-review-block
+      .send-me-report-content
+        padding: 0 10px 10px
       .btn-tabs-manager
         a.go-back
           display: block
       .partner-company-content
         .partner-company-logo
-           width: 100%
+          width: 100%
         .partner-company-detail
           width: 100%
           padding: 20px 0 0 0
@@ -690,6 +692,8 @@
                   width: 35%
                 li:first-child
                   width: 65%
+           .agree-registration label
+             width: 90%
       .salary-review-content
         .email-similar-jobs-block
           padding: 5px 0
@@ -777,11 +781,21 @@
                     width: 90%
                     clear: none
       .salary-review-content
+        .your-pay-snapshot-content
+          padding: 10px
         .send-me-form
           input
             width: 70%
           button
             width: 29%
+        .salary-report-feedback-form
+          width: 100%
+          padding: 0 5px
+          ul
+            li
+              width: 100%
+              .select-group
+                width: 100%
   .price-job-page
     .price-job-block
       .navi-step-price-job
@@ -849,14 +863,7 @@
                   clear: both
                   img
                     width: 100%
-          .salary-report-feedback-form
-            width: 100%
-            padding: 0 5px
-            ul
-              li
-                width: 100%
-                .select-group
-                  width: 100%
+
 
 @media (min-width: 640px)
   .rwd-table
@@ -895,6 +902,7 @@
       .send-me-report-block
         .salary-review-content
           .send-me-form
+            padding: 10px 5px
             input
               width: 100%
               clear: both
