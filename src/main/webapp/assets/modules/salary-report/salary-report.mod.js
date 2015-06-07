@@ -3,7 +3,29 @@ techlooper
       return {
         restrict: "A",
         replace: true,
-        templateUrl: "modules/salary-report/sr-job-information.tem.html"
+        templateUrl: "modules/salary-report/sr-job-information.tem.html",
+        link: function(scope){
+          scope.showUpdateInfo = function(){
+            $('.update-job-information').removeClass('only-read');
+            $('.update-info-manager').addClass('show');
+          };
+          scope.showEditState = function(){
+            $('.update-job-information').addClass('ic-update-info');
+          };
+          scope.hideEditState = function(){
+            $('.update-job-information').removeClass('ic-update-info');
+          };
+          scope.updateSalaryReport = function () {
+            var jobAlert = $.extend({}, scope.salaryReview);
+            jobAlert.frequency = timeToSends[0].id;
+            scope.jobAlert = jobAlert;
+          }
+          scope.cancelUpdateSalaryReport = function () {
+            var jobAlert = $.extend({}, scope.salaryReview);
+            jobAlert.frequency = timeToSends[0].id;
+            scope.jobAlert = jobAlert;
+          }
+        }
       }
     })
     .directive("srSalaryChart", function ($translate) {
