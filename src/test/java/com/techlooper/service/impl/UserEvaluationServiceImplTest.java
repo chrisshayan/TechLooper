@@ -1,8 +1,7 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.config.ElasticsearchUserImportConfiguration;
+import com.techlooper.config.UserEvaluationServiceConfigurationTest;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
@@ -22,7 +21,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class, ElasticsearchUserImportConfiguration.class})
+@ContextConfiguration(classes = {UserEvaluationServiceConfigurationTest.class, ElasticsearchConfiguration.class})
 public class UserEvaluationServiceImplTest {
 
     @Resource
@@ -194,4 +193,4 @@ public class UserEvaluationServiceImplTest {
         boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
         assertTrue(isSaved == false);
     }
- }
+}

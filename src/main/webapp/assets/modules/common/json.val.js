@@ -779,7 +779,7 @@ angular.module("Common").constant("jsonValue", (function () {
     "companyPromotion": {
       "title": "companyTitle",
       "tagLine": "companyMessages",
-      "images": "/images/banner-citibank-hk.png",
+      "images": "/images/banner-citibank-vali.png",
       "minSalary": 10000000,
       "AcceptedCity": [24, 29]
     }
