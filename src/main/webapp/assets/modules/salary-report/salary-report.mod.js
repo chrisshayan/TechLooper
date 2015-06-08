@@ -4,10 +4,9 @@ techlooper
         restrict: "A",
         replace: true,
         templateUrl: "modules/salary-report/sr-job-information.tem.html",
-        link: function(scope){
+        link: function(scope, $timeout){
           scope.showUpdateInfo = function(){
             $('.update-job-information').removeClass('only-read');
-            $('.update-info-manager').addClass('show');
             $('.ic-update-info').addClass('clicked');
           };
           $('.overlap-form').mouseenter(function(){
@@ -17,12 +16,10 @@ techlooper
           });
           scope.updateSalaryReport = function () {
             $('.update-job-information').addClass('only-read');
-            $('.update-info-manager').removeClass('show');
             $('.ic-update-info').removeClass('clicked');
           }
           scope.cancelUpdateSalaryReport = function () {
             $('.update-job-information').addClass('only-read');
-            $('.update-info-manager').removeClass('show');
             $('.ic-update-info').removeClass('clicked');
           }
         }
