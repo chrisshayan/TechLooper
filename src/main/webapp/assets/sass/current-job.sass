@@ -311,16 +311,32 @@
               padding: 0 10px
               width: 100%
               font-size: 14px
-            .autocomplete input
+            .autocomplete
               width: 70%
               float: left
+              ul
+                margin: 34px 0 0
+                padding: 0
+                z-index: 666
+                .highlight
+                  background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+                  color: #000
+                li.active
+                  background-color: #f5f5f5
+              input
+                width: 100%
+                float: left
             .selectize-control
               width: 70%
               float: left
             .top-three-skills
               width: 70%
-              .autocomplete input
-                width: 100%
+              .autocomplete
+                width: 90%
+                ul
+                  z-index: 555
+                input
+                  width: 100%
         .update-job-information.only-read
           .overlap-form
             display: block

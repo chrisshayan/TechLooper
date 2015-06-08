@@ -39,7 +39,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
-        {title: "yourSalaryReport", class: "active showNavi"}
+        {title: "yourSalaryReport", class: "active showNavi "}
       ]
     }
   }
@@ -60,16 +60,12 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       if ($scope.salaryReview.skills.length === 0) {
         error.skills = $translate.instant('requiredThisField');
       }
-
       $scope.error = error;
 
       if (!$.isEmptyObject(error)) {
         return;
       }
-
-
     }
-
     delete state.init;
     $scope.state = preferState;
   }
