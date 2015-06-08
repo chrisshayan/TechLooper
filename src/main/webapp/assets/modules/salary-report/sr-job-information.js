@@ -11,7 +11,10 @@ techlooper.directive("srJobInformation", function ($http) {
         scope.sr = $.extend(true, {}, scope.salaryReview);
       });
 
+      var init = true;
+      
       scope.showUpdateInfo = function () {
+        init = false;
         $('.update-job-information').removeClass('only-read');
         $('.ic-update-info').addClass('clicked');
       };
@@ -43,7 +46,7 @@ techlooper.directive("srJobInformation", function ($http) {
       }
 
       var jobTitleSuggestion = function (jobTitle) {
-        if (!jobTitle) {return;}
+        if (!jobTitle || init) {return;}
 
         $http.get("suggestion/jobTitle/" + jobTitle)
           .success(function (data) {
