@@ -1,6 +1,6 @@
 <div class="navi-step-salary-review">
   <ul>
-    <li ng-repeat="tab in state.tabs" class="{{tab.class}}">
+    <li ng-repeat="tab in state.tabs" class="{{tab.class}}" ng-click="tab.onClick(tab)">
       <h2 translate="{{tab.title}}"></h2>
       <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
     </li>

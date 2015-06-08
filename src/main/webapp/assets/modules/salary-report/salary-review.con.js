@@ -12,9 +12,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       },
 
       tabs: [
-        {title: "aboutYourJob", class: "active showNavi"},
-        {title: "aboutYourCompany"},
-        {title: "yourSalaryReport"}
+        {title: "aboutYourJob", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", onClick: function(tab) {$scope.changeState(state.company);}},
+        {title: "yourSalaryReport", onClick: function(tab) {$scope.changeState(state.report);}}
       ],
 
       rootClass: "jobRoot"
@@ -24,9 +24,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       showCompany: true,
 
       tabs: [
-        {title: "aboutYourJob", class: "active"},
-        {title: "aboutYourCompany", class: "active showNavi"},
-        {title: "yourSalaryReport"}
+        {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.company);}},
+        {title: "yourSalaryReport", onClick: function(tab) {$scope.changeState(state.report);}}
       ],
 
       rootClass: "companyRoot"
@@ -37,9 +37,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       ableCreateNewReport: true,
 
       tabs: [
-        {title: "aboutYourJob", class: "active"},
-        {title: "aboutYourCompany", class: "active"},
-        {title: "yourSalaryReport", class: "active showNavi "}
+        {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", class: "active", onClick: function(tab) {$scope.changeState(state.company);}},
+        {title: "yourSalaryReport", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.report);}}
       ]
     }
   }
@@ -63,11 +63,12 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       $scope.error = error;
 
       if (!$.isEmptyObject(error)) {
-        return;
+        return false;
       }
     }
     delete state.init;
     $scope.state = preferState;
+    return true;
   }
 
   /*
