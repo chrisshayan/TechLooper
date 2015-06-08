@@ -24,7 +24,7 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService) {
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
-            //localStorage.setItem('PROMOTION-KEY', 'yes');
+            localStorage.setItem('PROMOTION-KEY', 'yes');
           });
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;
