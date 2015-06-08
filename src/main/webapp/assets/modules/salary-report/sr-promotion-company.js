@@ -26,8 +26,8 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService) {
           .success(function () {
             localStorage.setItem('PROMOTION-KEY', 'yes');
           });
-
-        delete scope.state.showPromotion;
+        $('.partner-company-content').hide();
+        //delete scope.state.showPromotion;
         scope.state.showThanksBankTransfer = true;
       }
     }
