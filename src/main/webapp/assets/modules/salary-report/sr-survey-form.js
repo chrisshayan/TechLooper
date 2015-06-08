@@ -11,7 +11,8 @@ techlooper
           scope.survey.salaryReviewId = scope.salaryReview.createdDateTime;
           $http.post("saveSalaryReviewSurvey", scope.survey)
             .success(function (data, status, headers, config) {
-              delete scope.state.showSurvey;
+             // delete scope.state.showSurvey;
+                $('.salary-report-feedback-form').hide();
               scope.state.showThanksSurvey = true;
             });
           $('.email-get-similar-jobs').focus();

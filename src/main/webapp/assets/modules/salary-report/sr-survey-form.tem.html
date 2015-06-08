@@ -1,48 +1,37 @@
-<div class="box-content-collapse">
-<!--ng-show="!salaryReview.campaign &&  salaryReport.percentRank !== 'NaN'"-->
-  <div class="title-header" ng-model="surveyFormShowed" ng-click="surveyFormShowed=!surveyFormShowed">
-    <h3 translate="whatYouThinkReport"></h3>
-    <div class="ic-hidden" title="Minimise">
-      <span ng-show="surveyFormShowed"><i class="fa fa-caret-up"></i></span>
-      <span ng-show="!surveyFormShowed"><i class="fa fa-caret-down"></i></span>
-    </div>
-  </div>
-  <div class="salary-report-feedback-form" ng-show="surveyFormShowed">
-    <form autocomplete="off">
-      <ul>
-        <li>
-          <p translate="understandReport?"></p>
-          <div class="select-group">
-            <div class="select-item">
-              <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
-            </div>
-            <div class="select-item">
-              <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
-            </div>
+<div class="salary-report-feedback-form" ng-show="surveyFormShowed">
+  <form autocomplete="off">
+    <ul>
+      <li>
+        <p translate="understandReport?"></p>
+        <div class="select-group">
+          <div class="select-item">
+            <input ng-model="survey.isUnderstandable" value="true" type="radio" name="understand" id="radUnderstandYes"/><label for="radUnderstandYes" translate="yes"></label>
           </div>
-          <div class="error-messages">{{errorFeedback.understand}}</div>
-        </li>
-        <li>
-          <p translate="resultReportAccurate"></p>
-          <div class="select-group">
-            <div class="select-item">
-              <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
-            </div>
-            <div class="select-item">
-              <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
-            </div>
+          <div class="select-item">
+            <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
           </div>
-          <div class="error-messages">{{errorFeedback.accurate}}</div>
-        </li>
-        <li>
-          <label for="txtFeedback" translate="haveAnyFeedback"></label>
-          <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
-        </li>
-        <li>
-          <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
-        </li>
-      </ul>
-    </form>
-  </div>
-  <div class="thanksMessages" ng-show="state.showThanksSurvey" translate="thanksForHelp"></div>
+        </div>
+        <div class="error-messages">{{errorFeedback.understand}}</div>
+      </li>
+      <li>
+        <p translate="resultReportAccurate"></p>
+        <div class="select-group">
+          <div class="select-item">
+            <input ng-model="survey.isAccurate"  value="true" type="radio" name="accurate" checked id="radAccurateYes"/><label for="radAccurateYes" translate="yes">Yes</label>
+          </div>
+          <div class="select-item">
+            <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
+          </div>
+        </div>
+        <div class="error-messages">{{errorFeedback.accurate}}</div>
+      </li>
+      <li>
+        <label for="txtFeedback" translate="haveAnyFeedback"></label>
+        <textarea ng-model="survey.feedback" cols="" rows="" id="txtFeedback" maxlength="500"></textarea>
+      </li>
+      <li>
+        <button ng-click="submitSurvey()" class="btn btn-primary btn-flat" translate="submit"></button>
+      </li>
+    </ul>
+  </form>
 </div>
