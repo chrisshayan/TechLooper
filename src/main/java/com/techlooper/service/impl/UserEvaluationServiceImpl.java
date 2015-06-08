@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by NguyenDangKhoa on 3/19/15.
@@ -79,13 +79,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         exportJobToExcel(jobs);
-
         generateSalaryReport(salaryReviewEntity, jobs, salaryReviewEntities.size());
-
-        // Save user salary information should happen only in production environment
-        if (isAllowToSave()) {
-            salaryReviewRepository.save(salaryReviewEntity);
-        }
+        salaryReviewRepository.save(salaryReviewEntity);
 
         // get top 3 higher salary jobs
         List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReviewEntity), salaryReviewEntity.getNetSalary());
@@ -105,18 +100,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         exportJobToExcel(jobs);
-
         calculateSalaryPercentile(priceJobEntity, jobs);
-
-        // Save user salary information should happen only in production environment
-        if (isAllowToSave()) {
-            priceJobReportRepository.save(priceJobEntity);
-        }
-    }
-
-    private boolean isAllowToSave() {
-        return environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) != null ?
-                environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
+        priceJobReportRepository.save(priceJobEntity);
     }
 
     private void exportJobToExcel(Set<JobEntity> jobs) {
