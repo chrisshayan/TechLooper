@@ -33,7 +33,7 @@
             <div class="percent-color"></div>
             <div class="percent-number-label">{{range.percent}}%</div>
           </div>
-          <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
+          <div class="my-current-rank" ng-style="{left: myPosition + '%'}">
             <div class="my-current-salary" ng-if="salaryReport.percentRank <= 85">
               <span>{{'you' | translate}}: ${{salaryReport.netSalary | number:0}}</span>
               <i class="fa fa-sort-down"></i>

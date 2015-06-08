@@ -30,8 +30,13 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
             scope.salaryReview = afterSendSalaryReport(data);
             scope.salaryReport = scope.salaryReview.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
-
-            if (scope.salaryReview.campaign) {
+              var p = scope.salaryReport.percentRank * $(window).width()/100;
+              if($(window).width() < 480){
+                scope.myPosition = (p - 18.5) * 100 / $(window).width();
+              }else{
+                scope.myPosition = (p - 20) * 100 / $(window).width();
+              }
+              if (scope.salaryReview.campaign) {
               return;
             }
 
