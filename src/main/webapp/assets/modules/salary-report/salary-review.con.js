@@ -12,7 +12,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       },
 
       tabs: [
-        {title: "aboutYourJob", class: "active"},
+        {title: "aboutYourJob", class: "active showNavi"},
         {title: "aboutYourCompany"},
         {title: "yourSalaryReport"}
       ],
@@ -25,7 +25,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
       tabs: [
         {title: "aboutYourJob", class: "active"},
-        {title: "aboutYourCompany", class: "active"},
+        {title: "aboutYourCompany", class: "active showNavi"},
         {title: "yourSalaryReport"}
       ],
 
@@ -39,7 +39,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       tabs: [
         {title: "aboutYourJob", class: "active"},
         {title: "aboutYourCompany", class: "active"},
-        {title: "yourSalaryReport", class: "active"}
+        {title: "yourSalaryReport", class: "active showNavi"}
       ]
     }
   }
