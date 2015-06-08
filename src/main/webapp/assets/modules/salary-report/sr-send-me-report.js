@@ -20,7 +20,7 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
             delete scope.state.showSendReport;
             scope.state.showThanksSendMeReport = true;
           });
-        $('.send-me-form').hide();
+        $('.send-me-report-form').hide();
       }
     }
   }
