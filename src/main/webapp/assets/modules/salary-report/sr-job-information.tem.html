@@ -1,5 +1,5 @@
 <div class="user-personal-info">
-  <div ng-modal="hover" class="update-job-information only-read" ng-click="showUpdateInfo()" ng-mouseover="showEditState()" ng-mouseleave="hideEditState">
+  <div ng-modal="hover" class="update-job-information only-read">
     <div class="update-job-information-field">
       <label>{{'jobTitle' | translate}}:</label>
       <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
@@ -24,16 +24,17 @@
                  name="{{'jobCategory' | translate}}"></selectize>
       <div class="error-messages">{{error['salaryReview.jobCategories']}}</div>
     </div>
+    <div class="overlap-form" ng-click="showUpdateInfo()"></div>
+    <div class="update-info-manager">
+      <a translate="cancel" ng-click="cancelUpdateSalaryReport()"></a>
+      <a class="btn btn-primary btn-flat" translate="save" ng-click="updateSalaryReport()"></a>
+    </div>
   </div>
   <div class="verified-data">
     <img src="images/verified-data.png" alt=""/>
   </div>
-  <div class="update-info-manager">
-    <a translate="cancel" ng-click="cancelUpdateSalaryReport()"></a>
-    <a class="btn btn-primary btn-flat" translate="save" ng-click="updateSalaryReport()"></a>
-  </div>
   <div class="ic-update-info">
-    <div class="ic-edit">
+    <div class="ic-edit" title="Click to Edit">
       <i class="fa fa-pencil"></i>
     </div>
   </div>
