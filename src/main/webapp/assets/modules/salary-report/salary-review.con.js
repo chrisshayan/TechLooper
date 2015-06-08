@@ -69,6 +69,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
     delete state.init;
     $scope.state = preferState;
+    $scope.$emit("state change success");
     return true;
   }
 
