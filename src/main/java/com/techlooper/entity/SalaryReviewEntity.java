@@ -10,61 +10,64 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
+
 /**
  * Created by phuonghqh on 5/5/15.
+ * Modified by khoand on 06/08/15.
  */
 @Document(indexName = "techlooper", type = "salaryReview")
-public class SalaryReview {
+public class SalaryReviewEntity {
 
     @Id
     private Long createdDateTime;
 
-    @Field
+    @Field(type = String)
     private String jobTitle;
 
-    @Field
+    @Field(type = Long)
     private List<Integer> jobLevelIds;
 
-    @Field
+    @Field(type = Long)
     private Long locationId;
 
-    @Field
+    @Field(type = Long)
     private Integer netSalary;
 
-    @Field
+    @Field(type = String)
     private List<String> skills;
 
-    @Field
+    @Field(type = String)
     private String reportTo;
 
-    @Field
+    @Field(type = Long)
     private List<Long> jobCategories;
 
-    @Field
+    @Field(type = Long)
     private Long companySizeId;
 
-    @Field
-    private int gender;
+    @Field(type = Long)
+    private Integer gender;
 
-    @Field
-    private int age;
+    @Field(type = Long)
+    private Integer age;
 
-    @Field(type = FieldType.Nested)
+    @Field(type = Object)
     private SalaryReport salaryReport;
 
-    private List<TopPaidJob> topPaidJobs;
-
-    @Field(type = FieldType.Nested)
+    @Field(type = Object)
     private SalaryReviewSurvey salaryReviewSurvey;
 
-    @Field
+    @Field(type = String)
     private String campaign;
 
-    @Field
+    @Field(type = String)
     private String email;
 
-    @Field
+    @Field(type = String)
     private String jobAlertEmail;
+
+    private List<TopPaidJob> topPaidJobs;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -138,36 +141,8 @@ public class SalaryReview {
         this.companySizeId = companySizeId;
     }
 
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public SalaryReport getSalaryReport() {
-        return salaryReport;
-    }
-
     public void setSalaryReport(SalaryReport salaryReport) {
         this.salaryReport = salaryReport;
-    }
-
-    public List<TopPaidJob> getTopPaidJobs() {
-        return topPaidJobs;
-    }
-
-    public void setTopPaidJobs(List<TopPaidJob> topPaidJobs) {
-        this.topPaidJobs = topPaidJobs;
     }
 
     public SalaryReviewSurvey getSalaryReviewSurvey() {
@@ -200,5 +175,33 @@ public class SalaryReview {
 
     public void setJobAlertEmail(String jobAlertEmail) {
         this.jobAlertEmail = jobAlertEmail;
+    }
+
+    public List<TopPaidJob> getTopPaidJobs() {
+        return topPaidJobs;
+    }
+
+    public void setTopPaidJobs(List<TopPaidJob> topPaidJobs) {
+        this.topPaidJobs = topPaidJobs;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public SalaryReport getSalaryReport() {
+        return salaryReport;
     }
 }
