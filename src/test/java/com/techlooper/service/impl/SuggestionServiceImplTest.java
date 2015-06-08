@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.config.SkillConfigurationTest;
+import com.techlooper.config.SuggestionServiceConfigurationTest;
 import com.techlooper.service.SuggestionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ElasticsearchConfiguration.class, SkillConfigurationTest.class})
+@ContextConfiguration(classes = {ElasticsearchConfiguration.class, SuggestionServiceConfigurationTest.class})
 public class SuggestionServiceImplTest {
 
     @Resource
