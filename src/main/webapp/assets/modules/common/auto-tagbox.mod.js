@@ -22,14 +22,15 @@ techlooper.directive('autoTagbox', function ($timeout) {
         scope.tags = scope.tags || [];
         scope.errors.length = 0;
 
+        var lowerTag = scope.config.newTag.toLowerCase();
         if (scope.tags.length >= 50) {
           return scope.errors.push("maximum50");
         }
-        else if (scope.tags.indexOf(scope.config.newTag) > -1) {
+        else if (scope.tags.indexOf(lowerTag) > -1) {
           return scope.errors.push("hasExist");
         }
 
-        scope.tags.push(scope.config.newTag);
+        scope.tags.push(lowerTag);
         scope.config.newTag = "";
       }
     }
