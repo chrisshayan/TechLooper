@@ -1,7 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.PriceJobSurvey;
 import com.techlooper.model.SalaryReviewSurvey;
 
@@ -10,9 +10,9 @@ import com.techlooper.model.SalaryReviewSurvey;
  */
 public interface UserEvaluationService {
 
-    void reviewSalary(SalaryReview salaryReview);
+    void reviewSalary(SalaryReviewEntity salaryReviewEntity);
 
-    void deleteSalaryReview(SalaryReview salaryReview);
+    void deleteSalaryReview(SalaryReviewEntity salaryReviewEntity);
 
     boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey);
 

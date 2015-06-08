@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
@@ -14,7 +14,6 @@ import com.techlooper.util.RestTemplateUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -179,20 +178,20 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         return EMPTY;
     }
 
-    public List<JobEntity> getHigherSalaryJobs(SalaryReview salaryReview) {
+    public List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobSearchQuery();
 
-        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReview.getJobTitle());
+        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReviewEntity.getJobTitle());
         FilterBuilder expiredDateFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("expiredDate", "now/d", null);
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilter()
                 .must(expiredDateFilterBuilder)
                 .must(termFilter("isActive", 1))
                 .must(termFilter("isApproved", 1))
-                .must(jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReview.getJobCategories()))));
+                .must(jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReviewEntity.getJobCategories()))));
         List<JobEntity> higherSalaryJobs = getJobSearchResult(queryBuilder);
         return higherSalaryJobs.stream()
-                .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReview.getNetSalary())
+                .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReviewEntity.getNetSalary())
                 .sorted((job1, job2) -> jobSalaryComparator(job1, job2, SORT_ORDER_DESC))
                 .limit(3).collect(Collectors.toList());
     }

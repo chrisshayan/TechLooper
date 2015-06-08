@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.CitibankCreditCardPromotion;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.CurrencyService;
@@ -43,12 +43,12 @@ public class PromotionServiceImpl implements PromotionService {
   private CurrencyService currencyService;
 
   public void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
-    SalaryReview salaryReview = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
+    SalaryReviewEntity salaryReviewEntity = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
 
-    Long netIncome = currencyService.usdToVndRate() * salaryReview.getNetSalary();
+    Long netIncome = currencyService.usdToVndRate() * salaryReviewEntity.getNetSalary();
     citibankCreditCardPromotion.setNetIncome("VND " + NumberFormat.getNumberInstance(Locale.US).format(netIncome));
 
-    String location = locationMap.get(salaryReview.getLocationId());
+    String location = locationMap.get(salaryReviewEntity.getLocationId());
     citibankCreditCardPromotion.setLocation(location);
     StringWriter stringWriter = new StringWriter();
     citibankCreditCardPromotionTemplate.process(citibankCreditCardPromotion, stringWriter);

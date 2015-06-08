@@ -21,16 +21,16 @@ public class JobEntity {
     @Id
     private String id;
 
-    @Field(type = String)
+    @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String jobTitle;
 
-    @Field(type = Long)
+    @Field(type = Long, store = true)
     private Long salaryMin;
 
-    @Field(type = Long)
+    @Field(type = Long, store = true)
     private Long salaryMax;
 
-    @Field(type = String)
+    @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String companyDesc;
 
     @Field(type = FieldType.Nested)

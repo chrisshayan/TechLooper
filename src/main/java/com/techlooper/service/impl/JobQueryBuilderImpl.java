@@ -1,7 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
@@ -234,11 +234,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
-    public NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReview salaryReview) {
+    public NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewEntity salaryReviewEntity) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
-        QueryBuilder jobTitleQueryBuilder = jobTitleQueryBuilder(salaryReview.getJobTitle());
-        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReview.getJobCategories());
+        QueryBuilder jobTitleQueryBuilder = jobTitleQueryBuilder(salaryReviewEntity.getJobTitle());
+        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewEntity.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
 

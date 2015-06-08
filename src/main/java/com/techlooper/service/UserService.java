@@ -1,13 +1,10 @@
 package com.techlooper.service;
 
-import com.techlooper.entity.SalaryReview;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.

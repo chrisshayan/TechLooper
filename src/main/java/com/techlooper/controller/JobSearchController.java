@@ -1,6 +1,6 @@
 package com.techlooper.controller;
 
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
@@ -38,8 +38,8 @@ public class JobSearchController {
 
   @SendTo("/topic/jobs/searchJobAlert")
   @MessageMapping("/jobs/searchJobAlert")
-  public VNWJobSearchResponse searchJobAlert(SalaryReview salaryReview) {
-    VNWJobSearchRequest vnwJobSearchRequest = dozerMapper.map(salaryReview, VNWJobSearchRequest.class);
+  public VNWJobSearchResponse searchJobAlert(SalaryReviewEntity salaryReviewEntity) {
+    VNWJobSearchRequest vnwJobSearchRequest = dozerMapper.map(salaryReviewEntity, VNWJobSearchRequest.class);
     VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
     vnwJobSearchResponse.getData().setJobs(null);//remove jobs because we dont need it
     return vnwJobSearchResponse;
