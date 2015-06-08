@@ -173,7 +173,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, $location, $anchorScroll) {
+                         utils, $rootScope, $translate, jsonValue, $window) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -211,8 +211,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $rootScope.jsonValue = jsonValue;
 
-  //$location.hash("bodyContent");
-  //$anchorScroll("#bodyContent");
+  $('html, body').animate({ scrollTop: 0 });
 });
 
 techlooper.directive("navigation", function () {
@@ -277,3 +276,4 @@ techlooper.directive("navigation", function () {
       }
     }
   });
+
