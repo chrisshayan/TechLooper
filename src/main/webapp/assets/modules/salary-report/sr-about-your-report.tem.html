@@ -2,15 +2,22 @@
   <sr-job-information></sr-job-information>
   <div sr-salary-chart></div>
   <sr-similar-job ng-show="state.showJobAlert"></sr-similar-job>
+
   <sr-promotion-company ng-show="state.showPromotion"></sr-promotion-company>
   <div ng-show="state.showThanksBankTransfer" class="alert alert-success transfer" role="alert">{{'companyThanks1' | translate}}
-    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
   </div>
   <div ng-show="state.showThanksCash" class="alert alert-success cash" role="alert">{{'companyThanks2' | translate}}
-    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
   </div>
-  <sr-survey-form ng-show="state.showSurvey"></sr-survey-form>
-  <div class="alert alert-success" ng-show="state.showThanksSurvey" role="alert">{{'thanksForHelp' | translate}}
-    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+
+  <div class="box-content-collapse" ng-show="state.showSurvey">
+    <div class="title-header" ng-model="surveyFormShowed" ng-click="surveyFormShowed=!surveyFormShowed">
+      <h3 translate="whatYouThinkReport"></h3>
+      <div class="ic-hidden" title="Minimise">
+        <span ng-show="surveyFormShowed"><i class="fa fa-caret-up"></i></span>
+        <span ng-show="!surveyFormShowed"><i class="fa fa-caret-down"></i></span>
+      </div>
+    </div>
+    <sr-survey-form></sr-survey-form>
+    <div class="thanksMessages" ng-show="state.showThanksSurvey" role="alert">{{'thanksForHelp' | translate}}</div>
   </div>
 </div>

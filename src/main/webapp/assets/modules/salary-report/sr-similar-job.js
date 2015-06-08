@@ -34,9 +34,6 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         connectionFactory.createJobAlert(jobAlert).then(function () {
           $('.email-similar-jobs-block').slideUp("normal", function () {
             $('.success-alert-box').addClass('show');
-            $timeout(function () {
-              $('.success-alert-box').removeClass('show');
-            }, 2000);
           });
         });
       }
