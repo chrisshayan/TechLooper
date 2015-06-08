@@ -12,11 +12,13 @@
                  ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
       <div class="error-messages">{{error['salaryReview.jobLevelIds']}}</div>
     </div>
-    <div class="update-job-information-field">
-      <label>{{'jobSkills' | translate}}:</label>
-      <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig"></auto-tagbox>
-      <div class="error-messages">{{error.skills}}</div>
-    </div>
+    <form>
+      <div class="update-job-information-field">
+        <label>{{'jobSkills' | translate}}:</label>
+        <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig"></auto-tagbox>
+        <div class="error-messages">{{error.skills}}</div>
+      </div>
+    </form>
     <div class="update-job-information-field">
       <label>{{'jobCategory' | translate}}:</label>
       <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
