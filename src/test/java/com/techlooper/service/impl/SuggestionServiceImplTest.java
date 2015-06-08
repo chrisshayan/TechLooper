@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SkillConfigurationTest.class, ElasticsearchConfiguration.class})
+@ContextConfiguration(classes = {ElasticsearchConfiguration.class, SkillConfigurationTest.class})
 public class SuggestionServiceImplTest {
 
     @Resource
