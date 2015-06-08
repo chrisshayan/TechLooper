@@ -242,15 +242,45 @@
         width: 100%
         clear: both
         float: left
-        padding-bottom: 30px
+        margin-bottom: 20px
         position: relative
-        .ic-edit
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        .ic-update-info
           display: none
+          position: absolute
+          left: 0
+          right: 0
+          top: 0
+          bottom: 0
+          height: 100%
+          line-height: 100%
+          width: 100%
+          z-index: 666
+          background-color: #f8f8f8
+          opacity: 0.6
+          .ic-edit
+            position: absolute
+            z-index: 888
+            display: block
+            right: 0
+            top: 0
+            width: 25px
+            height: 25px
+            border: 1px solid #ccc
+            background-color: #f3fafe
+            line-height: 22px
+            margin: 2px
+        .ic-update-info.clicked
+          z-index: -99
         .update-info-manager
           position: absolute
           right: 10px
           bottom: 20px
           display: none
+          a
+            cursor: pointer
         .update-job-information
           width: 70%
           float: left
@@ -287,6 +317,18 @@
               .autocomplete input
                 width: 100%
         .update-job-information.only-read
+          .overlap-form
+            display: block
+            width: 100%
+            height: 100%
+            position: absolute
+            left: 0
+            top: 0
+            right: 0
+            bottom: 0
+            line-height: 100%
+            z-index: 777
+            cursor: pointer
           .update-job-information-field
             padding-bottom: 0
             input
@@ -339,16 +381,6 @@
               .item:first-child
                 border: 0
                 padding-left: 0
-        .update-job-information.ic-update-info
-          border: 1px solid #cccccc
-          .ic-edit
-            position: absolute
-            z-index: 888
-            display: block
-            right: 0
-            top: 0
-            width: 25px
-            height: 25px
         .verified-data
           width: 20%
           float: right

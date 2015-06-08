@@ -8,22 +8,22 @@ techlooper
           scope.showUpdateInfo = function(){
             $('.update-job-information').removeClass('only-read');
             $('.update-info-manager').addClass('show');
+            $('.ic-update-info').addClass('clicked');
           };
-          scope.showEditState = function(){
-            $('.update-job-information').addClass('ic-update-info');
-          };
-          scope.hideEditState = function(){
-            $('.update-job-information').removeClass('ic-update-info');
-          };
+          $('.overlap-form').mouseenter(function(){
+            $('.ic-update-info').show();
+          }).mouseleave(function(){
+            $('.ic-update-info').hide();
+          });
           scope.updateSalaryReport = function () {
-            var jobAlert = $.extend({}, scope.salaryReview);
-            jobAlert.frequency = timeToSends[0].id;
-            scope.jobAlert = jobAlert;
+            $('.update-job-information').addClass('only-read');
+            $('.update-info-manager').removeClass('show');
+            $('.ic-update-info').removeClass('clicked');
           }
           scope.cancelUpdateSalaryReport = function () {
-            var jobAlert = $.extend({}, scope.salaryReview);
-            jobAlert.frequency = timeToSends[0].id;
-            scope.jobAlert = jobAlert;
+            $('.update-job-information').addClass('only-read');
+            $('.update-info-manager').removeClass('show');
+            $('.ic-update-info').removeClass('clicked');
           }
         }
       }
