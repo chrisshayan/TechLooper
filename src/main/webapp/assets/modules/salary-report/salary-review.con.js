@@ -1,4 +1,5 @@
-techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue, utils, $route, validatorService, $translate) {
+techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue,
+                                                          utils, $route, validatorService, $translate, $window) {
   var state = {
     init: true,
 
