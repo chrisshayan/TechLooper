@@ -223,7 +223,7 @@
   "companyTitle": "Xin chúc mừng! Bạn nhận được đề nghị mở Thẻ Tín Dụng từ Citibank",
   "companyThanks1": "Cảm ơn bạn đã tham gia đăng ký Thẻ Tín Dụng của ngân hàng Citibank. Chúng tôi sẽ sớm liên hệ với bạn.",
   "companyThanks2": "Cảm ơn bạn đã tham gia đăng ký Thẻ Tín Dụng của ngân hàng Citibank.",
-  "companyMessages": "Cùng VietnamWorks Và Citibank Chào Hè Với Vé Máy Bay Đi Hồng Kông Miễn Phí",
+  "companyMessages": "Nhận ngay Vali kéo sành điệu, khi đăng ký thẻ Citi Cash Back",
   "desHowToGetIt": "Vui lòng điền thông tin của bạn bên dưới và các tư vấn viên của chúng tôi sẽ tiến hành những bước tiếp theo để hoàn thành việc đăng ký thẻ.",
   "fullName": "Tên Đầy Đủ:",
   "mobileNumber": "Điện Thoại Di Động:",
@@ -237,13 +237,17 @@
   "sendMeReport": "Gửi Báo Cáo",
   "desSendMeReport": "Vui lòng điền thông tin bên dưới đế nhận báo cáo.",
   "sendMeNow": "Gửi",
-  "thanksSendMeReport": "Cảm ơn thông tin của bạn. Chúng tôi đã gửi email cho bạn.",
+  "thanksSendMeReport": "Cảm ơn thông tin của bạn. Chúng tôi đã gửi email cho bạn. Chúng tôi luôn sẵn sàng giúp bạn Thăng Tiến trong công việc.",
   "thanksSendMeReport2": "Cảm ơn thông tin của bạn.",
+  "thanksSendMeReport1": "Cảm ơn thông tin của bạn. Chúng tôi luôn sẵn sàng giúp bạn Thăng Tiến trong công việc.",
   "exEmailAddress": "Địa chỉ email",
   "emailMeJobs": "Gửi Email Cho Tôi",
   "desJobAlert": "Ngay khi có công việc thoả mãn các tiêu chí bên dưới, bạn sẽ được thông báo lập tức bằng email. Hãy là người đầu tiên ứng tuyển và có được công việc mơ ước!",
   "Less Than 10": "Thấp hơn 10",
-  "Over 50,000": "Trên 50,000"
+  "Over 50,000": "Trên 50,000",
+  "basedOn": "Dựa trên ",
+  "jobPortResume": "tin đăng tuyển/ hồ sơ/ lượt ứng tuyển",
+  "noDataSendMeReport": "Xin vui lòng điền để lại thông tin email. Chúng tôi sẽ gửi bạn Báo Cáo Lương ngay khi chúng tôi có dữ liệu."
 }
 
 

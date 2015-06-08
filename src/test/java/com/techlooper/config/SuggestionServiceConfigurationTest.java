@@ -8,9 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-
 @PropertySources({@PropertySource("classpath:techlooper.properties")})
-public class SkillConfigurationTest {
+public class SuggestionServiceConfigurationTest {
 
     @Bean
     public SuggestionService skillSuggestionService() {

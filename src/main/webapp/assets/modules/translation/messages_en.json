@@ -223,7 +223,7 @@
   "companyTitle": "Congratulations! You are entitle for a Citi Card",
   "companyThanks1": "Thanks for your application. You will be contacted shortly after your application has been reviewed.",
   "companyThanks2": "Thanks for your application.",
-  "companyMessages": "Get the summer heat in Hong Kong with VietnamWorks and Citibank",
+  "companyMessages": "Get a free Trolley Bag when apply for a Citi Cash Back credit card",
   "desHowToGetIt": "Help us filling the information below so our consultants can review your application and proceed with next steps",
   "fullName": "Full Name:",
   "mobileNumber": "Mobile Number:",
@@ -239,7 +239,11 @@
   "sendMeNow": "Send Me Now",
   "thanksSendMeReport": "Thanks for your information. We have just sent you email. We are here to help you Move Up!",
   "thanksSendMeReport2": "Thanks for your information.",
+  "thanksSendMeReport1": "Thanks for your information. We are here to help you Move Up!",
   "exEmailAddress": "Email",
   "emailMeJobs": "Email Me Jobs",
-  "desJobAlert": "As soon as a job matches your search criteria below, you will be notified via email. Be the first to apply and increase your chances of getting your dream job!"
+  "desJobAlert": "As soon as a job matches your search criteria below, you will be notified via email. Be the first to apply and increase your chances of getting your dream job!",
+  "basedOn": "Based on ",
+  "jobPortResume": "job posts/resumes/applicants",
+  "noDataSendMeReport": "Let us know your email. Then we can send you your report as soon as we have data."
 }
