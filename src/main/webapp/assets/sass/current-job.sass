@@ -243,11 +243,9 @@
         width: 100%
         clear: both
         float: left
-        margin-bottom: 20px
+        margin-bottom: 10px
         position: relative
-        -webkit-border-radius: 5px
-        -moz-border-radius: 5px
-        border-radius: 5px
+        padding: 10px
         .ic-update-info
           display: none
           position: absolute
@@ -259,8 +257,13 @@
           line-height: 100%
           width: 100%
           z-index: 666
-          background-color: #f8f8f8
           opacity: 0.6
+          -webkit-box-shadow: 1px 1px 5px 0px rgba(56,56,56,1)
+          -moz-box-shadow: 1px 1px 5px 0px rgba(56,56,56,1)
+          box-shadow: 1px 1px 5px 0px rgba(56,56,56,1)
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
           .ic-edit
             position: absolute
             z-index: 888
@@ -273,6 +276,11 @@
             background-color: #f3fafe
             line-height: 22px
             margin: 2px
+        .ic-update-info.show
+          display: block
+          transition: block 1.2s ease
+          -moz-transition: block 1.2s ease
+          -webkit-transition: block 1.2s ease
         .ic-update-info.clicked
           z-index: -99
         .update-info-manager
@@ -608,7 +616,7 @@
             position: absolute
             top: 30px
             left: 30%
-            z-index: 990
+            z-index: 666
             .my-current-salary
               background-color: #892890
               -webkit-border-radius: 3px
