@@ -243,7 +243,10 @@
   "emailMeJobs": "Gửi Email Cho Tôi",
   "desJobAlert": "Ngay khi có công việc thoả mãn các tiêu chí bên dưới, bạn sẽ được thông báo lập tức bằng email. Hãy là người đầu tiên ứng tuyển và có được công việc mơ ước!",
   "Less Than 10": "Thấp hơn 10",
-  "Over 50,000": "Trên 50,000"
+  "Over 50,000": "Trên 50,000",
+  "basedOn": "Dựa trên ",
+  "jobPortResume": "tin đăng tuyển/ hồ sơ/ lượt ứng tuyển",
+  "noDataSendMeReport": "Xin vui lòng điền để lại thông tin email. Chúng tôi sẽ gửi bạn Báo Cáo Lương ngay khi chúng tôi có dữ liệu."
 }
 
 
