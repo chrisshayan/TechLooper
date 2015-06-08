@@ -76,6 +76,7 @@
       text-align: center
       .arrow-up-active
         display: none
+        z-index: 999
         i
           font-size: 25px
       ul
@@ -118,7 +119,7 @@
     .navi-step-salary-review li.showNavi
       .arrow-up-active
         position: absolute
-        bottom: -14px
+        bottom: -13px
         display: block
         left: 0
         right: 0
@@ -275,7 +276,7 @@
         .ic-update-info.clicked
           z-index: -99
         .update-info-manager
-          display: none
+          display: block
           width: 100%
           padding-left: 30%
           text-align: left
@@ -333,6 +334,8 @@
             line-height: 100%
             z-index: 777
             cursor: pointer
+          .update-info-manager
+            display: none
           .update-job-information-field
             padding-bottom: 0
             input
@@ -905,6 +908,10 @@
       margin-bottom: 20px
       width: 100%
       position: relative
+      .close-loading
+        display: none !important
+      .re-open-loading
+        display: block !important
       .title-header
         background-color: #f3fafe
         -webkit-border-top-left-radius: 5px

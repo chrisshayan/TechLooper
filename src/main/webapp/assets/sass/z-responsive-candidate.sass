@@ -492,12 +492,9 @@
             width: 100%
       .salary-review-content
         .user-personal-info
-          ul
-            li
-              span
-                width: 35%
-              p
-                width: 65%
+          .update-job-information
+            width: 100%
+            padding: 0
         .your-pay-snapshot-content
           .your-pay-snapshot-info
             ul
@@ -550,8 +547,23 @@
     .salary-review-block
       .salary-review-content
         .user-personal-info
-          ul
-            width: 100%
+          .update-job-information
+            .update-job-information-field
+              label
+                width: 100%
+                clear: both
+                display: block
+              .autocomplete
+                ul
+                  z-index: 888
+                  margin: 34px 0 0
+                  padding: 0
+                input
+                  width: 100%
+              .top-three-skills
+                width: 100%
+              .selectize-control
+                width: 100%
           .verified-data
             width: 100%
             padding-top: 10px
