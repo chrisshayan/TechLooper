@@ -1,4 +1,4 @@
-techlooper.directive("srJobInformation", function () {
+techlooper.directive("srJobInformation", function ($http) {
   return {
     restrict: "E",
     replace: true,
@@ -41,6 +41,18 @@ techlooper.directive("srJobInformation", function () {
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
       }
+
+      var jobTitleSuggestion = function (jobTitle) {
+        if (!jobTitle) {return;}
+
+        $http.get("suggestion/jobTitle/" + jobTitle)
+          .success(function (data) {
+            scope.state.jobTitles = data.items.map(function (item) {return item.name;});
+          });
+      }
+
+      scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
+      scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
     }
   }
 });
