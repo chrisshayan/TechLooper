@@ -35,6 +35,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     report: {
       showReport: true,
       ableCreateNewReport: true,
+      rootClass: "user-personal-info",
 
       tabs: [
         {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},

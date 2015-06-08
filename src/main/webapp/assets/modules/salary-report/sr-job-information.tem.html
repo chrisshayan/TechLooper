@@ -2,29 +2,29 @@
   <div ng-modal="hover" class="update-job-information only-read">
     <div class="update-job-information-field">
       <label>{{'jobTitle' | translate}}:</label>
-      <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
-                    attr-placeholder="{{'jobTitle.placeholder' | translate}}"></autocomplete>
-      <div class="error-messages">{{jobTitleError}}</div>
+      <autocomplete required ng-model="sr.jobTitle" data="state.jobTitles"
+                    attr-placeholder="{{'jobTitle.placeholder' | translate}}"  required validate></autocomplete>
+      <div class="error-messages">{{error['sr.jobTitle']}}</div>
     </div>
     <div class="update-job-information-field">
       <label>{{'jobLevel' | translate}}:</label>
       <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
-                 ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
-      <div class="error-messages">{{error['salaryReview.jobLevelIds']}}</div>
+                 ng-model="sr.jobLevelIds" name="{{'jobLevel' | translate}}"  required validate></selectize>
+      <div class="error-messages">{{error['sr.jobLevelIds']}}</div>
     </div>
     <form>
       <div class="update-job-information-field">
         <label>{{'jobSkills' | translate}}:</label>
-        <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig"></auto-tagbox>
+        <auto-tagbox tags="sr.skills" config="state.skillBoxConfig"></auto-tagbox>
         <div class="error-messages">{{error.skills}}</div>
       </div>
     </form>
     <div class="update-job-information-field">
       <label>{{'jobCategory' | translate}}:</label>
       <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
-                 ng-model="salaryReview.jobCategories"
-                 name="{{'jobCategory' | translate}}"></selectize>
-      <div class="error-messages">{{error['salaryReview.jobCategories']}}</div>
+                 ng-model="sr.jobCategories" required
+                 name="{{'jobCategory' | translate}}" validate></selectize>
+      <div class="error-messages">{{error['sr.jobCategories']}}</div>
     </div>
     <div class="overlap-form" ng-click="showUpdateInfo()"></div>
     <div class="update-info-manager">
