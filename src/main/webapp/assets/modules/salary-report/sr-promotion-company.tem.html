@@ -1,69 +1,60 @@
-<div class="box-content-collapse">
-  <div class="title-header" ng-model="promotionCompanyShow" ng-click="promotionCompanyShow=!promotionCompanyShow">
-    <h3>{{jsonValue.companyPromotion.title | translate}}</h3>
-    <div class="ic-hidden" title="Minimise">
-      <span ng-show="promotionCompanyShow"><i class="fa fa-caret-up"></i></span>
-      <span ng-show="!promotionCompanyShow"><i class="fa fa-caret-down"></i></span>
-    </div>
+<div class="partner-company-content" ng-show="promotionCompanyShow">
+  <div class="partner-company-logo">
+    <img ng-src="{{jsonValue.companyPromotion.images}}" alt=""/>
   </div>
-  <div class="partner-company-content" ng-show="promotionCompanyShow">
-    <div class="partner-company-logo">
-      <img ng-src="{{jsonValue.companyPromotion.images}}" alt=""/>
+  <div class="partner-company-detail">
+    <h4>{{jsonValue.companyPromotion.tagLine | translate}}</h4>
+    <div class="apply-now-block" ng-show="state.showAskPromotion">
+      <button class="btn btn-primary btn-flat" ng-click="showPromotion()" translate="applyNow"></button>
     </div>
-    <div class="partner-company-detail">
-      <h4>{{jsonValue.companyPromotion.tagLine | translate}}</h4>
-      <div class="apply-now-block" ng-show="state.showAskPromotion">
-        <button class="btn btn-primary btn-flat" ng-click="showPromotion()" translate="applyNow"></button>
+
+    <div class="partner-company-form" ng-show="state.showPromotionForm">
+      <p translate="desHowToGetIt"></p>
+      <div class="partner-company-field">
+        <label>{{'fullName' | translate}} <strong>*</strong></label>
+        <input ng-model="promotion.fullName" type="text" class="input-text" required/>
+        <div class="error-messages">{{error['promotion.fullName']}}</div>
       </div>
-
-      <div class="partner-company-form" ng-show="state.showPromotionForm">
-        <p translate="desHowToGetIt"></p>
-        <div class="partner-company-field">
-          <label>{{'fullName' | translate}} <strong>*</strong></label>
-          <input ng-model="promotion.fullName" type="text" class="input-text" required/>
-          <div class="error-messages">{{error['promotion.fullName']}}</div>
+      <div class="partner-company-field">
+        <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
+        <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="20" required only-digits-string/>
+        <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
+      </div>
+      <div class="partner-company-field">
+        <label>{{'emailAddress' | translate}} <strong>*</strong></label>
+        <input ng-model="promotion.email" type="email" class="input-text" required/>
+        <div class="error-messages">{{error['promotion.email']}}</div>
+      </div>
+      <div class="partner-company-field">
+        <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
+        <div class="selection-group">
+          <ul>
+            <li>
+              <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
+              <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
+            </li>
+            <li>
+              <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
+              <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
+            </li>
+          </ul>
         </div>
-        <div class="partner-company-field">
-          <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
-          <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="20" required only-digits-string/>
-          <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
-        </div>
-        <div class="partner-company-field">
-          <label>{{'emailAddress' | translate}} <strong>*</strong></label>
-          <input ng-model="promotion.email" type="email" class="input-text" required/>
-          <div class="error-messages">{{error['promotion.email']}}</div>
-        </div>
-        <div class="partner-company-field">
-          <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
-          <div class="selection-group">
-            <ul>
-              <li>
-                <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
-                <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
-              </li>
-              <li>
-                <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
-                <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="partner-company-field">
-          <div class="agree-registration">
-            <input ng-model="promotion.agree"
-                   type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
-            <label for="iAgree">{{'iAgree' | translate }}</label>
-          </div>
-        </div>
-
-        <div class="apply-now-block">
-          <button class="btn btn-primary btn-flat" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
+      </div>
+      <div class="partner-company-field">
+        <div class="agree-registration">
+          <input ng-model="promotion.agree"
+                 type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
+          <label for="iAgree">{{'iAgree' | translate }}</label>
         </div>
       </div>
 
-      <div class="note-Partner-Company-Form">
-        <p>{{'committed' | translate }}</p>
+      <div class="apply-now-block">
+        <button class="btn btn-primary btn-flat" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
       </div>
+    </div>
+
+    <div class="note-Partner-Company-Form">
+      <p>{{'committed' | translate }}</p>
     </div>
   </div>
 </div>
