@@ -18,37 +18,37 @@ public class PriceJobEntity {
     @Id
     private Long createdDateTime;
 
-    @Field
+    @Field(type = FieldType.Long)
     private Integer locationId;
 
-    @Field
+    @Field(type = FieldType.Long)
     private Integer companySizeId;
 
-    @Field
+    @Field(type = FieldType.Long)
     private List<Long> jobCategories;
 
-    @Field
+    @Field(type = FieldType.String)
     private String jobTitle;
 
-    @Field
+    @Field(type = FieldType.Long)
     private List<Integer> jobLevelIds;
 
-    @Field
+    @Field(type = FieldType.Long)
     private Integer yearsExperienceId;
 
-    @Field
+    @Field(type = FieldType.Long)
     private Integer educationRequiredId;
 
-    @Field
+    @Field(type = FieldType.String)
     private List<String> skills;
 
-    @Field
+    @Field(type = FieldType.String)
     private List<String> languages;
 
-    @Field(type = FieldType.Nested)
+    @Field(type = FieldType.Object)
     private PriceJobReport priceJobReport;
 
-    @Field
+    @Field(type = FieldType.Object)
     private PriceJobSurvey priceJobSurvey;
 
     public Long getCreatedDateTime() {

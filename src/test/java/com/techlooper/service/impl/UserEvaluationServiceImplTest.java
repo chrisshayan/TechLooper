@@ -1,12 +1,10 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.config.ConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.config.ElasticsearchUserImportConfiguration;
+import com.techlooper.config.UserEvaluationServiceConfigurationTest;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReview;
-import com.techlooper.model.PriceJobReport;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.PriceJobSurvey;
 import com.techlooper.model.SalaryReport;
 import com.techlooper.service.JobSearchService;
@@ -17,14 +15,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class, ElasticsearchUserImportConfiguration.class})
+@ContextConfiguration(classes = {UserEvaluationServiceConfigurationTest.class, ElasticsearchConfiguration.class})
 public class UserEvaluationServiceImplTest {
 
     @Resource
@@ -35,104 +32,104 @@ public class UserEvaluationServiceImplTest {
 
     @Test
     public void testEvaluateJobOffer() throws Exception {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Technical Architect");
-        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setNetSalary(1500);
-        salaryReview.setSkills(Arrays.asList("Liferay", "Spring", "Hibernate"));
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("Technical Architect");
+        salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        salaryReviewEntity.setNetSalary(1500);
+        salaryReviewEntity.setSkills(Arrays.asList("Liferay", "Spring", "Hibernate"));
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getNumberOfJobs() > 0);
         assertTrue(salaryReport.getNumberOfSurveys() > 0);
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        userEvaluationService.deleteSalaryReview(salaryReview);
+        userEvaluationService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
     public void testEvaluateJobOffer2() throws Exception {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Project Manager");
-        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setNetSalary(2200);
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("Project Manager");
+        salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        salaryReviewEntity.setNetSalary(2200);
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        userEvaluationService.deleteSalaryReview(salaryReview);
+        userEvaluationService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
     public void testSalaryReviewRecommendationJobSkills() throws Exception {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Java Developer");
-        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setNetSalary(500);
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("Java Developer");
+        salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        salaryReviewEntity.setNetSalary(500);
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
-        assertTrue(salaryReview.getTopPaidJobs().size() > 0);
-        int numberOfSkills = salaryReview.getTopPaidJobs().get(0).getSkills().size();
+        assertTrue(salaryReviewEntity.getTopPaidJobs().size() > 0);
+        int numberOfSkills = salaryReviewEntity.getTopPaidJobs().get(0).getSkills().size();
         assertTrue(numberOfSkills > 0 && numberOfSkills <= 3);
         // delete data after test
-        userEvaluationService.deleteSalaryReview(salaryReview);
+        userEvaluationService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
     public void testEvaluateJobOfferWithoutJobs() throws Exception {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("ABC XYZ");
-        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setNetSalary(2000);
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("ABC XYZ");
+        salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        salaryReviewEntity.setNetSalary(2000);
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank().isNaN());
         assertTrue(salaryReport.getNumberOfJobs() + salaryReport.getNumberOfSurveys() < 10);
         // delete data after test
-        userEvaluationService.deleteSalaryReview(salaryReview);
+        userEvaluationService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
     public void testEvaluateJobOfferTotalJobLessThan10() throws Exception {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Product Manager");
-        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setSkills(Arrays.asList("Product Management", "UI/UX", "Product Strategy"));
-        salaryReview.setNetSalary(2000);
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("Product Manager");
+        salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        salaryReviewEntity.setSkills(Arrays.asList("Product Management", "UI/UX", "Product Strategy"));
+        salaryReviewEntity.setNetSalary(2000);
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        userEvaluationService.deleteSalaryReview(salaryReview);
+        userEvaluationService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
     public void testEvaluateJobOfferTotalJobLessThan10WithEmptySkill() throws Exception {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Solution Architect");
-        salaryReview.setJobLevelIds(Arrays.asList(5, 6));
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        salaryReview.setSkills(Arrays.asList("Software Testing", "Software Architecture", "Software Construction"));
-        salaryReview.setNetSalary(2000);
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReport salaryReport = salaryReview.getSalaryReport();
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("Solution Architect");
+        salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        salaryReviewEntity.setSkills(Arrays.asList("Software Testing", "Software Architecture", "Software Construction"));
+        salaryReviewEntity.setNetSalary(2000);
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        userEvaluationService.deleteSalaryReview(salaryReview);
+        userEvaluationService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
     public void testGetHigherSalaryJobs() {
-        SalaryReview salaryReview = new SalaryReview();
-        salaryReview.setJobTitle("Java Developer");
-        salaryReview.setNetSalary(1000);
-        salaryReview.setJobCategories(Arrays.asList(35L));
-        List<JobEntity> jobEntities = jobSearchService.getHigherSalaryJobs(salaryReview);
+        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
+        salaryReviewEntity.setJobTitle("Java Developer");
+        salaryReviewEntity.setNetSalary(1000);
+        salaryReviewEntity.setJobCategories(Arrays.asList(35L));
+        List<JobEntity> jobEntities = jobSearchService.getHigherSalaryJobs(salaryReviewEntity);
         assertTrue(jobEntities.size() <= 3);
     }
 
@@ -196,4 +193,4 @@ public class UserEvaluationServiceImplTest {
         boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
         assertTrue(isSaved == false);
     }
- }
+}

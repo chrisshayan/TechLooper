@@ -1,7 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
@@ -120,9 +120,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-    public SalaryReviewDto reviewSalary(@RequestBody SalaryReview salaryReview) {
-        userEvaluationService.reviewSalary(salaryReview);
-        SalaryReviewDto salaryReviewDto = dozerMapper.map(salaryReview, SalaryReviewDto.class);
+    public SalaryReviewDto reviewSalary(@RequestBody SalaryReviewEntity salaryReviewEntity) {
+        userEvaluationService.reviewSalary(salaryReviewEntity);
+        SalaryReviewDto salaryReviewDto = dozerMapper.map(salaryReviewEntity, SalaryReviewDto.class);
         salaryReviewDto.setUsdToVndRate(currencyService.usdToVndRate());
         return salaryReviewDto;
     }

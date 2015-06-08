@@ -5,7 +5,7 @@ package com.techlooper.service;
  */
 
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.HistogramEnum;
 import com.techlooper.model.Skill;
 import com.techlooper.model.TechnicalTerm;
@@ -110,7 +110,7 @@ public interface JobQueryBuilder {
 
     NativeSearchQueryBuilder getVietnamworksJobSearchQuery();
 
-    NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReview salaryReview);
+    NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewEntity salaryReviewEntity);
 
     NativeSearchQueryBuilder getJobSearchQueryBySkill(List<String> skills, List<Long> jobCategories);
 

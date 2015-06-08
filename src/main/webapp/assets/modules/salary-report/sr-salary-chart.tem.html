@@ -4,7 +4,7 @@
       <h3 translate="yourPaySnapshot"></h3>
     </div>
     <div class="your-pay-snapshot-content">
-      <h4>Based on <strong>{{salaryReport.numberOfJobs + salaryReport.numberOfSurveys}}</strong> job posts/resumes/applicants</h4>
+      <h4><span translate="basedOn"></span><strong>{{(salaryReport.numberOfJobs + salaryReport.numberOfSurveys) | number : 0}}</strong> <span translate="jobPortResume"></span></h4>
       <div class="your-pay-snapshot-info">
         <ul>
           <li>
@@ -33,7 +33,7 @@
             <div class="percent-color"></div>
             <div class="percent-number-label">{{range.percent}}%</div>
           </div>
-          <div class="my-current-rank" ng-style="{left: salaryReport.percentRank + '%'}">
+          <div class="my-current-rank" ng-style="{left: myPosition + '%'}">
             <div class="my-current-salary" ng-if="salaryReport.percentRank <= 85">
               <span>{{'you' | translate}}: ${{salaryReport.netSalary | number:0}}</span>
               <i class="fa fa-sort-down"></i>
@@ -93,9 +93,18 @@
         </div>
       </div>
     </div>
-    <sr-send-me-report ng-show="state.showSendReport"></sr-send-me-report>
-    <!--<div sr-send-me-report ng-show="state.showSendReport"></div>-->
-    <div class="alert alert-success" ng-show="state.showThanksSendMeReport" role="alert" translate="thanksSendMeReport"></div>
+    <div class="send-me-report-block">
+      <div class="send-me-report-content">
+        <form>
+          <div class="send-me-form">
+            <h4>{{'sendMeReport' | translate}}</h4>
+            <sr-send-me-report ng-show="state.showSendReport"></sr-send-me-report>
+            <div ng-show="state.showThanksSendMeReport" role="alert" translate="thanksSendMeReport"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
       <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
       <a class="create-new" ng-click="reload()">{{'createNewReport' | translate}}</a>
@@ -150,9 +159,20 @@
         <p class="note">{{'netSalary' | translate}} (US Dollar)</p>
       </div>
     </div>
+    <div class="send-me-report-block">
+      <div class="send-me-report-content">
+        <form>
+          <div class="send-me-form">
+            <h4>{{'sendMeReport' | translate}}</h4>
+              <sr-send-me-report ng-show="state.showSendReport"></sr-send-me-report>
+              <div ng-show="state.showThanksSendMeReport" role="alert" translate="thanksSendMeReport1"></div>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="btn-tabs-manager" ng-show="!salaryReview.campaign">
       <a class="go-back" ng-click="changeState('company')">{{'goBack' | translate}}</a>
-      <a class="create-new" ng-click="reload()">{{'createNewReport' | translate}}</a>
+      <a class="create-new" ng-click="changeState('default')">{{'createNewReport' | translate}}</a>
     </div>
   </div>
 </div>

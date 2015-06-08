@@ -1,7 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.JobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
@@ -31,7 +31,7 @@ public interface JobSearchService {
 
     List<JobEntity> getJobSearchResult(NativeSearchQueryBuilder queryBuilder);
 
-    List<JobEntity> getHigherSalaryJobs(SalaryReview salaryReview);
+    List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity);
 
     Double getAverageSalary(Long salaryMin, Long salaryMax);
 }

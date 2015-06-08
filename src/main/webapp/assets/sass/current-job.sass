@@ -76,6 +76,7 @@
       text-align: center
       .arrow-up-active
         display: none
+        z-index: 999
         i
           font-size: 25px
       ul
@@ -118,7 +119,7 @@
     .navi-step-salary-review li.showNavi
       .arrow-up-active
         position: absolute
-        bottom: -14px
+        bottom: -13px
         display: block
         left: 0
         right: 0
@@ -199,8 +200,8 @@
                 color: #000
           .selectize-input
             padding: 0 10px
-          .item
-            margin-top: 7px
+            .item
+              margin-top: 7px
           label
             font-size: 14px
             font-weight: 400
@@ -238,11 +239,61 @@
             min-width: 100px
 
       .user-personal-info
-        display: block
+        display: inline-block
         width: 100%
         clear: both
         float: left
-        padding-bottom: 30px
+        margin-bottom: 10px
+        position: relative
+        padding: 10px 10px 5px 10px
+        .ic-update-info
+          display: none
+          position: absolute
+          left: 0
+          right: 0
+          top: 0
+          bottom: 0
+          height: 100%
+          line-height: 100%
+          width: 100%
+          z-index: 666
+          opacity: 0.6
+          -webkit-box-shadow: 1px 1px 5px 0px rgba(56,56,56,1)
+          -moz-box-shadow: 1px 1px 5px 0px rgba(56,56,56,1)
+          box-shadow: 1px 1px 5px 0px rgba(56,56,56,1)
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          .ic-edit
+            position: absolute
+            z-index: 888
+            display: block
+            right: 0
+            top: 0
+            width: 25px
+            height: 25px
+            border: 1px solid #ccc
+            background-color: #f3fafe
+            line-height: 22px
+            margin: 2px
+        .ic-update-info.show
+          display: block
+          transition: block 1.2s ease
+          -moz-transition: block 1.2s ease
+          -webkit-transition: block 1.2s ease
+        .ic-update-info.clicked
+          z-index: -99
+        .update-info-manager
+          display: block
+          width: 100%
+          padding-left: 30%
+          text-align: left
+          a
+            cursor: pointer
+            display: inline-block
+            margin-right: 10px
+          a.btn-flat
+            padding: 6px 20px
         .update-job-information
           width: 70%
           float: left
@@ -268,19 +319,55 @@
               padding: 0 10px
               width: 100%
               font-size: 14px
-            .autocomplete input
+            .autocomplete
               width: 70%
               float: left
+              ul
+                margin: 34px 0 0
+                padding: 0
+                z-index: 666
+                .highlight
+                  background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+                  color: #000
+                li.active
+                  background-color: #f5f5f5
+              input
+                width: 100%
+                float: left
             .selectize-control
               width: 70%
               float: left
+              .selectize-input
+                padding: 0 10px
+                .item
+                  margin-top: 5px
             .top-three-skills
               width: 70%
-              .autocomplete input
-                width: 100%
+              .autocomplete
+                width: 90%
+                ul
+                  z-index: 555
+                input
+                  width: 100%
         .update-job-information.only-read
+          .overlap-form
+            display: block
+            width: 100%
+            height: 100%
+            position: absolute
+            left: 0
+            top: 0
+            right: 0
+            bottom: 0
+            line-height: 100%
+            z-index: 777
+            cursor: pointer
+          .update-info-manager
+            display: none
           .update-job-information-field
             padding-bottom: 0
+            .error-messages
+              padding-left: 30%
             input
               border: 0
               height: auto
@@ -535,7 +622,7 @@
             position: absolute
             top: 30px
             left: 30%
-            z-index: 990
+            z-index: 666
             .my-current-salary
               background-color: #892890
               -webkit-border-radius: 3px
@@ -643,10 +730,6 @@
         width: 100%
         text-align: center
         font-size: 14px
-        border: 1px solid #d4d7d8
-        -webkit-border-radius: 5px
-        -moz-border-radius: 5px
-        border-radius: 5px
         padding: 20px
         text-align: center
         margin-bottom: 20px
@@ -778,6 +861,7 @@
       padding: 15px
       width: 31%
       margin: 0 1%
+      min-height: 265px
       ul
         margin: 0
         padding: 0
@@ -851,6 +935,10 @@
       margin-bottom: 20px
       width: 100%
       position: relative
+      .close-loading
+        display: none !important
+      .re-open-loading
+        display: block !important
       .title-header
         background-color: #f3fafe
         -webkit-border-top-left-radius: 5px

@@ -15,7 +15,7 @@
           <li><strong>+ {{job.addedPercent}}%</strong></li>
           <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
           <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-          <li title="">
+          <li ng-show="job.skills.length">
             <span class="skills ellipsis">
               <i ng-repeat="skill in job.skills">{{skill}}</i>
             </span>
@@ -96,7 +96,7 @@
       </div>
     </div>
     <div class="success-alert-box">
-      <span class="alert alert-success" translate="alertSuccessJobAlert"></span>
+      <span class="thanksMessages" translate="alertSuccessJobAlert"></span>
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReview;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.PriceJobReportRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
@@ -21,9 +21,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by NguyenDangKhoa on 3/19/15.
@@ -58,39 +57,34 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
-    public void reviewSalary(SalaryReview salaryReview) {
-        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getJobSearchQueryForSalaryReview(salaryReview);
+    public void reviewSalary(SalaryReviewEntity salaryReviewEntity) {
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getJobSearchQueryForSalaryReview(salaryReviewEntity);
 
         // Get the list of jobs search result for user percentile rank calculation
         Set<JobEntity> jobs = new HashSet<>(getJobSearchResult(queryBuilder));
 
         // In order to make our report more accurate, we should add data from generated report in calculation
-        List<SalaryReview> salaryReviews = salaryReviewService.searchSalaryReview(salaryReview);
-        mergeSalaryReviewWithJobList(jobs, salaryReviews);
+        List<SalaryReviewEntity> salaryReviewEntities = salaryReviewService.searchSalaryReview(salaryReviewEntity);
+        mergeSalaryReviewWithJobList(jobs, salaryReviewEntities);
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
-            jobs.addAll(searchMoreJobBySkills(salaryReview.getSkills(), salaryReview.getJobCategories()));
+            jobs.addAll(searchMoreJobBySkills(salaryReviewEntity.getSkills(), salaryReviewEntity.getJobCategories()));
         }
 
         // In case total number of jobs search result is less than 10, add more jobs from search only by job title
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
-            jobs.addAll(searchMoreJobByJobTitle(salaryReview.getJobTitle()));
+            jobs.addAll(searchMoreJobByJobTitle(salaryReviewEntity.getJobTitle()));
         }
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         exportJobToExcel(jobs);
-
-        generateSalaryReport(salaryReview, jobs, salaryReviews.size());
-
-        // Save user salary information should happen only in production environment
-        if (isAllowToSave()) {
-            salaryReviewRepository.save(salaryReview);
-        }
+        generateSalaryReport(salaryReviewEntity, jobs, salaryReviewEntities.size());
+        salaryReviewRepository.save(salaryReviewEntity);
 
         // get top 3 higher salary jobs
-        List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReview), salaryReview.getNetSalary());
-        salaryReview.setTopPaidJobs(topPaidJobs);
+        List<TopPaidJob> topPaidJobs = findTopPaidJob(jobSearchService.getHigherSalaryJobs(salaryReviewEntity), salaryReviewEntity.getNetSalary());
+        salaryReviewEntity.setTopPaidJobs(topPaidJobs);
     }
 
     @Override
@@ -106,18 +100,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         exportJobToExcel(jobs);
-
         calculateSalaryPercentile(priceJobEntity, jobs);
-
-        // Save user salary information should happen only in production environment
-        if (isAllowToSave()) {
-            priceJobReportRepository.save(priceJobEntity);
-        }
-    }
-
-    private boolean isAllowToSave() {
-        return environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) != null ?
-                environment.getProperty("salaryEvaluation.allowToSave", Boolean.class) : false;
+        priceJobReportRepository.save(priceJobEntity);
     }
 
     private void exportJobToExcel(Set<JobEntity> jobs) {
@@ -168,9 +152,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         priceJobEntity.setCreatedDateTime(new Date().getTime());
     }
 
-    private void generateSalaryReport(SalaryReview salaryReview, Set<JobEntity> jobs, int numberOfSurveys) {
+    private void generateSalaryReport(SalaryReviewEntity salaryReviewEntity, Set<JobEntity> jobs, int numberOfSurveys) {
         SalaryReport salaryReport = new SalaryReport();
-        salaryReport.setNetSalary(salaryReview.getNetSalary());
+        salaryReport.setNetSalary(salaryReviewEntity.getNetSalary());
 
         double[] salaries = extractSalariesFromJob(jobs);
         List<SalaryRange> salaryRanges = new ArrayList<>();
@@ -188,8 +172,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReport.setNumberOfSurveys(numberOfSurveys);
         salaryReport.setNumberOfJobs(jobs.size() > 0 ? jobs.size() - numberOfSurveys : 0);
 
-        salaryReview.setSalaryReport(salaryReport);
-        salaryReview.setCreatedDateTime(new Date().getTime());
+        salaryReviewEntity.setSalaryReport(salaryReport);
+        salaryReviewEntity.setCreatedDateTime(new Date().getTime());
     }
 
     private double[] extractSalariesFromJob(Set<JobEntity> jobs) {
@@ -249,13 +233,13 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return topPaidJobs;
     }
 
-    private void mergeSalaryReviewWithJobList(Set<JobEntity> jobs, List<SalaryReview> salaryReviews) {
-        for (SalaryReview salaryReview : salaryReviews) {
+    private void mergeSalaryReviewWithJobList(Set<JobEntity> jobs, List<SalaryReviewEntity> salaryReviewEntities) {
+        for (SalaryReviewEntity salaryReviewEntity : salaryReviewEntities) {
             JobEntity jobEntity = new JobEntity();
-            jobEntity.setId(salaryReview.getCreatedDateTime().toString());
-            jobEntity.setJobTitle(salaryReview.getJobTitle());
-            jobEntity.setSalaryMin(salaryReview.getNetSalary().longValue());
-            jobEntity.setSalaryMax(salaryReview.getNetSalary().longValue());
+            jobEntity.setId(salaryReviewEntity.getCreatedDateTime().toString());
+            jobEntity.setJobTitle(salaryReviewEntity.getJobTitle());
+            jobEntity.setSalaryMin(salaryReviewEntity.getNetSalary().longValue());
+            jobEntity.setSalaryMax(salaryReviewEntity.getNetSalary().longValue());
             jobs.add(jobEntity);
         }
     }
@@ -274,15 +258,15 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return jobs;
     }
 
-    public void deleteSalaryReview(SalaryReview salaryReview) {
-        salaryReviewRepository.delete(salaryReview.getCreatedDateTime());
+    public void deleteSalaryReview(SalaryReviewEntity salaryReviewEntity) {
+        salaryReviewRepository.delete(salaryReviewEntity.getCreatedDateTime());
     }
 
     public boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey) {
-        SalaryReview salaryReview = salaryReviewRepository.findOne(salaryReviewSurvey.getSalaryReviewId());
-        if (salaryReview != null) {
-            salaryReview.setSalaryReviewSurvey(salaryReviewSurvey);
-            salaryReviewRepository.save(salaryReview);
+        SalaryReviewEntity salaryReviewEntity = salaryReviewRepository.findOne(salaryReviewSurvey.getSalaryReviewId());
+        if (salaryReviewEntity != null) {
+            salaryReviewEntity.setSalaryReviewSurvey(salaryReviewSurvey);
+            salaryReviewRepository.save(salaryReviewEntity);
             return true;
         }
         return false;

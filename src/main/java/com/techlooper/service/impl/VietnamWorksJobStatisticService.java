@@ -372,7 +372,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             DateHistogram skillHistogram = ((DateHistogram) ((InternalAggregations) ((InternalFilter) aggregations.get(encodedSkillAgg)).getAggregations())
                     .get(encodedSkillAgg));
 
-            List<Long> histogramValues = processSkillHistogramValues(skillHistogram);
+            List<Long> histogramValues = processSkillHistogramValues(skillHistogram, histogramEnum);
 
             SkillStatistic skillStatistic = new SkillStatistic();
             skillStatistic.setSkillName(trendingSkills.get(i));
@@ -388,7 +388,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     // Fill zero for trailing month which contains empty data, this is the limitation of ES histogram
-    private List<Long> processSkillHistogramValues(DateHistogram skillHistogram) {
+    private List<Long> processSkillHistogramValues(DateHistogram skillHistogram, HistogramEnum histogramEnum) {
         List<Long> histogramValues = new ArrayList<>();
         List<? extends DateHistogram.Bucket> buckets = skillHistogram.getBuckets();
 
@@ -397,7 +397,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
 
         // Start from the point of last year, month over month
-        DateTime loopDateTime = DateTime.now().minusMonths(LIMIT_NUMBER_OF_MONTHS + 1);
+        DateTime loopDateTime = DateTime.now().minusDays(histogramEnum.getTotal() * histogramEnum.getPeriod());
         int i = 0;
         while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
             if (i < buckets.size()) {

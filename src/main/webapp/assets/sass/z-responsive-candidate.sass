@@ -471,6 +471,10 @@
           width: 100%
           padding: 0
           text-align: left
+        .arrow-up-active
+          display: none !important
+      //.navi-step-salary-review.fixed
+      //  position: inherit
       .salary-review-content
         padding: 10px 0 20px 0
         .arrow-up-active
@@ -480,38 +484,30 @@
         .salary-info-form
           width: 100%
           padding: 0 5px
-          .top-three-skills
-            input
-              width: 80%
-            button
-              width: 20%
+      .salary-review-content
         .user-personal-info
-          ul
-            li
-              span
-                width: 35%
-              p
-                width: 65%
-        .your-pay-snapshot-block
-          .your-pay-snapshot-content
-            .your-pay-snapshot-info
-              ul
-                li
-                  font-size: 14px
-                  width: 100%
-                  clear: both
-                  padding: 10px 0
-                  strong
-                    font-size: 18px
-                li:last-child
-                  width: 100%
-                  padding-top: 0
-                li.fullCol
-                  padding-top: 10px
-            .your-pay-snapshot-chart
-              .my-current-salary
-                font-size: 12px
-                width: 95px
+          .update-job-information
+            width: 100%
+            padding: 0
+        .your-pay-snapshot-content
+          .your-pay-snapshot-info
+            ul
+              li
+                font-size: 14px
+                width: 100%
+                clear: both
+                padding: 10px 0
+                strong
+                  font-size: 18px
+              li:last-child
+                width: 100%
+                padding-top: 0
+              li.fullCol
+                padding-top: 10px
+          .your-pay-snapshot-chart
+            .my-current-salary
+              font-size: 12px
+              width: 95px
       .thanks-for-share-salary
         .thanks-for-share-salary-content
           ul
@@ -545,8 +541,25 @@
     .salary-review-block
       .salary-review-content
         .user-personal-info
-          ul
-            width: 100%
+          .update-job-information
+            .update-job-information-field
+              .error-messages
+                padding-left: 0
+              label
+                width: 100%
+                clear: both
+                display: block
+              .autocomplete
+                ul
+                  z-index: 888
+                  margin: 34px 0 0
+                  padding: 0
+                input
+                  width: 100%
+              .top-three-skills
+                width: 100%
+              .selectize-control
+                width: 100%
           .verified-data
             width: 100%
             padding-top: 10px
@@ -554,6 +567,22 @@
             display: none
           span.dot-line
             display: none
+        .user-personal-info
+          .update-job-information
+            .update-job-information-field
+              .autocomplete
+                width: 100%
+                input
+                  width: 100%
+              .top-three-skills
+                .autocomplete
+                  width: 80%
+                button
+                  width: 20%
+      .best-paid-list
+        p.note
+          width: 100%
+          padding-top: 0
   .email-similar-jobs
     h4
       font-size: 14px
@@ -664,6 +693,36 @@
             font-size: 18px
   .salary-review-page
     .salary-review-block
+      .send-me-report-content
+        padding: 0 10px 10px
+      .btn-tabs-manager
+        a.go-back
+          display: block
+      .partner-company-content
+        .partner-company-logo
+          width: 100%
+        .partner-company-detail
+          width: 100%
+          padding: 20px 0 0 0
+        .partner-company-form
+          padding: 0
+          .partner-company-field
+            .error-messages
+              padding-left: 0
+            label
+              width: 100%
+              text-align: left
+            input.input-text
+              width: 100%
+            .selection-group
+              width: 100%
+              ul
+                li
+                  width: 35%
+                li:first-child
+                  width: 65%
+          .agree-registration label
+            width: 90%
       .salary-review-content
         .email-similar-jobs-block
           padding: 5px 0
@@ -693,6 +752,7 @@
             clear: both
             margin: auto
             width: 100%
+            padding: 10px 5px
             input
               width: 59%
               margin-right: 1%
@@ -702,7 +762,6 @@
               clear: both
               height: 37px
               line-height: 37px
-              padding: 0 10px
             button
               width: 40%
               float: left
@@ -750,6 +809,22 @@
                   label
                     width: 90%
                     clear: none
+      .salary-review-content
+        .your-pay-snapshot-content
+          padding: 10px
+        .send-me-form
+          input
+            width: 70%
+          button
+            width: 29%
+        .salary-report-feedback-form
+          width: 100%
+          padding: 0 5px
+          ul
+            li
+              width: 100%
+              .select-group
+                width: 100%
   .price-job-page
     .price-job-block
       .navi-step-price-job
@@ -817,19 +892,7 @@
                   clear: both
                   img
                     width: 100%
-          .salary-report-feedback-form
-            width: 100%
-            ul
-              li
-                width: 100%
-                .select-group
-                  width: 100%
 
-@media (min-width: 778px)
-  .fa-bars
-    display: none
-  .logo-block img
-    position: inherit
 
 @media (min-width: 640px)
   .rwd-table
@@ -854,6 +917,33 @@
   .close-button-languages-block
     right: 0
     top: 4px
+  .salary-review-page
+    .salary-review-block
+      .box-content-collapse
+        .title-header
+          h3
+            font-size: 12px
+            padding: 0
+      .thanks-for-share-salary
+        .thanks-for-share-salary-content
+          ul li
+            padding: 5px 0
+      .send-me-report-block
+        .salary-review-content
+          .send-me-form
+            padding: 10px 5px
+            input
+              width: 100%
+              clear: both
+            button
+              width: 100%
+              margin-top: 5px
+      .salary-review-content
+        .salary-report-feedback-form
+          width: 100%
+          ul li .select-group
+            float: left
+            width: 50%
 @media (min-width: 769px) and (max-width: 999px)
   .techlooper-homepage
     .main-banner-block
@@ -861,6 +951,7 @@
         .main-feature-content-block
           .main-feature-item
             width: 48%
+            padding-top: 5px
             margin: 0 1%
           .main-feature-item.left
             margin-left: 1%
