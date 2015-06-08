@@ -12,7 +12,7 @@ techlooper.directive("srJobInformation", function ($http) {
       });
 
       var init = true;
-      
+
       scope.showUpdateInfo = function () {
         init = false;
         $('.update-job-information').removeClass('only-read');
@@ -56,6 +56,10 @@ techlooper.directive("srJobInformation", function ($http) {
 
       scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
       scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
+      scope.$on("state change success", function() {
+        $('.update-job-information').addClass('only-read');
+        $('.ic-update-info').removeClass('clicked');
+      });
     }
   }
 });

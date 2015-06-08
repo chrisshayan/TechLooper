@@ -116,65 +116,67 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     }
 
     public void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException {
-        salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
-        StringWriter stringWriter = new StringWriter();
-        Template template = emailRequest.getLang() == Language.vi ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
-
-        Map<String, Object> templateModel = new HashMap<>();
-
         SalaryReviewEntity salaryReviewEntity = salaryReviewRepository.findOne(emailRequest.getSalaryReviewId());
         salaryReviewEntity.setEmail(emailRequest.getEmail());
         salaryReviewRepository.save(salaryReviewEntity);
 
-        templateModel.put("id", Base64.getEncoder().encodeToString(salaryReviewEntity.getCreatedDateTime().toString().getBytes()));
-        templateModel.put("salaryReview", salaryReviewEntity);
-        templateModel.put("webBaseUrl", webBaseUrl);
+        if (!salaryReviewEntity.getSalaryReport().getPercentRank().isNaN()) {
+            salaryReviewMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
+            StringWriter stringWriter = new StringWriter();
+            Template template = emailRequest.getLang() == Language.vi ? salaryReviewReportTemplateVi : salaryReviewReportTemplateEn;
 
-        String configLang = "lang_" + emailRequest.getLang().getValue();
-        templateModel.put("jobLevel", vietnamworksConfiguration.findPath(salaryReviewEntity.getJobLevelIds().toString()).get(configLang).asText());
-        templateModel.put("jobSkills", salaryReviewEntity.getSkills().stream().collect(Collectors.joining(" | ")));
+            Map<String, Object> templateModel = new HashMap<>();
 
-        JsonNode categories = vietnamworksConfiguration.findPath("categories");
-        List<String> categoryIds = categories.findValuesAsText("category_id");
-        List<String> list = new ArrayList<>();
-        salaryReviewEntity.getJobCategories().stream()
-                .map(aLong -> aLong.toString())
-                .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
-        templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
+            templateModel.put("id", Base64.getEncoder().encodeToString(salaryReviewEntity.getCreatedDateTime().toString().getBytes()));
+            templateModel.put("salaryReview", salaryReviewEntity);
+            templateModel.put("webBaseUrl", webBaseUrl);
 
-        JsonNode locations = vietnamworksConfiguration.findPath("locations");
-        List<String> locationIds = vietnamworksConfiguration.findValuesAsText("location_id");
-        templateModel.put("location", locations.get(locationIds.indexOf(salaryReviewEntity.getLocationId().toString())).get(configLang).asText());
+            String configLang = "lang_" + emailRequest.getLang().getValue();
+            templateModel.put("jobLevel", vietnamworksConfiguration.findPath(salaryReviewEntity.getJobLevelIds().toString()).get(configLang).asText());
+            templateModel.put("jobSkills", salaryReviewEntity.getSkills().stream().collect(Collectors.joining(" | ")));
 
-        templateModel.put("date", new SimpleDateFormat("dd/MM/yyyy").format(new Date(salaryReviewEntity.getCreatedDateTime())));
+            JsonNode categories = vietnamworksConfiguration.findPath("categories");
+            List<String> categoryIds = categories.findValuesAsText("category_id");
+            List<String> list = new ArrayList<>();
+            salaryReviewEntity.getJobCategories().stream()
+                    .map(aLong -> aLong.toString())
+                    .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
+            templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
 
-        List<SalaryRange> lessSalaryRanges = new ArrayList<>();
-        List<SalaryRange> moreSalaryRanges = new ArrayList<>();
-        List<SalaryRange> salaryRanges = salaryReviewEntity.getSalaryReport().getSalaryRanges();
-        salaryRanges.forEach(salaryRange -> {
-            if (salaryRange.getPercent() > salaryReviewEntity.getSalaryReport().getPercentRank()) {
-                moreSalaryRanges.add(salaryRange);
-            } else if (salaryRange.getPercent() < salaryReviewEntity.getSalaryReport().getPercentRank()) {
-                lessSalaryRanges.add(salaryRange);
-            }
-        });
+            JsonNode locations = vietnamworksConfiguration.findPath("locations");
+            List<String> locationIds = vietnamworksConfiguration.findValuesAsText("location_id");
+            templateModel.put("location", locations.get(locationIds.indexOf(salaryReviewEntity.getLocationId().toString())).get(configLang).asText());
 
-        lessSalaryRanges.sort((sala, salb) -> salb.getPercent().compareTo(sala.getPercent()));
-        moreSalaryRanges.sort((sala, salb) -> salb.getPercent().compareTo(sala.getPercent()));
+            templateModel.put("date", new SimpleDateFormat("dd/MM/yyyy").format(new Date(salaryReviewEntity.getCreatedDateTime())));
 
-        templateModel.put("lessSalaryRanges", lessSalaryRanges);
-        templateModel.put("moreSalaryRanges", moreSalaryRanges);
+            List<SalaryRange> lessSalaryRanges = new ArrayList<>();
+            List<SalaryRange> moreSalaryRanges = new ArrayList<>();
+            List<SalaryRange> salaryRanges = salaryReviewEntity.getSalaryReport().getSalaryRanges();
+            salaryRanges.forEach(salaryRange -> {
+                if (salaryRange.getPercent() > salaryReviewEntity.getSalaryReport().getPercentRank()) {
+                    moreSalaryRanges.add(salaryRange);
+                } else if (salaryRange.getPercent() < salaryReviewEntity.getSalaryReport().getPercentRank()) {
+                    lessSalaryRanges.add(salaryRange);
+                }
+            });
 
-        template.process(templateModel, stringWriter);
+            lessSalaryRanges.sort((sala, salb) -> salb.getPercent().compareTo(sala.getPercent()));
+            moreSalaryRanges.sort((sala, salb) -> salb.getPercent().compareTo(sala.getPercent()));
 
-        String emailSubject = String.format("vn".equalsIgnoreCase(emailRequest.getLang().getValue()) ?
-                salaryReviewSubjectVn : salaryReviewSubjectEn, salaryReviewEntity.getJobTitle());
-        salaryReviewMailMessage.setSubject(MimeUtility.encodeText(emailSubject, "UTF-8", null));
-        salaryReviewMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+            templateModel.put("lessSalaryRanges", lessSalaryRanges);
+            templateModel.put("moreSalaryRanges", moreSalaryRanges);
 
-        stringWriter.flush();
+            template.process(templateModel, stringWriter);
 
-        mailSender.send(salaryReviewMailMessage);
+            String emailSubject = String.format("vn".equalsIgnoreCase(emailRequest.getLang().getValue()) ?
+                    salaryReviewSubjectVn : salaryReviewSubjectEn, salaryReviewEntity.getJobTitle());
+            salaryReviewMailMessage.setSubject(MimeUtility.encodeText(emailSubject, "UTF-8", null));
+            salaryReviewMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+            stringWriter.flush();
+
+            mailSender.send(salaryReviewMailMessage);
+        }
     }
 
     public void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
