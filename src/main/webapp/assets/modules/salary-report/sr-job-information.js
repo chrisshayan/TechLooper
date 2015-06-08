@@ -33,7 +33,6 @@ techlooper.directive("srJobInformation", function () {
       }
 
       scope.cancelUpdateSalaryReport = function () {
-        console.log(scope.salaryReview);
         scope.cloneSalaryReview && (scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview));
         scope.sr = $.extend(true, {}, scope.salaryReview);
         delete scope.cloneSalaryReview;
