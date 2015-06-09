@@ -63,6 +63,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       var val = $('#txtBaseSalary').val();
       if(val ===''){
         $scope.salaryNetError = $translate.instant('requiredThisField');
+      }else{
+        delete $scope.salaryNetError;
       }
     }
     var bodyHeight = $(window).height();
