@@ -38,6 +38,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       showReport: true,
       ableCreateNewReport: true,
       rootClass: "user-personal-info",
+      editableSalaryReview: true,
       order: 3,
 
       tabs: [

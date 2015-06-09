@@ -11,10 +11,9 @@ techlooper.directive("srJobInformation", function ($http) {
         scope.sr = $.extend(true, {}, scope.salaryReview);
       });
 
-      var init = true;
 
       scope.showUpdateInfo = function () {
-        init = false;
+        delete scope.state.editableSalaryReview;
         $('.update-job-information').removeClass('only-read');
         $('.ic-update-info').addClass('clicked');
       };
@@ -28,10 +27,12 @@ techlooper.directive("srJobInformation", function ($http) {
       scope.updateSalaryReport = function () {
         scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         scope.salaryReview = $.extend(true, {}, scope.sr);
+        delete scope.salaryReview.topPaidJobs;
         delete scope.cloneSalaryReview;
         $('.send-me-report-form').removeClass('ng-hide');
         $('.send-me-report-form').show();
         $('.thanksSendMeReport').addClass('ng-hide');
+
 
         if (scope.changeState("report")) {
           $('.update-job-information').addClass('only-read');
@@ -57,7 +58,7 @@ techlooper.directive("srJobInformation", function ($http) {
       }
 
       var jobTitleSuggestion = function (jobTitle) {
-        if (!jobTitle || init) {return;}
+        if (!jobTitle || scope.state.editableSalaryReview) {return;}
 
         $http.get("suggestion/jobTitle/" + jobTitle)
           .success(function (data) {
@@ -65,8 +66,10 @@ techlooper.directive("srJobInformation", function ($http) {
           });
       }
 
-      scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
-      scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
+      delete scope.state.jobTitles;
+
+      scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);});
+      scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);});
       scope.$on("state change success", function() {
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
