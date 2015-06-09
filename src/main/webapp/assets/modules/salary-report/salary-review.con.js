@@ -15,7 +15,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       tabs: [
         {title: "aboutYourJob", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.default);}},
         {title: "aboutYourCompany", onClick: function(tab) {$scope.changeState(state.company);}},
-        {title: "yourSalaryReport", onClick: function(tab) {$scope.changeState(state.report);}}
+        {title: "yourSalaryReport", class: "noPointer", onClick: function(tab) {$scope.changeState(state.report);}}
       ],
 
       rootClass: "jobRoot"
@@ -59,6 +59,12 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.salaryReview = {}
 
   $scope.changeState = function (st, validateCurrentState) {
+    if(st === 'company'){
+      var val = $('#txtBaseSalary').val();
+      if(val ===''){
+        $scope.salaryNetError = $translate.instant('requiredThisField');
+      }
+    }
     var bodyHeight = $(window).height();
     if ($('body').height() <= bodyHeight) {
       $('.navi-step-salary-review').removeClass('fixed');
