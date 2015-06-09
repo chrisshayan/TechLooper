@@ -37,7 +37,7 @@
     <div class="see-more-jobs">
       <p translate="higherJobOfferDisclaimer" class="note" ng-show="state.showJobAlert"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary | number:0}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
     </div>
-    <div class="email-me-similar-jobs">
+    <div class="email-me-similar-jobs" ng-show="state.showJobAlertButton">
       <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
     </div>
     <div class="email-similar-jobs-block">
@@ -103,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="success-alert-box job-alert-thanks">
+    <div class="success-alert-box job-alert-thanks" ng-show="state.showJobAlertThanks">
       <h3 translate="jobAlertTitle"></h3>
       <span class="thanksMessages" translate="alertSuccessJobAlert"></span>
     </div>

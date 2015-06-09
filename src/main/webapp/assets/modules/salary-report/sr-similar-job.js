@@ -6,20 +6,33 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
     link: function (scope, element, attr, ctrl) {
       var timeToSends = $.extend(true, [], jsonValue.timeToSends);
 
+      scope.$watch("salaryReview", function() {
+        if (scope.state.editableSalaryReview) {
+          scope.jobAlert = $.extend(true, {}, scope.salaryReview);
+          scope.jobAlert.frequency = timeToSends[0].id;
+          delete scope.jobAlert.salaryReport;
+          delete scope.jobAlert.topPaidJobs;
+        }
+      });
+
+
       scope.doJobAlert = function () {
-        $('.email-me-similar-jobs').hide();
+        //$('.email-me-similar-jobs').hide();
         $('.email-similar-jobs-block').slideDown("normal");
-        var jobAlert = $.extend({}, scope.salaryReview);
-        jobAlert.frequency = timeToSends[0].id;
-        delete jobAlert.salaryReport;
-        delete jobAlert.topPaidJobs;
-        scope.jobAlert = jobAlert;
+        //var jobAlert = $.extend({}, scope.salaryReview);
+        //jobAlert.frequency = timeToSends[0].id;
+        //delete jobAlert.salaryReport;
+        //delete jobAlert.topPaidJobs;
+        //scope.jobAlert = jobAlert;
         $('#txtEmailJobAlert').focus();
+        delete scope.state.showJobAlertButton;
       }
       scope.hiddenJobAlertForm = function(){
-        $('.email-similar-jobs-block').hide();
+        //$('.email-similar-jobs-block').hide();
         $('.email-me-similar-jobs').slideDown("normal");
+        scope.state.showJobAlertButton = true;
       }
+
       scope.createJobAlert = function () {
         var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
         scope.error = error;
@@ -32,10 +45,9 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         jobAlert.salaryReviewId = jobAlert.createdDateTime;
         jobAlert.frequency = 3;// is Weekly, @see vnwConfigService.timeToSendsSelectize
         connectionFactory.createJobAlert(jobAlert).then(function () {
-          $('.email-similar-jobs-block').slideUp("normal", function () {
-            $('.success-alert-box').addClass('show');
-          });
+          $('.email-similar-jobs-block').slideUp("normal");
         });
+        scope.state.showJobAlertThanks = true;
       }
 
       var timeout;

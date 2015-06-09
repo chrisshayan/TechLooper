@@ -13,7 +13,6 @@ techlooper.directive("srJobInformation", function ($http) {
         }
       });
 
-
       scope.showUpdateInfo = function () {
         delete scope.state.editableSalaryReview;
 

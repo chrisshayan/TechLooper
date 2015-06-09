@@ -40,6 +40,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       rootClass: "user-personal-info",
       editableSalaryReview: true,
       showSendReport: true,
+      showJobAlertButton: true,
       order: 3,
 
       tabs: [
