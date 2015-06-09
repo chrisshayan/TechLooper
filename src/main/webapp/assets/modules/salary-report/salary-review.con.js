@@ -58,6 +58,27 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.selectize = vnwConfigService;
   $scope.salaryReview = {}
 
+  $scope.validateSalaryReview = function (st) {
+    if (!$scope.salaryReview) {
+      return true;
+    }
+
+    var elems = $("." + st.rootClass).find("[validate]");
+    var error = validatorService.validate(elems);
+
+    $scope.salaryReview.skills = $scope.salaryReview.skills || [];
+    if ($scope.salaryReview.skills.length === 0) {
+      error.skills = $translate.instant('requiredThisField');
+    }
+    $scope.error = error;
+
+    if (!$.isEmptyObject(error)) {
+      return false;
+    }
+
+    return true;
+  }
+
   $scope.changeState = function (st, validateCurrentState) {
     var bodyHeight = $(window).height();
     if ($('body').height() <= bodyHeight) {
@@ -77,18 +98,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
           return false;
         }
 
-        var elems = $("." + stateItem.rootClass).find("[validate]");
-        var error = validatorService.validate(elems);
-
-        $scope.salaryReview.skills = $scope.salaryReview.skills || [];
-        if ($scope.salaryReview.skills.length === 0) {
-          error.skills = $translate.instant('requiredThisField');
-        }
-        $scope.error = error;
-
-        if (!$.isEmptyObject(error)) {
-          valid = false;
+        if (!$scope.validateSalaryReview(stateItem)) {
           preferState = $.extend(true, {}, stateItem);
+          valid = false;
           return false;
         }
       });
@@ -165,6 +177,29 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.reload = function() {
     $route.reload();
   }
+
   localStorage.setItem('PROMOTION-KEY', 'no');
 
+  //$scope.$watch("salaryReview", function (newVal, oldVal) {
+  //  for (var prop in newVal) {
+  //    if (newVal[prop] !== oldVal[prop]) {
+  //      validatorService.validateElem($("[ng-model='salaryReview." + prop + "']"), newVal[prop], $scope.error);
+  //    }
+  //  }
+  //}, true);
+  //
+  //$scope.error = {};
+  //
+  //$scope.$watch("salaryReview.skills", function (newVal, oldVal) {
+  //  //validatorService.validateElem($("[ng-model='salaryReview." + prop + "']"), newVal[prop], $scope.error);
+  //  if (!newVal) return;
+  //  //newVal = newVals || [];
+  //  if (newVal.length === 0) {
+  //    $scope.error.skills = $translate.instant('requiredThisField');
+  //  }
+  //  else {
+  //    delete $scope.error.skills;
+  //  }
+  //
+  //}, true);
 });
