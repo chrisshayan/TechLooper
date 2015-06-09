@@ -64,7 +64,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
 
     var elems = $("." + st.rootClass).find("[validate]");
-    console.log(st.rootClass,elems);
     var error = validatorService.validate(elems);
 
     $scope.salaryReview.skills = $scope.salaryReview.skills || [];
@@ -72,7 +71,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       error.skills = $translate.instant('requiredThisField');
     }
     $scope.error = error;
-    console.log($scope.error);
 
 
     if (!$.isEmptyObject(error)) {
