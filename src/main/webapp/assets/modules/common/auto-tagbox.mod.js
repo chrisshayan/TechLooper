@@ -28,6 +28,8 @@ techlooper.directive('autoTagbox', function ($timeout) {
         }
         else if (scope.tags.indexOf(lowerTag) > -1) {
           return scope.errors.push("hasExist");
+        } else if(scope.config.newTag.length > 40){
+          return scope.errors.push("tooLong");
         }
 
         scope.tags.push(lowerTag);
