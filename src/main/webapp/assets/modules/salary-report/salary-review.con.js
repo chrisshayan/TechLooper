@@ -52,7 +52,10 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
   $scope.changeState = function (st) {
     st = st || state.default;
-    var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
+    var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);var bodyHeight = $(window).height();
+    if ($('body').height() <= bodyHeight) {
+      $('.navi-step-salary-review').removeClass('fixed');
+    }
     if (!state.init) {
       var elems = $("." + $scope.state.rootClass).find("[validate]");
       var error = validatorService.validate(elems);
