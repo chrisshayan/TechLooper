@@ -8,7 +8,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     searchField: ['translate']
   }
 
-  var vnwLang = $translate.use() === "en" ? "en" : "vn";
+  var vnwLang = "lang_" + ($translate.use() === "en" ? "en" : "vn");
 
   var locations = [
     {
@@ -657,6 +657,11 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   }
 
   var instance = {
+    getLocationText: function (locationId) {
+      var text = "";
+      $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});
+      return text;
+    },
 
     jobLevelsSelectize: {
       items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
@@ -681,7 +686,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
     locationsSelectize: {
       items: locations.map(function (location) {
-        return {id: location.location_id, translate: location["lang_" + vnwLang]};
+        return {id: location.location_id, translate: location[vnwLang]};
       }),
       config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },
@@ -699,7 +704,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
     industriesSelectize: {
       items: categories.map(function (cate) {
-        return {id: cate.category_id, translate: cate["lang_" + vnwLang]};
+        return {id: cate.category_id, translate: cate[vnwLang]};
       }),
       config: $.extend(true, {}, {
         valueField: 'id',
