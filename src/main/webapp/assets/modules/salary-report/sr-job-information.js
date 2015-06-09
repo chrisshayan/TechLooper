@@ -29,6 +29,9 @@ techlooper.directive("srJobInformation", function ($http) {
         scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         scope.salaryReview = $.extend(true, {}, scope.sr);
         delete scope.cloneSalaryReview;
+        $('.send-me-report-form').removeClass('ng-hide');
+        $('.send-me-report-form').show();
+        $('.thanksSendMeReport').addClass('ng-hide');
 
         if (scope.changeState("report")) {
           $('.update-job-information').addClass('only-read');
