@@ -1,9 +1,9 @@
-techlooper.directive("srAboutYourJob", function ($http) {
+techlooper.directive("srAboutYourJob", function ($http, validatorService) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/salary-report/sr-about-your-job.tem.html",
-    link: function (scope, element, attr, ctrl) {
+    link: function (scope, element, attr, ngModel) {
       var jobTitleSuggestion = function (jobTitle) {
         if (!jobTitle) {return;}
 
@@ -13,7 +13,9 @@ techlooper.directive("srAboutYourJob", function ($http) {
           });
       }
 
-      scope.$watch("salaryReview.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
+      scope.$watch("salaryReview.jobTitle", function (newVal) {
+        jobTitleSuggestion(newVal);
+      });
       scope.$watch("salaryReview.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
 
       scope.$watch("state.skillBoxConfig.newTag", function (newVal) {
@@ -24,6 +26,14 @@ techlooper.directive("srAboutYourJob", function ($http) {
             scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
           });
       });
+
+      //scope.$watch("salaryReview", function (newVal, oldVal) {
+      //  for (var prop in newVal) {
+      //    if (newVal[prop] !== oldVal[prop]) {
+      //      validatorService.validate([$("[ng-model='salaryReview." + prop + "']")], scope.error);
+      //    }
+      //  }
+      //}, true);
     }
   }
 });

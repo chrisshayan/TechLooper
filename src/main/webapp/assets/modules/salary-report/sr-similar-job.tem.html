@@ -40,7 +40,7 @@
     <div class="email-me-similar-jobs" ng-show="state.showJobAlertButton">
       <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
     </div>
-    <div class="email-similar-jobs-block">
+    <div class="email-similar-jobs-block" ng-show="!state.showJobAlertButton">
       <div class="ic-close" ng-click="hiddenJobAlertForm()" title="Close"> x </div>
       <div class="email-similar-jobs-form">
         <h3 translate="jobAlertTitle"></h3>

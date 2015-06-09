@@ -733,6 +733,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
       instance[selectizeKey].config.getSelectize().then(function (selectize) {
         $translate(item.placeholder).then(function (translate) {
+          instance[selectizeKey].config.placeholder = translate;
           selectize.setPlaceholder(translate);
         });
       });
