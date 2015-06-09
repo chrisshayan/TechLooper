@@ -129,8 +129,8 @@
   "targetPay": "Lương Cần Trả",
   "median": "Phân vị",
   "exHoChiMinh": "Ví dụ: Hồ Chí Minh",
-  "exManager": "Ví dụ: Quản Lý",
-  "exItSoftware": "Ví dụ: IT - Phần mềm, IT-Phần cứng/Mạng",
+  "exManager": "Ví dụ: Trưởng Phòng",
+  "exItSoftware": "Ví dụ: IT - Phần Mềm, IT - Phần Cứng/Mạng",
   "ex149": "Ví dụ: 1-49",
   "role": "Vai Trò",
   "categories": "Ngành Nghề Công Việc",
@@ -247,7 +247,8 @@
   "Over 50,000": "Trên 50,000",
   "basedOn": "Dựa trên ",
   "jobPortResume": "tin đăng tuyển/ hồ sơ/ lượt ứng tuyển",
-  "noDataSendMeReport": "Xin vui lòng điền để lại thông tin email. Chúng tôi sẽ gửi bạn Báo Cáo Lương ngay khi chúng tôi có dữ liệu."
+  "noDataSendMeReport": "Xin vui lòng điền để lại thông tin email. Chúng tôi sẽ gửi bạn Báo Cáo Lương ngay khi chúng tôi có dữ liệu.",
+  "tooLong": "Tên kỹ năng tối đa 40 ký tự."
 }
 
 
