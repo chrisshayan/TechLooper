@@ -32,7 +32,7 @@ techlooper.directive("srJobInformation", function ($http) {
         $('.send-me-report-form').removeClass('ng-hide');
         $('.send-me-report-form').show();
         $('.thanksSendMeReport').addClass('ng-hide');
-
+        scope.sendMeReport.email = '';
 
         if (scope.changeState("report")) {
           $('.update-job-information').addClass('only-read');
