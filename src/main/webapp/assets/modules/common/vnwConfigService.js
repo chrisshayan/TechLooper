@@ -719,18 +719,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         searchField: ['translate']
       }, createSelectizeConfig("industriesSelectize"))
     }
-
-    //timeToSendsSelectize: {
-    //  items: $.extend(true, [], jsonValue.timeToSends),
-    //  config: $.extend(true, {}, createSelectizeConfig("timeToSendsSelectize"), translateConfigBase)
-    //}
   }
 
   $.each([
       {key: "jobLevelsSelectize", placeholder: "exManager"},
       {key: "yobsSelectize", placeholder: "exYob"},
       {key: "gendersSelectize", placeholder: "exMale"},
-      //{key: "timeToSendsSelectize", placeholder: "exDay"},
       {key: "locationsSelectize", placeholder: "exHoChiMinh"},
       {key: "industriesSelectize", placeholder: "exItSoftware"},
       {key: "companySizeSelectize", placeholder: "ex149"}
@@ -748,6 +742,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         $translate(row.translate || row.size).then(function (translate) {
           if (!translate) {return true;}
           row.translate = translate;
+          row.size && (row.size = translate);
         });
       });
     });
