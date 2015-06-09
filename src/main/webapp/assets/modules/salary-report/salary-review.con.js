@@ -10,6 +10,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         items: [],
         required: true
       },
+      order: 1,
 
       tabs: [
         {title: "aboutYourJob", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.default);}},
@@ -22,6 +23,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
     company: {
       showCompany: true,
+      order: 2,
 
       tabs: [
         {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
@@ -36,6 +38,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       showReport: true,
       ableCreateNewReport: true,
       rootClass: "user-personal-info",
+      order: 3,
 
       tabs: [
         {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
@@ -53,7 +56,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.changeState = function (st) {
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
-    if (!state.init) {
+    if (!state.init && (preferState.order > $scope.state.order)) {
       var elems = $("." + $scope.state.rootClass).find("[validate]");
       var error = validatorService.validate(elems);
 
@@ -67,6 +70,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         return false;
       }
     }
+
     delete state.init;
     $scope.state = preferState;
     $scope.$emit("state change success");
