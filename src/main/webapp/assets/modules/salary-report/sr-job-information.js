@@ -8,12 +8,18 @@ techlooper.directive("srJobInformation", function ($http) {
       //scope.salaryReview = $.extend(true, {}, scope.salaryReview);
 
       scope.$watch("salaryReview", function() {
-        scope.sr = $.extend(true, {}, scope.salaryReview);
+        if (scope.state.editableSalaryReview) {
+          scope.sr = $.extend(true, {}, scope.salaryReview);
+        }
       });
 
 
       scope.showUpdateInfo = function () {
         delete scope.state.editableSalaryReview;
+
+        scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
+        //scope.sr = $.extend(true, {}, scope.salaryReview);
+
         $('.update-job-information').removeClass('only-read');
         $('.ic-update-info').addClass('clicked');
       };
@@ -25,8 +31,9 @@ techlooper.directive("srJobInformation", function ($http) {
       });
 
       scope.updateSalaryReport = function () {
-        scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
+        //scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         scope.salaryReview = $.extend(true, {}, scope.sr);
+
         delete scope.salaryReview.topPaidJobs;
         delete scope.cloneSalaryReview;
         $('.send-me-report-form').removeClass('ng-hide');
@@ -34,9 +41,12 @@ techlooper.directive("srJobInformation", function ($http) {
         $('.thanksSendMeReport').addClass('ng-hide');
         scope.sendMeReport.email = '';
 
-        if (scope.changeState("report")) {
+        if (scope.changeState("report", true)) {
           $('.update-job-information').addClass('only-read');
           $('.ic-update-info').removeClass('clicked');
+        }
+        else {
+          scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview);
         }
 
         ga('send', {
@@ -48,7 +58,8 @@ techlooper.directive("srJobInformation", function ($http) {
       }
 
       scope.cancelUpdateSalaryReport = function () {
-        scope.cloneSalaryReview && (scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview));
+        scope.state.editableSalaryReview = true;
+        //scope.cloneSalaryReview && (scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview));
         scope.sr = $.extend(true, {}, scope.salaryReview);
         delete scope.cloneSalaryReview;
         delete scope.error;
