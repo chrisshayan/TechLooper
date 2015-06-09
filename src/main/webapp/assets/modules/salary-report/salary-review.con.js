@@ -38,6 +38,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       showReport: true,
       ableCreateNewReport: true,
       rootClass: "user-personal-info",
+      editableSalaryReview: true,
       order: 3,
 
       tabs: [
@@ -47,6 +48,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       ]
     }
   }
+
+  state.orders = [state.default, state.company, state.report];
 
   var campaign = $location.search();
 
@@ -61,19 +64,29 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
-    if (!state.init && (preferState.order > $scope.state.order)) {
-      var elems = $("." + $scope.state.rootClass).find("[validate]");
-      var error = validatorService.validate(elems);
+    if (!state.init) {
+      //&& (preferState.order > $scope.state.order)
+      var valid = true;
+      $.each(state.orders, function(i, stateItem) {
+        if (stateItem.order >= preferState.order) {
+          return false;
+        }
 
-      $scope.salaryReview.skills = $scope.salaryReview.skills || [];
-      if ($scope.salaryReview.skills.length === 0) {
-        error.skills = $translate.instant('requiredThisField');
-      }
-      $scope.error = error;
+        var elems = $("." + stateItem.rootClass).find("[validate]");
+        var error = validatorService.validate(elems);
 
-      if (!$.isEmptyObject(error)) {
-        return false;
-      }
+        $scope.salaryReview.skills = $scope.salaryReview.skills || [];
+        if ($scope.salaryReview.skills.length === 0) {
+          error.skills = $translate.instant('requiredThisField');
+        }
+        $scope.error = error;
+
+        if (!$.isEmptyObject(error)) {
+          valid = false;
+          preferState = $.extend(true, {}, stateItem);
+          return false;
+        }
+      });
     }
     delete state.init;
     $scope.state = preferState;

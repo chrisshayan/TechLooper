@@ -714,23 +714,16 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         valueField: 'id',
         labelField: 'translate',
         delimiter: '|',
-        plugins: ['remove_button', "techlooper"],
         maxItems: 3,
         searchField: ['translate']
-      }, createSelectizeConfig("industriesSelectize"))
+      }, createSelectizeConfig("industriesSelectize"), {plugins: ['remove_button', "techlooper"]})
     }
-
-    //timeToSendsSelectize: {
-    //  items: $.extend(true, [], jsonValue.timeToSends),
-    //  config: $.extend(true, {}, createSelectizeConfig("timeToSendsSelectize"), translateConfigBase)
-    //}
   }
 
   $.each([
       {key: "jobLevelsSelectize", placeholder: "exManager"},
       {key: "yobsSelectize", placeholder: "exYob"},
       {key: "gendersSelectize", placeholder: "exMale"},
-      //{key: "timeToSendsSelectize", placeholder: "exDay"},
       {key: "locationsSelectize", placeholder: "exHoChiMinh"},
       {key: "industriesSelectize", placeholder: "exItSoftware"},
       {key: "companySizeSelectize", placeholder: "ex149"}
@@ -748,6 +741,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         $translate(row.translate || row.size).then(function (translate) {
           if (!translate) {return true;}
           row.translate = translate;
+          row.size && (row.size = translate);
         });
       });
     });

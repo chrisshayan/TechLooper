@@ -56,14 +56,14 @@
             translate="thanksForShare.headline.under70percent"></h3>
         <h3 ng-if="salaryReport.percentRank >= 70 && salaryReport.percentRank < 100"
             translate="thanksForShare.headline.under100percent"></h3>
-        <p class="short-content" ng-show="!showThanksContent">
+        <p class="short-content" ng-show="!showThanksContentBox">
           <span translate="minimiseContent"></span>
-          <a ng-model="showThanksContent" ng-click="showThanksContent=!showThanksContent" translate="seeMore"></a>
+          <a ng-model="showThanksContentBox" ng-click="showThanksContentBox=!showThanksContentBox">{{'seeMore' | translate}}</a>
         </p>
-        <div class="thanks-for-share-salary-content" ng-show="showThanksContent">
+        <div class="thanks-for-share-salary-content" ng-show="showThanksContentBox">
           <div class="box-content-collapse">
             <div class="title-header">
-              <div class="ic-close" title="Close" ng-click="showThanksContent=!showThanksContent">
+              <div class="ic-close" title="Close" ng-click="showThanksContentBox=!showThanksContentBox">
                 x
               </div>
             </div>
