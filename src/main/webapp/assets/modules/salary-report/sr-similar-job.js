@@ -30,6 +30,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
       scope.hiddenJobAlertForm = function(){
         //$('.email-similar-jobs-block').hide();
         $('.email-me-similar-jobs').slideDown("normal");
+        $('.email-similar-jobs-block').slideUp("normal");
         scope.state.showJobAlertButton = true;
       }
 
