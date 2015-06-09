@@ -54,6 +54,10 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.salaryReview = {}
 
   $scope.changeState = function (st) {
+    if ($('body').height() <= bodyHeight) {
+      $('.navi-step-salary-review').removeClass('fixed');
+    }
+
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
     if (!state.init && (preferState.order > $scope.state.order)) {
@@ -100,12 +104,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       catch (e) {}
     }
 
-    if (campaign.id) {
-      $http.get(jsonValue.httpUri.salaryReview + "/" + campaign.id)
-        .success(function (data, status, headers, config) {
-          $scope.salaryReview = data;
-          //$scope.salaryReview.hasCam = !$.isEmptyObject(campaign);
-          utils.sendNotification(jsonValue.notifications.loaded);
+    if (campaign.id) nValue.notifications.loaded);
         });
     }
     else {
