@@ -406,18 +406,23 @@
                     padding-left: 0
             .selectize-control.multi
               .selectize-input > div
-                border: 0
                 background-color: transparent
                 .remove
                   display: none
               .item
+                border: 0
                 border-left: 1px solid #cccccc
                 padding: 0 5px
+                -webkit-border-radius: 0
+                -moz-border-radius: 0
+                border-radius: 0
               .item.active
                 color: #000
               .item:first-child
                 border: 0
                 padding-left: 0
+            .selectize-control.plugin-remove_button [data-value]
+              padding-right: 5px !important
         .verified-data
           width: 20%
           float: right
@@ -862,6 +867,7 @@
       width: 31%
       margin: 0 1%
       min-height: 265px
+      position: relative
       ul
         margin: 0
         padding: 0
@@ -911,6 +917,10 @@
         float: left
         text-align: right
         padding: 15px 0 0 0
+        position: absolute
+        right: 10px
+        bottom: 10px
+        z-index: 600
 
     .best-paid-company.oneColl
       width: 97%
