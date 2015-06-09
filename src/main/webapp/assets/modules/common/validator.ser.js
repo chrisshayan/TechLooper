@@ -11,6 +11,7 @@ techlooper.factory("validatorService", function ($translate) {
           error[$(elem).attr("ng-model")] = $translate.instant('emailInvalid');
         }
       });
+      console.log(error);
       return error;
     },
 
