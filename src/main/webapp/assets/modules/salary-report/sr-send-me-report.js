@@ -5,8 +5,9 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
     templateUrl: "modules/salary-report/sr-send-me-report.tem.html",
     link: function (scope, element, attr, ctrl) {
       scope.sendMeNow = function () {
-        var error = validatorService.validate($(".send-me-form").find('input'));
+        var error = validatorService.validate($("#emailReport"));
         scope.error = error;
+        console.log(scope.error)
         if (!$.isEmptyObject(error)) {
           return;
         }
