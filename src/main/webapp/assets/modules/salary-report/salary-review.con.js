@@ -54,6 +54,11 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.salaryReview = {}
 
   $scope.changeState = function (st) {
+    var bodyHeight = $(window).height();
+    if ($('body').height() <= bodyHeight) {
+      $('.navi-step-salary-review').removeClass('fixed');
+    }
+    
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
     if (!state.init && (preferState.order > $scope.state.order)) {
