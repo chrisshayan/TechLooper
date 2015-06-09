@@ -81,6 +81,7 @@
   "jobTitle": "Job Title",
   "jobLevel": "Job Level",
   "netSalary": "Net Salary (USD/month)",
+  "netSalaryFrom": "Net Salary From(USD/month)",
   "reportTo": "Who are you reporting to?",
   "location": "Location",
   "companySize": "Company Size",
