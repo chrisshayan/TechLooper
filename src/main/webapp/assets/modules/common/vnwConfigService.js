@@ -741,7 +741,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
           row.translate = translate;
         });
       });
-    })
+    });
 
   return instance;
 });
