@@ -1,4 +1,4 @@
-techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootScope, utils) {
+techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootScope, utils, $q) {
 
   var translateConfigBase = {
     valueField: 'id',
@@ -8,7 +8,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     searchField: ['translate']
   }
 
-  var vnwLang = $translate.use() === "en" ? "en" : "vn";
+  var vnwLang = "lang_" + ($translate.use() === "en" ? "en" : "vn");
 
   var locations = [
     {
@@ -643,95 +643,109 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
   //TODO 1. Translation, 2. Validation
 
-  var instance = {
-
-    jobLevelsSelectize: {
-      items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
-      config: $.extend(true, {}, translateConfigBase)
-    },
-
-    gendersSelectize: {
-      items: jsonValue.genders,
-      config: $.extend(true, {}, translateConfigBase)
-    },
-
-    yobsSelectize: {
-      items: jsonValue.yobs,
-      config: {
-        valueField: 'value',
-        labelField: 'value',
-        delimiter: '|',
-        searchField: ['value'],
-        maxItems: 1
-      }
-    },
-
-    locationsSelectize: {
-      items: locations.map(function (location) {
-        return {id: location.location_id, translate: location["lang_" + vnwLang]};
-      }),
-      config: $.extend(true, {}, translateConfigBase)
-    },
-
-    companySizeSelectize: {
-      items: jsonValue.companySizesArray,
-      config: {
-        valueField: 'id',
-        labelField: 'size',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['size']
-      }
-    },
-
-    industriesSelectize: {
-      items: categories.map(function (cate) {
-        return {id: cate.category_id, translate: cate["lang_" + vnwLang]};
-      }),
-      config: {
-        valueField: 'id',
-        labelField: 'translate',
-        delimiter: '|',
-        plugins: ['remove_button'],
-        maxItems: 3,
-        searchField: ['translate']
-      }
-    },
-
-    timeToSendsSelectize: {
-      items: $.extend(true, [], jsonValue.timeToSends),
-      config: {
-        valueField: 'id',
-        labelField: 'translate',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['translate']
+  var createSelectizeConfig = function (key) {
+    return {
+      plugins: ["techlooper"],
+      getSelectize: function () {
+        instance[key].config.selectizeDeffer = $q.defer();
+        return instance[key].config.selectizeDeffer.promise;
+      },
+      onInitialize: function (selectize) {
+        instance[key].config.selectizeDeffer.resolve(selectize);
       }
     }
   }
 
-  var doTranslate = function (i, item) {
-    $translate(item.translate).then(function (translate) {item.translate = translate;});
+  var instance = {
+    getLang: function() {
+      return ($translate.use() === "en" ? "en" : "vn");
+    },
+
+    getLocationText: function (locationId) {
+      var text = "";
+      $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});
+      return text;
+    },
+
+    jobLevelsSelectize: {
+      items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
+      config: $.extend(true, {}, createSelectizeConfig("jobLevelsSelectize"), translateConfigBase)
+    },
+
+    gendersSelectize: {
+      items: jsonValue.genders,
+      config: $.extend(true, {}, createSelectizeConfig("gendersSelectize"), translateConfigBase)
+    },
+
+    yobsSelectize: {
+      items: jsonValue.yobs,
+      config: $.extend(true, {}, {
+        valueField: 'value',
+        labelField: 'value',
+        delimiter: '|',
+        searchField: ['value'],
+        maxItems: 1,
+      }, createSelectizeConfig("yobsSelectize"))
+    },
+
+    locationsSelectize: {
+      items: locations.map(function (location) {
+        return {id: location.location_id, translate: location[vnwLang]};
+      }),
+      config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
+    },
+
+    companySizeSelectize: {
+      items: jsonValue.companySizesArray,
+      config: $.extend(true, {}, {
+        valueField: 'id',
+        labelField: 'size',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['size'],
+      }, createSelectizeConfig("companySizeSelectize"))
+    },
+
+    industriesSelectize: {
+      items: categories.map(function (cate) {
+        return {id: cate.category_id, translate: cate[vnwLang]};
+      }),
+      config: $.extend(true, {}, {
+        valueField: 'id',
+        labelField: 'translate',
+        delimiter: '|',
+        maxItems: 3,
+        searchField: ['translate']
+      }, createSelectizeConfig("industriesSelectize"), {plugins: ['remove_button', "techlooper"]})
+    }
   }
 
-  $.each(instance.jobLevelsSelectize.items, doTranslate);
-  $.each(instance.gendersSelectize.items, doTranslate);
-  $.each(instance.timeToSendsSelectize.items, doTranslate);
-  $.each(instance.companySizeSelectize.items, function (i, item) {
-    $translate(item.size).then(function (trans) {
-      if (!trans) {return true;}
-      item.size = trans;
-    });
-  });
+  $.each([
+      {key: "jobLevelsSelectize", placeholder: "exManager"},
+      {key: "yobsSelectize", placeholder: "exYob"},
+      {key: "gendersSelectize", placeholder: "exMale"},
+      {key: "locationsSelectize", placeholder: "exHoChiMinh"},
+      {key: "industriesSelectize", placeholder: "exItSoftware"},
+      {key: "companySizeSelectize", placeholder: "ex149"}
+    ],
+    function (i, item) {
+      var selectizeKey = item.key;
 
-  $translate(["exManager", "exMale", "exYob", "exHoChiMinh", "ex149", "exItSoftware", "exDay"]).then(function (trans) {
-    instance.jobLevelsSelectize.config.placeholder = trans.exManager;
-    instance.gendersSelectize.config.placeholder = trans.exMale;
-    instance.yobsSelectize.config.placeholder = trans.exYob;
-    instance.locationsSelectize.config.placeholder = trans.exHoChiMinh;
-    instance.companySizeSelectize.config.placeholder = trans.ex149;
-    instance.industriesSelectize.config.placeholder = trans.exItSoftware;
-    instance.timeToSendsSelectize.config.placeholder = trans.exDay;
-  });
+      instance[selectizeKey].config.getSelectize().then(function (selectize) {
+        $translate(item.placeholder).then(function (translate) {
+          instance[selectizeKey].config.placeholder = translate;
+          selectize.setPlaceholder(translate);
+        });
+      });
+
+      $.each(instance[selectizeKey].items, function (i, row) {
+        $translate(row.translate || row.size).then(function (translate) {
+          if (!translate) {return true;}
+          row.translate = translate;
+          row.size && (row.size = translate);
+        });
+      });
+    });
+
   return instance;
 });

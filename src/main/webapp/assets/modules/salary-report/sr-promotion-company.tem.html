@@ -1,9 +1,9 @@
-<div class="partner-company-content" ng-show="promotionCompanyShow">
+<div class="partner-company-content" ng-show="!promotionCompanyShow">
   <div class="partner-company-logo">
     <img ng-src="{{jsonValue.companyPromotion.images}}" alt=""/>
   </div>
   <div class="partner-company-detail">
-    <h4>{{jsonValue.companyPromotion.tagLine | translate}}</h4>
+    <h4>{{promotionCitibankTitle}}</h4>
     <div class="apply-now-block" ng-show="state.showAskPromotion">
       <button class="btn btn-primary btn-flat" ng-click="showPromotion()" translate="applyNow"></button>
     </div>
@@ -49,7 +49,7 @@
       </div>
 
       <div class="apply-now-block">
-        <button class="btn btn-primary btn-flat" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
+        <button class="btn btn-primary btn-flat disabled" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
       </div>
     </div>
 

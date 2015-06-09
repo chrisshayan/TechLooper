@@ -7,14 +7,21 @@ techlooper.directive("srJobInformation", function ($http) {
 
       //scope.salaryReview = $.extend(true, {}, scope.salaryReview);
 
-      scope.$watch("salaryReview", function() {
-        scope.sr = $.extend(true, {}, scope.salaryReview);
+      scope.$watch("salaryReview", function () {
+        if (scope.state.editableSalaryReview) {
+          scope.sr = $.extend(true, {}, scope.salaryReview);
+        }
       });
 
-      var init = true;
-
       scope.showUpdateInfo = function () {
-        init = false;
+        delete scope.state.editableSalaryReview;
+
+        scope.state.validateAllState = true;
+        delete scope.state.jobTitles;
+
+        scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
+        //scope.sr = $.extend(true, {}, scope.salaryReview);
+
         $('.update-job-information').removeClass('only-read');
         $('.ic-update-info').addClass('clicked');
       };
@@ -26,27 +33,52 @@ techlooper.directive("srJobInformation", function ($http) {
       });
 
       scope.updateSalaryReport = function () {
-        scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
+        //scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         scope.salaryReview = $.extend(true, {}, scope.sr);
 
-        if (scope.changeState("report")) {
+        scope.state.validateAllState = true;
+
+        delete scope.salaryReview.topPaidJobs;
+        //$('.send-me-report-form').removeClass('ng-hide');
+        //$('.send-me-report-form').show();
+        //$('.thanksSendMeReport').addClass('ng-hide');
+        //scope.sendMeReport.email = '';
+
+        if (scope.changeState("report", true)) {
           $('.update-job-information').addClass('only-read');
           $('.ic-update-info').removeClass('clicked');
+          delete scope.state.validateAllState;
         }
+        else {
+          scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview);
+        }
+        delete scope.state.jobTitles;
+
+        ga('send', {
+          'hitType': 'event',
+          'eventCategory': 'editsalaryreport',
+          'eventAction': 'click',
+          'eventLabel': 'savebtn'
+        });
       }
 
       scope.cancelUpdateSalaryReport = function () {
-        scope.cloneSalaryReview && (scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview));
+        scope.state.editableSalaryReview = true;
+        //scope.cloneSalaryReview && (scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview));
+
+        delete scope.state.validateAllState;
+
         scope.sr = $.extend(true, {}, scope.salaryReview);
         delete scope.cloneSalaryReview;
         delete scope.error;
+        delete scope.state.jobTitles;
 
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
       }
 
       var jobTitleSuggestion = function (jobTitle) {
-        if (!jobTitle || init) {return;}
+        if (!jobTitle || scope.state.editableSalaryReview) {return;}
 
         $http.get("suggestion/jobTitle/" + jobTitle)
           .success(function (data) {
@@ -54,9 +86,11 @@ techlooper.directive("srJobInformation", function ($http) {
           });
       }
 
-      scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);}, true);
-      scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
-      scope.$on("state change success", function() {
+      delete scope.state.jobTitles;
+
+      scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);});
+      scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);});
+      scope.$on("state change success", function () {
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
       });

@@ -50,7 +50,7 @@
           li
             padding: 0 5px 5px 0
       .autocomplete
-        width: 90%
+        width: 85%
         float: left
         input
           width: 90%
@@ -63,6 +63,7 @@
         -moz-border-radius: 0
         border-radius: 0
         background-color: #333
+        width: 15%
     .navi-step-salary-review
       display: block
       clear: both
@@ -91,11 +92,12 @@
           color: #8d8d8d
           margin-right: 1%
           position: relative
+          cursor: pointer
         li.active
           border-bottom: 2px solid #333
           cursor: pointer
           color: #333
-        li.active.noPointer
+        li.noPointer
           cursor: inherit
         h2
           display: inline-block
@@ -108,6 +110,12 @@
         li:last-child
           margin-right: 0
           width: 33%
+        li:hover
+          border-bottom: 2px solid #333
+          color: #333
+        li.noPointer:hover
+          border-bottom: 2px solid #d4d7d8
+          color: #8d8d8d
     .navi-step-salary-review.fixed
       position: fixed
       left: 0
@@ -344,11 +352,13 @@
             .top-three-skills
               width: 70%
               .autocomplete
-                width: 90%
+                width: 85%
                 ul
                   z-index: 555
                 input
                   width: 100%
+            .error-messages
+              padding-left: 30%
         .update-job-information.only-read
           .overlap-form
             display: block
@@ -406,18 +416,23 @@
                     padding-left: 0
             .selectize-control.multi
               .selectize-input > div
-                border: 0
                 background-color: transparent
                 .remove
                   display: none
               .item
+                border: 0
                 border-left: 1px solid #cccccc
                 padding: 0 5px
+                -webkit-border-radius: 0
+                -moz-border-radius: 0
+                border-radius: 0
               .item.active
                 color: #000
               .item:first-child
                 border: 0
                 padding-left: 0
+            .selectize-control.plugin-remove_button [data-value]
+              padding-right: 5px !important
         .verified-data
           width: 20%
           float: right
@@ -862,6 +877,7 @@
       width: 31%
       margin: 0 1%
       min-height: 265px
+      position: relative
       ul
         margin: 0
         padding: 0
@@ -911,6 +927,10 @@
         float: left
         text-align: right
         padding: 15px 0 0 0
+        position: absolute
+        right: 10px
+        bottom: 10px
+        z-index: 600
 
     .best-paid-company.oneColl
       width: 97%
@@ -925,6 +945,29 @@
       width: 47.5%
     .best-paid-company:first-child
       margin-left: 1.5%
+    .no-data-best-paid-jobs
+      display: block
+      clear: both
+      text-align: left
+      width: 100%
+      padding: 10px 20px
+      p
+        margin: 0
+        padding: 0 0 10px 0
+      ul
+        margin: 0
+        padding: 10px
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        background-color: #f4f4f4
+        li
+          width: 100%
+          clear: both
+          padding: 5px 0 5px 35px
+          background: url(../images/ic-analytics-salary.png) 10px -446px no-repeat
+          strong
+            font-weight: 500
     .box-content-collapse
       background-color: #fff
       -webkit-border-radius: 5px
@@ -1007,7 +1050,7 @@
         .ic-close
           position: absolute
           right: 10px
-          top: -10px
+          top: 8px
           background-color: #cecece
           width: 25px
           height: 25px
@@ -1043,7 +1086,7 @@
               font-style: italic
               color: red
               font-size: 12px
-              padding-left: 28%
+              padding-left: 30%
               width: 100%
               clear: both
             label
@@ -1102,6 +1145,27 @@
             button
               float: right
               padding: 6px 25px
+      .job-alert-thanks
+        text-align: center
+        background-color: #f4f4f4
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        width: 96%
+        padding: 15px 20px
+        float: left
+        margin: 20px 0 0 20px
+        h3
+          font-size: 16px
+          font-weight: 400
+          text-align: left
+          float: left
+          width: 100%
+          clear: both
+          padding: 0 0 10px 30%
+          margin: 0
+        .thanksMessages
+          padding: 5px 0 0 0
     .partner-company-content
       display: inline-block
       clear: both
@@ -1257,7 +1321,6 @@
 .success-alert-box
   width: 100%
   text-align: center
-  display: none
   transition: display 1s ease
   -moz-transition: display 1s ease
   -webkit-transition: display 1s ease

@@ -65,7 +65,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // In order to make our report more accurate, we should add data from generated report in calculation
         List<SalaryReviewEntity> salaryReviewEntities = salaryReviewService.searchSalaryReview(salaryReviewEntity);
-        mergeSalaryReviewWithJobList(jobs, salaryReviewEntities);
+        mergeSalaryReviewWithJobList(jobs, salaryReviewEntities, salaryReviewEntity);
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
@@ -173,7 +173,14 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReport.setNumberOfJobs(jobs.size() > 0 ? jobs.size() - numberOfSurveys : 0);
 
         salaryReviewEntity.setSalaryReport(salaryReport);
-        salaryReviewEntity.setCreatedDateTime(new Date().getTime());
+        if (salaryReviewEntity.getCreatedDateTime() == null) {
+            salaryReviewEntity.setCreatedDateTime(new Date().getTime());
+        } else {
+            SalaryReviewEntity currentSalaryReviewEntity = salaryReviewRepository.findOne(salaryReviewEntity.getCreatedDateTime());
+            salaryReviewEntity.setEmail(currentSalaryReviewEntity.getEmail());
+            salaryReviewEntity.setJobAlertEmail(currentSalaryReviewEntity.getJobAlertEmail());
+            salaryReviewEntity.setSalaryReviewSurvey(currentSalaryReviewEntity.getSalaryReviewSurvey());
+        }
     }
 
     private double[] extractSalariesFromJob(Set<JobEntity> jobs) {
@@ -233,13 +240,17 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         return topPaidJobs;
     }
 
-    private void mergeSalaryReviewWithJobList(Set<JobEntity> jobs, List<SalaryReviewEntity> salaryReviewEntities) {
-        for (SalaryReviewEntity salaryReviewEntity : salaryReviewEntities) {
+    private void mergeSalaryReviewWithJobList(Set<JobEntity> jobs, List<SalaryReviewEntity> salaryReviewEntities,
+                                              SalaryReviewEntity salaryReviewEntity) {
+        if (!salaryReviewEntities.isEmpty() && salaryReviewEntity.getCreatedDateTime() != null) {
+            salaryReviewEntities.remove(salaryReviewEntity);
+        }
+        for (SalaryReviewEntity entity : salaryReviewEntities) {
             JobEntity jobEntity = new JobEntity();
-            jobEntity.setId(salaryReviewEntity.getCreatedDateTime().toString());
-            jobEntity.setJobTitle(salaryReviewEntity.getJobTitle());
-            jobEntity.setSalaryMin(salaryReviewEntity.getNetSalary().longValue());
-            jobEntity.setSalaryMax(salaryReviewEntity.getNetSalary().longValue());
+            jobEntity.setId(entity.getCreatedDateTime().toString());
+            jobEntity.setJobTitle(entity.getJobTitle());
+            jobEntity.setSalaryMin(entity.getNetSalary().longValue());
+            jobEntity.setSalaryMax(entity.getNetSalary().longValue());
             jobs.add(jobEntity);
         }
     }

@@ -1,4 +1,4 @@
-techlooper.directive("srPromotionCompany", function ($http, validatorService) {
+techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService) {
   return {
     restrict: "E",
     replace: true,
@@ -30,6 +30,11 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService) {
         //delete scope.state.showPromotion;
         scope.state.showThanksBankTransfer = true;
       }
+
+      $http.get("promotion/citibank/title/" + vnwConfigService.getLang(), {transformResponse: function (d, h) {return d;}})
+        .success(function (text) {
+          scope.promotionCitibankTitle = text;
+        });
     }
   }
 })

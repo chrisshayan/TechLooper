@@ -5,7 +5,7 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
     templateUrl: "modules/salary-report/sr-send-me-report.tem.html",
     link: function (scope, element, attr, ctrl) {
       scope.sendMeNow = function () {
-        var error = validatorService.validate($(".send-me-form").find('input'));
+        var error = validatorService.validate($(".send-me-report-form").find("[validate]:visible"));
         scope.error = error;
         if (!$.isEmptyObject(error)) {
           return;
@@ -13,14 +13,13 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
 
         scope.sendMeReport.salaryReviewId = scope.salaryReview.createdDateTime;
         scope.sendMeReport.lang = $translate.use();
-        $http.post("salaryReview/placeSalaryReviewReport", scope.sendMeReport)
-          .success(function () {
-            $('.thanks-message-for-send-me-success').addClass('show');
+        $http.post("salaryReview/placeSalaryReviewReport", scope.sendMeReport);
+        $('.thanks-message-for-send-me-success').addClass('show');
+        scope.state.showThanksSendMeReport = true;
 
-            delete scope.state.showSendReport;
-            scope.state.showThanksSendMeReport = true;
-          });
-        $('.send-me-report-form').hide();
+        delete scope.state.showSendReport;
+        delete scope.sendMeReport;
+        //$('.send-me-report-form').hide();
       }
     }
   }

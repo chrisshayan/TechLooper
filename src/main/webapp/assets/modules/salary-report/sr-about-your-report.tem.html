@@ -1,31 +1,31 @@
 <div class="your-report-content">
   <sr-job-information></sr-job-information>
   <div sr-salary-chart></div>
-  <sr-similar-job ng-show="state.showJobAlert"></sr-similar-job>
+  <sr-similar-job></sr-similar-job>
 
   <div class="box-content-collapse" ng-show="state.showPromotion">
     <div class="title-header" ng-model="promotionCompanyShow" ng-click="promotionCompanyShow=!promotionCompanyShow">
       <h3>{{jsonValue.companyPromotion.title | translate}}</h3>
       <div class="ic-hidden" title="Minimise">
-        <span ng-show="promotionCompanyShow"><i class="fa fa-caret-up"></i></span>
-        <span ng-show="!promotionCompanyShow"><i class="fa fa-caret-down"></i></span>
+        <span ng-show="!promotionCompanyShow"><i class="fa fa-caret-up"></i></span>
+        <span ng-show="promotionCompanyShow"><i class="fa fa-caret-down"></i></span>
       </div>
     </div>
     <sr-promotion-company></sr-promotion-company>
-    <div ng-show="state.showThanksBankTransfer && promotionCompanyShow" class="thanksMessages transfer" role="alert">{{'companyThanks1' | translate}}
+    <div ng-show="state.showThanksBankTransfer && !promotionCompanyShow" class="thanksMessages transfer" role="alert">{{'companyThanks1' | translate}}
     </div>
-    <div ng-show="state.showThanksCash && promotionCompanyShow" class="thanksMessages cash" role="alert">{{'companyThanks2' | translate}}
+    <div ng-show="state.showThanksCash && !promotionCompanyShow" class="thanksMessages cash" role="alert">{{'companyThanks2' | translate}}
     </div>
   </div>
   <div class="box-content-collapse" ng-show="state.showSurvey">
     <div class="title-header" ng-model="surveyFormShowed" ng-click="surveyFormShowed=!surveyFormShowed">
       <h3 translate="whatYouThinkReport"></h3>
       <div class="ic-hidden" title="Minimise">
-        <span ng-show="surveyFormShowed"><i class="fa fa-caret-up"></i></span>
-        <span ng-show="!surveyFormShowed"><i class="fa fa-caret-down"></i></span>
+        <span ng-show="!surveyFormShowed"><i class="fa fa-caret-up"></i></span>
+        <span ng-show="surveyFormShowed"><i class="fa fa-caret-down"></i></span>
       </div>
     </div>
     <sr-survey-form></sr-survey-form>
-    <div class="thanksMessages" ng-show="state.showThanksSurvey && surveyFormShowed" role="alert">{{'thanksForHelp' | translate}}</div>
+    <div class="thanksMessages" ng-show="state.showThanksSurvey && !surveyFormShowed" role="alert">{{'thanksForHelp' | translate}}</div>
   </div>
 </div>

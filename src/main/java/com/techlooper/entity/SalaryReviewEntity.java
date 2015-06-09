@@ -204,4 +204,21 @@ public class SalaryReviewEntity {
     public SalaryReport getSalaryReport() {
         return salaryReport;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SalaryReviewEntity that = (SalaryReviewEntity) o;
+
+        if (!createdDateTime.equals(that.createdDateTime)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return createdDateTime.hashCode();
+    }
 }

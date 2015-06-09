@@ -1,4 +1,4 @@
-techlooper.directive("srAboutYourReport", function ($http, $location, utils, jsonValue) {
+techlooper.directive("srAboutYourReport", function ($http, $location, utils, jsonValue, vnwConfigService) {
   return {
     restrict: "E",
     replace: true,
@@ -28,6 +28,7 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
             scope.salaryReview = afterSendSalaryReport(data);
+            scope.salaryReview.location = vnwConfigService.getLocationText(scope.salaryReview.locationId);
             scope.salaryReport = scope.salaryReview.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
               var p = scope.salaryReport.percentRank * $(window).width()/100;
@@ -46,7 +47,7 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
             var hasDone = localStorage.getItem('PROMOTION-KEY') === 'yes';
             scope.state.showPromotion = hasCity && enoughMoney && !hasDone;
             scope.state.showAskPromotion = scope.state.showPromotion;
-            scope.state.showSendReport = true;
+            //scope.state.showSendReport = true;
             scope.state.showJobAlert = $.type(scope.salaryReport.percentRank) === "number" && scope.salaryReview.topPaidJobs.length;
           });
       });

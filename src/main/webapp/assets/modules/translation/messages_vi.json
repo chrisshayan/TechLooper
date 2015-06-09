@@ -80,7 +80,8 @@
   "exMale": "Ví dụ: Nam",
   "jobTitle": "Chức Danh",
   "jobLevel": "Cấp Bậc",
-  "netSalary": "Lương Thực Lãnh Từ (USD/Tháng)",
+  "netSalary": "Lương Thực Nhận (USD/Tháng)",
+  "netSalaryFrom": "Lương Thực Nhận Từ (USD/Tháng)",
   "reportTo": "Bạn đang báo cáo cho ai ?",
   "location": "Vị trí",
   "companySize": "Qui mô công ty",
@@ -129,8 +130,8 @@
   "targetPay": "Lương Cần Trả",
   "median": "Phân vị",
   "exHoChiMinh": "Ví dụ: Hồ Chí Minh",
-  "exManager": "Ví dụ: Quản Lý",
-  "exItSoftware": "Ví dụ: IT - Software, IT - Hardware/Networking",
+  "exManager": "Ví dụ: Trưởng Phòng",
+  "exItSoftware": "Ví dụ: IT - Phần Mềm, IT - Phần Cứng/Mạng",
   "ex149": "Ví dụ: 1-49",
   "role": "Vai Trò",
   "categories": "Ngành Nghề Công Việc",
@@ -177,7 +178,7 @@
   "exDay": "Ví dụ: Ngày",
   "jobAlertTitle": "Đừng Bỏ Lỡ Cơ Hội Giúp Bạn Thăng Tiến Trong Sự Nghiệp!",
   "city": "Tỉnh/ Thành phố",
-  "myEmail": "Hộp thư",
+  "myEmail": "Địa chỉ Email",
   "jobMatch": " công việc đáp ứng Tiêu chí trên ... <strong>GỬI THÔNG TIN VỀ</strong> ",
   "hiringTagLine": "Để Thu Hút Các Nhân Tài Công Nghệ",
   "subHiringTagLine": "Đánh Giá Tin Đăng Tuyển",
@@ -247,7 +248,12 @@
   "Over 50,000": "Trên 50,000",
   "basedOn": "Dựa trên ",
   "jobPortResume": "tin đăng tuyển/ hồ sơ/ lượt ứng tuyển",
-  "noDataSendMeReport": "Xin vui lòng điền để lại thông tin email. Chúng tôi sẽ gửi bạn Báo Cáo Lương ngay khi chúng tôi có dữ liệu."
+  "noDataSendMeReport": "Xin vui lòng điền để lại thông tin email. Chúng tôi sẽ gửi bạn Báo Cáo Lương ngay khi chúng tôi có dữ liệu.",
+  "tooLong": "Tên kỹ năng tối đa 40 ký tự.",
+  "noDataPaidJobs": "Tạm thời chưa có tin đăng tuyển nào phù hợp với bạn… Tuy nhiên bạn có thể sử dụng chức năng Gửi Việc Cho Tôi để.",
+  "paidJobMessages1": "Nhận việc làm phù hợp <strong>ngay lập tức</strong>.",
+  "paidJobMessages2": "Là người đầu tiên ứng tuyển và chớp lấy <strong>cơ hội tốt nhất</strong>.",
+  "paidJobMessages3": "<strong>Dễ dàng tạo</strong> và <strong>cập nhật mỗi ngày</strong> để có công việc mơ ước."
 }
 
 
