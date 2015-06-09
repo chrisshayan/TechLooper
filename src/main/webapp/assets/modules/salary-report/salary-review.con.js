@@ -111,6 +111,16 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
   $scope.changeState(preferState);
 
+  $scope.checkSelect = function () {
+    var flg = $('#iAgree').hasClass("ng-invalid-required");
+    if (flg) {
+      $('.apply-now-block').find('button').addClass('disabled');
+    }
+    else {
+      $('.apply-now-block').find('button').removeClass('disabled');
+    }
+  }
+
   $scope.$watch("salaryReport", function (salaryReport) {
     if (!salaryReport) {return;}
 
