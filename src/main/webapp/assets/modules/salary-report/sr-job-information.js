@@ -7,7 +7,7 @@ techlooper.directive("srJobInformation", function ($http) {
 
       //scope.salaryReview = $.extend(true, {}, scope.salaryReview);
 
-      scope.$watch("salaryReview", function() {
+      scope.$watch("salaryReview", function () {
         if (scope.state.editableSalaryReview) {
           scope.sr = $.extend(true, {}, scope.salaryReview);
         }
@@ -15,6 +15,9 @@ techlooper.directive("srJobInformation", function ($http) {
 
       scope.showUpdateInfo = function () {
         delete scope.state.editableSalaryReview;
+
+        scope.state.validateAllState = true;
+        delete scope.state.jobTitles;
 
         scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         //scope.sr = $.extend(true, {}, scope.salaryReview);
@@ -33,8 +36,9 @@ techlooper.directive("srJobInformation", function ($http) {
         //scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         scope.salaryReview = $.extend(true, {}, scope.sr);
 
+        scope.state.validateAllState = true;
+
         delete scope.salaryReview.topPaidJobs;
-        delete scope.cloneSalaryReview;
         //$('.send-me-report-form').removeClass('ng-hide');
         //$('.send-me-report-form').show();
         //$('.thanksSendMeReport').addClass('ng-hide');
@@ -43,10 +47,12 @@ techlooper.directive("srJobInformation", function ($http) {
         if (scope.changeState("report", true)) {
           $('.update-job-information').addClass('only-read');
           $('.ic-update-info').removeClass('clicked');
+          delete scope.state.validateAllState;
         }
         else {
           scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview);
         }
+        delete scope.state.jobTitles;
 
         ga('send', {
           'hitType': 'event',
@@ -59,9 +65,13 @@ techlooper.directive("srJobInformation", function ($http) {
       scope.cancelUpdateSalaryReport = function () {
         scope.state.editableSalaryReview = true;
         //scope.cloneSalaryReview && (scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview));
+
+        delete scope.state.validateAllState;
+
         scope.sr = $.extend(true, {}, scope.salaryReview);
         delete scope.cloneSalaryReview;
         delete scope.error;
+        delete scope.state.jobTitles;
 
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
@@ -80,7 +90,7 @@ techlooper.directive("srJobInformation", function ($http) {
 
       scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);});
       scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);});
-      scope.$on("state change success", function() {
+      scope.$on("state change success", function () {
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
       });

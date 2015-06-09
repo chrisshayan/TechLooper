@@ -64,6 +64,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
 
     var elems = $("." + st.rootClass).find("[validate]");
+    console.log(st.rootClass,elems);
     var error = validatorService.validate(elems);
 
     $scope.salaryReview.skills = $scope.salaryReview.skills || [];
@@ -71,6 +72,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       error.skills = $translate.instant('requiredThisField');
     }
     $scope.error = error;
+    console.log($scope.error);
+
 
     if (!$.isEmptyObject(error)) {
       return false;
@@ -89,7 +92,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
     var valid = true;
     if (!state.init) {
-      //&& (preferState.order > $scope.state.order)
       $.each(state.orders, function(i, stateItem) {
         if (stateItem.order > preferState.order) {
           return false;
@@ -99,8 +101,11 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         }
 
         if (!$scope.validateSalaryReview(stateItem)) {
-          preferState = $.extend(true, {}, stateItem);
           valid = false;
+          if ($scope.state.validateAllState) {
+            return true;
+          }
+          preferState = $.extend(true, {}, stateItem);
           return false;
         }
       });
