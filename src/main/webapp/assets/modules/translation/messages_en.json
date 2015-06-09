@@ -245,5 +245,6 @@
   "desJobAlert": "As soon as a job matches your search criteria below, you will be notified via email. Be the first to apply and increase your chances of getting your dream job!",
   "basedOn": "Based on ",
   "jobPortResume": "job posts/resumes/applicants",
-  "noDataSendMeReport": "Let us know your email. Then we can send you your report as soon as we have data."
+  "noDataSendMeReport": "Let us know your email. Then we can send you your report as soon as we have data.",
+  "tooLong": "Skill name can not exceed 40 characters"
 }
