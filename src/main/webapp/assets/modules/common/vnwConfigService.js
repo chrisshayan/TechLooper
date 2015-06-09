@@ -657,6 +657,10 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   }
 
   var instance = {
+    getLang: function() {
+      return ($translate.use() === "en" ? "en" : "vn");
+    },
+
     getLocationText: function (locationId) {
       var text = "";
       $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});

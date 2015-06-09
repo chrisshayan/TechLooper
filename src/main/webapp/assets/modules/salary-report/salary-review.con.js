@@ -142,4 +142,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.reload = function() {
     $route.reload();
   }
+  localStorage.setItem('PROMOTION-KEY', 'no');
+
 });
