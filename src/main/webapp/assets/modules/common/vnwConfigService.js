@@ -717,13 +717,6 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     //}
   }
 
-  var translateItem = function (i, item) {
-    $translate(item.translate || item.size).then(function (translate) {
-      if (!translate) {return true;}
-      item.translate = translate;
-    });
-  }
-
   $.each([
       {key: "jobLevelsSelectize", placeholder: "exManager"},
       {key: "yobsSelectize", placeholder: "exYob"},
