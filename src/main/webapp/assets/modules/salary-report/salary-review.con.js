@@ -105,12 +105,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       catch (e) {}
     }
 
-    if (campaign.id) {
-      $http.get(jsonValue.httpUri.salaryReview + "/" + campaign.id)
-        .success(function (data, status, headers, config) {
-          $scope.salaryReview = data;
-          //$scope.salaryReview.hasCam = !$.isEmptyObject(campaign);
-          utils.sendNotification(jsonValue.notifications.loaded);
+    if (campaign.id) nValue.notifications.loaded);
         });
     }
     else {
