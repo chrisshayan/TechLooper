@@ -175,6 +175,11 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReviewEntity.setSalaryReport(salaryReport);
         if (salaryReviewEntity.getCreatedDateTime() == null) {
             salaryReviewEntity.setCreatedDateTime(new Date().getTime());
+        } else {
+            SalaryReviewEntity currentSalaryReviewEntity = salaryReviewRepository.findOne(salaryReviewEntity.getCreatedDateTime());
+            salaryReviewEntity.setEmail(currentSalaryReviewEntity.getEmail());
+            salaryReviewEntity.setJobAlertEmail(currentSalaryReviewEntity.getJobAlertEmail());
+            salaryReviewEntity.setSalaryReviewSurvey(currentSalaryReviewEntity.getSalaryReviewSurvey());
         }
     }
 
