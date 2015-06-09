@@ -1,4 +1,4 @@
-techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootScope, utils) {
+techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootScope, utils, $q) {
 
   var translateConfigBase = {
     valueField: 'id',
@@ -643,95 +643,112 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
   //TODO 1. Translation, 2. Validation
 
+  var createSelectizeConfig = function (key) {
+    return {
+      plugins: ["techlooper"],
+      getSelectize: function () {
+        instance[key].config.selectizeDeffer = $q.defer();
+        return instance[key].config.selectizeDeffer.promise;
+      },
+      onInitialize: function (selectize) {
+        instance[key].config.selectizeDeffer.resolve(selectize);
+      }
+    }
+  }
+
   var instance = {
 
     jobLevelsSelectize: {
       items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
-      config: $.extend(true, {}, translateConfigBase)
+      config: $.extend(true, {}, createSelectizeConfig("jobLevelsSelectize"), translateConfigBase)
     },
 
     gendersSelectize: {
       items: jsonValue.genders,
-      config: $.extend(true, {}, translateConfigBase)
+      config: $.extend(true, {}, createSelectizeConfig("gendersSelectize"), translateConfigBase)
     },
 
     yobsSelectize: {
       items: jsonValue.yobs,
-      config: {
+      config: $.extend(true, {}, {
         valueField: 'value',
         labelField: 'value',
         delimiter: '|',
         searchField: ['value'],
-        maxItems: 1
-      }
+        maxItems: 1,
+      }, createSelectizeConfig("yobsSelectize"))
     },
 
     locationsSelectize: {
       items: locations.map(function (location) {
         return {id: location.location_id, translate: location["lang_" + vnwLang]};
       }),
-      config: $.extend(true, {}, translateConfigBase)
+      config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },
 
     companySizeSelectize: {
       items: jsonValue.companySizesArray,
-      config: {
+      config: $.extend(true, {}, {
         valueField: 'id',
         labelField: 'size',
         delimiter: '|',
         maxItems: 1,
-        searchField: ['size']
-      }
+        searchField: ['size'],
+      }, createSelectizeConfig("companySizeSelectize"))
     },
 
     industriesSelectize: {
       items: categories.map(function (cate) {
         return {id: cate.category_id, translate: cate["lang_" + vnwLang]};
       }),
-      config: {
+      config: $.extend(true, {}, {
         valueField: 'id',
         labelField: 'translate',
         delimiter: '|',
-        plugins: ['remove_button'],
+        plugins: ['remove_button', "techlooper"],
         maxItems: 3,
         searchField: ['translate']
-      }
-    },
-
-    timeToSendsSelectize: {
-      items: $.extend(true, [], jsonValue.timeToSends),
-      config: {
-        valueField: 'id',
-        labelField: 'translate',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['translate']
-      }
+      }, createSelectizeConfig("industriesSelectize"))
     }
+
+    //timeToSendsSelectize: {
+    //  items: $.extend(true, [], jsonValue.timeToSends),
+    //  config: $.extend(true, {}, createSelectizeConfig("timeToSendsSelectize"), translateConfigBase)
+    //}
   }
 
-  var doTranslate = function (i, item) {
-    $translate(item.translate).then(function (translate) {item.translate = translate;});
-  }
-
-  $.each(instance.jobLevelsSelectize.items, doTranslate);
-  $.each(instance.gendersSelectize.items, doTranslate);
-  $.each(instance.timeToSendsSelectize.items, doTranslate);
-  $.each(instance.companySizeSelectize.items, function (i, item) {
-    $translate(item.size).then(function (trans) {
-      if (!trans) {return true;}
-      item.size = trans;
+  var translateItem = function (i, item) {
+    $translate(item.translate || item.size).then(function (translate) {
+      if (!translate) {return true;}
+      item.translate = translate;
     });
-  });
+  }
 
-  $translate(["exManager", "exMale", "exYob", "exHoChiMinh", "ex149", "exItSoftware", "exDay"]).then(function (trans) {
-    instance.jobLevelsSelectize.config.placeholder = trans.exManager;
-    instance.gendersSelectize.config.placeholder = trans.exMale;
-    instance.yobsSelectize.config.placeholder = trans.exYob;
-    instance.locationsSelectize.config.placeholder = trans.exHoChiMinh;
-    instance.companySizeSelectize.config.placeholder = trans.ex149;
-    instance.industriesSelectize.config.placeholder = trans.exItSoftware;
-    instance.timeToSendsSelectize.config.placeholder = trans.exDay;
-  });
+  $.each([
+      {key: "jobLevelsSelectize", placeholder: "exManager"},
+      {key: "yobsSelectize", placeholder: "exYob"},
+      {key: "gendersSelectize", placeholder: "exMale"},
+      //{key: "timeToSendsSelectize", placeholder: "exDay"},
+      {key: "locationsSelectize", placeholder: "exHoChiMinh"},
+      {key: "industriesSelectize", placeholder: "exItSoftware"},
+      {key: "companySizeSelectize", placeholder: "ex149"}
+    ],
+    function (i, item) {
+      var selectizeKey = item.key;
+
+      instance[selectizeKey].config.getSelectize().then(function (selectize) {
+        $translate(item.placeholder).then(function (translate) {
+          selectize.setPlaceholder(translate);
+        });
+      });
+
+      $.each(instance[selectizeKey].items, function (i, row) {
+        $translate(row.translate || row.size).then(function (translate) {
+          if (!translate) {return true;}
+          row.translate = translate;
+        });
+      });
+    })
+
   return instance;
 });
