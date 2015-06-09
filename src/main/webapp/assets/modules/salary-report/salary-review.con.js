@@ -56,7 +56,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   $scope.selectize = vnwConfigService;
   $scope.salaryReview = {}
 
-  $scope.changeState = function (st) {
+  $scope.changeState = function (st, validateCurrentState) {
     var bodyHeight = $(window).height();
     if ($('body').height() <= bodyHeight) {
       $('.navi-step-salary-review').removeClass('fixed');
@@ -64,11 +64,14 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
+    var valid = true;
     if (!state.init) {
       //&& (preferState.order > $scope.state.order)
-      var valid = true;
       $.each(state.orders, function(i, stateItem) {
-        if (stateItem.order >= preferState.order) {
+        if (stateItem.order > preferState.order) {
+          return false;
+        }
+        if (stateItem.order === preferState.order && !validateCurrentState) {
           return false;
         }
 
@@ -89,6 +92,11 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       });
     }
     delete state.init;
+
+    if (!valid) {
+      return false;
+    }
+
     $scope.state = preferState;
     $scope.$emit("state change success");
     return true;
