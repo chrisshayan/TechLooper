@@ -28,6 +28,7 @@ techlooper.directive("srJobInformation", function ($http) {
       scope.updateSalaryReport = function () {
         scope.cloneSalaryReview = $.extend(true, {}, scope.salaryReview);
         scope.salaryReview = $.extend(true, {}, scope.sr);
+        delete scope.cloneSalaryReview;
 
         if (scope.changeState("report")) {
           $('.update-job-information').addClass('only-read');
