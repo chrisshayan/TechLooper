@@ -12,9 +12,9 @@
       </div>
     </div>
     <sr-promotion-company></sr-promotion-company>
-    <div ng-show="state.showThanksBankTransfer && promotionCompanyShow" class="thanksMessages transfer" role="alert">{{'companyThanks1' | translate}}
+    <div ng-show="state.showThanksBankTransfer && !promotionCompanyShow" class="thanksMessages transfer" role="alert">{{'companyThanks1' | translate}}
     </div>
-    <div ng-show="state.showThanksCash && promotionCompanyShow" class="thanksMessages cash" role="alert">{{'companyThanks2' | translate}}
+    <div ng-show="state.showThanksCash && !promotionCompanyShow" class="thanksMessages cash" role="alert">{{'companyThanks2' | translate}}
     </div>
   </div>
   <div class="box-content-collapse" ng-show="state.showSurvey">
@@ -26,6 +26,6 @@
       </div>
     </div>
     <sr-survey-form></sr-survey-form>
-    <div class="thanksMessages" ng-show="state.showThanksSurvey && surveyFormShowed" role="alert">{{'thanksForHelp' | translate}}</div>
+    <div class="thanksMessages" ng-show="state.showThanksSurvey && !surveyFormShowed" role="alert">{{'thanksForHelp' | translate}}</div>
   </div>
 </div>
