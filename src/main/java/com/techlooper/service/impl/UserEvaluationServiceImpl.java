@@ -173,7 +173,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         salaryReport.setNumberOfJobs(jobs.size() > 0 ? jobs.size() - numberOfSurveys : 0);
 
         salaryReviewEntity.setSalaryReport(salaryReport);
-        salaryReviewEntity.setCreatedDateTime(new Date().getTime());
+        if (salaryReviewEntity.getCreatedDateTime() == null) {
+            salaryReviewEntity.setCreatedDateTime(new Date().getTime());
+        }
     }
 
     private double[] extractSalariesFromJob(Set<JobEntity> jobs) {
