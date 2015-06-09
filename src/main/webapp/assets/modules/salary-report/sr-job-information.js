@@ -33,6 +33,13 @@ techlooper.directive("srJobInformation", function ($http) {
           $('.update-job-information').addClass('only-read');
           $('.ic-update-info').removeClass('clicked');
         }
+
+        ga('send', {
+          'hitType': 'event',
+          'eventCategory': 'editsalaryreport',
+          'eventAction': 'click',
+          'eventLabel': 'savebtn'
+        });
       }
 
       scope.cancelUpdateSalaryReport = function () {

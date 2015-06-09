@@ -9,7 +9,8 @@ techlooper.directive("srSalaryChart", function ($translate) {
         ga('send', {
           'hitType': 'event',
           'eventCategory': 'facebookshare',
-          'eventAction': 'salaryreport'
+          'eventAction': 'click',
+          'eventLabel': 'salaryreport'
         });
         window.open(
           'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + scope.salaryReview.createdDateTime,
