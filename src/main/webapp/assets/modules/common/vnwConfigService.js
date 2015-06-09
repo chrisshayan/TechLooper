@@ -714,10 +714,9 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         valueField: 'id',
         labelField: 'translate',
         delimiter: '|',
-        plugins: ['remove_button', "techlooper"],
         maxItems: 3,
         searchField: ['translate']
-      }, createSelectizeConfig("industriesSelectize"))
+      }, createSelectizeConfig("industriesSelectize"), {plugins: ['remove_button', "techlooper"]})
     }
   }
 
