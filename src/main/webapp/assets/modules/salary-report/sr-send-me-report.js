@@ -7,21 +7,19 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
       scope.sendMeNow = function () {
         var error = validatorService.validate($("#emailReport"));
         scope.error = error;
-        console.log(scope.error)
         if (!$.isEmptyObject(error)) {
           return;
         }
 
         scope.sendMeReport.salaryReviewId = scope.salaryReview.createdDateTime;
         scope.sendMeReport.lang = $translate.use();
-        $http.post("salaryReview/placeSalaryReviewReport", scope.sendMeReport)
-          .success(function () {
-            $('.thanks-message-for-send-me-success').addClass('show');
+        $http.post("salaryReview/placeSalaryReviewReport", scope.sendMeReport);
+        $('.thanks-message-for-send-me-success').addClass('show');
+        scope.state.showThanksSendMeReport = true;
 
-            delete scope.state.showSendReport;
-            scope.state.showThanksSendMeReport = true;
-          });
-        $('.send-me-report-form').hide();
+        delete scope.state.showSendReport;
+        delete scope.sendMeReport;
+        //$('.send-me-report-form').hide();
       }
     }
   }

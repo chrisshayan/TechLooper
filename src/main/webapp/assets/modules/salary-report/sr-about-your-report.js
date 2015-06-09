@@ -47,7 +47,7 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
             var hasDone = localStorage.getItem('PROMOTION-KEY') === 'yes';
             scope.state.showPromotion = hasCity && enoughMoney && !hasDone;
             scope.state.showAskPromotion = scope.state.showPromotion;
-            scope.state.showSendReport = true;
+            //scope.state.showSendReport = true;
             scope.state.showJobAlert = $.type(scope.salaryReport.percentRank) === "number" && scope.salaryReview.topPaidJobs.length;
           });
       });

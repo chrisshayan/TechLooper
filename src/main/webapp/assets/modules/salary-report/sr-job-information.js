@@ -36,10 +36,10 @@ techlooper.directive("srJobInformation", function ($http) {
 
         delete scope.salaryReview.topPaidJobs;
         delete scope.cloneSalaryReview;
-        $('.send-me-report-form').removeClass('ng-hide');
-        $('.send-me-report-form').show();
-        $('.thanksSendMeReport').addClass('ng-hide');
-        scope.sendMeReport.email = '';
+        //$('.send-me-report-form').removeClass('ng-hide');
+        //$('.send-me-report-form').show();
+        //$('.thanksSendMeReport').addClass('ng-hide');
+        //scope.sendMeReport.email = '';
 
         if (scope.changeState("report", true)) {
           $('.update-job-information').addClass('only-read');
