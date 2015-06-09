@@ -8,8 +8,8 @@
     </div>
   </div>
   <div class="best-paid-list" ng-show="!sendMeSimilarJob">
-    <p translate="higherJobOffer"></p>
-    <div class="best-paid-companies">
+    <div class="best-paid-companies" ng-show="state.showJobAlert">
+      <p translate="higherJobOffer"></p>
       <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs" ng-class="{oneColl: salaryReview.topPaidJobs.length===1, twoColl: salaryReview.topPaidJobs.length===2}">
         <ul>
           <li><strong>+ {{job.addedPercent}}%</strong></li>
@@ -26,8 +26,16 @@
         </div>
       </div>
     </div>
+    <div class="no-data-best-paid-jobs" ng-show="!state.showJobAlert">
+      <p translate="noDataPaidJobs"></p>
+      <ul>
+        <li translate="paidJobMessages1"></li>
+        <li translate="paidJobMessages2"></li>
+        <li translate="paidJobMessages3"></li>
+      </ul>
+    </div>
     <div class="see-more-jobs">
-      <p translate="higherJobOfferDisclaimer" class="note"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary | number:0}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+      <p translate="higherJobOfferDisclaimer" class="note" ng-show="state.showJobAlert"></p> <a ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary | number:0}}-en" target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
     </div>
     <div class="email-me-similar-jobs">
       <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
