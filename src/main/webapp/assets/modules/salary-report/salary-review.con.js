@@ -10,6 +10,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         items: [],
         required: true
       },
+      order: 1,
 
       tabs: [
         {title: "aboutYourJob", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.default);}},
@@ -22,6 +23,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
     company: {
       showCompany: true,
+      order: 2,
 
       tabs: [
         {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
@@ -36,6 +38,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       showReport: true,
       ableCreateNewReport: true,
       rootClass: "user-personal-info",
+      order: 3,
 
       tabs: [
         {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
