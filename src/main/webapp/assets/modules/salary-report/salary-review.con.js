@@ -108,9 +108,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
         if (!$scope.validateSalaryReview(stateItem)) {
           valid = false;
-          if ($scope.state.validateAllState) {
-            return true;
-          }
+          //if ($scope.state.validateAllState) {
+          //  return true;
+          //}
           preferState = $.extend(true, {}, stateItem);
           return false;
         }
@@ -123,7 +123,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
 
     $scope.state = preferState;
-    $scope.$emit("state change success");
+    $scope.$broadcast("state change success");
     return true;
   }
 
