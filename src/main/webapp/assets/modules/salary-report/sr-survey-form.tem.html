@@ -11,7 +11,7 @@
             <input ng-model="survey.isUnderstandable" value="false" type="radio" name="understand" id="radUnderstandNo"/><label for="radUnderstandNo" translate="no"></label>
           </div>
         </div>
-        <div class="error-messages">{{errorFeedback.understand}}</div>
+        <div class="error-messages">{{error.understand}}</div>
       </li>
       <li>
         <p translate="resultReportAccurate"></p>
@@ -23,7 +23,7 @@
             <input ng-model="survey.isAccurate"  value="false" type="radio" name="accurate" id="radAccurateNo"/><label for="radAccurateNo" translate="no"></label>
           </div>
         </div>
-        <div class="error-messages">{{errorFeedback.accurate}}</div>
+        <div class="error-messages">{{error.accurate}}</div>
       </li>
       <li>
         <label for="txtFeedback" translate="haveAnyFeedback"></label>

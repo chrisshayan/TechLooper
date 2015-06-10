@@ -27,6 +27,7 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
 
         $http.post(jsonValue.httpUri.salaryReview, salaryReview)
           .success(function (data, status, headers, config) {
+            scope.error = {};
             scope.salaryReview = afterSendSalaryReport(data);
             scope.salaryReview.location = vnwConfigService.getLocationText(scope.salaryReview.locationId);
             scope.salaryReport = scope.salaryReview.salaryReport;
