@@ -26,14 +26,6 @@ techlooper.directive("srAboutYourJob", function ($http, validatorService) {
             scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
           });
       });
-
-      //scope.$watch("salaryReview", function (newVal, oldVal) {
-      //  for (var prop in newVal) {
-      //    if (newVal[prop] !== oldVal[prop]) {
-      //      validatorService.validate([$("[ng-model='salaryReview." + prop + "']")], scope.error);
-      //    }
-      //  }
-      //}, true);
     }
   }
 });

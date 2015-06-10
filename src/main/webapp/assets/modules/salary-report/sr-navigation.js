@@ -2,22 +2,20 @@ techlooper.directive("srNavigation", function () {
   return {
     restrict: "A",
     replace: true,
-    templateUrl: "modules/salary-report/sr-navigation.tem.html",
-    link: function(){
-      var windScroll = $(window).scrollTop();
-      if ($('.salary-review-block').position().top <= windScroll) {
-        $('.navi-step-salary-review').addClass('fixed');
+    templateUrl: "modules/salary-report/sr-navigation.tem.html"
+  }
+}).directive("srcollWindow", function ($window) {
+  return {
+    scope: {
+      scroll: '=srcollWindow'
+    },
+    link: function(scope, element, attrs) {
+      var windowEl = angular.element($window);
+      var handler = function() {
+        scope.scroll = windowEl.scrollTop();
       }
-      $(window).scroll(function() {
-        windScroll = $(window).scrollTop();
-        if (windScroll > 0) {
-          if ($('.salary-review-block').position().top <= windScroll) {
-            $('.navi-step-salary-review').addClass('fixed');
-          } else {
-            $('.navi-step-salary-review').removeClass('fixed');
-          }
-        }
-      });
+      windowEl.on('scroll', scope.$apply.bind(scope, handler));
+      handler();
     }
   }
-})
+});

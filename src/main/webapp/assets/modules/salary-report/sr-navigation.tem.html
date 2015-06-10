@@ -1,4 +1,4 @@
-<div class="navi-step-salary-review">
+<div class="navi-step-salary-review" ng-class="{fixed: scroll > 149}">
   <ul>
     <li ng-repeat="tab in state.tabs" class="{{tab.class}}" ng-click="tab.onClick(tab)">
       <h2 translate="{{tab.title}}"></h2>
