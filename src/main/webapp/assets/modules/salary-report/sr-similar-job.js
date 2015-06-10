@@ -1,4 +1,4 @@
-techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService) {
+techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService, $http) {
   return {
     restrict: "E",
     replace: true,
@@ -17,15 +17,10 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
 
       scope.doJobAlert = function () {
-        //$('.email-me-similar-jobs').hide();
         $('.email-similar-jobs-block').slideDown("normal");
-        //var jobAlert = $.extend({}, scope.salaryReview);
-        //jobAlert.frequency = timeToSends[0].id;
-        //delete jobAlert.salaryReport;
-        //delete jobAlert.topPaidJobs;
-        //scope.jobAlert = jobAlert;
         $('#txtEmailJobAlert').focus();
         delete scope.state.showJobAlertButton;
+        delete scope.state.jobAlertTitles;
       }
       scope.hiddenJobAlertForm = function(){
         //$('.email-similar-jobs-block').hide();
@@ -35,9 +30,9 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
       }
 
       scope.createJobAlert = function () {
-        var error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
-        scope.error = error;
-        if (!$.isEmptyObject(error)) {
+        scope.error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
+        console.log(scope.error);
+        if (!$.isEmptyObject(scope.error)) {
           return;
         }
         var jobAlert = $.extend({}, scope.jobAlert);
@@ -67,6 +62,19 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
           timeout = undefined;
         }, 200);
       }, true);
+
+      var jobTitleSuggestion = function (jobTitle) {
+        if (!jobTitle) {return;}
+
+        $http.get("suggestion/jobTitle/" + jobTitle)
+          .success(function (data) {
+            scope.state.jobAlertTitles = data.items.map(function (item) {return item.name;});
+          });
+      }
+
+      scope.$watch("jobAlert.jobTitle", function (newVal) {
+        jobTitleSuggestion(newVal);
+      });
     }
   }
 });

@@ -4,18 +4,18 @@
       <label>{{'jobTitle' | translate}}:</label>
       <autocomplete required ng-model="sr.jobTitle" data="state.jobTitles"
                     attr-placeholder="{{'jobTitle.placeholder' | translate}}"  required validate></autocomplete>
-      <div class="error-messages">{{error['salaryReview.jobTitle'] || error['sr.jobTitle']}}</div>
+      <div class="error-messages">{{error['sr.jobTitle']}}</div>
     </div>
     <div class="update-job-information-field">
       <label>{{'jobLevel' | translate}}:</label>
       <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
                  ng-model="sr.jobLevelIds" name="{{'jobLevel' | translate}}"  required validate></selectize>
-      <div class="error-messages">{{error['salaryReview.jobLevelIds'] || error['sr.jobLevelIds']}}</div>
+      <div class="error-messages">{{error['sr.jobLevelIds']}}</div>
     </div>
     <form>
       <div class="update-job-information-field">
         <label>{{'jobSkills' | translate}}:</label>
-        <auto-tagbox tags="sr.skills" config="state.skillBoxConfig"></auto-tagbox>
+        <auto-tagbox tags="sr.skills" config="skillBoxConfig"></auto-tagbox>
         <div class="error-messages">{{error.skills}}</div>
       </div>
     </form>
@@ -24,7 +24,7 @@
       <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
                  ng-model="sr.jobCategories" required
                  name="{{'jobCategory' | translate}}" validate></selectize>
-      <div class="error-messages">{{error['salaryReview.jobCategories'] || error['sr.jobCategories']}}</div>
+      <div class="error-messages">{{error['sr.jobCategories']}}</div>
     </div>
     <div class="overlap-form" ng-click="showUpdateInfo()"></div>
     <div class="update-info-manager">

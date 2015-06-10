@@ -21,13 +21,12 @@
                name="{{'netSalary' | translate}}" maxlength="5"
                placeholder="{{'netSalary.placeholder' | translate}}" only-digits validate/>
         <div class="error-messages">
-          {{salaryNetError}}
-          <!--{{error['salaryReview.netSalary']}}-->
+          {{error['salaryReview.netSalary']}}
         </div>
       </div>
       <div class="row salary-field">
         <label>{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
-        <auto-tagbox tags="salaryReview.skills" config="state.skillBoxConfig" validate></auto-tagbox>
+        <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig" validate></auto-tagbox>
         <div class="error-messages">{{error.skills}}</div>
       </div>
       <div class="row salary-field">
