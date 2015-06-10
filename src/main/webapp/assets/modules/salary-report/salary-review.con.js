@@ -1,5 +1,6 @@
 techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue,
-                                                          utils, $route, validatorService, $translate, $window) {
+                                                          utils, $route, validatorService, $translate) {
+  $scope.scroll = 0;
   var state = {
     init: true,
 
