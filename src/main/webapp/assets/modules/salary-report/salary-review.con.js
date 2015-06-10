@@ -4,8 +4,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
   $scope.skillBoxConfig = {
     placeholder: "mostRelevantSkills.placeholder",
-      items: [],
-      required: true
+    items: [],
+    required: true
   };
 
   var state = {
@@ -189,6 +189,11 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       //$scope.changeState(state.reportSurvey);
     }
   });
+
+  //$scope.$watch("salaryReview", function () {
+  //  //console.log($scope.salaryReviewForm);
+  //  console.log($scope);
+  //}, true);
 
   $scope.reload = function () {
     $route.reload();

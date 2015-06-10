@@ -4,18 +4,20 @@
       <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
     </div>
     <div class="vnw-logo">
-      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg"
+                                                                  alt="Career Analytics. Awesome!"></a>
     </div>
   </div>
 </nav>
 <div class="salary-review-page">
   <div class="salary-survey-block">
     <h2>{{'salarySurvey' | translate}}</h2>
+
     <p translate>{{'salarySurveyContent' | translate}}</p>
   </div>
   <div class="salary-review-block">
     <div sr-navigation></div>
-    <div class="salary-review-content" srcoll-window = "scroll">
+    <div class="salary-review-content" srcoll-window="scroll">
       <sr-about-your-job ng-show="state.showJob" salary-review="salaryReview"></sr-about-your-job>
       <sr-about-your-company ng-show="state.showCompany" salary-review="salaryReview"></sr-about-your-company>
       <sr-about-your-report ng-show="state.showReport" salary-review="salaryReview"></sr-about-your-report>
