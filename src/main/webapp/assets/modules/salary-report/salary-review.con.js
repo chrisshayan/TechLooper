@@ -109,19 +109,12 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
         if (!$scope.validateSalaryReview(stateItem)) {
           valid = false;
-          //if ($scope.state.validateAllState) {
-          //  return true;
-          //}
           preferState = $.extend(true, {}, stateItem);
           return false;
         }
       });
     }
     delete state.init;
-
-    if (!valid) {
-      return false;
-    }
 
     $scope.state = preferState;
     $scope.$broadcast("state change success");
