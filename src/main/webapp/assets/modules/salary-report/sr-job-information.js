@@ -73,7 +73,6 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
         delete scope.state.validateAllState;
 
-        console.log(scope.salaryReview);
         scope.sr = $.extend(true, {}, scope.salaryReview);
         delete scope.cloneSalaryReview;
         delete scope.error;
