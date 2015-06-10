@@ -14,10 +14,6 @@ techlooper.directive('autoTagbox', function ($timeout) {
         scope.errors.length = 0;
       }
 
-      scope.onSelect = function() {
-        console.log(123);
-      }
-
       scope.addTag = function (tag) {
         if (!scope.config.newTag || !scope.config.newTag.length) {
           return;

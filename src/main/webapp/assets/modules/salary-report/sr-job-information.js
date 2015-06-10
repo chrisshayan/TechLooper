@@ -95,6 +95,11 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
       scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);});
       scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);});
+
+      scope.$watch("sr.skills", function (newVal) {
+        delete scope.skillBoxConfig.items;
+      }, true);
+
       scope.$on("state change success", function () {
         $('.update-job-information').addClass('only-read');
         $('.ic-update-info').removeClass('clicked');
