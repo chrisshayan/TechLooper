@@ -9,7 +9,6 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
       scope.$watch("salaryReview", function() {
         if (scope.state.editableSalaryReview) {
           scope.jobAlert = $.extend(true, {}, scope.salaryReview);
-          console.log(scope.jobAlert);
           scope.jobAlert.frequency = timeToSends[0].id;
           delete scope.jobAlert.salaryReport;
           delete scope.jobAlert.topPaidJobs;
