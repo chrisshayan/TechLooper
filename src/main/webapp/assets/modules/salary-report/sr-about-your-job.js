@@ -28,10 +28,10 @@ techlooper.directive("srAboutYourJob", function ($http, validatorService) {
       scope.$watch("state.skillBoxConfig.newTag", function (newVal) {
         var els = $('[ng-model="config.newTag"]').find('input');
         if (!newVal) {
-          els.find('ul').addClass('ng-hide');
+          delete scope.skillBoxConfig.items;
           return;
         }else{
-          els.find('ul').removeClass('ng-hide');
+          delete scope.skillBoxConfig.items;
         }
 
         $http.get("suggestion/skill/" + newVal)
