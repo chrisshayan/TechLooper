@@ -17,15 +17,10 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
 
       scope.doJobAlert = function () {
-        //$('.email-me-similar-jobs').hide();
         $('.email-similar-jobs-block').slideDown("normal");
-        //var jobAlert = $.extend({}, scope.salaryReview);
-        //jobAlert.frequency = timeToSends[0].id;
-        //delete jobAlert.salaryReport;
-        //delete jobAlert.topPaidJobs;
-        //scope.jobAlert = jobAlert;
         $('#txtEmailJobAlert').focus();
         delete scope.state.showJobAlertButton;
+        delete scope.state.jobAlertTitles;
       }
       scope.hiddenJobAlertForm = function(){
         //$('.email-similar-jobs-block').hide();

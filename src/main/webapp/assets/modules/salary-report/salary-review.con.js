@@ -101,14 +101,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   }
 
   $scope.changeState = function (st, validateCurrentState) {
-    //if(st === 'company'){
-    //  var val = $('#txtBaseSalary').val();
-    //  if(val ===''){
-    //    $scope.salaryNetError = $translate.instant('requiredThisField');
-    //  }else{
-    //    delete $scope.salaryNetError;
-    //  }
-    //}
     var bodyHeight = $(window).height();
     if ($('body').height() <= bodyHeight) {
       $('.navi-step-salary-review').removeClass('fixed');
