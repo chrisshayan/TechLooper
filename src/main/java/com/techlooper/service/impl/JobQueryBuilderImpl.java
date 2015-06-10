@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -237,7 +238,11 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     public NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewEntity salaryReviewEntity) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
-        QueryBuilder jobTitleQueryBuilder = jobTitleQueryBuilder(salaryReviewEntity.getJobTitle());
+        //pre-process job title in case user enters multiple roles of his job
+        List<String> jobTitleTokens = preprocessJobTitle(salaryReviewEntity.getJobTitle());
+
+        BoolQueryBuilder jobTitleQueryBuilder = boolQuery();
+        jobTitleTokens.forEach(jobTitleToken -> jobTitleQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
         FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewEntity.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
@@ -299,5 +304,31 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             analyzedSkills.add(StringUtils.capitalize(skill));
         }
         return analyzedSkills;
+    }
+
+    /*
+     TODO : This is not a completely sustainable solution, first we should change to see whether the total number of
+     no data report would decrease or not. If yes, we will improve it more better later
+     */
+    private List<String> preprocessJobTitle(String jobTitle) {
+        String[] tokens;
+        if (jobTitle.contains("&")) {
+            tokens = jobTitle.split("&");
+        } else if (jobTitle.contains("/")) {
+            tokens = jobTitle.split("/");
+        } else if (jobTitle.contains(",")) {
+            tokens = jobTitle.split(",");
+        } else if (jobTitle.contains("và")) {
+            tokens = jobTitle.split("và");
+        } else if (jobTitle.contains("and")) {
+            tokens = jobTitle.split("and");
+        } else if (jobTitle.contains("or")) {
+            tokens = jobTitle.split("or");
+        } else if (jobTitle.contains("hoặc")) {
+            tokens = jobTitle.split("hoặc");
+        } else {
+            tokens = new String[]{jobTitle};
+        }
+        return Arrays.asList(tokens);
     }
 }

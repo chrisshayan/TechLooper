@@ -58,10 +58,12 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
     public void reviewSalary(SalaryReviewEntity salaryReviewEntity) {
+        int totalJob = 0;
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getJobSearchQueryForSalaryReview(salaryReviewEntity);
 
         // Get the list of jobs search result for user percentile rank calculation
         Set<JobEntity> jobs = new HashSet<>(getJobSearchResult(queryBuilder));
+        totalJob += jobs.size();
 
         // In order to make our report more accurate, we should add data from generated report in calculation
         List<SalaryReviewEntity> salaryReviewEntities = salaryReviewService.searchSalaryReview(salaryReviewEntity);
@@ -69,17 +71,21 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // In case total number of jobs search result is less than 10, add more jobs from search by skills
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
-            jobs.addAll(searchMoreJobBySkills(salaryReviewEntity.getSkills(), salaryReviewEntity.getJobCategories()));
+            List<JobEntity> searchMoreJobBySkills = searchMoreJobBySkills(salaryReviewEntity.getSkills(), salaryReviewEntity.getJobCategories());
+            jobs.addAll(searchMoreJobBySkills);
+            totalJob += searchMoreJobBySkills.size();
         }
 
         // In case total number of jobs search result is less than 10, add more jobs from search only by job title
         if (jobs.size() > 0 && jobs.size() < MINIMUM_NUMBER_OF_JOBS) {
-            jobs.addAll(searchMoreJobByJobTitle(salaryReviewEntity.getJobTitle()));
+            List<JobEntity> searchMoreJobByTitle = searchMoreJobByJobTitle(salaryReviewEntity.getJobTitle());
+            jobs.addAll(searchMoreJobByTitle);
+            totalJob += searchMoreJobByTitle.size();
         }
 
         // It's only enabled on test scope for checking whether our calculation is right or wrong
         exportJobToExcel(jobs);
-        generateSalaryReport(salaryReviewEntity, jobs, salaryReviewEntities.size());
+        generateSalaryReport(salaryReviewEntity, jobs, totalJob, salaryReviewEntities.size());
         salaryReviewRepository.save(salaryReviewEntity);
 
         // get top 3 higher salary jobs
@@ -152,7 +158,8 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
         priceJobEntity.setCreatedDateTime(new Date().getTime());
     }
 
-    private void generateSalaryReport(SalaryReviewEntity salaryReviewEntity, Set<JobEntity> jobs, int numberOfSurveys) {
+    private void generateSalaryReport(SalaryReviewEntity salaryReviewEntity, Set<JobEntity> jobs,
+                                      int numberOfJobs, int numberOfSurveys) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReviewEntity.getNetSalary());
 
@@ -170,7 +177,7 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
         // update the total number of jobs and surveys which match the criteria for keeping track
         salaryReport.setNumberOfSurveys(numberOfSurveys);
-        salaryReport.setNumberOfJobs(jobs.size() > 0 ? jobs.size() - numberOfSurveys : 0);
+        salaryReport.setNumberOfJobs(numberOfJobs);
 
         salaryReviewEntity.setSalaryReport(salaryReport);
         if (salaryReviewEntity.getCreatedDateTime() == null) {
