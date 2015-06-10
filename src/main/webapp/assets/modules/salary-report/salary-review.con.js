@@ -13,11 +13,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
     default: {
       showJob: true,
-      //skillBoxConfig: {
-      //  placeholder: "mostRelevantSkills.placeholder",
-      //  items: [],
-      //  required: true
-      //},
       order: 1,
 
       tabs: [
