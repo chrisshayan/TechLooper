@@ -14,9 +14,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       order: 1,
 
       tabs: [
-        {title: "aboutYourJob", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.default);}},
-        {title: "aboutYourCompany", onClick: function(tab) {$scope.changeState(state.company);}},
-        {title: "yourSalaryReport", class: "noPointer", onClick: function(tab) {$scope.changeState(state.report);}}
+        {title: "aboutYourJob", class: "active showNavi", onClick: function (tab) {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", onClick: function (tab) {$scope.changeState(state.company);}},
+        {title: "yourSalaryReport", class: "noPointer", onClick: function (tab) {$scope.changeState(state.report);}}
       ],
 
       rootClass: "jobRoot"
@@ -27,9 +27,13 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       order: 2,
 
       tabs: [
-        {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
-        {title: "aboutYourCompany", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.company);}},
-        {title: "yourSalaryReport", onClick: function(tab) {$scope.changeState(state.report);}}
+        {title: "aboutYourJob", class: "active", onClick: function (tab) {$scope.changeState(state.default);}},
+        {
+          title: "aboutYourCompany",
+          class: "active showNavi",
+          onClick: function (tab) {$scope.changeState(state.company);}
+        },
+        {title: "yourSalaryReport", onClick: function (tab) {$scope.changeState(state.report);}}
       ],
 
       rootClass: "companyRoot"
@@ -45,9 +49,13 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       order: 3,
 
       tabs: [
-        {title: "aboutYourJob", class: "active", onClick: function(tab) {$scope.changeState(state.default);}},
-        {title: "aboutYourCompany", class: "active", onClick: function(tab) {$scope.changeState(state.company);}},
-        {title: "yourSalaryReport", class: "active showNavi", onClick: function(tab) {$scope.changeState(state.report);}}
+        {title: "aboutYourJob", class: "active", onClick: function (tab) {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", class: "active", onClick: function (tab) {$scope.changeState(state.company);}},
+        {
+          title: "yourSalaryReport",
+          class: "active showNavi",
+          onClick: function (tab) {$scope.changeState(state.report);}
+        }
       ]
     }
   }
@@ -65,16 +73,20 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
 
     var elems = $("." + st.rootClass).find("[validate]");
-    var error = validatorService.validate(elems);
+    $scope.error = validatorService.validate(elems);
 
     $scope.salaryReview.skills = $scope.salaryReview.skills || [];
     if ($scope.salaryReview.skills.length === 0) {
-      error.skills = $translate.instant('requiredThisField');
+      $translate("requiredThisField").then(function (trans) {$scope.error.skills = trans;});
+      $scope.error.skills = true;//$translate.instant('requiredThisField');
     }
-    $scope.error = error;
 
+    if ($.type($scope.salaryReview.netSalary) !== "number") {
+      $translate("requiredThisField").then(function (trans) {$scope.error["salaryReview.netSalary"] = trans;});
+      $scope.error["salaryReview.netSalary"] = true;
+    }
 
-    if (!$.isEmptyObject(error)) {
+    if (!$.isEmptyObject($scope.error)) {
       return false;
     }
 
@@ -82,24 +94,24 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   }
 
   $scope.changeState = function (st, validateCurrentState) {
-    if(st === 'company'){
-      var val = $('#txtBaseSalary').val();
-      if(val ===''){
-        $scope.salaryNetError = $translate.instant('requiredThisField');
-      }else{
-        delete $scope.salaryNetError;
-      }
-    }
+    //if(st === 'company'){
+    //  var val = $('#txtBaseSalary').val();
+    //  if(val ===''){
+    //    $scope.salaryNetError = $translate.instant('requiredThisField');
+    //  }else{
+    //    delete $scope.salaryNetError;
+    //  }
+    //}
     var bodyHeight = $(window).height();
     if ($('body').height() <= bodyHeight) {
       $('.navi-step-salary-review').removeClass('fixed');
     }
-    
+
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
     var valid = true;
     if (!state.init) {
-      $.each(state.orders, function(i, stateItem) {
+      $.each(state.orders, function (i, stateItem) {
         if (stateItem.order > preferState.order) {
           return false;
         }
@@ -179,7 +191,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
   });
 
-  $scope.reload = function() {
+  $scope.reload = function () {
     $route.reload();
   }
 
