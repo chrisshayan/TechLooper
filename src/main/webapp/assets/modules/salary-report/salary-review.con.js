@@ -190,27 +190,4 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   }
 
   localStorage.setItem('PROMOTION-KEY', 'no');
-
-  //$scope.$watch("salaryReview", function (newVal, oldVal) {
-  //  for (var prop in newVal) {
-  //    if (newVal[prop] !== oldVal[prop]) {
-  //      validatorService.validateElem($("[ng-model='salaryReview." + prop + "']"), newVal[prop], $scope.error);
-  //    }
-  //  }
-  //}, true);
-  //
-  //$scope.error = {};
-  //
-  //$scope.$watch("salaryReview.skills", function (newVal, oldVal) {
-  //  //validatorService.validateElem($("[ng-model='salaryReview." + prop + "']"), newVal[prop], $scope.error);
-  //  if (!newVal) return;
-  //  //newVal = newVals || [];
-  //  if (newVal.length === 0) {
-  //    $scope.error.skills = $translate.instant('requiredThisField');
-  //  }
-  //  else {
-  //    delete $scope.error.skills;
-  //  }
-  //
-  //}, true);
 });
