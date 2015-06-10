@@ -57,8 +57,8 @@
           <div class="row email-similar-jobs-field">
             <label>{{'jobTitle' | translate}} <strong>*</strong></label>
             <autocomplete required ng-model="jobAlert.jobTitle" data="state.jobAlertTitles"
-                          attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
-            <div class="error-messages">{{error['salaryReview.jobTitle']}}</div>
+                          attr-placeholder="{{'jobTitle.placeholder' | translate}}" tl-model></autocomplete>
+            <div class="error-messages">{{error['jobAlert.jobTitle']}}</div>
           </div>
           <div class="row email-similar-jobs-field">
             <label>{{'jobCategory' | translate}} <strong>*</strong></label>
