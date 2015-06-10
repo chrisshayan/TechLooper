@@ -16,14 +16,19 @@ techlooper.directive("srAboutYourJob", function ($http, validatorService) {
       scope.$watch("salaryReview.jobTitle", function (newVal) {
         jobTitleSuggestion(newVal);
       });
+
+      scope.$watch("salaryReview.skills", function (newVal) {
+        delete scope.skillBoxConfig.items;
+      }, true);
+
       scope.$watch("salaryReview.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
 
-      scope.$watch("state.skillBoxConfig.newTag", function (newVal) {
+      scope.$watch("skillBoxConfig.newTag", function (newVal) {
         if (!newVal) {return;}
 
         $http.get("suggestion/skill/" + newVal)
           .success(function (data) {
-            scope.state.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
+            scope.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
           });
       });
     }

@@ -1,16 +1,23 @@
 techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue,
                                                           utils, $route, validatorService, $translate) {
   $scope.scroll = 0;
+
+  $scope.skillBoxConfig = {
+    placeholder: "mostRelevantSkills.placeholder",
+      items: [],
+      required: true
+  };
+
   var state = {
     init: true,
 
     default: {
       showJob: true,
-      skillBoxConfig: {
-        placeholder: "mostRelevantSkills.placeholder",
-        items: [],
-        required: true
-      },
+      //skillBoxConfig: {
+      //  placeholder: "mostRelevantSkills.placeholder",
+      //  items: [],
+      //  required: true
+      //},
       order: 1,
 
       tabs: [
