@@ -23,7 +23,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       tabs: [
         {title: "aboutYourJob", class: "active showNavi", onClick: function (tab) {$scope.changeState(state.default);}},
         {title: "aboutYourCompany", onClick: function (tab) {$scope.changeState(state.company);}},
-        {title: "yourSalaryReport", class: "noPointer", onClick: function (tab) {$scope.changeState(state.report);}}
+        {title: "yourSalaryReport", onClick: function (tab) {$scope.changeState(state.report);}}
       ],
 
       rootClass: "jobRoot"
