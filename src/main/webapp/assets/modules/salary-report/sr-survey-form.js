@@ -6,38 +6,37 @@ techlooper
       templateUrl: "modules/salary-report/sr-survey-form.tem.html",
       link: function (scope, element, attr, ctrl) {
         scope.survey = {};
-        scope.errorFeedback = {};
 
         var validateFeedback = function () {
           if (scope.survey === undefined) {
             $translate("requiredThisField").then(function(trans) {
-              scope.errorFeedback.understand = trans;
-              scope.errorFeedback.accurate = trans;
+              scope.error.understand = trans;
+              scope.error.accurate = trans;
             });
-            scope.errorFeedback.understand = true;
-            scope.errorFeedback.accurate = true;
+            scope.error.understand = true;
+            scope.error.accurate = true;
           }
           else {
             if (scope.survey.isUnderstandable) {
-              delete scope.errorFeedback.understand;
+              delete scope.error.understand;
             }
             else {
               $translate("requiredThisField").then(function(trans) {
-                scope.errorFeedback.understand = trans;
+                scope.error.understand = trans;
               });
-              scope.errorFeedback.understand = true;
+              scope.error.understand = true;
             }
             if (scope.survey.isAccurate) {
-              delete scope.errorFeedback.accurate;
+              delete scope.error.accurate;
             }
             else {
               $translate("requiredThisField").then(function(trans) {
-                scope.errorFeedback.accurate = trans;
+                scope.error.accurate = trans;
               });
-              scope.errorFeedback.accurate = true;
+              scope.error.accurate = true;
             }
           }
-          return $.isEmptyObject(scope.errorFeedback);
+          return $.isEmptyObject(scope.error);
         }
 
         scope.submitSurvey = function () {
