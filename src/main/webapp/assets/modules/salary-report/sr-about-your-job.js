@@ -25,14 +25,8 @@ techlooper.directive("srAboutYourJob", function ($http, validatorService) {
 
       scope.$watch("salaryReview.reportTo", function (newVal) {jobTitleSuggestion(newVal);}, true);
 
-      scope.$watch("state.skillBoxConfig.newTag", function (newVal) {
-        var els = $('[ng-model="config.newTag"]').find('input');
-        if (!newVal) {
-          delete scope.skillBoxConfig.items;
-          return;
-        }else{
-          delete scope.skillBoxConfig.items;
-        }
+      scope.$watch("skillBoxConfig.newTag", function (newVal) {
+        delete scope.skillBoxConfig.items;
 
         $http.get("suggestion/skill/" + newVal)
           .success(function (data) {
