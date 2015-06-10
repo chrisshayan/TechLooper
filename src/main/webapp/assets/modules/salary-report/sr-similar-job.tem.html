@@ -46,13 +46,19 @@
         <h3 translate="jobAlertTitle"></h3>
         <p translate="desJobAlert"></p>
         <form>
+          <!--<div class="row email-similar-jobs-field">-->
+            <!--<label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>-->
+            <!--<input id="txtJobTitle" type="text" ng-model="jobAlert.jobTitle"-->
+                   <!--required tl-model-->
+                   <!--name="{{'jobTitle' | translate}}"-->
+                   <!--placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>-->
+            <!--<div class="error-messages">{{error['jobAlert.jobTitle']}}</div>-->
+          <!--</div>-->
           <div class="row email-similar-jobs-field">
-            <label for="txtJobTitle">{{'jobTitle' | translate}} <strong>*</strong></label>
-            <input id="txtJobTitle" type="text" ng-model="jobAlert.jobTitle"
-                   required tl-model
-                   name="{{'jobTitle' | translate}}"
-                   placeholder="{{'jobTitle.placeholder' | translate}}" maxlength="60"/>
-            <div class="error-messages">{{error['jobAlert.jobTitle']}}</div>
+            <label>{{'jobTitle' | translate}} <strong>*</strong></label>
+            <autocomplete required ng-model="jobAlert.jobTitle" data="state.jobAlertTitles"
+                          attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
+            <div class="error-messages">{{error['salaryReview.jobTitle']}}</div>
           </div>
           <div class="row email-similar-jobs-field">
             <label>{{'jobCategory' | translate}} <strong>*</strong></label>
