@@ -296,6 +296,16 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
+                        Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 16px;">
                         See below the full details of this report which was generated on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>:
                       </td>
                     </tr>
@@ -310,12 +320,25 @@
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
+                                <tr>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr bgcolor="#f4f4f4">
+                                  <td align="left" style="font-size: 16px; font-weight: 500;  padding: 10px; text-align: left">% people like you Net Salary (USD/month)</td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
+                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
                               <#list moreSalaryRanges as salaryRange>
                                 <tr>
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
                                         <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
@@ -333,7 +356,7 @@
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#000">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}<sup>th</sup></strong></td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}%</strong></td>
                                         <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$${salaryReview.netSalary?string[",##0"]}</strong></td>
                                       </tr>
                                     </table>
@@ -350,7 +373,7 @@
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}<sup>th</sup></td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
                                         <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
