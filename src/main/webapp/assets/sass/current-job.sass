@@ -41,6 +41,34 @@
       display: block
       float: left
       width: 100%
+      .top-demanded-skills-block
+        display: inline-block
+        clear: both
+        width: 100%
+        padding-bottom: 10px
+        p
+          display: block
+          clear: both
+          width: 100%
+          padding: 0
+          margin: 0
+          font-weight: 400
+        ul
+          margin: 0
+          padding: 0
+          li
+            width: auto
+            float: left
+            padding: 2px 5px
+            cursor: pointer
+            color: #337ab7
+            font-size: 13px
+            background: url(../images/li-line.png) left 5px no-repeat
+          li:first-child
+            padding-left: 0
+            background: none
+          li.added
+            color: #8d8d8d
       .added-list-skills
         border: 0
         background-color: transparent
@@ -359,6 +387,8 @@
                   width: 100%
             .error-messages
               padding-left: 30%
+            .top-demanded-skills-block
+              display: none
         .update-job-information.only-read
           .overlap-form
             display: block
