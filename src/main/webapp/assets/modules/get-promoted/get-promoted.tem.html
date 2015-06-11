@@ -1,0 +1,54 @@
+<div class="your-salary-info-content">
+  <h3 translate="instructionMessage"></h3>
+  <div class="salary-info-form jobRoot">
+    <form autocomplete="off">
+      <div class="row salary-field">
+        <label>{{'jobTitle' | translate}} <strong>*</strong></label>
+        <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
+                      attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
+        <div class="error-messages">{{error['salaryReview.jobTitle']}}</div>
+      </div>
+      <div class="row salary-field" jobLevels>
+        <label>{{'jobLevel' | translate}} <strong>*</strong></label>
+        <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
+                   ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}" required validate></selectize>
+        <div class="error-messages">
+          {{error['salaryReview.jobLevelIds']}}</div>
+      </div>
+      <div class="row salary-field">
+        <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
+        <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
+               name="{{'netSalary' | translate}}" maxlength="5"
+               placeholder="{{'netSalary.placeholder' | translate}}" only-digits validate/>
+        <div class="error-messages">
+          {{error['salaryReview.netSalary']}}
+        </div>
+      </div>
+      <div class="row salary-field">
+        <label>{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
+        <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig" validate></auto-tagbox>
+        <div class="error-messages">{{error.skills}}</div>
+      </div>
+      <div class="row salary-field">
+        <label>{{'reportTo' | translate}}</label>
+        <autocomplete required ng-model="salaryReview.reportTo" data="state.jobTitles"
+                      attr-placeholder="{{'reportTo.placeholder' | translate}}"></autocomplete>
+      </div>
+      <div class="row salary-field">
+        <label>{{'gender' | translate}}</label>
+        <selectize config='selectize.gendersSelectize.config' options='selectize.gendersSelectize.items'
+                   ng-model="salaryReview.gender"></selectize>
+      </div>
+      <div class="row salary-field">
+        <label translate="yob"></label>
+        <!--<input type="text" id="yob" ng-model="salaryReview.age" maxlength="4" pattern=".{4,4}" placeholder="{{'exYob' | translate}}" only-digits/>-->
+        <selectize config='selectize.yobsSelectize.config' options='selectize.yobsSelectize.items'
+                   ng-model="salaryReview.age"></selectize>
+      </div>
+      <div class="row salary-field-submit">
+        <button type="button" class="btn btn-primary btn-flat" ng-click="changeState('company')" >{{'next' | translate}}</button>
+      </div>
+      <div class="note" translate="noticeLine"></div>
+    </form>
+  </div>
+</div>

@@ -165,6 +165,7 @@ angular.module("Common").constant("jsonValue", (function () {
       salarySharing: "/salary-sharing",
       salaryReport: "/salary-report",
       salaryReview: "/salary-review",
+      getPromoted: "/get-promoted",
       pie: "/pie-chart",
       bubble: "/bubble-chart",
       jobsSearch: "/jobs/search",
@@ -194,7 +195,8 @@ angular.module("Common").constant("jsonValue", (function () {
       signIn: "signin",
       register: "register",
       userProfile: "userProfile",
-      priceJob: "priceJob"
+      priceJob: "priceJob",
+      getPromoted: "getPromoted"
     },
 
     httpUri: {
@@ -211,7 +213,8 @@ angular.module("Common").constant("jsonValue", (function () {
       companyId: "company/id",
       userRegisterCount: "api/user/register/count",
       termStatistic: "term/statistic",
-      salaryReview: "salaryReview"
+      salaryReview: "salaryReview",
+      getPromoted: "getPromoted"
     },
 
     socketUri: {
