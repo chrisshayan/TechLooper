@@ -1,4 +1,11 @@
 <div class="top-three-skills">
+  <div class="top-demanded-skills-block">
+    <p>Top Demanded Skills (click to add)</p>
+    <ul class="demand-skills">
+      <li ng-repeat="item in demandList" ng-click="addDemandSkill($event)">{{item.name}}
+      </li>
+    </ul>
+  </div>
   <div class="added-list-skills">
     <ul>
       <li ng-repeat="tag in tags">
