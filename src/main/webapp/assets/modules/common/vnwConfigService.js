@@ -720,8 +720,6 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     }
   }
 
-  var transPromises = [];
-
   var transSelectizes = [
     {key: "jobLevelsSelectize", placeholder: "exManager", translate: true},
     {key: "yobsSelectize", placeholder: "exYob"},
@@ -734,18 +732,16 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   $.each(transSelectizes, function (i, item) {
     var selectizeKey = item.key;
 
-    instance[selectizeKey].config.getSelectize().then(function (selectize) {
+    instance[selectizeKey].config.getSelectize().then(function ($selectize) {
       $translate(item.placeholder).then(function (translate) {
         instance[selectizeKey].config.placeholder = translate;
-        selectize.setPlaceholder(translate);
+        $selectize.setPlaceholder(translate);
       });
 
       if (!item.translate) return true;
 
       $.each(instance[selectizeKey].items, function (i, row) {
-        console.log(row);
         $translate(row.translate || row.size).then(function (translate) {
-          console.log(row);
           if (!translate) {return true;}
           row.translate = translate;
           row.size && (row.size = translate);
