@@ -260,7 +260,12 @@
   "expectedJobTitle": "Chức Danh Mong Muốn:",
   "expectedJobLevel": "Cấp Bậc Mong Muốn:",
   "expectedJobCategory": "Ngành Nghề Mong Muốn:",
-  "getPromoted": "Xem Báo Cáo"
+  "getPromoted": "Xem Báo Cáo",
+  "gpNumberOfJobs": "Có <strong>27</strong> công việc với mức lương từ <strong>$900</strong> đến <strong>$2,500</strong> cho",
+  "topDemand": "Kỹ Năng Hàng Đầu",
+  "highestDemand":"Các kỹ năng đòi hỏi nhiều nhất từ các nhà tuyển dụng được liệt kê theo độ ưu tiên từ cao đến thấp như sau.",
+  "sendMeSkillTrend":"Gửi Tôi Xu Hướng Kỹ Năng",
+  "sendMeDesc":"Vui lòng điền thông tin email bên dưới để chúng tôi luôn cập nhật các kỹ năng hàng đầu đến bạn."
 }
 
 
