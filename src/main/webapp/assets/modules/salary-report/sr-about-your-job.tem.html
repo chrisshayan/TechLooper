@@ -19,7 +19,7 @@
         <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
         <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                name="{{'netSalary' | translate}}" maxlength="5"
-               placeholder="{{'netSalary.placeholder' | translate}}" only-digits validate/>
+               placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
         <div class="error-messages">
           {{error['salaryReview.netSalary']}}
         </div>
