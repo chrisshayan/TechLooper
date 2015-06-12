@@ -31,7 +31,7 @@
           <li>Java Associate software engineer</li>
           <li>Java Associate software engineer</li>
         </ul>
-        <div class="send-me-skills-trend">
+        <div class="send-me-skills-trend" ng-show="showSendDemandedSkills">
           <h4 translate="sendMeSkillTrend"></h4>
           <p translate="sendMeDesc"></p>
           <!-- description for No Data -->
@@ -45,7 +45,11 @@
                   ng-click="sendMeNow()" type="submit"></button>
           <div class="error-messages">{{error['getPromoted.email']}}</div>
         </div>
+        <div ng-show="showThanksSendMeDemandedSkills" role="alert" translate="thanksSendMeReport" class="success-alert-box"></div>
+        <!-- description for No Data -->
+        <div ng-show="showThanksSendMeDemandedSkills" role="alert" translate="thanksSendMeReport1" class="success-alert-box"></div>
       </div>
+
     </div>
   </div>
 </div>

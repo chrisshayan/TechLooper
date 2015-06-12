@@ -35,10 +35,9 @@ techlooper.directive("getPromotedForm", function ($http) {
         //scope.sendMeReport.salaryReviewId = scope.salaryReview.createdDateTime;
         //scope.sendMeReport.lang = $translate.use();
         //$http.post("salaryReview/placeSalaryReviewReport", scope.sendMeReport);
-        //$('.thanks-message-for-send-me-success').addClass('show');
-        //scope.state.showThanksSendMeReport = true;
+        scope.showThanksSendMeDemandedSkills = true;
         //
-        //delete scope.state.showSendReport;
+        delete scope.showSendDemandedSkills;
         //delete scope.sendMeReport;
       }
     }
