@@ -149,7 +149,7 @@ public class VietnamWorksJobStatisticServiceITCase {
     @Test
     public void testGetTop5DemandedSkillsByJobTitle() throws Exception {
         List<SkillStatistic> skillStatistics =
-                jobStatisticService.getTopDemandedSkillsByJobTitle("Java Developer", Arrays.asList(35L), 5, 5);
-        assertTrue(skillStatistics.size() > 0);
+                jobStatisticService.getTopDemandedSkillsByJobTitle("Ruby Developer", Arrays.asList(35L), null, 5);
+        assertTrue(skillStatistics.size() > 0 && skillStatistics.size() <= 5);
     }
 }

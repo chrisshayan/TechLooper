@@ -336,7 +336,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Override
     public NestedBuilder getTopDemandedSkillsAggregation() {
-        return nested("top_demanded_skills").path("skills").subAggregation(terms("top_demanded_skills").field("skills.skillName"));
+        return nested("top_demanded_skills").path("skills").subAggregation(terms("top_demanded_skills").field("skills.skillName").size(20));
     }
 
     /*
