@@ -657,7 +657,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   }
 
   var instance = {
-    getLang: function() {
+    getLang: function () {
       return ($translate.use() === "en" ? "en" : "vn");
     },
 
@@ -720,23 +720,25 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     }
   }
 
-  $.each([
-      {key: "jobLevelsSelectize", placeholder: "exManager"},
-      {key: "yobsSelectize", placeholder: "exYob"},
-      {key: "gendersSelectize", placeholder: "exMale"},
-      {key: "locationsSelectize", placeholder: "exHoChiMinh"},
-      {key: "industriesSelectize", placeholder: "exItSoftware"},
-      {key: "companySizeSelectize", placeholder: "ex149"}
-    ],
-    function (i, item) {
-      var selectizeKey = item.key;
+  var transSelectizes = [
+    {key: "jobLevelsSelectize", placeholder: "exManager", translate: true},
+    {key: "yobsSelectize", placeholder: "exYob"},
+    {key: "gendersSelectize", placeholder: "exMale", translate: true},
+    {key: "locationsSelectize", placeholder: "exHoChiMinh"},
+    {key: "industriesSelectize", placeholder: "exItSoftware"},
+    {key: "companySizeSelectize", placeholder: "ex149", translate: true}
+  ];
 
-      instance[selectizeKey].config.getSelectize().then(function (selectize) {
-        $translate(item.placeholder).then(function (translate) {
-          instance[selectizeKey].config.placeholder = translate;
-          selectize.setPlaceholder(translate);
-        });
+  $.each(transSelectizes, function (i, item) {
+    var selectizeKey = item.key;
+
+    instance[selectizeKey].config.getSelectize().then(function ($selectize) {
+      $translate(item.placeholder).then(function (translate) {
+        instance[selectizeKey].config.placeholder = translate;
+        $selectize.setPlaceholder(translate);
       });
+
+      if (!item.translate) return true;
 
       $.each(instance[selectizeKey].items, function (i, row) {
         $translate(row.translate || row.size).then(function (translate) {
@@ -746,6 +748,17 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         });
       });
     });
+
+  });
+
+  //$q.all(transPromises).then(function () {
+  //  $.each(transSelectizes, function (i, item) {
+  //    if (!item.translate) return true;
+  //    instance[item.key].config.getSelectize().then(function($select) {
+  //      $select.refreshItems();
+  //    });
+  //  });
+  //});
 
   return instance;
 });

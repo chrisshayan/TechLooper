@@ -1,5 +1,5 @@
 techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue,
-                                                          utils, $route, validatorService, $translate) {
+                                                          utils, $route, validatorService, $translate, $q) {
   $scope.scroll = 0;
 
   $scope.skillBoxConfig = {
@@ -103,6 +103,13 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
 
     st = st || state.default;
     var preferState = $.extend(true, {}, (typeof st === 'string') ? state[st] : st);
+    if ($scope.forceValidation) {
+      $scope.state = preferState;
+      $scope.$broadcast("state change success");
+      return true;
+    }
+
+
     var valid = true;
     if (!state.init) {
       $.each(state.orders, function (i, stateItem) {
@@ -142,6 +149,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
    * */
 
   var preferState = state.default;
+
+  $scope.campaign = {};
+
   if (!$.isEmptyObject(campaign)) {
     for (var prop in campaign) {
       try {
@@ -150,12 +160,18 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       catch (e) {}
     }
 
+    $scope.campaign = campaign;
+
     if (campaign.id) {
       $http.get(jsonValue.httpUri.salaryReview + "/" + campaign.id)
         .success(function (data, status, headers, config) {
           $scope.salaryReview = data;
-          //$scope.salaryReview.hasCam = !$.isEmptyObject(campaign);
           utils.sendNotification(jsonValue.notifications.loaded);
+          if ($scope.campaign.campaign === "email") {
+            $scope.forceValidation = true;
+            $scope.changeState(state.report);
+            delete $scope.forceValidation;
+          }
         });
     }
     else {
@@ -164,6 +180,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
   }
 
   $scope.changeState(preferState);
+
 
   $scope.checkSelect = function () {
     var flg = $('#iAgree').hasClass("ng-invalid-required");

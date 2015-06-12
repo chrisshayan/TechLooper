@@ -146,7 +146,7 @@
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
                       <td align="center" style="padding: 10px 0 5px 0">
-                        <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Your Salary Report</h2>
+                        <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">How To Get Promoted</h2>
                       </td>
                     </tr>
                     <tr>
@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Thanks for using Salary Report from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
+                        Thanks for using How To Get Promoted from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
                       </td>
                     </tr>
                     <tr>
@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Based on your current profile:
+                        You are expecting to be:
                       </td>
                     </tr>
                     <tr>
@@ -190,7 +190,7 @@
                                     Title:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                  ${salaryReview.jobTitle}
+                                    Java Developer
                                   </td>
                                 </tr>
                                 <tr>
@@ -206,7 +206,7 @@
                                     Level:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                  ${jobLevel}
+                                    Manager
                                   </td>
                                 </tr>
                                 <tr>
@@ -217,62 +217,16 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Skills:
-                                  </td>
-                                  <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                  ${jobSkills}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
+
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Categories:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                  ${jobCategories}
+                                    IT - Software | IT - Hardware/Networking
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Salary:
-                                  </td>
-                                  <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    $${salaryReview.netSalary?string[",##0"]}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
-                                    Location:
-                                  </td>
-                                  <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                  ${location}
-                                  </td>
-                                </tr>
+
                               </table>
                             </td>
                           </tr>
@@ -280,36 +234,13 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      <td style="height:30px; line-height: 30px;" width="100%">
+                        <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        You are making more money than <strong style="font-size: 20px; font-weight: 600; color:#000000">${salaryReview.salaryReport.percentRank}%</strong> of people like you.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <#--<td align="left" width="100%" style="font-size: 16px;">-->
-                        <#--Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale-->
-                      <#--</td>-->
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        Your salary is at the
-                        <strong style="font-size: 20px; font-weight: 600; color:#000000">
-                          <#if salaryReview.salaryReport.percentRank < 50.0>
-                            bottom
-                          <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                            middle
-                          <#else>
-                            top
-                          </#if>
-                        </strong>
-                        of the scale
+                        There are <strong style="font-size: 18px; font-weight: 600; color:#000000">27</strong> jobs with salary range from <strong style="font-size: 18px; font-weight: 600; color:#000000">$900</strong> to <strong style="font-size: 18px; font-weight: 600; color:#000000">$2,500</strong> for Project Manager with level <strong style="font-size: 18px; font-weight: 600; color:#000000">Manager in IT - Software</strong> | <strong style="font-size: 18px; font-weight: 600; color:#000000">IT - Hardware/Networking</strong>
                       </td>
                     </tr>
                     <tr>
@@ -319,7 +250,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        See below the full details of this report which was generated on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>:
+                        <strong style="font-size: 18px; font-weight: 600; color:#000000">Top Demanded Skills By The Market</strong>
                       </td>
                     </tr>
                     <tr>
@@ -328,79 +259,49 @@
                       </td>
                     </tr>
                     <tr>
-                      <td width="100%" align="center">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%"  class="fullWidth">
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">10/06/2015</strong>, highest demanded skills are listed out from top to bottom
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 14px;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
-                            <td width="100%" align="left">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr bgcolor="#f4f4f4">
-                                  <td align="left" style="font-size: 16px; font-weight: 500;  padding: 10px; text-align: left">% people like you Net Salary (USD/month)</td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                              <#list moreSalaryRanges as salaryRange>
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                              </#list>
-
-
-                                <tr bgcolor="#e8f5fd">
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#000">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}%</strong></td>
-                                        <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$${salaryReview.netSalary?string[",##0"]}</strong></td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-
-                              <#list lessSalaryRanges as salaryRange>
-                                <tr>
-                                  <td align="left">
-                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
-                                      <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
-                                        <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
-                                    <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                              </#list>
-
-                              </table>
+                            <td align="left" width="100%" style="font-size: 14px;">J. Engineer cum Administrator</td>
+                          </tr>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;" width="100%">
+                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                             </td>
+                          <tr>
+                            <td align="left" width="100%" style="font-size: 14px;">Business Development Executive</td>
+                          </tr>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;" width="100%">
+                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          <tr>
+                            <td align="left" width="100%" style="font-size: 14px;">Java Associate software engineer</td>
+                          </tr>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;" width="100%">
+                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          <tr>
+                            <td align="left" width="100%" style="font-size: 14px;">Java Associate software engineer</td>
+                          </tr>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;" width="100%">
+                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          <tr>
+                            <td align="left" width="100%" style="font-size: 14px;">Java Associate software engineer</td>
+                          </tr>
                           </tr>
                         </table>
                       </td>
@@ -412,7 +313,7 @@
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%" width="100%">
                     <tr>
-                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">You can revise your Salary Report anytime to know how much you should be paid.</td>
+                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">You can revise your Skills Trend anytime to know how to get promoted.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
@@ -423,7 +324,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
                             </td>
                           </tr>
                         </table>
@@ -450,7 +351,7 @@
                   <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
                     <tr>
                       <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                        Copyright © Navigos Group Vietnam Joint Stock Company
+                        Copyright © Navigos Group Vietnam Joint Stock Company.
                       </td>
                     </tr>
                   </table>

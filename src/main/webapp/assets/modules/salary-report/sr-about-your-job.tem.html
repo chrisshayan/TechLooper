@@ -4,7 +4,7 @@
     <form autocomplete="off">
       <div class="row salary-field">
         <label>{{'jobTitle' | translate}} <strong>*</strong></label>
-        <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
+        <autocomplete required ng-model="salaryReview.jobTitle" data="jobTitles"
                       attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
         <div class="error-messages">{{error['salaryReview.jobTitle']}}</div>
       </div>
@@ -19,7 +19,7 @@
         <label for="txtBaseSalary">{{'netSalary' | translate}} <strong>*</strong></label>
         <input type="text" id="txtBaseSalary" ng-model="salaryReview.netSalary"
                name="{{'netSalary' | translate}}" maxlength="5"
-               placeholder="{{'netSalary.placeholder' | translate}}" only-digits validate/>
+               placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
         <div class="error-messages">
           {{error['salaryReview.netSalary']}}
         </div>
@@ -45,7 +45,7 @@
         <selectize config='selectize.yobsSelectize.config' options='selectize.yobsSelectize.items'
                    ng-model="salaryReview.age"></selectize>
       </div>
-      <div class="row salary-field-sub">
+      <div class="row salary-field-submit">
         <button type="button" class="btn btn-primary btn-flat" ng-click="changeState('company')" >{{'next' | translate}}</button>
       </div>
       <div class="note" translate="noticeLine"></div>

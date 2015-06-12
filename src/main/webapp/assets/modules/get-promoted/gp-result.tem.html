@@ -1,0 +1,55 @@
+<div class="get-promoted-results-block">
+  <div class="get-promoted-general-block">
+    <p translate="gpNumberOfJobs"></p>
+    <ul>
+      <li>
+        <span>{{'jobTitle' | translate}}: </span>
+        Java Developer
+      </li>
+      <li>
+        <span>{{'jobLevel' | translate}}: </span>
+        Manager
+      </li>
+      <li>
+        <span>{{'jobCategory' | translate}}: </span>
+        It-software | Internet Media
+      </li>
+    </ul>
+  </div>
+  <div class="top-demanded-skill-block">
+    <div class="box-content-collapse">
+      <div class="title-header">
+        <h3 translate="topDemand"></h3>
+      </div>
+      <div class="top-demanded-skill-content">
+        <p translate="highestDemand"></p>
+        <!-- description for No Data -->
+        <p translate="highestDemandNoData"></p>
+        <ul>
+          <li>J. Engineer cum Administrator</li>
+          <li>Business Development  Executive</li>
+          <li>Java Associate software engineer</li>
+          <li>Java Associate software engineer</li>
+        </ul>
+        <div class="send-me-skills-trend" ng-show="showSendDemandedSkills">
+          <h4 translate="sendMeSkillTrend"></h4>
+          <p translate="sendMeDesc"></p>
+          <!-- description for No Data -->
+          <p translate="sendMeDescNoData"></p>
+          <input ng-model="getPromoted.email" type="email" placeholder="{{'exEmailAddress' | translate}}"
+                 required validate/>
+          <button translate="sendMeNow" class="btn btn-primary btn-flat"
+                  ng-click="sendMeNow()" type="submit"></button>
+          <!-- button for No Data -->
+          <button translate="save" class="btn btn-primary btn-flat"
+                  ng-click="sendMeNow()" type="submit"></button>
+          <div class="error-messages">{{error['getPromoted.email']}}</div>
+        </div>
+        <div ng-show="showThanksSendMeDemandedSkills" role="alert" translate="thanksSendMeReport" class="success-alert-box"></div>
+        <!-- description for No Data -->
+        <div ng-show="showThanksSendMeDemandedSkills" role="alert" translate="thanksSendMeReport1" class="success-alert-box"></div>
+      </div>
+
+    </div>
+  </div>
+</div>

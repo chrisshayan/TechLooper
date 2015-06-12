@@ -37,7 +37,8 @@
     "blueimp-gallery":  "latest",
     "blueimp-bootstrap-image-gallery": "latest",
     "sprintf": "latest",
-    "allmighty-autocomplete": "latest"
+    "allmighty-autocomplete": "latest",
+    "angular-sanitize": "latest"
   },
   "overrides": {
     "jquery": {

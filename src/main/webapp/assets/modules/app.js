@@ -19,7 +19,7 @@ var baseUrl = (function () {
 })();
 
 var techlooper = angular.module("Techlooper", [
-  "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
+  "ngSanitize", "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
   "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
   "UserProfile", "selectize", "autocomplete"
 ]);
@@ -86,7 +86,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       })
       .fallbackLanguage('en')
       .uniformLanguageTag('bcp47') // enable BCP-47, must be before determinePreferredLanguage!
-      .determinePreferredLanguage();
+      .determinePreferredLanguage()
+      .useSanitizeValueStrategy(null);
+
 
     $routeProvider
       .when("/home", {
@@ -145,14 +147,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "userProfileController"
       })
-      .when("/salary-sharing", {
-        templateUrl: "modules/current-job/salary-sharing/salary-sharing.tem.html",
-        controller: "salarySharingController"
-      })
-      .when("/salary-report", {
-        templateUrl: "modules/current-job/salary-report/salary-report.tem.html",
-        controller: "salaryReportController"
-      })
       .when("/salary-review", {
         templateUrl: "modules/salary-report/salary-review.tem.html",
         controller: "salaryReviewController"
@@ -161,6 +155,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/price-job/price-job.tem.html",
         controller: "priceJobController"
       })
+        .when("/get-promoted", {
+          templateUrl: "modules/get-promoted/get-promoted.tem.html",
+          controller: "getPromotedController"
+        })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -190,24 +188,24 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
-  var doTranslate = function() {
-    $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
-      "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
-      "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
-      $rootScope.translate = translate;
-    });
-  }
+  //var doTranslate = function() {
+  //  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
+  //    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
+  //    "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
+  //    "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
+  //    $rootScope.translate = translate;
+  //  });
+  //}
 
   var campaign = $location.search();
   var langKey = (campaign && campaign.lang);
   langKey !== $translate.use() && ($translate.use(langKey));
   $rootScope.$on('$translateChangeSuccess', function () {
     langKey !== $translate.use() && ($translate.use(langKey));
-    doTranslate();
+    //doTranslate();
   });
 
-  doTranslate();
+  //doTranslate();
 
   $rootScope.jsonValue = jsonValue;
 
