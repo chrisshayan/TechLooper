@@ -237,7 +237,7 @@
   "applyNow": "Apply Now",
   "sendMeReport": "Send Me Report",
   "desSendMeReport": "Help us filling the information below so we can send report to you.",
-  "sendMeNow": "Send Me Now",
+  "sendMeNow": "Send Now",
   "thanksSendMeReport": "Thanks for your information. We have just sent you email. We are here to help you Move Up!",
   "thanksSendMeReport2": "Thanks for your information.",
   "thanksSendMeReport1": "Thanks for your information. We are here to help you Move Up!",
@@ -258,5 +258,10 @@
   "expectedJobTitle": "Expected Job Title:",
   "expectedJobLevel": "Expected Job Level:",
   "expectedJobCategory": "Expected Job Category:",
-  "getPromoted": "Xem Báo Cáo"
+  "getPromoted": "Get Promoted",
+  "gpNumberOfJobs": "There are <strong>27</strong> jobs with salary range from <strong>$900</strong> to <strong>$2,500</strong> for",
+  "topDemand": "Top Demanded Skills By The Market",
+  "highestDemand":"Highest demanded skills are listed out from top to bottom.",
+  "sendMeSkillTrend":"Send Me Skills Trend",
+  "sendMeDesc":"Help us filling email so we can send top skills to you. Then you can revise skills trend anytime you want."
 }
