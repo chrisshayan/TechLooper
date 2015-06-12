@@ -1,30 +1,47 @@
 <div class="gp-form-block">
   <div class="gp-form-header">
     <h2 translate="getPromotedTagLine"></h2>
+
     <p translate="getPromotedSubTagLine"></p>
   </div>
   <div class="gp-form-content">
     <p translate="getPromotedDescription"></p>
+
     <div class="gp-form-content-detail">
-      <form autocomplete="off">
+      <form novalidate name="promotionForm" autocomplete="off">
         <div class="gp-form-field">
           <label>{{'expectedJobTitle' | translate}} <strong>*</strong></label>
-          <autocomplete required ng-model="getPromoted.jobTitle" data="jobTitles"
-                        attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
-          <div class="error-messages">{{error['getPromoted.jobTitle']}}</div>
+
+          <div auto-suggestion text="promotionInfo.jobTitle" items="jobTitles"
+               get-url="suggestion/jobTitle/">
+          </div>
+          <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" ng-required="true"
+                        attr-placeholder="{{'jobTitle.placeholder' | translate}}">
+          </autocomplete>
+
+          <div ng-show="promotionForm.$dirty">
+            <div class="error-messages"
+                 ng-show="promotionForm.jobTitle.$error.required"
+                 translate="requiredThisField"></div>
+          </div>
+
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobLevel"></label>
-          <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
-                     ng-model="getPromoted.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+          <selectize name="jobLevelIds" config='selectize.jobLevelsSelectize.config'
+                     options='selectize.jobLevelsSelectize.items'
+                     ng-model="promotionInfo.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobCategory"></label>
-          <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
-                     ng-model="getPromoted.locationId" name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+          <selectize name="locationId" config='selectize.locationsSelectize.config'
+                     options='selectize.locationsSelectize.items'
+                     ng-model="promotionInfo.locationId" name="{{'location' | translate}}"
+                     class="locationSelectbox"></selectize>
         </div>
         <div class="gp-form-field submit">
-          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="getPromoted()" type="button"></button>
+          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="getPromoted()"
+                  type="button"></button>
         </div>
       </form>
     </div>
