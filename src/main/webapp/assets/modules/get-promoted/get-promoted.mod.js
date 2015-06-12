@@ -1,4 +1,4 @@
-techlooper.directive("getPromotedForm", function ($http, $location, utils, jsonValue, vnwConfigService) {
+techlooper.directive("getPromotedForm", function ($http) {
   return {
     restrict: "E",
     replace: true,
@@ -11,7 +11,7 @@ techlooper.directive("getPromotedForm", function ($http, $location, utils, jsonV
 
         $http.get("suggestion/jobTitle/" + jobTitle)
           .success(function (data) {
-            scope.state.jobTitles = data.items.map(function (item) {return item.name;});
+            scope.jobTitles = data.items.map(function (item) {return item.name;});
           });
       }
       scope.$watch("getPromoted.jobTitle", function (newVal) {

@@ -9,20 +9,19 @@
       <form autocomplete="off">
         <div class="gp-form-field">
           <label>{{'expectedJobTitle' | translate}} <strong>*</strong></label>
-          <autocomplete required ng-model="getPromoted.jobTitle" data="state.jobTitles"
+          <autocomplete required ng-model="getPromoted.jobTitle" data="jobTitles"
                         attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
           <div class="error-messages">{{error['getPromoted.jobTitle']}}</div>
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobLevel"></label>
           <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
-                     ng-model="salaryReview.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+                     ng-model="getPromoted.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobCategory"></label>
           <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
-                     ng-model="salaryReview.locationId" required
-                     name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+                     ng-model="getPromoted.locationId" name="{{'location' | translate}}" class="locationSelectbox"></selectize>
         </div>
         <div class="gp-form-field submit">
           <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="getPromoted()" type="button"></button>
