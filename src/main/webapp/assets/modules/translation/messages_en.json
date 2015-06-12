@@ -251,5 +251,12 @@
   "noDataPaidJobs": "There are no job recommended for you at the moment... BUT you can use Email Me Similar Jobs.",
   "paidJobMessages1": "Have <strong>relevant jobs</strong> emailed to you <strong>as soon as they are posted</strong>.",
   "paidJobMessages2":"<strong>Be the first</strong> to apply and <strong>increase your chances</strong> to move up.",
-  "paidJobMessages3": "<strong>Easy to create and update</strong> to ensure you get the right jobs."
+  "paidJobMessages3": "<strong>Easy to create and update</strong> to ensure you get the right jobs.",
+  "getPromotedTagLine": "How To Get Promoted",
+  "getPromotedSubTagLine": "With only one simple step to know which skills are highest demanded out there to add on.",
+  "getPromotedDescription": "Help us filling your dream job title you are expecting to be below. Then we show you most demanded skills relevant to that job in the market.",
+  "expectedJobTitle": "Expected Job Title:",
+  "expectedJobLevel": "Expected Job Level:",
+  "expectedJobCategory": "Expected Job Category:",
+  "getPromoted": "Xem Báo Cáo"
 }
