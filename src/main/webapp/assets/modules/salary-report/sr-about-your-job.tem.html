@@ -4,7 +4,7 @@
     <form autocomplete="off">
       <div class="row salary-field">
         <label>{{'jobTitle' | translate}} <strong>*</strong></label>
-        <autocomplete required ng-model="salaryReview.jobTitle" data="state.jobTitles"
+        <autocomplete required ng-model="salaryReview.jobTitle" data="jobTitles"
                       attr-placeholder="{{'jobTitle.placeholder' | translate}}" validate></autocomplete>
         <div class="error-messages">{{error['salaryReview.jobTitle']}}</div>
       </div>

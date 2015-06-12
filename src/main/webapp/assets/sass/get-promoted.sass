@@ -74,11 +74,149 @@
                 font-weight: 500
                 color: red
             .autocomplete
+              width: 100%
+              float: left
+              ul
+                margin: 0
+                padding: 0
+                z-index: 666
+                border-bottom: 1px solid #d4d7d8
+                border-left: 1px solid #d4d7d8
+                border-right: 1px solid #d4d7d8
+                .highlight
+                  background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+                  color: #000
+                li.active
+                  background-color: #f5f5f5
               input
                 font-size: 14px
                 border: 1px solid #d4d7d8
                 -webkit-border-radius: 5px
                 -moz-border-radius: 5px
                 border-radius: 5px
+                padding: 6px 12px
+                width: 100%
           .gp-form-field.submit
             text-align: center
+    .box-content-collapse
+      background-color: white
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      border: 1px solid #d4d7d8
+      display: inline-block
+      margin-bottom: 20px
+      width: 100%
+      position: relative
+      .title-header
+        background-color: #f3fafe
+        -webkit-border-top-left-radius: 5px
+        -webkit-border-top-right-radius: 5px
+        -moz-border-radius-topleft: 5px
+        -moz-border-radius-topright: 5px
+        border-top-left-radius: 5px
+        border-top-right-radius: 5px
+        clear: both
+        display: block
+        float: left
+        width: 100%
+        height: 40px
+        line-height: 40px
+        padding: 0 10px
+        cursor: pointer
+      h3
+        display: inline-block
+        float: left
+        font-size: 16px
+        font-weight: 400
+        left: 10px
+        padding: 0 5px
+        text-align: left
+        text-transform: capitalize
+        width: auto
+        margin: 0
+        height: 40px
+        line-height: 40px
+
+    .get-promoted-results-block
+      display: inline-block
+      clear: both
+      padding: 20px
+      width: 100%
+      .get-promoted-general-block
+        display: inline-block
+        clear: both
+        width: 100%
+        border-top: 1px solid #d4d7d8
+        padding: 20px 0 0
+        p
+          padding: 0 0 10px 0
+          margin: 0
+        ul
+          width: 100%
+          margin: 0
+          padding: 0
+          li
+            font-weight: 400
+            font-size: 14px
+            display: block
+            clear: both
+            padding: 5px 0
+            span
+              font-weight: 300
+              width: 120px
+              float: left
+              display: block
+      .top-demanded-skill-block
+        display: inline-block
+        clear: both
+        padding: 20px 0 0
+        width: 100%
+        .top-demanded-skill-content
+          display: inline-block
+          width: 100%
+          clear: both
+          padding: 20px
+          p
+            margin: 0
+            padding: 0 0 10px
+          ul
+            margin: 0
+            padding: 20px
+            display: inline-block
+            width: 100%
+            background-color: #f4f4f4
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            li
+              display: block
+              clear: both
+              padding: 5px 0
+            li:first-child
+              padding-top: 0
+            li:last-child
+              padding-bottom: 0
+          .send-me-skills-trend
+            display: inline-block
+            clear: both
+            width: 100%
+            padding-top: 20px
+            h4
+              font-size: 14px
+              font-weight: 400
+              margin: 0
+              padding: 0 0 10px 0
+            input
+              border: 1px solid #d4d7d8
+              border-radius: 5px
+              clear: both
+              float: left
+              height: 37px
+              line-height: 37px
+              margin-right: 1%
+              padding: 0 10px
+              width: 84%
+            button
+              float: left
+              width: 15%

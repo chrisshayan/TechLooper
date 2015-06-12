@@ -148,8 +148,11 @@ public class VietnamWorksJobStatisticServiceITCase {
 
     @Test
     public void testGetTop5DemandedSkillsByJobTitle() throws Exception {
-        List<SkillStatistic> skillStatistics =
-                jobStatisticService.getTopDemandedSkillsByJobTitle("Java Developer", Arrays.asList(35L), 5, 5);
-        assertTrue(skillStatistics.size() > 0);
+        TopDemandedSkillRequest request = new TopDemandedSkillRequest();
+        request.setJobTitle("Java Developer");
+        request.setJobCategories(Arrays.asList(35L));
+        request.setJobLevelId(5);
+        List<TopDemandedSkillResponse> skillStatistics = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
+        assertTrue(skillStatistics.size() > 0 && skillStatistics.size() <= 5);
     }
 }
