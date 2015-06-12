@@ -147,14 +147,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "userProfileController"
       })
-      .when("/salary-sharing", {
-        templateUrl: "modules/current-job/salary-sharing/salary-sharing.tem.html",
-        controller: "salarySharingController"
-      })
-      .when("/salary-report", {
-        templateUrl: "modules/current-job/salary-report/salary-report.tem.html",
-        controller: "salaryReportController"
-      })
       .when("/salary-review", {
         templateUrl: "modules/salary-report/salary-review.tem.html",
         controller: "salaryReviewController"
