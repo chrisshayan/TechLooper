@@ -34,10 +34,8 @@
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobCategory"></label>
-          <selectize name="locationId" config='selectize.locationsSelectize.config'
-                     options='selectize.locationsSelectize.items'
-                     ng-model="promotionInfo.locationId" name="{{'location' | translate}}"
-                     class="locationSelectbox"></selectize>
+          <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
+                     ng-model="getPromoted.jobCategories" name="{{'jobCategory' | translate}}"></selectize>
         </div>
         <div class="gp-form-field submit">
           <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="getPromoted()"
