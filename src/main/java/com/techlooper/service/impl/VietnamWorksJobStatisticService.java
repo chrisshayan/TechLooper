@@ -424,27 +424,28 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     @Override
-    public List<SkillStatistic> getTopDemandedSkillsByJobTitle(String jobTitle, List<Long> jobCategories,
-                                                               Integer jobLevelId, int limit) {
+    public List<TopDemandedSkillResponse> getTopDemandedSkillsByJobTitle(TopDemandedSkillRequest request) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(
-                jobTitle, jobCategories, jobLevelId);
+                request.getJobTitle(), request.getJobCategories(), request.getJobLevelId());
         queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
 
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
         List<Terms.Bucket> buckets =
                 ((StringTerms)((InternalNested)aggregations.get("top_demanded_skills")).getAggregations().get("top_demanded_skills")).getBuckets();
-        List<SkillStatistic> rawSkillStatistics = buckets.stream().map(bucket -> new SkillStatistic(bucket.getKey(), bucket.getDocCount())).collect(toList());
+        List<TopDemandedSkillResponse> rawSkillStatistics = buckets.stream().map(
+                bucket -> new TopDemandedSkillResponse(bucket.getKey(), bucket.getDocCount())).collect(toList());
 
-        List<SkillStatistic> skillStatistics = excludeSimilarSkills(rawSkillStatistics);
+        List<TopDemandedSkillResponse> skillStatistics = excludeSimilarSkills(rawSkillStatistics);
+        int limit = request.getLimit() > 0 ? request.getLimit() : 5;
         return skillStatistics.stream().limit(limit).collect(toList());
     }
 
-    private List<SkillStatistic> excludeSimilarSkills(List<SkillStatistic> rawSkillStatistics) {
-        List<SkillStatistic> skillStatistics = new ArrayList<>();
+    private List<TopDemandedSkillResponse> excludeSimilarSkills(List<TopDemandedSkillResponse> rawSkillStatistics) {
+        List<TopDemandedSkillResponse> skillStatistics = new ArrayList<>();
         if (!rawSkillStatistics.isEmpty()) {
             skillStatistics.add(rawSkillStatistics.get(0));
             for (int i = 1; i < rawSkillStatistics.size(); i++) {
-                SkillStatistic target = rawSkillStatistics.get(i);
+                TopDemandedSkillResponse target = rawSkillStatistics.get(i);
                 boolean isSimilar = false;
                 for (int j = 0; j < skillStatistics.size(); j++) {
                     double score = JaroWinkler.similarity(skillStatistics.get(j).getSkillName(), target.getSkillName());
