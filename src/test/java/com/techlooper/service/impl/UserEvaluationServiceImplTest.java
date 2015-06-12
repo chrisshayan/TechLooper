@@ -33,11 +33,11 @@ public class UserEvaluationServiceImplTest {
     @Test
     public void testEvaluateJobOffer() throws Exception {
         SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
-        salaryReviewEntity.setJobTitle("Java Developer");
+        salaryReviewEntity.setJobTitle("Product manager");
         salaryReviewEntity.setJobLevelIds(Arrays.asList(5, 6));
         salaryReviewEntity.setJobCategories(Arrays.asList(35L));
-        salaryReviewEntity.setNetSalary(1500);
-        salaryReviewEntity.setSkills(Arrays.asList("Liferay", "Spring", "Hibernate"));
+        salaryReviewEntity.setNetSalary(400);
+        //salaryReviewEntity.setSkills(Arrays.asList("Liferay", "Spring", "Hibernate"));
         userEvaluationService.reviewSalary(salaryReviewEntity);
         SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getNumberOfJobs() > 0);

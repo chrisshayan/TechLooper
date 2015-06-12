@@ -21,7 +21,9 @@ import org.elasticsearch.search.aggregations.InternalAggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.bucket.nested.InternalNested;
 import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
 import org.springframework.beans.factory.annotation.Value;
@@ -417,6 +419,19 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
 
         return histogramValues;
+    }
+
+    @Override
+    public List<SkillStatistic> getTopDemandedSkillsByJobTitle(String jobTitle, List<Long> jobCategories,
+                                                               Integer jobLevelId, int limit) {
+        NativeSearchQueryBuilder queryBuilder =
+                jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(jobTitle, jobCategories, jobLevelId);
+        queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
+
+        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
+        List<Terms.Bucket> buckets =
+                ((StringTerms)((InternalNested)aggregations.get("top_demanded_skills")).getAggregations().get("top_demanded_skills")).getBuckets();
+        return buckets.stream().map(bucket -> new SkillStatistic(bucket.getKey(), bucket.getDocCount())).collect(Collectors.toList());
     }
 
     private List<SkillStatistic> sortTrendingSkillsByTotalJobs(List<SkillStatistic> skillStatistics) {

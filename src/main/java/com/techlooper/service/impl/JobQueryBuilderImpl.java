@@ -16,6 +16,8 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.bucket.nested.NestedAggregator;
+import org.elasticsearch.search.aggregations.bucket.nested.NestedBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
@@ -33,6 +35,7 @@ import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.search.aggregations.AggregationBuilders.*;
 
 /**
  * Created by phuonghqh on 11/8/14.
@@ -76,7 +79,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     public AggregationBuilder getTechnicalTermAggregation(TechnicalTerm term) {
-        return AggregationBuilders.filter(term.getKey()).filter(this.getTechnicalTermQuery(term));
+        return filter(term.getKey()).filter(this.getTechnicalTermQuery(term));
     }
 
     /**
@@ -95,7 +98,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         RangeFilterBuilder approveDateQuery = rangeFilter("approvedDate").to(to).cache(true);
         RangeFilterBuilder expiredDateQuery = rangeFilter("expiredDate").gte(to).cache(true);
         BoolFilterBuilder filterQuery = boolFilter().must(skillQuery, approveDateQuery, expiredDateQuery);
-        return AggregationBuilders.filter(EncryptionUtils.encodeHexa(skill.getName()) + "-" + histogramEnum + "-" + intervalDate).filter(filterQuery);
+        return filter(EncryptionUtils.encodeHexa(skill.getName()) + "-" + histogramEnum + "-" + intervalDate).filter(filterQuery);
     }
 
     public List<List<FilterAggregationBuilder>> toSkillAggregations(List<Skill> skills, HistogramEnum histogramEnum) {
@@ -157,8 +160,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
     @Override
     public FilterAggregationBuilder getTopCompaniesAggregation() {
-        return AggregationBuilders.filter("top_companies").filter(rangeFilter("expiredDate").from("now")).subAggregation(
-                AggregationBuilders.terms("top_companies").field("companyId"));
+        return filter("top_companies").filter(rangeFilter("expiredDate").from("now")).subAggregation(
+                terms("top_companies").field("companyId"));
     }
 
     @Override
@@ -173,10 +176,10 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             FilterBuilder skillFilter = queryFilter(boolQuery()
                     .must(skillQueryBuilder)
                     .must(rangeQuery("approvedDate").from("now-" + lastPeriod)));
-            AggregationBuilder skillHistogramAgg = AggregationBuilders.dateHistogram(aggName)
+            AggregationBuilder skillHistogramAgg = dateHistogram(aggName)
                     .field("approvedDate").format("yyyy-MM-dd").interval(DateHistogram.Interval.MONTH).minDocCount(0);
 
-            skillAnalyticsAggregations.add(AggregationBuilders.filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
+            skillAnalyticsAggregations.add(filter(aggName).filter(skillFilter).subAggregation(skillHistogramAgg));
         }
         return skillAnalyticsAggregations;
     }
@@ -304,6 +307,36 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             analyzedSkills.add(StringUtils.capitalize(skill));
         }
         return analyzedSkills;
+    }
+
+    @Override
+    public NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, Integer jobLevelId) {
+        NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
+
+        //pre-process job title in case user enters multiple roles of his job
+        List<String> jobTitleTokens = preprocessJobTitle(jobTitle);
+
+        BoolQueryBuilder jobTitleQueryBuilder = boolQuery();
+        jobTitleTokens.forEach(jobTitleToken -> jobTitleQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
+
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
+        boolFilterBuilder.must(getRangeFilterBuilder("approvedDate", "now-6M/M", null));
+
+        if (jobCategories != null && !jobCategories.isEmpty()) {
+            boolFilterBuilder.must(getJobIndustriesFilterBuilder(jobCategories));
+        }
+
+        if (jobLevelId != null && jobLevelId > 0) {
+            boolFilterBuilder.must(getJobLevelFilterBuilder(Arrays.asList(jobLevelId)));
+        }
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilterBuilder));
+        return queryBuilder;
+    }
+
+    @Override
+    public NestedBuilder getTopDemandedSkillsAggregation() {
+        return nested("top_demanded_skills").path("skills").subAggregation(terms("top_demanded_skills").field("skills.skillName"));
     }
 
     /*

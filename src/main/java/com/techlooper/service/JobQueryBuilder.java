@@ -14,6 +14,7 @@ import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.nested.NestedBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.util.List;
@@ -117,4 +118,8 @@ public interface JobQueryBuilder {
     NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobEntity priceJobEntity);
 
     NativeSearchQueryBuilder getJobSearchQueryByJobTitle(String jobTitle);
+
+    NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, Integer jobLevelId);
+
+    NestedBuilder getTopDemandedSkillsAggregation();
 }
