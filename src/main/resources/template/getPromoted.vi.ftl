@@ -261,7 +261,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td align="left" width="100%" style="font-size: 16px;">
+                                            <td align="left" width="100%" style="font-size: 14px;">
                                                 Dựa trên xu hướng thị trường việc làm ngày <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, các kỹ năng đòi hỏi nhiều nhất từ các nhà tuyển dụng được liệt kê theo độ ưu tiên từ cao đến thấp như sau.
                                             </td>
                                         </tr>

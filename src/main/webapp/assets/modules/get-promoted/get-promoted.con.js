@@ -1,4 +1,4 @@
-techlooper.controller('getPromotedController', function ($scope, validatorService, vnwConfigService, $http, $translate, utils) {
+techlooper.controller('getPromotedController', function ($scope, validatorService, vnwConfigService) {
   $scope.selectize = vnwConfigService;
 
   var state = {

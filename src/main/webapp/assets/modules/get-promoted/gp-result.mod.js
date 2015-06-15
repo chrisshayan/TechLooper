@@ -18,6 +18,8 @@ techlooper
           }
 
           var promotionInfo = angular.copy(scope.masterPromotion);
+          if (promotionInfo.jobLevelIds.length === 0) delete promotionInfo.jobLevelIds;
+
           var promotionResult = scope.masterPromotion.result;
           utils.removeRedundantAttrs(promotionInfo, ["result", "jobCategoryTitle", "jobLevelTitle", "jobLevelId"]);
           $http

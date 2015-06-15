@@ -1,59 +1,70 @@
 <div class="get-promoted-results-block">
-  <div class="get-promoted-general-block">
+  <div class="get-promoted-general-block" ng-show="state.showView('has-promotion-result')">
     <p translate="gpNumberOfJobs"
        translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"
-       translate-value-salary-from="<strong>{{masterPromotion.result.salaryMin | number:0}}</strong>"
-       translate-value-salary-to="<strong>{{masterPromotion.result.salaryMax | number:0}}</strong>"
+       translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"
+       translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"
       />
     <ul>
       <li translate="jobTitleWithParam" translate-value-job-title="<span>{{masterPromotion.jobTitle}}</span>">
       </li>
-      <li translate="jobLevelWithParam"
+      <li ng-show="masterPromotion.jobLevelTitle" translate="jobLevelWithParam"
           translate-value-job-level="<span>{{masterPromotion.jobLevelTitle}}</span>">
       </li>
-      <li translate="jobCategoryWithParam"
-      translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">
+      <li ng-show="masterPromotion.jobCategoryTitle" translate="jobCategoryWithParam"
+          translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">
       </li>
     </ul>
   </div>
   <div class="top-demanded-skill-block">
     <div class="box-content-collapse">
-      <div class="title-header">
+      <div class="title-header" ng-show="state.showView('has-promotion-result')">
         <h3 translate="topDemand"></h3>
       </div>
       <div class="top-demanded-skill-content">
         <p ng-show="state.showView('has-promotion-result')" translate="highestDemand"></p>
         <!-- description for No Data -->
-        <p ng-show="state.showView('no-promotion-result')" translate="highestDemandNoData"/>
-        <ul>
+        <p ng-show="state.showView('no-promotion-result')">
+          <span ng-show="masterPromotion.jobTitle" translate="weFindNoDataWithParam" translate-value-text="<strong>{{masterPromotion.jobTitle}}</strong>"></span>
+          <span ng-show="masterPromotion.jobLevelTitle" translate="withLevelWithParam" translate-value-text="<strong>{{masterPromotion.jobLevelTitle}}</strong>"></span>
+          <span ng-show="masterPromotion.jobCategoryTitle" translate="inWithParam" translate-value-text="<strong>{{masterPromotion.jobCategoryTitle}}</strong>"></span>
+          <span>.</span>
+          <span translate="whileUpdateYourJobInfo"></span>
+        </p>
+        <ul ng-show="state.showView('has-promotion-result')">
           <li ng-repeat="skill in masterPromotion.result.topDemandedSkills">{{skill.skillName}}</li>
         </ul>
         <div class="send-me-skills-trend">
           <h4 translate="sendMeSkillTrend"></h4>
+
           <p ng-show="state.showView('has-promotion-result')" translate="sendMeDesc"></p>
           <!-- description for No Data -->
           <p ng-show="state.showView('no-promotion-result')" translate="sendMeDescNoData"></p>
 
-          <form ng-show="state.showView('not-sent-promoted-email')" novalidate name="promotionEmailForm" autocomplete="off" ng-submit="sendPromotionEmail()">
+          <form ng-show="state.showView('not-sent-promoted-email')" novalidate name="promotionEmailForm"
+                autocomplete="off" ng-submit="sendPromotionEmail()">
             <input ng-model="promotionEmail" type="email" placeholder="{{'exEmailAddress' | translate}}"
                    name="promotionEmail"
                    ng-required="true" touchable/>
             <button ng-show="state.showView('has-promotion-result')" translate="sendMeNow"
                     class="btn btn-primary btn-flat"
-                    type="submit" />
+                    type="submit"/>
             <!-- button for No Data -->
             <button ng-show="state.showView('no-promotion-result')" translate="save" class="btn btn-primary btn-flat"
-                    type="submit" />
+                    type="submit"/>
             <!--<div class="error-messages">{{error['getPromoted.email']}}</div>-->
-            <div class="error-messages" ng-show="(promotionEmailForm.$submitted || promotionEmailForm.promotionEmail.$touched)">
-              <div translate="requiredThisField" ng-show="promotionEmailForm.promotionEmail.$error.required" />
-              <div translate="emailInvalid" ng-show="promotionEmailForm.promotionEmail.$error.email" />
+            <div class="error-messages"
+                 ng-show="(promotionEmailForm.$submitted || promotionEmailForm.promotionEmail.$touched)">
+              <div translate="requiredThisField" ng-show="promotionEmailForm.promotionEmail.$error.required"/>
+              <div translate="emailInvalid" ng-show="promotionEmailForm.promotionEmail.$error.email"/>
             </div>
           </form>
         </div>
-        <div ng-show="state.showView('sent-promoted-email-has-result')" role="alert" translate="thanksSendMeReport" class="success-alert-box"></div>
+        <div ng-show="state.showView('sent-promoted-email-has-result')" role="alert" translate="thanksSendMeReport"
+             class="success-alert-box"></div>
         <!-- description for No Data -->
-        <div ng-show="state.showView('sent-promoted-email-no-result')" role="alert" translate="thanksSendMeReport1" class="success-alert-box"></div>
+        <div ng-show="state.showView('sent-promoted-email-no-result')" role="alert" translate="thanksSendMeReport1"
+             class="success-alert-box"></div>
       </div>
 
     </div>
