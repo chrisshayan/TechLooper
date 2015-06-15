@@ -155,10 +155,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/price-job/price-job.tem.html",
         controller: "priceJobController"
       })
-        .when("/get-promoted", {
-          templateUrl: "modules/get-promoted/get-promoted.tem.html",
-          controller: "getPromotedController"
-        })
+      .when("/get-promoted", {
+        templateUrl: "modules/get-promoted/get-promoted.tem.html",
+        controller: "getPromotedController"
+      })
+      .when("/contest", {
+        templateUrl: "modules/contest/contest.tem.html",
+        controller: "contestController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
