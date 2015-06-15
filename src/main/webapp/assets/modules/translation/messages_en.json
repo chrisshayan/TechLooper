@@ -259,6 +259,7 @@
   "expectedJobLevel": "Expected Job Level:",
   "expectedJobCategory": "Expected Job Category:",
   "getPromoted": "Get Promoted",
+  "getPromoted.salary": "Get Promoted",
   "gpNumberOfJobs": "There are {{numberOfJobs}} jobs with salary range from {{salaryFrom}} to {{salaryTo}} for",
   "topDemand": "Top Demanded Skills By The Market",
   "highestDemand":"Highest demanded skills are listed out from top to bottom.",
