@@ -261,6 +261,7 @@
   "expectedJobLevel": "Cấp Bậc Mong Muốn:",
   "expectedJobCategory": "Ngành Nghề Mong Muốn:",
   "getPromoted": "Xem Báo Cáo",
+  "getPromoted.salary": "Thăng Tiến Ngay",
   "gpNumberOfJobs": "Có {{numberOfJobs}} công việc với mức lương từ {{salaryFrom}} đến {{salaryTo}} cho",
   "topDemand": "Kỹ Năng Hàng Đầu",
   "highestDemand":"Các kỹ năng đòi hỏi nhiều nhất từ các nhà tuyển dụng được liệt kê theo độ ưu tiên từ cao xuống thấp như sau.",
