@@ -25,9 +25,19 @@ techlooper.controller('getPromotedController', function ($scope, validatorServic
 
   $scope.doPromotion = function() {
     if ($scope.promotionForm.$valid) {
+      $scope.masterPromotion = angular.copy($scope.promotionInfo);
       $scope.changeState('result');
     }
   }
+
+
+  $scope.$watch("masterPromotion", function(newVal, oldVal) {
+    if (!newVal && !oldVal) {
+      return;
+    }
+    $scope.masterPromotion.jobLevelTitle = vnwConfigService.getJobLevelText($scope.masterPromotion.jobLevelId);
+    $scope.masterPromotion.jobCategoryTitle = vnwConfigService.getIndustryTexts($scope.masterPromotion.jobCategoryIds).join(" | ");
+  });
 
   $scope.changeState("default");
 });

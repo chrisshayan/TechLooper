@@ -275,7 +275,10 @@
   "contestDescription3": "Thông điệp mã hoá là 1 dãy các ký tự Braille, với mỗi ký tự là 1 ô gồm 6 chấm nhỏ. Bên trái gồm 3 chấm lần lượt từ trên xuống dưới là chấm 1, chấm 2, chấm 3. Bên phải gồm 3 chấm, lần lượt từ trên xuống dưới là chấm 4, chấm 5, chấm 6. Do sự xuất hiện của các chấm khác nhau mà ta có các ký tự khác nhau.",
   "contestDescription4": "Ví dụ: Thông điệp mã hoá sau được dịch thành &quot;helloworld&quot;",
   "topDemandedSkill": "Kỹ Năng Hàng Đầu [nhấp chuột để thêm]",
-  "nowYourTurn": "<strong>Còn chần chờ gì nữa</strong>, giải mã thông điệp sau để <strong>THAM GIA GIÀNH GIẢI THƯỞNG $2,000</strong>"
+  "nowYourTurn": "<strong>Còn chần chờ gì nữa</strong>, giải mã thông điệp sau để <strong>THAM GIA GIÀNH GIẢI THƯỞNG $2,000</strong>",
+  "jobTitleWithParam": "Chức Danh: {{jobTitle}}",
+  "jobLevelWithParam": "Cấp Bậc: {{jobLevel}}",
+  "jobCategoryWithParam": "Ngành Nghề: {{jobCategory}}"
 }
 
 

@@ -3,14 +3,14 @@
     <p translate="gpNumberOfJobs"></p>
     <ul>
       <li>
-        <span>{{'jobTitle' | translate}}: </span>
-        Java Developer
+        <span translate="jobTitleWithParam" translate-value-job-title="<strong>{{masterPromotion.jobTitle}}</strong>"/>
       </li>
       <li>
-        <span>{{'jobLevel' | translate}}: </span>
-        Manager
+        <span translate="jobLevelWithParam" translate-value-job-level="<strong>{{masterPromotion.jobLevelTitle}}</strong>"/>
       </li>
       <li>
+        <span translate="jobCategoryWithParam" translate-value-job-category="<strong>{{masterPromotion.jobCategoryTitle}}</strong>"/>
+
         <span>{{'jobCategory' | translate}}: </span>
         It-software | Internet Media
       </li>

@@ -12,9 +12,13 @@
   <div class="contest-detail">
     <h2 translate="contestTagLine"></h2>
     <p translate="contestDescription1"></p>
-    <div class="infographic-content">
+    <div class="infographic-content" ng-show="!vietmanese">
       <img src="images/braille-contest-infographic.jpg" alt="" class="desktop"/>
       <img src="images/braille-contest-infographic-mobile.jpg" alt="" class="mobile"/>
+    </div>
+    <div class="infographic-content" ng-show="vietmanese">
+      <img src="images/braille-contest-infographic-vi.jpg" alt="" class="desktop"/>
+      <img src="images/braille-contest-infographic-mobile-vi.jpg" alt="" class="mobile"/>
     </div>
     <p translate="contestDescription2"></p>
     <!-- for vietnamese -->

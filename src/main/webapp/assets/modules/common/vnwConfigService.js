@@ -667,6 +667,24 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       return text;
     },
 
+    getJobLevelText: function(jobLevelId) {
+      return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
+    },
+
+    getJobLevelIds: function(jobLevelId) {
+      return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").ids;
+    },
+
+    getIndustryTexts: function(industryIds) {
+      var texts = [];
+      $.each(instance.industriesSelectize.items, function(i, item) {
+        if (industryIds.indexOf(item.id) > -1) {
+          texts.push(item.translate);
+        }
+      });
+      return texts;
+    },
+
     jobLevelsSelectize: {
       items: $.extend(true, [], jsonValue.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;})),
       config: $.extend(true, {}, createSelectizeConfig("jobLevelsSelectize"), translateConfigBase)

@@ -15,25 +15,25 @@
           <div auto-suggestion text="promotionInfo.jobTitle" items="jobTitles"
                get-url="suggestion/jobTitle/">
           </div>
-          <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" required=""
+          <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" ng-required="true"
                         attr-placeholder="{{'jobTitle.placeholder' | translate}}">
           </autocomplete>
 
-            <div class="error-messages"
-                 ng-show="promotionForm.jobTitle.$error.required && (promotionForm.jobTitle.$touch || promotionForm.$submitted)"
-                 translate="requiredThisField"></div>
+          <div class="error-messages"
+               ng-show="promotionForm.jobTitle.$error.required && (promotionForm.jobTitle.$touch || promotionForm.$submitted)"
+               translate="requiredThisField"></div>
 
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobLevel"></label>
           <selectize name="jobLevelIds" config='selectize.jobLevelsSelectize.config'
                      options='selectize.jobLevelsSelectize.items'
-                     ng-model="promotionInfo.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+                     ng-model="promotionInfo.jobLevelId" name="{{'jobLevel' | translate}}"></selectize>
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobCategory"></label>
           <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
-                     ng-model="getPromoted.jobCategories" name="{{'jobCategory' | translate}}"></selectize>
+                     ng-model="promotionInfo.jobCategoryIds" name="{{'jobCategory' | translate}}"></selectize>
         </div>
         <div class="gp-form-field submit">
           <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="doPromotion()"

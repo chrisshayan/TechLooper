@@ -273,5 +273,8 @@
   "contestDescription4": "Ex: This Input translates to &quot;helloworld&quot;",
   "here": "here",
   "topDemandedSkill": "Top demanded skills (click to add)",
-  "nowYourTurn": "<strong>Now is your turn</strong>: Print the transcribed Braille below to know <strong>HOW TO PARTICIPATE IN A $2,000 CONTEST</strong>"
+  "nowYourTurn": "<strong>Now is your turn</strong>: Print the transcribed Braille below to know <strong>HOW TO PARTICIPATE IN A $2,000 CONTEST</strong>",
+  "jobTitleWithParam": "Job Title: {{jobTitle}}",
+  "jobLevelWithParam": "Job Level: {{jobLevel}}",
+  "jobCategoryWithParam": "Job Categories: {{jobCategory}}"
 }
