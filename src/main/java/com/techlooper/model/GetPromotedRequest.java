@@ -15,16 +15,6 @@ public class GetPromotedRequest {
 
   private int limitSkills;
 
-  private Boolean hasResult;
-
-  public Boolean getHasResult() {
-    return hasResult;
-  }
-
-  public void setHasResult(Boolean hasResult) {
-    this.hasResult = hasResult;
-  }
-
   public String getJobTitle() {
     return jobTitle;
   }

@@ -3,6 +3,7 @@ package com.techlooper.service;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.EmailRequest;
 import com.techlooper.model.GetPromotedEmailRequest;
+import com.techlooper.model.GetPromotedRequest;
 import com.techlooper.model.VnwJobAlertRequest;
 import freemarker.template.TemplateException;
 
@@ -22,4 +23,6 @@ public interface SalaryReviewService {
     void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
 
     void sendTopDemandedSkillsEmail(GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException;
+
+    void saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest);
 }
