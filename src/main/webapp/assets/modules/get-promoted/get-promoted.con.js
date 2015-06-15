@@ -1,4 +1,4 @@
-techlooper.controller('getPromotedController', function ($scope, validatorService, vnwConfigService, $http) {
+techlooper.controller('getPromotedController', function ($scope, validatorService, vnwConfigService, $http, $translate) {
   $scope.selectize = vnwConfigService;
 
   var state = {
@@ -13,6 +13,16 @@ techlooper.controller('getPromotedController', function ($scope, validatorServic
 
           case "has-promotion-result":
             return $scope.masterPromotion.result.totalJob > 0;
+
+          case "sent-promoted-email-no-result":
+            var hasResult = $scope.masterPromotion.result.totalJob > 0;
+            var sentEmail = $scope.promotionEmailForm.$sentEmail;
+            return !hasResult && sentEmail;
+
+          case "sent-promoted-email-has-result":
+            var hasResult = $scope.masterPromotion.result.totalJob > 0;
+            var sentEmail = $scope.promotionEmailForm.$sentEmail;
+            return hasResult && sentEmail;
         }
         return false;
       }
@@ -48,11 +58,16 @@ techlooper.controller('getPromotedController', function ($scope, validatorServic
     if (!$scope.promotionEmailForm.$valid) {
       return false;
     }
-    //$http.post("getPromoted", $scope.promotionInfo)
-    //  .success(function (data, status, headers, config) {
-    //    $scope.masterPromotion.result = data;
-    //    $scope.changeState('result');
-    //  });
+
+    $http
+      .post("getPromoted/email", {
+        getPromotedRequest: $scope.masterPromotion,
+        lang: $translate.use(),
+        email: $scope.promotionEmail
+      })
+      .success(function (data, status, headers, config) {
+        $scope.promotionEmailForm.$sentEmail = true;
+      });
   }
 
   $scope.changeState("default");

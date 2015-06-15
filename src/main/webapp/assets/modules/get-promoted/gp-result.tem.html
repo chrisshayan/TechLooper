@@ -55,9 +55,9 @@
             </div>
           </form>
         </div>
-        <div ng-show="false" role="alert" translate="thanksSendMeReport" class="success-alert-box"></div>
+        <div ng-show="state.showView('sent-promoted-email-has-result')" role="alert" translate="thanksSendMeReport" class="success-alert-box"></div>
         <!-- description for No Data -->
-        <div ng-show="false" role="alert" translate="thanksSendMeReport1" class="success-alert-box"></div>
+        <div ng-show="state.showView('sent-promoted-email-no-result')" role="alert" translate="thanksSendMeReport1" class="success-alert-box"></div>
       </div>
 
     </div>
