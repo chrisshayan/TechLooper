@@ -8,8 +8,8 @@ techlooper
         scope.$on("stateChanged", function () {
           delete scope.promotionEmail;
           scope.promotionEmailForm.$setPristine();
+          scope.promotionEmailForm.$setUntouched();
           utils.removeRedundantAttrs(scope.promotionEmailForm, ["$sentEmail"]);
-          console.log(scope.promotionEmailForm);
         });
 
         scope.sendPromotionEmail = function () {
