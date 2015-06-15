@@ -18,6 +18,8 @@ techlooper
           }
 
           var promotionInfo = angular.copy(scope.masterPromotion);
+          var promotionResult = scope.masterPromotion.result;
+          promotionInfo.hasResult = promotionResult && promotionResult.totalJob > 0;;
           utils.removeRedundantAttrs(promotionInfo, ["result", "jobCategoryTitle", "jobLevelTitle", "jobLevelId"]);
           $http
             .post("getPromoted/email", {
