@@ -339,6 +339,12 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         return nested("top_demanded_skills").path("skills").subAggregation(terms("top_demanded_skills").field("skills.skillName").size(20));
     }
 
+    @Override
+    public FilterAggregationBuilder getSalaryAverageAggregation(String fieldName) {
+        return filter(fieldName + "_avg").filter(rangeFilter(fieldName).from(250L))
+                .subAggregation(avg(fieldName + "_avg").field(fieldName));
+    }
+
     /*
      TODO : This is not a completely sustainable solution, first we should change to see whether the total number of
      no data report would decrease or not. If yes, we will improve it more better later

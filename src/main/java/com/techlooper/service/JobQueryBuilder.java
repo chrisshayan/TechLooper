@@ -122,4 +122,6 @@ public interface JobQueryBuilder {
     NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, Integer jobLevelId);
 
     NestedBuilder getTopDemandedSkillsAggregation();
+
+    FilterAggregationBuilder getSalaryAverageAggregation(String fieldName);
 }
