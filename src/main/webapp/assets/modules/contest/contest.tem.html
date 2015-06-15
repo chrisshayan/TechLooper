@@ -12,7 +12,13 @@
   <div class="contest-detail">
     <h2 translate="contestTagLine"></h2>
     <p translate="contestDescription1"></p>
-    <div class="infographic-content">
+    <div class="infographic-content" ng-show="!vietmanese">
+      <img src="images/braille-contest-infographic.jpg" alt="" class="desktop"/>
+      <img src="images/braille-contest-infographic-mobile.jpg" alt="" class="mobile"/>
+    </div>
+    <div class="infographic-content" ng-show="vietmanese">
+      <img src="images/braille-contest-infographic-vi.jpg" alt="" class="desktop"/>
+      <img src="images/braille-contest-infographic-mobile-vi.jpg" alt="" class="mobile"/>
     </div>
     <p translate="contestDescription2"></p>
     <!-- for vietnamese -->
@@ -20,10 +26,19 @@
     <p translate="contestDescription3"></p>
     <p class="ex" translate="contestDescription4"></p>
     <div class="ex-braille">
-
+      <div class="braille-contest-code">
+        <p><span><i>O</i><i>.</i></span><span> <i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>O</i></span></p>
+        <p><span><i>O</i><i>O</i> </span><span><i>.</i><i>O</i></span><span> <i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i> </span><span><i>O</i><i>O</i> </span><span><i>.</i><i>O</i></span><span> <i>O</i><i>O</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i></span></p>
+        <p><span><i>.</i><i>.</i> </span><span><i>.</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i></span><span> O<i>.</i> </span><span><i>.</i><i>.</i></span></p>
+      </div>
     </div>
-    <div class="box-content-collapse">
-
+    <div class="braille-contest-block">
+      <h3 translate="nowYourTurn"></h3>
+      <div class="braille-contest-code">
+        <p><span><i>O</i><i>.</i></span><span> <i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>O</i></span></p>
+        <p><span><i>O</i><i>O</i> </span><span><i>.</i><i>O</i></span><span> <i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i> </span><span><i>O</i><i>O</i> </span><span><i>.</i><i>O</i></span><span> <i>O</i><i>O</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i></span></p>
+        <p><span><i>.</i><i>.</i> </span><span><i>.</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i> </span><span><i>.</i><i>O</i> </span><span><i>O</i><i>.</i> </span><span><i>O</i><i>.</i></span><span> O<i>.</i> </span><span><i>.</i><i>.</i></span></p>
+      </div>
     </div>
   </div>
 </div>
