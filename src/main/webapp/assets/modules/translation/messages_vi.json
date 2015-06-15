@@ -273,7 +273,8 @@
   "contestDescription2": "Từ 18/6/2015 đến 17/7/2015, bạn cần khám phá thông điệp đã được mã hoá bằng ký tự Braille để nhận được bảng hướng dẫn tham gia cuộc thi này.",
   "contestDescription2.vi": "* Braille: là loại chữ nổi dành cho người khiếm thị, có thể tham khảo <a href='https://en.wikipedia.org/wiki/English_Braille' target='blank'>tại đây</a>.",
   "contestDescription3": "Thông điệp mã hoá là 1 dãy các ký tự Braille, với mỗi ký tự là 1 ô gồm 6 chấm nhỏ. Bên trái gồm 3 chấm lần lượt từ trên xuống dưới là chấm 1, chấm 2, chấm 3. Bên phải gồm 3 chấm, lần lượt từ trên xuống dưới là chấm 4, chấm 5, chấm 6. Do sự xuất hiện của các chấm khác nhau mà ta có các ký tự khác nhau.",
-  "contestDescription4": "Ví dụ: Thông điệp mã hoá sau được dịch thành &quot;helloworld&quot;"
+  "contestDescription4": "Ví dụ: Thông điệp mã hoá sau được dịch thành &quot;helloworld&quot;",
+  "topDemandedSkill": "Kỹ Năng Hàng Đầu [nhấp chuột để thêm]"
 }
 
 

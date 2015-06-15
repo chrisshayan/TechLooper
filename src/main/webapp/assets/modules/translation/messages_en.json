@@ -271,5 +271,6 @@
   "contestDescription2": "In this first phase, between 18 Jun and 17 Jul 2015, your first mission is figuring out a challenge to get instructions to join a $2,000 contest! Your challenge is to read in a string of Braille characters (using standard English Braille defined <a href='https://en.wikipedia.org/wiki/English_Braille' target='blank'>here</a>) and print off the word in standard English letters.",
   "contestDescription3": "The input will consistent of an array of 2x6 Braille characters, characters used for Blind people. A lowered bump is a dot character '.', while a raised bump is an upper-case 'O' character.",
   "contestDescription4": "Ex: This Input translates to &quot;helloworld&quot;",
-  "here": "here"
+  "here": "here",
+  "topDemandedSkill": "Top demanded skills (click to add)"
 }
