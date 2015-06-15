@@ -35,5 +35,5 @@ public interface JobStatisticService {
 
     Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds);
 
-    List<TopDemandedSkillResponse> getTopDemandedSkillsByJobTitle(TopDemandedSkillRequest request);
+    GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request);
 }

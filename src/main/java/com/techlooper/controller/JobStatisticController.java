@@ -9,6 +9,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -85,8 +86,9 @@ public class JobStatisticController {
         return jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
     }
 
-    public List<TopDemandedSkillResponse> getTopDemandedSkills(TopDemandedSkillRequest topDemandedSkillRequest) {
-        return jobStatisticService.getTopDemandedSkillsByJobTitle(topDemandedSkillRequest);
+    @RequestMapping(value = "/getPromoted", method = RequestMethod.POST)
+    public GetPromotedResponse getTopDemandedSkills(@RequestBody GetPromotedRequest getPromotedRequest) {
+        return jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
     }
 
 }

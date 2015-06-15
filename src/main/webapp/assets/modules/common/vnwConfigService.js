@@ -662,9 +662,31 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     },
 
     getLocationText: function (locationId) {
+      if (!locationId) return undefined;
       var text = "";
       $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});
       return text;
+    },
+
+    getJobLevelText: function(jobLevelId) {
+      if (!jobLevelId) return undefined;
+      return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
+    },
+
+    getJobLevelIds: function(jobLevelId) {
+      if (!jobLevelId) return undefined;
+      return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").ids;
+    },
+
+    getIndustryTexts: function(industryIds) {
+      if (!industryIds) return undefined;
+      var texts = [];
+      $.each(instance.industriesSelectize.items, function(i, item) {
+        if (industryIds.indexOf(item.id) > -1) {
+          texts.push(item.translate);
+        }
+      });
+      return texts;
     },
 
     jobLevelsSelectize: {

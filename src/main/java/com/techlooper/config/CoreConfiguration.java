@@ -44,195 +44,218 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
-  @PropertySource("classpath:techlooper.properties"),
-  @PropertySource("classpath:secret.properties")})
+        @PropertySource("classpath:techlooper.properties"),
+        @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
 public class CoreConfiguration {
 
-  @Resource
-  private Environment environment;
+    @Resource
+    private Environment environment;
 
-  @Value("${mail.techlooper.form}")
-  private String mailTechlooperForm;
+    @Value("${mail.techlooper.form}")
+    private String mailTechlooperForm;
 
-  @Value("${mail.techlooper.reply_to}")
-  private String mailTechlooperReplyTo;
+    @Value("${mail.techlooper.reply_to}")
+    private String mailTechlooperReplyTo;
 
-  @Value("${mail.form}")
-  private String mailForm;
+    @Value("${mail.form}")
+    private String mailForm;
 
-  @Value("${mail.reply_to}")
-  private String mailReplyTo;
+    @Value("${mail.reply_to}")
+    private String mailReplyTo;
 
-  @Value("${mail.citibank.cc_promotion.to}")
-  private String mailCitibankCreditCardPromotionTo;
+    @Value("${mail.citibank.cc_promotion.to}")
+    private String mailCitibankCreditCardPromotionTo;
 
-  @Value("${mail.citibank.cc_promotion.subject}")
-  private String mailCitibankCreditCardPromotionSubject;
+    @Value("${mail.citibank.cc_promotion.subject}")
+    private String mailCitibankCreditCardPromotionSubject;
 
-  @Value("classpath:vnwConfig.json")
-  private org.springframework.core.io.Resource vnwConfigRes;
+    @Value("classpath:vnwConfig.json")
+    private org.springframework.core.io.Resource vnwConfigRes;
 
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
-    configurer.setFileEncoding("UTF-8");
-    return configurer;
-  }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        configurer.setFileEncoding("UTF-8");
+        return configurer;
+    }
 
-  @Bean
-  public CacheManager cacheManager() {
-    CompositeCacheManager manager = new CompositeCacheManager();
-    manager.setCacheManagers(Arrays.asList(
-      new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
-      new ConcurrentMapCacheManager("COMMON_TERM"),
-      new ConcurrentMapCacheManager("SKILL_CONFIG")));
-    return manager;
-  }
+    @Bean
+    public CacheManager cacheManager() {
+        CompositeCacheManager manager = new CompositeCacheManager();
+        manager.setCacheManagers(Arrays.asList(
+                new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
+                new ConcurrentMapCacheManager("COMMON_TERM"),
+                new ConcurrentMapCacheManager("SKILL_CONFIG")));
+        return manager;
+    }
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-  @Bean
-  public MultipartResolver multipartResolver() {
-    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-    multipartResolver.setMaxUploadSize(500000);
-    return multipartResolver;
-  }
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(500000);
+        return multipartResolver;
+    }
 
-  @Bean
-  public Mapper dozerBeanMapper() {
-    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-    dozerBeanMapper.addMapping(new BeanMappingBuilder() {
-      protected void configure() {
-        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
-          .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+    @Bean
+    public Mapper dozerBeanMapper() {
+        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+        dozerBeanMapper.addMapping(new BeanMappingBuilder() {
+            protected void configure() {
+                mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
+                        .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
 
-        mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
-          .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
+                mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+                        .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
 
-        mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
-          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+                mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+                        .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
-        mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
-          .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
-          .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
-          .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+                mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
+                        .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
+                        .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
+                        .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-        mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+                mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
-        mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+                mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-        mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
-          .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+                mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
+                        .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
-        mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
-          .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+                mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
+                        .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
-        mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
+                mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
 
-        mapping(SalaryReviewEntity.class, VNWJobSearchRequest.class)
-          .fields("jobLevelIds", "jobLevel")
-          .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
-          .fields("netSalary", "jobSalary")
-          .fields("locationId", "jobLocation");
+                mapping(SalaryReviewEntity.class, VNWJobSearchRequest.class)
+                        .fields("jobLevelIds", "jobLevel")
+                        .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
+                        .fields("netSalary", "jobSalary")
+                        .fields("locationId", "jobLocation");
 
-        mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
-          .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
-          .fields("minSalary", "netSalary");
-      }
-    });
-    return dozerBeanMapper;
-  }
+                mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
+                        .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
+                        .fields("minSalary", "netSalary");
+            }
+        });
+        return dozerBeanMapper;
+    }
 
-  @Bean
-  public TextEncryptor textEncryptor() {
-    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-    textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
-    return textEncryptor;
-  }
+    @Bean
+    public TextEncryptor textEncryptor() {
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
+        return textEncryptor;
+    }
 
-  @Bean
-  public JavaMailSender mailSender() {
-    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-    mailSender.setHost("localhost");
-    mailSender.setPort(25);
+    @Bean
+    public JavaMailSender mailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("localhost");
+        mailSender.setPort(25);
 
-    Properties javaMailProperties = new Properties();
-    javaMailProperties.put("mail.transport.protocol", "smtp");
-    mailSender.setJavaMailProperties(javaMailProperties);
-    return mailSender;
-  }
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.transport.protocol", "smtp");
+        mailSender.setJavaMailProperties(javaMailProperties);
+        return mailSender;
+    }
 
-  @Bean
-  public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
-    SimpleMailMessage mailMessage = new SimpleMailMessage();
-    mailMessage.setFrom(mailForm);
-    mailMessage.setTo(mailCitibankCreditCardPromotionTo);
-    mailMessage.setReplyTo(mailReplyTo);
-    mailMessage.setSubject(mailCitibankCreditCardPromotionSubject);
-    return mailMessage;
-  }
+    @Bean
+    public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(mailForm);
+        mailMessage.setTo(mailCitibankCreditCardPromotionTo);
+        mailMessage.setReplyTo(mailReplyTo);
+        mailMessage.setSubject(mailCitibankCreditCardPromotionSubject);
+        return mailMessage;
+    }
 
-  @Bean
-  public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
-    freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
-    cfg.setDirectoryForTemplateLoading(Paths.get(this.getClass().getClassLoader().getResource("/template").toURI()).toFile());
-    cfg.setDefaultEncoding("UTF-8");
-    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-    return cfg;
-  }
+    @Bean
+    public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
+        freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
+        cfg.setDirectoryForTemplateLoading(Paths.get(this.getClass().getClassLoader().getResource("/template").toURI()).toFile());
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+        return cfg;
+    }
 
-  @Bean
-  public Template citibankCreditCardPromotionTemplate(freemarker.template.Configuration freemakerConfig) throws IOException {
-    Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
-    return template;
-  }
+    @Bean
+    public Template citibankCreditCardPromotionTemplate(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
+        return template;
+    }
 
-  @Bean
-  public Map<Long, String> locationMap() {
-    Map<Long, String> locations = new HashMap<>();
-    locations.put(29L, "Ho Chi Minh");
-    locations.put(24L, "Ha Noi");
-    return locations;
-  }
+    @Bean
+    public Map<Long, String> locationMap() {
+        Map<Long, String> locations = new HashMap<>();
+        locations.put(29L, "Ho Chi Minh");
+        locations.put(24L, "Ha Noi");
+        return locations;
+    }
 
-  @Bean
-  public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
-    MimeMessage mailMessage = mailSender.createMimeMessage();
-    mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-    mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
-    return mailMessage;
-  }
+    @Bean
+    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        return mailMessage;
+    }
 
-  @Bean
-  public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-    Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
-    return template;
-  }
+    @Bean
+    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        return mailMessage;
+    }
 
-  @Bean
-  public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-    Template template = freemakerConfig.getTemplate("salaryReviewReport.vi.ftl");
-    return template;
-  }
+    @Bean
+    public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
+        return template;
+    }
 
-  @Bean
-  public JsonNode vietnamworksConfiguration() throws IOException {
-    return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
-  }
+    @Bean
+    public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("salaryReviewReport.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template getPromotedTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("getPromoted.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template getPromotedTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("getPromoted.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public JsonNode vietnamworksConfiguration() throws IOException {
+        return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
+    }
 }

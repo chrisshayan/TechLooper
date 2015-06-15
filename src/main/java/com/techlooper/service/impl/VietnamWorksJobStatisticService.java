@@ -3,7 +3,6 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.Company;
 import com.techlooper.entity.EmployerEntity;
 import com.techlooper.model.*;
-import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
@@ -11,7 +10,6 @@ import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
 import no.priv.garshol.duke.comparators.JaroWinkler;
 import org.apache.commons.lang3.StringUtils;
-import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.joda.time.DateTime;
 import org.elasticsearch.index.query.*;
@@ -32,11 +30,9 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
@@ -424,20 +420,35 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     @Override
-    public List<TopDemandedSkillResponse> getTopDemandedSkillsByJobTitle(TopDemandedSkillRequest request) {
+    public GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request) {
+        GetPromotedResponse response = new GetPromotedResponse();
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(
-                request.getJobTitle(), request.getJobCategories(), request.getJobLevelId());
+                request.getJobTitle(), request.getJobCategoryIds(), request.getJobLevelIds());
         queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
+        queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMin"));
+        queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMax"));
 
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
-        List<Terms.Bucket> buckets =
-                ((StringTerms)((InternalNested)aggregations.get("top_demanded_skills")).getAggregations().get("top_demanded_skills")).getBuckets();
+        response.setTotalJob(((InternalNested) aggregations.get("top_demanded_skills")).getDocCount());
+
+        // Salary Min/Max Aggregation
+        Double salaryMin = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMin_avg"))
+                .getAggregations().get("salaryMin_avg")).getValue();
+        Double salaryMax = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMax_avg"))
+                .getAggregations().get("salaryMax_avg")).getValue();
+        response.setSalaryMin(salaryMin);
+        response.setSalaryMax(salaryMax);
+
+        // Top Demanded Skills Aggregation
+        List<Terms.Bucket> buckets = ((StringTerms) ((InternalNested) aggregations.get("top_demanded_skills"))
+                .getAggregations().get("top_demanded_skills")).getBuckets();
         List<TopDemandedSkillResponse> rawSkillStatistics = buckets.stream().map(
                 bucket -> new TopDemandedSkillResponse(bucket.getKey(), bucket.getDocCount())).collect(toList());
-
         List<TopDemandedSkillResponse> skillStatistics = excludeSimilarSkills(rawSkillStatistics);
-        int limit = request.getLimit() > 0 ? request.getLimit() : 5;
-        return skillStatistics.stream().limit(limit).collect(toList());
+        int limit = request.getLimitSkills() > 0 ? request.getLimitSkills() : 5;
+        response.setTopDemandedSkills(skillStatistics.stream().limit(limit).collect(toList()));
+
+        return response;
     }
 
     private List<TopDemandedSkillResponse> excludeSimilarSkills(List<TopDemandedSkillResponse> rawSkillStatistics) {

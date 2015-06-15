@@ -2,6 +2,13 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    removeRedundantAttrs: function(obj, attrs) {
+      $.each(attrs, function(i, attr) {
+        delete obj[attr];
+      });
+    },
+
+
     visit: function (obj, func) {
       for (var prop in obj) {
         func.apply(this, [prop, obj[prop]]);
@@ -202,6 +209,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/get-promoted/.test(path)) {
         return jsonValue.views.getPromoted;
+      }
+      else if (/\/contest/.test(path)) {
+        return jsonValue.views.contest;
       }
     },
 

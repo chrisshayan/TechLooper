@@ -16,32 +16,31 @@
                get-url="suggestion/jobTitle/">
           </div>
           <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" ng-required="true"
-                        attr-placeholder="{{'jobTitle.placeholder' | translate}}">
+                        attr-placeholder="{{'jobTitle.placeholder' | translate}}" touchable>
           </autocomplete>
 
-          <div ng-show="promotionForm.$dirty">
-            <div class="error-messages"
-                 ng-show="promotionForm.jobTitle.$error.required"
-                 translate="requiredThisField"></div>
-          </div>
+          <div class="error-messages"
+               ng-show="promotionForm.jobTitle.$error.required && (promotionForm.jobTitle.$touched || promotionForm.$submitted)"
+               translate="requiredThisField"></div>
 
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobLevel"></label>
           <selectize name="jobLevelIds" config='selectize.jobLevelsSelectize.config'
                      options='selectize.jobLevelsSelectize.items'
-                     ng-model="promotionInfo.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+                     ng-model="promotionInfo.jobLevelId" name="{{'jobLevel' | translate}}"></selectize>
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobCategory"></label>
           <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
-                     ng-model="getPromoted.jobCategories" name="{{'jobCategory' | translate}}"></selectize>
+                     ng-model="promotionInfo.jobCategoryIds" name="{{'jobCategory' | translate}}"></selectize>
         </div>
         <div class="gp-form-field submit">
-          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="getPromoted()"
+          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="doPromotion()"
                   type="button"></button>
         </div>
       </form>
+
     </div>
   </div>
 </div>

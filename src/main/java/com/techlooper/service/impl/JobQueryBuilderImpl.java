@@ -310,7 +310,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
-    public NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, Integer jobLevelId) {
+    public NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, List<Integer> jobLevelIds) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
         //pre-process job title in case user enters multiple roles of his job
@@ -326,8 +326,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             boolFilterBuilder.must(getJobIndustriesFilterBuilder(jobCategories));
         }
 
-        if (jobLevelId != null && jobLevelId > 0) {
-            boolFilterBuilder.must(getJobLevelFilterBuilder(Arrays.asList(jobLevelId)));
+        if (jobLevelIds != null && jobLevelIds.size() > 0) {
+            boolFilterBuilder.must(getJobLevelFilterBuilder(jobLevelIds));
         }
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilterBuilder));
@@ -337,6 +337,12 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     @Override
     public NestedBuilder getTopDemandedSkillsAggregation() {
         return nested("top_demanded_skills").path("skills").subAggregation(terms("top_demanded_skills").field("skills.skillName").size(20));
+    }
+
+    @Override
+    public FilterAggregationBuilder getSalaryAverageAggregation(String fieldName) {
+        return filter(fieldName + "_avg").filter(rangeFilter(fieldName).from(250L))
+                .subAggregation(avg(fieldName + "_avg").field(fieldName));
     }
 
     /*

@@ -1,11 +1,14 @@
 package com.techlooper.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.repository.elasticsearch.GetPromotedRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.SalaryReviewService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
@@ -30,6 +33,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,6 +56,12 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     private SalaryReviewRepository salaryReviewRepository;
 
     @Resource
+    private GetPromotedRepository getPromotedRepository;
+
+    @Resource
+    private JobStatisticService jobStatisticService;
+
+    @Resource
     private JobQueryBuilder jobQueryBuilder;
 
     @Value("${elasticsearch.index.name}")
@@ -69,6 +79,15 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     @Resource
     private Template salaryReviewReportTemplateVi;
 
+    @Resource
+    private MimeMessage getPromotedMailMessage;
+
+    @Resource
+    private Template getPromotedTemplateEn;
+
+    @Resource
+    private Template getPromotedTemplateVi;
+
     @Value("${web.baseUrl}")
     private String webBaseUrl;
 
@@ -80,6 +99,12 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Value("${mail.salaryReview.subject.en}")
     private String salaryReviewSubjectEn;
+
+    @Value("${mail.getPromoted.subject.vn}")
+    private String getPromotedSubjectVn;
+
+    @Value("${mail.getPromoted.subject.en}")
+    private String getPromotedSubjectEn;
 
     @Value("${vnw.api.users.createJobAlert.url}")
     private String vnwCreateJobAlertUrl;
@@ -195,4 +220,74 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         restTemplate.exchange(vnwCreateJobAlertUrl, HttpMethod.POST, requestEntity, String.class);
     }
 
+    @Override
+    public void sendTopDemandedSkillsEmail(GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
+        getPromotedMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
+        StringWriter stringWriter = new StringWriter();
+        Template template = emailRequest.getLang() == Language.vi ? getPromotedTemplateVi : getPromotedTemplateEn;
+
+        Map<String, Object> templateModel = new HashMap<>();
+        GetPromotedRequest getPromotedRequest = emailRequest.getGetPromotedRequest();
+        String configLang = "lang_" + emailRequest.getLang().getValue();
+        templateModel.put("webBaseUrl", webBaseUrl);
+
+        templateModel.put("jobTitle", getPromotedRequest.getJobTitle());
+
+        List<Integer> jobLevelIds = getPromotedRequest.getJobLevelIds();
+        if (jobLevelIds != null && !jobLevelIds.isEmpty()) {
+            templateModel.put("jobLevel", vietnamworksConfiguration.findPath(jobLevelIds.toString()).get(configLang).asText());
+            templateModel.put("jobLevelIds", "&jobLevelIds=" + jobLevelIds.toString().replaceAll(" ", ""));
+        } else {
+            templateModel.put("jobLevel", null);
+            templateModel.put("jobLevelIds", "");
+        }
+
+        List<Long> jobCategoryIds = getPromotedRequest.getJobCategoryIds();
+        if (jobCategoryIds != null && !jobCategoryIds.isEmpty()) {
+            JsonNode categories = vietnamworksConfiguration.findPath("categories");
+            List<String> categoryIds = categories.findValuesAsText("category_id");
+            List<String> list = new ArrayList<>();
+            jobCategoryIds.stream().map(aLong -> aLong.toString())
+                    .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
+            templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
+            templateModel.put("jobCategoryIds", "&jobCategoryIds=" + jobCategoryIds.toString().replaceAll(" ", ""));
+        } else {
+            templateModel.put("jobCategories", null);
+            templateModel.put("jobCategoryIds", "");
+        }
+
+        GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+        templateModel.put("totalJob", response.getTotalJob());
+        templateModel.put("salaryMin", Math.ceil(response.getSalaryMin()));
+        templateModel.put("salaryMax", Math.ceil(response.getSalaryMax()));
+        templateModel.put("topDemandedSkills", response.getTopDemandedSkills());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        templateModel.put("sentDate", dateFormat.format(Calendar.getInstance().getTime()));
+        templateModel.put("language", emailRequest.getLang().getValue());
+
+        template.process(templateModel, stringWriter);
+
+        String emailSubject = emailRequest.getLang() == Language.vi ? getPromotedSubjectVn : getPromotedSubjectEn;
+        emailSubject = String.format(emailSubject, getPromotedRequest.getJobTitle());
+        getPromotedMailMessage.setSubject(MimeUtility.encodeText(emailSubject, "UTF-8", null));
+        getPromotedMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        mailSender.send(getPromotedMailMessage);
+
+    }
+
+    @Override
+    public void saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest) {
+        GetPromotedRequest getPromotedRequest = getPromotedEmailRequest.getGetPromotedRequest();
+        GetPromotedEntity getPromotedEntity = new GetPromotedEntity();
+        getPromotedEntity.setCreatedDateTime(new Date().getTime());
+        getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
+        getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
+        getPromotedEntity.setJobCategories(getPromotedRequest.getJobCategoryIds());
+        getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
+        getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
+
+        getPromotedRepository.save(getPromotedEntity);
+    }
 }
