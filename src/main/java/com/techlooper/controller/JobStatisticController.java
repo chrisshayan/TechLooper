@@ -85,7 +85,8 @@ public class JobStatisticController {
         return jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
     }
 
-    public GetPromotedResponse getTopDemandedSkills(GetPromotedRequest getPromotedRequest) {
+    @RequestMapping("/getPromoted")
+    public GetPromotedResponse getTopDemandedSkills(@RequestBody GetPromotedRequest getPromotedRequest) {
         return jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
     }
 
