@@ -9,7 +9,7 @@ public class GetPromotedRequest {
 
     private String jobTitle;
 
-    private Integer jobLevelId;
+    private List<Integer> jobLevelIds;
 
     private List<Long> jobCategoryIds;
 
@@ -23,12 +23,12 @@ public class GetPromotedRequest {
         this.jobTitle = jobTitle;
     }
 
-    public Integer getJobLevelId() {
-        return jobLevelId;
+    public List<Integer> getJobLevelIds() {
+        return jobLevelIds;
     }
 
-    public void setJobLevelId(Integer jobLevelId) {
-        this.jobLevelId = jobLevelId;
+    public void setJobLevelIds(List<Integer> jobLevelIds) {
+        this.jobLevelIds = jobLevelIds;
     }
 
     public List<Long> getJobCategoryIds() {

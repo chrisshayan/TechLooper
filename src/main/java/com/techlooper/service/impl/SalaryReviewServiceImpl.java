@@ -226,8 +226,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     String configLang = "lang_" + emailRequest.getLang().getValue();
 
     templateModel.put("jobTitle", getPromotedRequest.getJobTitle());
-    templateModel.put("jobLevel", vietnamworksConfiguration.findPath(getPromotedRequest.getJobLevelId().toString()).get(configLang).asText());
-    templateModel.put("jobLevelId", getPromotedRequest.getJobLevelId());
+    templateModel.put("jobLevel", vietnamworksConfiguration.findPath(getPromotedRequest.getJobLevelIds().toString()).get(configLang).asText());
+    templateModel.put("jobLevelIds", getPromotedRequest.getJobLevelIds().toString());
     templateModel.put("webBaseUrl", webBaseUrl);
 
     JsonNode categories = vietnamworksConfiguration.findPath("categories");
@@ -237,7 +237,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
       .map(aLong -> aLong.toString())
       .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
     templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
-    templateModel.put("jobCategoryIds", list.stream().collect(Collectors.joining(",")));
+    templateModel.put("jobCategoryIds", getPromotedRequest.getJobCategoryIds().toString());
 
     GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
     templateModel.put("totalJob", response.getTotalJob());

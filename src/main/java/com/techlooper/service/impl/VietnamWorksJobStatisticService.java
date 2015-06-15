@@ -423,24 +423,24 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     public GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request) {
         GetPromotedResponse response = new GetPromotedResponse();
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(
-                request.getJobTitle(), request.getJobCategoryIds(), request.getJobLevelId());
+                request.getJobTitle(), request.getJobCategoryIds(), request.getJobLevelIds());
         queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
         queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMin"));
         queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMax"));
 
         Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
-        response.setTotalJob(((InternalNested)aggregations.get("top_demanded_skills")).getDocCount());
+        response.setTotalJob(((InternalNested) aggregations.get("top_demanded_skills")).getDocCount());
 
         // Salary Min/Max Aggregation
-        Double salaryMin = ((InternalAvg)((InternalFilter)aggregations.get("salaryMin_avg"))
+        Double salaryMin = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMin_avg"))
                 .getAggregations().get("salaryMin_avg")).getValue();
-        Double salaryMax = ((InternalAvg)((InternalFilter)aggregations.get("salaryMax_avg"))
+        Double salaryMax = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMax_avg"))
                 .getAggregations().get("salaryMax_avg")).getValue();
         response.setSalaryMin(salaryMin);
         response.setSalaryMax(salaryMax);
 
         // Top Demanded Skills Aggregation
-        List<Terms.Bucket> buckets = ((StringTerms)((InternalNested)aggregations.get("top_demanded_skills"))
+        List<Terms.Bucket> buckets = ((StringTerms) ((InternalNested) aggregations.get("top_demanded_skills"))
                 .getAggregations().get("top_demanded_skills")).getBuckets();
         List<TopDemandedSkillResponse> rawSkillStatistics = buckets.stream().map(
                 bucket -> new TopDemandedSkillResponse(bucket.getKey(), bucket.getDocCount())).collect(toList());
