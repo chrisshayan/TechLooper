@@ -2,7 +2,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
-    removeRedundantAttr: function(obj, attrs) {
+    removeRedundantAttrs: function(obj, attrs) {
       $.each(attrs, function(i, attr) {
         delete obj[attr];
       });

@@ -7,7 +7,7 @@ techlooper.directive('touchable', function () {
         if (!newVal && !oldVal) {
           return false;
         }
-        ngModelCtrl.$touch = true;
+        ngModelCtrl.$touched = true;
       });
     }
   }
