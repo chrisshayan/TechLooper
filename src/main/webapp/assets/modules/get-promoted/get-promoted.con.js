@@ -1,4 +1,4 @@
-techlooper.controller('getPromotedController', function ($scope, validatorService, vnwConfigService, $http, $translate) {
+techlooper.controller('getPromotedController', function ($scope, validatorService, vnwConfigService, $http, $translate, utils) {
   $scope.selectize = vnwConfigService;
 
   var state = {
@@ -50,6 +50,7 @@ techlooper.controller('getPromotedController', function ($scope, validatorServic
     if (!newVal && !oldVal) {
       return false;
     }
+    $scope.masterPromotion.jobLevelIds = vnwConfigService.getJobLevelIds($scope.masterPromotion.jobLevelId);
     $scope.masterPromotion.jobLevelTitle = vnwConfigService.getJobLevelText($scope.masterPromotion.jobLevelId);
     $scope.masterPromotion.jobCategoryTitle = vnwConfigService.getIndustryTexts($scope.masterPromotion.jobCategoryIds).join(" | ");
   });
@@ -59,9 +60,11 @@ techlooper.controller('getPromotedController', function ($scope, validatorServic
       return false;
     }
 
+    var promotionInfo = angular.copy($scope.masterPromotion);
+    utils.removeRedundantAttr(promotionInfo, ["result", "jobCategoryTitle", "jobLevelTitle", "jobLevelId"]);
     $http
       .post("getPromoted/email", {
-        getPromotedRequest: $scope.masterPromotion,
+        getPromotedRequest: promotionInfo,
         lang: $translate.use(),
         email: $scope.promotionEmail
       })
