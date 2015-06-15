@@ -24,7 +24,13 @@
       <div class="top-demanded-skill-content">
         <p ng-show="state.showView('has-promotion-result')" translate="highestDemand"></p>
         <!-- description for No Data -->
-        <p ng-show="state.showView('no-promotion-result')" translate="highestDemandNoData" translate-value-job-title="{{masterPromotion.jobTitle}}"/>
+        <p ng-show="state.showView('no-promotion-result')">
+          <span ng-show="masterPromotion.jobTitle" translate="weFindNoDataWithParam" translate-value-text="<strong>{{masterPromotion.jobTitle}}</strong>"></span>
+          <span ng-show="masterPromotion.jobLevelTitle" translate="withLevelWithParam" translate-value-text="<strong>{{masterPromotion.jobLevelTitle}}</strong>"></span>
+          <span ng-show="masterPromotion.jobCategoryTitle" translate="inWithParam" translate-value-text="<strong>{{masterPromotion.jobCategoryTitle}}</strong>"></span>
+          <span>.</span>
+          <span translate="whileUpdateYourJobInfo"></span>
+        </p>
         <ul ng-show="state.showView('has-promotion-result')">
           <li ng-repeat="skill in masterPromotion.result.topDemandedSkills">{{skill.skillName}}</li>
         </ul>
