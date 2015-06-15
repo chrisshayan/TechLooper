@@ -14,6 +14,8 @@ public class GetPromotedEmailRequest {
     @Email
     private String email;
 
+    private Boolean hasResult;
+
     private GetPromotedRequest getPromotedRequest;
 
     public Language getLang() {
@@ -38,5 +40,13 @@ public class GetPromotedEmailRequest {
 
     public void setGetPromotedRequest(GetPromotedRequest getPromotedRequest) {
         this.getPromotedRequest = getPromotedRequest;
+    }
+
+    public Boolean getHasResult() {
+        return hasResult;
+    }
+
+    public void setHasResult(Boolean hasResult) {
+        this.hasResult = hasResult;
     }
 }

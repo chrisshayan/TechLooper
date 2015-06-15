@@ -1,9 +1,11 @@
 package com.techlooper.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.repository.elasticsearch.GetPromotedRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
@@ -52,6 +54,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Resource
     private SalaryReviewRepository salaryReviewRepository;
+
+    @Resource
+    private GetPromotedRepository getPromotedRepository;
 
     @Resource
     private JobStatisticService jobStatisticService;
@@ -270,5 +275,18 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         stringWriter.flush();
         mailSender.send(getPromotedMailMessage);
 
+    }
+
+    @Override
+    public void saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest) {
+        GetPromotedRequest getPromotedRequest = getPromotedEmailRequest.getGetPromotedRequest();
+        GetPromotedEntity getPromotedEntity = new GetPromotedEntity();
+        getPromotedEntity.setCreatedDateTime(new Date().getTime());
+        getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
+        getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
+        getPromotedEntity.setJobCategories(getPromotedRequest.getJobCategoryIds());
+        getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
+
+        getPromotedRepository.save(getPromotedEntity);
     }
 }
