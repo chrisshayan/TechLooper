@@ -20,7 +20,6 @@
       </div>
       <div class="your-pay-snapshot-chart">
         <p>{{'median' | translate}}</p>
-
         <div class="chart-percent-line">
           <div class="percent-data">
             <div class="salary-number-label">$0</div>
@@ -49,6 +48,22 @@
         </div>
         <div class="arrow-right"></div>
         <p class="note">{{'netSalary' | translate}}</p>
+      </div>
+      <div class="your-pay-snapshot-chart-mobile">
+        <ul>
+          <li ng-repeat="range in salaryReport.salaryRanges | orderBy:'-percentile'" ng-show="range.percent > salaryReport.percentRank">
+            <span>${{range.percentile | number:0}}</span>
+            {{range.percent}}%
+          </li>
+          <li class="highlight">
+            <span>${{salaryReport.netSalary | number:0}}</span>
+            {{salaryReport.percentRank}}%
+          </li>
+          <li ng-repeat="range in salaryReport.salaryRanges | orderBy: '-percentile | number'" ng-show="range.percent < salaryReport.percentRank">
+            <span>${{range.percentile | number:0}}</span>
+            {{range.percent}}%
+          </li>
+        </ul>
       </div>
       <div class="thanks-for-share-salary">
         <h3 ng-if="salaryReport.percentRank < 50"><span translate="thanksForShare.headline.under50percent"></span> <a
