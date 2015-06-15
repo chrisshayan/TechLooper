@@ -272,5 +272,8 @@
   "contestDescription3": "The input will consistent of an array of 2x6 Braille characters, characters used for Blind people. A lowered bump is a dot character '.', while a raised bump is an upper-case 'O' character.",
   "contestDescription4": "Ex: This Input translates to &quot;helloworld&quot;",
   "here": "here",
-  "topDemandedSkill": "Top demanded skills (click to add)"
+  "topDemandedSkill": "Top demanded skills (click to add)",
+  "jobTitleWithParam": "Job Title: {{jobTitle}}",
+  "jobLevelWithParam": "Job Level: {{jobLevel}}",
+  "jobCategoryWithParam": "Job Categories: {{jobCategory}}"
 }
