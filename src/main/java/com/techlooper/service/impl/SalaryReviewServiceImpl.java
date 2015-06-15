@@ -239,7 +239,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             templateModel.put("jobLevelIds", "&jobLevelIds=" + jobLevelIds.toString().replaceAll(" ", ""));
         } else {
             templateModel.put("jobLevel", null);
-            templateModel.put("jobLevelIds", null);
+            templateModel.put("jobLevelIds", "");
         }
 
         List<Long> jobCategoryIds = getPromotedRequest.getJobCategoryIds();
@@ -253,7 +253,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             templateModel.put("jobCategoryIds", "&jobCategoryIds=" + jobCategoryIds.toString().replaceAll(" ", ""));
         } else {
             templateModel.put("jobCategories", null);
-            templateModel.put("jobCategoryIds", null);
+            templateModel.put("jobCategoryIds", "");
         }
 
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
