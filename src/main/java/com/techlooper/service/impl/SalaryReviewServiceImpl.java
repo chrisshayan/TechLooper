@@ -232,7 +232,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         JsonNode categories = vietnamworksConfiguration.findPath("categories");
         List<String> categoryIds = categories.findValuesAsText("category_id");
         List<String> list = new ArrayList<>();
-        getPromotedRequest.getJobCategories().stream()
+        getPromotedRequest.getJobCategoryIds().stream()
                 .map(aLong -> aLong.toString())
                 .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
         templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
