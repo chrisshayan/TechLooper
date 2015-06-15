@@ -19,13 +19,13 @@ techlooper
 
           var promotionInfo = angular.copy(scope.masterPromotion);
           var promotionResult = scope.masterPromotion.result;
-          promotionInfo.hasResult = promotionResult && promotionResult.totalJob > 0;;
           utils.removeRedundantAttrs(promotionInfo, ["result", "jobCategoryTitle", "jobLevelTitle", "jobLevelId"]);
           $http
             .post("getPromoted/email", {
               getPromotedRequest: promotionInfo,
               lang: $translate.use(),
-              email: scope.promotionEmail
+              email: scope.promotionEmail,
+              hasResult: promotionResult && promotionResult.totalJob > 0
             })
             .success(function (data, status, headers, config) {
               scope.promotionEmailForm.$sentEmail = true;
