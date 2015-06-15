@@ -246,8 +246,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      <td style="height:30px; line-height: 30px;" width="100%">
+                        <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
@@ -256,8 +256,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      <td style="height:15px; line-height: 15px;" width="100%">
+                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
