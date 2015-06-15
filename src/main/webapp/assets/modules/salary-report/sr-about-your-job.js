@@ -28,6 +28,10 @@ techlooper.directive("srAboutYourJob", function ($http, validatorService) {
       scope.$watch("skillBoxConfig.newTag", function (newVal) {
         delete scope.skillBoxConfig.items;
 
+        if (!newVal) {
+          return;
+        }
+
         $http.get("suggestion/skill/" + newVal)
           .success(function (data) {
             scope.skillBoxConfig.items = data.items.map(function (item) {return item.name;});
