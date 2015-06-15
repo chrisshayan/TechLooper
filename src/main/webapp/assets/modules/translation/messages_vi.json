@@ -282,7 +282,8 @@
   "weFindNoDataWithParam": "Hiện tại chúng tôi không tìm ra dữ liệu liên quan đến {{text}}",
   "withLevelWithParam": "với Cấp Bậc {{text}}",
   "inWithParam": "trong Ngành Nghề {{text}}",
-  "whileUpdateYourJobInfo": "Trong lúc chúng tôi đang cải thiện, bạn có thể cập nhật Chức Danh, Cấp Bậc và Ngành Nghề mong muốn ở trên để xem các kỹ năng hàng đầu giúp bạn thăng tiến. Hoặc bạn có thể để lại thông tin email bên dưới."
+  "whileUpdateYourJobInfo": "Trong lúc chúng tôi đang cải thiện, bạn có thể cập nhật Chức Danh, Cấp Bậc và Ngành Nghề mong muốn ở trên để xem các kỹ năng hàng đầu giúp bạn thăng tiến. Hoặc bạn có thể để lại thông tin email bên dưới.",
+  "clickToDownLoad": "Tải thông điệp Braille"
 }
 
 
