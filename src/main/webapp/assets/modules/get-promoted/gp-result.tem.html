@@ -6,16 +6,13 @@
        translate-value-salary-to="<strong>{{masterPromotion.result.salaryMax | number:0}}</strong>"
       />
     <ul>
-      <li>
-        <span translate="jobTitleWithParam" translate-value-job-title="<strong>{{masterPromotion.jobTitle}}</strong>"/>
+      <li translate="jobTitleWithParam" translate-value-job-title="<span>{{masterPromotion.jobTitle}}</span>">
       </li>
-      <li>
-        <span translate="jobLevelWithParam"
-              translate-value-job-level="<strong>{{masterPromotion.jobLevelTitle}}</strong>"/>
+      <li translate="jobLevelWithParam"
+          translate-value-job-level="<span>{{masterPromotion.jobLevelTitle}}</span>">
       </li>
-      <li>
-        <span translate="jobCategoryWithParam"
-              translate-value-job-category="<strong>{{masterPromotion.jobCategoryTitle}}</strong>"/>
+      <li translate="jobCategoryWithParam"
+      translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">
       </li>
     </ul>
   </div>
@@ -28,12 +25,11 @@
         <p ng-show="state.showView('has-promotion-result')" translate="highestDemand"></p>
         <!-- description for No Data -->
         <p ng-show="state.showView('no-promotion-result')" translate="highestDemandNoData"/>
-        <ul ng-repeat="skill in masterPromotion.result.topDemandedSkills">
-          <li>{{skill.skillName}} : {{skill.count}}</li>
+        <ul>
+          <li ng-repeat="skill in masterPromotion.result.topDemandedSkills">{{skill.skillName}}</li>
         </ul>
         <div class="send-me-skills-trend">
           <h4 translate="sendMeSkillTrend"></h4>
-
           <p ng-show="state.showView('has-promotion-result')" translate="sendMeDesc"></p>
           <!-- description for No Data -->
           <p ng-show="state.showView('no-promotion-result')" translate="sendMeDescNoData"></p>
