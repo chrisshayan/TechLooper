@@ -262,7 +262,7 @@
   "gpNumberOfJobs": "There are {{numberOfJobs}} jobs with salary range from {{salaryFrom}} to {{salaryTo}} for",
   "topDemand": "Top Demanded Skills By The Market",
   "highestDemand":"Highest demanded skills are listed out from top to bottom.",
-  "highestDemandNoData": "We find no data related to <strong>Project Manager</strong> with level <strong>Experienced</strong> in <strong>IT - Software</strong>. While we are improving, could you update your Expected Job Title, Job Level and Job Category to know how to get promoted? Or please leave us your email in below field.",
+  "highestDemandNoData": "We find no data related to <strong>{{jobTitle}}</strong>. While we are improving, could you update your Expected Job Title, Job Level and Job Category to know how to get promoted? Or please leave us your email in below field.",
   "sendMeSkillTrend":"Send Me Skills Trend",
   "sendMeDesc":"Help us filling email so we can send top skills to you. Then you can revise skills trend anytime you want.",
   "sendMeDescNoData": "Let us know your email. Then we can send you your skills trend as soon as we have data.",
