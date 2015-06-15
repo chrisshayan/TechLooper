@@ -150,7 +150,7 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testGetTop5DemandedSkillsByJobTitle() throws Exception {
         GetPromotedRequest request = new GetPromotedRequest();
         request.setJobTitle("Java Developer");
-        request.setJobCategories(Arrays.asList(35L));
+        request.setJobCategoryIds(Arrays.asList(35L));
         request.setJobLevelId(5);
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
         assertTrue(response.getTotalJob() > 0);
@@ -162,7 +162,7 @@ public class VietnamWorksJobStatisticServiceITCase {
     public void testGetTop5DemandedSkillsByJobTitleNoSkill() throws Exception {
         GetPromotedRequest request = new GetPromotedRequest();
         request.setJobTitle("ABC XYZ");
-        request.setJobCategories(Arrays.asList(35L));
+        request.setJobCategoryIds(Arrays.asList(35L));
         request.setJobLevelId(5);
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
         assertTrue(response.getTotalJob() == 0);

@@ -423,7 +423,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     public GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request) {
         GetPromotedResponse response = new GetPromotedResponse();
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(
-                request.getJobTitle(), request.getJobCategories(), request.getJobLevelId());
+                request.getJobTitle(), request.getJobCategoryIds(), request.getJobLevelId());
         queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
         queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMin"));
         queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMax"));

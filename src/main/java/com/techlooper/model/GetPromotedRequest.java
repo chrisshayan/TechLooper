@@ -11,7 +11,7 @@ public class GetPromotedRequest {
 
     private Integer jobLevelId;
 
-    private List<Long> jobCategories;
+    private List<Long> jobCategoryIds;
 
     private int limitSkills;
 
@@ -31,12 +31,12 @@ public class GetPromotedRequest {
         this.jobLevelId = jobLevelId;
     }
 
-    public List<Long> getJobCategories() {
-        return jobCategories;
+    public List<Long> getJobCategoryIds() {
+        return jobCategoryIds;
     }
 
-    public void setJobCategories(List<Long> jobCategories) {
-        this.jobCategories = jobCategories;
+    public void setJobCategoryIds(List<Long> jobCategoryIds) {
+        this.jobCategoryIds = jobCategoryIds;
     }
 
     public int getLimitSkills() {

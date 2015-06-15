@@ -259,7 +259,7 @@
   "expectedJobLevel": "Expected Job Level:",
   "expectedJobCategory": "Expected Job Category:",
   "getPromoted": "Get Promoted",
-  "gpNumberOfJobs": "There are <strong>27</strong> jobs with salary range from <strong>$900</strong> to <strong>$2,500</strong> for",
+  "gpNumberOfJobs": "There are {{numberOfJobs}} jobs with salary range from {{salaryFrom}} to {{salaryTo}} for",
   "topDemand": "Top Demanded Skills By The Market",
   "highestDemand":"Highest demanded skills are listed out from top to bottom.",
   "highestDemandNoData": "We find no data related to <strong>Project Manager</strong> with level <strong>Experienced</strong> in <strong>IT - Software</strong>. While we are improving, could you update your Expected Job Title, Job Level and Job Category to know how to get promoted? Or please leave us your email in below field.",
