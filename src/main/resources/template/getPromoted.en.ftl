@@ -242,7 +242,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        There are <strong style="font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from <strong style="font-weight: 600; color:#000000">$${salaryMin}</strong> to <strong style="font-weight: 600; color:#000000">$${salaryMax}</strong> for <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> with level <strong style="font-weight: 600; color:#000000">${jobLevel}</strong> in <strong style="font-weight: 600; color:#000000">${jobCategories}<strong>
+                        There are <strong style="font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from <strong style="font-weight: 600; color:#000000">$${salaryMin}</strong> to <strong style="font-weight: 600; color:#000000">$${salaryMax}</strong> for <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> <#if jobLevel??>with level <strong style="font-weight: 600; color:#000000">${jobLevel}</strong></#if> <#if jobCategories??>in <strong style="font-weight: 600; color:#000000">${jobCategories}<strong></#if>
                       </td>
                     </tr>
                     <tr>

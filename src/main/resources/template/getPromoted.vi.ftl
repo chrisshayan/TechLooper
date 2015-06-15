@@ -242,7 +242,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" width="100%" style="font-size: 16px;">
-                                                Có <strong style="font-weight: 600; color:#000000">${totalJob}</strong> công việc với mức lương từ <strong style="font-weight: 600; color:#000000">$${salaryMin}</strong> đến <strong style="font-weight: 600; color:#000000">$${salaryMax}</strong> cho <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> với cấp bậc <strong style="font-weight: 600; color:#000000">${jobLevel}</strong> trong ngành nghề <strong style="font-weight: 600; color:#000000">${jobCategories}<strong>
+                                                Có <strong style="font-weight: 600; color:#000000">${totalJob}</strong> công việc với mức lương từ <strong style="font-weight: 600; color:#000000">$${salaryMin}</strong> đến <strong style="font-weight: 600; color:#000000">$${salaryMax}</strong> cho <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> <#if jobLevel??>với cấp bậc <strong style="font-weight: 600; color:#000000">${jobLevel}</strong></#if> <#if jobCategories??>trong ngành nghề <strong style="font-weight: 600; color:#000000">${jobCategories}<strong></#if>
                                             </td>
                                         </tr>
                                         <tr>
