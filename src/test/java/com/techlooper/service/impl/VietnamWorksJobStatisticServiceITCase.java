@@ -151,7 +151,7 @@ public class VietnamWorksJobStatisticServiceITCase {
         GetPromotedRequest request = new GetPromotedRequest();
         request.setJobTitle("Java Developer");
         request.setJobCategoryIds(Arrays.asList(35L));
-        request.setJobLevelId(5);
+        request.setJobLevelIds(Arrays.asList(5, 6));
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
         assertTrue(response.getTotalJob() > 0);
         assertTrue(response.getSalaryMax() >= response.getSalaryMin());
@@ -163,7 +163,7 @@ public class VietnamWorksJobStatisticServiceITCase {
         GetPromotedRequest request = new GetPromotedRequest();
         request.setJobTitle("ABC XYZ");
         request.setJobCategoryIds(Arrays.asList(35L));
-        request.setJobLevelId(5);
+        request.setJobLevelIds(Arrays.asList(5, 6));
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
         assertTrue(response.getTotalJob() == 0);
         assertTrue(response.getTopDemandedSkills().size() == 0);

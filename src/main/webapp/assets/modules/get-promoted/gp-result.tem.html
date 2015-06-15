@@ -34,7 +34,7 @@
           <!-- description for No Data -->
           <p ng-show="state.showView('no-promotion-result')" translate="sendMeDescNoData"></p>
 
-          <form novalidate name="promotionEmailForm" autocomplete="off" ng-submit="sendPromotionEmail()">
+          <form ng-show="state.showView('not-sent-promoted-email')" novalidate name="promotionEmailForm" autocomplete="off" ng-submit="sendPromotionEmail()">
             <input ng-model="promotionEmail" type="email" placeholder="{{'exEmailAddress' | translate}}"
                    name="promotionEmail"
                    ng-required="true" touchable/>
@@ -45,7 +45,7 @@
             <button ng-show="state.showView('no-promotion-result')" translate="save" class="btn btn-primary btn-flat"
                     type="submit" />
             <!--<div class="error-messages">{{error['getPromoted.email']}}</div>-->
-            <div class="error-messages" ng-show="(promotionEmailForm.$submitted || promotionEmailForm.promotionEmail.$touch)">
+            <div class="error-messages" ng-show="(promotionEmailForm.$submitted || promotionEmailForm.promotionEmail.$touched)">
               <div translate="requiredThisField" ng-show="promotionEmailForm.promotionEmail.$error.required" />
               <div translate="emailInvalid" ng-show="promotionEmailForm.promotionEmail.$error.email" />
             </div>

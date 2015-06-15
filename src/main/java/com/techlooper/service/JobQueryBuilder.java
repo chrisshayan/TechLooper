@@ -119,7 +119,7 @@ public interface JobQueryBuilder {
 
     NativeSearchQueryBuilder getJobSearchQueryByJobTitle(String jobTitle);
 
-    NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, Integer jobLevelId);
+    NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, List<Integer> jobLevelIds);
 
     NestedBuilder getTopDemandedSkillsAggregation();
 

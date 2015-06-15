@@ -4,10 +4,11 @@ techlooper.directive('touchable', function () {
     restrict: 'A',
     link: function (scope, element, attr, ngModelCtrl) {
       scope.$watch(attr.ngModel, function (newVal, oldVal) {
+        if (ngModelCtrl.$pristine) return;
         if (!newVal && !oldVal) {
           return false;
         }
-        ngModelCtrl.$touch = true;
+        ngModelCtrl.$touched = true;
       });
     }
   }

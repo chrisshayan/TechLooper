@@ -201,7 +201,8 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <tr>
+                                <#if jobLevel??>
+                                  <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Level:
                                   </td>
@@ -209,6 +210,7 @@
                                     ${jobLevel}
                                   </td>
                                 </tr>
+                                </#if>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -217,7 +219,7 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-
+                                <#if jobCategories??>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Categories:
@@ -226,7 +228,7 @@
                                       ${jobCategories}
                                   </td>
                                 </tr>
-
+                                </#if>
                               </table>
                             </td>
                           </tr>
@@ -240,7 +242,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        There are <strong style="font-size: 18px; font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from <strong style="font-size: 18px; font-weight: 600; color:#000000">$${salaryMin}</strong> to <strong style="font-size: 18px; font-weight: 600; color:#000000">${salaryMax}</strong> for ${jobTitle} with level <strong style="font-size: 18px; font-weight: 600; color:#000000">${jobLevel}</strong> in <strong style="font-size: 18px; font-weight: 600; color:#000000">${jobCategories}<strong>
+                        There are <strong style="font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from <strong style="font-weight: 600; color:#000000">$${salaryMin}</strong> to <strong style="font-weight: 600; color:#000000">$${salaryMax}</strong> for <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> with level <strong style="font-weight: 600; color:#000000">${jobLevel}</strong> in <strong style="font-weight: 600; color:#000000">${jobCategories}<strong>
                       </td>
                     </tr>
                     <tr>
@@ -260,7 +262,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">10/06/2015</strong>, highest demanded skills are listed out from top to bottom
+                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, highest demanded skills are listed out from top to bottom
                       </td>
                     </tr>
                     <tr>
@@ -277,7 +279,7 @@
                                         <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                     </td>
                                 <tr>
-                                    <td align="left" width="100%" style="font-size: 14px;">${skill.skillName}</td>
+                                    <td align="left" width="100%" style="font-size: 14px; padding-left: 15px">${skill.skillName}</td>
                                 </tr>
                             </#list>
                         </table>
@@ -301,7 +303,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/get-promoted?jobTitle=${jobTitle}&jobLevel=${jobLevelId}&jobCategories=${jobCategoryIds}&lang=${language}&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
+                              <a href="${webBaseUrl}#/get-promoted?jobTitle=${jobTitle}${jobLevelIds}${jobCategoryIds}&lang=${language}&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
                             </td>
                           </tr>
                         </table>
