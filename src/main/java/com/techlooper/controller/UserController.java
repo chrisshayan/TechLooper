@@ -185,4 +185,9 @@ public class UserController {
         return "vn".equalsIgnoreCase(lang) ? citibankTitleVn : citibankTitleEn;
     }
 
+    @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
+    public void sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
+        salaryReviewService.sendTopDemandedSkillsEmail(emailRequest);
+    }
+
 }

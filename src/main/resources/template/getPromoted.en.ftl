@@ -190,7 +190,7 @@
                                     Title:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    Java Developer
+                                      ${jobTitle}
                                   </td>
                                 </tr>
                                 <tr>
@@ -206,7 +206,7 @@
                                     Level:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    Manager
+                                    ${jobLevel}
                                   </td>
                                 </tr>
                                 <tr>
@@ -223,7 +223,7 @@
                                     Categories:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    IT - Software | IT - Hardware/Networking
+                                      ${jobCategories}
                                   </td>
                                 </tr>
 
@@ -240,7 +240,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        There are <strong style="font-size: 18px; font-weight: 600; color:#000000">27</strong> jobs with salary range from <strong style="font-size: 18px; font-weight: 600; color:#000000">$900</strong> to <strong style="font-size: 18px; font-weight: 600; color:#000000">$2,500</strong> for Project Manager with level <strong style="font-size: 18px; font-weight: 600; color:#000000">Manager in IT - Software</strong> | <strong style="font-size: 18px; font-weight: 600; color:#000000">IT - Hardware/Networking</strong>
+                        There are <strong style="font-size: 18px; font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from <strong style="font-size: 18px; font-weight: 600; color:#000000">$${salaryMin}</strong> to <strong style="font-size: 18px; font-weight: 600; color:#000000">${salaryMax}</strong> for ${jobTitle} with level <strong style="font-size: 18px; font-weight: 600; color:#000000">${jobLevel}</strong> in <strong style="font-size: 18px; font-weight: 600; color:#000000">${jobCategories}<strong>
                       </td>
                     </tr>
                     <tr>
@@ -271,38 +271,15 @@
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                          <tr>
-                            <td align="left" width="100%" style="font-size: 14px;">J. Engineer cum Administrator</td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          <tr>
-                            <td align="left" width="100%" style="font-size: 14px;">Business Development Executive</td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          <tr>
-                            <td align="left" width="100%" style="font-size: 14px;">Java Associate software engineer</td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          <tr>
-                            <td align="left" width="100%" style="font-size: 14px;">Java Associate software engineer</td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          <tr>
-                            <td align="left" width="100%" style="font-size: 14px;">Java Associate software engineer</td>
-                          </tr>
-                          </tr>
+                            <#list topDemandedSkills as skill>
+                                <tr>
+                                    <td style="height:10px; line-height: 10px;" width="100%">
+                                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                    </td>
+                                <tr>
+                                    <td align="left" width="100%" style="font-size: 14px;">${skill.skillName}</td>
+                                </tr>
+                            </#list>
                         </table>
                       </td>
                     </tr>
@@ -324,7 +301,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
+                              <a href="${webBaseUrl}#/get-promoted?jobTitle=${jobTitle}&jobLevel=${jobLevelId}&jobCategories=${jobCategoryIds}&lang=${language}&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
                             </td>
                           </tr>
                         </table>

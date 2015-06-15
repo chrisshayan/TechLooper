@@ -6,6 +6,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.SalaryReviewService;
 import com.techlooper.util.JsonUtils;
 import com.techlooper.util.RestTemplateUtils;
@@ -52,6 +53,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     private SalaryReviewRepository salaryReviewRepository;
 
     @Resource
+    private JobStatisticService jobStatisticService;
+
+    @Resource
     private JobQueryBuilder jobQueryBuilder;
 
     @Value("${elasticsearch.index.name}")
@@ -69,6 +73,15 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     @Resource
     private Template salaryReviewReportTemplateVi;
 
+    @Resource
+    private MimeMessage getPromotedMailMessage;
+
+    @Resource
+    private Template getPromotedTemplateEn;
+
+    @Resource
+    private Template getPromotedTemplateVi;
+
     @Value("${web.baseUrl}")
     private String webBaseUrl;
 
@@ -80,6 +93,12 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Value("${mail.salaryReview.subject.en}")
     private String salaryReviewSubjectEn;
+
+    @Value("${mail.getPromoted.subject.vn}")
+    private String getPromotedSubjectVn;
+
+    @Value("${mail.getPromoted.subject.en}")
+    private String getPromotedSubjectEn;
 
     @Value("${vnw.api.users.createJobAlert.url}")
     private String vnwCreateJobAlertUrl;
@@ -195,4 +214,48 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         restTemplate.exchange(vnwCreateJobAlertUrl, HttpMethod.POST, requestEntity, String.class);
     }
 
+    @Override
+    public void sendTopDemandedSkillsEmail(GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
+        getPromotedMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
+        StringWriter stringWriter = new StringWriter();
+        Template template = emailRequest.getLang() == Language.vi ? getPromotedTemplateVi : getPromotedTemplateEn;
+
+        Map<String, Object> templateModel = new HashMap<>();
+        GetPromotedRequest getPromotedRequest = emailRequest.getGetPromotedRequest();
+        String configLang = "lang_" + emailRequest.getLang().getValue();
+
+        templateModel.put("jobTitle", getPromotedRequest.getJobTitle());
+        templateModel.put("jobLevel", vietnamworksConfiguration.findPath(getPromotedRequest.getJobLevelId().toString()).get(configLang).asText());
+        templateModel.put("jobLevelId", getPromotedRequest.getJobLevelId());
+        templateModel.put("webBaseUrl", webBaseUrl);
+
+        JsonNode categories = vietnamworksConfiguration.findPath("categories");
+        List<String> categoryIds = categories.findValuesAsText("category_id");
+        List<String> list = new ArrayList<>();
+        getPromotedRequest.getJobCategories().stream()
+                .map(aLong -> aLong.toString())
+                .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
+        templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
+        templateModel.put("jobCategoryIds", list.stream().collect(Collectors.joining(",")));
+
+        GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+        templateModel.put("totalJob", response.getTotalJob());
+        templateModel.put("salaryMin", response.getSalaryMin());
+        templateModel.put("salaryMax", response.getSalaryMax());
+        templateModel.put("topDemandedSkills", response.getTopDemandedSkills());
+        SimpleDateFormat simpleDateFormat = emailRequest.getLang() == Language.vi ?
+                new SimpleDateFormat("dd/MM/yyyy") : new SimpleDateFormat("MM/dd/yyyy");
+        templateModel.put("sentDate", simpleDateFormat.format(new Date()));
+        templateModel.put("language", emailRequest.getLang().getValue());
+
+        template.process(templateModel, stringWriter);
+
+        String emailSubject = emailRequest.getLang() == Language.vi ? getPromotedSubjectVn : getPromotedSubjectEn;
+        emailSubject = String.format(emailSubject, getPromotedRequest.getJobTitle());
+        getPromotedMailMessage.setSubject(MimeUtility.encodeText(emailSubject, "UTF-8", null));
+        getPromotedMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        mailSender.send(getPromotedMailMessage);
+    }
 }
