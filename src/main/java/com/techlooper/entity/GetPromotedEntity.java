@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -26,6 +27,9 @@ public class GetPromotedEntity {
 
     @Field(type = String)
     private String email;
+
+    @Field(type = Boolean)
+    private Boolean hasResult;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -65,5 +69,13 @@ public class GetPromotedEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getHasResult() {
+        return hasResult;
+    }
+
+    public void setHasResult(Boolean hasResult) {
+        this.hasResult = hasResult;
     }
 }
