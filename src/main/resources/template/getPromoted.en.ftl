@@ -201,7 +201,8 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <tr>
+                                <#if jobLevel??>
+                                  <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Level:
                                   </td>
@@ -209,6 +210,7 @@
                                     ${jobLevel}
                                   </td>
                                 </tr>
+                                </#if>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -217,7 +219,7 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-
+                                <#if jobCategories??>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Categories:
@@ -226,7 +228,7 @@
                                       ${jobCategories}
                                   </td>
                                 </tr>
-
+                                </#if>
                               </table>
                             </td>
                           </tr>
@@ -240,7 +242,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        There are <strong style="font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from $<strong style="font-weight: 600; color:#000000">${salaryMin}</strong> to $<strong style="font-weight: 600; color:#000000">${salaryMax}</strong> for <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> with level <strong style="font-weight: 600; color:#000000">${jobLevel}</strong> in <strong style="font-weight: 600; color:#000000">${jobCategories}<strong>
+                        There are <strong style="font-weight: 600; color:#000000">${totalJob}</strong> jobs with salary range from <strong style="font-weight: 600; color:#000000">$${salaryMin}</strong> to <strong style="font-weight: 600; color:#000000">$${salaryMax}</strong> for <strong style="font-weight: 600; color:#000000">${jobTitle}</strong> with level <strong style="font-weight: 600; color:#000000">${jobLevel}</strong> in <strong style="font-weight: 600; color:#000000">${jobCategories}<strong>
                       </td>
                     </tr>
                     <tr>
@@ -260,7 +262,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">10/06/2015</strong>, highest demanded skills are listed out from top to bottom
+                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, highest demanded skills are listed out from top to bottom
                       </td>
                     </tr>
                     <tr>

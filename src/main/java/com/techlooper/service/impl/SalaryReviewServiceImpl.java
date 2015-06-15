@@ -233,8 +233,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             templateModel.put("jobLevel", vietnamworksConfiguration.findPath(jobLevelIds.toString()).get(configLang).asText());
             templateModel.put("jobLevelIds", "&jobLevelIds=" + jobLevelIds.toString().replaceAll(" ", ""));
         } else {
-            templateModel.put("jobLevel", "");
-            templateModel.put("jobLevelIds", "");
+            templateModel.put("jobLevel", null);
+            templateModel.put("jobLevelIds", null);
         }
 
         List<Long> jobCategoryIds = getPromotedRequest.getJobCategoryIds();
@@ -247,8 +247,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
             templateModel.put("jobCategoryIds", "&jobCategoryIds=" + jobCategoryIds.toString().replaceAll(" ", ""));
         } else {
-            templateModel.put("jobCategories", "");
-            templateModel.put("jobCategoryIds", "");
+            templateModel.put("jobCategories", null);
+            templateModel.put("jobCategoryIds", null);
         }
 
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
