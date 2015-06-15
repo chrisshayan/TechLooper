@@ -15,15 +15,13 @@
           <div auto-suggestion text="promotionInfo.jobTitle" items="jobTitles"
                get-url="suggestion/jobTitle/">
           </div>
-          <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" ng-required="true"
+          <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" required=""
                         attr-placeholder="{{'jobTitle.placeholder' | translate}}">
           </autocomplete>
 
-          <div ng-show="promotionForm.$dirty">
             <div class="error-messages"
-                 ng-show="promotionForm.jobTitle.$error.required"
+                 ng-show="promotionForm.jobTitle.$error.required && (promotionForm.jobTitle.$touch || promotionForm.$submitted)"
                  translate="requiredThisField"></div>
-          </div>
 
         </div>
         <div class="gp-form-field">
@@ -38,10 +36,11 @@
                      ng-model="getPromoted.jobCategories" name="{{'jobCategory' | translate}}"></selectize>
         </div>
         <div class="gp-form-field submit">
-          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="getPromoted()"
-                  type="button"></button>
+          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="doPromotion()"
+                  type="submit"></button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
