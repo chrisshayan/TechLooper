@@ -187,10 +187,10 @@ public class UserController {
 
     @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
     public void sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
-        salaryReviewService.saveGetPromotedInformation(emailRequest);
+        long getPromotedId = salaryReviewService.saveGetPromotedInformation(emailRequest);
 
-        if (emailRequest.getHasResult()) {
-            salaryReviewService.sendTopDemandedSkillsEmail(emailRequest);
+        if (getPromotedId != -1L && emailRequest.getHasResult()) {
+            salaryReviewService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
         }
     }
 

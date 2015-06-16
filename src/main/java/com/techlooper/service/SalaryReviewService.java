@@ -22,7 +22,7 @@ public interface SalaryReviewService {
 
     void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
 
-    void sendTopDemandedSkillsEmail(GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException;
+    void sendTopDemandedSkillsEmail(long getPromotedId, GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException;
 
-    void saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest);
+    long saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest);
 }

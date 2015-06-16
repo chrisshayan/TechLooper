@@ -1,14 +1,13 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.GetPromotedResponse;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
-import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 
 @Document(indexName = "techlooper", type = "getPromoted")
 public class GetPromotedEntity {
@@ -30,6 +29,9 @@ public class GetPromotedEntity {
 
     @Field(type = Boolean)
     private Boolean hasResult;
+
+    @Field(type = Nested)
+    private GetPromotedResponse getPromotedResult;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -77,5 +79,13 @@ public class GetPromotedEntity {
 
     public void setHasResult(Boolean hasResult) {
         this.hasResult = hasResult;
+    }
+
+    public GetPromotedResponse getGetPromotedResult() {
+        return getPromotedResult;
+    }
+
+    public void setGetPromotedResult(GetPromotedResponse getPromotedResult) {
+        this.getPromotedResult = getPromotedResult;
     }
 }
