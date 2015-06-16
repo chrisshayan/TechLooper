@@ -295,4 +295,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             return -1L;
         }
     }
+
+    @Override
+    public GetPromotedEntity getPromotedEntity(Long id) {
+        return getPromotedRepository.findOne(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.EmailRequest;
 import com.techlooper.model.GetPromotedEmailRequest;
@@ -25,4 +26,6 @@ public interface SalaryReviewService {
     void sendTopDemandedSkillsEmail(long getPromotedId, GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException;
 
     long saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest);
+
+    GetPromotedEntity getPromotedEntity(Long id);
 }
