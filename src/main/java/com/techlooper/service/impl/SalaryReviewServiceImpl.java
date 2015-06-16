@@ -286,6 +286,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
         getPromotedEntity.setJobCategories(getPromotedRequest.getJobCategoryIds());
         getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
+        getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
 
         getPromotedRepository.save(getPromotedEntity);
     }
