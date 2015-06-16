@@ -202,10 +202,7 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     }
   });
 
-  //$scope.$watch("salaryReview", function () {
-  //  //console.log($scope.salaryReviewForm);
-  //  console.log($scope);
-  //}, true);
+  //scope.state.demandSkills
 
   $scope.reload = function () {
     $route.reload();

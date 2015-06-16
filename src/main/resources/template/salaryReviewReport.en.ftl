@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
+
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <meta content="telephone=no" name="format-detection" />
@@ -93,13 +94,14 @@
         width: 100%!important;
         padding: 10px 0 !important
       }
-      .fullWidth{
+      .fullWidth {
         width: 100% !important;
       }
     }
   </style>
   <!--Main Table-->
 </head>
+
 <body class="email-body" yahoo="fix" marginheight="0" topmargin="0" marginwidth="0">
 <table style="margin:0 auto; background: #eee; color: #555" align="center" width="100%" class="deviceWidth">
   <tr>
@@ -295,21 +297,17 @@
                       </td>
                     </tr>
                     <tr>
-                      <#--<td align="left" width="100%" style="font-size: 16px;">-->
-                        <#--Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale-->
-                      <#--</td>-->
+                    <#--<td align="left" width="100%" style="font-size: 16px;">-->
+                    <#--Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale-->
+                    <#--</td>-->
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Your salary is at the
-                        <strong style="font-size: 20px; font-weight: 600; color:#000000">
-                          <#if salaryReview.salaryReport.percentRank < 50.0>
-                            bottom
-                          <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                            middle
-                          <#else>
-                            top
-                          </#if>
-                        </strong>
-                        of the scale
+                        <#if salaryReview.salaryReport.percentRank < 50.0>
+                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale, do you deserve a pay raise?
+                        <#elseif salaryReview.salaryReport.percentRank < 70.0>
+                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">in the middle</strong> of the scale, would you consider better paid jobs?
+                        <#else>
+                            Congratulations, your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale, is time for getting a promotion?
+                        </#if>
                       </td>
                     </tr>
                     <tr>
@@ -329,7 +327,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%"  class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%" class="fullWidth">
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
@@ -339,7 +337,18 @@
                                   </td>
                                 </tr>
                                 <tr bgcolor="#f4f4f4">
-                                  <td align="left" style="font-size: 16px; font-weight: 500;  padding: 10px; text-align: left">% people like you Net Salary (USD/month)</td>
+                                  <td align="left">
+                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                                      <tr style="color:#555">
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                          % people like you
+                                        </td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                          Net Salary
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
@@ -363,8 +372,6 @@
                                   </td>
                                 </tr>
                               </#list>
-
-
                                 <tr bgcolor="#e8f5fd">
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
@@ -380,7 +387,6 @@
                                     <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-
                               <#list lessSalaryRanges as salaryRange>
                                 <tr>
                                   <td align="left">
@@ -398,7 +404,6 @@
                                   </td>
                                 </tr>
                               </#list>
-
                               </table>
                             </td>
                           </tr>
@@ -415,7 +420,7 @@
                       <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">You can revise your Salary Report anytime to know how much you should be paid.</td>
                     </tr>
                     <tr>
-                      <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
+                      <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
                       </td>
                     </tr>
                     <tr>
@@ -423,7 +428,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
                             </td>
                           </tr>
                         </table>
@@ -465,4 +470,5 @@
   </tr>
 </table>
 </body>
+
 </html>

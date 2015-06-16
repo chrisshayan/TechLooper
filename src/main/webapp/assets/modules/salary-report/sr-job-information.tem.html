@@ -15,7 +15,8 @@
     <form>
       <div class="update-job-information-field">
         <label>{{'jobSkills' | translate}}:</label>
-        <auto-tagbox tags="sr.skills" config="skillBoxConfig"></auto-tagbox>
+        <auto-tagbox tags="sr.skills" config="skillBoxConfig"
+                     translate-suggestion-title="topDemandedSkill" suggestion-tags="state.demandSkills"></auto-tagbox>
         <div class="error-messages">{{error.skills}}</div>
       </div>
     </form>

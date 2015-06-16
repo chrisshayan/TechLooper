@@ -1,45 +1,50 @@
 <div class="get-promoted-results-block">
-  <div class="get-promoted-general-block" ng-show="state.showView('has-promotion-result')">
-    <p translate="gpNumberOfJobs"
-       translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"
-       translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"
-       translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"
-      />
-    <ul>
-      <li translate="jobTitleWithParam" translate-value-job-title="<span>{{masterPromotion.jobTitle}}</span>">
-      </li>
-      <li ng-show="masterPromotion.jobLevelTitle" translate="jobLevelWithParam"
-          translate-value-job-level="<span>{{masterPromotion.jobLevelTitle}}</span>">
-      </li>
-      <li ng-show="masterPromotion.jobCategoryTitle" translate="jobCategoryWithParam"
-          translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">
-      </li>
-    </ul>
-  </div>
   <div class="top-demanded-skill-block">
     <div class="box-content-collapse">
       <div class="title-header" ng-show="state.showView('has-promotion-result')">
-        <h3 translate="topDemand"></h3>
+        <h3 translate="gpNumberOfJobs"
+            translate-value-job-title="<strong>{{masterPromotion.jobTitle}}</strong>"
+            translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"
+            translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"
+            translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"
+            />
+        <!--<h3 translate="gpNumberOfJobs"-->
+           <!--translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"-->
+           <!--translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"-->
+           <!--translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"-->
+            <!--/>-->
+        <!--<h3 translate="topDemand"></h3>-->
       </div>
       <div class="top-demanded-skill-content">
+        <!--<div class="get-promoted-general-block" ng-show="state.showView('has-promotion-result')">-->
+          <!--<ul>-->
+            <!--<li translate="jobTitleWithParam" translate-value-job-title="<span>{{masterPromotion.jobTitle}}</span>">-->
+            <!--</li>-->
+            <!--<li ng-show="masterPromotion.jobLevelTitle" translate="jobLevelWithParam"-->
+                <!--translate-value-job-level="<span>{{masterPromotion.jobLevelTitle}}</span>">-->
+            <!--</li>-->
+            <!--<li ng-show="masterPromotion.jobCategoryTitle" translate="jobCategoryWithParam"-->
+                <!--translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
         <p ng-show="state.showView('has-promotion-result')" translate="highestDemand"></p>
         <!-- description for No Data -->
         <p ng-show="state.showView('no-promotion-result')">
-          <span ng-show="masterPromotion.jobTitle" translate="weFindNoDataWithParam" translate-value-text="<strong>{{masterPromotion.jobTitle}}</strong>"></span>
-          <span ng-show="masterPromotion.jobLevelTitle" translate="withLevelWithParam" translate-value-text="<strong>{{masterPromotion.jobLevelTitle}}</strong>"></span>
-          <span ng-show="masterPromotion.jobCategoryTitle" translate="inWithParam" translate-value-text="<strong>{{masterPromotion.jobCategoryTitle}}</strong>"></span>
-          <span>.</span>
+          <span ng-show="masterPromotion.jobTitle" translate="weFindNoDataWithParam" translate-value-text="<strong>{{masterPromotion.jobTitle}}</strong>"></span><span ng-show="masterPromotion.jobLevelTitle" translate="withLevelWithParam" translate-value-text="<strong>{{masterPromotion.jobLevelTitle}}</strong>"></span><span ng-show="masterPromotion.jobCategoryTitle" translate="inWithParam" translate-value-text="<strong>{{masterPromotion.jobCategoryTitle}}</strong>"></span><span>.</span>
           <span translate="whileUpdateYourJobInfo"></span>
         </p>
         <ul ng-show="state.showView('has-promotion-result')">
-          <li ng-repeat="skill in masterPromotion.result.topDemandedSkills">{{skill.skillName}}</li>
+          <li ng-repeat="skill in masterPromotion.result.topDemandedSkills | orderBy: count">
+            <p><span title="{{'numberOfJobs' | translate}}">{{skill.count}}</span>{{skill.skillName}}</p>
+          </li>
         </ul>
         <div class="send-me-skills-trend">
           <h4 translate="sendMeSkillTrend"></h4>
 
-          <p ng-show="state.showView('has-promotion-result')" translate="sendMeDesc"></p>
+          <p ng-show="state.showView('has-promotion-result') && state.showView('not-sent-promoted-email')" translate="sendMeDesc"></p>
           <!-- description for No Data -->
-          <p ng-show="state.showView('no-promotion-result')" translate="sendMeDescNoData"></p>
+          <p ng-show="state.showView('no-promotion-result') && state.showView('not-sent-promoted-email')" translate="sendMeDescNoData"></p>
 
           <form ng-show="state.showView('not-sent-promoted-email')" novalidate name="promotionEmailForm"
                 autocomplete="off" ng-submit="sendPromotionEmail()">

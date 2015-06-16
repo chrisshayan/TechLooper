@@ -445,8 +445,10 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         List<TopDemandedSkillResponse> rawSkillStatistics = buckets.stream().map(
                 bucket -> new TopDemandedSkillResponse(bucket.getKey(), bucket.getDocCount())).collect(toList());
         List<TopDemandedSkillResponse> skillStatistics = excludeSimilarSkills(rawSkillStatistics);
-        int limit = request.getLimitSkills() > 0 ? request.getLimitSkills() : 5;
-        response.setTopDemandedSkills(skillStatistics.stream().limit(limit).collect(toList()));
+        int limit = request.getLimitSkills() > 0 ? request.getLimitSkills() : 15;
+        response.setTopDemandedSkills(skillStatistics.stream().sorted(
+                (skill1, skill2) -> (int) skill2.getCount() - (int) skill1.getCount()
+        ).limit(limit).collect(toList()));
 
         return response;
     }

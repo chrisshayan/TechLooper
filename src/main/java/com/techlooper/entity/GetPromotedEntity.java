@@ -1,14 +1,13 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.GetPromotedResponse;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
-import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 
 @Document(indexName = "techlooper", type = "getPromoted")
 public class GetPromotedEntity {
@@ -23,13 +22,16 @@ public class GetPromotedEntity {
     private List<Integer> jobLevelIds;
 
     @Field(type = Long)
-    private List<Long> jobCategories;
+    private List<Long> jobCategoryIds;
 
     @Field(type = String)
     private String email;
 
     @Field(type = Boolean)
     private Boolean hasResult;
+
+    @Field(type = Nested)
+    private GetPromotedResponse getPromotedResult;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -55,12 +57,12 @@ public class GetPromotedEntity {
         this.jobLevelIds = jobLevelIds;
     }
 
-    public List<Long> getJobCategories() {
-        return jobCategories;
+    public List<Long> getJobCategoryIds() {
+        return jobCategoryIds;
     }
 
-    public void setJobCategories(List<Long> jobCategories) {
-        this.jobCategories = jobCategories;
+    public void setJobCategoryIds(List<Long> jobCategoryIds) {
+        this.jobCategoryIds = jobCategoryIds;
     }
 
     public String getEmail() {
@@ -77,5 +79,13 @@ public class GetPromotedEntity {
 
     public void setHasResult(Boolean hasResult) {
         this.hasResult = hasResult;
+    }
+
+    public GetPromotedResponse getGetPromotedResult() {
+        return getPromotedResult;
+    }
+
+    public void setGetPromotedResult(GetPromotedResponse getPromotedResult) {
+        this.getPromotedResult = getPromotedResult;
     }
 }
