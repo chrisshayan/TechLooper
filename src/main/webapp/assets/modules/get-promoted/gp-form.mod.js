@@ -18,7 +18,6 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
       }
 
       var doPromotionWithParam = function(promotionInfo) {
-        console.log(promotionInfo);
         scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
         scope.doPromotion(true);
       }
