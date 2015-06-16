@@ -16,7 +16,7 @@ techlooper.directive("srAboutYourJob", function ($http, vnwConfigService) {
       }
 
       var demandSkillSuggestion = function () {
-        delete scope.state.demandSkills;
+        //delete scope.state.demandSkills;
 
         var request = {};
         scope.salaryReview.jobTitle && (request.jobTitle = scope.salaryReview.jobTitle);
