@@ -293,7 +293,7 @@
                                                 <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                                     <tr>
                                                         <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                            <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Ngay</a>
+                                                            <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&jobTitle=${jobTitle}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Ngay</a>
                                                         </td>
                                                     </tr>
                                                 </table>
