@@ -1,4 +1,4 @@
-techlooper.directive("srJobInformation", function ($http, validatorService, $translate) {
+techlooper.directive("srJobInformation", function ($http, validatorService, $translate, vnwConfigService) {
   return {
     restrict: "E",
     replace: true,
@@ -82,6 +82,28 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
         $('.ic-update-info').removeClass('clicked');
       }
 
+      var demandSkillSuggestion = function () {
+        delete scope.state.demandSkills;
+        if (!scope.sr) return;
+
+        var request = {};
+        scope.sr.jobTitle && (request.jobTitle = scope.sr.jobTitle);
+        scope.sr.jobLevelIds && (request.jobLevelIds = vnwConfigService.getJobLevelIds(scope.sr.jobLevelIds));
+
+        if ($.isEmptyObject(request) || !scope.sr.jobTitle) {
+          return false;
+        }
+
+        $http
+          .post("getPromoted", request)
+          .success(function (userPromotionInfo) {
+            scope.state.demandSkills = userPromotionInfo.topDemandedSkills.map(function (skill) {
+              return {title: skill.skillName};
+            });
+            console.log(scope.state.demandSkills);
+          });
+      }
+
       var jobTitleSuggestion = function (jobTitle) {
         if (!jobTitle || scope.state.editableSalaryReview) {return;}
 
@@ -93,7 +115,14 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
       delete scope.state.jobTitles;
 
-      scope.$watch("sr.jobTitle", function (newVal) {jobTitleSuggestion(newVal);});
+      scope.$watch("sr.jobTitle", function (newVal) {
+        jobTitleSuggestion(newVal);
+        demandSkillSuggestion();
+      });
+      scope.$watch("sr.jobLevelIds", function (newVal) {
+        jobTitleSuggestion(newVal);
+        demandSkillSuggestion();
+      });
       scope.$watch("sr.reportTo", function (newVal) {jobTitleSuggestion(newVal);});
 
       scope.$watch("sr.skills", function (newVal) {
