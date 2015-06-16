@@ -1,4 +1,4 @@
-techlooper.controller('getPromotedController', function ($scope, utils, vnwConfigService, $location, $http) {
+techlooper.controller('getPromotedController', function ($scope, utils, vnwConfigService, $location, $http, userPromotionService) {
   $scope.selectize = vnwConfigService;
 
   var state = {
@@ -40,22 +40,6 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
     $scope.$emit("stateChanged")
-  }
-
-  //http://localhost:8080/#/get-promoted?jobTitle=java&jobLevelIds=[5,6]&jobCategoryIds=[35,55,57]&lang=en&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted
-  var param = $location.search();
-  if (param.id) {
-    $http.get()
-      .success(function (data, status, headers, config) {
-        $scope.promotionInfo = data;
-        $scope.doPromotion();
-      });
-  }
-  else if (!$.isEmptyObject(param)) {
-    param = utils.toObject(param);
-    param.jobLevelId = param.jobLevelIds;
-    $scope.promotionInfo = angular.copy(param);
-    utils.removeRedundantAttrs($scope.promotionInfo, ["jobLevelIds", "lang", "utm_source", "utm_medium", "utm_campaign"]);
   }
 
   $scope.changeState("default");
