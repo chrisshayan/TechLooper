@@ -251,16 +251,6 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 18px; font-weight: 600; color:#000000">Top Demanded Skills By The Market</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:15px; line-height: 15px;" width="100%">
-                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
                         Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, highest demanded skills are listed out from top to bottom
                       </td>
