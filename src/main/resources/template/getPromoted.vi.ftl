@@ -251,7 +251,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td align="left" width="100%" style="font-size: 14px;">
+                                            <td align="left" width="100%" style="font-size: 16px;">
                                                 Dựa trên xu hướng thị trường việc làm ngày <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, dưới đây là các Kỹ Năng Hàng Đầu giúp bạn đạt được công việc này:
                                             </td>
                                         </tr>
