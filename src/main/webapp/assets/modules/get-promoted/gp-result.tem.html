@@ -1,27 +1,28 @@
 <div class="get-promoted-results-block">
-  <div class="get-promoted-general-block" ng-show="state.showView('has-promotion-result')">
-    <p translate="gpNumberOfJobs"
-       translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"
-       translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"
-       translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"
-      />
-    <ul>
-      <li translate="jobTitleWithParam" translate-value-job-title="<span>{{masterPromotion.jobTitle}}</span>">
-      </li>
-      <li ng-show="masterPromotion.jobLevelTitle" translate="jobLevelWithParam"
-          translate-value-job-level="<span>{{masterPromotion.jobLevelTitle}}</span>">
-      </li>
-      <li ng-show="masterPromotion.jobCategoryTitle" translate="jobCategoryWithParam"
-          translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">
-      </li>
-    </ul>
-  </div>
   <div class="top-demanded-skill-block">
     <div class="box-content-collapse">
       <div class="title-header" ng-show="state.showView('has-promotion-result')">
-        <h3 translate="topDemand"></h3>
+        <h3>There are <strong>{{masterPromotion.result.totalJob | number:0}}</strong>  <strong>{{masterPromotion.jobTitle}}</strong> jobs paying between <strong>${{masterPromotion.result.salaryMin | number:0}}</strong> and <strong>${{masterPromotion.result.salaryMax | number:0}}</strong></h3>
+        <!--<h3 translate="gpNumberOfJobs"-->
+           <!--translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"-->
+           <!--translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"-->
+           <!--translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"-->
+            <!--/>-->
+        <!--<h3 translate="topDemand"></h3>-->
       </div>
       <div class="top-demanded-skill-content">
+        <!--<div class="get-promoted-general-block" ng-show="state.showView('has-promotion-result')">-->
+          <!--<ul>-->
+            <!--<li translate="jobTitleWithParam" translate-value-job-title="<span>{{masterPromotion.jobTitle}}</span>">-->
+            <!--</li>-->
+            <!--<li ng-show="masterPromotion.jobLevelTitle" translate="jobLevelWithParam"-->
+                <!--translate-value-job-level="<span>{{masterPromotion.jobLevelTitle}}</span>">-->
+            <!--</li>-->
+            <!--<li ng-show="masterPromotion.jobCategoryTitle" translate="jobCategoryWithParam"-->
+                <!--translate-value-job-category="<span>{{masterPromotion.jobCategoryTitle}}</span>">-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
         <p ng-show="state.showView('has-promotion-result')" translate="highestDemand"></p>
         <!-- description for No Data -->
         <p ng-show="state.showView('no-promotion-result')">
