@@ -262,7 +262,7 @@
   "expectedJobCategory": "Expected Job Category:",
   "getPromoted": "Get Promoted",
   "getPromoted.salary": "Get Promoted",
-  "gpNumberOfJobs": "There are {{numberOfJobs}} jobs with salary range from {{salaryFrom}} to {{salaryTo}} for",
+  "gpNumberOfJobs": "There are {{numberOfJobs}} {{jobTitle}} jobs paying between {{salaryFrom}} and {{salaryTo}}.",
   "topDemand": "Top Demanded Skills By The Market",
   "highestDemand":"Below are Top Skills that will help you achieve that job:",
   "highestDemandNoData": "We find no data related to {{jobTitle}} with level <strong>Experienced</strong> in <strong>IT - Software</strong>. While we are improving, could you update your Expected Job Title, Job Level and Job Category to know how to get promoted? Or please leave us your email in below field.",
