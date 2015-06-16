@@ -32,6 +32,8 @@ techlooper.directive("getPromotedResults", function ($http, $translate, utils) {
             scope.promotionEmailForm.$sentEmail = true;
           });
       }
+
+      scope.viewsDefers.getPromotedResults.resolve();
     }
   }
 });

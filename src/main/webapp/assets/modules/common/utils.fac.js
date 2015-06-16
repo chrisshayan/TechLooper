@@ -2,6 +2,14 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    toPromises: function(defersObj) {
+      var promises = [];
+      for (var prop in defersObj) {
+        promises.push(defersObj[prop].promise);
+      }
+      return promises;
+    },
+
     toObject: function(obj) {
       for (var prop in obj) {
         try {

@@ -1,4 +1,4 @@
-techlooper.directive("getPromotedForm", function ($http, userPromotionService, $location, utils) {
+techlooper.directive("getPromotedForm", function ($http, userPromotionService, $location, utils, $q) {
   return {
     restrict: "E",
     replace: true,
@@ -17,22 +17,7 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
         });
       }
 
-      var doPromotionWithParam = function(promotionInfo, forceValidation) {
-        scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
-        scope.doPromotion(forceValidation);
-      }
-
-      //http://localhost:8080/#/get-promoted?jobTitle=java&jobLevelIds=[5,6]&jobCategoryIds=[35,55,57]&lang=en&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted
-      var param = $location.search();
-      if (param.id) {
-        $http.get("getPromotedResult/" + param.id).success(function (data, status, headers, config) {
-          doPromotionWithParam(data, true);
-        });
-      }
-      else if (!$.isEmptyObject(param)) {
-        param = utils.toObject(param);
-        doPromotionWithParam(param);
-      }
+      scope.viewsDefers.getPromotedForm.resolve();
     }
   }
 });
