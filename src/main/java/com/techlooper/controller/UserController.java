@@ -7,6 +7,7 @@ import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
 import freemarker.template.TemplateException;
+import org.apache.commons.io.IOUtils;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,9 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,6 +63,9 @@ public class UserController {
 
     @Value("${mail.citibank.title.en}")
     private String citibankTitleEn;
+
+    @Value("classpath:braille.txt")
+    private org.springframework.core.io.Resource brailleTextFile;
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
     public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -200,4 +206,17 @@ public class UserController {
         return salaryReviewService.getPromotedEntity(id);
     }
 
+    @RequestMapping(value = "/download/braille", method = RequestMethod.GET)
+    public void getFile(HttpServletResponse response) throws IOException {
+        try {
+            response.setContentType("text/plain");
+            response.setHeader("Content-Disposition", "attachment;filename=braille.txt");
+            IOUtils.copy(brailleTextFile.getInputStream(), response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException ex) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw ex;
+        }
+
+    }
 }
