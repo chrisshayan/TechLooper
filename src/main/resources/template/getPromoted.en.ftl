@@ -251,8 +251,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 14px;">
-                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, highest demanded skills are listed out from top to bottom
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, below are Top Skills that will help you achieve that job:
                       </td>
                     </tr>
                     <tr>
