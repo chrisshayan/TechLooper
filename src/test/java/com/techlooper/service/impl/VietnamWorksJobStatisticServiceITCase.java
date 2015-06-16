@@ -155,7 +155,7 @@ public class VietnamWorksJobStatisticServiceITCase {
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
         assertTrue(response.getTotalJob() > 0);
         assertTrue(response.getSalaryMax() >= response.getSalaryMin());
-        assertTrue(response.getTopDemandedSkills().size() > 0 && response.getTopDemandedSkills().size() <= 5);
+        assertTrue(response.getTopDemandedSkills().size() > 0 && response.getTopDemandedSkills().size() <= 15);
     }
 
     @Test

@@ -192,6 +192,22 @@ public class ConfigurationTest implements ApplicationContextAware {
         return mailMessage;
     }
 
+    @Bean
+    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        return mailMessage;
+    }
+
+    @Bean
+    public Template getPromotedTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return null;
+    }
+
+    @Bean
+    public Template getPromotedTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return null;
+    }
+
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
