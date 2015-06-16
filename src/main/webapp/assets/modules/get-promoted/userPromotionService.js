@@ -2,9 +2,9 @@ techlooper.factory("userPromotionService", function (vnwConfigService, utils) {
   return {
     refinePromotionInfo: function(promotionInfo) {
       var jobLevelIds = vnwConfigService.getJobLevelIds(promotionInfo.jobLevelIds);
-      promotionInfo.jobLevelIds = jobLevelIds ? jobLevelIds : [];
-
       var jobLevelText = vnwConfigService.getJobLevelText(promotionInfo.jobLevelIds);
+
+      promotionInfo.jobLevelIds = jobLevelIds ? jobLevelIds : [];
       promotionInfo.jobLevelTitle = jobLevelText;
 
       var industryTexts = vnwConfigService.getIndustryTexts(promotionInfo.jobCategoryIds);
