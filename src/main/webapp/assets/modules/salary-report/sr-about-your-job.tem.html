@@ -26,7 +26,7 @@
       </div>
       <div class="row salary-field">
         <label>{{'mostRelevantSkills' | translate}} <strong>*</strong>:</label>
-        <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig" validate></auto-tagbox>
+        <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig" translate-suggestion-title="topDemandedSkill" suggestion-tags="state.demandSkills" validate></auto-tagbox>
         <div class="error-messages">{{error.skills}}</div>
       </div>
       <div class="row salary-field">

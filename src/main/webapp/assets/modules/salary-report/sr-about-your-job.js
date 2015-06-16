@@ -1,4 +1,4 @@
-techlooper.directive("srAboutYourJob", function ($http, validatorService) {
+techlooper.directive("srAboutYourJob", function ($http, vnwConfigService) {
   return {
     restrict: "E",
     replace: true,
@@ -15,8 +15,35 @@ techlooper.directive("srAboutYourJob", function ($http, validatorService) {
           });
       }
 
+      var demandSkillSuggestion = function () {
+        delete scope.state.demandSkills;
+
+        var request = {};
+        scope.salaryReview.jobTitle && (request.jobTitle = scope.salaryReview.jobTitle);
+        scope.salaryReview.jobLevelIds && (request.jobLevelIds = vnwConfigService.getJobLevelIds(scope.salaryReview.jobLevelIds));
+
+        if ($.isEmptyObject(request) || !scope.salaryReview.jobTitle) {
+          return false;
+        }
+
+        $http
+          .post("getPromoted", request)
+          .success(function (userPromotionInfo) {
+            //console.log(data);
+            scope.state.demandSkills = userPromotionInfo.topDemandedSkills.map(function (skill) {
+              return {title: skill.skillName};
+            });
+            console.log(scope.state.demandSkills);
+          });
+      }
+
       scope.$watch("salaryReview.jobTitle", function (newVal) {
         jobTitleSuggestion(newVal);
+        demandSkillSuggestion();
+      });
+
+      scope.$watch("salaryReview.jobLevelIds", function (newVal) {
+        demandSkillSuggestion();
       });
 
       scope.$watch("salaryReview.skills", function (newVal) {

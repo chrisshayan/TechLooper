@@ -1,9 +1,8 @@
 <div class="top-three-skills">
   <div class="top-demanded-skills-block">
-    <p translate="topDemandedSkill"></p>
+    <p ng-show="suggestionTags" translate="{{translateSuggestionTitle}}"></p>
     <ul class="demand-skills">
-      <li ng-repeat="item in demandList" ng-click="addDemandSkill($event)">{{item.name}}
-      </li>
+      <li ng-repeat="tag in suggestionTags" ng-click="addTag(tag)" ng-class="{added: tag.added}">{{tag.title}}</li>
     </ul>
   </div>
   <div class="added-list-skills">
@@ -22,8 +21,8 @@
   </div>
   <!--<div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>-->
   <div class="add-skill-input">
-    <form>
-      <autocomplete ng-required='config.required' ng-model="config.newTag" data="config.items"
+    <form novalidate name="tagForm" autocomplete="off">
+      <autocomplete name="tagInput" ng-required='config.required' ng-model="config.newTag" data="config.items"
                     attr-placeholder="{{config.placeholder | translate}}"></autocomplete>
       <button type="submit" ng-click="addTag()">{{'add' | translate}}</button>
     </form>
