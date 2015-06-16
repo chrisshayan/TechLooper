@@ -298,16 +298,13 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Mức lương của bạn đang
-                        <strong style="font-size: 20px; font-weight: 600; color:#000000">
                         <#if salaryReview.salaryReport.percentRank < 50.0>
-                          thấp hơn
+                            Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn mức trung bình</strong>, bạn có xứng đáng với mức lương này?
                         <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                          bằng
+                            Mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">giữa mức trung bình</strong>, bạn nên xem xét việc được trả lương cao hơn?
                         <#else>
-                          cao hơn
+                            Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>, đây có phải là thời điểm cho việc thăng tiến?
                         </#if>
-                        </strong> mức trung bình
                       </td>
                     <#--<td align="left" width="100%" style="font-size: 16px;">-->
                     <#--Mức lương của bạn đang ở giữa <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>/ Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn</strong> mức trung bình/Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>-->

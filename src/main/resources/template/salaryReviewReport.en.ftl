@@ -301,16 +301,13 @@
                     <#--Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale-->
                     <#--</td>-->
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Your salary is at the
-                        <strong style="font-size: 20px; font-weight: 600; color:#000000">
                         <#if salaryReview.salaryReport.percentRank < 50.0>
-                          bottom
+                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale, do you deserve a pay raise?
                         <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                          middle
+                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">in the middle</strong> of the scale, would you consider better paid jobs?
                         <#else>
-                          top
+                            Congratulations, your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale, is time for getting a promotion?
                         </#if>
-                        </strong> of the scale
                       </td>
                     </tr>
                     <tr>
