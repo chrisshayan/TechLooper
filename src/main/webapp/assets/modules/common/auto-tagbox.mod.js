@@ -10,7 +10,7 @@ techlooper.directive('autoTagbox', function ($timeout) {
       translateSuggestionTitle: "@"
     },
     link: function (scope, element, attr, ctrl) {
-      //scope.suggestionTags = scope.suggestionTags || [];// [{title: "spring"}, {title: "angularjs"}];
+      scope.suggestionTags = scope.suggestionTags || [];// [{title: "spring"}, {title: "angularjs"}];
       scope.errors = [];
 
       scope.removeTag = function (tag) {
@@ -48,6 +48,14 @@ techlooper.directive('autoTagbox', function ($timeout) {
         tag && (tag.added = true);
         tag || (scope.config.newTag = "");
       }
+
+      //$.each(scope.tags, function(i, tag) {
+      //  $.each(scope.suggestionTags, function(i, item) {
+      //    if (item.title.toLowerCase() === tag) {
+      //      return (item.added = true);
+      //    }
+      //  });
+      //});
 
       scope.$on("state change success", function () {scope.errors.length = 0;});
     }

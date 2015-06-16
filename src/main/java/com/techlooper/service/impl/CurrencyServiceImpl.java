@@ -28,19 +28,19 @@ public class CurrencyServiceImpl implements CurrencyService {
   private Long usd2vnd;
 
   public Long usdToVndRate() {
-    String url = String.format(apiExchangeRateUrl, "USD", "VND");
+//    String url = String.format(apiExchangeRateUrl, "USD", "VND");
     Long result = usd2vnd;
-    try {
-      String rate = restTemplate.getForEntity(url, String.class).getBody();
-      Scanner scanner = new Scanner(rate);
-      while (!scanner.hasNextDouble()) {
-        scanner.next();
-      }
-      result = Double.valueOf(scanner.nextDouble()).longValue();
-    }
-    catch (Exception e) {
-      LOGGER.error("Failed load currency from api {}", url);
-    }
+//    try {
+//      String rate = restTemplate.getForEntity(url, String.class).getBody();
+//      Scanner scanner = new Scanner(rate);
+//      while (!scanner.hasNextDouble()) {
+//        scanner.next();
+//      }
+//      result = Double.valueOf(scanner.nextDouble()).longValue();
+//    }
+//    catch (Exception e) {
+//      LOGGER.error("Failed load currency from api {}", url);
+//    }
     return result;
   }
 }
