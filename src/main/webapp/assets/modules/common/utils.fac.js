@@ -2,12 +2,36 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    toPromises: function(defersObj) {
+      var promises = [];
+      for (var prop in defersObj) {
+        promises.push(defersObj[prop].promise);
+      }
+      return promises;
+    },
+
+    toObject: function(obj) {
+      for (var prop in obj) {
+        try {
+          obj[prop] = JSON.parse(obj[prop]);
+        }
+        catch (e) {}
+      }
+      return obj;
+    },
+
+    toStrings: function(array, prop) {
+      $.each(array, function(i, item) {
+        item[prop] = '' + item[prop];
+      });
+      return array;
+    },
+
     removeRedundantAttrs: function(obj, attrs) {
       $.each(attrs, function(i, attr) {
         delete obj[attr];
       });
     },
-
 
     visit: function (obj, func) {
       for (var prop in obj) {

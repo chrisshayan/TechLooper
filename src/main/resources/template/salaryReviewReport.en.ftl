@@ -301,16 +301,13 @@
                     <#--Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale-->
                     <#--</td>-->
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Your salary is at the
-                        <strong style="font-size: 20px; font-weight: 600; color:#000000">
                         <#if salaryReview.salaryReport.percentRank < 50.0>
-                          bottom
+                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale, do you deserve a pay raise?
                         <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                          middle
+                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">in the middle</strong> of the scale, would you consider better paid jobs?
                         <#else>
-                          top
+                            Congratulations, your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale, is time for getting a promotion?
                         </#if>
-                        </strong> of the scale
                       </td>
                     </tr>
                     <tr>
@@ -431,7 +428,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
                             </td>
                           </tr>
                         </table>

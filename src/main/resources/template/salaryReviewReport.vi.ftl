@@ -298,16 +298,13 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Mức lương của bạn đang
-                        <strong style="font-size: 20px; font-weight: 600; color:#000000">
                         <#if salaryReview.salaryReport.percentRank < 50.0>
-                          thấp hơn
+                            Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn mức trung bình</strong>, bạn có xứng đáng với mức lương này?
                         <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                          bằng
+                            Mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">giữa mức trung bình</strong>, bạn nên xem xét việc được trả lương cao hơn?
                         <#else>
-                          cao hơn
+                            Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>, đây có phải là thời điểm cho việc thăng tiến?
                         </#if>
-                        </strong> mức trung bình
                       </td>
                     <#--<td align="left" width="100%" style="font-size: 16px;">-->
                     <#--Mức lương của bạn đang ở giữa <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>/ Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn</strong> mức trung bình/Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>-->
@@ -431,7 +428,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=createreportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
                             </td>
                           </tr>
                         </table>

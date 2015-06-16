@@ -22,7 +22,7 @@ public class GetPromotedEntity {
     private List<Integer> jobLevelIds;
 
     @Field(type = Long)
-    private List<Long> jobCategories;
+    private List<Long> jobCategoryIds;
 
     @Field(type = String)
     private String email;
@@ -57,12 +57,12 @@ public class GetPromotedEntity {
         this.jobLevelIds = jobLevelIds;
     }
 
-    public List<Long> getJobCategories() {
-        return jobCategories;
+    public List<Long> getJobCategoryIds() {
+        return jobCategoryIds;
     }
 
-    public void setJobCategories(List<Long> jobCategories) {
-        this.jobCategories = jobCategories;
+    public void setJobCategoryIds(List<Long> jobCategoryIds) {
+        this.jobCategoryIds = jobCategoryIds;
     }
 
     public String getEmail() {

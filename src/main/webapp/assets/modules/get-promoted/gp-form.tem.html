@@ -28,12 +28,12 @@
           <label translate="expectedJobLevel"></label>
           <selectize name="jobLevelIds" config='selectize.jobLevelsSelectize.config'
                      options='selectize.jobLevelsSelectize.items'
-                     ng-model="promotionInfo.jobLevelId" name="{{'jobLevel' | translate}}"></selectize>
+                     ng-model="promotionInfo.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
         </div>
         <div class="gp-form-field">
           <label translate="expectedJobCategory"></label>
           <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
-                     ng-model="promotionInfo.jobCategoryIds" name="{{'jobCategory' | translate}}"></selectize>
+                     ng-model="promotionInfo.jobCategoryIds" name="jobCategoryIds"></selectize>
         </div>
         <div class="gp-form-field submit">
           <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="doPromotion()"

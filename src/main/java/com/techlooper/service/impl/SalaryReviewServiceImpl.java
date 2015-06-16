@@ -231,7 +231,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         String configLang = "lang_" + emailRequest.getLang().getValue();
         templateModel.put("webBaseUrl", webBaseUrl);
 
-        templateModel.put("getPromotedId", getPromotedId);
+        templateModel.put("getPromotedId", String.valueOf(getPromotedId));
         templateModel.put("jobTitle", getPromotedRequest.getJobTitle());
 
         List<Integer> jobLevelIds = getPromotedRequest.getJobLevelIds();
@@ -281,7 +281,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         getPromotedEntity.setCreatedDateTime(new Date().getTime());
         getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
         getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
-        getPromotedEntity.setJobCategories(getPromotedRequest.getJobCategoryIds());
+        getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
         getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
         getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
 
@@ -294,5 +294,10 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         } else {
             return -1L;
         }
+    }
+
+    @Override
+    public GetPromotedEntity getPromotedEntity(Long id) {
+        return getPromotedRepository.findOne(id);
     }
 }
