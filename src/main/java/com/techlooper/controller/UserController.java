@@ -1,5 +1,6 @@
 package com.techlooper.controller;
 
+import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
@@ -187,11 +188,16 @@ public class UserController {
 
     @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
     public void sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
-        salaryReviewService.saveGetPromotedInformation(emailRequest);
+        long getPromotedId = salaryReviewService.saveGetPromotedInformation(emailRequest);
 
-        if (emailRequest.getHasResult()) {
-            salaryReviewService.sendTopDemandedSkillsEmail(emailRequest);
+        if (getPromotedId != -1L && emailRequest.getHasResult()) {
+            salaryReviewService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
         }
+    }
+
+    @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.POST)
+    public GetPromotedEntity getPromotedResult(@PathVariable Long id) {
+        return salaryReviewService.getPromotedEntity(id);
     }
 
 }

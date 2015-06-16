@@ -59,7 +59,7 @@
             <span>${{salaryReport.netSalary | number:0}}</span>
             {{salaryReport.percentRank}}%
           </li>
-          <li ng-repeat="range in salaryReport.salaryRanges | orderBy: '-percentile | number'" ng-show="range.percent < salaryReport.percentRank">
+          <li ng-repeat="range in salaryReport.salaryRanges | orderBy: '-percentile'" ng-show="range.percent < salaryReport.percentRank">
             <span>${{range.percentile | number:0}}</span>
             {{range.percent}}%
           </li>

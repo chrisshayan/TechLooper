@@ -221,7 +221,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     }
 
     @Override
-    public void sendTopDemandedSkillsEmail(GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
+    public void sendTopDemandedSkillsEmail(long getPromotedId, GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
         getPromotedMailMessage.setRecipients(Message.RecipientType.TO, emailRequest.getEmail());
         StringWriter stringWriter = new StringWriter();
         Template template = emailRequest.getLang() == Language.vi ? getPromotedTemplateVi : getPromotedTemplateEn;
@@ -231,15 +231,14 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         String configLang = "lang_" + emailRequest.getLang().getValue();
         templateModel.put("webBaseUrl", webBaseUrl);
 
+        templateModel.put("getPromotedId", getPromotedId);
         templateModel.put("jobTitle", getPromotedRequest.getJobTitle());
 
         List<Integer> jobLevelIds = getPromotedRequest.getJobLevelIds();
         if (jobLevelIds != null && !jobLevelIds.isEmpty()) {
             templateModel.put("jobLevel", vietnamworksConfiguration.findPath(jobLevelIds.toString()).get(configLang).asText());
-            templateModel.put("jobLevelIds", "&jobLevelIds=" + jobLevelIds.toString().replaceAll(" ", ""));
         } else {
             templateModel.put("jobLevel", null);
-            templateModel.put("jobLevelIds", "");
         }
 
         List<Long> jobCategoryIds = getPromotedRequest.getJobCategoryIds();
@@ -250,10 +249,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             jobCategoryIds.stream().map(aLong -> aLong.toString())
                     .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(configLang).asText()));
             templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
-            templateModel.put("jobCategoryIds", "&jobCategoryIds=" + jobCategoryIds.toString().replaceAll(" ", ""));
         } else {
             templateModel.put("jobCategories", null);
-            templateModel.put("jobCategoryIds", "");
         }
 
         GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
@@ -278,7 +275,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     }
 
     @Override
-    public void saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest) {
+    public long saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest) {
         GetPromotedRequest getPromotedRequest = getPromotedEmailRequest.getGetPromotedRequest();
         GetPromotedEntity getPromotedEntity = new GetPromotedEntity();
         getPromotedEntity.setCreatedDateTime(new Date().getTime());
@@ -288,6 +285,19 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
         getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
 
-        getPromotedRepository.save(getPromotedEntity);
+        GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+        getPromotedEntity.setGetPromotedResult(getPromotedResponse);
+
+        GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
+        if (result != null) {
+            return result.getCreatedDateTime();
+        } else {
+            return -1L;
+        }
+    }
+
+    @Override
+    public GetPromotedEntity getPromotedEntity(Long id) {
+        return getPromotedRepository.findOne(id);
     }
 }
