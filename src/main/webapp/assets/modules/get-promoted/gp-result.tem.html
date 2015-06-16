@@ -36,9 +36,9 @@
         <div class="send-me-skills-trend">
           <h4 translate="sendMeSkillTrend"></h4>
 
-          <p ng-show="state.showView('has-promotion-result')" translate="sendMeDesc"></p>
+          <p ng-show="state.showView('has-promotion-result') && state.showView('not-sent-promoted-email')" translate="sendMeDesc"></p>
           <!-- description for No Data -->
-          <p ng-show="state.showView('no-promotion-result')" translate="sendMeDescNoData"></p>
+          <p ng-show="state.showView('no-promotion-result') && state.showView('not-sent-promoted-email')" translate="sendMeDescNoData"></p>
 
           <form ng-show="state.showView('not-sent-promoted-email')" novalidate name="promotionEmailForm"
                 autocomplete="off" ng-submit="sendPromotionEmail()">
