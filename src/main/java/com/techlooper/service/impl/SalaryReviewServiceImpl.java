@@ -231,7 +231,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         String configLang = "lang_" + emailRequest.getLang().getValue();
         templateModel.put("webBaseUrl", webBaseUrl);
 
-        templateModel.put("getPromotedId", getPromotedId);
+        templateModel.put("getPromotedId", String.valueOf(getPromotedId));
         templateModel.put("jobTitle", getPromotedRequest.getJobTitle());
 
         List<Integer> jobLevelIds = getPromotedRequest.getJobLevelIds();

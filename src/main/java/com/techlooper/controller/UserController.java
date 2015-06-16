@@ -195,7 +195,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.GET)
     public GetPromotedEntity getPromotedResult(@PathVariable Long id) {
         return salaryReviewService.getPromotedEntity(id);
     }
