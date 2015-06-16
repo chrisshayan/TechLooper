@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
+
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <meta content="telephone=no" name="format-detection" />
@@ -93,13 +94,14 @@
         width: 100%!important;
         padding: 10px 0 !important
       }
-      .fullWidth{
+      .fullWidth {
         width: 100% !important;
       }
     }
   </style>
   <!--Main Table-->
 </head>
+
 <body class="email-body" yahoo="fix" marginheight="0" topmargin="0" marginwidth="0">
 <table style="margin:0 auto; background: #eee; color: #555" align="center" width="100%" class="deviceWidth">
   <tr>
@@ -298,19 +300,18 @@
                       <td align="left" width="100%" style="font-size: 16px;">
                         Mức lương của bạn đang
                         <strong style="font-size: 20px; font-weight: 600; color:#000000">
-                          <#if salaryReview.salaryReport.percentRank < 50.0>
-                            thấp hơn
-                          <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                            bằng
-                          <#else>
-                            cao hơn
-                          </#if>
-                        </strong>
-                        mức trung bình
+                        <#if salaryReview.salaryReport.percentRank < 50.0>
+                          thấp hơn
+                        <#elseif salaryReview.salaryReport.percentRank < 70.0>
+                          bằng
+                        <#else>
+                          cao hơn
+                        </#if>
+                        </strong> mức trung bình
                       </td>
-                      <#--<td align="left" width="100%" style="font-size: 16px;">-->
-                        <#--Mức lương của bạn đang ở giữa <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>/ Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn</strong> mức trung bình/Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>-->
-                      <#--</td>-->
+                    <#--<td align="left" width="100%" style="font-size: 16px;">-->
+                    <#--Mức lương của bạn đang ở giữa <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>/ Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn</strong> mức trung bình/Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>-->
+                    <#--</td>-->
                     </tr>
                     <tr>
                       <td style="height:20px; line-height: 20px;" width="100%">
@@ -329,7 +330,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%"  class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%" class="fullWidth">
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
@@ -339,7 +340,18 @@
                                   </td>
                                 </tr>
                                 <tr bgcolor="#f4f4f4">
-                                  <td align="left" style="font-size: 16px; font-weight: 500;  padding: 10px; text-align: left">% những người giống như bạn về lương thực nhận (USD/tháng)</td>
+                                  <td align="left">
+                                    <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                                      <tr style="color:#555">
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                          % những người giống bạn
+                                        </td>
+                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                          Lương thực nhận
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td width="100%" height="1" style="line-height: 0;background-color: #d4d7d8">
@@ -363,7 +375,6 @@
                                   </td>
                                 </tr>
                               </#list>
-
                                 <tr bgcolor="#e8f5fd">
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
@@ -379,7 +390,6 @@
                                     <img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-
                               <#list lessSalaryRanges as salaryRange>
                                 <tr>
                                   <td align="left">
@@ -397,7 +407,6 @@
                                   </td>
                                 </tr>
                               </#list>
-
                               </table>
                             </td>
                           </tr>
@@ -414,7 +423,7 @@
                       <td width="100%" style="font-size: 14px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Để xác định mức lương xứng đáng, bạn có thể xem Báo Cáo Lương mới bất cứ lúc nào.</td>
                     </tr>
                     <tr>
-                      <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0"/>
+                      <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
                       </td>
                     </tr>
                     <tr>
@@ -464,4 +473,5 @@
   </tr>
 </table>
 </body>
+
 </html>
