@@ -51,17 +51,18 @@
       </div>
       <div class="your-pay-snapshot-chart-mobile">
         <ul>
+          <li class="header"><span>% {{'people' | translate}}</span> {{'netSalaryMobile' | translate}}</li>
           <li ng-repeat="range in salaryReport.salaryRanges | orderBy:'-percentile'" ng-show="range.percent > salaryReport.percentRank">
-            <span>${{range.percentile | number:0}}</span>
-            {{range.percent}}%
+            <span>{{range.percent}}%</span>
+            ${{range.percentile | number:0}}
           </li>
           <li class="highlight">
-            <span>${{salaryReport.netSalary | number:0}}</span>
-            {{salaryReport.percentRank}}%
+            <span>{{salaryReport.percentRank}}%</span>
+            ${{salaryReport.netSalary | number:0}}
           </li>
           <li ng-repeat="range in salaryReport.salaryRanges | orderBy: '-percentile'" ng-show="range.percent < salaryReport.percentRank">
-            <span>${{range.percentile | number:0}}</span>
-            {{range.percent}}%
+            <span>{{range.percent}}%</span>
+            ${{range.percentile | number:0}}
           </li>
         </ul>
       </div>

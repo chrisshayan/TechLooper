@@ -1,33 +1,38 @@
-techlooper.directive("getPromotedForm", function ($http, vnwConfigService, $location, utils) {
+techlooper.directive("getPromotedForm", function ($http, userPromotionService, $location, utils) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/get-promoted/gp-form.tem.html",
     link: function (scope, element, attr, ctrl) {
-      scope.doPromotion = function () {
+      scope.doPromotion = function (forceValidation) {
         scope.promotionForm.$setSubmitted();
-        if (!scope.promotionForm.$valid) {
+        if (!forceValidation && !scope.promotionForm.$valid) {
           return false;
         }
         scope.masterPromotion = angular.copy(scope.promotionInfo);
-        $http.post("getPromoted", scope.promotionInfo)
-          .success(function (data, status, headers, config) {
-            scope.masterPromotion.result = data;
-            scope.changeState('result');
-          });
+        userPromotionService.refinePromotionInfo(scope.masterPromotion);
+        $http.post("getPromoted", scope.masterPromotion).success(function (data, status, headers, config) {
+          scope.masterPromotion.result = data;
+          scope.changeState('result');
+        });
       }
 
-      scope.$watch("masterPromotion", function (newVal, oldVal) {
-        if (!newVal && !oldVal) return false;
-        var jobLevelIds = vnwConfigService.getJobLevelIds(scope.masterPromotion.jobLevelId);
-        scope.masterPromotion.jobLevelIds = jobLevelIds ? jobLevelIds : [];
+      var doPromotionWithParam = function(promotionInfo, forceValidation) {
+        scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
+        scope.doPromotion(forceValidation);
+      }
 
-        var jobLevelText = vnwConfigService.getJobLevelText(scope.masterPromotion.jobLevelId);
-        scope.masterPromotion.jobLevelTitle = jobLevelText;
-
-        var industryTexts = vnwConfigService.getIndustryTexts(scope.masterPromotion.jobCategoryIds);
-        scope.masterPromotion.jobCategoryTitle = industryTexts ? industryTexts.join(" | ") : undefined;
-      });
+      //http://localhost:8080/#/get-promoted?jobTitle=java&jobLevelIds=[5,6]&jobCategoryIds=[35,55,57]&lang=en&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted
+      var param = $location.search();
+      if (param.id) {
+        $http.get("getPromotedResult/" + param.id).success(function (data, status, headers, config) {
+          doPromotionWithParam(data, true);
+        });
+      }
+      else if (!$.isEmptyObject(param)) {
+        param = utils.toObject(param);
+        doPromotionWithParam(param);
+      }
     }
   }
 });
