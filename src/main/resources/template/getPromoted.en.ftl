@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Thanks for using How To Get Promoted from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
+                        Thanks for using <strong>How To Get Promoted</strong> from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
                       </td>
                     </tr>
                     <tr>
@@ -251,16 +251,6 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 18px; font-weight: 600; color:#000000">Top Demanded Skills By The Market</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:15px; line-height: 15px;" width="100%">
-                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
                         Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, highest demanded skills are listed out from top to bottom
                       </td>
@@ -303,7 +293,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
+                              <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&jobTitle=${jobTitle}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
                             </td>
                           </tr>
                         </table>

@@ -669,12 +669,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     },
 
     getJobLevelText: function(jobLevelId) {
-      if (!jobLevelId) return undefined;
+      if (!jobLevelId || $.type(jobLevelId) !== "string") return undefined;
       return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
     },
 
     getJobLevelIds: function(jobLevelId) {
-      if (!jobLevelId) return undefined;
+      if (!jobLevelId || $.type(jobLevelId) !== "string") return undefined;
       return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").ids;
     },
 

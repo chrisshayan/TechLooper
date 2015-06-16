@@ -35,7 +35,7 @@
           <span translate="whileUpdateYourJobInfo"></span>
         </p>
         <ul ng-show="state.showView('has-promotion-result')">
-          <li ng-repeat="skill in masterPromotion.result.topDemandedSkills | orderBy: count">
+          <li ng-repeat="skill in masterPromotion.result.topDemandedSkills">
             <p><span title="{{'numberOfJobs' | translate}}">{{skill.count}}</span>{{skill.skillName}}</p>
           </li>
         </ul>

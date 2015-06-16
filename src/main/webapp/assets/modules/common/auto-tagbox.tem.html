@@ -1,6 +1,6 @@
 <div class="top-three-skills">
   <div class="top-demanded-skills-block">
-    <p ng-show="suggestionTags" translate="{{translateSuggestionTitle}}"></p>
+    <p ng-show="suggestionTags.length > 0" translate="{{translateSuggestionTitle}}"></p>
     <ul class="demand-skills">
       <li ng-repeat="tag in suggestionTags" ng-click="addTag(tag)" ng-class="{added: tag.added}">{{tag.title}}</li>
     </ul>

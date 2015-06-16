@@ -298,13 +298,13 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <#if salaryReview.salaryReport.percentRank < 50.0>
-                            Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn mức trung bình</strong>, bạn có xứng đáng với mức lương này?
-                        <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                            Mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">giữa mức trung bình</strong>, bạn nên xem xét việc được trả lương cao hơn?
-                        <#else>
-                            Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>, đây có phải là thời điểm cho việc thăng tiến?
-                        </#if>
+                      <#if salaryReview.salaryReport.percentRank < 50.0>
+                        Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn mức trung bình</strong>, bạn có xứng đáng với mức lương này?
+                      <#elseif salaryReview.salaryReport.percentRank < 70.0>
+                        Mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>, bạn nên xem xét việc được trả lương cao hơn?
+                      <#else>
+                        Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>, đây có phải là thời điểm cho việc thăng tiến?
+                      </#if>
                       </td>
                     <#--<td align="left" width="100%" style="font-size: 16px;">-->
                     <#--Mức lương của bạn đang ở giữa <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>/ Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn</strong> mức trung bình/Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>-->
@@ -327,7 +327,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%" class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="70%" class="fullWidth">
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
@@ -341,9 +341,9 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
-                                          % những người giống bạn
+                                          % người giống bạn
                                         </td>
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                        <td align="left" style="padding: 10px; font-size: 14px">
                                           Lương thực nhận
                                         </td>
                                       </tr>

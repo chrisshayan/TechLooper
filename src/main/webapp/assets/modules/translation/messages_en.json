@@ -59,7 +59,7 @@
   "salaryRangeLabel": "The salary range for",
   "is": "is",
   "allLevel": "All levels",
-  "newGradLevel": "Entry Level",
+  "newGradLevel": "Entry",
   "experienced": "Experienced",
   "manager": "Manager",
   "directorAndAbove": "Director and Above",
@@ -281,8 +281,8 @@
   "jobLevelWithParam": "Job Level: {{jobLevel}}",
   "jobCategoryWithParam": "Job Categories: {{jobCategory}}",
   "weFindNoDataWithParam": "We find no data related to {{text}}",
-  "withLevelWithParam": "with level {{text}}",
-  "inWithParam": "in {{text}}",
+  "withLevelWithParam": " with level {{text}}",
+  "inWithParam": " in {{text}}",
   "whileUpdateYourJobInfo": "While we are improving, could you update your Expected Job Title, Job Level and Job Category to know how to get promoted? Or please leave us your email in below field.",
   "clickToDownLoad": "Download Braille code"
 }

@@ -100,7 +100,6 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
             scope.state.demandSkills = userPromotionInfo.topDemandedSkills.map(function (skill) {
               return {title: skill.skillName};
             });
-            console.log(scope.state.demandSkills);
           });
       }
 

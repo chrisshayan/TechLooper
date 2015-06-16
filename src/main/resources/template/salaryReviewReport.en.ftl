@@ -301,13 +301,13 @@
                     <#--Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale/ Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the middle</strong> of the scale/Congratulations. Your salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale-->
                     <#--</td>-->
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <#if salaryReview.salaryReport.percentRank < 50.0>
-                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale, do you deserve a pay raise?
-                        <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                            Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">in the middle</strong> of the scale, would you consider better paid jobs?
-                        <#else>
-                            Congratulations, your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale, is time for getting a promotion?
-                        </#if>
+                      <#if salaryReview.salaryReport.percentRank < 50.0>
+                        Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the bottom</strong> of the scale, do you deserve a pay raise?
+                      <#elseif salaryReview.salaryReport.percentRank < 70.0>
+                        Your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">in the middle</strong> of the scale, would you consider better paid jobs?
+                      <#else>
+                        Congratulations, your Salary is <strong style="font-size: 20px; font-weight: 600; color:#000000">at the top</strong> of the scale, is time for getting a promotion?
+                      </#if>
                       </td>
                     </tr>
                     <tr>
@@ -327,7 +327,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="65%" class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="70%" class="fullWidth">
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
@@ -343,7 +343,7 @@
                                         <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
                                           % people like you
                                         </td>
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                        <td align="left" style="padding: 10px; font-size: 14px">
                                           Net Salary
                                         </td>
                                       </tr>
