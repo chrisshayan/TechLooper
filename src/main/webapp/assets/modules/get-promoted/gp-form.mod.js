@@ -1,12 +1,11 @@
-techlooper.directive("getPromotedForm", function ($http, vnwConfigService, $location) {
+techlooper.directive("getPromotedForm", function ($http, vnwConfigService, $location, utils) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/get-promoted/gp-form.tem.html",
     link: function (scope, element, attr, ctrl) {
-      var campaign = $location.search();
-
       scope.doPromotion = function () {
+        scope.promotionForm.$setSubmitted();
         if (!scope.promotionForm.$valid) {
           return false;
         }
