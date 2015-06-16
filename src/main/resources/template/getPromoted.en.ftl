@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Thanks for using How To Get Promoted from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
+                        Thanks for using <strong>How To Get Promoted</strong> from TechLooper. We are continuously improving it, meanwhile you can come back and revise it anytime.
                       </td>
                     </tr>
                     <tr>

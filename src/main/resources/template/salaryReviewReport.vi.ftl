@@ -301,7 +301,7 @@
                         <#if salaryReview.salaryReport.percentRank < 50.0>
                             Mức lương của bạn đang <strong style="font-size: 20px; font-weight: 600; color:#000000">thấp hơn mức trung bình</strong>, bạn có xứng đáng với mức lương này?
                         <#elseif salaryReview.salaryReport.percentRank < 70.0>
-                            Mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">giữa mức trung bình</strong>, bạn nên xem xét việc được trả lương cao hơn?
+                            Mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức trung bình</strong>, bạn nên xem xét việc được trả lương cao hơn?
                         <#else>
                             Chúc mừng, mức lương của bạn đang ở <strong style="font-size: 20px; font-weight: 600; color:#000000">mức cao</strong>, đây có phải là thời điểm cho việc thăng tiến?
                         </#if>

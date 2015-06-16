@@ -161,7 +161,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="font-size: 14px;">
-                                                Cảm ơn đã sử dụng dịch vụ Làm Sao Để Thăng Tiến của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới nhất.
+                                                Cảm ơn đã sử dụng dịch vụ <strong>Làm Sao Để Thăng Tiến</strong> của TechLooper. Chức năng vẫn đang trong giai đoạn phát triển. Hãy luôn dùng TechLooper để sử dụng và được cập nhật các chức năng mới nhất.
                                             </td>
                                         </tr>
                                         <tr>
@@ -251,18 +251,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td align="left" width="100%" style="font-size: 16px;">
-                                                <strong style="font-size: 18px; font-weight: 600; color:#000000">Kỹ Năng Hàng Đầu</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height:30px; line-height: 20px;" width="100%">
-                                                <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td align="left" width="100%" style="font-size: 14px;">
-                                                Dựa trên xu hướng thị trường việc làm ngày <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, các kỹ năng đòi hỏi nhiều nhất từ các nhà tuyển dụng được liệt kê theo độ ưu tiên từ cao đến thấp như sau.
+                                                Dựa trên xu hướng thị trường việc làm ngày <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, dưới đây là các Kỹ Năng Hàng Đầu giúp bạn đạt được công việc này:
                                             </td>
                                         </tr>
                                         <tr>
