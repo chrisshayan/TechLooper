@@ -2,7 +2,12 @@
   <div class="top-demanded-skill-block">
     <div class="box-content-collapse">
       <div class="title-header" ng-show="state.showView('has-promotion-result')">
-        <h3>There are <strong>{{masterPromotion.result.totalJob | number:0}}</strong>  <strong>{{masterPromotion.jobTitle}}</strong> jobs paying between <strong>${{masterPromotion.result.salaryMin | number:0}}</strong> and <strong>${{masterPromotion.result.salaryMax | number:0}}</strong></h3>
+        <h3 translate="gpNumberOfJobs"
+            translate-value-job-title="<strong>{{masterPromotion.jobTitle}}</strong>"
+            translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"
+            translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"
+            translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"
+            />
         <!--<h3 translate="gpNumberOfJobs"-->
            <!--translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"-->
            <!--translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"-->
