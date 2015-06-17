@@ -190,7 +190,7 @@
                                     Title:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                      ${jobTitle}
+                                  ${jobTitle}
                                   </td>
                                 </tr>
                                 <tr>
@@ -201,16 +201,16 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <#if jobLevel??>
-                                  <tr>
+                              <#if jobLevel??>
+                                <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Level:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                    ${jobLevel}
+                                  ${jobLevel}
                                   </td>
                                 </tr>
-                                </#if>
+                              </#if>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -219,16 +219,16 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <#if jobCategories??>
+                              <#if jobCategories??>
                                 <tr>
                                   <td align="left" width="35%" style="font-size: 14px; padding-left: 15px">
                                     Categories:
                                   </td>
                                   <td align="left" width="65%" style="color: #000000; font-size: 14px;">
-                                      ${jobCategories}
+                                  ${jobCategories}
                                   </td>
                                 </tr>
-                                </#if>
+                              </#if>
                               </table>
                             </td>
                           </tr>
@@ -263,15 +263,15 @@
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                            <#list topDemandedSkills as skill>
-                                <tr>
-                                    <td style="height:10px; line-height: 10px;" width="100%">
-                                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                    </td>
-                                <tr>
-                                    <td align="left" width="100%" style="font-size: 14px; padding-left: 15px">${skill.skillName}</td>
-                                </tr>
-                            </#list>
+                        <#list topDemandedSkills as skill>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;" width="100%">
+                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          <tr>
+                            <td align="left" width="100%" style="font-size: 14px; padding-left: 15px">${skill.skillName}</td>
+                          </tr>
+                        </#list>
                         </table>
                       </td>
                     </tr>
@@ -290,10 +290,10 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table width="45%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
+                        <table width="230px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&jobTitle=${jobTitle}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
+                              <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&jobTitle=${jobTitle}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">See Latest Skills Trend</a>
                             </td>
                           </tr>
                         </table>
