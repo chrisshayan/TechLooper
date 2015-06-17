@@ -448,7 +448,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         int limit = request.getLimitSkills() > 0 ? request.getLimitSkills() : 15;
         response.setTopDemandedSkills(skillStatistics.stream().sorted(
                 (skill1, skill2) -> (int) skill2.getCount() - (int) skill1.getCount()
-        ).limit(limit).collect(toList()));
+        ).filter(skill -> skill.getSkillName().length() <= 40).limit(limit).collect(toList()));
 
         return response;
     }
