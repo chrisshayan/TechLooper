@@ -317,7 +317,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        See below the full details of this report which was generated on <strong style="font-size: 18px; font-weight: 500; color:#000000">${date}</strong>:
+                        See below the full details of this report which was generated on <strong style="font-size: 20px; font-weight: 500; color:#000000">${date}</strong>:
                       </td>
                     </tr>
                     <tr>

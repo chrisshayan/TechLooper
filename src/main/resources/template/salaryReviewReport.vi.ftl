@@ -317,7 +317,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        Chi tiết báo cáo lương ngày <strong style="font-size: 18px; font-weight: 500; color:#000000">${date}</strong> như sau:
+                        Chi tiết báo cáo lương ngày <strong style="font-size: 20px; font-weight: 500; color:#000000">${date}</strong> như sau:
                       </td>
                     </tr>
                     <tr>
