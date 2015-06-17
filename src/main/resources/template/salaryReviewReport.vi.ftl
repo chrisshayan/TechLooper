@@ -327,7 +327,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="70%" class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" width="90%" class="fullWidth">
                           <tr>
                             <td width="100%" align="left">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="background:#fff; border-collapse:collapse; margin: 0 auto; padding:0" width="100%">
@@ -340,7 +340,7 @@
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">
+                                        <td align="left" style="padding: 10px; width: 55%; padding-left: 15px; font-size: 14px">
                                           % người giống bạn
                                         </td>
                                         <td align="left" style="padding: 10px; font-size: 14px">
@@ -425,10 +425,10 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
+                        <table width="250px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; text-align: center; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
                             </td>
                           </tr>
                         </table>
