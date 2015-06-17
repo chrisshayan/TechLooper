@@ -317,7 +317,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        See below the full details of this report which was generated on <strong style="font-size: 16px; font-weight: 500; color:#000000">${date}</strong>:
+                        See below the full details of this report which was generated on <strong style="font-size: 20px; font-weight: 600; color:#000000">${date}</strong>:
                       </td>
                     </tr>
                     <tr>
@@ -428,7 +428,7 @@
                         <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=en&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">Update My Report</a>
                             </td>
                           </tr>
                         </table>

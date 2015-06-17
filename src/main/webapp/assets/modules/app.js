@@ -192,24 +192,24 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
-  //var doTranslate = function() {
-  //  $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
-  //    "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
-  //    "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-  //    "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
-  //    $rootScope.translate = translate;
-  //  });
-  //}
+  var doTranslate = function() {
+    $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
+      "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
+      "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
+      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
+      $rootScope.translate = translate;
+    });
+  }
 
   var campaign = $location.search();
   var langKey = (campaign && campaign.lang);
   langKey !== $translate.use() && ($translate.use(langKey));
   $rootScope.$on('$translateChangeSuccess', function () {
     langKey !== $translate.use() && ($translate.use(langKey));
-    //doTranslate();
+    doTranslate();
   });
 
-  //doTranslate();
+  doTranslate();
 
   $rootScope.jsonValue = jsonValue;
 

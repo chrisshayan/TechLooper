@@ -251,8 +251,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 14px;">
-                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, highest demanded skills are listed out from top to bottom
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        Based on skill trends generated on <strong style="font-size: 16px; font-weight: 600; color:#000000">${sentDate}</strong>, below are Top Skills that will help you achieve that job:
                       </td>
                     </tr>
                     <tr>
@@ -290,7 +290,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="center">
-                        <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
+                        <table width="45%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
                               <a href="${webBaseUrl}#/get-promoted?id=${getPromotedId}&jobTitle=${jobTitle}&lang=${language}&campaign=email&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: inline-block;">See Latest Skills Trend</a>
