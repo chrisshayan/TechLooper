@@ -1,6 +1,10 @@
 techlooper.controller('getPromotedController', function ($scope, utils, vnwConfigService, $q, userPromotionService, $http, $location) {
   $scope.selectize = vnwConfigService;
 
+  //var formSubmitted = function(form, prop) {
+  //  return form && (form[prop].$touched || form.$submitted);
+  //}
+
   var state = {
     default: {
       showView: function (viewName) {
@@ -18,10 +22,16 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
         var promotionResult = $scope.masterPromotion.result;
         var promotionEmailForm = $scope.promotionEmailForm;
         var hasPromotionResult = promotionResult && $.type(promotionResult.salaryMin) === "number" && $.type(promotionResult.salaryMax) === "number";
+        var surveyFormHasSubmitted = utils.isFormSubmitted($scope.promotionSurveyForm, "isUnderstandable");
 
         switch (viewName) {
-          case "enable-do-suggestion":
-            break;
+          case "error-email-is-submitted":
+            return utils.isFormSubmitted($scope.promotionEmailForm, "promotionEmail");
+
+          case "error-required-survey-is-understandable":
+            var errorRequired = $scope.promotionSurveyForm.isUnderstandable.$error.required;
+            console.log($scope.promotionSurveyForm.isUnderstandable);
+            return errorRequired && surveyFormHasSubmitted;
 
           case "no-promotion-result":
             return !hasPromotionResult;
@@ -51,7 +61,7 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
   };
 
   //var viewsPromises = utils.toPromises($scope.viewsDefers);
-  $q.all($scope.viewsDefers.getPromotedForm.promise).then(function (data) {
+  $q.all($scope.viewsDefers.getPromotedForm).then(function (data) {
     var doPromotionWithParam = function (promotionInfo, forceValidation) {
       $scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
       $scope.doPromotion(forceValidation);

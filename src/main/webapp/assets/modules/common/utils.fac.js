@@ -2,6 +2,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    isFormSubmitted: function(form, inputName) {
+      return form && (form[inputName].$touched || form.$submitted);
+    },
+
     toPromises: function(defersObj) {
       var promises = [];
       for (var prop in defersObj) {

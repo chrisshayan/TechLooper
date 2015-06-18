@@ -30,7 +30,7 @@
               type="submit"/>
       <!--<div class="error-messages">{{error['getPromoted.email']}}</div>-->
       <div class="error-messages"
-           ng-show="(promotionEmailForm.$submitted || promotionEmailForm.promotionEmail.$touched)">
+           ng-show="state.showView('error-email-is-submitted')">
         <div translate="requiredThisField" ng-show="promotionEmailForm.promotionEmail.$error.required"/>
         <div translate="emailInvalid" ng-show="promotionEmailForm.promotionEmail.$error.email"/>
       </div>
