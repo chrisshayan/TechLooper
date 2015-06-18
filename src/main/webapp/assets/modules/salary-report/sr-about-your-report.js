@@ -36,10 +36,8 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
                 item.location = vnwConfigService.getLocationText(item.locationId);
                 item.jobLevel= vnwConfigService.getJobLevelText(item.jobLevelIds);
                 item.categories= vnwConfigService.getIndustryTexts(item.jobCategories);
-                //item.jobLevel= vnwConfigService.getIndustryTexts(item.companySizeId);
+                item.companySize= vnwConfigService.getCompanySizeText(item.companySizeId);
               });
-
-
             scope.salaryReport = scope.salaryReview.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
             var p = scope.salaryReport.percentRank * $(window).width() / 100;

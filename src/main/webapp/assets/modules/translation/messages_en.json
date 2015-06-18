@@ -290,5 +290,6 @@
   "thisPerson": "This person is making more {{percentSalary}} with",
   "title": "Title",
   "category": "Category",
-  "youWantToLearnMoreTopSkills": "Do you want to learn more top skills above?"
+  "youWantToLearnMoreTopSkills": "Do you want to learn more top skills above?",
+  "employees": "employees"
 }
