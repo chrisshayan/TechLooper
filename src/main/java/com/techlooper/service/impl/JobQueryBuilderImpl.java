@@ -347,16 +347,30 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        request.getSkills().stream().forEach(skill -> boolQueryBuilder.should(matchQuery("skills", skill).minimumShouldMatch("100%")));
-        boolQueryBuilder.must(matchQuery("jobTitle", request.getJobTitle()).minimumShouldMatch("100%"));
+        if (!request.getSkills().isEmpty()) {
+            request.getSkills().stream().forEach(skill -> boolQueryBuilder.should(matchQuery("skills", skill).minimumShouldMatch("100%")));
+        }
+        if (StringUtils.isNotEmpty(request.getJobTitle())) {
+            boolQueryBuilder.must(matchQuery("jobTitle", request.getJobTitle()).minimumShouldMatch("100%"));
+        }
 
         BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
-        boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
-        boolFilterBuilder.should(termFilter("locationId", request.getLocationId()));
-        boolFilterBuilder.should(termFilter("companySizeId", request.getCompanySizeId()));
-        boolFilterBuilder.must(termsFilter("jobCategories", request.getJobCategories()));
+        if (!request.getJobLevelIds().isEmpty()) {
+            boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
+        }
+        if (request.getLocationId() != null) {
+            boolFilterBuilder.should(termFilter("locationId", request.getLocationId()));
+        }
+        if (request.getCompanySizeId() != null) {
+            boolFilterBuilder.should(termFilter("companySizeId", request.getCompanySizeId()));
+        }
+        if (!request.getJobCategories().isEmpty()) {
+            boolFilterBuilder.must(termsFilter("jobCategories", request.getJobCategories()));
+        }
         // ES Range Query From Clause (i.e greater or equal), we just want greater, not equal. So plus 1 to criterion
-        boolFilterBuilder.must(rangeFilter("netSalary").from(request.getNetSalary() + 1));
+        if (request.getNetSalary() != null && request.getNetSalary() > 0) {
+            boolFilterBuilder.must(rangeFilter("netSalary").from(request.getNetSalary() + 1));
+        }
 
         queryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
         queryBuilder.withPageable(new PageRequest(0, 3));
