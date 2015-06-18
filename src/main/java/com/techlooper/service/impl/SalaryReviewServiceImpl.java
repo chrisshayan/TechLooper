@@ -19,6 +19,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -299,5 +300,26 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     @Override
     public GetPromotedEntity getPromotedEntity(Long id) {
         return getPromotedRepository.findOne(id);
+    }
+
+    @Override
+    public List<SimilarSalaryReview> getSimilarSalaryReview(SimilarSalaryReviewRequest request) {
+        NativeSearchQueryBuilder searchQueryBuilder = jobQueryBuilder.getSimilarSalaryReview(request);
+        List<SalaryReviewEntity> similarSalaryReviewEntities = salaryReviewRepository.search(searchQueryBuilder.build()).getContent();
+
+        List<SimilarSalaryReview> similarSalaryReviews = new ArrayList<>();
+        for (SalaryReviewEntity salaryReviewEntity : similarSalaryReviewEntities) {
+            SimilarSalaryReview similarSalaryReview = dozerMapper.map(salaryReviewEntity, SimilarSalaryReview.class);
+            double addedPercent = salaryReviewEntity.getNetSalary().doubleValue();
+            if (request.getNetSalary() != 0) {
+                addedPercent = ((double) (salaryReviewEntity.getNetSalary() - request.getNetSalary())) / request.getNetSalary();
+            }
+            similarSalaryReview.setAddedPercent(Math.ceil(addedPercent * 100));
+            similarSalaryReviews.add(similarSalaryReview);
+        }
+
+        similarSalaryReviews.stream().sorted((similarSalaryReview1, similarSalaryReview2)  ->
+            similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary());
+        return similarSalaryReviews;
     }
 }
