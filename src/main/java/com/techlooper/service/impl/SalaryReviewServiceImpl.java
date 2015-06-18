@@ -318,8 +318,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             similarSalaryReviews.add(similarSalaryReview);
         }
 
-        similarSalaryReviews.stream().sorted((similarSalaryReview1, similarSalaryReview2)  ->
-            similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary());
+        similarSalaryReviews = similarSalaryReviews.stream().sorted((similarSalaryReview1, similarSalaryReview2) ->
+                similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(Collectors.toList());
         return similarSalaryReviews;
     }
 }

@@ -30,7 +30,14 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
 
           case "error-required-survey-is-understandable":
             var errorRequired = $scope.promotionSurveyForm.isUnderstandable.$error.required;
-            console.log($scope.promotionSurveyForm.isUnderstandable);
+            return errorRequired && surveyFormHasSubmitted;
+
+          case "error-required-survey-is-accurate":
+            var errorRequired = $scope.promotionSurveyForm.isAccurate.$error.required;
+            return errorRequired && surveyFormHasSubmitted;
+
+          case "error-required-survey-is-learn-more":
+            var errorRequired = $scope.promotionSurveyForm.isLearnMore.$error.required;
             return errorRequired && surveyFormHasSubmitted;
 
           case "no-promotion-result":

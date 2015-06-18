@@ -13,7 +13,7 @@
           <label>{{'expectedJobTitle' | translate}} <strong>*</strong></label>
 
           <div auto-suggestion text="promotionInfo.jobTitle" items="jobTitles"
-               get-url="suggestion/jobTitle/">
+               get-url="suggestion/jobTitle/" input-model="promotionForm.jobTitle">
           </div>
           <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" ng-required="true"
                         attr-placeholder="{{'jobTitle.placeholder' | translate}}" touchable>
