@@ -1,29 +1,76 @@
-<div class="box-content-collapse">
-  <div class="title-header" ng-model="sendMeSimilarJob" ng-click="sendMeSimilarJob=!sendMeSimilarJob">
-    <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span translate="doYouWantToEarnMore"></span></h3>
+<div class="box-content-collapse" ng-show="similarReports.length">
+  <div class="title-header" ng-model="similarReport" ng-click="similarReport=!similarReport">
+    <h3 translate="recentSimilarReport"></h3>
     <div class="ic-hidden" title="Minimise">
-      <span ng-show="!sendMeSimilarJob"><i class="fa fa-caret-up"></i></span>
-      <span ng-show="sendMeSimilarJob"><i class="fa fa-caret-down"></i></span>
+      <span ng-show="!similarReport"><i class="fa fa-caret-up"> </i> </span>
+      <span ng-show="similarReport"><i class="fa fa-caret-down"> </i></span>
     </div>
   </div>
-  <div class="best-paid-list" ng-show="!sendMeSimilarJob">
-    <div class="best-paid-companies" ng-show="state.showJobAlert">
-      <p translate="higherJobOffer"></p>
-      <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs" ng-class="{oneColl: salaryReview.topPaidJobs.length===1, twoColl: salaryReview.topPaidJobs.length===2}">
+  <div class="best-paid-list" ng-show="!similarReport">
+    <div class="best-paid-companies similar-report">
+      <p translate="similarReportDescription"></p>
+      <div class="best-paid-company" ng-repeat="report in similarReports" ng-class="{oneColl: similarReports.length===1, twoColl: similarReports.length===2}">
+        <p translate="thisPerson" translate-value-percent-salary="<strong>{{report.addedPercent}}%</strong>"></p>
         <ul>
-          <li><strong>+ {{job.addedPercent}}%</strong></li>
-          <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
-          <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-          <li ng-show="job.skills.length">
-            <span class="skills ellipsis">
-              <i ng-repeat="skill in job.skills" class="ellipsis">{{skill}}</i>
-            </span>
+          <li><span>{{'title' | translate}}:</span>
+            <div class="right-content">{{report.jobTitle}}</div>
+          </li>
+          <li><span>{{'category' | translate}}:</span>
+            <div class="right-content">{{report.categories.join(" | ")}}</div>
+          </li>
+          <li><span>{{'level' | translate}}:</span>
+            <div class="right-content">{{report.jobLevel}}</div>
+          </li>
+          <li><span>{{'location' | translate}}:</span>
+            <div class="right-content">{{report.location}}</div>
+          </li>
+          <li ng-show="report.companySizeId.length"><span>{{'companySize' | translate}}:</span>
+            <div class="right-content">{{report.companySizeId}}</div>
+          </li>
+          <li>
+            <span>{{'skill' | translate}}</span>
+            <div class="right-content">
+              <small ng-repeat="skill in report.skills | limitTo: unlimited">{{skill}}</small>
+              <a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()" ng-show="report.skills.length > 5"></a>
+            </div>
           </li>
         </ul>
-        <div class="btn-see-more">
-          <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
-        </div>
       </div>
+      <!--<div class="best-paid-company" ng-class="{oneColl: similarReports.length===1, twoColl: salaryReview.topPaidJobs.length===2}">-->
+        <!--<p translate="thisPerson" translate-value-percent-salarye="<strong>45%</strong>"></p>-->
+        <!--<ul>-->
+          <!--<li ><span>{{'title' | translate}}:</span> <div class="right-content">Java Developer</div></li>-->
+          <!--<li ><span>{{'category' | translate}}:</span> <div class="right-content">IT-Software</div></li>-->
+          <!--<li title=""><span>{{'level' | translate}}:</span> <div class="right-content">Manager</div></li>-->
+          <!--<li title=""><span>{{'location' | translate}}:</span> <div class="right-content">Ho Chi Minh</div></li>-->
+          <!--<li title=""><span>{{'companySize' | translate}}:</span> <div class="right-content">49 - 100  employees</div></li>-->
+          <!--<li>-->
+            <!--<span class="ellipsis">{{'skill' | translate}}</span>-->
+            <!--<div class="right-content">-->
+              <!--<small>Angular JS</small>-->
+              <!--&lt;!&ndash;<small ng-repeat="skill in skillsReport | limitTo: unlimited" class="animate-repeat">{{skill.name}}</small>&ndash;&gt;-->
+              <!--&lt;!&ndash;<a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()"></a>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--<div class="best-paid-company" ng-class="{oneColl: salaryReview.topPaidJobs.length===1, twoColl: salaryReview.topPaidJobs.length===2}">-->
+        <!--<p translate="thisPerson" translate-value-percent-salarye="<strong>45%</strong>"></p>-->
+        <!--<ul>-->
+          <!--<li title=""><span>{{'title' | translate}}:</span> <div class="right-content">Java Developer</div></li>-->
+          <!--<li title=""><span>{{'category' | translate}}:</span> <div class="right-content">IT-Software | Human Resources</div></li>-->
+          <!--<li title=""><span>{{'level' | translate}}:</span> <div class="right-content">Manager</div></li>-->
+          <!--<li title=""><span>{{'location' | translate}}:</span> <div class="right-content">Ho Chi Minh</div></li>-->
+          <!--<li title=""><span>{{'companySize' | translate}}:</span> <div class="right-content">199 - 499 employees</div></li>-->
+          <!--<li>-->
+            <!--<span class="ellipsis">{{'skill' | translate}}</span>-->
+            <!--<div class="right-content">-->
+              <!--<small ng-repeat="skill in skillsReport | limitTo: unlimited" class="animate-repeat">{{skill.name}}</small>-->
+              <!--<a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()"></a>-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
     </div>
 </div>
 </div>
