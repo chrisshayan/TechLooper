@@ -668,21 +668,40 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       return text;
     },
 
-    getJobLevelText: function(jobLevelId) {
-      if ($.type(jobLevelId) !== "string") return jobLevelId;
-      return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
+    getJobLevelText: function (jobLevelId) {
+      var jobLevelTitle = undefined;
+      if ($.type(jobLevelId) === "string") return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
+      else if ($.type(jobLevelId) === "array") {
+        var jobLevelIds = jobLevelId;
+        var matchTimes = 0;
+        $.each(instance.jobLevelsSelectize.items, function (i, item) {
+          $.each(jobLevelIds, function (j, id) {
+            if ($.type(id) === "string") id = parseInt(id);
+            if ($.inArray(id, item.ids) > -1) {
+              matchTimes++;
+            }
+          });
+          if (matchTimes === jobLevelIds.length) {
+            jobLevelTitle = item.translate;
+            return false;
+          }
+        });
+      }
+      return jobLevelTitle;
     },
 
-    getJobLevelIds: function(jobLevelId) {
+    getJobLevelIds: function (jobLevelId) {
       if ($.type(jobLevelId) !== "string") return jobLevelId;
       return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").ids;
     },
 
-    getIndustryTexts: function(industryIds) {
-      if (!industryIds) return undefined;
+    getIndustryTexts: function (industryIds) {
+      if ($.type(industryIds) !== "array") return undefined;
+
+      var ids = industryIds.map(function (id) {return "" + id;});
       var texts = [];
-      $.each(instance.industriesSelectize.items, function(i, item) {
-        if (industryIds.indexOf(item.id) > -1) {
+      $.each(instance.industriesSelectize.items, function (i, item) {
+        if ($.inArray(item.id, ids) > -1) {
           texts.push(item.translate);
         }
       });

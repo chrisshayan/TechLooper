@@ -1,0 +1,64 @@
+GET techlooper/salaryReview/_search
+{
+  "size": 3,
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "match": {
+                "skills": "Spring Hibernate"
+              }
+            }
+          ],
+          "must": [
+            {
+              "match": {
+                "jobTitle": {
+                  "query": "Java Developer",
+                  "minimum_should_match": "100%"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "filter": {
+        "bool": {
+          "should": [
+            {
+              "term": {
+                "jobLevelIds": 5
+              }
+            },
+            {
+              "term": {
+                "locationId": 29
+              }
+            },
+            {
+              "term": {
+                "companySizeId": 3
+              }
+            }
+          ],
+          "must": [
+            {
+              "term": {
+                "jobCategories": 35
+              }
+            },
+            {
+              "range": {
+                "netSalary": {
+                  "from": 1500
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

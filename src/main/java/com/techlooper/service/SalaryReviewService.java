@@ -2,10 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.model.EmailRequest;
-import com.techlooper.model.GetPromotedEmailRequest;
-import com.techlooper.model.GetPromotedRequest;
-import com.techlooper.model.VnwJobAlertRequest;
+import com.techlooper.model.*;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -28,4 +25,6 @@ public interface SalaryReviewService {
     long saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest);
 
     GetPromotedEntity getPromotedEntity(Long id);
+
+    List<SimilarSalaryReview> getSimilarSalaryReview(SimilarSalaryReviewRequest request);
 }
