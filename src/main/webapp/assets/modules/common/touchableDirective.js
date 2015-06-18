@@ -3,12 +3,11 @@ techlooper.directive('touchable', function () {
     require: 'ngModel',
     restrict: 'A',
     link: function (scope, element, attr, ngModelCtrl) {
-      scope.$watch(attr.ngModel, function (newVal, oldVal) {
-        if (ngModelCtrl.$pristine) return;
-        if (!newVal && !oldVal) {
-          return false;
-        }
-        ngModelCtrl.$touched = true;
+      element.focusin(function() {
+        ngModelCtrl.$setTouched();
+      });
+      element.focusout(function() {
+        ngModelCtrl.$setUntouched();
       });
     }
   }
