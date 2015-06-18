@@ -2,10 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.Skill;
-import com.techlooper.model.TechnicalTerm;
-import com.techlooper.model.TermStatisticRequest;
+import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
@@ -13,12 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
-import org.elasticsearch.search.aggregations.bucket.nested.NestedAggregator;
 import org.elasticsearch.search.aggregations.bucket.nested.NestedBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +26,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.techlooper.service.impl.SalaryReviewServiceImpl.*;
+import static com.techlooper.service.impl.SalaryReviewServiceImpl.MAX_SALARY_ACCEPTABLE;
+import static com.techlooper.service.impl.SalaryReviewServiceImpl.MIN_SALARY_ACCEPTABLE;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
@@ -252,8 +249,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
                 boolFilter().must(approvedDateRangeFilterBuilder)
-                            .must(jobIndustriesFilterBuilder)
-                            .must(salaryRangeFilterBuilder)));
+                        .must(jobIndustriesFilterBuilder)
+                        .must(salaryRangeFilterBuilder)));
         return queryBuilder;
     }
 
@@ -264,8 +261,8 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         QueryBuilder skillQueryBuilder = skillQueryBuilder(skills);
         queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
                 boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
-                            .must(getJobIndustriesFilterBuilder(jobCategories))
-                            .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
+                        .must(getJobIndustriesFilterBuilder(jobCategories))
+                        .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
         return queryBuilder;
     }
 
@@ -282,10 +279,10 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
                 boolFilter().must(locationFilterBuilder)
-                            .must(jobLevelFilterBuilder)
-                            .must(approvedDateRangeFilterBuilder)
-                            .must(jobIndustriesFilterBuilder)
-                            .must(salaryRangeFilterBuilder)));
+                        .must(jobLevelFilterBuilder)
+                        .must(approvedDateRangeFilterBuilder)
+                        .must(jobIndustriesFilterBuilder)
+                        .must(salaryRangeFilterBuilder)));
         return queryBuilder;
     }
 
@@ -295,7 +292,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder(jobTitle),
                 boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
-                            .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
+                        .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
         return queryBuilder;
     }
 
@@ -343,6 +340,27 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     public FilterAggregationBuilder getSalaryAverageAggregation(String fieldName) {
         return filter(fieldName + "_avg").filter(rangeFilter(fieldName).from(250L))
                 .subAggregation(avg(fieldName + "_avg").field(fieldName));
+    }
+
+    @Override
+    public NativeSearchQueryBuilder getSimilarSalaryReview(SimilarSalaryReviewRequest request) {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        request.getSkills().stream().forEach(skill -> boolQueryBuilder.should(matchQuery("skills", skill).minimumShouldMatch("100%")));
+        boolQueryBuilder.must(matchQuery("jobTitle", request.getJobTitle()).minimumShouldMatch("100%"));
+
+        BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
+        boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
+        boolFilterBuilder.should(termFilter("locationId", request.getLocationId()));
+        boolFilterBuilder.should(termFilter("companySizeId", request.getCompanySizeId()));
+        boolFilterBuilder.must(termsFilter("jobCategories", request.getJobCategories()));
+        // ES Range Query From Clause (i.e greater or equal), we just want greater, not equal. So plus 1 to criterion
+        boolFilterBuilder.must(rangeFilter("netSalary").from(request.getNetSalary() + 1));
+
+        queryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
+        queryBuilder.withPageable(new PageRequest(0, 3));
+        return queryBuilder;
     }
 
     /*

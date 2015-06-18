@@ -6,10 +6,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.Skill;
-import com.techlooper.model.TechnicalTerm;
-import com.techlooper.model.TermStatisticRequest;
+import com.techlooper.model.*;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -124,4 +121,6 @@ public interface JobQueryBuilder {
     NestedBuilder getTopDemandedSkillsAggregation();
 
     FilterAggregationBuilder getSalaryAverageAggregation(String fieldName);
+
+    NativeSearchQueryBuilder getSimilarSalaryReview(SimilarSalaryReviewRequest request);
 }
