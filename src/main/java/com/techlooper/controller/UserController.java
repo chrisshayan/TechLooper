@@ -138,6 +138,10 @@ public class UserController {
         userEvaluationService.reviewSalary(salaryReviewEntity);
         SalaryReviewDto salaryReviewDto = dozerMapper.map(salaryReviewEntity, SalaryReviewDto.class);
         salaryReviewDto.setUsdToVndRate(currencyService.usdToVndRate());
+        // get top 3 similar salary reviews
+        SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewDto, SimilarSalaryReviewRequest.class);
+        List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
+        salaryReviewDto.setSimilarSalaryReviews(similarSalaryReviews);
         return salaryReviewDto;
     }
 

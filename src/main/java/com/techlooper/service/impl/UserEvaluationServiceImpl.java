@@ -12,6 +12,7 @@ import com.techlooper.service.SalaryReviewService;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.util.ExcelUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
+import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
@@ -54,6 +55,9 @@ public class UserEvaluationServiceImpl implements UserEvaluationService {
 
     @Resource
     private PriceJobReportRepository priceJobReportRepository;
+
+    @Resource
+    private Mapper dozerMapper;
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 

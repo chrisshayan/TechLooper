@@ -1,9 +1,5 @@
 package com.techlooper.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-
 import java.util.List;
 
 /**
@@ -11,163 +7,173 @@ import java.util.List;
  */
 public class SalaryReviewDto {
 
-  private Long createdDateTime;
+    private Long createdDateTime;
 
-  private String jobTitle;
+    private String jobTitle;
 
-  private List<Integer> jobLevelIds;
+    private List<Integer> jobLevelIds;
 
-  private Long locationId;
+    private Long locationId;
 
-  private Integer netSalary;
+    private Integer netSalary;
 
-  private List<String> skills;
+    private List<String> skills;
 
-  private String reportTo;
+    private String reportTo;
 
-  private List<Long> jobCategories;
+    private List<Long> jobCategories;
 
-  private Long companySizeId;
+    private Long companySizeId;
 
-  private int gender;
+    private int gender;
 
-  private int age;
+    private int age;
 
-  private SalaryReport salaryReport;
+    private SalaryReport salaryReport;
 
-  private List<TopPaidJob> topPaidJobs;
+    private List<TopPaidJob> topPaidJobs;
 
-  private SalaryReviewSurvey salaryReviewSurvey;
+    private SalaryReviewSurvey salaryReviewSurvey;
 
-  private String campaign;
+    private String campaign;
 
-  private Long usdToVndRate;
+    private Long usdToVndRate;
 
-  public Long getCreatedDateTime() {
-    return createdDateTime;
-  }
+    private List<SimilarSalaryReview> similarSalaryReviews;
 
-  public void setCreatedDateTime(Long createdDateTime) {
-    this.createdDateTime = createdDateTime;
-  }
+    public Long getCreatedDateTime() {
+        return createdDateTime;
+    }
 
-  public String getJobTitle() {
-    return jobTitle;
-  }
+    public void setCreatedDateTime(Long createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
 
-  public void setJobTitle(String jobTitle) {
-    this.jobTitle = jobTitle;
-  }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-  public List<Integer> getJobLevelIds() {
-    return jobLevelIds;
-  }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-  public void setJobLevelIds(List<Integer> jobLevelIds) {
-    this.jobLevelIds = jobLevelIds;
-  }
+    public List<Integer> getJobLevelIds() {
+        return jobLevelIds;
+    }
 
-  public Long getLocationId() {
-    return locationId;
-  }
+    public void setJobLevelIds(List<Integer> jobLevelIds) {
+        this.jobLevelIds = jobLevelIds;
+    }
 
-  public void setLocationId(Long locationId) {
-    this.locationId = locationId;
-  }
+    public Long getLocationId() {
+        return locationId;
+    }
 
-  public Integer getNetSalary() {
-    return netSalary;
-  }
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
 
-  public void setNetSalary(Integer netSalary) {
-    this.netSalary = netSalary;
-  }
+    public Integer getNetSalary() {
+        return netSalary;
+    }
 
-  public List<String> getSkills() {
-    return skills;
-  }
+    public void setNetSalary(Integer netSalary) {
+        this.netSalary = netSalary;
+    }
 
-  public void setSkills(List<String> skills) {
-    this.skills = skills;
-  }
+    public List<String> getSkills() {
+        return skills;
+    }
 
-  public String getReportTo() {
-    return reportTo;
-  }
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
 
-  public void setReportTo(String reportTo) {
-    this.reportTo = reportTo;
-  }
+    public String getReportTo() {
+        return reportTo;
+    }
 
-  public List<Long> getJobCategories() {
-    return jobCategories;
-  }
+    public void setReportTo(String reportTo) {
+        this.reportTo = reportTo;
+    }
 
-  public void setJobCategories(List<Long> jobCategories) {
-    this.jobCategories = jobCategories;
-  }
+    public List<Long> getJobCategories() {
+        return jobCategories;
+    }
 
-  public Long getCompanySizeId() {
-    return companySizeId;
-  }
+    public void setJobCategories(List<Long> jobCategories) {
+        this.jobCategories = jobCategories;
+    }
 
-  public void setCompanySizeId(Long companySizeId) {
-    this.companySizeId = companySizeId;
-  }
+    public Long getCompanySizeId() {
+        return companySizeId;
+    }
 
-  public int getGender() {
-    return gender;
-  }
+    public void setCompanySizeId(Long companySizeId) {
+        this.companySizeId = companySizeId;
+    }
 
-  public void setGender(int gender) {
-    this.gender = gender;
-  }
+    public int getGender() {
+        return gender;
+    }
 
-  public int getAge() {
-    return age;
-  }
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
 
-  public void setAge(int age) {
-    this.age = age;
-  }
+    public int getAge() {
+        return age;
+    }
 
-  public SalaryReport getSalaryReport() {
-    return salaryReport;
-  }
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-  public void setSalaryReport(SalaryReport salaryReport) {
-    this.salaryReport = salaryReport;
-  }
+    public SalaryReport getSalaryReport() {
+        return salaryReport;
+    }
 
-  public List<TopPaidJob> getTopPaidJobs() {
-    return topPaidJobs;
-  }
+    public void setSalaryReport(SalaryReport salaryReport) {
+        this.salaryReport = salaryReport;
+    }
 
-  public void setTopPaidJobs(List<TopPaidJob> topPaidJobs) {
-    this.topPaidJobs = topPaidJobs;
-  }
+    public List<TopPaidJob> getTopPaidJobs() {
+        return topPaidJobs;
+    }
 
-  public SalaryReviewSurvey getSalaryReviewSurvey() {
-    return salaryReviewSurvey;
-  }
+    public void setTopPaidJobs(List<TopPaidJob> topPaidJobs) {
+        this.topPaidJobs = topPaidJobs;
+    }
 
-  public void setSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey) {
-    this.salaryReviewSurvey = salaryReviewSurvey;
-  }
+    public SalaryReviewSurvey getSalaryReviewSurvey() {
+        return salaryReviewSurvey;
+    }
 
-  public String getCampaign() {
-    return campaign;
-  }
+    public void setSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey) {
+        this.salaryReviewSurvey = salaryReviewSurvey;
+    }
 
-  public void setCampaign(String campaign) {
-    this.campaign = campaign;
-  }
+    public String getCampaign() {
+        return campaign;
+    }
 
-  public Long getUsdToVndRate() {
-    return usdToVndRate;
-  }
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
+    }
 
-  public void setUsdToVndRate(Long usdToVndRate) {
-    this.usdToVndRate = usdToVndRate;
-  }
+    public Long getUsdToVndRate() {
+        return usdToVndRate;
+    }
+
+    public void setUsdToVndRate(Long usdToVndRate) {
+        this.usdToVndRate = usdToVndRate;
+    }
+
+    public List<SimilarSalaryReview> getSimilarSalaryReviews() {
+        return similarSalaryReviews;
+    }
+
+    public void setSimilarSalaryReviews(List<SimilarSalaryReview> similarSalaryReviews) {
+        this.similarSalaryReviews = similarSalaryReviews;
+    }
 }
