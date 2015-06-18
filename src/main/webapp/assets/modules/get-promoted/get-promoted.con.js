@@ -2,7 +2,14 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
   $scope.selectize = vnwConfigService;
 
   var state = {
-    default: {},
+    default: {
+      showView: function (viewName) {
+        switch (viewName) {
+          case "enable-do-suggestion":
+            return true;
+        }
+      }
+    },
 
     result: {
       showResult: true,
@@ -13,6 +20,9 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
         var hasPromotionResult = promotionResult && $.type(promotionResult.salaryMin) === "number" && $.type(promotionResult.salaryMax) === "number";
 
         switch (viewName) {
+          case "enable-do-suggestion":
+            break;
+
           case "no-promotion-result":
             return !hasPromotionResult;
 
@@ -36,9 +46,12 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
     }
   }
 
-  $scope.viewsDefers = {getPromotedForm: $q.defer(), getPromotedResults: $q.defer()};
-  var viewsPromises = utils.toPromises($scope.viewsDefers);
-  $q.all(viewsPromises).then(function (data) {
+  $scope.viewsDefers = {
+    getPromotedForm: $q.defer()
+  };
+
+  //var viewsPromises = utils.toPromises($scope.viewsDefers);
+  $q.all($scope.viewsDefers.getPromotedForm.promise).then(function (data) {
     var doPromotionWithParam = function (promotionInfo, forceValidation) {
       $scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
       $scope.doPromotion(forceValidation);
