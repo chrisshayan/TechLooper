@@ -31,15 +31,13 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
             scope.salaryReview = afterSendSalaryReport(data);
             scope.salaryReview.location = vnwConfigService.getLocationText(scope.salaryReview.locationId);
 
-            scope.similarReports = scope.salaryReview.similarSalaryReviews;
-              $.each(scope.similarReports, function(index, item){
-                item.location = vnwConfigService.getLocationText(item.locationId);
-                item.jobLevel= vnwConfigService.getJobLevelText(item.jobLevelIds);
-                item.categories= vnwConfigService.getIndustryTexts(item.jobCategories);
-                //item.jobLevel= vnwConfigService.getIndustryTexts(item.companySizeId);
-              });
-
-
+            //scope.similarReports = scope.salaryReview.similarSalaryReviews;
+            //$.each(scope.similarReports, function(index, item){
+            //  item.location = vnwConfigService.getLocationText(item.locationId);
+            //  item.jobLevel= vnwConfigService.getJobLevelText(item.jobLevelIds);
+            //  item.categories= vnwConfigService.getIndustryTexts(item.jobCategories);
+            //  item.companySize= vnwConfigService.getCompanySizeText(item.companySizeId);
+            //});
             scope.salaryReport = scope.salaryReview.salaryReport;
             utils.sendNotification(jsonValue.notifications.loaded);
             var p = scope.salaryReport.percentRank * $(window).width() / 100;

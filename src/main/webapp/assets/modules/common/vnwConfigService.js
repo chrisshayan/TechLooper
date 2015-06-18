@@ -9,7 +9,46 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   }
 
   var vnwLang = "lang_" + ($translate.use() === "en" ? "en" : "vn");
-
+  var companySizes = [
+    {
+      "id": "1",
+      "value": "Less Than 10"
+    },
+    {
+      "id": "2",
+      "value": "10-24"
+    },
+    {
+      "id": "3",
+      "value": "25-99"
+    },
+    {
+      "id": "4",
+      "value": "100-499"
+    },
+    {
+      "id": "5",
+      "value": "500-999"
+    },
+    {
+      "id": "6",
+      "value": "1,000-4,999"
+    },
+    {
+      "id": "7",
+      "value": "5,000-9,999"
+    },
+    {
+      "id": "8",
+      "value": "10,000-19,999"
+    },{
+      "id": "9",
+      "value": "20,000-49,999"
+    },{
+      "id": "10",
+      "value": "Over 50,000"
+    }
+  ];
   var locations = [
     {
       "location_id": "29",
@@ -667,7 +706,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});
       return text;
     },
-
+    getCompanySizeText: function (companySizeId) {
+      if (!companySizeId) return '';
+      var text = "";
+      $.each(companySizes, function (i, item) {if (item.id == companySizeId) {return text = item.value;}});
+      return text;
+    },
     getJobLevelText: function (jobLevelId) {
       var jobLevelTitle = undefined;
       if ($.type(jobLevelId) === "string") return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
