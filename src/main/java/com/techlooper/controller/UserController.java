@@ -160,6 +160,16 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/saveGetPromotedSurvey", method = RequestMethod.POST)
+    public void saveGetPromotedSurvey(@RequestBody GetPromotedSurvey getPromotedSurvey, HttpServletResponse httpServletResponse) {
+        boolean isSaved = salaryReviewService.saveGetPromotedSurvey(getPromotedSurvey);
+        if (isSaved) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
+    }
+
     @RequestMapping(value = "/priceJob", method = RequestMethod.POST)
     public PriceJobEntity priceJob(@RequestBody PriceJobEntity priceJobEntity) {
         userEvaluationService.priceJob(priceJobEntity);

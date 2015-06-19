@@ -322,4 +322,15 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
                 similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(Collectors.toList());
         return similarSalaryReviews;
     }
+
+    @Override
+    public boolean saveGetPromotedSurvey(GetPromotedSurvey getPromotedSurvey) {
+        GetPromotedEntity getPromotedEntity = getPromotedRepository.findOne(getPromotedSurvey.getGetPromotedId());
+        if (getPromotedEntity != null) {
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurvey);
+            getPromotedRepository.save(getPromotedEntity);
+            return true;
+        }
+        return false;
+    }
 }
