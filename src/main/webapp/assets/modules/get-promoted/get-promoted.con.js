@@ -21,6 +21,7 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
       showView: function (viewName) {
         var promotionResult = $scope.masterPromotion.result;
         var promotionEmailForm = $scope.promotionEmailForm;
+        var promotionSurveyForm = $scope.promotionSurveyForm;
         var hasPromotionResult = promotionResult && $.type(promotionResult.salaryMin) === "number" && $.type(promotionResult.salaryMax) === "number";
         var surveyFormHasSubmitted = utils.isFormSubmitted($scope.promotionSurveyForm, "isUnderstandable");
 
@@ -46,17 +47,25 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
           case "has-promotion-result":
             return hasPromotionResult;
 
-          case "sent-promoted-email-no-result":
+          case "sent-promotion-email-no-result":
             var sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
             return !hasPromotionResult && sentEmail;
 
-          case "sent-promoted-email-has-result":
+          case "sent-promotion-email-has-result":
             var sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
             return hasPromotionResult && sentEmail;
 
-          case "not-sent-promoted-email":
+          case "not-sent-promotion-email":
             var sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
             return !sentEmail;
+
+          case "sent-promotion-survey":
+            var sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
+            return sentSurvey;
+
+          case "not-sent-promotion-survey":
+            var sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
+            return !sentSurvey;
         }
         return false;
       }
@@ -69,16 +78,16 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
 
   //var viewsPromises = utils.toPromises($scope.viewsDefers);
   $q.all($scope.viewsDefers.getPromotedForm).then(function (data) {
-    var doPromotionWithParam = function (promotionInfo, forceValidation) {
+    var doPromotionWithParam = function (promotionInfo) {
       $scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
-      $scope.doPromotion(forceValidation);
+      $scope.doPromotion();
     }
 
     //http://localhost:8080/#/get-promoted?jobTitle=java&jobLevelIds=[5,6]&jobCategoryIds=[35,55,57]&lang=en&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted
     var param = $location.search();
     if (param.id) {
       $http.get("getPromotedResult/" + param.id).success(function (data, status, headers, config) {
-        doPromotionWithParam(data, true);
+        doPromotionWithParam(data);
       });
     }
     else if (!$.isEmptyObject(param)) {

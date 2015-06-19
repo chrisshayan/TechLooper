@@ -13,11 +13,11 @@
   <div class="send-me-skills-trend">
     <h4 translate="sendMeSkillTrend"></h4>
 
-    <p ng-show="state.showView('has-promotion-result') && state.showView('not-sent-promoted-email')" translate="sendMeDesc"></p>
+    <p ng-show="state.showView('has-promotion-result') && state.showView('not-sent-promotion-email')" translate="sendMeDesc"></p>
     <!-- description for No Data -->
-    <p ng-show="state.showView('no-promotion-result') && state.showView('not-sent-promoted-email')" translate="sendMeDescNoData"></p>
+    <p ng-show="state.showView('no-promotion-result') && state.showView('not-sent-promotion-email')" translate="sendMeDescNoData"></p>
 
-    <form ng-show="state.showView('not-sent-promoted-email')" novalidate name="promotionEmailForm"
+    <form ng-show="state.showView('not-sent-promotion-email')" novalidate name="promotionEmailForm"
           autocomplete="off" ng-submit="sendPromotionEmail()">
       <input ng-model="promotionEmail" type="email" placeholder="{{'exEmailAddress' | translate}}"
              name="promotionEmail"
@@ -36,9 +36,9 @@
       </div>
     </form>
   </div>
-  <div ng-show="state.showView('sent-promoted-email-has-result')" role="alert" translate="thanksSendMeReport"
+  <div ng-show="state.showView('sent-promotion-email-has-result')" role="alert" translate="thanksSendMeReport"
        class="success-alert-box"></div>
   <!-- description for No Data -->
-  <div ng-show="state.showView('sent-promoted-email-no-result')" role="alert" translate="thanksSendMeReport1"
+  <div ng-show="state.showView('sent-promotion-email-no-result')" role="alert" translate="thanksSendMeReport1"
        class="success-alert-box"></div>
 </div>
