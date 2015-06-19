@@ -7,6 +7,7 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
       scope.showPromotion = function () {
         delete scope.state.showAskPromotion;
         scope.state.showPromotionForm = true;
+        $('#txtEmailPromotion').val(localStorage.getItem('EMAIL'));
       }
 
       scope.sendCitibankPromotion = function () {
@@ -25,6 +26,9 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
             localStorage.setItem('PROMOTION-KEY', 'yes');
+              if(scope.promotion.email != localStorage.getItem('EMAIL')){
+                localStorage.setItem('EMAIL', scope.promotion.email);
+              }
           });
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;

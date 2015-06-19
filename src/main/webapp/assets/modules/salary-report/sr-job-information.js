@@ -46,19 +46,7 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
         scope.salaryReview = $.extend(true, {}, scope.sr);
         scope.changeState("report", true);
-
-        //delete scope.salaryReview.topPaidJobs;
-        //
-        //if (scope.changeState("report", true)) {
-        //  $('.update-job-information').addClass('only-read');
-        //  $('.ic-update-info').removeClass('clicked');
-        //  //delete scope.state.validateAllState;
-        //}
-        //else {
-        //  scope.salaryReview = $.extend(true, {}, scope.cloneSalaryReview);
-        //}
-        //delete scope.state.jobTitles;
-
+        $('#txtEmailReport').val(localStorage.getItem('EMAIL'));
         ga('send', {
           'hitType': 'event',
           'eventCategory': 'editsalaryreport',
