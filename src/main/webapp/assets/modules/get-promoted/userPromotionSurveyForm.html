@@ -1,67 +1,81 @@
-<div class="salary-report-feedback-form">
-  <form novalidate name="promotionSurveyForm" autocomplete="off" ng-submit="doSurvey()">
-    <ul>
-      <li>
-        <p translate="understandReport?"></p>
+<div class="box-content-collapse">
+  <div class="title-header" ng-click="togglePromotionSurveyView()">
+    <h3 translate="whatYouThinkReport.getPromoted"></h3>
+    <div class="ic-hidden" title="Minimise">
+      <span class="survey-caret"><i class="fa fa-caret-up"></i></span>
+    </div>
+  </div>
+  <div class="survey-form-block">
+    <form ng-show="state.showView('not-sent-promotion-survey')" novalidate name="promotionSurveyForm" autocomplete="off"
+          ng-submit="sendPromotionSurvey()">
+      <ul>
+        <li>
+          <p translate="understandReport?"></p>
 
-        <div class="select-group">
-          <div class="select-item">
-            <input ng-model="masterPromotion.survey.isUnderstandable" ng-value="true" type="radio"
-                   name="isUnderstandable"
-                   id="radUnderstandYes" ng-required="true"/><label for="radUnderstandYes" translate="yes"></label>
+          <div class="select-group">
+            <div class="select-item">
+              <input ng-model="promotionSurvey.isUnderstandable" ng-value="true" type="radio"
+                     name="isUnderstandable"
+                     id="radUnderstandYes" ng-required="true"/><label for="radUnderstandYes" translate="yes"></label>
+            </div>
+            <div class="select-item">
+              <input ng-model="promotionSurvey.isUnderstandable" ng-value="false" type="radio"
+                     name="isUnderstandable"
+                     id="radUnderstandNo" ng-required="true"/><label for="radUnderstandNo" translate="no"></label>
+            </div>
           </div>
-          <div class="select-item">
-            <input ng-model="masterPromotion.survey.isUnderstandable" ng-value="false" type="radio"
-                   name="isUnderstandable"
-                   id="radUnderstandNo" ng-required="true"/><label for="radUnderstandNo" translate="no"></label>
-          </div>
-        </div>
-        <div class="error-messages"
-             ng-show="state.showView('error-required-survey-is-understandable')"
-             translate="requiredThisField"></div>
-      </li>
-      <li>
-        <p translate="resultReportAccurate"></p>
+          <div class="error-messages"
+               ng-show="state.showView('error-required-survey-is-understandable')"
+               translate="requiredThisField"></div>
+        </li>
+        <li>
+          <p translate="resultReportAccurate"></p>
 
-        <div class="select-group">
-          <div class="select-item">
-            <input ng-model="masterPromotion.survey.isAccurate" ng-value="true" type="radio"
-                   name="isAccurate" id="radAccurateYes" ng-required="true"/><label for="radAccurateYes" translate="yes" />
+          <div class="select-group">
+            <div class="select-item">
+              <input ng-model="promotionSurvey.isAccurate" ng-value="true" type="radio"
+                     name="isAccurate" id="radAccurateYes" ng-required="true"/><label for="radAccurateYes"
+                                                                                      translate="yes"/>
+            </div>
+            <div class="select-item">
+              <input ng-model="promotionSurvey.isAccurate" ng-value="false"
+                     type="radio" name="isAccurate" id="radAccurateNo" ng-required="true"/><label for="radAccurateNo"
+                                                                                                  translate="no"/>
+            </div>
           </div>
-          <div class="select-item">
-            <input ng-model="masterPromotion.survey.isAccurate" ng-value="false"
-                   type="radio" name="isAccurate" id="radAccurateNo" ng-required="true"/><label for="radAccurateNo" translate="no" />
-          </div>
-        </div>
-        <div class="error-messages"
-             ng-show="state.showView('error-required-survey-is-accurate')"
-             translate="requiredThisField"></div>
-      </li>
-      <li>
-        <p translate="youWantToLearnMoreTopSkills"></p>
+          <div class="error-messages"
+               ng-show="state.showView('error-required-survey-is-accurate')"
+               translate="requiredThisField"></div>
+        </li>
+        <li>
+          <p translate="youWantToLearnMoreTopSkills"></p>
 
-        <div class="select-group">
-          <div class="select-item">
-            <input ng-model="masterPromotion.survey.isLearnMore" ng-value="true" type="radio"
-                   name="isLearnMore" id="radLearnMoreYes" ng-required="true"/><label for="radLearnMoreYes" translate="yes" />
+          <div class="select-group">
+            <div class="select-item">
+              <input ng-model="promotionSurvey.wantToLearnMore" ng-value="true" type="radio"
+                     name="wantToLearnMore" id="radLearnMoreYes" ng-required="true"/><label for="radLearnMoreYes"
+                                                                                            translate="yes"/>
+            </div>
+            <div class="select-item">
+              <input ng-model="promotionSurvey.wantToLearnMore" ng-value="false"
+                     type="radio" name="wantToLearnMore" id="radLearnMoreNo" ng-required="true"/><label
+              for="radLearnMoreNo" translate="no"/>
+            </div>
           </div>
-          <div class="select-item">
-            <input ng-model="masterPromotion.survey.isLearnMore" ng-value="false"
-                   type="radio" name="isLearnMore" id="radLearnMoreNo" ng-required="true"/><label for="radLearnMoreNo" translate="no" />
-          </div>
-        </div>
-        <div class="error-messages"
-             ng-show="state.showView('error-required-survey-is-learn-more')"
-             translate="requiredThisField"></div>
-      </li>
-      <li>
-        <label for="txtFeedback" translate="haveAnyFeedback"></label>
-        <textarea name="feedback" ng-model="masterPromotion.survey.feedback" cols="" rows="" id="txtFeedback"
-                  maxlength="500"></textarea>
-      </li>
-      <li>
-        <button type="submit" class="btn btn-primary btn-flat" translate="submit"></button>
-      </li>
-    </ul>
-  </form>
+          <div class="error-messages"
+               ng-show="state.showView('error-required-survey-is-learn-more')"
+               translate="requiredThisField"></div>
+        </li>
+        <li>
+          <label for="txtFeedback" translate="haveAnyFeedback"></label>
+          <textarea name="feedback" ng-model="promotionSurvey.feedback" cols="" rows="" id="txtFeedback"
+                    maxlength="500"></textarea>
+        </li>
+        <li>
+          <button type="submit" class="btn btn-primary btn-flat" translate="submit"></button>
+        </li>
+      </ul>
+    </form>
+    <div ng-show="state.showView('sent-promotion-survey')" class="thanksMessages" role="alert" translate="thanksForHelp" />
+  </div>
 </div>

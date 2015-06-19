@@ -1,6 +1,7 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.GetPromotedResponse;
+import com.techlooper.model.GetPromotedSurvey;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -32,6 +33,9 @@ public class GetPromotedEntity {
 
     @Field(type = Nested)
     private GetPromotedResponse getPromotedResult;
+
+    @Field(type = Nested)
+    private GetPromotedSurvey getPromotedSurvey;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -87,5 +91,13 @@ public class GetPromotedEntity {
 
     public void setGetPromotedResult(GetPromotedResponse getPromotedResult) {
         this.getPromotedResult = getPromotedResult;
+    }
+
+    public GetPromotedSurvey getGetPromotedSurvey() {
+        return getPromotedSurvey;
+    }
+
+    public void setGetPromotedSurvey(GetPromotedSurvey getPromotedSurvey) {
+        this.getPromotedSurvey = getPromotedSurvey;
     }
 }

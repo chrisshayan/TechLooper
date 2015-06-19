@@ -277,23 +277,33 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Override
     public long saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest) {
-        GetPromotedRequest getPromotedRequest = getPromotedEmailRequest.getGetPromotedRequest();
-        GetPromotedEntity getPromotedEntity = new GetPromotedEntity();
-        getPromotedEntity.setCreatedDateTime(new Date().getTime());
-        getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
-        getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
-        getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
-        getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
-        getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
-
-        GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
-        getPromotedEntity.setGetPromotedResult(getPromotedResponse);
-
-        GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
-        if (result != null) {
-            return result.getCreatedDateTime();
+        Long getPromotedId = getPromotedEmailRequest.getGetPromotedId();
+        if (getPromotedId != null && getPromotedId > 0) {
+            GetPromotedEntity result = getPromotedRepository.findOne(getPromotedId);
+            if (result != null) {
+                result.setEmail(getPromotedEmailRequest.getEmail());
+                getPromotedRepository.save(result);
+            }
+            return getPromotedId;
         } else {
-            return -1L;
+            GetPromotedRequest getPromotedRequest = getPromotedEmailRequest.getGetPromotedRequest();
+            GetPromotedEntity getPromotedEntity = new GetPromotedEntity();
+            getPromotedEntity.setCreatedDateTime(new Date().getTime());
+            getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
+            getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
+            getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
+            getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
+            getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
+
+            GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+            getPromotedEntity.setGetPromotedResult(getPromotedResponse);
+
+            GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
+            if (result != null) {
+                return result.getCreatedDateTime();
+            } else {
+                return -1L;
+            }
         }
     }
 
@@ -321,5 +331,33 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         similarSalaryReviews = similarSalaryReviews.stream().sorted((similarSalaryReview1, similarSalaryReview2) ->
                 similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(Collectors.toList());
         return similarSalaryReviews;
+    }
+
+    @Override
+    public long saveGetPromotedSurvey(GetPromotedSurveyRequest getPromotedSurveyRequest) {
+        GetPromotedEntity getPromotedEntity = getPromotedRepository.findOne(getPromotedSurveyRequest.getGetPromotedSurvey().getGetPromotedId());
+        if (getPromotedEntity != null) {
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurveyRequest.getGetPromotedSurvey());
+            GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
+            return getPromotedEntity.getCreatedDateTime();
+        } else {
+            GetPromotedRequest getPromotedRequest = getPromotedSurveyRequest.getGetPromotedRequest();
+            getPromotedEntity = new GetPromotedEntity();
+            getPromotedEntity.setCreatedDateTime(new Date().getTime());
+            getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
+            getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
+            getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurveyRequest.getGetPromotedSurvey());
+
+            GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+            getPromotedEntity.setGetPromotedResult(getPromotedResponse);
+            if (getPromotedResponse.getTotalJob() > 0) {
+                getPromotedEntity.setHasResult(true);
+            } else {
+                getPromotedEntity.setHasResult(false);
+            }
+            GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
+            return result.getCreatedDateTime();
+        }
     }
 }

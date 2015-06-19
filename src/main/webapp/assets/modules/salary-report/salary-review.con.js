@@ -1,7 +1,7 @@
 techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue,
                                                           utils, $route, validatorService, $translate, $q) {
   $scope.scroll = 0;
-
+  $scope.email = '';
   $scope.skillBoxConfig = {
     placeholder: "mostRelevantSkills.placeholder",
     items: [],
@@ -56,7 +56,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
         {
           title: "yourSalaryReport",
           class: "active showNavi",
-          onClick: function (tab) {$scope.changeState(state.report);}
+          onClick: function (tab) {
+            $scope.changeState(state.report);
+          }
         }
       ]
     }

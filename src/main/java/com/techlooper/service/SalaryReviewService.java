@@ -27,4 +27,6 @@ public interface SalaryReviewService {
     GetPromotedEntity getPromotedEntity(Long id);
 
     List<SimilarSalaryReview> getSimilarSalaryReview(SimilarSalaryReviewRequest request);
+
+    long saveGetPromotedSurvey(GetPromotedSurveyRequest getPromotedSurveyRequest);
 }
