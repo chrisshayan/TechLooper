@@ -11,6 +11,8 @@ public class GetPromotedEmailRequest {
 
     private Language lang;
 
+    private Long getPromotedId;
+
     @Email
     private String email;
 
@@ -24,6 +26,14 @@ public class GetPromotedEmailRequest {
 
     public void setLang(Language lang) {
         this.lang = lang;
+    }
+
+    public Long getGetPromotedId() {
+        return getPromotedId;
+    }
+
+    public void setGetPromotedId(Long getPromotedId) {
+        this.getPromotedId = getPromotedId;
     }
 
     public String getEmail() {
