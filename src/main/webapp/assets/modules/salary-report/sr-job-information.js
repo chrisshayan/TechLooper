@@ -47,6 +47,7 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
         scope.salaryReview = $.extend(true, {}, scope.sr);
         scope.changeState("report", true);
         $('#txtEmailReport').val('');
+        delete scope.$parent.email;
         $('#txtEmailPromotion').val('');
         $('#txtEmailJobAlert').val('');
         ga('send', {
