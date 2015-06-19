@@ -4,6 +4,9 @@ techlooper.directive("srSalaryChart", function ($translate) {
     replace: true,
     templateUrl: "modules/salary-report/sr-salary-chart.tem.html",
     link: function (scope, element, attr, ctrl) {
+      $('#txtEmailReport').val('');
+      $('#txtEmailPromotion').val('');
+      $('#txtEmailJobAlert').val('');
       scope.openFacebookShare = function () {
         // Google Analytics Event Tracking
         ga('send', {

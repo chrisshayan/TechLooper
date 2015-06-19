@@ -3,7 +3,7 @@
 
   <p ng-show="salaryReport.percentRank !== 'NaN'">{{'desSendMeReport' | translate }}</p>
   <input ng-model="sendMeReport.email" type="email" placeholder="{{'exEmailAddress' | translate}}"
-         required validate name="email" id="txtEmailReport"/>
+         validate name="email" id="txtEmailReport"/>
   <button ng-show="salaryReport.percentRank == 'NaN'" translate="save" class="btn btn-primary btn-flat"
           ng-click="sendMeNow()" type="submit"></button>
   <button ng-show="salaryReport.percentRank !== 'NaN'" translate="sendMeNow" class="btn btn-primary btn-flat"
