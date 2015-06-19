@@ -46,7 +46,9 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
         scope.salaryReview = $.extend(true, {}, scope.sr);
         scope.changeState("report", true);
-        $('#txtEmailReport').val(localStorage.getItem('EMAIL'));
+        $('#txtEmailReport').val('');
+        $('#txtEmailPromotion').val('');
+        $('#txtEmailJobAlert').val('');
         ga('send', {
           'hitType': 'event',
           'eventCategory': 'editsalaryreport',
