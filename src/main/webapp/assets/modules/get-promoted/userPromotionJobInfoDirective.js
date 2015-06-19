@@ -26,10 +26,12 @@ techlooper.directive("userPromotionJobInfo", function ($http, userPromotionServi
             getPromotedRequest: promotionInfo,
             lang: $translate.use(),
             email: scope.promotionEmail,
+            getPromotedId: scope.masterPromotion.id,
             hasResult: promotionResult && promotionResult.totalJob > 0
-          })
+          }, {transformResponse: function (d, h) {return d;}})
           .success(function (data, status, headers, config) {
             scope.promotionEmailForm.$sentEmail = true;
+            scope.masterPromotion.id = data;
           });
       }
 
