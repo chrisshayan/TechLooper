@@ -37,7 +37,7 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
             return errorRequired && surveyFormHasSubmitted;
 
           case "error-required-survey-is-learn-more":
-            var errorRequired = $scope.promotionSurveyForm.isLearnMore.$error.required;
+            var errorRequired = $scope.promotionSurveyForm.wantToLearnMore.$error.required;
             return errorRequired && surveyFormHasSubmitted;
 
           case "no-promotion-result":
