@@ -22,9 +22,7 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -160,16 +158,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/saveGetPromotedSurvey", method = RequestMethod.POST)
-    public void saveGetPromotedSurvey(@RequestBody GetPromotedSurvey getPromotedSurvey, HttpServletResponse httpServletResponse) {
-        boolean isSaved = salaryReviewService.saveGetPromotedSurvey(getPromotedSurvey);
-        if (isSaved) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-        }
-    }
-
     @RequestMapping(value = "/priceJob", method = RequestMethod.POST)
     public PriceJobEntity priceJob(@RequestBody PriceJobEntity priceJobEntity) {
         userEvaluationService.priceJob(priceJobEntity);
@@ -207,12 +195,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
-    public void sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
+    public long sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
         long getPromotedId = salaryReviewService.saveGetPromotedInformation(emailRequest);
 
         if (getPromotedId != -1L && emailRequest.getHasResult()) {
             salaryReviewService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
         }
+
+        return getPromotedId;
+    }
+
+    @RequestMapping(value = "/getPromoted/survey", method = RequestMethod.POST)
+    public long saveGetPromotedSurvey(@RequestBody GetPromotedSurveyRequest getPromotedSurveyRequest, HttpServletResponse httpServletResponse) {
+        return salaryReviewService.saveGetPromotedSurvey(getPromotedSurveyRequest);
     }
 
     @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.GET)

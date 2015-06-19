@@ -28,5 +28,5 @@ public interface SalaryReviewService {
 
     List<SimilarSalaryReview> getSimilarSalaryReview(SimilarSalaryReviewRequest request);
 
-    boolean saveGetPromotedSurvey(GetPromotedSurvey getPromotedSurvey);
+    long saveGetPromotedSurvey(GetPromotedSurveyRequest getPromotedSurveyRequest);
 }

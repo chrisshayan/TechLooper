@@ -324,13 +324,30 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     }
 
     @Override
-    public boolean saveGetPromotedSurvey(GetPromotedSurvey getPromotedSurvey) {
-        GetPromotedEntity getPromotedEntity = getPromotedRepository.findOne(getPromotedSurvey.getGetPromotedId());
+    public long saveGetPromotedSurvey(GetPromotedSurveyRequest getPromotedSurveyRequest) {
+        GetPromotedEntity getPromotedEntity = getPromotedRepository.findOne(getPromotedSurveyRequest.getGetPromotedSurvey().getGetPromotedId());
         if (getPromotedEntity != null) {
-            getPromotedEntity.setGetPromotedSurvey(getPromotedSurvey);
-            getPromotedRepository.save(getPromotedEntity);
-            return true;
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurveyRequest.getGetPromotedSurvey());
+            GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
+            return getPromotedEntity.getCreatedDateTime();
+        } else {
+            GetPromotedRequest getPromotedRequest = getPromotedSurveyRequest.getGetPromotedRequest();
+            getPromotedEntity = new GetPromotedEntity();
+            getPromotedEntity.setCreatedDateTime(new Date().getTime());
+            getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
+            getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
+            getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurveyRequest.getGetPromotedSurvey());
+
+            GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+            getPromotedEntity.setGetPromotedResult(getPromotedResponse);
+            if (getPromotedResponse.getTotalJob() > 0) {
+                getPromotedEntity.setHasResult(true);
+            } else {
+                getPromotedEntity.setHasResult(false);
+            }
+            GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
+            return result.getCreatedDateTime();
         }
-        return false;
     }
 }
