@@ -30,7 +30,7 @@ techlooper.directive("userPromotionSurveyForm", function ($http, utils) {
         }
 
         var getPromotedRequest = angular.copy(scope.masterPromotion);
-        utils.removeRedundantAttrs(getPromotedRequest, ["survey", "id"]);
+        utils.removeRedundantAttrs(getPromotedRequest, ["survey", "id", "jobLevelTitle", "result", "jobCategoryTitle"]);
 
         var getPromotedSurvey = angular.copy(scope.promotionSurvey);
         getPromotedSurvey.getPromotedId = scope.masterPromotion.id;
