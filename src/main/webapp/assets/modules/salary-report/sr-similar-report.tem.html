@@ -10,8 +10,7 @@
     <div class="best-paid-companies similar-report">
       <p translate="similarReportDescription"></p>
       <div class="row-same-height row-full-height">
-        <div class="col-xs-4 col-xs-height col-full-height" ng-repeat="report in similarReports"
-             ng-class="{col-xs-12: similarReports.length===1, col-xs-6: similarReports.length===2}">
+        <div class="col-xs-4 col-xs-height col-full-height" ng-repeat="report in similarReports">
           <div class="best-paid-company">
             <p translate="thisPerson" translate-value-percent-salary="<strong>{{report.addedPercent}}%</strong>"></p>
             <ul>
