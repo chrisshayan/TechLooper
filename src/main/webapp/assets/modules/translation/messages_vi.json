@@ -293,7 +293,7 @@
   "thisPerson": "Người này đang kiếm tiền nhiều hơn bạn {{percentSalary}} với",
   "title": "Chức Danh",
   "category": "Ngành Nghề",
-  "youWantToLearnMoreTopSkills": "Bạn có muốn học các kỹ năng hàng đầu ở trên không?",
+  "youWantToLearnMoreTopSkills": "Bạn có muốn học các kỹ năng hàng đầu ở trên không?<strong>*</strong>",
   "employees": "Nhân viên"
 }
 
