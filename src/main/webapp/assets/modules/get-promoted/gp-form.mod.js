@@ -16,11 +16,11 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
           scope.changeState('result');
         });
 
-        ga('send', {
-          'hitType': 'event',
-          'eventCategory': 'salaryreport',
-          'eventAction': 'click',
-          'eventLabel': 'getpromotedbtn'
+        ga("send", {
+          hitType: "event",
+          eventCategory: "salaryreport",
+          eventAction: "click",
+          eventLabel: "getpromotedbtn"
         });
       }
 
