@@ -15,6 +15,13 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
           scope.masterPromotion.result = data;
           scope.changeState('result');
         });
+
+        ga('send', {
+          'hitType': 'event',
+          'eventCategory': 'salaryreport',
+          'eventAction': 'click',
+          'eventLabel': 'getpromotedbtn'
+        });
       }
 
       scope.viewsDefers.getPromotedForm.resolve();
