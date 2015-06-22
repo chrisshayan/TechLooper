@@ -29,7 +29,7 @@ techlooper.directive("srAboutYourJob", function ($http, vnwConfigService) {
         $http
           .post("getPromoted", request)
           .success(function (userPromotionInfo) {
-            scope.state.demandSkills = userPromotionInfo.topDemandedSkills.map(function (skill) {
+            scope.demandSkills = userPromotionInfo.topDemandedSkills.map(function (skill) {
               return {title: skill.skillName};
             });
           });
