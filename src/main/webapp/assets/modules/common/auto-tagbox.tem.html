@@ -21,10 +21,11 @@
   </div>
   <!--<div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>-->
   <div class="add-skill-input">
-    <form novalidate name="tagForm" autocomplete="off">
+    <form ng-submit="addTag()" novalidate name="tagForm" autocomplete="off">
       <autocomplete name="tagInput" ng-required='config.required' ng-model="config.newTag" data="config.items"
-                    attr-placeholder="{{config.placeholder | translate}}"></autocomplete>
-      <button type="submit" ng-click="addTag()">{{'add' | translate}}</button>
+                    attr-placeholder="{{config.placeholder | translate}}" on-select="onSelect"></autocomplete>
+
+      <button type="submit">{{'add' | translate}}</button>
     </form>
   </div>
 </div>
