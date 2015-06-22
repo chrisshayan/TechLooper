@@ -4,11 +4,11 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
     replace: true,
     templateUrl: "modules/get-promoted/gp-form.tem.html",
     link: function (scope, element, attr, ctrl) {
-      scope.doPromotion = function (forceValidation) {
-        //scope.promotionForm.$setSubmitted();
-        //if (!forceValidation && !scope.promotionForm.$valid) {
-        //  return false;
-        //}
+      scope.doPromotion = function () {
+        scope.promotionForm.$setSubmitted();
+        if (!scope.promotionForm.$valid) {
+          return false;
+        }
         scope.masterPromotion = angular.copy(scope.promotionInfo);
         userPromotionService.refinePromotionInfo(scope.masterPromotion);
         $http.post("getPromoted", scope.masterPromotion).success(function (data, status, headers, config) {

@@ -66,6 +66,9 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
           case "not-sent-promotion-survey":
             var sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
             return !sentSurvey;
+
+          case "user-promotion-survey-form":
+            return hasPromotionResult;
         }
         return false;
       }
