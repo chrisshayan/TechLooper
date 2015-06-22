@@ -33,8 +33,8 @@
               <li>
                 <span>{{'skill' | translate}}:</span>
                 <div class="right-content">
-                  <small ng-repeat="skill in report.skills | limitTo: unlimited">{{skill}}</small>
-                  <a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()" ng-show="report.skills.length > 5"></a>
+                  <small ng-repeat="skill in report.skills | limitTo: 5">{{skill}}</small>
+                  <!--<a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()" ng-show="report.skills.length > 5"></a>-->
                 </div>
               </li>
             </ul>
