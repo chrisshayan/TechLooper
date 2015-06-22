@@ -3,7 +3,6 @@
   <div class="title-header" ng-model="sendMeSimilarJob" ng-click="sendMeSimilarJob=!sendMeSimilarJob">
     <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span
       translate="doYouWantToEarnMore"></span></h3>
-
     <div class="ic-hidden" title="Minimise">
       <span ng-show="!sendMeSimilarJob"><i class="fa fa-caret-up"></i></span>
       <span ng-show="sendMeSimilarJob"><i class="fa fa-caret-down"></i></span>
@@ -12,21 +11,23 @@
   <div class="best-paid-list" ng-show="!sendMeSimilarJob">
     <div class="best-paid-companies" ng-show="state.showJobAlert">
       <p translate="higherJobOffer"></p>
-
-      <div class="best-paid-company" ng-repeat="job in salaryReview.topPaidJobs"
-           ng-class="{oneColl: salaryReview.topPaidJobs.length===1, twoColl: salaryReview.topPaidJobs.length===2}">
-        <ul>
-          <li><strong>+ {{job.addedPercent}}%</strong></li>
-          <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
-          <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
-          <li ng-show="job.skills.length">
-            <span class="skills ellipsis">
-              <i ng-repeat="skill in job.skills" class="ellipsis">{{skill}}</i>
-            </span>
-          </li>
-        </ul>
-        <div class="btn-see-more">
-          <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
+      <div class="row-same-height row-full-height">
+        <div class="col-xs-4 col-xs-height col-full-height" ng-repeat="job in salaryReview.topPaidJobs">
+          <div class="best-paid-company">
+            <ul>
+              <li><strong>+ {{job.addedPercent}}%</strong></li>
+              <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+              <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+              <li ng-show="job.skills.length">
+              <span class="skills ellipsis">
+                <i ng-repeat="skill in job.skills" class="ellipsis">{{skill}}</i>
+              </span>
+              </li>
+            </ul>
+            <div class="btn-see-more">
+              <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -99,9 +100,6 @@
             <label for="txtEmailJobAlert">{{'myEmail' | translate}} <strong>*</strong></label>
             <input name="email" ng-model="jobAlert.email" type="email" required tl-model
                    id="txtEmailJobAlert" placeholder="" tabindex="1"/>
-            <!--<selectize class="select-time-to-send" config='selectize.timeToSendsSelectize.config' options='selectize.timeToSendsSelectize.items'-->
-            <!--required tl-model-->
-            <!--ng-model="jobAlert.frequency" name="{{'jobCategory' | translate}}"></selectize>-->
             <div class="error-messages">
               {{error['jobAlert.email'] }}
             </div>
@@ -118,5 +116,6 @@
       <h3 translate="jobAlertTitle"></h3>
       <span class="thanksMessages" translate="alertSuccessJobAlert"></span>
     </div>
+  </div>
   </div>
 </div>
