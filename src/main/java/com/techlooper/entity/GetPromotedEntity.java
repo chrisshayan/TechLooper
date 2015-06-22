@@ -31,6 +31,9 @@ public class GetPromotedEntity {
     @Field(type = Boolean)
     private Boolean hasResult;
 
+    @Field(type = String)
+    private String campaign;
+
     @Field(type = Nested)
     private GetPromotedResponse getPromotedResult;
 
@@ -83,6 +86,14 @@ public class GetPromotedEntity {
 
     public void setHasResult(Boolean hasResult) {
         this.hasResult = hasResult;
+    }
+
+    public String getCampaign() {
+        return campaign;
+    }
+
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
     }
 
     public GetPromotedResponse getGetPromotedResult() {

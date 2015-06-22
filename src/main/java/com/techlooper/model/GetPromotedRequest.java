@@ -7,43 +7,53 @@ import java.util.List;
  */
 public class GetPromotedRequest {
 
-  private String jobTitle;
+    private String jobTitle;
 
-  private List<Integer> jobLevelIds;
+    private List<Integer> jobLevelIds;
 
-  private List<Long> jobCategoryIds;
+    private List<Long> jobCategoryIds;
 
-  private int limitSkills;
+    private int limitSkills;
 
-  public String getJobTitle() {
-    return jobTitle;
-  }
+    private String campaign;
 
-  public void setJobTitle(String jobTitle) {
-    this.jobTitle = jobTitle;
-  }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-  public List<Integer> getJobLevelIds() {
-    return jobLevelIds;
-  }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-  public void setJobLevelIds(List<Integer> jobLevelIds) {
-    this.jobLevelIds = jobLevelIds;
-  }
+    public List<Integer> getJobLevelIds() {
+        return jobLevelIds;
+    }
 
-  public List<Long> getJobCategoryIds() {
-    return jobCategoryIds;
-  }
+    public void setJobLevelIds(List<Integer> jobLevelIds) {
+        this.jobLevelIds = jobLevelIds;
+    }
 
-  public void setJobCategoryIds(List<Long> jobCategoryIds) {
-    this.jobCategoryIds = jobCategoryIds;
-  }
+    public List<Long> getJobCategoryIds() {
+        return jobCategoryIds;
+    }
 
-  public int getLimitSkills() {
-    return limitSkills;
-  }
+    public void setJobCategoryIds(List<Long> jobCategoryIds) {
+        this.jobCategoryIds = jobCategoryIds;
+    }
 
-  public void setLimitSkills(int limitSkills) {
-    this.limitSkills = limitSkills;
-  }
+    public int getLimitSkills() {
+        return limitSkills;
+    }
+
+    public void setLimitSkills(int limitSkills) {
+        this.limitSkills = limitSkills;
+    }
+
+    public String getCampaign() {
+        return campaign;
+    }
+
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
+    }
 }

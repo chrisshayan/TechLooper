@@ -27,6 +27,7 @@ techlooper.directive('autoTagbox', function ($timeout) {
       scope.tags = scope.tags || [];
 
       scope.addTag = function (tag) {
+        scope.tagForm.$setSubmitted();
         var newTag = (tag && tag.title) || scope.config.newTag;
         if (!newTag || !newTag.length) {
           return;
@@ -46,16 +47,12 @@ techlooper.directive('autoTagbox', function ($timeout) {
         scope.tags.push(lowerTag);
 
         tag && (tag.added = true);
-        tag || (scope.config.newTag = "");
+        scope.config.newTag = "";
       }
 
-      //$.each(scope.tags, function(i, tag) {
-      //  $.each(scope.suggestionTags, function(i, item) {
-      //    if (item.title.toLowerCase() === tag) {
-      //      return (item.added = true);
-      //    }
-      //  });
-      //});
+      scope.onSelect = function(suggestion) {
+        scope.addTag({title: suggestion});
+      }
 
       scope.$on("state change success", function () {scope.errors.length = 0;});
     }

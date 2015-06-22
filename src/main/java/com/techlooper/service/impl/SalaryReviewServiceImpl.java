@@ -294,6 +294,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
             getPromotedEntity.setEmail(getPromotedEmailRequest.getEmail());
             getPromotedEntity.setHasResult(getPromotedEmailRequest.getHasResult());
+            getPromotedEntity.setCampaign(getPromotedRequest.getCampaign());
 
             GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
             getPromotedEntity.setGetPromotedResult(getPromotedResponse);
@@ -335,11 +336,12 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Override
     public long saveGetPromotedSurvey(GetPromotedSurveyRequest getPromotedSurveyRequest) {
-        GetPromotedEntity getPromotedEntity = getPromotedRepository.findOne(getPromotedSurveyRequest.getGetPromotedSurvey().getGetPromotedId());
+        GetPromotedSurvey getPromotedSurvey = getPromotedSurveyRequest.getGetPromotedSurvey();
+        GetPromotedEntity getPromotedEntity = getPromotedRepository.findOne(getPromotedSurvey.getGetPromotedId());
         if (getPromotedEntity != null) {
-            getPromotedEntity.setGetPromotedSurvey(getPromotedSurveyRequest.getGetPromotedSurvey());
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurvey);
             GetPromotedEntity result = getPromotedRepository.save(getPromotedEntity);
-            return getPromotedEntity.getCreatedDateTime();
+            return result.getCreatedDateTime();
         } else {
             GetPromotedRequest getPromotedRequest = getPromotedSurveyRequest.getGetPromotedRequest();
             getPromotedEntity = new GetPromotedEntity();
@@ -347,7 +349,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             getPromotedEntity.setJobTitle(getPromotedRequest.getJobTitle());
             getPromotedEntity.setJobLevelIds(getPromotedRequest.getJobLevelIds());
             getPromotedEntity.setJobCategoryIds(getPromotedRequest.getJobCategoryIds());
-            getPromotedEntity.setGetPromotedSurvey(getPromotedSurveyRequest.getGetPromotedSurvey());
+            getPromotedSurvey.setGetPromotedId(getPromotedEntity.getCreatedDateTime());
+            getPromotedEntity.setGetPromotedSurvey(getPromotedSurvey);
+            getPromotedEntity.setCampaign(getPromotedRequest.getCampaign());
 
             GetPromotedResponse getPromotedResponse = jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
             getPromotedEntity.setGetPromotedResult(getPromotedResponse);

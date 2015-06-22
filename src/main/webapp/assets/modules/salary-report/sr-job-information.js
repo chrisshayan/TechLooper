@@ -1,4 +1,4 @@
-techlooper.directive("srJobInformation", function ($http, validatorService, $translate, vnwConfigService) {
+techlooper.directive("srJobInformation", function ($http, validatorService, $translate, vnwConfigService, $timeout) {
   return {
     restrict: "E",
     replace: true,
@@ -50,6 +50,16 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
         delete scope.$parent.email;
         $('#txtEmailPromotion').val('');
         $('#txtEmailJobAlert').val('');
+        var heightArray = [];
+        $timeout(function(){
+          var items = $('.similar-report').find('.best-paid-company');
+          items.each(function(){
+            heightArray.push($(this).height());
+          });
+          items.each(function(){
+            $(this).css('height', heightArray.max()+'px');
+          });
+        }, 1000);
         ga('send', {
           'hitType': 'event',
           'eventCategory': 'editsalaryreport',

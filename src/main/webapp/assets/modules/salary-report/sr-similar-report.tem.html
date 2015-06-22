@@ -9,34 +9,38 @@
   <div class="best-paid-list" ng-show="!similarReport">
     <div class="best-paid-companies similar-report">
       <p translate="similarReportDescription"></p>
-      <div class="best-paid-company" ng-repeat="report in similarReports" ng-class="{oneColl: similarReports.length===1, twoColl: similarReports.length===2}">
-        <p translate="thisPerson" translate-value-percent-salary="<strong>{{report.addedPercent}}%</strong>"></p>
-        <ul>
-          <li><span>{{'title' | translate}}:</span>
-            <div class="right-content">{{report.jobTitle}}</div>
-          </li>
-          <li><span>{{'category' | translate}}:</span>
-            <div class="right-content">{{report.categories.join(" | ")}}</div>
-          </li>
-          <li><span>{{'level' | translate}}:</span>
-            <div class="right-content">{{report.jobLevel}}</div>
-          </li>
-          <li><span>{{'location' | translate}}:</span>
-            <div class="right-content">{{report.location}}</div>
-          </li>
-          <li ng-show="report.companySize.length > 0">
-            <span>{{'companySize' | translate}}:</span>
-            <div class="right-content">{{report.companySize}}</div>
-          </li>
-          <li>
-            <span>{{'skill' | translate}}:</span>
-            <div class="right-content">
-              <small ng-repeat="skill in report.skills | limitTo: unlimited">{{skill}}</small>
-              <a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()" ng-show="report.skills.length > 5"></a>
-            </div>
-          </li>
-        </ul>
+      <div class="row-same-height row-full-height">
+        <div class="col-xs-4 col-xs-height col-full-height" ng-repeat="report in similarReports">
+          <div class="best-paid-company">
+            <p translate="thisPerson" translate-value-percent-salary="<strong>{{report.addedPercent}}%</strong>"></p>
+            <ul>
+              <li><span>{{'title' | translate}}:</span>
+                <div class="right-content">{{report.jobTitle}}</div>
+              </li>
+              <li><span>{{'category' | translate}}:</span>
+                <div class="right-content">{{report.categories.join(" | ")}}</div>
+              </li>
+              <li><span>{{'level' | translate}}:</span>
+                <div class="right-content">{{report.jobLevel}}</div>
+              </li>
+              <li><span>{{'location' | translate}}:</span>
+                <div class="right-content">{{report.location}}</div>
+              </li>
+              <li ng-show="report.companySize.length > 0">
+                <span>{{'companySize' | translate}}:</span>
+                <div class="right-content">{{report.companySize}}</div>
+              </li>
+              <li>
+                <span>{{'skill' | translate}}:</span>
+                <div class="right-content">
+                  <small ng-repeat="skill in report.skills | limitTo: 5">{{skill}}</small>
+                  <!--<a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()" ng-show="report.skills.length > 5"></a>-->
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-</div>
+  </div>
 </div>
