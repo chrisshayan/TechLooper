@@ -59,7 +59,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .setPrefix('techlooper')
       .setStorageType('sessionStorage')
       .setNotify(true, true)
-      .setStorageCookie(45);
+      .setStorageCookie(45, "/");
 
     $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
       .done(function (resp) {

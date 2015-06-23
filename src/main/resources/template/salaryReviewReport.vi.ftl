@@ -36,7 +36,9 @@
     .template-content {
       max-width: 650px;
     }
-
+    [class=template-content]{
+      max-width: 650px;
+    }
     table {
       mso-table-lspace: 0pt;
       mso-table-rspace: 0pt;

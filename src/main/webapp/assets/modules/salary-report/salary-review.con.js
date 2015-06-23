@@ -210,6 +210,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     $route.reload();
   }
 
-  localStorageService.set('PROMOTION-KEY', 'no');
+  //localStorageService.set('PROMOTION-KEY', 'no');
   //localStorage.setItem('PROMOTION-KEY', 'no');
 });

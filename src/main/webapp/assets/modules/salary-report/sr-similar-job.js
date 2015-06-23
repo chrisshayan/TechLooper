@@ -11,12 +11,17 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
       scope.doJobAlert = function ($event) {
         $event.preventDefault();
 
-        $('.email-similar-jobs-block').slideDown("normal");
+        $('.email-similar-jobs-block').show();
         focus("emailJobAlert");
 
+        if (scope.jobAlert) {
+          emailSuggestion =  scope.jobAlert.email || "";
+        }
         scope.jobAlert = angular.copy(scope.salaryReview);
         scope.jobAlert.frequency = timeToSends[0].id;
-        scope.jobAlert.email = emailSuggestion;
+        if (!scope.jobAlert.email) {
+          emailSuggestion.length > 0 && (scope.jobAlert.email = emailSuggestion);
+        }
         emailSuggestion = "";
 
         delete scope.state.showJobAlertButton;
@@ -26,14 +31,14 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
       scope.hiddenJobAlertForm = function () {
         //$('.email-similar-jobs-block').hide();
-        $('.email-me-similar-jobs').slideDown("normal");
-        $('.email-similar-jobs-block').slideUp("normal");
+        $('.email-me-similar-jobs').show();
+        $('.email-similar-jobs-block').hide();
         scope.state.showJobAlertButton = true;
       }
 
       scope.createJobAlert = function () {
         var emailVal = $('#txtEmailJobAlert');
-        scope.$parent.email = emailVal.val();
+        //scope.$parent.email = emailVal.val();
         scope.jobAlert.email = emailVal.val();
         scope.error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
         if (!$.isEmptyObject(scope.error)) {
@@ -49,7 +54,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         scope.$emit("email changed", scope.jobAlert.email);
 
         connectionFactory.createJobAlert(jobAlert).then(function () {
-          $('.email-similar-jobs-block').slideUp("normal");
+          $('.email-similar-jobs-block').hide();
         });
         scope.state.showJobAlertThanks = true;
       }
