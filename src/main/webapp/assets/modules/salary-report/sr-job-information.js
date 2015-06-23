@@ -46,10 +46,8 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
         scope.salaryReview = $.extend(true, {}, scope.sr);
         scope.changeState("report", true);
-        $('#txtEmailReport').val('');
         delete scope.$parent.email;
-        $('#txtEmailPromotion').val('');
-        $('#txtEmailJobAlert').val('');
+        $('input[type=email]').val('');
         var heightArray = [];
         $timeout(function(){
           var items = $('.similar-report').find('.best-paid-company');
