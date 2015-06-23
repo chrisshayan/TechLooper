@@ -1,4 +1,4 @@
-angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService, $route, $rootScope) {
+angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termService, $route, $rootScope, localStorageService) {
   var terms = [];
   var data4PieChart = {colors: [], data: [], labels: [], terms: []};
   var innerDonut = utils.isMobile() ? '0%' : '30%';
@@ -15,7 +15,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       var total = $$.getTotalJob(terms);
       $.each(terms, function (i, term) {
         var per = term.averageSalaryMin / total * 100;
-        if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+        if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
           per = term.count / total * 100;
         }
         term.percent = per.toFixed(1);
@@ -24,7 +24,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       scope.$apply();
 
       $.each(terms, function (i, term) {
-        if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+        if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
           data4PieChart.data.push([term.label, term.count]);
         }
         else {
@@ -82,7 +82,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         tooltip: {
           formatter: function () {
             var term = terms[this.point.index];
-            if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+            if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
               return sprintf(translate.salaryRangeJob, term.salRange, term.label);
             }
             return sprintf(translate.jobNumber, term.count, term.label);
@@ -97,7 +97,7 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
               //format: '<b>{point.y}</b> jobs in <b>{point.name}</b>',
               formatter: function () {
                 var term = terms[this.point.index];
-                if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+                if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
                   return sprintf(translate.jobNumberLabel, term.count, term.label);
                 }
                 else {
@@ -150,13 +150,13 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
 
     updateViewTerm: function (term) {
       termService.toViewTerm(term);
-      if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+      if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
         Highcharts.charts[0].series[0]
           .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);
       }
     },
     switchChartData: function () {
-      if (localStorage.getItem("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+      if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
         $('.switch-data').find('li').removeClass('active');
         $('.switch-data').find('li[data-chart=JOB]').addClass('active');
       }
@@ -164,11 +164,11 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
       $('.switch-data').find('li').on('click', function () {
         $('.switch-data').find('li').removeClass('active');
         if ($(this).attr('data-chart') == 'JOB') {
-          localStorage.setItem('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
+          localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
           $route.reload();
         }
         else {
-          localStorage.setItem('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
+          localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
           $route.reload();
         }
         $(this).addClass('active');
