@@ -4,9 +4,11 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
     replace: true,
     templateUrl: "modules/get-promoted/gp-form.tem.html",
     link: function (scope, element, attr, ctrl) {
-      scope.doPromotion = function () {
+
+      //TODO refactor to remove ignoreValidation
+      scope.doPromotion = function (ignoreValidation) {
         scope.promotionForm.$setSubmitted();
-        if (!scope.promotionForm.$valid) {
+        if (!ignoreValidation && !scope.promotionForm.$valid) {
           return false;
         }
         scope.masterPromotion = angular.copy(scope.promotionInfo);
