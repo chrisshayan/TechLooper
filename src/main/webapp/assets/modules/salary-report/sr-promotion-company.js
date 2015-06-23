@@ -18,6 +18,7 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
 
         if (scope.promotion.paymentMethod !== 'BANK_TRANSFER') {
           scope.state.showThanksCash = true;
+          $('.partner-company-content').hide();
           return;
         }
 
