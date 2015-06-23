@@ -19,7 +19,7 @@
               </li>
               <li><span>{{'category' | translate}}:</span>
                 <div class="right-content">
-                  <small ng-repeat="category in report.categories" class="ellipsis">{{category}}</small>
+                  <small ng-repeat="category in report.categories" class="ellipsis" title="{{category}}">{{category}}</small>
                 </div>
               </li>
               <li><span>{{'level' | translate}}:</span>
@@ -35,7 +35,7 @@
               <li>
                 <span>{{'skill' | translate}}:</span>
                 <div class="right-content">
-                  <small ng-repeat="skill in report.skills | limitTo: 5" class="ellipsis">{{skill}}</small>
+                  <small ng-repeat="skill in report.skills | limitTo: 5" class="ellipsis" title="{{skill}}">{{skill}}</small>
                 </div>
               </li>
             </ul>
