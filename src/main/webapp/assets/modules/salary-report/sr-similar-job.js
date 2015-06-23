@@ -32,6 +32,9 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
       }
 
       scope.createJobAlert = function () {
+        var emailVal = $('#txtEmailJobAlert');
+        scope.$parent.email = emailVal.val();
+        scope.jobAlert.email = emailVal.val();
         scope.error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
         if (!$.isEmptyObject(scope.error)) {
           return;

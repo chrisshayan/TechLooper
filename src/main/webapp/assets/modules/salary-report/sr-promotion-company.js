@@ -30,14 +30,6 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
             localStorageService.set('PROMOTION-KEY', 'yes');
-            //var emailVal = $('#txtEmailPromotion');
-            //scope.$parent.email = emailVal.val();
-            //if($('#txtEmailReport').val() == ''){
-            //  $('#txtEmailReport').val(scope.$parent.email);
-            //}
-            //if($('#txtEmailJobAlert').val() == ''){
-            //  $('#txtEmailJobAlert').val(scope.$parent.email);
-            //}
           }).error(function() {
             localStorageService.set('PROMOTION-KEY', 'yes');
           });
