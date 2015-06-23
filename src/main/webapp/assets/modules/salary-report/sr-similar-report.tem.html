@@ -18,7 +18,9 @@
                 <div class="right-content">{{report.jobTitle}}</div>
               </li>
               <li><span>{{'category' | translate}}:</span>
-                <div class="right-content">{{report.categories.join(" | ")}}</div>
+                <div class="right-content">
+                  <small ng-repeat="category in report.categories" class="ellipsis">{{category}}</small>
+                </div>
               </li>
               <li><span>{{'level' | translate}}:</span>
                 <div class="right-content">{{report.jobLevel}}</div>
@@ -33,8 +35,7 @@
               <li>
                 <span>{{'skill' | translate}}:</span>
                 <div class="right-content">
-                  <small ng-repeat="skill in report.skills | limitTo: 5">{{skill}}</small>
-                  <!--<a class="manager more" ng-modal="unlimited" ng-click="showMoreSkill()" ng-show="report.skills.length > 5"></a>-->
+                  <small ng-repeat="skill in report.skills | limitTo: 5" class="ellipsis">{{skill}}</small>
                 </div>
               </li>
             </ul>

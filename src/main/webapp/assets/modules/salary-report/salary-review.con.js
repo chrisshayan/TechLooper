@@ -1,5 +1,5 @@
 techlooper.controller("salaryReviewController", function ($location, $scope, vnwConfigService, $http, jsonValue,
-                                                          utils, $route, validatorService, $translate, $q) {
+                                                          utils, $route, validatorService, $translate, localStorageService) {
   $scope.scroll = 0;
   $scope.email = '';
   $scope.skillBoxConfig = {
@@ -210,5 +210,6 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
     $route.reload();
   }
 
-  localStorage.setItem('PROMOTION-KEY', 'no');
+  localStorageService.set('PROMOTION-KEY', 'no');
+  //localStorage.setItem('PROMOTION-KEY', 'no');
 });

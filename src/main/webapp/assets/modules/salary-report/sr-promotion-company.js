@@ -1,4 +1,4 @@
-techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService) {
+techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService, localStorageService) {
   return {
     restrict: "E",
     replace: true,
@@ -7,9 +7,6 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
       scope.showPromotion = function () {
         delete scope.state.showAskPromotion;
         scope.state.showPromotionForm = true;
-        if($('#txtEmailPromotion').val() == ''){
-          $('#txtEmailPromotion').val(scope.$parent.email);
-        }
       }
 
       scope.sendCitibankPromotion = function () {
@@ -21,21 +18,18 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
 
         if (scope.promotion.paymentMethod !== 'BANK_TRANSFER') {
           scope.state.showThanksCash = true;
+          $('.partner-company-content').hide();
           return;
         }
+
+        scope.$emit("email changed", scope.promotion.email);
 
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
-            var emailVal = $('#txtEmailPromotion');
-            localStorage.setItem('PROMOTION-KEY', 'yes');
-            scope.$parent.email = emailVal.val();
-              if($('#txtJobAlert').val() == ''){
-                $('#txtJobAlert').val(scope.$parent.email);
-              }
-              if($('#txtEmailReport').val() == ''){
-                $('#txtEmailReport').val(scope.$parent.email);
-              }
+            localStorageService.set('PROMOTION-KEY', 'yes');
+          }).error(function() {
+            localStorageService.set('PROMOTION-KEY', 'yes');
           });
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;
@@ -46,6 +40,13 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         .success(function (text) {
           scope.promotionCitibankTitle = text;
         });
+
+      scope.$on("email changed", function(event, email) {
+        if (scope.promotion && !scope.promotion.email) {
+          scope.promotion.email = email;
+        }
+      });
+      scope.$on("state change success", function() {scope.promotion = {email: ""};})
     }
   }
 })

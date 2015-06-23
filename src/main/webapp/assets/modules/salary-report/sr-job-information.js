@@ -1,4 +1,4 @@
-techlooper.directive("srJobInformation", function ($http, validatorService, $translate, vnwConfigService, $timeout) {
+techlooper.directive("srJobInformation", function ($http, validatorService, $translate, vnwConfigService) {
   return {
     restrict: "E",
     replace: true,
@@ -46,20 +46,8 @@ techlooper.directive("srJobInformation", function ($http, validatorService, $tra
 
         scope.salaryReview = $.extend(true, {}, scope.sr);
         scope.changeState("report", true);
-        $('#txtEmailReport').val('');
         delete scope.$parent.email;
-        $('#txtEmailPromotion').val('');
-        $('#txtEmailJobAlert').val('');
-        var heightArray = [];
-        $timeout(function(){
-          var items = $('.similar-report').find('.best-paid-company');
-          items.each(function(){
-            heightArray.push($(this).height());
-          });
-          items.each(function(){
-            $(this).css('height', heightArray.max()+'px');
-          });
-        }, 1000);
+        $('input[type=email]').val('');
         ga('send', {
           'hitType': 'event',
           'eventCategory': 'editsalaryreport',

@@ -1,4 +1,4 @@
-techlooper.directive("srAboutYourReport", function ($http, $location, utils, jsonValue, vnwConfigService) {
+techlooper.directive("srAboutYourReport", function ($http, $location, utils, jsonValue, vnwConfigService, localStorageService) {
   return {
     restrict: "E",
     replace: true,
@@ -54,7 +54,7 @@ techlooper.directive("srAboutYourReport", function ($http, $location, utils, jso
             //TODO: refactor flag to show/hide sub-views
             var hasCity = jsonValue.companyPromotion.AcceptedCity.indexOf(scope.salaryReview.locationId) >= 0;
             var enoughMoney = (scope.salaryReview.usdToVndRate * scope.salaryReview.netSalary) >= jsonValue.companyPromotion.minSalary;
-            var hasDone = localStorage.getItem('PROMOTION-KEY') === 'yes';
+            var hasDone = localStorageService.get('PROMOTION-KEY') === 'yes';
             scope.state.showPromotion = hasCity && enoughMoney && !hasDone;
             scope.state.showAskPromotion = scope.state.showPromotion;
             //scope.state.showSendReport = true;
