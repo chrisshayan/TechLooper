@@ -41,7 +41,9 @@
       mso-table-lspace: 0pt;
       mso-table-rspace: 0pt;
     }
-
+    [class=template-content]{
+      max-width: 650px;
+    }
     @media (device-width: 320px) {
       body {
         font-size: 24px !important;
