@@ -4,53 +4,66 @@
   </div>
   <div class="partner-company-detail">
     <h4>{{promotionCitibankTitle}}</h4>
+
     <div class="apply-now-block" ng-show="state.showAskPromotion">
       <button class="btn btn-primary btn-flat" ng-click="showPromotion()" translate="applyNow"></button>
     </div>
 
     <div class="partner-company-form" ng-show="state.showPromotionForm">
-      <p translate="desHowToGetIt"></p>
-      <div class="partner-company-field">
-        <label>{{'fullName' | translate}} <strong>*</strong></label>
-        <input ng-model="promotion.fullName" type="text" class="input-text" required/>
-        <div class="error-messages">{{error['promotion.fullName']}}</div>
-      </div>
-      <div class="partner-company-field">
-        <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
-        <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="20" required only-digits-string/>
-        <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
-      </div>
-      <div class="partner-company-field">
-        <label>{{'emailAddress' | translate}} <strong>*</strong></label>
-        <input ng-model="promotion.email" type="email" class="input-text" required name="email" id="txtEmailPromotion"/>
-        <div class="error-messages">{{error['promotion.email']}}</div>
-      </div>
-      <div class="partner-company-field">
-        <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
-        <div class="selection-group">
-          <ul>
-            <li>
-              <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'" value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
-              <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
-            </li>
-            <li>
-              <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod" id="rdPayment02"/>
-              <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="partner-company-field">
-        <div class="agree-registration">
-          <input ng-model="promotion.agree"
-                 type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
-          <label for="iAgree">{{'iAgree' | translate }}</label>
-        </div>
-      </div>
+      <form novalidate name="promotionForm" autocomplete="off">
+        <p translate="desHowToGetIt"></p>
 
-      <div class="apply-now-block">
-        <button class="btn btn-primary btn-flat disabled" ng-click="sendCitibankPromotion()" translate="applyNow"></button>
-      </div>
+        <div class="partner-company-field">
+          <label>{{'fullName' | translate}} <strong>*</strong></label>
+          <input ng-model="promotion.fullName" type="text" class="input-text" required/>
+
+          <div class="error-messages">{{error['promotion.fullName']}}</div>
+        </div>
+        <div class="partner-company-field">
+          <label>{{'mobileNumber' | translate}} <strong>*</strong></label>
+          <input ng-model="promotion.mobileNumber" type="text" class="input-text" maxlength="20" required
+                 only-digits-string/>
+
+          <div class="error-messages">{{error['promotion.mobileNumber']}}</div>
+        </div>
+        <div class="partner-company-field">
+          <label>{{'emailAddress' | translate}} <strong>*</strong></label>
+          <input ng-model="promotion.email" type="email" class="input-text" required id="txtEmailPromotion"
+                 />
+
+          <div class="error-messages">{{error['promotion.email']}}</div>
+        </div>
+        <div class="partner-company-field">
+          <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
+
+          <div class="selection-group">
+            <ul>
+              <li>
+                <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'"
+                       value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
+                <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
+              </li>
+              <li>
+                <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod"
+                       id="rdPayment02"/>
+                <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="partner-company-field">
+          <div class="agree-registration">
+            <input ng-model="promotion.agree"
+                   type="checkbox" id="iAgree" required ng-click="checkSelect()"/>
+            <label for="iAgree">{{'iAgree' | translate }}</label>
+          </div>
+        </div>
+
+        <div class="apply-now-block">
+          <button class="btn btn-primary btn-flat disabled" ng-click="sendCitibankPromotion()"
+                  translate="applyNow"></button>
+        </div>
+      </form>
     </div>
 
     <div class="note-Partner-Company-Form">

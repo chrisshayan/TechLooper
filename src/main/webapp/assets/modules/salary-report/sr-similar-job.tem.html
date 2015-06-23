@@ -98,7 +98,7 @@
           </div>
           <div class="row email-similar-jobs-field">
             <label for="txtEmailJobAlert">{{'myEmail' | translate}} <strong>*</strong></label>
-            <input name="email" ng-model="jobAlert.email" type="email" required tl-model
+            <input ng-model="jobAlert.email" type="email" required tl-model
                    id="txtEmailJobAlert" placeholder="{{'emailAddress' | translate}}" focus-on="emailJobAlert"/>
             <div class="error-messages">
               {{error['jobAlert.email'] }}

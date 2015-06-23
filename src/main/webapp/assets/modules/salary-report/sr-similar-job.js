@@ -5,26 +5,24 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
     templateUrl: "modules/salary-report/sr-similar-job.tem.html",
     link: function (scope, element, attr, ctrl) {
       var timeToSends = $.extend(true, [], jsonValue.timeToSends);
-      var lastHideButton = undefined;
-      scope.doJobAlert = function ($event) {
-        $('.email-similar-jobs-block').slideDown("normal");
-        //$('#txtEmailJobAlert').focus();
-        //scope.forcusme = true;
 
+      var emailSuggestion = "";
+
+      scope.doJobAlert = function ($event) {
         $event.preventDefault();
+
+        $('.email-similar-jobs-block').slideDown("normal");
         focus("emailJobAlert");
 
-        delete scope.state.showJobAlertButton;
-
-        if($('#txtEmailJobAlert').val() == ''){
-          $('#txtEmailJobAlert').val(scope.$parent.email);
-        }
-        scope.$parent.email = scope.promotion.email;
         scope.jobAlert = angular.copy(scope.salaryReview);
         scope.jobAlert.frequency = timeToSends[0].id;
+        scope.jobAlert.email = emailSuggestion;
+        emailSuggestion = "";
+
+        delete scope.state.showJobAlertButton;
         delete scope.jobAlert.salaryReport;
         delete scope.jobAlert.topPaidJobs;
-      }
+      };
 
       scope.hiddenJobAlertForm = function () {
         //$('.email-similar-jobs-block').hide();
@@ -38,21 +36,17 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         if (!$.isEmptyObject(scope.error)) {
           return;
         }
+
         var jobAlert = $.extend({}, scope.jobAlert);
         jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
         jobAlert.lang = jsonValue.languages['' + $translate.use()];
         jobAlert.salaryReviewId = jobAlert.createdDateTime;
         jobAlert.frequency = 3;// is Weekly, @see vnwConfigService.timeToSendsSelectize
+
+        scope.$emit("email changed", scope.jobAlert.email);
+
         connectionFactory.createJobAlert(jobAlert).then(function () {
-          var emailVal = $('#txtEmailJobAlert');
           $('.email-similar-jobs-block').slideUp("normal");
-          scope.$parent.email = emailVal.val();
-          if($('#txtEmailReport').val() == ''){
-            $('#txtEmailReport').val(scope.$parent.email);
-          }
-          if($('#txtEmailPromotion').val() == ''){
-            $('#txtEmailPromotion').val(scope.$parent.email);
-          }
         });
         scope.state.showJobAlertThanks = true;
       }
@@ -74,18 +68,16 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         }, 200);
       }, true);
 
-      //var jobTitleSuggestion = function (jobTitle) {
-      //  if (!jobTitle) {return;}
-      //
-      //  $http.get("suggestion/jobTitle/" + jobTitle)
-      //    .success(function (data) {
-      //      scope.state.jobAlertTitles = data.items.map(function (item) {return item.name;});
-      //    });
-      //}
-      //
-      //scope.$watch("jobAlert.jobTitle", function (newVal) {
-      //  jobTitleSuggestion(newVal);
-      //});
+      scope.$on("email changed", function (event, email) {
+        if (scope.jobAlert && !scope.jobAlert.email) {
+          scope.jobAlert.email = email;
+        }
+        else {
+          emailSuggestion = email;
+        }
+      });
+
+      scope.$on("state change success", function() {emailSuggestion = "";})
     }
   }
 });
