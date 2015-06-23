@@ -1,4 +1,4 @@
-techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService) {
+techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService, localStorageService) {
   return {
     restrict: "E",
     replace: true,
@@ -26,9 +26,10 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
-            localStorage.setItem('PROMOTION-KEY', 'yes');
+            localStorageService.set('PROMOTION-KEY', 'yes');
+
           }).error(function() {
-             localStorage.setItem('PROMOTION-KEY', 'yes');
+            localStorageService.set('PROMOTION-KEY', 'yes');
           });
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;
