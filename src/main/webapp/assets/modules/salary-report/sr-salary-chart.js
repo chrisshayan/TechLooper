@@ -1,4 +1,4 @@
-techlooper.directive("srSalaryChart", function ($translate) {
+techlooper.directive("srSalaryChart", function ($translate, $location) {
   return {
     restrict: "A",
     replace: true,
@@ -18,6 +18,16 @@ techlooper.directive("srSalaryChart", function ($translate) {
         window.open(
           'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + '/renderSalaryReport/' + $translate.use() + '/' + scope.salaryReview.createdDateTime,
           'name', 'width=450,height=350');
+      }
+
+      scope.openGetPromotedPage = function () {
+        ga("send", {
+          hitType: "event",
+          eventCategory: "salaryreport",
+          eventAction: "click",
+          eventLabel: "getpromotedbtn"
+        });
+        $location.path('/get-promoted');
       }
     }
   }
