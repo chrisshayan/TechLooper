@@ -1,4 +1,4 @@
-techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService) {
+techlooper.directive("srPromotionCompany", function ($http, validatorService, vnwConfigService, localStorageService) {
   return {
     restrict: "E",
     replace: true,
@@ -27,15 +27,17 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
+            localStorageService.set('PROMOTION-KEY', 'yes');
             var emailVal = $('#txtEmailPromotion');
-            localStorage.setItem('PROMOTION-KEY', 'yes');
             scope.$parent.email = emailVal.val();
-              if($('#txtJobAlert').val() == ''){
-                $('#txtJobAlert').val(scope.$parent.email);
-              }
-              if($('#txtEmailReport').val() == ''){
-                $('#txtEmailReport').val(scope.$parent.email);
-              }
+            if($('#txtEmailReport').val() == ''){
+              $('#txtEmailReport').val(scope.$parent.email);
+            }
+            if($('#txtEmailJobAlert').val() == ''){
+              $('#txtEmailJobAlert').val(scope.$parent.email);
+            }
+          }).error(function() {
+            localStorageService.set('PROMOTION-KEY', 'yes');
           });
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;

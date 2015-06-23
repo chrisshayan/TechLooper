@@ -1,4 +1,4 @@
-techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService, $http) {
+techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService, focus) {
   return {
     restrict: "E",
     replace: true,
@@ -6,10 +6,16 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
     link: function (scope, element, attr, ctrl) {
       var timeToSends = $.extend(true, [], jsonValue.timeToSends);
       var lastHideButton = undefined;
-      scope.doJobAlert = function () {
+      scope.doJobAlert = function ($event) {
         $('.email-similar-jobs-block').slideDown("normal");
-        $('#txtEmailJobAlert').focus();
+        //$('#txtEmailJobAlert').focus();
+        //scope.forcusme = true;
+
+        $event.preventDefault();
+        focus("emailJobAlert");
+
         delete scope.state.showJobAlertButton;
+
         if($('#txtEmailJobAlert').val() == ''){
           $('#txtEmailJobAlert').val(scope.$parent.email);
         }
@@ -41,11 +47,11 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
           var emailVal = $('#txtEmailJobAlert');
           $('.email-similar-jobs-block').slideUp("normal");
           scope.$parent.email = emailVal.val();
-          if($('#txtEmailPromotion').val() == ''){
-            $('#txtEmailPromotion').val(scope.$parent.email);
-          }
           if($('#txtEmailReport').val() == ''){
             $('#txtEmailReport').val(scope.$parent.email);
+          }
+          if($('#txtEmailPromotion').val() == ''){
+            $('#txtEmailPromotion').val(scope.$parent.email);
           }
         });
         scope.state.showJobAlertThanks = true;

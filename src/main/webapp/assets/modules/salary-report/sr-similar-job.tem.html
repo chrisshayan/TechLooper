@@ -45,7 +45,7 @@
       target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
     </div>
     <div class="email-me-similar-jobs" ng-show="state.showJobAlertButton">
-      <a ng-click="doJobAlert()" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
+      <a ng-click="doJobAlert($event)" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
     </div>
     <div class="email-similar-jobs-block" ng-show="!state.showJobAlertButton">
       <div class="ic-close" ng-click="hiddenJobAlertForm()" title="Close"> x</div>
@@ -99,7 +99,7 @@
           <div class="row email-similar-jobs-field">
             <label for="txtEmailJobAlert">{{'myEmail' | translate}} <strong>*</strong></label>
             <input name="email" ng-model="jobAlert.email" type="email" required tl-model
-                   id="txtEmailJobAlert" placeholder="" tabindex="1"/>
+                   id="txtEmailJobAlert" placeholder="{{'emailAddress' | translate}}" focus-on="emailJobAlert"/>
             <div class="error-messages">
               {{error['jobAlert.email'] }}
             </div>
