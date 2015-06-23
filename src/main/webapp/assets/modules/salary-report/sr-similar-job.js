@@ -1,4 +1,4 @@
-techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService, $http) {
+techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $timeout, $translate, validatorService, focus) {
   return {
     restrict: "E",
     replace: true,
@@ -6,9 +6,14 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
     link: function (scope, element, attr, ctrl) {
       var timeToSends = $.extend(true, [], jsonValue.timeToSends);
       var lastHideButton = undefined;
-      scope.doJobAlert = function () {
+      scope.doJobAlert = function ($event) {
         $('.email-similar-jobs-block').slideDown("normal");
-        $('#txtEmailJobAlert').focus();
+        //$('#txtEmailJobAlert').focus();
+        //scope.forcusme = true;
+
+        $event.preventDefault();
+        focus("emailJobAlert");
+
         delete scope.state.showJobAlertButton;
         if($('#txtEmailJobAlert').val() == ''){
           $('#txtEmailJobAlert').val(scope.$parent.email);

@@ -38,6 +38,7 @@
     "blueimp-bootstrap-image-gallery": "latest",
     "sprintf": "latest",
     "allmighty-autocomplete": "latest",
+    "ng-focus-on": "latest",
     "angular-sanitize": "latest"
   },
   "overrides": {
