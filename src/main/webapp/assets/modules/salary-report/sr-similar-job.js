@@ -11,7 +11,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
       scope.doJobAlert = function ($event) {
         $event.preventDefault();
 
-        $('.email-similar-jobs-block').slideDown("normal");
+        $('.email-similar-jobs-block').show();
         focus("emailJobAlert");
 
         scope.jobAlert = angular.copy(scope.salaryReview);
@@ -26,8 +26,8 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
       scope.hiddenJobAlertForm = function () {
         //$('.email-similar-jobs-block').hide();
-        $('.email-me-similar-jobs').slideDown("normal");
-        $('.email-similar-jobs-block').slideUp("normal");
+        $('.email-me-similar-jobs').show();
+        $('.email-similar-jobs-block').hide();
         scope.state.showJobAlertButton = true;
       }
 
@@ -49,7 +49,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         scope.$emit("email changed", scope.jobAlert.email);
 
         connectionFactory.createJobAlert(jobAlert).then(function () {
-          $('.email-similar-jobs-block').slideUp("normal");
+          $('.email-similar-jobs-block').hide();
         });
         scope.state.showJobAlertThanks = true;
       }
