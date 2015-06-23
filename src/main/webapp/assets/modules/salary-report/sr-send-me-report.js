@@ -15,11 +15,11 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
           return;
         }
         scope.$parent.email = emailVal.val();
-        if($('#txtEmailPromotion').val() == ''){
-          $('#txtEmailPromotion').val(scope.$parent.email);
-        }
         if($('#txtEmailJobAlert').val() == ''){
           $('#txtEmailJobAlert').val(scope.$parent.email);
+        }
+        if($('#txtEmailPromotion').val() == ''){
+          $('#txtEmailPromotion').val(scope.$parent.email);
         }
         scope.sendMeReport.salaryReviewId = scope.salaryReview.createdDateTime;
         scope.sendMeReport.lang = $translate.use();

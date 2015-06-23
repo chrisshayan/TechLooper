@@ -10,6 +10,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         $('.email-similar-jobs-block').slideDown("normal");
         $('#txtEmailJobAlert').focus();
         delete scope.state.showJobAlertButton;
+
         if($('#txtEmailJobAlert').val() == ''){
           $('#txtEmailJobAlert').val(scope.$parent.email);
         }
@@ -41,11 +42,11 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
           var emailVal = $('#txtEmailJobAlert');
           $('.email-similar-jobs-block').slideUp("normal");
           scope.$parent.email = emailVal.val();
-          if($('#txtEmailPromotion').val() == ''){
-            $('#txtEmailPromotion').val(scope.$parent.email);
-          }
           if($('#txtEmailReport').val() == ''){
             $('#txtEmailReport').val(scope.$parent.email);
+          }
+          if($('#txtEmailPromotion').val() == ''){
+            $('#txtEmailPromotion').val(scope.$parent.email);
           }
         });
         scope.state.showJobAlertThanks = true;
