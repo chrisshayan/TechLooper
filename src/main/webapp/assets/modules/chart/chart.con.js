@@ -16,17 +16,19 @@ angular.module('Chart').controller('chartController', function ($scope, jsonValu
   });
 
   $scope.changeTo = function (type) {
-    $('.switch-data').find('li').removeClass('active');
     if (type == 'JOB') {
       localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
+      //localStorageService.cookie.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
       $route.reload();
     }
     else {
+      //localStorageService.cookie.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
       localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
       $route.reload();
     }
   }
 
+  //$scope.type = localStorageService.cookie.get('PIE_CHART_ITEM_TYPE');
   $scope.type = localStorageService.get('PIE_CHART_ITEM_TYPE');
   $scope.type = $scope.type || "JOB";
 
