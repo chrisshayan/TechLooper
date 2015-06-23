@@ -7,6 +7,7 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
       var emailVal = $('#txtEmailReport');
       if(emailVal.val() ==''){
         emailVal.val(scope.$parent.email);
+        emailVal.attr('value',scope.$parent.email);
       }
       scope.sendMeNow = function () {
         var error = validatorService.validate($(".send-me-report-form").find("[validate]:visible"));
@@ -17,9 +18,11 @@ techlooper.directive("srSendMeReport", function ($http, $translate, validatorSer
         scope.$parent.email = emailVal.val();
         if($('#txtEmailJobAlert').val() == ''){
           $('#txtEmailJobAlert').val(scope.$parent.email);
+          $('#txtEmailJobAlert').attr('value', scope.$parent.email);
         }
         if($('#txtEmailPromotion').val() == ''){
           $('#txtEmailPromotion').val(scope.$parent.email);
+          $('#txtEmailPromotion').attr('value', scope.$parent.email);
         }
         scope.sendMeReport.salaryReviewId = scope.salaryReview.createdDateTime;
         scope.sendMeReport.lang = $translate.use();
