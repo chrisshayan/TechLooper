@@ -58,6 +58,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
           class: "active showNavi",
           onClick: function (tab) {
             $scope.changeState(state.report);
+            delete $scope.$parent.email;
+            $('input[type=email]').val('');
           }
         }
       ]

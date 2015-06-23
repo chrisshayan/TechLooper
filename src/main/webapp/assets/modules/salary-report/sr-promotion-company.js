@@ -27,15 +27,17 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", scope.promotion)
           .success(function () {
-            var emailVal = $('#txtEmailPromotion');
             localStorage.setItem('PROMOTION-KEY', 'yes');
+            var emailVal = $('#txtEmailPromotion');
             scope.$parent.email = emailVal.val();
-              if($('#txtJobAlert').val() == ''){
-                $('#txtJobAlert').val(scope.$parent.email);
-              }
-              if($('#txtEmailReport').val() == ''){
-                $('#txtEmailReport').val(scope.$parent.email);
-              }
+            if($('#txtEmailReport').val() == ''){
+              $('#txtEmailReport').val(scope.$parent.email);
+            }
+            if($('#txtEmailJobAlert').val() == ''){
+              $('#txtEmailJobAlert').val(scope.$parent.email);
+            }
+          }).error(function() {
+             localStorage.setItem('PROMOTION-KEY', 'yes');
           });
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;
