@@ -3,8 +3,8 @@
     <p>{{ 'slogan' | translate }}</p>
     <div class="switch-data">
       <ul>
-        <li class="active" data-chart = 'SALARY' translate>monthlySalary</li>
-        <li data-chart = 'JOB' translate>currentJobs</li>
+        <li ng-click="changeTo('SALARY')" ng-class="{active: type === 'SALARY'}" data-chart='SALARY' translate>monthlySalary</li>
+        <li ng-click="changeTo('JOB')" ng-class="{active: type === 'JOB'}" data-chart='JOB' translate>currentJobs</li>
       </ul>
     </div>
     <div class="col-md-12 pie-chart-block">

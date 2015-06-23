@@ -154,26 +154,26 @@ angular.module('Pie').factory('pieFactory', function (utils, jsonValue, termServ
         Highcharts.charts[0].series[0]
           .data[data4PieChart.terms.indexOf(term.term)].update([term.label, term.count]);
       }
-    },
-    switchChartData: function () {
-      if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
-        $('.switch-data').find('li').removeClass('active');
-        $('.switch-data').find('li[data-chart=JOB]').addClass('active');
-      }
-      //var key = instance.getChartData();
-      $('.switch-data').find('li').on('click', function () {
-        $('.switch-data').find('li').removeClass('active');
-        if ($(this).attr('data-chart') == 'JOB') {
-          localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
-          $route.reload();
-        }
-        else {
-          localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
-          $route.reload();
-        }
-        $(this).addClass('active');
-      });
     }
+    //switchChartData: function () {
+    //  if (localStorageService.get("PIE_CHART_ITEM_TYPE") === jsonValue.pieChartType.job) {
+    //    $('.switch-data').find('li').removeClass('active');
+    //    $('.switch-data').find('li[data-chart=JOB]').addClass('active');
+    //  }
+    //  //var key = instance.getChartData();
+    //  $('.switch-data').find('li').on('click', function () {
+    //    $('.switch-data').find('li').removeClass('active');
+    //    if ($(this).attr('data-chart') == 'JOB') {
+    //      localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.job);
+    //      $route.reload();
+    //    }
+    //    else {
+    //      localStorageService.set('PIE_CHART_ITEM_TYPE', jsonValue.pieChartType.salary);
+    //      $route.reload();
+    //    }
+    //    $(this).addClass('active');
+    //  });
+    //}
   }
 
   return instance;
