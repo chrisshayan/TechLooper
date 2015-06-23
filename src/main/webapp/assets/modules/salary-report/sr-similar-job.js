@@ -14,6 +14,9 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         $('.email-similar-jobs-block').show();
         focus("emailJobAlert");
 
+        if (emailSuggestion.length === 0) {
+          emailSuggestion =  scope.jobAlert.email;
+        }
         scope.jobAlert = angular.copy(scope.salaryReview);
         scope.jobAlert.frequency = timeToSends[0].id;
         emailSuggestion.length > 0 && (scope.jobAlert.email = emailSuggestion);
