@@ -16,13 +16,13 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
           return;
         }
 
+        scope.$emit("email changed", scope.promotion.email);
+        
         if (scope.promotion.paymentMethod !== 'BANK_TRANSFER') {
           scope.state.showThanksCash = true;
           $('.partner-company-content').hide();
           return;
         }
-
-        scope.$emit("email changed", scope.promotion.email);
 
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
         $http.post("promotion/citibank/creditCard", scope.promotion)
