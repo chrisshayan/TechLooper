@@ -18,6 +18,8 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
 
         scope.$emit("email changed", scope.promotion.email);
 
+        localStorageService.set('PROMOTION-KEY', 'yes');
+        
         if (scope.promotion.paymentMethod !== 'BANK_TRANSFER') {
           scope.state.showThanksCash = true;
           $('.partner-company-content').hide();
@@ -25,12 +27,12 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
         }
 
         scope.promotion.salaryReviewId = scope.salaryReview.createdDateTime;
-        $http.post("promotion/citibank/creditCard", scope.promotion)
-          .success(function () {
-            localStorageService.set('PROMOTION-KEY', 'yes');
-          }).error(function() {
-            localStorageService.set('PROMOTION-KEY', 'yes');
-          });
+        $http.post("promotion/citibank/creditCard", scope.promotion);
+          //.success(function () {
+          //  localStorageService.set('PROMOTION-KEY', 'yes');
+          //}).error(function() {
+          //  localStorageService.set('PROMOTION-KEY', 'yes');
+          //});
         $('.partner-company-content').hide();
         //delete scope.state.showPromotion;
         scope.state.showThanksBankTransfer = true;
