@@ -81,9 +81,9 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
 
   //var viewsPromises = utils.toPromises($scope.viewsDefers);
   $q.all($scope.viewsDefers.getPromotedForm).then(function (data) {
-    var doPromotionWithParam = function (promotionInfo, forceValidation) {
+    var doPromotionWithParam = function (promotionInfo, ignoreValidation) {
       $scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
-      $scope.doPromotion(forceValidation);
+      $scope.doPromotion(ignoreValidation);
     }
 
     //http://localhost:8080/#/get-promoted?jobTitle=java&jobLevelIds=[5,6]&jobCategoryIds=[35,55,57]&lang=en&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted

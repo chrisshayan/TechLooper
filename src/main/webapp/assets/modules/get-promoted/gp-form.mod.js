@@ -5,10 +5,10 @@ techlooper.directive("getPromotedForm", function ($http, userPromotionService, $
     templateUrl: "modules/get-promoted/gp-form.tem.html",
     link: function (scope, element, attr, ctrl) {
 
-      //TODO refactor to remove forceValidation
-      scope.doPromotion = function (forceValidation) {
+      //TODO refactor to remove ignoreValidation
+      scope.doPromotion = function (ignoreValidation) {
         scope.promotionForm.$setSubmitted();
-        if (!forceValidation && !scope.promotionForm.$valid) {
+        if (!ignoreValidation && !scope.promotionForm.$valid) {
           return false;
         }
         scope.masterPromotion = angular.copy(scope.promotionInfo);
