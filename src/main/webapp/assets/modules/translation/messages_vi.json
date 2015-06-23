@@ -231,7 +231,7 @@
   "desHowToGetIt": "Vui lòng điền thông tin của bạn bên dưới và các tư vấn viên của chúng tôi sẽ tiến hành những bước tiếp theo để hoàn thành việc đăng ký thẻ.",
   "fullName": "Tên Đầy Đủ:",
   "mobileNumber": "Điện Thoại Di Động:",
-  "emailAddress": "Địa Chỉ Email:",
+  "emailAddressField": "Địa Chỉ Email:",
   "salaryPaymentMethod": "Cách Thức Nhận Lương",
   "paymentMethodOption1": "Tài Khoản Ngân Hàng",
   "paymentMethodOption2": "Tiền Mặt",
