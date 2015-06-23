@@ -7,9 +7,6 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
       scope.showPromotion = function () {
         delete scope.state.showAskPromotion;
         scope.state.showPromotionForm = true;
-        //if($('#txtEmailPromotion').val() == ''){
-        //  $('#txtEmailPromotion').val(scope.$parent.email);
-        //}
       }
 
       scope.sendCitibankPromotion = function () {
