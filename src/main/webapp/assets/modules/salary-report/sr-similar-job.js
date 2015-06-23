@@ -16,7 +16,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
         scope.jobAlert = angular.copy(scope.salaryReview);
         scope.jobAlert.frequency = timeToSends[0].id;
-        scope.jobAlert.email = emailSuggestion;
+        emailSuggestion.length > 0 && (scope.jobAlert.email = emailSuggestion);
         emailSuggestion = "";
 
         delete scope.state.showJobAlertButton;
@@ -33,7 +33,7 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
       scope.createJobAlert = function () {
         var emailVal = $('#txtEmailJobAlert');
-        scope.$parent.email = emailVal.val();
+        //scope.$parent.email = emailVal.val();
         scope.jobAlert.email = emailVal.val();
         scope.error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
         if (!$.isEmptyObject(scope.error)) {
