@@ -16,10 +16,6 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
 
         delete scope.state.showJobAlertButton;
 
-        if($('#txtEmailJobAlert').val() == ''){
-          $('#txtEmailJobAlert').val(scope.$parent.email);
-          $('#txtEmailJobAlert').attr('value',scope.$parent.email);
-        }
         scope.$parent.email = scope.promotion.email;
         scope.jobAlert = angular.copy(scope.salaryReview);
         scope.jobAlert.frequency = timeToSends[0].id;
@@ -41,16 +37,6 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
         scope.error = validatorService.validate($(".email-similar-jobs-block").find("[tl-model]"));
         if (!$.isEmptyObject(scope.error)) {
           return;
-        }
-
-
-        if($('#txtEmailReport').val() == ''){
-          $('#txtEmailReport').val(scope.$parent.email);
-          $('#txtEmailReport').attr('value',scope.$parent.email);
-        }
-        if($('#txtEmailPromotion').val() == ''){
-          $('#txtEmailPromotion').val(scope.$parent.email);
-          $('#txtEmailPromotion').attr('value',scope.$parent.email);
         }
         var jobAlert = $.extend({}, scope.jobAlert);
         jobAlert.jobLevel = jsonValue.jobLevelsMap['' + jobAlert.jobLevelIds].alertId;
@@ -79,7 +65,6 @@ techlooper.directive("srSimilarJob", function (jsonValue, connectionFactory, $ti
           timeout = undefined;
         }, 200);
       }, true);
-
       //var jobTitleSuggestion = function (jobTitle) {
       //  if (!jobTitle) {return;}
       //
