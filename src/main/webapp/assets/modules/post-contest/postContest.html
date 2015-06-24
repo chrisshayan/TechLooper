@@ -1,0 +1,22 @@
+<div>
+  <div class="navi-step-salary-review" ng-class="{fixed: scroll > 149}">
+    <ul>
+      <li ng-class="{active: state.showChallenge}">
+        <h2 translate="aboutYourChallenge"></h2>
+        <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+      </li>
+      <li ng-class="{active: state.showTimeline}">
+        <h2 translate="timeline"></h2>
+        <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+      </li>
+      <li ng-class="{active: state.showReward}">
+        <h2 translate="yourReward"></h2>
+        <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+      </li>
+    </ul>
+  </div>
+
+  <post-contest-challenge ng-show="state.showChallenge"></post-contest-challenge>
+  <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
+  <post-contest-reward ng-show="state.showReward"></post-contest-reward>
+</div>

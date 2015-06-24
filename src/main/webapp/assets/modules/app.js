@@ -164,7 +164,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "contestController"
       })
       .when("/post-contest", {
-        templateUrl: "modules/post-contest/post-contest.html",
+        templateUrl: "modules/post-contest/postContest.html",
         controller: "postContestController"
       })
       .otherwise({
