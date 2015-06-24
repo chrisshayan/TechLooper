@@ -362,7 +362,7 @@
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
+                                        <td align="left" style="padding: 10px; width: 55%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
                                         <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
@@ -378,7 +378,7 @@
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#000">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}%</strong></td>
+                                        <td align="left" style="padding: 10px; width: 55%; padding-left: 15px"><strong style="font-size: 25px; font-weight: 500;">${salaryReview.salaryReport.percentRank}%</strong></td>
                                         <td align="left" style="padding: 10px"><strong style="font-size: 25px; font-weight: 500;">$${salaryReview.salaryReport.netSalary?string[",##0"]}</strong></td>
                                       </tr>
                                     </table>
@@ -394,7 +394,7 @@
                                   <td align="left">
                                     <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
                                       <tr style="color:#555">
-                                        <td align="left" style="padding: 10px; width: 35%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
+                                        <td align="left" style="padding: 10px; width: 55%; padding-left: 15px; font-size: 14px">${salaryRange.percent}%</td>
                                         <td align="left" style="padding: 10px; font-size: 14px">$${salaryRange.percentile?string[",##0"]}</td>
                                       </tr>
                                     </table>
