@@ -292,5 +292,7 @@
   "title": "Title",
   "category": "Category",
   "youWantToLearnMoreTopSkills": "Do you want to learn more top skills above? <strong>*</strong>",
-  "employees": "employees"
+  "employees": "employees",
+  "business": "Business",
+  "personal": "Personal"
 }
