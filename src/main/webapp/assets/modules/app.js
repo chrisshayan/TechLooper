@@ -163,6 +163,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/contest/contest.tem.html",
         controller: "contestController"
       })
+      .when("/post-contest", {
+        templateUrl: "modules/post-contest/post-contest.html",
+        controller: "postContestController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
