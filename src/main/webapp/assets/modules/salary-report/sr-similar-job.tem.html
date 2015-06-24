@@ -19,8 +19,8 @@
               <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
               <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
               <li ng-show="job.skills.length">
-              <span class="skills ellipsis">
-                <i ng-repeat="skill in job.skills" class="ellipsis">{{skill}}</i>
+              <span class="skills">
+                <i ng-repeat="skill in job.skills">{{skill}}</i>
               </span>
               </li>
             </ul>
