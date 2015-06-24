@@ -4,21 +4,24 @@ techlooper.controller("postContestController", function ($scope) {
     challenge: {
       showChallenge: true,
       isValid: function () {
-        return true;
+        $scope.challengeForm.$setSubmitted();
+        return $scope.challengeForm.$valid();
       }
     },
 
     timeline: {
       showTimeline: true,
       isValid: function () {
-        return true;
+        $scope.timelineForm.$setSubmitted();
+        return $scope.timelineForm.$valid();
       }
     },
 
     reward: {
       showReward: true,
       isValid: function () {
-        return true;
+        $scope.rewardForm.$setSubmitted();
+        return $scope.rewardForm.$valid();
       }
     }
   }
