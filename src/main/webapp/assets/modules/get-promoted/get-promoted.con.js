@@ -79,13 +79,13 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
     getPromotedForm: $q.defer()
   };
 
+  var doPromotionWithParam = function (promotionInfo, ignoreValidation) {
+    $scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
+    $scope.doPromotion(ignoreValidation);
+  }
+
   //var viewsPromises = utils.toPromises($scope.viewsDefers);
   $q.all($scope.viewsDefers.getPromotedForm).then(function (data) {
-    var doPromotionWithParam = function (promotionInfo, ignoreValidation) {
-      $scope.promotionInfo = angular.copy(userPromotionService.refinePromotionInfo(promotionInfo));
-      $scope.doPromotion(ignoreValidation);
-    }
-
     //http://localhost:8080/#/get-promoted?jobTitle=java&jobLevelIds=[5,6]&jobCategoryIds=[35,55,57]&lang=en&utm_source=getpromotedemail&utm_medium=skilltrendsbutton&utm_campaign=howtogetpromoted
     var param = $location.search();
     if (param.id) {
@@ -102,7 +102,7 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
   $scope.changeState = function (st) {
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
-    $scope.$emit("stateChanged");
+    $scope.$emit("$stateChangeSuccess");
   }
 
   $scope.changeState("default");

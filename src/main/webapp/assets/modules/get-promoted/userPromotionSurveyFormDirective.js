@@ -4,13 +4,13 @@ techlooper.directive("userPromotionSurveyForm", function ($http, utils) {
     replace: true,
     templateUrl: "modules/get-promoted/userPromotionSurveyForm.html",
     link: function (scope, element, attr, ctrl) {
-      var resetView = function() {
+      var resetView = function () {
         element.find(".survey-form-block").show();
         element.find(".survey-caret > i").addClass("fa-caret-up");
         element.find(".survey-caret > i").removeClass("fa-caret-down");
       }
 
-      scope.$on("stateChanged", function() {
+      scope.$on("$stateChangeSuccess", function () {
         delete scope.promotionSurvey;
         scope.promotionSurveyForm.$setPristine();
         scope.promotionSurveyForm.$setUntouched();
@@ -18,7 +18,7 @@ techlooper.directive("userPromotionSurveyForm", function ($http, utils) {
         resetView();
       });
 
-      scope.togglePromotionSurveyView = function() {
+      scope.togglePromotionSurveyView = function () {
         element.find(".survey-form-block").toggle();
         element.find(".survey-caret > i").toggleClass("fa-caret-up");
         element.find(".survey-caret > i").toggleClass("fa-caret-down");
@@ -35,10 +35,8 @@ techlooper.directive("userPromotionSurveyForm", function ($http, utils) {
         var getPromotedSurvey = angular.copy(scope.promotionSurvey);
         getPromotedSurvey.getPromotedId = scope.masterPromotion.id;
 
-        var request = {
-          getPromotedRequest: getPromotedRequest,
-          getPromotedSurvey: getPromotedSurvey
-        };//$.extend(true, {}, scope.promotionSurvey, {getPromotedId: scope.masterPromotion.id} );
+        var request = {getPromotedRequest: getPromotedRequest, getPromotedSurvey: getPromotedSurvey};
+
         $http.post("getPromoted/survey", request, {transformResponse: function (d, h) {return d;}})
           .success(function (data, status, headers, config) {
             scope.promotionSurveyForm.$sentSurvey = true;
