@@ -295,5 +295,14 @@
   "employees": "employees",
   "aboutYourChallenge": "About your challenge",
   "timeline_2": "Timeline",
-  "yourReward": "Your Reward"
+  "yourReward": "Your Reward",
+  "footer.business": "Business",
+  "footer.personal": "Personal",
+  "footer.getJobsAnalytics": "Get Analytics",
+  "footer.getSalaryReport": "Get Your Salary Report",
+  "footer.getPromoted": "How To Get Promoted",
+  "footer.joinTechLooperContest": "Join TechLooper Contest",
+  "footer.allContests": "All Contests",
+  "footer.priceAJob": "Price A Job",
+  "footer.postAContest": "Post A Contest"
 }
