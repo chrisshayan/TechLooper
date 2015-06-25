@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface VnwUserRepo extends ReadOnlyRepository<VnwUser, Long> {
 
-  VnwUser findByUsernameAndUserPassAllIgnoreCase(String username, String userPass);
+  VnwUser findByUsernameIgnoreCaseAndUserPass(String username, String userPass);
 }
