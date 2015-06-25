@@ -36,12 +36,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
             switch (rejection.status) {
               case 403:
               case 401:
-                if (localStorageService.get(jsonValue.storage.back2Me) === "true") {
-                  utils.sendNotification(jsonValue.notifications.loginFailed);
-                }
-                else {
-                  utils.sendNotification(jsonValue.notifications.cleanSession);
-                }
+                $location.path("/");
                 break;
 
               case 500:

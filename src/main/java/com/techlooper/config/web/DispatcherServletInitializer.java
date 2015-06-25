@@ -17,28 +17,30 @@
 package com.techlooper.config.web;
 
 import com.techlooper.config.CoreConfiguration;
+import com.techlooper.config.web.sec.SecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletRegistration.Dynamic;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    protected Class<?>[] getRootConfigClasses() {
-        return null;
-    }
+  protected Class<?>[] getRootConfigClasses() {
+    return null;
+  }
 
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{
-                CoreConfiguration.class,
-                WebConfiguration.class
-        };
-    }
+  protected Class<?>[] getServletConfigClasses() {
+    return new Class<?>[]{
+      CoreConfiguration.class,
+      WebConfiguration.class,
+      SecurityConfiguration.class
+    };
+  }
 
-    protected String[] getServletMappings() {
-        return new String[]{"/"};
-    }
+  protected String[] getServletMappings() {
+    return new String[]{"/"};
+  }
 
-    protected void customizeRegistration(Dynamic registration) {
-        registration.setInitParameter("dispatchOptionsRequest", "true");
-    }
+  protected void customizeRegistration(Dynamic registration) {
+    registration.setInitParameter("dispatchOptionsRequest", "true");
+  }
 }
