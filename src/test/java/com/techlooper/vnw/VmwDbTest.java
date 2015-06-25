@@ -7,6 +7,7 @@ import com.techlooper.repository.vnw.VnwUserRepo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
@@ -18,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by phuonghqh on 6/25/15.
  */
+@ActiveProfiles("has-db")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {BaseConfigurationTest.class, VmwDbConfiguration.class})
 public class VmwDbTest {
