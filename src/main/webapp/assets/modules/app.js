@@ -26,7 +26,7 @@ var techlooper = angular.module("Techlooper", [
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
-    $httpProvider.interceptors.push(function ($q, utils, jsonValue, localStorageService) {
+    $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location) {
         return {
           request: function (request) {
             return request || $q.when(request);
