@@ -2,6 +2,7 @@ package com.techlooper.vnw;
 
 import com.techlooper.config.BaseConfigurationTest;
 import com.techlooper.config.VmwDbConfiguration;
+import com.techlooper.entity.vnw.RoleName;
 import com.techlooper.repository.vnw.VnwUserRepo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +30,6 @@ public class VmwDbTest {
     String username = "phuonghqh@yopmail.com";
     String password = "1234567890";
     String hashPassword = org.apache.commons.codec.digest.DigestUtils.md5Hex(password);
-    Assert.assertNotNull(vnwUserRepo.findByUsernameIgnoreCaseAndUserPass(username, hashPassword));
+    Assert.assertNotNull(vnwUserRepo.findByUsernameIgnoreCaseAndUserPassAndRoleName(username, hashPassword, RoleName.EMPLOYER));
   }
 }
