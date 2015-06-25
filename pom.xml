@@ -271,53 +271,6 @@
       </build>
     </profile>
     <profile>
-      <id>dev</id>
-      <properties>
-        <env>dev</env>
-        <grunt.task>build</grunt.task>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.4</version>
-            <configuration>
-              <warSourceExcludes>assets/**</warSourceExcludes>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.9</version>
-            <executions>
-              <execution>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>add-resource</goal>
-                </goals>
-                <configuration>
-                  <resources>
-                    <resource>
-                      <directory>src/main/resources/dev</directory>
-                    </resource>
-                    <resource>
-                      <directory>src/main/resources/couchbase_view</directory>
-                      <targetPath>couchbase_view</targetPath>
-                    </resource>
-                    <resource>
-                      <directory>src/main/resources/template</directory>
-                      <targetPath>template</targetPath>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>staging</id>
       <properties>
         <env>staging</env>

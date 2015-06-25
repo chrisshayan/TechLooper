@@ -1,9 +1,6 @@
 package com.techlooper.entity.vnw;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by phuonghqh on 6/25/15.
@@ -11,6 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblregistrationinfo")
 public class VnwUser {
+
+  public static enum RoleNameEnum {EMPLOYER};
 
   @Id
   @Column(name = "userid")
@@ -20,6 +19,18 @@ public class VnwUser {
 
   @Column(name = "userpass")
   private String userPass;
+
+  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "youareid")
+  private RoleName roleName;
+
+  public RoleName getRoleName() {
+    return roleName;
+  }
+
+  public void setRoleName(RoleName roleName) {
+    this.roleName = roleName;
+  }
 
   public Long getUserId() {
     return userId;
