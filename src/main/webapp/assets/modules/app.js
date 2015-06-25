@@ -26,7 +26,7 @@ var techlooper = angular.module("Techlooper", [
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
-    $httpProvider.interceptors.push(function ($q, utils, jsonValue, localStorageService) {
+    $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location) {
         return {
           request: function (request) {
             return request || $q.when(request);
@@ -36,12 +36,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
             switch (rejection.status) {
               case 403:
               case 401:
-                if (localStorageService.get(jsonValue.storage.back2Me) === "true") {
-                  utils.sendNotification(jsonValue.notifications.loginFailed);
-                }
-                else {
-                  utils.sendNotification(jsonValue.notifications.cleanSession);
-                }
+                $location.path("/");
                 break;
 
               case 500:
