@@ -303,5 +303,7 @@
   "joinTechLooperContest": "Join TechLooper Contest",
   "allContests": "All Contests",
   "priceAJob": "Price A Job",
-  "postAContest": "Post A Contest"
+  "postAContest": "Post A Contest",
+  "copyright": "Copyright &copy; <span><a href='http://www.navigosgroup.com/' target='_blank'>Navigos Group</a></span> Joint Stock Company",
+  "companyAddress": "130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam"
 }
