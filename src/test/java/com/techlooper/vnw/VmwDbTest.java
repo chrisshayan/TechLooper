@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.security.MessageDigest;
@@ -27,9 +28,7 @@ public class VmwDbTest {
   public void testCheckVnwUser() throws NoSuchAlgorithmException {
     String username = "phuonghqh@yopmail.com";
     String password = "1234567890";
-    MessageDigest md5 = MessageDigest.getInstance("MD5");
-    md5.digest();
-    String hashPassword = new String(md5.digest(password.getBytes()));
+    String hashPassword = org.apache.commons.codec.digest.DigestUtils.md5Hex(password);
     Assert.assertNotNull(vnwUserRepo.findByUsernameIgnoreCaseAndUserPass(username, hashPassword));
   }
 }
