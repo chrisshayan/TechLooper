@@ -17,6 +17,7 @@
 package com.techlooper.config.web;
 
 import com.techlooper.config.CoreConfiguration;
+import com.techlooper.config.VmwDbConfiguration;
 import com.techlooper.config.web.sec.SecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -31,6 +32,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
   protected Class<?>[] getServletConfigClasses() {
     return new Class<?>[]{
       CoreConfiguration.class,
+      VmwDbConfiguration.class,
       WebConfiguration.class,
       SecurityConfiguration.class
     };

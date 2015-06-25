@@ -39,6 +39,7 @@
     "sprintf": "latest",
     "allmighty-autocomplete": "latest",
     "ng-focus-on": "latest",
+    "jquery.cookie": "latest",
     "angular-sanitize": "latest"
   },
   "overrides": {

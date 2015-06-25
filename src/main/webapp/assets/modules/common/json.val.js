@@ -198,7 +198,8 @@ angular.module("Common").constant("jsonValue", (function () {
       userProfile: "userProfile",
       priceJob: "priceJob",
       getPromoted: "getPromoted",
-      contest: "contest"
+      contest: "contest",
+      postContest: "postContest"
     },
 
     httpUri: {

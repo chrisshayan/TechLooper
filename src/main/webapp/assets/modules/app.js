@@ -26,7 +26,7 @@ var techlooper = angular.module("Techlooper", [
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
-    $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location) {
+    $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location, $rootScope) {
         return {
           request: function (request) {
             return request || $q.when(request);
@@ -35,8 +35,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           responseError: function (rejection) {
             switch (rejection.status) {
               case 403:
-              case 401:
-                $location.path("/");
+                $rootScope.lastPath = $location.path();
+                $location.path("/login");
                 break;
 
               case 500:
@@ -162,6 +162,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/post-contest/postContest.html",
         controller: "postContestController"
       })
+      .when("/login", {
+        templateUrl: "modules/auth/login.html",
+        controller: "loginController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -174,7 +178,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, $window) {
+                         utils, $rootScope, $translate, jsonValue, securityService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -191,7 +195,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     return rsLocationPathFn;
   }
 
-  var doTranslate = function() {
+  var doTranslate = function () {
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
       "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
       "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
@@ -212,7 +216,9 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $rootScope.jsonValue = jsonValue;
 
-  $('html, body').animate({ scrollTop: 0 });
+  $('html, body').animate({scrollTop: 0});
+
+  securityService.init();
 });
 
 techlooper.directive("navigation", function () {
