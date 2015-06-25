@@ -322,6 +322,10 @@
   "deliverables": "Deliverables: <strong>*</strong>",
   "deliverablesEX": "Updated UI prototype files. Text file to reviewers with change log: file names and line numbers.",
   "emailAddressReceive": "Email address to receive applications (limited to 5): <strong>*</strong>",
-  "emailAddressReceiveEX": "Ex: example@techlooper.com"
-
+  "emailAddressReceiveEX": "Ex: example@techlooper.com",
+  "subHeaderDeadlines": "Your Challenge has the following deadlines.",
+  "challengeStart": "Your Challenge Will Start On: <strong>*</strong>",
+  "challengeStartEX": "Ex: 24/6/2015",
+  "challengeRegister": "Contestants Have To Register By",
+  "challengeSubmit": "And Contestants Must Submit By"
 }

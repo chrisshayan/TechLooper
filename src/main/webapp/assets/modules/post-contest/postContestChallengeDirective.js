@@ -5,6 +5,7 @@ techlooper.directive("postContestChallenge", function ($http, utils) {
       templateUrl: "modules/post-contest/postContestChallenge.html",
       link: function (scope, element, attr, ctrl) {
         $('[data-toggle="tooltip"]').tooltip({html:true, placement: 'right'});
+        $('.date').datepicker();
       }
     }
 });
