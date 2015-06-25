@@ -27,7 +27,7 @@ techlooper.controller("postContestController", function ($scope) {
   }
 
   $scope.changeState = function (st) {
-    if (!$scope.state.isValid()) {
+    if ($scope.state && !$scope.state.isValid()) {
       return false;
     }
 
