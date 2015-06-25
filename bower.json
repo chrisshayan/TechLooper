@@ -39,8 +39,9 @@
     "sprintf": "latest",
     "allmighty-autocomplete": "latest",
     "ng-focus-on": "latest",
-    "angular-sanitize": "latest",
-    "bootstrap-datepicker": "latest"
+    "bootstrap-datepicker": "latest",
+    "jquery.cookie": "latest",
+    "angular-sanitize": "latest"
   },
   "overrides": {
     "jquery": {
