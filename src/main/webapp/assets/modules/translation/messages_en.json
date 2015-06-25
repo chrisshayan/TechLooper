@@ -329,7 +329,20 @@
   "challengeRegister": "Contestants Have To Register By: <strong>*</strong>",
   "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>",
   "userName": "Enter User Name/Email Address: <strong>*</strong>",
-  "userNameEX": "Ex: username/ example@vietnamworks.com",
+  "userNameEX": "Ex: username/example@vietnamworks.com",
   "password": "Enter Password: <strong>*</strong>",
-  "login": "Login"
+  "login": "Login",
+  "evaluateContestants":"You evaluate contestants deliverables:",
+  "qualityIdea": "Quality of Idea: <strong>*</strong>",
+  "qualityIdeaEX": "Ex: Includes creativity and originality",
+  "implementationIdea": "Implementation of Idea: <strong>*</strong>",
+  "implementationIdeaEX": "Ex: Includes how well the idea was executed by the developer",
+  "reviewStyle": "Review Style: <strong>*</strong>",
+  "reviewStyleEX": "Ex: Customer Sign-Off",
+  "publishingContest": "Before publishing the contest, define acceptance criteria and rewards.",
+  "rewardTheWinner": "You will reward the winner(s) with:",
+  "firstReward": "1st Place Reward (USD): <strong>*</strong>",
+  "secondReward": "2nd Place Reward (USD):",
+  "thirdReward": "3rd Place Reward (USD):",
+  "publishingChallenge": "publishing Challenge"
 }

@@ -74,6 +74,40 @@
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
         </div>
       </div>
+      <h3 translate="evaluateContestants"></h3>
+      <div class="post-contest-field">
+        <div class="post-contest-field-content">
+          <label translate="qualityIdea"></label>
+          <autocomplete required ng-model="contest.qualityIdea" data="state.jobTitles"
+                        attr-placeholder="{{'qualityIdeaEX' | translate}}" validate></autocomplete>
+          <div class="error-messages">error will be show here</div>
+        </div>
+        <div class="post-contest-field-tooltip">
+          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
+        </div>
+      </div>
+      <div class="post-contest-field">
+        <div class="post-contest-field-content">
+          <label translate="implementationIdea"></label>
+          <autocomplete required ng-model="contest.implementationIdea" data="state.jobTitles"
+                        attr-placeholder="{{'implementationIdeaEX' | translate}}" validate></autocomplete>
+          <div class="error-messages">error will be show here</div>
+        </div>
+        <div class="post-contest-field-tooltip">
+          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
+        </div>
+      </div>
+      <div class="post-contest-field">
+        <div class="post-contest-field-content">
+          <label translate="reviewStyle"></label>
+          <autocomplete required ng-model="contest.reviewStyle" data="state.jobTitles"
+                        attr-placeholder="{{'reviewStyleEX' | translate}}" validate></autocomplete>
+          <div class="error-messages">error will be show here</div>
+        </div>
+        <div class="post-contest-field-tooltip">
+          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
+        </div>
+      </div>
       <div class="post-contest-field submit">
         <button class="btn btn-primary btn-flat" translate="next"></button>
       </div>
