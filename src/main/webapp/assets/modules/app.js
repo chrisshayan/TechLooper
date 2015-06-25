@@ -35,8 +35,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           responseError: function (rejection) {
             switch (rejection.status) {
               case 403:
-                //$rootScope.lastPath = $location.path();
-                //$location.path("/login");
+                $rootScope.lastPath = $location.path();
+                $location.path("/login");
                 break;
 
               case 500:
@@ -188,12 +188,12 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   userService.initialize();
   signInService.init();
 
-  var locationPathFn = $location.path;
-  $location.path = function () {
-    var rsLocationPathFn = locationPathFn.apply($location, arguments);
-    utils.apply();
-    return rsLocationPathFn;
-  }
+  //var locationPathFn = $location.path;
+  //$location.path = function () {
+  //  var rsLocationPathFn = locationPathFn.apply($location, arguments);
+  //  utils.apply();
+  //  return rsLocationPathFn;
+  //}
 
   var doTranslate = function () {
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",

@@ -244,6 +244,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/post-contest/.test(path)) {
         return jsonValue.views.postContest;
       }
+      else if (/\/login/.test(path)) {
+        return jsonValue.views.login;
+      }
     },
 
     sum: function (array, prop) {

@@ -23,7 +23,9 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
     getCurrentUser: function () {
       var deffer = $q.defer();
-
+      apiService.getCurrentUser().success(function(data) {
+        console.log(data);
+      });
       return deffer.promise;
     },
 
