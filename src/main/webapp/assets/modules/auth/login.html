@@ -1,5 +1,33 @@
-<form novalidate name="loginForm" autocomplete="off" ng-submit="login()">
-  <input type="text" name="username" ng-model="username">
-  <input type="password" name="username" ng-model="password">
-  <button type="submit">Login</button>
-</form>
+<div class="sign-in-block">
+  <nav class="navbar">
+    <div class="logo-block text-center">
+      <div class="logo" id="logo">
+        <h1><a href="#/"> <img src="images/logo-black.svg" alt="Career Analytics. Awesome!"></a></h1>
+      </div>
+      <div class="vnw-logo">
+        <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vietnamworks-logo.svg" alt="Career Analytics. Awesome!"></a>
+      </div>
+    </div>
+  </nav>
+  <!--<div class="sign-in-background"></div>-->
+  <!--<div class="overlap-background"></div>-->
+  <div class="sign-in-content">
+    <div class="sign-in-form">
+      <form novalidate name="loginForm" autocomplete="off" ng-submit="login()">
+        <div class="sign-in-field">
+          <label for="txtUserName" translate="userName"></label>
+          <input id="txtUserName" class="input-style" type="text" name="username" ng-model="username" placeholder="{{'userNameEX' | translate}}">
+          <div class="error-messages">Error messages will be show here</div>
+        </div>
+        <div class="sign-in-field">
+          <label for="txtPassword" translate="password"></label>
+          <input id="txtPassword" class="input-style" type="password" name="username" ng-model="password">
+          <div class="error-messages">Error messages will be show here</div>
+        </div>
+        <div class="sign-in-field submit">
+          <button type="submit" translate="login" class="btn btn-primary btn-flat"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

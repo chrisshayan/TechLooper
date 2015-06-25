@@ -327,5 +327,9 @@
   "challengeStart": "Your Challenge Will Start On: <strong>*</strong>",
   "challengeStartEX": "Ex: 24/6/2015",
   "challengeRegister": "Contestants Have To Register By: <strong>*</strong>",
-  "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>"
+  "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>",
+  "userName": "Enter User Name/Email Address: <strong>*</strong>",
+  "userNameEX": "Ex: username/ example@vietnamworks.com",
+  "password": "Enter Password: <strong>*</strong>",
+  "login": "Login"
 }
