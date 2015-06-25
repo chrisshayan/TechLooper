@@ -295,9 +295,6 @@
   "category": "Ngành Nghề",
   "youWantToLearnMoreTopSkills": "Bạn có muốn học các kỹ năng hàng đầu ở trên không?<strong>*</strong>",
   "employees": "Nhân viên",
-  "aboutYourChallenge": "About your challenge",
-  "timeLine2": "Lịch trình",
-  "yourReward": "Your Reward",
   "business": "Cho Nhà Tuyển Dụng",
   "personal": "Cho Người Tìm Việc",
   "getAnalytics": "Phân Tích và Xu Hướng",
@@ -307,7 +304,27 @@
   "priceAJob": "Đánh Giá Tin Đăng Tuyển",
   "postAContest": "Đăng Tin Thử Thách",
   "copyright": "Copyright © Công Ty Cổ Phần <span><a href='http://www.navigosgroup.com/' target='_blank'>Navigos Group Việt Nam</a></span>",
-  "companyAddress": "130 Sương Nguyệt Ánh, Phường Bến Thành, Quận 1, TP.Hồ Chí Minh."
+  "companyAddress": "130 Sương Nguyệt Ánh, Phường Bến Thành, Quận 1, TP.Hồ Chí Minh.",
+  "aboutYourChallenge": "Nội dung thử thách",
+  "timeLine2": "Lịch trình",
+  "yourReward": "Giải Thưởng",
+  "postAChallenge": "Đăng Tin Thử Thách",
+  "descriptionChallengePost": "Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến.",
+  "subHeaderChallenge": "Hãy bắt đầu bằng những thông tin về thử thách của bạn.",
+  "challengeName": "Tên Thử Thách: <strong>*</strong>",
+  "challengeNameEX": "Ví dụ: Ứng Dụng Thực Tại Ảo",
+  "businessRequirements": "Yêu Cầu Nghiệp Vụ: <strong>*</strong>",
+  "businessRequirementsEX": "Mô tả mục đích của thử thách, vấn đề nghiệp vụ cần khắc phục, hay tổng quan cách thức tiếp cận và các yêu cầu chức năng (use cases) để giái quyết.",
+  "generalNotes": "Yêu Cầu Khác: <strong>*</strong>",
+  "generalNotesEX": "UI prototype phải sử dụng bootstrap. Thí sinh không được sử dụng jqtransfrom query plugin. Mọi trang phải có độ phản hồi cao. (responsive). Thí sinh phải tuân theo cách thức viết code, và cách thức tổ chức cấu trúc javascript hiện thời.",
+  "technologies": "Công nghệ (Tối đa 10): <strong>*</strong>",
+  "technologiesEX": "Ví dụ: Java, PHP, Python",
+  "documents": "Tài Liệu Liên Quan: <strong>*</strong>",
+  "documentsEX": "Cung cấp thông tin về UI Prototype và các tập tin thiết kế mới nhất cho thí sinh.",
+  "deliverables": "Yêu Cầu Sản phẩm: <strong>*</strong>",
+  "deliverablesEX": "Thí sinh phải gửi các UI prototype, mã nguồn với change log ghi rõ sự thay đổi trong quá trình phát triển.",
+  "emailAddressReceive": "Thông tin thí sinh tham gia thử thách sẽ gửi đến email (Tối đa 5 email): <strong>*</strong>",
+  "emailAddressReceiveEX": "Ví dụ: example@techlooper.com"
 }
 
 

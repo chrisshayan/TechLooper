@@ -1,11 +1,11 @@
 <form novalidate name="challengeForm" autocomplete="off">
   <div class="post-contest-block">
-    <p class="sub-header" translate=""></p>
+    <p class="sub-header" translate="subHeaderChallenge"></p>
     <div class="post-contest-form">
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
-          <input type="text" class="input-style"/>
+          <label for="txtChallengeName" translate="challengeName"></label>
+          <input type="text" id="txtChallengeName" class="input-style" placeholder="{{'challengeNameEX' | translate}}"/>
           <div class="error-messages">error will be show here</div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -14,8 +14,8 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
-          <textarea name="" id="" cols="" rows="" class="textarea-style"></textarea>
+          <label for="txtBusinessRequirements" translate="businessRequirements"></label>
+          <textarea name="" id="txtBusinessRequirements" cols="" rows="" class="textarea-style" placeholder="{{'businessRequirementsEX' | translate}}"></textarea>
           <div class="error-messages">error will be show here</div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -24,8 +24,8 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
-          <textarea name="" id="" cols="" rows="" class="textarea-style"></textarea>
+          <label for="txtGeneralNotes" translate="generalNotes">sfdwqvfe</label>
+          <textarea name="" id="txtGeneralNotes" cols="" rows="" class="textarea-style" placeholder="{{'generalNotesEX' | translate}}"></textarea>
           <div class="error-messages">error will be show here</div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -34,7 +34,7 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
+          <label translate="technologies"></label>
           <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig"
                        translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>
           <div class="error-messages">error will be show here</div>
@@ -45,8 +45,8 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
-          <textarea name="" id="" cols="" rows="" class="textarea-style"></textarea>
+          <label for="txtDocuments" translate="documents"></label>
+          <textarea name="" id="txtDocuments" cols="" rows="" class="textarea-style" placeholder="{{'documentsEX' | translate}}"></textarea>
           <div class="error-messages">error will be show here</div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -55,8 +55,8 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
-          <textarea name="" id="" cols="" rows="" class="textarea-style"></textarea>
+          <label for="txtDeliverables" translate="deliverables"></label>
+          <textarea name="" id="txtDeliverables" cols="" rows="" class="textarea-style" placeholder="{{'deliverablesEX' | translate}}"></textarea>
           <div class="error-messages">error will be show here</div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -65,7 +65,7 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="">sfdwqvfe</label>
+          <label translate="emailAddressReceive"></label>
           <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig"
                        translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>
           <div class="error-messages">error will be show here</div>
