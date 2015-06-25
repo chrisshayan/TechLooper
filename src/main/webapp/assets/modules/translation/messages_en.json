@@ -326,6 +326,6 @@
   "subHeaderDeadlines": "Your Challenge has the following deadlines.",
   "challengeStart": "Your Challenge Will Start On: <strong>*</strong>",
   "challengeStartEX": "Ex: 24/6/2015",
-  "challengeRegister": "Contestants Have To Register By",
-  "challengeSubmit": "And Contestants Must Submit By"
+  "challengeRegister": "Contestants Have To Register By: <strong>*</strong>",
+  "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>"
 }

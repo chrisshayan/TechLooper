@@ -324,7 +324,12 @@
   "deliverables": "Yêu Cầu Sản phẩm: <strong>*</strong>",
   "deliverablesEX": "Thí sinh phải gửi các UI prototype, mã nguồn với change log ghi rõ sự thay đổi trong quá trình phát triển.",
   "emailAddressReceive": "Thông tin thí sinh tham gia thử thách sẽ gửi đến email (Tối đa 5 email): <strong>*</strong>",
-  "emailAddressReceiveEX": "Ví dụ: example@techlooper.com"
+  "emailAddressReceiveEX": "Ví dụ: example@techlooper.com",
+  "subHeaderDeadlines": "Thử Thách diễn ra theo lịch trình như sau.",
+  "challengeStart": "Ngày Bắt Đầu: <strong>*</strong>",
+  "challengeStartEX": "Ví dụ: 24/6/2015",
+  "challengeRegister": "Thí Sinh Phải Đăng Ký Không Quá: <strong>*</strong>",
+  "challengeSubmit": "Và Thí Sinh Phải Gửi Kết Quả Không Quá: <strong>*</strong>"
 }
 
 
