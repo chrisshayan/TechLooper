@@ -250,7 +250,7 @@
   "basedOn": "Based on ",
   "jobPortResume": "job posts/resumes/applicants",
   "noDataSendMeReport": "Let us know your email. Then we can send you your report as soon as we have data.",
-  "tooLong": "Skill name can not exceed 40 characters",
+  "tooLong": "Skill name can not exceed 40 characters.",
   "noDataPaidJobs": "There are no job recommended for you at the moment... BUT you can use Email Me Similar Jobs.",
   "paidJobMessages1": "Have <strong>relevant jobs</strong> emailed to you <strong>as soon as they are posted</strong>.",
   "paidJobMessages2":"<strong>Be the first</strong> to apply and <strong>increase your chances</strong> to move up.",
