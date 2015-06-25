@@ -1,22 +1,41 @@
-<div>
-  <div class="navi-step-salary-review" ng-class="{fixed: scroll > 149}">
-    <ul>
-      <li ng-class="{active: state.showChallenge}">
-        <h2 translate="aboutYourChallenge"></h2>
-        <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
-      </li>
-      <li ng-class="{active: state.showTimeline}">
-        <h2 translate="timeline"></h2>
-        <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
-      </li>
-      <li ng-class="{active: state.showReward}">
-        <h2 translate="yourReward"></h2>
-        <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
-      </li>
-    </ul>
+<nav class="navbar" ng-show="!salaryReview.campaign">
+  <div class="logo-block text-center">
+    <div class="logo" id="logo">
+      <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+    </div>
+    <div class="vnw-logo">
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg"
+                                                                  alt="Career Analytics. Awesome!"></a>
+    </div>
   </div>
+</nav>
+<div class="salary-review-page">
+  <div class="salary-survey-block">
+    <h2>{{'salarySurvey' | translate}}</h2>
 
-  <post-contest-challenge ng-show="state.showChallenge"></post-contest-challenge>
-  <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
-  <post-contest-reward ng-show="state.showReward"></post-contest-reward>
+    <p translate>{{'salarySurveyContent' | translate}}</p>
+  </div>
+  <div class="salary-review-block">
+    <div class="salary-review-content" srcoll-window="scroll">
+      <div class="navi-step-salary-review" ng-class="{fixed: scroll > 149}">
+        <ul>
+          <li ng-class="{active: state.showChallenge}">
+            <h2 translate="aboutYourChallenge"></h2>
+            <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+          </li>
+          <li ng-class="{active: state.showTimeline}">
+            <h2 translate="timeLine2"></h2>
+            <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+          </li>
+          <li ng-class="{active: state.showReward}">
+            <h2 translate="yourReward"></h2>
+            <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+          </li>
+        </ul>
+      </div>
+      <post-contest-challenge ng-show="state.showChallenge"></post-contest-challenge>
+      <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
+      <post-contest-reward ng-show="state.showReward"></post-contest-reward>
+    </div>
+  </div>
 </div>
