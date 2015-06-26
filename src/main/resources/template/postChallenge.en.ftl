@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 500; color:#000000">About your challenge</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">About your challenge</strong>
                       </td>
                     </tr>
                     <tr>
@@ -184,7 +184,7 @@
                         <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
                           <tr>
                             <td width="100%" align="left" class="fullWidth">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Challenge Name:
@@ -302,7 +302,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 500; color:#000000">Timeline</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Timeline</strong>
                       </td>
                     </tr>
                     <tr>
@@ -315,7 +315,7 @@
                         <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
                           <tr>
                             <td width="100%" align="left" class="fullWidth">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Your Challenge Will Start On:
@@ -370,7 +370,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 500; color:#000000">Your Reward</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Your Reward</strong>
                       </td>
                     </tr>
                     <tr>
@@ -393,7 +393,7 @@
                         <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
                           <tr>
                             <td width="100%" align="left" class="fullWidth">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Quality of Idea:
@@ -460,7 +460,7 @@
                         <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
                           <tr>
                             <td width="100%" align="left" class="fullWidth">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto;" width="100%">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     1st Place Reward (USD):
