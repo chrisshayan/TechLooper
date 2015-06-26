@@ -5,12 +5,14 @@ import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserRegistration;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.*;
 import com.techlooper.repository.couchbase.UserRegistrationRepository;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.TalentSearchQuery;
 import com.techlooper.repository.userimport.UserImportRepository;
+import com.techlooper.repository.vnw.VnwUserRepo;
 import com.techlooper.service.TalentSearchDataProcessor;
 import com.techlooper.service.UserEvaluationService;
 import com.techlooper.service.UserService;
@@ -74,6 +76,9 @@ public class UserServiceImpl implements UserService {
 
   @Resource
   private SalaryReviewRepository salaryReviewRepository;
+
+  @Resource
+  private VnwUserRepo vnwUserRepo;
 
   public void save(UserEntity userEntity) {
     userRepository.save(userEntity);
@@ -249,6 +254,10 @@ public class UserServiceImpl implements UserService {
   public SalaryReviewDto findSalaryReviewById(String base64Id) {
     Long id = Long.parseLong(new String(Base64.getDecoder().decode(base64Id)));
     return dozerMapper.map(salaryReviewRepository.findOne(id), SalaryReviewDto.class);
+  }
+
+  public VnwUser findVnwUserByUsername(String username) {
+    return vnwUserRepo.findByUsernameIgnoreCase(username);
   }
 
 }

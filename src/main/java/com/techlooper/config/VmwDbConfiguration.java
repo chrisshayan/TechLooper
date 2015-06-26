@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -21,6 +22,7 @@ import java.beans.PropertyVetoException;
 /**
  * Created by phuonghqh on 6/25/15.
  */
+@Profile("has-db")
 @Configuration
 @EnableJpaAuditing
 @EnableTransactionManagement

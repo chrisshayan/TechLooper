@@ -11,4 +11,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface VnwUserRepo extends ReadOnlyRepository<VnwUser, Long> {
 
   VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName);
+
+  VnwUser findByUsernameIgnoreCase(String username);
 }

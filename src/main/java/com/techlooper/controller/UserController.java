@@ -236,7 +236,7 @@ public class UserController {
     }
   }
 
-  @PreAuthorize("hasAnyAuthority('LOGIN')")
+  @PreAuthorize("hasAnyAuthority('EMPLOYER')")
   @RequestMapping(value = "user/current", method = RequestMethod.GET)
   public UserInfo getCurrentUser(HttpServletRequest servletRequest) {
 //    return userService.findUserPrincipal(servletRequest.getRemoteUser());
