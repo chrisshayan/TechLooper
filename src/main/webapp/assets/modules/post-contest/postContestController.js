@@ -49,7 +49,7 @@ techlooper.controller("postContestController", function ($scope) {
 
           case "timeline-tab-class":
             return "active";
-          
+
           case "reward-tab-class":
             return "active showNavi";
         }

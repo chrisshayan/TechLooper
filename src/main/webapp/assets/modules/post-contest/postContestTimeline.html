@@ -6,12 +6,17 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeStart" translate="challengeStart"></label>
           <div class="input-group date">
-            <input id="dateChallengeStart" type="text" class="form-control" placeholder="{{'dateEx' | translate}}">
-                  <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                  </span>
+            <input id="dateChallengeStart" type="text" class="form-control"
+                   placeholder="{{'dateEx' | translate}}"
+                   name="startDate"
+                   ng-model="contest.startDate" touchable required>
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </span>
           </div>
-          <div class="error-messages">error will be show here</div>
+          <div class="error-messages"
+               ng-show="timelineForm.startDate.$error.required && (timelineForm.startDate.$touched || timelineForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -21,12 +26,17 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeRegister" translate="challengeRegister"></label>
           <div class="input-group date">
-            <input id="dateChallengeRegister" type="text" class="form-control" placeholder="{{'dateEx' | translate}}">
+            <input id="dateChallengeRegister" type="text" class="form-control"
+                   placeholder="{{'dateEx' | translate}}"
+                   name="registrationDate"
+                   ng-model="contest.registrationDate" touchable required>
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </span>
           </div>
-          <div class="error-messages">error will be show here</div>
+          <div class="error-messages"
+               ng-show="timelineForm.registrationDate.$error.required && (timelineForm.registrationDate.$touched || timelineForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -36,12 +46,17 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
-            <input id="dateChallengeSubmit" type="text" class="form-control" placeholder="{{'dateEx' | translate}}">
+            <input id="dateChallengeSubmit" type="text" class="form-control"
+                   placeholder="{{'dateEx' | translate}}"
+                   name="submissionDate"
+                   ng-model="contest.submissionDate" touchable required>
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </span>
           </div>
-          <div class="error-messages">error will be show here</div>
+          <div class="error-messages"
+               ng-show="timelineForm.submissionDate.$error.required && (timelineForm.submissionDate.$touched || timelineForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
