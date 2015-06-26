@@ -9,86 +9,101 @@
   </div>
 </nav>
 <div class="contest-detail-page">
-  <div class="row contest-name">
-    <h2>Augmented Reality App</h2>
-    <a href="#/post-contest" class="btn btn-primary btn-flat" translate="createNewContest"></a>
-  </div>
-  <div class="row timeline-reward-block">
-    <div class="col-md-7">
-      <div class="row">
-        <div class="col-md-4">
-          <p>1st Prize</p>
-          <strong>$35,000</strong>
+  <div class="contest-detail-content">
+    <div class="row contest-name">
+      <h2>Augmented Reality App</h2>
+      <!--<a href="#/post-contest" class="btn btn-primary btn-flat" translate="createNewContest"></a>-->
+    </div>
+    <div class="row timeline-reward-block">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4">
+            <p>1st Prize</p>
+            <strong>$35,000</strong>
+          </div>
+          <div class="col-md-4">
+            <p>2nd Prize</p>
+            <strong>$25,000</strong>
+          </div>
+          <div class="col-md-4">
+            <p>3rd Prize</p>
+            <strong>$15,000</strong>
+          </div>
         </div>
-        <div class="col-md-4">
-          <p>2nd Prize</p>
-          <strong>$25,000</strong>
+      </div>
+      <div class="col-md-4">
+        <div class="ic-time-down"></div>
+        <div class="time-block">
+          <h3 translate="currentPhase"></h3>
+          <p translate="registration"></p>
+          <p class="count-down-day"><strong>20</strong> {{'moreDayToSubmit' | translate}}</p>
         </div>
-        <div class="col-md-4">
-          <p>3rd Prize</p>
-          <strong>$15,000</strong>
+        <a translate="allViewDeadlines" ng-model="checked" ng-click="checked = !checked"></a>
+        <div class="timeline-information animate-show" ng-show="!checked">
+          <ul>
+            <li><span translate=""></span>06/24/2015</li>
+            <li><span translate=""></span>06/24/2015</li>
+            <li><span translate=""></span>06/24/2015</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="col-md-5">
-      <h3 translate=""></h3>
-      <p translate=""></p>
-      <p class="count-down-day" translate=""></p>
-      <a href="#" translate=""></a>
-      <div class="timeline-information">
-        <ul>
-          <li><span translate=""></span>06/24/2015</li>
-          <li><span translate=""></span>06/24/2015</li>
-          <li><span translate=""></span>06/24/2015</li>
-        </ul>
+    <div class="row registration-count">
+      <div class="col-md-12">
+        <p translate="registerNumber" translate-value-register-number="<strong>100</strong>"></p>
+        <a class="btn btn-primary btn-flat" translate="joinNow"></a>
       </div>
     </div>
-  </div>
-  <div class="row registration-count">
-    <div class="col-md-12">
-      <p translate=""></p>
-      <a href="" class="btn btn-flat" translate=""></a>
-    </div>
-  </div>
-  <div class="row contest-content-detail">
-    <div class="col-md-9">
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
+    <div class="row contest-content-detail">
+      <div class="col-md-9">
+        <div class="row contest-content-item">
+          <p class="title" translate="businessRequirements"></p>
+          <p class="detail">
+            Describe the purpose of the challenge, what is the business issue to fix, the general approach and the use cases to resolve.
+          </p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="generalNotes"></p>
+          <p class="detail">The UI prototype uses bootstrap. You must use it. It does not allow to use jqtransform query plugin. All pages are responsive. Follow the current styling structure, and javascript code structure.</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="technologies"></p>
+          <p class="detail">Java, PHP, Python</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="documents"></p>
+          <p class="detail">UI Prototype and updated design files are provided in challenge forums.</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="deliverables"></p>
+          <p class="detail">Updated UI prototype files. Text file to reviewers with change log: file names and line numbers.</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="emailAddressReceive"></p>
+          <p class="detail">
+            <span>example@techlooper.com</span>
+            <span>example@techlooper.com</span>
+            <span>example@techlooper.com</span>
+          </p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="qualityIdea"></p>
+          <p class="detail">Includes creativity and originality</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="implementationIdea"></p>
+          <p class="detail">Includes how well the idea was executed by the developer</p>
+        </div>
       </div>
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
-      </div>
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
-      </div>
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
-      </div>
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
-      </div>
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
-      </div>
-      <div class="row contest-content-item">
-        <p class="title" translate=""></p>
-        <p class="detail"></p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="social-share-list">
-        <h3 translate=""></h3>
-        <ul>
-          <li>
-            <a href=""></a>
-          </li>
-        </ul>
+      <div class="col-md-3">
+        <div class="social-share-list">
+          <h3 translate="share"></h3>
+          <ul>
+            <li>
+              <a class="salary-report-share"><i class="fa fa-facebook"></i> <span class="text" translate="share"></span></a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

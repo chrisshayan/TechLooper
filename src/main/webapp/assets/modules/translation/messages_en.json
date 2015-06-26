@@ -315,13 +315,13 @@
   "businessRequirementsEX": "Describe the purpose of the challenge, what is the business issue to fix, the general approach and the use cases to resolve.",
   "generalNotes": "General Notes: <strong>*</strong>",
   "generalNotesEX": "The UI prototype uses bootstrap. You must use it. It does not allow to use jqtransform query plugin. All pages are responsive. Follow the current styling structure, and javascript code structure.",
-  "technologies": "Technologies (limited to 10): <strong>*</strong>",
+  "technologies": "Technologies<span> (limited to 10)</span>: <strong>*</strong>",
   "technologiesEX": "Ex: Java, PHP, Python",
   "documents": "Documents: <strong>*</strong>",
   "documentsEX": "UI Prototype and updated design files are provided in challenge forums.",
   "deliverables": "Deliverables: <strong>*</strong>",
   "deliverablesEX": "Updated UI prototype files. Text file to reviewers with change log: file names and line numbers.",
-  "emailAddressReceive": "Email address to receive applications (limited to 5): <strong>*</strong>",
+  "emailAddressReceive": "Email address to receive applications<span> (limited to 5)</span>: <strong>*</strong>",
   "emailAddressReceiveEX": "Ex: example@techlooper.com",
   "subHeaderDeadlines": "Your Challenge has the following deadlines.",
   "challengeStart": "Your Challenge Will Start On: <strong>*</strong>",
@@ -352,5 +352,11 @@
   "thirdPrize": "500",
   "stPrize": "1st Prize",
   "ndPrize": "2nd Prize",
-  "rdPrize": "3rd Prize"
+  "rdPrize": "3rd Prize",
+  "currentPhase": "Current Phase",
+  "registration": "Registration",
+  "moreDayToSubmit": "more day(s) to submit",
+  "allViewDeadlines": "All view deadlines +",
+  "registerNumber": "There are {{registerNumber}} registrants for this contest.",
+  "joinNow": "Join Now"
 }
