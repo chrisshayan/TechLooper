@@ -347,6 +347,9 @@
   "firstReward": "Tiền thưởng cho người về nhất (USD): <strong>*</strong>",
   "secondReward": "Tiền thưởng cho người về nhì (USD):",
   "thirdReward": "Tiền thưởng cho người về ba (USD):",
+  "firstPrize": "1500",
+  "secondPrize": "1000",
+  "thirdPrize": "500",
   "publishingChallenge": "publishing Challenge"
 }
 
