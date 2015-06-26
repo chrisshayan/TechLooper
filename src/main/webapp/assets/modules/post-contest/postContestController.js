@@ -9,8 +9,8 @@ techlooper.controller("postContestController", function ($scope) {
             $scope.challengeForm.$setSubmitted();
             return $scope.challengeForm.$valid();
 
-          case "is-challenge-tab-active":
-            return true;
+          case "challenge-tab-class":
+            return "active";
         }
       },
       nextState: "timeline"
@@ -24,8 +24,8 @@ techlooper.controller("postContestController", function ($scope) {
             $scope.timelineForm.$setSubmitted();
             return $scope.timelineForm.$valid();
 
-          case "is-challenge-tab-active":
-          case "is-timeline-tab-active":
+          case "challenge-tab-class":
+          case "timeline-tab-class":
             return true;
         }
       },

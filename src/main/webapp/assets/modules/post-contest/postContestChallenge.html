@@ -6,7 +6,7 @@
         <div class="post-contest-field-content">
           <label for="txtChallengeName" translate="challengeName"></label>
           <input type="text" id="txtChallengeName" class="input-style" placeholder="{{'challengeNameEX' | translate}}"
-            name="challengeName" required/>
+            ng-model="contest.challengeName" name="challengeName" required/>
           <div class="error-messages"
                ng-show="challengeForm.challengeName.$error.required && (challengeForm.challengeName.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
@@ -18,19 +18,23 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtBusinessRequirements" translate="businessRequirements"></label>
-          <textarea name="businessRequirement" id="txtBusinessRequirements" cols="" rows="" class="textarea-style" placeholder="{{'businessRequirementsEX' | translate}}"></textarea>
+          <textarea id="txtBusinessRequirements" cols="" rows="" class="textarea-style"
+                    placeholder="{{'businessRequirementsEX' | translate}}"
+                    ng-model="contest.businessRequirement" name="businessRequirement" required/>
           <div class="error-messages"
                ng-show="challengeForm.businessRequirement.$error.required && (challengeForm.businessRequirement.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
-          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
+          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc" />
         </div>
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtGeneralNotes" translate="generalNotes">sfdwqvfe</label>
-          <textarea name="generalNote" id="txtGeneralNotes" cols="" rows="" class="textarea-style" placeholder="{{'generalNotesEX' | translate}}"></textarea>
+          <textarea id="txtGeneralNotes" cols="" rows="" class="textarea-style"
+                    placeholder="{{'generalNotesEX' | translate}}"
+                    ng-model="contest.generalNote" name="generalNote"/>
           <div class="error-messages"
                ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
@@ -42,7 +46,7 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="technologies"></label>
-          <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig"
+          <auto-tagbox tags="contest.technologies" config="{required: true}"
                        translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>
           <div class="error-messages"
                ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$touched || challengeForm.$submitted)"
