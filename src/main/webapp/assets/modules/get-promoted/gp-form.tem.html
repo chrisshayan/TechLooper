@@ -1,0 +1,46 @@
+<div class="gp-form-block">
+  <div class="gp-form-header">
+    <h2 translate="getPromotedTagLine"></h2>
+
+    <p translate="getPromotedSubTagLine"></p>
+  </div>
+  <div class="gp-form-content">
+    <p translate="getPromotedDescription"></p>
+
+    <div class="gp-form-content-detail">
+      <form novalidate name="promotionForm" autocomplete="off">
+        <div class="gp-form-field">
+          <label>{{'expectedJobTitle' | translate}} <strong>*</strong></label>
+
+          <div auto-suggestion text="promotionInfo.jobTitle" items="jobTitles"
+               get-url="suggestion/jobTitle/" input-model="promotionForm.jobTitle">
+          </div>
+          <autocomplete name="jobTitle" ng-model="promotionInfo.jobTitle" data="jobTitles" ng-required="true"
+                        attr-placeholder="{{'jobTitle.placeholder' | translate}}" touchable>
+          </autocomplete>
+
+          <div class="error-messages"
+               ng-show="promotionForm.jobTitle.$error.required && (promotionForm.jobTitle.$touched || promotionForm.$submitted)"
+               translate="requiredThisField"></div>
+
+        </div>
+        <div class="gp-form-field">
+          <label translate="expectedJobLevel"></label>
+          <selectize name="jobLevelIds" config='selectize.jobLevelsSelectize.config'
+                     options='selectize.jobLevelsSelectize.items'
+                     ng-model="promotionInfo.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+        </div>
+        <div class="gp-form-field">
+          <label translate="expectedJobCategory"></label>
+          <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
+                     ng-model="promotionInfo.jobCategoryIds" name="jobCategoryIds"></selectize>
+        </div>
+        <div class="gp-form-field submit">
+          <button translate="getPromoted" class="btn btn-primary btn-flat" ng-click="doPromotion()"
+                  type="button"></button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

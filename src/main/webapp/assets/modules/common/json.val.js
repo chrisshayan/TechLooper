@@ -157,6 +157,7 @@ angular.module("Common").constant("jsonValue", (function () {
     routerUris: {
       landing: "/landing",
       home: "/home",
+      hiring: "/hiring",
       talentSearchResult: "/talent-search-result",
       talentProfile: "/talent-profile",
       companyProfile: "/companies",
@@ -164,18 +165,22 @@ angular.module("Common").constant("jsonValue", (function () {
       salarySharing: "/salary-sharing",
       salaryReport: "/salary-report",
       salaryReview: "/salary-review",
+      getPromoted: "/get-promoted",
       pie: "/pie-chart",
       bubble: "/bubble-chart",
       jobsSearch: "/jobs/search",
       analyticsSkill: "/analytics/skill",
       signIn: "/signin",
       register: "/register",
-      userProfile: "/user"
+      userProfile: "/user",
+      priceJob: "/price-job",
+      contest: "contest"
     },
 
     views: {
       landing: "landing",
       home: "home",
+      hiring: "hiring",
       talentSearchResult: "talentSearchResult",
       talentProfile: "talentProfile",
       companyProfile: "companyProfile",
@@ -190,7 +195,10 @@ angular.module("Common").constant("jsonValue", (function () {
       pieChart: "pieChart",
       signIn: "signin",
       register: "register",
-      userProfile: "userProfile"
+      userProfile: "userProfile",
+      priceJob: "priceJob",
+      getPromoted: "getPromoted",
+      contest: "contest"
     },
 
     httpUri: {
@@ -207,7 +215,9 @@ angular.module("Common").constant("jsonValue", (function () {
       companyId: "company/id",
       userRegisterCount: "api/user/register/count",
       termStatistic: "term/statistic",
-      salaryReview: "salaryReview"
+      salaryReview: "salaryReview",
+      getPromoted: "getPromoted",
+      contest: "contest"
     },
 
     socketUri: {
@@ -218,7 +228,10 @@ angular.module("Common").constant("jsonValue", (function () {
       subscribeTerm: "/topic/jobs/term/",
 
       sendJobsSearch: "/app/jobs/search",
+      sendSearchJobAlert: "/app/jobs/searchJobAlert",
+      createSearchJobAlert: "/app/jobs/createJobAlert",
       subscribeJobsSearch: "/topic/jobs/search",
+      subscribeSearchJobAlert: "/topic/jobs/searchJobAlert",
 
       analyticsSkill: "/app/analytics/skill",
       subscribeAnalyticsSkill: "/topic/analytics/skill",
@@ -512,6 +525,7 @@ angular.module("Common").constant("jsonValue", (function () {
     ],
 
     industries: {
+      "35": {"value": "IT - Software"},
       "1": {"value": "Accounting"},
       "2": {"value": "Administrative/Clerical"},
       "3": {"value": "Advertising/Promotion/PR"},
@@ -541,7 +555,6 @@ angular.module("Common").constant("jsonValue", (function () {
       "32": {"value": "Retail/Wholesale"},
       "33": {"value": "Sales"},
       "34": {"value": "Sales Technical"},
-      "35": {"value": "IT - Software"},
       "36": {"value": "Freight/Logistics"},
       "37": {"value": "Airlines/Tourism/Hotel"},
       "39": {"value": "Other"},
@@ -603,141 +616,179 @@ angular.module("Common").constant("jsonValue", (function () {
       "15": {"name": "Others", "iconName": "fa-check-square-o"}
     },
 
-    introTour: {
-      template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default prev-tour' data-role='prev'><i class='fa fa-caret-square-o-left'></i></button><button class='btn btn-default next-tour' data-role='next'><i class='fa fa-caret-square-o-right'></i></button><button class='btn btn-default close-tour' data-role='end'><i class='fa fa-close'></i></button></div></nav></div>",
-      pieHomePage: [
-        {
-          element: ".setting-content",
-          placement: "right",
-          title: "Setting",
-          content: "You can change chart type (Bubble/Pie) or language here."
-        },
-        {
-          element: ".signin-signout-container",
-          placement: "left",
-          title: "Sign In/Sign Out",
-          content: "You can sign in with Vietnamworks account, Github account, LinkedIn account..."
-        },
-        {
-          element: ".highcharts-container",
-          placement: "top",
-          title: "Pie Chart",
-          content: "In this chart, you can see how many jobs of the Term"
-        },
-        {
-          element: ".find-jobs-button",
-          placement: "top",
-          title: "Find Jobs",
-          content: "Click to this button, you can find job on search job page"
-        }
-      ],
-
-      bubbleHomePage: [
-        {
-          element: ".setting-content",
-          placement: "right",
-          title: "Setting",
-          content: "You can change chart type (Bubble/Pie) or language here."
-        },
-        {
-          element: ".signin-signout-container",
-          placement: "left",
-          title: "Sign In/Sign Out",
-          content: "You can sign in with Vietnamworks account, Github account, LinkedIn account..."
-        },
-        {
-          element: "#box",
-          placement: "top",
-          title: "Bubble Chart",
-          content: "In this chart, you can see how many jobs of the Term"
-        },
-        {
-          element: ".find-jobs-button",
-          placement: "top",
-          title: "Find Jobs",
-          content: "Click to this button, you can find job on search job page"
-        }
-      ]
+    genders: [
+      {id: 1, translate: "genderMale"},
+      {id: 2, translate: "genderFemale"}
+    ],
+    timeToSends: [
+      {id: 2, translate: "day"},
+      {id: 3, translate: "week"}
+    ],
+    languages: {
+      undefined: 2,
+      en: 2,
+      vi: 1
     },
-
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
-      {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1]},
-      {id: 5, name: "EXPERIENCED", translate: "experienced", ids: [5, 6]},
-      {id: 7, name: "MANAGER", translate: "manager", ids: [7]},
-      {id: 10, name: "DIRECTOR_PLUS", translate: "directorAndAbove", ids: [10, 3, 4, 8, 9]}
+      {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1], alertId: 1},
+      {id: 5, name: "EXPERIENCED", translate: "experienced", ids: [5, 6], alertId: 5},
+      {id: 7, name: "MANAGER", translate: "manager", ids: [7], alertId: 7},
+      {id: 10, name: "DIRECTOR_PLUS", translate: "directorAndAbove", ids: [10, 3, 4, 8, 9], alertId: 3}
     ],
 
     locations: [
       {id: -1, name: "Any location"},
-      {id: 2, 	name: "An Giang"},
-      {id: 3, 	name: "Ba Ria - Vung Tau"},
-      {id: 4	, name: "Bac Can"},
-      {id: 5	, name: "Bac Giang"},
-      {id: 6	, name: "Bac Lieu"},
-      {id: 7	, name: "Bac Ninh"},
-      {id: 8	, name: "Ben Tre"},
-      {id: 9	, name: "Bien Hoa"},
-      {id: 10	, name: "Binh Dinh"},
-      {id: 11	, name: "Binh Duong"},
-      {id: 12	, name: "Binh Phuoc"},
-      {id: 13	, name: "Binh Thuan"},
-      {id: 14	, name: "Ca Mau"},
-      {id: 15	, name: "Can Tho"},
-      {id:16	, name: "Cao Bang"},
-      {id:17	, name: "Da Nang"},
-      {id:18	, name: "Dac Lac"},
-      {id:19	, name: "Dong Nai"},
-      {id:20	, name: "Dong Thap"},
-      {id:21	, name: "Gia Lai"},
-      {id:22	, name: "Ha Giang"},
-      {id:23	, name: "Ha Nam"},
-      {id:24	, name: "Ha Noi"},
-      {id:25	, name: "Ha Tay"},
-      {id:26	, name: "Ha Tinh"},
-      {id:27	, name: "Hai Duong"},
-      {id:28	, name: "Hai Phong"},
-      {id:29	, name: "Ho Chi Minh"},
-      {id:30	, name: "Hoa Binh"},
-      {id:31	, name: "Hue"},
-      {id:32	, name: "Hung Yen"},
-      {id:33	, name: "Khanh Hoa"},
-      {id:34	, name: "Kon Tum"},
-      {id:35	, name: "Lai Chau"},
-      {id:36	, name: "Lam Dong"},
-      {id:37	, name: "Lang Son"},
-      {id:38	, name: "Lao Cai"},
-      {id:39	, name: "Long An"},
-      {id:40	, name: "Nam Dinh"},
-      {id:41	, name: "Nghe An"},
-      {id:42	, name: "Ninh Binh"},
-      {id:43	, name: "Ninh Thuan"},
-      {id:44	, name: "Phu Tho"},
-      {id:45	, name: "Phu Yen"},
-      {id:46	, name: "Quang Binh"},
-      {id:47	, name: "Quang Nam"},
-      {id:48	, name: "Quang Ngai"},
-      {id:49	, name: "Quang Ninh"},
-      {id:50	, name: "Quang Tri"},
-      {id:51	, name: "Soc Trang"},
-      {id:52	, name: "Son La"},
-      {id:53	, name: "Tay Ninh"},
-      {id:54	, name: "Thai Binh"},
-      {id:55	, name: "Thai Nguyen"},
-      {id:56	, name: "Thanh Hoa"},
-      {id:57	, name: "Thua Thien-Hue"},
-      {id:58	, name: "Tien Giang"},
-      {id:59	, name: "Tra Vinh"},
-      {id:60	, name: "Tuyen Quang"},
-      {id:61	, name: "Kien Giang"},
-      {id:62	, name: "Vinh Long"},
-      {id:63	, name: "Vinh Phuc"},
-      {id:65	, name: "Yen Bai"},
-      {id:69	, name: "Dien Bien"},
-      {id:70	, name: "International"},
-      {id:71	, name: "Mekong Delta"},
-      {id:72	, name: "Hau Giang"}
-    ]
+      {id: 29, name: "Ho Chi Minh"},
+      {id: 24, name: "Ha Noi"},
+      {id: 17, name: "Da Nang"},
+      {id: 2, name: "An Giang"},
+      {id: 3, name: "Ba Ria - Vung Tau"},
+      {id: 4, name: "Bac Can"},
+      {id: 5, name: "Bac Giang"},
+      {id: 6, name: "Bac Lieu"},
+      {id: 7, name: "Bac Ninh"},
+      {id: 8, name: "Ben Tre"},
+      {id: 9, name: "Bien Hoa"},
+      {id: 10, name: "Binh Dinh"},
+      {id: 11, name: "Binh Duong"},
+      {id: 12, name: "Binh Phuoc"},
+      {id: 13, name: "Binh Thuan"},
+      {id: 14, name: "Ca Mau"},
+      {id: 15, name: "Can Tho"},
+      {id: 16, name: "Cao Bang"},
+      {id: 18, name: "Dac Lac"},
+      {id: 19, name: "Dong Nai"},
+      {id: 20, name: "Dong Thap"},
+      {id: 21, name: "Gia Lai"},
+      {id: 22, name: "Ha Giang"},
+      {id: 23, name: "Ha Nam"},
+      {id: 25, name: "Ha Tay"},
+      {id: 26, name: "Ha Tinh"},
+      {id: 27, name: "Hai Duong"},
+      {id: 28, name: "Hai Phong"},
+      {id: 30, name: "Hoa Binh"},
+      {id: 31, name: "Hue"},
+      {id: 32, name: "Hung Yen"},
+      {id: 33, name: "Khanh Hoa"},
+      {id: 34, name: "Kon Tum"},
+      {id: 35, name: "Lai Chau"},
+      {id: 36, name: "Lam Dong"},
+      {id: 37, name: "Lang Son"},
+      {id: 38, name: "Lao Cai"},
+      {id: 39, name: "Long An"},
+      {id: 40, name: "Nam Dinh"},
+      {id: 41, name: "Nghe An"},
+      {id: 42, name: "Ninh Binh"},
+      {id: 43, name: "Ninh Thuan"},
+      {id: 44, name: "Phu Tho"},
+      {id: 45, name: "Phu Yen"},
+      {id: 46, name: "Quang Binh"},
+      {id: 47, name: "Quang Nam"},
+      {id: 48, name: "Quang Ngai"},
+      {id: 49, name: "Quang Ninh"},
+      {id: 50, name: "Quang Tri"},
+      {id: 51, name: "Soc Trang"},
+      {id: 52, name: "Son La"},
+      {id: 53, name: "Tay Ninh"},
+      {id: 54, name: "Thai Binh"},
+      {id: 55, name: "Thai Nguyen"},
+      {id: 56, name: "Thanh Hoa"},
+      {id: 57, name: "Thua Thien-Hue"},
+      {id: 58, name: "Tien Giang"},
+      {id: 59, name: "Tra Vinh"},
+      {id: 60, name: "Tuyen Quang"},
+      {id: 61, name: "Kien Giang"},
+      {id: 62, name: "Vinh Long"},
+      {id: 63, name: "Vinh Phuc"},
+      {id: 65, name: "Yen Bai"},
+      {id: 69, name: "Dien Bien"},
+      {id: 70, name: "International"},
+      {id: 71, name: "Mekong Delta"},
+      {id: 72, name: "Hau Giang"}
+    ],
+    "languagesJob": [
+      {id: 38, name: "Vietnamese"},
+      {id: 12, name: "English"},
+      {id: 21, name: "Japanese"},
+      {id: 1, name: "Arabic"},
+      {id: 2, name: "Bengali"},
+      {id: 3, name: "Bulgarian"},
+      {id: 4, name: "Burmese"},
+      {id: 5, name: "Cambodian"},
+      {id: 6, name: "Cebuano"},
+      {id: 7, name: "Chinese (Cantonese)"},
+      {id: 8, name: "Chinese (Mandarin)"},
+      {id: 9, name: "Czech"},
+      {id: 10, name: "Danish"},
+      {id: 11, name: "Dutch"},
+      {id: 13, name: "Finnish"},
+      {id: 14, name: "French"},
+      {id: 15, name: "German"},
+      {id: 16, name: "Greek"},
+      {id: 17, name: "Hindi"},
+      {id: 18, name: "Hungarian"},
+      {id: 19, name: "Indonesian"},
+      {id: 20, name: "Italian"},
+      {id: 22, name: "Javanese"},
+      {id: 23, name: "Korean"},
+      {id: 24, name: "Laotian"},
+      {id: 25, name: "Malay"},
+      {id: 26, name: "Norwegian"},
+      {id: 27, name: "Polish"},
+      {id: 28, name: "Portuguese"},
+      {id: 29, name: "Romanian"},
+      {id: 30, name: "Russian"},
+      {id: 31, name: "Spanish"},
+      {id: 32, name: "Swedish"},
+      {id: 33, name: "Tagolog"},
+      {id: 34, name: "Taiwanese"},
+      {id: 35, name: "Thai"},
+      {id: 36, name: "Turkish"},
+      {id: 37, name: "Ukranian"},
+      {id: 39, name: "Other"}
+    ],
+    "educationLevel": [
+      {id: 12, name: "Doctorate"},
+      {id: 9, name: "Master"},
+      {id: 3, name: "Degree"},
+      {id: 4, name: "Diploma"},
+      {id: 2, name: "High school"},
+      {id: 15, name: "Primary School"},
+      {id: 1, name: "None"},
+      {id: 15, name: "Others"}
+    ],
+    "yearsOfExperience": [
+      {id: 1, name: "New to workforce"},
+      {id: 2, name: "Less than one year"},
+      {id: 3, name: "1 year"},
+      {id: 4, name: "2 years"},
+      {id: 5, name: "3 years"},
+      {id: 6, name: "4 years"},
+      {id: 7, name: "5 years"},
+      {id: 8, name: "6 years"},
+      {id: 9, name: "7 years"},
+      {id: 10, name: "8 years"},
+      {id: 11, name: "9 years"},
+      {id: 12, name: "10 years"},
+      {id: 12, name: "11 years"},
+      {id: 12, name: "12 years"},
+      {id: 12, name: "13 years"},
+      {id: 12, name: "14 years"},
+      {id: 12, name: "15 years"},
+      {id: 12, name: "16 years"},
+      {id: 12, name: "17 years"},
+      {id: 12, name: "18 years"},
+      {id: 12, name: "19 years"},
+      {id: 12, name: "> 20 years"}
+    ],
+    "companyPromotion": {
+      "title": "companyTitle",
+      "tagLine": "companyMessages",
+      "images": "/images/banner-citibank.png",
+      "minSalary": 10000000,
+      "AcceptedCity": [24, 29]
+    }
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
@@ -750,6 +801,32 @@ angular.module("Common").constant("jsonValue", (function () {
 
   instance.jobLevelsMap = {};
   $.each(instance.jobLevels, function (i, jobLevel) {instance.jobLevelsMap[jobLevel.id] = jobLevel;});
+
+  instance.yearsOfExperienceMap = {};
+  $.each(instance.yearsOfExperience, function (i, item) {instance.yearsOfExperienceMap[item.name] = item;});
+
+  instance.locationsMap = {};
+  $.each(instance.locations, function (i, location) {instance.locationsMap[location.id] = location;});
+
+  var currentYear = new Date().getFullYear();//yrs old from 15 to 99
+  instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
+
+  //instance.jobLevelsSelectize = {};
+  //instance.jobLevelsSelectize.items = $.extend(true, [], instance.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;}));
+  //jobLevels: {
+  //  items: jobLevels,
+  //    config: {
+  //    valueField: 'id',
+  //      labelField: 'translate',
+  //      delimiter: '|',
+  //      maxItems: 1,
+  //      searchField: ['translate'],
+  //      placeholder: $translate.instant("exManager"),
+  //      onInitialize: function (selectize) {
+  //      $scope.selectize.jobLevels.$elem = selectize;
+  //    }
+  //  }
+  //}
 
   return instance;
 })());

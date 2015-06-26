@@ -145,4 +145,27 @@ public class VietnamWorksJobStatisticServiceITCase {
         // One skill should be analyzed by 12 months per year
         assertTrue(skillStatistics.get(0).getHistograms().get(0).getValues().size() > 0);
     }
+
+    @Test
+    public void testGetTop5DemandedSkillsByJobTitle() throws Exception {
+        GetPromotedRequest request = new GetPromotedRequest();
+        request.setJobTitle("Java Developer");
+        request.setJobCategoryIds(Arrays.asList(35L));
+        request.setJobLevelIds(Arrays.asList(5, 6));
+        GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
+        assertTrue(response.getTotalJob() > 0);
+        assertTrue(response.getSalaryMax() >= response.getSalaryMin());
+        assertTrue(response.getTopDemandedSkills().size() > 0 && response.getTopDemandedSkills().size() <= 15);
+    }
+
+    @Test
+    public void testGetTop5DemandedSkillsByJobTitleNoSkill() throws Exception {
+        GetPromotedRequest request = new GetPromotedRequest();
+        request.setJobTitle("ABC XYZ");
+        request.setJobCategoryIds(Arrays.asList(35L));
+        request.setJobLevelIds(Arrays.asList(5, 6));
+        GetPromotedResponse response = jobStatisticService.getTopDemandedSkillsByJobTitle(request);
+        assertTrue(response.getTotalJob() == 0);
+        assertTrue(response.getTopDemandedSkills().size() == 0);
+    }
 }

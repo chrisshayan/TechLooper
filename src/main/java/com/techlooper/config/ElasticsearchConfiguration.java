@@ -24,9 +24,6 @@ public class ElasticsearchConfiguration {
     @Resource
     private Environment environment;
 
-    @Resource
-    private TransportClient transportClient;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
 
     @Bean
@@ -38,7 +35,7 @@ public class ElasticsearchConfiguration {
     }
 
     @Bean
-    public ElasticsearchOperations elasticsearchTemplate() {
-        return new ElasticsearchTemplate(transportClient);
+    public ElasticsearchOperations elasticsearchTemplate() throws Exception {
+        return new ElasticsearchTemplate(transportClient().getObject());
     }
 }

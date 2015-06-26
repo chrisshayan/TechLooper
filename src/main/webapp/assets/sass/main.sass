@@ -1,6 +1,5 @@
 html
   height: 100%
-
 body
   height: auto
   background-color: #f4f4f4
@@ -13,22 +12,34 @@ body
   width: 100%
   margin: 0px
   padding: 0px
+input:invalid
+  box-shadow: none
+input:-moz-submit-invalid
+  box-shadow: none
+input:-moz-ui-invalid
+  box-shadow: none
 *:focus
   outline: 0
 textarea:focus, 
 input:focus,
-span:focus,
+span:focus
   outline: 0
-
 ul
   list-style: none
 a img
   border: 0
+a
+  text-decoration: none
+a:active,
 a:hover
   text-decoration: none
 a:focus
   border: 0
   outline: none
+.error-messages
+  color: red
+  font-size: 12px
+  font-style: italic
 .gray-background
   filter: gray
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
@@ -38,6 +49,11 @@ a:focus
   -o-filter: grayscale(100%)
   -webkit-filter: grayscale(100%)
   opacity: 0.6
+.alert-success
+  background-image: none
+.btn-flat
+  border: 0 !important
+  height: 36px
 .hide
   display: none
 .show
@@ -54,7 +70,7 @@ a:focus
 .desktop
   display: block
 .body-content
-  min-height: 100%
+  min-height: 91.5%
 .techlooper-body
   display: block
   clear: both
@@ -63,6 +79,39 @@ a:focus
 .text-left
   text-align: left
   padding-left: 10px
+
+
+.example-animate-container
+  background: white
+  border: 1px solid black
+  list-style: none
+  margin: 0
+  padding: 0 10px
+
+.animate-repeat
+  line-height: 40px
+  list-style: none
+  box-sizing: border-box
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave
+  -webkit-transition: all linear 0.5s
+  transition: all linear 0.5s
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter
+  opacity: 0
+  max-height: 0
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active
+  opacity: 1
+  max-height: 40px
+
+
 /* -- style for header --*/
 .setting-block
   padding-top: 10px
@@ -1802,3 +1851,87 @@ label.bootstrap-checkbox.disabled
     li.active
       background-color: #277cbe
       color: #fff
+.pie-chart-block
+  clear: both
+  width: 100%
+  float: left
+.survey-form-block
+  width: 100%
+  clear: both
+  display: inline-block
+  padding: 15px
+  text-align: center
+  ul
+    margin: auto
+    padding: 0
+    width: 65%
+    li
+      width: 100%
+      display: inline-block
+      clear: both
+      padding: 5px 0
+      text-align: center
+      label
+        font-weight: 300
+        text-align: left
+        width: 100%
+        display: block
+      p
+        width: 65%
+        margin: 0
+        text-align: left
+        padding: 0
+        float: left
+        strong
+          color: red
+          font-weight: 500
+      textarea
+        width: 100%
+        clear: both
+        border: 1px solid #d4d7d8
+        -webkit-border-radius: 5px
+        -moz-border-radius: 5px
+        border-radius: 5px
+        height: 80px
+        padding: 10px
+        text-align: left
+      .error-messages
+        width: 100%
+        padding-left: 0
+        text-align: left
+        clear: both
+        display: block
+      .select-group
+        width: 35%
+        float: left
+        text-align: left
+        .select-item
+          width: 50%
+          float: left
+          label
+            padding-left: 5px
+            width: auto
+            display: inline
+      button
+        padding: 6px 20px
+    li:first-child
+      padding-top: 0
+.thanksMessages
+  padding: 20px
+  width: 100%
+  clear: both
+  display: block
+  text-align: center
+.row-full-height
+  height: 100%
+.col-full-height
+  height: 100%
+  vertical-align: top
+.row-same-height
+  display: table
+  width: 100%
+  /* fix overflow */
+  table-layout: inherit
+.col-xs-height
+  display: table-cell
+  float: none !important

@@ -1,5 +1,6 @@
 package com.techlooper.model;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -10,6 +11,10 @@ public class SalaryReport {
     private Integer netSalary;
 
     private Double percentRank;
+
+    private Integer numberOfJobs;
+
+    private Integer numberOfSurveys;
 
     private List<SalaryRange> salaryRanges;
 
@@ -29,11 +34,32 @@ public class SalaryReport {
         this.percentRank = percentRank;
     }
 
+    public Integer getNumberOfJobs() {
+        return numberOfJobs;
+    }
+
+    public void setNumberOfJobs(Integer numberOfJobs) {
+        this.numberOfJobs = numberOfJobs;
+    }
+
+    public Integer getNumberOfSurveys() {
+        return numberOfSurveys;
+    }
+
+    public void setNumberOfSurveys(Integer numberOfSurveys) {
+        this.numberOfSurveys = numberOfSurveys;
+    }
+
     public List<SalaryRange> getSalaryRanges() {
         return salaryRanges;
     }
 
     public void setSalaryRanges(List<SalaryRange> salaryRanges) {
         this.salaryRanges = salaryRanges;
+    }
+
+    public String percentRankToString() {
+        DecimalFormat df = new DecimalFormat("###.#");
+        return df.format(percentRank);
     }
 }

@@ -25,7 +25,6 @@
     "JSONPath": "latest",
     "DateJS": "latest",
     "d3": "latest",
-    "d3-transform": "latest",
     "parallax": "latest",
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
@@ -37,7 +36,10 @@
     "bootstrap-select": "latest",
     "blueimp-gallery":  "latest",
     "blueimp-bootstrap-image-gallery": "latest",
-    "sprintf": "latest"
+    "sprintf": "latest",
+    "allmighty-autocomplete": "latest",
+    "ng-focus-on": "latest",
+    "angular-sanitize": "latest"
   },
   "overrides": {
     "jquery": {
@@ -105,9 +107,6 @@
     },
     "d3": {
       "main": "d3.min.js"
-    },
-    "d3-transform": {
-      "main": "src/d3-transform.js"
     },
     "parallax": {
       "main": "deploy/jquery.parallax.min.js"

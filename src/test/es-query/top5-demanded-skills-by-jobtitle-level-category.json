@@ -1,0 +1,89 @@
+GET vietnamworks/job/_search?search_type=count
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "jobTitle": {
+            "query": "Senior Java Developer",
+            "minimum_should_match" : "100%"
+          }
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "approvedDate": {
+                  "from": "now-6M/M"
+                }
+              }
+            },
+            {
+              "term": {
+                "jobLevelId": 5
+              }
+            },
+            {
+              "nested": {
+                "path": "industries",
+                "filter": {
+                  "term": {
+                    "industries.industryId": 35
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "count_skill": {
+      "nested": {
+        "path": "skills"
+      },
+      "aggs": {
+        "count_skill": {
+          "terms": {
+            "field": "skills.skillName"
+          }
+        }
+      }
+    },
+    "salary_min_avg": {
+      "filter": {
+        "range": {
+          "salaryMin": {
+            "from": 250
+          }
+        }
+      },
+      "aggs": {
+        "salary_min_avg": {
+          "avg": {
+            "field": "salaryMin"
+          }
+        }
+      }
+    },
+    "salary_max_avg": {
+      "filter": {
+        "range": {
+          "salaryMax": {
+            "from": 250
+          }
+        }
+      },
+      "aggs": {
+        "salary_max_avg": {
+          "avg": {
+            "field": "salaryMax"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+GET vietnamworks/job/_search
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "jobTitle": {
+            "query": "Product Manager",
+            "minimum_should_match": "100%"
+          }
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "isActive": 1
+              }
+            },
+            {
+              "term": {
+                "isApproved": 1
+              }
+            },
+            {
+              "range": {
+                "expiredDate": {
+                  "from": "now/d"
+                }
+              }
+            },
+            {
+              "nested": {
+                "path": "industries",
+                "query": {
+                  "bool": {
+                    "minimum_should_match": 1,
+                    "should": [
+                      {
+                        "term": {
+                          "industries.industryId": {
+                            "value": 35
+                          }
+                        }
+                      },
+                      {
+                        "term": {
+                          "industries.industryId": {
+                            "value": 55
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }

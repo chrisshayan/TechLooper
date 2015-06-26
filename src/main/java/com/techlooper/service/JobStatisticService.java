@@ -27,11 +27,13 @@ public interface JobStatisticService {
      */
     SkillStatisticResponse countJobsBySkill(TechnicalTerm term, HistogramEnum... histogramEnums);
 
-    public Long countJobsBySkillWithinPeriod(final String skill, final HistogramEnum period);
+    Long countJobsBySkillWithinPeriod(final String skill, final HistogramEnum period);
 
-    public Long countTotalITJobsWithinPeriod(HistogramEnum period);
+    Long countTotalITJobsWithinPeriod(HistogramEnum period);
 
-    public TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum);
+    TermStatisticResponse generateTermStatistic(TermStatisticRequest term, HistogramEnum histogramEnum);
 
-    public Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds);
+    Map<String, Double> getAverageSalaryBySkill(TechnicalTerm term, List<Integer> jobLevelIds);
+
+    GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request);
 }

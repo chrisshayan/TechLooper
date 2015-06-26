@@ -1,0 +1,18 @@
+<div class="get-promoted-results-block">
+  <div class="top-demanded-skill-block">
+    <div class="box-content-collapse">
+      <div class="title-header" ng-show="state.showView('has-promotion-result')">
+        <h3 translate="gpNumberOfJobs"
+            translate-value-job-title="<strong>{{masterPromotion.jobTitle}}</strong>"
+            translate-value-number-of-jobs="<strong>{{masterPromotion.result.totalJob}}</strong>"
+            translate-value-salary-from="<strong>${{masterPromotion.result.salaryMin | number:0}}</strong>"
+            translate-value-salary-to="<strong>${{masterPromotion.result.salaryMax | number:0}}</strong>"
+            />
+      </div>
+      <user-promotion-job-info></user-promotion-job-info>
+
+    </div>
+  </div>
+  <user-promotion-survey-form ng-show="state.showView('user-promotion-survey-form')"></user-promotion-survey-form>
+
+</div>

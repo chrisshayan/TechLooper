@@ -4,8 +4,12 @@ import com.techlooper.model.Employer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import java.util.List;
+
+import static org.springframework.data.elasticsearch.annotations.FieldType.Nested;
+import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 @Document(indexName = "employerInformation", type = "company")
 public class EmployerEntity {
@@ -13,13 +17,13 @@ public class EmployerEntity {
     @Id
     private Long companyId;
 
-    @Field
+    @Field(type = String, store = true, index = FieldIndex.not_analyzed)
     private String companyLogoURL;
 
-    @Field
+    @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String companyName;
 
-    @Field
+    @Field(type = Nested)
     private List<Employer> employers;
 
     public Long getCompanyId() {

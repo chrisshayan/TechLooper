@@ -61,6 +61,10 @@
         <spring-data-redis.version>1.4.1.RELEASE</spring-data-redis.version>
         <jedis.version>2.6.1</jedis.version>
         <embedded-redis.version>0.3</embedded-redis.version>
+        <mail.version>1.4.7</mail.version>
+        <activation.version>1.1.1</activation.version>
+        <freemarker.version>2.3.22</freemarker.version>
+        <joda-money.version>0.10.0</joda-money.version>
     </properties>
     <build>
         <finalName>techlooper</finalName>
@@ -172,23 +176,6 @@
                         <contextPath>/</contextPath>
                     </webApp>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                        <version>1.7.7</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                        <version>1.1.2</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                        <version>2.3.5</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -272,6 +259,10 @@
                                             <directory>src/main/resources/couchbase_view</directory>
                                             <targetPath>couchbase_view</targetPath>
                                         </resource>
+                                        <resource>
+                                            <directory>src/main/resources/template</directory>
+                                            <targetPath>template</targetPath>
+                                        </resource>
                                     </resources>
                                 </configuration>
                             </execution>
@@ -314,6 +305,10 @@
                                         <resource>
                                             <directory>src/main/resources/couchbase_view</directory>
                                             <targetPath>couchbase_view</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources/template</directory>
+                                            <targetPath>template</targetPath>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -358,6 +353,10 @@
                                             <directory>src/main/resources/couchbase_view</directory>
                                             <targetPath>couchbase_view</targetPath>
                                         </resource>
+                                        <resource>
+                                            <directory>src/main/resources/template</directory>
+                                            <targetPath>template</targetPath>
+                                        </resource>
                                     </resources>
                                 </configuration>
                             </execution>
@@ -400,6 +399,10 @@
                                         <resource>
                                             <directory>src/main/resources/couchbase_view</directory>
                                             <targetPath>couchbase_view</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources/template</directory>
+                                            <targetPath>template</targetPath>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -776,6 +779,12 @@
         </dependency>
 
         <dependency>
+            <groupId>no.priv.garshol.duke</groupId>
+            <artifactId>duke</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
@@ -798,6 +807,26 @@
             <artifactId>hamcrest-core</artifactId>
             <version>${hamcrest-core.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>${activation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.joda</groupId>
+            <artifactId>joda-money</artifactId>
+            <version>${joda-money.version}</version>
         </dependency>
     </dependencies>
 

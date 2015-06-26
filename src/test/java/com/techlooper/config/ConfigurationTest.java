@@ -1,5 +1,7 @@
 package com.techlooper.config;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
@@ -8,6 +10,8 @@ import com.techlooper.repository.talentsearch.query.GithubTalentSearchQuery;
 import com.techlooper.repository.talentsearch.query.VietnamworksTalentSearchQuery;
 import com.techlooper.service.*;
 import com.techlooper.service.impl.*;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -20,10 +24,19 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.Properties;
 
 
 /**
@@ -34,7 +47,7 @@ import javax.annotation.Resource;
 @PropertySources({
         @PropertySource("classpath:techlooper.properties"),
         @PropertySource("classpath:secret.properties")})
-@Import(CouchbaseConfiguration.class)
+//@Import(CouchbaseConfiguration.class)
 public class ConfigurationTest implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -139,6 +152,60 @@ public class ConfigurationTest implements ApplicationContextAware {
     @Bean
     public CompanyService companyService() {
         return new CompanyServiceImpl();
+    }
+
+    @Bean
+    public SalaryReviewService salaryReviewService() {
+        return new SalaryReviewServiceImpl();
+    }
+
+    @Bean
+    public JavaMailSender mailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        return mailSender;
+    }
+
+    @Bean
+    public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
+        freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
+        return cfg;
+    }
+
+    @Bean
+    public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return null;
+    }
+
+    @Bean
+    public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return null;
+    }
+
+    @Bean
+    public JsonNode vietnamworksConfiguration() throws IOException {
+        return null;
+    }
+
+    @Bean
+    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        return mailMessage;
+    }
+
+    @Bean
+    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        return mailMessage;
+    }
+
+    @Bean
+    public Template getPromotedTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return null;
+    }
+
+    @Bean
+    public Template getPromotedTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return null;
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

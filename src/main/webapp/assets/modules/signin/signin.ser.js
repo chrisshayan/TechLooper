@@ -1,5 +1,5 @@
 angular.module('SignIn').factory('signInService',
-  function (jsonValue, utils, shortcutFactory, $location, tourService, $auth, localStorageService,
+  function (jsonValue, utils, shortcutFactory, $location, $auth, localStorageService,
             $window, $http, connectionFactory, $rootScope, userService, navigationService) {
 
     var $$ = {
@@ -39,7 +39,6 @@ angular.module('SignIn').factory('signInService',
           $('#signin-form').modal('hide');
         });
 
-        tourService.makeTourGuide();
       },
 
       openOathDialog: function (auth) {

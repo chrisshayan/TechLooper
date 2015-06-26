@@ -17,8 +17,6 @@
 package com.techlooper.config.web;
 
 import com.techlooper.config.CoreConfiguration;
-import com.techlooper.config.web.security.SecurityConfiguration;
-import com.techlooper.config.web.security.WebSocketSecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletRegistration.Dynamic;

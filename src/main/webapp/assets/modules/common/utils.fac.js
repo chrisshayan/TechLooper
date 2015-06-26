@@ -2,6 +2,56 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    isFormSubmitted: function(form, inputName) {
+      return form && (form[inputName].$touched || form.$submitted);
+    },
+
+    toPromises: function(defersObj) {
+      var promises = [];
+      for (var prop in defersObj) {
+        promises.push(defersObj[prop].promise);
+      }
+      return promises;
+    },
+
+    toObject: function(obj) {
+      for (var prop in obj) {
+        try {
+          obj[prop] = JSON.parse(obj[prop]);
+        }
+        catch (e) {}
+      }
+      return obj;
+    },
+
+    toStrings: function(array, prop) {
+      $.each(array, function(i, item) {
+        item[prop] = '' + item[prop];
+      });
+      return array;
+    },
+
+    removeRedundantAttrs: function(obj, attrs) {
+      $.each(attrs, function(i, attr) {
+        delete obj[attr];
+      });
+    },
+
+    visit: function (obj, func) {
+      for (var prop in obj) {
+        func.apply(this, [prop, obj[prop]]);
+        if ($.type(obj[prop]) === "object") {
+          instance.visit(obj[prop], func);
+        }
+        else if ($.type(obj[prop]) === "array") {
+          var array = obj[prop];
+          $.each(array, function (i, item) {
+            instance.visit(item, func);
+          })
+        }
+      }
+    },
+
     hasNonAsciiChar: function(str) {
       var chars = str.split("-").join("").split("");
       var rs = false;
@@ -143,6 +193,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/jobs\/search/i.test(path)) {
         return jsonValue.views.jobsSearch;
       }
+      else if (/\/hiring/.test(path)) {
+        return jsonValue.views.hiring;
+      }
       else if (/\/bubble-chart/.test(path)) {
         return jsonValue.views.bubbleChart;
       }
@@ -157,12 +210,6 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/salary-sharing/.test(path)) {
         return jsonValue.views.salarySharing;
-      }
-      else if (/\/salary-report/.test(path)) {
-        return jsonValue.views.salaryReport;
-      }
-      else if (/\/salary-review/.test(path)) {
-        return jsonValue.views.salaryReview;
       }
       else if (/\/signin/.test(path)) {
         return jsonValue.views.signIn;
@@ -184,6 +231,15 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/companies\//i.test(path)) {
         return jsonValue.views.companyProfile;
+      }
+      else if (/\/price-job/.test(path)) {
+        return jsonValue.views.priceJob;
+      }
+      else if (/\/get-promoted/.test(path)) {
+        return jsonValue.views.getPromoted;
+      }
+      else if (/\/contest/.test(path)) {
+        return jsonValue.views.contest;
       }
     },
 

@@ -7,12 +7,13 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class JobStatisticController {
@@ -81,4 +82,10 @@ public class JobStatisticController {
     public TermStatisticResponse analyticTermBySkill(@RequestBody TermStatisticRequest termStatisticRequest) {
         return jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
     }
+
+    @RequestMapping(value = "/getPromoted", method = RequestMethod.POST)
+    public GetPromotedResponse getTopDemandedSkills(@RequestBody GetPromotedRequest getPromotedRequest) {
+        return jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+    }
+
 }

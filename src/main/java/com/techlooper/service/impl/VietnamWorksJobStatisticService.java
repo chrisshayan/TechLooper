@@ -8,6 +8,7 @@ import com.techlooper.service.CompanyService;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.util.EncryptionUtils;
+import no.priv.garshol.duke.comparators.JaroWinkler;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.joda.time.DateTime;
@@ -19,7 +20,9 @@ import org.elasticsearch.search.aggregations.InternalAggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.InternalFilter;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
+import org.elasticsearch.search.aggregations.bucket.nested.InternalNested;
 import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,8 +33,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -48,7 +51,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     private static final long LIMIT_NUMBER_OF_SKILLS = 5;
 
-    private static final int LIMIT_NUMBER_OF_MONTHS = 13;
+    private static final int LIMIT_NUMBER_OF_MONTHS = 12;
 
     private static final int EXPERIENCED_LEVEL_ID = 5;
 
@@ -78,6 +81,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
+
+    @Value("${vnw.api.key.name}")
+    private String vnwApiKeyName;
+
+    @Value("${vnw.api.key.value}")
+    private String vnwApiKeyValue;
 
     public Long count(final TechnicalTerm term) {
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
@@ -172,8 +181,8 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         InternalFilter termAggregation = aggregations.get(term.getKey());
         Map<String, List<Long>> skillHistogramsMap = termAggregation.getAggregations().asList().stream().map(agg -> (InternalFilter) agg)
                 .sorted((bucket1, bucket2) -> bucket1.getName().compareTo(bucket2.getName()))
-                .collect(Collectors.groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
-                        Collectors.mapping(InternalFilter::getDocCount, Collectors.toList())));
+                .collect(groupingBy(bucket -> bucket.getName().substring(0, bucket.getName().lastIndexOf("-")),
+                        mapping(InternalFilter::getDocCount, toList())));
 
         List<SkillStatistic> skillStatistics = getSkillStatisticsByName(skillHistogramsMap);
         skillStatistics.stream().forEach(skillStat -> {
@@ -205,7 +214,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             skillStatisticMap.put(readableSkillName, skill.withSkillName(readableSkillName));
             skill.withHistogram(new Histogram.Builder().withName(HistogramEnum.valueOf(skillNameParts[1])).withValues(docCounts).build());
         });
-        return skillStatisticMap.keySet().stream().map(key -> skillStatisticMap.get(key).build()).collect(Collectors.toList());
+        return skillStatisticMap.keySet().stream().map(key -> skillStatisticMap.get(key).build()).collect(toList());
     }
 
     /**
@@ -310,7 +319,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                     company.setName(employerEntity.getCompanyName());
                     company.setCompanyLogoURL(employerEntity.getCompanyLogoURL());
                     List<Long> employerIds = employerEntity.getEmployers().stream().filter(employer -> employer.getIsActive() == 1)
-                            .map(employer -> employer.getUserId()).collect(Collectors.toList());
+                            .map(employer -> employer.getUserId()).collect(toList());
                     company.setEmployerIds(employerIds);
                     companies.add(company);
                 }
@@ -341,6 +350,9 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     private Double getLowerBoundSalaryByJobLevel(List<Integer> jobLevelIds) {
+        if (jobLevelIds == null) {
+            return LOWER_BOUND_SALARY_EXPERIENCED_LEVEL;
+        }
         if (jobLevelIds.contains(EXPERIENCED_LEVEL_ID)) {
             return LOWER_BOUND_SALARY_EXPERIENCED_LEVEL;
         } else if (jobLevelIds.contains(MANAGER_LEVEL_ID)) {
@@ -360,7 +372,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
             DateHistogram skillHistogram = ((DateHistogram) ((InternalAggregations) ((InternalFilter) aggregations.get(encodedSkillAgg)).getAggregations())
                     .get(encodedSkillAgg));
 
-            List<Long> histogramValues = processSkillHistogramValues(skillHistogram);
+            List<Long> histogramValues = processSkillHistogramValues(skillHistogram, histogramEnum);
 
             SkillStatistic skillStatistic = new SkillStatistic();
             skillStatistic.setSkillName(trendingSkills.get(i));
@@ -376,7 +388,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     }
 
     // Fill zero for trailing month which contains empty data, this is the limitation of ES histogram
-    private List<Long> processSkillHistogramValues(DateHistogram skillHistogram) {
+    private List<Long> processSkillHistogramValues(DateHistogram skillHistogram, HistogramEnum histogramEnum) {
         List<Long> histogramValues = new ArrayList<>();
         List<? extends DateHistogram.Bucket> buckets = skillHistogram.getBuckets();
 
@@ -385,7 +397,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         }
 
         // Start from the point of last year, month over month
-        DateTime loopDateTime = DateTime.now().minusMonths(LIMIT_NUMBER_OF_MONTHS);
+        DateTime loopDateTime = DateTime.now().minusDays(histogramEnum.getTotal() * histogramEnum.getPeriod());
         int i = 0;
         while (histogramValues.size() < LIMIT_NUMBER_OF_MONTHS) {
             if (i < buckets.size()) {
@@ -407,10 +419,67 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         return histogramValues;
     }
 
+    @Override
+    public GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request) {
+        GetPromotedResponse response = new GetPromotedResponse();
+        NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(
+                request.getJobTitle(), request.getJobCategoryIds(), request.getJobLevelIds());
+        queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
+        queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMin"));
+        queryBuilder.addAggregation(jobQueryBuilder.getSalaryAverageAggregation("salaryMax"));
+
+        Aggregations aggregations = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
+        response.setTotalJob(((InternalNested) aggregations.get("top_demanded_skills")).getDocCount());
+
+        // Salary Min/Max Aggregation
+        Double salaryMin = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMin_avg"))
+                .getAggregations().get("salaryMin_avg")).getValue();
+        Double salaryMax = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMax_avg"))
+                .getAggregations().get("salaryMax_avg")).getValue();
+        response.setSalaryMin(salaryMin);
+        response.setSalaryMax(salaryMax);
+
+        // Top Demanded Skills Aggregation
+        List<Terms.Bucket> buckets = ((StringTerms) ((InternalNested) aggregations.get("top_demanded_skills"))
+                .getAggregations().get("top_demanded_skills")).getBuckets();
+        List<TopDemandedSkillResponse> rawSkillStatistics = buckets.stream().map(
+                bucket -> new TopDemandedSkillResponse(bucket.getKey(), bucket.getDocCount())).collect(toList());
+        List<TopDemandedSkillResponse> skillStatistics = excludeSimilarSkills(rawSkillStatistics);
+        int limit = request.getLimitSkills() > 0 ? request.getLimitSkills() : 15;
+        response.setTopDemandedSkills(skillStatistics.stream().sorted(
+                (skill1, skill2) -> (int) skill2.getCount() - (int) skill1.getCount()
+        ).filter(skill -> skill.getSkillName().length() <= 40).limit(limit).collect(toList()));
+
+        return response;
+    }
+
+    private List<TopDemandedSkillResponse> excludeSimilarSkills(List<TopDemandedSkillResponse> rawSkillStatistics) {
+        List<TopDemandedSkillResponse> skillStatistics = new ArrayList<>();
+        if (!rawSkillStatistics.isEmpty()) {
+            skillStatistics.add(rawSkillStatistics.get(0));
+            for (int i = 1; i < rawSkillStatistics.size(); i++) {
+                TopDemandedSkillResponse target = rawSkillStatistics.get(i);
+                boolean isSimilar = false;
+                for (int j = 0; j < skillStatistics.size(); j++) {
+                    double score = JaroWinkler.similarity(skillStatistics.get(j).getSkillName(), target.getSkillName());
+                    if (score >= 0.75D) {
+                        isSimilar = true;
+                        break;
+                    }
+                }
+                if (!isSimilar) {
+                    skillStatistics.add(target);
+                }
+            }
+        }
+        return skillStatistics;
+    }
+
     private List<SkillStatistic> sortTrendingSkillsByTotalJobs(List<SkillStatistic> skillStatistics) {
         // Basically we consider the last item in the histogram values is the current total jobs (equivalent to "now")
         return skillStatistics.stream().sorted((skillStat1, skillStat2) ->
                 skillStat2.getTotalJob().intValue() - skillStat1.getTotalJob().intValue())
-                .limit(LIMIT_NUMBER_OF_SKILLS).collect(Collectors.toList());
+                .limit(LIMIT_NUMBER_OF_SKILLS).collect(toList());
     }
+
 }

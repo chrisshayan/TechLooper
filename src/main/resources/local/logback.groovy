@@ -12,9 +12,7 @@ appender("CONSOLE", ConsoleAppender) {
   }
 }
 
+logger("com.techlooper", DEBUG, ["CONSOLE"])
 logger("org.springframework", DEBUG, ["CONSOLE"])
-logger("org.springframework.data", ERROR, ["CONSOLE"])
-logger(" org.springframework.messaging", ERROR, ["CONSOLE"])
-logger("org.springframework.session", ERROR, ["CONSOLE"])
 
 root(ERROR, ["CONSOLE"])

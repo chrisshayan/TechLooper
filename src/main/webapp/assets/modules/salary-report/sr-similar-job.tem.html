@@ -1,0 +1,122 @@
+<div class="box-content-collapse">
+  <!-- ng-show="!salaryReview.campaign && salaryReport.percentRank !== 'NaN' && salaryReview.topPaidJobs.length"-->
+  <div class="title-header" ng-model="sendMeSimilarJob" ng-click="sendMeSimilarJob=!sendMeSimilarJob">
+    <h3><span ng-show="survey.submitted" translate="thanksFeedback"></span> <span
+      translate="doYouWantToEarnMore"></span></h3>
+    <div class="ic-hidden" title="Minimise">
+      <span ng-show="!sendMeSimilarJob"><i class="fa fa-caret-up"></i></span>
+      <span ng-show="sendMeSimilarJob"><i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+  <div class="best-paid-list" ng-show="!sendMeSimilarJob">
+    <div class="best-paid-companies" ng-show="state.showJobAlert">
+      <p translate="higherJobOffer"></p>
+      <div class="row-same-height row-full-height">
+        <div class="col-xs-4 col-xs-height col-full-height" ng-repeat="job in salaryReview.topPaidJobs">
+          <div class="best-paid-company">
+            <ul>
+              <li><strong>+ {{job.addedPercent}}%</strong></li>
+              <li title="{{job.jobTitle}}"><span class="job-title ellipsis">{{job.jobTitle}}</span></li>
+              <li title="{{job.companyDesc}}"><span class="company ellipsis">{{job.companyDesc}}</span></li>
+              <li ng-show="job.skills.length">
+              <span class="skills">
+                <i ng-repeat="skill in job.skills">{{skill}}</i>
+              </span>
+              </li>
+            </ul>
+            <div class="btn-see-more">
+              <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="no-data-best-paid-jobs" ng-show="!state.showJobAlert">
+      <p translate="noDataPaidJobs"></p>
+      <ul>
+        <li translate="paidJobMessages1"></li>
+        <li translate="paidJobMessages2"></li>
+        <li translate="paidJobMessages3"></li>
+      </ul>
+    </div>
+    <div class="see-more-jobs">
+      <p translate="higherJobOfferDisclaimer" class="note" ng-show="state.showJobAlert"></p> <a
+      ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary | number:0}}-en"
+      target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
+    </div>
+    <div class="email-me-similar-jobs" ng-show="state.showJobAlertButton">
+      <a ng-click="doJobAlert($event)" class="btn btn-primary btn-flat" translate="emailMeSimilarJobs"></a>
+    </div>
+    <div class="email-similar-jobs-block" ng-show="!state.showJobAlertButton">
+      <div class="ic-close" ng-click="hiddenJobAlertForm()" title="Close"> x</div>
+      <div class="email-similar-jobs-form">
+        <h3 translate="jobAlertTitle"></h3>
+        <p translate="desJobAlert"></p>
+        <div auto-suggestion text="jobAlert.jobTitle" input-model="jobAlertForm.jobTitle"
+             items="state.jobAlertTitles" get-url="suggestion/jobTitle/">
+        <form novalidate name="jobAlertForm" autocomplete="off">
+          <div class="row email-similar-jobs-field">
+            <label>{{'jobTitle' | translate}} <strong>*</strong></label>
+            <autocomplete name="jobTitle" required ng-model="jobAlert.jobTitle" data="state.jobAlertTitles"
+                          attr-placeholder="{{'jobTitle.placeholder' | translate}}" tl-model touchable></autocomplete>
+            <div class="error-messages">{{error['jobAlert.jobTitle']}}</div>
+          </div>
+          <div class="row email-similar-jobs-field">
+            <label>{{'jobCategory' | translate}} <strong>*</strong></label>
+            <selectize name="jobCategory" config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
+                       ng-model="jobAlert.jobCategories"
+                       required tl-model
+                       name="{{'jobCategory' | translate}}"></selectize>
+            <div class="error-messages">{{error['jobAlert.jobCategories']}}</div>
+          </div>
+          <div class="row email-similar-jobs-field" jobLevels>
+            <label>{{'jobLevel' | translate}} <strong>*</strong></label>
+            <selectize name="jobLevel" config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
+                       required tl-model
+                       ng-model="jobAlert.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+            <div class="error-messages">{{error['jobAlert.jobLevelIds']}}</div>
+          </div>
+          <div class="row email-similar-jobs-field">
+            <label>{{'city' | translate}} <strong>*</strong></label>
+            <selectize name="jobLocation" config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
+                       ng-model="jobAlert.locationId"
+                       required tl-model
+                       name="{{'location' | translate}}" class="locationSelectbox"></selectize>
+            <div class="error-messages">{{error['jobAlert.locationId']}}</div>
+          </div>
+          <div class="row email-similar-jobs-field">
+            <label for="txtBaseSalary"><span>{{'netSalaryFrom' | translate}}</span> <strong>*</strong></label>
+            <input name="baseSalary" id="txtBaseSalary" type="text" ng-model="jobAlert.netSalary"
+                   required tl-model
+                   name="{{'netSalary' | translate}}" maxlength="5"
+                   placeholder="{{'netSalary.placeholder' | translate}}" only-digits/>
+
+            <div class="error-messages">{{error['jobAlert.netSalary']}}</div>
+          </div>
+          <div class="row email-similar-jobs-field">
+            <p><span>{{jobsTotal}}</span><span translate="jobMatch"></span></p>
+          </div>
+          <div class="row email-similar-jobs-field">
+            <label for="txtEmailJobAlert">{{'myEmail' | translate}} <strong>*</strong></label>
+            <input ng-model="jobAlert.email" type="email" required tl-model
+                   id="txtEmailJobAlert" placeholder="{{'emailAddress' | translate}}" focus-on="emailJobAlert"/>
+            <div class="error-messages">
+              {{error['jobAlert.email'] }}
+            </div>
+          </div>
+          <div class="row email-similar-jobs-field submit">
+            <button class="btn btn-primary btn-flat" ng-click="createJobAlert()" type="submit"
+                    translate="emailMeJobs"></button>
+            <a ng-click="hiddenJobAlertForm()" translate="cancel"></a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+    <div class="success-alert-box job-alert-thanks" ng-show="state.showJobAlertThanks">
+      <h3 translate="jobAlertTitle"></h3>
+      <span class="thanksMessages" translate="alertSuccessJobAlert"></span>
+    </div>
+  </div>
+</div>
