@@ -10,7 +10,7 @@ techlooper.controller("postContestController", function ($scope) {
             return $scope.challengeForm.$valid();
 
           case "challenge-tab-class":
-            return "active";
+            return "active showNavi";
         }
       },
       nextState: "timeline"
@@ -25,8 +25,10 @@ techlooper.controller("postContestController", function ($scope) {
             return $scope.timelineForm.$valid();
 
           case "challenge-tab-class":
+            return "active";
+
           case "timeline-tab-class":
-            return true;
+            return "active showNavi";
         }
       },
       nextState: "reward"
@@ -40,10 +42,14 @@ techlooper.controller("postContestController", function ($scope) {
             $scope.rewardForm.$setSubmitted();
             return $scope.rewardForm.$valid();
 
-          case "is-challenge-tab-active":
-          case "is-timeline-tab-active":
-          case "is-reward-tab-active":
-            return true;
+          case "challenge-tab-class":
+            return "active";
+
+          case "timeline-tab-class":
+            return "active";
+          
+          case "reward-tab-class":
+            return "active showNavi";
         }
       }
     }
