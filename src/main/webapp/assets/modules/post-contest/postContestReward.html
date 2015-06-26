@@ -7,8 +7,9 @@
         <div class="post-contest-field-content">
           <label for="txtFirstReward" translate="firstReward"></label>
           <input type="text" id="txtFirstReward" class="input-style"
-                 placeholder="{{'challengeNameEX' | translate}}"
-                 name="firstPlaceReward" ng-model="contest.firstPlaceReward" touchable required/>
+                 placeholder="{{'firstPrize' | translate}}"
+                 name="firstPlaceReward"
+                 ng-model="contest.firstPlaceReward" touchable required/>
           <div class="error-messages"
                ng-show="rewardForm.firstPlaceReward.$error.required && (rewardForm.firstPlaceReward.$touched || rewardForm.$submitted)"
                translate="requiredThisField"></div>
@@ -20,8 +21,13 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtSecondReward" translate="secondReward"></label>
-          <input type="text" id="txtSecondReward" class="input-style" placeholder="{{'challengeNameEX' | translate}}"/>
-          <div class="error-messages">error will be show here</div>
+          <input type="text" id="txtSecondReward" class="input-style"
+                 name="secondPlaceReward" ng-model="contest.secondPlaceReward"
+                 ng-model="contest.secondPlaceReward"
+                 placeholder="{{'secondPrize' | translate}}" touchable/>
+          <div class="error-messages"
+               ng-show="rewardForm.secondPlaceReward.$error.required && (rewardForm.secondPlaceReward.$touched || rewardForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -30,8 +36,13 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtThirdReward" translate="thirdReward"></label>
-          <input type="text" id="txtThirdReward" class="input-style" placeholder="{{'challengeNameEX' | translate}}"/>
-          <div class="error-messages">error will be show here</div>
+          <input type="text" id="txtThirdReward" class="input-style"
+                 name="thirdPlaceReward"
+                 ng-model="contest.thirdPlaceReward"
+                 placeholder="{{'thirdPrize' | translate}}" touchable/>
+          <div class="error-messages"
+               ng-show="rewardForm.thirdPlaceReward.$error.required && (rewardForm.thirdPlaceReward.$touched || rewardForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>

@@ -327,7 +327,7 @@
   "emailAddressReceiveEX": "Ví dụ: example@techlooper.com",
   "subHeaderDeadlines": "Thử Thách diễn ra theo lịch trình như sau.",
   "challengeStart": "Ngày Bắt Đầu: <strong>*</strong>",
-  "challengeStartEX": "Ví dụ: 24/6/2015",
+  "dateEx": "Ví dụ: 24/6/2015",
   "challengeRegister": "Thí Sinh Phải Đăng Ký Không Quá: <strong>*</strong>",
   "challengeSubmit": "Và Thí Sinh Phải Gửi Kết Quả Không Quá: <strong>*</strong>",
   "userName": "Tên truy cập/Địa chỉ Email: <strong>*</strong>",
@@ -347,6 +347,9 @@
   "firstReward": "Tiền thưởng cho người về nhất (USD): <strong>*</strong>",
   "secondReward": "Tiền thưởng cho người về nhì (USD):",
   "thirdReward": "Tiền thưởng cho người về ba (USD):",
+  "firstPrize": "1500",
+  "secondPrize": "1000",
+  "thirdPrize": "500",
   "publishingChallenge": "publishing Challenge"
 }
 

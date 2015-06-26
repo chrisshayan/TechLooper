@@ -325,7 +325,7 @@
   "emailAddressReceiveEX": "Ex: example@techlooper.com",
   "subHeaderDeadlines": "Your Challenge has the following deadlines.",
   "challengeStart": "Your Challenge Will Start On: <strong>*</strong>",
-  "challengeStartEX": "Ex: 06/24/2015",
+  "dateEx": "Ex: 06/24/2015",
   "challengeRegister": "Contestants Have To Register By: <strong>*</strong>",
   "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>",
   "userName": "Enter User Name/Email Address: <strong>*</strong>",
@@ -345,5 +345,12 @@
   "firstReward": "1st Place Reward (USD): <strong>*</strong>",
   "secondReward": "2nd Place Reward (USD):",
   "thirdReward": "3rd Place Reward (USD):",
-  "publishingChallenge": "publishing Challenge"
+  "publishingChallenge": "publishing Challenge",
+  "createNewContest": "Create New Contest",
+  "firstPrize": "1500",
+  "secondPrize": "1000",
+  "thirdPrize": "500",
+  "stPrize": "1st Prize",
+  "ndPrize": "2nd Prize",
+  "rdPrize": "3rd Prize"
 }
