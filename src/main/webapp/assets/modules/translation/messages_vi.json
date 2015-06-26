@@ -350,7 +350,17 @@
   "firstPrize": "5000",
   "secondPrize": "3000",
   "thirdPrize": "500",
-  "publishingChallenge": "publishing Challenge"
+  "publishingChallenge": "publishing Challenge",
+  "createNewContest": "Create New Contest",
+  "stPrize": "Giải nhất",
+  "ndPrize": "Giải nhì",
+  "rdPrize": "Giải ba",
+  "currentPhase": "Tiến Độ Hiện Thời",
+  "registration": "Đăng Ký",
+  "moreDayToSubmit": "Còn x ngày nữa tới hạn gửi sản phẩm",
+  "allViewDeadlines": "Xem lịch trình cụ thể +",
+  "registerNumber": "Đang có {{registerNumber}} thí sinh tham gia thử thách này.",
+  "joinNow": "Tham Gia Ngay"
 }
 
 
