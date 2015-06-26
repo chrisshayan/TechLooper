@@ -43,18 +43,9 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         })
         .catch(function () {return $location.path("/login");});
     }
-
-    //init: function () {
-    //  switch (utils.getView()) {
-    //    case jsonValue.views.login:
-    //    case jsonValue.views.postContest:
-    //      instance.ableToGo();
-    //      break;
-    //  }
-    //}
   };
 
-  $rootScope.$on("$loginSuccess", function (e, newUrl, oldUrl, newState, oldState) {
+  $rootScope.$on("$loginSuccess", function () {
     instance.ableToGo();
   });
 
