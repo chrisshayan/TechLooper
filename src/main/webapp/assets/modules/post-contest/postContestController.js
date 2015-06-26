@@ -3,37 +3,68 @@ techlooper.controller("postContestController", function ($scope) {
   var state = {
     challenge: {
       showChallenge: true,
-      isValid: function () {
-        $scope.challengeForm.$setSubmitted();
-        return $scope.challengeForm.$valid();
-      }
+      status: function (type) {
+        switch (type) {
+          case "is-form-valid":
+            $scope.challengeForm.$setSubmitted();
+            return $scope.challengeForm.$valid();
+
+          case "is-challenge-tab-active":
+            return true;
+        }
+      },
+      nextState: "timeline"
     },
 
     timeline: {
       showTimeline: true,
-      isValid: function () {
-        $scope.timelineForm.$setSubmitted();
-        return $scope.timelineForm.$valid();
-      }
+      status: function (type) {
+        switch (type) {
+          case "is-form-valid":
+            $scope.timelineForm.$setSubmitted();
+            return $scope.timelineForm.$valid();
+
+          case "is-challenge-tab-active":
+          case "is-timeline-tab-active":
+            return true;
+        }
+      },
+      nextState: "reward"
     },
 
     reward: {
       showReward: true,
-      isValid: function () {
-        $scope.rewardForm.$setSubmitted();
-        return $scope.rewardForm.$valid();
+      status: function (type) {
+        switch (type) {
+          case "is-form-valid":
+            $scope.rewardForm.$setSubmitted();
+            return $scope.rewardForm.$valid();
+
+          case "is-challenge-tab-active":
+          case "is-timeline-tab-active":
+          case "is-reward-tab-active":
+            return true;
+        }
       }
     }
   }
 
   $scope.changeState = function (st) {
-    if ($scope.state && !$scope.state.isValid()) {
-      return false;
+    if (!st) {
+      return;
     }
+
+    //if ($scope.state && !$scope.state.status("is-form-valid")) {
+    //  return false;
+    //}
 
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
     $scope.$emit("$stateChangeSuccess");
+  }
+
+  $scope.nextState = function () {
+    $scope.changeState($scope.state.nextState);
   }
 
   $scope.changeState(state.challenge);
