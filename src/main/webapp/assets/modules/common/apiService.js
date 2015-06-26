@@ -9,8 +9,11 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * Get current login user info
      * */
-    getCurrentUser: function () {
-      return $http.get("user/current");
+    getCurrentUser: function (type) {
+      switch (type) {
+        default:
+          return $http.get("user/vnw-current");
+      }
     },
 
     logout: function () {

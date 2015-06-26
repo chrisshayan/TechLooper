@@ -329,7 +329,8 @@
   "challengeRegister": "Contestants Have To Register By: <strong>*</strong>",
   "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>",
   "userName": "Enter User Name/Email Address: <strong>*</strong>",
-  "userNameEX": "Ex: username/ example@vietnamworks.com",
-  "password": "Enter Password: <strong>*</strong>",
+  "userNameEX": "ex: username / example@vietnamworks.com",
+  "enterPassword": "Enter Password: <strong>*</strong>",
+  "password": "password",
   "login": "Login"
 }

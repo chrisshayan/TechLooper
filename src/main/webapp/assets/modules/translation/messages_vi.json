@@ -331,9 +331,10 @@
   "challengeRegister": "Thí Sinh Phải Đăng Ký Không Quá: <strong>*</strong>",
   "challengeSubmit": "Và Thí Sinh Phải Gửi Kết Quả Không Quá: <strong>*</strong>",
   "userName": "Tên truy cập/Địa chỉ Email: <strong>*</strong>",
-  "userNameEX": "Ví dụ: Tên truy cập/ example@vietnamworks.com",
-  "password": "Mật khẩu: <strong>*</strong>",
-  "login": "Đăng Nhập"
+  "userNameEX": "ví dụ: Tên truy cập / example@vietnamworks.com",
+  "enterPassword": "Mật khẩu: <strong>*</strong>",
+  "login": "Đăng Nhập",
+  "password": "mật khẩu"
 }
 
 

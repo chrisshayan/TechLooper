@@ -3,6 +3,7 @@ package com.techlooper.service;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 
 import java.util.List;
@@ -120,5 +121,5 @@ public interface UserService {
 
     SalaryReviewDto findSalaryReviewById(String base64Id);
 
-    VnwUser findVnwUserByUsername(String username);
+    VnwUserDto findVnwUserByUsername(String username);
 }

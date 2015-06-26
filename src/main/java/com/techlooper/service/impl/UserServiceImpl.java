@@ -1,11 +1,11 @@
 package com.techlooper.service.impl;
 
-import com.couchbase.client.CouchbaseClient;
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserRegistration;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.repository.couchbase.UserRegistrationRepository;
 import com.techlooper.repository.couchbase.UserRepository;
@@ -256,8 +256,8 @@ public class UserServiceImpl implements UserService {
     return dozerMapper.map(salaryReviewRepository.findOne(id), SalaryReviewDto.class);
   }
 
-  public VnwUser findVnwUserByUsername(String username) {
-    return vnwUserRepo.findByUsernameIgnoreCase(username);
+  public VnwUserDto findVnwUserByUsername(String username) {
+    return dozerMapper.map(vnwUserRepo.findByUsernameIgnoreCase(username), VnwUserDto.class);
   }
 
 }

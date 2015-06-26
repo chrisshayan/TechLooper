@@ -16,13 +16,19 @@
       <form novalidate name="loginForm" autocomplete="off" ng-submit="login()">
         <div class="sign-in-field">
           <label for="txtUserName" translate="userName"></label>
-          <input id="txtUserName" class="input-style" type="text" name="username" ng-model="username" placeholder="{{'userNameEX' | translate}}">
-          <div class="error-messages">Error messages will be show here</div>
+          <input id="txtUserName" class="input-style" type="text" name="username" ng-model="username"
+                 placeholder="{{'userNameEX' | translate}}" required touable/>
+          <div class="error-messages"
+               ng-show="loginForm.username.$error.required && (loginForm.username.$touched || loginForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="sign-in-field">
-          <label for="txtPassword" translate="password"></label>
-          <input id="txtPassword" class="input-style" type="password" name="username" ng-model="password">
-          <div class="error-messages">Error messages will be show here</div>
+          <label for="txtPassword" translate="enterPassword"></label>
+          <input id="txtPassword" class="input-style" type="password" name="password" ng-model="password"
+                 placeholder="{{'password' | translate}}"  required touable>
+          <div class="error-messages"
+               ng-show="loginForm.password.$error.required && (loginForm.password.$touched || loginForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="sign-in-field submit">
           <button type="submit" translate="login" class="btn btn-primary btn-flat"></button>

@@ -18,7 +18,7 @@ public class VnwUserRepoSimple implements VnwUserRepo {
 
   @Override
   public VnwUser findByUsernameIgnoreCase(String username) {
-    return null;
+    return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
   }
 
   @Override

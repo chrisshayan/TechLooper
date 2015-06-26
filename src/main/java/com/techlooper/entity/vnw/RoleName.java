@@ -4,7 +4,7 @@ package com.techlooper.entity.vnw;
  * Created by phuonghqh on 6/25/15.
  */
 public enum RoleName {
-  BF_EMPLOYER(0), EMPLOYER(1), JOB_SEEKER(2);
+  PRE_EMPLOYER(0), EMPLOYER(1), JOB_SEEKER(2);
 
   private Integer value;
 

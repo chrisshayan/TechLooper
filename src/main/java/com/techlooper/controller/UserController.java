@@ -4,6 +4,8 @@ import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
 import freemarker.template.TemplateException;
@@ -237,9 +239,8 @@ public class UserController {
   }
 
   @PreAuthorize("hasAnyAuthority('EMPLOYER')")
-  @RequestMapping(value = "user/current", method = RequestMethod.GET)
-  public UserInfo getCurrentUser(HttpServletRequest servletRequest) {
-//    return userService.findUserPrincipal(servletRequest.getRemoteUser());
-    return null;
+  @RequestMapping(value = "user/vnw-current", method = RequestMethod.GET)
+  public VnwUserDto getVnwCurrentUser(HttpServletRequest servletRequest) {
+    return userService.findVnwUserByUsername(servletRequest.getRemoteUser());
   }
 }

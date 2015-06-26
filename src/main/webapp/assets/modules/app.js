@@ -186,7 +186,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
-  signInService.init();
+  //signInService.init();
 
   //var locationPathFn = $location.path;
   //$location.path = function () {
@@ -218,7 +218,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
-  securityService.init();
 });
 
 techlooper.directive("navigation", function () {

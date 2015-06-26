@@ -9,8 +9,6 @@ import javax.persistence.*;
 @Table(name = "tblregistrationinfo")
 public class VnwUser {
 
-  public static enum RoleNameEnum {EMPLOYER};
-
   @Id
   @Column(name = "userid")
   private Long userId;
@@ -66,5 +64,41 @@ public class VnwUser {
 
   public int hashCode() {
     return userId != null ? userId.hashCode() : 0;
+  }
+
+  public static class VnwUserBuilder {
+    private VnwUser vnwUser;
+
+    private VnwUserBuilder() {
+      vnwUser = new VnwUser();
+    }
+
+    public VnwUserBuilder withUserId(Long userId) {
+      vnwUser.userId = userId;
+      return this;
+    }
+
+    public VnwUserBuilder withUsername(String username) {
+      vnwUser.username = username;
+      return this;
+    }
+
+    public VnwUserBuilder withUserPass(String userPass) {
+      vnwUser.userPass = userPass;
+      return this;
+    }
+
+    public VnwUserBuilder withRoleName(RoleName roleName) {
+      vnwUser.roleName = roleName;
+      return this;
+    }
+
+    public static VnwUserBuilder vnwUser() {
+      return new VnwUserBuilder();
+    }
+
+    public VnwUser build() {
+      return vnwUser;
+    }
   }
 }
