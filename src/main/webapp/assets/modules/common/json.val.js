@@ -792,6 +792,12 @@ angular.module("Common").constant("jsonValue", (function () {
       "images": "/images/banner-citibank.png",
       "minSalary": 10000000,
       "AcceptedCity": [24, 29]
+    },
+
+    postContestConfig: {
+      technologies: {
+        required: true
+      }
     }
   }
 

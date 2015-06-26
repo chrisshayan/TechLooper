@@ -350,7 +350,8 @@
   "firstPrize": "1500",
   "secondPrize": "1000",
   "thirdPrize": "500",
-  "publishingChallenge": "publishing Challenge"
+  "publishingChallenge": "publishing Challenge",
+  "alreadyExistValue": "Giá trị này đã tồn tại"
 }
 
 

@@ -352,5 +352,6 @@
   "thirdPrize": "500",
   "stPrize": "1st Prize",
   "ndPrize": "2nd Prize",
-  "rdPrize": "3rd Prize"
+  "rdPrize": "3rd Prize",
+  "alreadyExistValue": "This value is already exist"
 }

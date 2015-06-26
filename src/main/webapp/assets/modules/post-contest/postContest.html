@@ -18,27 +18,33 @@
   <div class="salary-review-block salary-review-content" srcoll-window="scroll">
     <div class="navi-step-salary-review" ng-class="{fixed: scroll > 149}">
       <ul>
-        <li class="{{state.status('challenge-tab-class')}}" ng-click="nextState()">
+        <li class="{{state.status('challenge-tab-class')}}">
           <h2 translate="aboutYourChallenge"></h2>
 
           <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
         </li>
 
-        <li class="{{state.status('timeline-tab-class')}}" ng-click="nextState()">
+        <li class="{{state.status('timeline-tab-class')}}">
           <h2 translate="timeLine2"></h2>
 
           <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
         </li>
 
-        <li class="{{state.status('reward-tab-class')}}" ng-click="nextState()">
+        <li class="{{state.status('reward-tab-class')}}">
           <h2 translate="yourReward"></h2>
 
           <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
         </li>
       </ul>
     </div>
+
+    <div class="post-contest-field submit">
+      <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="next" />
+    </div>
+
     <post-contest-challenge ng-show="state.showChallenge"></post-contest-challenge>
     <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
     <post-contest-reward ng-show="state.showReward"></post-contest-reward>
+
   </div>
 </div>
