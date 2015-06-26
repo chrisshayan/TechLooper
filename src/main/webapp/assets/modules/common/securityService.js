@@ -62,6 +62,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     switch (utils.getView()) {
       case jsonValue.views.postContest:
         capturePaths.push("/post-contest");
+      case jsonValue.views.login:
         instance.ableToGo();
         break;
     }
