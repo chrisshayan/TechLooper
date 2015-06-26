@@ -345,5 +345,9 @@
   "firstReward": "1st Place Reward (USD): <strong>*</strong>",
   "secondReward": "2nd Place Reward (USD):",
   "thirdReward": "3rd Place Reward (USD):",
-  "publishingChallenge": "publishing Challenge"
+  "publishingChallenge": "publishing Challenge",
+  "createNewContest": "Create New Contest",
+  "stPrize": "1st Prize",
+  "ndPrize": "2nd Prize",
+  "rdPrize": "3rd Prize"
 }
