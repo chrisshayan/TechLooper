@@ -9,7 +9,7 @@
           <input type="text" id="txtFirstReward" class="input-style"
                  placeholder="{{'firstPrize' | translate}}"
                  name="firstPlaceReward"
-                 ng-model="contest.firstPlaceReward" touchable required/>
+                 ng-model="contest.firstPlaceReward" touchable required only-digits maxlength="4"/>
           <div class="error-messages"
                ng-show="rewardForm.firstPlaceReward.$error.required && (rewardForm.firstPlaceReward.$touched || rewardForm.$submitted)"
                translate="requiredThisField"></div>
@@ -24,7 +24,7 @@
           <input type="text" id="txtSecondReward" class="input-style"
                  name="secondPlaceReward" ng-model="contest.secondPlaceReward"
                  ng-model="contest.secondPlaceReward"
-                 placeholder="{{'secondPrize' | translate}}" touchable/>
+                 placeholder="{{'secondPrize' | translate}}" touchable only-digits maxlength="4"/>
           <div class="error-messages"
                ng-show="rewardForm.secondPlaceReward.$error.required && (rewardForm.secondPlaceReward.$touched || rewardForm.$submitted)"
                translate="requiredThisField"></div>
@@ -39,7 +39,7 @@
           <input type="text" id="txtThirdReward" class="input-style"
                  name="thirdPlaceReward"
                  ng-model="contest.thirdPlaceReward"
-                 placeholder="{{'thirdPrize' | translate}}" touchable/>
+                 placeholder="{{'thirdPrize' | translate}}" touchable only-digits maxlength="4"/>
           <div class="error-messages"
                ng-show="rewardForm.thirdPlaceReward.$error.required && (rewardForm.thirdPlaceReward.$touched || rewardForm.$submitted)"
                translate="requiredThisField"></div>
