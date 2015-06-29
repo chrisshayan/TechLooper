@@ -4,7 +4,8 @@ techlooper.directive('tagbox', function ($rootScope) {
     replace: true,
     templateUrl: "modules/common/tagbox.html",
     scope: {
-      tags: "="
+      tags: "=",
+      type: "@"
     },
 
     /**
