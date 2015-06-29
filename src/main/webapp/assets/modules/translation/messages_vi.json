@@ -323,7 +323,7 @@
   "documentsEX": "Cung cấp thông tin về UI Prototype và các tập tin thiết kế mới nhất cho thí sinh.",
   "deliverables": "Yêu Cầu Sản phẩm: <strong>*</strong>",
   "deliverablesEX": "Thí sinh phải gửi các UI prototype, mã nguồn với change log ghi rõ sự thay đổi trong quá trình phát triển.",
-  "emailAddressReceive": "Thông tin thí sinh tham gia thử thách sẽ gửi đến email<span> (Tối đa 5 email)</span>: <strong>*</strong>",
+  "emailAddressReceive": "Thông tin thí sinh tham gia thử thách sẽ gửi đến email<span> (Tối đa 5)</span>: <strong>*</strong>",
   "emailAddressReceiveEX": "Ví dụ: example@techlooper.com",
   "subHeaderDeadlines": "Thử Thách diễn ra theo lịch trình như sau.",
   "challengeStart": "Ngày Bắt Đầu: <strong>*</strong>",
