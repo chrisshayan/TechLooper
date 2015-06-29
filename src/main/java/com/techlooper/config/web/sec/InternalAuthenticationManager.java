@@ -1,6 +1,7 @@
 package com.techlooper.config.web.sec;
 
 import com.techlooper.entity.vnw.RoleName;
+import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.repository.vnw.VnwUserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,9 @@ public class InternalAuthenticationManager implements AuthenticationManager {
     String username = new String(decoder.decode(authentication.getPrincipal().toString()));
     String password = new String(decoder.decode(authentication.getCredentials().toString()));
     String hashPassword = org.apache.commons.codec.digest.DigestUtils.md5Hex(password);
-    if (vnwUserRepo.findByUsernameIgnoreCaseAndUserPassAndRoleName(username, hashPassword, RoleName.EMPLOYER) != null) {
-      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null,
+    VnwUser vnwUser = vnwUserRepo.findByUsernameIgnoreCaseAndUserPassAndRoleName(username, hashPassword, RoleName.EMPLOYER);
+    if (vnwUser != null) {
+      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(vnwUser.getEmail(), null,
         Arrays.asList(new SimpleGrantedAuthority(RoleName.EMPLOYER.name())));
       return auth;
     }

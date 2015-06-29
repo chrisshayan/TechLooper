@@ -7,7 +7,7 @@
           <label for="dateChallengeStart" translate="challengeStart"></label>
           <div class="input-group date">
             <input id="dateChallengeStart" type="text" class="form-control"
-                   placeholder="{{startDateEx}}"
+                   placeholder="{{state.status('ex-start-date')}}"
                    name="startDate"
                    ng-model="contest.startDate" touchable required readonly>
               <span class="input-group-addon">
@@ -27,7 +27,7 @@
           <label for="dateChallengeRegister" translate="challengeRegister"></label>
           <div class="input-group date">
             <input id="dateChallengeRegister" type="text" class="form-control"
-                   placeholder="{{registerDateEx}}"
+                   placeholder="{{state.status('ex-register-date')}}"
                    name="registrationDate"
                    ng-model="contest.registrationDate" touchable required readonly>
                   <span class="input-group-addon">
@@ -47,7 +47,7 @@
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
             <input id="dateChallengeSubmit" type="text" class="form-control"
-                   placeholder="{{submitDateEx}}"
+                   placeholder="{{state.status('ex-submit-date')}}"
                    name="submissionDate"
                    ng-model="contest.submissionDate" touchable required readonly>
                   <span class="input-group-addon">

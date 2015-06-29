@@ -18,9 +18,20 @@ public class VnwUser {
   @Column(name = "userpass")
   private String userPass;
 
+  @Column(name = "email1")
+  private String email;
+
   @Enumerated(EnumType.ORDINAL)
   @Column(name = "youareid")
   private RoleName roleName;
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
   public RoleName getRoleName() {
     return roleName;

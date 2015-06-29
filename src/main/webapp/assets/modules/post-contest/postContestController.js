@@ -28,6 +28,15 @@ techlooper.controller("postContestController", function ($scope, $http) {
 
           case "timeline-tab-class":
             return "active showNavi";
+
+          case "ex-start-date":
+            return moment().add(7, 'day').format('DD/MM/YYYY');
+
+          case "ex-register-date":
+            return moment().add(21, 'day').format('DD/MM/YYYY');
+
+          case "ex-submit-date":
+            return moment().add(63, 'day').format('DD/MM/YYYY');
         }
       },
       nextState: "reward"
