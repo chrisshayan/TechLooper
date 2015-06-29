@@ -7,9 +7,8 @@
           <label for="dateChallengeStart" translate="challengeStart"></label>
           <div class="input-group date">
             <input id="dateChallengeStart" type="text" class="form-control"
-                   placeholder="{{'dateEx' | translate}}"
+                   placeholder="{{startDateEx}}"
                    name="startDate"
-                   restrict-input
                    ng-model="contest.startDate" touchable required readonly>
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-calendar"></i>
@@ -28,9 +27,8 @@
           <label for="dateChallengeRegister" translate="challengeRegister"></label>
           <div class="input-group date">
             <input id="dateChallengeRegister" type="text" class="form-control"
-                   placeholder="{{'dateEx' | translate}}"
+                   placeholder="{{registerDateEx}}"
                    name="registrationDate"
-                   restrict-input
                    ng-model="contest.registrationDate" touchable required readonly>
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
@@ -49,9 +47,8 @@
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
             <input id="dateChallengeSubmit" type="text" class="form-control"
-                   placeholder="{{'dateEx' | translate}}"
+                   placeholder="{{submitDateEx}}"
                    name="submissionDate"
-                   restrict-input
                    ng-model="contest.submissionDate" touchable required readonly>
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
