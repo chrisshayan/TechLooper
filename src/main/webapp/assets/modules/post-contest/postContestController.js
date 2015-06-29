@@ -1,5 +1,4 @@
 techlooper.controller("postContestController", function ($scope, $http) {
-
   var state = {
     challenge: {
       showChallenge: true,

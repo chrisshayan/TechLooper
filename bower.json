@@ -41,7 +41,8 @@
     "ng-focus-on": "latest",
     "bootstrap-datepicker": "latest",
     "jquery.cookie": "latest",
-    "angular-sanitize": "latest"
+    "angular-sanitize": "latest",
+    "moment": "latest"
   },
   "overrides": {
     "jquery": {
@@ -149,6 +150,9 @@
         "dist/css/bootstrap-datepicker3.css",
         "dist/js/bootstrap-datepicker.min.js"
       ]
+    },
+    "moment":{
+      "main": "moment.js"
     }
   },
   "resolutions": {
