@@ -6,9 +6,9 @@
         <div class="post-contest-field-content">
           <label for="txtChallengeName" translate="challengeName"></label>
           <input type="text" id="txtChallengeName" class="input-style" placeholder="{{'challengeNameEX' | translate}}"
-            ng-model="contest.challengeName" name="challengeName" required/>
+            ng-model="contest.challengeName" name="challengeName" required touchable/>
           <div class="error-messages"
-               ng-show="challengeForm.challengeName.$error.required && (challengeForm.challengeName.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.challengeName.$error.required && (challengeForm.challengeName.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -20,9 +20,9 @@
           <label for="txtBusinessRequirements" translate="businessRequirements"></label>
           <textarea id="txtBusinessRequirements" cols="" rows="" class="textarea-style"
                     placeholder="{{'businessRequirementsEX' | translate}}"
-                    ng-model="contest.businessRequirement" name="businessRequirement" required/>
+                    ng-model="contest.businessRequirement" name="businessRequirement" required touchable/>
           <div class="error-messages"
-               ng-show="challengeForm.businessRequirement.$error.required && (challengeForm.businessRequirement.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.businessRequirement.$error.required && (challengeForm.businessRequirement.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -34,9 +34,9 @@
           <label for="txtGeneralNotes" translate="generalNotes">sfdwqvfe</label>
           <textarea id="txtGeneralNotes" cols="" rows="" class="textarea-style"
                     placeholder="{{'generalNotesEX' | translate}}"
-                    ng-model="contest.generalNote" name="generalNote" required/>
+                    ng-model="contest.generalNote" name="generalNote" required touchable/>
           <div class="error-messages"
-               ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -48,10 +48,10 @@
           <label translate="technologies"></label>
           <tagbox name="technologies" tags="contest.technologies"
                   type="text"
-                  ng-model="contest.technologies" array-model touchable></tagbox>
+                  ng-model="contest.technologies" forcusout="true" array-model touchable></tagbox>
 
           <div class="error-messages"
-               ng-show="challengeForm.technologies.$error.required && (challengeForm.technologies.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.technologies.$error.required && (challengeForm.technologies.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
 
         </div>
@@ -63,10 +63,10 @@
         <div class="post-contest-field-content">
           <label for="txtDocuments" translate="documents"></label>
           <textarea ng-model="contest.documents" name="documents" id="txtDocuments" cols="" rows=""
-                    class="textarea-style" placeholder="{{'documentsEX' | translate}}" required></textarea>
+                    class="textarea-style" placeholder="{{'documentsEX' | translate}}" required touchable></textarea>
 
           <div class="error-messages"
-               ng-show="challengeForm.documents.$error.required && (challengeForm.documents.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.documents.$error.required && (challengeForm.documents.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -77,10 +77,10 @@
         <div class="post-contest-field-content">
           <label for="txtDeliverables" translate="deliverables"></label>
           <textarea name="deliverables" id="txtDeliverables" cols="" rows="" class="textarea-style"
-                    placeholder="{{'deliverablesEX' | translate}}" ng-model="deliverables" required></textarea>
+                    placeholder="{{'deliverablesEX' | translate}}" ng-model="deliverables" required touchable></textarea>
 
           <div class="error-messages"
-               ng-show="challengeForm.deliverables.$error.required && (challengeForm.deliverables.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.deliverables.$error.required && (challengeForm.deliverables.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -95,7 +95,7 @@
                   ng-model="contest.receivedEmails" array-model touchable></tagbox>
 
           <div class="error-messages"
-               ng-show="challengeForm.receivedEmails.$error.required && (challengeForm.receivedEmails.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.receivedEmails.$error.required && (challengeForm.receivedEmails.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -106,9 +106,9 @@
         <div class="post-contest-field-content">
           <label translate="reviewStyle"></label>
           <autocomplete required ng-model="contest.reviewStyle" data="" name="reviewStyle"
-                        attr-placeholder="{{'reviewStyleEX' | translate}}" validate></autocomplete>
+                        attr-placeholder="{{'reviewStyleEX' | translate}}" touchable></autocomplete>
           <div class="error-messages"
-               ng-show="challengeForm.reviewStyle.$error.required && (challengeForm.reviewStyle.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.reviewStyle.$error.required && (challengeForm.reviewStyle.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
