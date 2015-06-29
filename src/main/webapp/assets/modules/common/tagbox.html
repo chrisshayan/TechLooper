@@ -4,7 +4,7 @@
       <ul>
         <li ng-repeat="tag in tags">
           <span class="left">
-            <span class="right"><i>{{tag}}</i>
+            <span class="right no-capitalize"><i>{{tag}}</i>
               <span ng-click="removeTag(tag)" class="close" title="Remove">x</span>
             </span>
           </span>
@@ -18,7 +18,7 @@
            <!--translate="requiredThisField"></div>-->
     <!--</div>-->
 
-    <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$touched">
+    <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$edited">
       <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
       <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
@@ -28,7 +28,7 @@
 
     <input type="{{type}}" placeholder="{{config.placeholder | translate}}"
            ng-keypress="submitTag($event, tag)"
-           ng-model="tag" name="tag" required unique touchable />
+           ng-model="tag" name="tag" required unique touchable forcusout="true" />
 
     <button type="submit" ng-click="addTag(tag)">{{'add' | translate}}</button>
   </ng-form>

@@ -6,8 +6,9 @@ techlooper.controller("postContestController", function ($scope, $rootScope) {
       status: function (type) {
         switch (type) {
           case "is-form-valid":
+            //console.log($scope.challengeForm);
             $scope.challengeForm.$setSubmitted();
-            console.log($scope.challengeForm);
+            //console.log($scope.challengeForm);
             return $scope.challengeForm.$valid;
 
           case "challenge-tab-class":
@@ -72,6 +73,10 @@ techlooper.controller("postContestController", function ($scope, $rootScope) {
   $scope.nextState = function () {
     $scope.changeState($scope.state.nextState);
   }
+
+  //$scope.$watch("challengeForm", function() {
+  //  console.log($scope.challengeForm);
+  //}, true);
 
   $scope.changeState(state.challenge);
 });
