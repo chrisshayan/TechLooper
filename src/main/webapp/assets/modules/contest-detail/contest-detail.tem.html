@@ -36,21 +36,21 @@
         <div class="time-block">
           <h3 translate="currentPhase"></h3>
           <p translate="registration"></p>
-          <p class="count-down-day"><strong>20</strong> {{'moreDayToSubmit' | translate}}</p>
+          <p class="count-down-day" translate-value-count-down-day="<strong>{countDownDay}}</strong>" translate="moreDayToSubmit"></p>
         </div>
-        <a translate="allViewDeadlines" ng-model="checked" ng-click="checked = !checked"></a>
-        <div class="timeline-information animate-show" ng-show="!checked">
+        <a translate="allViewDeadlines" ng-click="showDeadlineInfo()"></a>
+        <div class="timeline-information animate-show" ng-show="toggle">
           <ul>
-            <li><span translate=""></span>06/24/2015</li>
-            <li><span translate=""></span>06/24/2015</li>
-            <li><span translate=""></span>06/24/2015</li>
+            <li><span translate="startDate"></span>06/24/2015</li>
+            <li><span translate="registerBy"></span>06/24/2015</li>
+            <li><span translate="submitBy"></span>06/24/2015</li>
           </ul>
         </div>
       </div>
     </div>
     <div class="row registration-count">
       <div class="col-md-12">
-        <p translate="registerNumber" translate-value-register-number="<strong>100</strong>"></p>
+        <p translate="registerNumber" translate-value-register-number="<strong>{{registerNumber}}</strong>"></p>
         <a class="btn btn-primary btn-flat" translate="joinNow"></a>
       </div>
     </div>

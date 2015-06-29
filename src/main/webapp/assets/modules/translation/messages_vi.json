@@ -353,15 +353,18 @@
   "publishingChallenge": "publishing Challenge",
   "alreadyExistValue": "Giá trị này đã tồn tại",
   "createNewContest": "Create New Contest",
-  "stPrize": "Giải nhất",
-  "ndPrize": "Giải nhì",
-  "rdPrize": "Giải ba",
+  "stPrize": "Giải nhất<strong>:</strong>",
+  "ndPrize": "Giải nhì<strong>:</strong>",
+  "rdPrize": "Giải ba<strong>:</strong>",
   "currentPhase": "Tiến Độ Hiện Thời",
   "registration": "Đăng Ký",
-  "moreDayToSubmit": "Còn x ngày nữa tới hạn gửi sản phẩm",
+  "moreDayToSubmit": "Còn 100 ngày nữa tới hạn gửi sản phẩm",
   "allViewDeadlines": "Xem lịch trình cụ thể +",
   "registerNumber": "Đang có {{registerNumber}} thí sinh tham gia thử thách này.",
-  "joinNow": "Tham Gia Ngay"
+  "joinNow": "Tham Gia Ngay",
+  "registerBy": "Ngày Bắt Đầu",
+  "startDate": "Hạn Đăng Ký",
+  "submitBy": "Hạn Gửi Bài"
 }
 
 

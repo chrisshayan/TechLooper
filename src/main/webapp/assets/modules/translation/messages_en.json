@@ -350,14 +350,17 @@
   "firstPrize": "5000",
   "secondPrize": "3000",
   "thirdPrize": "500",
-  "stPrize": "1st Prize",
-  "ndPrize": "2nd Prize",
-  "rdPrize": "3rd Prize",
+  "stPrize": "1st Prize<strong>:</strong>",
+  "ndPrize": "2nd Prize<strong>:</strong>",
+  "rdPrize": "3rd Prize<strong>:</strong>",
   "alreadyExistValue": "This value is already exist",
   "currentPhase": "Current Phase",
   "registration": "Registration",
-  "moreDayToSubmit": "more day(s) to submit",
+  "moreDayToSubmit": "100 more day(s) to submit",
   "allViewDeadlines": "All view deadlines +",
-  "registerNumber": "There are {{registerNumber}} registrants for this contest.",
-  "joinNow": "Join Now"
+  "registerNumber": "There are 100 registrants for this contest.",
+  "joinNow": "Join Now",
+  "registerBy": "Register By",
+  "startDate": "Start Date",
+  "submitBy": "Submit By"
 }
