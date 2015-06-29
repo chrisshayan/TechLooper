@@ -7,8 +7,6 @@ techlooper.controller("postContestController", function ($scope) {
         switch (type) {
           case "is-form-valid":
             $scope.challengeForm.$setSubmitted();
-            console.log($scope.challengeForm);
-
             return $scope.challengeForm.$valid;
 
           case "challenge-tab-class":
@@ -68,7 +66,6 @@ techlooper.controller("postContestController", function ($scope) {
 
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
-    $scope.$emit("$stateChangeSuccess");
   }
 
   $scope.nextState = function () {
@@ -76,8 +73,4 @@ techlooper.controller("postContestController", function ($scope) {
   }
 
   $scope.changeState(state.challenge);
-
-  $scope.$watch("challengeForm", function() {
-    console.log($scope.challengeForm);
-  }, true);
 });

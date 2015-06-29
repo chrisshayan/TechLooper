@@ -6,7 +6,7 @@
         <div class="post-contest-field-content">
           <label for="txtChallengeName" translate="challengeName"></label>
           <input type="text" id="txtChallengeName" class="input-style" placeholder="{{'challengeNameEX' | translate}}"
-            ng-model="contest.challengeName" name="challengeName" required/>
+            ng-model="contest.challengeName" name="challengeName" required touchable/>
           <div class="error-messages"
                ng-show="challengeForm.challengeName.$error.required && (challengeForm.challengeName.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
@@ -34,7 +34,7 @@
           <label for="txtGeneralNotes" translate="generalNotes">sfdwqvfe</label>
           <textarea id="txtGeneralNotes" cols="" rows="" class="textarea-style"
                     placeholder="{{'generalNotesEX' | translate}}"
-                    ng-model="contest.generalNote" name="generalNote"/>
+                    ng-model="contest.generalNote" name="generalNote" required/>
           <div class="error-messages"
                ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
@@ -46,12 +46,12 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="technologies"></label>
-          <tagbox></tagbox>
-          <!--<auto-tagbox tags="contest.technologies" config="{required: true}"-->
-                       <!--translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>-->
+          <tagbox name="technologies" tags="contest.technologies" ng-model="contest.technologies" array-model touchable></tagbox>
+
           <div class="error-messages"
-               ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$touched || challengeForm.$submitted)"
+               ng-show="challengeForm.technologies.$error.required && (challengeForm.technologies.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
+
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -60,8 +60,12 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtDocuments" translate="documents"></label>
-          <textarea name="" id="txtDocuments" cols="" rows="" class="textarea-style" placeholder="{{'documentsEX' | translate}}"></textarea>
-          <div class="error-messages">error will be show here</div>
+          <textarea ng-model="contest.documents" name="documents" id="txtDocuments" cols="" rows=""
+                    class="textarea-style" placeholder="{{'documentsEX' | translate}}" required></textarea>
+
+          <div class="error-messages"
+               ng-show="challengeForm.documents.$error.required && (challengeForm.documents.$touched || challengeForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -70,8 +74,12 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtDeliverables" translate="deliverables"></label>
-          <textarea name="" id="txtDeliverables" cols="" rows="" class="textarea-style" placeholder="{{'deliverablesEX' | translate}}"></textarea>
-          <div class="error-messages">error will be show here</div>
+          <textarea name="deliverables" id="txtDeliverables" cols="" rows="" class="textarea-style"
+                    placeholder="{{'deliverablesEX' | translate}}" ng-model="deliverables" required></textarea>
+
+          <div class="error-messages"
+               ng-show="challengeForm.deliverables.$error.required && (challengeForm.deliverables.$touched || challengeForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -80,9 +88,11 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="emailAddressReceive"></label>
-          <auto-tagbox tags="salaryReview.skills" config="skillBoxConfig"
-                       translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>
-          <div class="error-messages">error will be show here</div>
+          <tagbox name="receivedEmails" tags="contest.receivedEmails" ng-model="contest.receivedEmails" array-model touchable></tagbox>
+
+          <div class="error-messages"
+               ng-show="challengeForm.receivedEmails.$error.required && (challengeForm.receivedEmails.$touched || challengeForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -92,9 +102,12 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="qualityIdea"></label>
-          <autocomplete required ng-model="contest.qualityIdea" data="state.jobTitles"
-                        attr-placeholder="{{'qualityIdeaEX' | translate}}" validate></autocomplete>
-          <div class="error-messages">error will be show here</div>
+          <autocomplete ng-model="contest.qualityIdea" data="" name="qualityIdea"
+                        attr-placeholder="{{'qualityIdeaEX' | translate}}" required></autocomplete>
+
+          <div class="error-messages"
+               ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -103,9 +116,11 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="implementationIdea"></label>
-          <autocomplete required ng-model="contest.implementationIdea" data="state.jobTitles"
+          <autocomplete required ng-model="contest.implementationIdea" data="" name="implementationIdea"
                         attr-placeholder="{{'implementationIdeaEX' | translate}}" validate></autocomplete>
-          <div class="error-messages">error will be show here</div>
+          <div class="error-messages"
+               ng-show="challengeForm.implementationIdea.$error.required && (challengeForm.implementationIdea.$touched || challengeForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -114,9 +129,11 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="reviewStyle"></label>
-          <autocomplete required ng-model="contest.reviewStyle" data="state.jobTitles"
+          <autocomplete required ng-model="contest.reviewStyle" data="" name="reviewStyle"
                         attr-placeholder="{{'reviewStyleEX' | translate}}" validate></autocomplete>
-          <div class="error-messages">error will be show here</div>
+          <div class="error-messages"
+               ng-show="challengeForm.reviewStyle.$error.required && (challengeForm.reviewStyle.$touched || challengeForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
