@@ -364,7 +364,9 @@
   "joinNow": "Tham Gia Ngay",
   "registerBy": "Ngày Bắt Đầu:",
   "startDate": "Hạn Đăng Ký:",
-  "submitBy": "Hạn Gửi Bài:"
+  "submitBy": "Hạn Gửi Bài:",
+  "reward2LessThanReward1": "Tiền Thưởng Cho Giải Nhì phải nhỏ hơn Giải Nhất.",
+  "reward3LessThanReward2": "Tiền Thưởng Cho Giải Ba phải nhỏ hơn Giải Nhì."
 }
 
 
