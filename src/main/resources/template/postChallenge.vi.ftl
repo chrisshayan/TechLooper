@@ -424,10 +424,10 @@
                                 </tr>
 
                                 <tr>
-                                  <td style="height:5px; line-height: 5px;">
+                                  <td style="height:15px; line-height: 15px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
-                                  <td style="height:5px; line-height: 5px;">
+                                  <td style="height:15px; line-height: 15px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
