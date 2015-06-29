@@ -115,12 +115,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/?utm_source=salaryreportemail&utm_medium=techlooperlogo&utm_campaign=sendmereport" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.techlooper.com/?utm_source=challengepublishemail&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=salaryreportemail&utm_medium=vietnamworkslogo&utm_campaign=sendmereport" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=challengepublishemail&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        This person [VNW username/ email] has just created successful a challenge as follows
+                        This person ${authorEmail} has just created successful a challenge as follows
                       </td>
                     </tr>
                     <tr>
@@ -190,7 +190,7 @@
                                     Challenge Name:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    Augmented Reality App
+                                    ${challengeName}
                                   </td>
                                 </tr>
                                 <tr>
@@ -206,7 +206,7 @@
                                     Business Requirements:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    Describe the purpose of the challenge, what is the business issue to fix, the general approach and the use cases to resolve.
+                                    ${businessRequirement}
                                   </td>
                                 </tr>
                                 <tr>
@@ -222,7 +222,7 @@
                                     General Notes:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    The UI prototype uses bootstrap. You must use it. It does not allow to use jqtransform query plugin. All pages are responsive. Follow the current styling structure, and javascript code structure.
+                                    ${generalNote}
                                   </td>
                                 </tr>
                                 <tr>
@@ -238,7 +238,7 @@
                                     Technologies:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    Java, PHP, Python
+                                    ${technologies}
                                   </td>
                                 </tr>
                                 <tr>
@@ -254,7 +254,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    UI Prototype and updated design files are provided in challenge forums.
+                                    ${document}
                                   </td>
                                 </tr>
                                 <tr>
@@ -270,7 +270,7 @@
                                     Deliverables:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    Updated UI prototype files. Text file to reviewers with change log: file names and line numbers.
+                                    ${deliverables}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                                     Email address to receive applications:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    example@techlooper.com<br>example@techlooper.com<br>example@techlooper.com
+                                    ${emails}
                                   </td>
                                 </tr>
                                 <tr>
@@ -302,7 +302,7 @@
                                     Review Style:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Customer Sign-Off
+                                    ${reviewStyle}
                                   </td>
                                 </tr>
                               </table>
@@ -338,7 +338,7 @@
                                     Your Challenge Will Start On:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    24/6/2015
+                                    ${dateChallengeStart}
                                   </td>
                                 </tr>
                                 <tr>
@@ -354,7 +354,7 @@
                                     Contestants Have To Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    24/6/2015
+                                    ${dateChallengeRegister}
                                   </td>
                                 </tr>
                                 <tr>
@@ -370,7 +370,7 @@
                                     And Contestants Must Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    24/6/2015
+                                    ${dateChallengeSubmit}
                                   </td>
                                 </tr>
 
@@ -421,7 +421,7 @@
                                     Quality of Idea:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Includes creativity and originality
+                                    ${quality}
                                   </td>
                                 </tr>
                                 <tr>
@@ -460,7 +460,7 @@
                                     1st Place Reward (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    $50,000
+                                    $${firstReward}
                                   </td>
                                 </tr>
                                 <tr>
@@ -476,7 +476,7 @@
                                     2nd Place Reward (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    $15,000
+                                    $${secondReward}
                                   </td>
                                 </tr>
                                 <tr>
@@ -492,7 +492,7 @@
                                     3rd Place Reward (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    $5000
+                                    $${thirdReward}
                                   </td>
                                 </tr>
                               </table>
@@ -519,7 +519,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View My Challenge</a>
+                              <a href="${webBaseUrl}#/post-contest?challengeId=${challengeId}&utm_source=challengepublishemail&utm_medium=viewchallengebtn&utm_campaign=topcoder" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View My Challenge</a>
                             </td>
                           </tr>
                         </table>

@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.Language;
 import com.techlooper.service.ChallengeService;
+import freemarker.template.SimpleDate;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -44,6 +46,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.postChallenge.subject.en}")
     private String postChallengeMailSubjectEn;
 
+    @Value("${web.baseUrl}")
+    private String webBaseUrl;
+
     @Resource
     private JavaMailSender mailSender;
 
@@ -68,6 +73,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
 
         Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("challengeName", challengeEntity.getChallengeName());
         templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
         templateModel.put("generalNote", challengeEntity.getGeneralNote());
@@ -76,14 +82,16 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("deliverables", challengeEntity.getDeliverables());
         templateModel.put("emails", StringUtils.join(challengeEntity.getEmails(), "<br/>"));
         templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
-        templateModel.put("dateChallengeStart", challengeEntity.getDateChallengeStart());
-        templateModel.put("dateChallengeRegister", challengeEntity.getDateChallengeRegister());
-        templateModel.put("dateChallengeSubmit", challengeEntity.getDateChallengeSubmit());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        templateModel.put("dateChallengeStart", formatter.format(challengeEntity.getDateChallengeStart()));
+        templateModel.put("dateChallengeRegister", formatter.format(challengeEntity.getDateChallengeRegister()));
+        templateModel.put("dateChallengeSubmit", formatter.format(challengeEntity.getDateChallengeSubmit()));
         templateModel.put("quality", challengeEntity.getQuality());
         templateModel.put("firstReward", challengeEntity.getFirstReward());
         templateModel.put("secondReward", challengeEntity.getSecondReward());
         templateModel.put("thirdReward", challengeEntity.getThirdReward());
         templateModel.put("challengeId", challengeEntity.getChallengeId());
+        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
