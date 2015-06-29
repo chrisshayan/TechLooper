@@ -1,4 +1,4 @@
-techlooper.controller("postContestController", function ($scope, $rootScope) {
+techlooper.controller("postContestController", function ($scope, $http) {
 
   var state = {
     challenge: {
@@ -6,9 +6,7 @@ techlooper.controller("postContestController", function ($scope, $rootScope) {
       status: function (type) {
         switch (type) {
           case "is-form-valid":
-            //console.log($scope.challengeForm);
             $scope.challengeForm.$setSubmitted();
-            //console.log($scope.challengeForm);
             return $scope.challengeForm.$valid;
 
           case "challenge-tab-class":
@@ -45,25 +43,31 @@ techlooper.controller("postContestController", function ($scope, $rootScope) {
             return $scope.rewardForm.$valid;
 
           case "challenge-tab-class":
-            return "active";
-
           case "timeline-tab-class":
             return "active";
 
           case "reward-tab-class":
             return "active showNavi";
         }
+      },
+
+      nextState: function () {
+        $http.post()
+          .success(function(data) {
+            console.log(data);
+          });
+        return true;
       }
     }
   }
 
   $scope.changeState = function (st) {
-    if (!st) {
-      return;
+    if (!st || ($scope.state && !$scope.state.status("is-form-valid"))) {
+      return false;
     }
 
-    if ($scope.state && !$scope.state.status("is-form-valid")) {
-      return false;
+    if ($.type(st) === "function") {
+      return st();
     }
 
     var pState = angular.copy(state[st] || st);
@@ -73,10 +77,6 @@ techlooper.controller("postContestController", function ($scope, $rootScope) {
   $scope.nextState = function () {
     $scope.changeState($scope.state.nextState);
   }
-
-  //$scope.$watch("challengeForm", function() {
-  //  console.log($scope.challengeForm);
-  //}, true);
 
   $scope.changeState(state.challenge);
 });

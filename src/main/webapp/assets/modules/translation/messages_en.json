@@ -362,5 +362,7 @@
   "joinNow": "Join Now",
   "registerBy": "Register By:",
   "startDate": "Start Date:",
-  "submitBy": "Submit By:"
+  "submitBy": "Submit By:",
+  "reward2LessThanReward1": "2nd Place Reward should be lower than the 1st Place Reward.",
+  "reward3LessThanReward2": "3rd Place Reward should be lower than the 2nd Place Reward."
 }

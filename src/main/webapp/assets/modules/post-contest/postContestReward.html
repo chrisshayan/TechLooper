@@ -1,18 +1,18 @@
-<form novalidate name="rewardForm" autocomplete="off">
+<ng-form novalidate name="rewardForm" autocomplete="off">
   <div class="post-contest-block">
     <p class="sub-header" translate="publishingContest"></p>
-    <div class="post-contest-form">
 
-      <h3 translate="rewardTheWinner"></h3>
+    <div class="post-contest-form">
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtFirstReward" translate="firstReward"></label>
           <input type="text" id="txtFirstReward" class="input-style"
                  placeholder="{{'firstPrize' | translate}}"
                  name="firstPlaceReward"
-                 ng-model="contest.firstPlaceReward" touchable required only-digits maxlength="4"/>
+                 ng-model="contest.firstPlaceReward" required only-digits maxlength="4" touchable/>
+
           <div class="error-messages"
-               ng-show="rewardForm.firstPlaceReward.$error.required && (rewardForm.firstPlaceReward.$touched || rewardForm.$submitted)"
+               ng-show="rewardForm.firstPlaceReward.$error.required && (rewardForm.firstPlaceReward.$edited || rewardForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
@@ -25,48 +25,52 @@
           <input type="text" id="txtSecondReward" class="input-style"
                  name="secondPlaceReward" ng-model="contest.secondPlaceReward"
                  ng-model="contest.secondPlaceReward"
-                 placeholder="{{'secondPrize' | translate}}" touchable only-digits maxlength="4"/>
+                 required-expr="contest.secondPlaceReward < contest.firstPlaceReward"
+                 placeholder="{{'secondPrize' | translate}}" only-digits maxlength="4" touchable/>
+
           <div class="error-messages"
-               ng-show="rewardForm.secondPlaceReward.$error.required && (rewardForm.secondPlaceReward.$touched || rewardForm.$submitted)"
-               translate="requiredThisField"></div>
+               ng-show="rewardForm.secondPlaceReward.$error.requiredExpr && (rewardForm.secondPlaceReward.$edited || rewardForm.$submitted)"
+               translate="reward2LessThanReward1"/>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
         </div>
       </div>
+      <h3 translate="rewardTheWinner"></h3>
+
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label for="txtThirdReward" translate="thirdReward"></label>
           <input type="text" id="txtThirdReward" class="input-style"
                  name="thirdPlaceReward"
                  ng-model="contest.thirdPlaceReward"
-                 placeholder="{{'thirdPrize' | translate}}" touchable only-digits maxlength="4"/>
+                 required-expr="contest.thirdPlaceReward < contest.secondPlaceReward"
+                 placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
+
           <div class="error-messages"
-               ng-show="rewardForm.thirdPlaceReward.$error.required && (rewardForm.thirdPlaceReward.$touched || rewardForm.$submitted)"
-               translate="requiredThisField"></div>
+               ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr && (rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted)"
+               translate="reward3LessThanReward2"/>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
         </div>
       </div>
       <h3 translate="evaluateContestants"></h3>
+
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="qualityIdea"></label>
-          <autocomplete ng-model="rewardForm.qualityIdea" data="" name="qualityIdea"
-                        attr-placeholder="{{'qualityIdeaEX' | translate}}" required></autocomplete>
+          <autocomplete ng-model="contest.qualityIdea" data="" name="qualityIdea"
+                        attr-placeholder="{{'qualityIdeaEX' | translate}}" required touchable></autocomplete>
 
           <div class="error-messages"
-               ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
+               ng-show="rewardForm.qualityIdea.$error.required && (rewardForm.qualityIdea.$edited || rewardForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
         </div>
       </div>
-      <!--<div class="post-contest-field submit">-->
-        <!--<button class="btn btn-primary btn-flat" translate="next"></button>-->
-      <!--</div>-->
     </div>
   </div>
-</form>
+</ng-form>
