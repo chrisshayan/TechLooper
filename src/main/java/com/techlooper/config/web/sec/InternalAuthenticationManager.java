@@ -41,7 +41,7 @@ public class InternalAuthenticationManager implements AuthenticationManager {
     String hashPassword = org.apache.commons.codec.digest.DigestUtils.md5Hex(password);
     VnwUser vnwUser = vnwUserRepo.findByUsernameIgnoreCaseAndUserPassAndRoleName(username, hashPassword, RoleName.EMPLOYER);
     if (vnwUser != null) {
-      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(vnwUser.getEmail(), null,
+      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(vnwUser.getUsername(), null,
         Arrays.asList(new SimpleGrantedAuthority(RoleName.EMPLOYER.name())));
       return auth;
     }
