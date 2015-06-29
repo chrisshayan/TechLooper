@@ -355,8 +355,11 @@
   "rdPrize": "3rd Prize",
   "currentPhase": "Current Phase",
   "registration": "Registration",
-  "moreDayToSubmit": "more day(s) to submit",
+  "moreDayToSubmit": "100 more day(s) to submit",
   "allViewDeadlines": "All view deadlines +",
-  "registerNumber": "There are {{registerNumber}} registrants for this contest.",
-  "joinNow": "Join Now"
+  "registerNumber": "There are 100 registrants for this contest.",
+  "joinNow": "Join Now",
+  "registerBy": "Register By",
+  "startDate": "Start Date",
+  "submitBy": "Submit By"
 }
