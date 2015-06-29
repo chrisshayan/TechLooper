@@ -9,11 +9,17 @@
           <input type="text" id="txtFirstReward" class="input-style"
                  placeholder="{{'firstPrize' | translate}}"
                  name="firstPlaceReward"
+                 required-expr="contest.firstPlaceReward <= 5000 && contest.firstPlaceReward >= 100"
                  ng-model="contest.firstPlaceReward" required only-digits maxlength="4" touchable/>
 
-          <div class="error-messages"
-               ng-show="rewardForm.firstPlaceReward.$error.required && (rewardForm.firstPlaceReward.$edited || rewardForm.$submitted)"
-               translate="requiredThisField"></div>
+          <div ng-show="rewardForm.firstPlaceReward.$edited || rewardForm.$submitted">
+            <div class="error-messages"
+                 ng-show="rewardform.firstplacereward.$error.required"
+                 translate="requiredthisfield"></div>
+            <div class="error-messages"
+                 ng-show="rewardform.firstplacereward.$error.requiredExpr"
+                 translate="rewardShouldFrom100To5000"></div>
+          </div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -26,11 +32,17 @@
                  name="secondPlaceReward" ng-model="contest.secondPlaceReward"
                  ng-model="contest.secondPlaceReward"
                  required-expr="contest.secondPlaceReward < contest.firstPlaceReward"
+                 required-expr2="contest.secondPlaceReward <= 5000 && contest.secondPlaceReward >= 100"
                  placeholder="{{'secondPrize' | translate}}" only-digits maxlength="4" touchable/>
 
-          <div class="error-messages"
-               ng-show="rewardForm.secondPlaceReward.$error.requiredExpr && (rewardForm.secondPlaceReward.$edited || rewardForm.$submitted)"
-               translate="reward2LessThanReward1"/>
+          <div ng-show="rewardForm.secondPlaceReward.$edited || rewardForm.$submitted">
+            <div class="error-messages"
+                 ng-show="rewardForm.secondPlaceReward.$error.requiredExpr"
+                 translate="reward2LessThanReward1"/>
+            <div class="error-messages"
+                 ng-show="rewardForm.secondPlaceReward.$error.requiredExpr2"
+                 translate="rewardShouldFrom100To5000"/>
+          </div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
@@ -45,11 +57,17 @@
                  name="thirdPlaceReward"
                  ng-model="contest.thirdPlaceReward"
                  required-expr="contest.thirdPlaceReward < contest.secondPlaceReward"
+                 required-expr2="contest.thirdPlaceReward <= 5000 && contest.thirdPlaceReward >= 100"
                  placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
 
-          <div class="error-messages"
-               ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr && (rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted)"
-               translate="reward3LessThanReward2"/>
+          <div ng-show="rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted">
+            <div class="error-messages"
+                 ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr"
+                 translate="reward3LessThanReward2"/>
+            <div class="error-messages"
+                 ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr2"
+                 translate="rewardShouldFrom100To5000"/>
+          </div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
