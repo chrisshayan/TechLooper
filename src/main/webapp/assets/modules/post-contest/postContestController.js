@@ -1,4 +1,4 @@
-techlooper.controller("postContestController", function ($scope) {
+techlooper.controller("postContestController", function ($scope, $rootScope) {
 
   var state = {
     challenge: {
@@ -7,6 +7,7 @@ techlooper.controller("postContestController", function ($scope) {
         switch (type) {
           case "is-form-valid":
             $scope.challengeForm.$setSubmitted();
+            console.log($scope.challengeForm);
             return $scope.challengeForm.$valid;
 
           case "challenge-tab-class":

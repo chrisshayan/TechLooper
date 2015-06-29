@@ -12,13 +12,14 @@ techlooper.directive('tagbox', function ($rootScope) {
      * */
     link: function (scope, element, attr, ctrl) {
 
-      var resetForm = function() {
+      var resetForm = function () {
         scope.tagForm.$setPristine();
-        scope.tagForm.$setUntouched();
+        //scope.tagForm.$setUntouched();
         //scope.tagForm.tag.$touched = false;
       }
 
       scope.tags = scope.tags || [];
+      scope.tag = "";
 
       scope.removeTag = function (tag) {
         scope.tags.splice(scope.tags.indexOf(tag), 1);
@@ -30,6 +31,11 @@ techlooper.directive('tagbox', function ($rootScope) {
         if (!scope.tagForm.$valid) {
           return false;
         }
+
+        //scope.tagForm.tag.$setValidity("required", scope.tag.length > 0);
+        //if (scope.tag.length == 0) {
+        //  return;
+        //}
 
         scope.tags.push(tag);
         scope.tag = "";
@@ -47,6 +53,11 @@ techlooper.directive('tagbox', function ($rootScope) {
       scope.tagForm.tag.$validators.unique = function (modelValue, viewValue) {
         return scope.tags.indexOf(modelValue) < 0;
       }
+
+      //$rootScope.$on("formSubmitted", function () {
+      //  console.log(scope.tagForm);
+      //  scope.tagForm.$setValidity("required", scope.tags.length == 0);
+      //});
 
       //scope.tagForm.tags.$validators.arrayRequired = function (modelValue, viewValue) {
       //  console.log(scope.tags);

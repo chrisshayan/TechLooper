@@ -1,5 +1,5 @@
 <div class="top-three-skills add-skill-input">
-  <form novalidate name="tagForm" autocomplete="off">
+  <ng-form novalidate name="tagForm" autocomplete="off" isolate-form>
     <div class="added-list-skills">
       <ul>
         <li ng-repeat="tag in tags">
@@ -30,5 +30,5 @@
            ng-model="tag" name="tag" required unique touchable />
 
     <button type="button" ng-click="addTag(tag)">{{'add' | translate}}</button>
-  </form>
+  </ng-form>
 </div>

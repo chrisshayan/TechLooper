@@ -1,4 +1,4 @@
-<form novalidate name="challengeForm" autocomplete="off">
+<ng-form novalidate name="challengeForm" autocomplete="off">
   <div class="post-contest-block">
     <p class="sub-header" translate="subHeaderChallenge"></p>
     <div class="post-contest-form">
@@ -98,34 +98,6 @@
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
         </div>
       </div>
-      <h3 translate="evaluateContestants"></h3>
-      <div class="post-contest-field">
-        <div class="post-contest-field-content">
-          <label translate="qualityIdea"></label>
-          <autocomplete ng-model="contest.qualityIdea" data="" name="qualityIdea"
-                        attr-placeholder="{{'qualityIdeaEX' | translate}}" required></autocomplete>
-
-          <div class="error-messages"
-               ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
-               translate="requiredThisField"></div>
-        </div>
-        <div class="post-contest-field-tooltip">
-          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
-        </div>
-      </div>
-      <div class="post-contest-field">
-        <div class="post-contest-field-content">
-          <label translate="implementationIdea"></label>
-          <autocomplete required ng-model="contest.implementationIdea" data="" name="implementationIdea"
-                        attr-placeholder="{{'implementationIdeaEX' | translate}}" validate></autocomplete>
-          <div class="error-messages"
-               ng-show="challengeForm.implementationIdea.$error.required && (challengeForm.implementationIdea.$touched || challengeForm.$submitted)"
-               translate="requiredThisField"></div>
-        </div>
-        <div class="post-contest-field-tooltip">
-          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
-        </div>
-      </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="reviewStyle"></label>
@@ -144,5 +116,5 @@
       </div>
     </div>
   </div>
-</form>
+</ng-form>
 
