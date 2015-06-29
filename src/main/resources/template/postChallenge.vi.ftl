@@ -293,12 +293,29 @@
                                     <br>example@techlooper.com
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Cách đánh giá sản phẩm:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
+                                    Customer Sign-Off
+                                  </td>
+                                </tr>
                               </table>
                             </td>
                           </tr>
                         </table>
                       </td>
                     </tr>
+
                     <tr>
                       <td style="height:30px; line-height: 30px;" width="100%">
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -405,36 +422,13 @@
                                     Includes creativity and originality
                                   </td>
                                 </tr>
+
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Chất lượng:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Includes how well the idea was executed by the developer
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Cách đánh giá sản phẩm:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Customer Sign-Off
                                   </td>
                                 </tr>
                               </table>

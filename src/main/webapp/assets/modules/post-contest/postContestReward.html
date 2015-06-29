@@ -2,6 +2,7 @@
   <div class="post-contest-block">
     <p class="sub-header" translate="publishingContest"></p>
     <div class="post-contest-form">
+
       <h3 translate="rewardTheWinner"></h3>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
@@ -42,6 +43,21 @@
                  placeholder="{{'thirdPrize' | translate}}" touchable only-digits maxlength="4"/>
           <div class="error-messages"
                ng-show="rewardForm.thirdPlaceReward.$error.required && (rewardForm.thirdPlaceReward.$touched || rewardForm.$submitted)"
+               translate="requiredThisField"></div>
+        </div>
+        <div class="post-contest-field-tooltip">
+          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>
+        </div>
+      </div>
+      <h3 translate="evaluateContestants"></h3>
+      <div class="post-contest-field">
+        <div class="post-contest-field-content">
+          <label translate="qualityIdea"></label>
+          <autocomplete ng-model="rewardForm.qualityIdea" data="" name="qualityIdea"
+                        attr-placeholder="{{'qualityIdeaEX' | translate}}" required></autocomplete>
+
+          <div class="error-messages"
+               ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
