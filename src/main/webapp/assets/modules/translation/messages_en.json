@@ -359,7 +359,7 @@
   "allViewDeadlines": "All view deadlines +",
   "registerNumber": "There are 100 registrants for this contest.",
   "joinNow": "Join Now",
-  "registerBy": "Register By",
-  "startDate": "Start Date",
-  "submitBy": "Submit By"
+  "registerBy": "Register By:",
+  "startDate": "Start Date:",
+  "submitBy": "Submit By:"
 }
