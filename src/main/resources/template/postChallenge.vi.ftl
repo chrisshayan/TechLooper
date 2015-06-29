@@ -300,6 +300,74 @@
                       </td>
                     </tr>
                     <tr>
+                      <td style="height:10px; line-height: 20px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">Các tiêu chí đánh giá sản phẩm:</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 20px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 14px;">
+                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
+                          <tr>
+                            <td width="100%" align="left" class="fullWidth">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color: #000000;" width="100%">
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Ý tưởng:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
+                                    Includes creativity and originality
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Chất lượng:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
+                                    Includes how well the idea was executed by the developer
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Cách đánh giá sản phẩm:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
+                                    Customer Sign-Off
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+
+                    <tr>
                       <td style="height:30px; line-height: 30px;" width="100%">
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
@@ -374,73 +442,6 @@
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
                         <strong style="font-size: 16px; font-weight: 600; color:#000000">Giải Thưởng</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:10px; line-height: 20px;" width="100%">
-                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">Các tiêu chí đánh giá sản phẩm:</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:10px; line-height: 20px;" width="100%">
-                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" width="100%" style="font-size: 14px;">
-                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; padding:0" width="100%">
-                          <tr>
-                            <td width="100%" align="left" class="fullWidth">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color: #000000;" width="100%">
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Ý tưởng:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Includes creativity and originality
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Chất lượng:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Includes how well the idea was executed by the developer
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Cách đánh giá sản phẩm:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    Customer Sign-Off
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
                       </td>
                     </tr>
                     <tr>
