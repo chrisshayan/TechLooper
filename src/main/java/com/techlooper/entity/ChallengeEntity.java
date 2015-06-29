@@ -1,12 +1,16 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
+
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
  */
-public class ContestEntity {
+public class ChallengeEntity {
+
+    private Long challengeId;
 
     private String challengeName;
 
@@ -37,6 +41,18 @@ public class ContestEntity {
     private Integer thirdReward;
 
     private String quality;
+
+    private String authorEmail;
+
+    private Language lang;
+
+    public Long getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(Long challengeId) {
+        this.challengeId = challengeId;
+    }
 
     public String getChallengeName() {
         return challengeName;
@@ -156,5 +172,21 @@ public class ContestEntity {
 
     public void setQuality(String quality) {
         this.quality = quality;
+    }
+
+    public String getAuthorEmail() {
+        return authorEmail;
+    }
+
+    public void setAuthorEmail(String authorEmail) {
+        this.authorEmail = authorEmail;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
     }
 }
