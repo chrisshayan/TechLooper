@@ -4,6 +4,9 @@ techlooper.directive("postContestTimeline", function ($http, utils) {
     replace: true,
     templateUrl: "modules/post-contest/postContestTimeline.html",
     link: function (scope, element, attr, ctrl) {
+      $(element).find('.date').datepicker({
+        keyboardNavigation: true
+      });
     }
   }
 });
