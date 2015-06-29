@@ -46,8 +46,9 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="technologies"></label>
-          <auto-tagbox tags="contest.technologies" config="{required: true}"
-                       translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>
+          <tagbox></tagbox>
+          <!--<auto-tagbox tags="contest.technologies" config="{required: true}"-->
+                       <!--translate-suggestion-title="topDemandedSkill" suggestion-tags="demandSkills" validate></auto-tagbox>-->
           <div class="error-messages"
                ng-show="challengeForm.generalNote.$error.required && (challengeForm.generalNote.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>

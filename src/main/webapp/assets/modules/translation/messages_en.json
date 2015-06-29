@@ -353,6 +353,7 @@
   "stPrize": "1st Prize<strong>:</strong>",
   "ndPrize": "2nd Prize<strong>:</strong>",
   "rdPrize": "3rd Prize<strong>:</strong>",
+  "alreadyExistValue": "This value is already exist",
   "currentPhase": "Current Phase",
   "registration": "Registration",
   "moreDayToSubmit": "100 more day(s) to submit",

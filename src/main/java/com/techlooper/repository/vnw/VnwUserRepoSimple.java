@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class VnwUserRepoSimple implements VnwUserRepo {
   @Override
   public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
-    return null;
+    return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
   }
 
   @Override

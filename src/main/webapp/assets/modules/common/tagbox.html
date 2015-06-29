@@ -1,0 +1,33 @@
+<div class="top-three-skills add-skill-input">
+  <form novalidate name="tagForm" autocomplete="off">
+    <div class="added-list-skills">
+      <ul>
+        <li ng-repeat="tag in tags">
+          <span class="left">
+            <span class="right"><i>{{tag}}</i>
+              <span ng-click="removeTag(tag)" class="close" title="Remove">x</span>
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!--<div ng-show="tagForm.tag.$error">-->
+      <!--<div class="error-messages"-->
+           <!--ng-show="tagForm.tag.$error.required && tagForm.$submitted"-->
+           <!--translate="requiredThisField"></div>-->
+    <!--</div>-->
+
+    <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$touched">
+      <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
+      <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
+    </div>
+
+
+    <input type="text" placeholder="{{config.placeholder | translate}}"
+           ng-keypress="submitTag($event, tag)"
+           ng-model="tag" name="tag" required unique touchable />
+
+    <button type="button" ng-click="addTag(tag)">{{'add' | translate}}</button>
+  </form>
+</div>

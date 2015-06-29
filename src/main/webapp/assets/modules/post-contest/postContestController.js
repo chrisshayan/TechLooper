@@ -7,7 +7,9 @@ techlooper.controller("postContestController", function ($scope) {
         switch (type) {
           case "is-form-valid":
             $scope.challengeForm.$setSubmitted();
-            return $scope.challengeForm.$valid();
+            console.log($scope.challengeForm);
+
+            return $scope.challengeForm.$valid;
 
           case "challenge-tab-class":
             return "active showNavi";
@@ -22,7 +24,7 @@ techlooper.controller("postContestController", function ($scope) {
         switch (type) {
           case "is-form-valid":
             $scope.timelineForm.$setSubmitted();
-            return $scope.timelineForm.$valid();
+            return $scope.timelineForm.$valid;
 
           case "challenge-tab-class":
             return "active";
@@ -40,7 +42,7 @@ techlooper.controller("postContestController", function ($scope) {
         switch (type) {
           case "is-form-valid":
             $scope.rewardForm.$setSubmitted();
-            return $scope.rewardForm.$valid();
+            return $scope.rewardForm.$valid;
 
           case "challenge-tab-class":
             return "active";
@@ -60,9 +62,9 @@ techlooper.controller("postContestController", function ($scope) {
       return;
     }
 
-    //if ($scope.state && !$scope.state.status("is-form-valid")) {
-    //  return false;
-    //}
+    if ($scope.state && !$scope.state.status("is-form-valid")) {
+      return false;
+    }
 
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
@@ -74,4 +76,8 @@ techlooper.controller("postContestController", function ($scope) {
   }
 
   $scope.changeState(state.challenge);
+
+  $scope.$watch("challengeForm", function() {
+    console.log($scope.challengeForm);
+  }, true);
 });
