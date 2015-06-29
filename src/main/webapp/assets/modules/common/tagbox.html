@@ -23,6 +23,7 @@
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
     </div>
 
+    <input type="hidden" name="tags" ng-model="tags" array-required>
 
     <input type="text" placeholder="{{config.placeholder | translate}}"
            ng-keypress="submitTag($event, tag)"

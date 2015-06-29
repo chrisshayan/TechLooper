@@ -1,23 +1,28 @@
-techlooper.directive('tagbox', function () {
+techlooper.directive('tagbox', function ($rootScope) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/common/tagbox.html",
     scope: {
-      tags: "=",
+      tags: "="
     },
+
+    /**
+     * @event "addedTagSuccessful"
+     * */
     link: function (scope, element, attr, ctrl) {
 
-      var clearError = function () {
-        scope.tag = "";
+      var resetForm = function() {
         scope.tagForm.$setPristine();
-        scope.tagForm.tag.$touched = false;
+        scope.tagForm.$setUntouched();
+        //scope.tagForm.tag.$touched = false;
       }
 
       scope.tags = scope.tags || [];
 
       scope.removeTag = function (tag) {
         scope.tags.splice(scope.tags.indexOf(tag), 1);
+        resetForm();
       }
 
       scope.addTag = function (tag) {
@@ -27,7 +32,8 @@ techlooper.directive('tagbox', function () {
         }
 
         scope.tags.push(tag);
-        clearError();
+        scope.tag = "";
+        resetForm();
       }
 
       scope.submitTag = function (event, tag) {
@@ -41,6 +47,17 @@ techlooper.directive('tagbox', function () {
       scope.tagForm.tag.$validators.unique = function (modelValue, viewValue) {
         return scope.tags.indexOf(modelValue) < 0;
       }
+
+      //scope.tagForm.tags.$validators.arrayRequired = function (modelValue, viewValue) {
+      //  console.log(scope.tags);
+      //  return scope.tags.length > 0;
+      //}
+
+      //scope.$watch("tags", function(tags, oldVal) {
+      //  if (!tags && !oldVal) return;
+      //
+      //  console.log(scope.tagForm.tags);
+      //}, true);
     }
   }
 });
