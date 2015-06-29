@@ -46,7 +46,9 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="technologies"></label>
-          <tagbox name="technologies" tags="contest.technologies" ng-model="contest.technologies" array-model touchable></tagbox>
+          <tagbox name="technologies" tags="contest.technologies"
+                  type="text"
+                  ng-model="contest.technologies" array-model touchable></tagbox>
 
           <div class="error-messages"
                ng-show="challengeForm.technologies.$error.required && (challengeForm.technologies.$touched || challengeForm.$submitted)"
@@ -88,7 +90,9 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="emailAddressReceive"></label>
-          <tagbox name="receivedEmails" tags="contest.receivedEmails" ng-model="contest.receivedEmails" array-model touchable></tagbox>
+          <tagbox name="receivedEmails" tags="contest.receivedEmails"
+                  type="email"
+                  ng-model="contest.receivedEmails" array-model touchable></tagbox>
 
           <div class="error-messages"
                ng-show="challengeForm.receivedEmails.$error.required && (challengeForm.receivedEmails.$touched || challengeForm.$submitted)"
