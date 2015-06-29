@@ -3,7 +3,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
 
   var instance = {
     isFormSubmitted: function(form, inputName) {
-      return form && (form[inputName].$touched || form.$submitted);
+      return form && (form[inputName].$edited || form.$submitted);
     },
 
     toPromises: function(defersObj) {

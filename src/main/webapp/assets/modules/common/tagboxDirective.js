@@ -33,11 +33,6 @@ techlooper.directive('tagbox', function ($rootScope) {
           return false;
         }
 
-        //scope.tagForm.tag.$setValidity("required", scope.tag.length > 0);
-        //if (scope.tag.length == 0) {
-        //  return;
-        //}
-
         scope.tags.push(tag);
         scope.tag = "";
         resetForm();
@@ -55,21 +50,6 @@ techlooper.directive('tagbox', function ($rootScope) {
         return scope.tags.indexOf(modelValue) < 0;
       }
 
-      //$rootScope.$on("formSubmitted", function () {
-      //  console.log(scope.tagForm);
-      //  scope.tagForm.$setValidity("required", scope.tags.length == 0);
-      //});
-
-      //scope.tagForm.tags.$validators.arrayRequired = function (modelValue, viewValue) {
-      //  console.log(scope.tags);
-      //  return scope.tags.length > 0;
-      //}
-
-      //scope.$watch("tags", function(tags, oldVal) {
-      //  if (!tags && !oldVal) return;
-      //
-      //  console.log(scope.tagForm.tags);
-      //}, true);
     }
   }
 });
