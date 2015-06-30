@@ -382,6 +382,7 @@
   "startDateWt4w": "Thử thách phải bắt đầu trong vòng 4 tuần tới.",
   "registerDateGTStartDate": "Ngày Hết Hạn Đăng Ký phải sau Ngày Bắt Đầu ít nhất 1 ngày.",
   "submitDateGTRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
+  "contestOwnerSignOff": "Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm",
   "exContestOwnerSignOff": "Ex: Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm."
 }
 

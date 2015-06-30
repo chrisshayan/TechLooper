@@ -23,11 +23,10 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   }
 
   var translations = [
-    {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
+    {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"}
   ];
 
   $.each(translations, function (i, item) {
-
     item.ins.getSelectize().then(function ($selectize) {
       $translate(item.placeholder).then(function (translate) {
         $selectize.setPlaceholder(translate);
@@ -39,7 +38,6 @@ techlooper.factory("resourcesService", function ($translate, $q) {
         });
       });
     });
-
   });
 
   return instance;

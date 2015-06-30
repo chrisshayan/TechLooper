@@ -118,8 +118,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     $scope.changeState($scope.state.nextState);
   }
 
-  //$scope.myModel;
-  //$scope.myOptions = ["Contest Owner Sign-Off"];
   $scope.config = {
     reviewStyle: resourcesService.reviewStyleConfig
   }
