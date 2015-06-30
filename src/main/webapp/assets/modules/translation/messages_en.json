@@ -366,5 +366,7 @@
   "reward2LessThanReward1": "2nd Place Reward should be lower than the 1st Place Reward.",
   "reward3LessThanReward2": "3rd Place Reward should be lower than the 2nd Place Reward.",
   "rewardShouldFrom100To5000": "Reward should be between $100 and $5,000.",
-  "startDateWt4w": "Reward should be between $100 and $5,000."
+  "startDateWt4w": "Start date should be within next 4 weeks.",
+  "registerDateGTStartDate": "Register day should be ahead of Start day at least 1 day.",
+  "submitDateGTRegisterDate": "Submit day should be ahead of Register day at least 1 day."
 }
