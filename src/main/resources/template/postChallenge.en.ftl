@@ -254,7 +254,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${document}
+                                    ${documents}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                                     Email address to receive applications:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${emails}
+                                    ${receivedEmails}
                                   </td>
                                 </tr>
                                 <tr>
@@ -338,7 +338,7 @@
                                     Your Challenge Will Start On:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${dateChallengeStart}
+                                    ${startDate}
                                   </td>
                                 </tr>
                                 <tr>
@@ -354,7 +354,7 @@
                                     Contestants Have To Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${dateChallengeRegister}
+                                    ${registrationDate}
                                   </td>
                                 </tr>
                                 <tr>
@@ -370,7 +370,7 @@
                                     And Contestants Must Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${dateChallengeSubmit}
+                                    ${submissionDate}
                                   </td>
                                 </tr>
 
@@ -421,7 +421,7 @@
                                     Quality of Idea:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${quality}
+                                    ${qualityIdea}
                                   </td>
                                 </tr>
                                 <tr>
@@ -460,7 +460,7 @@
                                     1st Place Reward (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    $${firstReward}
+                                    $${firstPlaceReward}
                                   </td>
                                 </tr>
                                 <tr>
@@ -476,7 +476,7 @@
                                     2nd Place Reward (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    $${secondReward}
+                                    $${secondPlaceReward}
                                   </td>
                                 </tr>
                                 <tr>
@@ -492,7 +492,7 @@
                                     3rd Place Reward (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    $${thirdReward}
+                                    $${thirdPlaceReward}
                                   </td>
                                 </tr>
                               </table>
