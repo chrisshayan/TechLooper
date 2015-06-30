@@ -17,9 +17,9 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
-          <label for="txtChallengeReview" translate="challengeReview"></label>
-          <input type="text" id="txtChallengeReview" class="input-style" placeholder="{{'challengeReviewEX' | translate}}"
-                 ng-model="contest.challengeReview" name="challengeReview" required touchable/>
+          <label for="txtChallengeReview" translate="challengeOverView"></label>
+          <textarea type="text" id="txtChallengeReview"  cols="" rows="" class="textarea-style" placeholder="{{'challengeOverViewEX' | translate}}"
+                 ng-model="contest.challengeReview" name="challengeReview" required touchable/></textarea>
           <div class="error-messages"
                ng-show="challengeForm.challengeReview.$error.required && (challengeForm.challengeReview.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
