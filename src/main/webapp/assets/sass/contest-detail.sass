@@ -187,11 +187,19 @@
             display: none
         p.detail
           background-color: #f4f4f4
-          padding: 5px 10px
-          span
-            display: block
-            clear: both
-            width: 100%
+          padding: 10px
+          span.tag
+            display: inline-block
+            background-color: #fff
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            -moz-box-shadow: 1px 1px 1px 0px #cccccc
+            -webkit-box-shadow: 1px 1px 1px 0px #cccccc
+            box-shadow: 1px 1px 1px 0px #cccccc
+            width: auto
+            padding: 5px 15px
+            margin-right: 5px
       .col-md-3
         -webkit-border-top-right-radius: 5px
         -webkit-border-bottom-right-radius: 5px
@@ -208,3 +216,15 @@
           padding: 0 0 10px 0
           font-size: 18px
           font-weight: 400
+      .quality-idea-block
+        display: block
+        clear: both
+        padding: 15px 0 0
+        border-top: 1px solid #ccc
+        margin-top: 10px
+        p.header
+          font-size: 16px
+          font-weight: 400
+          text-transform: capitalize
+        .contest-content-item
+          padding-left: 15px

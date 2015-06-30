@@ -97,18 +97,18 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
         templateModel.put("generalNote", challengeEntity.getGeneralNote());
         templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), ", "));
-        templateModel.put("document", challengeEntity.getDocuments());
+        templateModel.put("documents", challengeEntity.getDocuments());
         templateModel.put("deliverables", challengeEntity.getDeliverables());
-        templateModel.put("emails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
+        templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
         templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        templateModel.put("dateChallengeStart", formatter.format(challengeEntity.getStartDateTime()));
-        templateModel.put("dateChallengeRegister", formatter.format(challengeEntity.getRegistrationDateTime()));
-        templateModel.put("dateChallengeSubmit", formatter.format(challengeEntity.getSubmissionDateTime()));
-        templateModel.put("quality", challengeEntity.getQualityIdea());
-        templateModel.put("firstReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
-        templateModel.put("secondReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
-        templateModel.put("thirdReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
+        templateModel.put("startDate", formatter.format(challengeEntity.getStartDateTime()));
+        templateModel.put("registrationDate", formatter.format(challengeEntity.getRegistrationDateTime()));
+        templateModel.put("submissionDate", formatter.format(challengeEntity.getSubmissionDateTime()));
+        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
+        templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
+        templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
+        templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", challengeEntity.getChallengeId());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
 
