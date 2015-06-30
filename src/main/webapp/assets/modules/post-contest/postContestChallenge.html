@@ -90,7 +90,7 @@
         <div class="post-contest-field-content">
           <label for="txtDeliverables" translate="deliverables"></label>
           <textarea name="deliverables" id="txtDeliverables" cols="" rows="" class="textarea-style"
-                    placeholder="{{'deliverablesEX' | translate}}" ng-model="deliverables" required touchable></textarea>
+                    placeholder="{{'deliverablesEX' | translate}}" ng-model="contest.deliverables" required touchable></textarea>
 
           <div class="error-messages"
                ng-show="challengeForm.deliverables.$error.required && (challengeForm.deliverables.$edited || challengeForm.$submitted)"
