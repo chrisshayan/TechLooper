@@ -44,6 +44,10 @@
       padding: 10px 0 !important
       text-transform: capitalize
       font-weight: 400 !important
+    .box-content
+      display: block
+      clear: both
+      padding-bottom: 10px
     .post-contest-field
       width: 100%
       clear: both
@@ -82,8 +86,9 @@
           -moz-border-radius-bottomright: 5px
           border-top-right-radius: 5px
           border-bottom-right-radius: 5px
+
       .post-contest-field-content
-        width: 90%
+        width: 92%
         float: left
         .top-three-skills
           .autocomplete
@@ -106,8 +111,15 @@
             border-right: 0
         .terms-conditions-block
           width: 100%
+        .selectize-input
+          input
+            height: 25px
+            line-height: 25px
+      .email-field
+        .added-list-skills ul li span.right
+          text-transform: inherit
       .post-contest-field-tooltip
-        width: 10%
+        width: 8%
         float: right
         text-align: left
         padding-top: 26px
@@ -119,7 +131,7 @@
           background: url(../images/ic-tooltip.png) left top no-repeat
           display: block
         a.ic-tooltip:hover
-          background-position: 0 -45px
+          background-position: 0 -27px
     .post-contest-field.submit
       text-align: center
       button
