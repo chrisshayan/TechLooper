@@ -8,6 +8,7 @@ techlooper.directive('tagbox', function ($rootScope) {
       type: "@",
       placeholder: "@",
       listMaxLength: "@",
+      maxTagLength: "@"
     },
 
     /**

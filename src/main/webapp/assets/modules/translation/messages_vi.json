@@ -399,7 +399,6 @@
   "termsConditionsContent": "Nhà tổ chức cuộc thi phải trao giải thưởng theo đúng thoả thuận đã được định nghĩa trong mục Giải Thưởng trước đó. Toàn bộ giải thưởng phải được trao cho các thí sinh không quá 2 tuần kể từ ngày kết thúc cuộc thi. <br>Mã nguồn và sản phẩm trí tuệ tạo ra trong suốt cuộc thi của các thí sinh đoạt giải chỉ thuộc sở hữu của Nhà tổ chức cuộc thi.",
   "termsConditionsTip": "Ngay khi bạn đăng thử thách trên TechLooper, bạn đã đồng ý với các Điều Kiện và Điều Khoản này.",
   "listRequire1Item": "Danh sách này cần ít nhất 1 phần tử.",
-  "exceedCharacterWithParam": "Trường tối đa [xxx] ký tự.",
   "limitItemWithParam": "Bạn chỉ được chọn tối đa {{number}} phần tử. Vui lòng bỏ bớt để có thể tạo thêm phần tử khác."
 }
 
