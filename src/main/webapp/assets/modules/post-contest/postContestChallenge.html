@@ -60,7 +60,7 @@
         <div class="post-contest-field-content">
           <label translate="technologies"></label>
           <tagbox name="technologies" tags="contest.technologies"
-                  type="text"
+                  type="text" placeholder="technologiesEX" max-length="2" max-length-error="limit10"
                   ng-model="contest.technologies" forcusout="true" array-model touchable></tagbox>
 
           <div class="error-messages"
@@ -104,7 +104,7 @@
         <div class="post-contest-field-content">
           <label translate="emailAddressReceive"></label>
           <tagbox name="receivedEmails" tags="contest.receivedEmails"
-                  type="email"
+                  type="email" placeholder="emailAddressReceiveEX" max-length="5" max-length-error="limit5"
                   ng-model="contest.receivedEmails" array-model touchable></tagbox>
 
           <div class="error-messages"
@@ -118,12 +118,7 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="reviewStyle"></label>
-          <!--<autocomplete required ng-model="contest.reviewStyle" data="state.status('review-style-list')" name="reviewStyle"-->
-                        <!--attr-placeholder="{{'reviewStyleEX' | translate}}" touchable></autocomplete>-->
-          <!--<selectize options="state.status('review-style-list')" ng-model="contest.reviewStyle"-->
-                     <!--placeholder="{{'reviewStyleEX' | translate}}"></selectize>-->
 
-          <!--<selectize options='myOptions' ng-model="myModel"></selectize>-->
           <selectize name="reviewStyle" ng-model="contest.reviewStyle" config="config.reviewStyle" required touchable></selectize>
 
           <div class="error-messages"

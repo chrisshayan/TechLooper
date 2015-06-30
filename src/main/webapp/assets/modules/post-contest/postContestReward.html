@@ -69,7 +69,7 @@
           <input type="text" id="txtThirdReward" class="input-style"
                  name="thirdPlaceReward"
                  ng-model="contest.thirdPlaceReward"
-                 required-expr="contest.thirdPlaceReward < contest.secondPlaceReward"
+                 required-expr="contest.thirdPlaceReward <= contest.secondPlaceReward"
                  required-expr2="state.status('place-reward-range', contest.thirdPlaceReward)"
                  placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
 

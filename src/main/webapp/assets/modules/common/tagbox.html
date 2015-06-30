@@ -22,11 +22,12 @@
       <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
       <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
+      <div translate="{{maxLengthError}}" ng-show="tagForm.tag.$error.maxLength"/>
     </div>
 
     <input type="hidden" name="tags" ng-model="tags" array-required>
 
-    <input type="{{type}}" placeholder="{{config.placeholder | translate}}"
+    <input type="{{type}}" placeholder="{{placeholder | translate}}"
            ng-keypress="submitTag($event, tag)"
            ng-model="tag" name="tag" required unique touchable forcusout="true" />
 
