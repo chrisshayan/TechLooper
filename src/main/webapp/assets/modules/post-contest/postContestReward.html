@@ -1,0 +1,109 @@
+<ng-form novalidate name="rewardForm" autocomplete="off">
+  <div class="post-contest-block">
+    <p class="sub-header" translate="publishingContest"></p>
+    <div class="post-contest-form">
+      <div class="box-content">
+        <h3 translate="evaluateContestants"></h3>
+        <div class="post-contest-field">
+          <div class="post-contest-field-content">
+            <label translate="qualityIdea"></label>
+            <selectize name="qualityIdea" ng-model="contest.qualityIdea" config="config.qualityIdea" required touchable></selectize>
+            <div class="error-messages"
+                 ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
+                 translate="requiredThisField"></div>
+          </div>
+          <div class="post-contest-field-tooltip">
+            <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'qualityIdeaTip' | translate}}"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-content">
+        <h3 translate="rewardTheWinner"></h3>
+        <div class="post-contest-field">
+          <div class="post-contest-field-content">
+            <label for="txtFirstReward" translate="firstReward"></label>
+            <input type="text" id="txtFirstReward" class="input-style"
+                   placeholder="{{'firstPrize' | translate}}"
+                   name="firstPlaceReward"
+                   required-expr="state.status('place-reward-range', contest.firstPlaceReward)"
+                   ng-model="contest.firstPlaceReward" required only-digits maxlength="4" touchable/>
+
+            <div ng-show="rewardForm.firstPlaceReward.$edited || rewardForm.$submitted">
+              <div class="error-messages"
+                   ng-show="rewardform.firstplacereward.$error.required"
+                   translate="requiredthisfield"></div>
+              <div class="error-messages"
+                   ng-show="rewardform.firstplacereward.$error.requiredExpr"
+                   translate="rewardShouldFrom100To5000"></div>
+            </div>
+          </div>
+          <div class="post-contest-field-tooltip">
+            <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'firstRewardTip' | translate}}"></a>
+          </div>
+        </div>
+        <div class="post-contest-field">
+          <div class="post-contest-field-content">
+            <label for="txtSecondReward" translate="secondReward"></label>
+            <input type="text" id="txtSecondReward" class="input-style"
+                   name="secondPlaceReward" ng-model="contest.secondPlaceReward"
+                   ng-model="contest.secondPlaceReward"
+                   required-expr="state.status('compare-2reward-1reward')"
+                   required-expr2="state.status('place-reward-range', contest.secondPlaceReward)"
+                   placeholder="{{'secondPrize' | translate}}" only-digits maxlength="4" touchable/>
+
+            <div ng-show="rewardForm.secondPlaceReward.$edited || rewardForm.$submitted">
+              <div class="error-messages"
+                   ng-show="rewardForm.secondPlaceReward.$error.requiredExpr"
+                   translate="reward2LessThanReward1"/>
+              <div class="error-messages"
+                   ng-show="rewardForm.secondPlaceReward.$error.requiredExpr2"
+                   translate="rewardShouldFrom100To5000"/>
+            </div>
+          </div>
+          <div class="post-contest-field-tooltip">
+            <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'secondRewardTip' | translate}}"></a>
+          </div>
+        </div>
+        <div class="post-contest-field">
+          <div class="post-contest-field-content">
+            <label for="txtThirdReward" translate="thirdReward"></label>
+            <input type="text" id="txtThirdReward" class="input-style"
+                   name="thirdPlaceReward"
+                   ng-model="contest.thirdPlaceReward"
+                   required-expr="state.status('compare-3reward-2reward')"
+                   required-expr2="state.status('place-reward-range', contest.thirdPlaceReward)"
+                   placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
+
+            <div ng-show="rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted">
+              <div class="error-messages"
+                   ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr"
+                   translate="reward3LessThanReward2"/>
+              <div class="error-messages"
+                   ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr2"
+                   translate="rewardShouldFrom100To5000"/>
+            </div>
+
+          </div>
+          <div class="post-contest-field-tooltip">
+            <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'thirdRewardTip' | translate}}"></a>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <h3 translate="termsConditions"></h3>
+        <div class="post-contest-field">
+          <div class="post-contest-field-content">
+            <div class="terms-conditions-block">
+              <p translate="termsConditionsContent"></p>
+            </div>
+          </div>
+          <div class="post-contest-field-tooltip">
+            <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'termsConditionsTip' | translate}}"></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-form>

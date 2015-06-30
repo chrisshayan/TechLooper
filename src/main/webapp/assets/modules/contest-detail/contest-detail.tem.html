@@ -1,0 +1,111 @@
+<nav class="navbar">
+  <div class="logo-block text-center">
+    <div class="logo" id="logo">
+      <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+    </div>
+    <div class="vnw-logo">
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
+    </div>
+  </div>
+</nav>
+<div class="contest-detail-page">
+  <div class="contest-detail-content">
+    <div class="row contest-name">
+      <h2>Augmented Reality App</h2>
+      <!--<a href="#/post-contest" class="btn btn-primary btn-flat" translate="createNewContest"></a>-->
+    </div>
+    <div class="row timeline-reward-block">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4">
+            <p translate="stPrize"></p>
+            <strong>$35,000</strong>
+          </div>
+          <div class="col-md-4">
+            <p translate="ndPrize"></p>
+            <strong>$25,000</strong>
+          </div>
+          <div class="col-md-4">
+            <p translate="rdPrize"></p>
+            <strong>$15,000</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="ic-time-down"></div>
+        <div class="time-block">
+          <h3 translate="currentPhase"></h3>
+          <p translate="registration"></p>
+          <p class="count-down-day" translate-value-count-down-day="<strong>{countDownDay}}</strong>" translate="moreDayToSubmit"></p>
+        </div>
+        <a translate="allViewDeadlines" ng-click="showDeadlineInfo()"></a>
+        <div class="timeline-information animate-show" ng-show="toggle">
+          <ul>
+            <li><span translate="startDate"></span>06/24/2015</li>
+            <li><span translate="registerBy"></span>06/24/2015</li>
+            <li><span translate="submitBy"></span>06/24/2015</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row registration-count">
+      <div class="col-md-12">
+        <p translate="registerNumber" translate-value-register-number="<strong>{{registerNumber}}</strong>"></p>
+        <a class="btn btn-primary btn-flat" translate="joinNow"></a>
+      </div>
+    </div>
+    <div class="row contest-content-detail">
+      <div class="col-md-9">
+        <div class="row contest-content-item">
+          <p class="title" translate="challengeOverView"></p>
+          <p class="detail">
+            App that uses Augmented Reality to help jobseekers to search for jobs in a more interactive way.  For this challenge, it is required to create a mobile app (iOS or Android) that will allow users to search for jobs by pointing their phone’s camera to a company logo or company building entrance.
+          </p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="businessRequirements"></p>
+          <p class="detail">
+            Describe the purpose of the challenge, what is the business issue to fix, the general approach and the use cases to resolve.
+          </p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="generalNotes"></p>
+          <p class="detail">The UI prototype uses bootstrap. You must use it. It does not allow to use jqtransform query plugin. All pages are responsive. Follow the current styling structure, and javascript code structure.</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="technologies"></p>
+          <p class="detail"><span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span></p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="documents"></p>
+          <p class="detail">UI Prototype and updated design files are provided in challenge forums.</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="deliverables"></p>
+          <p class="detail">Updated UI prototype files. Text file to reviewers with change log: file names and line numbers.</p>
+        </div>
+        <div class="row contest-content-item">
+          <p class="title" translate="reviewStyle"></p>
+          <p class="detail">Contest Owner Sign-Off</p>
+        </div>
+        <div class="quality-idea-block">
+          <p class="header" translate="rewardTheWinner"></p>
+          <div class="row contest-content-item">
+            <p class="title" translate="qualityIdea"></p>
+            <p class="detail">Has acceptable tradeoffs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="social-share-list">
+          <h3 translate="share"></h3>
+          <ul>
+            <li>
+              <a class="salary-report-share"><i class="fa fa-facebook"></i> <span class="text" translate="share"></span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

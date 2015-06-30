@@ -1,0 +1,83 @@
+GET vietnamworks/job/_search
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "nested": {
+                "path": "skills",
+                "query": {
+                  "bool": {
+                    "should": [
+                      {
+                        "match": {
+                          "skills.skillName": {
+                            "query": "Spring",
+                            "minimum_should_match": "100%"
+                          }
+                        }
+                      },
+                      {
+                        "match": {
+                          "skills.skillName": {
+                            "query": "Hibernate",
+                            "minimum_should_match": "100%"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "approvedDate": {
+                  "from": "now-6M/M"
+                }
+              }
+            },
+            {
+              "nested": {
+                "path": "industries",
+                "filter": {
+                  "term": {
+                    "industries.industryId": 35
+                  }
+                }
+              }
+            },
+            {
+              "bool": {
+                "should": [
+                  {
+                    "range": {
+                      "salaryMin": {
+                        "from": 250
+                      }
+                    }
+                  },
+                  {
+                    "range": {
+                      "salaryMax": {
+                        "from": 250
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

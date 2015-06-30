@@ -1,0 +1,31 @@
+<div class="top-three-skills add-skill-input">
+  <ng-form novalidate name="tagForm" autocomplete="off" isolate-form>
+    <div class="added-list-skills">
+      <ul>
+        <li ng-repeat="tag in tags">
+          <span class="left">
+            <span class="right"><i>{{tag}}</i>
+              <span ng-click="removeTag(tag)" class="close" title="Remove">x</span>
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$edited">
+      <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
+      <div translate="exceedCharacterWithParam" ng-show="tagForm.tag.$error.maxlength"/>
+      <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
+      <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
+      <div translate="limitItemWithParam" translate-value-number="{{listMaxLength}}" ng-show="tagForm.tag.$error.listMaxLength"/>
+    </div>
+
+    <input type="hidden" name="tags" ng-model="tags" array-required>
+
+    <input type="{{type}}" placeholder="{{placeholder | translate}}"
+           ng-keypress="submitTag($event, tag)" maxlength="{{maxTagLength}}"
+           ng-model="tag" name="tag" required unique touchable forcusout="true" />
+
+    <button type="submit" ng-click="addTag(tag)">{{'add' | translate}}</button>
+  </ng-form>
+</div>

@@ -1,0 +1,49 @@
+<nav class="navbar" ng-show="!salaryReview.campaign">
+  <div class="logo-block text-center">
+    <div class="logo" id="logo">
+      <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+    </div>
+    <div class="vnw-logo">
+      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg"
+                                                                  alt="Career Analytics. Awesome!"></a>
+    </div>
+  </div>
+</nav>
+<div class="salary-review-page">
+  <div class="salary-survey-block">
+    <h2>{{'postAChallenge' | translate}}</h2>
+
+    <p translate>{{'descriptionChallengePost' | translate}}</p>
+  </div>
+  <div class="salary-review-block salary-review-content" srcoll-window="scroll">
+    <div class="navi-step-salary-review" ng-class="{fixed: scroll > 149}">
+      <ul>
+        <li class="{{state.status('challenge-tab-class')}}">
+          <h2 translate="aboutYourChallenge"></h2>
+
+          <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+        </li>
+
+        <li class="{{state.status('timeline-tab-class')}}">
+          <h2 translate="timeLine2"></h2>
+
+          <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+        </li>
+
+        <li class="{{state.status('reward-tab-class')}}">
+          <h2 translate="yourReward"></h2>
+
+          <div class="arrow-up-active"><i class="fa fa-sort-down"></i></div>
+        </li>
+      </ul>
+    </div>
+    <div class="salary-review-content">
+      <post-contest-challenge ng-show="state.showChallenge"></post-contest-challenge>
+      <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
+      <post-contest-reward ng-show="state.showReward"></post-contest-reward>
+      <div class="submit-contest-content">
+        <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="next" />
+      </div>
+    </div>
+  </div>
+</div>

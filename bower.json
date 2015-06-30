@@ -19,12 +19,12 @@
     "highcharts-release": "latest",
     "ngInfiniteScroll": "latest",
     "selectize": "latest",
+    "angular-selectize2": "latest",
     "perfect-scrollbar": "latest",
     "mousetrap": "latest",
     "JSONPath": "latest",
     "DateJS": "latest",
     "d3": "latest",
-    "d3-transform": "latest",
     "parallax": "latest",
     "seiyria-bootstrap-slider": "latest",
     "cafej": "latest",
@@ -36,7 +36,13 @@
     "bootstrap-select": "latest",
     "blueimp-gallery":  "latest",
     "blueimp-bootstrap-image-gallery": "latest",
-    "sprintf": "latest"
+    "sprintf": "latest",
+    "allmighty-autocomplete": "latest",
+    "ng-focus-on": "latest",
+    "bootstrap-datepicker": "latest",
+    "jquery.cookie": "latest",
+    "angular-sanitize": "latest",
+    "moment": "latest"
   },
   "overrides": {
     "jquery": {
@@ -84,6 +90,9 @@
     "selectize": {
       "main": "dist/js/standalone/selectize.min.js"
     },
+    "angular-selectize2": {
+      "main": "dist/selectize.js"
+    },
     "perfect-scrollbar": {
       "main": "js/perfect-scrollbar.js"
     },
@@ -101,9 +110,6 @@
     },
     "d3": {
       "main": "d3.min.js"
-    },
-    "d3-transform": {
-      "main": "src/d3-transform.js"
     },
     "parallax": {
       "main": "deploy/jquery.parallax.min.js"
@@ -137,6 +143,16 @@
     },
     "blueimp-bootstrap-image-gallery":{
       "main": "js/bootstrap-image-gallery.js"
+    },
+    "bootstrap-datepicker": {
+      "main": [
+        "dist/css/bootstrap-datepicker.css",
+        "dist/css/bootstrap-datepicker3.css",
+        "dist/js/bootstrap-datepicker.min.js"
+      ]
+    },
+    "moment":{
+      "main": "moment.js"
     }
   },
   "resolutions": {

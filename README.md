@@ -34,15 +34,15 @@ The growth of IT needs is limiting the growth of companies. There is a serious c
 <h1>Technologies</h1>
 <strong><a href="http://www.TechLooper.com">TechLooper</a></strong> has been built on top of these amazing and awesome technologies:
 
-<img width="70" height="67" src="http://docs.codenvy.com/wp-content/uploads/node.png" > </img>
-<img width="80" height="80" src="http://cdn3.techtalkshub.com/wp-content/uploads/2014/04/spring_java8.png" > </img>
-<img width="100" height="61" src="https://www.logicaltrainers.com/gallery/HTML5CSS3.png" > </img>
-<img width="60" height="85" src="https://chrisshayan.atlassian.net/wiki/download/thumbnails/622600/image2014-7-8%208%3A49%3A30.png?version=1&modificationDate=1404784171783&api=v2" > </img>
-<img width="70" height="67" src="http://yeoman.io/assets/img/bullet-grunt.0c59.gif" > </img>
-<img width="70" height="67" src="http://yeoman.io/assets/img/bullet-bower.e181.gif" > </img>
-<img width="150" height="60" src="http://www.perforce.com/sites/default/files/images/about_perforce/continuous-delivery-graphic.png" > </img>
-<img width="70" height="67" src="http://www.macminicolo.net/i_mini/jenkinslogo.png" > </img>
-<img width="100" height="71" src="http://siliconangle.com/files/2013/02/elasticsearch.png" > </img>
-<img width="70" height="67" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/t1.0-1/p160x160/580947_529514340432744_1710355782_n.png" > </img>
-<img width="244" height="76" src="http://images.vietnamworks.com/img/jobseekers/logo.png" > </img>
-<img width="244" height="76" src="https://angularjs.org/img/AngularJS-large.png" > </img>
+<ul>
+   <li>Nodejs</li>
+   <li>Java 8</li>
+   <li>Spring</li>
+   <li>HTML5 and CSS3</li>
+   <li>Bower</li>
+   <li>Grunt</li>
+   <li>Jenkins</li>
+   <li>ElasticSearch</li>
+   <li>VietnamWorks</li>
+   <li>Angular</li>
+</ul>

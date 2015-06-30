@@ -1,21 +1,22 @@
 package com.techlooper.service;
 
-import com.techlooper.entity.userimport.UserImportEntity;
-
-import java.util.Map;
+import com.techlooper.entity.PriceJobEntity;
+import com.techlooper.entity.SalaryReviewEntity;
+import com.techlooper.model.PriceJobSurvey;
+import com.techlooper.model.SalaryReviewSurvey;
 
 /**
  * Created by NguyenDangKhoa on 3/19/15.
  */
 public interface UserEvaluationService {
 
-    long score(UserImportEntity user, Map<String,Long> totalJobPerSkillMap);
+    void reviewSalary(SalaryReviewEntity salaryReviewEntity);
 
-    double rate(UserImportEntity user, Map<String,Long> totalJobPerSkillMap, Long totalITJobs);
+    void deleteSalaryReview(SalaryReviewEntity salaryReviewEntity);
 
-    Map<String,Integer> rank(UserImportEntity user);
+    boolean saveSalaryReviewSurvey(SalaryReviewSurvey salaryReviewSurvey);
 
-    Map<String,Long> getSkillMap();
+    void priceJob(PriceJobEntity priceJobEntity);
 
-    Map<String,Long> getTotalNumberOfJobPerSkill();
+    boolean savePriceJobSurvey(PriceJobSurvey priceJobSurvey);
 }

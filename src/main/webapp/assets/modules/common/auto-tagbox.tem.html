@@ -1,0 +1,31 @@
+<div class="top-three-skills">
+  <div class="top-demanded-skills-block">
+    <p ng-show="suggestionTags.length > 0" translate="{{translateSuggestionTitle}}"></p>
+    <ul class="demand-skills">
+      <li ng-repeat="tag in suggestionTags" ng-click="addTag(tag)" ng-class="{added: tag.added}">{{tag.title}}</li>
+    </ul>
+  </div>
+  <div class="added-list-skills">
+    <ul>
+      <li ng-repeat="tag in tags">
+          <span class="left">
+            <span class="right"><i>{{tag}}</i>
+              <span ng-click="removeTag(tag)" class="close" title="Remove">x</span>
+            </span>
+          </span>
+      </li>
+    </ul>
+  </div>
+  <div class="max-skill-alert" ng-repeat="error in errors">
+    {{error | translate}}
+  </div>
+  <!--<div class="max-skill-alert">{{error.newSkillName || error.existSkillName}}</div>-->
+  <div class="add-skill-input">
+    <form ng-submit="addTag()" novalidate name="tagForm" autocomplete="off">
+      <autocomplete name="tagInput" ng-required='config.required' ng-model="config.newTag" data="config.items"
+                    attr-placeholder="{{config.placeholder | translate}}" on-select="onSelect"></autocomplete>
+
+      <button type="submit">{{'add' | translate}}</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+{
+  "totalPay": 1200,
+  "percentRank": 85,
+  "jobOfferRanges": [
+    {
+      "percent": 10,
+      "percentile": 350
+    },
+    {
+      "percent": 25,
+      "percentile": 750
+    },
+    {
+      "percent": 50,
+      "percentile": 800
+    },
+    {
+      "percent": 75,
+      "percentile": 1000
+    },
+    {
+      "percent": 90,
+      "percentile": 1300
+    }
+  ],
+  "topPaidJobs" : [
+    {
+      "jobId" : "555555",
+      "jobTitle" : "Senior Java Developer",
+      "companyDesc" : "Navigos Group",
+      "addedPercent" : 10.5
+    },
+    {
+      "jobId" : "555556",
+      "jobTitle" : "Senior Java Developer",
+      "companyDesc" : "Vietnamworks",
+      "addedPercent" : 20.3
+    }
+  ]
+}

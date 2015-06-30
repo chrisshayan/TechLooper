@@ -4,14 +4,14 @@ package com.techlooper.service;
  * Created by phuonghqh on 11/8/14.
  */
 
-import com.techlooper.model.HistogramEnum;
-import com.techlooper.model.Skill;
-import com.techlooper.model.TechnicalTerm;
-import com.techlooper.model.TermStatisticRequest;
+import com.techlooper.entity.PriceJobEntity;
+import com.techlooper.entity.SalaryReviewEntity;
+import com.techlooper.model.*;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.nested.NestedBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.util.List;
@@ -88,7 +88,39 @@ public interface JobQueryBuilder {
 
     FilterBuilder getJobLevelFilterBuilder(List<Integer> jobLevelIds);
 
+    FilterBuilder getJobLevelsFilterBuilder(List<Integer> jobLevelIds);
+
     FilterAggregationBuilder getTopCompaniesAggregation();
 
     List<FilterAggregationBuilder> getSkillAnalyticsAggregations(TermStatisticRequest term, HistogramEnum histogramEnum);
+
+    QueryBuilder jobTitleQueryBuilder(String jobTitle);
+
+    FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories);
+
+    FilterBuilder getRangeFilterBuilder(String fieldName, Object fromValue, Object toValue);
+
+    QueryBuilder skillQueryBuilder(List<String> skills);
+
+    FilterBuilder getLocationFilterBuilder(Integer locationId);
+
+    FilterBuilder getSalaryRangeFilterBuilder(Long salaryMin, Long salaryMax);
+
+    NativeSearchQueryBuilder getVietnamworksJobSearchQuery();
+
+    NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewEntity salaryReviewEntity);
+
+    NativeSearchQueryBuilder getJobSearchQueryBySkill(List<String> skills, List<Long> jobCategories);
+
+    NativeSearchQueryBuilder getSearchQueryForPriceJobReport(PriceJobEntity priceJobEntity);
+
+    NativeSearchQueryBuilder getJobSearchQueryByJobTitle(String jobTitle);
+
+    NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, List<Integer> jobLevelIds);
+
+    NestedBuilder getTopDemandedSkillsAggregation();
+
+    FilterAggregationBuilder getSalaryAverageAggregation(String fieldName);
+
+    NativeSearchQueryBuilder getSimilarSalaryReview(SimilarSalaryReviewRequest request);
 }

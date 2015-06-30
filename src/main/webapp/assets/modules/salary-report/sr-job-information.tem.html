@@ -1,0 +1,44 @@
+<div class="user-personal-info">
+  <div ng-modal="hover" class="update-job-information only-read">
+    <div class="update-job-information-field">
+      <label>{{'jobTitle' | translate}}:</label>
+      <autocomplete required ng-model="sr.jobTitle" data="state.jobTitles"
+                    attr-placeholder="{{'jobTitle.placeholder' | translate}}"  required validate></autocomplete>
+      <div class="error-messages">{{error['sr.jobTitle']}}</div>
+    </div>
+    <div class="update-job-information-field">
+      <label>{{'jobLevel' | translate}}:</label>
+      <selectize config='selectize.jobLevelsSelectize.config' options='selectize.jobLevelsSelectize.items'
+                 ng-model="sr.jobLevelIds" name="{{'jobLevel' | translate}}"  required validate></selectize>
+      <div class="error-messages">{{error['sr.jobLevelIds']}}</div>
+    </div>
+    <form>
+      <div class="update-job-information-field">
+        <label>{{'jobSkills' | translate}}:</label>
+        <auto-tagbox tags="sr.skills" config="skillBoxConfig"
+                     translate-suggestion-title="topDemandedSkill" suggestion-tags="state.demandSkills"></auto-tagbox>
+        <div class="error-messages">{{error.skills}}</div>
+      </div>
+    </form>
+    <div class="update-job-information-field">
+      <label>{{'jobCategory' | translate}}:</label>
+      <selectize config='selectize.industriesSelectize.config' options='selectize.industriesSelectize.items'
+                 ng-model="sr.jobCategories" required
+                 name="{{'jobCategory' | translate}}" validate></selectize>
+      <div class="error-messages">{{error['sr.jobCategories']}}</div>
+    </div>
+    <div class="overlap-form" ng-click="showUpdateInfo()"></div>
+    <div class="update-info-manager">
+      <a translate="cancel" ng-click="cancelUpdateSalaryReport()"></a>
+      <a class="btn btn-primary btn-flat" translate="save" ng-click="updateSalaryReport()"></a>
+    </div>
+  </div>
+  <div class="verified-data">
+    <img src="images/verified-data.png" alt=""/>
+  </div>
+  <div class="ic-update-info">
+    <div class="ic-edit" title="Click to Edit">
+      <i class="fa fa-pencil"></i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+{
+  "jobTitle": "java developer",
+  "jobLevel": "EXPERIENCED",
+  "location": "ho chi minh",
+  "numberOfEmployees": "1-49",
+  "netSalary": 1000,
+  "skills": [
+    "java",
+    "j2ee",
+    "j2se"
+  ],
+  "reportTo": "delivery manager"
+}

@@ -1,0 +1,12 @@
+<div class="send-me-report-form">
+  <p ng-show="salaryReport.percentRank == 'NaN'">{{'noDataSendMeReport' | translate }}</p>
+
+  <p ng-show="salaryReport.percentRank !== 'NaN'">{{'desSendMeReport' | translate }}</p>
+  <input ng-model="sendMeReport.email" type="email" placeholder="{{'exEmailAddress' | translate}}"
+         validate required name="email" id="txtEmailReport"/>
+  <button ng-show="salaryReport.percentRank == 'NaN'" translate="save" class="btn btn-primary btn-flat"
+          ng-click="sendMeNow()" type="submit"></button>
+  <button ng-show="salaryReport.percentRank !== 'NaN'" translate="sendMeNow" class="btn btn-primary btn-flat"
+          ng-click="sendMeNow()" type="submit"></button>
+  <div class="error-messages">{{error['sendMeReport.email']}}</div>
+</div>

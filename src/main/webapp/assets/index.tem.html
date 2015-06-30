@@ -12,16 +12,18 @@
 <head>
 
     <!-- Meta-Information -->
-    <title>Techlooper | Career Analytics. Open Source. Awesome!</title>
+    <title>TechLooper | Career Analytics. Open Source. Awesome!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon" />
-    <meta name="description" content="Techlooper.">
+    <meta name="description" content="Techlooper is a Career Analytics">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
     <!-- Facebook & LinkedIn -->
     <meta property="og:title" content="TechLooper is a career analytics platform." />
-    <meta property="og:image" content="images/logo.png" />
+    <meta property="og:description" content="Techlooper is a Career Analytics" />
+    <meta property="og:image" content="http://www.techlooper.com/images/logo-social.png" />
+    <meta property="og:image:width" content="200" />
 
     <!-- Twitter -->
     <meta property="twitter:title" content="TechLooper is a career analytics platform." />
@@ -44,6 +46,8 @@
     <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" type="text/css">
     <link href="bower_components/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet" type="text/css">
     <link href="bower_components/blueimp-bootstrap-image-gallery/css/bootstrap-image-gallery.min.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/allmighty-autocomplete/style/autocomplete.css" rel="stylesheet" type="text/css">
+
     <!-- include: "type": "css", "files": "css/**/*.css" -->
     <!-- endbuild -->
 
@@ -71,26 +75,41 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class="body-content" ng-view>
+<div id="bodyContent" class="body-content" autoscroll="true" ng-view>
 </div>
 <div class="js-footer">
-    <div class="footer-content-block">
-        <div class="copyright-block">
-        <p>Copyright &copy; <span><a href="http://www.navigosgroup.com/" target="_blank">Navigos Group</a></span> Joint Stock Company</p>
-        <p class="address">130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam </p>
+    <div class="js-footer-block">
+        <div class="site-map-block">
+            <div class="site-map-content">
+                <h3 translate="personal"></h3>
+                <ul>
+                    <li><a href="#/pie-chart" translate="getAnalytics"></a></li>
+                    <li><a href="#/salary-review" translate="getYourSalaryReport"></a></li>
+                    <li><a href="#/get-promoted" translate="getPromotedTagLine"></a></li>
+                    <li><a href="#/contest" translate="joinTechLooperContest"></a></li>
+                    <li class="hide"><a href="" translate="allContests"></a></li>
+                </ul>
+            </div>
+            <div class="site-map-content">
+                <h3 translate="business"></h3>
+                <ul>
+                    <li><a href="#/price-job" translate="priceAJob"></a></li>
+                    <li class="hide"><a href="" translate="postAContest"></a></li>
+                </ul>
+            </div>
         </div>
+        <div class="footer-content-block">
+            <div class="copyright-block">
+                <p translate="copyright"></p>
+                <p class="address" translate="companyAddress"></p>
+            </div>
 
-        <div class="social-network-block">
-        <ul>
-        <!--<li><a href="#"><i class="fa fa-facebook-square"></i></a></li>-->
-        <li><a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
-        <!--<li><a href="#"><i class="fa fa-twitter-square"></i></a></li>-->
-        <!--<li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>-->
-        </ul>
+            <div class="social-network-block">
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                </ul>
+            </div>
         </div>
-        <!--<div class="vnw-logo">-->
-        <!--<a href="http://www.vietnamworks.com/" target="_blank"><img src="images/logo-vnw.png" alt="Career Analytics. Awesome!"></a>-->
-        <!--</div>-->
     </div>
 </div>
 <div class="loading-data">

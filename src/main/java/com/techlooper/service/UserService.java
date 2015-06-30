@@ -2,11 +2,11 @@ package com.techlooper.service;
 
 import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -115,9 +115,11 @@ public interface UserService {
      */
     TalentSearchResponse findTalent(TalentSearchRequest param);
 
-    TalentProfile getTalentProfile(String email);
-
     void registerUser(UserInfo userInfo);
 
     long countRegisteredUser();
+
+    SalaryReviewDto findSalaryReviewById(String base64Id);
+
+    VnwUserDto findVnwUserByUsername(String username);
 }

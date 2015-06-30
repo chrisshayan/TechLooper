@@ -1,0 +1,75 @@
+GET vietnamworks/job/_search?search_type=count
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "jobTitle": {
+            "query": "Java Developer",
+            "minimum_should_match" : "75%"
+          }
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "approvedDate": {
+                  "from": "now-6M/M"
+                }
+              }
+            },
+            {
+              "nested": {
+                "path": "industries",
+                "filter": {
+                  "term": {
+                    "industries.industryId": 35
+                  }
+                }
+              }
+            },
+            {
+              "term": {
+                "jobLevelId": 5
+              }
+            }
+          ],
+          "should": [
+            {
+              "range": {
+                "salaryMin": {
+                  "from": 250
+                }
+              }
+            },
+            {
+              "range": {
+                "salaryMax": {
+                  "from": 250
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "aggs": {
+    "salary_percentile": {
+      "percentiles": {
+        "script": "doc['salaryMin'].value == 0 ? doc['salaryMax'].value * 0.75 : doc['salaryMax'].value == 0 ? doc['salaryMin'].value * 1.25 : (doc['salaryMin'].value + doc['salaryMax'].value) / 2",
+        "percents": [
+          10,
+          25,
+          50,
+          75,
+          90,
+          99
+        ],
+        "compression": 100
+      }
+    }
+  }
+}
