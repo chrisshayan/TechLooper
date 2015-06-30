@@ -44,7 +44,7 @@
           <input type="text" id="txtSecondReward" class="input-style"
                  name="secondPlaceReward" ng-model="contest.secondPlaceReward"
                  ng-model="contest.secondPlaceReward"
-                 required-expr="contest.secondPlaceReward < contest.firstPlaceReward"
+                 required-expr="state.status('compare-2reward-1reward')"
                  required-expr2="state.status('place-reward-range', contest.secondPlaceReward)"
                  placeholder="{{'secondPrize' | translate}}" only-digits maxlength="4" touchable/>
 
@@ -67,7 +67,7 @@
           <input type="text" id="txtThirdReward" class="input-style"
                  name="thirdPlaceReward"
                  ng-model="contest.thirdPlaceReward"
-                 required-expr="contest.thirdPlaceReward < contest.secondPlaceReward"
+                 required-expr="state.status('compare-3reward-2reward')"
                  required-expr2="state.status('place-reward-range', contest.thirdPlaceReward)"
                  placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
 

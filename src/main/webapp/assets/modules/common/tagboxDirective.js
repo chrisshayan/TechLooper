@@ -5,7 +5,10 @@ techlooper.directive('tagbox', function ($rootScope) {
     templateUrl: "modules/common/tagbox.html",
     scope: {
       tags: "=",
-      type: "@"
+      type: "@",
+      placeholder: "@",
+      maxLength: "@",
+      maxLengthError: "@"
     },
 
     /**
@@ -29,6 +32,13 @@ techlooper.directive('tagbox', function ($rootScope) {
 
       scope.addTag = function (tag) {
         scope.tagForm.$submitted = true;
+
+        var limitation = scope.tags.length >= scope.maxLength;
+        scope.tagForm.tag.$setValidity("maxLength", !limitation);
+        if (limitation) {
+          return false;
+        }
+
         if (!scope.tagForm.$valid) {
           return false;
         }
@@ -49,7 +59,6 @@ techlooper.directive('tagbox', function ($rootScope) {
       scope.tagForm.tag.$validators.unique = function (modelValue, viewValue) {
         return scope.tags.indexOf(modelValue) < 0;
       }
-
     }
   }
 });
