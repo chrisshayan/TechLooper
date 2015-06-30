@@ -124,7 +124,7 @@
                      <!--placeholder="{{'reviewStyleEX' | translate}}"></selectize>-->
 
           <!--<selectize options='myOptions' ng-model="myModel"></selectize>-->
-          <selectize ng-model="contest.reviewStyle"></selectize>
+          <selectize ng-model="contest.reviewStyle" config="config.reviewStyle"></selectize>
 
           <div class="error-messages"
                ng-show="challengeForm.reviewStyle.$error.required && (challengeForm.reviewStyle.$edited || challengeForm.$submitted)"

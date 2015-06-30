@@ -376,5 +376,7 @@
   "rewardShouldFrom100To5000": "Reward should be between $100 and $5,000.",
   "startDateWt4w": "Start date should be within next 4 weeks.",
   "registerDateGTStartDate": "Register day should be ahead of Start day at least 1 day.",
-  "submitDateGTRegisterDate": "Submit day should be ahead of Register day at least 1 day."
+  "submitDateGTRegisterDate": "Submit day should be ahead of Register day at least 1 day.",
+  "contestOwnerSignOff": "Contest Owner Sign-Off",
+  "exContestOwnerSignOff": "Ex: Contest Owner Sign-Off."
 }
