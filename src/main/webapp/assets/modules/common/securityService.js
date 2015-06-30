@@ -1,6 +1,6 @@
 techlooper.factory("securityService", function (apiService, $rootScope, $q, utils, jsonValue, $location) {
 
-  var capturePaths = [];
+  localStorage.setItem('CAPTURE-PATHS', '/');
 
   var instance = {
     //logout: function () {
@@ -35,7 +35,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     ableToGo: function () {
       instance.getCurrentUser()
         .then(function (data) {
-          var path = capturePaths.pop();
+          var path = localStorage.getItem('CAPTURE-PATHS');
           if (path) {
             return $location.path(path);
           }
@@ -52,7 +52,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
   $rootScope.$on("$locationChangeStart", function (event, next, current) {
     switch (utils.getView()) {
       case jsonValue.views.postContest:
-        capturePaths.push("/post-contest");
+        localStorage.setItem('CAPTURE-PATHS', '/post-contest');
       case jsonValue.views.login:
         instance.ableToGo();
         break;
