@@ -4,19 +4,13 @@
       <ul>
         <li ng-repeat="tag in tags">
           <span class="left">
-            <span class="right no-capitalize"><i>{{tag}}</i>
+            <span class="right"><i>{{tag}}</i>
               <span ng-click="removeTag(tag)" class="close" title="Remove">x</span>
             </span>
           </span>
         </li>
       </ul>
     </div>
-
-    <!--<div ng-show="tagForm.tag.$error">-->
-      <!--<div class="error-messages"-->
-           <!--ng-show="tagForm.tag.$error.required && tagForm.$submitted"-->
-           <!--translate="requiredThisField"></div>-->
-    <!--</div>-->
 
     <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$edited">
       <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
