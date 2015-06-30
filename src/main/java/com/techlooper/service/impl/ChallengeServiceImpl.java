@@ -1,14 +1,17 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.Language;
+import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
-import freemarker.template.SimpleDate;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.mail.Address;
@@ -29,6 +32,7 @@ import java.util.Set;
 /**
  * Created by NguyenDangKhoa on 6/29/15.
  */
+@Service
 public class ChallengeServiceImpl implements ChallengeService {
 
     @Resource
@@ -52,22 +56,35 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Resource
     private JavaMailSender mailSender;
 
+    @Resource
+    private ChallengeRepository challengeRepository;
+
+    @Resource
+    private Mapper dozerMapper;
+
     @Override
-    public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity, String mailSubject)
-            throws MessagingException, IOException, TemplateException {
-        mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
-        sendPostChallengeEmail(challengeEntity, mailSubject);
+    public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) {
+        ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
+        return challengeRepository.save(challengeEntity);
     }
 
     @Override
-    public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, String mailSubject)
+    public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException {
-        mailSubject = "A new challenge has been created";
-        sendPostChallengeEmail(challengeEntity, mailSubject);
-    }
-
-    private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject) throws MessagingException, IOException, TemplateException {
+        String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
         Address[] recipientAddresses = getRecipientAddresses(challengeEntity);
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses);
+    }
+
+    @Override
+    public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
+            throws MessagingException, IOException, TemplateException {
+        String mailSubject = "A new challenge has been created";
+        Address[] recipientAddresses = InternetAddress.parse("thu.hoang@navigosgroup.com,eduardo@navigosgroup.com,chris@navigosgroup.com");
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses);
+    }
+
+    private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject, Address[] recipientAddresses) throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         StringWriter stringWriter = new StringWriter();
         Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
@@ -87,9 +104,9 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("dateChallengeRegister", formatter.format(challengeEntity.getDateChallengeRegister()));
         templateModel.put("dateChallengeSubmit", formatter.format(challengeEntity.getDateChallengeSubmit()));
         templateModel.put("quality", challengeEntity.getQuality());
-        templateModel.put("firstReward", challengeEntity.getFirstReward());
-        templateModel.put("secondReward", challengeEntity.getSecondReward());
-        templateModel.put("thirdReward", challengeEntity.getThirdReward());
+        templateModel.put("firstReward", challengeEntity.getFirstReward() != null ? challengeEntity.getFirstReward() : 0);
+        templateModel.put("secondReward", challengeEntity.getSecondReward() != null ? challengeEntity.getSecondReward() : 0);
+        templateModel.put("thirdReward", challengeEntity.getThirdReward() != null ? challengeEntity.getThirdReward() : 0);
         templateModel.put("challengeId", challengeEntity.getChallengeId());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
 
