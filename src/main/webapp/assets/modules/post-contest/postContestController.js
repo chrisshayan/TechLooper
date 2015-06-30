@@ -41,6 +41,14 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           case "start-date-wt-4w":
             var lastDate = moment().add(4, 'weeks');
             return moment($scope.contest.startDate, jsonValue.dateFormat).isBetween(moment(), lastDate, 'day');
+
+          case "register-date-gt-start-date":
+            var lastDate = moment($scope.contest.startDate, jsonValue.dateFormat);
+            return moment($scope.contest.registrationDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
+
+          case "submit-date-gt-register-date":
+            var lastDate = moment($scope.contest.registrationDate, jsonValue.dateFormat);
+            return moment($scope.contest.submissionDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
         }
       },
       nextState: "reward"

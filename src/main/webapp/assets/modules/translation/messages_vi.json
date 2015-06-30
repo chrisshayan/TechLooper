@@ -368,7 +368,9 @@
   "reward2LessThanReward1": "Tiền Thưởng Cho Giải Nhì phải nhỏ hơn Giải Nhất.",
   "reward3LessThanReward2": "Tiền Thưởng Cho Giải Ba phải nhỏ hơn Giải Nhì.",
   "rewardShouldFrom100To5000": "Tiền thưởng phải nằm trong khoảng từ $100 đến $5,000.",
-  "startDateWt4w": "Thử thách phải bắt đầu trong vòng 4 tuần tới."
+  "startDateWt4w": "Thử thách phải bắt đầu trong vòng 4 tuần tới.",
+  "registerDateGTStartDate": "Ngày Hết Hạn Đăng Ký phải sau Ngày Bắt Đầu ít nhất 1 ngày.",
+  "submitDateGTRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày."
 }
 
 
