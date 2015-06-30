@@ -392,5 +392,11 @@
   "theSolutionAchievesTheStatedGoals" : "The solution achieves the stated goals",
   "theSolutionIsPracticalAndReliable":"The solution is practical and reliable",
   "theSolutionIsInnovative":"The solution is innovative",
-  "exQualityIdeaConfig" : "Ex : Has acceptable tradeoffs"
+  "exQualityIdeaConfig" : "Ex : Has acceptable tradeoffs",
+  "termsConditions": "Terms & Conditions",
+  "termsConditionsContent": "Contest owner will compensate members in accordance with the payment structure of this challenge. The full amount payment will be made no later than 2-weeks the challenge closure date. <br>The code and intellectual property developed during the challenge by the winning contestant(s) will belong solely to Contest Owner.",
+  "termsConditionsTip": "By publishing a contest on TechLooper, you agree with these Terms & Conditions.",
+  "listRequire1Item":"This list requires at least one item",
+  "exceedCharacterWithParam":"This field cannot exceed [xxx] characters.",
+  "limitItemWithParam": "You can add up to [xxx] items. Remove one to add another."
 }
