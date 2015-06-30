@@ -385,7 +385,12 @@
   "registerDateGTStartDate": "Ngày Hết Hạn Đăng Ký phải sau Ngày Bắt Đầu ít nhất 1 ngày.",
   "submitDateGTRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
   "contestOwnerSignOff": "Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm",
-  "exContestOwnerSignOff": "Ex: Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm."
+  "exContestOwnerSignOff": "Ex: Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm.",
+  "hasAcceptableTradeoffs" : "Đáp ứng đồng đều thoả đáng các tính năng",
+  "theSolutionAchievesTheStatedGoals" : "Giải pháp đạt được tất cả mục tiêu đặt ra",
+  "theSolutionIsPracticalAndReliable" : "Giải phảp thực tiễn và đáng tin cậy",
+  "theSolutionIsInnovative" : "Giải pháp sáng tạo",
+  "exQualityIdeaConfig" : "Ex : Đáp ứng đồng đều thoả đáng các tính năng"
 }
 
 

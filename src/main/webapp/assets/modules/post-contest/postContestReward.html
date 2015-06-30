@@ -6,9 +6,7 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content">
           <label translate="qualityIdea"></label>
-          <autocomplete ng-model="rewardForm.qualityIdea" data="" name="qualityIdea"
-                        attr-placeholder="{{'qualityIdeaEX' | translate}}" required></autocomplete>
-
+            <selectize name="qualityIdea" ng-model="contest.qualityIdea" config="config.qualityIdea" required touchable></selectize>
           <div class="error-messages"
                ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>

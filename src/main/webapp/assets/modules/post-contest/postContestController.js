@@ -119,7 +119,8 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   }
 
   $scope.config = {
-    reviewStyle: resourcesService.reviewStyleConfig
+    reviewStyle: resourcesService.reviewStyleConfig,
+    qualityIdea: resourcesService.qualityIdeaConfig
   }
 
   $scope.changeState(state.challenge);

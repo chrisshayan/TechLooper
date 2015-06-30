@@ -1,5 +1,6 @@
 techlooper.factory("resourcesService", function ($translate, $q) {
   var reviewStyleOptions = [{translate: "contestOwnerSignOff"}];
+  var qualityIdeaOptions = [{translate: "hasAcceptableTradeoffs"},{translate: "theSolutionAchievesTheStatedGoals"},{translate: "theSolutionIsPracticalAndReliable"},{translate: "theSolutionIsInnovative"}];
 
   var singleSelectize = function(key) {
     return {
@@ -19,11 +20,13 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   }
 
   var instance = {
-    reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, singleSelectize("reviewStyleConfig"))
+    reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, singleSelectize("reviewStyleConfig")),
+    qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, singleSelectize("qualityIdeaConfig"))
   }
 
   var translations = [
-    {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"}
+    {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
+    {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"}
   ];
 
   $.each(translations, function (i, item) {
