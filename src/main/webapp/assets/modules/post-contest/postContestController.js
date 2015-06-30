@@ -73,9 +73,11 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           case "place-reward-range":
             return param <= 5000 && param >= 100;
 
-          case "quality-idea-list":
-            var array = [""];
-            return [];
+          case "compare-3reward-2reward":
+            return $scope.contest.thirdPlaceReward <= $scope.contest.secondPlaceReward;
+
+          case "compare-2reward-1reward":
+            return $scope.contest.secondPlaceReward < $scope.contest.firstPlaceReward;
         }
       },
 
