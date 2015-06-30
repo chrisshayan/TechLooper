@@ -1,6 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.model.ChallengeDto;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -11,10 +12,12 @@ import java.io.IOException;
  */
 public interface ChallengeService {
 
-    void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity, String mailSubject)
+    ChallengeEntity savePostChallenge(ChallengeDto challengeDto);
+
+    void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException;
 
-    void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, String mailSubject)
+    void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException;
 
 }
