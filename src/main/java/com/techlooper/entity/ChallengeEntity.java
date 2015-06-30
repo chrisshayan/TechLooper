@@ -2,6 +2,7 @@ package com.techlooper.entity;
 
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -44,13 +45,13 @@ public class ChallengeEntity {
     @Field(type = String)
     private String reviewStyle;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private Date startDateTime;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private Date registrationDateTime;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private Date submissionDateTime;
 
     @Field(type = FieldType.Integer)
