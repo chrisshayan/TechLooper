@@ -398,5 +398,5 @@
   "termsConditionsTip": "By publishing a contest on TechLooper, you agree with these Terms & Conditions.",
   "listRequire1Item":"This list requires at least one item",
   "exceedCharacterWithParam":"This field cannot exceed [xxx] characters.",
-  "limitItemWithParam": "You can add up to [xxx] items. Remove one to add another."
+  "limitItemWithParam": "You can add up to {{number}} items. Remove one to add another."
 }

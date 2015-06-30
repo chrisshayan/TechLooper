@@ -60,12 +60,12 @@
         <div class="post-contest-field-content">
           <label translate="technologies"></label>
           <tagbox name="technologies" tags="contest.technologies"
-                  type="text" placeholder="technologiesEX" max-length="2" max-length-error="limit10"
+                  type="text" placeholder="technologiesEX" list-max-length="10"
                   ng-model="contest.technologies" forcusout="true" array-model touchable></tagbox>
 
           <div class="error-messages"
                ng-show="challengeForm.technologies.$error.required && (challengeForm.technologies.$edited || challengeForm.$submitted)"
-               translate="requiredThisField"></div>
+               translate="listRequire1Item" />
 
         </div>
         <div class="post-contest-field-tooltip">
@@ -104,12 +104,12 @@
         <div class="post-contest-field-content">
           <label translate="emailAddressReceive"></label>
           <tagbox name="receivedEmails" tags="contest.receivedEmails"
-                  type="email" placeholder="emailAddressReceiveEX" max-length="5" max-length-error="limit5"
+                  type="email" placeholder="emailAddressReceiveEX" list-max-length="5"
                   ng-model="contest.receivedEmails" array-model touchable></tagbox>
 
           <div class="error-messages"
                ng-show="challengeForm.receivedEmails.$error.required && (challengeForm.receivedEmails.$edited || challengeForm.$submitted)"
-               translate="requiredThisField"></div>
+               translate="listRequire1Item"></div>
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'emailAddressReceiveTip' | translate}}"></a>

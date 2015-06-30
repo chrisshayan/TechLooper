@@ -16,7 +16,7 @@
       <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
       <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
-      <div translate="{{maxLengthError}}" ng-show="tagForm.tag.$error.maxLength"/>
+      <div translate="limitItemWithParam" translate-value-number="{{listMaxLength}}" ng-show="tagForm.tag.$error.listMaxLength"/>
     </div>
 
     <input type="hidden" name="tags" ng-model="tags" array-required>

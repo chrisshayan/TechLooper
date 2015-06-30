@@ -7,8 +7,7 @@ techlooper.directive('tagbox', function ($rootScope) {
       tags: "=",
       type: "@",
       placeholder: "@",
-      maxLength: "@",
-      maxLengthError: "@"
+      listMaxLength: "@",
     },
 
     /**
@@ -33,8 +32,8 @@ techlooper.directive('tagbox', function ($rootScope) {
       scope.addTag = function (tag) {
         scope.tagForm.$submitted = true;
 
-        var limitation = scope.tags.length >= scope.maxLength;
-        scope.tagForm.tag.$setValidity("maxLength", !limitation);
+        var limitation = scope.tags.length >= scope.listMaxLength;
+        scope.tagForm.tag.$setValidity("listMaxLength", !limitation);
         if (limitation) {
           return false;
         }
