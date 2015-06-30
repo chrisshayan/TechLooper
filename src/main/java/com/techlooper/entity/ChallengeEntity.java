@@ -1,49 +1,74 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.Language;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.String;
+
 /**
  * Created by NguyenDangKhoa on 6/29/15.
  */
+@Document(indexName = "techlooper", type = "challenge")
 public class ChallengeEntity {
 
+    @Id
     private Long challengeId;
 
+    @Field(type = String)
     private String challengeName;
 
+    @Field(type = String)
     private String businessRequirement;
 
+    @Field(type = String)
     private String generalNote;
 
+    @Field(type = FieldType.Object)
     private List<String> technologies;
 
-    private String document;
+    @Field(type = String)
+    private String documents;
 
+    @Field(type = String)
     private String deliverables;
 
-    private List<String> emails;
+    @Field(type = FieldType.Object)
+    private List<String> receivedEmails;
 
+    @Field(type = String)
     private String reviewStyle;
 
-    private Date dateChallengeStart;
+    @Field(type = FieldType.Date)
+    private Date startDateTime;
 
-    private Date dateChallengeRegister;
+    @Field(type = FieldType.Date)
+    private Date registrationDateTime;
 
-    private Date dateChallengeSubmit;
+    @Field(type = FieldType.Date)
+    private Date submissionDateTime;
 
-    private Integer firstReward;
+    @Field(type = FieldType.Integer)
+    private Integer firstPlaceReward;
 
-    private Integer secondReward;
+    @Field(type = FieldType.Integer)
+    private Integer secondPlaceReward;
 
-    private Integer thirdReward;
+    @Field(type = FieldType.Integer)
+    private Integer thirdPlaceReward;
 
-    private String quality;
+    @Field(type = String)
+    private String qualityIdea;
 
+    @Field(type = String)
     private String authorEmail;
 
+    @Field(type = String)
     private Language lang;
 
     public Long getChallengeId() {
@@ -86,12 +111,12 @@ public class ChallengeEntity {
         this.technologies = technologies;
     }
 
-    public String getDocument() {
-        return document;
+    public String getDocuments() {
+        return documents;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setDocuments(String documents) {
+        this.documents = documents;
     }
 
     public String getDeliverables() {
@@ -102,12 +127,12 @@ public class ChallengeEntity {
         this.deliverables = deliverables;
     }
 
-    public List<String> getEmails() {
-        return emails;
+    public List<String> getReceivedEmails() {
+        return receivedEmails;
     }
 
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
+    public void setReceivedEmails(List<String> receivedEmails) {
+        this.receivedEmails = receivedEmails;
     }
 
     public String getReviewStyle() {
@@ -118,60 +143,60 @@ public class ChallengeEntity {
         this.reviewStyle = reviewStyle;
     }
 
-    public Date getDateChallengeStart() {
-        return dateChallengeStart;
+    public Date getStartDateTime() {
+        return startDateTime;
     }
 
-    public void setDateChallengeStart(Date dateChallengeStart) {
-        this.dateChallengeStart = dateChallengeStart;
+    public void setStartDateTime(Date startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
-    public Date getDateChallengeRegister() {
-        return dateChallengeRegister;
+    public Date getRegistrationDateTime() {
+        return registrationDateTime;
     }
 
-    public void setDateChallengeRegister(Date dateChallengeRegister) {
-        this.dateChallengeRegister = dateChallengeRegister;
+    public void setRegistrationDateTime(Date registrationDateTime) {
+        this.registrationDateTime = registrationDateTime;
     }
 
-    public Date getDateChallengeSubmit() {
-        return dateChallengeSubmit;
+    public Date getSubmissionDateTime() {
+        return submissionDateTime;
     }
 
-    public void setDateChallengeSubmit(Date dateChallengeSubmit) {
-        this.dateChallengeSubmit = dateChallengeSubmit;
+    public void setSubmissionDateTime(Date submissionDateTime) {
+        this.submissionDateTime = submissionDateTime;
     }
 
-    public Integer getFirstReward() {
-        return firstReward;
+    public Integer getFirstPlaceReward() {
+        return firstPlaceReward;
     }
 
-    public void setFirstReward(Integer firstReward) {
-        this.firstReward = firstReward;
+    public void setFirstPlaceReward(Integer firstPlaceReward) {
+        this.firstPlaceReward = firstPlaceReward;
     }
 
-    public Integer getSecondReward() {
-        return secondReward;
+    public Integer getSecondPlaceReward() {
+        return secondPlaceReward;
     }
 
-    public void setSecondReward(Integer secondReward) {
-        this.secondReward = secondReward;
+    public void setSecondPlaceReward(Integer secondPlaceReward) {
+        this.secondPlaceReward = secondPlaceReward;
     }
 
-    public Integer getThirdReward() {
-        return thirdReward;
+    public Integer getThirdPlaceReward() {
+        return thirdPlaceReward;
     }
 
-    public void setThirdReward(Integer thirdReward) {
-        this.thirdReward = thirdReward;
+    public void setThirdPlaceReward(Integer thirdPlaceReward) {
+        this.thirdPlaceReward = thirdPlaceReward;
     }
 
-    public String getQuality() {
-        return quality;
+    public String getQualityIdea() {
+        return qualityIdea;
     }
 
-    public void setQuality(String quality) {
-        this.quality = quality;
+    public void setQualityIdea(String qualityIdea) {
+        this.qualityIdea = qualityIdea;
     }
 
     public String getAuthorEmail() {

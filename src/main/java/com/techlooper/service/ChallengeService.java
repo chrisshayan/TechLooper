@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public interface ChallengeService {
 
-    ChallengeEntity savePostChallenge(ChallengeDto challengeDto);
+    ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception;
 
     void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException;
