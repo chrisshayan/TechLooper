@@ -138,7 +138,7 @@
   "role": "Role",
   "categories": "Categories",
   "level": "Level",
-  "requiredThisField": "This field is required",
+  "requiredThisField": "You can't leave this empty.",
   "yob": "Year of birth",
   "exYob": "Ex: 1988",
   "doYouWantToEarnMore": "Do you want to earn more?",
