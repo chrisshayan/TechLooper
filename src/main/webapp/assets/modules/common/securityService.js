@@ -51,6 +51,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
   $rootScope.$on("$locationChangeStart", function (event, next, current) {
     switch (utils.getView()) {
+      case jsonValue.views.contestDetail:
       case jsonValue.views.postContest:
         localStorage.setItem('CAPTURE-PATHS', '/post-contest');
       case jsonValue.views.login:

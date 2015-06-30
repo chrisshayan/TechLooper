@@ -1,4 +1,4 @@
-techlooper.controller("postContestController", function ($scope, $http, jsonValue) {
+techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location) {
   var state = {
     challenge: {
       showChallenge: true,
@@ -78,9 +78,11 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       },
 
       nextState: function () {
-        $http.post()
+        var challenge = angular.copy($scope.contest);
+        challenge.lang = $translate.use();
+        $http.post("challenge/publish", challenge)
           .success(function(data) {
-            console.log(data);
+            $location.path("contest-detail");
           });
         return true;
       }

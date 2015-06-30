@@ -16,27 +16,27 @@ public class ChallengeDto {
 
     private List<String> technologies;
 
-    private String document;
+    private String document;//documents
 
     private String deliverables;
 
-    private List<String> emails;
+    private List<String> emails;//receivedEmails
 
     private String reviewStyle;
 
-    private Date dateChallengeStart;
+    private Date dateChallengeStart;//string startDate
 
-    private Date dateChallengeRegister;
+    private Date dateChallengeRegister;//string registrationDate
 
-    private Date dateChallengeSubmit;
+    private Date dateChallengeSubmit;//string submissionDate
 
-    private Integer firstReward;
+    private Integer firstReward; //firstPlaceReward
 
-    private Integer secondReward;
+    private Integer secondReward; //secondPlaceReward
 
-    private Integer thirdReward;
+    private Integer thirdReward; //thirdPlaceReward
 
-    private String quality;
+    private String quality;//qualityIdea
 
     private String authorEmail;
 
