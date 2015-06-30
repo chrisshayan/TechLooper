@@ -1,4 +1,4 @@
-techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location) {
+techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils) {
   var state = {
     challenge: {
       showChallenge: true,
@@ -72,18 +72,29 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           case "place-reward-range":
             return param <= 5000 && param >= 100;
 
-          case "val2-lt-val1":
-            return ;
+          case "quality-idea-list":
+            var array = [""];
+            return [];
         }
       },
 
       nextState: function () {
         var challenge = angular.copy($scope.contest);
         challenge.lang = $translate.use();
+        utils.sendNotification(jsonValue.notifications.loading);
         $http.post("challenge/publish", challenge)
-          .success(function(data) {
-            $location.path("contest-detail");
+          .then(function (response) {
+            $scope.gists = response.data;
+          })
+          .catch(function (response) {
+            console.error('Gists error', response.status, response.data);
+          })
+          .finally(function () {
+            utils.sendNotification(jsonValue.notifications.loading);
           });
+        //.success(function(data) {
+        //  $location.path("contest-detail");
+        //});
         return true;
       }
     }
