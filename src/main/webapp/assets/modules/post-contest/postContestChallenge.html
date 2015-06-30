@@ -124,10 +124,10 @@
                      <!--placeholder="{{'reviewStyleEX' | translate}}"></selectize>-->
 
           <!--<selectize options='myOptions' ng-model="myModel"></selectize>-->
-          <selectize ng-model="contest.reviewStyle" config="config.reviewStyle"></selectize>
+          <selectize name="reviewStyle" ng-model="contest.reviewStyle" config="config.reviewStyle" required touchable></selectize>
 
           <div class="error-messages"
-               ng-show="challengeForm.reviewStyle.$error.required && (challengeForm.reviewStyle.$edited || challengeForm.$submitted)"
+               ng-show="challengeForm.reviewStyle.$error.required && (challengeForm.reviewStyle.$touched || challengeForm.$submitted)"
                translate="requiredThisField"></div>
         </div>
         <div class="post-contest-field-tooltip">
