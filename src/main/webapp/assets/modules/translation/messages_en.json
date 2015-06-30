@@ -387,5 +387,10 @@
   "registerDateGTStartDate": "Register day should be ahead of Start day at least 1 day.",
   "submitDateGTRegisterDate": "Submit day should be ahead of Register day at least 1 day.",
   "contestOwnerSignOff": "Contest Owner Sign-Off",
-  "exContestOwnerSignOff": "Ex: Contest Owner Sign-Off."
+  "exContestOwnerSignOff": "Ex: Contest Owner Sign-Off.",
+  "hasAcceptableTradeoffs" : "Has acceptable tradeoffs",
+  "theSolutionAchievesTheStatedGoals" : "The solution achieves the stated goals",
+  "theSolutionIsPracticalAndReliable":"The solution is practical and reliable",
+  "theSolutionIsInnovative":"The solution is innovative",
+  "exQualityIdeaConfig" : "Ex : Has acceptable tradeoffs"
 }
