@@ -41,6 +41,8 @@ public class ChallengeDto {
 
     private Language lang;
 
+    private String challengeOverview;
+
     public String getChallengeName() {
         return challengeName;
     }
@@ -175,5 +177,13 @@ public class ChallengeDto {
 
     public void setLang(Language lang) {
         this.lang = lang;
+    }
+
+    public String getChallengeOverview() {
+        return challengeOverview;
+    }
+
+    public void setChallengeOverview(String challengeOverview) {
+        this.challengeOverview = challengeOverview;
     }
 }
