@@ -1,4 +1,5 @@
-techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils) {
+techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils,
+                                                         resourcesService) {
   var state = {
     challenge: {
       showChallenge: true,
@@ -79,12 +80,12 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       },
 
       nextState: function () {
-        var challenge = angular.copy($scope.contest);
-        challenge.lang = $translate.use();
+        var request = angular.copy($scope.contest);
+        request.lang = $translate.use();
         utils.sendNotification(jsonValue.notifications.loading);
-        $http.post("challenge/publish", challenge)
+        $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
           .then(function (response) {
-            $scope.gists = response.data;
+            $location.path("/contest-detail" + "?" + response.data.id);
           })
           .catch(function (response) {
             console.error('Gists error', response.status, response.data);
@@ -115,6 +116,17 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
   $scope.nextState = function () {
     $scope.changeState($scope.state.nextState);
+  }
+
+  //$scope.myModel;
+  //$scope.myOptions = ["Contest Owner Sign-Off"];
+  $scope.config = {
+    reviewStyle: {
+      options: resourcesService.reviewStyle(),
+      create: false,
+      placeholder: "",
+      maxItems: 1
+    }
   }
 
   $scope.changeState(state.challenge);
