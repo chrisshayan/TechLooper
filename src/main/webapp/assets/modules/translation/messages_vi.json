@@ -318,7 +318,7 @@
   "challengeOverViewEX": "Ví dụ: Ứng dụng sử dụng Augmented Reality nhắm tăng cường tính tương tác, từ đó giúp người tìm việc tìm kiếm các công việc thuận tiện và nhanh chóng hơn. Với thử thách này, thí sinh cần viết ứng dụng cho thiết bị điện thoại di động (iOS hoặc Android). Để tìm tất cả công việc liên quan đến 1 công ty, người sử dụng chỉ cần hướng máy quay của điện thoại vào logo hay cửa vào của công ty đó.",
   "challengeOverViewTip": "Mô tả ngắn gọn thông tin và mục tiêu tổng quan của thử thách.",
   "businessRequirements": "Yêu Cầu Nghiệp Vụ: <strong>*</strong>",
-  "businessRequirementsEX": "Ex:  Ứng dụng phải đáp ứng tối thiểu các yêu cầu sau: Đăng ký người dùng bằng Facebook hoặc Linkedin. Tạo database để lưu lại các nhà tuyển dụng hàng đầu. Tìm kiếm công việc trên nhiều nguồn việc làm khác nhau. Cho phép đăng ký Thông báo việc làm (Job Alert). Ngoài ra,...",
+  "businessRequirementsEX": "Ví dụ:  Ứng dụng phải đáp ứng tối thiểu các yêu cầu sau: Đăng ký người dùng bằng Facebook hoặc Linkedin. Tạo database để lưu lại các nhà tuyển dụng hàng đầu. Tìm kiếm công việc trên nhiều nguồn việc làm khác nhau. Cho phép đăng ký Thông báo việc làm (Job Alert). Ngoài ra,...",
   "businessRequirementsTip": "Mô tả mục đích của thử thách, các vấn đề nghiệp vụ cần khắc phục, cách tiếp cận tổng quan và các use case cần giải quyết.",
   "generalNotes": "Yêu Cầu Khác: <strong>*</strong>",
   "generalNotesEX": "Ví dụ: Ứng dụng bắt buộc phải được hiển thị trên App store và tuân theo các điều khoản và điều kiện được quy định bởi App store.",
@@ -389,7 +389,7 @@
   "registerDateGTStartDate": "Ngày Hết Hạn Đăng Ký phải sau Ngày Bắt Đầu ít nhất 1 ngày.",
   "submitDateGTRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
   "contestOwnerSignOff": "Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm",
-  "exContestOwnerSignOff": "Ex: Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm.",
+  "exContestOwnerSignOff": "Ví dụ: Nhà Tổ Chức Cuộc Thi chịu trách nhiệm phê duyệt sản phẩm.",
   "hasAcceptableTradeoffs" : "Đáp ứng đồng đều thoả đáng các tính năng",
   "theSolutionAchievesTheStatedGoals" : "Giải pháp đạt được tất cả mục tiêu đặt ra",
   "theSolutionIsPracticalAndReliable" : "Giải phảp thực tiễn và đáng tin cậy",
@@ -399,8 +399,7 @@
   "termsConditionsContent": "Nhà tổ chức cuộc thi phải trao giải thưởng theo đúng thoả thuận đã được định nghĩa trong mục Giải Thưởng trước đó. Toàn bộ giải thưởng phải được trao cho các thí sinh không quá 2 tuần kể từ ngày kết thúc cuộc thi. <br>Mã nguồn và sản phẩm trí tuệ tạo ra trong suốt cuộc thi của các thí sinh đoạt giải chỉ thuộc sở hữu của Nhà tổ chức cuộc thi.",
   "termsConditionsTip": "Ngay khi bạn đăng thử thách trên TechLooper, bạn đã đồng ý với các Điều Kiện và Điều Khoản này.",
   "listRequire1Item": "Danh sách này cần ít nhất 1 phần tử.",
-  "exceedCharacterWithParam": "Trường tối đa [xxx] ký tự.",
-  "limitItemWithParam": "Bạn chỉ được chọn tối đa [xxx] phần tử. Vui lòng bỏ bớt để có thể tạo thêm phần tử khác."
+  "limitItemWithParam": "Bạn chỉ được chọn tối đa {{number}} phần tử. Vui lòng bỏ bớt để có thể tạo thêm phần tử khác."
 }
 
 
