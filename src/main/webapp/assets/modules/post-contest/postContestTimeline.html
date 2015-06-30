@@ -9,14 +9,22 @@
             <input id="dateChallengeStart" type="text" class="form-control"
                    placeholder="{{state.status('ex-start-date')}}"
                    name="startDate"
+                   required-expr="state.status('start-date-wt-4w')"
                    ng-model="contest.startDate" touchable required readonly>
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-calendar"></i>
               </span>
           </div>
-          <div class="error-messages"
-               ng-show="timelineForm.startDate.$error.required && (timelineForm.startDate.$touched || timelineForm.$submitted)"
-               translate="requiredThisField"></div>
+
+
+          <div ng-show="timelineForm.startDate.$touched || timelineForm.$submitted">
+            <div class="error-messages"
+                 ng-show="timelineForm.startDate.$error.required" translate="requiredThisField"></div>
+            <div class="error-messages"
+                 ng-show="timelineForm.startDate.$error.requiredExpr"
+                 translate="startDateWt4w"/>
+          </div>
+
         </div>
         <div class="post-contest-field-tooltip">
           <a class="ic-tooltip" data-toggle="tooltip" data-original-title="abc"></a>

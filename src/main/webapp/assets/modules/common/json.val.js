@@ -798,7 +798,9 @@ angular.module("Common").constant("jsonValue", (function () {
       technologies: {
         required: true
       }
-    }
+    },
+
+    dateFormat: "DD/MM/YYYY"
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {

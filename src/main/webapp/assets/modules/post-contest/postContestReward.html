@@ -24,7 +24,7 @@
           <input type="text" id="txtFirstReward" class="input-style"
                  placeholder="{{'firstPrize' | translate}}"
                  name="firstPlaceReward"
-                 required-expr="contest.firstPlaceReward <= 5000 && contest.firstPlaceReward >= 100"
+                 required-expr="state.status('place-reward-range', contest.firstPlaceReward)"
                  ng-model="contest.firstPlaceReward" required only-digits maxlength="4" touchable/>
 
           <div ng-show="rewardForm.firstPlaceReward.$edited || rewardForm.$submitted">
@@ -47,7 +47,7 @@
                  name="secondPlaceReward" ng-model="contest.secondPlaceReward"
                  ng-model="contest.secondPlaceReward"
                  required-expr="contest.secondPlaceReward < contest.firstPlaceReward"
-                 required-expr2="contest.secondPlaceReward <= 5000 && contest.secondPlaceReward >= 100"
+                 required-expr2="state.status('place-reward-range', contest.secondPlaceReward)"
                  placeholder="{{'secondPrize' | translate}}" only-digits maxlength="4" touchable/>
 
           <div ng-show="rewardForm.secondPlaceReward.$edited || rewardForm.$submitted">
@@ -70,7 +70,7 @@
                  name="thirdPlaceReward"
                  ng-model="contest.thirdPlaceReward"
                  required-expr="contest.thirdPlaceReward < contest.secondPlaceReward"
-                 required-expr2="contest.thirdPlaceReward <= 5000 && contest.thirdPlaceReward >= 100"
+                 required-expr2="state.status('place-reward-range', contest.thirdPlaceReward)"
                  placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
 
           <div ng-show="rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted">

@@ -1,4 +1,4 @@
-techlooper.controller("postContestController", function ($scope, $http) {
+techlooper.controller("postContestController", function ($scope, $http, jsonValue) {
   var state = {
     challenge: {
       showChallenge: true,
@@ -37,6 +37,10 @@ techlooper.controller("postContestController", function ($scope, $http) {
 
           case "ex-submit-date":
             return moment().add(63, 'day').format('DD/MM/YYYY');
+
+          case "start-date-wt-4w":
+            var lastDate = moment().add(4, 'weeks');
+            return moment($scope.contest.startDate, jsonValue.dateFormat).isBetween(moment(), lastDate, 'day');
         }
       },
       nextState: "reward"
@@ -44,7 +48,7 @@ techlooper.controller("postContestController", function ($scope, $http) {
 
     reward: {
       showReward: true,
-      status: function (type) {
+      status: function (type, param) {
         switch (type) {
           case "is-form-valid":
             $scope.rewardForm.$setSubmitted();
@@ -56,6 +60,12 @@ techlooper.controller("postContestController", function ($scope, $http) {
 
           case "reward-tab-class":
             return "active showNavi";
+
+          case "place-reward-range":
+            return param <= 5000 && param >= 100;
+
+          case "val2-lt-val1":
+            return ;
         }
       },
 
