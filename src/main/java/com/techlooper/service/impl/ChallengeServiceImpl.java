@@ -24,10 +24,7 @@ import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
@@ -63,8 +60,13 @@ public class ChallengeServiceImpl implements ChallengeService {
     private Mapper dozerMapper;
 
     @Override
-    public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) {
+    public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
+        challengeEntity.setChallengeId(new Date().getTime());
+        challengeEntity.setStartDateTime(formatter.parse(challengeDto.getStartDate()));
+        challengeEntity.setRegistrationDateTime(formatter.parse(challengeDto.getRegistrationDate()));
+        challengeEntity.setSubmissionDateTime(formatter.parse(challengeDto.getSubmissionDate()));
         return challengeRepository.save(challengeEntity);
     }
 
@@ -95,18 +97,18 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
         templateModel.put("generalNote", challengeEntity.getGeneralNote());
         templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), ", "));
-        templateModel.put("document", challengeEntity.getDocument());
+        templateModel.put("document", challengeEntity.getDocuments());
         templateModel.put("deliverables", challengeEntity.getDeliverables());
-        templateModel.put("emails", StringUtils.join(challengeEntity.getEmails(), "<br/>"));
+        templateModel.put("emails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
         templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        templateModel.put("dateChallengeStart", formatter.format(challengeEntity.getDateChallengeStart()));
-        templateModel.put("dateChallengeRegister", formatter.format(challengeEntity.getDateChallengeRegister()));
-        templateModel.put("dateChallengeSubmit", formatter.format(challengeEntity.getDateChallengeSubmit()));
-        templateModel.put("quality", challengeEntity.getQuality());
-        templateModel.put("firstReward", challengeEntity.getFirstReward() != null ? challengeEntity.getFirstReward() : 0);
-        templateModel.put("secondReward", challengeEntity.getSecondReward() != null ? challengeEntity.getSecondReward() : 0);
-        templateModel.put("thirdReward", challengeEntity.getThirdReward() != null ? challengeEntity.getThirdReward() : 0);
+        templateModel.put("dateChallengeStart", formatter.format(challengeEntity.getStartDateTime()));
+        templateModel.put("dateChallengeRegister", formatter.format(challengeEntity.getRegistrationDateTime()));
+        templateModel.put("dateChallengeSubmit", formatter.format(challengeEntity.getSubmissionDateTime()));
+        templateModel.put("quality", challengeEntity.getQualityIdea());
+        templateModel.put("firstReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
+        templateModel.put("secondReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
+        templateModel.put("thirdReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", challengeEntity.getChallengeId());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
 
@@ -120,7 +122,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private Address[] getRecipientAddresses(ChallengeEntity challengeEntity) throws AddressException {
-        Set<String> emails = new HashSet<>(challengeEntity.getEmails());
+        Set<String> emails = new HashSet<>(challengeEntity.getReceivedEmails());
         emails.add(challengeEntity.getAuthorEmail());
         return InternetAddress.parse(StringUtils.join(emails, ','));
     }

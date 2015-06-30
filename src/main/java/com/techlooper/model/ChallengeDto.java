@@ -1,6 +1,5 @@
 package com.techlooper.model;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,27 +15,27 @@ public class ChallengeDto {
 
     private List<String> technologies;
 
-    private String document;//documents
+    private String documents;
 
     private String deliverables;
 
-    private List<String> emails;//receivedEmails
+    private List<String> receivedEmails;
 
     private String reviewStyle;
 
-    private Date dateChallengeStart;//string startDate
+    private String startDate;
 
-    private Date dateChallengeRegister;//string registrationDate
+    private String registrationDate;
 
-    private Date dateChallengeSubmit;//string submissionDate
+    private String submissionDate;
 
-    private Integer firstReward; //firstPlaceReward
+    private Integer firstPlaceReward;
 
-    private Integer secondReward; //secondPlaceReward
+    private Integer secondPlaceReward;
 
-    private Integer thirdReward; //thirdPlaceReward
+    private Integer thirdPlaceReward;
 
-    private String quality;//qualityIdea
+    private String qualityIdea;
 
     private String authorEmail;
 
@@ -74,12 +73,12 @@ public class ChallengeDto {
         this.technologies = technologies;
     }
 
-    public String getDocument() {
-        return document;
+    public String getDocuments() {
+        return documents;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setDocuments(String documents) {
+        this.documents = documents;
     }
 
     public String getDeliverables() {
@@ -90,12 +89,12 @@ public class ChallengeDto {
         this.deliverables = deliverables;
     }
 
-    public List<String> getEmails() {
-        return emails;
+    public List<String> getReceivedEmails() {
+        return receivedEmails;
     }
 
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
+    public void setReceivedEmails(List<String> receivedEmails) {
+        this.receivedEmails = receivedEmails;
     }
 
     public String getReviewStyle() {
@@ -106,60 +105,60 @@ public class ChallengeDto {
         this.reviewStyle = reviewStyle;
     }
 
-    public Date getDateChallengeStart() {
-        return dateChallengeStart;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDateChallengeStart(Date dateChallengeStart) {
-        this.dateChallengeStart = dateChallengeStart;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getDateChallengeRegister() {
-        return dateChallengeRegister;
+    public String getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setDateChallengeRegister(Date dateChallengeRegister) {
-        this.dateChallengeRegister = dateChallengeRegister;
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
-    public Date getDateChallengeSubmit() {
-        return dateChallengeSubmit;
+    public String getSubmissionDate() {
+        return submissionDate;
     }
 
-    public void setDateChallengeSubmit(Date dateChallengeSubmit) {
-        this.dateChallengeSubmit = dateChallengeSubmit;
+    public void setSubmissionDate(String submissionDate) {
+        this.submissionDate = submissionDate;
     }
 
-    public Integer getFirstReward() {
-        return firstReward;
+    public Integer getFirstPlaceReward() {
+        return firstPlaceReward;
     }
 
-    public void setFirstReward(Integer firstReward) {
-        this.firstReward = firstReward;
+    public void setFirstPlaceReward(Integer firstPlaceReward) {
+        this.firstPlaceReward = firstPlaceReward;
     }
 
-    public Integer getSecondReward() {
-        return secondReward;
+    public Integer getSecondPlaceReward() {
+        return secondPlaceReward;
     }
 
-    public void setSecondReward(Integer secondReward) {
-        this.secondReward = secondReward;
+    public void setSecondPlaceReward(Integer secondPlaceReward) {
+        this.secondPlaceReward = secondPlaceReward;
     }
 
-    public Integer getThirdReward() {
-        return thirdReward;
+    public Integer getThirdPlaceReward() {
+        return thirdPlaceReward;
     }
 
-    public void setThirdReward(Integer thirdReward) {
-        this.thirdReward = thirdReward;
+    public void setThirdPlaceReward(Integer thirdPlaceReward) {
+        this.thirdPlaceReward = thirdPlaceReward;
     }
 
-    public String getQuality() {
-        return quality;
+    public String getQualityIdea() {
+        return qualityIdea;
     }
 
-    public void setQuality(String quality) {
-        this.quality = quality;
+    public void setQualityIdea(String qualityIdea) {
+        this.qualityIdea = qualityIdea;
     }
 
     public String getAuthorEmail() {
