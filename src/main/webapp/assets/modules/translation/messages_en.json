@@ -332,7 +332,7 @@
   "deliverablesTip": "Clearly specify what deliverables and the format expected for this contest.",
   "emailAddressReceive": "Email address to receive applications<span> (limited to 5)</span>: <strong>*</strong>",
   "emailAddressReceiveEX": "Ex: example@techlooper.com",
-  "emailAddressReceiveTip": "When user joins your contests a notification will be send to all email in this list (up to 5 emails).",
+  "emailAddressReceiveTip": "When user joins your contests, a notification will be sent to all emails in this list (up to 5 emails).",
   "subHeaderDeadlines": "Your Challenge has the following deadlines.",
   "challengeStart": "Your Challenge Will Start On: <strong>*</strong>",
   "challengeStartTip": "This is the date when the challenge starts and start accepting registrations. During this time Contest Owner promotes the contest and review the registrations received.",
