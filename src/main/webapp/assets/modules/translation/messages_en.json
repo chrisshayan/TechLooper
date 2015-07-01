@@ -316,7 +316,7 @@
   "challengeOverViewEX": "Ex: App that uses Augmented Reality to help jobseekers to search for jobs in a more interactive way.  For this challenge, it is required to create a mobile app (iOS or Android) that will allow users to search for jobs by pointing their phone’s camera to a company logo or company building entrance.",
   "challengeOverViewTip": "Brief your contestants with a short and accurate description of the challenge and the overal goals.",
   "businessRequirements": "Business Requirements: <strong>*</strong>",
-  "businessRequirementsEX": "Ex: The app will need to cover the following minimum requirements: User registration through Facebook or Linkedin; Create a database based on top employers; Job Search on different job sites. Job Alert subscription; Also,...",
+  "businessRequirementsEX": "Ex: The app will need to cover the following minimum requirements: User registration through Facebook or Linkedin; Create a database based on top employers; Job Search on different job sites. Job Alert subscription. Also,...",
   "businessRequirementsTip": "Describe the purpose of the challenge, what is the business issue to fix, the general approach and the use cases to resolve.",
   "generalNotes": "General Notes: <strong>*</strong>",
   "generalNotesEX": "Ex: It is mandatory that the app is submitted to relevant app store and that it complies with the rules and terms and conditions of the app store.",
