@@ -6,7 +6,7 @@
         <div class="post-contest-field-content">
           <label for="txtChallengeName" translate="challengeName"></label>
           <input type="text" id="txtChallengeName" class="input-style" placeholder="{{'challengeNameEX' | translate}}"
-            ng-model="contest.challengeName" name="challengeName" required touchable/>
+            ng-model="contest.challengeName" name="challengeName" required touchable maxlength="10"/>
           <div class="error-messages"
                ng-show="challengeForm.challengeName.$error.required && (challengeForm.challengeName.$edited || challengeForm.$submitted)"
                translate="requiredThisField"></div>
