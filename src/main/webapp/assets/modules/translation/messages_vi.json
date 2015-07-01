@@ -330,7 +330,7 @@
   "documentsEX": "Ví dụ: UI Prototype (URL sẽ được gửi thông qua email).",
   "documentsTip": "Cung cấp URL của các tài liệu liên quan cần thiết cho thí sinh, ví dụ đặc tả nghiệp vụ, đặc tả về UI và thiết kế…",
   "deliverables": "Yêu Cầu Sản phẩm: <strong>*</strong>",
-  "deliverablesEX": "Ví dụ: * Ứng dụng thực thi trên môi trường iOS hoặc Android và đã được hiển thị trên App store. * Mã nguồn và các tài liệu liên quan được gửi qua GitHub URL.",
+  "deliverablesEX": "Ví dụ: Ứng dụng thực thi trên môi trường iOS hoặc Android và đã được hiển thị trên App store. Mã nguồn và các tài liệu liên quan được gửi qua GitHub URL.",
   "deliverablesTip": "Định nghĩa rõ ràng về sản phẩm chuyển giao.",
   "emailAddressReceive": "Email Nhận Thông Tin Thí Sinh<span> (Tối đa 5)</span>: <strong>*</strong>",
   "emailAddressReceiveEX": "Ví dụ: example@techlooper.com",

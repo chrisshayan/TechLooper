@@ -328,7 +328,7 @@
   "documentsEX": "Ex: UI Prototype (URL will be provided by email).",
   "documentsTip": "Paste the URLs with documents contestants might need. Typically, full requirements specification, UI specs and designs or any other document relevant to the contest.",
   "deliverables": "Deliverables: <strong>*</strong>",
-  "deliverablesEX": "Ex: * Working App on iOS or Android submitted to app store. * Source code and documentation must be provided by GitHub URL.",
+  "deliverablesEX": "Ex: Working App on iOS or Android submitted to app store. Source code and documentation must be provided by GitHub URL.",
   "deliverablesTip": "Clearly specify what deliverables and the format expected for this contest.",
   "emailAddressReceive": "Email address to receive applications<span> (limited to 5)</span>: <strong>*</strong>",
   "emailAddressReceiveEX": "Ex: example@techlooper.com",
