@@ -318,7 +318,7 @@
   "challengeOverViewEX": "Ví dụ: Ứng dụng sử dụng Augmented Reality nhắm tăng cường tính tương tác, từ đó giúp người tìm việc tìm kiếm các công việc thuận tiện và nhanh chóng hơn. Với thử thách này, thí sinh cần viết ứng dụng cho thiết bị điện thoại di động (iOS hoặc Android). Để tìm tất cả công việc liên quan đến 1 công ty, người sử dụng chỉ cần hướng máy quay của điện thoại vào logo hay cửa vào của công ty đó.",
   "challengeOverViewTip": "Mô tả ngắn gọn thông tin và mục tiêu tổng quan của thử thách.",
   "businessRequirements": "Yêu Cầu Nghiệp Vụ: <strong>*</strong>",
-  "businessRequirementsEX": "Ví dụ:  Ứng dụng phải đáp ứng tối thiểu các yêu cầu sau: Đăng ký người dùng bằng Facebook hoặc Linkedin. Tạo database để lưu lại các nhà tuyển dụng hàng đầu. Tìm kiếm công việc trên nhiều nguồn việc làm khác nhau. Cho phép đăng ký Thông báo việc làm (Job Alert). Ngoài ra,...",
+  "businessRequirementsEX": "Ví dụ:  Ứng dụng phải đáp ứng tối thiểu các yêu cầu sau: Đăng ký người dùng bằng Facebook hoặc Linkedin; Tạo database để lưu lại các nhà tuyển dụng hàng đầu; Tìm kiếm công việc trên nhiều nguồn việc làm khác nhau; Cho phép đăng ký Thông báo việc làm (Job Alert); Ngoài ra,...",
   "businessRequirementsTip": "Mô tả mục đích của thử thách, các vấn đề nghiệp vụ cần khắc phục, cách tiếp cận tổng quan và các use case cần giải quyết.",
   "generalNotes": "Yêu Cầu Khác: <strong>*</strong>",
   "generalNotesEX": "Ví dụ: Ứng dụng bắt buộc phải được hiển thị trên App store và tuân theo các điều khoản và điều kiện được quy định bởi App store.",
