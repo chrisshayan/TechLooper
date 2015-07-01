@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        This person <strong>${authorEmail}</strong> has just created successful a challenge as follows
+                        This person <strong>${authorEmail}</strong> has just created successfully a challenge as follows
                       </td>
                     </tr>
                     <tr>
@@ -517,6 +517,43 @@
                         </table>
                       </td>
                     </tr>
+                      <tr>
+                          <td style="height:15px; line-height: 15px;">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                          </td>
+                          <td style="height:15px; line-height: 15px;">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                          </td>
+                      </tr>
+
+                      <tr>
+                          <td align="left" width="100%" style="font-size: 16px;">
+                              <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">Terms & Conditions:</strong>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="height:15px; line-height: 15px;">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                          </td>
+                          <td style="height:15px; line-height: 15px;">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                          </td>
+                      </tr>
+                      <tr>
+                          <td width="100%" align="left" class="fullWidth">
+                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
+                                  <tr>
+                                      <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                          <ul>
+                                              <li>Contest owner will compensate members in accordance with the payment structure of this challenge. The full amount payment will be made no later than 2-weeks the challenge closure date.</li>
+                                              <li>The code and intellectual property developed during the challenge by the winning contestant(s) will belong solely to Contest Owner.</li>
+                                          </ul>
+                                      </td>
+                                  </tr>
+
+                              </table>
+                          </td>
+                      </tr>
                   </table>
                 </td>
               </tr>
