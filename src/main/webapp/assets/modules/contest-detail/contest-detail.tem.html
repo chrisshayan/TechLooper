@@ -38,12 +38,15 @@
           <p translate="registration"></p>
           <p class="count-down-day" translate-value-count-down-day="<strong>{countDownDay}}</strong>" translate="moreDayToSubmit"></p>
         </div>
-        <a translate="allViewDeadlines" ng-click="showDeadlineInfo()"></a>
-        <div class="timeline-information animate-show" ng-show="toggle">
+        <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
+          <span translate="ViewNextDeadlines" ng-show="!dateInfo"></span>
+          <span translate="ViewAllDeadlines" ng-show="dateInfo"></span>
+        </a>
+        <div class="timeline-information animate-show" ng-show="dateInfo">
           <ul>
-            <li><span translate="startDate"></span>06/24/2015</li>
-            <li><span translate="registerBy"></span>06/24/2015</li>
-            <li><span translate="submitBy"></span>06/24/2015</li>
+            <li><span translate="startDate"></span>24/06/2015</li>
+            <li><span translate="registerBy"></span>26/06/2015</li>
+            <li><span translate="submitBy"></span>29/06/2015</li>
           </ul>
         </div>
       </div>
