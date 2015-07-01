@@ -77,7 +77,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
             return $scope.contest.thirdPlaceReward <= $scope.contest.secondPlaceReward;
 
           case "compare-2reward-1reward":
-            return $scope.contest.secondPlaceReward <= $scope.contest.firstPlaceReward;
+            return $scope.contest.secondPlaceReward < $scope.contest.firstPlaceReward;
         }
       },
 
@@ -126,4 +126,13 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   }
 
   $scope.changeState(state.challenge);
+  
+  $('*').bind('touchend', function(e){
+    if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)){
+      $('[data-toggle=tooltip]').mouseleave();
+      //e.stopPropagation();
+    } else {
+      $(e.target).mouseenter();
+    }
+  });
 });

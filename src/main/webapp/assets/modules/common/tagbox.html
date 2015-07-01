@@ -13,7 +13,7 @@
     </div>
 
     <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$edited">
-      <div translate="requiredThisField" ng-show="tagForm.tag.$error.required && tags.length < 1"/>
+      <div translate="requiredThisField" ng-show="(tagForm.tag.$error.required && tags.length < 1) || (tagForm.tag.$error.required && clickAddTag)"/>
       <div translate="exceedCharacterWithParam" ng-show="tagForm.tag.$error.maxlength"/>
       <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
@@ -26,6 +26,6 @@
            ng-keypress="submitTag($event, tag)" maxlength="{{maxTagLength}}"
            ng-model="tag" name="tag" required unique touchable forcusout="true" />
 
-    <button type="submit" ng-click="addTag(tag)">{{'add' | translate}}</button>
+    <button type="submit" ng-click="addTag(tag)" ng-modal="clickAddTag">{{'add' | translate}}</button>
   </ng-form>
 </div>
