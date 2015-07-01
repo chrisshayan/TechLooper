@@ -63,7 +63,7 @@
     <spring-integration-mail.version>4.1.5.RELEASE</spring-integration-mail.version>
     <HikariCP.version>2.3.6</HikariCP.version>
     <hibernate-entitymanager.version>4.3.8.Final</hibernate-entitymanager.version>
-    <mysql-connector-java.version>5.1.35</mysql-connector-java.version>
+    <mysql-connector-java.version>5.1.34</mysql-connector-java.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -809,6 +809,12 @@
       <artifactId>joda-money</artifactId>
       <version>${joda-money.version}</version>
     </dependency>
+
+      <dependency>
+          <groupId>commons-dbcp</groupId>
+          <artifactId>commons-dbcp</artifactId>
+          <version>1.4</version>
+      </dependency>
   </dependencies>
 
   <repositories>
