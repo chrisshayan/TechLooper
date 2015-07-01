@@ -127,7 +127,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   }
 
   $scope.changeState(state.challenge);
-  
+
   $('*').bind('touchend', function(e){
     if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)){
       $('[data-toggle=tooltip]').mouseleave();
