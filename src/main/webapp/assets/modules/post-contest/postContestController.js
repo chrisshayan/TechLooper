@@ -87,13 +87,14 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         utils.sendNotification(jsonValue.notifications.loading);
         $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
           .then(function (response) {
-            $location.path("/contest-detail" + "?" + response.data.id);
+            //$location.path("/contest-detail" + "?" + response.data.id);
+            $location.path("/contest-detail");
           })
           .catch(function (response) {
             console.error('Gists error', response.status, response.data);
           })
           .finally(function () {
-            utils.sendNotification(jsonValue.notifications.loading);
+            //utils.sendNotification(jsonValue.notifications.loading);
           });
         //.success(function(data) {
         //  $location.path("contest-detail");
