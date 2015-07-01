@@ -2,6 +2,7 @@ package com.techlooper.entity;
 
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -29,7 +30,7 @@ public class ChallengeEntity {
     @Field(type = String)
     private String generalNote;
 
-    @Field(type = FieldType.Object)
+    @Field(type = String)
     private List<String> technologies;
 
     @Field(type = String)
@@ -38,19 +39,19 @@ public class ChallengeEntity {
     @Field(type = String)
     private String deliverables;
 
-    @Field(type = FieldType.Object)
+    @Field(type = String)
     private List<String> receivedEmails;
 
     @Field(type = String)
     private String reviewStyle;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private Date startDateTime;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private Date registrationDateTime;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private Date submissionDateTime;
 
     @Field(type = FieldType.Integer)
@@ -70,6 +71,9 @@ public class ChallengeEntity {
 
     @Field(type = String)
     private Language lang;
+
+    @Field(type = String)
+    private String challengeOverview;
 
     public Long getChallengeId() {
         return challengeId;
@@ -213,5 +217,13 @@ public class ChallengeEntity {
 
     public void setLang(Language lang) {
         this.lang = lang;
+    }
+
+    public String getChallengeOverview() {
+        return challengeOverview;
+    }
+
+    public void setChallengeOverview(String challengeOverview) {
+        this.challengeOverview = challengeOverview;
     }
 }

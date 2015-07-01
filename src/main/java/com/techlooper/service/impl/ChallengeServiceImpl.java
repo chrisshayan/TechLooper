@@ -47,6 +47,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.postChallenge.subject.en}")
     private String postChallengeMailSubjectEn;
 
+    @Value("${mail.postChallenge.techloopies.mailSubject}")
+    private String postChallengeTechloopiesMailSubject;
+
+    @Value("${mail.postChallenge.techloopies.mailList}")
+    private String postChallengeTechloopiesMailList;
+
     @Value("${web.baseUrl}")
     private String webBaseUrl;
 
@@ -75,28 +81,29 @@ public class ChallengeServiceImpl implements ChallengeService {
             throws MessagingException, IOException, TemplateException {
         String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
         Address[] recipientAddresses = getRecipientAddresses(challengeEntity);
-        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses);
+        Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
     }
 
     @Override
     public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException {
-        String mailSubject = "A new challenge has been created";
-        Address[] recipientAddresses = InternetAddress.parse("thu.hoang@navigosgroup.com,eduardo@navigosgroup.com,chris@navigosgroup.com");
-        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses);
+        String mailSubject = postChallengeTechloopiesMailSubject;
+        Address[] recipientAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, postChallengeMailTemplateEn);
     }
 
-    private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject, Address[] recipientAddresses) throws MessagingException, IOException, TemplateException {
+    private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject,
+                                        Address[] recipientAddresses, Template template) throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         StringWriter stringWriter = new StringWriter();
-        Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
 
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("challengeName", challengeEntity.getChallengeName());
         templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
         templateModel.put("generalNote", challengeEntity.getGeneralNote());
-        templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), ", "));
+        templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
         templateModel.put("documents", challengeEntity.getDocuments());
         templateModel.put("deliverables", challengeEntity.getDeliverables());
         templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
@@ -109,8 +116,9 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
         templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
-        templateModel.put("challengeId", challengeEntity.getChallengeId());
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
+        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
