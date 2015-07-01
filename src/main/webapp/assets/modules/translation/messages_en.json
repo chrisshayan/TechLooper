@@ -367,7 +367,7 @@
   "firstPrize": "5000",
   "secondPrize": "3000",
   "thirdPrize": "500",
-  "alreadyExistValue": "This value is already exist",
+  "alreadyExistValue": "This item is already added.",
   "stPrize": "1st Prize<strong>:</strong>",
   "ndPrize": "2nd Prize<strong>:</strong>",
   "rdPrize": "3rd Prize<strong>:</strong>",
