@@ -14,6 +14,9 @@
   <div class="sign-in-content">
     <div class="sign-in-form">
       <form novalidate name="loginForm" autocomplete="off" ng-submit="login()">
+        <div class="sign-in-field errorFromServer">
+          <p class="error-messages">{{'errorMessageEmailServer' | translate}}</p>
+        </div>
         <div class="sign-in-field">
           <label for="txtUserName" translate="userName"></label>
           <input id="txtUserName" class="input-style" type="text" name="username" ng-model="username"
