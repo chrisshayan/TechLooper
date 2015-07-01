@@ -7,7 +7,7 @@
           <label for="dateChallengeStart" translate="challengeStart"></label>
           <div class="input-group date">
             <input id="dateChallengeStart" type="text" class="form-control"
-                   placeholder="{{state.status('ex-start-date')}}"
+                   placeholder="{{'ex' | translate}}{{state.status('ex-start-date')}}"
                    name="startDate"
                    required-expr="state.status('start-date-wt-4w')"
                    ng-model="contest.startDate" required readonly>
@@ -34,7 +34,7 @@
           <label for="dateChallengeRegister" translate="challengeRegister"></label>
           <div class="input-group date">
             <input id="dateChallengeRegister" type="text" class="form-control"
-                   placeholder="{{state.status('ex-register-date')}}"
+                   placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                    name="registrationDate"
                    required-expr="state.status('register-date-gt-start-date')"
                    ng-model="contest.registrationDate" required readonly>
@@ -61,7 +61,7 @@
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
             <input id="dateChallengeSubmit" type="text" class="form-control"
-                   placeholder="{{state.status('ex-submit-date')}}"
+                   placeholder="{{'ex' | translate}}{{state.status('ex-submit-date')}}"
                    name="submissionDate"
                    required-expr="state.status('submit-date-gt-register-date')"
                    ng-model="contest.submissionDate" required readonly>
