@@ -25,6 +25,9 @@ public class ChallengeEntity {
     private String challengeName;
 
     @Field(type = String)
+    private String challengeOverview;
+
+    @Field(type = String)
     private String businessRequirement;
 
     @Field(type = String)
@@ -45,14 +48,14 @@ public class ChallengeEntity {
     @Field(type = String)
     private String reviewStyle;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date)
-    private Date startDateTime;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    private String startDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date)
-    private Date registrationDateTime;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    private String registrationDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date)
-    private Date submissionDateTime;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    private String submissionDateTime;
 
     @Field(type = FieldType.Integer)
     private Integer firstPlaceReward;
@@ -71,9 +74,6 @@ public class ChallengeEntity {
 
     @Field(type = String)
     private Language lang;
-
-    @Field(type = String)
-    private String challengeOverview;
 
     public Long getChallengeId() {
         return challengeId;
@@ -147,27 +147,27 @@ public class ChallengeEntity {
         this.reviewStyle = reviewStyle;
     }
 
-    public Date getStartDateTime() {
+    public String getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Date startDateTime) {
+    public void setStartDateTime(String startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public Date getRegistrationDateTime() {
+    public String getRegistrationDateTime() {
         return registrationDateTime;
     }
 
-    public void setRegistrationDateTime(Date registrationDateTime) {
+    public void setRegistrationDateTime(String registrationDateTime) {
         this.registrationDateTime = registrationDateTime;
     }
 
-    public Date getSubmissionDateTime() {
+    public String getSubmissionDateTime() {
         return submissionDateTime;
     }
 
-    public void setSubmissionDateTime(Date submissionDateTime) {
+    public void setSubmissionDateTime(String submissionDateTime) {
         this.submissionDateTime = submissionDateTime;
     }
 

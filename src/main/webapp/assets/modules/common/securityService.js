@@ -17,8 +17,14 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
       apiService
         .login({us: $.cookie("us"), pwd: $.cookie("pwd")})
-        .success(function (data, status, headers, config) {$rootScope.$emit("$loginSuccess");});
-
+        .success(function (data, status, headers, config) {
+            $('.errorFromServer').hide();
+            utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+            $rootScope.$emit("$loginSuccess");
+          })
+        .error(function(data, status, headers, config) {
+            $('.errorFromServer').show();
+        });
       $.removeCookie("us");
       $.removeCookie("pwd");
     },
@@ -42,6 +48,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           return $location.path("/");
         })
         .catch(function () {return $location.path("/login");});
+      utils.sendNotification(jsonValue.notifications.hideLoadingBox);
     }
   };
 

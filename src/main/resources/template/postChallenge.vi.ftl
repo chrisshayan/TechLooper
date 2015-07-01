@@ -187,42 +187,10 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Tên Thử Thách:
+                                    Tên Thử Thách:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${challengeName}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                  <tr>
-                                      <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                          Tổng Quan Thử Thách:
-                                      </td>
-                                      <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                      ${challengeOverview}
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td style="height:5px; line-height: 5px;">
-                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                      <td style="height:5px; line-height: 5px;">
-                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                  </tr>
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Yêu Cầu Nghiệp Vụ:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${businessRequirement}
+                                  ${challengeName}
                                   </td>
                                 </tr>
                                 <tr>
@@ -235,10 +203,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Yêu Cầu Khác:
+                                    Tổng Quan Thử Thách:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${generalNote}
+                                  ${challengeOverview}
                                   </td>
                                 </tr>
                                 <tr>
@@ -251,10 +219,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Công nghệ:
+                                    Yêu Cầu Nghiệp Vụ:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${technologies}
+                                  ${businessRequirement}
                                   </td>
                                 </tr>
                                 <tr>
@@ -267,10 +235,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Tài Liệu Liên Quan:
+                                    Yêu Cầu Khác:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${documents}
+                                  ${generalNote}
                                   </td>
                                 </tr>
                                 <tr>
@@ -283,10 +251,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Yêu Cầu Sản phẩm:
+                                    Công nghệ:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${deliverables}
+                                  ${technologies}
                                   </td>
                                 </tr>
                                 <tr>
@@ -299,10 +267,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Thông tin thí sinh tham gia thử thách sẽ gửi đến email:
+                                    Tài Liệu Liên Quan:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${receivedEmails}
+                                  ${documents}
                                   </td>
                                 </tr>
                                 <tr>
@@ -315,10 +283,42 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Cách đánh giá sản phẩm:
+                                    Yêu Cầu Sản phẩm:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;">
+                                  ${deliverables}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Thông tin thí sinh tham gia thử thách sẽ gửi đến email:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;">
+                                  ${receivedEmails}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Cách đánh giá sản phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${reviewStyle}
+                                  ${reviewStyle}
                                   </td>
                                 </tr>
                               </table>
@@ -351,10 +351,10 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Ngày Bắt Đầu:
+                                    Ngày Bắt Đầu:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${startDate}
+                                  ${startDate}
                                   </td>
                                 </tr>
                                 <tr>
@@ -367,10 +367,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Ngày Hết Hạn Đăng Ký:
+                                    Ngày Hết Hạn Đăng Ký:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${registrationDate}
+                                  ${registrationDate}
                                   </td>
                                 </tr>
                                 <tr>
@@ -383,10 +383,10 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Ngày Hết Hạn Gửi Sản Phẩm:
+                                    Ngày Hết Hạn Gửi Sản Phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${submissionDate}
+                                  ${submissionDate}
                                   </td>
                                 </tr>
 
@@ -418,7 +418,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">Các tiêu chí đánh giá sản phẩm:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Các tiêu chí đánh giá sản phẩm:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -434,10 +434,10 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Ý tưởng:
+                                    Ý tưởng:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${qualityIdea}
+                                  ${qualityIdea}
                                   </td>
                                 </tr>
                                 <tr>
@@ -456,12 +456,17 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">Và giải thưởng dành cho thí sinh thắng cuộc:</strong>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:10px; line-height: 20px;" width="100%">
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Và giải thưởng dành cho thí sinh thắng cuộc:</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
                         <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
@@ -473,7 +478,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Giải nhất (USD):
+                                    Giải nhất (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                     $${firstPlaceReward}
@@ -489,7 +494,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Giải nhì (USD):
+                                    Giải nhì (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                     $${secondPlaceReward}
@@ -505,13 +510,50 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                      Giải ba (USD):
+                                    Giải ba (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                     $${thirdPlaceReward}
                                   </td>
                                 </tr>
                               </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:25px; line-height: 25px;">
+                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Điều khoản & Điều kiện:</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;">
+                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="left" class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
+                          <tr>
+                            <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
+                              Nhà tổ chức cuộc thi phải trao giải thưởng theo đúng thoả thuận đã được định nghĩa trong mục Giải Thưởng trước đó. Toàn bộ giải thưởng phải được trao cho các thí sinh không quá 2 tuần kể từ ngày kết thúc cuộc thi.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
+                              Mã nguồn và sản phẩm trí tuệ tạo ra trong suốt cuộc thi của các thí sinh đoạt giải chỉ thuộc sở hữu của Nhà tổ chức cuộc thi.
                             </td>
                           </tr>
                         </table>
@@ -562,7 +604,7 @@
                   <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
                     <tr>
                       <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                          Copyright © Công Ty Cổ Phần Navigos Group Việt Nam.
+                        Copyright © Công Ty Cổ Phần Navigos Group Việt Nam.
                       </td>
                     </tr>
                   </table>

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 
 /**
  * Created by phuonghqh on 6/25/15.
@@ -44,15 +46,21 @@ public class VmwDbConfiguration {
   @Value("${vietnamworks.db.pool.maxSize}")
   private Integer maxPoolSize;
 
-  @Bean(destroyMethod = "close")
-  public DataSource dataSource() throws PropertyVetoException {
-    HikariDataSource dataSource = new HikariDataSource();
-    dataSource.setJdbcUrl(jdbcUrl);
-    dataSource.setUsername(user);
-    dataSource.setPassword(password);
-    dataSource.setMaximumPoolSize(maxPoolSize);
-    dataSource.setDriverClassName(driverClass);
-    return dataSource;
+  @Bean
+  public DataSource dataSource() throws SQLException {
+//    HikariDataSource dataSource = new HikariDataSource();
+//    dataSource.setJdbcUrl(jdbcUrl);
+//    dataSource.setUsername(user);
+//    dataSource.setPassword(password);
+//    dataSource.setMaximumPoolSize(maxPoolSize);
+//    dataSource.setDriverClassName(driverClass);
+//    return dataSource;
+      //TODO : HikariDataSource doesn't release connection to VNW database. It makes database server overload
+      DataSource ds = new DriverManagerDataSource(jdbcUrl, user, password);
+      if (ds.getConnection() == null) {
+          throw new SQLException();
+      }
+      return ds;
   }
 
   @Bean
@@ -61,7 +69,7 @@ public class VmwDbConfiguration {
   }
 
   @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws PropertyVetoException {
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws SQLException {
     LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
     lemfb.setDataSource(dataSource());
 

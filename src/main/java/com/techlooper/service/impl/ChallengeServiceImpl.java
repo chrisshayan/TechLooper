@@ -67,12 +67,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
         challengeEntity.setChallengeId(new Date().getTime());
-        challengeEntity.setStartDateTime(formatter.parse(challengeDto.getStartDate()));
-        challengeEntity.setRegistrationDateTime(formatter.parse(challengeDto.getRegistrationDate()));
-        challengeEntity.setSubmissionDateTime(formatter.parse(challengeDto.getSubmissionDate()));
+        challengeEntity.setStartDateTime(challengeDto.getStartDate());
+        challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
+        challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
         return challengeRepository.save(challengeEntity);
     }
 
@@ -108,10 +107,9 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("deliverables", challengeEntity.getDeliverables());
         templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
         templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        templateModel.put("startDate", formatter.format(challengeEntity.getStartDateTime()));
-        templateModel.put("registrationDate", formatter.format(challengeEntity.getRegistrationDateTime()));
-        templateModel.put("submissionDate", formatter.format(challengeEntity.getSubmissionDateTime()));
+        templateModel.put("startDate", challengeEntity.getStartDateTime());
+        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
+        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
         templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
         templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
         templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);

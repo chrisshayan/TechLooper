@@ -87,13 +87,15 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         utils.sendNotification(jsonValue.notifications.loading);
         $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
           .then(function (response) {
-            $location.path("/contest-detail" + "?" + response.data.id);
+            //$location.path("/contest-detail" + "?" + response.data.id);
+            $location.path("/contest-detail");
+            utils.sendNotification(jsonValue.notifications.hideLoadingBox);
           })
           .catch(function (response) {
             console.error('Gists error', response.status, response.data);
           })
           .finally(function () {
-            utils.sendNotification(jsonValue.notifications.loading);
+            //utils.sendNotification(jsonValue.notifications.loading);
           });
         //.success(function(data) {
         //  $location.path("contest-detail");
@@ -126,4 +128,13 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   }
 
   $scope.changeState(state.challenge);
+
+  $('*').bind('touchend', function(e){
+    if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)){
+      $('[data-toggle=tooltip]').mouseleave();
+      //e.stopPropagation();
+    } else {
+      $(e.target).mouseenter();
+    }
+  });
 });
