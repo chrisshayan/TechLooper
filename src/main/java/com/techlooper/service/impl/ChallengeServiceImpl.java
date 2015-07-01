@@ -67,12 +67,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
         challengeEntity.setChallengeId(new Date().getTime());
-        challengeEntity.setStartDateTime(formatter.parse(challengeDto.getStartDate()));
-        challengeEntity.setRegistrationDateTime(formatter.parse(challengeDto.getRegistrationDate()));
-        challengeEntity.setSubmissionDateTime(formatter.parse(challengeDto.getSubmissionDate()));
+        challengeEntity.setStartDateTime(challengeDto.getStartDate());
+        challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
+        challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
         return challengeRepository.save(challengeEntity);
     }
 
