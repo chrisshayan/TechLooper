@@ -364,9 +364,9 @@
   "secondRewardTip": "Bạn cũng nên cân nhắc trao giải thưởng cho thí sinh về  Nhì. Phần thưởng cho Giải Nhì sẽ giúp bạn có thêm nhiều thí sinh có chất lượng tham gia cuộc thi.",
   "thirdReward": "Tiền thưởng cho người về ba (USD):",
   "thirdRewardTip": "Bạn cũng nên cân nhắc trao giải thưởng cho thí sinh về Ba. Việc đưa ra thêm nhiều giải thưởng sẽ giúp bạn có thêm nhiều thí sinh có chất lượng tham gia cuộc thi.",
-  "firstPrize": "5000",
-  "secondPrize": "3000",
-  "thirdPrize": "500",
+  "firstPrize": "Ví dụ: 5000",
+  "secondPrize": "Ví dụ: 3000",
+  "thirdPrize": "Ví dụ: 500",
   "publishChallenge": "Đăng Ngay",
   "alreadyExistValue": "Phần tử này đã có trong danh sách.",
   "createNewContest": "Create New Contest",
@@ -401,7 +401,8 @@
   "termsConditionsTip": "Ngay khi bạn đăng thử thách trên TechLooper, bạn đã đồng ý với các Điều Kiện và Điều Khoản này.",
   "listRequire1Item": "Danh sách này cần ít nhất 1 phần tử.",
   "limitItemWithParam": "Bạn chỉ được chọn tối đa {{number}} phần tử. Vui lòng bỏ bớt để có thể tạo thêm phần tử khác.",
-  "ex": "Ví dụ: "
+  "ex": "Ví dụ: ",
+  "errorMessageEmailServer": "Sai Email/Mật khẩu. Vui lòng kiểm tra lại."
 }
 
 

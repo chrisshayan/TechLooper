@@ -364,9 +364,9 @@
   "thirdRewardTip": "You might consider to reward the third contestant, this can help you to increase the number and quality of participants in your contest.",
   "publishChallenge": "publish Challenge",
   "createNewContest": "Create New Contest",
-  "firstPrize": "5000",
-  "secondPrize": "3000",
-  "thirdPrize": "500",
+  "firstPrize": "Ex: 5000",
+  "secondPrize": "Ex: 3000",
+  "thirdPrize": "Ex: 500",
   "alreadyExistValue": "This item is already added.",
   "stPrize": "1st Prize<strong>:</strong>",
   "ndPrize": "2nd Prize<strong>:</strong>",
@@ -399,5 +399,6 @@
   "termsConditionsTip": "By publishing a contest on TechLooper, you agree with these Terms & Conditions.",
   "listRequire1Item":"This list requires at least one item.",
   "limitItemWithParam": "You can add up to {{number}} items. Remove one to add another.",
-  "ex": "Ex: "
+  "ex": "Ex: ",
+  "errorMessageEmailServer": "Wrong Email/Password. Please try again."
 }
