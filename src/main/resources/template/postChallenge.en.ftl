@@ -190,7 +190,7 @@
                                     Challenge Name:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${challengeName}
+                                  ${challengeName}
                                   </td>
                                 </tr>
                                 <tr>
@@ -201,28 +201,28 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                  <tr>
-                                      <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                          Challenge Overview:
-                                      </td>
-                                      <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                      ${challengeOverview}
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td style="height:5px; line-height: 5px;">
-                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                      <td style="height:5px; line-height: 5px;">
-                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                  </tr>
+                                <tr>
+                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    Challenge Overview:
+                                  </td>
+                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;">
+                                  ${challengeOverview}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                  <td style="height:5px; line-height: 5px;">
+                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                  </td>
+                                </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Business Requirements:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${businessRequirement}
+                                  ${businessRequirement}
                                   </td>
                                 </tr>
                                 <tr>
@@ -238,7 +238,7 @@
                                     General Notes:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${generalNote}
+                                  ${generalNote}
                                   </td>
                                 </tr>
                                 <tr>
@@ -254,7 +254,7 @@
                                     Technologies:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${technologies}
+                                  ${technologies}
                                   </td>
                                 </tr>
                                 <tr>
@@ -270,7 +270,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${documents}
+                                  ${documents}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                                     Deliverables:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${deliverables}
+                                  ${deliverables}
                                   </td>
                                 </tr>
                                 <tr>
@@ -302,7 +302,7 @@
                                     Email address to receive applications:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${receivedEmails}
+                                  ${receivedEmails}
                                   </td>
                                 </tr>
                                 <tr>
@@ -318,7 +318,7 @@
                                     Review Style:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${reviewStyle}
+                                  ${reviewStyle}
                                   </td>
                                 </tr>
                               </table>
@@ -354,7 +354,7 @@
                                     Your Challenge Will Start On:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${startDate}
+                                  ${startDate}
                                   </td>
                                 </tr>
                                 <tr>
@@ -370,7 +370,7 @@
                                     Contestants Have To Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${registrationDate}
+                                  ${registrationDate}
                                   </td>
                                 </tr>
                                 <tr>
@@ -386,7 +386,7 @@
                                     And Contestants Must Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${submissionDate}
+                                  ${submissionDate}
                                   </td>
                                 </tr>
 
@@ -418,7 +418,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">You evaluate contestants deliverables:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">You evaluate contestants deliverables:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -437,7 +437,7 @@
                                     Quality of Idea:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                    ${qualityIdea}
+                                  ${qualityIdea}
                                   </td>
                                 </tr>
                                 <tr>
@@ -456,12 +456,17 @@
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">And you will reward the winner(s) with:</strong>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
                     <tr>
-                      <td style="height:10px; line-height: 20px;" width="100%">
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">And you will reward the winner(s) with:</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
                         <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
@@ -517,43 +522,43 @@
                         </table>
                       </td>
                     </tr>
-                      <tr>
-                          <td style="height:15px; line-height: 15px;">
-                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                          </td>
-                          <td style="height:15px; line-height: 15px;">
-                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                          </td>
-                      </tr>
+                    <tr>
+                      <td style="height:25px; line-height: 25px;">
+                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
 
-                      <tr>
-                          <td align="left" width="100%" style="font-size: 16px;">
-                              <strong style="font-size: 14px; font-weight: 300; color:#000000; font-style: italic; padding-left: 15px">Terms & Conditions:</strong>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td style="height:15px; line-height: 15px;">
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 16px;">
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Terms & Conditions:</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;">
+                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="left" class="fullWidth">
+                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
+                          <tr>
+                            <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
+                              Contest owner will compensate members in accordance with the payment structure of this challenge. The full amount payment will be made no later than 2-weeks the challenge closure date.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="height:10px; line-height: 10px;">
                               <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                          </td>
-                          <td style="height:15px; line-height: 15px;">
-                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                          </td>
-                      </tr>
-                      <tr>
-                          <td width="100%" align="left" class="fullWidth">
-                              <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
-                                  <tr>
-                                      <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                          <ul>
-                                              <li>Contest owner will compensate members in accordance with the payment structure of this challenge. The full amount payment will be made no later than 2-weeks the challenge closure date.</li>
-                                              <li>The code and intellectual property developed during the challenge by the winning contestant(s) will belong solely to Contest Owner.</li>
-                                          </ul>
-                                      </td>
-                                  </tr>
-
-                              </table>
-                          </td>
-                      </tr>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
+                              The code and intellectual property developed during the challenge by the winning contestant(s) will belong solely to Contest Owner.
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
                   </table>
                 </td>
               </tr>
