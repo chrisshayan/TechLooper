@@ -367,7 +367,7 @@
   "firstPrize": "5000",
   "secondPrize": "3000",
   "thirdPrize": "500",
-  "publishingChallenge": "publishing Challenge",
+  "publishChallenge": "Đăng Ngay",
   "alreadyExistValue": "Phần tử này đã có trong danh sách.",
   "createNewContest": "Create New Contest",
   "stPrize": "Giải nhất<strong>:</strong>",

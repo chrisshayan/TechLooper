@@ -42,7 +42,8 @@
       <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
       <post-contest-reward ng-show="state.showReward"></post-contest-reward>
       <div class="submit-contest-content">
-        <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="next" />
+        <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="next" ng-show="!state.status('reward-tab-class')"/>
+        <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="publishChallenge" ng-show="state.status('reward-tab-class')"/>
       </div>
     </div>
   </div>
