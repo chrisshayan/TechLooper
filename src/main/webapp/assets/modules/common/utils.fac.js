@@ -250,6 +250,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/contest-detail/.test(path)) {
         return jsonValue.views.contestDetail;
       }
+      else if (/\/contestant/.test(path)) {
+        return jsonValue.views.contestant;
+      }
     },
 
     sum: function (array, prop) {
