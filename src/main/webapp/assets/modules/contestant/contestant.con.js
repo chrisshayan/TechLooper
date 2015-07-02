@@ -1,3 +1,0 @@
-techlooper.controller('contestantController', function () {
-
-});

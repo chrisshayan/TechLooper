@@ -170,9 +170,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/contest-detail/contest-detail.tem.html",
         controller: "contestDetailController"
       })
-      .when("/contestant", {
-        templateUrl: "modules/contestant/contestant.tem.html",
-        controller: "contestantController"
+      .when("/contests", {
+        templateUrl: "modules/contests/contests.tem.html",
+        controller: "contestsController"
       })
       .otherwise({
         redirectTo: function () {
