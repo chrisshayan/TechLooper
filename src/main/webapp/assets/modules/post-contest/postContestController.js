@@ -73,6 +73,10 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           case "place-reward-range":
             return param <= 5000 && param >= 100;
 
+          case "optional-place-reward-range":
+            if (!param) return true;
+            return param <= 5000 && param >= 100;
+
           case "compare-3reward-2reward":
             if (!$scope.contest.thirdPlaceReward) return true;
             return $scope.contest.thirdPlaceReward <= $scope.contest.secondPlaceReward;
