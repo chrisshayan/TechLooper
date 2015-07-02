@@ -300,7 +300,6 @@
   "joinTechLooperChallenge": "Join TechLooper Challenge",
   "allChallenges": "All Challenges",
   "priceAJob": "Price A Job",
-  "postAChallenge": "Post A Challenge",
   "copyright": "Copyright &copy; <span><a href='http://www.navigosgroup.com/' target='_blank'>Navigos Group</a></span> Joint Stock Company",
   "companyAddress": "130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam",
   "aboutYourChallenge": "About your challenge",
@@ -401,5 +400,7 @@
   "listRequire1Item":"This list requires at least one item.",
   "limitItemWithParam": "You can add up to {{number}} items. Remove one to add another.",
   "ex": "Ex: ",
-  "errorMessageEmailServer": "Wrong Email/Password. Please try again."
+  "errorMessageEmailServer": "Wrong Email/Password. Please try again.",
+  "postNow": "Post Now",
+  "desSubContestTagLine": "Build your developer community"
 }
