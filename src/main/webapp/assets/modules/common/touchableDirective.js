@@ -6,6 +6,7 @@ techlooper
       link: function (scope, element, attr, ngModelCtrl) {
         element.keypress(function () {
           ngModelCtrl.$edited = true;
+          console.log(ngModelCtrl);
         });
 
         if (attr.forcusout == 'true') {

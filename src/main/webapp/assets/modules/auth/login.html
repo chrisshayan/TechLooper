@@ -14,7 +14,7 @@
   <div class="sign-in-content">
     <div class="sign-in-form">
       <form novalidate name="loginForm" autocomplete="off" ng-submit="login()">
-        <div class="sign-in-field errorFromServer">
+        <div class="sign-in-field errorFromServer" ng-show="loginError">
           <p class="error-messages">{{'errorMessageEmailServer' | translate}}</p>
         </div>
         <div class="sign-in-field">

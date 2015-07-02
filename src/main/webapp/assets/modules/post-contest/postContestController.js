@@ -74,10 +74,12 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
             return param <= 5000 && param >= 100;
 
           case "compare-3reward-2reward":
+            if (!$scope.contest.thirdPlaceReward) return true;
             return $scope.contest.thirdPlaceReward <= $scope.contest.secondPlaceReward;
 
           case "compare-2reward-1reward":
-            return $scope.contest.secondPlaceReward < $scope.contest.firstPlaceReward;
+            if (!$scope.contest.secondPlaceReward) return true;
+            return $scope.contest.secondPlaceReward <= $scope.contest.firstPlaceReward;
         }
       },
 
@@ -85,21 +87,14 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         var request = angular.copy($scope.contest);
         request.lang = $translate.use();
         utils.sendNotification(jsonValue.notifications.loading);
+
         $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
           .then(function (response) {
-            //$location.path("/contest-detail" + "?" + response.data.id);
-            $location.path("/contest-detail");
-            utils.sendNotification(jsonValue.notifications.hideLoadingBox);
-          })
-          .catch(function (response) {
-            console.error('Gists error', response.status, response.data);
+            $location.path("/contest-detail" + "?id=" + response.data.id);
           })
           .finally(function () {
-            //utils.sendNotification(jsonValue.notifications.loading);
+            utils.sendNotification(jsonValue.notifications.hideLoadingBox);
           });
-        //.success(function(data) {
-        //  $location.path("contest-detail");
-        //});
         return true;
       }
     }
@@ -129,11 +124,12 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
   $scope.changeState(state.challenge);
 
-  $('*').bind('touchend', function(e){
-    if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)){
+  $('*').bind('touchend', function (e) {
+    if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)) {
       $('[data-toggle=tooltip]').mouseleave();
       //e.stopPropagation();
-    } else {
+    }
+    else {
       $(e.target).mouseenter();
     }
   });
