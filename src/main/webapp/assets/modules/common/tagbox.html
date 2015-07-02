@@ -17,14 +17,15 @@
       <div translate="exceedCharacterWithParam" ng-show="tagForm.tag.$error.maxlength"/>
       <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
-      <div translate="limitItemWithParam" translate-value-number="{{listMaxLength}}" ng-show="tagForm.tag.$error.listMaxLength"/>
+      <div translate="limitItemWithParam" translate-value-number="{{listMaxLength}}"
+           ng-show="tagForm.tag.$error.listMaxLength"/>
     </div>
 
     <input type="hidden" name="tags" ng-model="tags" array-required>
 
     <input type="{{type}}" placeholder="{{placeholder | translate}}"
            ng-keypress="submitTag($event, tag)" maxlength="{{maxTagLength}}"
-           ng-model="tag" name="tag" required unique touchable forcusout="true" />
+           ng-model="tag" name="tag" required unique touchable focusout="true" />
 
     <button type="submit" ng-click="addTag(tag)" ng-modal="clickAddTag">{{'add' | translate}}</button>
   </ng-form>

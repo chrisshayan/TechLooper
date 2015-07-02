@@ -1,15 +1,15 @@
 techlooper
-  .directive('touchable', function () {
+  .directive('touchable', function ($rootScope) {
     return {
       require: 'ngModel',
       restrict: 'A',
       link: function (scope, element, attr, ngModelCtrl) {
         element.keypress(function () {
           ngModelCtrl.$edited = true;
-          console.log(ngModelCtrl);
         });
 
-        if (attr.forcusout == 'true') {
+
+        if (attr.focusout == 'true') {
           element.focusout(function () {
             ngModelCtrl.$edited = false;
           });
