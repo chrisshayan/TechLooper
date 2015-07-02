@@ -89,6 +89,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           .then(function (response) {
             //$location.path("/contest-detail" + "?" + response.data.id);
             $location.path("/contest-detail");
+            utils.sendNotification(jsonValue.notifications.hideLoadingBox);
           })
           .catch(function (response) {
             console.error('Gists error', response.status, response.data);
