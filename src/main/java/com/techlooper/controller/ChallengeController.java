@@ -4,6 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.util.EmailValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ChallengeController {
         challengeDto.setAuthorEmail(servletRequest.getRemoteUser());
         ChallengeEntity challengeEntity = challengeService.savePostChallenge(challengeDto);
         if (challengeEntity.getChallengeId() != -1L) {
-            if (StringUtils.isNotEmpty(challengeEntity.getAuthorEmail())) {
+            if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
                 challengeService.sendPostChallengeEmailToEmployer(challengeEntity);
             }
             challengeService.sendPostChallengeEmailToTechloopies(challengeEntity);
