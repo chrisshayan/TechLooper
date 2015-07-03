@@ -1,15 +1,20 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.Language;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +68,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     private ChallengeRepository challengeRepository;
 
     @Resource
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
+
+    @Resource
     private Mapper dozerMapper;
 
     @Override
@@ -90,6 +98,24 @@ public class ChallengeServiceImpl implements ChallengeService {
         String mailSubject = postChallengeTechloopiesMailSubject;
         Address[] recipientAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
         sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, postChallengeMailTemplateEn);
+    }
+
+    @Override
+    public ChallengeDetailDto getChallengeDetail(Long challengeId) {
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+        if (challengeEntity != null) {
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
+            return challengeDetailDto;
+        }
+        return null;
+    }
+
+    @Override
+    public Long getNumberOfRegistrants(Long challengeId) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
+        return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
     }
 
     private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject,

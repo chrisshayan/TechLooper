@@ -1,6 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import freemarker.template.TemplateException;
 
@@ -20,4 +21,7 @@ public interface ChallengeService {
     void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException;
 
+    ChallengeDetailDto getChallengeDetail(Long challengeId);
+
+    Long getNumberOfRegistrants(Long challengeId);
 }
