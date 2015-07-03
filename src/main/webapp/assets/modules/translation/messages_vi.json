@@ -376,7 +376,7 @@
   "rdPrize": "Giải ba<strong>:</strong>",
   "currentPhase": "Tiến Độ Hiện Thời",
   "registration": "Đăng Ký",
-  "moreDayToSubmit": "Còn 100 ngày nữa tới hạn gửi sản phẩm",
+  "moreDayToSubmit": "Còn {{dayLeft}} ngày nữa tới hạn gửi sản phẩm",
   "ViewNextDeadlines": "Xem lịch trình cụ thể +",
   "ViewAllDeadlines": "Xem tiến độ hiện thời +",
   "registerNumber": "Đang có {{registerNumber}} thí sinh tham gia thử thách này.",
