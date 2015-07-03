@@ -1,5 +1,3 @@
 techlooper.controller('contestDetailController', function ($scope) {
-  $scope.showDeadlineInfo = function(){
-    $scope.toggle = !$scope.toggle;
-  }
+  $scope.countDownDay = parseInt(moment().countdown("07/10/2015", countdown.DAYS, NaN, 2).toString());
 });
