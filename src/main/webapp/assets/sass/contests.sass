@@ -2,20 +2,98 @@
   display: inline-block
   clear: both
   width: 100%
+  text-align: center
+  .all-contests-block
+    margin: auto
+    max-width: 1000px
+    text-align: left
+    .all-contests-header
+      width: 100%
+      display: block
+      clear: both
+      -webkit-box-shadow: 0 1px 0 0 #ebebeb
+      -moz-box-shadow: 0 1px 0 0 #ebebeb
+      box-shadow: 0 1px 0 0 #ebebeb
+      background-color: #f3fafe
+      text-align: center
+      h2
+        clear: both
+        display: inline-block
+        font-size: 20px
+        font-weight: 400
+        margin: 0
+        padding: 12px 20px 5px
+        text-transform: capitalize
+        width: 100%
+      p
+        font-size: 12px
+        font-style: italic
+        margin-bottom: 1px
+        padding: 0 20px 15px
+    .all-contests-list
+      display: block
+      clear: both
+      padding: 20px
+      text-align: left
+      -webkit-border-bottom-right-radius: 5px
+      -webkit-border-bottom-left-radius: 5px
+      -moz-border-radius-bottomright: 5px
+      -moz-border-radius-bottomleft: 5px
+      border-bottom-right-radius: 5px
+      border-bottom-left-radius: 5px
+      background-color: #fff
+      -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+      float: left
+      width: 100%
+      margin-bottom: 20px
+      p
+        text-align: left
+        margin: 0
+        padding: 0
   table.contests-table
-    border: 1px solid #ccc
     width: 100%
     margin: 0
     padding: 0
     border-collapse: collapse
     border-spacing: 0
   table.contests-table tr
-    border: 1px solid #ddd
-    padding: 5px
+    border-bottom: 1px solid #ddd
   table.contests-table th, table td
     padding: 10px
     text-align: center
+    border: 1px solid #ddd
   table.contests-table th
-    text-transform: uppercase
+    text-transform: capitalize
     font-size: 14px
-    letter-spacing: 1px
+    background-color: #f1f1f1
+    text-align: center
+    font-weight: 400
+  table.contests-table td
+    p
+      text-align: right !important
+      span
+        width: 90px
+        float: left
+        text-align: left
+    a.view
+      background: url(../images/ic-view.png) left top no-repeat
+      width: 33px
+      height: 16px
+      cursor: pointer
+      display: block
+      margin: auto
+    span.tag
+      background-color: #f3fafe
+      border-radius: 5px
+      box-shadow: 1px 1px 1px 1px #cccccc
+      display: inline-block
+      margin-right: 5px
+      padding: 2px 5px
+      width: auto
+      font-size: 12px
+  table.contests-table td:nth-child(1)
+    max-width: 250px
+    p
+      text-align: left !important
