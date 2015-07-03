@@ -1168,6 +1168,33 @@
           -moz-border-radius: 5px
           border-radius: 5px
           margin-top: 20px
+  .contestant-page
+    table.contests-table
+      border: 0
+
+    table.contests-table thead
+      display: none
+
+    table.contests-table tr
+      margin-bottom: 10px
+      display: block
+      border-bottom: 2px solid #ddd
+
+    table.contests-table td
+      display: block
+      text-align: right
+      font-size: 13px
+      border-bottom: 1px dotted #ccc
+
+    table.contests-table td:last-child
+      border-bottom: 0
+
+    table.contests-table td:before
+      content: attr(data-label)
+      float: left
+      text-transform: uppercase
+      font-weight: bold
+
 @media (min-width: 640px)
   .rwd-table
     margin: auto
