@@ -8,6 +8,7 @@
   "loading": "Loading data...",
   "enterText2Search": "Nhập từ cần tìm và nhấn Enter...",
   "timeline": "Dòng thời gian",
+  "timeline.schedule": "Lịch Trình",
   "numberOfJobs": "Số lượng công việc",
   "skill": "Kỹ năng",
   "skills": "Kỹ Năng",
@@ -411,7 +412,22 @@
   "contestValue3": "Nuôi dưỡng và sử dụng các nhân tài về công nghệ.",
   "desPostAChallenge": "Xây dựng <strong>thương hiệu thành công</strong> cho doanh nghiệp bằng việc sử dụng <strong>cộng đồng phát triển phần mềm to lớn</strong> sẵn có.",
   "signUpVNW": "Bạn chưa có tài khoản? Hãy Đăng ký ở",
-  "signUpHere": "đây"
+  "signUpHere": "đây",
+  "desSubContestTagLine": "Build your developer community",
+  "contestValue1": "Build a solid developer community base.",
+  "contestValue2": "Grow your developer network.",
+  "contestValue3": "Nurture your talent pool with best IT professionals.",
+  "desPostAChallenge": "Build a <strong>compelling brand</strong> by nurturing a thriving <strong>community of software engineers</strong> around your organization.",
+  "signUpVNW": "Haven't had an account yet? Sign up ",
+  "signUpHere": "here",
+  "challengeYourself":  "Thách Thức Bản Thân",
+  "subChallengeYourselfTagLine": "Thu Thập Kinh Nghiệm. Chứng Tỏ Bản Thân. Nhận Ngay Giải Thưởng.",
+  "challengeName": "Tên Thử Thách",
+  "timeLeft": "Thời Gian Còn Lại",
+  "prize": "Giải Thưởng",
+  "registrants": "Số người tham gia",
+  "action": "Thao Tác",
+  "viewDetail": "Nhấn vào đây để xem chi tiết."
 }
 
 

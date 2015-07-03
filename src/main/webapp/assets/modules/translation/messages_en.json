@@ -8,6 +8,7 @@
   "loading": "Loading data...",
   "enterText2Search": "Enter text to search...",
   "timeline": "Timeline",
+  "timeline.schedule": "Timeline",
   "numberOfJobs": "Number of jobs",
   "skill": "Skill",
   "skills": "Skills",
@@ -373,7 +374,7 @@
   "rdPrize": "3rd Prize<strong>:</strong>",
   "currentPhase": "Current Phase",
   "registration": "Registration",
-  "moreDayToSubmit": "100 more day(s) to submit",
+  "moreDayToSubmit": "{{dayLeft}} more day(s) to submit",
   "ViewNextDeadlines": "View next deadlines +",
   "ViewAllDeadlines": "View all deadlines +",
   "registerNumber": "There are 100 registrants for this contest.",
@@ -409,5 +410,14 @@
   "contestValue3": "Nurture your talent pool with best IT professionals.",
   "desPostAChallenge": "Build a <strong>compelling brand</strong> by nurturing a thriving <strong>community of software engineers</strong> around your organization.",
   "signUpVNW": "Haven't had an account yet? Sign up ",
-  "signUpHere": "here"
+  "signUpHere": "here",
+  "challengeYourself":  "Challenge Yourself",
+  "subChallengeYourselfTagLine": "Gain Experience. Be recognized. Get rewarded.",
+  "challengeName": "Challenge Name",
+  "timeLeft": "Time Left",
+  "prize": "Prize",
+  "registrants": "Registrants",
+  "action": "Action",
+  "viewDetail": "Click here to view detail."
+
 }
