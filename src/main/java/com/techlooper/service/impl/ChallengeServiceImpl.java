@@ -75,6 +75,18 @@ public class ChallengeServiceImpl implements ChallengeService {
     private String confirmUserJoinChallengeMailSubjectEn;
 
     @Resource
+    private Template alertEmployerChallengeMailTemplateEn;
+
+    @Resource
+    private Template alertEmployerChallengeMailTemplateVi;
+
+    @Value("${mail.alertEmployerChallenge.subject.vn}")
+    private String alertEmployerChallengeMailSubjectVn;
+
+    @Value("${mail.alertEmployerChallenge.subject.en}")
+    private String alertEmployerChallengeMailSubjectEn;
+
+    @Resource
     private JavaMailSender mailSender;
 
     @Resource
@@ -132,8 +144,27 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public void sendEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-            throws MessagingException, IOException, TemplateException {
+    public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
+        Template template = challengeEntity.getLang() == Language.vi ?
+                confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
+        String mailSubject = challengeEntity.getLang() == Language.vi ?
+                confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        sendContestApplicationEmail(template, mailSubject, challengeEntity, challengeRegistrantEntity);
+    }
+
+    @Override
+    public void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
+        Template template = challengeEntity.getLang() == Language.vi ?
+                alertEmployerChallengeMailTemplateVi : alertEmployerChallengeMailTemplateEn;
+        String mailSubject = challengeEntity.getLang() == Language.vi ?
+                alertEmployerChallengeMailSubjectVn : alertEmployerChallengeMailSubjectEn;
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        sendContestApplicationEmail(template, mailSubject, challengeEntity, challengeRegistrantEntity);
+    }
+
+    private void sendContestApplicationEmail(Template template, String mailSubject, ChallengeEntity challengeEntity,
+            ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, challengeRegistrantEntity.getRegistrantEmail());
         StringWriter stringWriter = new StringWriter();
 
@@ -160,12 +191,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("firstName", challengeRegistrantEntity.getRegistrantFirstName());
         templateModel.put("lastName", challengeRegistrantEntity.getRegistrantLastName());
 
-        Template template = challengeEntity.getLang() == Language.vi ?
-                confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
         template.process(templateModel, stringWriter);
-        String mailSubject = challengeEntity.getLang() == Language.vi ?
-                confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
-        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
         postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 

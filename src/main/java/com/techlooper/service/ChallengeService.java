@@ -4,6 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
+import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -26,5 +27,9 @@ public interface ChallengeService {
 
     Long getNumberOfRegistrants(Long challengeId);
 
-    void sendEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException;
+    void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
+
+    void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
 }
