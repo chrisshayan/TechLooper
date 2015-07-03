@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.Language;
@@ -62,6 +63,18 @@ public class ChallengeServiceImpl implements ChallengeService {
     private String webBaseUrl;
 
     @Resource
+    private Template confirmUserJoinChallengeMailTemplateEn;
+
+    @Resource
+    private Template confirmUserJoinChallengeMailTemplateVi;
+
+    @Value("${mail.confirmUserJoinChallenge.subject.vn}")
+    private String confirmUserJoinChallengeMailSubjectVn;
+
+    @Value("${mail.confirmUserJoinChallenge.subject.en}")
+    private String confirmUserJoinChallengeMailSubjectEn;
+
+    @Resource
     private JavaMailSender mailSender;
 
     @Resource
@@ -116,6 +129,48 @@ public class ChallengeServiceImpl implements ChallengeService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
         searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
         return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
+    }
+
+    @Override
+    public void sendEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException {
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, challengeRegistrantEntity.getRegistrantEmail());
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
+        templateModel.put("generalNote", challengeEntity.getGeneralNote());
+        templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
+        templateModel.put("documents", challengeEntity.getDocuments());
+        templateModel.put("deliverables", challengeEntity.getDeliverables());
+        templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
+        templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
+        templateModel.put("startDate", challengeEntity.getStartDateTime());
+        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
+        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
+        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
+        templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
+        templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
+        templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
+        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
+        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("firstName", challengeRegistrantEntity.getRegistrantFirstName());
+        templateModel.put("lastName", challengeRegistrantEntity.getRegistrantLastName());
+
+        Template template = challengeEntity.getLang() == Language.vi ?
+                confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
+        template.process(templateModel, stringWriter);
+        String mailSubject = challengeEntity.getLang() == Language.vi ?
+                confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        mailSender.send(postChallengeMailMessage);
     }
 
     private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject,
