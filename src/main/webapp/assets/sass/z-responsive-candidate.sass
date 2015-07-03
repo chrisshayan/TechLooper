@@ -1178,14 +1178,15 @@
     table.contests-table tr
       margin-bottom: 10px
       display: block
-      border-bottom: 2px solid #ddd
 
     table.contests-table td
       display: block
       text-align: right
-      font-size: 13px
-      border-bottom: 1px dotted #ccc
-
+      p
+        span
+          float: none
+      a.view
+        display: inline-block
     table.contests-table td:last-child
       border-bottom: 0
 
@@ -1194,7 +1195,12 @@
       float: left
       text-transform: uppercase
       font-weight: bold
-
+    table.contests-table tr:nth-child(2n)
+      background-color: #f1f1f1
+    table.contests-table td:nth-child(1)
+      text-align: right
+      p
+        text-align: right !important
 @media (min-width: 640px)
   .rwd-table
     margin: auto
