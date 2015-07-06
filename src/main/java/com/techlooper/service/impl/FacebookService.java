@@ -49,10 +49,10 @@ public class FacebookService extends AbstractSocialService {
     return fbProfile;
   }
 
-  public String getUserEmail(String code, SocialConfig socialConfig) {
+  public org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig) {
     org.springframework.social.oauth2.AccessGrant access = facebookConnectionFactory.getOAuthOperations().exchangeForAccess(code, socialConfig.getRedirectUri(), null);
     org.springframework.social.connect.UserProfile userProfile = facebookConnectionFactory.createConnection(access).fetchUserProfile();
-    return userProfile.getEmail();
+    return userProfile;
   }
 
 //  public static void main(String[] args) {

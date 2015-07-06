@@ -14,13 +14,10 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 public class ChallengeRegistrantEntity {
 
     @Id
-    private Long registrantId;
+    private String registrantEmail;
 
     @Field(type = Long)
     private Long challengeId;
-
-    @Field(type = String)
-    private String registrantEmail;
 
     @Field(type = String)
     private String registrantFirstName;
@@ -28,12 +25,12 @@ public class ChallengeRegistrantEntity {
     @Field(type = String)
     private String registrantLastName;
 
-    public Long getRegistrantId() {
-        return registrantId;
-    }
+    public ChallengeRegistrantEntity() {}
 
-    public void setRegistrantId(Long registrantId) {
-        this.registrantId = registrantId;
+    public ChallengeRegistrantEntity(java.lang.String registrantEmail, java.lang.String registrantFirstName, String registrantLastName) {
+        this.registrantEmail = registrantEmail;
+        this.registrantLastName = registrantLastName;
+        this.registrantFirstName = registrantFirstName;
     }
 
     public Long getChallengeId() {
