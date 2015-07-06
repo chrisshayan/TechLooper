@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -24,6 +25,9 @@ public class ChallengeRegistrantEntity {
 
     @Field(type = String)
     private String registrantLastName;
+
+    @Field(type = Boolean)
+    private Boolean mailSent;
 
     public ChallengeRegistrantEntity() {}
 
@@ -63,5 +67,13 @@ public class ChallengeRegistrantEntity {
 
     public void setRegistrantLastName(String registrantLastName) {
         this.registrantLastName = registrantLastName;
+    }
+
+    public Boolean getMailSent() {
+        return mailSent;
+    }
+
+    public void setMailSent(Boolean mailSent) {
+        this.mailSent = mailSent;
     }
 }
