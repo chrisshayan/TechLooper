@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams) {
-
+  
   var contestId = $routeParams.id;
 
   $scope.status = function(type) {
@@ -24,8 +24,17 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       }
       localStorageService.set("joinContests", joinContests);
       localStorageService.set("lastFoot", $location.url());
+      localStorageService.set("joinNow", true);
       window.location = url;
     });
+  }
+
+  if (localStorageService.get("joinNow")) {
+    localStorageService.remove("joinNow")
+    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"))
+      .success(function(data) {
+        console.log(data);
+      });
   }
 
   apiService.getContestDetail(contestId).success(function(data) {
