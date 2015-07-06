@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class ChallengeDetailDto {
 
+    private Long challengeId;
+
     private String challengeName;
 
     private String challengeOverview;
@@ -38,6 +40,14 @@ public class ChallengeDetailDto {
     private String qualityIdea;
 
     private Long numberOfRegistrants;
+
+    public Long getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(Long challengeId) {
+        this.challengeId = challengeId;
+    }
 
     public String getChallengeName() {
         return challengeName;

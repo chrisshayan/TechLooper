@@ -168,6 +168,19 @@ public class ChallengeServiceImpl implements ChallengeService {
         return 15L;
     }
 
+    @Override
+    public List<ChallengeDetailDto> listChallenges() {
+        List<ChallengeDetailDto> challenges = new ArrayList<>();
+        Iterator<ChallengeEntity> challengeIter = challengeRepository.findAll().iterator();
+        while (challengeIter.hasNext()) {
+            ChallengeEntity challengeEntity = challengeIter.next();
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
+            challenges.add(challengeDetailDto);
+        }
+        return challenges;
+    }
+
     private void sendContestApplicationEmail(Template template, String mailSubject, ChallengeEntity challengeEntity,
                                              ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, challengeRegistrantEntity.getRegistrantEmail());
