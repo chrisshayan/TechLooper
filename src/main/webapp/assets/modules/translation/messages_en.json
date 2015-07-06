@@ -421,5 +421,7 @@
   "viewDetail": "Click here to view detail.",
   "notStart": "Not Start",
   "inProgress": "In Progress",
-  "closed": "Closed"
+  "closed": "Closed",
+  "congratulationsForJoinContest": "You have just enrolled to the challenge."
+
 }

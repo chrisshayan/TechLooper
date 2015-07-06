@@ -54,6 +54,9 @@
         </div>
       </div>
     </div>
+    <div class="alert alert-success"  ng-show="!status('able-to-join')">
+      <p translate="congratulationsForJoinContest"></p>
+    </div>
     <div class="row registration-count">
       <div class="col-md-12">
         <p translate="registerNumber" translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
