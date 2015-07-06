@@ -2,6 +2,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    openFBShare: function(uri) {
+      window.open(
+        'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri,
+        'name', 'width=450,height=350');
+    },
+
     isFormSubmitted: function(form, inputName) {
       return form && (form[inputName].$edited || form.$submitted);
     },

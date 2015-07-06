@@ -1,8 +1,9 @@
-techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams, jsonValue) {
+techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
+                                                           jsonValue, $translate, utils) {
 
   var contestId = $routeParams.id;
 
-  $scope.status = function(type) {
+  $scope.status = function (type) {
     switch (type) {
       case "able-to-join":
         if (!$scope.contestDetail) return false;
@@ -19,13 +20,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }
   }
 
-  $scope.joinNowByFB = function() {
+  $scope.joinNowByFB = function () {
     if (!$scope.status('able-to-join')) {
       return false;
     }
 
     localStorageService.set("lastFoot", $location.url());
-    apiService.getFBLoginUrl().success(function(url) {
+    apiService.getFBLoginUrl().success(function (url) {
       var joinContests = localStorageService.get("joinContests") || "";
       if (joinContests.indexOf(contestId) < 0) {
         joinContests += joinContests.length > 0 ? "," + contestId : contestId;
@@ -40,19 +41,17 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow")
     apiService.joinContest(contestId, localStorageService.get("registerVnwUser"))
-      .success(function(data) {
+      .success(function (data) {
         console.log(data);
       });
   }
 
-  apiService.getContestDetail(contestId).success(function(data) {
+  apiService.getContestDetail(contestId).success(function (data) {
     $scope.contestDetail = data;
   });
 
-  $scope.fbShare = function(url, title, descr, image, winWidth, winHeight) {
-    var winTop = (screen.height / 2) - (winHeight / 2);
-    var winLeft = (screen.width / 2) - (winWidth / 2);
-    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+  $scope.fbShare = function () {
+    utils.openFBShare("/shareChallenge/" + $translate.use() + "/" + contestId);
   }
 
 });
