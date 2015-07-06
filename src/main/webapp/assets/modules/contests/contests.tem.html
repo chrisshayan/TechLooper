@@ -60,7 +60,7 @@
                   <td data-label="{{'currentPhase' | translate}}"><span translate="{{contest | progress:'challenge'}}"></span></td>
                   <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
                   <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
+                    <p><a href="#/contest-detail/{{contest.challengeID}}" target="_blank" class="view" title="{{'viewDetail' | translate}}"></a></p>
                   </td>
                 </tr>
               </tbody>
