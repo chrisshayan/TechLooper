@@ -2,7 +2,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //$scope.showDeadlineInfo = function(){
   //  $scope.toggle = !$scope.toggle;
   //}
-  
+
   $scope.countDownDay = parseInt(moment().countdown("07/10/2015", countdown.DAYS, NaN, 2).toString());
 
   var contestId = $routeParams.id;
@@ -29,8 +29,17 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       }
       localStorageService.set("joinContests", joinContests);
       localStorageService.set("lastFoot", $location.url());
+      localStorageService.set("joinNow", true);
       window.location = url;
     });
+  }
+
+  if (localStorageService.get("joinNow")) {
+    localStorageService.remove("joinNow")
+    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"))
+      .success(function(data) {
+        console.log(data);
+      });
   }
 
   apiService.getContestDetail(contestId).success(function(data) {
