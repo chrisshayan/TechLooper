@@ -115,7 +115,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
             throws MessagingException, IOException, TemplateException {
         String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
-        Address[] recipientAddresses = getRecipientAddresses(challengeEntity);
+        Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
         Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
         sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
     }
@@ -153,7 +153,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         String mailSubject = challengeEntity.getLang() == Language.vi ?
                 confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
-        sendContestApplicationEmail(template, mailSubject, challengeEntity, challengeRegistrantEntity);
+        Address[] emailAddress = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
+        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity);
     }
 
     @Override
@@ -163,14 +164,16 @@ public class ChallengeServiceImpl implements ChallengeService {
         String mailSubject = challengeEntity.getLang() == Language.vi ?
                 alertEmployerChallengeMailSubjectVn : alertEmployerChallengeMailSubjectEn;
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
-        sendContestApplicationEmail(template, mailSubject, challengeEntity, challengeRegistrantEntity);
+        Address[] emailAddress = getRecipientAddresses(challengeEntity, false);
+        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity);
     }
 
     @Override
     public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long challengeId = challengeRegistrantDto.getChallengeId();
-        ChallengeRegistrantEntity challengeRegistrantEntity =
-                challengeRegistrantRepository.findOne(challengeRegistrantDto.getRegistrantEmail());
+        String registrantEmail = new String(Base64.getDecoder().decode(challengeRegistrantDto.getRegistrantEmail()));
+        ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.findOne(registrantEmail);
+
         if (challengeRegistrantEntity != null) {
             challengeRegistrantEntity.setChallengeId(challengeId);
             if (challengeRegistrantEntity.getMailSent() == null ||
@@ -182,6 +185,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
             challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
+
         return getNumberOfRegistrants(challengeId);
     }
 
@@ -198,9 +202,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         return sortChallengesByDescendingStartDate(challenges);
     }
 
-    private void sendContestApplicationEmail(Template template, String mailSubject, ChallengeEntity challengeEntity,
-                                             ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
-        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, challengeRegistrantEntity.getRegistrantEmail());
+    private void sendContestApplicationEmail(Template template, String mailSubject, Address[] recipientAddresses,
+                                             ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException {
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         StringWriter stringWriter = new StringWriter();
 
         Map<String, Object> templateModel = new HashMap<>();
@@ -269,9 +274,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         mailSender.send(postChallengeMailMessage);
     }
 
-    private Address[] getRecipientAddresses(ChallengeEntity challengeEntity) throws AddressException {
+    private Address[] getRecipientAddresses(ChallengeEntity challengeEntity, boolean includeAuthor) throws AddressException {
         Set<String> emails = new HashSet<>(challengeEntity.getReceivedEmails());
-        emails.add(challengeEntity.getAuthorEmail());
+        if (includeAuthor) {
+            emails.add(challengeEntity.getAuthorEmail());
+        }
         return InternetAddress.parse(StringUtils.join(emails, ','));
     }
 
