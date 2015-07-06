@@ -5,5 +5,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ChallengeRegistrantRepository extends ElasticsearchRepository<ChallengeRegistrantEntity, Long> {
+public interface ChallengeRegistrantRepository extends ElasticsearchRepository<ChallengeRegistrantEntity, String> {
 }
