@@ -803,7 +803,14 @@ angular.module("Common").constant("jsonValue", (function () {
       }
     },
 
-    dateFormat: "DD/MM/YYYY"
+    dateFormat: "DD/MM/YYYY",
+
+    status: {
+      notStarted: {translate: "notStart"},
+      registration: {translate: "registration"},
+      progress: {translate: "inProgress"},
+      closed: {translate: "closed"}
+    }
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
