@@ -422,6 +422,6 @@
   "notStart": "Not Started",
   "inProgress": "In Progress",
   "closed": "Closed",
-  "congratulationsForJoinContest": "You have just enrolled to the challenge."
-
+  "congratulationsForJoinContest": "You have just enrolled to the challenge.",
+  "contestDetail": "Contest Details"
 }
