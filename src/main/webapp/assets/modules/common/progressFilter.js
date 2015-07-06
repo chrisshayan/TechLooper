@@ -14,14 +14,14 @@ techlooper.filter("progress", function (jsonValue) {
         //if start date <= current date <= register date
         var registrationDate = moment(contestDetail.registrationDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.registration;
-        if (moment().isBetween(startDate, registrationDate) || moment().isSame(startDate) || moment().isSame(registrationDate)) {
+        if (moment().isBetween(startDate, registrationDate) || moment().isSame(startDate, 'day') || moment().isSame(registrationDate, 'day')) {
           return contestDetail.progress.translate;
         }
 
         // if register date < current date <= submit date
         var submissionDate = moment(contestDetail.submissionDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.progress;
-        if (moment().isBetween(registrationDate, submissionDate) || moment().isSame(submissionDate)) {
+        if (moment().isBetween(registrationDate, submissionDate) || moment().isSame(submissionDate, 'day')) {
           return contestDetail.progress.translate;
         }
 
