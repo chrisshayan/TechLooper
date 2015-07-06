@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams) {
-  
+
   var contestId = $routeParams.id;
 
   $scope.status = function(type) {
@@ -39,8 +39,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   apiService.getContestDetail(contestId).success(function(data) {
     $scope.contestDetail = data;
-    console.log($scope.contestDetail);
-    $scope.contestDetail.countDown = parseInt(moment().countdown('07/10/2015', countdown.DAYS, NaN, 2).toString());
+    $scope.contestDetail.countDown = parseInt(moment().countdown($scope.formatDate($scope.contestDetail.startDateTime), countdown.DAYS, NaN, 2).toString());
+    //$scope.contestDetail.status = moment($scope.contestDetail.startDateTime).toNow();
+    //console.log($scope.contestDetail.status);
   });
+  $scope.formatDate = function(d){
+    return moment(d).format('MM DD YYYY');
+  }
 });
 
