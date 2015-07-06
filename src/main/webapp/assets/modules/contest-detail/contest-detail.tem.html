@@ -37,7 +37,7 @@
         <div class="ic-time-down"></div>
         <div class="time-block">
           <h3 translate="currentPhase" />
-          <p translate="{{contestDetail | progress:'challenge'}}" />
+          <p translate="{{contestDetail.progress.translate}}" />
           <p class="count-down-day" translate="moreDayToSubmit"
              translate-value-day-left="<strong>{{contestDetail.submissionDateTime | countdown}}</strong>" ng-show="status('contest-in-progress')" />
         </div>

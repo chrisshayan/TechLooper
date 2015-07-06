@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils) {
+                                                           jsonValue, $translate, utils, $filter) {
 
   var contestId = $routeParams.id;
 
@@ -7,6 +7,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     switch (type) {
       case "able-to-join":
         if (!$scope.contestDetail) return false;
+
         var joinContests = localStorageService.get("joinContests") || "";
         var registerVnwUser = localStorageService.get("registerVnwUser") || "";
         var contestStatus = ($scope.contestDetail.progress == jsonValue.status.registration.translate) ||
@@ -41,13 +42,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow")
     apiService.joinContest(contestId, localStorageService.get("registerVnwUser"))
-      .success(function (data) {
-        console.log(data);
+      .success(function (numberOfRegistrants) {
+        if ($scope.contestDetail) {
+          $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
+        }
       });
   }
 
   apiService.getContestDetail(contestId).success(function (data) {
     $scope.contestDetail = data;
+    $filter("progress")($scope.contestDetail, "challenge");
   });
 
   $scope.fbShare = function () {
