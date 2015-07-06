@@ -1,5 +1,5 @@
-techlooper.controller('contestsController', function (apiService) {
+techlooper.controller('contestsController', function (apiService, $scope) {
   apiService.searchContests().success(function(contests) {
-    console.log(contests);
+    $scope.contestsList = contests;
   });
 });

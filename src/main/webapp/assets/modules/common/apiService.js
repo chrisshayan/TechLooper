@@ -34,7 +34,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     searchContests: function() {
-      return $http.post("challenge/list");
+      return $http.get("challenge/list");
     }
   }
 

@@ -34,242 +34,28 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr ng-repeat="contest in contestsList">
                   <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
+                    <p class="header">{{contest.challengeName}}</p>
+                    <span class="tag" ng-repeat="skill in contest.technologies">
+                      {{skill}}
+                    </span>
                   </td>
                   <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
+                    <p><span translate="startDate"></span> {{contest.startDateTime}}</p>
+                    <p><span translate="registerBy"></span> {{contest.registrationDateTime}}</p>
+                    <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
                   </td>
                   <td data-label="{{'timeLeft' | translate}}">
                     <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
                   </td>
                   <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
+                    <p>${{contest.firstPlaceReward | number:0}}</p>
+                    <p ng-show="contest.secondPlaceReward !=null">${{contest.secondPlaceReward | number:0}}</p>
+                    <p ng-show="contest.thirdPlaceReward !=null">${{contest.thirdPlaceReward | number:0}}</p>
                   </td>
                   <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
-                  <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="{{'challengeName' | translate}}">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                    <span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span>
-                  </td>
-                  <td data-label="{{'timeline.schedule' | translate}}">
-                    <p><span translate="startDate"></span> 12/05/2015</p>
-                    <p><span translate="registerBy"></span> 15/05/2015</p>
-                    <p><span translate="submitBy"></span> 18/05/2015</p>
-                  </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
-                  </td>
-                  <td data-label="{{'prize' | translate}}">
-                    <p>$3500</p>
-                    <p>$2500</p>
-                    <p>$1500</p>
-                  </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
-                  <td data-label="{{'registrants' | translate}}">10</td>
+                  <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
                   <td data-label="{{'action' | translate}}">
                     <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
                   </td>
