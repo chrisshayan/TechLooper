@@ -46,11 +46,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   apiService.getContestDetail(contestId).success(function(data) {
-    console.log(data);
     $scope.contestDetail = data;
-    //$scope.contestDetail.countDown = parseInt(moment().countdown($scope.formatDate($scope.contestDetail.startDateTime), countdown.DAYS, NaN, 2).toString());
-    //$scope.contestDetail.status = moment($scope.contestDetail.startDateTime).toNow();
-    //console.log($scope.contestDetail.status);
   });
 
   $scope.fbShare = function(url, title, descr, image, winWidth, winHeight) {
