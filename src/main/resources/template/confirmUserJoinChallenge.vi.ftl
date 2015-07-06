@@ -115,12 +115,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/?utm_source=challengepublishemail&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                    <a href="http://www.techlooper.com/#/?lang=vi&utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                      <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=challengepublishemail&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -146,12 +146,12 @@
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
                       <td align="center" style="padding: 10px 0 5px 0">
-                        <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Online Challenge</h2>
+                        <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Thử Thách Trực Tuyến</h2>
                       </td>
                     </tr>
                     <tr>
                       <td align="center">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px">Build And Grow Your Developer Community Base With Online Contests.</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến.</p>
                       </td>
                     </tr>
                     <tr>
@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Congratulations <strong>${firstName} ${lastName}</strong>! You have enrolled successfully in the following challenge
+                          Chúc mừng <strong>${firstName} ${lastName}</strong>! Bạn vừa tham gia thử thách với thông tin như sau:
                       </td>
                     </tr>
                     <tr>
@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">About your challenge</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Nội dung thử thách</strong>
                       </td>
                     </tr>
                     <tr>
@@ -187,7 +187,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Challenge Name:
+                                      Tên Thử Thách:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${challengeName}
@@ -203,7 +203,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Challenge Overview:
+                                      Tổng Quan Thử Thách:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${challengeOverview}
@@ -219,7 +219,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Business Requirements:
+                                      Yêu Cầu Nghiệp Vụ:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${businessRequirement}
@@ -235,7 +235,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    General Notes:
+                                      Yêu Cầu Khác:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${generalNote}
@@ -251,7 +251,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Technologies:
+                                      Công nghệ:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${technologies}
@@ -267,7 +267,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Documents:
+                                      Tài Liệu Liên Quan:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${documents}
@@ -283,7 +283,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Deliverables:
+                                      Yêu Cầu Sản Phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${deliverables}
@@ -299,7 +299,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Email address to receive applications:
+                                      Thông tin thí sinh tham gia thử thách sẽ gửi đến email:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                   ${receivedEmails}
@@ -315,7 +315,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Review Style:
+                                      Cách đánh giá sản phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${reviewStyle}
@@ -335,7 +335,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Timeline</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Lịch trình</strong>
                       </td>
                     </tr>
                     <tr>
@@ -351,7 +351,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Your Challenge Will Start On:
+                                      Ngày Bắt Đầu:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${startDate}
@@ -367,7 +367,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Contestants Have To Register By:
+                                      Ngày Hết Hạn Đăng Ký:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${registrationDate}
@@ -383,7 +383,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    And Contestants Must Submit By:
+                                      Ngày Hết Hạn Gửi Sản Phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${submissionDate}
@@ -403,7 +403,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Your Reward</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Giải Thưởng</strong>
                       </td>
                     </tr>
                     <tr>
@@ -418,7 +418,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">You evaluate contestants deliverables:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Các tiêu chí đánh giá sản phẩm:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -434,7 +434,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Quality of Idea:
+                                      Ý tưởng:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${qualityIdea}
@@ -462,7 +462,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">And you will reward the winner(s) with:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Và giải thưởng dành cho thí sinh thắng cuộc:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -478,7 +478,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    1st Place Reward (USD):
+                                      Giải nhất (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                     $${firstPlaceReward}
@@ -494,7 +494,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    2nd Place Reward (USD):
+                                      Giải nhì (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                     $${secondPlaceReward}
@@ -510,7 +510,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    3rd Place Reward (USD):
+                                      Giải ba (USD):
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                     $${thirdPlaceReward}
@@ -530,7 +530,7 @@
 
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Terms & Conditions:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Điều khoản & Điều kiện:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -543,7 +543,7 @@
                         <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                           <tr>
                             <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
-                              Contest owner will compensate members in accordance with the payment structure of this challenge. The full amount payment will be made no later than 2-weeks the challenge closure date.
+                                Nhà tổ chức cuộc thi phải trao giải thưởng theo đúng thoả thuận đã được định nghĩa trong mục Giải Thưởng trước đó. Toàn bộ giải thưởng phải được trao cho các thí sinh không quá 2 tuần kể từ ngày kết thúc cuộc thi.
                             </td>
                           </tr>
                           <tr>
@@ -553,7 +553,7 @@
                           </tr>
                           <tr>
                             <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
-                              The code and intellectual property developed during the challenge by the winning contestant(s) will belong solely to Contest Owner.
+                                Mã nguồn và sản phẩm trí tuệ tạo ra trong suốt cuộc thi của các thí sinh đoạt giải chỉ thuộc sở hữu của Nhà tổ chức cuộc thi.
                             </td>
                           </tr>
                         </table>
@@ -566,7 +566,7 @@
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%" width="100%">
                     <tr>
-                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">This challenge has been published here</td>
+                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Thử thách được đăng ở đây</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
@@ -577,7 +577,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/post-contest?challengeId=${challengeId}&utm_source=challengepublishemail&utm_medium=viewchallengebtn&utm_campaign=topcoder" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View My Challenge</a>
+                              <a href="${webBaseUrl}#/contest-detail/${challengeId}?lang=vi&utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Thử Thách</a>
                             </td>
                           </tr>
                         </table>
@@ -589,7 +589,7 @@
                   <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
                     <tr>
                       <td style="text-align: center; margin-top:0px">
-                        <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
+                        <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">Kết Nối Với TechLooper</p>
                       </td>
                     </tr>
                     <tr>
@@ -604,7 +604,7 @@
                   <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
                     <tr>
                       <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                        Copyright © Navigos Group Vietnam Joint Stock Company
+                          Copyright © Công Ty Cổ Phần Navigos Group Việt Nam.
                       </td>
                     </tr>
                   </table>

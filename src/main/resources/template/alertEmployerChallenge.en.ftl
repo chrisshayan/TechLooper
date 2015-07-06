@@ -115,8 +115,8 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/?utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                    <a href="http://www.techlooper.com/#/?lang=en&utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                      <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Congratulations <strong><#if firstName??>${firstName}</#if><#if lastName??> ${lastName}</#if></strong>! You have enrolled successfully in the following challenge
+                          There is a new contestant <strong><#if firstName??>${firstName}</#if><#if lastName??> ${lastName}</#if></strong>, <strong>${registrantEmail}</strong> has just enrolled in the following challenge:
                       </td>
                     </tr>
                     <tr>
