@@ -55,7 +55,7 @@
     <div class="row registration-count">
       <div class="col-md-12">
         <p translate="registerNumber" translate-value-register-number="<strong>{{registerNumber}}</strong>"></p>
-        <a class="btn btn-primary btn-flat" translate="joinNow"></a>
+        <a ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btn btn-primary btn-flat" translate="joinNow" />
       </div>
     </div>
     <div class="row contest-content-detail">

@@ -47,23 +47,15 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         })
         .catch(function () {return $location.path("/login");});
       utils.sendNotification(jsonValue.notifications.hideLoadingBox);
-    }
+    },
+
+    init: function(){}
   };
 
   $rootScope.$on("$loginSuccess", function () {
     instance.ableToGo();
   });
 
-  $rootScope.$on("$locationChangeStart", function (event, next, current) {
-    switch (utils.getView()) {
-      case jsonValue.views.contestDetail:
-      case jsonValue.views.postContest:
-        localStorage.setItem('CAPTURE-PATHS', '/post-contest');
-      case jsonValue.views.login:
-        instance.ableToGo();
-        break;
-    }
-  });
 
   return instance;
 });

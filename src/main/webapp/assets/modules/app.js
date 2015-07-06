@@ -56,17 +56,17 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .setNotify(true, true)
       .setStorageCookie(45, "/");
 
-    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
-      .done(function (resp) {
-        var oauth1Providers = ["TWITTER"];
-        $.each(resp, function (i, prov) {
-          $authProvider[prov.provider.toLowerCase()]({
-            url: "auth/" + (oauth1Providers.indexOf(prov.provider) >= 0 ? "oath1/" : "") + prov.provider,
-            clientId: prov.apiKey,
-            redirectUri: prov.redirectUri
-          });
-        });
-      });
+    //$.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
+    //  .done(function (resp) {
+    //    var oauth1Providers = ["TWITTER"];
+    //    $.each(resp, function (i, prov) {
+    //      $authProvider[prov.provider.toLowerCase()]({
+    //        url: "auth/" + (oauth1Providers.indexOf(prov.provider) >= 0 ? "oath1/" : "") + prov.provider,
+    //        clientId: prov.apiKey,
+    //        redirectUri: prov.redirectUri
+    //      });
+    //    });
+    //  });
 
     $authProvider.loginRedirect = undefined;
 
@@ -166,7 +166,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/auth/login.html",
         controller: "loginController"
       })
-      .when("/contest-detail", {
+      .when("/contest-detail/:id", {
         templateUrl: "modules/contest-detail/contest-detail.tem.html",
         controller: "contestDetailController"
       })
@@ -186,7 +186,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, securityService) {
+                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -194,6 +194,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+
   //signInService.init();
 
   //var locationPathFn = $location.path;
@@ -226,6 +227,29 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
+  $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    switch (utils.getView()) {
+      case jsonValue.views.contestDetail:
+      case jsonValue.views.postContest:
+        localStorage.setItem('CAPTURE-PATHS', '/post-contest');
+      case jsonValue.views.login:
+        securityService.ableToGo();
+        break;
+    }
+  });
+
+  var param = $location.search();
+  if (param.registerVnwUser) {
+    //securityService.login(param.provider, param.code);
+    localStorageService.set("registerVnwUser", param.registerVnwUser);
+  }
+
+  //localStorageService.set("lastFoot", "/post-contest");
+  var lastFoot = localStorageService.get("lastFoot");
+  if (lastFoot) {
+    localStorageService.remove("lastFoot");
+    $location.url(lastFoot);
+  }
 });
 
 techlooper.directive("navigation", function () {
