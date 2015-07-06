@@ -377,7 +377,7 @@
   "moreDayToSubmit": "{{dayLeft}} more day(s) to submit",
   "ViewNextDeadlines": "View next deadlines +",
   "ViewAllDeadlines": "View all deadlines +",
-  "registerNumber": "There are 100 registrants for this contest.",
+  "registerNumber": "There are {{registerNumber}} registrants for this contest.",
   "joinNow": "Join Now",
   "registerBy": "Register By:",
   "startDate": "Start Date:",
