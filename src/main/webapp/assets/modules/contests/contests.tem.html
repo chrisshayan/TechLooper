@@ -47,7 +47,9 @@
                     <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
                   </td>
                   <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" translate-value-day-left="{{contest.submissionDateTime | countdown}}">
+                    <span  ng-show="status('contest-in-progress', contest)"
+                          translate="moreDayToSubmit"
+                          translate-value-day-left="{{contest.submissionDateTime | countdown}}">
                     </span>
                   </td>
                   <td data-label="{{'prize' | translate}}">
