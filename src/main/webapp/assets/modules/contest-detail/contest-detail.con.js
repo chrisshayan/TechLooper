@@ -1,9 +1,4 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams) {
-  //$scope.showDeadlineInfo = function(){
-  //  $scope.toggle = !$scope.toggle;
-  //}
-  
-  $scope.countDownDay = parseInt(moment().countdown("07/10/2015", countdown.DAYS, NaN, 2).toString());
 
   var contestId = $routeParams.id;
 
@@ -34,9 +29,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   apiService.getContestDetail(contestId).success(function(data) {
-    //TODO bind data
-    console.log(data);
     $scope.contestDetail = data;
+    console.log($scope.contestDetail);
+    $scope.contestDetail.countDown = parseInt(moment().countdown('07/10/2015', countdown.DAYS, NaN, 2).toString());
   });
 });
 

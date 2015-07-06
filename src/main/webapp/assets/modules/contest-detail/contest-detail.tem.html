@@ -11,24 +11,24 @@
 <div class="contest-detail-page">
   <div class="contest-detail-content">
     <div class="row contest-name">
-      <h2>Augmented Reality App</h2>
+      <h2>{{contestDetail.challengeName}}</h2>
       <a class="salary-report-share"><i class="fa fa-facebook"></i> <span class="text" translate="share"></span></a>
       <!--<a href="#/post-contest" class="btn btn-primary btn-flat" translate="createNewContest"></a>-->
     </div>
     <div class="row timeline-reward-block">
       <div class="col-md-8">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4" ng-class="{'col6': contestDetail.thirdPlaceReward == null, 'col12': contestDetail.secondPlaceReward == null, }">
             <p translate="stPrize"></p>
-            <strong>$35,000</strong>
+            <strong>${{contestDetail.firstPlaceReward | number:0}}</strong>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" ng-class="{'col6': contestDetail.thirdPlaceReward == null}"  ng-show="contestDetail.secondPlaceReward != null">
             <p translate="ndPrize"></p>
-            <strong>$25,000</strong>
+            <strong>${{contestDetail.secondPlaceReward | number:0}}</strong>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" ng-show="contestDetail.thirdPlaceReward != null">
             <p translate="rdPrize"></p>
-            <strong>$15,000</strong>
+            <strong>${{contestDetail.thirdPlaceReward | number:0}}</strong>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
           <h3 translate="currentPhase"></h3>
           <p translate="registration"></p>
           <p class="count-down-day" translate="moreDayToSubmit"
-             translate-value-day-left="<strong>{{countDownDay}}</strong>"></p>
+             translate-value-day-left="<strong>{{contestDetail.countDown}}</strong>"></p>
         </div>
         <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
           <span translate="ViewNextDeadlines" ng-show="!dateInfo"></span>
@@ -46,9 +46,9 @@
         </a>
         <div class="timeline-information animate-show" ng-show="dateInfo">
           <ul>
-            <li><span translate="startDate"></span>24/06/2015</li>
-            <li><span translate="registerBy"></span>26/06/2015</li>
-            <li><span translate="submitBy"></span>29/06/2015</li>
+            <li><span translate="startDate"></span>{{contestDetail.startDateTime}}</li>
+            <li><span translate="registerBy"></span>{{contestDetail.registrationDateTime}}</li>
+            <li><span translate="submitBy"></span>{{contestDetail.submissionDateTime}}</li>
           </ul>
         </div>
       </div>
@@ -64,53 +64,57 @@
         <div class="row contest-content-item">
           <p class="title" translate="challengeOverView"></p>
           <p class="detail">
-            App that uses Augmented Reality to help jobseekers to search for jobs in a more interactive way.  For this challenge, it is required to create a mobile app (iOS or Android) that will allow users to search for jobs by pointing their phone’s camera to a company logo or company building entrance.
+            {{contestDetail.challengeOverview}}
           </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="businessRequirements"></p>
           <p class="detail">
-            Describe the purpose of the challenge, what is the business issue to fix, the general approach and the use cases to resolve.
+            {{contestDetail.businessRequirement}}
           </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="generalNotes"></p>
-          <p class="detail">The UI prototype uses bootstrap. You must use it. It does not allow to use jqtransform query plugin. All pages are responsive. Follow the current styling structure, and javascript code structure.</p>
+          <p class="detail">
+            {{contestDetail.generalNote}}
+          </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="technologies"></p>
-          <p class="detail"><span class="tag">Java</span> <span class="tag">PHP</span> <span class="tag">Python</span></p>
+          <p class="detail">
+            <span class="tag" ng-repeat="skill in contestDetail.technologies">
+              {{skill}}
+            </span>
+          </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="documents"></p>
-          <p class="detail">UI Prototype and updated design files are provided in challenge forums.</p>
+          <p class="detail">
+            {{contestDetail.documents}}
+          </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="deliverables"></p>
-          <p class="detail">Updated UI prototype files. Text file to reviewers with change log: file names and line numbers.</p>
+          <p class="detail">
+            {{contestDetail.deliverables}}
+          </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="reviewStyle"></p>
-          <p class="detail">Contest Owner Sign-Off</p>
+          <p class="detail">
+            {{contestDetail.reviewStyle}}
+          </p>
         </div>
         <div class="quality-idea-block">
           <p class="header" translate="rewardTheWinner"></p>
           <div class="row contest-content-item">
             <p class="title" translate="qualityIdea"></p>
-            <p class="detail">Has acceptable tradeoffs</p>
+            <p class="detail">
+              {{contestDetail.qualityIdea}}
+            </p>
           </div>
         </div>
       </div>
-      <!--<div class="col-md-3">-->
-        <!--<div class="social-share-list">-->
-          <!--<h3 translate="share"></h3>-->
-          <!--<ul>-->
-            <!--<li>-->
-              <!--<a class="salary-report-share"><i class="fa fa-facebook"></i> <span class="text" translate="share"></span></a>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
-      <!--</div>-->
     </div>
   </div>
 </div>
