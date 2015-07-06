@@ -18,8 +18,7 @@ techlooper.directive('tagbox', function ($rootScope) {
 
       var resetForm = function () {
         scope.tagForm.$setPristine();
-        //scope.tagForm.$setUntouched();
-        //scope.tagForm.tag.$touched = false;
+        scope.tagForm.tag.$edited = false;
       }
 
       scope.tags = scope.tags || [];

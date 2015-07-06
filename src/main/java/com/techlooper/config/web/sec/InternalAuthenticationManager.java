@@ -2,7 +2,9 @@ package com.techlooper.config.web.sec;
 
 import com.techlooper.entity.vnw.RoleName;
 import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.vnw.VnwUserRepo;
+import com.techlooper.service.impl.FacebookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +30,8 @@ public class InternalAuthenticationManager implements AuthenticationManager {
   @Resource
   private VnwUserRepo vnwUserRepo;
 
+  private FacebookService facebookService;
+
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication, "Unsupported authentication type");
     Assert.isTrue(!authentication.isAuthenticated(), "Already authenticated");
@@ -48,5 +52,9 @@ public class InternalAuthenticationManager implements AuthenticationManager {
 
     LOGGER.debug("User [{}] does not exist in DB", authentication.getPrincipal().toString());
     throw new InternalAuthenticationServiceException("User does not exist in database.");
+  }
+
+  public static void main(String[] args) {
+    System.out.println(SocialProvider.valueOf(""));
   }
 }

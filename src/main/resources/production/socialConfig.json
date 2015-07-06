@@ -6,6 +6,15 @@
     "redirectUri": "http://techlooper.com/authentication"
   },
   {
+    "provider": "FACEBOOK_REGISTER",
+    "apiKey": "596454787147962",
+    "secretKey": "dc25bf6805886ee435f2bc56db3f393e",
+    "redirectUri": "http://techlooper.com/register/vnw/fb",
+    "apiUrl": {
+      "login": "https://www.facebook.com/dialog/oauth?client_id={apiKey}&redirect_uri={redirectUri}&scope=email"
+    }
+  },
+  {
     "provider": "FACEBOOK",
     "apiKey": "596454787147962",
     "secretKey": "dc25bf6805886ee435f2bc56db3f393e",

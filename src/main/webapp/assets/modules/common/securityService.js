@@ -18,12 +18,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       apiService
         .login({us: $.cookie("us"), pwd: $.cookie("pwd")})
         .success(function (data, status, headers, config) {
-            $('.errorFromServer').hide();
-            utils.sendNotification(jsonValue.notifications.loading, $(window).height());
             $rootScope.$emit("$loginSuccess");
           })
         .error(function(data, status, headers, config) {
-            $('.errorFromServer').show();
+          $rootScope.$emit("$loginFailed");
         });
       $.removeCookie("us");
       $.removeCookie("pwd");
@@ -49,23 +47,15 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         })
         .catch(function () {return $location.path("/login");});
       utils.sendNotification(jsonValue.notifications.hideLoadingBox);
-    }
+    },
+
+    init: function(){}
   };
 
   $rootScope.$on("$loginSuccess", function () {
     instance.ableToGo();
   });
 
-  $rootScope.$on("$locationChangeStart", function (event, next, current) {
-    switch (utils.getView()) {
-      case jsonValue.views.contestDetail:
-      case jsonValue.views.postContest:
-        localStorage.setItem('CAPTURE-PATHS', '/post-contest');
-      case jsonValue.views.login:
-        instance.ableToGo();
-        break;
-    }
-  });
 
   return instance;
 });

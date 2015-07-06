@@ -11,7 +11,17 @@
     "secretKey": "48114f64ce77e617b7f83fc055456217",
     "redirectUri": "http://localhost:8080/techlooper/authentication",
     "apiUrl": {
-      "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
+      "login": "https://www.facebook.com/dialog/oauth?client_id={apiKey}&redirect_uri={redirectUri}&scope=email",
+      "picture": "https://graph.facebook.com/v2.3/me/picture?redirect=false"
+    }
+  },
+  {
+    "provider": "FACEBOOK_REGISTER",
+    "apiKey": "775424035845076",
+    "secretKey": "48114f64ce77e617b7f83fc055456217",
+    "redirectUri": "http://localhost:8080/register/vnw/fb",
+    "apiUrl": {
+      "login": "https://www.facebook.com/dialog/oauth?client_id={apiKey}&redirect_uri={redirectUri}&scope=email"
     }
   },
   {

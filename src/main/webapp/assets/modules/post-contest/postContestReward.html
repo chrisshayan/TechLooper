@@ -49,7 +49,7 @@
                    name="secondPlaceReward" ng-model="contest.secondPlaceReward"
                    ng-model="contest.secondPlaceReward"
                    required-expr="state.status('compare-2reward-1reward')"
-                   required-expr2="state.status('place-reward-range', contest.secondPlaceReward)"
+                   required-expr2="state.status('optional-place-reward-range', contest.secondPlaceReward)"
                    placeholder="{{'secondPrize' | translate}}" only-digits maxlength="4" touchable/>
 
             <div ng-show="rewardForm.secondPlaceReward.$edited || rewardForm.$submitted">
@@ -72,7 +72,7 @@
                    name="thirdPlaceReward"
                    ng-model="contest.thirdPlaceReward"
                    required-expr="state.status('compare-3reward-2reward')"
-                   required-expr2="state.status('place-reward-range', contest.thirdPlaceReward)"
+                   required-expr2="state.status('optional-place-reward-range', contest.thirdPlaceReward)"
                    placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
 
             <div ng-show="rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted">

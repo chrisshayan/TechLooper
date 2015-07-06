@@ -278,6 +278,30 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
+    public Template confirmUserJoinChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template confirmUserJoinChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.vi.ftl");
+        return template;
+    }
+
+    @Bean
     public JsonNode vietnamworksConfiguration() throws IOException {
         return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
     }

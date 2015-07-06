@@ -60,6 +60,9 @@
         font-size: 14px
         strong
           display: none
+      p.count-down-day
+        strong
+          display: inline
       strong
         font-size: 20px
       .col-md-4
@@ -79,7 +82,8 @@
           float: left
 
         .time-block
-          padding: 10px 10px 10px 70px
+          padding: 10px 10px 5px 70px
+          min-height: 85px
           p
             color: #a3d5ff
           h3
@@ -88,6 +92,8 @@
           p.count-down-day
             font-size: 12px
             color: #fff
+            strong
+              line-height: 100%
         a
           display: block
           background-color: #a3d5ff
@@ -138,6 +144,24 @@
           height: 100%
           padding: 35px 15px 15px
           min-height: 119px
+        .col-md-6
+          border-right: 5px solid #fff
+          text-align: center
+          background-color: transparent
+          height: 100%
+          padding: 35px 15px 15px
+          min-height: 119px
+        .col-md-12
+          border-right: 5px solid #fff
+          text-align: center
+          background-color: transparent
+          height: 100%
+          padding: 35px 15px 15px
+          min-height: 119px
+      .col6
+        width: 50%
+      .col12
+        width: 100%
     .registration-count
       margin-top: 20px
       -webkit-border-radius: 5px
@@ -158,13 +182,14 @@
             font-size: 25px
         a
           float: right
-          padding: 6px 35px
+          padding: 0 35px
+          line-height: 34px
     .contest-content-detail
       margin-top: 20px
       display: -ms-flexbox
       display: -webkit-flex
       display: flex
-      .col-md-9
+      .col-md-12
         -webkit-border-top-left-radius: 5px
         -webkit-border-bottom-left-radius: 5px
         -moz-border-radius-topleft: 5px
@@ -228,3 +253,5 @@
           text-transform: capitalize
         .contest-content-item
           padding-left: 15px
+    .alert
+      margin-top: 20px

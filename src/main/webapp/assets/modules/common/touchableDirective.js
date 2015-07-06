@@ -1,5 +1,5 @@
 techlooper
-  .directive('touchable', function () {
+  .directive('touchable', function ($rootScope) {
     return {
       require: 'ngModel',
       restrict: 'A',
@@ -8,7 +8,8 @@ techlooper
           ngModelCtrl.$edited = true;
         });
 
-        if (attr.forcusout == 'true') {
+
+        if (attr.focusout == 'true') {
           element.focusout(function () {
             ngModelCtrl.$edited = false;
           });

@@ -18,6 +18,23 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     logout: function () {
       return $http.get("logout");
+    },
+
+    getFBLoginUrl: function() {
+      return $http.get("social/FACEBOOK_REGISTER/loginUrl", {transformResponse: function (d, h) {return d;}});
+    },
+
+    getContestDetail: function(id) {
+      return $http.get("challenge/" + id);
+    },
+
+    joinContest: function(contestId, registrantEmail) {
+      return $http.post("challenge/join",
+        {challengeId: contestId, registrantEmail: registrantEmail}, {transformResponse: function (d, h) {return d;}});
+    },
+
+    searchContests: function() {
+      return $http.get("challenge/list");
     }
   }
 

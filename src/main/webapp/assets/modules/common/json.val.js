@@ -175,7 +175,8 @@ angular.module("Common").constant("jsonValue", (function () {
       userProfile: "/user",
       priceJob: "/price-job",
       contest: "contest",
-      contestDetail: "/contest-detail"
+      contestDetail: "/contest-detail",
+      contests: "/contests"
     },
 
     views: {
@@ -202,7 +203,8 @@ angular.module("Common").constant("jsonValue", (function () {
       contest: "contest",
       postContest: "postContest",
       login: "login",
-      contestDetail: "contestDetail"
+      contestDetail: "contestDetail",
+      contests: "contests"
     },
 
     httpUri: {
@@ -221,7 +223,8 @@ angular.module("Common").constant("jsonValue", (function () {
       termStatistic: "term/statistic",
       salaryReview: "salaryReview",
       getPromoted: "getPromoted",
-      contest: "contest"
+      contest: "contest",
+      contests: "contests"
     },
 
     socketUri: {
@@ -800,7 +803,14 @@ angular.module("Common").constant("jsonValue", (function () {
       }
     },
 
-    dateFormat: "DD/MM/YYYY"
+    dateFormat: "DD/MM/YYYY",
+
+    status: {
+      notStarted: {translate: "notStart"},
+      registration: {translate: "registration"},
+      progress: {translate: "inProgress"},
+      closed: {translate: "closed"}
+    }
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
