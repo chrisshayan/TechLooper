@@ -167,8 +167,22 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public long joinChallenge(ChallengeRegistrantDto joinChallenge) {
-        return 15L;
+    public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
+        Long challengeId = challengeRegistrantDto.getChallengeId();
+        ChallengeRegistrantEntity challengeRegistrantEntity =
+                challengeRegistrantRepository.findOne(challengeRegistrantDto.getRegistrantEmail());
+        if (challengeRegistrantEntity != null) {
+            challengeRegistrantEntity.setChallengeId(challengeId);
+            if (challengeRegistrantEntity.getMailSent() == null ||
+                    challengeRegistrantEntity.getMailSent() == Boolean.FALSE) {
+                ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+                sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+                sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+                challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            }
+            challengeRegistrantRepository.save(challengeRegistrantEntity);
+        }
+        return getNumberOfRegistrants(challengeId);
     }
 
     @Override
