@@ -10,6 +10,7 @@ import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
@@ -35,4 +36,6 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     long joinChallenge(ChallengeRegistrantDto joinChallenge);
+
+    List<ChallengeDetailDto> listChallenges();
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class ChallengeController {
@@ -41,6 +42,11 @@ public class ChallengeController {
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
     public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge) throws Exception {
         return challengeService.joinChallenge(joinChallenge);
+    }
+
+    @RequestMapping(value = "/challenge/list", method = RequestMethod.POST)
+    public List<ChallengeDetailDto> listChallenges() throws Exception {
+        return challengeService.listChallenges();
     }
 
 }
