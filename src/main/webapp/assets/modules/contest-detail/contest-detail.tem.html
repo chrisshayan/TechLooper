@@ -37,10 +37,10 @@
       <div class="col-md-4">
         <div class="ic-time-down"></div>
         <div class="time-block">
-          <h3 translate="currentPhase"></h3>
-          <p translate="registration"></p>
+          <h3 translate="currentPhase" />
+          <p translate="{{contestDetail | progress:'challenge'}}" />
           <p class="count-down-day" translate="moreDayToSubmit"
-             translate-value-day-left="<strong>{{contestDetail.countDown}}</strong>"></p>
+             translate-value-day-left="<strong>{{contestDetail.submissionDateTime | countdown}}</strong>" ng-show="status('contest-in-progress')" />
         </div>
         <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
           <span translate="ViewNextDeadlines" ng-show="!dateInfo"></span>
