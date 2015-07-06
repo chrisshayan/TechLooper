@@ -47,14 +47,15 @@
                     <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
                   </td>
                   <td data-label="{{'timeLeft' | translate}}">
-                    <span translate="moreDayToSubmit" data-value-day-left="{{dayLeft}}"></span>
+                    <span translate="moreDayToSubmit" translate-value-day-left="{{contest.submissionDateTime | countdown}}">
+                    </span>
                   </td>
                   <td data-label="{{'prize' | translate}}">
                     <p>${{contest.firstPlaceReward | number:0}}</p>
                     <p ng-show="contest.secondPlaceReward !=null">${{contest.secondPlaceReward | number:0}}</p>
                     <p ng-show="contest.thirdPlaceReward !=null">${{contest.thirdPlaceReward | number:0}}</p>
                   </td>
-                  <td data-label="{{'currentPhase' | translate}}">Not started</td>
+                  <td data-label="{{'currentPhase' | translate}}"><span translate="{{contest | progress:'challenge'}}"></span></td>
                   <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
                   <td data-label="{{'action' | translate}}">
                     <p><a href="#/contest-detail" class="view" title="{{'viewDetail' | translate}}"></a></p>
