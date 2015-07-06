@@ -7,36 +7,67 @@ import org.dozer.Mapping;
  */
 public class VnwUserProfile extends UserProfile {
 
-    @Mapping("emailAddress")
-    private String email;
+  @Mapping("emailAddress")
+  private String email;
 
-    @Mapping("firstName")
-    private String firstname;
+  @Mapping("firstName")
+  private String firstname;
 
-    @Mapping("lastName")
-    private String lastname;
+  @Mapping("lastName")
+  private String lastname;
 
-    public String getEmail() {
-        return email;
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
+
+  public static class VnwUserProfileBuilder {
+    private VnwUserProfile vnwUserProfile;
+
+    private VnwUserProfileBuilder() {
+      vnwUserProfile = new VnwUserProfile();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public VnwUserProfileBuilder withEmail(String email) {
+      vnwUserProfile.email = email;
+      return this;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public VnwUserProfileBuilder withFirstname(String firstname) {
+      vnwUserProfile.firstname = firstname;
+      return this;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public VnwUserProfileBuilder withLastname(String lastname) {
+      vnwUserProfile.lastname = lastname;
+      return this;
     }
 
-    public String getLastname() {
-        return lastname;
+    public static VnwUserProfileBuilder vnwUserProfile() {
+      return new VnwUserProfileBuilder();
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public VnwUserProfile build() {
+      return vnwUserProfile;
     }
+  }
 }
