@@ -1,6 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
@@ -32,4 +33,6 @@ public interface ChallengeService {
 
     void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
             throws MessagingException, IOException, TemplateException;
+
+    long joinChallenge(ChallengeRegistrantDto joinChallenge);
 }

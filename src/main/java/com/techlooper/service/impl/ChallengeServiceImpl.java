@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
@@ -29,7 +30,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -163,8 +163,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         sendContestApplicationEmail(template, mailSubject, challengeEntity, challengeRegistrantEntity);
     }
 
+    @Override
+    public long joinChallenge(ChallengeRegistrantDto joinChallenge) {
+        return 15L;
+    }
+
     private void sendContestApplicationEmail(Template template, String mailSubject, ChallengeEntity challengeEntity,
-            ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
+                                             ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, challengeRegistrantEntity.getRegistrantEmail());
         StringWriter stringWriter = new StringWriter();
 

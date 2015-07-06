@@ -1,11 +1,11 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.EmailValidator;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +37,12 @@ public class ChallengeController {
     @RequestMapping(value = "/challenge/{challengeId}", method = RequestMethod.GET)
     public ChallengeDetailDto getChallengeDetail(@PathVariable Long challengeId) throws Exception {
         return challengeService.getChallengeDetail(challengeId);
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
+    public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge) throws Exception {
+        return challengeService.joinChallenge(joinChallenge);
     }
 
 }
