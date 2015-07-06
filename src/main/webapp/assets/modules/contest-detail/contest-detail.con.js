@@ -2,6 +2,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //$scope.showDeadlineInfo = function(){
   //  $scope.toggle = !$scope.toggle;
   //}
+  
+  $scope.countDownDay = parseInt(moment().countdown("07/10/2015", countdown.DAYS, NaN, 2).toString());
 
   var contestId = $routeParams.id;
 
@@ -37,3 +39,4 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.contestDetail = data;
   });
 });
+

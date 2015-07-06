@@ -37,7 +37,8 @@
         <div class="time-block">
           <h3 translate="currentPhase"></h3>
           <p translate="registration"></p>
-          <p class="count-down-day" translate-value-count-down-day="<strong>{countDownDay}}</strong>" translate="moreDayToSubmit"></p>
+          <p class="count-down-day" translate="moreDayToSubmit"
+             translate-value-day-left="<strong>{{countDownDay}}</strong>"></p>
         </div>
         <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
           <span translate="ViewNextDeadlines" ng-show="!dateInfo"></span>
