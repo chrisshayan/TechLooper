@@ -33,13 +33,11 @@ public class ChallengeController {
         return challengeEntity.getChallengeId();
     }
 
-    @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/{challengeId}", method = RequestMethod.GET)
     public ChallengeDetailDto getChallengeDetail(@PathVariable Long challengeId) throws Exception {
         return challengeService.getChallengeDetail(challengeId);
     }
-
-    @PreAuthorize("hasAuthority('EMPLOYER')")
+    
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
     public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge) throws Exception {
         return challengeService.joinChallenge(joinChallenge);
