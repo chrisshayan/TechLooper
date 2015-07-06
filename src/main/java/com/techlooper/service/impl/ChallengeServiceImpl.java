@@ -30,7 +30,10 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
@@ -178,7 +181,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
             challenges.add(challengeDetailDto);
         }
-        return challenges;
+        return sortChallengesByDescendingStartDate(challenges);
     }
 
     private void sendContestApplicationEmail(Template template, String mailSubject, ChallengeEntity challengeEntity,
@@ -256,6 +259,18 @@ public class ChallengeServiceImpl implements ChallengeService {
         Set<String> emails = new HashSet<>(challengeEntity.getReceivedEmails());
         emails.add(challengeEntity.getAuthorEmail());
         return InternetAddress.parse(StringUtils.join(emails, ','));
+    }
+
+    private List<ChallengeDetailDto> sortChallengesByDescendingStartDate(List<ChallengeDetailDto> challenges) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return challenges.stream().sorted((challenge1, challenge2) -> {
+            try {
+                return (int) sdf.parse(challenge1.getStartDateTime()).getTime() -
+                        (int) (sdf.parse(challenge2.getStartDateTime()).getTime());
+            } catch (ParseException e) {
+                return 0;
+            }
+        }).collect(Collectors.toList());
     }
 
 }

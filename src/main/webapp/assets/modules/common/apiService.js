@@ -31,6 +31,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     joinContest: function(contestId, registrantEmail) {
       return $http.post("challenge/join",
         {challengeId: contestId, registrantEmail: registrantEmail}, {transformResponse: function (d, h) {return d;}});
+    },
+
+    searchContests: function() {
+      return $http.post("challenge/list");
     }
   }
 

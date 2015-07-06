@@ -44,7 +44,7 @@ public class ChallengeController {
         return challengeService.joinChallenge(joinChallenge);
     }
 
-    @RequestMapping(value = "/challenge/list", method = RequestMethod.POST)
+    @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
     public List<ChallengeDetailDto> listChallenges() throws Exception {
         return challengeService.listChallenges();
     }
