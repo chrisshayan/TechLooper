@@ -1,4 +1,4 @@
-techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams) {
+techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams, jsonValue) {
 
   var contestId = $routeParams.id;
 
@@ -8,13 +8,14 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         if (!$scope.contestDetail) return false;
         var joinContests = localStorageService.get("joinContests") || "";
         var registerVnwUser = localStorageService.get("registerVnwUser") || "";
-        var contestStatus = $scope.contestDetail.progress["registration"] || $scope.contestDetail.progress["progress"];
+        var contestStatus = ($scope.contestDetail.progress == jsonValue.status.registration.translate) ||
+          ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
         var hasNotJoined = joinContests.indexOf(contestId) < 0;
         return contestStatus && hasNotJoined;
 
       case "contest-in-progress":
         if (!$scope.contestDetail) return false;
-        return $scope.contestDetail.progress["progress"];
+        return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
     }
   }
 
@@ -51,14 +52,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     //$scope.contestDetail.status = moment($scope.contestDetail.startDateTime).toNow();
     //console.log($scope.contestDetail.status);
   });
-//<<<<<<< HEAD
-//  //$scope.formatDate = function(d){
-//  //  return moment(d).format('MM DD YYYY');
-//  //}
-//=======
-//  $scope.formatDate = function(d){
-//    return moment(d).format('MM DD YYYY');
-//  }
 
   $scope.fbShare = function(url, title, descr, image, winWidth, winHeight) {
     var winTop = (screen.height / 2) - (winHeight / 2);
