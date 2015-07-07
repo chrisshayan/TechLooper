@@ -42,8 +42,8 @@
              translate-value-day-left="<strong>{{contestDetail.submissionDateTime | countdown}}</strong>" ng-show="status('contest-in-progress')" />
         </div>
         <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
-          <span translate="ViewNextDeadlines" ng-show="!dateInfo"></span>
-          <span translate="ViewAllDeadlines" ng-show="dateInfo"></span>
+          <span translate="ViewNextDeadlines" ng-show="dateInfo"></span>
+          <span translate="ViewAllDeadlines" ng-show="!dateInfo"></span>
         </a>
         <div class="timeline-information animate-show" ng-show="dateInfo">
           <ul>
@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="alert alert-success"  ng-show="!status('able-to-join')">
+    <div class="alert alert-success"  ng-show="!status('already-join')">
       <p translate="congratulationsForJoinContest"></p>
     </div>
     <div class="row registration-count">
@@ -67,21 +67,16 @@
       <div class="col-md-12">
         <div class="row contest-content-item">
           <p class="title" translate="challengeOverView"></p>
-          <p class="detail">
-            {{contestDetail.challengeOverview}}
+          <p class="detail" translate="{{contestDetail.challengeOverview | lineBreak}}">
           </p>
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="businessRequirements"></p>
-          <p class="detail">
-            {{contestDetail.businessRequirement}}
-          </p>
+          <p class="detail" translate="{{contestDetail.businessRequirement | lineBreak}}" />
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="generalNotes"></p>
-          <p class="detail">
-            {{contestDetail.generalNote}}
-          </p>
+          <p class="detail" translate="{{contestDetail.generalNote | lineBreak}}" />
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="technologies"></p>
@@ -93,15 +88,11 @@
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="documents"></p>
-          <p class="detail">
-            {{contestDetail.documents}}
-          </p>
+          <p class="detail" translate="{{contestDetail.documents | lineBreak}}" />
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="deliverables"></p>
-          <p class="detail">
-            {{contestDetail.deliverables}}
-          </p>
+          <p class="detail" translate="{{contestDetail.deliverables | lineBreak}}" />
         </div>
         <div class="row contest-content-item">
           <p class="title" translate="reviewStyle"></p>
@@ -110,9 +101,9 @@
           </p>
         </div>
         <div class="quality-idea-block">
-          <p class="header" translate="rewardTheWinner"></p>
+          <p class="header" translate="howWeEvaluateContestants"/>
           <div class="row contest-content-item">
-            <p class="title" translate="qualityIdea"></p>
+            <p class="title" translate="qualityIdea" />
             <p class="detail">
               {{contestDetail.qualityIdea}}
             </p>

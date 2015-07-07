@@ -40,14 +40,18 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
             return moment().add(63, 'day').format('DD/MM/YYYY');
 
           case "start-date-wt-4w":
+            if (!$scope.contest.startDate) return true;
             var lastDate = moment().add(4, 'weeks');
-            return moment($scope.contest.startDate, jsonValue.dateFormat).isBetween(moment(), lastDate, 'day');
+            var startDate = moment($scope.contest.startDate, jsonValue.dateFormat);
+            return startDate.isBetween(moment(), lastDate, 'day') || startDate.isSame(moment(), "day");
 
           case "register-date-gt-start-date":
+            if (!$scope.contest.registrationDate) return true;
             var lastDate = moment($scope.contest.startDate, jsonValue.dateFormat);
             return moment($scope.contest.registrationDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
 
           case "submit-date-gt-register-date":
+            if (!$scope.contest.submissionDate) return true;
             var lastDate = moment($scope.contest.registrationDate, jsonValue.dateFormat);
             return moment($scope.contest.submissionDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
         }
@@ -71,6 +75,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
             return "active showNavi";
 
           case "place-reward-range":
+            if (!param) return true;
             return param <= 5000 && param >= 100;
 
           case "optional-place-reward-range":
@@ -94,7 +99,8 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
         $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
           .then(function (response) {
-            $location.url("/contest-detail/" + response.data);
+            var title = utils.toAscii($scope.contest.challengeName);
+            $location.url(sprintf("/contest-detail/%s-%s-id", title, response.data));
           })
           .finally(function () {
             utils.sendNotification(jsonValue.notifications.hideLoadingBox);

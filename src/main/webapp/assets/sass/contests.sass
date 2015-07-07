@@ -79,6 +79,7 @@
         width: 90px
         float: left
         text-align: left
+
     a.view
       background: url(../images/ic-view.png) left top no-repeat
       width: 33px
@@ -96,8 +97,11 @@
       width: auto
       font-size: 12px
       margin-bottom: 5px
+    span.note
+      display: block
+      clear: both
   table.contests-table td:nth-child(1)
-    max-width: 280px
+    //max-width: 280px
     text-align: left
     p
       text-align: left !important
@@ -105,3 +109,8 @@
       padding-bottom: 10px
   table.contests-table td:nth-child(2)
     min-width: 200px
+  table.contests-table td:last-child
+    min-width: 100px
+    text-align: center
+    a
+      display: block

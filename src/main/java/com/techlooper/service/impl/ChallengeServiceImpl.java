@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -148,9 +149,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
-        Template template = challengeEntity.getLang() == Language.vi ?
+        Template template = challengeRegistrantEntity.getLang() == Language.vi ?
                 confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
-        String mailSubject = challengeEntity.getLang() == Language.vi ?
+        String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
                 confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
         Address[] emailAddress = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
@@ -159,9 +160,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
-        Template template = challengeEntity.getLang() == Language.vi ?
+        Template template = challengeRegistrantEntity.getLang() == Language.vi ?
                 alertEmployerChallengeMailTemplateVi : alertEmployerChallengeMailTemplateEn;
-        String mailSubject = challengeEntity.getLang() == Language.vi ?
+        String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
                 alertEmployerChallengeMailSubjectVn : alertEmployerChallengeMailSubjectEn;
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
         Address[] emailAddress = getRecipientAddresses(challengeEntity, false);
@@ -171,19 +172,27 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long challengeId = challengeRegistrantDto.getChallengeId();
-        String registrantEmail = new String(Base64.getDecoder().decode(challengeRegistrantDto.getRegistrantEmail()));
-        ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.findOne(registrantEmail);
+        String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
+        Long registrantId = Long.valueOf(registrantEmail);
+        ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.findOne(registrantId);
 
         if (challengeRegistrantEntity != null) {
-            challengeRegistrantEntity.setChallengeId(challengeId);
-            if (challengeRegistrantEntity.getMailSent() == null ||
-                    challengeRegistrantEntity.getMailSent() == Boolean.FALSE) {
-                ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-                sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-                sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
-                challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantEntity.getRegistrantEmail());
+
+            if (!isExist) {
+                challengeRegistrantEntity.setChallengeId(challengeId);
+                challengeRegistrantEntity.setLang(challengeRegistrantDto.getLang());
+                if (challengeRegistrantEntity.getMailSent() == null ||
+                        challengeRegistrantEntity.getMailSent() == Boolean.FALSE) {
+                    ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+                    sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+                    sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+                    challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+                }
+                challengeRegistrantRepository.save(challengeRegistrantEntity);
+            } else {
+                challengeRegistrantRepository.delete(registrantId);
             }
-            challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
 
         return getNumberOfRegistrants(challengeId);
@@ -231,6 +240,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("firstName", challengeRegistrantEntity.getRegistrantFirstName());
         templateModel.put("lastName", challengeRegistrantEntity.getRegistrantLastName());
         templateModel.put("registrantEmail", challengeRegistrantEntity.getRegistrantEmail());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         template.process(templateModel, stringWriter);
         postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
@@ -265,6 +275,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
         templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
@@ -287,12 +298,30 @@ public class ChallengeServiceImpl implements ChallengeService {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return challenges.stream().sorted((challenge1, challenge2) -> {
             try {
-                return (int) sdf.parse(challenge1.getStartDateTime()).getTime() -
-                        (int) (sdf.parse(challenge2.getStartDateTime()).getTime());
+                long challenge2StartDate = sdf.parse(challenge2.getStartDateTime()).getTime();
+                long challenge1StartDate = sdf.parse(challenge1.getStartDateTime()).getTime();
+                if (challenge2StartDate - challenge1StartDate > 0) {
+                    return 1;
+                } else if (challenge2StartDate - challenge1StartDate < 0) {
+                    return -1;
+                } else {
+                    return 0;
+                }
             } catch (ParseException e) {
                 return 0;
             }
         }).collect(Collectors.toList());
+    }
+
+    public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+        searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
+                .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
+                .must(QueryBuilders.termQuery("challengeId", challengeId))
+                .must(QueryBuilders.termQuery("mailSent", true)));
+
+        long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
+        return (total > 0);
     }
 
 }

@@ -9,7 +9,7 @@
             <label translate="qualityIdea"></label>
             <selectize name="qualityIdea" ng-model="contest.qualityIdea" config="config.qualityIdea" required touchable></selectize>
             <div class="error-messages"
-                 ng-show="challengeForm.qualityIdea.$error.required && (challengeForm.qualityIdea.$touched || challengeForm.$submitted)"
+                 ng-show="rewardForm.qualityIdea.$error.required && (rewardForm.qualityIdea.$edited || rewardForm.$submitted)"
                  translate="requiredThisField"></div>
           </div>
           <div class="post-contest-field-tooltip">
@@ -31,10 +31,10 @@
 
             <div ng-show="rewardForm.firstPlaceReward.$edited || rewardForm.$submitted">
               <div class="error-messages"
-                   ng-show="rewardform.firstplacereward.$error.required"
-                   translate="requiredthisfield"></div>
+                   ng-show="rewardForm.firstPlaceReward.$error.required"
+                   translate="requiredThisField"></div>
               <div class="error-messages"
-                   ng-show="rewardform.firstplacereward.$error.requiredExpr"
+                   ng-show="rewardForm.firstPlaceReward.$error.requiredExpr"
                    translate="rewardShouldFrom100To5000"></div>
             </div>
           </div>
@@ -92,7 +92,7 @@
       </div>
       <div class="box-content">
         <h3 translate="termsConditions"></h3>
-        <div class="post-contest-field">
+        <div class="post-contest-field terms-conditions">
           <div class="post-contest-field-content">
             <div class="terms-conditions-block">
               <p translate="termsConditionsContent1"></p>

@@ -115,12 +115,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/#/?lang=en&utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.techlooper.com/#/?lang=en&utm_source=contestantapplication&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=contestantapplication&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">About your challenge</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Challenge Information</strong>
                       </td>
                     </tr>
                     <tr>
@@ -206,7 +206,7 @@
                                     Challenge Overview:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeOverview}
+                                  ${challengeOverview?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -222,7 +222,7 @@
                                     Business Requirements:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${businessRequirement}
+                                  ${businessRequirement?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -238,7 +238,7 @@
                                     General Notes:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${generalNote}
+                                  ${generalNote?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -270,7 +270,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${documents}
+                                  ${documents?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                                     Deliverables:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${deliverables}
+                                  ${deliverables?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -403,7 +403,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Your Reward</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Reward</strong>
                       </td>
                     </tr>
                     <tr>
@@ -577,7 +577,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/contest-detail/${challengeId}?utm_source=employerapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View My Challenge</a>
+                              <a href="${webBaseUrl}#/contest-detail/${challengeNameAlias}-${challengeId}-id?utm_source=employerapplication&utm_medium=viewchallengebtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View My Challenge</a>
                             </td>
                           </tr>
                         </table>

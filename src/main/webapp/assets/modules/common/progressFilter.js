@@ -7,27 +7,27 @@ techlooper.filter("progress", function (jsonValue) {
         //if current date < start date
         var startDate = moment(contestDetail.startDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.notStarted;
-        if (moment().isBefore(startDate)) {
+        if (moment().isBefore(startDate, 'day')) {
           return contestDetail.progress.translate;
         }
 
         //if start date <= current date <= register date
         var registrationDate = moment(contestDetail.registrationDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.registration;
-        if (moment().isBetween(startDate, registrationDate) || moment().isSame(startDate) || moment().isSame(registrationDate)) {
+        if (moment().isBetween(startDate, registrationDate, 'day') || moment().isSame(startDate, 'day') || moment().isSame(registrationDate, 'day')) {
           return contestDetail.progress.translate;
         }
 
         // if register date < current date <= submit date
         var submissionDate = moment(contestDetail.submissionDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.progress;
-        if (moment().isBetween(registrationDate, submissionDate) || moment().isSame(submissionDate)) {
+        if (moment().isBetween(registrationDate, submissionDate, 'day') || moment().isSame(submissionDate, 'day')) {
           return contestDetail.progress.translate;
         }
 
         //  if submit date < current date
         contestDetail.progress = jsonValue.status.closed;
-        if (submissionDate.isBefore(moment())) {
+        if (submissionDate.isBefore(moment(), 'day')) {
           return contestDetail.progress.translate;
         }
 

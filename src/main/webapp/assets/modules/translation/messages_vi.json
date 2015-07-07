@@ -225,7 +225,7 @@
   "emailMeSimilarJobs": "Gửi Cho Tôi",
   "share": "Chia sẻ",
   "alertSuccessJobAlert": "Chúc mừng! Chúng tôi vừa gửi email cho bạn. Hãy kiểm tra và xác nhận đăng ký. Sau khi xác nhận, bạn sẽ nhận được thông tin về các việc làm phù hợp.",
-  "companyTitle": "Xin chúc mừng! Bạn nhận được đề nghị mở Thẻ Tín Dụng từ Citibank",
+  "companyTitle": "Chúc mừng! Bạn nhận được đề nghị mở Thẻ Tín Dụng Citibank",
   "companyThanks1": "Cảm ơn bạn đã tham gia đăng ký Thẻ Tín Dụng của ngân hàng Citibank. Chúng tôi sẽ sớm liên hệ với bạn.",
   "companyThanks2": "Cảm ơn bạn đã tham gia đăng ký Thẻ Tín Dụng của ngân hàng Citibank.",
   "companyMessages": "Nhận ngay Vali kéo sành điệu, khi đăng ký thẻ Citi Cash Back",
@@ -301,6 +301,8 @@
   "getAnalytics": "Phân Tích và Xu Hướng",
   "getYourSalaryReport": "Đánh Giá Mức Lương",
   "joinTechLooperContest": "Thử Thách Từ TechLooper",
+  "joinTechLooperChallenge": "Thử Thách Từ TechLooper",
+  "allChallenges": "Thử Thách Từ Nhà Tuyển Dụng",
   "allContests": "Thử Thách Từ Nhà Tuyển Dụng",
   "priceAJob": "Đánh Giá Tin Đăng Tuyển",
   "postAContest": "Đăng Tin Thử Thách",
@@ -349,7 +351,7 @@
   "login": "Đăng Nhập",
   "password": "mật khẩu",
   "evaluateContestants":"Các tiêu chí đánh giá sản phẩm:",
-  "qualityIdea": "Ý tưởng: <strong>*</strong>",
+  "qualityIdea": "Chất lượng sản phẩm: <strong>*</strong>",
   "qualityIdeaEX": "Ví dụ: Sáng tạo và độc đáo",
   "qualityIdeaTip": "Sản phẩm của các thí sinh sẽ được phân loại dựa trên mức độ đáp ứng tiêu chí đặt ra của Nhà tổ chức. Hiện thời có 4 tiêu chí để đánh giá chất lượng sản phẩm. Bạn hãy chọn tiêu chí đánh giá mà bạn mong muốn nhất.",
   "implementationIdea": "Chất lượng: <strong>*</strong>",
@@ -381,8 +383,8 @@
   "ViewAllDeadlines": "Xem tiến độ hiện thời +",
   "registerNumber": "Đang có {{registerNumber}} thí sinh tham gia thử thách này.",
   "joinNow": "Tham Gia Ngay",
-  "registerBy": "Ngày Bắt Đầu:",
-  "startDate": "Hạn Đăng Ký:",
+  "registerBy": "Hạn Đăng Ký:",
+  "startDate": "Ngày Bắt Đầu:",
   "submitBy": "Hạn Gửi Bài:",
   "reward2LessThanReward1": "Tiền Thưởng Cho Giải Nhì không được lớn hơn Giải Nhất.",
   "reward3LessThanReward2": "Tiền Thưởng Cho Giải Ba không được lớn hơn Giải Nhì.",
@@ -391,7 +393,7 @@
   "registerDateGTStartDate": "Ngày Hết Hạn Đăng Ký phải sau Ngày Bắt Đầu ít nhất 1 ngày.",
   "submitDateGTRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
   "contestOwnerSignOff": "Nhà Tổ Chức Cuộc Thi phê duyệt sản phẩm",
-  "exContestOwnerSignOff": "Ví dụ: Nhà Tổ Chức phê duyệt sản phẩm.",
+  "exContestOwnerSignOff": "Ví dụ: Nhà Tổ Chức phê duyệt sản phẩm",
   "hasAcceptableTradeoffs" : "Đáp ứng đồng đều thoả đáng các tính năng",
   "theSolutionAchievesTheStatedGoals" : "Giải pháp đạt được tất cả mục tiêu đặt ra",
   "theSolutionIsPracticalAndReliable" : "Giải pháp thực tiễn và đáng tin cậy",
@@ -424,7 +426,10 @@
   "notStart": "Chưa Bắt Đầu",
   "inProgress": "Đang Diễn Ra",
   "closed": "Đã Kết Thúc",
-  "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công."
+  "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công.",
+  "contestDetail": "Chi tiết cuộc thi",
+  "viewDetails": "Chi tiết",
+  "howWeEvaluateContestants":"Các tiêu chí đánh giá sản phẩm:"
 }
 
 
