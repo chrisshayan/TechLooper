@@ -240,6 +240,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("firstName", challengeRegistrantEntity.getRegistrantFirstName());
         templateModel.put("lastName", challengeRegistrantEntity.getRegistrantLastName());
         templateModel.put("registrantEmail", challengeRegistrantEntity.getRegistrantEmail());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         template.process(templateModel, stringWriter);
         postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
@@ -274,6 +275,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
         templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
