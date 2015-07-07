@@ -94,7 +94,8 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
         $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
           .then(function (response) {
-            $location.url("/contest-detail/" + response.data);
+            var title = utils.toAscii($scope.contest.challengeName);
+            $location.url(sprintf("/contest-detail/%s-%s-id", title, response.data));
           })
           .finally(function () {
             utils.sendNotification(jsonValue.notifications.hideLoadingBox);

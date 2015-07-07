@@ -1,19 +1,28 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter) {
 
-  var contestId = $routeParams.id;
+  var parts = $routeParams.id.split("-");
+  var lastPart = parts.pop();
+  if (parts.length < 2 || (lastPart !== "id")) {
+    return $location.path("/");
+  }
+  var contestId = parts.pop();
+  var title = parts.join("");
+  if (utils.hasNonAsciiChar(title)) {
+    title = utils.toAscii(title);
+    return $location.url(sprintf("/contest-detail/%s-%s-id", title, contestId));
+  }
 
   $scope.status = function (type) {
     switch (type) {
       case "able-to-join":
         if (!$scope.contestDetail) return false;
-
         var joinContests = localStorageService.get("joinContests") || "";
         var registerVnwUser = localStorageService.get("registerVnwUser") || "";
         var contestStatus = ($scope.contestDetail.progress == jsonValue.status.registration.translate) ||
           ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-        var hasNotJoined = joinContests.indexOf(contestId) < 0;
-        return contestStatus && hasNotJoined;
+        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+        return contestStatus && !hasJoined;
 
       case "contest-in-progress":
         if (!$scope.contestDetail) return false;

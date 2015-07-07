@@ -7,7 +7,7 @@ techlooper.filter("progress", function (jsonValue) {
         //if current date < start date
         var startDate = moment(contestDetail.startDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.notStarted;
-        if (moment().isBefore(startDate)) {
+        if (moment().isBefore(startDate, 'day')) {
           return contestDetail.progress.translate;
         }
 
