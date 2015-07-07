@@ -30,7 +30,7 @@
 
 </head>
 
-<body onload="window.location='/#/contest-detail/-${challenge.getChallengeId()}-id?lang=${lang}'">
+<body onload="window.location='/#/contest-detail/${challenge.getChallengeName().replaceAll("\\s+","-")}-${challenge.getChallengeId()}-id?lang=${lang}'">
 </body>
 
 </html>
