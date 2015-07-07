@@ -424,5 +424,6 @@
   "closed": "Closed",
   "congratulationsForJoinContest": "You have just enrolled to the challenge.",
   "contestDetail": "Contest Details",
-  "viewDetails": "View Details"
+  "viewDetails": "View Details",
+  "howWeEvaluateContestants":"How we evaluate contestants’ deliverables"
 }
