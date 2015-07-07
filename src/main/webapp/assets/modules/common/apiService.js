@@ -28,9 +28,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("challenge/" + id);
     },
 
-    joinContest: function(contestId, registrantEmail) {
+    joinContest: function(contestId, registrantEmail, lang) {
       return $http.post("challenge/join",
-        {challengeId: contestId, registrantEmail: registrantEmail}, {transformResponse: function (d, h) {return d;}});
+        {challengeId: contestId, registrantEmail: registrantEmail, lang: lang}, {transformResponse: function (d, h) {return d;}});
     },
 
     searchContests: function() {

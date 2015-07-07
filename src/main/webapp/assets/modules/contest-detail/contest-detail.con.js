@@ -19,10 +19,19 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         if (!$scope.contestDetail) return false;
         var joinContests = localStorageService.get("joinContests") || "";
         var registerVnwUser = localStorageService.get("registerVnwUser") || "";
-        var contestStatus = ($scope.contestDetail.progress == jsonValue.status.registration.translate) ||
+        var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
           ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
         var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
-        return contestStatus && !hasJoined;
+        return contestInProgress && !hasJoined;
+
+      //case "already-join":
+      //  if (!$scope.contestDetail) return false;
+      //  var joinContests = localStorageService.get("joinContests") || "";
+      //  var registerVnwUser = localStorageService.get("registerVnwUser") || "";
+      //  var contestInProgress = ($scope.contestDetail.progress == jsonValue.status.registration.translate) ||
+      //    ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
+      //  var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+      //  return contestInProgress && !hasJoined;
 
       case "contest-in-progress":
         if (!$scope.contestDetail) return false;
@@ -37,11 +46,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     localStorageService.set("lastFoot", $location.url());
     apiService.getFBLoginUrl().success(function (url) {
-      var joinContests = localStorageService.get("joinContests") || "";
-      if (joinContests.indexOf(contestId) < 0) {
-        joinContests += joinContests.length > 0 ? "," + contestId : contestId;
-      }
-      localStorageService.set("joinContests", joinContests);
       localStorageService.set("lastFoot", $location.url());
       localStorageService.set("joinNow", true);
       window.location = url;
@@ -50,11 +54,19 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow")
-    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"))
+    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
       .success(function (numberOfRegistrants) {
         if ($scope.contestDetail) {
           $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
         }
+
+        var joinContests = localStorageService.get("joinContests") || "";
+        joinContests = joinContests.split(",");
+        if (!$.inArray(contestId, joinContests)) {
+          joinContests.push(contestId);
+        }
+
+        localStorageService.set("joinContests", joinContests.join(","));
       });
   }
 
