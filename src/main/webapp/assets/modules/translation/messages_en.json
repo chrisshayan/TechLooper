@@ -310,7 +310,7 @@
   "postAChallenge": "Post A Challenge",
   "descriptionChallengePost": "Build And Grow Your Developer Community Base With Online Contests.",
   "subHeaderChallenge": "Let's start building your challenge information.",
-  "challengeName": "Challenge Name: <strong>*</strong>",
+  "challengeNamePost": "Challenge Name: <strong>*</strong>",
   "challengeOverView": "Challenge Overview: <strong>*</strong>",
   "challengeNameEX": "Ex: Interactive Job",
   "challengeNameTip": "Your Challenge Name appears in search results. It is a good idea to include a catchy name that attracts contestants, you could include keywords specific for this challenge.",
