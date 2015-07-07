@@ -1,7 +1,8 @@
 techlooper.controller("loginController", function ($scope, securityService, $rootScope, utils, jsonValue) {
   $scope.login = function() {
     if (!$scope.loginForm.$valid) {
-      $('.errorFromServer').hide();
+      //$('.errorFromServer').hide();
+      $scope.loginError = false;
       return false;
     }
     securityService.login($scope.username, $scope.password);

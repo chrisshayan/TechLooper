@@ -23,7 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by phuonghqh on 12/10/14.
@@ -50,7 +53,12 @@ public class SocialController {
     private VietnamWorksUserService vietnamWorksUserService;
 
     @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
-    public void registerVnwUser(@RequestParam String code, HttpServletResponse response) throws IOException {
+    public void registerVnwUser(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
+        if (code == null) {
+            response.sendRedirect("/#/?registerVnwUser=cancel");
+            return;
+        }
+
         SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
                 .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
         UserProfile userProfile = facebookService.getUserProfile(code, socialConfig);
@@ -60,7 +68,6 @@ public class SocialController {
         vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
                 .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
 
-        Base64.Encoder encoder = Base64.getEncoder();
         response.sendRedirect("/#/?registerVnwUser=" + challengeRegistrantEntity.getRegistrantId());
     }
 

@@ -24,14 +24,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
         return contestInProgress && !hasJoined;
 
-      //case "already-join":
-      //  if (!$scope.contestDetail) return false;
-      //  var joinContests = localStorageService.get("joinContests") || "";
-      //  var registerVnwUser = localStorageService.get("registerVnwUser") || "";
-      //  var contestInProgress = ($scope.contestDetail.progress == jsonValue.status.registration.translate) ||
-      //    ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-      //  var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
-      //  return contestInProgress && !hasJoined;
+      case "already-join":
+        if (!$scope.contestDetail) return false;
+        var joinContests = localStorageService.get("joinContests") || "";
+        var registerVnwUser = localStorageService.get("registerVnwUser") || "";
+        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+        return !hasJoined;
 
       case "contest-in-progress":
         if (!$scope.contestDetail) return false;
@@ -53,7 +51,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   if (localStorageService.get("joinNow")) {
-    localStorageService.remove("joinNow")
+    localStorageService.remove("joinNow");
     apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
       .success(function (numberOfRegistrants) {
         if ($scope.contestDetail) {
@@ -61,8 +59,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         }
 
         var joinContests = localStorageService.get("joinContests") || "";
-        joinContests = joinContests.split(",");
-        if (!$.inArray(contestId, joinContests)) {
+        joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+        if ($.inArray(contestId, joinContests) < 0) {
           joinContests.push(contestId);
         }
 
