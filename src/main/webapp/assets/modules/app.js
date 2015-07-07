@@ -240,16 +240,17 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   var param = $location.search();
   if (param.registerVnwUser) {
-    //securityService.login(param.provider, param.code);
-    localStorageService.set("registerVnwUser", param.registerVnwUser);
+    if (param.registerVnwUser !== "cancel") {
+      localStorageService.set("registerVnwUser", param.registerVnwUser);
+    }
+
+    var lastFoot = localStorageService.get("lastFoot");
+    if (lastFoot) {
+      localStorageService.remove("lastFoot");
+      return $location.url(lastFoot);
+    }
   }
 
-  //localStorageService.set("lastFoot", "/post-contest");
-  var lastFoot = localStorageService.get("lastFoot");
-  if (lastFoot) {
-    localStorageService.remove("lastFoot");
-    $location.url(lastFoot);
-  }
 });
 
 techlooper.directive("navigation", function () {
