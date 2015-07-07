@@ -1,4 +1,4 @@
-techlooper.controller('contestsController', function (apiService, $scope, jsonValue) {
+techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window) {
   $scope.status = function (type, contest) {
     switch (type) {
       case "contest-in-progress":
@@ -6,7 +6,12 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
         return (contest.progress.translate == jsonValue.status.progress.translate);
     }
   }
+
   apiService.searchContests().success(function(contests) {
     $scope.contestsList = contests;
   });
+
+  $scope.openNewTab = function(contest) {//{{contest.challengeName}}{{contest.challengeId}}
+    $window.open(sprintf(baseUrl + "/#/contest-detail/%s-%s-id", contest.challengeName, contest.challengeId), '_blank');
+  }
 });
