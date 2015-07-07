@@ -351,7 +351,7 @@
   "login": "Đăng Nhập",
   "password": "mật khẩu",
   "evaluateContestants":"Các tiêu chí đánh giá sản phẩm:",
-  "qualityIdea": "Ý tưởng: <strong>*</strong>",
+  "qualityIdea": "Chất lượng sản phẩm: <strong>*</strong>",
   "qualityIdeaEX": "Ví dụ: Sáng tạo và độc đáo",
   "qualityIdeaTip": "Sản phẩm của các thí sinh sẽ được phân loại dựa trên mức độ đáp ứng tiêu chí đặt ra của Nhà tổ chức. Hiện thời có 4 tiêu chí để đánh giá chất lượng sản phẩm. Bạn hãy chọn tiêu chí đánh giá mà bạn mong muốn nhất.",
   "implementationIdea": "Chất lượng: <strong>*</strong>",
@@ -429,7 +429,7 @@
   "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công.",
   "contestDetail": "Chi tiết cuộc thi",
   "viewDetails": "Chi tiết",
-  "howWeEvaluateContestants":"Các tiêu chí đánh giá sản phẩm"
+  "howWeEvaluateContestants":"Các tiêu chí đánh giá sản phẩm:"
 }
 
 
