@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -15,6 +16,9 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 public class ChallengeRegistrantEntity {
 
     @Id
+    private Long registrantId;
+
+    @Field(type = String)
     private String registrantEmail;
 
     @Field(type = Long)
@@ -29,12 +33,24 @@ public class ChallengeRegistrantEntity {
     @Field(type = Boolean)
     private Boolean mailSent;
 
+    @Field(type = String)
+    private Language lang;
+
     public ChallengeRegistrantEntity() {}
 
-    public ChallengeRegistrantEntity(java.lang.String registrantEmail, java.lang.String registrantFirstName, String registrantLastName) {
+    public ChallengeRegistrantEntity(Long registrantId, java.lang.String registrantEmail, java.lang.String registrantFirstName, String registrantLastName) {
+        this.registrantId = registrantId;
         this.registrantEmail = registrantEmail;
         this.registrantLastName = registrantLastName;
         this.registrantFirstName = registrantFirstName;
+    }
+
+    public Long getRegistrantId() {
+        return registrantId;
+    }
+
+    public void setRegistrantId(Long registrantId) {
+        this.registrantId = registrantId;
     }
 
     public Long getChallengeId() {
@@ -75,5 +91,13 @@ public class ChallengeRegistrantEntity {
 
     public void setMailSent(Boolean mailSent) {
         this.mailSent = mailSent;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
     }
 }
