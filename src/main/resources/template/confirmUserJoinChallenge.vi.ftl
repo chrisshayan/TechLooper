@@ -511,38 +511,6 @@
                         <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
-
-                    <tr>
-                      <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Điều khoản & Điều kiện:</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:10px; line-height: 10px;">
-                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left" class="fullWidth">
-                        <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
-                          <tr>
-                            <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
-                                Nhà tổ chức cuộc thi phải trao giải thưởng theo đúng thoả thuận đã được định nghĩa trong mục Giải Thưởng trước đó. Toàn bộ giải thưởng phải được trao cho các thí sinh không quá 2 tuần kể từ ngày kết thúc cuộc thi.
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;">
-                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
-                                Mã nguồn và sản phẩm trí tuệ tạo ra trong suốt cuộc thi của các thí sinh đoạt giải chỉ thuộc sở hữu của Nhà tổ chức cuộc thi.
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
                   </table>
                 </td>
               </tr>
