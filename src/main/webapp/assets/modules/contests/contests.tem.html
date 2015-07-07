@@ -26,7 +26,7 @@
                 <tr>
                   <th translate="challengeName"></th>
                   <th translate="timeline.schedule"></th>
-                  <th translate="timeLeft"></th>
+                  <!--<th translate="timeLeft"></th>-->
                   <th translate="prize"></th>
                   <th translate="currentPhase"></th>
                   <th translate="registrants"></th>
@@ -46,18 +46,24 @@
                     <p><span translate="registerBy"></span> {{contest.registrationDateTime}}</p>
                     <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
                   </td>
-                  <td data-label="{{'timeLeft' | translate}}">
-                    <span  ng-show="status('contest-in-progress', contest)"
-                          translate="moreDayToSubmit"
-                          translate-value-day-left="{{contest.submissionDateTime | countdown}}">
-                    </span>
-                  </td>
+                  <!--<td data-label="{{'timeLeft' | translate}}">-->
+                    <!--<span  ng-show="status('contest-in-progress', contest)"-->
+                          <!--translate="moreDayToSubmit"-->
+                          <!--translate-value-day-left="{{contest.submissionDateTime | countdown}}">-->
+                    <!--</span>-->
+                  <!--</td>-->
                   <td data-label="{{'prize' | translate}}">
                     <p>${{contest.firstPlaceReward | number:0}}</p>
                     <p ng-show="contest.secondPlaceReward !=null">${{contest.secondPlaceReward | number:0}}</p>
                     <p ng-show="contest.thirdPlaceReward !=null">${{contest.thirdPlaceReward | number:0}}</p>
                   </td>
-                  <td data-label="{{'currentPhase' | translate}}"><span translate="{{contest | progress:'challenge'}}"></span></td>
+                  <td data-label="{{'currentPhase' | translate}}">
+                    <p><span translate="{{contest | progress:'challenge'}}"></span></p>
+                    <p><span  ng-show="status('contest-in-progress', contest)"
+                           translate="moreDayToSubmit"
+                           translate-value-day-left="{{contest.submissionDateTime | countdown}}">
+                    </span></p>
+                  </td>
                   <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
                   <td data-label="{{'action' | translate}}">
                     <p><a href="#/contest-detail/{{contest.challengeName}}-{{contest.challengeId}}-id" class="btn btn-primary btn-flat" title="{{'viewDetail' | translate}}" translate="viewDetails"></a></p>
