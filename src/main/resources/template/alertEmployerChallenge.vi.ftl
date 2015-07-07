@@ -206,7 +206,7 @@
                                                                         Tổng Quan Thử Thách:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${challengeOverview}
+                                                                    ${challengeOverview?replace("\n", "<br>")}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -222,7 +222,7 @@
                                                                         Yêu Cầu Nghiệp Vụ:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${businessRequirement}
+                                                                    ${businessRequirement?replace("\n", "<br>")}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -238,7 +238,7 @@
                                                                         Yêu Cầu Khác:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${generalNote}
+                                                                    ${generalNote?replace("\n", "<br>")}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -270,7 +270,7 @@
                                                                         Tài Liệu Liên Quan:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${documents}
+                                                                    ${documents?replace("\n", "<br>")}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -286,7 +286,7 @@
                                                                         Yêu Cầu Sản Phẩm:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${deliverables}
+                                                                    ${deliverables?replace("\n", "<br>")}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
