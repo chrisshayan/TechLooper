@@ -171,7 +171,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">About your challenge</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Challenge Information</strong>
                       </td>
                     </tr>
                     <tr>
@@ -403,7 +403,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Your Reward</strong>
+                        <strong style="font-size: 16px; font-weight: 600; color:#000000">Reward</strong>
                       </td>
                     </tr>
                     <tr>
