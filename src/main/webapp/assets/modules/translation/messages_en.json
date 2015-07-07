@@ -423,5 +423,6 @@
   "inProgress": "In Progress",
   "closed": "Closed",
   "congratulationsForJoinContest": "You have just enrolled to the challenge.",
-  "contestDetail": "Contest Details"
+  "contestDetail": "Contest Details",
+  "viewDetails": "View Details"
 }
