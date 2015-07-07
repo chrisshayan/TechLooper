@@ -1,5 +1,7 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
+
 /**
  * Created by NguyenDangKhoa on 7/6/15.
  */
@@ -13,6 +15,7 @@ public class ChallengeRegistrantDto {
 
     private String registrantLastName;
 
+    private Language lang;
 
     public Long getChallengeId() {
         return challengeId;
@@ -44,5 +47,13 @@ public class ChallengeRegistrantDto {
 
     public void setRegistrantLastName(String registrantLastName) {
         this.registrantLastName = registrantLastName;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
     }
 }
