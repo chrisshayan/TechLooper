@@ -15,7 +15,7 @@
     <meta property="og:title" content="${challenge.getChallengeName()}"/>
     <meta property="og:site_name" content="Challenge from Techlooper.com"/>
     <meta property="og:url"
-          content="${baseUrl}#/contest-detail/${challenge.getChallengeName()}-${challenge.getChallengeId()}-id?lang=${lang}" />
+          content="${baseUrl}#/contest-detail/${challenge.getChallengeName().replaceAll("\\s+","-")}-${challenge.getChallengeId()}-id?lang=${lang}" />
     <meta property="og:description" content="${challenge.getChallengeOverview()}"/>
     <meta property="fb:app_id" content="${config.apiKey}" />
     <meta property="og:type" content="article" />
@@ -30,7 +30,7 @@
 
 </head>
 
-<body onload="window.location='/#/contest-detail/-${challenge.getChallengeId()}-id?lang=${lang}'">
+<body onload="window.location='/#/contest-detail/${challenge.getChallengeName().replaceAll("\\s+","-")}-${challenge.getChallengeId()}-id?lang=${lang}'">
 </body>
 
 </html>

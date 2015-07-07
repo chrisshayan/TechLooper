@@ -299,22 +299,6 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Email address to receive applications:
-                                  </td>
-                                  <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${receivedEmails}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Review Style:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
@@ -351,7 +335,7 @@
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Your Challenge Will Start On:
+                                    Start Date:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${startDate}
@@ -367,7 +351,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    Contestants Have To Register By:
+                                    Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${registrationDate}
@@ -383,7 +367,7 @@
                                 </tr>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                    And Contestants Must Submit By:
+                                    Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                   ${submissionDate}
@@ -418,7 +402,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">You evaluate contestants deliverables:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">How we evaluate contestants deliverables:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -462,7 +446,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 16px;">
-                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">And you will reward the winner(s) with:</strong>
+                        <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">The winner(s) will be rewarded with:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -566,7 +550,7 @@
                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                   <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%" width="100%">
                     <tr>
-                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">This challenge has been published here</td>
+                      <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">You can access to the challenge anytime to see its progress.</td>
                     </tr>
                     <tr>
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
@@ -577,7 +561,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/contest-detail/${challengeNameAlias}-${challengeId}-id?utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View My Challenge</a>
+                              <a href="${webBaseUrl}#/contest-detail/${challengeNameAlias}-${challengeId}-id?utm_source=contestantapplication&utm_medium=viewchallengebtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View Challenge</a>
                             </td>
                           </tr>
                         </table>
