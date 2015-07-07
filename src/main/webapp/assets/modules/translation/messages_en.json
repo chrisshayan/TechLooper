@@ -375,7 +375,7 @@
   "currentPhase": "Current Phase",
   "registration": "Registration",
   "moreDayToSubmit": "{{dayLeft}} more day(s) to submit",
-  "ViewNextDeadlines": "View next deadlines +",
+  "ViewNextDeadlines": "View next deadline +",
   "ViewAllDeadlines": "View all deadlines +",
   "registerNumber": "There are {{registerNumber}} registrants for this contest.",
   "joinNow": "Join Now",
