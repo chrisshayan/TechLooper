@@ -11,7 +11,4 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
     $scope.contestsList = contests;
   });
 
-  $scope.openNewTab = function(contest) {//{{contest.challengeName}}{{contest.challengeId}}
-    $window.open(sprintf(baseUrl + "/#/contest-detail/%s-%s-id", contest.challengeName, contest.challengeId), '_blank');
-  }
 });
