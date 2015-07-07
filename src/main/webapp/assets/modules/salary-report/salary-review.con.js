@@ -202,6 +202,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       $scope.state.showSurvey = true;
       //$scope.changeState(state.reportSurvey);
     }
+    else {
+      $scope.state.showSurvey = false;
+    }
   });
 
   //scope.state.demandSkills
