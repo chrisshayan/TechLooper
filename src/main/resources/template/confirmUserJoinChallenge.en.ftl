@@ -206,7 +206,7 @@
                                     Challenge Overview:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeOverview}
+                                  ${challengeOverview?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -222,7 +222,7 @@
                                     Business Requirements:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${businessRequirement}
+                                  ${businessRequirement?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -238,7 +238,7 @@
                                     General Notes:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${generalNote}
+                                  ${generalNote?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -270,7 +270,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${documents}
+                                  ${documents?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                                     Deliverables:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${deliverables}
+                                  ${deliverables?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
