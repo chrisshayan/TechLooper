@@ -54,7 +54,12 @@ public class SocialController {
   private VietnamWorksUserService vietnamWorksUserService;
 
   @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
-  public void registerVnwUser(@RequestParam String code, HttpServletResponse response) throws IOException {
+  public void registerVnwUser(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
+    if (code == null) {
+      response.sendRedirect("/#/?registerVnwUser=cancel");
+      return;
+    }
+
     SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
       .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
     UserProfile userProfile = facebookService.getUserProfile(code, socialConfig);
