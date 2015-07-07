@@ -391,7 +391,7 @@
   "registerDateGTStartDate": "Ngày Hết Hạn Đăng Ký phải sau Ngày Bắt Đầu ít nhất 1 ngày.",
   "submitDateGTRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
   "contestOwnerSignOff": "Nhà Tổ Chức Cuộc Thi phê duyệt sản phẩm",
-  "exContestOwnerSignOff": "Ví dụ: Nhà Tổ Chức phê duyệt sản phẩm.",
+  "exContestOwnerSignOff": "Ví dụ: Nhà Tổ Chức phê duyệt sản phẩm",
   "hasAcceptableTradeoffs" : "Đáp ứng đồng đều thoả đáng các tính năng",
   "theSolutionAchievesTheStatedGoals" : "Giải pháp đạt được tất cả mục tiêu đặt ra",
   "theSolutionIsPracticalAndReliable" : "Giải pháp thực tiễn và đáng tin cậy",
@@ -424,7 +424,8 @@
   "notStart": "Chưa Bắt Đầu",
   "inProgress": "Đang Diễn Ra",
   "closed": "Đã Kết Thúc",
-  "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công."
+  "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công.",
+  "contestDetail": "Chi tiết cuộc thi"
 }
 
 
