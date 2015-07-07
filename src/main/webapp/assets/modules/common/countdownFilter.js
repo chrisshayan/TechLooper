@@ -4,7 +4,7 @@ techlooper.filter("countdown", function(jsonValue) {
     type = type || "day";
     switch (type) {
       case "day":
-        var toNow = moment.utc(moment(input, jsonValue.dateFormat).diff(moment())).format("DD");
+        var toNow = moment.utc(moment(input, jsonValue.dateFormat).diff(moment())).format("D");
         return toNow + 1;
     }
   }
