@@ -74,6 +74,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   });
 
   $scope.fbShare = function () {
+    ga("send", {
+      hitType: "event",
+      eventCategory: "facebookshare",
+      eventAction: "click",
+      eventLabel: "challengedetail"
+    });
     utils.openFBShare("/shareChallenge/" + $translate.use() + "/" + contestId);
   }
 
