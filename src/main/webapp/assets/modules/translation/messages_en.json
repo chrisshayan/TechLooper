@@ -374,7 +374,10 @@
   "rdPrize": "3rd Prize<strong>:</strong>",
   "currentPhase": "Current Phase",
   "registration": "Registration",
-  "moreDayToSubmit": "<strong>{{dayLeft}}</strong> more day(s) to submit",
+  "moreDayToSubmit": "<strong>{{dayLeft}}</strong> more day(s) to submit.",
+  "moreDayToNotStarted": "<strong>{{dayLeft}}</strong> more day(s) to start registration.",
+  "moreDayToRegistration": "<strong>{{dayLeft}}</strong> more day(s) to start challenge.",
+  "moreDayToClosed": "Already closed by <strong>{{dayLeft}}</strong>",
   "ViewNextDeadlines": "View next deadline +",
   "ViewAllDeadlines": "View all deadlines +",
   "registerNumber": "There are {{registerNumber}} registrants for this contest.",
@@ -418,12 +421,12 @@
   "prize": "Prize",
   "registrants": "Registrants",
   "action": "Action",
-  "viewDetail": "Click here to view detail.",
   "notStart": "Not Started",
   "inProgress": "In Progress",
   "closed": "Closed",
   "congratulationsForJoinContest": "You have just enrolled to the challenge.",
   "contestDetail": "Contest Details",
   "viewDetails": "View Details",
-  "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:"
+  "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:",
+  "byFacebook": "with Facebook"
 }

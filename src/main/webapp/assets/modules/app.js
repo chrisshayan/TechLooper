@@ -228,11 +228,20 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     switch (utils.getView()) {
-      case jsonValue.views.contestDetail:
+      //case jsonValue.views.contestDetail:
       case jsonValue.views.postContest:
-        localStorage.setItem('CAPTURE-PATHS', '/post-contest');
+        securityService.getCurrentUser()
+          .catch(function () {
+            localStorageService.set("protectedPage", "/post-contest");
+          }
+        );
+        break;
+
       case jsonValue.views.login:
-        securityService.ableToGo();
+        var protectedPage = localStorageService.get("protectedPage");
+        if (!protectedPage) {
+          return $location.path("/");
+        }
         break;
     }
   });

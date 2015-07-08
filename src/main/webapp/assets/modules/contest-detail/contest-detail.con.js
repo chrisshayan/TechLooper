@@ -36,6 +36,24 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
     }
   }
+  $scope.contestTimeLeft = function(contest) {
+    if(contest){
+      switch (contest.progress.translate) {
+        case jsonValue.status.progress.translate:
+          return $filter("countdown")(contest.submissionDateTime);
+
+        case jsonValue.status.notStarted.translate:
+          return $filter("countdown")(contest.startDateTime);
+
+        case jsonValue.status.registration.translate:
+          return $filter("countdown")(contest.registrationDateTime);
+
+        case jsonValue.status.closed.translate:
+          return contest.submissionDateTime;
+      }
+    }
+    return "";
+  }
 
   $scope.joinNowByFB = function () {
     if (!$scope.status('able-to-join')) {
@@ -74,6 +92,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   });
 
   $scope.fbShare = function () {
+    ga("send", {
+      hitType: "event",
+      eventCategory: "facebookshare",
+      eventAction: "click",
+      eventLabel: "challengedetail"
+    });
     utils.openFBShare("/shareChallenge/" + $translate.use() + "/" + contestId);
   }
 

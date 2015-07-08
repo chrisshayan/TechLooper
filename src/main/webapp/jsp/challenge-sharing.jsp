@@ -13,24 +13,23 @@
 
     <!-- Facebook & LinkedIn -->
     <meta property="og:title" content="${challenge.getChallengeName()}"/>
-    <meta property="og:site_name" content="Challenge from Techlooper.com"/>
-    <meta property="og:url"
-          content="${baseUrl}#/contest-detail/${challenge.getChallengeName().replaceAll("\\s+","-")}-${challenge.getChallengeId()}-id?lang=${lang}" />
     <meta property="og:description" content="${challenge.getChallengeOverview()}"/>
-    <meta property="fb:app_id" content="${config.apiKey}" />
     <meta property="og:type" content="article" />
-    <meta property="article:author" content="http://techlooper.com" />
-    <meta property="article:publisher" content="http://techlooper.com" />
 
     <meta property="og:image" content="http://techlooper.com/images/logo-social.png"/>
     <meta property="og:image:url" content="http://techlooper.com/images/logo-social.png"/>
     <meta property="og:image:width" content="200"/>
+    <meta property="og:url"
+          content='${baseUrl}shareChallenge/${lang}/${challenge.getChallengeId()}' />
+
+    <meta property="article:author" content="http://techlooper.com" />
+    <meta property="article:publisher" content="http://techlooper.com" />
 
     <!-- Twitter -->
 
 </head>
 
-<body onload="window.location='/#/contest-detail/${challenge.getChallengeName().replaceAll("\\s+","-")}-${challenge.getChallengeId()}-id?lang=${lang}'">
+<body onload="window.location='${baseUrl}#/contest-detail/${challenge.getChallengeName().replaceAll("\\W", "-")}-${challenge.getChallengeId()}-id?lang=${lang}'">
 </body>
 
 </html>

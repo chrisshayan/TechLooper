@@ -45,6 +45,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -218,26 +219,26 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
+    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
         return mailMessage;
     }
 
     @Bean
-    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException {
+    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
         return mailMessage;
     }
 
     @Bean
-    public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) throws MessagingException {
+    public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
         return mailMessage;
     }
 
