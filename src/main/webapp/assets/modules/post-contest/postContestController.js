@@ -105,13 +105,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           .finally(function () {
             utils.sendNotification(jsonValue.notifications.hideLoadingBox);
           });
-
-        ga("send", {
-          hitType: "event",
-          eventCategory: "onlinecontest",
-          eventAction: "click",
-          eventLabel: "postnowbtn"
-        });
         return true;
       }
     }
