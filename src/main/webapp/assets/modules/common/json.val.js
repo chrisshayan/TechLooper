@@ -806,10 +806,10 @@ angular.module("Common").constant("jsonValue", (function () {
     dateFormat: "DD/MM/YYYY",
 
     status: {
-      notStarted: {translate: "notStart"},
-      registration: {translate: "registration"},
-      progress: {translate: "inProgress"},
-      closed: {translate: "closed"}
+      notStarted: {translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
+      registration: {translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
+      progress: {translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
+      closed: {translate: "closed", timeLeftTranslate: "moreDayToClosed"}
     }
   }
 

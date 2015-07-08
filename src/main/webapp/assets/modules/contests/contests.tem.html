@@ -59,10 +59,9 @@
                   </td>
                   <td data-label="{{'currentPhase' | translate}}">
                     <span translate="{{contest | progress:'challenge'}}"></span>
-                    <span ng-show="status('contest-in-progress', contest)"
-                           translate="moreDayToSubmit"
-                           translate-value-day-left="{{contest.submissionDateTime | countdown}}" class="note">
-                    </span>
+
+                    <span translate="{{contest.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(contest)}}" class="note" />
+
                   </td>
                   <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
                   <td data-label="{{'action' | translate}}">
