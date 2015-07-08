@@ -36,7 +36,7 @@
               <tbody>
                 <tr ng-repeat="contest in contestsList">
                   <td data-label="{{'challengeName' | translate}}">
-                    <p class="header">{{contest.challengeName}}</p>
+                    <p class="header"><a href="#/contest-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" target="_blank">{{contest.challengeName}}</a></p>
                     <span class="tag" ng-repeat="skill in contest.technologies">
                       {{skill}}
                     </span>
@@ -46,12 +46,6 @@
                     <p><span translate="registerBy"></span> {{contest.registrationDateTime}}</p>
                     <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
                   </td>
-                  <!--<td data-label="{{'timeLeft' | translate}}">-->
-                    <!--<span  ng-show="status('contest-in-progress', contest)"-->
-                          <!--translate="moreDayToSubmit"-->
-                          <!--translate-value-day-left="{{contest.submissionDateTime | countdown}}">-->
-                    <!--</span>-->
-                  <!--</td>-->
                   <td data-label="{{'prize' | translate}}">
                     <p>${{contest.firstPlaceReward | number:0}}</p>
                     <p ng-show="contest.secondPlaceReward !=null">${{contest.secondPlaceReward | number:0}}</p>
@@ -65,7 +59,7 @@
                   </td>
                   <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
                   <td data-label="{{'action' | translate}}">
-                    <p><a href="#/contest-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetail' | translate}}" translate="viewDetails" target="_blank"></a></p>
+                    <p><a href="#/contest-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" translate="viewDetails" target="_blank"></a></p>
                   </td>
                 </tr>
               </tbody>
