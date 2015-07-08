@@ -39,8 +39,7 @@
           <h3 translate="currentPhase" />
           <p translate="{{contestDetail.progress.translate}}" />
           <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(contestDetail)}}" ></p>
-          <!--<p class="count-down-day" translate="moreDayToSubmit"-->
-             <!--translate-value-day-left="<strong>{{contestDetail.submissionDateTime | countdown}}</strong>" />-->
+
         </div>
         <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
           <span translate="ViewNextDeadlines" ng-show="dateInfo"></span>
@@ -61,7 +60,10 @@
     <div class="row registration-count">
       <div class="col-md-12">
         <p translate="registerNumber" translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
-        <a ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btn btn-primary btn-flat" translate="joinNow" />
+        <div class="join-now">
+          <a ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btn btn-primary btn-flat" translate="joinNow"/>
+          <span translate="byFacebook"></span>
+        </div>
       </div>
     </div>
     <div class="row contest-content-detail">

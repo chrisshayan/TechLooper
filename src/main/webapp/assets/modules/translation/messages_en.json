@@ -427,5 +427,6 @@
   "congratulationsForJoinContest": "You have just enrolled to the challenge.",
   "contestDetail": "Contest Details",
   "viewDetails": "View Details",
-  "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:"
+  "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:",
+  "byFacebook": "by Facebook"
 }
