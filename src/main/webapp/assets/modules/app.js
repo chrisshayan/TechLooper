@@ -52,7 +52,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     localStorageServiceProvider
       .setPrefix('techlooper')
-      .setStorageType('sessionStorage')
       .setNotify(true, true)
       .setStorageCookie(45, "/");
 

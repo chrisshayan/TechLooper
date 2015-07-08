@@ -351,7 +351,7 @@
   "login": "Đăng Nhập",
   "password": "mật khẩu",
   "evaluateContestants":"Các tiêu chí đánh giá sản phẩm:",
-  "qualityIdea": "Ý tưởng: <strong>*</strong>",
+  "qualityIdea": "Chất lượng sản phẩm: <strong>*</strong>",
   "qualityIdeaEX": "Ví dụ: Sáng tạo và độc đáo",
   "qualityIdeaTip": "Sản phẩm của các thí sinh sẽ được phân loại dựa trên mức độ đáp ứng tiêu chí đặt ra của Nhà tổ chức. Hiện thời có 4 tiêu chí để đánh giá chất lượng sản phẩm. Bạn hãy chọn tiêu chí đánh giá mà bạn mong muốn nhất.",
   "implementationIdea": "Chất lượng: <strong>*</strong>",
@@ -383,8 +383,8 @@
   "ViewAllDeadlines": "Xem tiến độ hiện thời +",
   "registerNumber": "Đang có {{registerNumber}} thí sinh tham gia thử thách này.",
   "joinNow": "Tham Gia Ngay",
-  "registerBy": "Ngày Bắt Đầu:",
-  "startDate": "Hạn Đăng Ký:",
+  "registerBy": "Hạn Đăng Ký:",
+  "startDate": "Ngày Bắt Đầu:",
   "submitBy": "Hạn Gửi Bài:",
   "reward2LessThanReward1": "Tiền Thưởng Cho Giải Nhì không được lớn hơn Giải Nhất.",
   "reward3LessThanReward2": "Tiền Thưởng Cho Giải Ba không được lớn hơn Giải Nhì.",
@@ -428,7 +428,8 @@
   "closed": "Đã Kết Thúc",
   "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công.",
   "contestDetail": "Chi tiết cuộc thi",
-  "viewDetails": "Chi tiết"
+  "viewDetails": "Chi tiết",
+  "howWeEvaluateContestants":"Các tiêu chí đánh giá sản phẩm:"
 }
 
 
