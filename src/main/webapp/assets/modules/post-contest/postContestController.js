@@ -144,10 +144,13 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   $('*').bind('touchend', function (e) {
     if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)) {
       $('[data-toggle=tooltip]').mouseleave();
-      //e.stopPropagation();
     }
     else {
       $(e.target).mouseenter();
     }
   });
+  $scope.detectDeleteKey = function(e) {
+    if(e.which == 8)
+      return false;
+  };
 });
