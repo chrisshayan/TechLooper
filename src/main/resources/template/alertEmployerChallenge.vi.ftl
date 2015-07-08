@@ -115,12 +115,12 @@
                             <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                                 <tr>
                                     <td align="left" style="padding:10px" class="logo">
-                                        <a href="http://www.techlooper.com/#/?lang=vi&utm_source=employerapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.techlooper.com/#/?lang=vi&utm_source=employerapplication&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                                             <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
                                     <td style="padding:10px" align="right" class="logo">
-                                        <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                                             <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
@@ -287,22 +287,6 @@
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                     ${deliverables?replace("\n", "<br>")}
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="height:5px; line-height: 5px;">
-                                                                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                                                    </td>
-                                                                    <td style="height:5px; line-height: 5px;">
-                                                                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                                                        Thông tin thí sinh tham gia thử thách sẽ gửi đến email:
-                                                                    </td>
-                                                                    <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${receivedEmails}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -527,38 +511,6 @@
                                                 <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                             </td>
                                         </tr>
-
-                                        <tr>
-                                            <td align="left" width="100%" style="font-size: 16px;">
-                                                <strong style="font-size: 14px; font-weight: 600; color:#000000; font-style: italic; padding-left: 15px">Điều khoản & Điều kiện:</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height:10px; line-height: 10px;">
-                                                <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="100%" align="left" class="fullWidth">
-                                                <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
-                                                    <tr>
-                                                        <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
-                                                            Nhà tổ chức cuộc thi phải trao giải thưởng theo đúng thoả thuận đã được định nghĩa trong mục Giải Thưởng trước đó. Toàn bộ giải thưởng phải được trao cho các thí sinh không quá 2 tuần kể từ ngày kết thúc cuộc thi.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="height:10px; line-height: 10px;">
-                                                            <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="left" style="font-size: 14px; padding-left: 15px" valign="top">
-                                                            Mã nguồn và sản phẩm trí tuệ tạo ra trong suốt cuộc thi của các thí sinh đoạt giải chỉ thuộc sở hữu của Nhà tổ chức cuộc thi.
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
                                     </table>
                                 </td>
                             </tr>
@@ -566,7 +518,7 @@
                                 <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                                     <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%" width="100%">
                                         <tr>
-                                            <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Thử thách được đăng ở đây</td>
+                                            <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">Bạn có thể xem thử thách mọi lúc để xem tiến độ</td>
                                         </tr>
                                         <tr>
                                             <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
@@ -577,7 +529,7 @@
                                                 <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                                     <tr>
                                                         <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                            <a href="${webBaseUrl}#/contest-detail/${challengeName}-${challengeId}-id?lang=vi&utm_source=employerapplication&utm_medium=viewchallengebtn&utm_campaign=topcoder" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Thử Thách</a>
+                                                            <a href="${webBaseUrl}#/contest-detail/${challengeNameAlias}-${challengeId}-id?lang=vi&utm_source=employerapplication&utm_medium=viewchallengebtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Ngay</a>
                                                         </td>
                                                     </tr>
                                                 </table>
