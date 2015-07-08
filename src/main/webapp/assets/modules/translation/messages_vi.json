@@ -378,7 +378,10 @@
   "rdPrize": "Giải ba<strong>:</strong>",
   "currentPhase": "Tiến Độ Hiện Thời",
   "registration": "Đăng Ký",
-  "moreDayToSubmit": "Còn <strong>{{dayLeft}}</strong> ngày nữa tới hạn gửi sản phẩm",
+  "moreDayToSubmit": "Còn <strong>{{dayLeft}}</strong> ngày nữa tới hạn gửi sản phẩm.",
+  "moreDayToNotStarted": "Còn <strong>{{dayLeft}}</strong> ngày nữa bắt đầu nhận đăng ký. ",
+  "moreDayToRegistration": "Còn <strong>{{dayLeft}}</strong> ngày nữa thử thách sẽ diễn ra. ",
+  "moreDayToClosed": "Đã kết thúc vào <strong>{{dayLeft}}</strong>",
   "ViewNextDeadlines": "Xem tiến độ hiện thời +",
   "ViewAllDeadlines": "Xem lịch trình cụ thể +",
   "registerNumber": "Đang có {{registerNumber}} thí sinh tham gia thử thách này.",
