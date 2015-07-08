@@ -1,6 +1,6 @@
 package com.techlooper.config;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 /**
  * Created by phuonghqh on 6/25/15.
@@ -28,56 +27,66 @@ import java.sql.SQLException;
 @EnableJpaRepositories(basePackages = "com.techlooper.repository.vnw")
 public class VmwDbConfiguration {
 
-    @Value("${vietnamworks.db.driverClass}")
-    private String driverClass;
+  @Value("${vietnamworks.db.driverClass}")
+  private String driverClass;
 
-    @Value("${vietnamworks.db.connectionUrl}")
-    private String jdbcUrl;
+  @Value("${vietnamworks.db.connectionUrl}")
+  private String jdbcUrl;
 
-    @Value("${vietnamworks.db.username}")
-    private String user;
+  @Value("${vietnamworks.db.username}")
+  private String user;
 
-    @Value("${vietnamworks.db.password}")
-    private String password;
+  @Value("${vietnamworks.db.password}")
+  private String password;
 
-    @Value("${vietnamworks.db.pool.maxSize}")
-    private Integer maxPoolSize;
+  @Value("${vietnamworks.db.pool.size}")
+  private Integer size;
 
-    @Bean
-    public DataSource dataSource() throws Exception {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(driverClass);
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setUsername(user);
-        dataSource.setPassword(password);
-        if (dataSource.getConnection() == null) {
-            throw new SQLException();
-        }
-        return dataSource;
-    }
+  @Bean
+  public DataSource dataSource() throws Exception {
+//        BasicDataSource dataSource = new BasicDataSource();
+//        dataSource.setDriverClassName(driverClass);
+//        dataSource.setUrl(jdbcUrl);
+//        dataSource.setUsername(user);
+//        dataSource.setPassword(password);
+//        if (dataSource.getConnection() == null) {
+//            throw new SQLException();
+//        }
+//        return dataSource;
 
-    @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
-    }
+    HikariDataSource dataSource = new HikariDataSource();
+    dataSource.setJdbcUrl(jdbcUrl);
+    dataSource.setUsername(user);
+    dataSource.setPassword(password);
+    dataSource.setMaximumPoolSize(size);
+    dataSource.setMinimumIdle(size);
+    dataSource.setDriverClassName(driverClass);
+    dataSource.setAllowPoolSuspension(true);
+    return dataSource;
+  }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
-        LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
-        lemfb.setDataSource(dataSource());
+  @Bean
+  public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+    return new JpaTransactionManager(emf);
+  }
 
-        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setDatabase(Database.MYSQL);
-        jpaVendorAdapter.setGenerateDdl(false);
-        jpaVendorAdapter.setShowSql(true);
-        lemfb.setJpaVendorAdapter(jpaVendorAdapter);
+  @Bean
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
+    LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
+    lemfb.setDataSource(dataSource());
 
-        lemfb.setPackagesToScan("com.techlooper.entity.vnw");
-        return lemfb;
-    }
+    HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+    jpaVendorAdapter.setDatabase(Database.MYSQL);
+    jpaVendorAdapter.setGenerateDdl(false);
+    jpaVendorAdapter.setShowSql(true);
+    lemfb.setJpaVendorAdapter(jpaVendorAdapter);
 
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+    lemfb.setPackagesToScan("com.techlooper.entity.vnw");
+    return lemfb;
+  }
+
+  @Bean
+  public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+    return new PersistenceExceptionTranslationPostProcessor();
+  }
 }
