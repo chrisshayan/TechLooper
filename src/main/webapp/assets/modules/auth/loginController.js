@@ -5,6 +5,7 @@ techlooper.controller("loginController", function ($scope, securityService, $roo
       $scope.loginError = false;
       return false;
     }
+    utils.sendNotification(jsonValue.notifications.loading, $(window).height());
     securityService.login($scope.username, $scope.password);
   }
 

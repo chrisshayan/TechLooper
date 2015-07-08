@@ -32,6 +32,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   $.each(translations, function (i, item) {
     item.ins.getSelectize().then(function ($selectize) {
       $translate(item.placeholder).then(function (translate) {
+        item.ins.placeholder = translate;
         $selectize.setPlaceholder(translate);
       });
 
