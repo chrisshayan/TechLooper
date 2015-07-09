@@ -1,5 +1,8 @@
-//if (!navigator.cookieEnabled)
-//  console.log("OFF");
+if (!navigator.cookieEnabled){
+  $('.warning-alert-block').addClass('show');
+}else{
+  $('.warning-alert-block').removeClass('show');
+}
 
 angular.module("Common", []);
 angular.module("Bubble", []);
