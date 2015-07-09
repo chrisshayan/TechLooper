@@ -1,8 +1,13 @@
 techlooper.factory("resourcesService", function ($translate, $q) {
   var reviewStyleOptions = [{translate: "contestOwnerSignOff"}];
-  var qualityIdeaOptions = [{translate: "hasAcceptableTradeoffs"},{translate: "theSolutionAchievesTheStatedGoals"},{translate: "theSolutionIsPracticalAndReliable"},{translate: "theSolutionIsInnovative"}];
+  var qualityIdeaOptions = [
+    {translate: "hasAcceptableTradeoffs"},
+    {translate: "theSolutionAchievesTheStatedGoals"},
+    {translate: "theSolutionIsPracticalAndReliable"},
+    {translate: "theSolutionIsInnovative"}
+  ];
 
-  var singleSelectize = function(key) {
+  var singleSelectize = function (key) {
     return {
       create: false,
       valueField: 'title',
