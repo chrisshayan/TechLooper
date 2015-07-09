@@ -10,7 +10,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   var title = parts.join("");
   if (utils.hasNonAsciiChar(title)) {
     title = utils.toAscii(title);
-    return $location.url(sprintf("/contest-detail/%s-%s-id", title, contestId));
+    return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
   $scope.status = function (type) {
