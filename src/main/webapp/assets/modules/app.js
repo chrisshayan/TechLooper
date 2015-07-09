@@ -1,3 +1,6 @@
+//if (!navigator.cookieEnabled)
+//  console.log("OFF");
+
 angular.module("Common", []);
 angular.module("Bubble", []);
 angular.module("Home", []);
@@ -157,7 +160,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/contest/contest.tem.html",
         controller: "contestController"
       })
-      .when("/post-contest", {
+      .when("/post-challenge", {
         templateUrl: "modules/post-contest/postContest.html",
         controller: "postContestController"
       })
@@ -165,11 +168,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/auth/login.html",
         controller: "loginController"
       })
-      .when("/contest-detail/:id", {
+      .when("/challenge-detail/:id", {
         templateUrl: "modules/contest-detail/contest-detail.tem.html",
         controller: "contestDetailController"
       })
-      .when("/contests", {
+      .when("/challenges", {
         templateUrl: "modules/contests/contests.tem.html",
         controller: "contestsController"
       })
@@ -229,10 +232,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     switch (utils.getView()) {
       //case jsonValue.views.contestDetail:
-      case jsonValue.views.postContest:
+      case jsonValue.views.postChallenge:
         securityService.getCurrentUser()
           .catch(function () {
-            localStorageService.set("protectedPage", "/post-contest");
+            localStorageService.set("protectedPage", "/post-challenge");
           }
         );
         break;

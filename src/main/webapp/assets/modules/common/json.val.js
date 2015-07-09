@@ -175,8 +175,9 @@ angular.module("Common").constant("jsonValue", (function () {
       userProfile: "/user",
       priceJob: "/price-job",
       contest: "contest",
-      contestDetail: "/contest-detail",
-      contests: "/contests"
+      challengeDetail: "/challenge-detail",
+      challenges: "/challenges",
+      "postChallenge": "/post-challenge"
     },
 
     views: {
@@ -201,10 +202,10 @@ angular.module("Common").constant("jsonValue", (function () {
       priceJob: "priceJob",
       getPromoted: "getPromoted",
       contest: "contest",
-      postContest: "postContest",
+      postChallenge: "postChallenge",
       login: "login",
-      contestDetail: "contestDetail",
-      contests: "contests"
+      challengeDetail: "challengeDetail",
+      challenges: "challenges"
     },
 
     httpUri: {
@@ -224,7 +225,7 @@ angular.module("Common").constant("jsonValue", (function () {
       salaryReview: "salaryReview",
       getPromoted: "getPromoted",
       contest: "contest",
-      contests: "contests"
+      challenges: "challenges"
     },
 
     socketUri: {
