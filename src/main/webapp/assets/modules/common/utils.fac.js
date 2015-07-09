@@ -4,7 +4,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var instance = {
     openFBShare: function(uri) {
       window.open(
-        'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri + '&redirect_uri=' + baseUrl + uri,
+        'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri,
         'name', 'width=450,height=350');
     },
 
