@@ -171,6 +171,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/auth/login.html",
         controller: "loginController"
       })
+      .when("/contest-detail/:id", {
+        templateUrl: "modules/contest-detail/contest-detail.tem.html",
+        controller: "contestDetailController"
+      })
       .when("/challenge-detail/:id", {
         templateUrl: "modules/contest-detail/contest-detail.tem.html",
         controller: "contestDetailController"
