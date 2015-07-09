@@ -247,17 +247,17 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/contest/.test(path)) {
         return jsonValue.views.contest;
       }
-      else if (/\/post-contest/.test(path)) {
-        return jsonValue.views.postContest;
+      else if (/\/post-challenge/.test(path)) {
+        return jsonValue.views.postChallenge;
       }
       else if (/\/login/.test(path)) {
         return jsonValue.views.login;
       }
-      else if (/\/contest-detail/.test(path)) {
-        return jsonValue.views.contestDetail;
+      else if (/\/challenge-detail/.test(path)) {
+        return jsonValue.views.challengeDetail;
       }
-      else if (/\/contests/.test(path)) {
-        return jsonValue.views.contests;
+      else if (/\/challenges/.test(path)) {
+        return jsonValue.views.challenges;
       }
     },
 
