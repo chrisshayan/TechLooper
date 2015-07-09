@@ -7,7 +7,7 @@ techlooper.filter("countdown", function (jsonValue) {
         if (moment(input, jsonValue.dateFormat).isSame(moment(), "day")) {
           return 1;
         }
-        
+
         var toNow = moment(input, jsonValue.dateFormat).diff(moment(), "days");
         return toNow + 2;
     }
