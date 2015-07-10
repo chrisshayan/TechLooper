@@ -20,11 +20,13 @@ techlooper.directive('tagbox', function ($http) {
       var resetForm = function () {
         scope.tagForm.$setPristine();
         scope.tagForm.tag.$edited = false;
+        scope.tagForm.autoTag.$edited = false;
+        scope.tag = "";
+        scope.autoTag = "";
       }
 
       scope.tags = scope.tags || [];
       scope.tagList = scope.tagList || [];
-      scope.tag = "";
 
       scope.removeTag = function (tag) {
         scope.tags.splice(scope.tags.indexOf(tag), 1);
@@ -40,13 +42,16 @@ techlooper.directive('tagbox', function ($http) {
           return false;
         }
 
-        console.log(scope.tagForm);
         if (!scope.tagForm.$valid) {
           return false;
         }
 
+        var tag = tag || scope.tag || scope.autoTag;
+        if ($.inArray(tag, scope.tags) >= 0) {
+          return false;
+        }
+
         scope.tags.push(tag);
-        scope.tag = "";
         resetForm();
       }
 
@@ -55,33 +60,31 @@ techlooper.directive('tagbox', function ($http) {
           return [];
         }
 
-        scope.getTags()
+        if (!scope.tagForm.$valid) {
+          return false;
+        }
+
+        scope.tagList.length = 0;
+        scope.getTags(scope.autoTag)
           .success(function (data) {
-            console.log(data);
             scope.tagList = data;
           })
           .error(function () {scope.tagList.length = 0;});
       }
 
       scope.status = function (type) {
-        var args = [].slice.call(arguments).slice(1);
         switch (type) {
           case "show-auto-complete-input":
             return scope.getTags;
 
           case "show-text-input":
             return !scope.getTags;
-
-          case "view-style":
-            return scope.getTags ? "auto-complete" : "normal";
-
         }
 
         return false;
       }
 
       scope.submitTag = function (event) {
-        console.log(scope.tagForm);
         if (event.which === 13) {
           event.preventDefault();
           scope.addTag(scope.tag);
@@ -91,6 +94,10 @@ techlooper.directive('tagbox', function ($http) {
       }
 
       scope.tagForm.tag.$validators.unique = function (modelValue, viewValue) {
+        return scope.tags.indexOf(modelValue) < 0;
+      }
+
+      scope.tagForm.autoTag.$validators.unique = function (modelValue, viewValue) {
         return scope.tags.indexOf(modelValue) < 0;
       }
     }

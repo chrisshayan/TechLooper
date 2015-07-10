@@ -12,29 +12,29 @@
       </ul>
     </div>
 
-    <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$edited">
+    <div class="error-messages" ng-show="tagForm.$submitted || tagForm.tag.$edited || tagForm.autoTag.$edited">
       <div translate="requiredThisField" ng-show="tagForm.tag.$error.required"/>
       <div translate="exceedCharacterWithParam" ng-show="tagForm.tag.$error.maxlength"/>
       <div translate="emailInvalid" ng-show="tagForm.tag.$error.email"/>
       <div translate="alreadyExistValue" ng-show="tagForm.tag.$error.unique"/>
       <div translate="limitItemWithParam" translate-value-number="{{listMaxLength}}"
            ng-show="tagForm.tag.$error.listMaxLength"/>
+
+      <div translate="requiredThisField" ng-show="tagForm.autoTag.$error.required"/>
+      <div translate="alreadyExistValue" ng-show="tagForm.autoTag.$error.unique"/>
     </div>
 
     <input type="hidden" name="tags" ng-model="tags" array-required>
 
-    <!--<div ng-switch="status('view-style')">-->
-      <!--<autocomplete name="tag" required ng-model="tag" data="tagList" ng-switch-when="auto-complete"-->
-                    <!--attr-placeholder="{{placeholder | translate}}" on-select="addTag"></autocomplete>-->
-      <!--<input type="{{type}}" placeholder="{{placeholder | translate}}" ng-switch-default-->
-             <!--maxlength="{{maxTagLength}}" ng-keypress="submitTag($event, tag)"-->
-             <!--ng-model="tag" name="tag" required unique touchable focusout="true"/>-->
-    <!--</div>-->
-
-    <input type="{{type}}" placeholder="{{placeholder | translate}}"
+    <input type="{{type}}" placeholder="{{placeholder | translate}}" ng-show="status('show-text-input')"
            maxlength="{{maxTagLength}}" ng-keypress="submitTag($event, tag)"
-           ng-model="tag" name="tag" required unique touchable focusout="true"/>
+           ng-model="tag" name="tag" ng-required="status('show-text-input')" unique touchable focusout="true"/>
 
-    <button type="submit" ng-click="addTag(tag)" ng-modal="clickAddTag">{{'add' | translate}}</button>
+    <autocomplete name="autoTag" ng-model="autoTag" data="tagList"
+                  ng-show="status('show-auto-complete-input')" ng-required="status('show-auto-complete-input')"
+                  attr-placeholder="{{placeholder | translate}}" on-select="addTag" unique touchable focusout="true"
+                  on-type="submitTag"></autocomplete>
+
+    <button type="submit" ng-click="addTag()" ng-modal="clickAddTag">{{'add' | translate}}</button>
   </ng-form>
 </div>
