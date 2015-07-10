@@ -433,7 +433,22 @@
   "viewDetails": "Chi tiết",
   "howWeEvaluateContestants":"Các tiêu chí đánh giá sản phẩm:",
   "byFacebook": "với Facebook",
-  "enableCookies": "Trang web này yêu cầu cookies để cung cấp tất cả các tính năng của nó. Vì vậy, xin vui lòng bật cookie trong trình duyệt web của bạn để tiếp tục."
+  "enableCookies": "Trang web này yêu cầu cookies để cung cấp tất cả các tính năng của nó. Vì vậy, xin vui lòng bật cookie trong trình duyệt web của bạn để tiếp tục.",
+  "postAProject": "Đăng Dự Án",
+  "desPostAProject": "Tìm kiếm nhân tài nhanh chóng và dễ dàng.",
+  "giveYourJobTitle": "Đặt tên cho công việc của bạn: <strong>*</strong>",
+  "DesWorkDone": "Mô tả công việc cần hoàn thành: <strong>*</strong>",
+  "charactersLeft": "Còn {{charactersLeft}} ký tự",
+  "whatSkillsAreNeeded": "Các kỹ năng cần có? (tối đa 20): <strong>*</strong>",
+  "howWouldYouLikeToPay": "Cách thức chi trả? <strong>*</strong>",
+  "estimatedEndDate": "Ngày kết thúc dự án: <strong>*</strong>",
+  "budget": "Ngân sách (USD): <strong>*</strong>",
+  "numberOfHires": "Số lượng freelancer cần tuyển (1-99): <strong>*</strong>",
+  "estimatedDuration": "Thời gian ước lượng: <strong>*</strong>",
+  "estimatedWorkload": "Khối lượng công việc Ước lượng: <strong>*</strong>",
+  "hourlyRate": "Mức giá chi trả (USD/ giờ): <strong>*</strong>",
+  "postProjectNow": "Đăng Ngay",
+  "review": "Xem Trước"
 }
 
 
