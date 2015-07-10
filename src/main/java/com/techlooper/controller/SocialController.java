@@ -62,7 +62,7 @@ public class SocialController {
     SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
       .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
 
-    UserProfile userProfile = null;
+    UserProfile userProfile;
     try {
       userProfile = facebookService.getUserProfile(code, socialConfig);
     }

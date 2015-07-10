@@ -7,6 +7,11 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     {translate: "theSolutionIsInnovative"}
   ];
 
+  var paymentOptions = [
+    {translate: "fixedPrice"},
+    {translate: "hourly"}
+  ];
+
   var singleSelectize = function (key) {
     return {
       create: false,
@@ -26,12 +31,14 @@ techlooper.factory("resourcesService", function ($translate, $q) {
 
   var instance = {
     reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, singleSelectize("reviewStyleConfig")),
-    qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, singleSelectize("qualityIdeaConfig"))
+    qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, singleSelectize("qualityIdeaConfig")),
+    paymentConfig:  $.extend(true, {}, {options: paymentOptions}, singleSelectize("paymentConfig"))
   }
 
   var translations = [
     {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
-    {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"}
+    {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"},
+    {ins: instance.paymentConfig, placeholder: "exPaymentConfig"}
   ];
 
   $.each(translations, function (i, item) {
