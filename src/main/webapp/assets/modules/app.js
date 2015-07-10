@@ -183,6 +183,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/contests/contests.tem.html",
         controller: "contestsController"
       })
+      .when("/freelancer/post-project", {
+        templateUrl: "modules/freelancer/post-project/postProject.html",
+        controller: "freelancerPostProjectController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -195,7 +199,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService) {
+                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -203,6 +207,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+  $rootScope.apiService = apiService;
 
   //signInService.init();
 
@@ -238,7 +243,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     switch (utils.getView()) {
-      //case jsonValue.views.contestDetail:
+      case jsonValue.views.freelancerPostProject:
       case jsonValue.views.postChallenge:
         securityService.getCurrentUser()
           .catch(function () {

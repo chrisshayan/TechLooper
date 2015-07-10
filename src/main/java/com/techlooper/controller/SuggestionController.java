@@ -30,6 +30,11 @@ public class SuggestionController {
         return response;
     }
 
+    @RequestMapping(value = "/suggestion/skills/{query}", method = RequestMethod.GET)
+    public List<String> suggestSkills(@PathVariable String query) {
+        return suggestionService.suggestSkills(trim(query));
+    }
+
     @RequestMapping(value = "/suggestion/jobTitle/{query}", method = RequestMethod.GET)
     public SuggestionResponse suggestJobTitle(@PathVariable String query) {
         SuggestionResponse response = new SuggestionResponse();

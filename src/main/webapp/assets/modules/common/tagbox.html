@@ -23,9 +23,17 @@
 
     <input type="hidden" name="tags" ng-model="tags" array-required>
 
+    <!--<div ng-switch="status('view-style')">-->
+      <!--<autocomplete name="tag" required ng-model="tag" data="tagList" ng-switch-when="auto-complete"-->
+                    <!--attr-placeholder="{{placeholder | translate}}" on-select="addTag"></autocomplete>-->
+      <!--<input type="{{type}}" placeholder="{{placeholder | translate}}" ng-switch-default-->
+             <!--maxlength="{{maxTagLength}}" ng-keypress="submitTag($event, tag)"-->
+             <!--ng-model="tag" name="tag" required unique touchable focusout="true"/>-->
+    <!--</div>-->
+
     <input type="{{type}}" placeholder="{{placeholder | translate}}"
-           ng-keypress="submitTag($event, tag)" maxlength="{{maxTagLength}}"
-           ng-model="tag" name="tag" required unique touchable focusout="true" />
+           maxlength="{{maxTagLength}}" ng-keypress="submitTag($event, tag)"
+           ng-model="tag" name="tag" required unique touchable focusout="true"/>
 
     <button type="submit" ng-click="addTag(tag)" ng-modal="clickAddTag">{{'add' | translate}}</button>
   </ng-form>

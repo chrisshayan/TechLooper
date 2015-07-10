@@ -1,4 +1,4 @@
-techlooper.directive('tagbox', function ($rootScope) {
+techlooper.directive('tagbox', function ($http) {
   return {
     restrict: "E",
     replace: true,
@@ -8,7 +8,8 @@ techlooper.directive('tagbox', function ($rootScope) {
       type: "@",
       placeholder: "@",
       listMaxLength: "@",
-      maxTagLength: "@"
+      maxTagLength: "@",
+      getTags: "="
     },
 
     /**
@@ -22,6 +23,7 @@ techlooper.directive('tagbox', function ($rootScope) {
       }
 
       scope.tags = scope.tags || [];
+      scope.tagList = scope.tagList || [];
       scope.tag = "";
 
       scope.removeTag = function (tag) {
@@ -38,6 +40,7 @@ techlooper.directive('tagbox', function ($rootScope) {
           return false;
         }
 
+        console.log(scope.tagForm);
         if (!scope.tagForm.$valid) {
           return false;
         }
@@ -47,12 +50,44 @@ techlooper.directive('tagbox', function ($rootScope) {
         resetForm();
       }
 
-      scope.submitTag = function (event, tag) {
+      var getTags = function () {
+        if (!scope.getTags) {
+          return [];
+        }
+
+        scope.getTags()
+          .success(function (data) {
+            console.log(data);
+            scope.tagList = data;
+          })
+          .error(function () {scope.tagList.length = 0;});
+      }
+
+      scope.status = function (type) {
+        var args = [].slice.call(arguments).slice(1);
+        switch (type) {
+          case "show-auto-complete-input":
+            return scope.getTags;
+
+          case "show-text-input":
+            return !scope.getTags;
+
+          case "view-style":
+            return scope.getTags ? "auto-complete" : "normal";
+
+        }
+
+        return false;
+      }
+
+      scope.submitTag = function (event) {
+        console.log(scope.tagForm);
         if (event.which === 13) {
           event.preventDefault();
           scope.addTag(scope.tag);
           return false;
         }
+        getTags();
       }
 
       scope.tagForm.tag.$validators.unique = function (modelValue, viewValue) {
