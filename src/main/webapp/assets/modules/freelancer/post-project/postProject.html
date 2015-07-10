@@ -1,8 +1,87 @@
-<div>
-  Post project
-  <form>
-    <tagbox name="technologies" tags="contest.technologies" get-tags="getSuggestSkills()"
-            type="text" placeholder="technologiesEX" list-max-length="10" max-tag-length="40"
-            ng-model="contest.technologies" array-model touchable></tagbox>
-  </form>
+<header-block></header-block>
+<div class="content-page-block">
+  <div class="header-page">
+    <h2 translate="postAProject"></h2>
+    <p translate="desPostAProject"></p>
+  </div>
+  <div class="content-page-detail">
+    <div class="form-content">
+      <ng-form novalidate name="postProject" autocomplete="off">
+        <div class="field-content">
+          <label translate="giveYourJobTitle"></label>
+          <input type="text" class="input-style"/>
+
+        </div>
+        <div class="field-content">
+          <label translate="DesWorkDone"></label>
+          <textarea name="" id="" cols="" rows="" class="textarea-style"></textarea>
+
+          <p class="note" translate="charactersLeft" translate-value-characters-left="5000"></p>
+        </div>
+        <div class="field-content">
+          <label translate="whatSkillsAreNeeded"></label>
+          <tagbox name="technologies" tags="contest.technologies" get-tags="apiService.getSuggestSkills"
+                  type="text" placeholder="technologiesEX" list-max-length="10" max-tag-length="40"
+                  ng-model="contest.technologies" array-model touchable></tagbox>
+        </div>
+        <div class="field-content">
+          <label translate="howWouldYouLikeToPay"></label>
+          <selectize name="payment" ng-model="postProject.payment" config="config.payment" required touchable></selectize>
+        </div>
+        <div class="field-content-group">
+          <div class="field-content">
+            <label translate="estimatedEndDate"></label>
+            <div class="input-group date">
+              <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+                     placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
+                     name="registrationDate"
+                     required-expr="state.status('register-date-gt-start-date')"
+                     ng-model="contest.registrationDate" required>
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+            </div>
+
+            <div ng-show="timelineForm.registrationDate.$touched || timelineForm.$submitted">
+              <div class="error-messages"
+                   ng-show="timelineForm.registrationDate.$error.required" translate="requiredThisField" />
+              <div class="error-messages"
+                   ng-show="timelineForm.registrationDate.$error.requiredExpr"
+                   translate="registerDateGTStartDate"/>
+            </div>
+          </div>
+          <div class="field-content">
+            <label translate="budget"></label>
+            <input type="text" class="input-style"/>
+          </div>
+          <div class="field-content">
+            <label translate="numberOfHires"></label>
+            <input type="text" class="input-style"/>
+          </div>
+        </div>
+        <div class="field-content-group">
+          <div class="field-content">
+            <label translate="estimatedDuration"></label>
+            <selectize name="payment" ng-model="postProject.payment" config="config.payment" required touchable></selectize>
+          </div>
+          <div class="field-content">
+            <label translate="estimatedWorkload"></label>
+            <selectize name="payment" ng-model="postProject.payment" config="config.payment" required touchable></selectize>
+          </div>
+          <div class="field-content">
+            <label translate="hourlyRate"></label>
+            <input type="text" class="input-style"/>
+          </div>
+          <div class="field-content">
+            <label translate="numberOfHires"></label>
+            <input type="text" class="input-style"/>
+          </div>
+        </div>
+        <div class="field-content submit">
+          <button translate="postProjectNow" class="btn btn-primary btn-flat" type="button"></button>
+          <a href="#" translate="review"></a>
+        </div>
+      </ng-form>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,6 @@
 angular.module('SignIn').factory('signInService',
   function (jsonValue, utils, shortcutFactory, $location, $auth, localStorageService,
-            $window, $http, connectionFactory, $rootScope, userService, navigationService) {
+            $window, $http, connectionFactory, $rootScope, userService) {
 
     var $$ = {
       enableNotifications: function () {
