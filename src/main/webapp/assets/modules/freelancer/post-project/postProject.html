@@ -9,14 +9,20 @@
       <ng-form novalidate name="postProject" autocomplete="off">
         <div class="field-content">
           <label translate="giveYourJobTitle"></label>
-          <input type="text" class="input-style"/>
-
+          <input type="text" class="input-style"
+                 data-toggle="tooltip"
+                 data-original-title="{{'giveYourJobTitleTip' | translate}}"/>
         </div>
         <div class="field-content">
-          <label translate="DesWorkDone"></label>
-          <textarea name="" id="" cols="" rows="" class="textarea-style"></textarea>
+          <label translate="desWorkDone"></label>
+          <textarea name="" cols="" rows="" class="textarea-style"
+                    ng-model="WorkDone" ng-trim="false"
+                    maxlength="5000"
+                    data-toggle="tooltip"
+                    data-original-title="{{'desPostAProjectTip' | translate}}">
+          </textarea>
 
-          <p class="note" translate="charactersLeft" translate-value-characters-left="5000"></p>
+          <p class="note" translate="charactersLeft" translate-value-characters-left="{{5000 - WorkDone.length}}"></p>
         </div>
         <div class="field-content">
           <label translate="whatSkillsAreNeeded"></label>
@@ -36,7 +42,9 @@
                      placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                      name="registrationDate"
                      required-expr="state.status('register-date-gt-start-date')"
-                     ng-model="contest.registrationDate" required>
+                     ng-model="contest.registrationDate" required
+                     data-toggle="tooltip"
+                     data-original-title="{{'emailAddressReceiveTip' | translate}}">
                   <span class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -52,11 +60,15 @@
           </div>
           <div class="field-content">
             <label translate="budget"></label>
-            <input type="text" class="input-style"/>
+            <input type="text" class="input-style"
+                   data-toggle="tooltip"
+                   data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
           </div>
           <div class="field-content">
             <label translate="numberOfHires"></label>
-            <input type="text" class="input-style"/>
+            <input type="text" class="input-style"
+                   data-toggle="tooltip"
+                   data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
           </div>
         </div>
         <div class="field-content-group">
@@ -70,11 +82,15 @@
           </div>
           <div class="field-content">
             <label translate="hourlyRate"></label>
-            <input type="text" class="input-style"/>
+            <input type="text" class="input-style"
+                   data-toggle="tooltip"
+                   data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
           </div>
           <div class="field-content">
             <label translate="numberOfHires"></label>
-            <input type="text" class="input-style"/>
+            <input type="text" class="input-style"
+                   data-toggle="tooltip"
+                   data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
           </div>
         </div>
         <div class="field-content submit">
