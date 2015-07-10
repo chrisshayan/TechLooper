@@ -79,6 +79,13 @@ techlooper.directive('tagbox', function ($http) {
 
           case "show-text-input":
             return !scope.getTags;
+
+          case "show-error":
+            var errorType = arguments[1];
+            return scope.tagForm.tag.$error[errorType] || scope.tagForm.autoTag.$error[errorType];
+
+          case "show-errors":
+            return scope.tagForm.$submitted || scope.tagForm.tag.$edited || scope.tagForm.autoTag.$edited;
         }
 
         return false;

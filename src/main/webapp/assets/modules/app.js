@@ -1,6 +1,7 @@
-if (!navigator.cookieEnabled){
+if (!navigator.cookieEnabled) {
   $('.warning-alert-block').addClass('show');
-}else{
+}
+else {
   $('.warning-alert-block').removeClass('show');
 }
 
@@ -245,11 +246,9 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     switch (utils.getView()) {
       case jsonValue.views.freelancerPostProject:
       case jsonValue.views.postChallenge:
-        securityService.getCurrentUser()
-          .catch(function () {
-            localStorageService.set("protectedPage", "/post-challenge");
-          }
-        );
+        securityService.getCurrentUser().catch(function () {
+          localStorageService.set("protectedPage", "/post-challenge");
+        });
         break;
 
       case jsonValue.views.login:
