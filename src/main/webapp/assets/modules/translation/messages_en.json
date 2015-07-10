@@ -429,5 +429,20 @@
   "viewDetails": "View Details",
   "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:",
   "byFacebook": "with Facebook",
-  "enableCookies": "This website requires cookies to provide all of its features. So please enable cookies in your web browser to continue."
+  "enableCookies": "This website requires cookies to provide all of its features. So please enable cookies in your web browser to continue.",
+  "postAProject": "Post A Project",
+  "desPostAProject": "Find IT professionals quick and easy.",
+  "giveYourJobTitle": "Give your job a title: <strong>*</strong>",
+  "DesWorkDone": "Describe the work to be done: <strong>*</strong>",
+  "charactersLeft": "{{charactersLeft}} characters left",
+  "whatSkillsAreNeeded": "What skills are needed? (limited to 20): <strong>*</strong>",
+  "howWouldYouLikeToPay": "How would you like to pay? <strong>*</strong>",
+  "estimatedEndDate": "estimated End Date: <strong>*</strong>",
+  "budget": "budget (USD): <strong>*</strong>",
+  "numberOfHires": "Number of Hires (1-99 freelancers): <strong>*</strong>",
+  "estimatedDuration": "estimated Duration: <strong>*</strong>",
+  "estimatedWorkload": "estimated Workload: <strong>*</strong>",
+  "hourlyRate": "Hourly Rate (USD/ hour): <strong>*</strong>",
+  "postProjectNow": "Post Project Now",
+  "review": "Review"
 }
