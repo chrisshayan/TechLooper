@@ -4,6 +4,6 @@ techlooper.controller('freelancerPostProjectController', function ($scope) {
     placement: 'right',
     'trigger': "focus",
     animation: true,
-    html : true
+    html: true
   });
 })
