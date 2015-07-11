@@ -206,7 +206,8 @@ angular.module("Common").constant("jsonValue", (function () {
       login: "login",
       challengeDetail: "challengeDetail",
       challenges: "challenges",
-      freelancerPostProject: "freelancerPostProject"
+      freelancerPostProject: "freelancerPostProject",
+      freelancerProjectDetail: "freelancerProjectDetail"
     },
 
     httpUri: {
