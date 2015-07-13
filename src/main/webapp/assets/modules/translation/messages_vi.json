@@ -448,7 +448,8 @@
   "estimatedWorkload": "Khối lượng công việc Ước lượng: <strong>*</strong>",
   "hourlyRate": "Mức giá chi trả (USD/ giờ): <strong>*</strong>",
   "postProjectNow": "Đăng Ngay",
-  "review": "Xem Trước"
+  "review": "Xem Trước",
+  "hrs": "giờ"
 }
 
 

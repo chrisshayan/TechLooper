@@ -2,10 +2,11 @@
   <h2>{{postProject.projectTitle}}</h2>
   <div class="time-and-payment-block">
     <div class="working-time-block">
-
+      <h3>{{postProject.payMethod}}</h3>
     </div>
     <div class="payment-block">
-
+      <h3 ng-show="postProject.payMethod == 'fixedPrice'">${{postProject.budgetValue}}</h3>
+      <h3 ng-show="postProject.payMethod == 'hourly'">${{postProject.hourlyRate}}/ <span translate="hrs"></span> </h3>
     </div>
   </div>
   <div class="project-detail-block">
