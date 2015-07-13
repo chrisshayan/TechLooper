@@ -6,56 +6,82 @@
   </div>
   <div class="content-page-detail">
     <div class="form-content">
-      <ng-form novalidate name="postProject" autocomplete="off">
+      <form novalidate name="postProjectForm" autocomplete="off">
         <div class="field-content">
           <label translate="giveYourJobTitle"></label>
-          <input type="text" class="input-style"
-                 data-toggle="tooltip"
-                 data-original-title="{{'giveYourJobTitleTip' | translate}}"/>
+          <input type="text" class="input-style" name="projectTitle"
+                 data-toggle="tooltip" ng-model="postProject.projectTitle"
+                 data-original-title="{{'giveYourJobTitleTip' | translate}}" ng-required="true" touchable/>
+
+          <div class="error-messages"
+               ng-show="postProjectForm.projectTitle.$error.required && (postProjectForm.projectTitle.$edited || postProjectForm.$submitted)"
+               translate="requiredThisField" />
+
         </div>
         <div class="field-content">
           <label translate="desWorkDone"></label>
-          <textarea name="" cols="" rows="" class="textarea-style"
-                    ng-model="WorkDone" ng-trim="false"
-                    maxlength="5000"
-                    data-toggle="tooltip"
-                    data-original-title="{{'desPostAProjectTip' | translate}}">
+          <textarea name="projectDescription" cols="" rows="" class="textarea-style"
+                    ng-model="postProject.projectDescription" ng-trim="false"
+                    maxlength="5000" data-toggle="tooltip"
+                    data-original-title="{{'desPostAProjectTip' | translate}}" touchable ng-required="true">
           </textarea>
+
+          <div class="error-messages"
+               ng-show="postProjectForm.projectDescription.$error.required && (postProjectForm.projectDescription.$edited || postProjectForm.$submitted)"
+               translate="requiredThisField" />
 
           <p class="note" translate="charactersLeft" translate-value-characters-left="{{5000 - WorkDone.length}}"></p>
         </div>
         <div class="field-content">
           <label translate="whatSkillsAreNeeded"></label>
-          <tagbox name="technologies" tags="contest.technologies" get-tags="apiService.getSuggestSkills"
+          <tagbox name="skills" tags="postProject.skills" get-tags="apiService.getSuggestSkills"
                   type="text" placeholder="technologiesEX" list-max-length="10" max-tag-length="40"
-                  ng-model="contest.technologies" array-model touchable></tagbox>
+                  ng-model="postProject.skills" array-model touchable></tagbox>
+          <div class="error-messages"
+               ng-show="postProjectForm.skills.$error.required && (postProjectForm.skills.$edited || postProjectForm.$submitted)"
+               translate="listRequire1Item" />
         </div>
         <div class="field-content">
           <label translate="howWouldYouLikeToPay"></label>
-          <selectize name="payment" ng-model="postProject.payment" config="config.payment" required touchable></selectize>
+          <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig"
+                     required touchable></selectize>
+          <div class="error-messages"
+               ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$touched || postProjectForm.$submitted)"
+               translate="requiredThisField"></div>
         </div>
         <div class="field-content-group">
           <div class="field-content">
             <label translate="estimatedEndDate"></label>
             <div class="input-group date">
-              <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
-                     placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
-                     name="registrationDate"
-                     required-expr="state.status('register-date-gt-start-date')"
-                     ng-model="contest.registrationDate" required
+              <input type="text" class="form-control"
+                     placeholder="{{'ex' | translate}}{{status('ex-today')}}"
+                     name="estimatedEndDate"
+                     ng-model="postProject.estimatedEndDate" ng-required="true"
+                     class="date-picker"
                      data-toggle="tooltip"
                      data-original-title="{{'emailAddressReceiveTip' | translate}}">
                   <span class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </span>
             </div>
+            <!--<datetimepicker data-ng-model="postProject.estimatedEndDate" placeholder="{{'ex' | translate}}{{status('ex-today')}}"></datetimepicker>-->
+            <!--<div class="dropdown">-->
+              <!--<a class="dropdown-toggle" role="button" data-toggle="dropdown" id="dropdown2">-->
+                <!--<div class="input-group">-->
+                  <!--<input type="text" placeholder="{{'ex' | translate}}{{status('ex-today')}}" class="form-control"-->
+                         <!--value="{{ data.dateDropDownInput | date:'yyyy-MM-dd a'}}"-->
+                         <!--data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+                <!--</div>-->
+              <!--</a>-->
+              <!--<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">-->
+                <!--<datetimepicker data-ng-model="data.dateDropDownInput"-->
+                                <!--data-datetimepicker-config="{dropdownSelector: '#dropdown2', startView:'day', minView:'day' }"/>-->
+              <!--</ul>-->
+            <!--</div>-->
 
-            <div ng-show="timelineForm.registrationDate.$touched || timelineForm.$submitted">
+            <div ng-show="postProjectForm.estimatedEndDate.$touched || postProjectForm.$submitted">
               <div class="error-messages"
-                   ng-show="timelineForm.registrationDate.$error.required" translate="requiredThisField" />
-              <div class="error-messages"
-                   ng-show="timelineForm.registrationDate.$error.requiredExpr"
-                   translate="registerDateGTStartDate"/>
+                   ng-show="postProjectForm.estimatedEndDate.$error.required" translate="requiredThisField" />
             </div>
           </div>
           <div class="field-content">
@@ -94,10 +120,12 @@
           </div>
         </div>
         <div class="field-content submit">
-          <button translate="postProjectNow" class="btn btn-primary btn-flat" type="button"></button>
+          <button translate="postProjectNow" class="btn btn-primary btn-flat" type="submit" ng-click="abc()"></button>
           <a href="#" translate="review"></a>
         </div>
-      </ng-form>
+      </form>
     </div>
   </div>
 </div>
+
+

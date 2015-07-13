@@ -177,7 +177,9 @@ angular.module("Common").constant("jsonValue", (function () {
       contest: "contest",
       challengeDetail: "/challenge-detail",
       challenges: "/challenges",
-      "postChallenge": "/post-challenge"
+      postChallenge: "/post-challenge",
+      freelancerPostProject: "/freelancer/post-project",
+      freelancerProjectDetail: "/freelancer/project-detail"
     },
 
     views: {

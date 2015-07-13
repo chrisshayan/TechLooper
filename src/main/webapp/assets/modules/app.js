@@ -204,7 +204,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService) {
+                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService, resourcesService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -213,6 +213,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   routerService.initialize();
   userService.initialize();
   $rootScope.apiService = apiService;
+  $rootScope.resourcesService = resourcesService;
 
   //signInService.init();
 
@@ -249,9 +250,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     switch (utils.getView()) {
       case jsonValue.views.freelancerPostProject:
+        var lastPage = "/freelancer/post-project";
       case jsonValue.views.postChallenge:
         securityService.getCurrentUser().catch(function () {
-          localStorageService.set("protectedPage", "/post-challenge");
+          localStorageService.set("protectedPage", lastPage || "/post-challenge");
         });
         break;
 
