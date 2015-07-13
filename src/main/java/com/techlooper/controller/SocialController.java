@@ -14,6 +14,8 @@ import com.techlooper.service.SocialService;
 import com.techlooper.service.VietnamWorksUserService;
 import com.techlooper.service.impl.FacebookService;
 import org.jasypt.util.text.TextEncryptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,8 @@ import java.util.Optional;
  */
 @Controller
 public class SocialController {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SocialController.class);
 
   @Resource
   private ApplicationContext applicationContext;
@@ -74,8 +78,15 @@ public class SocialController {
     ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.save(
       new ChallengeRegistrantEntity(new Date().getTime(), userProfile.getEmail(), userProfile.getFirstName(), userProfile.getLastName()));
 
-    vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
-      .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
+    if (StringUtils.hasText(userProfile.getEmail()) {
+      try {
+        vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
+          .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
+      }
+      catch (Exception e) {
+        LOGGER.debug("Error register Vietnamworks", e);
+      }
+    }
 
     response.sendRedirect("/#/?registerVnwUser=" + challengeRegistrantEntity.getRegistrantId());
   }
