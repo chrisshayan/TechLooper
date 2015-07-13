@@ -78,7 +78,7 @@ public class SocialController {
     ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.save(
       new ChallengeRegistrantEntity(new Date().getTime(), userProfile.getEmail(), userProfile.getFirstName(), userProfile.getLastName()));
 
-    if (StringUtils.hasText(userProfile.getEmail()) {
+    if (StringUtils.hasText(userProfile.getEmail())) {
       try {
         vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
           .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
