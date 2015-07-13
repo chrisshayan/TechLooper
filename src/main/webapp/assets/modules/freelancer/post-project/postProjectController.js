@@ -1,4 +1,4 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope) {
   $('.field-content').find('[data-toggle="tooltip"]').tooltip({
     html: true,
     placement: 'right',
@@ -53,10 +53,12 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
   $scope.$watch("postProject.payMethod", function(newVal, oldVal) {
     if ($scope.status("show-hourly-price-fields")) {
       $scope.hourlyForm.$setPristine();
+      $rootScope.$emit("$setPristine");
       $scope.hourly = {}
     }
     if ($scope.status("show-fixed-price-fields")) {
       $scope.fixedPriceForm.$setPristine();
+      $rootScope.$emit("$setPristine");
       $scope.fixedPrice = {}
     }
   });

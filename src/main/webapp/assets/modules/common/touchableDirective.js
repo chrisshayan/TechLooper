@@ -8,12 +8,15 @@ techlooper
           ngModelCtrl.$edited = true;
         });
 
-
         if (attr.focusout == 'true') {
           element.focusout(function () {
             ngModelCtrl.$edited = false;
           });
         }
+
+        $rootScope.$on("$setPristine", function() {
+          ngModelCtrl.$edited = false;
+        });
       }
     }
   });

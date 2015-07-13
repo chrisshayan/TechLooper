@@ -51,15 +51,14 @@
                  placeholder="{{'ex' | translate}}{{status('ex-today')}}"
                  name="estimatedEndDate"
                  ng-model="fixedPrice.estimatedEndDate" ng-required="status('show-fixed-price-fields')"
-                 class="date-picker"
-                 data-toggle="tooltip"
+                 class="date-picker" data-toggle="tooltip" touchable=""
                  data-original-title="{{'emailAddressReceiveTip' | translate}}">
                   <span class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </span>
         </div>
 
-        <div ng-show="fixedPriceForm.estimatedEndDate.$touched || fixedPriceForm.$submitted">
+        <div ng-show="fixedPriceForm.estimatedEndDate.$edited || fixedPriceForm.$submitted">
           <div class="error-messages"
                ng-show="fixedPriceForm.estimatedEndDate.$error.required" translate="requiredThisField" />
         </div>
