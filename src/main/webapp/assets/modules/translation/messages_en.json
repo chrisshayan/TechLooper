@@ -448,5 +448,18 @@
   "desPostAProjectTip": "<p><strong>The more details, the better</strong><p><p>Quality freelancers look for detailed descriptions. We suggest the following:</p><ul><li>• A short 1-2 sentence job overview</li><li>• What you need the freelancer to do</li><li>• Key skills needed to do the job well</li><li>• What you think a successful engagement will look like for you as a client</li><li>• Why the right freelancer should be interested in the job</li><li>• Any questions or info you want the freelancer to include in their application</li></ul>",
   "giveYourJobTitleTip": "<p><strong>What's in a name?</p></strong><p>A lot, actually. A concise, yet specific job title will help attract qualified applicants. For instance:</p><ul><li>• Writer Wanted for Travel Blog</li><li>• ActiveSync Integration for PHP</li><li>• Are You a Wordpress Wizard?</li></ul>",
   "hrs": "hr",
-  "skillRequired": "skill Required"
+  "skillRequired": "skill Required",
+  "fixedPrice": "Fixed price. Pay by the project.",
+  "hourly": "Hourly. Pay by the hour.",
+  "exPaymentConfig": "Ex: Hourly. Pay by the hour.",
+  "exEstimatedDurationConfig": "Ex: More than 6 months",
+  "more6m": "More than 6 months",
+  "3to6m": "3 to 6 months",
+  "1to3m": "1 to 3  months",
+  "lt1m": "Less than 1 month",
+  "lt1w": "Less than 1 week",
+  "exEstimatedWorkloadConfig": "Ex: More than 30 hrs/week",
+  "30+hrsw": "More than 30 hrs/week",
+  "30-hrsw": "Less than 30 hrs/week",
+  "dontKnow": "I don't know yet"
 }

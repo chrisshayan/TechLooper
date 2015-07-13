@@ -12,6 +12,20 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     {translate: "hourly"}
   ];
 
+  var estimatedDurationOptions = [
+    {translate: "more6m"},
+    {translate: "3to6m"},
+    {translate: "1to3m"},
+    {translate: "lt1m"},
+    {translate: "lt1w"}
+  ];
+
+  var estimatedWorkloadOptions = [
+    {translate: "30+hrsw"},
+    {translate: "30-hrsw"},
+    {translate: "dontKnow"}
+  ];
+
   var singleSelectize = function (key) {
     return {
       create: false,
@@ -20,6 +34,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
       maxItems: 1,
       plugins: ["techlooper"],
       getSelectize: function () {
+        if (instance[key].selectizeDeffer) return instance[key].selectizeDeffer.promise;
         instance[key].selectizeDeffer = $q.defer();
         return instance[key].selectizeDeffer.promise;
       },
@@ -32,13 +47,27 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   var instance = {
     reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, singleSelectize("reviewStyleConfig")),
     qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, singleSelectize("qualityIdeaConfig")),
-    paymentConfig:  $.extend(true, {}, {options: paymentOptions}, singleSelectize("paymentConfig"))
+    paymentConfig: $.extend(true, {}, {options: paymentOptions}, singleSelectize("paymentConfig")),
+    estimatedDurationConfig: $.extend(true, {}, {options: estimatedDurationOptions}, singleSelectize("estimatedDurationConfig")),
+    estimatedWorkloadConfig: $.extend(true, {}, {options: estimatedWorkloadOptions}, singleSelectize("estimatedWorkloadConfig")),
+    inOptions: function (title, config) {
+      var index = -1;
+      $.each(config.options, function (i, opt) {
+        if (opt.title === title) {
+          index = i;
+          return false;
+        }
+      });
+      return index;
+    }
   }
 
   var translations = [
     {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
     {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"},
-    {ins: instance.paymentConfig, placeholder: "exPaymentConfig"}
+    {ins: instance.paymentConfig, placeholder: "exPaymentConfig"},
+    {ins: instance.estimatedDurationConfig, placeholder: "exEstimatedDurationConfig"},
+    {ins: instance.estimatedWorkloadConfig, placeholder: "exEstimatedWorkloadConfig"}
   ];
 
   $.each(translations, function (i, item) {

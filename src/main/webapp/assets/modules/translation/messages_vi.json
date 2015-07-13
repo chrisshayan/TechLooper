@@ -450,7 +450,20 @@
   "postProjectNow": "Đăng Ngay",
   "review": "Xem Trước",
   "hrs": "giờ",
-  "skillRequired": "skill Required"
+  "skillRequired": "skill Required",
+  "fixedPrice": "Giá Cố Định. Trả theo dự án.",
+  "hourly": "Trả theo giờ.",
+  "exPaymentConfig": "Ví dụ: Trả theo giờ.",
+  "exEstimatedDurationConfig": "Ví dụ: Nhiều hơn 6 tháng",
+  "more6m": "Nhiều hơn 6 tháng",
+  "3to6m": "Từ 3 đến 6 tháng",
+  "1to3m": "Từ 1 đến 3  tháng",
+  "lt1m": "Ít hơn 1 tháng",
+  "lt1w": "Ít hơn 1 tuần",
+  "exEstimatedWorkloadConfig": "Ví dụ: Nhiều hơn 30 giờ/tuần",
+  "30+hrsw": "Nhiều hơn 30 giờ/tuần",
+  "30-hrsw": "Ít hơn 30 giờ/tuần",
+  "dontKnow": "Chưa ước lượng được"
 }
 
 

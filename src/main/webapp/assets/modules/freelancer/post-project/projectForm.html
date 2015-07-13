@@ -42,14 +42,15 @@
            ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$touched || postProjectForm.$submitted)"
            translate="requiredThisField"></div>
     </div>
-    <div class="field-content-group">
+
+    <ng-form name="fixedPriceForm" class="field-content-group" ng-show="status('show-fixed-price-fields')" >
       <div class="field-content">
         <label translate="estimatedEndDate"></label>
         <div class="input-group date">
           <input type="text" class="form-control"
                  placeholder="{{'ex' | translate}}{{status('ex-today')}}"
                  name="estimatedEndDate"
-                 ng-model="postProject.estimatedEndDate" ng-required="true"
+                 ng-model="fixedPrice.estimatedEndDate" ng-required="status('show-fixed-price-fields')"
                  class="date-picker"
                  data-toggle="tooltip"
                  data-original-title="{{'emailAddressReceiveTip' | translate}}">
@@ -57,71 +58,77 @@
                     <i class="fa fa-calendar"></i>
                   </span>
         </div>
-        <!--<datetimepicker data-ng-model="postProject.estimatedEndDate" placeholder="{{'ex' | translate}}{{status('ex-today')}}"></datetimepicker>-->
-        <!--<div class="dropdown">-->
-        <!--<a class="dropdown-toggle" role="button" data-toggle="dropdown" id="dropdown2">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" placeholder="{{'ex' | translate}}{{status('ex-today')}}" class="form-control"-->
-        <!--value="{{ data.dateDropDownInput | date:'yyyy-MM-dd a'}}"-->
-        <!--data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">-->
-        <!--<datetimepicker data-ng-model="data.dateDropDownInput"-->
-        <!--data-datetimepicker-config="{dropdownSelector: '#dropdown2', startView:'day', minView:'day' }"/>-->
-        <!--</ul>-->
-        <!--</div>-->
 
-        <div ng-show="postProjectForm.estimatedEndDate.$touched || postProjectForm.$submitted">
+        <div ng-show="fixedPriceForm.estimatedEndDate.$touched || fixedPriceForm.$submitted">
           <div class="error-messages"
-               ng-show="postProjectForm.estimatedEndDate.$error.required" translate="requiredThisField" />
+               ng-show="fixedPriceForm.estimatedEndDate.$error.required" translate="requiredThisField" />
         </div>
       </div>
       <div class="field-content">
         <label translate="budget"></label>
         <input type="text" class="input-style"
-               name="budgetValue"
-               ng-model="postProject.budgetValue"
-               data-toggle="tooltip"
-               data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
+               name="budget"
+               ng-model="fixedPrice.budget" only-digits
+               data-toggle="tooltip" ng-required="status('show-fixed-price-fields')"
+               data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable=""/>
+
+        <div ng-show="fixedPriceForm.budget.$edited || fixedPriceForm.$submitted">
+          <div class="error-messages"
+               ng-show="fixedPriceForm.budget.$error.required" translate="requiredThisField" />
+        </div>
       </div>
-      <div class="field-content">
-        <label translate="numberOfHires"></label>
-        <input type="text" class="input-style"
-               data-toggle="tooltip"
-               data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
-      </div>
-    </div>
-    <div class="field-content-group">
+    </ng-form>
+
+    <ng-form name="hourlyForm" class="field-content-group" ng-show="status('show-hourly-price-fields')">
       <div class="field-content">
         <label translate="estimatedDuration"></label>
-        <selectize name="estimatedDuration"
-                   ng-model="postProject.estimatedDuration"
-                   config="config.payment" required touchable></selectize>
+        <selectize name="estimatedDuration" ng-required="status('show-hourly-price-fields')"
+                   ng-model="hourly.estimatedDuration"
+                   config="$root.resourcesService.estimatedDurationConfig" touchable></selectize>
+        <div ng-show="hourlyForm.estimatedDuration.$edited || hourlyForm.$submitted">
+          <div class="error-messages"
+               ng-show="hourlyForm.estimatedDuration.$error.required" translate="requiredThisField" />
+        </div>
       </div>
       <div class="field-content">
         <label translate="estimatedWorkload"></label>
-        <selectize name="estimatedWorkload"
-                   ng-model="postProject.estimatedWorkload"
-                   config="config.payment" required touchable></selectize>
+        <selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"
+                   ng-model="hourly.estimatedWorkload"
+                   config="$root.resourcesService.estimatedWorkloadConfig" touchable></selectize>
+        <div ng-show="hourlyForm.estimatedWorkload.$edited || hourlyForm.$submitted">
+          <div class="error-messages"
+               ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />
+        </div>
       </div>
       <div class="field-content">
         <label translate="hourlyRate"></label>
         <input type="text" class="input-style"
-               name="hourlyRate"
-               ng-model="postProject.hourlyRate"
+               name="hourlyRate" ng-required="status('show-hourly-price-fields')"
+               ng-model="hourly.hourlyRate" only-digits
                data-toggle="tooltip"
-               data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
+               data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable/>
+        <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
+          <div class="error-messages"
+               ng-show="hourlyForm.hourlyRate.$error.required" translate="requiredThisField" />
+        </div>
       </div>
-      <div class="field-content">
-        <label translate="numberOfHires"></label>
-        <input type="text" class="input-style"
-               data-toggle="tooltip"
-               data-original-title="{{'emailAddressReceiveTip' | translate}}"/>
+    </ng-form>
+
+
+    <div class="field-content">
+      <label translate="numberOfHires"></label>
+      <input type="text" class="input-style" ng-required="true" only-digits
+             data-toggle="tooltip" name="numberOfHires" ng-model="postProject.numberOfHires"
+             data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable/>
+
+      <div ng-show="postProjectForm.numberOfHires.$edited || postProjectForm.$submitted">
+        <div class="error-messages"
+             ng-show="postProjectForm.numberOfHires.$error.required" translate="requiredThisField" />
       </div>
     </div>
+
     <div class="field-content submit">
-      <button translate="postProjectNow" class="btn btn-primary btn-flat" type="submit" ng-click="abc()"></button>
+      <button translate="postProjectNow" class="btn btn-primary btn-flat" type="submit" ng-click="createProject()"></button>
       <a translate="review" ng-modal="reviewed" ng-click="reviewed != reviewed"></a>
     </div>
   </form>
