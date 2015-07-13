@@ -296,7 +296,7 @@ techlooper.directive("navigation", function () {
       templateUrl: "modules/job/findJobs.tem.html"
     }
   })
-  .directive('onlyDigits', function () {
+  .directive('onlyDigits', function ($filter) {
     return {
       require: 'ngModel',
       restrict: 'A',
@@ -304,13 +304,18 @@ techlooper.directive("navigation", function () {
         function inputValue(val) {
           if (val) {
             var digits = val.replace(/[^0-9.]/g, '');
-
             if (digits !== val) {
               ctrl.$setViewValue(digits);
               ctrl.$render();
             }
             var number = parseFloat(digits);
-            return isNaN(number) ? "" : number;
+            if (!isNaN(number)) {
+              //number = $filter('number')(number, 2);
+              //ctrl.$setViewValue(number);
+              //ctrl.$render();
+              return number;
+            }
+            return "";
           }
           return '';
         }

@@ -3,7 +3,7 @@
     <div class="field-content">
       <label translate="giveYourJobTitle"></label>
       <input type="text" class="input-style" name="projectTitle"
-             data-toggle="tooltip" ng-model="postProject.projectTitle"
+             data-toggle="tooltip" ng-model="postProject.projectTitle" maxlength="1000"
              data-original-title="{{'giveYourJobTitleTip' | translate}}" ng-required="true" touchable/>
 
       <div class="error-messages"
@@ -28,7 +28,7 @@
     <div class="field-content">
       <label translate="whatSkillsAreNeeded"></label>
       <tagbox name="skills" tags="postProject.skills" get-tags="apiService.getSuggestSkills"
-              type="text" placeholder="technologiesEX" list-max-length="10" max-tag-length="40"
+              type="text" placeholder="technologiesEX" list-max-length="20" max-tag-length="40"
               ng-model="postProject.skills" array-model touchable></tagbox>
       <div class="error-messages"
            ng-show="postProjectForm.skills.$error.required && (postProjectForm.skills.$edited || postProjectForm.$submitted)"
@@ -104,7 +104,7 @@
         <input type="text" class="input-style"
                name="hourlyRate" ng-required="status('show-hourly-price-fields')"
                ng-model="hourly.hourlyRate" only-digits
-               data-toggle="tooltip"
+               data-toggle="tooltip" maxlength="5"
                data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable/>
         <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
           <div class="error-messages"
