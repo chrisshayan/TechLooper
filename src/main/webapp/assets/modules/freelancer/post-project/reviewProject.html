@@ -1,46 +1,49 @@
-<div class="review-project-content">
+<div class="review-project-content-block">
   <h2>{{postProject.projectTitle}}</h2>
-  <div class="time-and-payment-block">
-    <div class="working-time-block">
-      <h3>{{postProject.payMethod}}</h3>
-      <div ng-show="postProject.payMethod == 'fixedPrice'">
-        <p>Delivery by: {{postProject.estimatedEndDate}}</p>
+  <div class="review-project-content">
+    <div class="time-and-payment-block">
+      <div class="working-time-block">
+        <h3>{{postProject.payMethod}}</h3>
+        <div ng-show="postProject.payMethod == 'fixedPrice'">
+          <p>Delivery by: {{postProject.estimatedEndDate}}</p>
+        </div>
+        <div ng-show="postProject.payMethod == 'hourly'">
+          <p>More than {{postProject.estimatedDuration}}hrs/ week</p>
+          <p>More than {{postProject.estimatedWorkload}} months</p>
+        </div>
       </div>
-      <div ng-show="postProject.payMethod == 'hourly'">
-        <p>More than {{postProject.estimatedDuration}}hrs/ week</p>
-        <p>More than {{postProject.estimatedWorkload}} months</p>
-      </div>
-    </div>
-    <div class="payment-block">
-      <div ng-show="postProject.payMethod == 'fixedPrice'">
-        <h3>${{postProject.budgetValue}}</h3>
-        <p>{{'budget' | translate}}</p>
-      </div>
-      <div ng-show="postProject.payMethod == 'hourly'">
-        <h3>${{postProject.hourlyRate}}/ <span translate="hrs"></span></h3>
-        <p></p>
-      </div>
+      <div class="payment-block">
+        <div ng-show="postProject.payMethod == 'fixedPrice'">
+          <h3>${{postProject.budgetValue}}</h3>
+          <p>{{'budget' | translate}}</p>
+        </div>
+        <div ng-show="postProject.payMethod == 'hourly'">
+          <h3>${{postProject.hourlyRate}}/ <span translate="hrs"></span></h3>
+          <p></p>
+        </div>
 
-    </div>
-  </div>
-  <div class="project-detail-block">
-    <div class="project-info-block">
-      <h3 translate="detail"></h3>
-      <div class="project-description">
-        {{postProject.projectDescription}}
       </div>
     </div>
-    <div class="skills-required-block">
-      <h3 translate="skillRequired"></h3>
-      <ul>
-        <li ng-repeat="technical in postProject.skills">
-          <span>{{technical}}</span>
-        </li>
-      </ul>
+    <div class="project-detail-block">
+      <div class="project-info-block">
+        <h3 translate="detail"></h3>
+        <div class="project-description">
+          {{postProject.projectDescription}}
+        </div>
+      </div>
+      <div class="skills-required-block">
+        <h3 translate="skillRequired"></h3>
+        <ul>
+          <li ng-repeat="technical in postProject.skills">
+            <span>{{technical}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="post-now-or-done-review-block">
+      <button translate="postNow"></button>
+      <a href="#" translate="doneReview"></a>
     </div>
   </div>
-  <div class="post-now-or-done-review-block">
-    <button translate="postNow"></button>
-    <a href="#" translate="doneReview"></a>
-  </div>
+
 </div>
