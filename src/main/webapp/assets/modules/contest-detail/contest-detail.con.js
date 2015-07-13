@@ -70,20 +70,22 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow");
-    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
-      .success(function (numberOfRegistrants) {
-        if ($scope.contestDetail) {
-          $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
-        }
+    if (!localStorageService.get("registerVnwUser")) {
+      apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
+        .success(function (numberOfRegistrants) {
+          if ($scope.contestDetail) {
+            $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
+          }
 
-        var joinContests = localStorageService.get("joinContests") || "";
-        joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
-        if ($.inArray(contestId, joinContests) < 0) {
-          joinContests.push(contestId);
-        }
+          var joinContests = localStorageService.get("joinContests") || "";
+          joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+          if ($.inArray(contestId, joinContests) < 0) {
+            joinContests.push(contestId);
+          }
 
-        localStorageService.set("joinContests", joinContests.join(","));
-      });
+          localStorageService.set("joinContests", joinContests.join(","));
+        });
+    }
   }
 
   apiService.getContestDetail(contestId).success(function (data) {
