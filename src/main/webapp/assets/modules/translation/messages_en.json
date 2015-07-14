@@ -469,7 +469,7 @@
   "30-hrsw": "Less than 30 hrs/week",
   "dontKnow": "I don't know yet",
   "donePreview": "Preview Done",
-  "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers",
+  "needHireFreelancerWithParam": "!Need to hire {{number}} Freelancers",
   "exceedCharacterWithParam": "Item can not exceed {{number}} characters.",
   "fixedPrice": "Fixed Price",
   "hourlyJob": "Hourly Job",
@@ -480,5 +480,6 @@
   "numberOfHiresTip": "You want to hire one freelancer or more than one freelancer?",
   "whatSkillsAreNeededTip": "<p><strong>List the skills you're looking for</strong></p>Attract the most qualified candidates and make your job pop up in a search.<p></p>",
   "howWouldYouLikeToPayTip": "Most people choose 'Hourly Contract'",
-  "estimatedEndDateFromNow": "Estimated End Date cannot be in the past."
+  "estimatedEndDateFromNow": "Estimated End Date cannot be in the past.",
+  "requiredLargerZero": "Number of freelancers to hire should be between 1 and 99."
 }

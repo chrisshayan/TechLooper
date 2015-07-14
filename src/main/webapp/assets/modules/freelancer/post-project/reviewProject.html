@@ -29,9 +29,7 @@
         <div class="need-hiring" ng-show="postProject.numberOfHires > 1">
           <span translate="needHireFreelancerWithParam" translate-value-number="{{postProject.numberOfHires}}"/>
         </div>
-        <div class="project-description">
-          {{postProject.projectDescription}}
-        </div>
+        <div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>
       </div>
       <div class="skills-required-block">
         <h3 translate="skillRequired"></h3>
