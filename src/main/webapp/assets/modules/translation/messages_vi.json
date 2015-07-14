@@ -463,7 +463,8 @@
   "exEstimatedWorkloadConfig": "Ví dụ: Nhiều hơn 30 giờ/tuần",
   "30+hrsw": "Nhiều hơn 30 giờ/tuần",
   "30-hrsw": "Ít hơn 30 giờ/tuần",
-  "dontKnow": "Chưa ước lượng được"
+  "dontKnow": "Chưa ước lượng được",
+  "doneReview": "Done Review"
 }
 
 
