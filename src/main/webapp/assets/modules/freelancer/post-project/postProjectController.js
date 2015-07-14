@@ -41,7 +41,13 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     },
 
     review: {
-      showPostProjectReview: true
+      showPostProjectReview: true,
+      status: function (type) {
+        switch (type) {
+          case "is-form-valid":
+            return true;
+        }
+      }
     }
   }
 
