@@ -14,11 +14,11 @@
       </div>
       <div class="payment-block">
         <div ng-show="status('show-fixed-price-fields')">
-          <h3>${{fixedPrice.budget | number : 2}}</h3>
+          <h3>{{fixedPrice.budget | currency : '$' : 2}}</h3>
           <p>{{'budgetText' | translate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
-          <h3>${{hourly.hourlyRate  | number : 2}}/ <span translate="hrs"></span></h3>
+          <h3>{{hourly.hourlyRate  | currency : '$' : 2}}/ <span translate="hrs"></span></h3>
           <p></p>
         </div>
       </div>
