@@ -8,8 +8,18 @@ techlooper
           ngModelCtrl.$edited = true;
         });
 
+        if (attr.onchange == 'true') {
+          scope.$watch(attr.ngModel, function(newVal, oldVal) {
+            if (!newVal && !oldVal) return;
+            ngModelCtrl.$edited = true;
+          });
+        }
+
         if (attr.focusout == 'true') {
           element.focusout(function () {
+            ngModelCtrl.$edited = false;
+          });
+          element.find("input").focusout(function () {
             ngModelCtrl.$edited = false;
           });
         }

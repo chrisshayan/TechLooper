@@ -36,8 +36,14 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         if (!$scope.hourly) return false;
         var workload = resourcesService.getOption($scope.hourly.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
         if (!workload) return false;
-        console.log(workload);
         return workload.id !== "dontKnow";
+
+      case "estimate-end-date-from-now":
+        if (!$scope.fixedPrice) return true;
+        if (!$scope.fixedPrice.estimatedEndDate) return true;
+        var estimatedEndDate = moment($scope.fixedPrice.estimatedEndDate, jsonValue.dateFormat);
+        if (!estimatedEndDate.isValid()) return false;
+        return (estimatedEndDate.isAfter(moment(), 'day') || estimatedEndDate.isSame(moment(), "day"));
     }
   }
 

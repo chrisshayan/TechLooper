@@ -32,6 +32,7 @@
   "userProfile": "User profile",
   "homepage": "Home page",
   "signIn": "Sign In",
+  "signInVNW": "Sign In With VietnamWorks",
   "signOut": "Sign Out",
   "up2perMonth": "Up to ${} per month",
   "moreThanPerMonth": "More than ${} per month",
@@ -468,7 +469,7 @@
   "30-hrsw": "Less than 30 hrs/week",
   "dontKnow": "I don't know yet",
   "donePreview": "Preview Done",
-  "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers",
+  "needHireFreelancerWithParam": "!Need to hire {{number}} Freelancers",
   "exceedCharacterWithParam": "Item can not exceed {{number}} characters.",
   "fixedPrice": "Fixed Price",
   "hourlyJob": "Hourly Job",
@@ -476,5 +477,9 @@
   "budgetText": "Budget",
   "estimatedDurationPreview": "More than {{number}} hrs/week",
   "estimatedWorkloadPreview": "More than {{number}} months",
-  "numberOfHiresTip": "You want to hire one freelancer or more than one freelancer?"
+  "numberOfHiresTip": "You want to hire one freelancer or more than one freelancer?",
+  "whatSkillsAreNeededTip": "<p><strong>List the skills you're looking for</strong></p>Attract the most qualified candidates and make your job pop up in a search.<p></p>",
+  "howWouldYouLikeToPayTip": "Most people choose 'Hourly Contract'",
+  "estimatedEndDateFromNow": "Estimated End Date cannot be in the past.",
+  "requiredLargerZero": "Number of freelancers to hire should be between 1 and 99."
 }
