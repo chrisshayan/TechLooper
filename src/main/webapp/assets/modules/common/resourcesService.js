@@ -8,8 +8,8 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   ];
 
   var paymentOptions = [
-    {translate: "fixedPrice"},
-    {translate: "hourly"}
+    {translate: "fixedPricePayByProject", reviewTranslate: "fixedPrice", id: "fixedPrice"},
+    {translate: "hourlyByByHour", reviewTranslate: "hourlyJob", id: "hourly"}
   ];
 
   var estimatedDurationOptions = [

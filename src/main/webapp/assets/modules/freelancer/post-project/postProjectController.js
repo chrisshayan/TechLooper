@@ -4,47 +4,48 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
       case "ex-today":
         return moment().add(4, 'weeks').format(jsonValue.dateFormat);
 
+      case "get-payment-method":
+        var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
+        if (index == -1) return "";
+        return resourcesService.paymentConfig.options[index];
+
       case "show-fixed-price-fields":
         if (!$scope.postProject) return false;
         var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
         if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].translate == "fixedPrice";
+        return resourcesService.paymentConfig.options[index].id == "fixedPrice";
 
       case "show-hourly-price-fields":
         if (!$scope.postProject) return false;
         var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
         if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].translate == "hourly";
+        return resourcesService.paymentConfig.options[index].id == "hourly";
+
+      case "is-form-valid":
+        if (!$scope.postProjectForm) return true;
+        $scope.postProjectForm.$setSubmitted();
+        if ($scope.status("show-hourly-price-fields")) {
+          $scope.hourlyForm.$setSubmitted();
+        }
+        else if ($scope.status("show-fixed-price-fields")) {
+          $scope.fixedPriceForm.$setSubmitted();
+        }
+        return $scope.postProjectForm.$valid;
     }
   }
 
   var state = {
     default: {
-      showPostProjectForm: true,
-
-      status: function (type) {
-        switch (type) {
-          case "is-form-valid":
-            if (!$scope.postProjectForm) return true;
-            $scope.postProjectForm.$setSubmitted();
-            return $scope.postProjectForm.$valid;
-        }
-      }
+      showPostProjectForm: true
     },
 
     review: {
-      showPostProjectReview: true,
-      status: function (type) {
-        switch (type) {
-          case "is-form-valid":
-            return true;
-        }
-      }
+      showPostProjectReview: true
     }
   }
 
   $scope.changeState = function (st) {
-    if (!st || ($scope.state && !$scope.state.status("is-form-valid"))) {
+    if (!st || ($scope.state && !$scope.status("is-form-valid"))) {
       return false;
     }
 
