@@ -88,7 +88,7 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     //TODO : send to server
     apiService.postFreelancerProject(postProject)
       .success(function (projectId) {
-        $location.path("/");
+        $location.path("/hiring");
       });
   }
 
