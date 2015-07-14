@@ -45,8 +45,7 @@
       <label translate="howWouldYouLikeToPay"></label>
       <div data-toggle="tooltip"
            data-original-title="{{'howWouldYouLikeToPayTip' | translate}}">
-      <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig"
-                 required touchable></selectize>
+      <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig" required></selectize>
         </div>
       <div class="error-messages"
            ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$touched || postProjectForm.$submitted)"
@@ -79,8 +78,9 @@
 
         <input type="text" class="input-style"
                name="budget"
-               ng-model="fixedPrice.budget" only-digits
+               ng-model="fixedPrice.budget"
                ng-required="status('show-fixed-price-fields')"
+               input-number input-number-fraction="2"
                placeholder="{{'budgetEx' | translate}}" touchable=""/>
 
         <div ng-show="fixedPriceForm.budget.$edited || fixedPriceForm.$submitted">
@@ -95,8 +95,8 @@
         <label translate="estimatedDuration"></label>
         <selectize name="estimatedDuration" ng-required="status('show-hourly-price-fields')"
                    ng-model="hourly.estimatedDuration"
-                   config="$root.resourcesService.estimatedDurationConfig" touchable></selectize>
-        <div ng-show="hourlyForm.estimatedDuration.$edited || hourlyForm.$submitted">
+                   config="$root.resourcesService.estimatedDurationConfig"></selectize>
+        <div ng-show="hourlyForm.estimatedDuration.$touched || hourlyForm.$submitted">
           <div class="error-messages"
                ng-show="hourlyForm.estimatedDuration.$error.required" translate="requiredThisField" />
         </div>
@@ -105,8 +105,8 @@
         <label translate="estimatedWorkload"></label>
         <selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"
                    ng-model="hourly.estimatedWorkload"
-                   config="$root.resourcesService.estimatedWorkloadConfig" touchable></selectize>
-        <div ng-show="hourlyForm.estimatedWorkload.$edited || hourlyForm.$submitted">
+                   config="$root.resourcesService.estimatedWorkloadConfig"></selectize>
+        <div ng-show="hourlyForm.estimatedWorkload.$touched || hourlyForm.$submitted">
           <div class="error-messages"
                ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />
         </div>
@@ -115,7 +115,8 @@
         <label translate="hourlyRate"></label>
         <input type="text" class="input-style"
                name="hourlyRate" ng-required="status('show-hourly-price-fields')"
-               ng-model="hourly.hourlyRate" only-digits
+               ng-model="hourly.hourlyRate"
+               input-number input-number-fraction="2"
                placeholder="{{'hourlyRateEx' | translate}}" touchable/>
         <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
           <div class="error-messages"
