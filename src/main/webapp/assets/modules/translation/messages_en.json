@@ -461,5 +461,6 @@
   "exEstimatedWorkloadConfig": "Ex: More than 30 hrs/week",
   "30+hrsw": "More than 30 hrs/week",
   "30-hrsw": "Less than 30 hrs/week",
-  "dontKnow": "I don't know yet"
+  "dontKnow": "I don't know yet",
+  "doneReview": "Done Review"
 }
