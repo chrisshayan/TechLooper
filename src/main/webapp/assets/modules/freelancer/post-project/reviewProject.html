@@ -5,17 +5,17 @@
       <div class="working-time-block">
         <h3>{{postProject.payMethod}}</h3>
         <div ng-show="status('show-fixed-price-fields')">
-          <p>Delivery by: {{fixedPrice.estimatedEndDate}}</p>
+          <p><span translate="deliveryBy"></span>: {{fixedPrice.estimatedEndDate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
-          <p>More than {{hourly.estimatedDuration}} hrs/week</p>
-          <p>More than {{hourly.estimatedWorkload}} months</p>
+          <p>{{hourly.estimatedDuration}}</p>
+          <p>{{hourly.estimatedWorkload}}</p>
         </div>
       </div>
       <div class="payment-block">
         <div ng-show="status('show-fixed-price-fields')">
           <h3>${{fixedPrice.budget}}</h3>
-          <p>{{'budget' | translate}}</p>
+          <p>{{'budgetText' | translate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
           <h3>${{hourly.hourlyRate}}/ <span translate="hrs"></span></h3>
@@ -45,7 +45,7 @@
     </div>
     <div class="post-now-or-done-review-block">
       <button translate="postNow" class="btn btn-primary btn-flat" ng-click="createProject()"></button>
-      <a translate="doneReview" ng-click="changeState('default')"></a>
+      <a translate="donePreview" ng-click="changeState('default')"></a>
     </div>
   </div>
 

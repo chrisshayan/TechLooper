@@ -464,9 +464,13 @@
   "30+hrsw": "Nhiều hơn 30 giờ/tuần",
   "30-hrsw": "Ít hơn 30 giờ/tuần",
   "dontKnow": "Chưa ước lượng được",
-  "doneReview": "Đã Xem Xong",
+  "donePreview": "Đã Xem Xong",
   "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers",
-  "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự"
+  "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự",
+  "deliveryBy": "Giao sản phẩm trước",
+  "budgetText": "Ngân sách",
+  "estimatedDurationPreview": "Nhiều hơn {{number}} giờ/tuần",
+  "estimatedWorkloadPreview": "Nhiều hơn {{number}} tháng"
 }
 
 
