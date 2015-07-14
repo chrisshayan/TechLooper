@@ -1,12 +1,4 @@
 techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location) {
-  $('.field-content').find('[data-toggle="tooltip"]').tooltip({
-    html: true,
-    placement: 'right',
-    'trigger': "focus",
-    animation: true,
-    html: true
-  });
-
   $scope.status = function (type) {
     switch (type) {
       case "ex-today":

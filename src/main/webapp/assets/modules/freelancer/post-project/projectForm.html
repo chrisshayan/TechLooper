@@ -3,6 +3,7 @@
     <div class="field-content">
       <label translate="giveYourJobTitle"></label>
       <input type="text" class="input-style" name="projectTitle"
+             placeholder="{{'giveYourJobTitleEx' | translate}}"
              data-toggle="tooltip" ng-model="postProject.projectTitle" maxlength="1000"
              data-original-title="{{'giveYourJobTitleTip' | translate}}" ng-required="true" touchable/>
 
@@ -16,6 +17,7 @@
           <textarea name="projectDescription" cols="" rows="" class="textarea-style"
                     ng-model="postProject.projectDescription" ng-trim="false"
                     maxlength="5000" data-toggle="tooltip"
+                    placeholder="{{'desWorkDoneEx' | translate}}"
                     data-original-title="{{'desPostAProjectTip' | translate}}" touchable ng-required="true">
           </textarea>
 
@@ -71,6 +73,7 @@
                ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
                ng-model="fixedPrice.budget" only-digits
                data-toggle="tooltip" ng-required="status('show-fixed-price-fields')"
+               placeholder="{{'budgetEx' | translate}}"
                data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable=""/>
 
         <div ng-show="fixedPriceForm.budget.$edited || fixedPriceForm.$submitted">
@@ -107,6 +110,7 @@
                name="hourlyRate" ng-required="status('show-hourly-price-fields')"
                ng-model="hourly.hourlyRate" only-digits
                data-toggle="tooltip" maxlength="5"
+               placeholder="{{'hourlyRateEx' | translate}}"
                data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable/>
         <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
           <div class="error-messages"
@@ -118,7 +122,9 @@
     <div class="field-content">
       <label translate="numberOfHires"></label>
       <input type="text" class="input-style" ng-required="true" only-digits maxlength="2"
-             data-toggle="tooltip" name="numberOfHires" ng-model="postProject.numberOfHires"
+             data-toggle="tooltip" name="numberOfHires"
+             ng-model="postProject.numberOfHires"
+             placeholder="{{'numberOfHiresEx' | translate}}"
              data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable/>
 
       <div ng-show="postProjectForm.numberOfHires.$edited || postProjectForm.$submitted">
