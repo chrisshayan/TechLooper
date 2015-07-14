@@ -1,4 +1,4 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService) {
   $('.field-content').find('[data-toggle="tooltip"]').tooltip({
     html: true,
     placement: 'right',
@@ -7,7 +7,7 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     html: true
   });
 
-  $scope.status = function(type) {
+  $scope.status = function (type) {
     switch (type) {
       case "ex-today":
         return moment().add(4, 'weeks').format(jsonValue.dateFormat);
@@ -30,7 +30,7 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     default: {
       showPostProjectForm: true,
 
-      status: function(type) {
+      status: function (type) {
         switch (type) {
           case "is-form-valid":
             if (!$scope.postProjectForm) return true;
@@ -54,20 +54,20 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     $scope.state = pState;
   }
 
-  $scope.$watch("postProject.payMethod", function(newVal, oldVal) {
+  $scope.$watch("postProject.payMethod", function (newVal, oldVal) {
     if ($scope.status("show-hourly-price-fields")) {
       $scope.hourlyForm.$setPristine();
       $rootScope.$emit("$setPristine");
       $scope.hourly = {}
     }
-    if ($scope.status("show-fixed-price-fields")) {
+    else if ($scope.status("show-fixed-price-fields")) {
       $scope.fixedPriceForm.$setPristine();
       $rootScope.$emit("$setPristine");
       $scope.fixedPrice = {}
     }
   });
 
-  $scope.createProject = function() {
+  $scope.createProject = function () {
     if ($scope.status("show-hourly-price-fields")) {
       $scope.hourlyForm.$setSubmitted();
     }
@@ -82,8 +82,10 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     //TODO : send to server
     //console.log(postProject);
     apiService.postFreelancerProject(postProject)
-      .success(function(projectId) {
+      .success(function (projectId) {
 
       });
   }
+
+  $scope.changeState('default');
 });
