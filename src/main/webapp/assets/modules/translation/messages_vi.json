@@ -451,8 +451,8 @@
   "review": "Xem Trước",
   "hrs": "giờ",
   "skillRequired": "skill Required",
-  "fixedPrice": "Giá Cố Định. Trả theo dự án.",
-  "hourly": "Trả theo giờ.",
+  "fixedPricePayByProject": "Giá Cố Định. Trả theo dự án.",
+  "hourlyByByHour": "Trả theo giờ.",
   "exPaymentConfig": "Ví dụ: Trả theo giờ.",
   "exEstimatedDurationConfig": "Ví dụ: Nhiều hơn 6 tháng",
   "more6m": "Nhiều hơn 6 tháng",
@@ -466,7 +466,9 @@
   "dontKnow": "Chưa ước lượng được",
   "doneReview": "Đã Xem Xong",
   "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers",
-  "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự"
+  "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự",
+  "fixedPrice": "Giá cố định. Trả theo dự án.",
+  "hourlyJob": "Chi trả theo giờ"
 }
 
 

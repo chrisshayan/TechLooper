@@ -1,4 +1,4 @@
-techlooper.filter("progress", function (jsonValue) {
+techlooper.filter("progress", function (jsonValue, resourcesService) {
   return function (input, type) {
     if (!input) return "";
     switch (type) {
@@ -33,6 +33,12 @@ techlooper.filter("progress", function (jsonValue) {
 
         delete contestDetail.progress;
         return "";
+
+      case "freelancer-review-project-payment-method":
+        var payMethod = input;
+        var index = resourcesService.inOptions(payMethod, resourcesService.paymentConfig);
+        if (index == -1) return "";
+        return resourcesService.paymentConfig.options[index].reviewTranslate;
     }
   }
 });

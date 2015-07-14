@@ -3,7 +3,7 @@
   <div class="review-project-content">
     <div class="time-and-payment-block">
       <div class="working-time-block">
-        <h3>{{postProject.payMethod}}</h3>
+        <h3 translate="{{postProject.payMethod | progress:'freelancer-review-project-payment-method'}}" />
         <div ng-show="status('show-fixed-price-fields')">
           <p>Delivery by: {{fixedPrice.estimatedEndDate}}</p>
         </div>

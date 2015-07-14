@@ -449,8 +449,8 @@
   "giveYourJobTitleTip": "<p><strong>What's in a name?</p></strong><p>A lot, actually. A concise, yet specific job title will help attract qualified applicants. For instance:</p><ul><li>• Writer Wanted for Travel Blog</li><li>• ActiveSync Integration for PHP</li><li>• Are You a Wordpress Wizard?</li></ul>",
   "hrs": "hr",
   "skillRequired": "skill Required",
-  "fixedPrice": "Fixed price. Pay by the project.",
-  "hourly": "Hourly. Pay by the hour.",
+  "fixedPricePayByProject": "Fixed price. Pay by the project.",
+  "hourlyByByHour": "Hourly. Pay by the hour.",
   "exPaymentConfig": "Ex: Hourly. Pay by the hour.",
   "exEstimatedDurationConfig": "Ex: More than 6 months",
   "more6m": "More than 6 months",
@@ -464,5 +464,7 @@
   "dontKnow": "I don't know yet",
   "doneReview": "Done Review",
   "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers",
-  "exceedCharacterWithParam": "Item can not exceed {{number}} characters."
+  "exceedCharacterWithParam": "Item can not exceed {{number}} characters.",
+  "fixedPrice": "Fixed Price",
+  "hourlyJob": "Hourly Job"
 }
