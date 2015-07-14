@@ -23,7 +23,7 @@
            ng-show="postProjectForm.projectDescription.$error.required && (postProjectForm.projectDescription.$edited || postProjectForm.$submitted)"
            translate="requiredThisField" />
 
-      <p class="note" translate="charactersLeft" translate-value-characters-left="{{5000 - WorkDone.length}}"></p>
+      <p class="note" translate="charactersLeft" translate-value-characters-left="{{5000 - postProject.projectDescription.length}}"></p>
     </div>
     <div class="field-content">
       <label translate="whatSkillsAreNeeded"></label>
