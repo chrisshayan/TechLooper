@@ -9,7 +9,7 @@
         </div>
         <div ng-show="status('show-hourly-price-fields')">
           <p>{{hourly.estimatedDuration}}</p>
-          <p>{{hourly.estimatedWorkload}}</p>
+          <p ng-show="status('show-estimate-workload')">{{hourly.estimatedWorkload}}</p>
         </div>
       </div>
       <div class="payment-block">
@@ -21,7 +21,6 @@
           <h3>${{hourly.hourlyRate}}/ <span translate="hrs"></span></h3>
           <p></p>
         </div>
-
       </div>
     </div>
     <div class="project-detail-block">

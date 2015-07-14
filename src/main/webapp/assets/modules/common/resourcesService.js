@@ -21,9 +21,9 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   ];
 
   var estimatedWorkloadOptions = [
-    {translate: "30+hrsw"},
-    {translate: "30-hrsw"},
-    {translate: "dontKnow"}
+    {translate: "30+hrsw", id: "gt30"},
+    {translate: "30-hrsw", id: "lt30"},
+    {translate: "dontKnow", id: "dontKnow"}
   ];
 
   var singleSelectize = function (key) {
@@ -59,6 +59,16 @@ techlooper.factory("resourcesService", function ($translate, $q) {
         }
       });
       return index;
+    },
+    getOption: function(title, config) {
+      var option = undefined;
+      $.each(config.options, function (i, opt) {
+        if (opt.title === title) {
+          option = opt;
+          return false;
+        }
+      });
+      return option;
     }
   }
 

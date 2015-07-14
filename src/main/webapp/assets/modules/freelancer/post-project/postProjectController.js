@@ -39,6 +39,13 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
           $scope.fixedPriceForm.$setSubmitted();
         }
         return $scope.postProjectForm.$valid;
+
+      case "show-estimate-workload":
+        if (!$scope.hourly) return false;
+        var workload = resourcesService.getOption($scope.hourly.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
+        if (!workload) return false;
+        console.log(workload);
+        return workload.id !== "dontKnow";
     }
   }
 
