@@ -477,7 +477,9 @@
   "deliveryBy": "Giao sản phẩm trước",
   "budgetText": "Ngân sách",
   "estimatedDurationPreview": "Nhiều hơn {{number}} giờ/tuần",
-  "estimatedWorkloadPreview": "Nhiều hơn {{number}} tháng"
+  "estimatedWorkloadPreview": "Nhiều hơn {{number}} tháng",
+  "giveYourJobTitleTip": "<p><strong>Nên đặt tên như thế nào?</strong></p><p>Có rất nhiều cách. Tuy nhiên, đặt tên càng ngắn gọn, súc tích và chuyên biệt cho công việc, sẽ giúp bạn đạt được nhiều ứng tuyển có chất lượng hơn. Ví dụ:</p><ul><li>• Cần người viết bài cho Blog về Du Lịch.</li><li>• Bạn là chuyên gia về WordPress?</li></ul>",
+  "desPostAProjectTip": "<p><strong>Mô tả càng chi tiết càng tốt</strong></p><p>Các freelancer có chất lượng thường thích các công việc có mô tả đầy đủ chi tiết và rõ ràng. Sau đây là gợi ý để giúp bạn có được mô tả tốt nhất:</p><ul><li>• 1-2 câu ngắn gọn để mô tả tổng quan về công việc.</li><li>• Các trách nhiệm mà freelancer cần đảm đương hay các việc freelancer cần hoàn thành.</li><li>• Những kỹ năng chính các freelaner cần có</li><li>• Các cam kết công việc cần có</li><li>• Làm sao để tìm ra đúng các freelancer phù hợp với công việc của bạn? Làm sao giúp họ cảm thấy thích thú về công việc của bạn để ứng tuyển</li><li>• Một vài câu hỏi hay thông tin mà bạn muốn freelancer trả lời hay cung cấp khi ứng tuyển.</li></ul>"
 }
 
 
