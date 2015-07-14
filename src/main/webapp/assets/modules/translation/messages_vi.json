@@ -483,7 +483,8 @@
   "desPostAProjectTip": "<p><strong>Mô tả càng chi tiết càng tốt</strong></p><p>Các freelancer có chất lượng thường thích các công việc có mô tả đầy đủ chi tiết và rõ ràng. Sau đây là gợi ý để giúp bạn có được mô tả tốt nhất:</p><ul><li>• 1-2 câu ngắn gọn để mô tả tổng quan về công việc.</li><li>• Các trách nhiệm mà freelancer cần đảm đương hay các việc freelancer cần hoàn thành.</li><li>• Những kỹ năng chính các freelaner cần có</li><li>• Các cam kết công việc cần có</li><li>• Làm sao để tìm ra đúng các freelancer phù hợp với công việc của bạn? Làm sao giúp họ cảm thấy thích thú về công việc của bạn để ứng tuyển</li><li>• Một vài câu hỏi hay thông tin mà bạn muốn freelancer trả lời hay cung cấp khi ứng tuyển.</li></ul>",
   "numberOfHiresTip": "Bạn muốn thuê 1 freelancer hay nhiều hơn?",
   "whatSkillsAreNeededTip": "<p><strong>Liệt kê các kỹ năng cần có cho công việc</strong></p>Giúp thu hút các ứng viên có chất lượng. Ngoài ra, khi các freelancer tìm kiếm các từ khoá liên quan đến những kỹ năng này, tin đăng tuyển sẽ được hiển thị trên kết quả trả về.<p></p>",
-  "howWouldYouLikeToPayTip": "Hầu hết các nhà tuyển dụng lựa chon 'Trả Theo Giờ'"
+  "howWouldYouLikeToPayTip": "Hầu hết các nhà tuyển dụng lựa chon 'Trả Theo Giờ'",
+  "estimatedEndDateFromNow": "Ngày Kết Thúc Dự Án không được ở quá khứ."
 }
 
 
