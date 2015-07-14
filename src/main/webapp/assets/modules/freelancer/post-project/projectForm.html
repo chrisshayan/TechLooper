@@ -1,0 +1,138 @@
+<div class="form-content">
+  <form novalidate name="postProjectForm" autocomplete="off">
+    <div class="field-content">
+      <label translate="giveYourJobTitle"></label>
+      <input type="text" class="input-style" name="projectTitle"
+             placeholder="{{'giveYourJobTitleEx' | translate}}"
+             data-toggle="tooltip" ng-model="postProject.projectTitle" maxlength="1000"
+             data-original-title="{{'giveYourJobTitleTip' | translate}}" ng-required="true" touchable/>
+
+      <div class="error-messages"
+           ng-show="postProjectForm.projectTitle.$error.required && (postProjectForm.projectTitle.$edited || postProjectForm.$submitted)"
+           translate="requiredThisField" />
+
+    </div>
+    <div class="field-content">
+      <label translate="desWorkDone"></label>
+          <textarea name="projectDescription" cols="" rows="" class="textarea-style"
+                    ng-model="postProject.projectDescription" ng-trim="false"
+                    maxlength="5000" data-toggle="tooltip"
+                    placeholder="{{'desWorkDoneEx' | translate}}"
+                    data-original-title="{{'desPostAProjectTip' | translate}}" touchable ng-required="true">
+          </textarea>
+
+      <div class="error-messages"
+           ng-show="postProjectForm.projectDescription.$error.required && (postProjectForm.projectDescription.$edited || postProjectForm.$submitted)"
+           translate="requiredThisField" />
+
+      <p class="note" translate="charactersLeft" translate-value-characters-left="{{5000 - postProject.projectDescription.length}}"></p>
+    </div>
+    <div class="field-content">
+      <label translate="whatSkillsAreNeeded"></label>
+      <tagbox name="skills" tags="postProject.skills" get-tags="apiService.getSuggestSkills"
+              type="text" placeholder="technologiesEX" list-max-length="20" max-tag-length="40"
+              ng-model="postProject.skills" array-model touchable></tagbox>
+      <div class="error-messages"
+           ng-show="postProjectForm.skills.$error.required && (postProjectForm.skills.$edited || postProjectForm.$submitted)"
+           translate="listRequire1Item" />
+    </div>
+    <div class="field-content">
+      <label translate="howWouldYouLikeToPay"></label>
+      <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig"
+                 required touchable></selectize>
+      <div class="error-messages"
+           ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$touched || postProjectForm.$submitted)"
+           translate="requiredThisField"></div>
+    </div>
+
+    <ng-form name="fixedPriceForm" class="field-content-group" ng-show="status('show-fixed-price-fields')" >
+      <div class="field-content">
+        <label translate="estimatedEndDate"></label>
+        <div class="input-group date">
+          <input type="text" class="form-control"
+                 placeholder="{{'ex' | translate}}{{status('ex-today')}}"
+                 name="estimatedEndDate"
+                 ng-model="fixedPrice.estimatedEndDate" ng-required="status('show-fixed-price-fields')"
+                 class="date-picker" data-toggle="tooltip" touchable=""
+                 data-original-title="{{'emailAddressReceiveTip' | translate}}">
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+        </div>
+
+        <div ng-show="fixedPriceForm.estimatedEndDate.$edited || fixedPriceForm.$submitted">
+          <div class="error-messages"
+               ng-show="fixedPriceForm.estimatedEndDate.$error.required" translate="requiredThisField" />
+        </div>
+      </div>
+      <div class="field-content">
+        <label translate="budget"></label>
+
+        <input type="text" class="input-style"
+               name="budget"
+               ng-model="fixedPrice.budget" only-digits
+               ng-required="status('show-fixed-price-fields')"
+               placeholder="{{'budgetEx' | translate}}" touchable=""/>
+
+        <div ng-show="fixedPriceForm.budget.$edited || fixedPriceForm.$submitted">
+          <div class="error-messages"
+               ng-show="fixedPriceForm.budget.$error.required" translate="requiredThisField" />
+        </div>
+      </div>
+    </ng-form>
+
+    <ng-form name="hourlyForm" class="field-content-group" ng-show="status('show-hourly-price-fields')">
+      <div class="field-content">
+        <label translate="estimatedDuration"></label>
+        <selectize name="estimatedDuration" ng-required="status('show-hourly-price-fields')"
+                   ng-model="hourly.estimatedDuration"
+                   config="$root.resourcesService.estimatedDurationConfig" touchable></selectize>
+        <div ng-show="hourlyForm.estimatedDuration.$edited || hourlyForm.$submitted">
+          <div class="error-messages"
+               ng-show="hourlyForm.estimatedDuration.$error.required" translate="requiredThisField" />
+        </div>
+      </div>
+      <div class="field-content">
+        <label translate="estimatedWorkload"></label>
+        <selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"
+                   ng-model="hourly.estimatedWorkload"
+                   config="$root.resourcesService.estimatedWorkloadConfig" touchable></selectize>
+        <div ng-show="hourlyForm.estimatedWorkload.$edited || hourlyForm.$submitted">
+          <div class="error-messages"
+               ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />
+        </div>
+      </div>
+      <div class="field-content">
+        <label translate="hourlyRate"></label>
+        <input type="text" class="input-style"
+               name="hourlyRate" ng-required="status('show-hourly-price-fields')"
+               ng-model="hourly.hourlyRate" only-digits
+               placeholder="{{'hourlyRateEx' | translate}}" touchable/>
+        <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
+          <div class="error-messages"
+               ng-show="hourlyForm.hourlyRate.$error.required" translate="requiredThisField" />
+        </div>
+      </div>
+    </ng-form>
+
+    <div class="field-content">
+      <label translate="numberOfHires"></label>
+      <input type="text" class="input-style" ng-required="true" only-digits maxlength="2"
+             data-toggle="tooltip" name="numberOfHires"
+             ng-model="postProject.numberOfHires"
+             data-toggle="tooltip"
+             data-original-title="{{'numberOfHiresTip' | translate}}"
+             placeholder="{{'numberOfHiresEx' | translate}}" touchable/>
+
+      <div ng-show="postProjectForm.numberOfHires.$edited || postProjectForm.$submitted">
+        <div class="error-messages"
+             ng-show="postProjectForm.numberOfHires.$error.required" translate="requiredThisField" />
+      </div>
+    </div>
+
+    <div class="field-content submit">
+      <button translate="postProjectNow" class="btn btn-primary btn-flat" type="submit" ng-click="createProject()"></button>
+      <a translate="preview" ng-click="changeState('review')" />
+    </div>
+  </form>
+</div>

@@ -247,6 +247,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
         stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
         mailSender.send(postChallengeMailMessage);
     }
 
@@ -283,6 +284,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
         stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
         mailSender.send(postChallengeMailMessage);
     }
 

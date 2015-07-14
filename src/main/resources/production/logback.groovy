@@ -15,7 +15,7 @@ appender("CONSOLE", ConsoleAppender) {
 }
 
 appender("FILE", RollingFileAppender) {
-  file = "techlooper.log"
+  file = "/var/log/techlooper/techlooper.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper_%i.log"
     minIndex = 1
@@ -30,7 +30,7 @@ appender("FILE", RollingFileAppender) {
 }
 
 appender("CRONF", RollingFileAppender) {
-  file = "techlooper_cron.log"
+  file = "/var/log/techlooper/techlooper_cron.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper_cron_%i.log"
     minIndex = 1

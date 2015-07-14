@@ -15,6 +15,21 @@ appender("CONSOLE", ConsoleAppender) {
   }
 }
 
+appender("FILE", RollingFileAppender) {
+  file = "techlooper.log"
+  rollingPolicy(FixedWindowRollingPolicy) {
+    fileNamePattern = "techlooper_%i.log"
+    minIndex = 1
+    maxIndex = 12
+  }
+  triggeringPolicy(SizeBasedTriggeringPolicy) {
+    maxFileSize = "10MB"
+  }
+  encoder(PatternLayoutEncoder) {
+    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
+  }
+}
+
 appender("CRONF", RollingFileAppender) {
   file = "techlooper_cron.log"
   rollingPolicy(FixedWindowRollingPolicy) {
@@ -32,4 +47,4 @@ appender("CRONF", RollingFileAppender) {
 
 logger("com.techlooper.service.impl.LooperPointServiceImpl", ALL, ["CRONF"])
 
-root(ERROR, ["CONSOLE"])
+root(ERROR, ["CONSOLE", "FILE"])

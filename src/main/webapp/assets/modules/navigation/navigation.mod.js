@@ -1,9 +1,16 @@
-angular.module("Navigation")
-  .directive("translation", function () {
+techlooper
+  .directive("jobseekerHeader", function ($http) {
     return {
       restrict: "E",
-      replace: false,
-      templateUrl: "modules/translation/translation.tem.html",
-      controller: "translationController"
+      replace: true,
+      templateUrl: "modules/navigation/jobseeker-header.tem.html"
+    }
+  })
+  .directive("employerHeader", function ($http) {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/navigation/employer-header.tem.html"
     }
   });
+

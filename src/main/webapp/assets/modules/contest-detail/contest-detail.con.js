@@ -36,8 +36,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
     }
   }
-  $scope.contestTimeLeft = function(contest) {
-    if(contest){
+  $scope.contestTimeLeft = function (contest) {
+    if (contest) {
       switch (contest.progress.translate) {
         case jsonValue.status.progress.translate:
           return $filter("countdown")(contest.submissionDateTime);
@@ -70,6 +70,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow");
+    //if (!localStorageService.get("registerVnwUser")) {
     apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
       .success(function (numberOfRegistrants) {
         if ($scope.contestDetail) {
@@ -84,6 +85,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
         localStorageService.set("joinContests", joinContests.join(","));
       });
+    //}
   }
 
   apiService.getContestDetail(contestId).success(function (data) {

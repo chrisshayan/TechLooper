@@ -24,10 +24,10 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
     }
   }
 
-  utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
-  utils.registerNotification(jsonValue.notifications.logoutSuccess, $$.logoutSuccess);
-  utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
-  utils.registerNotification(jsonValue.notifications.serverError, $$.serverError);
+  //utils.registerNotification(jsonValue.notifications.loginFailed, $$.loginFailed);
+  //utils.registerNotification(jsonValue.notifications.logoutSuccess, $$.logoutSuccess);
+  //utils.registerNotification(jsonValue.notifications.loginSuccess, $$.loginSuccess);
+  //utils.registerNotification(jsonValue.notifications.serverError, $$.serverError);
 
   var instance = {
     initialize: function () {}

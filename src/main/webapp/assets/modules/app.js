@@ -1,6 +1,7 @@
-if (!navigator.cookieEnabled){
+if (!navigator.cookieEnabled) {
   $('.warning-alert-block').addClass('show');
-}else{
+}
+else {
   $('.warning-alert-block').removeClass('show');
 }
 
@@ -183,6 +184,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/contests/contests.tem.html",
         controller: "contestsController"
       })
+      .when("/freelancer/post-project", {
+        templateUrl: "modules/freelancer/post-project/postProject.html",
+        controller: "freelancerPostProjectController"
+      })
+      .when("/freelancer/project-detail", {
+        templateUrl: "modules/freelancer/project-detail/projectDetail.html",
+        controller: "freelancerProjectDetailController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -195,7 +204,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService) {
+                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService, resourcesService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -203,6 +212,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+  $rootScope.apiService = apiService;
+  $rootScope.resourcesService = resourcesService;
 
   //signInService.init();
 
@@ -238,13 +249,12 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     switch (utils.getView()) {
-      //case jsonValue.views.contestDetail:
+      case jsonValue.views.freelancerPostProject:
+        var lastPage = "/freelancer/post-project";
       case jsonValue.views.postChallenge:
-        securityService.getCurrentUser()
-          .catch(function () {
-            localStorageService.set("protectedPage", "/post-challenge");
-          }
-        );
+        securityService.getCurrentUser().catch(function () {
+          localStorageService.set("protectedPage", lastPage || "/post-challenge");
+        });
         break;
 
       case jsonValue.views.login:
@@ -286,7 +296,7 @@ techlooper.directive("navigation", function () {
       templateUrl: "modules/job/findJobs.tem.html"
     }
   })
-  .directive('onlyDigits', function () {
+  .directive('onlyDigits', function ($filter) {
     return {
       require: 'ngModel',
       restrict: 'A',
@@ -294,13 +304,18 @@ techlooper.directive("navigation", function () {
         function inputValue(val) {
           if (val) {
             var digits = val.replace(/[^0-9.]/g, '');
-
             if (digits !== val) {
               ctrl.$setViewValue(digits);
               ctrl.$render();
             }
             var number = parseFloat(digits);
-            return isNaN(number) ? "" : number;
+            if (!isNaN(number)) {
+              //number = $filter('number')(number, 2);
+              //ctrl.$setViewValue(number);
+              //ctrl.$render();
+              return number;
+            }
+            return "";
           }
           return '';
         }
