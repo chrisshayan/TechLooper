@@ -475,5 +475,6 @@
   "deliveryBy": "Delivery by",
   "budgetText": "Budget",
   "estimatedDurationPreview": "More than {{number}} hrs/week",
-  "estimatedWorkloadPreview": "More than {{number}} months"
+  "estimatedWorkloadPreview": "More than {{number}} months",
+  "numberOfHiresTip": "You want to hire one freelancer or more than one freelancer?"
 }

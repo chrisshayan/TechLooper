@@ -107,9 +107,7 @@
         <input type="text" class="input-style"
                name="hourlyRate" ng-required="status('show-hourly-price-fields')"
                ng-model="hourly.hourlyRate" only-digits
-               data-toggle="tooltip" maxlength="5"
-               placeholder="{{'hourlyRateEx' | translate}}"
-               data-original-title="{{'emailAddressReceiveTip' | translate}}" touchable/>
+               placeholder="{{'hourlyRateEx' | translate}}" touchable/>
         <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
           <div class="error-messages"
                ng-show="hourlyForm.hourlyRate.$error.required" translate="requiredThisField" />
@@ -122,6 +120,8 @@
       <input type="text" class="input-style" ng-required="true" only-digits maxlength="2"
              data-toggle="tooltip" name="numberOfHires"
              ng-model="postProject.numberOfHires"
+             data-toggle="tooltip"
+             data-original-title="{{'numberOfHiresTip' | translate}}"
              placeholder="{{'numberOfHiresEx' | translate}}" touchable/>
 
       <div ng-show="postProjectForm.numberOfHires.$edited || postProjectForm.$submitted">
