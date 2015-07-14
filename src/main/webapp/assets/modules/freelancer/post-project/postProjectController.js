@@ -28,6 +28,8 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
 
   var state = {
     default: {
+      showPostProjectForm: true,
+
       status: function(type) {
         switch (type) {
           case "is-form-valid":
@@ -37,12 +39,11 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         }
       }
     },
-    detail: {
-      
+
+    review: {
+      showPostProjectReview: true
     }
   }
-
-  //$scope.state = state.default;
 
   $scope.changeState = function (st) {
     if (!st || ($scope.state && !$scope.state.status("is-form-valid"))) {
