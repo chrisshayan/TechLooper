@@ -29,17 +29,25 @@
     </div>
     <div class="field-content">
       <label translate="whatSkillsAreNeeded"></label>
+      <div data-toggle="tooltip"
+           data-original-title="{{'whatSkillsAreNeededTip' | translate}}">
       <tagbox name="skills" tags="postProject.skills" get-tags="apiService.getSuggestSkills"
-              type="text" placeholder="technologiesEX" list-max-length="20" max-tag-length="40"
-              ng-model="postProject.skills" array-model touchable></tagbox>
+              type="text" placeholder="technologiesEX"
+              list-max-length="20" max-tag-length="40"
+              ng-model="postProject.skills"
+              array-model touchable></tagbox>
+      </div>
       <div class="error-messages"
            ng-show="postProjectForm.skills.$error.required && (postProjectForm.skills.$edited || postProjectForm.$submitted)"
            translate="listRequire1Item" />
     </div>
     <div class="field-content">
       <label translate="howWouldYouLikeToPay"></label>
+      <div data-toggle="tooltip"
+           data-original-title="{{'howWouldYouLikeToPayTip' | translate}}">
       <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig"
                  required touchable></selectize>
+        </div>
       <div class="error-messages"
            ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$touched || postProjectForm.$submitted)"
            translate="requiredThisField"></div>
@@ -53,8 +61,7 @@
                  placeholder="{{'ex' | translate}}{{status('ex-today')}}"
                  name="estimatedEndDate"
                  ng-model="fixedPrice.estimatedEndDate" ng-required="status('show-fixed-price-fields')"
-                 class="date-picker" data-toggle="tooltip" touchable=""
-                 data-original-title="{{'emailAddressReceiveTip' | translate}}">
+                 class="date-picker" touchable="">
                   <span class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </span>

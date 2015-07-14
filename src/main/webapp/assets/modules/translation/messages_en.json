@@ -476,5 +476,7 @@
   "budgetText": "Budget",
   "estimatedDurationPreview": "More than {{number}} hrs/week",
   "estimatedWorkloadPreview": "More than {{number}} months",
-  "numberOfHiresTip": "You want to hire one freelancer or more than one freelancer?"
+  "numberOfHiresTip": "You want to hire one freelancer or more than one freelancer?",
+  "whatSkillsAreNeededTip": "<p><strong>List the skills you're looking for</strong></p>Attract the most qualified candidates and make your job pop up in a search.<p></p>",
+  "howWouldYouLikeToPayTip": "Most people choose 'Hourly Contract'"
 }
