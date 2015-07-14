@@ -36,6 +36,9 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
             return $scope.postProjectForm.$valid;
         }
       }
+    },
+    detail: {
+      
     }
   }
 
@@ -76,6 +79,10 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
 
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
     //TODO : send to server
-    console.log(postProject);
+    //console.log(postProject);
+    apiService.postFreelancerProject(postProject)
+      .success(function(projectId) {
+
+      });
   }
 });
