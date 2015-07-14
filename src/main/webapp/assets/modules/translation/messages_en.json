@@ -469,7 +469,7 @@
   "30-hrsw": "Less than 30 hrs/week",
   "dontKnow": "I don't know yet",
   "donePreview": "Preview Done",
-  "needHireFreelancerWithParam": "!Need to hiring {{number}} freelancers",
+  "needHireFreelancerWithParam": "!Need to hire {{number}} Freelancers",
   "exceedCharacterWithParam": "Item can not exceed {{number}} characters.",
   "fixedPrice": "Fixed Price",
   "hourlyJob": "Hourly Job",
