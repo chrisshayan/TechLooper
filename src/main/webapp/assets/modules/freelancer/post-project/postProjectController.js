@@ -1,4 +1,4 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location) {
   $('.field-content').find('[data-toggle="tooltip"]').tooltip({
     html: true,
     placement: 'right',
@@ -86,10 +86,9 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
 
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
     //TODO : send to server
-    //console.log(postProject);
     apiService.postFreelancerProject(postProject)
       .success(function (projectId) {
-
+        $location.path("/");
       });
   }
 

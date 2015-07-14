@@ -14,7 +14,7 @@
 
     <div class="error-messages" ng-show="status('show-errors')">
       <div translate="requiredThisField" ng-show="status('show-error', 'required')"/>
-      <div translate="exceedCharacterWithParam" ng-show="status('show-error', 'maxlength')"/>
+      <div translate="exceedCharacterWithParam" translate-value-number="{{maxTagLength}}" ng-show="status('show-error', 'maxlength')"/>
       <div translate="emailInvalid" ng-show="status('show-error', 'email')"/>
       <div translate="alreadyExistValue" ng-show="status('show-error', 'unique')"/>
       <div translate="limitItemWithParam" ng-show="status('show-error', 'listMaxLength')"
@@ -27,7 +27,7 @@
            maxlength="{{maxTagLength}}" ng-keypress="submitTag($event, tag)"
            ng-model="tag" name="tag" ng-required="status('show-text-input')" unique touchable focusout="true"/>
 
-    <autocomplete name="autoTag" ng-model="autoTag" data="tagList"
+    <autocomplete name="autoTag" ng-model="autoTag" data="tagList" maxlength="{{maxTagLength}}"
                   ng-show="status('show-auto-complete-input')" ng-required="status('show-auto-complete-input')"
                   attr-placeholder="{{placeholder | translate}}" on-select="addTag" unique touchable focusout="true"
                   on-type="submitTag"></autocomplete>

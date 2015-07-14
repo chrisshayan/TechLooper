@@ -465,7 +465,8 @@
   "30-hrsw": "Ít hơn 30 giờ/tuần",
   "dontKnow": "Chưa ước lượng được",
   "doneReview": "Đã Xem Xong",
-  "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers"
+  "needHireFreelancerWithParam": "Need to hiring {{number}} freelancers",
+  "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự"
 }
 
 
