@@ -14,11 +14,11 @@
       </div>
       <div class="payment-block">
         <div ng-show="status('show-fixed-price-fields')">
-          <h3>${{fixedPrice.budget}}</h3>
+          <h3>${{fixedPrice.budget | number : 2}}</h3>
           <p>{{'budgetText' | translate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
-          <h3>${{hourly.hourlyRate}}/ <span translate="hrs"></span></h3>
+          <h3>${{hourly.hourlyRate  | number : 2}}/ <span translate="hrs"></span></h3>
           <p></p>
         </div>
       </div>
@@ -26,7 +26,7 @@
     <div class="project-detail-block">
       <div class="project-info-block">
         <h3 translate="detail"></h3>
-        <div class="need-hiring">
+        <div class="need-hiring" ng-show="postProject.numberOfHires > 1">
           <span translate="needHireFreelancerWithParam" translate-value-number="{{postProject.numberOfHires}}"/>
         </div>
         <div class="project-description">
