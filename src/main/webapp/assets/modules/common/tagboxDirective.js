@@ -34,7 +34,7 @@ techlooper.directive('tagbox', function ($http) {
         resetForm();
       }
 
-      scope.addTag = function (tag) {
+      scope.addTag = function (tag, $event) {
         scope.tagForm.$submitted = true;
 
         var tag = tag || scope.tag || scope.autoTag || "";
@@ -56,7 +56,10 @@ techlooper.directive('tagbox', function ($http) {
 
         scope.tags.push(tag);
         resetForm();
-        //scope.$apply();
+
+        if ($event) {
+          scope.$apply();
+        }
       }
 
       var getTags = function () {
@@ -97,9 +100,10 @@ techlooper.directive('tagbox', function ($http) {
 
       scope.submitTag = function (event) {
         if (event.which === 13) {
-          event.preventDefault();
-          scope.addTag();
-          return false;
+          //event.preventDefault();
+          scope.addTag(undefined, event);
+
+          return event.preventDefault();;
         }
         getTags();
       }
@@ -125,12 +129,12 @@ techlooper.directive('tagbox', function ($http) {
       scope.tagForm.autoTag.$validators.listMaxLength = limitValidator;
 
       if (scope.getTags) {
-        element.find("input").keypress(function(event) {
+        element.find("input").keypress(function (event) {
           scope.submitTag(event);
         });
       }
 
-      scope.autoTagType = function(tag) {
+      scope.autoTagType = function (tag) {
         if (tag.length == 0) scope.tagList.length = 0;
         scope.tagForm.$setPristine();
       }

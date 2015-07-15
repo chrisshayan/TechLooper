@@ -85,13 +85,13 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     if ($scope.status("show-hourly-price-fields")) {
       $scope.hourlyForm.$setPristine();
       $rootScope.$emit("$setPristine");
-      $scope.hourly = {}
     }
     else if ($scope.status("show-fixed-price-fields")) {
       $scope.fixedPriceForm.$setPristine();
       $rootScope.$emit("$setPristine");
-      $scope.fixedPrice = {}
     }
+    $scope.fixedPrice = {}
+    $scope.hourly = {}
   });
 
   $scope.createProject = function () {
