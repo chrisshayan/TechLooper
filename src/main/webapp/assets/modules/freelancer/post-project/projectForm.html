@@ -45,10 +45,10 @@
       <label translate="howWouldYouLikeToPay"></label>
       <div data-toggle="tooltip"
            data-original-title="{{'howWouldYouLikeToPayTip' | translate}}">
-      <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig" required></selectize>
-        </div>
+        <selectize name="payMethod" ng-model="postProject.payMethod" config="$root.resourcesService.paymentConfig" required></selectize>
+      </div>
       <div class="error-messages"
-           ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$touched || postProjectForm.$submitted)"
+           ng-show="postProjectForm.payMethod.$error.required && (postProjectForm.payMethod.$dirty || postProjectForm.$submitted)"
            translate="requiredThisField"></div>
     </div>
 
@@ -96,7 +96,7 @@
         <selectize name="estimatedDuration" ng-required="status('show-hourly-price-fields')"
                    ng-model="hourly.estimatedDuration"
                    config="$root.resourcesService.estimatedDurationConfig"></selectize>
-        <div ng-show="hourlyForm.estimatedDuration.$touched || hourlyForm.$submitted">
+        <div ng-show="hourlyForm.estimatedDuration.$dirty || hourlyForm.$submitted">
           <div class="error-messages"
                ng-show="hourlyForm.estimatedDuration.$error.required" translate="requiredThisField" />
         </div>
@@ -106,7 +106,7 @@
         <selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"
                    ng-model="hourly.estimatedWorkload"
                    config="$root.resourcesService.estimatedWorkloadConfig"></selectize>
-        <div ng-show="hourlyForm.estimatedWorkload.$touched || hourlyForm.$submitted">
+        <div ng-show="hourlyForm.estimatedWorkload.$dirty || hourlyForm.$submitted">
           <div class="error-messages"
                ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />
         </div>
