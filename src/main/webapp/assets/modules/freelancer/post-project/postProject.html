@@ -1,11 +1,11 @@
 <employer-header></employer-header>
 <div class="content-page-block">
-  <div class="header-page">
+  <div class="header-page" ng-show="!state.showPostProjectReview">
     <h2 translate="postAProject"></h2>
     <p translate="desPostAProject"></p>
   </div>
   <div class="content-page-detail">
-    <project-form ng-show="state.showPostProjectForm"></project-form>
+    <project-form ng-show="state.showPostProjectForm" ng-show="!state.showPostProjectReview"></project-form>
     <project-review ng-show="state.showPostProjectReview"></project-review>
   </div>
 </div>

@@ -1,4 +1,4 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location, utils) {
   $scope.status = function (type) {
     switch (type) {
       case "ex-today":
@@ -44,6 +44,21 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         var estimatedEndDate = moment($scope.fixedPrice.estimatedEndDate, jsonValue.dateFormat);
         if (!estimatedEndDate.isValid()) return false;
         return (estimatedEndDate.isAfter(moment(), 'day') || estimatedEndDate.isSame(moment(), "day"));
+
+      case "hourly-rate-gt-0":
+        if (!$scope.hourly) return true;
+        if ($scope.hourly.hourlyRate == undefined) return true;
+        return $scope.hourly.hourlyRate > 0;
+
+      case "budget-gt-0":
+        if (!$scope.fixedPrice) return true;
+        if ($scope.fixedPrice.budget == undefined) return true;
+        return $scope.fixedPrice.budget > 0;
+
+      case "number-hires-bw-1-99":
+        if (!$scope.postProject) return true;
+        if ($scope.postProject.numberOfHires == undefined) return true;
+        return $scope.postProject.numberOfHires > 0;
     }
   }
 
@@ -99,4 +114,10 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
   }
 
   $scope.changeState('default');
+  //$(window).on('beforeunload', function() {
+  //  if(utils.getView()=='freelancerPostProject'){
+  //    return 'Are you sure you want to leave this page?';
+  //  }
+  //});
+
 });

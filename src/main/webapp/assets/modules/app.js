@@ -278,7 +278,12 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       return $location.url(lastFoot);
     }
   }
-
+  var inFormOrLink;
+  $(window).on("beforeunload", function() {
+    if(utils.getView()=='freelancerPostProject') {
+      return inFormOrLink ? "Do you really want to close?" : null;
+    }
+  });
 });
 
 techlooper.directive("navigation", function () {

@@ -471,7 +471,7 @@
   "30-hrsw": "Ít hơn 30 giờ/tuần",
   "dontKnow": "Chưa ước lượng được",
   "donePreview": "Đã Xem Xong",
-  "needHireFreelancerWithParam": "!Cần tuyển {{number}} Freelancer",
+  "needHireFreelancerWithParam": "! Cần tuyển {{number}} Freelancer",
   "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự",
   "fixedPrice": "Giá cố định. Trả theo dự án.",
   "hourlyJob": "Chi trả theo giờ",
@@ -485,7 +485,10 @@
   "whatSkillsAreNeededTip": "<p><strong>Liệt kê các kỹ năng cần có cho công việc</strong></p>Giúp thu hút các ứng viên có chất lượng. Ngoài ra, khi các freelancer tìm kiếm các từ khoá liên quan đến những kỹ năng này, tin đăng tuyển sẽ được hiển thị trên kết quả trả về.<p></p>",
   "howWouldYouLikeToPayTip": "Hầu hết các nhà tuyển dụng lựa chon 'Trả Theo Giờ'",
   "estimatedEndDateFromNow": "Ngày Kết Thúc Dự Án không được ở quá khứ.",
-  "requiredLargerZero": "Số lượng freelancer cần tuyển phải từ 1 đến 99."
+  "requiredLargerZero": "Số lượng freelancer cần tuyển phải từ 1 đến 99.",
+  "numberFreelancerBW199": "Số lượng freelancer cần tuyển phải từ 1 đến 99.",
+  "hourlyRateGT0": "Mức chi trả phải lớn hơn 0.",
+  "budgetGT0": "Ngân sách chi trả phải lớn hơn 0."
 }
 
 
