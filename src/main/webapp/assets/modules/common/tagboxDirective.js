@@ -100,9 +100,7 @@ techlooper.directive('tagbox', function ($http) {
 
       scope.submitTag = function (event) {
         if (event.which === 13) {
-          //event.preventDefault();
           scope.addTag(undefined, event);
-
           return event.preventDefault();;
         }
         getTags();
