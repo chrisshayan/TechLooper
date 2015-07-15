@@ -471,7 +471,7 @@
   "30-hrsw": "Ít hơn 30 giờ/tuần",
   "dontKnow": "Chưa ước lượng được",
   "donePreview": "Đã Xem Xong",
-  "needHireFreelancerWithParam": "!Cần tuyển {{number}} Freelancer",
+  "needHireFreelancerWithParam": "! Cần tuyển {{number}} Freelancer",
   "exceedCharacterWithParam": "Trường không được vượt quá {{number}} ký tự",
   "fixedPrice": "Giá cố định. Trả theo dự án.",
   "hourlyJob": "Chi trả theo giờ",
