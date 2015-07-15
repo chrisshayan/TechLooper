@@ -56,7 +56,7 @@ techlooper.directive('tagbox', function ($http) {
 
         scope.tags.push(tag);
         resetForm();
-        //scope.$apply();
+        scope.$apply();
       }
 
       var getTags = function () {
