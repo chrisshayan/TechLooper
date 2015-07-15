@@ -5,7 +5,7 @@ techlooper.directive('confirmOnExit', function ($rootScope) {
     link: function (scope, element, attrs, ngModelCtrl) {
       //window.onbeforeunload = function () {
       //  if (ngModelCtrl.$dirty) {
-      //    return "The form is dirty, do you want to stay on the page?";
+      //    return "You are about to lose your unsaved changes. Are you sure you want to leave this page?";
       //  }
       //}
       //scope.$on('$routeChangeStart', function (event, next, current) {
@@ -15,7 +15,7 @@ techlooper.directive('confirmOnExit', function ($rootScope) {
       //  //  if(!event.currentScope.$$phase) {
       //  //    return;
       //  //  }
-      //  //    if (!confirm("The form is dirty, do you want to stay on the page?")) {
+      //  //    if (!confirm("You are about to lose your unsaved changes. Are you sure you want to leave this page?")) {
       //  //      event.preventDefault();
       //  //    }
       //  //}
