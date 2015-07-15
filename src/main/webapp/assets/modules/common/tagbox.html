@@ -29,7 +29,7 @@
 
     <autocomplete name="autoTag" ng-model="autoTag" data="tagList" maxlength="{{maxTagLength}}"
                   ng-show="status('show-auto-complete-input')" ng-required="status('show-auto-complete-input')"
-                  attr-placeholder="{{placeholder | translate}}" on-select="addTag" unique touchable focusout="true"></autocomplete>
+                  attr-placeholder="{{placeholder | translate}}" on-select="addTag" unique touchable focusout="true" on-type="autoTagType"></autocomplete>
 
     <button type="submit" ng-click="addTag()" ng-modal="clickAddTag">{{'add' | translate}}</button>
   </ng-form>
