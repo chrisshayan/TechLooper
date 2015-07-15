@@ -37,7 +37,7 @@ techlooper.directive('inputNumber', function ($parse) {
           }
         }
 
-        number = parseFloat(number);
+        number = number.length > 0 ? parseFloat(number) : parseInt(digits);
         if (!isNaN(number)) {
           return number;
         }

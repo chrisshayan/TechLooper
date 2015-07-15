@@ -80,6 +80,7 @@
                name="budget"
                ng-model="fixedPrice.budget"
                ng-required="status('show-fixed-price-fields')"
+               required-expr="status('budget-gt-0')"
                input-number input-number-fraction="2"
                placeholder="{{'budgetEx' | translate}}" touchable=""/>
 
@@ -87,8 +88,7 @@
           <div class="error-messages"
                ng-show="fixedPriceForm.budget.$error.required" translate="requiredThisField" />
           <div class="error-messages"
-               ng-show="fixedPriceForm.budget.$error.requiredExpr"
-               translate="requiredLargerZero"/>
+               ng-show="fixedPriceForm.budget.$error.requiredExpr" translate="budgetGT0" />
         </div>
       </div>
     </ng-form>
@@ -120,24 +120,25 @@
                name="hourlyRate" ng-required="status('show-hourly-price-fields')"
                ng-model="hourly.hourlyRate"
                input-number input-number-fraction="2"
+               required-expr="status('hourly-rate-gt-0')"
                placeholder="{{'hourlyRateEx' | translate}}" touchable/>
         <div ng-show="hourlyForm.hourlyRate.$edited || hourlyForm.$submitted">
           <div class="error-messages"
                ng-show="hourlyForm.hourlyRate.$error.required" translate="requiredThisField" />
           <div class="error-messages"
-               ng-show="hourlyForm.hourlyRate.$error.requiredExpr"
-               translate="requiredLargerZero"/>
+               ng-show="hourlyForm.hourlyRate.$error.requiredExpr" translate="hourlyRateGT0" />
         </div>
       </div>
     </ng-form>
 
     <div class="field-content">
       <label translate="numberOfHires"></label>
-      <input type="text" class="input-style" ng-required="true" only-digits maxlength="2"
+      <input type="text" class="input-style" ng-required="true"
+             maxlength="2" input-number
              data-toggle="tooltip" name="numberOfHires"
              ng-model="postProject.numberOfHires"
-             required-expr="postProject.numberOfHires > 0"
              data-toggle="tooltip"
+             required-expr="status('number-hires-bw-1-99')"
              data-original-title="{{'numberOfHiresTip' | translate}}"
              placeholder="{{'numberOfHiresEx' | translate}}" touchable/>
 
@@ -145,8 +146,7 @@
         <div class="error-messages"
              ng-show="postProjectForm.numberOfHires.$error.required" translate="requiredThisField" />
         <div class="error-messages"
-             ng-show="postProjectForm.numberOfHires.$error.requiredExpr"
-             translate="requiredLargerZero"/>
+             ng-show="postProjectForm.numberOfHires.$error.requiredExpr" translate="numberFreelancerBW199" />
       </div>
     </div>
 

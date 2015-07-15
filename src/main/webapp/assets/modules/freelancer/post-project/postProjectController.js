@@ -44,6 +44,21 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         var estimatedEndDate = moment($scope.fixedPrice.estimatedEndDate, jsonValue.dateFormat);
         if (!estimatedEndDate.isValid()) return false;
         return (estimatedEndDate.isAfter(moment(), 'day') || estimatedEndDate.isSame(moment(), "day"));
+
+      case "hourly-rate-gt-0":
+        if (!$scope.hourly) return true;
+        if ($scope.hourly.hourlyRate == undefined) return true;
+        return $scope.hourly.hourlyRate > 0;
+
+      case "budget-gt-0":
+        if (!$scope.fixedPrice) return true;
+        if ($scope.fixedPrice.budget == undefined) return true;
+        return $scope.fixedPrice.budget > 0;
+
+      case "number-hires-bw-1-99":
+        if (!$scope.postProject) return true;
+        if ($scope.postProject.numberOfHires == undefined) return true;
+        return $scope.postProject.numberOfHires > 0;
     }
   }
 
