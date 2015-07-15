@@ -5,7 +5,6 @@
   max-width: 1000px
   padding: 0 0 20px
   width: 100%
-  position: relative
   .header-page
     background-color: #f3fafe
     -webkit-box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
@@ -57,12 +56,6 @@
       clear: both
       display: inline-block
       text-align: left
-      position: absolute
-      left: 0
-      right: 0
-      top: 0
-      bottom: 0
-      z-index: 88
       h2
         margin: 0
         padding: 10px 20px
@@ -77,17 +70,7 @@
         width: 100%
         clear: both
         display: inline-block
-        padding: 20px
-        -webkit-border-bottom-right-radius: 5px
-        -webkit-border-bottom-left-radius: 5px
-        -moz-border-radius-bottomright: 5px
-        -moz-border-radius-bottomleft: 5px
-        border-bottom-right-radius: 5px
-        border-bottom-left-radius: 5px
-        background-color: #fff
-        -webkit-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
-        -moz-box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
-        box-shadow: 1px 1px 0px 0px rgba(235,235,235,1)
+        padding: 20px 0
         .time-and-payment-block
           display: inline-block
           clear: both
@@ -159,7 +142,9 @@
                 width: auto
                 display: inline-block
                 background-color: #f3fafe
-                border: 1px solid #d4d7d8
+                -moz-box-shadow: 1px 1px 1px 0px #cccccc
+                -webkit-box-shadow: 1px 1px 1px 0px #cccccc
+                box-shadow: 1px 1px 1px 0px #cccccc
                 -webkit-border-radius: 5px
                 -moz-border-radius: 5px
                 border-radius: 5px
