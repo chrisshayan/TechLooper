@@ -85,13 +85,13 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     if ($scope.status("show-hourly-price-fields")) {
       $scope.hourlyForm.$setPristine();
       $rootScope.$emit("$setPristine");
-      $scope.hourly = {}
     }
     else if ($scope.status("show-fixed-price-fields")) {
       $scope.fixedPriceForm.$setPristine();
       $rootScope.$emit("$setPristine");
-      $scope.fixedPrice = {}
     }
+    $scope.fixedPrice = {}
+    $scope.hourly = {}
   });
 
   $scope.createProject = function () {
@@ -114,10 +114,5 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
   }
 
   $scope.changeState('default');
-  //$(window).on('beforeunload', function() {
-  //  if(utils.getView()=='freelancerPostProject'){
-  //    return 'Are you sure you want to leave this page?';
-  //  }
-  //});
 
 });
