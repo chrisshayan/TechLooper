@@ -484,6 +484,7 @@
   "numberOfHiresTip": "Bạn muốn thuê 1 freelancer hay nhiều hơn?",
   "whatSkillsAreNeededTip": "<p><strong>Liệt kê các kỹ năng cần có cho công việc</strong></p>Giúp thu hút các ứng viên có chất lượng. Ngoài ra, khi các freelancer tìm kiếm các từ khoá liên quan đến những kỹ năng này, tin đăng tuyển sẽ được hiển thị trên kết quả trả về.<p></p>",
   "howWouldYouLikeToPayTip": "Hầu hết các nhà tuyển dụng lựa chon 'Trả Theo Giờ'",
+  "estimatedEndDateFromNow": "Ngày Kết Thúc Dự Án không được ở quá khứ.",
   "requiredLargerZero": "Số lượng freelancer cần tuyển phải từ 1 đến 99."
 }
 

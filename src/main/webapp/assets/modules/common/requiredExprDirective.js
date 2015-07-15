@@ -11,6 +11,11 @@ techlooper
           function (valid, oldValue) {
             ngModelCtrl.$setValidity("requiredExpr", valid);
           });
+        //scope.$watch(attrs.ngModel,
+        //  function (valid, oldValue) {
+        //    console.log($parse(attrs.requiredExpr)(scope));
+        //    ngModelCtrl.$setValidity("requiredExpr", $parse(attrs.requiredExpr)(scope));
+        //  });
       }
     }
   })

@@ -23,6 +23,7 @@ techlooper.directive('tagbox', function ($http) {
         scope.tagForm.autoTag.$edited = false;
         scope.tag = "";
         scope.autoTag = "";
+        scope.tagList.length = 0;
       }
 
       scope.tags = scope.tags || [];
@@ -34,6 +35,7 @@ techlooper.directive('tagbox', function ($http) {
       }
 
       scope.addTag = function (tag) {
+        console.log(123);
         scope.tagForm.$submitted = true;
 
         var limitation = scope.tags.length >= scope.listMaxLength;
@@ -46,13 +48,15 @@ techlooper.directive('tagbox', function ($http) {
           return false;
         }
 
-        var tag = tag || scope.tag || scope.autoTag;
+        var tag = tag || scope.tag || scope.autoTag || "";
+        if (tag.length == 0) return false;
         if ($.inArray(tag, scope.tags) >= 0) {
           return false;
         }
 
         scope.tags.push(tag);
         resetForm();
+        scope.$apply();
       }
 
       var getTags = function () {
@@ -94,7 +98,7 @@ techlooper.directive('tagbox', function ($http) {
       scope.submitTag = function (event) {
         if (event.which === 13) {
           event.preventDefault();
-          scope.addTag(scope.tag);
+          scope.addTag();
           return false;
         }
         getTags();
@@ -106,6 +110,12 @@ techlooper.directive('tagbox', function ($http) {
 
       scope.tagForm.autoTag.$validators.unique = function (modelValue, viewValue) {
         return scope.tags.indexOf(modelValue) < 0;
+      }
+
+      if (scope.getTags) {
+        element.find("input").keypress(function(event) {
+          scope.submitTag(event);
+        });
       }
     }
   }
