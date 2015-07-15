@@ -278,7 +278,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       return $location.url(lastFoot);
     }
   }
-  
+
 });
 
 techlooper.directive("navigation", function () {
