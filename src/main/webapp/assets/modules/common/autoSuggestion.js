@@ -9,9 +9,9 @@ techlooper.directive('autoSuggestion', function ($http) {
     },
     link: function (scope, element, attr, ctrl) {
       scope.$watch("text", function (newVal, oldVal) {
-        if (!scope.inputModel.$touched) {
-          return;
-        }
+        //if (!scope.inputModel.$touched) {
+        //  return;
+        //}
         delete scope.items;
 
         $http.get(scope.getUrl + scope.text)
