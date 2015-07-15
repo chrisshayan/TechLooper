@@ -5,7 +5,7 @@
       <div class="working-time-block">
         <h3 translate="{{postProject.payMethod | progress:'freelancer-review-project-payment-method'}}" />
         <div ng-show="status('show-fixed-price-fields')">
-          <p><span translate="deliveryBy"></span>: {{fixedPrice.estimatedEndDate}}</p>
+          <p><span translate="deliveryBy"></span> {{fixedPrice.estimatedEndDate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
           <p>{{hourly.estimatedDuration}}</p>
@@ -18,8 +18,12 @@
           <p>{{'budgetText' | translate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
+<<<<<<< HEAD
           <h3>${{hourly.hourlyRate }}/ <span translate="hrs"></span></h3>
           <p></p>
+=======
+          <h3>{{hourly.hourlyRate  | currency : '$'}}/ <span translate="hrs"></span></h3>
+>>>>>>> b736de7ea2caaf3558f4a09d9849b87729afbb22
         </div>
       </div>
     </div>

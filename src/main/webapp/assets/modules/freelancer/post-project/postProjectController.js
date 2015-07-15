@@ -1,4 +1,4 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location, utils) {
   $scope.status = function (type) {
     switch (type) {
       case "ex-today":
@@ -114,4 +114,10 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
   }
 
   $scope.changeState('default');
+  //$(window).on('beforeunload', function() {
+  //  if(utils.getView()=='freelancerPostProject'){
+  //    return 'Are you sure you want to leave this page?';
+  //  }
+  //});
+
 });

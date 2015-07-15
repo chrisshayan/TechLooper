@@ -251,6 +251,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     switch (utils.getView()) {
       case jsonValue.views.freelancerPostProject:
         var lastPage = "/freelancer/post-project";
+        var inFormOrLink;
+        $('a').on('click', function() {
+          inFormOrLink = true;
+        });
       case jsonValue.views.postChallenge:
         securityService.getCurrentUser().catch(function () {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");
@@ -278,7 +282,18 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       return $location.url(lastFoot);
     }
   }
-
+  var inFormOrLink;
+  $('a').on('click', function() {
+    //if(utils.getView()=='freelancerPostProject') {
+    //  inFormOrLink = true;
+    //}
+    alert(1);
+  });
+  $(window).on("beforeunload", function() {
+    if(utils.getView()=='freelancerPostProject') {
+      return inFormOrLink ? "Do you really want to close?" : null;
+    }
+  });
 });
 
 techlooper.directive("navigation", function () {
