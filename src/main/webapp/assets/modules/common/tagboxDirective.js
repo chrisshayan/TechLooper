@@ -35,21 +35,21 @@ techlooper.directive('tagbox', function ($http) {
       }
 
       scope.addTag = function (tag) {
-        console.log(123);
         scope.tagForm.$submitted = true;
 
-        var limitation = scope.tags.length >= scope.listMaxLength;
-        scope.tagForm.tag.$setValidity("listMaxLength", !limitation);
-        if (limitation) {
-          return false;
-        }
+        var tag = tag || scope.tag || scope.autoTag || "";
+        if (tag.length == 0) return false;
+
+        //var limitation = scope.tags.length >= scope.listMaxLength;
+        //scope.tagForm.tag.$setValidity("listMaxLength", !limitation);
+        //if (limitation) {
+        //  return false;
+        //}
 
         if (!scope.tagForm.$valid) {
           return false;
         }
 
-        var tag = tag || scope.tag || scope.autoTag || "";
-        if (tag.length == 0) return false;
         if ($.inArray(tag, scope.tags) >= 0) {
           return false;
         }
@@ -104,13 +104,24 @@ techlooper.directive('tagbox', function ($http) {
         getTags();
       }
 
-      scope.tagForm.tag.$validators.unique = function (modelValue, viewValue) {
+      var uniqueValidator = function (modelValue, viewValue) {
+        if (!modelValue) return true;
+        if (modelValue.length == 0) return true;
+        if (scope.tags.length == scope.listMaxLength) return true;
         return scope.tags.indexOf(modelValue) < 0;
       }
 
-      scope.tagForm.autoTag.$validators.unique = function (modelValue, viewValue) {
-        return scope.tags.indexOf(modelValue) < 0;
+      var limitValidator = function (modelValue, viewValue) {
+        if (!modelValue) return true;
+        if (modelValue.length == 0) return true;
+        return scope.tags.length < scope.listMaxLength;
       }
+
+      scope.tagForm.tag.$validators.unique = uniqueValidator;
+      scope.tagForm.autoTag.$validators.unique = uniqueValidator;
+
+      scope.tagForm.tag.$validators.listMaxLength = limitValidator;
+      scope.tagForm.autoTag.$validators.listMaxLength = limitValidator;
 
       if (scope.getTags) {
         element.find("input").keypress(function(event) {
