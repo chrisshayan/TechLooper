@@ -114,10 +114,5 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
   }
 
   $scope.changeState('default');
-  //$(window).on('beforeunload', function() {
-  //  if(utils.getView()=='freelancerPostProject'){
-  //    return 'Are you sure you want to leave this page?';
-  //  }
-  //});
 
 });
