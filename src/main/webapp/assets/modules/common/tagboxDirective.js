@@ -114,7 +114,8 @@ techlooper.directive('tagbox', function ($http) {
       var limitValidator = function (modelValue, viewValue) {
         if (!modelValue) return true;
         if (modelValue.length == 0) return true;
-        return scope.tags.length < scope.listMaxLength;
+        var invalid = scope.tags.length < scope.listMaxLength;
+        return invalid;
       }
 
       scope.tagForm.tag.$validators.unique = uniqueValidator;
@@ -127,6 +128,11 @@ techlooper.directive('tagbox', function ($http) {
         element.find("input").keypress(function(event) {
           scope.submitTag(event);
         });
+      }
+
+      scope.autoTagType = function(tag) {
+        if (tag.length == 0) scope.tagList.length = 0;
+        scope.tagForm.$setPristine();
       }
     }
   }
