@@ -16,7 +16,7 @@ techlooper.directive('confirmOnExit', function ($rootScope, $confirm, $window, $
         if (processing) {
           console.log(confirmed);
           //if (!e) {
-            return event.preventDefault();
+          return event.preventDefault();
           //}
         }
         if (ngModelCtrl.$dirty) {
@@ -25,7 +25,7 @@ techlooper.directive('confirmOnExit', function ($rootScope, $confirm, $window, $
           //confirmed = true;
           ////e = event;
           if (!confirmed) {
-          //  //processing = false;
+            //  //processing = false;
             event.preventDefault();
           }
 
@@ -36,7 +36,7 @@ techlooper.directive('confirmOnExit', function ($rootScope, $confirm, $window, $
           //
           //event.preventDefault();
           //else {
-            processing = false;
+          processing = false;
           //return true;
           //}
         }
