@@ -89,6 +89,24 @@
         });
         window.location.href = "#/challenges";
     }
+    gotoProjects  = function(){
+        ga("send", {
+            hitType: "event",
+            eventCategory: "onlinecontest",
+            eventAction: "click",
+            eventLabel: "allchallenges"
+        });
+        window.location.href = "#/freelancer/projects";
+    }
+    gotoPostProject  = function(){
+        ga("send", {
+            hitType: "event",
+            eventCategory: "onlinecontest",
+            eventAction: "click",
+            eventLabel: "allchallenges"
+        });
+        window.location.href = "#/freelancer/post-project";
+    }
 </script>
 
 <!--[if lt IE 8]>
@@ -108,6 +126,7 @@
                     <li><a href="#/get-promoted" translate="getPromotedTagLine"></a></li>
                     <li><a href="#/contest" translate="joinTechLooperChallenge"></a></li>
                     <li><a onClick="gotoChallenges()" translate="allChallenges"></a></li>
+                    <li><a onClick="gotoProjects()" translate="allFreelancerProjects"></a></li>
                 </ul>
             </div>
             <div class="site-map-content">
@@ -115,6 +134,7 @@
                 <ul>
                     <li><a href="#/price-job" translate="priceAJob"></a></li>
                     <li><a onClick="gotoPostChallenge()" translate="postAChallenge"></a></li>
+                    <li><a onClick="gotoPostProject()" translate="postAFreelancerProject"></a></li>
                 </ul>
             </div>
         </div>
