@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class ProjectController {
@@ -24,6 +25,11 @@ public class ProjectController {
         projectDto.setAuthorEmail(servletRequest.getRemoteUser());
         ProjectEntity projectEntity = projectService.saveProject(projectDto);
         return projectEntity.getProjectId();
+    }
+
+    @RequestMapping(value = "/project/list", method = RequestMethod.GET)
+    public List<ProjectDto> listProject() throws Exception {
+        return projectService.listProject();
     }
 
 }
