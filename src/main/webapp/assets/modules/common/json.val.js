@@ -179,7 +179,8 @@ angular.module("Common").constant("jsonValue", (function () {
       challenges: "/challenges",
       postChallenge: "/post-challenge",
       freelancerPostProject: "/freelancer/post-project",
-      freelancerProjectDetail: "/freelancer/project-detail"
+      freelancerProjectDetail: "/freelancer/project-detail",
+      freelancerProjects: "/freelancer/projects"
     },
 
     views: {
@@ -209,7 +210,8 @@ angular.module("Common").constant("jsonValue", (function () {
       challengeDetail: "challengeDetail",
       challenges: "challenges",
       freelancerPostProject: "freelancerPostProject",
-      freelancerProjectDetail: "freelancerProjectDetail"
+      freelancerProjectDetail: "freelancerProjectDetail",
+      freelancerProjects: "freelancerProjects"
     },
 
     httpUri: {

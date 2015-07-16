@@ -265,6 +265,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/freelancer\/project-detail/.test(path)) {
         return jsonValue.views.freelancerProjectDetail;
       }
+      else if (/\/freelancer\/projects/.test(path)) {
+        return jsonValue.views.freelancerProjects;
+      }
     },
 
     sum: function (array, prop) {
