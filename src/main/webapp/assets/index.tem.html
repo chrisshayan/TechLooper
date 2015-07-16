@@ -47,6 +47,7 @@
     <link href="bower_components/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet" type="text/css">
     <link href="bower_components/blueimp-bootstrap-image-gallery/css/bootstrap-image-gallery.min.css" rel="stylesheet" type="text/css">
     <link href="bower_components/allmighty-autocomplete/style/autocomplete.css" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>-->
 
     <!-- include: "type": "css", "files": "css/**/*.css" -->
     <!-- endbuild -->
@@ -69,6 +70,25 @@
 
     ga('create', 'UA-55364092-1', 'auto');
     ga('send', 'pageview');
+
+    gotoPostChallenge  = function(){
+        ga("send", {
+            hitType: "event",
+            eventCategory: "onlinecontest",
+            eventAction: "click",
+            eventLabel: "footerpostchallenge"
+        });
+        window.location.href = "#/post-challenge";
+    }
+    gotoChallenges  = function(){
+        ga("send", {
+            hitType: "event",
+            eventCategory: "onlinecontest",
+            eventAction: "click",
+            eventLabel: "allchallenges"
+        });
+        window.location.href = "#/challenges";
+    }
 </script>
 
 <!--[if lt IE 8]>
@@ -78,23 +98,38 @@
 <div id="bodyContent" class="body-content" autoscroll="true" ng-view>
 </div>
 <div class="js-footer">
-    <div class="footer-content-block">
-        <div class="copyright-block">
-        <p>Copyright &copy; <span><a href="http://www.navigosgroup.com/" target="_blank">Navigos Group</a></span> Joint Stock Company</p>
-        <p class="address">130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam </p>
+    <div class="js-footer-block">
+        <div class="site-map-block">
+            <div class="site-map-content">
+                <h3><a href="#/home" translate="personal"></a></h3>
+                <ul>
+                    <li><a href="#/pie-chart" translate="getAnalytics"></a></li>
+                    <li><a href="#/salary-review" translate="getYourSalaryReport"></a></li>
+                    <li><a href="#/get-promoted" translate="getPromotedTagLine"></a></li>
+                    <li><a href="#/contest" translate="joinTechLooperChallenge"></a></li>
+                    <li><a onClick="gotoChallenges()" translate="allChallenges"></a></li>
+                </ul>
+            </div>
+            <div class="site-map-content">
+                <h3><a href="#/hiring" translate="business"></a></h3>
+                <ul>
+                    <li><a href="#/price-job" translate="priceAJob"></a></li>
+                    <li><a onClick="gotoPostChallenge()" translate="postAChallenge"></a></li>
+                </ul>
+            </div>
         </div>
+        <div class="footer-content-block">
+            <div class="copyright-block">
+                <p translate="copyright"></p>
+                <p class="address" translate="companyAddress"></p>
+            </div>
 
-        <div class="social-network-block">
-        <ul>
-        <!--<li><a href="#"><i class="fa fa-facebook-square"></i></a></li>-->
-        <li><a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
-        <!--<li><a href="#"><i class="fa fa-twitter-square"></i></a></li>-->
-        <!--<li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>-->
-        </ul>
+            <div class="social-network-block">
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                </ul>
+            </div>
         </div>
-        <!--<div class="vnw-logo">-->
-        <!--<a href="http://www.vietnamworks.com/" target="_blank"><img src="images/logo-vnw.png" alt="Career Analytics. Awesome!"></a>-->
-        <!--</div>-->
     </div>
 </div>
 <div class="loading-data">
@@ -119,6 +154,11 @@
             <div class="wInnerBall">
             </div>
         </div>
+    </div>
+</div>
+<div class="warning-alert-block">
+    <div class="alert alert-warning" role="alert">
+        <p><i class="fa fa-warning"></i> This website requires cookies to provide all of its features. So please enable cookies in your web browser to continue.</p>
     </div>
 </div>
 </body>

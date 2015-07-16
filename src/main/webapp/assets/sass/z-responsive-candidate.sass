@@ -1,4 +1,6 @@
 @media (min-width: 320px) and (max-width: 719px)
+  .body-content
+    padding-bottom: 0
   .navbar
     margin-bottom: 0
     .backPage
@@ -351,9 +353,25 @@
   .windows8
     left: 38%
   .js-footer
-    .copyright-block p
-      font-size: 10px
-      text-align: center
+    height: auto
+    position: inherit
+    display: inline-block
+    .js-footer-block
+      padding: 0
+    .site-map-block
+      padding: 0 10px 10px
+      ul
+        padding-bottom: 10px
+        li
+          padding-bottom: 5px
+      .site-map-content
+        width: 100%
+        padding-top: 10px
+    .copyright-block
+      padding-bottom: 10px
+      p
+        font-size: 10px
+        text-align: center
     .copyright-block
       width: 100%
     .copyright-block p.address
@@ -444,7 +462,6 @@
               float: left
               img
                 max-height: 60px
-  // style for salary page
   .salary-review-page
     width: 100%
     padding: 10px 5px
@@ -691,32 +708,20 @@
             h3
               font-size: 20px
     .main-banner-block.hiring
-      min-height: inherit
-      height: 600px
-      .img-banner
-        min-height: 600px
-        height: auto
-      .overlap-background
-        min-height: 600px
-        height: auto
       .main-banner-content
-        padding: 100px 0 0
-        h2
-          font-size: 30px
         .main-feature-content-block
-          .main-feature-item
-            min-height: inherit
-            .head-item
-              p
-                font-size: 14px
-              h3
-                font-size: 18px
-      .evaluate-my-job-post
-        p
-          font-size: 16px
-        .evaluate-my-job-post-btn
-          .btn-purple
-            font-size: 18px
+          .head-item
+            padding-left: 65px
+            p
+              font-size: 14px
+            .btn-purple
+              padding: 10px 45px
+              font-size: 20px
+    .how-does-it-work-block
+      .how-does-it-work-content
+        ul.hiring
+          li
+            width: 100%
   .salary-review-page
     .salary-review-block
       .send-me-report-content
@@ -1064,7 +1069,140 @@
             width: 100%
             float: left
             display: inline-block
+  .post-contest-block
+    .post-contest-form
+      .post-contest-field
+        .post-contest-field-content
+          width: 100%
+        .post-contest-field-tooltip
+          display: none
+  .sign-in-block
+    .sign-in-content
+      padding: 15px 0
+    .sign-in-form
+      width: 95%
+      padding: 10px 5px
+  .contest-detail-page
+    padding: 20px 5px
+    .contest-detail-content
+      padding: 10px 5px
+      .timeline-reward-block
+        .col-md-8
+          width: 100%
+          clear: both
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          float: left
+          height: auto
+          .col-md-4
+            padding: 10px
+            min-height: inherit
+            border-bottom: 2px #fff
+            border-right: 0
+            height: auto
+            text-align: left
+            p
+              width: 40%
+              float: left
+              padding-top: 5px
+              max-width: 100px
+              strong
+                width: auto
+                float: none
+                font-size: 14px
+            strong
+              width: 60%
+              float: left
+        .col-md-4
+          width: 100%
+          clear: both
+          float: left
+          -webkit-border-top-right-radius: 0
+          -moz-border-radius-topright: 0
+          -moz-border-radius-bottomright: 5px
+          border-top-right-radius: 0
+          border-bottom-right-radius: 5px
+          -webkit-border-bottom-right-radius: 5px
+          -webkit-border-bottom-left-radius: 5px
+          -moz-border-radius-bottomleft: 5px
+          border-bottom-left-radius: 5px
+          a
+            -webkit-border-bottom-right-radius: 5px
+            -webkit-border-bottom-left-radius: 5px
+            -moz-border-radius-bottomright: 5px
+            -moz-border-radius-bottomleft: 5px
+            border-bottom-right-radius: 5px
+            border-bottom-left-radius: 5px
+      .registration-count
+        .col-md-12
+          text-align: center
+          p
+            clear: both
+            width: 100%
+            line-height: 20px
+            padding: 0 0 10px 0
+          a
+            float: none
+            margin: auto
+          .join-now
+            width: 100%
+            clear: both
+            span
+              text-align: center
+      .contest-content-detail
+        display: block
+        .col-md-9
+          width: 100%
+          clear: both
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+        .col-md-3
+          width: 100%
+          clear: both
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          margin-top: 20px
+  .contestant-page
+    table.contests-table
+      border: 0
 
+    table.contests-table thead
+      display: none
+
+    table.contests-table tr
+      margin-bottom: 10px
+      display: block
+
+    table.contests-table td
+      display: block
+      text-align: right
+      p
+        span
+          float: none
+      a.view
+        display: inline-block
+    table.contests-table td:last-child
+      border-bottom: 0
+
+    table.contests-table td:before
+      content: attr(data-label)
+      float: left
+      text-transform: uppercase
+      font-weight: bold
+    table.contests-table tr:nth-child(2n)
+      background-color: #f1f1f1
+    table.contests-table td:nth-child(1)
+      text-align: right
+      p
+        text-align: right !important
+  .warning-alert-block
+    .alert-warning
+      top: auto
+      bottom: auto
+      max-height: none
 @media (min-width: 640px)
   .rwd-table
     margin: auto
@@ -1095,6 +1233,7 @@
           h3
             font-size: 12px
             padding: 0
+            width: 95%
       .thanks-for-share-salary
         .thanks-for-share-salary-content
           ul li
@@ -1122,8 +1261,16 @@
         .main-feature-content-block
           .main-feature-item
             width: 48%
-            padding-top: 5px
+            padding: 10px
             margin: 0 1%
+            height: 250px
+            .head-item
+              h3
+                font-size: 20px
+              p
+                font-size: 14px
+            .btn-purple
+              font-size: 20px
           .main-feature-item.left
             margin-left: 1%
           .main-feature-item.right

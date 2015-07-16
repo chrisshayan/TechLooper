@@ -1,3 +1,10 @@
+if (!navigator.cookieEnabled) {
+  $('.warning-alert-block').addClass('show');
+}
+else {
+  $('.warning-alert-block').removeClass('show');
+}
+
 angular.module("Common", []);
 angular.module("Bubble", []);
 angular.module("Home", []);
@@ -26,7 +33,7 @@ var techlooper = angular.module("Techlooper", [
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
-    $httpProvider.interceptors.push(function ($q, utils, jsonValue, localStorageService) {
+    $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location, $rootScope) {
         return {
           request: function (request) {
             return request || $q.when(request);
@@ -35,13 +42,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           responseError: function (rejection) {
             switch (rejection.status) {
               case 403:
-              case 401:
-                if (localStorageService.get(jsonValue.storage.back2Me) === "true") {
-                  utils.sendNotification(jsonValue.notifications.loginFailed);
-                }
-                else {
-                  utils.sendNotification(jsonValue.notifications.cleanSession);
-                }
+                $rootScope.lastPath = $location.path();
+                $location.path("/login");
                 break;
 
               case 500:
@@ -57,21 +59,20 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     localStorageServiceProvider
       .setPrefix('techlooper')
-      .setStorageType('sessionStorage')
       .setNotify(true, true)
       .setStorageCookie(45, "/");
 
-    $.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
-      .done(function (resp) {
-        var oauth1Providers = ["TWITTER"];
-        $.each(resp, function (i, prov) {
-          $authProvider[prov.provider.toLowerCase()]({
-            url: "auth/" + (oauth1Providers.indexOf(prov.provider) >= 0 ? "oath1/" : "") + prov.provider,
-            clientId: prov.apiKey,
-            redirectUri: prov.redirectUri
-          });
-        });
-      });
+    //$.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
+    //  .done(function (resp) {
+    //    var oauth1Providers = ["TWITTER"];
+    //    $.each(resp, function (i, prov) {
+    //      $authProvider[prov.provider.toLowerCase()]({
+    //        url: "auth/" + (oauth1Providers.indexOf(prov.provider) >= 0 ? "oath1/" : "") + prov.provider,
+    //        clientId: prov.apiKey,
+    //        redirectUri: prov.redirectUri
+    //      });
+    //    });
+    //  });
 
     $authProvider.loginRedirect = undefined;
 
@@ -163,6 +164,34 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/contest/contest.tem.html",
         controller: "contestController"
       })
+      .when("/post-challenge", {
+        templateUrl: "modules/post-contest/postContest.html",
+        controller: "postContestController"
+      })
+      .when("/login", {
+        templateUrl: "modules/auth/login.html",
+        controller: "loginController"
+      })
+      .when("/contest-detail/:id", {
+        templateUrl: "modules/contest-detail/contest-detail.tem.html",
+        controller: "contestDetailController"
+      })
+      .when("/challenge-detail/:id", {
+        templateUrl: "modules/contest-detail/contest-detail.tem.html",
+        controller: "contestDetailController"
+      })
+      .when("/challenges", {
+        templateUrl: "modules/contests/contests.tem.html",
+        controller: "contestsController"
+      })
+      .when("/freelancer/post-project", {
+        templateUrl: "modules/freelancer/post-project/postProject.html",
+        controller: "freelancerPostProjectController"
+      })
+      .when("/freelancer/project-detail", {
+        templateUrl: "modules/freelancer/project-detail/projectDetail.html",
+        controller: "freelancerProjectDetailController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -175,7 +204,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, $window) {
+                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService, resourcesService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -183,16 +212,19 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
-  signInService.init();
+  $rootScope.apiService = apiService;
+  $rootScope.resourcesService = resourcesService;
 
-  var locationPathFn = $location.path;
-  $location.path = function () {
-    var rsLocationPathFn = locationPathFn.apply($location, arguments);
-    utils.apply();
-    return rsLocationPathFn;
-  }
+  //signInService.init();
 
-  var doTranslate = function() {
+  //var locationPathFn = $location.path;
+  //$location.path = function () {
+  //  var rsLocationPathFn = locationPathFn.apply($location, arguments);
+  //  utils.apply();
+  //  return rsLocationPathFn;
+  //}
+
+  var doTranslate = function () {
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
       "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
       "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
@@ -213,7 +245,40 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $rootScope.jsonValue = jsonValue;
 
-  $('html, body').animate({ scrollTop: 0 });
+  $('html, body').animate({scrollTop: 0});
+
+  $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    switch (utils.getView()) {
+      case jsonValue.views.freelancerPostProject:
+        var lastPage = "/freelancer/post-project";
+      case jsonValue.views.postChallenge:
+        securityService.getCurrentUser().catch(function () {
+          localStorageService.set("protectedPage", lastPage || "/post-challenge");
+        });
+        break;
+
+      case jsonValue.views.login:
+        var protectedPage = localStorageService.get("protectedPage");
+        if (!protectedPage) {
+          return $location.path("/");
+        }
+        break;
+    }
+  });
+
+  var param = $location.search();
+  if (param.registerVnwUser) {
+    if (param.registerVnwUser !== "cancel") {
+      localStorageService.set("registerVnwUser", param.registerVnwUser);
+    }
+
+    var lastFoot = localStorageService.get("lastFoot");
+    if (lastFoot) {
+      localStorageService.remove("lastFoot");
+      return $location.url(lastFoot);
+    }
+  }
+
 });
 
 techlooper.directive("navigation", function () {
@@ -231,7 +296,7 @@ techlooper.directive("navigation", function () {
       templateUrl: "modules/job/findJobs.tem.html"
     }
   })
-  .directive('onlyDigits', function () {
+  .directive('onlyDigits', function ($filter) {
     return {
       require: 'ngModel',
       restrict: 'A',
@@ -239,13 +304,18 @@ techlooper.directive("navigation", function () {
         function inputValue(val) {
           if (val) {
             var digits = val.replace(/[^0-9.]/g, '');
-
             if (digits !== val) {
               ctrl.$setViewValue(digits);
               ctrl.$render();
             }
             var number = parseFloat(digits);
-            return isNaN(number) ? "" : number;
+            if (!isNaN(number)) {
+              //number = $filter('number')(number, 2);
+              //ctrl.$setViewValue(number);
+              //ctrl.$render();
+              return number;
+            }
+            return "";
           }
           return '';
         }

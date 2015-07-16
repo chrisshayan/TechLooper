@@ -2,8 +2,14 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+    openFBShare: function(uri) {
+      window.open(
+        'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri,
+        'name', 'width=450,height=350');
+    },
+
     isFormSubmitted: function(form, inputName) {
-      return form && (form[inputName].$touched || form.$submitted);
+      return form && (form[inputName].$edited || form.$submitted);
     },
 
     toPromises: function(defersObj) {
@@ -240,6 +246,24 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/contest/.test(path)) {
         return jsonValue.views.contest;
+      }
+      else if (/\/post-challenge/.test(path)) {
+        return jsonValue.views.postChallenge;
+      }
+      else if (/\/login/.test(path)) {
+        return jsonValue.views.login;
+      }
+      else if (/\/challenge-detail/.test(path)) {
+        return jsonValue.views.challengeDetail;
+      }
+      else if (/\/challenges/.test(path)) {
+        return jsonValue.views.challenges;
+      }
+      else if (/\/freelancer\/post-project/.test(path)) {
+        return jsonValue.views.freelancerPostProject;
+      }
+      else if (/\/freelancer\/project-detail/.test(path)) {
+        return jsonValue.views.freelancerProjectDetail;
       }
     },
 

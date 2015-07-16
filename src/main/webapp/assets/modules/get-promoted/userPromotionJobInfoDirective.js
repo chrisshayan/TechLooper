@@ -4,7 +4,7 @@ techlooper.directive("userPromotionJobInfo", function ($http, userPromotionServi
     replace: true,
     templateUrl: "modules/get-promoted/userPromotionJobInfo.html",
     link: function (scope, element, attr, ctrl) {
-      scope.$on("stateChanged", function () {
+      scope.$on("$stateChangeSuccess", function () {
         delete scope.promotionEmail;
         scope.promotionEmailForm.$setPristine();
         scope.promotionEmailForm.$setUntouched();

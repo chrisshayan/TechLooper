@@ -1,0 +1,62 @@
+<jobseeker-header></jobseeker-header>
+<div class="contestant-page">
+  <div class="all-contests-block">
+    <div class="all-contests-header">
+      <h2 translate="challengeYourself"></h2>
+      <p translate="subChallengeYourselfTagLine"></p>
+    </div>
+    <div class="all-contests-list">
+      <div class="container">
+        <div class="row">
+          <p translate="allChallenges"></p>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="contests-table">
+              <thead>
+                <tr>
+                  <th translate="challengeName"></th>
+                  <th translate="timeline.schedule"></th>
+                  <!--<th translate="timeLeft"></th>-->
+                  <th translate="prize"></th>
+                  <th translate="currentPhase"></th>
+                  <th translate="registrants"></th>
+                  <th translate="action"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="contest in contestsList">
+                  <td data-label="{{'challengeName' | translate}}">
+                    <p class="header"><a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" target="_blank">{{contest.challengeName}}</a></p>
+                    <span class="tag" ng-repeat="skill in contest.technologies">
+                      {{skill}}
+                    </span>
+                  </td>
+                  <td data-label="{{'timeline.schedule' | translate}}">
+                    <p><span translate="startDate"></span> {{contest.startDateTime}}</p>
+                    <p><span translate="registerBy"></span> {{contest.registrationDateTime}}</p>
+                    <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
+                  </td>
+                  <td data-label="{{'prize' | translate}}">
+                    <p>${{contest.firstPlaceReward | number:0}}</p>
+                    <p ng-show="contest.secondPlaceReward !=null">${{contest.secondPlaceReward | number:0}}</p>
+                    <p ng-show="contest.thirdPlaceReward !=null">${{contest.thirdPlaceReward | number:0}}</p>
+                  </td>
+                  <td data-label="{{'currentPhase' | translate}}">
+                    <span translate="{{contest | progress:'challenge'}}"></span>
+                    <span translate="{{contest.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(contest)}}" class="note" />
+
+                  </td>
+                  <td data-label="{{'registrants' | translate}}">{{contest.numberOfRegistrants}}</td>
+                  <td data-label="{{'action' | translate}}">
+                    <p><a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" translate="viewDetails" target="_blank"></a></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

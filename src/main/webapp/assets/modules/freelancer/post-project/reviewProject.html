@@ -1,0 +1,48 @@
+<div class="review-project-content-block">
+  <h2>{{postProject.projectTitle}}</h2>
+  <div class="review-project-content">
+    <div class="time-and-payment-block">
+      <div class="working-time-block">
+        <h3 translate="{{postProject.payMethod | progress:'freelancer-review-project-payment-method'}}" />
+        <div ng-show="status('show-fixed-price-fields')">
+          <p><span translate="deliveryBy"></span> {{fixedPrice.estimatedEndDate}}</p>
+        </div>
+        <div ng-show="status('show-hourly-price-fields')">
+          <p>{{hourly.estimatedDuration}}</p>
+          <p ng-show="status('show-estimate-workload')">{{hourly.estimatedWorkload}}</p>
+        </div>
+      </div>
+      <div class="payment-block">
+        <div ng-show="status('show-fixed-price-fields')">
+          <h3>${{fixedPrice.budget}}</h3>
+          <p>{{'budgetText' | translate}}</p>
+        </div>
+        <div ng-show="status('show-hourly-price-fields')">
+          <h3>${{hourly.hourlyRate }}/ <span translate="hrs"></span></h3>
+        </div>
+      </div>
+    </div>
+    <div class="project-detail-block">
+      <div class="project-info-block">
+        <h3 translate="detail"></h3>
+        <div class="need-hiring" ng-show="postProject.numberOfHires > 1">
+          <span translate="needHireFreelancerWithParam" translate-value-number="{{postProject.numberOfHires}}"/>
+        </div>
+        <div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>
+      </div>
+      <div class="skills-required-block">
+        <h3 translate="skillRequired"></h3>
+        <ul>
+          <li ng-repeat="skill in postProject.skills">
+            <span>{{skill}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="post-now-or-done-review-block">
+      <button translate="postNow" class="btn btn-primary btn-flat" ng-click="createProject()"></button>
+      <a translate="donePreview" ng-click="changeState('default')"></a>
+    </div>
+  </div>
+
+</div>

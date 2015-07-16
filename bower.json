@@ -39,7 +39,10 @@
     "sprintf": "latest",
     "allmighty-autocomplete": "latest",
     "ng-focus-on": "latest",
-    "angular-sanitize": "latest"
+    "bootstrap-datepicker": "latest",
+    "jquery.cookie": "latest",
+    "angular-sanitize": "latest",
+    "moment": "latest"
   },
   "overrides": {
     "jquery": {
@@ -140,9 +143,19 @@
     },
     "blueimp-bootstrap-image-gallery":{
       "main": "js/bootstrap-image-gallery.js"
+    },
+    "bootstrap-datepicker": {
+      "main": [
+        "dist/css/bootstrap-datepicker.css",
+        "dist/css/bootstrap-datepicker3.css",
+        "dist/js/bootstrap-datepicker.min.js"
+      ]
+    },
+    "moment":{
+      "main": "moment.js"
     }
   },
   "resolutions": {
-    "angular": ">=1.3.0"
+    "angular": ">=1.4.0"
   }
 }

@@ -8,14 +8,10 @@ techlooper.directive('autoSuggestion', function ($http) {
       getUrl: "@"
     },
     link: function (scope, element, attr, ctrl) {
-      scope.$watch("inputModel", function (newVal, oldVal) {
-        //console.log(scope.inputModel);
-      });
-
       scope.$watch("text", function (newVal, oldVal) {
-        if (!scope.inputModel.$touched) {
-          return;
-        }
+        //if (!scope.inputModel.$touched) {
+        //  return;
+        //}
         delete scope.items;
 
         $http.get(scope.getUrl + scope.text)

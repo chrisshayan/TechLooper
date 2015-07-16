@@ -174,7 +174,12 @@ angular.module("Common").constant("jsonValue", (function () {
       register: "/register",
       userProfile: "/user",
       priceJob: "/price-job",
-      contest: "contest"
+      contest: "contest",
+      challengeDetail: "/challenge-detail",
+      challenges: "/challenges",
+      postChallenge: "/post-challenge",
+      freelancerPostProject: "/freelancer/post-project",
+      freelancerProjectDetail: "/freelancer/project-detail"
     },
 
     views: {
@@ -198,7 +203,13 @@ angular.module("Common").constant("jsonValue", (function () {
       userProfile: "userProfile",
       priceJob: "priceJob",
       getPromoted: "getPromoted",
-      contest: "contest"
+      contest: "contest",
+      postChallenge: "postChallenge",
+      login: "login",
+      challengeDetail: "challengeDetail",
+      challenges: "challenges",
+      freelancerPostProject: "freelancerPostProject",
+      freelancerProjectDetail: "freelancerProjectDetail"
     },
 
     httpUri: {
@@ -217,7 +228,8 @@ angular.module("Common").constant("jsonValue", (function () {
       termStatistic: "term/statistic",
       salaryReview: "salaryReview",
       getPromoted: "getPromoted",
-      contest: "contest"
+      contest: "contest",
+      challenges: "challenges"
     },
 
     socketUri: {
@@ -788,6 +800,21 @@ angular.module("Common").constant("jsonValue", (function () {
       "images": "/images/banner-citibank.png",
       "minSalary": 10000000,
       "AcceptedCity": [24, 29]
+    },
+
+    postContestConfig: {
+      technologies: {
+        required: true
+      }
+    },
+
+    dateFormat: "DD/MM/YYYY",
+
+    status: {
+      notStarted: {translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
+      registration: {translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
+      progress: {translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
+      closed: {translate: "closed", timeLeftTranslate: "moreDayToClosed"}
     }
   }
 
@@ -810,23 +837,6 @@ angular.module("Common").constant("jsonValue", (function () {
 
   var currentYear = new Date().getFullYear();//yrs old from 15 to 99
   instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
-
-  //instance.jobLevelsSelectize = {};
-  //instance.jobLevelsSelectize.items = $.extend(true, [], instance.jobLevels.filter(function (jobLevel) {return jobLevel.id > 0;}));
-  //jobLevels: {
-  //  items: jobLevels,
-  //    config: {
-  //    valueField: 'id',
-  //      labelField: 'translate',
-  //      delimiter: '|',
-  //      maxItems: 1,
-  //      searchField: ['translate'],
-  //      placeholder: $translate.instant("exManager"),
-  //      onInitialize: function (selectize) {
-  //      $scope.selectize.jobLevels.$elem = selectize;
-  //    }
-  //  }
-  //}
 
   return instance;
 })());

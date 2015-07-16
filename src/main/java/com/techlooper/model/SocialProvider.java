@@ -5,7 +5,7 @@ package com.techlooper.model;
  */
 public enum SocialProvider {
 
-    LINKEDIN("linkedin"), FACEBOOK("facebook"), GITHUB("github"), GOOGLE("google"), TWITTER("twitter"), VIETNAMWORKS("vietnamworks"),
+    LINKEDIN("linkedin"), FACEBOOK("facebook"), FACEBOOK_REGISTER("facebook_register"), GITHUB("github"), GOOGLE("google"), TWITTER("twitter"), VIETNAMWORKS("vietnamworks"),
     ABOUTME("aboutme"), STACKOVERFLOW("stackoverflow"), GRAVATAR("gravatar");
 
     private String provider;

@@ -19,11 +19,14 @@ import org.dozer.loader.api.FieldsMappingOptions;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.support.CompositeCacheManager;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
@@ -42,6 +45,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -57,7 +61,7 @@ import java.util.Properties;
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
-public class CoreConfiguration {
+public class CoreConfiguration implements ApplicationContextAware {
 
     @Resource
     private Environment environment;
@@ -215,18 +219,26 @@ public class CoreConfiguration {
     }
 
     @Bean
-    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException {
+    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
         return mailMessage;
     }
 
     @Bean
-    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException {
+    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(InternetAddress.parse(mailTechlooperForm)[0]);
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
+    public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
         return mailMessage;
     }
 
@@ -255,7 +267,47 @@ public class CoreConfiguration {
     }
 
     @Bean
+    public Template postChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("postChallenge.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template postChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("postChallenge.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template confirmUserJoinChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template confirmUserJoinChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.vi.ftl");
+        return template;
+    }
+
+    @Bean
     public JsonNode vietnamworksConfiguration() throws IOException {
         return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        applicationContext.getEnvironment().acceptsProfiles(environment.getProperty("spring.profiles.active"));
     }
 }

@@ -201,6 +201,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
             stringWriter.flush();
 
+            salaryReviewMailMessage.saveChanges();
             mailSender.send(salaryReviewMailMessage);
         }
     }
@@ -271,6 +272,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         getPromotedMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
         stringWriter.flush();
+
+        getPromotedMailMessage.saveChanges();
         mailSender.send(getPromotedMailMessage);
 
     }
