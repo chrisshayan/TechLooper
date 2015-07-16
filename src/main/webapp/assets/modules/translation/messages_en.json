@@ -484,5 +484,7 @@
   "requiredLargerZero": "Number of freelancers to hire should be between 1 and 99.",
   "numberFreelancerBW199": "Number of freelancers to hire should be between 1 and 99.",
   "hourlyRateGT0": "Hourly Rate should be greater than 0.",
-  "budgetGT0": "Budget should be greater than 0."
+  "budgetGT0": "Budget should be greater than 0.",
+  "allFreelancerProjects": "All Freelancer Projects",
+  "postAFreelancerProject": "Post A Freelancer Project"
 }

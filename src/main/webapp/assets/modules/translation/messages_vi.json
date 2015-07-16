@@ -488,7 +488,9 @@
   "requiredLargerZero": "Số lượng freelancer cần tuyển phải từ 1 đến 99.",
   "numberFreelancerBW199": "Số lượng freelancer cần tuyển phải từ 1 đến 99.",
   "hourlyRateGT0": "Mức chi trả phải lớn hơn 0.",
-  "budgetGT0": "Ngân sách chi trả phải lớn hơn 0."
+  "budgetGT0": "Ngân sách chi trả phải lớn hơn 0.",
+  "allFreelancerProjects": "All Freelancer Projects",
+  "postAFreelancerProject": "Post A Freelancer Project"
 }
 
 
