@@ -1,63 +1,79 @@
 <employer-header></employer-header>
 <div class="content-page-block">
   <div class="header-page" ng-show="!state.showPostProjectReview">
-    <h2>{{postProject.projectTitle}} Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
+    <h2 class="text-left">{{postProject.projectTitle}} Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
   </div>
   <div class="content-page-detail">
     <div class="review-project-content-block">
-  <div class="review-project-content">
-    <div class="time-and-payment-block">
-      <div class="working-time-block">
-        <h3>cdsvdsv</h3>
-        <div>
-          <p><span translate="deliveryBy"></span> {{fixedPrice.estimatedEndDate}} 12/07/2015</p>
+      <div class="review-project-content">
+        <div class="time-and-payment-block">
+          <div class="working-time-block col-md-4">
+            <h3>cdsvdsv</h3>
+            <div>
+              <p><span translate="deliveryBy"></span> {{fixedPrice.estimatedEndDate}} 12/07/2015</p>
+            </div>
+            <!--<div ng-show="status('show-hourly-price-fields')">-->
+              <!--<p>{{hourly.estimatedDuration}}</p>-->
+              <!--<p ng-show="status('show-estimate-workload')">{{hourly.estimatedWorkload}}</p>-->
+            <!--</div>-->
+          </div>
+          <div class="payment-block col-md-4">
+            <div>
+              <h3>${{fixedPrice.budget | number}} 12,500</h3>
+              <p>{{'budgetText' | translate}}</p>
+            </div>
+            <!--<div>-->
+              <!--<h3>${{hourly.hourlyRate | number}} 35.5/ <span translate="hrs"></span></h3>-->
+            <!--</div>-->
+          </div>
+          <div class="apply-with-facebook col-md-4">
+            <button class="btn btn-primary btn-flat" translate="applyWithFacebook"></button>
+            <p translate="numberOfApplicants" translate-value-number="30"></p>
+          </div>
         </div>
-        <!--<div ng-show="status('show-hourly-price-fields')">-->
-          <!--<p>{{hourly.estimatedDuration}}</p>-->
-          <!--<p ng-show="status('show-estimate-workload')">{{hourly.estimatedWorkload}}</p>-->
-        <!--</div>-->
-      </div>
-      <div class="payment-block">
-        <div>
-          <h3>${{fixedPrice.budget | number}} 12,500</h3>
-          <p>{{'budgetText' | translate}}</p>
+        <div class="project-detail-block">
+          <div class="project-info-block">
+            <h3 translate="detail"></h3>
+            <div class="need-hiring">
+              <span translate="needHireFreelancerWithParam" translate-value-number="45"/>
+            </div>
+            <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->
+            <div class="project-description">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </div>
+          </div>
+          <div class="skills-required-block">
+            <h3 translate="skillRequired"></h3>
+            <ul>
+              <li><span>Angular JS</span></li>
+              <li><span>Java</span></li>
+              <li><span>Sprint</span></li>
+              <li><span>Maven</span></li>
+              <li><span>HTML 5</span></li>
+              <!--<li ng-repeat="skill in postProject.skills">-->
+                <!--<span>{{skill}}</span>-->
+              <!--</li>-->
+            </ul>
+          </div>
         </div>
-        <!--<div>-->
-          <!--<h3>${{hourly.hourlyRate | number}} 35.5/ <span translate="hrs"></span></h3>-->
-        <!--</div>-->
       </div>
-    </div>
-    <div class="project-detail-block">
-      <div class="project-info-block">
-        <h3 translate="detail"></h3>
-        <div class="need-hiring" ng-show="postProject.numberOfHires > 1">
-          <span translate="needHireFreelancerWithParam" translate-value-number="{{postProject.numberOfHires}}"/>
-        </div>
-        <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->
-        <div class="project-description">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
-      </div>
-      <div class="skills-required-block">
-        <h3 translate="skillRequired"></h3>
-        <ul>
-          <li><span>Angular JS</span></li>
-          <li><span>Java</span></li>
-          <li><span>Sprint</span></li>
-          <li><span>Maven</span></li>
-          <li><span>HTML 5</span></li>
-          <!--<li ng-repeat="skill in postProject.skills">-->
-            <!--<span>{{skill}}</span>-->
-          <!--</li>-->
-        </ul>
-      </div>
-    </div>
-    <div class="post-now-or-done-review-block">
-      <button translate="postNow" class="btn btn-primary btn-flat" ng-click="createProject()"></button>
-      <a translate="donePreview" ng-click="changeState('default')"></a>
     </div>
   </div>
+</div>
 
-</div>
+<div class="content-page-block project-owner">
+  <div class="header-page" ng-show="!state.showPostProjectReview">
+    <h2 translate="aboutThisClient" class="text-left"></h2>
+  </div>
+  <div class="content-page-detail">
+    <div class="review-project-content-block">
+      <div class="client-info-block">
+        <p><strong>VietnamWorks</strong></p>
+        <p>130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam</p>
+        <p>199-499 employee(s)</p>
+        <p class="member-since" translate="memberSince" translate-value-date="12/02/2012"></p>
+      </div>
+    </div>
   </div>
 </div>
+
