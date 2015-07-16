@@ -1,3 +1,3 @@
-techlooper.controller('projectDetailController', function ($scope) {
+techlooper.controller('freelancerProjectDetailController', function ($scope) {
   
 })

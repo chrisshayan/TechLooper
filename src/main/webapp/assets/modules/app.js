@@ -192,6 +192,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/freelancer/project-detail/projectDetail.html",
         controller: "freelancerProjectDetailController"
       })
+        .when("/freelancer/projects", {
+          templateUrl: "modules/freelancer/projects/projects.html",
+          controller: "freelancerProjectsController"
+        })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -267,9 +271,14 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   });
 
   var param = $location.search();
-  if (param.registerVnwUser) {
+  if (!$.isEmptyObject(param)) {
     if (param.registerVnwUser !== "cancel") {
       localStorageService.set("registerVnwUser", param.registerVnwUser);
+    }
+    else if (param.action === "success") {
+      localStorageService.set("lastName", param.lastName);
+      localStorageService.set("firstName", param.firstName);
+      localStorageService.set("email", param.email);
     }
 
     var lastFoot = localStorageService.get("lastFoot");

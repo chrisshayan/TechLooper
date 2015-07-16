@@ -91,6 +91,39 @@ public class SocialController {
     response.sendRedirect("/#/?registerVnwUser=" + challengeRegistrantEntity.getRegistrantId());
   }
 
+  @RequestMapping(value = "register/fb", method = RequestMethod.GET)
+  public void registerVnwUserFromFB(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
+    if (code == null) {
+      response.sendRedirect("/#/?action=cancel");
+      return;
+    }
+
+    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+      .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
+
+    UserProfile userProfile;
+    try {
+      userProfile = facebookService.getUserProfile(code, socialConfig);
+    }
+    catch (Exception e) {
+      response.sendRedirect(socialConfig.getApiUrl().get("login"));
+      return;
+    }
+
+    if (StringUtils.hasText(userProfile.getEmail())) {
+      try {
+        vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
+          .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
+      }
+      catch (Exception e) {
+        LOGGER.debug("Error register Vietnamworks", e);
+      }
+    }
+
+    response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
+      userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail()));
+  }
+
   @ResponseBody
   @RequestMapping(value = "social/{provider}/loginUrl", method = RequestMethod.GET)
   public String getFacebookLoginUrl(@PathVariable SocialProvider provider) {
