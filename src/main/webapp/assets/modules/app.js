@@ -267,9 +267,14 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   });
 
   var param = $location.search();
-  if (param.registerVnwUser) {
+  if (!$.isEmptyObject(param)) {
     if (param.registerVnwUser !== "cancel") {
       localStorageService.set("registerVnwUser", param.registerVnwUser);
+    }
+    else if (param.action === "success") {
+      localStorageService.set("lastName", param.lastName);
+      localStorageService.set("firstName", param.firstName);
+      localStorageService.set("email", param.email);
     }
 
     var lastFoot = localStorageService.get("lastFoot");
