@@ -118,15 +118,21 @@
               text-transform: inherit
             p
               padding-left: 30px
+
             strong
               display: none
           .apply-with-facebook
             text-align: right
             p
               font-size: 14px
+              width: 200px
+              clear: both
+              float: right
               strong
                 font-weight: 500
                 color: #000
+            button.btn
+              width: 180px
           .col-md-4
             width: 33.3333%
         .project-detail-block
@@ -204,9 +210,29 @@
           padding-top: 10px
           a
             cursor: pointer
-      .client-info-block
-        clear: both
+      .client-logo-block
+        width: 25%
+        max-width: 230px
+        float: left
+        padding-right: 30px
         display: inline-block
+        min-height: 120px
+        vertical-align: middle
+        position: relative
+        img
+          width: 100%
+          max-width: 200px
+          vertical-align: middle
+          margin: auto
+          position: absolute
+          left: 0
+          top: 0
+          right: 0
+          bottom: 0
+      .client-info-block
+        display: inline-block
+        width: 75%
+        float: left
         p
           display: inline-block
           display: block
