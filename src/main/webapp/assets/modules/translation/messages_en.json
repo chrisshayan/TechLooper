@@ -490,5 +490,7 @@
   "applyWithFacebook": "Apply with Facebook",
   "numberOfApplicants": "Already has <strong>{{number}}</strong> applicants for this job",
   "aboutThisClient": "About This Client",
-  "memberSince": "Member since {{date}}"
+  "memberSince": "Member since {{date}}",
+  "findProjects": "find Projects",
+  "findFreelancer": "Find freelancer jobs quick and easy"
 }
