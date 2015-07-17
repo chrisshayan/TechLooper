@@ -10,16 +10,14 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         return resourcesService.paymentConfig.options[index];
 
       case "show-fixed-price-fields":
-        if (!$scope.postProject) return false;
-        var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].id == "fixedPrice";
+        if (!$scope.postProject || !$scope.postProject.payMethod) return false;
+        var option = resourcesService.getOption($scope.postProject.payMethod, resourcesService.paymentConfig);
+        return option.id == "fixedPrice";
 
       case "show-hourly-price-fields":
-        if (!$scope.postProject) return false;
-        var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].id == "hourly";
+        if (!$scope.postProject || !$scope.postProject.payMethod) return false;
+        var option = resourcesService.getOption($scope.postProject.payMethod, resourcesService.paymentConfig);
+        return option.id == "hourly";
 
       case "is-form-valid":
         if (!$scope.postProjectForm) return true;

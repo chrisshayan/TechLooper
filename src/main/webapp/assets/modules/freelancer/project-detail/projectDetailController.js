@@ -2,22 +2,25 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
 
   $scope.status = function (type) {
     switch (type) {
-      case "get-payment-method":
-        var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return "";
-        return resourcesService.paymentConfig.options[index];
-      case "show-fixed-price-fields":
-        if (!$scope.project) return false;
-        var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].id == "fixedPrice";
-
-      case "show-hourly-price-fields":
-        if (!$scope.project) return false;
-        var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].id == "hourly";
+      //case "get-payment-method":
+      //  var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
+      //  if (index == -1) return "";
+      //  return resourcesService.paymentConfig.options[index];
+      //
+      //case "show-fixed-price-fields":
+      //  if (!$scope.project) return false;
+      //  var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
+      //  if (index == -1) return false;
+      //  return resourcesService.paymentConfig.options[index].id == "fixedPrice";
+      //
+      //case "show-hourly-price-fields":
+      //  if (!$scope.project) return false;
+      //  var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
+      //  if (index == -1) return false;
+      //  return resourcesService.paymentConfig.options[index].id == "hourly";
     }
+    
+    return false;
   }
 
   var parts = $routeParams.id.split("-");

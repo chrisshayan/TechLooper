@@ -8,8 +8,8 @@
           <p><span translate="deliveryBy"></span> {{fixedPrice.estimatedEndDate}}</p>
         </div>
         <div ng-show="status('show-hourly-price-fields')">
-          <p>{{hourly.estimatedDuration}}</p>
-          <p ng-show="status('show-estimate-workload')">{{hourly.estimatedWorkload}}</p>
+          <p translate="{{hourly.estimatedDuration}}" />
+          <p ng-show="status('show-estimate-workload')" translate="{{hourly.estimatedWorkload}}" />
         </div>
       </div>
       <div class="payment-block">
