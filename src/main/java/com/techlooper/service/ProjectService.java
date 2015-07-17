@@ -10,8 +10,10 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    ProjectEntity saveProject(ProjectDto projectDto);
+  ProjectEntity saveProject(ProjectDto projectDto);
 
-    List<ProjectDto> listProject();
+  List<ProjectDto> listProject();
+
+  ProjectDto findById(Long id);
 
 }
