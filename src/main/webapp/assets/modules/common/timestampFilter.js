@@ -18,7 +18,7 @@ techlooper.filter("timestamp", function (jsonValue) {
     //Posted on DD/MM/YYYY HH:MM
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
-
+    console.log(duration);
 
 
     //if (mins < 1) {

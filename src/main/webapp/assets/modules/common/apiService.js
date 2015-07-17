@@ -47,6 +47,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     getProject: function(id) {
       return $http.get("project/" + id);
+    },
+
+    getProjects: function() {
+      return $http.get("project/list");
     }
   }
 
