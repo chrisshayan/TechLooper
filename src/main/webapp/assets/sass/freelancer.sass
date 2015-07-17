@@ -243,6 +243,7 @@
             font-weight: 500
         p.member-since
           color: #727272
+
     .project-items
       display: inline-block
       clear: both
@@ -251,26 +252,28 @@
         clear: both
         display: inline-block
         padding: 5px 0
-
+        border-top: 1px solid #727272
         h3
           font-size: 16px
           font-weight: 400
           text-align: left
           padding: 0
+          a
+            color: #333
           span
             width: 90%
             float: left
-          a
+          a.view-detail
             float: right
             font-size: 14px
             width: 10%
             text-align: right
+            color: #337ab7
         p.payment-time-post
           clear: both
           display: block
           margin: 0
           padding: 10px 0 5px 0
-          color: #727272
           span
             font-size: 12px
           strong
@@ -297,6 +300,7 @@
             padding: 5px 15px
             font-weight: 400
         .skills-of-project
+          padding-top: 10px
           h4
             font-size: 16px
             font-weight: 400
@@ -320,7 +324,11 @@
                 margin-right: 5px
                 padding: 5px 15px
                 width: auto
+      .project-item.first
+        border-top: 0
 .content-page-block.project-owner
+  margin-bottom: 20px
+.content-page-block.project-list
   margin-bottom: 20px
 .form-content
   display: inline-block
