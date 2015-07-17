@@ -1,6 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.ProjectEntity;
+import com.techlooper.model.ProjectDetailDto;
 import com.techlooper.model.ProjectDto;
 import com.techlooper.service.ProjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,25 +14,25 @@ import java.util.List;
 @RestController
 public class ProjectController {
 
-  @Resource
-  private ProjectService projectService;
+    @Resource
+    private ProjectService projectService;
 
-  @PreAuthorize("hasAuthority('EMPLOYER')")
-  @RequestMapping(value = "/project/post", method = RequestMethod.POST)
-  public long postProject(@RequestBody ProjectDto projectDto, HttpServletRequest servletRequest) throws Exception {
-    projectDto.setAuthorEmail(servletRequest.getRemoteUser());
-    ProjectEntity projectEntity = projectService.saveProject(projectDto);
-    return projectEntity.getProjectId();
-  }
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "/project/post", method = RequestMethod.POST)
+    public long postProject(@RequestBody ProjectDto projectDto, HttpServletRequest servletRequest) throws Exception {
+        projectDto.setAuthorEmail(servletRequest.getRemoteUser());
+        ProjectEntity projectEntity = projectService.saveProject(projectDto);
+        return projectEntity.getProjectId();
+    }
 
-  @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-  public ProjectDto getProject(@PathVariable Long id) throws Exception {
-    return projectService.findById(id);
-  }
+    @RequestMapping(value = "/project/list", method = RequestMethod.GET)
+    public List<ProjectDto> listProject() throws Exception {
+        return projectService.listProject();
+    }
 
-  @RequestMapping(value = "/project/list", method = RequestMethod.GET)
-  public List<ProjectDto> listProject() throws Exception {
-    return projectService.listProject();
-  }
+    @RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET)
+    public ProjectDetailDto getProjectDetail(@PathVariable Long projectId) throws Exception {
+        return projectService.getProjectDetail(projectId);
+    }
 
 }

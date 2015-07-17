@@ -1,6 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.ProjectEntity;
+import com.techlooper.model.ProjectDetailDto;
 import com.techlooper.model.ProjectDto;
 
 import java.util.List;
@@ -10,10 +11,9 @@ import java.util.List;
  */
 public interface ProjectService {
 
-  ProjectEntity saveProject(ProjectDto projectDto);
+    ProjectEntity saveProject(ProjectDto projectDto);
 
-  List<ProjectDto> listProject();
+    List<ProjectDto> listProject();
 
-  ProjectDto findById(Long id);
-
+    ProjectDetailDto getProjectDetail(Long projectId);
 }
