@@ -1,37 +1,29 @@
-package com.techlooper.entity;
+package com.techlooper.model;
 
-import com.techlooper.model.Employer;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
-import java.util.List;
+import java.util.Date;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
-import static org.springframework.data.elasticsearch.annotations.FieldType.Nested;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
-@Document(indexName = "employerInformation", type = "company")
-public class EmployerEntity {
+/**
+ * Created by NguyenDangKhoa on 7/17/15.
+ */
+public class EmployerDto {
 
-    @Id
     private Long companyId;
 
-    @Field(type = String, store = true, index = FieldIndex.not_analyzed)
     private String companyLogoURL;
 
-    @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String companyName;
 
-    @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String address;
 
-    @Field(type = Integer)
     private Integer companySizeId;
 
-    @Field(type = Nested)
-    private List<Employer> employers;
+    private String createdDate;
 
     public Long getCompanyId() {
         return companyId;
@@ -73,11 +65,11 @@ public class EmployerEntity {
         this.companySizeId = companySizeId;
     }
 
-    public List<Employer> getEmployers() {
-        return employers;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setEmployers(List<Employer> employers) {
-        this.employers = employers;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 }
