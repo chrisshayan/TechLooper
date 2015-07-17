@@ -490,7 +490,13 @@
   "hourlyRateGT0": "Mức chi trả phải lớn hơn 0.",
   "budgetGT0": "Ngân sách chi trả phải lớn hơn 0.",
   "allFreelancerProjects": "All Freelancer Projects",
-  "postAFreelancerProject": "Post A Freelancer Project"
+  "postAFreelancerProject": "Post A Freelancer Project",
+  "applyWithFacebook": "Apply with Facebook",
+  "numberOfApplicants": "Already has <strong>{{number}}</strong> applicants for this job",
+  "aboutThisClient": "About This Client",
+  "memberSince": "Member since {{date}}",
+  "findProjects": "find Projects",
+  "findFreelancer": "Find freelancer jobs quick and easy"
 }
 
 

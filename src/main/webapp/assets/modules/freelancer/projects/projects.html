@@ -1,1 +1,33 @@
 <employer-header></employer-header>
+<div class="content-page-block project-list">
+  <div class="header-page" ng-show="!state.showPostProjectReview">
+    <h2 translate="findProjects"></h2>
+    <p translate="findFreelancer"></p>
+  </div>
+  <div class="content-page-detail">
+    <div class="project-items">
+      <div class="project-item" ng-repeat="project in projects" ng-class="{first: $first}">
+        <h3>
+          <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" target="_blank"><span>{{project.projectTitle}}</span></a> <a
+            href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" translate="viewDetails" class="view-detail" target="_blank"></a></h3>
+        <p class="payment-time-post">
+          <strong>{{project.payMethod}}</strong> - Est. Budget: $100 - <span>Posted 8 hours ago</span>
+        </p>
+        <div class="project-description">
+          {{project.projectDescription}}
+        </div>
+        <div class="hiring-status">
+          <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
+        </div>
+        <div class="skills-of-project">
+          <h4 translate="skillRequired"></h4>
+          <ul>
+            <li ng-repeat="skill in project.skills">
+            <span>{{skill}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
