@@ -1,6 +1,5 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
-                                                                     $filter, resourcesService, localStorageService,
-                                                                     $translate, vnwConfigService) {
+                                                                     $filter, resourcesService, localStorageService, vnwConfigService) {
 
   var parts = $routeParams.id.split("-");
   var projectId = parts.pop();
