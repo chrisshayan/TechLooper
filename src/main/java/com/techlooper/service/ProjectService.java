@@ -1,10 +1,14 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.ProjectEntity;
+import com.techlooper.entity.ProjectRegistrantEntity;
 import com.techlooper.model.ProjectDetailDto;
 import com.techlooper.model.ProjectDto;
 import com.techlooper.model.ProjectRegistrantDto;
+import freemarker.template.TemplateException;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,5 +22,11 @@ public interface ProjectService {
 
     ProjectDetailDto getProjectDetail(Long projectId);
 
-    long joinProject(ProjectRegistrantDto projectRegistrantDto);
+    void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
+
+    void sendEmailAlertEmployerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
+
+    long joinProject(ProjectRegistrantDto projectRegistrantDto) throws MessagingException, IOException, TemplateException;
 }

@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
@@ -55,6 +56,30 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Value("${web.baseUrl}")
     private String webBaseUrl;
+
+    @Resource
+    private Template alertJobSeekerApplyJobMailTemplateEn;
+
+    @Resource
+    private Template alertJobSeekerApplyJobMailTemplateVi;
+
+    @Resource
+    private Template alertEmployerApplyJobMailTemplateEn;
+
+    @Resource
+    private Template alertEmployerApplyJobMailTemplateVi;
+
+    @Value("${mail.alertJobSeekerApplyJob.subject.en}")
+    private String alertJobSeekerApplyJobMailSubjectEn;
+
+    @Value("${mail.alertJobSeekerApplyJob.subject.vn}")
+    private String alertJobSeekerApplyJobMailSubjectVn;
+
+    @Value("${mail.alertEmployerApplyJob.subject.en}")
+    private String alertEmployerApplyJobMailSubjectEn;
+
+    @Value("${mail.alertEmployerApplyJob.subject.vn}")
+    private String alertEmployerApplyJobMailSubjectVn;
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -104,7 +129,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public long joinProject(ProjectRegistrantDto projectRegistrantDto) {
+    public long joinProject(ProjectRegistrantDto projectRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long projectId = projectRegistrantDto.getProjectId();
         String registrantEmail = new String(Base64.getDecoder().decode(projectRegistrantDto.getRegistrantEmail()));
         projectRegistrantDto.setRegistrantEmail(registrantEmail);
@@ -113,8 +138,8 @@ public class ProjectServiceImpl implements ProjectService {
         if (!isExist) {
             ProjectRegistrantEntity projectRegistrantEntity = dozerMapper.map(projectRegistrantDto, ProjectRegistrantEntity.class);
             ProjectEntity projectEntity = projectRepository.findOne(projectId);
-//            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
-//            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+            //sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+            //sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
             projectRegistrantEntity.setMailSent(Boolean.TRUE);
             projectRegistrantEntity.setProjectRegistrantId(new Date().getTime());
             projectRegistrantRepository.save(projectRegistrantEntity);
@@ -122,7 +147,31 @@ public class ProjectServiceImpl implements ProjectService {
         return 1;
     }
 
-    private void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, String mailSubject, Address[] recipientAddresses, Template template)
+    @Override
+    public void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
+            throws MessagingException, IOException, TemplateException {
+        Template template = projectRegistrantEntity.getLang() == Language.vi ?
+                alertJobSeekerApplyJobMailTemplateVi : alertJobSeekerApplyJobMailTemplateEn;
+        String mailSubject = projectRegistrantEntity.getLang() == Language.vi ?
+                alertJobSeekerApplyJobMailSubjectVn : alertJobSeekerApplyJobMailSubjectEn;
+        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
+        Address[] emailAddress = InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail());
+        sendEmailAlertApplyJob(projectEntity, mailSubject, emailAddress, template);
+    }
+
+    @Override
+    public void sendEmailAlertEmployerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
+            throws MessagingException, IOException, TemplateException {
+        Template template = projectRegistrantEntity.getLang() == Language.vi ?
+                alertEmployerApplyJobMailTemplateVi : alertEmployerApplyJobMailTemplateEn;
+        String mailSubject = projectRegistrantEntity.getLang() == Language.vi ?
+                alertEmployerApplyJobMailSubjectVn : alertEmployerApplyJobMailSubjectEn;
+        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
+        Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
+        sendEmailAlertApplyJob(projectEntity, mailSubject, emailAddress, template);
+    }
+
+    private void sendEmailAlertApplyJob(ProjectEntity projectEntity, String mailSubject, Address[] recipientAddresses, Template template)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         StringWriter stringWriter = new StringWriter();
@@ -162,4 +211,5 @@ public class ProjectServiceImpl implements ProjectService {
         long total = projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
         return (total > 0);
     }
+
 }
