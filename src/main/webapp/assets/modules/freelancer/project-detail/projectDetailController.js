@@ -33,6 +33,12 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         if (!workload) return false;
         return workload.id !== "dontKnow";
 
+      case "get-payment-method-translate":
+        if (!$scope.project) return false;
+        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.reviewTranslate;
+
       case "able-to-join":
         if (!$scope.project) return false;
         var joinProjects = localStorageService.get("joinProjects") || "";

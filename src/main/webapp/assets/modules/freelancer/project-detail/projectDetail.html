@@ -8,7 +8,7 @@
             <div class="review-project-content">
                 <div class="time-and-payment-block">
                     <div class="working-time-block col-md-4">
-                        <h3 translate="{{project.payMethod}}" />
+                        <h3  translate="{{status('get-payment-method-translate')}}"/>
                         <div ng-show="status('show-fixed-price-fields')">
                             <p><span translate="deliveryBy"></span> {{project.estimatedEndDate}}</p>
                         </div>
