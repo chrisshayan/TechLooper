@@ -1,4 +1,4 @@
-techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http) {
+techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService) {
   var instance = {
 
     login: function (techlooperKey) {
@@ -52,6 +52,22 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     getProjects: function() {
       return $http.get("project/list");
+    },
+
+    joinNowByFB: function() {
+      localStorageService.set("lastFoot", $location.url());
+      instance.getFBLoginUrl().success(function (url) {
+        localStorageService.set("lastFoot", $location.url());
+        localStorageService.set("joinNow", true);
+        window.location = url;
+      });
+    },
+
+    joinProject: function(projectId, firstName, lastName, email) {
+      //TODO join project
+      return $http.post("challenge/join",
+        {challengeId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email, lang: lang},
+        {transformResponse: function (d, h) {return d;}});
     }
   }
 
