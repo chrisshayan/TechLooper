@@ -154,7 +154,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertJobSeekerApplyJobMailSubjectVn : alertJobSeekerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail());
-        sendEmailAlertApplyJob(projectEntity, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template);
     }
 
     @Override
@@ -166,10 +166,11 @@ public class ProjectServiceImpl implements ProjectService {
                 alertEmployerApplyJobMailSubjectVn : alertEmployerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template);
     }
 
-    private void sendEmailAlertApplyJob(ProjectEntity projectEntity, String mailSubject, Address[] recipientAddresses, Template template)
+    private void sendEmailAlertApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity,
+                                        String mailSubject, Address[] recipientAddresses, Template template)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         StringWriter stringWriter = new StringWriter();
@@ -188,6 +189,11 @@ public class ProjectServiceImpl implements ProjectService {
         templateModel.put("numberOfHires", projectEntity.getNumberOfHires());
         templateModel.put("projectId", projectEntity.getProjectId());
         templateModel.put("projectAlias", projectEntity.getProjectTitle().replaceAll("\\W", "-"));
+
+        templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
+        templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
+        templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
+        templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
