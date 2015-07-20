@@ -68,33 +68,45 @@
                 <div class="field left">
                   <label for="txtFirstNameJob">{{'firstName' | translate}}: <strong>*</strong></label>
                   <input name="firstName" ng-model="freelancer.firstName" type="text" id="txtFirstNameJob"
-                         class="input-style" placeholder="{{'firstNameEx' | translate}}" ng-required="true"/>
+                         class="input-style" placeholder="{{'firstNameEx' | translate}}" ng-required="true" touchable/>
+                  <div class="error-messages"
+                       ng-show="freelancerForm.firstName.$error.required && (freelancerForm.firstName.$edited || freelancerForm.$submitted)"
+                       translate="requiredThisField" />
                 </div>
                 <div class="field right">
                   <label for="txtLastNameJob">{{'lastName' | translate}}: <strong>*</strong></label>
                   <input name="lastName" ng-model="freelancer.lastName" type="text" id="txtLastNameJob" class="input-style"
-                         placeholder="{{'lastNameEx' | translate}}" ng-required="true"/>
+                         placeholder="{{'lastNameEx' | translate}}" ng-required="true" touchable/>
+                  <div class="error-messages"
+                       ng-show="freelancerForm.lastName.$error.required && (freelancerForm.lastName.$edited || freelancerForm.$submitted)"
+                       translate="requiredThisField" />
                 </div>
-                <p class="error-messages">Error Messages... </p>
+
               </div>
               <div class="field">
                 <label for="txtEmailJob">{{'emailAddress' | translate}}: <strong>*</strong></label>
                 <input name="email" ng-model="freelancer.email" type="email" id="txtEmailJob" class="input-style"
-                       placeholder="{{'emailAddressEx' | translate}}" ng-required="true"/>
-                <p class="error-messages">Error Messages... </p>
+                       placeholder="{{'emailAddressEx' | translate}}" ng-required="true" touchable/>
+                <div class="error-messages"
+                     ng-show="freelancerForm.email.$error.required && (freelancerForm.email.$edited || freelancerForm.$submitted)"
+                     translate="requiredThisField" />
               </div>
               <div class="field">
                 <label for="txtPhoneJob">{{'phoneNumber' | translate}}: <strong>*</strong></label>
                 <input name="phoneNumber" ng-model="freelancer.phoneNumber" type="text" id="txtPhoneJob" class="input-style"
-                       placeholder="{{'phoneNumberEx' | translate}}" ng-required="true"/>
-                <p class="error-messages">Error Messages... </p>
+                       placeholder="{{'phoneNumberEx' | translate}}" ng-required="true" touchable inputNumber/>
+                <div class="error-messages"
+                     ng-show="freelancerForm.phoneNumber.$error.required && (freelancerForm.phoneNumber.$edited || freelancerForm.$submitted)"
+                     translate="requiredThisField" />
               </div>
 
               <div class="field">
                 <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
                 <input name="resumeLink" ng-model="freelancer.resumeLink" type="text" id="txtResumeJob" class="input-style"
-                       placeholder="{{'resumeEx' | translate}}" ng-required="true"/>
-                <p class="error-messages">Error Messages... </p>
+                       placeholder="{{'resumeEx' | translate}}" ng-required="true" touchable/>
+                <div class="error-messages"
+                     ng-show="freelancerForm.resumeLink.$error.required && (freelancerForm.resumeLink.$edited || freelancerForm.$submitted)"
+                     translate="requiredThisField" />
               </div>
             </div>
           </div>
