@@ -36,6 +36,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
     }
   }
+
   $scope.contestTimeLeft = function (contest) {
     if (contest) {
       switch (contest.progress.translate) {

@@ -51,9 +51,9 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   });
 
   $scope.joinNowByFB = function () {
-    if (!$scope.status('able-to-join')) {
-      return false;
-    }
+    //if (!$scope.status('able-to-join')) {
+    //  return false;
+    //}
 
     localStorageService.set("lastFoot", $location.url());
     apiService.getFBLoginUrl().success(function (url) {
