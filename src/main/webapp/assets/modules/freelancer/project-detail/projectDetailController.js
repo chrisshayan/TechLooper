@@ -1,5 +1,7 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
-                                                                     $filter, resourcesService, localStorageService, vnwConfigService) {
+                                                                     $filter, resourcesService, localStorageService,
+                                                                     $translate, vnwConfigService) {
+
 
   var parts = $routeParams.id.split("-");
   var projectId = parts.pop();
@@ -10,7 +12,6 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     $scope.company = data.company;
     $scope.company.companySizeText= vnwConfigService.getCompanySizeText($scope.company.companySizeId);
   });
-
 
   $scope.status = function (type) {
     switch (type) {
@@ -49,7 +50,6 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
 
     return false;
   }
-
 
   $scope.joinNowByFB = function () {
     if ($scope.status('already-join')) {
