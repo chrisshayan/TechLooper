@@ -76,15 +76,15 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     }
 
     localStorageService.remove("joinNow");
-    apiService.joinProject(projectId, freelancer, $translate.use())
+    apiService.joinProject(projectId, $scope.freelancer.firstName, $scope.freelancer.lastName, $scope.freelancer.email,
+      $scope.freelancer.phoneNumber, $scope.freelancer.resumeLink, $translate.use())
       .success(function (data) {
-        //TODO join project success
-    //    var joinProjects = localStorageService.get("joinProjects") || "";
-    //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
-    //    if ($.inArray(projectId, joinProjects) < 0) {
-    //      joinProjects.push(projectId);
-    //    }
-    //    localStorageService.set("joinProjects", joinProjects.join(","));
+        var joinProjects = localStorageService.get("joinProjects") || "";
+        joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
+        if ($.inArray(projectId, joinProjects) < 0) {
+          joinProjects.push(projectId);
+        }
+        localStorageService.set("joinProjects", joinProjects.join(","));
       });
   }
 });

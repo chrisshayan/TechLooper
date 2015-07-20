@@ -63,10 +63,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       });
     },
 
-    joinProject: function(projectId, firstName, lastName, email) {
-      //TODO join project
-      return $http.post("challenge/join",
-        {challengeId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email, lang: lang},
+    joinProject: function(projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
+      return $http.post("project/join",
+        {projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
+          registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang},
         {transformResponse: function (d, h) {return d;}});
     }
   }
