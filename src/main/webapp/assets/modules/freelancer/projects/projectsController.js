@@ -24,6 +24,13 @@ techlooper.controller('freelancerProjectsController', function ($scope, apiServi
         var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
         return option.id == "hourly";
+
+      case "get-payment-method-translate":
+        var project = arguments[1];
+        if (!project) return false;
+        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.translate;
     }
     return false;
   }
