@@ -7,19 +7,25 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
       //  if (index == -1) return "";
       //  return resourcesService.paymentConfig.options[index];
       //
-      //case "show-fixed-price-fields":
-      //  if (!$scope.project) return false;
-      //  var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
-      //  if (index == -1) return false;
-      //  return resourcesService.paymentConfig.options[index].id == "fixedPrice";
-      //
-      //case "show-hourly-price-fields":
-      //  if (!$scope.project) return false;
-      //  var index = resourcesService.inOptions($scope.project.payMethod, resourcesService.paymentConfig);
-      //  if (index == -1) return false;
-      //  return resourcesService.paymentConfig.options[index].id == "hourly";
+      case "show-fixed-price-fields":
+        if (!$scope.project) return false;
+        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.id == "fixedPrice";
+
+      case "show-hourly-price-fields":
+        if (!$scope.project) return false;
+        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.id == "hourly";
+
+      case "show-estimate-workload":
+        if (!$scope.project) return false;
+        var workload = resourcesService.getOption($scope.project.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
+        if (!workload) return false;
+        return workload.id !== "dontKnow";
     }
-    
+
     return false;
   }
 
@@ -37,8 +43,9 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   }
 
   apiService.getProject(projectId).success(function (data) {
-    $scope.project = data;
-    console.log($scope.project);
+    $scope.project = data.project;
+    $scope.company = data.company;
+    console.log(data);
     //$filter("progress")($scope.contestDetail, "challenge");
   });
   var project = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.project);
