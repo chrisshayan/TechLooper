@@ -2,10 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.EmployerEntity;
 import com.techlooper.entity.ProjectEntity;
-import com.techlooper.model.Employer;
-import com.techlooper.model.EmployerDto;
-import com.techlooper.model.ProjectDetailDto;
-import com.techlooper.model.ProjectDto;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.CompanySearchResultRepository;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.service.ProjectService;
@@ -99,6 +96,11 @@ public class ProjectServiceImpl implements ProjectService {
             projectDetail.setCompany(employerDto);
         }
         return projectDetail;
+    }
+
+    @Override
+    public long joinProject(ProjectRegistrantDto projectRegistrantDto) {
+        return 1;
     }
 
     private void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, String mailSubject, Address[] recipientAddresses, Template template)
