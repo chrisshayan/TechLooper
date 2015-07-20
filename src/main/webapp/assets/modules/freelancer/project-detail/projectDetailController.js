@@ -1,5 +1,19 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
-                                                                     $filter, resourcesService, localStorageService, vnwConfigService) {
+                                                                     $filter, resourcesService, localStorageService,
+                                                                     $translate, vnwConfigService) {
+
+
+  var parts = $routeParams.id.split("-");
+  var projectId = parts.pop();
+  projectId = parts.pop();
+  apiService.getProject(projectId).success(function (data) {
+    console.log(data);
+    $scope.project = data.project;
+    $scope.company = data.company;
+    if ($scope.company) {
+      $scope.company.companySizeText = vnwConfigService.getCompanySizeText($scope.company.companySizeId);
+    }
+  });
 
   $scope.status = function (type) {
     switch (type) {
@@ -22,45 +36,66 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         return workload.id !== "dontKnow";
 
       case "able-to-join":
-      if (!$scope.project) return false;
-      var joinProjects = localStorageService.get("joinProjects") || "";
-      //var email = localStorageService.get("email") || "";
-      //var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
-      //  ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-      //var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
-      //return contestInProgress && !hasJoined;
+        if (!$scope.project) return false;
+        var joinProjects = localStorageService.get("joinProjects") || "";
+        var email = localStorageService.get("email") || "";
+        var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
+        return !hasJoined;
 
       case "already-join":
-      //if (!$scope.contestDetail) return false;
-      //var joinContests = localStorageService.get("joinContests") || "";
-      //var email = localStorageService.get("email") || "";
-      //var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
-      //return !hasJoined;
+        if (!$scope.project) return false;
+        var joinProjects = localStorageService.get("joinProjects") || "";
+        var email = localStorageService.get("email") || "";
+        var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
+        return hasJoined;
     }
 
     return false;
   }
 
-  var parts = $routeParams.id.split("-");
-  var projectId = parts.pop();
-  projectId = parts.pop();
-  apiService.getProject(projectId).success(function (data) {
-    $scope.project = data.project;
-    $scope.company = data.company;
-    $scope.company.companySizeText= vnwConfigService.getCompanySizeText($scope.company.companySizeId);
-  });
-
   $scope.joinNowByFB = function () {
-    //if (!$scope.status('able-to-join')) {
-    //  return false;
-    //}
+    if ($scope.status('already-join')) {
+      return false;
+    }
+    apiService.joinNowByFB();
+  }
 
-    localStorageService.set("lastFoot", $location.url());
-    apiService.getFBLoginUrl().success(function (url) {
-      localStorageService.set("lastFoot", $location.url());
-      localStorageService.set("joinNow", true);
-      window.location = url;
-    });
+  if (localStorageService.get("joinNow")) {
+    localStorageService.remove("joinNow");
+    var firstName = localStorageService.get("firstName");
+    var lastName = localStorageService.get("lastName");
+    var email = localStorageService.get("email");
+
+    $("#applyJob").modal();
+
+    //apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
+    //  .success(function (data) {
+    //    var joinProjects = localStorageService.get("joinProjects") || "";
+    //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
+    //    if ($.inArray(projectId, joinProjects) < 0) {
+    //      joinProjects.push(projectId);
+    //    }
+    //    localStorageService.set("joinProjects", joinProjects.join(","));
+    //  });
+  }
+
+  $scope.joinProject = function () {
+    $scope.freelancerForm.$setSubmitted();
+    console.log($scope.freelancer);
+    if ($scope.freelancerForm.$invalid) {
+      return false;
+    }
+
+    console.log(123);
+    //apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
+    //  .success(function (data) {
+    //    var joinProjects = localStorageService.get("joinProjects") || "";
+    //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
+    //    if ($.inArray(projectId, joinProjects) < 0) {
+    //      joinProjects.push(projectId);
+    //    }
+    //    localStorageService.set("joinProjects", joinProjects.join(","));
+    //  });
   }
 });
 

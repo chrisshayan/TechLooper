@@ -494,12 +494,12 @@
   "numberOfApplicants": "Already has <strong>{{number}}</strong> applicants for this job",
   "aboutThisClient": "About This Client",
   "memberSince": "Member since {{date}}",
-  "findProjects": "find Projects",
-  "findFreelancer": "Find freelancer jobs quick and easy",
+  "findProjects": "Find Projects",
+  "findFreelancer": "Find freelancer jobs quick and easy.",
   "applyToThisJob": "Apply To This Job",
-  "applyJob": "Apply Job",
   "phoneNumber": "Phone",
   "phoneNumberEx": "Ex: 0993930903",
   "resume": "Resume",
-  "resumeEx": "Ex: http://website-name.com/my-resume.pdf"
+  "resumeEx": "Ex: http://website-name.com/my-resume.pdf",
+  "companySizeText": "{{text}} employee(s)"
 }
