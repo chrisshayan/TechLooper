@@ -144,6 +144,7 @@
   "categories": "Ngành Nghề Công Việc",
   "level": "Cấp Bậc",
   "requiredThisField": "Bạn không thể để trống trường này.",
+  "requiredURL": "Not valid url!",
   "yob": "Năm sinh",
   "exYob": "Ví dụ: 1988",
   "doYouWantToEarnMore": "Bạn có muốn tăng thu nhập nhiều hơn?",
@@ -505,7 +506,15 @@
   "phoneNumberEx": "Ví dụ: 0993930903",
   "resume": "Hồ sơ",
   "resumeEx": "Ví dụ: http://ten-trang-web.com/ho-so-cua-toi.pdf",
-  "companySizeText": "{{text}} nhân viên"
+  "companySizeText": "{{text}} nhân viên",
+  "xDaysAgo": "{{number}} ngày trước",
+  "1DayAgo": "1 ngày trước",
+  "posted": "Đã đăng",
+  "xHoursAgo": "{{number}} giờ trước",
+  "1HourAgo": "1 giờ trước",
+  "xMinutesAgo": "{{number}} phút trước",
+  "1MinuteAgo": "1 phút trước",
+  "justNow": "mới đây"
 }
 
 

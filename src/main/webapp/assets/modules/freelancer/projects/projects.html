@@ -10,8 +10,13 @@
         <h3>
           <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" target="_blank"><span>{{project.projectTitle}}</span></a> <a
             href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" translate="viewDetails" class="view-detail" target="_blank"></a></h3>
-        <p class="payment-time-post">
-          <strong>{{project.payMethod}}</strong> - Est. Budget: $100 - <span>Posted 8 hours ago</span>
+        <p class="payment-time-post" ng-show="status('show-fixed-price-fields', project)">
+          <strong>{{project.payMethod}}</strong> - Est. {{'budgetText' | translate}}: $100 -
+          <span translate="posted" /> <span translate="{{(project.projectId | timestamp).translate}}" translate-value-number="{{(project.projectId | timestamp).number}}" />
+        </p>
+        <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
+          <strong>{{project.payMethod}}</strong> - Est. <span translate="{{project.estimatedWorkload}}" /></span> -
+          <span translate="posted" /> <span translate="{{(project.projectId | timestamp).translate}}" translate-value-number="{{(project.projectId | timestamp).number}}" />
         </p>
         <div class="project-description">
           {{project.projectDescription}}

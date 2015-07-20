@@ -2,13 +2,6 @@ techlooper.filter("timestamp", function (jsonValue) {
   return function (input) {
     var date = input;
 
-    //Just now
-    //Posted 1 min ago
-    //Posted x mins ago
-    //  ...
-    //  Posted 59 mins ago
-    //Posted 1 hour ago
-    //Posted x hours ago
     //  ...
     //  Posted 23 hours ago
     //Posted 1 day ago
@@ -18,19 +11,40 @@ techlooper.filter("timestamp", function (jsonValue) {
     //Posted on DD/MM/YYYY HH:MM
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
-    console.log(duration);
+    if (duration > 7) {
+      return {translate: moment(date, "DD/MM/YYYY h:mm"), number: duration};
+    }
+    else if (duration > 1 && duration <= 7) {
+      return {translate: "xDaysAgo", number: duration}
+    }
+    else if (duration == 1) {
+      return {translate: "1DayAgo", number: duration}
+    }
 
+    //  Posted 59 mins ago
+    //Posted 1 hour ago
+    //Posted x hours ago
 
-    //if (mins < 1) {
-    //  return "justNow";
-    //}
-    //else if (mins < 2) {
-    //  return "1minAgo";
-    //}
-    //else if (mins >= 2) {
-    //  return "minsAgo";
-    //}
+    duration = Math.abs(moment(date).diff(moment(), "hours"));
+    if (duration > 1) {
+      return {translate: "xHoursAgo", number: duration}
+    }
+    else if (duration == 1) {
+      return {translate: "1HourAgo", number: duration}
+    }
 
-    return "abc";
+    //Just now
+    //Posted 1 min ago
+    //Posted x mins ago
+
+    duration = Math.abs(moment(date).diff(moment(), "minutes"));
+    if (duration > 1) {
+      return {translate: "xMinutesAgo", number: duration}
+    }
+    else if (duration == 1) {
+      return {translate: "1MinuteAgo", number: duration}
+    }
+
+    return "justNow";
   };
 });

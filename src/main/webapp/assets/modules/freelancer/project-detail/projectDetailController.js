@@ -78,6 +78,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     localStorageService.remove("joinNow");
     apiService.joinProject(projectId, freelancer, $translate.use())
       .success(function (data) {
+        //TODO join project success
     //    var joinProjects = localStorageService.get("joinProjects") || "";
     //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
     //    if ($.inArray(projectId, joinProjects) < 0) {

@@ -144,6 +144,7 @@
   "categories": "Categories",
   "level": "Level",
   "requiredThisField": "You can’t leave this empty.",
+  "requiredURL": "Not valid url!",
   "yob": "Year of birth",
   "exYob": "Ex: 1988",
   "doYouWantToEarnMore": "Do you want to earn more?",
@@ -501,5 +502,13 @@
   "phoneNumberEx": "Ex: 0993930903",
   "resume": "Resume",
   "resumeEx": "Ex: http://website-name.com/my-resume.pdf",
-  "companySizeText": "{{text}} employee(s)"
+  "companySizeText": "{{text}} employee(s)",
+  "xDaysAgo": "{{number}} days ago",
+  "1DayAgo": "1 day ago",
+  "posted": "Posted",
+  "xHoursAgo": "{{number}} hours ago",
+  "1HourAgo": "1 hour ago",
+  "xMinutesAgo": "{{number}} minutes ago",
+  "1MinuteAgo": "1 minute ago",
+  "justNow": "just now"
 }
