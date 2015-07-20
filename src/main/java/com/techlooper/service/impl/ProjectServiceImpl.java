@@ -2,8 +2,10 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.EmployerEntity;
 import com.techlooper.entity.ProjectEntity;
+import com.techlooper.entity.ProjectRegistrantEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.CompanySearchResultRepository;
+import com.techlooper.repository.elasticsearch.ProjectRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.service.ProjectService;
 import freemarker.template.Template;
@@ -38,6 +40,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Resource
     private CompanySearchResultRepository companySearchResultRepository;
+
+    @Resource
+    private ProjectRegistrantRepository projectRegistrantRepository;
 
     @Resource
     private Mapper dozerMapper;
@@ -100,6 +105,20 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public long joinProject(ProjectRegistrantDto projectRegistrantDto) {
+        Long projectId = projectRegistrantDto.getProjectId();
+        String registrantEmail = new String(Base64.getDecoder().decode(projectRegistrantDto.getRegistrantEmail()));
+        projectRegistrantDto.setRegistrantEmail(registrantEmail);
+        boolean isExist = checkIfProjectRegistrantExist(projectId, registrantEmail);
+
+        if (!isExist) {
+            ProjectRegistrantEntity projectRegistrantEntity = dozerMapper.map(projectRegistrantDto, ProjectRegistrantEntity.class);
+            ProjectEntity projectEntity = projectRepository.findOne(projectId);
+//            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+//            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+            projectRegistrantEntity.setMailSent(Boolean.TRUE);
+            projectRegistrantEntity.setProjectRegistrantId(new Date().getTime());
+            projectRegistrantRepository.save(projectRegistrantEntity);
+        }
         return 1;
     }
 
@@ -133,4 +152,14 @@ public class ProjectServiceImpl implements ProjectService {
         mailSender.send(applyJobMailMessage);
     }
 
+    public boolean checkIfProjectRegistrantExist(Long projectId, String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+        searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
+                .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
+                .must(QueryBuilders.termQuery("projectId", projectId))
+                .must(QueryBuilders.termQuery("mailSent", true)));
+
+        long total = projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
+        return (total > 0);
+    }
 }

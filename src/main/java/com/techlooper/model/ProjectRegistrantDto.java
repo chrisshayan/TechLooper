@@ -7,13 +7,13 @@ public class ProjectRegistrantDto {
 
     private Long projectId;
 
-    private String projectEmail;
+    private String registrantEmail;
 
-    private String projectFirstName;
+    private String registrantFirstName;
 
-    private String projectLastName;
+    private String registrantLastName;
 
-    private String phoneNumber;
+    private String registrantPhoneNumber;
 
     private String resumeLink;
 
@@ -27,36 +27,36 @@ public class ProjectRegistrantDto {
         this.projectId = projectId;
     }
 
-    public String getProjectEmail() {
-        return projectEmail;
+    public String getRegistrantEmail() {
+        return registrantEmail;
     }
 
-    public void setProjectEmail(String projectEmail) {
-        this.projectEmail = projectEmail;
+    public void setRegistrantEmail(String registrantEmail) {
+        this.registrantEmail = registrantEmail;
     }
 
-    public String getProjectFirstName() {
-        return projectFirstName;
+    public String getRegistrantFirstName() {
+        return registrantFirstName;
     }
 
-    public void setProjectFirstName(String projectFirstName) {
-        this.projectFirstName = projectFirstName;
+    public void setRegistrantFirstName(String registrantFirstName) {
+        this.registrantFirstName = registrantFirstName;
     }
 
-    public String getProjectLastName() {
-        return projectLastName;
+    public String getRegistrantLastName() {
+        return registrantLastName;
     }
 
-    public void setProjectLastName(String projectLastName) {
-        this.projectLastName = projectLastName;
+    public void setRegistrantLastName(String registrantLastName) {
+        this.registrantLastName = registrantLastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getRegistrantPhoneNumber() {
+        return registrantPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setRegistrantPhoneNumber(String registrantPhoneNumber) {
+        this.registrantPhoneNumber = registrantPhoneNumber;
     }
 
     public String getResumeLink() {
