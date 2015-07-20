@@ -29,4 +29,6 @@ public interface ProjectService {
             throws MessagingException, IOException, TemplateException;
 
     long joinProject(ProjectRegistrantDto projectRegistrantDto) throws MessagingException, IOException, TemplateException;
+
+    Long getNumberOfRegistrants(Long projectId);
 }

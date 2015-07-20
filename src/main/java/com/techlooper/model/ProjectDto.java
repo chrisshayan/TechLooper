@@ -31,6 +31,8 @@ public class ProjectDto {
 
     private String authorEmail;
 
+    private Long numberOfApplications;
+
     public Long getProjectId() {
         return projectId;
     }
@@ -127,4 +129,11 @@ public class ProjectDto {
         this.authorEmail = authorEmail;
     }
 
+    public Long getNumberOfApplications() {
+        return numberOfApplications;
+    }
+
+    public void setNumberOfApplications(Long numberOfApplications) {
+        this.numberOfApplications = numberOfApplications;
+    }
 }
