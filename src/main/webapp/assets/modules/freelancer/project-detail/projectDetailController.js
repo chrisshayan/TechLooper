@@ -8,6 +8,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     console.log(data);
     $scope.project = data.project;
     $scope.company = data.company;
+    $scope.company.companySizeText= vnwConfigService.getCompanySizeText($scope.company.companySizeId);
   });
 
   $scope.status = function (type) {
