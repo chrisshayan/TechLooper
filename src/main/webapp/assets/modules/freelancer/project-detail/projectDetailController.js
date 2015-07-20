@@ -65,6 +65,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
       lastName: localStorageService.get("lastName"),
       email: localStorageService.get("email")
     });
+    localStorageService.remove("joinNow");
     $("#applyJob").modal();
   }
 
@@ -74,11 +75,14 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
       return false;
     }
 
-    localStorageService.remove("joinNow");
     localStorageService.set("email", $scope.freelancer.email);
     apiService.joinProject(projectId, $scope.freelancer.firstName, $scope.freelancer.lastName,
       $scope.freelancer.email, $scope.freelancer.phoneNumber, $scope.freelancer.resumeLink, $translate.use())
-      .success(function (data) {
+      .success(function (numberFBJoins) {
+        //$scope.numberFBJoins = numberFBJoins;
+        if ($scope.project) {
+          $scope.project.numberOfApplications = numberFBJoins;
+        }
         var joinProjects = localStorageService.get("joinProjects") || "";
         joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
         if ($.inArray(projectId, joinProjects) < 0) {
@@ -86,6 +90,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         }
         localStorageService.set("joinProjects", joinProjects.join(","));
       });
+    $("#applyJob").modal("hide");
   }
 });
 

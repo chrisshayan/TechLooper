@@ -27,8 +27,9 @@
                         </div>
                     </div>
                     <div class="apply-with-facebook col-md-4">
-                        <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal" ng-click="joinNowByFB()"></button>
-                        <p translate="numberOfApplicants" translate-value-number="30"></p>
+                        <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal"
+                                ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
+                        <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
                 <div class="project-detail-block">
