@@ -20,7 +20,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         return option.id == "hourly";
 
       case "show-estimate-workload":
-        if (!$scope.hourly) return false;
+        if (!$scope.project) return false;
         var workload = resourcesService.getOption($scope.hourly.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
         if (!workload) return false;
         return workload.id !== "dontKnow";
