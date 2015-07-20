@@ -5,7 +5,6 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   var projectId = parts.pop();
   projectId = parts.pop();
   apiService.getProject(projectId).success(function (data) {
-    console.log(data);
     $scope.project = data.project;
     $scope.company = data.company;
     if ($scope.company) {
