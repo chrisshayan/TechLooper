@@ -107,13 +107,14 @@
   <div class="content-page-detail">
     <div class="review-project-content-block">
       <div class="client-logo-block">
-        <img src="http://images.vietnamworks.com/img/jobseekers/logo.png" alt="VietnamWorks"/>
+        <span ng-show="company.companyLogoURL.length"><img ng-src="{{company.companyLogoURL}}" alt="{{company.companyName}}"/></span>
+        <span ng-show="!company.companyLogoURL.length"><img src="../images/no-logo-company.png" alt="{{company.companyName}}"/></span>
       </div>
       <div class="client-info-block">
-        <p><strong>VietnamWorks</strong></p>
-        <p>130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam</p>
-        <p>199-499 employee(s)</p>
-        <p class="member-since" translate="memberSince" translate-value-date="12/02/2012"></p>
+        <p><strong>{{company.companyName}}</strong></p>
+        <p>{{company.address}}</p>
+        <p>{{company.companySizeText}} employee(s)</p>
+        <p class="member-since" translate="memberSince" translate-value-date="{{company.createdDate}}"></p>
       </div>
     </div>
   </div>
