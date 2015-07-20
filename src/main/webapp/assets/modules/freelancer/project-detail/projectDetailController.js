@@ -1,5 +1,5 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
-                                                                     $filter, resourcesService, localStorageService) {
+                                                                     $filter, resourcesService, localStorageService, vnwConfigService) {
 
   $scope.status = function (type) {
     switch (type) {
@@ -47,6 +47,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   apiService.getProject(projectId).success(function (data) {
     $scope.project = data.project;
     $scope.company = data.company;
+    $scope.company.companySizeText= vnwConfigService.getCompanySizeText($scope.company.companySizeId);
   });
 
   $scope.joinNowByFB = function () {
