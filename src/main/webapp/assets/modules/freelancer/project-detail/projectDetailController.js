@@ -1,8 +1,6 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
                                                                      $filter, resourcesService, localStorageService,
                                                                      $translate, vnwConfigService) {
-
-
   var parts = $routeParams.id.split("-");
   var projectId = parts.pop();
   projectId = parts.pop();
@@ -61,41 +59,32 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   }
 
   if (localStorageService.get("joinNow")) {
-    localStorageService.remove("joinNow");
-    var firstName = localStorageService.get("firstName");
-    var lastName = localStorageService.get("lastName");
-    var email = localStorageService.get("email");
-
     $("#applyJob").modal();
-
-    //apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
-    //  .success(function (data) {
-    //    var joinProjects = localStorageService.get("joinProjects") || "";
-    //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
-    //    if ($.inArray(projectId, joinProjects) < 0) {
-    //      joinProjects.push(projectId);
-    //    }
-    //    localStorageService.set("joinProjects", joinProjects.join(","));
-    //  });
   }
 
   $scope.joinProject = function () {
     $scope.freelancerForm.$setSubmitted();
-    console.log($scope.freelancer);
+    $scope.freelancer = $scope.freelancer || {};
+    $scope.freelancer = $.extend(true, {}, $scope.freelancer, {
+      firstName: localStorageService.get("firstName"),
+      lastName: localStorageService.get("lastName"),
+      email: localStorageService.get("email")
+    });
+
     if ($scope.freelancerForm.$invalid) {
       return false;
     }
 
-    console.log(123);
-    //apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
-    //  .success(function (data) {
+    localStorageService.remove("joinNow");
+    apiService.joinProject(projectId, freelancer, $translate.use())
+      .success(function (data) {
     //    var joinProjects = localStorageService.get("joinProjects") || "";
     //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
     //    if ($.inArray(projectId, joinProjects) < 0) {
     //      joinProjects.push(projectId);
     //    }
     //    localStorageService.set("joinProjects", joinProjects.join(","));
-    //  });
+      });
   }
 });
 
