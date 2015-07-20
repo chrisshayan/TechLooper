@@ -10,7 +10,9 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     console.log(data);
     $scope.project = data.project;
     $scope.company = data.company;
-    $scope.company.companySizeText= vnwConfigService.getCompanySizeText($scope.company.companySizeId);
+    if ($scope.company) {
+      $scope.company.companySizeText = vnwConfigService.getCompanySizeText($scope.company.companySizeId);
+    }
   });
 
   $scope.status = function (type) {
@@ -63,20 +65,37 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     var firstName = localStorageService.get("firstName");
     var lastName = localStorageService.get("lastName");
     var email = localStorageService.get("email");
-    apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
-      .success(function (data) {
-        //if ($scope.contestDetail) {
-        //  $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
-        //}
-        //
-        var joinProjects = localStorageService.get("joinProjects") || "";
-        joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
-        if ($.inArray(projectId, joinProjects) < 0) {
-          joinProjects.push(projectId);
-        }
 
-        localStorageService.set("joinProjects", joinProjects.join(","));
-      });
+    $("#applyJob").modal();
+
+    //apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
+    //  .success(function (data) {
+    //    var joinProjects = localStorageService.get("joinProjects") || "";
+    //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
+    //    if ($.inArray(projectId, joinProjects) < 0) {
+    //      joinProjects.push(projectId);
+    //    }
+    //    localStorageService.set("joinProjects", joinProjects.join(","));
+    //  });
+  }
+
+  $scope.joinProject = function () {
+    $scope.freelancerForm.$setSubmitted();
+    console.log($scope.freelancer);
+    if ($scope.freelancerForm.$invalid) {
+      return false;
+    }
+
+    console.log(123);
+    //apiService.joinProject(projectId, firstName, lastName, email, $translate.use())
+    //  .success(function (data) {
+    //    var joinProjects = localStorageService.get("joinProjects") || "";
+    //    joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
+    //    if ($.inArray(projectId, joinProjects) < 0) {
+    //      joinProjects.push(projectId);
+    //    }
+    //    localStorageService.set("joinProjects", joinProjects.join(","));
+    //  });
   }
 });
 

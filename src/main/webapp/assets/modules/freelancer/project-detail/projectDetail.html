@@ -61,41 +61,48 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel" translate="applyToThisJob"></h4>
         </div>
-        <div class="modal-body">
-          <div class="apply-to-this-job-block">
-            <div class="group-form">
-              <div class="field left">
-                <label for="txtFirstNameJob">{{'firstName' | translate}}: <strong>*</strong></label>
-                <input type="text" id="txtFirstNameJob" class="input-style" placeholder="{{'firstNameEx' | translate}}"/>
+        <ng-form name="freelancerForm">
+          <div class="modal-body">
+            <div class="apply-to-this-job-block">
+              <div class="group-form">
+                <div class="field left">
+                  <label for="txtFirstNameJob">{{'firstName' | translate}}: <strong>*</strong></label>
+                  <input name="firstName" ng-model="freelancer.firstName" type="text" id="txtFirstNameJob"
+                         class="input-style" placeholder="{{'firstNameEx' | translate}}" ng-required="true"/>
+                </div>
+                <div class="field right">
+                  <label for="txtLastNameJob">{{'lastName' | translate}}: <strong>*</strong></label>
+                  <input name="lastName" ng-model="freelancer.lastName" type="text" id="txtLastNameJob" class="input-style"
+                         placeholder="{{'lastNameEx' | translate}}" ng-required="true"/>
+                </div>
+                <p class="error-messages">Error Messages... </p>
               </div>
-              <div class="field right">
-                <label for="txtLastNameJob">{{'lastName' | translate}}: <strong>*</strong></label>
-                <input type="text" id="txtLastNameJob" class="input-style" placeholder="{{'lastNameEx' | translate}}"/>
+              <div class="field">
+                <label for="txtEmailJob">{{'emailAddress' | translate}}: <strong>*</strong></label>
+                <input name="email" ng-model="freelancer.email" type="email" id="txtEmailJob" class="input-style"
+                       placeholder="{{'emailAddressEx' | translate}}" ng-required="true"/>
+                <p class="error-messages">Error Messages... </p>
               </div>
-              <p class="error-messages">Error Messages... </p>
-            </div>
-            <div class="field">
-              <label for="txtEmailJob">{{'emailAddress' | translate}}: <strong>*</strong></label>
-              <input type="text" id="txtEmailJob" class="input-style" placeholder="{{'emailAddressEx' | translate}}"/>
-              <p class="error-messages">Error Messages... </p>
-            </div>
-            <div class="field">
-              <label for="txtPhoneJob">{{'phoneNumber' | translate}}: <strong>*</strong></label>
-              <input type="text" id="txtPhoneJob" class="input-style" placeholder="{{'phoneNumberEx' | translate}}"/>
-              <p class="error-messages">Error Messages... </p>
-            </div>
+              <div class="field">
+                <label for="txtPhoneJob">{{'phoneNumber' | translate}}: <strong>*</strong></label>
+                <input name="phoneNumber" ng-model="freelancer.phoneNumber" type="text" id="txtPhoneJob" class="input-style"
+                       placeholder="{{'phoneNumberEx' | translate}}" ng-required="true"/>
+                <p class="error-messages">Error Messages... </p>
+              </div>
 
-            <div class="field">
-              <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
-              <input type="text" id="txtResumeJob" class="input-style" placeholder="{{'resumeEx' | translate}}"/>
-              <p class="error-messages">Error Messages... </p>
+              <div class="field">
+                <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
+                <input name="resumeLink" ng-model="freelancer.resumeLink" type="text" id="txtResumeJob" class="input-style"
+                       placeholder="{{'resumeEx' | translate}}" ng-required="true"/>
+                <p class="error-messages">Error Messages... </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer submit-form">
-          <button type="button" class="btn btn-primary btn-flat" translate="applyNow" ng-click="joinNowByFB()"></button>
-          <a data-dismiss="modal" translate="cancel"></a>
-        </div>
+          <div class="modal-footer submit-form">
+            <button type="button" class="btn btn-primary btn-flat" translate="applyNow" ng-click="joinNowByFB()"></button>
+            <a data-dismiss="modal" translate="cancel"></a>
+          </div>
+        </ng-form>
       </div>
     </div>
   </div>
