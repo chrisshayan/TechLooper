@@ -36,7 +36,7 @@ techlooper.filter("timestamp", function (jsonValue) {
     //Just now
     //Posted 1 min ago
     //Posted x mins ago
-    
+
     duration = Math.abs(moment(date).diff(moment(), "minutes"));
     if (duration > 1) {
       return {translate: "xMinutesAgo", number: duration}
