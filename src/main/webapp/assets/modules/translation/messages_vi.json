@@ -514,7 +514,9 @@
   "1HourAgo": "1 giờ trước",
   "xMinutesAgo": "{{number}} phút trước",
   "1MinuteAgo": "1 phút trước",
-  "justNow": "mới đây"
+  "justNow": "mới đây",
+  "estBudget": "Ngân sách",
+  "estTime": "Thời gian ước lượng"
 }
 
 

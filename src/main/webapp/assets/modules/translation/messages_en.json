@@ -510,5 +510,8 @@
   "1HourAgo": "1 hour ago",
   "xMinutesAgo": "{{number}} minutes ago",
   "1MinuteAgo": "1 minute ago",
-  "justNow": "just now"
+  "justNow": "just now",
+  "estBudget": "Est. Budget",
+  "estTime": "Est. Time",
+
 }
