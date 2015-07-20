@@ -27,8 +27,11 @@
   "confirmInformation": "CONFIRM INFORMATION",
   "allowUsToConnect": "Allow us to connect",
   "firstName": "First name",
+  "firstNameEx": "Ex: Quoc Phuong",
   "lastName": "Last name",
+  "lastNameEx": "Ex: Huynh",
   "emailAddress": "Email address",
+  "emailAddressEx": "Ex: huynhquocphuong@gmail.com",
   "userProfile": "User profile",
   "homepage": "Home page",
   "signIn": "Sign In",
@@ -492,5 +495,11 @@
   "aboutThisClient": "About This Client",
   "memberSince": "Member since {{date}}",
   "findProjects": "find Projects",
-  "findFreelancer": "Find freelancer jobs quick and easy"
+  "findFreelancer": "Find freelancer jobs quick and easy",
+  "applyToThisJob": "Apply To This Job",
+  "applyJob": "Apply Job",
+  "phoneNumber": "Phone",
+  "phoneNumberEx": "Ex: 0993930903",
+  "resume": "Resume",
+  "resumeEx": "Ex: http://website-name.com/my-resume.pdf"
 }
