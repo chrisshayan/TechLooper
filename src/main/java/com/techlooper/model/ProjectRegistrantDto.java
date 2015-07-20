@@ -13,6 +13,10 @@ public class ProjectRegistrantDto {
 
     private String projectLastName;
 
+    private String phoneNumber;
+
+    private String resumeLink;
+
     private Language lang;
 
     public Long getProjectId() {
@@ -45,6 +49,22 @@ public class ProjectRegistrantDto {
 
     public void setProjectLastName(String projectLastName) {
         this.projectLastName = projectLastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getResumeLink() {
+        return resumeLink;
+    }
+
+    public void setResumeLink(String resumeLink) {
+        this.resumeLink = resumeLink;
     }
 
     public Language getLang() {
