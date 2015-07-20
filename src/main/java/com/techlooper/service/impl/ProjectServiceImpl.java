@@ -9,17 +9,26 @@ import com.techlooper.model.ProjectDto;
 import com.techlooper.repository.elasticsearch.CompanySearchResultRepository;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.service.ProjectService;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by NguyenDangKhoa on 7/10/15.
@@ -35,6 +44,15 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Resource
     private Mapper dozerMapper;
+
+    @Resource
+    private MimeMessage applyJobMailMessage;
+
+    @Resource
+    private JavaMailSender mailSender;
+
+    @Value("${web.baseUrl}")
+    private String webBaseUrl;
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -81,6 +99,36 @@ public class ProjectServiceImpl implements ProjectService {
             projectDetail.setCompany(employerDto);
         }
         return projectDetail;
+    }
+
+    private void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, String mailSubject, Address[] recipientAddresses, Template template)
+            throws MessagingException, IOException, TemplateException {
+        applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("projectTitle", projectEntity.getProjectTitle());
+        templateModel.put("projectDescription", projectEntity.getProjectDescription());
+        templateModel.put("skills", StringUtils.join(projectEntity.getSkills(), "<br/>"));
+        templateModel.put("payMethod", projectEntity.getPayMethod());
+        templateModel.put("estimatedEndDate", projectEntity.getEstimatedEndDate());
+        templateModel.put("budget", projectEntity.getBudget());
+        templateModel.put("estimatedDuration", projectEntity.getEstimatedDuration());
+        templateModel.put("estimatedWorkload", projectEntity.getEstimatedWorkload());
+        templateModel.put("hourlyRate", projectEntity.getHourlyRate());
+        templateModel.put("numberOfHires", projectEntity.getNumberOfHires());
+        templateModel.put("projectId", projectEntity.getProjectId());
+        templateModel.put("projectAlias", projectEntity.getProjectTitle().replaceAll("\\W", "-"));
+
+        template.process(templateModel, stringWriter);
+        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
+        applyJobMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        applyJobMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        applyJobMailMessage.saveChanges();
+        mailSender.send(applyJobMailMessage);
     }
 
 }
