@@ -30,7 +30,7 @@ techlooper.controller('freelancerProjectsController', function ($scope, apiServi
         if (!project) return false;
         var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
-        return option.translate;
+        return option.reviewTranslate;
     }
     return false;
   }

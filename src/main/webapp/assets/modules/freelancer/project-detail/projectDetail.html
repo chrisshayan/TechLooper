@@ -34,7 +34,7 @@
                 <div class="project-detail-block">
                     <div class="project-info-block">
                         <h3 translate="detail"></h3>
-                        <div class="need-hiring">
+                        <div class="need-hiring" ng-show="project.numberOfHires > 1">
                             <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
                         </div>
                         <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->

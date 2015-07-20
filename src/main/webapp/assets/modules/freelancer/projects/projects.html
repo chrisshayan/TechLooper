@@ -11,17 +11,17 @@
           <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" target="_blank"><span>{{project.projectTitle}}</span></a> <a
             href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" translate="viewDetails" class="view-detail" target="_blank"></a></h3>
         <p class="payment-time-post" ng-show="status('show-fixed-price-fields', project)">
-          <strong translate="{{project.payMethod}}"></strong> - <span translate="estBudget"></span>: ${{project.budget | number}} -
+          <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estBudget"></span>: ${{project.budget | number}} -
           <span class="time-stamp" translate="posted"/> <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}" translate-value-number="{{(project.projectId | timestamp).number}}" />
         </p>
         <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
-          <strong translate="{{project.payMethod}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedWorkload}}"/></span> -
+          <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedWorkload}}"/></span> -
           <span class="time-stamp" translate="posted" /> <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}" translate-value-number="{{(project.projectId | timestamp).number}}" />
         </p>
         <div class="project-description">
           {{project.projectDescription}}
         </div>
-        <div class="hiring-status">
+        <div class="hiring-status" ng-show="project.numberOfHires > 1">
           <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
         </div>
         <div class="skills-of-project">
