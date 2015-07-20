@@ -25,10 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by phuonghqh on 12/10/14.
@@ -56,42 +53,42 @@ public class SocialController {
   @Resource
   private VietnamWorksUserService vietnamWorksUserService;
 
+//  @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
+//  public void registerVnwUser(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
+//    if (code == null) {
+//      response.sendRedirect("/#/?registerVnwUser=cancel");
+//      return;
+//    }
+//
+//    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+//      .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
+//
+//    UserProfile userProfile;
+//    try {
+//      userProfile = facebookService.getUserProfile(code, socialConfig);
+//    }
+//    catch (Exception e) {
+//      response.sendRedirect(socialConfig.getApiUrl().get("login"));
+//      return;
+//    }
+//
+//    ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.save(
+//      new ChallengeRegistrantEntity(new Date().getTime(), userProfile.getEmail(), userProfile.getFirstName(), userProfile.getLastName()));
+//
+//    if (StringUtils.hasText(userProfile.getEmail())) {
+//      try {
+//        vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
+//          .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
+//      }
+//      catch (Exception e) {
+//        LOGGER.debug("Error register Vietnamworks", e);
+//      }
+//    }
+//
+//    response.sendRedirect("/#/?registerVnwUser=" + challengeRegistrantEntity.getRegistrantId());
+//  }
+
   @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
-  public void registerVnwUser(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
-    if (code == null) {
-      response.sendRedirect("/#/?registerVnwUser=cancel");
-      return;
-    }
-
-    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-      .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
-
-    UserProfile userProfile;
-    try {
-      userProfile = facebookService.getUserProfile(code, socialConfig);
-    }
-    catch (Exception e) {
-      response.sendRedirect(socialConfig.getApiUrl().get("login"));
-      return;
-    }
-
-    ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.save(
-      new ChallengeRegistrantEntity(new Date().getTime(), userProfile.getEmail(), userProfile.getFirstName(), userProfile.getLastName()));
-
-    if (StringUtils.hasText(userProfile.getEmail())) {
-      try {
-        vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
-          .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
-      }
-      catch (Exception e) {
-        LOGGER.debug("Error register Vietnamworks", e);
-      }
-    }
-
-    response.sendRedirect("/#/?registerVnwUser=" + challengeRegistrantEntity.getRegistrantId());
-  }
-
-  @RequestMapping(value = "register/fb", method = RequestMethod.GET)
   public void registerVnwUserFromFB(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
     if (code == null) {
       response.sendRedirect("/#/?action=cancel");
@@ -120,8 +117,14 @@ public class SocialController {
       }
     }
 
-    response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
-      userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail()));
+    if (StringUtils.hasText(userProfile.getEmail())) {
+      response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
+        userProfile.getFirstName(), userProfile.getLastName(), Base64.getEncoder().encode(userProfile.getEmail().getBytes())));
+    }
+    else {
+      response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s",
+        userProfile.getFirstName(), userProfile.getLastName()));
+    }
   }
 
   @ResponseBody

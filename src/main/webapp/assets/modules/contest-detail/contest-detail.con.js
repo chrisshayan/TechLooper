@@ -18,17 +18,17 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       case "able-to-join":
         if (!$scope.contestDetail) return false;
         var joinContests = localStorageService.get("joinContests") || "";
-        var registerVnwUser = localStorageService.get("registerVnwUser") || "";
+        var email = localStorageService.get("email") || "";
         var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
           ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
         return contestInProgress && !hasJoined;
 
       case "already-join":
         if (!$scope.contestDetail) return false;
         var joinContests = localStorageService.get("joinContests") || "";
-        var registerVnwUser = localStorageService.get("registerVnwUser") || "";
-        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+        var email = localStorageService.get("email") || "";
+        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
         return !hasJoined;
 
       case "contest-in-progress":
@@ -70,8 +70,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow");
-    //if (!localStorageService.get("registerVnwUser")) {
-    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
+    var firstName = localStorageService.get("firstName");
+    var lastName = localStorageService.get("lastName");
+    var email = localStorageService.get("email");
+    apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
       .success(function (numberOfRegistrants) {
         if ($scope.contestDetail) {
           $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
@@ -85,7 +87,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
         localStorageService.set("joinContests", joinContests.join(","));
       });
-    //}
   }
 
   apiService.getContestDetail(contestId).success(function (data) {
