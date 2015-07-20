@@ -18,6 +18,12 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
         return option.id == "hourly";
+
+      case "show-estimate-workload":
+        if (!$scope.hourly) return false;
+        var workload = resourcesService.getOption($scope.hourly.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
+        if (!workload) return false;
+        return workload.id !== "dontKnow";
     }
 
     return false;
