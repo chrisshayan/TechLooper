@@ -500,5 +500,6 @@
   "phoneNumber": "Phone",
   "phoneNumberEx": "Ex: 0993930903",
   "resume": "Resume",
-  "resumeEx": "Ex: http://website-name.com/my-resume.pdf"
+  "resumeEx": "Ex: http://website-name.com/my-resume.pdf",
+  "companySizeText": "{{text}} employee(s)"
 }
