@@ -1,57 +1,58 @@
 <employer-header></employer-header>
 <div class="content-page-block">
-  <div class="header-page" ng-show="!state.showPostProjectReview">
-    <h2 class="text-left">{{project.projectTitle}}</h2>
-  </div>
-  <div class="content-page-detail">
-    <div class="review-project-content-block">
-      <div class="review-project-content">
-        <div class="time-and-payment-block">
-          <div class="working-time-block col-md-4">
-            <h3 translate="{{project.payMethod}}" />
-            <div ng-show="status('show-fixed-price-fields')">
-              <p><span translate="deliveryBy"></span> {{project.estimatedEndDate}}</p>
+    <div class="header-page" ng-show="!state.showPostProjectReview">
+        <h2 class="text-left">{{project.projectTitle}}</h2>
+    </div>
+    <div class="content-page-detail">
+        <div class="review-project-content-block">
+            <div class="review-project-content">
+                <div class="time-and-payment-block">
+                    <div class="working-time-block col-md-4">
+                        <h3 translate="{{project.payMethod}}" />
+                        <div ng-show="status('show-fixed-price-fields')">
+                            <p><span translate="deliveryBy"></span> {{project.estimatedEndDate}}</p>
+                        </div>
+                        <div ng-show="status('show-hourly-price-fields')">
+                            <p translate="{{project.estimatedDuration}}" />
+                            <p ng-show="status('show-estimate-workload')" translate="{{project.estimatedWorkload}}" />
+                        </div>
+                    </div>
+                    <div class="payment-block col-md-4">
+                        <div ng-show="status('show-fixed-price-fields')">
+                            <h3>${{project.budget | number}}</h3>
+                            <p>{{'budgetText' | translate}}</p>
+                        </div>
+                        <div ng-show="status('show-hourly-price-fields')">
+                            <h3>${{project.hourlyRate | number}}/ <span translate="hrs"></span></h3>
+                        </div>
+                    </div>
+                    <div class="apply-with-facebook col-md-4">
+                        <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal" ng-click="joinNowByFB()"></button>
+                        <p translate="numberOfApplicants" translate-value-number="30"></p>
+                    </div>
+                </div>
+                <div class="project-detail-block">
+                    <div class="project-info-block">
+                        <h3 translate="detail"></h3>
+                        <div class="need-hiring">
+                            <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
+                        </div>
+                        <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->
+                        <div class="project-description">
+                            {{project.projectDescription}}
+                        </div>
+                    </div>
+                    <div class="skills-required-block">
+                        <h3 translate="skillRequired"></h3>
+                        <ul>
+                            <li ng-repeat="skill in project.skills">
+                                <span>{{skill}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div ng-show="status('show-hourly-price-fields')">
-              <p translate="{{project.estimatedDuration}}" />
-              <p ng-show="status('show-estimate-workload')" translate="{{project.estimatedWorkload}}" />
-            </div>
-          </div>
-          <div class="payment-block col-md-4">
-            <div ng-show="status('show-fixed-price-fields')">
-              <h3>${{project.budget | number}}</h3>
-              <p>{{'budgetText' | translate}}</p>
-            </div>
-            <div ng-show="status('show-hourly-price-fields')">
-              <h3>${{project.hourlyRate | number}}/ <span translate="hrs"></span></h3>
-            </div>
-          </div>
-          <div class="apply-with-facebook col-md-4">
-            <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal" ng-click="joinNowByFB()"></button>
-            <p translate="numberOfApplicants" translate-value-number="30"></p>
-          </div>
         </div>
-        <div class="project-detail-block">
-          <div class="project-info-block">
-            <h3 translate="detail"></h3>
-            <div class="need-hiring">
-              <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
-            </div>
-            <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->
-            <div class="project-description">
-              {{project.projectDescription}}
-            </div>
-          </div>
-          <div class="skills-required-block">
-            <h3 translate="skillRequired"></h3>
-            <ul>
-              <li ng-repeat="skill in project.skills">
-                <span>{{skill}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class="modal fade" id="applyJob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -81,7 +82,6 @@
                        ng-show="freelancerForm.lastName.$error.required && (freelancerForm.lastName.$edited || freelancerForm.$submitted)"
                        translate="requiredThisField" />
                 </div>
-
               </div>
               <div class="field">
                 <label for="txtEmailJob">{{'emailAddress' | translate}}: <strong>*</strong></label>
@@ -110,34 +110,27 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer submit-form">
-            <button type="button" class="btn btn-primary btn-flat" translate="applyNow" ng-click="joinNowByFB()"></button>
-            <a data-dismiss="modal" translate="cancel"></a>
-          </div>
         </ng-form>
       </div>
     </div>
   </div>
-</div>
-<div class="content-page-block project-owner">
-  <div class="header-page" ng-show="!state.showPostProjectReview">
-    <h2 translate="aboutThisClient" class="text-left"></h2>
-  </div>
-  <div class="content-page-detail">
-    <div class="review-project-content-block">
-      <div class="client-logo-block">
-        <span ng-show="company.companyLogoURL.length"><img ng-src="{{company.companyLogoURL}}" alt="{{company.companyName}}"/></span>
-        <span ng-show="!company.companyLogoURL.length"><img src="../images/no-logo-company.png" alt="{{company.companyName}}"/></span>
+  <div class="content-page-block project-owner">
+      <div class="header-page" ng-show="!state.showPostProjectReview">
+          <h2 translate="aboutThisClient" class="text-left"></h2>
       </div>
-      <div class="client-info-block">
-        <p><strong>{{company.companyName}}</strong></p>
-        <p>{{company.address}}</p>
-        <p translate="companySizeText" translate-value-text="{{company.companySizeText}}"></p>
-        <p class="member-since" translate="memberSince" translate-value-date="{{company.createdDate}}"></p>
+      <div class="content-page-detail">
+          <div class="review-project-content-block">
+              <div class="client-logo-block">
+                  <span ng-show="company.companyLogoURL.length"><img ng-src="{{company.companyLogoURL}}" alt="{{company.companyName}}"/></span>
+                  <span ng-show="!company.companyLogoURL.length"><img src="../images/no-logo-company.png" alt="{{company.companyName}}"/></span>
+              </div>
+              <div class="client-info-block">
+                  <p><strong>{{company.companyName}}</strong></p>
+                  <p>{{company.address}}</p>
+                  <p translate="companySizeText" translate-value-text="{{company.companySizeText}}"></p>
+                  <p class="member-since" translate="memberSince" translate-value-date="{{company.createdDate}}"></p>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 </div>
-
-
-
