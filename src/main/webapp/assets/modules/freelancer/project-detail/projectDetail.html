@@ -99,7 +99,6 @@
                      ng-show="freelancerForm.phoneNumber.$error.required && (freelancerForm.phoneNumber.$edited || freelancerForm.$submitted)"
                      translate="requiredThisField" />
               </div>
-
               <div class="field">
                 <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
                 <input name="resumeLink" ng-model="freelancer.resumeLink" type="text" id="txtResumeJob" class="input-style"
@@ -107,6 +106,10 @@
                 <div class="error-messages"
                      ng-show="freelancerForm.resumeLink.$error.required && (freelancerForm.resumeLink.$edited || freelancerForm.$submitted)"
                      translate="requiredThisField" />
+              </div>
+              <div class="modal-footer submit-form">
+                <button type="button" class="btn btn-primary btn-flat" translate="applyNow" ng-click="joinNowByFB()"></button>
+                <a data-dismiss="modal" translate="cancel"></a>
               </div>
             </div>
           </div>
