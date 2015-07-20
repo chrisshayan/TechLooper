@@ -131,9 +131,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public long joinProject(ProjectRegistrantDto projectRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long projectId = projectRegistrantDto.getProjectId();
-        String registrantEmail = new String(Base64.getDecoder().decode(projectRegistrantDto.getRegistrantEmail()));
-        projectRegistrantDto.setRegistrantEmail(registrantEmail);
-        boolean isExist = checkIfProjectRegistrantExist(projectId, registrantEmail);
+        boolean isExist = checkIfProjectRegistrantExist(projectId, projectRegistrantDto.getRegistrantEmail());
 
         if (!isExist) {
             ProjectRegistrantEntity projectRegistrantEntity = dozerMapper.map(projectRegistrantDto, ProjectRegistrantEntity.class);
