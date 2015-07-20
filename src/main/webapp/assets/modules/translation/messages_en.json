@@ -512,6 +512,8 @@
   "1MinuteAgo": "1 minute ago",
   "justNow": "just now",
   "estBudget": "Est. Budget",
-  "estTime": "Est. Time"
+  "estTime": "Est. Time",
+  "detail": "Detail",
+  "skillsNeed": "Skills:"
 
 }
