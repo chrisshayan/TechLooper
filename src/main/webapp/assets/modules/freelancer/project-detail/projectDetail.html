@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="apply-with-facebook col-md-4">
-            <button class="btn btn-primary btn-flat" translate="applyWithFacebook"></button>
+            <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal" data-target="#applyJob"></button>
             <p translate="numberOfApplicants" translate-value-number="30"></p>
           </div>
         </div>
@@ -54,8 +54,52 @@
       </div>
     </div>
   </div>
-</div>
+  <div class="modal fade" id="applyJob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel" translate="applyToThisJob"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="apply-to-this-job-block">
+            <div class="group-form">
+              <div class="field left">
+                <label for="txtFirstNameJob">{{'firstName' | translate}}: <strong>*</strong></label>
+                <input type="text" id="txtFirstNameJob" class="input-style" placeholder="{{'firstNameEx' | translate}}"/>
+              </div>
+              <div class="field right">
+                <label for="txtLastNameJob">{{'lastName' | translate}}: <strong>*</strong></label>
+                <input type="text" id="txtLastNameJob" class="input-style" placeholder="{{'lastNameEx' | translate}}"/>
+              </div>
+              <p class="error-messages">Error Messages... </p>
+            </div>
+            <div class="field">
+              <label for="txtEmailJob">{{'emailAddress' | translate}}: <strong>*</strong></label>
+              <input type="text" id="txtEmailJob" class="input-style" placeholder="{{'emailAddressEx' | translate}}"/>
+              <p class="error-messages">Error Messages... </p>
+            </div>
+            <div class="field">
+              <label for="txtPhoneJob">{{'phoneNumber' | translate}}: <strong>*</strong></label>
+              <input type="text" id="txtPhoneJob" class="input-style" placeholder="{{'phoneNumberEx' | translate}}"/>
+              <p class="error-messages">Error Messages... </p>
+            </div>
 
+            <div class="field">
+              <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
+              <input type="text" id="txtResumeJob" class="input-style" placeholder="{{'resumeEx' | translate}}"/>
+              <p class="error-messages">Error Messages... </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer submit-form">
+          <button type="button" class="btn btn-primary btn-flat" translate="applyNow"></button>
+          <a data-dismiss="modal" translate="cancle"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="content-page-block project-owner">
   <div class="header-page" ng-show="!state.showPostProjectReview">
     <h2 translate="aboutThisClient" class="text-left"></h2>
@@ -74,4 +118,6 @@
     </div>
   </div>
 </div>
+
+
 
