@@ -21,7 +21,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
 
       case "show-estimate-workload":
         if (!$scope.project) return false;
-        var workload = resourcesService.getOption($scope.hourly.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
+        var workload = resourcesService.getOption($scope.project.estimatedWorkload, resourcesService.estimatedWorkloadConfig);
         if (!workload) return false;
         return workload.id !== "dontKnow";
     }
