@@ -243,6 +243,14 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
+    public MimeMessage applyJobMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
     public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
         Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
         return template;
@@ -299,6 +307,18 @@ public class CoreConfiguration implements ApplicationContextAware {
     @Bean
     public Template alertEmployerChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
         Template template = freemakerConfig.getTemplate("alertEmployerChallenge.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertJobSeekerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertJobSeekerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.vi.ftl");
         return template;
     }
 
