@@ -10,20 +10,20 @@
           <div class="working-time-block col-md-4">
             <h3 translate="{{project.payMethod}}" />
             <div ng-show="status('show-fixed-price-fields')">
-              <p><span translate="deliveryBy"></span> {{fixedPrice.estimatedEndDate}}</p>
+              <p><span translate="deliveryBy"></span> {{project.estimatedEndDate}}</p>
             </div>
             <div ng-show="status('show-hourly-price-fields')">
-              <p>{{hourly.estimatedDuration}}</p>
-              <p ng-show="status('show-estimate-workload')">{{hourly.estimatedWorkload}}</p>
+              <p translate="{{project.estimatedDuration}}" />
+              <p ng-show="status('show-estimate-workload')">{{project.estimatedWorkload}}</p>
             </div>
           </div>
           <div class="payment-block col-md-4">
             <div ng-show="status('show-fixed-price-fields')">
-              <h3>${{fixedPrice.budget | number}}</h3>
+              <h3>${{project.budget | number}}</h3>
               <p>{{'budgetText' | translate}}</p>
             </div>
             <div ng-show="status('show-hourly-price-fields')">
-              <h3>${{hourly.hourlyRate | number}}/ <span translate="hrs"></span></h3>
+              <h3>${{project.hourlyRate | number}}/ <span translate="hrs"></span></h3>
             </div>
           </div>
           <div class="apply-with-facebook col-md-4">
