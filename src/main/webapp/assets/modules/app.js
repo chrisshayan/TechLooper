@@ -209,7 +209,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
                          utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
-                         apiService, resourcesService, $routeParams) {
+                         apiService, resourcesService, joinFBService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -217,6 +217,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+  joinFBService.initialize();
+
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
 
@@ -252,27 +254,28 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
-  $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
-    var view = utils.getView();
-    switch (view) {
-      case jsonValue.views.freelancerProjectDetail:
-        var parts = $routeParams.id.split("-");
-        var lastPart = parts.pop();
-        if (parts.length < 2 || (lastPart !== "id")) {
-          return $location.path("/");
-        }
-
-        var projectId = parts.pop();
-        var title = parts.join("");
-        if (utils.hasNonAsciiChar(title)) {
-          title = utils.toAscii(title);
-          return $location.url(sprintf(jsonValue.routerUris[view] + "/%s-%s-id", title, projectId));
-        }
-        break;
-    }
-
-    return true;
-  });
+  //$rootScope.$on("$routeChangeSuccess", function (event, next, current) {
+  //  var view = utils.getView();
+  //  switch (view) {
+  //    case jsonValue.views.challengeDetail:
+  //    case jsonValue.views.freelancerProjectDetail:
+  //      var parts = $routeParams.id.split("-");
+  //      var lastPart = parts.pop();
+  //      if (parts.length < 2 || (lastPart !== "id")) {
+  //        return $location.path("/");
+  //      }
+  //
+  //      var projectId = parts.pop();
+  //      var title = parts.join("");
+  //      if (utils.hasNonAsciiChar(title)) {
+  //        title = utils.toAscii(title);
+  //        return $location.url(sprintf(jsonValue.routerUris[view] + "/%s-%s-id", title, projectId));
+  //      }
+  //      break;
+  //  }
+  //
+  //  return true;
+  //});
 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     var view = utils.getView();

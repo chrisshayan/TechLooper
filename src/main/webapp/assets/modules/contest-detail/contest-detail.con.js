@@ -2,16 +2,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
                                                            jsonValue, $translate, utils, $filter) {
 
   var parts = $routeParams.id.split("-");
-  var lastPart = parts.pop();
-  if (parts.length < 2 || (lastPart !== "id")) {
-    return $location.path("/");
-  }
   var contestId = parts.pop();
-  var title = parts.join("");
-  if (utils.hasNonAsciiChar(title)) {
-    title = utils.toAscii(title);
-    return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
-  }
+  contestId = parts.pop();
 
   $scope.status = function (type) {
     switch (type) {
@@ -57,16 +49,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.joinNowByFB = function () {
-    if (!$scope.status('able-to-join')) {
+    if ($scope.status('already-join')) {
       return false;
     }
-
-    localStorageService.set("lastFoot", $location.url());
-    apiService.getFBLoginUrl().success(function (url) {
-      localStorageService.set("lastFoot", $location.url());
-      localStorageService.set("joinNow", true);
-      window.location = url;
-    });
+    apiService.joinNowByFB();
   }
 
   if (localStorageService.get("joinNow")) {
