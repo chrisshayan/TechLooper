@@ -173,6 +173,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long challengeId = challengeRegistrantDto.getChallengeId();
         String registrantEmail = new String(Base64.getDecoder().decode(challengeRegistrantDto.getRegistrantEmail()));
+        challengeRegistrantDto.setRegistrantEmail(registrantEmail);
         boolean isExist = checkIfChallengeRegistrantExist(challengeId, registrantEmail);
 
         if (!isExist) {
@@ -181,6 +182,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
             sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
             challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            challengeRegistrantEntity.setRegistrantId(new Date().getTime());
             challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
 

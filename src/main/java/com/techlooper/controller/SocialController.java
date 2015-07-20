@@ -119,7 +119,7 @@ public class SocialController {
 
     if (StringUtils.hasText(userProfile.getEmail())) {
       response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
-        userProfile.getFirstName(), userProfile.getLastName(), Base64.getEncoder().encode(userProfile.getEmail().getBytes())));
+        userProfile.getFirstName(), userProfile.getLastName(), Base64.getEncoder().encodeToString(userProfile.getEmail().getBytes())));
     }
     else {
       response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s",
