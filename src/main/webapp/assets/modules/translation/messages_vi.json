@@ -504,7 +504,8 @@
   "phoneNumber": "Điện thoại",
   "phoneNumberEx": "Ví dụ: 0993930903",
   "resume": "Hồ sơ",
-  "resumeEx": "Ví dụ: http://ten-trang-web.com/ho-so-cua-toi.pdf"
+  "resumeEx": "Ví dụ: http://ten-trang-web.com/ho-so-cua-toi.pdf",
+  "companySizeText": "{{text}} nhân viên"
 }
 
 
