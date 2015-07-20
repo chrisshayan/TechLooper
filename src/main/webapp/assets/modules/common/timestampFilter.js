@@ -12,13 +12,13 @@ techlooper.filter("timestamp", function (jsonValue) {
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
     if (duration > 7) {
-      return {translate: moment(date, "DD/MM/YYYY h:mm"), number: duration};
+      return {translate: moment(date, "DD/MM/YYYY h:mm")};
     }
     else if (duration > 1 && duration <= 7) {
       return {translate: "xDaysAgo", number: duration}
     }
     else if (duration == 1) {
-      return {translate: "1DayAgo", number: duration}
+      return {translate: "1DayAgo"}
     }
 
     //  Posted 59 mins ago
@@ -30,7 +30,7 @@ techlooper.filter("timestamp", function (jsonValue) {
       return {translate: "xHoursAgo", number: duration}
     }
     else if (duration == 1) {
-      return {translate: "1HourAgo", number: duration}
+      return {translate: "1HourAgo"}
     }
 
     //Just now
@@ -42,9 +42,9 @@ techlooper.filter("timestamp", function (jsonValue) {
       return {translate: "xMinutesAgo", number: duration}
     }
     else if (duration == 1) {
-      return {translate: "1MinuteAgo", number: duration}
+      return {translate: "1MinuteAgo"}
     }
 
-    return "justNow";
+    return {translate:"justNow"};
   };
 });
