@@ -31,6 +31,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -215,7 +216,7 @@ public class ProjectServiceImpl implements ProjectService {
         templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
         templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
         templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
-        templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
+        templateModel.put("resumeLink", URLEncoder.encode(projectRegistrantEntity.getResumeLink(), "UTF-8"));
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
