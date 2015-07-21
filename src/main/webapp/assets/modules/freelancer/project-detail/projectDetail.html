@@ -8,7 +8,7 @@
             <div class="review-project-content">
                 <div class="time-and-payment-block">
                     <div class="working-time-block col-md-4">
-                        <h3  translate="{{status('get-payment-method-translate')}}"/>
+                        <h3  translate="{{project.payMethod | progress:'freelancer-review-project-payment-method'}}"/>
                         <div ng-show="status('show-fixed-price-fields')">
                             <p><span translate="deliveryBy"></span> {{project.estimatedEndDate}}</p>
                         </div>
@@ -27,8 +27,9 @@
                         </div>
                     </div>
                     <div class="apply-with-facebook col-md-4">
-                        <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal"
-                                ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
+                        <button class="btn btn-primary btn-flat"
+                                translate="{{status('apply-button-title')}}"
+                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
