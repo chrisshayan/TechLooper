@@ -196,6 +196,7 @@ public class ProjectServiceImpl implements ProjectService {
                                         String mailSubject, Address[] recipientAddresses, Template template)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        applyJobMailMessage.setReplyTo(InternetAddress.parse(projectEntity.getAuthorEmail()));
         StringWriter stringWriter = new StringWriter();
 
         Map<String, Object> templateModel = new HashMap<>();
