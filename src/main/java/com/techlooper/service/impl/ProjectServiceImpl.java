@@ -142,14 +142,15 @@ public class ProjectServiceImpl implements ProjectService {
                 alertEmployerPostJobMailSubjectVn : alertEmployerPostJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, null, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, null, mailSubject, emailAddress, template, false);
     }
 
     @Override
     public void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
             throws MessagingException, IOException, TemplateException {
         Address[] emailAddress = InternetAddress.parse(techloopiesMailList);
-        sendEmailAlertApplyJob(projectEntity, null, alertTechloopiesPostJobMailSubjectEn, emailAddress, alertTechloopiesPostJobMailTemplateEn);
+        sendEmailAlertApplyJob(projectEntity, null, alertTechloopiesPostJobMailSubjectEn,
+                emailAddress, alertTechloopiesPostJobMailTemplateEn, false);
     }
 
     @Override
@@ -229,7 +230,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertJobSeekerApplyJobMailSubjectVn : alertJobSeekerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, true);
     }
 
     @Override
@@ -241,7 +242,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertEmployerApplyJobMailSubjectVn : alertEmployerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, false);
     }
 
     @Override
@@ -252,13 +253,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     private void sendEmailAlertApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity,
-                                        String mailSubject, Address[] recipientAddresses, Template template)
+                 String mailSubject, Address[] recipientAddresses, Template template, boolean hasReplyTo)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
 
-        boolean duplicatedAuthorEmail = Stream.of(recipientAddresses).map(address -> address.toString())
-                .anyMatch(address -> address.equals(projectEntity.getAuthorEmail()));
-        if (!duplicatedAuthorEmail) {
+        if (hasReplyTo) {
             applyJobMailMessage.setReplyTo(InternetAddress.parse(projectEntity.getAuthorEmail()));
         }
 
