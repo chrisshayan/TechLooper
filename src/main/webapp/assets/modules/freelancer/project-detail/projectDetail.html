@@ -6,9 +6,7 @@
     <div class="content-page-detail">
         <div class="review-project-content-block">
             <div class="review-project-content">
-              <div class="alert alert-success"  ng-show="status('already-join')">
-                <p translate="congratulationsForJoinProject"></p>
-              </div>
+
                 <div class="time-and-payment-block">
                     <div class="working-time-block col-md-4">
                         <h3  translate="{{project.payMethod | progress:'freelancer-review-project-payment-method'}}"/>
@@ -36,6 +34,9 @@
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
+              <div class="alert alert-success"  ng-show="!status('already-join')">
+                <p translate="congratulationsForJoinProject"></p>
+              </div>
                 <div class="project-detail-block">
                     <div class="project-info-block">
                         <h3 translate="detail"></h3>
