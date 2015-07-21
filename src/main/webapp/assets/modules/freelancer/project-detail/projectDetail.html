@@ -41,7 +41,7 @@
                         </div>
                         <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->
                         <div class="project-description">
-                            {{project.projectDescription}}
+                            {{project.projectDescription | lineBreak}}
                         </div>
                     </div>
                     <div class="skills-required-block">
@@ -129,8 +129,8 @@
       <div class="content-page-detail">
           <div class="review-project-content-block">
               <div class="client-logo-block">
-                  <span ng-show="company.companyLogoURL.length"><img ng-src="{{company.companyLogoURL}}" alt="{{company.companyName}}"/></span>
-                  <span ng-show="!company.companyLogoURL.length"><img src="../images/no-logo-company.png" alt="{{company.companyName}}"/></span>
+                  <span ng-show="company.companyLogoURL"><img ng-src="{{company.companyLogoURL}}" alt="{{company.companyName}}"/></span>
+                  <span ng-show="!company.companyLogoURL"><img src="../images/no-logo-company.png" alt="{{company.companyName}}"/></span>
               </div>
               <div class="client-info-block">
                   <p><strong>{{company.companyName}}</strong></p>
