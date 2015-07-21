@@ -15,6 +15,8 @@ import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,6 +33,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by NguyenDangKhoa on 7/10/15.
@@ -85,6 +89,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
+
     @Override
     public ProjectEntity saveProject(ProjectDto projectDto) {
         ProjectEntity projectEntity = dozerMapper.map(projectDto, ProjectEntity.class);
@@ -115,8 +121,8 @@ public class ProjectServiceImpl implements ProjectService {
         projectDetail.setProject(project);
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-        searchQueryBuilder.withQuery(QueryBuilders.nestedQuery("employers",
-                QueryBuilders.matchPhraseQuery("employers.userName", project.getAuthorEmail())));
+        searchQueryBuilder.withQuery(nestedQuery("employers",
+                matchPhraseQuery("employers.userName", project.getAuthorEmail())));
         List<EmployerEntity> employerEntities = companySearchResultRepository.search(searchQueryBuilder.build()).getContent();
 
         if (!employerEntities.isEmpty()) {
@@ -139,9 +145,15 @@ public class ProjectServiceImpl implements ProjectService {
         if (!isExist) {
             ProjectRegistrantEntity projectRegistrantEntity = dozerMapper.map(projectRegistrantDto, ProjectRegistrantEntity.class);
             ProjectEntity projectEntity = projectRepository.findOne(projectId);
-            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
-            sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
-            projectRegistrantEntity.setMailSent(Boolean.TRUE);
+
+            try {
+                sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+                sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
+                projectRegistrantEntity.setMailSent(Boolean.TRUE);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage(), ex);
+            }
+
             projectRegistrantEntity.setProjectRegistrantId(new Date().getTime());
             projectRegistrantRepository.save(projectRegistrantEntity);
         }
@@ -197,7 +209,7 @@ public class ProjectServiceImpl implements ProjectService {
         templateModel.put("estimatedWorkload", projectEntity.getEstimatedWorkload());
         templateModel.put("hourlyRate", projectEntity.getHourlyRate());
         templateModel.put("numberOfHires", projectEntity.getNumberOfHires());
-        templateModel.put("projectId", projectEntity.getProjectId());
+        templateModel.put("projectId", projectEntity.getProjectId().toString());
         templateModel.put("projectAlias", projectEntity.getProjectTitle().replaceAll("\\W", "-"));
 
         templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
@@ -217,10 +229,10 @@ public class ProjectServiceImpl implements ProjectService {
 
     public boolean checkIfProjectRegistrantExist(Long projectId, String email) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-        searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
-                .must(QueryBuilders.termQuery("projectId", projectId))
-                .must(QueryBuilders.termQuery("mailSent", true)));
+        searchQueryBuilder.withQuery(boolQuery()
+                .must(matchPhraseQuery("registrantEmail", email))
+                .must(termQuery("projectId", projectId))
+                .must(termQuery("mailSent", true)));
 
         long total = projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
         return (total > 0);
