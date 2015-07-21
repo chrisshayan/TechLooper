@@ -261,7 +261,7 @@
                                               Budget:
                                           </td>
                                           <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                ${budget}
+                                              $${budget}
                                           </td>
                                       </tr>
                                   <#else>
