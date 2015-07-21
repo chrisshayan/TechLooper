@@ -115,12 +115,12 @@
                             <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                                 <tr>
                                     <td align="left" style="padding:10px" class="logo">
-                                        <a href="http://www.techlooper.com/#/?lang=en&utm_source=employerapplication&utm_medium=techlooperlogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.techlooper.com/#/?lang=en&utm_source=projectpublishemail&utm_medium=techlooperlogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
                                             <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
                                     <td style="padding:10px" align="right" class="logo">
-                                        <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.vietnamworks.com/?utm_source=projectpublishemail&utm_medium=vietnamworkslogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
                                             <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
@@ -146,12 +146,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                         <tr>
                                             <td align="center" style="padding: 10px 0 5px 0">
-                                                <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Dự Án Freelancer</h2>
+                                                <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Post A Project</h2>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="center">
-                                                <p style="font-size: 12px; font-style: italic; line-height: 18px">Tìm kiếm nhân tài nhanh chóng và dễ dàng.</p>
+                                                <p style="font-size: 12px; font-style: italic; line-height: 18px">Find IT freelancer jobs quick and easy.</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -161,7 +161,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="font-size: 14px;">
-                                                Có ứng viên mới ${registrantFirstName} ${registrantLastName}, ${registrantEmail} vừa mới ứng tuyển vào tin đăng tuyển của bạn. Nhấn vào <a href="${resumeLink}" target="_blank">đây</a> để xem hồ sơ trực tuyến của ứng viên.
+                                                This person ${authorEmail} has just created successfully a job post as follows
                                             </td>
                                         </tr>
                                         <tr>
@@ -177,7 +177,7 @@
                                                             <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Chức danh công việc:
+                                                                        Job Title:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                     ${projectTitle}
@@ -193,7 +193,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Mô tả công việc:
+                                                                        Job Description:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                     ${projectDescription}
@@ -209,7 +209,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Kỹ năng cần có:
+                                                                        Skills:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                     ${skills}
@@ -226,10 +226,10 @@
                                                             <#if payMethod == "fixedPrice">
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Cách thức chi trả:
+                                                                        Type:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                        Giá cố định
+                                                                        Fixed Price
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -242,7 +242,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Ngày kết thúc dự án:
+                                                                        Estimated End Date:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                     ${estimatedEndDate}
@@ -258,7 +258,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Ngân sách:
+                                                                        Budget:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                         ${budget?string.currency}
@@ -267,10 +267,10 @@
                                                             <#else>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Cách thức chi trả:
+                                                                        Type:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                        Chi trả theo giờ
+                                                                        Hourly Job
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -283,19 +283,19 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Thời gian ước lượng:
+                                                                        Project Length:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                         <#if estimatedDuration == "more6m">
-                                                                            Nhiều hơn 6 tháng
+                                                                            More than 6 months
                                                                         <#elseif estimatedDuration == "3to6m">
-                                                                            Từ 3 đến 6 tháng
+                                                                            3 to 6 months
                                                                         <#elseif estimatedDuration == "1to3m">
-                                                                            Từ 1 đến 3  tháng
+                                                                            1 to 3  months
                                                                         <#elseif estimatedDuration == "lt1m">
-                                                                            Ít hơn 1 tháng
+                                                                            Less than 1 month
                                                                         <#elseif estimatedDuration == "lt1w">
-                                                                            Ít hơn 1 tuần
+                                                                            Less than 1 week
                                                                         </#if>
                                                                     </td>
                                                                 </tr>
@@ -309,15 +309,15 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Khối lượng công việc:
+                                                                        Workload:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                         <#if estimatedWorkload == "gt30hrsw">
-                                                                            Nhiều hơn 30 giờ/tuần
+                                                                            More than 30 hrs/week
                                                                         <#elseif estimatedWorkload == "lt30hrsw">
-                                                                            Ít hơn 30 giờ/tuần
+                                                                            Less than 30 hrs/week
                                                                         <#elseif estimatedWorkload == "dontKnow">
-                                                                            Chưa ước lượng được
+                                                                            Not decided yet
                                                                         </#if>
                                                                     </td>
                                                                 </tr>
@@ -331,7 +331,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Mức giá chi trả:
+                                                                        Hourly Rate:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                         ${hourlyRate?string.currency}/ hr
@@ -348,7 +348,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Số lượng freelancer cần tuyển:
+                                                                        Number of hires:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
                                                                     ${numberOfHires}
@@ -368,7 +368,7 @@
                                     <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width:100%" width="100%">
                                         <tr>
                                             <td width="100%" style="font-size: 16px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left">
-                                                Tin tuyển dụng được đăng ở đây
+                                                This job has been published here
                                             </td>
                                         </tr>
                                         <tr>
@@ -380,7 +380,7 @@
                                                 <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                                     <tr>
                                                         <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                            <a href="${webBaseUrl}#/freelancer/project-detail/${projectAlias}-${projectId}-id?utm_source=employerapplication&utm_medium=viewprojectbtn&utm_campaign=freelancer&lang=vi" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Ngay</a>
+                                                            <a href="${webBaseUrl}#/freelancer/project-detail/${projectAlias}-${projectId}-id?utm_source=projectpublishemail&utm_medium=viewprojectbtn&utm_campaign=freelancer" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View Job Post</a>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -392,7 +392,7 @@
                                     <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
                                         <tr>
                                             <td style="text-align: center; margin-top:0px">
-                                                <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">Kết Nối Với TechLooper</p>
+                                                <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -407,7 +407,7 @@
                                     <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
                                         <tr>
                                             <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                                                Copyright © Công Ty Cổ Phần Navigos Group Việt Nam.
+                                                Copyright © Navigos Group Vietnam Joint Stock Company
                                             </td>
                                         </tr>
                                     </table>

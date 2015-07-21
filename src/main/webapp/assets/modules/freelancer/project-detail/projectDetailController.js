@@ -1,6 +1,6 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
                                                                      $filter, resourcesService, localStorageService,
-                                                                     $translate, vnwConfigService) {
+                                                                     $translate, vnwConfigService, jsonValue) {
   var parts = $routeParams.id.split("-");
   var projectId = parts.pop();
   projectId = parts.pop();
@@ -32,18 +32,22 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         if (!workload) return false;
         return workload.id !== "dontKnow";
 
-      case "get-payment-method-translate":
+      case "expired-project":
         if (!$scope.project) return false;
-        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.reviewTranslate;
+        var expired = $scope.status("show-fixed-price-fields") && $scope.status("show-fixed-price-fields") && moment().isAfter(moment($scope.project.estimatedEndDate, jsonValue.dateFormat), "day");
+        return expired;
 
       case "able-to-join":
         if (!$scope.project) return false;
         var joinProjects = localStorageService.get("joinProjects") || "";
         var email = localStorageService.get("email") || "";
         var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
-        return !hasJoined;
+        var expired = $scope.status("expired-project");
+        return !expired && !hasJoined;
+
+      case "apply-button-title":
+        if ($scope.status("expired-project")) return "thisJobIsExpired";
+        return "applyWithFacebook";
 
       case "already-join":
         if (!$scope.project) return false;

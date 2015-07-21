@@ -6,9 +6,10 @@
     <div class="content-page-detail">
         <div class="review-project-content-block">
             <div class="review-project-content">
+
                 <div class="time-and-payment-block">
                     <div class="working-time-block col-md-4">
-                        <h3  translate="{{status('get-payment-method-translate')}}"/>
+                        <h3  translate="{{project.payMethod | progress:'freelancer-review-project-payment-method'}}"/>
                         <div ng-show="status('show-fixed-price-fields')">
                             <p><span translate="deliveryBy"></span> {{project.estimatedEndDate}}</p>
                         </div>
@@ -27,11 +28,15 @@
                         </div>
                     </div>
                     <div class="apply-with-facebook col-md-4">
-                        <button class="btn btn-primary btn-flat" translate="applyWithFacebook" data-toggle="modal"
-                                ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
+                        <button class="btn btn-primary btn-flat"
+                                translate="{{status('apply-button-title')}}"
+                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
+              <div class="alert alert-success"  ng-show="status('already-join')">
+                <p translate="congratulationsForJoinProject"></p>
+              </div>
                 <div class="project-detail-block">
                     <div class="project-info-block">
                         <h3 translate="detail"></h3>
@@ -39,9 +44,7 @@
                             <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
                         </div>
                         <!--<div class="project-description" translate="{{postProject.projectDescription | lineBreak}}"></div>-->
-                        <div class="project-description">
-                            {{project.projectDescription}}
-                        </div>
+                        <div class="project-description" translate="{{project.projectDescription | lineBreak}}"></div>
                     </div>
                     <div class="skills-required-block">
                         <h3 translate="skillRequired"></h3>

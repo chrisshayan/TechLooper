@@ -140,7 +140,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <table class="body-content">
+                        <table class="body-content" width="100%">
                             <tr>
                                 <td style="font-family: Arial, sans-serif; padding: 20px; margin: 0 auto; " class="content-padding">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
@@ -223,12 +223,13 @@
                                                                         <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                                                     </td>
                                                                 </tr>
+                                                            <#if payMethod == "fixedPrice">
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
                                                                         Type:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${payMethod}
+                                                                        Fixed Price
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -239,8 +240,6 @@
                                                                         <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                                                     </td>
                                                                 </tr>
-
-                                                            <#if payMethod == "fixedPrice">
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
                                                                         Estimated End Date:
@@ -262,16 +261,16 @@
                                                                         Budget:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${budget}
+                                                                        ${budget?string.currency}
                                                                     </td>
                                                                 </tr>
                                                             <#else>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Estimated Duration:
+                                                                        Type:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${estimatedDuration}
+                                                                        Hourly Job
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -284,10 +283,20 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Estimated Workload:
+                                                                        Project length:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${estimatedWorkload}
+                                                                        <#if estimatedDuration == "more6m">
+                                                                            More than 6 months
+                                                                        <#elseif estimatedDuration == "3to6m">
+                                                                            3 to 6 months
+                                                                        <#elseif estimatedDuration == "1to3m">
+                                                                            1 to 3  months
+                                                                        <#elseif estimatedDuration == "lt1m">
+                                                                            Less than 1 month
+                                                                        <#elseif estimatedDuration == "lt1w">
+                                                                            Less than 1 week
+                                                                        </#if>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -300,10 +309,32 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Hourly Rate (USD/ Hour):
+                                                                        Workload:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${hourlyRate}
+                                                                            <#if estimatedWorkload == "gt30hrsw">
+                                                                                More than 30 hrs/week
+                                                                            <#elseif estimatedWorkload == "lt30hrsw">
+                                                                                Less than 30 hrs/week
+                                                                            <#elseif estimatedWorkload == "dontKnow">
+                                                                                Not decided yet
+                                                                            </#if>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height:5px; line-height: 5px;">
+                                                                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                                    </td>
+                                                                    <td style="height:5px; line-height: 5px;">
+                                                                        <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" width="45%" style="font-size: 14px" valign="top">
+                                                                        Hourly Rate:
+                                                                    </td>
+                                                                    <td align="left" width="55%" style="color: #000000; font-size: 14px;">
+                                                                        ${hourlyRate?string.currency}/ hr
                                                                     </td>
                                                                 </tr>
                                                             </#if>

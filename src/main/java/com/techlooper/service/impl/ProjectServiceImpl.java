@@ -14,7 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,6 +32,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by NguyenDangKhoa on 7/10/15.
@@ -71,6 +76,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Resource
     private Template alertEmployerApplyJobMailTemplateVi;
 
+    @Resource
+    private Template alertEmployerPostJobMailTemplateVi;
+
+    @Resource
+    private Template alertEmployerPostJobMailTemplateEn;
+
+    @Resource
+    private Template alertTechloopiesPostJobMailTemplateEn;
+
     @Value("${mail.alertJobSeekerApplyJob.subject.en}")
     private String alertJobSeekerApplyJobMailSubjectEn;
 
@@ -83,7 +97,21 @@ public class ProjectServiceImpl implements ProjectService {
     @Value("${mail.alertEmployerApplyJob.subject.vn}")
     private String alertEmployerApplyJobMailSubjectVn;
 
+    @Value("${mail.alertEmployerPostJob.subject.vn}")
+    private String alertEmployerPostJobMailSubjectVn;
+
+    @Value("${mail.alertEmployerPostJob.subject.en}")
+    private String alertEmployerPostJobMailSubjectEn;
+
+    @Value("${mail.alertTechloopiesPostJob.subject.en}")
+    private String alertTechloopiesPostJobMailSubjectEn;
+
+    @Value("${mail.postChallenge.techloopies.mailList}")
+    private String techloopiesMailList;
+
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     @Override
     public ProjectEntity saveProject(ProjectDto projectDto) {
@@ -91,7 +119,38 @@ public class ProjectServiceImpl implements ProjectService {
         Date currentDate = new Date();
         projectEntity.setProjectId(currentDate.getTime());
         projectEntity.setCreatedDate(simpleDateFormat.format(currentDate));
-        return projectRepository.save(projectEntity);
+        projectEntity = projectRepository.save(projectEntity);
+
+        if (projectEntity != null) {
+            try {
+                sendEmailAlertEmployerPostJob(projectEntity);
+                sendEmailAlertTechloopiesPostJob(projectEntity);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage(), ex);
+            }
+        }
+
+        return projectEntity;
+    }
+
+    @Override
+    public void sendEmailAlertEmployerPostJob(ProjectEntity projectEntity)
+            throws MessagingException, IOException, TemplateException {
+        Template template = projectEntity.getLang() == Language.vi ?
+                alertEmployerPostJobMailTemplateVi : alertEmployerPostJobMailTemplateEn;
+        String mailSubject = projectEntity.getLang() == Language.vi ?
+                alertEmployerPostJobMailSubjectVn : alertEmployerPostJobMailSubjectEn;
+        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
+        Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
+        sendEmailAlertApplyJob(projectEntity, null, mailSubject, emailAddress, template, false);
+    }
+
+    @Override
+    public void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
+            throws MessagingException, IOException, TemplateException {
+        Address[] emailAddress = InternetAddress.parse(techloopiesMailList);
+        sendEmailAlertApplyJob(projectEntity, null, alertTechloopiesPostJobMailSubjectEn,
+                emailAddress, alertTechloopiesPostJobMailTemplateEn, false);
     }
 
     @Override
@@ -103,7 +162,15 @@ public class ProjectServiceImpl implements ProjectService {
             ProjectDto projectDto = dozerMapper.map(projectEntity, ProjectDto.class);
             projects.add(projectDto);
         }
-        return projects;
+
+        return projects.stream().sorted((project1, project2) -> {
+            if (project2.getProjectId() > project1.getProjectId()) {
+                return 1;
+            } else if (project2.getProjectId() < project1.getProjectId()) {
+                return -1;
+            }
+            return 0;
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -115,8 +182,8 @@ public class ProjectServiceImpl implements ProjectService {
         projectDetail.setProject(project);
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-        searchQueryBuilder.withQuery(QueryBuilders.nestedQuery("employers",
-                QueryBuilders.matchPhraseQuery("employers.userName", project.getAuthorEmail())));
+        searchQueryBuilder.withQuery(nestedQuery("employers",
+                matchPhraseQuery("employers.userName", project.getAuthorEmail())));
         List<EmployerEntity> employerEntities = companySearchResultRepository.search(searchQueryBuilder.build()).getContent();
 
         if (!employerEntities.isEmpty()) {
@@ -139,9 +206,15 @@ public class ProjectServiceImpl implements ProjectService {
         if (!isExist) {
             ProjectRegistrantEntity projectRegistrantEntity = dozerMapper.map(projectRegistrantDto, ProjectRegistrantEntity.class);
             ProjectEntity projectEntity = projectRepository.findOne(projectId);
-            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
-            sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
-            projectRegistrantEntity.setMailSent(Boolean.TRUE);
+
+            try {
+                sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+                sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
+                projectRegistrantEntity.setMailSent(Boolean.TRUE);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage(), ex);
+            }
+
             projectRegistrantEntity.setProjectRegistrantId(new Date().getTime());
             projectRegistrantRepository.save(projectRegistrantEntity);
         }
@@ -157,7 +230,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertJobSeekerApplyJobMailSubjectVn : alertJobSeekerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, false);
     }
 
     @Override
@@ -169,7 +242,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertEmployerApplyJobMailSubjectVn : alertEmployerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, true);
     }
 
     @Override
@@ -180,11 +253,15 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     private void sendEmailAlertApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity,
-                                        String mailSubject, Address[] recipientAddresses, Template template)
+                 String mailSubject, Address[] recipientAddresses, Template template, boolean hasReplyTo)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-        StringWriter stringWriter = new StringWriter();
 
+        if (hasReplyTo) {
+            applyJobMailMessage.setReplyTo(InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail()));
+        }
+
+        StringWriter stringWriter = new StringWriter();
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("projectTitle", projectEntity.getProjectTitle());
@@ -197,13 +274,16 @@ public class ProjectServiceImpl implements ProjectService {
         templateModel.put("estimatedWorkload", projectEntity.getEstimatedWorkload());
         templateModel.put("hourlyRate", projectEntity.getHourlyRate());
         templateModel.put("numberOfHires", projectEntity.getNumberOfHires());
-        templateModel.put("projectId", projectEntity.getProjectId());
+        templateModel.put("projectId", projectEntity.getProjectId().toString());
         templateModel.put("projectAlias", projectEntity.getProjectTitle().replaceAll("\\W", "-"));
+        templateModel.put("authorEmail", projectEntity.getAuthorEmail());
 
-        templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
-        templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
-        templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
-        templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
+        if (projectRegistrantEntity != null) {
+            templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
+            templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
+            templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
+            templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
+        }
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
@@ -217,10 +297,10 @@ public class ProjectServiceImpl implements ProjectService {
 
     public boolean checkIfProjectRegistrantExist(Long projectId, String email) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-        searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
-                .must(QueryBuilders.termQuery("projectId", projectId))
-                .must(QueryBuilders.termQuery("mailSent", true)));
+        searchQueryBuilder.withQuery(boolQuery()
+                .must(matchPhraseQuery("registrantEmail", email))
+                .must(termQuery("projectId", projectId))
+                .must(termQuery("mailSent", true)));
 
         long total = projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
         return (total > 0);

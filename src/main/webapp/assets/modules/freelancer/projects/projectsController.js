@@ -2,12 +2,11 @@ techlooper.controller('freelancerProjectsController', function ($scope, apiServi
 
   apiService.getProjects().success(function(projects){
     $scope.projects = projects;
-
-    $timeout(function(){
-      $(".project-description").dotdotdot({});
-    }, 1000);
   });
-
+  $scope.$on('addDotDotDot', function() {
+    $(".project-description").dotdotdot({});
+    $(".project-description").css('height', 'auto');
+  });
 
   $scope.status = function (type) {
     switch (type) {

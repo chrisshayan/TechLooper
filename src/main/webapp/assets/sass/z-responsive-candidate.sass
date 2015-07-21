@@ -1211,6 +1211,7 @@
     .content-page-detail
       padding: 10px
       .review-project-content-block
+        padding: 0
         .review-project-content
           padding: 10px 0
           .time-and-payment-block
@@ -1229,13 +1230,22 @@
           width: 100%
       .project-items
         .project-item
+          padding: 10px
           h3
             span
               width: 100%
-            a
+            a.view-detail
               width: 100%
+              clear: both
+              display: block
+              text-align: left
           .skills-of-project ul li
-            margin-bottom: 10px
+            margin-bottom: 0
+  .content-page-block.project-owner
+    padding-top: 0
+    margin-bottom: 0
+.content-page-block.project-list
+  margin-bottom: 0
 .apply-to-this-job-block
   padding: 10px 5px
 @media (min-width: 640px)

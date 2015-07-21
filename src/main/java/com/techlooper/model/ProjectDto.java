@@ -33,6 +33,8 @@ public class ProjectDto {
 
     private Long numberOfApplications;
 
+    private Language lang;
+
     public Long getProjectId() {
         return projectId;
     }
@@ -135,5 +137,13 @@ public class ProjectDto {
 
     public void setNumberOfApplications(Long numberOfApplications) {
         this.numberOfApplications = numberOfApplications;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
     }
 }

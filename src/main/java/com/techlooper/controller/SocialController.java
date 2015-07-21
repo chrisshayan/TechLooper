@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -84,11 +85,11 @@ public class SocialController {
 
     if (StringUtils.hasText(userProfile.getEmail())) {
       response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
-        userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail()));
+        URLEncoder.encode(userProfile.getFirstName(), "UTF-8"), URLEncoder.encode(userProfile.getLastName(), "UTF-8"), userProfile.getEmail()));
     }
     else {
       response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s",
-        userProfile.getFirstName(), userProfile.getLastName()));
+        URLEncoder.encode(userProfile.getFirstName(), "UTF-8"), URLEncoder.encode(userProfile.getLastName(), "UTF-8")));
     }
   }
 

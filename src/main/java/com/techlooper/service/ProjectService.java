@@ -28,7 +28,14 @@ public interface ProjectService {
     void sendEmailAlertEmployerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
             throws MessagingException, IOException, TemplateException;
 
-    long joinProject(ProjectRegistrantDto projectRegistrantDto) throws MessagingException, IOException, TemplateException;
+    long joinProject(ProjectRegistrantDto projectRegistrantDto)
+            throws MessagingException, IOException, TemplateException;
 
     Long getNumberOfRegistrants(Long projectId);
+
+    void sendEmailAlertEmployerPostJob(ProjectEntity projectEntity)
+            throws MessagingException, IOException, TemplateException;
+
+    void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
+            throws MessagingException, IOException, TemplateException;
 }

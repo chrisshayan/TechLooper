@@ -144,7 +144,7 @@
   "categories": "Ngành Nghề Công Việc",
   "level": "Cấp Bậc",
   "requiredThisField": "Bạn không thể để trống trường này.",
-  "requiredURL": "Not valid url!",
+  "requiredURL": "Liên kết này không đúng định đạng!",
   "yob": "Năm sinh",
   "exYob": "Ví dụ: 1988",
   "doYouWantToEarnMore": "Bạn có muốn tăng thu nhập nhiều hơn?",
@@ -434,6 +434,7 @@
   "inProgress": "Đang Diễn Ra",
   "closed": "Đã Kết Thúc",
   "congratulationsForJoinContest": "Bạn đã đăng ký vào Thử Thách thành công.",
+  "congratulationsForJoinProject": "Bạn đã đăng ký vào dự án này.",
   "contestDetail": "Chi tiết cuộc thi",
   "viewDetails": "Chi tiết",
   "howWeEvaluateContestants":"Các tiêu chí đánh giá sản phẩm:",
@@ -460,7 +461,7 @@
   "postProjectNow": "Đăng Ngay",
   "review": "Xem Trước",
   "hrs": "giờ",
-  "skillRequired": "skill Required",
+  "skillRequired": "Kỹ năng cần có",
   "fixedPricePayByProject": "Giá Cố Định. Trả theo dự án.",
   "hourlyByByHour": "Trả theo giờ.",
   "exPaymentConfig": "Ví dụ: Trả theo giờ.",
@@ -518,7 +519,8 @@
   "estBudget": "Ngân sách",
   "estTime": "Thời gian ước lượng",
   "detail": "Chi tiết",
-  "skillsNeed": "Kỹ năng cần có:"
+  "skillsNeed": "Kỹ năng cần có:",
+  "thisJobIsExpired": "Hết hạn ứng tuyển!"
 }
 
 

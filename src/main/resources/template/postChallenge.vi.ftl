@@ -140,7 +140,7 @@
                 </tr>
               </table>
             </div>
-            <table class="body-content">
+            <table class="body-content" width="100%">
               <tr>
                 <td style="font-family: Arial, sans-serif; padding: 20px; margin: 0 auto; " class="content-padding">
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
