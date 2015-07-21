@@ -283,10 +283,20 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Estimated Duration:
+                                                                        Project Length:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${estimatedDuration}
+                                                                        <#if estimatedDuration == "more6m">
+                                                                            More than 6 months
+                                                                        <#elseif estimatedDuration == "3to6m">
+                                                                            3 to 6 months
+                                                                        <#elseif estimatedDuration == "1to3m">
+                                                                            1 to 3  months
+                                                                        <#elseif estimatedDuration == "lt1m">
+                                                                            Less than 1 month
+                                                                        <#elseif estimatedDuration == "lt1w">
+                                                                            Less than 1 week
+                                                                        </#if>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -299,10 +309,16 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Estimated Workload:
+                                                                        Workload:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${estimatedWorkload}
+                                                                        <#if estimatedWorkload == "gt30hrsw">
+                                                                            More than 30 hrs/week
+                                                                        <#elseif estimatedWorkload == "lt30hrsw">
+                                                                            Less than 30 hrs/week
+                                                                        <#elseif estimatedWorkload == "dontKnow">
+                                                                            Not decided yet
+                                                                        </#if>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -315,10 +331,10 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Hourly Rate (USD/ Hour):
+                                                                        Hourly Rate:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${hourlyRate}
+                                                                        $${hourlyRate}/ hr
                                                                     </td>
                                                                 </tr>
                                                             </#if>

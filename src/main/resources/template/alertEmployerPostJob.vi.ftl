@@ -286,7 +286,17 @@
                                                                         Thời gian ước lượng:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${estimatedDuration}
+                                                                        <#if estimatedDuration == "more6m">
+                                                                            Nhiều hơn 6 tháng
+                                                                        <#elseif estimatedDuration == "3to6m">
+                                                                            Từ 3 đến 6 tháng
+                                                                        <#elseif estimatedDuration == "1to3m">
+                                                                            Từ 1 đến 3  tháng
+                                                                        <#elseif estimatedDuration == "lt1m">
+                                                                            Ít hơn 1 tháng
+                                                                        <#elseif estimatedDuration == "lt1w">
+                                                                            Ít hơn 1 tuần
+                                                                        </#if>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -302,7 +312,13 @@
                                                                         Khối lượng công việc:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${estimatedWorkload}
+                                                                        <#if estimatedWorkload == "gt30hrsw">
+                                                                            Nhiều hơn 30 giờ/tuần
+                                                                        <#elseif estimatedWorkload == "lt30hrsw">
+                                                                            Ít hơn 30 giờ/tuần
+                                                                        <#elseif estimatedWorkload == "dontKnow">
+                                                                            Chưa ước lượng được
+                                                                        </#if>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
