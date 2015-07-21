@@ -514,6 +514,6 @@
   "estBudget": "Est. Budget",
   "estTime": "Est. Time",
   "detail": "Detail",
-  "skillsNeed": "Skills:"
-
+  "skillsNeed": "Skills:",
+  "thisJobIsExpired": "This Job Post is expired!"
 }
