@@ -2,33 +2,25 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
                                                            jsonValue, $translate, utils, $filter) {
 
   var parts = $routeParams.id.split("-");
-  var lastPart = parts.pop();
-  if (parts.length < 2 || (lastPart !== "id")) {
-    return $location.path("/");
-  }
   var contestId = parts.pop();
-  var title = parts.join("");
-  if (utils.hasNonAsciiChar(title)) {
-    title = utils.toAscii(title);
-    return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
-  }
+  contestId = parts.pop();
 
   $scope.status = function (type) {
     switch (type) {
       case "able-to-join":
         if (!$scope.contestDetail) return false;
         var joinContests = localStorageService.get("joinContests") || "";
-        var registerVnwUser = localStorageService.get("registerVnwUser") || "";
+        var email = localStorageService.get("email") || "";
         var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
           ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
         return contestInProgress && !hasJoined;
 
       case "already-join":
         if (!$scope.contestDetail) return false;
         var joinContests = localStorageService.get("joinContests") || "";
-        var registerVnwUser = localStorageService.get("registerVnwUser") || "";
-        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (registerVnwUser.length > 0);
+        var email = localStorageService.get("email") || "";
+        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
         return !hasJoined;
 
       case "contest-in-progress":
@@ -36,6 +28,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
     }
   }
+
   $scope.contestTimeLeft = function (contest) {
     if (contest) {
       switch (contest.progress.translate) {
@@ -56,22 +49,18 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.joinNowByFB = function () {
-    if (!$scope.status('able-to-join')) {
+    if ($scope.status('already-join')) {
       return false;
     }
-
-    localStorageService.set("lastFoot", $location.url());
-    apiService.getFBLoginUrl().success(function (url) {
-      localStorageService.set("lastFoot", $location.url());
-      localStorageService.set("joinNow", true);
-      window.location = url;
-    });
+    apiService.joinNowByFB();
   }
 
   if (localStorageService.get("joinNow")) {
     localStorageService.remove("joinNow");
-    //if (!localStorageService.get("registerVnwUser")) {
-    apiService.joinContest(contestId, localStorageService.get("registerVnwUser"), $translate.use())
+    var firstName = localStorageService.get("firstName");
+    var lastName = localStorageService.get("lastName");
+    var email = localStorageService.get("email");
+    apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
       .success(function (numberOfRegistrants) {
         if ($scope.contestDetail) {
           $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
@@ -85,7 +74,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
         localStorageService.set("joinContests", joinContests.join(","));
       });
-    //}
   }
 
   apiService.getContestDetail(contestId).success(function (data) {

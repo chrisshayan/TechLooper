@@ -188,9 +188,13 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/freelancer/post-project/postProject.html",
         controller: "freelancerPostProjectController"
       })
-      .when("/freelancer/project-detail", {
+      .when("/freelancer/project-detail/:id", {
         templateUrl: "modules/freelancer/project-detail/projectDetail.html",
         controller: "freelancerProjectDetailController"
+      })
+      .when("/freelancer/projects", {
+        templateUrl: "modules/freelancer/projects/projects.html",
+        controller: "freelancerProjectsController"
       })
       .otherwise({
         redirectTo: function () {
@@ -204,7 +208,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService, resourcesService) {
+                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
+                         apiService, resourcesService, joinFBService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -212,6 +217,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+  joinFBService.initialize();
+
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
 
@@ -247,8 +254,32 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
+  //$rootScope.$on("$routeChangeSuccess", function (event, next, current) {
+  //  var view = utils.getView();
+  //  switch (view) {
+  //    case jsonValue.views.challengeDetail:
+  //    case jsonValue.views.freelancerProjectDetail:
+  //      var parts = $routeParams.id.split("-");
+  //      var lastPart = parts.pop();
+  //      if (parts.length < 2 || (lastPart !== "id")) {
+  //        return $location.path("/");
+  //      }
+  //
+  //      var projectId = parts.pop();
+  //      var title = parts.join("");
+  //      if (utils.hasNonAsciiChar(title)) {
+  //        title = utils.toAscii(title);
+  //        return $location.url(sprintf(jsonValue.routerUris[view] + "/%s-%s-id", title, projectId));
+  //      }
+  //      break;
+  //  }
+  //
+  //  return true;
+  //});
+
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
-    switch (utils.getView()) {
+    var view = utils.getView();
+    switch (view) {
       case jsonValue.views.freelancerPostProject:
         var lastPage = "/freelancer/post-project";
       case jsonValue.views.postChallenge:
@@ -267,9 +298,15 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   });
 
   var param = $location.search();
-  if (param.registerVnwUser) {
-    if (param.registerVnwUser !== "cancel") {
-      localStorageService.set("registerVnwUser", param.registerVnwUser);
+  if (!$.isEmptyObject(param)) {
+    //if (param.registerVnwUser !== "cancel") {
+    //  localStorageService.set("registerVnwUser", param.registerVnwUser);
+    //}
+    //else
+    if (param.action === "success") {
+      localStorageService.set("lastName", param.lastName);
+      localStorageService.set("firstName", param.firstName);
+      localStorageService.set("email", param.email);
     }
 
     var lastFoot = localStorageService.get("lastFoot");

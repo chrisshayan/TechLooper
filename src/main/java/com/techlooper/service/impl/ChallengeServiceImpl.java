@@ -172,27 +172,16 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long challengeId = challengeRegistrantDto.getChallengeId();
-        String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
-        Long registrantId = Long.valueOf(registrantEmail);
-        ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.findOne(registrantId);
+        boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
 
-        if (challengeRegistrantEntity != null) {
-            boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantEntity.getRegistrantEmail());
-
-            if (!isExist) {
-                challengeRegistrantEntity.setChallengeId(challengeId);
-                challengeRegistrantEntity.setLang(challengeRegistrantDto.getLang());
-                if (challengeRegistrantEntity.getMailSent() == null ||
-                        challengeRegistrantEntity.getMailSent() == Boolean.FALSE) {
-                    ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-                    sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-                    sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
-                    challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-                }
-                challengeRegistrantRepository.save(challengeRegistrantEntity);
-            } else {
-                challengeRegistrantRepository.delete(registrantId);
-            }
+        if (!isExist) {
+            ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
+            ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+            sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+            sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+            challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            challengeRegistrantEntity.setRegistrantId(new Date().getTime());
+            challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
 
         return getNumberOfRegistrants(challengeId);

@@ -1,4 +1,4 @@
-techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http) {
+techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService) {
   var instance = {
 
     login: function (techlooperKey) {
@@ -28,9 +28,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("challenge/" + id);
     },
 
-    joinContest: function(contestId, registrantEmail, lang) {
+    joinContest: function(contestId, firstName, lastName , registrantEmail, lang) {
       return $http.post("challenge/join",
-        {challengeId: contestId, registrantEmail: registrantEmail, lang: lang}, {transformResponse: function (d, h) {return d;}});
+        {challengeId: contestId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: registrantEmail, lang: lang},
+        {transformResponse: function (d, h) {return d;}});
     },
 
     searchContests: function() {
@@ -43,6 +44,30 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     postFreelancerProject: function(projectRequest) {
       return $http.post("project/post", projectRequest, {transformResponse: function (d, h) {return d;}})
+    },
+
+    getProject: function(id) {
+      return $http.get("project/" + id);
+    },
+
+    getProjects: function() {
+      return $http.get("project/list");
+    },
+
+    joinNowByFB: function() {
+      localStorageService.set("lastFoot", $location.url());
+      instance.getFBLoginUrl().success(function (url) {
+        localStorageService.set("lastFoot", $location.url());
+        localStorageService.set("joinNow", true);
+        window.location = url;
+      });
+    },
+
+    joinProject: function(projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
+      return $http.post("project/join",
+        {projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
+          registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang},
+        {transformResponse: function (d, h) {return d;}});
     }
   }
 
