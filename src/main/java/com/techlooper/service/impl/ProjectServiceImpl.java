@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -160,7 +161,15 @@ public class ProjectServiceImpl implements ProjectService {
             ProjectDto projectDto = dozerMapper.map(projectEntity, ProjectDto.class);
             projects.add(projectDto);
         }
-        return projects;
+
+        return projects.stream().sorted((project1, project2) -> {
+            if (project2.getProjectId() > project1.getProjectId()) {
+                return 1;
+            } else if (project2.getProjectId() < project1.getProjectId()) {
+                return -1;
+            }
+            return 0;
+        }).collect(Collectors.toList());
     }
 
     @Override
