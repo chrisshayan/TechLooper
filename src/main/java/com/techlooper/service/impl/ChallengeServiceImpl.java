@@ -172,9 +172,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
         Long challengeId = challengeRegistrantDto.getChallengeId();
-        String registrantEmail = new String(Base64.getDecoder().decode(challengeRegistrantDto.getRegistrantEmail()));
-        challengeRegistrantDto.setRegistrantEmail(registrantEmail);
-        boolean isExist = checkIfChallengeRegistrantExist(challengeId, registrantEmail);
+        boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
 
         if (!isExist) {
             ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);

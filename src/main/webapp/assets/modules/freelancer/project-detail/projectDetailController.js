@@ -5,7 +5,6 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   var projectId = parts.pop();
   projectId = parts.pop();
   apiService.getProject(projectId).success(function (data) {
-    console.log(data);
     $scope.project = data.project;
     $scope.company = data.company;
     if ($scope.company) {
@@ -65,26 +64,30 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   }
 
   if (localStorageService.get("joinNow")) {
-    $("#applyJob").modal();
-  }
-
-  $scope.joinProject = function () {
-    $scope.freelancerForm.$setSubmitted();
     $scope.freelancer = $scope.freelancer || {};
     $scope.freelancer = $.extend(true, {}, $scope.freelancer, {
       firstName: localStorageService.get("firstName"),
       lastName: localStorageService.get("lastName"),
       email: localStorageService.get("email")
     });
+    localStorageService.remove("joinNow");
+    $("#applyJob").modal();
+  }
 
+  $scope.joinProject = function () {
+    $scope.freelancerForm.$setSubmitted();
     if ($scope.freelancerForm.$invalid) {
       return false;
     }
 
-    localStorageService.remove("joinNow");
-    apiService.joinProject(projectId, $scope.freelancer.firstName, $scope.freelancer.lastName, $scope.freelancer.email,
-      $scope.freelancer.phoneNumber, $scope.freelancer.resumeLink, $translate.use())
-      .success(function (data) {
+    localStorageService.set("email", $scope.freelancer.email);
+    apiService.joinProject(projectId, $scope.freelancer.firstName, $scope.freelancer.lastName,
+      $scope.freelancer.email, $scope.freelancer.phoneNumber, $scope.freelancer.resumeLink, $translate.use())
+      .success(function (numberFBJoins) {
+        //$scope.numberFBJoins = numberFBJoins;
+        if ($scope.project) {
+          $scope.project.numberOfApplications = numberFBJoins;
+        }
         var joinProjects = localStorageService.get("joinProjects") || "";
         joinProjects = joinProjects.length > 0 ? joinProjects.split(",") : [];
         if ($.inArray(projectId, joinProjects) < 0) {
@@ -92,6 +95,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         }
         localStorageService.set("joinProjects", joinProjects.join(","));
       });
+    $("#applyJob").modal("hide");
   }
 });
 

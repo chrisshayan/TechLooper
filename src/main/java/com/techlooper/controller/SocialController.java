@@ -53,41 +53,6 @@ public class SocialController {
   @Resource
   private VietnamWorksUserService vietnamWorksUserService;
 
-//  @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
-//  public void registerVnwUser(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
-//    if (code == null) {
-//      response.sendRedirect("/#/?registerVnwUser=cancel");
-//      return;
-//    }
-//
-//    SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-//      .filter(config -> SocialProvider.FACEBOOK_REGISTER == config.getProvider()).findFirst().get();
-//
-//    UserProfile userProfile;
-//    try {
-//      userProfile = facebookService.getUserProfile(code, socialConfig);
-//    }
-//    catch (Exception e) {
-//      response.sendRedirect(socialConfig.getApiUrl().get("login"));
-//      return;
-//    }
-//
-//    ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.save(
-//      new ChallengeRegistrantEntity(new Date().getTime(), userProfile.getEmail(), userProfile.getFirstName(), userProfile.getLastName()));
-//
-//    if (StringUtils.hasText(userProfile.getEmail())) {
-//      try {
-//        vietnamWorksUserService.register(VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
-//          .withEmail(userProfile.getEmail()).withFirstname(userProfile.getFirstName()).withLastname(userProfile.getLastName()).build());
-//      }
-//      catch (Exception e) {
-//        LOGGER.debug("Error register Vietnamworks", e);
-//      }
-//    }
-//
-//    response.sendRedirect("/#/?registerVnwUser=" + challengeRegistrantEntity.getRegistrantId());
-//  }
-
   @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
   public void registerVnwUserFromFB(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
     if (code == null) {
@@ -119,7 +84,7 @@ public class SocialController {
 
     if (StringUtils.hasText(userProfile.getEmail())) {
       response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
-        userProfile.getFirstName(), userProfile.getLastName(), Base64.getEncoder().encodeToString(userProfile.getEmail().getBytes())));
+        userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail()));
     }
     else {
       response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s",
