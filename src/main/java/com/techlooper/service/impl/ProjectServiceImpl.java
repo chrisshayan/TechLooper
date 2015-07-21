@@ -75,6 +75,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Resource
     private Template alertEmployerApplyJobMailTemplateVi;
 
+    @Resource
+    private Template alertEmployerPostJobMailTemplateVi;
+
+    @Resource
+    private Template alertEmployerPostJobMailTemplateEn;
+
+    @Resource
+    private Template alertTechloopiesPostJobMailTemplateEn;
+
     @Value("${mail.alertJobSeekerApplyJob.subject.en}")
     private String alertJobSeekerApplyJobMailSubjectEn;
 
@@ -87,6 +96,18 @@ public class ProjectServiceImpl implements ProjectService {
     @Value("${mail.alertEmployerApplyJob.subject.vn}")
     private String alertEmployerApplyJobMailSubjectVn;
 
+    @Value("${mail.alertEmployerPostJob.subject.vn}")
+    private String alertEmployerPostJobMailSubjectVn;
+
+    @Value("${mail.alertEmployerPostJob.subject.en}")
+    private String alertEmployerPostJobMailSubjectEn;
+
+    @Value("${mail.alertTechloopiesPostJob.subject.en}")
+    private String alertTechloopiesPostJobMailSubjectEn;
+
+    @Value("${mail.postChallenge.techloopies.mailList}")
+    private String techloopiesMailList;
+
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
@@ -97,7 +118,37 @@ public class ProjectServiceImpl implements ProjectService {
         Date currentDate = new Date();
         projectEntity.setProjectId(currentDate.getTime());
         projectEntity.setCreatedDate(simpleDateFormat.format(currentDate));
-        return projectRepository.save(projectEntity);
+        projectEntity = projectRepository.save(projectEntity);
+
+        if (projectEntity != null) {
+            try {
+                sendEmailAlertEmployerPostJob(projectEntity);
+                sendEmailAlertTechloopiesPostJob(projectEntity);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage(), ex);
+            }
+        }
+
+        return projectEntity;
+    }
+
+    @Override
+    public void sendEmailAlertEmployerPostJob(ProjectEntity projectEntity)
+            throws MessagingException, IOException, TemplateException {
+        Template template = projectEntity.getLang() == Language.vi ?
+                alertEmployerPostJobMailTemplateVi : alertEmployerPostJobMailTemplateEn;
+        String mailSubject = projectEntity.getLang() == Language.vi ?
+                alertEmployerPostJobMailSubjectVn : alertEmployerPostJobMailSubjectEn;
+        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
+        Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
+        sendEmailAlertApplyJob(projectEntity, null, mailSubject, emailAddress, template);
+    }
+
+    @Override
+    public void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
+            throws MessagingException, IOException, TemplateException {
+        Address[] emailAddress = InternetAddress.parse(techloopiesMailList);
+        sendEmailAlertApplyJob(projectEntity, null, alertTechloopiesPostJobMailSubjectEn, emailAddress, alertTechloopiesPostJobMailTemplateEn);
     }
 
     @Override
@@ -217,11 +268,14 @@ public class ProjectServiceImpl implements ProjectService {
         templateModel.put("numberOfHires", projectEntity.getNumberOfHires());
         templateModel.put("projectId", projectEntity.getProjectId().toString());
         templateModel.put("projectAlias", projectEntity.getProjectTitle().replaceAll("\\W", "-"));
+        templateModel.put("authorEmail", projectEntity.getAuthorEmail());
 
-        templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
-        templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
-        templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
-        templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
+        if (projectRegistrantEntity != null) {
+            templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
+            templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
+            templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
+            templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
+        }
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
