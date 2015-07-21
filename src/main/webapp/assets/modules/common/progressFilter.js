@@ -36,9 +36,9 @@ techlooper.filter("progress", function (jsonValue, resourcesService) {
 
       case "freelancer-review-project-payment-method":
         var payMethod = input;
-        var index = resourcesService.inOptions(payMethod, resourcesService.paymentConfig);
-        if (index == -1) return "";
-        return resourcesService.paymentConfig.options[index].reviewTranslate;
+        var option = resourcesService.getOption(payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.reviewTranslate;
     }
   }
 });
