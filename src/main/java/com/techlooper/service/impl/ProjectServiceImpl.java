@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,9 +30,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -196,9 +195,14 @@ public class ProjectServiceImpl implements ProjectService {
                                         String mailSubject, Address[] recipientAddresses, Template template)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-        applyJobMailMessage.setReplyTo(InternetAddress.parse(projectEntity.getAuthorEmail()));
-        StringWriter stringWriter = new StringWriter();
 
+        boolean duplicatedAuthorEmail = Stream.of(recipientAddresses).map(address -> address.toString())
+                .anyMatch(address -> address.equals(projectEntity.getAuthorEmail()));
+        if (!duplicatedAuthorEmail) {
+            applyJobMailMessage.setReplyTo(InternetAddress.parse(projectEntity.getAuthorEmail()));
+        }
+
+        StringWriter stringWriter = new StringWriter();
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("projectTitle", projectEntity.getProjectTitle());
@@ -217,7 +221,7 @@ public class ProjectServiceImpl implements ProjectService {
         templateModel.put("registrantFirstName", projectRegistrantEntity.getRegistrantFirstName());
         templateModel.put("registrantLastName", projectRegistrantEntity.getRegistrantLastName());
         templateModel.put("registrantEmail", projectRegistrantEntity.getRegistrantEmail());
-        templateModel.put("resumeLink", URLEncoder.encode(projectRegistrantEntity.getResumeLink(), "UTF-8"));
+        templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
