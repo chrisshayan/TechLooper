@@ -115,12 +115,12 @@
                             <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                                 <tr>
                                     <td align="left" style="padding:10px" class="logo">
-                                        <a href="http://www.techlooper.com/#/?lang=en&utm_source=employerapplication&utm_medium=techlooperlogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.techlooper.com/#/?lang=en&utm_source=projectpublishemail&utm_medium=techlooperlogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
                                             <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
                                     <td style="padding:10px" align="right" class="logo">
-                                        <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.vietnamworks.com/?utm_source=projectpublishemail&utm_medium=vietnamworkslogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
                                             <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
@@ -146,7 +146,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                         <tr>
                                             <td align="center" style="padding: 10px 0 5px 0">
-                                                <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Freelancer Project</h2>
+                                                <h2 style="font-size: 20px; font-weight: 500; padding:0; margin: 0;">Post A Project</h2>
                                             </td>
                                         </tr>
                                         <tr>
@@ -161,7 +161,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="font-size: 14px;">
-                                                There's a new candidate ${registrantFirstName} ${registrantLastName}, ${registrantEmail} who has just applied to your job post. Click <a href="${resumeLink}" target="_blank">here</a> to view his online resume.
+                                                This person ${authorEmail} has just created successfully a job post as follows
                                             </td>
                                         </tr>
                                         <tr>
@@ -283,7 +283,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Project length:
+                                                                        Project Length:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                                                         <#if estimatedDuration == "more6m">
@@ -312,13 +312,13 @@
                                                                         Workload:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                            <#if estimatedWorkload == "gt30hrsw">
-                                                                                More than 30 hrs/week
-                                                                            <#elseif estimatedWorkload == "lt30hrsw">
-                                                                                Less than 30 hrs/week
-                                                                            <#elseif estimatedWorkload == "dontKnow">
-                                                                                Not decided yet
-                                                                            </#if>
+                                                                        <#if estimatedWorkload == "gt30hrsw">
+                                                                            More than 30 hrs/week
+                                                                        <#elseif estimatedWorkload == "lt30hrsw">
+                                                                            Less than 30 hrs/week
+                                                                        <#elseif estimatedWorkload == "dontKnow">
+                                                                            Not decided yet
+                                                                        </#if>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -380,7 +380,7 @@
                                                 <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                                     <tr>
                                                         <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                            <a href="${webBaseUrl}#/freelancer/project-detail/${projectAlias}-${projectId}-id?utm_source=employerapplication&utm_medium=viewprojectbtn&utm_campaign=freelancer" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View Job Post</a>
+                                                            <a href="${webBaseUrl}#/freelancer/project-detail/${projectAlias}-${projectId}-id?utm_source=projectpublishemail&utm_medium=viewprojectbtn&utm_campaign=freelancer" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View Job Post</a>
                                                         </td>
                                                     </tr>
                                                 </table>
