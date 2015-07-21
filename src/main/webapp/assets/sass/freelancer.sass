@@ -93,7 +93,7 @@
           .working-time-block
             width: 50%
             float: left
-            padding-right: 10px
+            padding: 0 10px 0 0
             text-align: left
             h3
               padding-bottom: 0
@@ -251,14 +251,17 @@
       .project-item
         clear: both
         display: inline-block
-        padding: 5px 0
-        border-top: 1px solid #727272
+        padding: 10px 20px
+        background-color: #f9f9f9
         width: 100%
+        border-top: 1px solid #e5e5e5
         h3
           font-size: 16px
           font-weight: 400
           text-align: left
           padding: 0
+          margin: 0
+          text-transform: capitalize
           a
             color: #333
           span
@@ -312,7 +315,7 @@
             text-align: left
             padding: 0
           ul
-            background-color: #f4f4f4
+            background-color: #fff
             border-radius: 5px
             display: inline-block
             width: 100%
@@ -322,15 +325,25 @@
               float: left
               padding: 5px 0 5px 5px
               span
-                background-color: #fff
+                background-color: #f4f4f4
                 border-radius: 5px
                 box-shadow: 1px 1px 1px 0 #cccccc
                 display: inline-block
                 margin-right: 5px
                 padding: 5px 15px
                 width: auto
-      .project-item.first
-        border-top: 0
+      .project-item.last
+        border-bottom: 0
+        padding-bottom: 0
+      .project-item.even
+        background-color: #fff
+        .skills-of-project
+          ul
+            background-color: #f4f4f4
+            span
+              background-color: #fff
+  .content-page-detail.project-list
+    padding: 0
 .content-page-block.project-owner
   margin-bottom: 20px
 .content-page-block.project-list
