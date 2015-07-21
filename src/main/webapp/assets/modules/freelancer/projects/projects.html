@@ -15,7 +15,7 @@
           <span class="time-stamp" translate="posted"/> <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}" translate-value-number="{{(project.projectId | timestamp).number}}" />
         </p>
         <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
-          <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedWorkload}}"/></span> -
+          <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedDuration}}"/></span> -
           <span class="time-stamp" translate="posted" /> <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}" translate-value-number="{{(project.projectId | timestamp).number}}" />
         </p>
         <div class="project-description">

@@ -2,7 +2,7 @@ techlooper.controller('freelancerProjectsController', function ($scope, apiServi
 
   apiService.getProjects().success(function(projects){
     $scope.projects = projects;
-
+    console.log($scope.projects);
     $timeout(function(){
       $(".project-description").dotdotdot({});
     }, 1000);
