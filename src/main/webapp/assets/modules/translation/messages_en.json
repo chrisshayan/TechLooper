@@ -430,6 +430,7 @@
   "inProgress": "In Progress",
   "closed": "Closed",
   "congratulationsForJoinContest": "You have just enrolled to the challenge.",
+  "congratulationsForJoinProject": "You have just enrolled to the project.",
   "contestDetail": "Contest Details",
   "viewDetails": "View Details",
   "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:",
