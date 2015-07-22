@@ -497,7 +497,7 @@
   "allFreelancerProjects": "Các dự án Freelancer",
   "postAFreelancerProject": "Đăng dự án Freelancer",
   "applyWithFacebook": "Ứng tuyển với Facebook",
-  "numberOfApplicants": "Đã có <strong>{{number}}</strong> lượt ứng tuyển cho công việc này",
+  "numberOfApplicants": "Đã có <strong>{{number}}</strong> lượt ứng tuyển cho <br/>công việc này",
   "aboutThisClient": "Thông tin về nhà tuyển dụng",
   "memberSince": "Thành viên từ {{date}}",
   "findProjects": "Dự Án Freelancer",
