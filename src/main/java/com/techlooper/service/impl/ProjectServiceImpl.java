@@ -259,6 +259,8 @@ public class ProjectServiceImpl implements ProjectService {
 
         if (hasReplyTo) {
             applyJobMailMessage.setReplyTo(InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail()));
+        } else {
+            applyJobMailMessage.setReplyTo(null);
         }
 
         StringWriter stringWriter = new StringWriter();
