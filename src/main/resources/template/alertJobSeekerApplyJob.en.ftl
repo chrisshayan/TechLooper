@@ -196,7 +196,7 @@
                                     Job Description:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${projectDescription}
+                                    ${projectDescription?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
