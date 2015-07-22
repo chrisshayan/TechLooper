@@ -59,6 +59,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
       localStorageService.set("lastFoot", $location.url());
+      utils.sendNotification(jsonValue.notifications.loading);
       instance.getFBLoginUrl().success(function (url) {
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
@@ -67,6 +68,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     joinProject: function(projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
+      if (!resumeLink.startsWith("http")) {
+        resumeLink = "http://" + resumeLink;
+      }
       return $http.post("project/join",
         {projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
           registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang},
