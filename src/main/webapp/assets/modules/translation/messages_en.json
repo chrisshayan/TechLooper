@@ -501,7 +501,7 @@
   "applyToThisJob": "Apply To This Job",
   "phoneNumber": "Phone",
   "phoneNumberEx": "Ex: 0993930903",
-  "resume": "Resume",
+  "profileURL": "Profile URL",
   "resumeEx": "Ex: http://website-name.com/my-resume.pdf",
   "companySizeText": "{{text}} employee(s)",
   "xDaysAgo": "{{number}} days ago",
