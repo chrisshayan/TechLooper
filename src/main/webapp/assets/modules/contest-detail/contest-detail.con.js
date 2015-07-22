@@ -49,7 +49,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.joinNowByFB = function () {
-    if ($scope.status('already-join')) {
+    if (!$scope.status('able-to-join')) {
       return false;
     }
     apiService.joinNowByFB();
