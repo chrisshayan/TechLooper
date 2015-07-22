@@ -341,7 +341,7 @@ public class CoreConfiguration implements ApplicationContextAware {
 
     @Bean
     public Template alertEmployerPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.vi.ftl");
+        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.en.ftl");
         return template;
     }
 

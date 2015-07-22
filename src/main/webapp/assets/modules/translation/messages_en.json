@@ -430,7 +430,7 @@
   "inProgress": "In Progress",
   "closed": "Closed",
   "congratulationsForJoinContest": "You have just enrolled to the challenge.",
-  "congratulationsForJoinProject": "You have just enrolled to the project.",
+  "congratulationsForJoinProject": "You have already applied to this job.",
   "contestDetail": "Contest Details",
   "viewDetails": "View Details",
   "howWeEvaluateContestants":"How we evaluate contestants’ deliverables:",
@@ -501,7 +501,7 @@
   "applyToThisJob": "Apply To This Job",
   "phoneNumber": "Phone",
   "phoneNumberEx": "Ex: 0993930903",
-  "resume": "Resume",
+  "profileURL": "Profile URL",
   "resumeEx": "Ex: http://website-name.com/my-resume.pdf",
   "companySizeText": "{{text}} employee(s)",
   "xDaysAgo": "{{number}} days ago",
@@ -516,5 +516,6 @@
   "estTime": "Est. Time",
   "detail": "Detail",
   "skillsNeed": "Skills:",
-  "thisJobIsExpired": "This Job Post is expired!"
+  "thisJobIsExpired": "This Job Post is expired!",
+  "postedProjectSuccessful": "You have posted this project successfully."
 }

@@ -1,5 +1,8 @@
 <employer-header></employer-header>
 <div class="content-page-block">
+  <div class="alert alert-success" ng-show="showPostSuccessfulMessage">
+    <p translate="postedProjectSuccessful"></p>
+  </div>
     <div class="header-page" ng-show="!state.showPostProjectReview">
         <h2 class="text-left">{{project.projectTitle}}</h2>
     </div>
@@ -30,13 +33,14 @@
                     <div class="apply-with-facebook col-md-4">
                         <button class="btn btn-primary btn-flat"
                                 translate="{{status('apply-button-title')}}"
-                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
+                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="showPostSuccessfulMessage || status('already-join')" />
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
               <div class="alert alert-success"  ng-show="status('already-join')">
                 <p translate="congratulationsForJoinProject"></p>
               </div>
+
                 <div class="project-detail-block">
                     <div class="project-info-block">
                         <h3 translate="detail"></h3>
@@ -105,13 +109,14 @@
               </div>
               <div class="field">
                 <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
-                <input name="resumeLink" ng-model="freelancer.resumeLink" type="url" id="txtResumeJob" class="input-style"
+                <input name="resumeLink" ng-model="freelancer.resumeLink" type="text" id="txtResumeJob" class="input-style"
+                       ng-pattern="/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\.\/\?\:@\-_=#])*/"
                        placeholder="{{'resumeEx' | translate}}" ng-required="true" touchable/>
                 <div class="error-messages"
                      ng-show="freelancerForm.resumeLink.$error.required && (freelancerForm.resumeLink.$edited || freelancerForm.$submitted)"
                      translate="requiredThisField" />
                 <div class="error-messages"
-                     ng-show="freelancerForm.resumeLink.$error.url && (freelancerForm.resumeLink.$edited || freelancerForm.$submitted)"
+                     ng-show="freelancerForm.resumeLink.$error.pattern && (freelancerForm.resumeLink.$edited || freelancerForm.$submitted)"
                      translate="requiredURL" />
               </div>
               <div class="modal-footer submit-form">

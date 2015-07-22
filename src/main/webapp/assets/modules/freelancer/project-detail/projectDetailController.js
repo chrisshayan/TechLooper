@@ -1,6 +1,10 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
                                                                      $filter, resourcesService, localStorageService,
                                                                      $translate, vnwConfigService, jsonValue) {
+  $('.loading-data').css("height", $(window).height());
+  $('body').addClass('noscroll');
+  utils.sendNotification(jsonValue.notifications.loading);
+
   var parts = $routeParams.id.split("-");
   var projectId = parts.pop();
   projectId = parts.pop();
@@ -10,6 +14,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     if ($scope.company) {
       $scope.company.companySizeText = vnwConfigService.getCompanySizeText($scope.company.companySizeId);
     }
+    utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
   });
 
   $scope.status = function (type) {
@@ -101,5 +106,11 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
       });
     $("#applyJob").modal("hide");
   }
+
+  if (localStorageService.get("postProject") == true) {
+    localStorageService.remove("postProject");
+    $scope.showPostSuccessfulMessage = true;
+  }
+
 });
 

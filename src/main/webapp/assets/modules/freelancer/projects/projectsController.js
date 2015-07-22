@@ -1,5 +1,7 @@
-techlooper.controller('freelancerProjectsController', function ($scope, apiService, $timeout, resourcesService) {
-
+techlooper.controller('freelancerProjectsController', function ($scope, apiService, $timeout, resourcesService, jsonValue, utils) {
+  $('.loading-data').css("height", $(window).height());
+  $('body').addClass('noscroll');
+  utils.sendNotification(jsonValue.notifications.loading);
   apiService.getProjects().success(function(projects){
     $scope.projects = projects;
   });

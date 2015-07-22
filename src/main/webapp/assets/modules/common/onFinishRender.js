@@ -1,4 +1,4 @@
-techlooper.directive("onFinishRender", function ($timeout) {
+techlooper.directive("onFinishRender", function ($timeout, jsonValue, utils) {
   return {
     restrict: "A",
     link: function (scope, element, attr) {
@@ -6,6 +6,7 @@ techlooper.directive("onFinishRender", function ($timeout) {
         $timeout(function () {
           scope.$emit(attr.onFinishRender);
         });
+        utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
       }
     }
   }
