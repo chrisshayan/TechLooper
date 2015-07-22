@@ -209,7 +209,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
                          utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
-                         apiService, resourcesService, joinFBService) {
+                         apiService, resourcesService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -217,7 +217,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
-  joinFBService.initialize();
+  //joinFBService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
