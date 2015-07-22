@@ -331,10 +331,10 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" width="45%" style="font-size: 14px" valign="top">
-                                                                        Mức giá chi trả (Đô La Mỹ / Giờ):
+                                                                        Mức giá chi trả:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${hourlyRate}
+                                                                    ${hourlyRate?string.currency}/ Giờ
                                                                     </td>
                                                                 </tr>
                                                             </#if>
