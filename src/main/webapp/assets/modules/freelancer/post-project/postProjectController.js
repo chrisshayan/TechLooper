@@ -110,7 +110,8 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     apiService.postFreelancerProject(postProject)
       .success(function (projectId) {
         localStorageService.set("postProject", true);
-        return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", $scope.postProject.projectTitle, projectId));
+        var title =  utils.toAscii($scope.postProject.projectTitle);
+        return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", title, projectId));
       });
   }
 
