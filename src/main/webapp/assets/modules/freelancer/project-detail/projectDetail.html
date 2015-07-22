@@ -103,7 +103,7 @@
               <div class="field">
                 <label for="txtPhoneJob">{{'phoneNumber' | translate}}: <strong>*</strong></label>
                 <input name="phoneNumber" ng-model="freelancer.phoneNumber" type="text" id="txtPhoneJob" class="input-style"
-                       placeholder="{{'phoneNumberEx' | translate}}" ng-required="true" touchable inputNumber/>
+                       placeholder="{{'phoneNumberEx' | translate}}" ng-required="true" touchable input-number/>
                 <div class="error-messages"
                      ng-show="freelancerForm.phoneNumber.$error.required && (freelancerForm.phoneNumber.$edited || freelancerForm.$submitted)"
                      translate="requiredThisField" />

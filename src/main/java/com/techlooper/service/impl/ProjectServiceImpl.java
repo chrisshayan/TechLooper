@@ -109,6 +109,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Value("${mail.postChallenge.techloopies.mailList}")
     private String techloopiesMailList;
 
+    @Value("${mail.techlooper.reply_to}")
+    private String mailTechlooperReplyTo;
+
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
@@ -260,7 +263,7 @@ public class ProjectServiceImpl implements ProjectService {
         if (hasReplyTo) {
             applyJobMailMessage.setReplyTo(InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail()));
         } else {
-            applyJobMailMessage.setReplyTo(null);
+            applyJobMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
         }
 
         StringWriter stringWriter = new StringWriter();
