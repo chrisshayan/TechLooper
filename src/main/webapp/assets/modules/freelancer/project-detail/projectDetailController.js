@@ -59,7 +59,10 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         var joinProjects = localStorageService.get("joinProjects") || "";
         var email = localStorageService.get("email") || "";
         var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
-        return hasJoined;
+        return expired || hasJoined;
+
+      case "disable-apply-button":
+        return $scope.showPostSuccessfulMessage || $scope.status('already-join') || $scope.status('expired-project');
     }
 
     return false;
