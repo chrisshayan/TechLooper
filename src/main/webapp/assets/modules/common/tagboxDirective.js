@@ -16,7 +16,6 @@ techlooper.directive('tagbox', function ($http) {
      * @event "addedTagSuccessful"
      * */
     link: function (scope, element, attr, ctrl) {
-
       var resetForm = function () {
         scope.tagForm.$setPristine();
         scope.tagForm.tag.$edited = false;
@@ -31,6 +30,7 @@ techlooper.directive('tagbox', function ($http) {
 
       scope.removeTag = function (tag) {
         scope.tags.splice(scope.tags.indexOf(tag), 1);
+        $(element).find('input[type=text]').focus();
         resetForm();
       }
 
@@ -97,7 +97,7 @@ techlooper.directive('tagbox', function ($http) {
       scope.submitTag = function (event) {
         if (event.which === 13) {
           scope.addTag();
-          return event.preventDefault();;
+          return event.preventDefault();
         }
       }
 
