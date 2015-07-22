@@ -30,7 +30,8 @@
                     <div class="apply-with-facebook col-md-4">
                         <button class="btn btn-primary btn-flat"
                                 translate="{{status('apply-button-title')}}"
-                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="showPostSuccessfulMessage || status('already-join')" />
+                                data-toggle="modal" ng-click="joinNowByFB()"
+                                ng-disabled="status('disable-apply-button')" />
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
