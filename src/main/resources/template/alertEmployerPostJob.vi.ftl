@@ -261,7 +261,7 @@
                                                                         Ngân sách:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                    ${budget}
+                                                                        ${budget?string.currency}
                                                                     </td>
                                                                 </tr>
                                                             <#else>
