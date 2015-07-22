@@ -101,5 +101,11 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
       });
     $("#applyJob").modal("hide");
   }
+
+  if (localStorageService.get("postProject") == true) {
+    localStorageService.remove("postProject");
+    $scope.showPostSuccessfulMessage = true;
+  }
+
 });
 

@@ -516,5 +516,6 @@
   "estTime": "Est. Time",
   "detail": "Detail",
   "skillsNeed": "Skills:",
-  "thisJobIsExpired": "This Job Post is expired!"
+  "thisJobIsExpired": "This Job Post is expired!",
+  "postedProjectSuccessful": "You have posted this project successfully."
 }
