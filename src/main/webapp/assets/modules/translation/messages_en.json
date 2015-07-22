@@ -517,5 +517,6 @@
   "detail": "Detail",
   "skillsNeed": "Skills:",
   "thisJobIsExpired": "This Job Post is expired!",
-  "postedProjectSuccessful": "You have posted this project successfully."
+  "postedProjectSuccessful": "You have posted this project successfully.",
+  "preview": "Preview"
 }
