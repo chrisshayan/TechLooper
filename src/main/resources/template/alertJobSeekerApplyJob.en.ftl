@@ -196,7 +196,7 @@
                                     Job Description:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                    ${projectDescription}
+                                    ${projectDescription?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -261,7 +261,7 @@
                                               Budget:
                                           </td>
                                           <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                ${budget}
+                                              ${budget?string.currency}
                                           </td>
                                       </tr>
                                   <#else>
@@ -334,7 +334,7 @@
                                               Hourly Rate:
                                           </td>
                                           <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                            $${hourlyRate}/ hr
+                                            ${hourlyRate?string.currency}/ hr
                                           </td>
                                       </tr>
                                   </#if>

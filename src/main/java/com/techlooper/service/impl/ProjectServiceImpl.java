@@ -230,7 +230,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertJobSeekerApplyJobMailSubjectVn : alertJobSeekerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, true);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, false);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class ProjectServiceImpl implements ProjectService {
                 alertEmployerApplyJobMailSubjectVn : alertEmployerApplyJobMailSubjectEn;
         mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
         Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, false);
+        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, true);
     }
 
     @Override
@@ -258,7 +258,7 @@ public class ProjectServiceImpl implements ProjectService {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
 
         if (hasReplyTo) {
-            applyJobMailMessage.setReplyTo(InternetAddress.parse(projectEntity.getAuthorEmail()));
+            applyJobMailMessage.setReplyTo(InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail()));
         }
 
         StringWriter stringWriter = new StringWriter();
