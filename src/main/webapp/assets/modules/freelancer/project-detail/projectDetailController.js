@@ -1,13 +1,23 @@
 techlooper.controller('freelancerProjectDetailController', function ($scope, utils, $location, $routeParams, apiService,
                                                                      $filter, resourcesService, localStorageService,
                                                                      $translate, vnwConfigService, jsonValue) {
-  $('.loading-data').css("height", $(window).height());
-  $('body').addClass('noscroll');
-  utils.sendNotification(jsonValue.notifications.loading);
+  //$('.loading-data').css("height", $(window).height());
+  //$('body').addClass('noscroll');
+  //utils.sendNotification(jsonValue.notifications.loading);
 
   var parts = $routeParams.id.split("-");
+  var lastPart = parts.pop();
+  if (parts.length < 2 || (lastPart !== "id")) {
+    return $location.path("/");
+  }
+
   var projectId = parts.pop();
-  projectId = parts.pop();
+  var title = parts.join("");
+  if (utils.hasNonAsciiChar(title)) {
+    title = utils.toAscii(title);
+    return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", title, projectId));
+  }
+
   apiService.getProject(projectId).success(function (data) {
     $scope.project = data.project;
     $scope.company = data.company;
@@ -59,7 +69,10 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
         var joinProjects = localStorageService.get("joinProjects") || "";
         var email = localStorageService.get("email") || "";
         var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
-        return hasJoined;
+        return expired || hasJoined;
+
+      case "disable-apply-button":
+        return $scope.showPostSuccessfulMessage || $scope.status('already-join') || $scope.status('expired-project');
     }
 
     return false;

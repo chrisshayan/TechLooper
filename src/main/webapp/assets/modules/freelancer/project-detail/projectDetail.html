@@ -33,7 +33,8 @@
                     <div class="apply-with-facebook col-md-4">
                         <button class="btn btn-primary btn-flat"
                                 translate="{{status('apply-button-title')}}"
-                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="showPostSuccessfulMessage || status('already-join')" />
+                                data-toggle="modal" ng-click="joinNowByFB()"
+                                ng-disabled="status('disable-apply-button')" />
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
@@ -108,7 +109,7 @@
                      translate="requiredThisField" />
               </div>
               <div class="field">
-                <label for="txtResumeJob">{{'resume' | translate}}: <strong>*</strong></label>
+                <label for="txtResumeJob">{{'profileURL' | translate}}: <strong>*</strong></label>
                 <input name="resumeLink" ng-model="freelancer.resumeLink" type="text" id="txtResumeJob" class="input-style"
                        ng-pattern="/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\.\/\?\:@\-_=#])*/"
                        placeholder="{{'resumeEx' | translate}}" ng-required="true" touchable/>
