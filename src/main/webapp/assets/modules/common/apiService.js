@@ -68,9 +68,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     joinProject: function(projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
-      //if (!resumeLink.startsWith("http")) {
-      //  resumeLink = "http://" + resumeLink;
-      //}
+      if (!resumeLink.startsWith("http")) {
+        resumeLink = "http://" + resumeLink;
+      }
       return $http.post("project/join",
         {projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
           registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang},
