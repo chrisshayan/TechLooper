@@ -1,5 +1,8 @@
 <employer-header></employer-header>
 <div class="content-page-block">
+  <div class="alert alert-success" ng-show="showPostSuccessfulMessage">
+    <p translate="postedProjectSuccessful"></p>
+  </div>
     <div class="header-page" ng-show="!state.showPostProjectReview">
         <h2 class="text-left">{{project.projectTitle}}</h2>
     </div>
@@ -37,9 +40,7 @@
               <div class="alert alert-success"  ng-show="status('already-join')">
                 <p translate="congratulationsForJoinProject"></p>
               </div>
-              <div class="alert alert-success" ng-show="showPostSuccessfulMessage">
-                <p translate="postedProjectSuccessful"></p>
-              </div>
+
                 <div class="project-detail-block">
                     <div class="project-info-block">
                         <h3 translate="detail"></h3>
