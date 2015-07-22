@@ -1,9 +1,23 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter) {
 
+
   var parts = $routeParams.id.split("-");
+  var lastPart = parts.pop();
+  if (parts.length < 2 || (lastPart !== "id")) {
+    return $location.path("/");
+  }
+
   var contestId = parts.pop();
-  contestId = parts.pop();
+  var title = parts.join("");
+  if (utils.hasNonAsciiChar(title)) {
+    title = utils.toAscii(title);
+    return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
+  }
+
+  //var parts = $routeParams.id.split("-");
+  //var contestId = parts.pop();
+  //contestId = parts.pop();
 
   $scope.status = function (type) {
     switch (type) {
