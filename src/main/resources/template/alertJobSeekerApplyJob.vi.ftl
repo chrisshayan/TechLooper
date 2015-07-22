@@ -334,7 +334,7 @@
                                                                         Mức giá chi trả:
                                                                     </td>
                                                                     <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                                                        ${hourlyRate?string.currency}/ hr
+                                                                        ${hourlyRate?string.currency}/ / Giờ
                                                                     </td>
                                                                 </tr>
                                                             </#if>
