@@ -1,4 +1,5 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location, utils, $translate) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope,
+                                                                   apiService, $location, utils, $translate, localStorageService) {
   $scope.status = function (type) {
     switch (type) {
       case "ex-today":
@@ -108,6 +109,7 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     //TODO : send to server
     apiService.postFreelancerProject(postProject)
       .success(function (projectId) {
+        localStorageService.set("postProject", true);
         $location.url(sprintf("/freelancer/project-detail/%s-%s-id", $scope.postProject.projectTitle, projectId));
       });
   }

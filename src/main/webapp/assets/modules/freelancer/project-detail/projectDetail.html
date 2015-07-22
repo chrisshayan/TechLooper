@@ -30,12 +30,15 @@
                     <div class="apply-with-facebook col-md-4">
                         <button class="btn btn-primary btn-flat"
                                 translate="{{status('apply-button-title')}}"
-                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="status('already-join')" />
+                                data-toggle="modal" ng-click="joinNowByFB()" ng-disabled="showPostSuccessfulMessage || status('already-join')" />
                         <p translate="numberOfApplicants" translate-value-number="{{project.numberOfApplications}}"></p>
                     </div>
                 </div>
               <div class="alert alert-success"  ng-show="status('already-join')">
                 <p translate="congratulationsForJoinProject"></p>
+              </div>
+              <div class="alert alert-success" ng-show="showPostSuccessfulMessage">
+                <p translate="postedProjectSuccessful"></p>
               </div>
                 <div class="project-detail-block">
                     <div class="project-info-block">

@@ -520,7 +520,8 @@
   "estTime": "Thời gian ước lượng",
   "detail": "Chi tiết",
   "skillsNeed": "Kỹ năng cần có:",
-  "thisJobIsExpired": "Hết hạn ứng tuyển!"
+  "thisJobIsExpired": "Hết hạn ứng tuyển!",
+  "postedProjectSuccessful": "Bạn vừa tạo dự án thành công."
 }
 
 
