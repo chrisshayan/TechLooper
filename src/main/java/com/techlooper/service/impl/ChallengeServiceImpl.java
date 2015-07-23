@@ -90,6 +90,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.alertEmployerChallenge.subject.en}")
     private String alertEmployerChallengeMailSubjectEn;
 
+    @Value("${mail.techlooper.reply_to}")
+    private String mailTechlooperReplyTo;
+
     @Resource
     private JavaMailSender mailSender;
 
@@ -155,7 +158,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
         Address[] emailAddress = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
-        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity);
+        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, false);
     }
 
     @Override
@@ -166,7 +169,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 alertEmployerChallengeMailSubjectVn : alertEmployerChallengeMailSubjectEn;
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
         Address[] emailAddress = getRecipientAddresses(challengeEntity, false);
-        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity);
+        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, true);
     }
 
     @Override
@@ -201,11 +204,17 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private void sendContestApplicationEmail(Template template, String mailSubject, Address[] recipientAddresses,
-                                             ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+                         ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity, boolean hasReplyTo)
             throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-        StringWriter stringWriter = new StringWriter();
 
+        if (hasReplyTo) {
+            postChallengeMailMessage.setReplyTo(InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail()));
+        } else {
+            postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        }
+
+        StringWriter stringWriter = new StringWriter();
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("challengeName", challengeEntity.getChallengeName());
