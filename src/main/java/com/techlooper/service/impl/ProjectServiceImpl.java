@@ -33,7 +33,6 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -157,6 +156,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Long countTotalNumberOfProjects() {
+        return projectRepository.count();
+    }
+
+    @Override
+    public Long countTotalNumberOfSkills() {
+        Long total = 0L;
+        Iterator<ProjectEntity> projectIterator = projectRepository.findAll().iterator();
+        while (projectIterator.hasNext()) {
+            ProjectEntity projectEntity = projectIterator.next();
+            if (!projectEntity.getSkills().isEmpty()) {
+                total += projectEntity.getSkills().size();
+            }
+        }
+        return total;
+    }
+
+    @Override
     public List<ProjectDto> listProject() {
         List<ProjectDto> projects = new ArrayList<>();
         Iterator<ProjectEntity> projectIterator = projectRepository.findAll().iterator();
@@ -256,7 +273,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     private void sendEmailAlertApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity,
-                 String mailSubject, Address[] recipientAddresses, Template template, boolean hasReplyTo)
+                                        String mailSubject, Address[] recipientAddresses, Template template, boolean hasReplyTo)
             throws MessagingException, IOException, TemplateException {
         applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
 
