@@ -106,7 +106,6 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
 
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
     postProject.lang = $translate.use();
-    //TODO : send to server
     apiService.postFreelancerProject(postProject)
       .success(function (projectId) {
         localStorageService.set("postProject", true);
