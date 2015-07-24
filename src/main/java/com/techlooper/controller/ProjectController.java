@@ -1,10 +1,10 @@
 package com.techlooper.controller;
 
-import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ProjectEntity;
 import com.techlooper.model.ProjectDetailDto;
 import com.techlooper.model.ProjectDto;
 import com.techlooper.model.ProjectRegistrantDto;
+import com.techlooper.model.ProjectStatsDto;
 import com.techlooper.service.ProjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +40,14 @@ public class ProjectController {
     @RequestMapping(value = "/project/join", method = RequestMethod.POST)
     public long joinProject(@RequestBody ProjectRegistrantDto projectRegistrantDto) throws Exception {
         return projectService.joinProject(projectRegistrantDto);
+    }
+
+    @RequestMapping(value = "/project/stats", method = RequestMethod.GET)
+    public ProjectStatsDto getProjectStatistic() throws Exception {
+        ProjectStatsDto projectStatsDto = new ProjectStatsDto();
+        projectStatsDto.setNumberOfProjects(projectService.countTotalNumberOfProjects());
+        projectStatsDto.setNumberOfSkills(projectService.countTotalNumberOfSkills());
+        return projectStatsDto;
     }
 
 }

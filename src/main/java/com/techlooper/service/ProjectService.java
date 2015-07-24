@@ -38,4 +38,8 @@ public interface ProjectService {
 
     void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
             throws MessagingException, IOException, TemplateException;
+
+    Long countTotalNumberOfProjects();
+
+    Long countTotalNumberOfSkills();
 }
