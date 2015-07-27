@@ -44,4 +44,6 @@ public interface ChallengeService {
     Double getTotalAmountOfPrizeValues();
 
     Long getTotalNumberOfRegistrants();
+
+    ChallengeDetailDto getTheLatestChallenge();
 }
