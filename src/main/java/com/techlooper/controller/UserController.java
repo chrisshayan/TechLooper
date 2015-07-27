@@ -253,7 +253,7 @@ public class UserController {
                 jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
         personalHomepage.setTermStatistic(termStatisticResponse);
 
-        personalHomepage.setChallengeDetail(challengeService.getTheLatestChallenge());
+        personalHomepage.setLatestChallenge(challengeService.getTheLatestChallenge());
         return personalHomepage;
     }
 }
