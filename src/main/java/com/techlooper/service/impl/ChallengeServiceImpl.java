@@ -20,7 +20,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -355,5 +358,20 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public Long getTotalNumberOfRegistrants() {
         return challengeRegistrantRepository.count();
+    }
+
+    @Override
+    public ChallengeDetailDto getTheLatestChallenge() {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+        searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("challengeId").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, 1));
+
+        List<ChallengeEntity> challengeEntities = challengeRepository.search(searchQueryBuilder.build()).getContent();
+        if (!challengeEntities.isEmpty()) {
+            ChallengeEntity challengeEntity = challengeEntities.get(0);
+            return dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+        }
+        return null;
     }
 }
