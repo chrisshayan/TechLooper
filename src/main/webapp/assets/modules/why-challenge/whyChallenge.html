@@ -1,7 +1,7 @@
 <employer-header></employer-header>
 <div class="content-page-block project-list">
   <div class="header-page">
-    <h2 translate="whyFreelancerHeader" class="text-left"></h2>
+    <h2 translate="whyChallengeHeader" class="text-left"></h2>
   </div>
   <div class="content-page-detail why-freelancer">
     <div class="row">
@@ -9,12 +9,12 @@
         <img src="../images/why-challenge-banner.png" alt=""/>
       </div>
       <div class="col-md-6 why-freelancer-content">
-        <h3 translate="whyFreelancerSubHeader"></h3>
-        <p translate="whyFreelancerDescription"></p>
+        <h3 translate="whyChallengeSubHeader"></h3>
+        <p translate="whyChallengeDescription"></p>
         <ul>
-          <li translate="whyFreelancerFeature1"></li>
-          <li translate="whyFreelancerFeature2"></li>
-          <li translate="whyFreelancerFeature3"></li>
+          <li translate="whyChallengeFeature1"></li>
+          <li translate="whyChallengeFeature2"></li>
+          <li translate="whyChallengeFeature3"></li>
         </ul>
         <div class="btn-start-now">
           <a href="#/freelancer/projects" translate="startNow" class="btn btn-primary btn-flat"></a>
@@ -23,16 +23,20 @@
     </div>
     <div class="row why-freelancer-statistical">
       <div class="statistical-content">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <strong>{{challengeStatistic.numberOfChallenges}}</strong>
           <p translate="contests"></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <strong>${{challengeStatistic.totalPrizeAmount | number}}</strong>
           <p translate="prizesValue"></p>
         </div>
-        <div class="col-md-4">
-          <strong>3,234</strong>
+        <div class="col-md-3">
+          <strong>${{challengeStatistic.numberOfRegistrants | number}}</strong>
+          <p translate="registrantsNumber"></p>
+        </div>
+        <div class="col-md-3">
+          <strong>3,234 +</strong>
           <p translate="techTalentsReach"></p>
         </div>
       </div>
@@ -76,7 +80,7 @@
       </div>
     </div>
     <div class="row partner-company-logos">
-      <h3 translate="">Partner Company</h3>
+      <h3 translate="ourCustomers"></h3>
       <ul>
         <li>
           <img src="../images/cp-logo-fpt.png" alt=""/>
