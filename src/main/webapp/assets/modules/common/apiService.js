@@ -75,6 +75,20 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         {projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
           registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang},
         {transformResponse: function (d, h) {return d;}});
+    },
+
+    /**
+     * @see com.techlooper.controller.ProjectController.getProjectStatistic
+     * */
+    getProjectStatistic: function() {
+      return $http.get("project/stats");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getChallengeStatistics
+     * */
+    getChallengeStatistic: function() {
+      return $http.get("challenge/stats");
     }
   }
 

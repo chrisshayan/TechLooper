@@ -1,3 +1,5 @@
-techlooper.controller('whyChallengeController', function ($scope) {
-
+techlooper.controller('whyChallengeController', function ($scope, apiService) {
+  apiService.getChallengeStatistic().success(function(data) {
+    $scope.challengeStatistic = data;
+  })
 });
