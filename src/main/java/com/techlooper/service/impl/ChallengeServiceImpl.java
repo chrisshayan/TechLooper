@@ -13,10 +13,18 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.metrics.sum.Sum;
+import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -36,11 +44,16 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
+
 /**
  * Created by NguyenDangKhoa on 6/29/15.
  */
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
+
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
     @Resource
     private MimeMessage postChallengeMailMessage;
@@ -204,7 +217,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private void sendContestApplicationEmail(Template template, String mailSubject, Address[] recipientAddresses,
-                         ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity, boolean hasReplyTo)
+                                             ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity, boolean hasReplyTo)
             throws MessagingException, IOException, TemplateException {
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
 
@@ -324,4 +337,41 @@ public class ChallengeServiceImpl implements ChallengeService {
         return (total > 0);
     }
 
+    @Override
+    public Long getTotalNumberOfChallenges() {
+        return challengeRepository.count();
+    }
+
+    @Override
+    public Double getTotalAmountOfPrizeValues() {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
+
+        SumBuilder sumPrizeBuilder = sum("sumPrize").script("doc['firstPlaceReward'].value + doc['secondPlaceReward'].value + doc['thirdPlaceReward'].value");
+        searchQueryBuilder.addAggregation(sumPrizeBuilder);
+
+        Aggregations aggregations = elasticsearchTemplateUserImport.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
+        Sum sumReponse = aggregations.get("sumPrize");
+        return sumReponse != null ? sumReponse.getValue() : 0D;
+    }
+
+    @Override
+    public Long getTotalNumberOfRegistrants() {
+        return challengeRegistrantRepository.count();
+    }
+
+    @Override
+    public ChallengeDetailDto getTheLatestChallenge() {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+        searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("challengeId").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, 1));
+
+        List<ChallengeEntity> challengeEntities = challengeRepository.search(searchQueryBuilder.build()).getContent();
+        if (!challengeEntities.isEmpty()) {
+            ChallengeEntity challengeEntity = challengeEntities.get(0);
+            return dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+        }
+        return null;
+    }
 }

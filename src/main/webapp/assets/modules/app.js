@@ -196,6 +196,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/freelancer/projects/projects.html",
         controller: "freelancerProjectsController"
       })
+      .when("/freelancer/why-freelancer", {
+        templateUrl: "modules/freelancer/why-freelancer/whyFreelancer.html",
+        controller: "whyFreelancerController"
+      })
+      .when("/why-challenge", {
+        templateUrl: "modules/why-challenge/whyChallenge.html",
+        controller: "whyChallengeController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {

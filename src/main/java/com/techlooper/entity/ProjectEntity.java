@@ -23,7 +23,7 @@ public class ProjectEntity {
     @Field(type = String)
     private String projectDescription;
 
-    @Field(type = String)
+    @Field(type = String, index = FieldIndex.not_analyzed)
     private List<String> skills;
 
     @Field(type = String, index = FieldIndex.not_analyzed)

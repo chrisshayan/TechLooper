@@ -180,7 +180,8 @@ angular.module("Common").constant("jsonValue", (function () {
       postChallenge: "/post-challenge",
       freelancerPostProject: "/freelancer/post-project",
       freelancerProjectDetail: "/freelancer/project-detail",
-      freelancerProjects: "/freelancer/projects"
+      freelancerProjects: "/freelancer/projects",
+      whyFreelancer: "/freelancer/whyFreelancer"
     },
 
     views: {
@@ -211,7 +212,9 @@ angular.module("Common").constant("jsonValue", (function () {
       challenges: "challenges",
       freelancerPostProject: "freelancerPostProject",
       freelancerProjectDetail: "freelancerProjectDetail",
-      freelancerProjects: "freelancerProjects"
+      freelancerProjects: "freelancerProjects",
+      whyFreelancer: "whyFreelancer",
+      "whyChallenge": "whyChallenge"
     },
 
     httpUri: {
@@ -231,7 +234,9 @@ angular.module("Common").constant("jsonValue", (function () {
       salaryReview: "salaryReview",
       getPromoted: "getPromoted",
       contest: "contest",
-      challenges: "challenges"
+      challenges: "challenges",
+      whyFreelancer: "whyFreelancer",
+      "whyChallenge": "whyChallenge"
     },
 
     socketUri: {

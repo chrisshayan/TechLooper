@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
@@ -451,6 +452,21 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
         ).filter(skill -> skill.getSkillName().length() <= 40).limit(limit).collect(toList()));
 
         return response;
+    }
+
+    @Override
+    public TechnicalTerm getTechnicalTermHasTheMostJob() {
+        List<TechnicalTerm> technicalTerms = jsonConfigRepository.getSkillConfig().stream().sorted((term1, term2) -> {
+            Long term1NumberOfJobs = count(term1);
+            Long term2NumberOfJobs = count(term2);
+            if (term2NumberOfJobs > term1NumberOfJobs) {
+                return 1;
+            } else if (term2NumberOfJobs < term1NumberOfJobs) {
+                return -1;
+            }
+            return 0;
+        }).collect(Collectors.toList());
+        return technicalTerms.isEmpty() ? null : technicalTerms.get(0);
     }
 
     private List<TopDemandedSkillResponse> excludeSimilarSkills(List<TopDemandedSkillResponse> rawSkillStatistics) {

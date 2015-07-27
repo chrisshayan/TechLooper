@@ -38,4 +38,12 @@ public interface ChallengeService {
     long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
 
     List<ChallengeDetailDto> listChallenges();
+
+    Long getTotalNumberOfChallenges();
+
+    Double getTotalAmountOfPrizeValues();
+
+    Long getTotalNumberOfRegistrants();
+
+    ChallengeDetailDto getTheLatestChallenge();
 }
