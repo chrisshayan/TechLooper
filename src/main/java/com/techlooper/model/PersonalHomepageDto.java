@@ -7,7 +7,7 @@ public class PersonalHomepageDto {
 
     private TermStatisticResponse termStatistic;
 
-    private ChallengeDetailDto challengeDetail;
+    private ChallengeDetailDto latestChallenge;
 
     public TermStatisticResponse getTermStatistic() {
         return termStatistic;
@@ -17,11 +17,11 @@ public class PersonalHomepageDto {
         this.termStatistic = termStatistic;
     }
 
-    public ChallengeDetailDto getChallengeDetail() {
-        return challengeDetail;
+    public ChallengeDetailDto getLatestChallenge() {
+        return latestChallenge;
     }
 
-    public void setChallengeDetail(ChallengeDetailDto challengeDetail) {
-        this.challengeDetail = challengeDetail;
+    public void setLatestChallenge(ChallengeDetailDto latestChallenge) {
+        this.latestChallenge = latestChallenge;
     }
 }
