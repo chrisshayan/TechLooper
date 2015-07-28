@@ -58,6 +58,11 @@ public class SocialController {
   private VietnamWorksUserService vietnamWorksUserService;
 
 
+  @RequestMapping(value = "login/social/{social}", method = RequestMethod.GET)
+  public void loginBySocial(@PathVariable SocialProvider social, @RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
+    response.sendRedirect(code == null ? "/#/?action=cancel" : String.format("/#/?action=loginBySocial&social=%s&code=%s", social, code));
+  }
+
   @RequestMapping(value = "register/vnw/google", method = RequestMethod.GET)
   public void registerVnwUserFromGoogle(@RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
     if (code == null) {
@@ -67,7 +72,6 @@ public class SocialController {
 
     SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
       .filter(config -> SocialProvider.GOOGLE == config.getProvider()).findFirst().get();
-
     UserProfile userProfile;
     try {
       userProfile = googleService.getUserProfile(code, socialConfig);
@@ -76,7 +80,6 @@ public class SocialController {
       response.sendRedirect(socialConfig.getApiUrl().get("login"));
       return;
     }
-
     registerVnwUserAndRedirect(response, userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail());
   }
 
@@ -92,11 +95,11 @@ public class SocialController {
     }
 
     if (StringUtils.hasText(email)) {
-      response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s&email=%s",
+      response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s&email=%s",
         URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8"), email));
     }
     else {
-      response.sendRedirect(String.format("/#/?action=success&firstName=%s&lastName=%s",
+      response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s",
         URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8")));
     }
   }
