@@ -93,8 +93,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $routeProvider
       .when("/home", {
-        templateUrl: "modules/home-page/home-page.tem.html",
-        controller: "homePageController"
+        templateUrl: "modules/home-page/home.html",
+        controller: "homeController"
       })
       .when("/hiring", {
         templateUrl: "modules/hiring/hiring.tem.html",
@@ -307,14 +307,18 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   var param = $location.search();
   if (!$.isEmptyObject(param)) {
-    //if (param.registerVnwUser !== "cancel") {
-    //  localStorageService.set("registerVnwUser", param.registerVnwUser);
-    //}
-    //else
-    if (param.action === "success") {
-      localStorageService.set("lastName", param.lastName);
-      localStorageService.set("firstName", param.firstName);
-      localStorageService.set("email", param.email);
+    switch (param.action) {
+      case "registerVnwUser":
+        localStorageService.set("lastName", param.lastName);
+        localStorageService.set("firstName", param.firstName);
+        localStorageService.set("email", param.email);
+        break;
+
+      //TODO route user to login by social
+      case "loginBySocial":
+        localStorageService.set("social", param.social);
+        localStorageService.set("code", param.code);
+        break;
     }
 
     var lastFoot = localStorageService.get("lastFoot");
