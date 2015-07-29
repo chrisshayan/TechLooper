@@ -6,14 +6,36 @@
   </div>
   <div class="personal-site-content-detail">
     <div class="box-container-block left">
-      <h3 translate=""></h3>
+      <h3 translate="whatCurrentTrend"></h3>
       <div class="box-content">
-        <div class="box-header">
-          <h4 translate=""></h4>
-          <a href="#" translate="viewDetails"></a>
-        </div>
         <div class="box-content-detail">
+          <div class="box-header">
+            <h4>C#</h4>
+            <a href="#" translate="viewDetails"></a>
+          </div>
+          <div class="main-skill-logo">
+            <img src="images/lg-c-sharp.png" alt=""/>
+          </div>
+          <div class="main-skill-info">
+            <ul>
+              <li><span>Jobs:</span> 265</li>
+              <li><span>Salary Range:</span>$990 - $2008</li>
+            </ul>
+          </div>
 
+          <div class="top-detail-skill-block">
+            <div class="box-header">
+              <h4 translate="topskills"></h4>
+            </div>
+            <div class="technical-skills-list">
+              <ul>
+                <li ng-repeat="skill in termStatistic.skills">
+                  <div class="circle" id="circles-{{skill.id}}" ng-show="showCircle(skill)"></div>
+                  <div class="skill-name">{{skill.skillName}}</div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="view-more-trends">
           <a href="" translate="viewMoreTrends"></a>
