@@ -10,16 +10,16 @@
       <div class="box-content">
         <div class="box-content-detail">
           <div class="box-header">
-            <h4>C#</h4>
-            <a href="#" translate="viewDetails"></a>
+            <h4>{{homePage.termStatistic.term}}</h4>
+            <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
           </div>
           <div class="main-skill-logo">
-            <img src="images/lg-c-sharp.png" alt=""/>
+            <img ng-src="images/{{homePage.termStatistic.logo}}"  alt=""/>
           </div>
           <div class="main-skill-info">
             <ul>
-              <li><span>Jobs:</span> 265</li>
-              <li><span>Salary Range:</span>$990 - $2008</li>
+              <li><span>Jobs:</span> {{homePage.termStatistic.totalJob}}</li>
+              <li><span>Salary Range:</span>${{homePage.termStatistic.averageSalaryMin}} - ${{homePage.termStatistic.averageSalaryMax}}</li>
             </ul>
           </div>
 
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="view-more-trends">
-          <a href="" translate="viewMoreTrends"></a>
+          <a href="#/pie-chart" translate="viewMoreTrends"></a>
         </div>
       </div>
     </div>

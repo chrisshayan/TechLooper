@@ -15,5 +15,6 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
 
   apiService.getPersonalHomepage().success(function(data) {
     $scope.homePage = data;
+    console.log($scope.homePage);
   });
 });
