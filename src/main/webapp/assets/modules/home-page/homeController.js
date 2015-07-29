@@ -1,14 +1,7 @@
 techlooper.controller("homeController", function($scope, securityService, apiService, localStorageService, $location) {
 
-  $scope.loginByFacebook = function() {
-    apiService.getSocialLoginUrl("FACEBOOK").success(function(url) {
-      localStorageService.set("lastFoot", $location.url());
-      window.location = url;
-    });
-  }
-
-  $scope.loginByGoogle = function() {
-    apiService.getSocialLoginUrl("GOOGLE").success(function(url) {
+  $scope.loginBySocial = function(provider) {
+    apiService.getSocialLoginUrl(provider).success(function(url) {
       localStorageService.set("lastFoot", $location.url());
       window.location = url;
     });
@@ -19,4 +12,8 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
     securityService.login(code, localStorageService.get("social"));
     localStorageService.remove("code", "social");
   }
+
+  apiService.getPersonalHomepage().success(function(data) {
+    $scope.homePage = data;
+  });
 });
