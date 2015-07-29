@@ -8,21 +8,22 @@
     <div class="box-container-block left">
       <h3 translate="whatCurrentTrend"></h3>
       <div class="box-content">
+        <div class="box-header">
+          <h4>{{homePage.termStatistic.term}}</h4>
+          <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
+        </div>
         <div class="box-content-detail">
-          <div class="box-header">
-            <h4>{{homePage.termStatistic.term}}</h4>
-            <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
+          <div class="main-term">
+            <div class="main-skill-logo">
+              <img ng-src="images/{{homePage.termStatistic.logo}}"  alt=""/>
+            </div>
+            <div class="main-skill-info">
+              <ul>
+                <li><span>Jobs:</span> {{homePage.termStatistic.totalJob}}</li>
+                <li><span>Salary Range:</span>${{homePage.termStatistic.averageSalaryMin | number}} - ${{homePage.termStatistic.averageSalaryMax | number}}</li>
+              </ul>
+            </div>
           </div>
-          <div class="main-skill-logo">
-            <img ng-src="images/{{homePage.termStatistic.logo}}"  alt=""/>
-          </div>
-          <div class="main-skill-info">
-            <ul>
-              <li><span>Jobs:</span> {{homePage.termStatistic.totalJob}}</li>
-              <li><span>Salary Range:</span>${{homePage.termStatistic.averageSalaryMin}} - ${{homePage.termStatistic.averageSalaryMax}}</li>
-            </ul>
-          </div>
-
           <div class="top-detail-skill-block">
             <div class="box-header">
               <h4 translate="topskills"></h4>
@@ -30,9 +31,9 @@
             <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob" number-width="45"/>
           </div>
         </div>
-        <div class="view-more-trends">
-          <a href="#/pie-chart" translate="viewMoreTrends"></a>
-        </div>
+      </div>
+      <div class="view-more-items">
+        <a href="#/pie-chart" translate="viewMoreTrends"></a>
       </div>
     </div>
     <div class="box-container-block">
@@ -59,7 +60,7 @@
             </div>
           </div>
           <div class="status-of-challenge-block">
-            <h3 translate="currentPhase" />
+            <h4 translate="currentPhase" />
             <ul>
               <li>
                 <p translate="{{homePage.latestChallenge.progress.translate}}"/>
@@ -67,28 +68,32 @@
               <li>
                 <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(homePage.latestChallenge)}}" ></p>
               </li>
-              <li>
-                <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
-              </li>
             </ul>
+            <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
           </div>
           <div class="challenge-overview-block">
             <p class="title" translate="challengeOverView"></p>
-            <p class="detail" translate="{{homePage.latestChallenge.challengeOverview | lineBreak}}">
+            <p class="detail">
+              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 200}}"></span>
+              <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
+            </p>
           </div>
           <div class="technologies-block">
             <p class="title" translate="technologies"></p>
             <p class="detail">
-            <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
-              {{skill}}
-            </span>
+              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
+                {{skill}}
+              </span>
             </p>
           </div>
           <div class="quality-of-idea-block">
-            {{homePage.latestChallenge.qualityIdea}}
+            <p translate="evaluateContestants"></p>
+            <p class="detail">
+              {{homePage.latestChallenge.qualityIdea}}
+            </p>
           </div>
         </div>
-        <div class="view-more-trends">
+        <div class="view-more-items">
           <a href="#/challenges" translate="viewMoreTrends"></a>
         </div>
       </div>
@@ -101,7 +106,7 @@
             <img src="images/hackathon.png" alt=""/>
           </div>
         </div>
-        <div class="view-more-trends" class="hide">
+        <div class="view-more-items" class="hide">
           <a href="" translate="viewMoreTrends"></a>
         </div>
       </div>
