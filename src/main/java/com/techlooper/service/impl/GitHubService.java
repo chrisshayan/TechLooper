@@ -5,6 +5,7 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.GitHubFollower;
 import com.techlooper.entity.GitHubRepo;
 import com.techlooper.entity.UserProfile;
+import com.techlooper.model.SocialConfig;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -65,5 +66,10 @@ public class GitHubService extends AbstractSocialService {
     private List<GitHubRepo> getForUserRepos(Connection<GitHub> connection, String username) {
         return Arrays.asList(connection.getApi().restOperations()
                 .getForObject(socialConfig.getApiUrl().get("repos"), GitHubRepo[].class, username));
+    }
+
+    @Override
+    public org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig) {
+        return null;
     }
 }
