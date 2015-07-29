@@ -93,6 +93,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getChallengeStatistic: function() {
       return $http.get("challenge/stats");
+    },
+
+    getPersonalHomepage: function() {
+      return $http.get("personalHomepage");
     }
   }
 
