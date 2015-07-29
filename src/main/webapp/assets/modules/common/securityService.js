@@ -11,20 +11,15 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     //    });
     //},
 
-    login: function (username, password) {
-      $.cookie("us", $.base64.encode(username));
-      $.cookie("pwd", $.base64.encode(password));
-
-      apiService
-        .login({us: $.cookie("us"), pwd: $.cookie("pwd")})
+    login: function (username, password, type) {
+      var auth = (type == "social") ? {us: username, pwd: password} : {us: $.base64.encode(username), pwd: $.base64.encode(password)};
+      apiService.login(auth)
         .success(function (data, status, headers, config) {
           $rootScope.$emit("$loginSuccess");
         })
         .error(function (data, status, headers, config) {
           $rootScope.$emit("$loginFailed");
         });
-      $.removeCookie("us");
-      $.removeCookie("pwd");
     },
 
     getCurrentUser: function () {

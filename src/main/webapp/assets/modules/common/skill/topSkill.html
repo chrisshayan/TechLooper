@@ -1,0 +1,8 @@
+<div class="technical-skills-block">
+  <ul>
+    <li ng-repeat="skill in skills track by $index">
+      <div class="circle" id="circles-{{$index}}" ng-show="showCircle(skill, $index)"></div>
+      <div class="skill-name">{{skill.skillName}}</div>
+    </li>
+  </ul>
+</div>

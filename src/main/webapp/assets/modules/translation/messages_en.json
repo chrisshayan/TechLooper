@@ -569,5 +569,16 @@
   "mobileApp": "Mobile App",
   "mobileAppDescription": "Starting from $200",
   "SEOMarketing": "SEO Marketing",
-  "SEOMarketingDescription": "Starting from $150"
+  "SEOMarketingDescription": "Starting from $150",
+  "codingChallenges": "Coding Challenges",
+  "freelancerProjects": "Freelancer Projects",
+  "techLooperSpotLight": "<strong>TechLooper</strong> SpotLight",
+  "whatCurrentTrend": "What's The Current Trend?",
+  "latestCodingChallenge": "Latest Coding Challenge",
+  "interactiveJob": "Interactive Job",
+  "latestFreelancerProjects": "Latest Freelancer Projects",
+  "viewMoreTrends": "view More Trends",
+  "viewMoreChallenges": "View More Challenges",
+  "viewMoreProjects": "View More Projects"
+
 }
