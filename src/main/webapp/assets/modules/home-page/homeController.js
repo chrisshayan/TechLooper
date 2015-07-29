@@ -1,5 +1,5 @@
 techlooper.controller("homeController", function($scope, securityService, apiService, localStorageService, $location,
-                                                 jsonValue, $filter) {
+                                                 jsonValue, $filter, $timeout) {
 
   $scope.loginBySocial = function(provider) {
     apiService.getSocialLoginUrl(provider).success(function(url) {
@@ -24,4 +24,14 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
 
     console.log($scope.homePage);
   });
+
+  $timeout(function(){
+    var tallest = 0;
+    $('.personal-site-content-detail').find('.box-content').each(function () {
+      var thisHeight = $(this).height();
+      if (thisHeight > tallest)
+        tallest = thisHeight;
+    });
+    $('.personal-site-content-detail').find('.box-content').height(tallest + $('.cta-button').height());
+  }, 1000);
 });
