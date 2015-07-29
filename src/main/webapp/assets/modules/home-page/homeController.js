@@ -19,4 +19,6 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
     securityService.login(code, localStorageService.get("social"));
     localStorageService.remove("code", "social");
   }
+
+
 });
