@@ -33,5 +33,5 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
         tallest = thisHeight;
     });
     $('.personal-site-content-detail').find('.box-content').height(tallest + $('.cta-button').height());
-  }, 1000);
+  }, 1400);
 });
