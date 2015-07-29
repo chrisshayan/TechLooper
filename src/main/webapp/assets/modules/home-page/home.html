@@ -15,7 +15,7 @@
         <div class="box-content-detail">
           <div class="main-term">
             <div class="main-skill-logo">
-              <img ng-src="images/{{homePage.termStatistic.logo}}"  alt=""/>
+              <img ng-src="/{{homePage.termStatistic.logo}}"  alt=""/>
             </div>
             <div class="main-skill-info">
               <ul>
@@ -63,10 +63,10 @@
             <h4 translate="currentPhase" />
             <ul>
               <li>
-                <p translate="{{homePage.latestChallenge.progress.translate}}"/>
+                <p translate="{{homePage.latestChallenge | progress: 'challenge'}}"/>
               </li>
               <li>
-                <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(homePage.latestChallenge)}}" ></p>
+                <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" ></p>
               </li>
             </ul>
             <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
@@ -103,7 +103,7 @@
       <div class="box-content">
         <div class="box-content-detail">
           <div class="freelancer-banner">
-            <img src="images/hackathon.png" alt=""/>
+            <img ng-src="images/hackathon.png" alt=""/>
           </div>
         </div>
         <div class="view-more-items" class="hide">
