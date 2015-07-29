@@ -16,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.connect.UserProfile;
-import org.springframework.social.security.SocialAuthenticationToken;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
