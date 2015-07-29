@@ -71,6 +71,6 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
     }
 
     public boolean supports(Class<?> authentication) {
-        return (SocialAuthenticationToken.class.isAssignableFrom(authentication));
+        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 }
