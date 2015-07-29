@@ -63,12 +63,14 @@
             </div>
           </div>
           <div class="status-of-challenge-block">
-            <h4 translate="currentPhase" />
+            <div class="status-of-challenge-info">
+              <h4 translate="currentPhase" />
             <ul>
               <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
               <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" >
               </li>
             </ul>
+            </div>
             <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
           </div>
           <div class="challenge-overview-block">
