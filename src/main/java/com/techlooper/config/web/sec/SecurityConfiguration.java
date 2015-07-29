@@ -2,6 +2,7 @@ package com.techlooper.config.web.sec;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,10 +25,18 @@ import java.util.Arrays;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Bean
+  public AuthenticationProvider vnwAuthenticationProvider() {
+    return new VnwAuthenticationProvider();
+  }
+
+  @Bean
+  public AuthenticationProvider socialAuthenticationProvider() {
+    return new SocialAuthenticationProvider();
+  }
+
+  @Bean
   public AuthenticationManager authenticationManager() {
-    VnwAuthenticationProvider vnwAuthenticationProvider = new VnwAuthenticationProvider();
-    SocialAuthenticationProvider socialAuthenticationProvider = new SocialAuthenticationProvider();
-    return new ProviderManager(Arrays.asList(vnwAuthenticationProvider, socialAuthenticationProvider));
+    return new ProviderManager(Arrays.asList(vnwAuthenticationProvider(), socialAuthenticationProvider()));
   }
 
   protected void configure(HttpSecurity http) throws Exception {

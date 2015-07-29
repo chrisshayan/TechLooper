@@ -29,8 +29,6 @@ public class VnwAuthenticationProvider implements AuthenticationProvider {
   @Resource
   private VnwUserRepo vnwUserRepo;
 
-  private FacebookService facebookService;
-
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 //    Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication, "Unsupported authentication type");
     Assert.isTrue(!authentication.isAuthenticated(), "Already authenticated");
