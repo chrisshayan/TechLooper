@@ -10,7 +10,7 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
 
   var code = localStorageService.get("code");
   if (code) {
-    securityService.login(code, localStorageService.get("social"));
+    securityService.login(code, localStorageService.get("social"), "social");
     localStorageService.remove("code", "social");
   }
 
