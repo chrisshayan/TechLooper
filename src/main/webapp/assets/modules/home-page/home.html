@@ -62,11 +62,8 @@
           <div class="status-of-challenge-block">
             <h4 translate="currentPhase" />
             <ul>
-              <li>
-                <p translate="{{homePage.latestChallenge | progress: 'challenge'}}"/>
-              </li>
-              <li>
-                <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" ></p>
+              <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
+              <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" >
               </li>
             </ul>
             <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
@@ -93,9 +90,10 @@
             </p>
           </div>
         </div>
-        <div class="view-more-items">
-          <a href="#/challenges" translate="viewMoreTrends"></a>
-        </div>
+
+      </div>
+      <div class="view-more-items">
+        <a href="#/challenges" translate="viewMoreChallenges"></a>
       </div>
     </div>
     <div class="box-container-block right">
@@ -106,9 +104,10 @@
             <img ng-src="images/hackathon.png" alt=""/>
           </div>
         </div>
-        <div class="view-more-items" class="hide">
-          <a href="" translate="viewMoreTrends"></a>
-        </div>
+
+      </div>
+      <div class="view-more-items" class="hide">
+        <a href="" translate="viewMoreProjects"></a>
       </div>
     </div>
   </div>
