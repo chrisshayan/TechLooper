@@ -39,14 +39,57 @@
       <h3 translate="latestCodingChallenge"></h3>
       <div class="box-content">
         <div class="box-header">
-          <h4 translate="interactiveJob"></h4>
-          <a href="#" translate="viewDetails"></a>
+          <h4>{{homePage.latestChallenge.challengeName}}</h4>
+          <a href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id" translate="viewDetails"></a>
         </div>
         <div class="box-content-detail">
-
+          <div class="row reward-block">
+            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
+              <p translate="stPrize" ng-show="homePage.latestChallenge.secondPlaceReward != null"></p>
+              <p translate="prize" ng-show="homePage.latestChallenge.secondPlaceReward == null"></p>
+              <strong>${{homePage.latestChallenge.firstPlaceReward | number:0}}</strong>
+            </div>
+            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"  ng-show="homePage.latestChallenge.secondPlaceReward != null">
+              <p translate="ndPrize"></p>
+              <strong>${{homePage.latestChallenge.secondPlaceReward | number:0}}</strong>
+            </div>
+            <div class="col-md-4" ng-show="homePage.latestChallenge.thirdPlaceReward != null">
+              <p translate="rdPrize"></p>
+              <strong>${{homePage.latestChallenge.thirdPlaceReward | number:0}}</strong>
+            </div>
+          </div>
+          <div class="status-of-challenge-block">
+            <h3 translate="currentPhase" />
+            <ul>
+              <li>
+                <p translate="{{homePage.latestChallenge.progress.translate}}"/>
+              </li>
+              <li>
+                <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(homePage.latestChallenge)}}" ></p>
+              </li>
+              <li>
+                <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
+              </li>
+            </ul>
+          </div>
+          <div class="challenge-overview-block">
+            <p class="title" translate="challengeOverView"></p>
+            <p class="detail" translate="{{homePage.latestChallenge.challengeOverview | lineBreak}}">
+          </div>
+          <div class="technologies-block">
+            <p class="title" translate="technologies"></p>
+            <p class="detail">
+            <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
+              {{skill}}
+            </span>
+            </p>
+          </div>
+          <div class="quality-of-idea-block">
+            {{homePage.latestChallenge.qualityIdea}}
+          </div>
         </div>
         <div class="view-more-trends">
-          <a href="" translate="viewMoreTrends"></a>
+          <a href="#/challenges" translate="viewMoreTrends"></a>
         </div>
       </div>
     </div>
