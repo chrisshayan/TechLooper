@@ -62,10 +62,10 @@
             <h3 translate="currentPhase" />
             <ul>
               <li>
-                <p translate="{{homePage.latestChallenge.progress.translate}}"/>
+                <p translate="{{homePage.latestChallenge | progress: 'challenge'}}"/>
               </li>
               <li>
-                <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(homePage.latestChallenge)}}" ></p>
+                <p class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" ></p>
               </li>
               <li>
                 <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>

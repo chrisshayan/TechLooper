@@ -1,4 +1,5 @@
-techlooper.controller("homeController", function($scope, securityService, apiService, localStorageService, $location, jsonValue) {
+techlooper.controller("homeController", function($scope, securityService, apiService, localStorageService, $location,
+                                                 jsonValue, $filter) {
 
   $scope.loginBySocial = function(provider) {
     apiService.getSocialLoginUrl(provider).success(function(url) {
@@ -18,6 +19,9 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
     $scope.homePage.termStatistic.logo = "images/" +  $.grep(jsonValue.technicalSkill, function(skill) {
       return skill.term == $scope.homePage.termStatistic.term;
     })[0].logo;
+
+    //$filter("progress")($scope.homePage.latestChallenge, "challenge");
+
     console.log($scope.homePage);
   });
 });
