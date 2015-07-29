@@ -12,7 +12,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     //},
 
     login: function (username, password, type) {
-      var auth = (type == "social") ? {code: username, provider: password} : {us: $.base64.encode(username), pwd: $.base64.encode(password)};
+      var auth = (type == "social") ? {us: username, pwd: password} : {us: $.base64.encode(username), pwd: $.base64.encode(password)};
       apiService.login(auth)
         .success(function (data, status, headers, config) {
           $rootScope.$emit("$loginSuccess");
