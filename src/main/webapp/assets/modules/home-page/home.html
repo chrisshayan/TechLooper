@@ -40,7 +40,10 @@
       <h3 translate="latestCodingChallenge"></h3>
       <div class="box-content">
         <div class="box-header">
-          <h4>{{homePage.latestChallenge.challengeName}}</h4>
+          <h4 title="{{homePage.latestChallenge.challengeName}}">
+            {{homePage.latestChallenge.challengeName | limitTo: 23}}
+            <span ng-show="homePage.latestChallenge.challengeName.length > 23">...</span>
+          </h4>
           <a href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id" translate="viewDetails"></a>
         </div>
         <div class="box-content-detail">
