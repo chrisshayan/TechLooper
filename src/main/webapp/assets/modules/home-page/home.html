@@ -27,14 +27,7 @@
             <div class="box-header">
               <h4 translate="topskills"></h4>
             </div>
-            <div class="technical-skills-list">
-              <ul>
-                <li ng-repeat="skill in termStatistic.skills">
-                  <div class="circle" id="circles-{{skill.id}}" ng-show="showCircle(skill)"></div>
-                  <div class="skill-name">{{skill.skillName}}</div>
-                </li>
-              </ul>
-            </div>
+            <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob" number-width="45"/>
           </div>
         </div>
         <div class="view-more-trends">
@@ -71,6 +64,4 @@
       </div>
     </div>
   </div>
-
-  <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob" />
 </div>
