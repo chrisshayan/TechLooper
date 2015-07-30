@@ -16,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -257,5 +258,12 @@ public class UserController {
         latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
         personalHomepage.setLatestChallenge(latestChallenge);
         return personalHomepage;
+    }
+
+    @PreAuthorize("hasAnyAuthority('JOB_SEEKER')")
+    @RequestMapping(value = "/user/current", method = RequestMethod.GET)
+    public UserProfileDto getUserProfile() {
+        UserProfileDto userProfile = (UserProfileDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userProfile;
     }
 }

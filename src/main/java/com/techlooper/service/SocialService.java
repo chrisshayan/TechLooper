@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserEntity;
+import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialConfig;
 
 /**
@@ -17,4 +18,6 @@ public interface SocialService {
     UserEntity saveFootprint(AccessGrant accessGrant, String key);
 
     org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig);
+
+    UserProfile getProfile(AccessGrant accessGrant);
 }
