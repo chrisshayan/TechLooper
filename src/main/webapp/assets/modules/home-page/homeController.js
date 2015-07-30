@@ -11,6 +11,8 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     return;
   }
 
+  securityService.getCurrentUser("social");
+
   $scope.loginBySocial = function (provider) {
     apiService.getSocialLoginUrl(provider).success(function (url) {
       localStorageService.set("lastFoot", $location.url());
