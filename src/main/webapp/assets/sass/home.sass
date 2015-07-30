@@ -239,6 +239,34 @@
         float: left
         h1
           font-size: 100%
+      .user-info-basic-block
+        display: inline-block
+        width: 50%
+        float: right
+        text-align: right
+        padding-top: 5px
+        .user-avatar
+          width: auto
+          float: right
+          padding-right: 5px
+          img
+            width: 28px
+            height: 28px
+        a
+          display: inline-block
+          float: right
+          text-transform: capitalize
+          padding-right: 5px
+          line-height: 28px
+          cursor: pointer
+        p
+          width: auto
+          float: right
+          text-transform: uppercase
+          padding-right: 5px
+          line-height: 28px
+          margin: 0
+
   .main-menu-job-seeker-block
     display: inline-block
     clear: both
@@ -285,6 +313,40 @@
         li:first-child
           background: none
           padding-left: 0
+
+.modal-body.sign-in-with-fb-gl
+  padding: 20px
+  text-align: center
+  width: 100%
+  display: inline-block
+  p
+    display: block
+    clear: both
+    margin: 0
+    padding: 5px 0
+  i
+    margin-right: 5px
+  button.btn-gl
+    background: #C73727
+    padding: 6px 25px 6px 10px
+    border: 0
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    color: #fff
+    text-transform: capitalize
+    min-width: 250px
+  button.btn-fb
+    background: #3b5998
+    padding: 6px 25px 6px 10px
+    border: 0
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    color: #fff
+    text-transform: capitalize
+    min-width: 250px
+
 .personal-site-container
   display: block
   clear: both
@@ -298,7 +360,7 @@
     margin: auto
     text-align: left
     border-bottom: 2px solid #277dbe
-    padding: 50px 0 0 0
+    padding: 20px 0 0 0
     h2
       font-size: 25px
       font-weight: 300
@@ -326,6 +388,7 @@
     margin: auto
     text-align: left
     max-width: 1000px
+    padding-bottom: 20px
     .box-container-block
       width: 32%
       float: left
@@ -403,13 +466,14 @@
             padding-left: 10px
             ul
               margin: 0
-              padding: 0
+              padding: 5px 0 0
               width: 100%
               li
                 display: inline-block
                 clear: both
                 width: 100%
                 font-weight: 500
+                padding-bottom: 5px
                 span
                   font-weight: 300
                   display: inline-block
@@ -446,31 +510,35 @@
               text-align: center
               p strong
                 display: none
+            .col-md-4.col12
+              width: 100%
           .status-of-challenge-block
             display: inline-block
             clear: both
             width: 100%
-            background-color: #337ab7
-            padding: 10px
-            h4
+            .status-of-challenge-info
+              background-color: #f3fafe
+              padding: 10px
+              h4
+                margin: 0
+                padding: 0 0 10px 0
+                font-size: 18px
+                font-weight: 300
+              ul
+                margin: 0
+                padding: 0
+                li
+                  clear: both
+                  width: 100%
+            p
+              margin: 0
+              background-color: #277dbe
+              padding: 10px
               color: #a3d5ff
-              margin: 0
-              padding: 0 0 10px 0
-              font-size: 18px
-              font-weight: 300
-            ul
-              margin: 0
-              padding: 0
-              li
-                clear: both
-                width: 100%
-                color: #a3d5ff
-
           .technologies-block
             display: inline-block
             clear: both
             width: 100%
-            padding-bottom: 10px
             p
               margin: 0
               padding: 0

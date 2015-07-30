@@ -11,6 +11,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getCurrentUser: function (type) {
       switch (type) {
+        case "social":
+          return $http.get("user/current");
+
         default:
           return $http.get("user/vnw-current");
       }

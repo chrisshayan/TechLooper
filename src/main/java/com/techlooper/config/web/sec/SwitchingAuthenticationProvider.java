@@ -1,6 +1,8 @@
 package com.techlooper.config.web.sec;
 
 import com.techlooper.model.SocialProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,14 +12,19 @@ import java.util.Map;
 
 public class SwitchingAuthenticationProvider implements AuthenticationProvider {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SwitchingAuthenticationProvider.class);
+
     private Map<SocialProvider, AuthenticationProvider> providers;
 
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        SocialProvider socialProvider = SocialProvider.valueOf(authentication.getCredentials().toString());
-
-        if (socialProvider != null) {
-            AuthenticationProvider delegateTo = providers.get(socialProvider);
-            return delegateTo.authenticate(authentication);
+        try {
+            SocialProvider socialProvider = SocialProvider.valueOf(authentication.getCredentials().toString());
+            if (socialProvider != null) {
+                AuthenticationProvider delegateTo = providers.get(socialProvider);
+                return delegateTo.authenticate(authentication);
+            }
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
         }
 
         return providers.get(SocialProvider.VIETNAMWORKS).authenticate(authentication);

@@ -41,10 +41,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
           responseError: function (rejection) {
             switch (rejection.status) {
-              case 403:
-                $rootScope.lastPath = $location.path();
-                $location.path("/login");
-                break;
+              //case 403:
+              //  $rootScope.lastPath = $location.path();
+              //  $location.path("/login");
+              //  break;
 
               case 500:
               case 404:
@@ -225,19 +225,9 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
-  //joinFBService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
-
-  //signInService.init();
-
-  //var locationPathFn = $location.path;
-  //$location.path = function () {
-  //  var rsLocationPathFn = locationPathFn.apply($location, arguments);
-  //  utils.apply();
-  //  return rsLocationPathFn;
-  //}
 
   var doTranslate = function () {
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
@@ -262,37 +252,15 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
-  //$rootScope.$on("$routeChangeSuccess", function (event, next, current) {
-  //  var view = utils.getView();
-  //  switch (view) {
-  //    case jsonValue.views.challengeDetail:
-  //    case jsonValue.views.freelancerProjectDetail:
-  //      var parts = $routeParams.id.split("-");
-  //      var lastPart = parts.pop();
-  //      if (parts.length < 2 || (lastPart !== "id")) {
-  //        return $location.path("/");
-  //      }
-  //
-  //      var projectId = parts.pop();
-  //      var title = parts.join("");
-  //      if (utils.hasNonAsciiChar(title)) {
-  //        title = utils.toAscii(title);
-  //        return $location.url(sprintf(jsonValue.routerUris[view] + "/%s-%s-id", title, projectId));
-  //      }
-  //      break;
-  //  }
-  //
-  //  return true;
-  //});
-
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     var view = utils.getView();
     switch (view) {
       case jsonValue.views.freelancerPostProject:
         var lastPage = "/freelancer/post-project";
       case jsonValue.views.postChallenge:
-        securityService.getCurrentUser().catch(function () {
+        securityService.getCurrentUser().error(function () {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");
+          return $location.path("/login");
         });
         break;
 
@@ -303,6 +271,15 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         }
         break;
     }
+  });
+
+  $rootScope.$on("$loginSuccess", function () {
+    var protectedPage = localStorageService.get("protectedPage");
+    if (protectedPage) {
+      localStorageService.remove("protectedPage");
+      return $location.url(protectedPage);
+    }
+    return $location.url("/");
   });
 
   var param = $location.search();
@@ -328,6 +305,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     }
   }
 
+  if (localStorageService.get("social")) {
+    securityService.getCurrentUser("social");
+  }
+
+  $rootScope.today = moment().format(jsonValue.dateFormat);
 });
 
 techlooper.directive("navigation", function () {
