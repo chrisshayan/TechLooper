@@ -12,7 +12,11 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
 
   var code = localStorageService.get("code");
   if (code) {
-    securityService.login(code, localStorageService.get("social"), "social");
+    securityService.login(code, localStorageService.get("social"), "social")
+      .success(function(data) {
+      })
+      .error(function(data) {
+      });
     localStorageService.remove("code", "social");
   }
 
@@ -21,12 +25,9 @@ techlooper.controller("homeController", function($scope, securityService, apiSer
     $scope.homePage.termStatistic.logo = "images/" +  $.grep(jsonValue.technicalSkill, function(skill) {
       return skill.term == $scope.homePage.termStatistic.term;
     })[0].logo;
-
-    //$filter("progress")($scope.homePage.latestChallenge, "challenge");
-
-    console.log($scope.homePage);
   });
 
+  //TODO remove timeout function
   $timeout(function(){
     var tallest = 0;
     $('.personal-site-content-detail').find('.box-content').each(function () {
