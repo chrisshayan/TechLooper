@@ -3,7 +3,8 @@ techlooper
     return {
       restrict: "E",
       replace: true,
-      templateUrl: "modules/navigation/jobseeker-header.tem.html"
+      templateUrl: "modules/navigation/jobseeker-header.tem.html",
+      controller: "navigationController"
     }
   })
   .directive("employerHeader", function ($http) {

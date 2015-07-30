@@ -3,13 +3,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
   //localStorage.setItem('CAPTURE-PATHS', '/');
 
   var instance = {
-    //logout: function () {
-    //  apiService.logout()
-    //    .success(function (data, status, headers, config) {
-    //      $rootScope.userInfo = undefined;
-    //      $location.path("/");
-    //    });
-    //},
+    logout: function () {
+      apiService.logout()
+        .success(function (data, status, headers, config) {
+          $rootScope.userInfo = undefined;
+        });
+    },
 
     login: function (username, password, type) {
       var auth = (type == "social") ? {us: username, pwd: password} : {
@@ -26,6 +25,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     },
 
     getCurrentUser: function (type) {
+      $rootScope.userInfo = undefined;
       return apiService.getCurrentUser(type).success(function (data) {
         $rootScope.userInfo = data;
       });

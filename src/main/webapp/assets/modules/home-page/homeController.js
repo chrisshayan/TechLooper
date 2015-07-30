@@ -1,27 +1,21 @@
 techlooper.controller("homeController", function ($scope, securityService, apiService, localStorageService, $location,
-                                                  jsonValue, $filter, $timeout) {
+                                                  jsonValue, utils, $timeout, $rootScope) {
 
-  $scope.today = moment().format(jsonValue.dateFormat);
+  var code = localStorageService.get("code");
+  if (code) {
+    utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+    securityService.login(code, localStorageService.get("social"), "social").success(function (data) {
+      securityService.getCurrentUser("social");
+    }).finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
+    localStorageService.remove("code");
+    return;
+  }
 
   $scope.loginBySocial = function (provider) {
     apiService.getSocialLoginUrl(provider).success(function (url) {
       localStorageService.set("lastFoot", $location.url());
       window.location = url;
     });
-  }
-
-  var code = localStorageService.get("code");
-  if (code) {
-    securityService.login(code, localStorageService.get("social"), "social")
-      .success(function (data) {
-        securityService.getCurrentUser("social")
-          .success(function (data) {
-
-          });
-      })
-      .error(function (data) {
-      });
-    localStorageService.remove("code", "social");
   }
 
   apiService.getPersonalHomepage().success(function (data) {

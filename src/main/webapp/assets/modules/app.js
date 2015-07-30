@@ -41,10 +41,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
           responseError: function (rejection) {
             switch (rejection.status) {
-              case 403:
-                $rootScope.lastPath = $location.path();
-                $location.path("/login");
-                break;
+              //case 403:
+              //  $rootScope.lastPath = $location.path();
+              //  $location.path("/login");
+              //  break;
 
               case 500:
               case 404:
@@ -260,6 +260,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       case jsonValue.views.postChallenge:
         securityService.getCurrentUser().error(function () {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");
+          return $location.path("/login");
         });
         break;
 
@@ -304,6 +305,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     }
   }
 
+  if (localStorageService.get("social")) {
+    securityService.getCurrentUser("social");
+  }
+
+  $rootScope.today = moment().format(jsonValue.dateFormat);
 });
 
 techlooper.directive("navigation", function () {
