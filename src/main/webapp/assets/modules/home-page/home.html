@@ -29,8 +29,10 @@
             </div>
             <div class="main-skill-info">
               <ul>
-                <li><span>Jobs:</span> {{homePage.termStatistic.totalJob}}</li>
-                <li><span>Salary Range:</span>${{homePage.termStatistic.averageSalaryMin | number}} - ${{homePage.termStatistic.averageSalaryMax | number}}</li>
+                <li><span translate="jobs"></span>:<strong>{{homePage.termStatistic.totalJob}}</strong></li>
+                <li><span translate="salaryRange"></span>:
+                <strong>${{homePage.termStatistic.averageSalaryMin | number}} - ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
+              </li>
               </ul>
             </div>
           </div>
@@ -129,7 +131,7 @@
       <h3 translate="latestFreelancerProjects"></h3>
       <div class="box-content">
         <div class="box-header">
-          <h4>Become a Freelancer</h4>
+          <h4 translate="becomeAFreelancer"></h4>
         </div>
         <div class="box-content-detail">
           <div class="freelancer-banner">
