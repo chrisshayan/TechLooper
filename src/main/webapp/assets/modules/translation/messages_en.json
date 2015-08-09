@@ -586,6 +586,7 @@
   "signInWithGooglePlus": "Sign In With Google Plus",
   "salaryRange": "Salary Range",
   "becomeAFreelancer": "Become a Freelancer",
-  "latestFreelancerProjects": "Latest Freelancer Projects"
-
+  "latestFreelancerProjects": "Latest Freelancer Projects",
+  "whyChallengeNote": "*** TechLooper is not responsible for payment agreement between Challenge Owner who posts the challenge and contestant(s) who win(s) that challenge.",
+  "whyFreelancerNote": "*** TechLooper is not responsible for payment agreement between employer who posts the Freelancer project and freelancer(s) whom get hired for that project."
 }
