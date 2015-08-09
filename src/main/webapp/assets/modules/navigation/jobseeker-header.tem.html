@@ -33,9 +33,34 @@
         <h4 class="modal-title" id="myModalLabel" translate="signInTitle"></h4>
       </div>
       <div class="modal-body sign-in-with-fb-gl">
-        <button ng-click="loginBySocial('FACEBOOK')" class="btn-fb"><i class="fa fa-facebook"></i><span translate="signInWithFaceBook"></span></button>
-        <p translate="or"></p>
-        <button ng-click="loginBySocial('GOOGLE')" class="btn-gl"><i class="fa fa-google-plus"></i><span translate="signInWithGooglePlus"></span></button>
+        <div class="sign-in-social">
+          <button ng-click="loginBySocial('FACEBOOK')" class="btn-fb"><i class="fa fa-facebook"></i><span>Facebook</span></button>
+          <button ng-click="loginBySocial('GOOGLE')" class="btn-gl"><i class="fa fa-google-plus"></i><span>Google</span></button>
+        </div>
+        
+        <div class="sign-in-vnw-form">
+          <p>Or sign in using your VietnamWorks Account</p>
+          <div class="row">
+            <input id="txtUserName" class="input-style" type="text" name="username" ng-model="username"
+            placeholder="{{'userNameEX' | translate}}" required touable/>
+            <div class="error-messages"
+                 ng-show="loginForm.username.$error.required && (loginForm.username.$touched || loginForm.$submitted)"
+                 translate="requiredThisField">ds vds  </div>
+          </div>
+          <div class="row">
+            <input id="txtPassword" class="input-style" type="password" name="password" ng-model="password"
+          placeholder="{{'password' | translate}}"  required touable>
+          <div class="error-messages"
+               ng-show="loginForm.username.$error.required && (loginForm.username.$touched || loginForm.$submitted)"
+               translate="requiredThisField">vdvdsv vd</div>
+          </div>
+          <div class="row">
+          <button translate="signIn" class="btn btn-primary btn-flat"></button>
+        </div>
+        </div>
+        <div class="dont-have-account">
+          <p>Don't have an account yet? <a href="#/">Register Now</a></p>
+        </div>
       </div>
     </div>
   </div>
