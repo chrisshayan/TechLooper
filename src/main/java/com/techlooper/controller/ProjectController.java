@@ -1,10 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.ProjectEntity;
-import com.techlooper.model.ProjectDetailDto;
-import com.techlooper.model.ProjectDto;
-import com.techlooper.model.ProjectRegistrantDto;
-import com.techlooper.model.ProjectStatsDto;
+import com.techlooper.model.*;
 import com.techlooper.service.ProjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +27,11 @@ public class ProjectController {
     @RequestMapping(value = "/project/list", method = RequestMethod.GET)
     public List<ProjectDto> listProject() throws Exception {
         return projectService.listProject();
+    }
+
+    @RequestMapping(value = "/kimono/integrate", method = RequestMethod.POST)
+    public boolean listProject(@RequestBody KimonoDataModel data) throws Exception {
+        return true;
     }
 
     @RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET)
