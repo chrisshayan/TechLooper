@@ -1,7 +1,17 @@
-angular.module("Common").factory("utils", function (jsonValue, $location, $rootScope) {
+angular.module("Common").factory("utils", function (jsonValue, $location, $rootScope, localStorageService) {
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
+
+    gotoLastFoot: function() {
+      var lastFoot = localStorageService.get("lastFoot");
+      if (lastFoot) {
+        localStorageService.remove("lastFoot");
+        return $location.url(lastFoot);
+      }
+      return $location.url("/");
+    },
+
     openFBShare: function(uri) {
       window.open(
         'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri,
