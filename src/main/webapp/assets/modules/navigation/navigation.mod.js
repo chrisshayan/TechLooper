@@ -11,7 +11,8 @@ techlooper
     return {
       restrict: "E",
       replace: true,
-      templateUrl: "modules/navigation/employer-header.tem.html"
+      templateUrl: "modules/navigation/employer-header.tem.html",
+      controller: "navigationController"
     }
   });
 

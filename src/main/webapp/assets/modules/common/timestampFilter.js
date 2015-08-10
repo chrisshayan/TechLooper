@@ -12,7 +12,7 @@ techlooper.filter("timestamp", function (jsonValue) {
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
     if (duration > 7) {
-      return {translate: moment(date, "DD/MM/YYYY h:mm")};
+      return {translate: moment(date).format("DD/MM/YYYY h:mm A")};
     }
     else if (duration > 1 && duration <= 7) {
       return {translate: "xDaysAgo", number: duration}

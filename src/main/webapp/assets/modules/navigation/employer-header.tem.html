@@ -1,10 +1,47 @@
-<nav class="navbar">
-  <div class="logo-block text-center">
-    <div class="logo" id="logo">
-      <h1><a href="#/hiring"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+<div class="header-site">
+    <div class="personal-header-block">
+        <div class="personal-header-content">
+            <div class="logo-block">
+                <h1><a href="#/hiring"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
+            </div>
+            <div class="user-info-basic-block">
+                <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+                <div class="user-avatar" ng-show="$root.userInfo">
+                    <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+                </div>
+                <p>java Mark</p>
+                <a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>
+            </div>
+        </div>
     </div>
-    <div class="vnw-logo">
-      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
+    <div class="main-menu-job-seeker-block">
+        <div class="main-menu-job-seeker-content">
+            <ul>
+            	<li>
+                    <a href="#/price-job" translate="jobPostEvaluation" class="help"></a>
+                </li>
+                <li>
+                    <a href="#/post-challenge" translate="postAChallenge" class="challenges"></a>
+                </li>
+                <li>
+                    <a href="#/freelancer/post-project" translate="postAProject" class="freelancer"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel" translate="signInTitle"></h4>
+        </div>
+        <div class="modal-body sign-in-with-fb-gl">
+          <button ng-click="loginBySocial('FACEBOOK')" class="btn-fb"><i class="fa fa-facebook"></i><span translate="signInWithFaceBook"></span></button>
+          <p translate="or"></p>
+          <button ng-click="loginBySocial('GOOGLE')" class="btn-gl"><i class="fa fa-google-plus"></i><span translate="signInWithGooglePlus"></span></button>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
+</div>
