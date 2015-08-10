@@ -279,7 +279,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       localStorageService.remove("protectedPage");
       return $location.url(protectedPage);
     }
-    return $location.url("/");
   });
 
   var param = $location.search();
