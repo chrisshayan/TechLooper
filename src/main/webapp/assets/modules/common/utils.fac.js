@@ -284,6 +284,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/why-challenge/.test(path)) {
         return jsonValue.views.whyChallenge;
       }
+      else if (/\/employer-dashboard/.test(path)) {
+        return jsonValue.views.employerDashboard;
+      }
     },
 
     sum: function (array, prop) {

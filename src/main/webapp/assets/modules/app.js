@@ -204,6 +204,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/why-challenge/whyChallenge.html",
         controller: "whyChallengeController"
       })
+        .when("/employer-dashboard", {
+          templateUrl: "modules/employer-dashboard/employer-dashboard.html",
+          controller: "employerDashboardController"
+        })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
