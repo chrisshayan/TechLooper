@@ -5,11 +5,11 @@ import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,33 +17,35 @@ import java.util.List;
  */
 public interface ChallengeService {
 
-    ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception;
+  ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception;
 
-    void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
-            throws MessagingException, IOException, TemplateException;
+  void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
+    throws MessagingException, IOException, TemplateException;
 
-    void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
-            throws MessagingException, IOException, TemplateException;
+  void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
+    throws MessagingException, IOException, TemplateException;
 
-    ChallengeDetailDto getChallengeDetail(Long challengeId);
+  ChallengeDetailDto getChallengeDetail(Long challengeId);
 
-    Long getNumberOfRegistrants(Long challengeId);
+  Long getNumberOfRegistrants(Long challengeId);
 
-    void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-            throws MessagingException, IOException, TemplateException;
+  void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+    throws MessagingException, IOException, TemplateException;
 
-    void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-            throws MessagingException, IOException, TemplateException;
+  void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+    throws MessagingException, IOException, TemplateException;
 
-    long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
+  long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
 
-    List<ChallengeDetailDto> listChallenges();
+  List<ChallengeDetailDto> listChallenges();
 
-    Long getTotalNumberOfChallenges();
+  Long getTotalNumberOfChallenges();
 
-    Double getTotalAmountOfPrizeValues();
+  Double getTotalAmountOfPrizeValues();
 
-    Long getTotalNumberOfRegistrants();
+  Long getTotalNumberOfRegistrants();
 
-    ChallengeDetailDto getTheLatestChallenge();
+  ChallengeDetailDto getTheLatestChallenge();
+
+  Collection<ChallengeDetailDto> findByUser(String username);
 }
