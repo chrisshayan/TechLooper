@@ -593,5 +593,12 @@
   "joinToday": "Join Today",
   "chooseOneTheFollowingSignInMethods": "Choose One The Following Sign In Methods",
   "employerSignUp": "Employer Sign Up",
-  "jobseekerSignUp": "Jobseeker Sign Up"
+  "jobseekerSignUp": "Jobseeker Sign Up",
+  "myDashboard": "My Dashboard",
+  "myChallenges": "My Challenges",
+  "myProjects": "My Projects",
+  "activeChallenges": "Active Challenge(s)",
+  "contestants": "Contestant(s)",
+  "activeProjects": "Active Freelancer Project(s)",
+  "freelancerHasApplied": "Freelancer(s) Has Applied"
 }
