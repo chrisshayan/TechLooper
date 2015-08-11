@@ -1,8 +1,6 @@
 package com.techlooper.config;
 
 import org.elasticsearch.client.transport.TransportClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,21 +19,19 @@ import javax.annotation.Resource;
 @EnableElasticsearchRepositories(basePackages = "com.techlooper.repository.elasticsearch")
 public class ElasticsearchConfiguration {
 
-    @Resource
-    private Environment environment;
+  @Resource
+  private Environment environment;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
+  @Bean
+  public FactoryBean<TransportClient> transportClient() throws Exception {
+    TransportClientFactoryBean factory = new TransportClientFactoryBean();
+    factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
+    factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
+    return factory;
+  }
 
-    @Bean
-    public FactoryBean<TransportClient> transportClient() throws Exception {
-        TransportClientFactoryBean factory = new TransportClientFactoryBean();
-        factory.setClusterName(environment.getProperty("elasticsearch.cluster.name"));
-        factory.setClusterNodes(environment.getProperty("elasticsearch.host"));
-        return factory;
-    }
-
-    @Bean
-    public ElasticsearchOperations elasticsearchTemplate() throws Exception {
-        return new ElasticsearchTemplate(transportClient().getObject());
-    }
+  @Bean
+  public ElasticsearchOperations elasticsearchTemplate() throws Exception {
+    return new ElasticsearchTemplate(transportClient().getObject());
+  }
 }
