@@ -20,8 +20,10 @@ public class EmployerServiceImpl implements EmployerService {
   @Resource
   private ProjectService projectService;
 
-  public DashBoardInfo getDashboardInfo() {
-
-    return null;
+  public DashBoardInfo getDashboardInfo(String owner) {
+    return DashBoardInfo.DashBoardInfoBuilder.dashBoardInfo()
+      .withProjects(projectService.findByOwner(owner))
+      .withChallenges(challengeService.findInProgressChallenges(owner))
+      .build();
   }
 }

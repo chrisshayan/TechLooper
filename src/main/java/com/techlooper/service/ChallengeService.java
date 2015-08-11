@@ -48,7 +48,7 @@ public interface ChallengeService {
 
   ChallengeDetailDto getTheLatestChallenge();
 
-  Collection<ChallengeDetailDto> findByUsernameAndCondition(String username, Predicate<? super ChallengeEntity> condition);
+  Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner, Predicate<? super ChallengeEntity> condition);
 
-  Collection<ChallengeDetailDto> findInProgressChallenges(String username);
+  Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
 }

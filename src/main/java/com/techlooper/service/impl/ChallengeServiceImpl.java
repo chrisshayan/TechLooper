@@ -388,10 +388,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     return null;
   }
 
-  public Collection<ChallengeDetailDto> findByUsernameAndCondition(String username,
-                                                                   Predicate<? super ChallengeEntity> condition) {
+  public Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner,
+                                                                Predicate<? super ChallengeEntity> condition) {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challenge");
-    QueryStringQueryBuilder query = QueryBuilders.queryString(username).defaultField("authorEmail");
+    QueryStringQueryBuilder query = QueryBuilders.queryString(owner).defaultField("authorEmail");
     queryBuilder.withFilter(FilterBuilders.queryFilter(query));
 
     int pageIndex = 0;
@@ -412,9 +412,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     return challenges;
   }
 
-  public Collection<ChallengeDetailDto> findInProgressChallenges(String username) {
+  public Collection<ChallengeDetailDto> findInProgressChallenges(String owner) {
     DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-    return findByUsernameAndCondition(username, challengeEntity -> {
+    return findByOwnerAndCondition(owner, challengeEntity -> {
       DateTime startDate = dateTimeFormatter.parseDateTime(challengeEntity.getStartDateTime());
       DateTime submissionDate = dateTimeFormatter.parseDateTime(challengeEntity.getSubmissionDateTime());
       DateTime now = DateTime.now();
