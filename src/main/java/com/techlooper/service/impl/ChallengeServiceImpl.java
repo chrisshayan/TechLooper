@@ -3,7 +3,6 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.entity.JobEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.Language;
@@ -19,12 +18,14 @@ import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
-import org.elasticsearch.index.search.MultiMatchQuery;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -46,6 +47,7 @@ import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
@@ -386,7 +388,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     return null;
   }
 
-  public Collection<ChallengeDetailDto> findByUser(String username) {
+  public Collection<ChallengeDetailDto> findByUsernameAndCondition(String username,
+                                                                   Predicate<? super ChallengeEntity> condition) {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challenge");
     QueryStringQueryBuilder query = QueryBuilders.queryString(username).defaultField("authorEmail");
     queryBuilder.withFilter(FilterBuilders.queryFilter(query));
@@ -399,10 +402,25 @@ public class ChallengeServiceImpl implements ChallengeService {
       if (!page.hasContent()) {
         break;
       }
+
       page.spliterator().forEachRemaining(challenge -> {
-        challenges.add(dozerMapper.map(challenge, ChallengeDetailDto.class));
+        if (condition.test(challenge)) {
+          challenges.add(dozerMapper.map(challenge, ChallengeDetailDto.class));
+        }
       });
     }
     return challenges;
+  }
+
+  public Collection<ChallengeDetailDto> findInProgressChallenges(String username) {
+    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+    return findByUsernameAndCondition(username, challengeEntity -> {
+      DateTime startDate = dateTimeFormatter.parseDateTime(challengeEntity.getStartDateTime());
+      DateTime submissionDate = dateTimeFormatter.parseDateTime(challengeEntity.getSubmissionDateTime());
+      DateTime now = DateTime.now();
+      boolean inRange = now.isAfter(startDate) && now.isBefore(submissionDate);
+      boolean atBoundary = now.isEqual(startDate) || now.isEqual(submissionDate);
+      return inRange || atBoundary;
+    });
   }
 }

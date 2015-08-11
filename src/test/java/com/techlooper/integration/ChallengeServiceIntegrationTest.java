@@ -2,6 +2,7 @@ package com.techlooper.integration;
 
 import com.techlooper.config.BaseConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
+import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.impl.ChallengeServiceImpl;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 
 /**
  * Created by phuonghqh on 8/11/15.
@@ -44,6 +46,7 @@ public class ChallengeServiceIntegrationTest {
 
   @Test
   public void testFindByUser() {
-    Assert.assertNotNull(challengeService.findByUser("thu.hoang@navigosgroup.com"));
+    Collection<ChallengeDetailDto> challenges = challengeService.findInProgressChallenges("thu.hoang@navigosgroup.com");
+    Assert.assertNotNull(challenges);
   }
 }
