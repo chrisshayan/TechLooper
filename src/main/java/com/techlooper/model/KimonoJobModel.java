@@ -7,17 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by NguyenDangKhoa on 8/10/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class KimonoDataModel {
+public class KimonoJobModel {
 
     @JsonProperty("name")
     private String crawlSource;
 
-    @JsonProperty("thisversionrun")
-    private String crawlDateTime;
-
     private KimonoJobList results;
 
-    public KimonoDataModel() {
+    public KimonoJobModel() {
     }
 
     public String getCrawlSource() {
@@ -26,14 +23,6 @@ public class KimonoDataModel {
 
     public void setCrawlSource(String crawlSource) {
         this.crawlSource = crawlSource;
-    }
-
-    public String getCrawlDateTime() {
-        return crawlDateTime;
-    }
-
-    public void setCrawlDateTime(String crawlDateTime) {
-        this.crawlDateTime = crawlDateTime;
     }
 
     public KimonoJobList getResults() {
