@@ -29,11 +29,6 @@ public class ProjectController {
         return projectService.listProject();
     }
 
-    @RequestMapping(value = "/kimono/integrate", method = RequestMethod.POST)
-    public boolean listProject(@RequestBody KimonoDataModel data) throws Exception {
-        return true;
-    }
-
     @RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET)
     public ProjectDetailDto getProjectDetail(@PathVariable Long projectId) throws Exception {
         return projectService.getProjectDetail(projectId);

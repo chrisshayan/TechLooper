@@ -378,6 +378,10 @@
                     background: none
                     padding-left: 0
 
+.modal-header
+    h4
+        text-transform: capitalize
+
 .modal-body.sign-in-with-fb-gl
     padding: 20px
     text-align: center
@@ -385,35 +389,81 @@
     display: inline-block
 
     p
-        display: block
-        clear: both
+        display: inline-block
         margin: 0
-        padding: 5px 0
+        padding: 5px 10px
 
     i
         margin-right: 5px
 
     button.btn-gl
         background: #C73727
-        padding: 6px 25px 6px 10px
+        padding: 6px 15px
         border: 0
         -webkit-border-radius: 5px
         -moz-border-radius: 5px
         border-radius: 5px
         color: #fff
         text-transform: capitalize
-        min-width: 250px
+        min-width: 120px
+        display: inline-block
 
     button.btn-fb
         background: #3b5998
-        padding: 6px 25px 6px 10px
+        padding: 6px 15px
         border: 0
         -webkit-border-radius: 5px
         -moz-border-radius: 5px
         border-radius: 5px
         color: #fff
         text-transform: capitalize
-        min-width: 250px
+        min-width: 120px
+        display: inline-block
+
+    .sign-in-social
+        clear: both
+        width: 100%
+
+    .sign-in-vnw-form
+        clear: both
+        width: 100%
+        padding: 10px 0
+        border-top: 1px solid #e5e5e5
+        border-bottom: 1px solid #e5e5e5
+
+        p
+            padding: 10px 0 20px 0
+            margin: 0
+            font-size: 16px
+
+        .row
+            padding-bottom: 10px
+            width: 80%
+            margin: auto
+
+        input
+            width: 100%
+            clear: both
+
+        button
+            width: 100%
+            clear: both
+            margin: 2px 0
+
+        .error-messages
+            text-align: left
+
+    .dont-have-account
+        clear: both
+        width: 100%
+        padding: 10px 0
+
+        p
+            margin: 0
+            padding: 0
+
+        a
+            cursor: pointer
 
 .personal-site-container
     display: block

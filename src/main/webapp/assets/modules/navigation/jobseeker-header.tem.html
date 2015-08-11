@@ -1,43 +1,56 @@
 <div class="header-site">
-  <div class="personal-header-block">
-    <div class="personal-header-content">
-      <div class="logo-block">
-        <h1><a href="#/"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
-      </div>
-      <div class="user-info-basic-block">
-        <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
-        <div class="user-avatar" ng-show="$root.userInfo">
-          <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+    <div class="personal-header-block">
+        <div class="personal-header-content">
+            <div class="logo-block">
+                <h1><a href="#/"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
+            </div>
+            <div class="user-info-basic-block">
+                <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+                <div class="user-avatar" ng-show="$root.userInfo">
+                    <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+                </div>
+                <p>{{$root.userInfo.name}}</p>
+                <a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>
+            </div>
         </div>
-        <p>{{$root.userInfo.name}}</p>
-        <a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>
-      </div>
     </div>
-  </div>
-  <div class="main-menu-job-seeker-block">
-    <div class="main-menu-job-seeker-content">
-      <ul>
-        <li><a href="#/challenges" translate="codingChallenges" class="challenges"></a></li>
-        <li><a href="#/freelancer/projects" translate="freelancerProjects" class="freelancer"></a></li>
-        <li><a href="#/pie-chart" translate="homepage.analytics.cta" class="analytics"></a></li>
-        <li><a href="#/salary-review" translate="homepage.howitworks.item2.title" class="help"></a></li>
-        <li><a href="#/get-promoted" translate="getPromotedTagLine" class="promoted"></a></li>
-      </ul>
+    <div class="main-menu-job-seeker-block">
+        <div class="main-menu-job-seeker-content">
+            <ul>
+                <li>
+                    <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
+                </li>
+                <li>
+                    <a href="#/freelancer/projects" translate="freelancerProjects" class="freelancer"></a>
+                </li>
+                <li>
+                    <a href="#/pie-chart" translate="homepage.analytics.cta" class="analytics"></a>
+                </li>
+                <li>
+                    <a href="#/salary-review" translate="homepage.howitworks.item2.title" class="help"></a>
+                </li>
+                <li>
+                    <a href="#/get-promoted" translate="getPromotedTagLine" class="promoted"></a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" translate="signInTitle"></h4>
-      </div>
-      <div class="modal-body sign-in-with-fb-gl">
-        <button ng-click="loginBySocial('FACEBOOK')" class="btn-fb"><i class="fa fa-facebook"></i><span translate="signInWithFaceBook"></span></button>
-        <p translate="or"></p>
-        <button ng-click="loginBySocial('GOOGLE')" class="btn-gl"><i class="fa fa-google-plus"></i><span translate="signInWithGooglePlus"></span></button>
-      </div>
+    <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    <h4 class="modal-title" id="myModalLabel" translate="signInTitle"></h4>
+                </div>
+                <div class="modal-body sign-in-with-fb-gl">
+                    <div class="sign-in-social">
+                        <button ng-click="loginBySocial('FACEBOOK')" class="btn-fb"><i class="fa fa-facebook"></i><span translate="signInWithFaceBook"></span></button>
+                        <p translate="or">Or</p>
+                        <button ng-click="loginBySocial('GOOGLE')" class="btn-gl"><i class="fa fa-google-plus"></i><span translate="signInWithGooglePlus"</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </div>

@@ -417,7 +417,7 @@
   "contestValue2": "Grow your developer network.",
   "contestValue3": "Nurture your talent pool with best IT professionals.",
   "desPostAChallenge": "Build a <strong>compelling brand</strong> by nurturing a thriving <strong>community of software engineers</strong> around your organization.",
-  "signUpVNW": "Haven't had an account yet? Sign up ",
+  "signUpVNW": "Haven't had an account yet? Sign up",
   "signUpHere": "here",
   "challengeYourself": "Challenge Yourself",
   "subChallengeYourselfTagLine": "Gain Experience. Be recognized. Get rewarded.",
@@ -588,5 +588,10 @@
   "becomeAFreelancer": "Become a Freelancer",
   "latestFreelancerProjects": "Latest Freelancer Projects",
   "whyChallengeNote": "*** TechLooper is not responsible for payment agreement between Challenge Owner who posts the challenge and contestant(s) who win(s) that challenge.",
-  "whyFreelancerNote": "*** TechLooper is not responsible for payment agreement between employer who posts the Freelancer project and freelancer(s) whom get hired for that project."
+  "whyFreelancerNote": "*** TechLooper is not responsible for payment agreement between employer who posts the Freelancer project and freelancer(s) whom get hired for that project.",
+  "signUp": "Sign Up",
+  "joinToday": "Join Today",
+  "chooseOneTheFollowingSignInMethods": "Choose One The Following Sign In Methods",
+  "employerSignUp": "Employer Sign Up",
+  "jobseekerSignUp": "Jobseeker Sign Up"
 }
