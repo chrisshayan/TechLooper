@@ -11,6 +11,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
@@ -47,5 +48,7 @@ public interface ChallengeService {
 
   ChallengeDetailDto getTheLatestChallenge();
 
-  Collection<ChallengeDetailDto> findByUser(String username);
+  Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner, Predicate<? super ChallengeEntity> condition);
+
+  Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
 }

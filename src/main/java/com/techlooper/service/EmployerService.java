@@ -7,5 +7,5 @@ import com.techlooper.dto.DashBoardInfo;
  */
 public interface EmployerService {
 
-  DashBoardInfo getDashboardInfo();
+  DashBoardInfo getDashboardInfo(String username);
 }
