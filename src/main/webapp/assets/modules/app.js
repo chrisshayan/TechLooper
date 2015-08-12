@@ -212,6 +212,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/user-type/user-type.html",
         controller: "userTypeController"
       })
+      .when("/how-it-works", {
+        templateUrl: "modules/how-it-works/how-it-works.html"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
