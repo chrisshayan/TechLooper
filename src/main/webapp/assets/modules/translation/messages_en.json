@@ -600,5 +600,6 @@
   "activeChallenges": "Active Challenge(s)",
   "contestants": "Contestant(s)",
   "activeProjects": "Active Freelancer Project(s)",
-  "freelancerHasApplied": "Freelancer(s) Has Applied"
+  "freelancerHasApplied": "Freelancer(s) Has Applied",
+  "getStarted": "Let's get started! <br/>First, tell us who you are."
 }
