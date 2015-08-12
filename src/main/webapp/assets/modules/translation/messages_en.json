@@ -570,8 +570,8 @@
   "mobileAppDescription": "Starting from $200",
   "SEOMarketing": "SEO Marketing",
   "SEOMarketingDescription": "Starting from $150",
-  "codingChallenges": "Coding Challenges",
-  "freelancerProjects": "Freelancer Projects",
+  "codingChallenges": "Challenges",
+  "freelancerProjects": "Freelancer",
   "techLooperSpotLight": "<strong>TechLooper</strong> SpotLight",
   "whatCurrentTrend": "What's The Current Trend?",
   "latestCodingChallenge": "Latest Coding Challenge",
@@ -607,5 +607,7 @@
   "techTalentContent1": "I want to find quickly projects and build a rewarding business that I love.",
   "techTalentContent2": "I want to get rewarded and show off my coding passion and competence through challenges.",
   "businessOwnerContent1": "I want to hire top freelancers quickly to get my projects done.",
-  "businessOwnerContent2": "I want to post code challenge to attract talents better and faster."
+  "businessOwnerContent2": "I want to post code challenge to attract talents better and faster.",
+  "salaryReview": "Salary Review",
+  "subMenuAnalytics": "Analytics"
 }
