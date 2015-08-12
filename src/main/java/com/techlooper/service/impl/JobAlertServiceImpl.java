@@ -13,6 +13,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,6 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -30,9 +30,11 @@ import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 @Service
 public class JobAlertServiceImpl implements JobAlertService {
 
-    private static final int CONFIGURED_JOB_ALERT_PERIOD = 7;
+    @Value("${jobAlert.period}")
+    private int CONFIGURED_JOB_ALERT_PERIOD;
 
-    private String CONFIGURED_JOB_ALERT_START_DATE = "12/08/2015";
+    @Value("${jobAlert.launchDate}")
+    private String CONFIGURED_JOB_ALERT_LAUNCH_DATE;
 
     @Resource
     private ScrapeJobRepository scrapeJobRepository;
@@ -44,16 +46,16 @@ public class JobAlertServiceImpl implements JobAlertService {
     private Mapper dozerMapper;
 
     @Override
-    public List<ScrapeJobEntity> searchJob(JobAlertRegistration jobAlertRegistration) {
+    public List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity JobAlertRegistrationEntity) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
         BoolQueryBuilder queryBuilder = boolQuery();
 
-        if (StringUtils.isNotEmpty(jobAlertRegistration.getKeyword())) {
-            queryBuilder.must(queryString(jobAlertRegistration.getKeyword()));
+        if (StringUtils.isNotEmpty(JobAlertRegistrationEntity.getKeyword())) {
+            queryBuilder.must(queryString(JobAlertRegistrationEntity.getKeyword()));
         }
 
-        if (StringUtils.isNotEmpty(jobAlertRegistration.getLocation())) {
-            queryBuilder.must(matchQuery("location", jobAlertRegistration.getLocation()));
+        if (StringUtils.isNotEmpty(JobAlertRegistrationEntity.getLocation())) {
+            queryBuilder.must(matchQuery("location", JobAlertRegistrationEntity.getLocation()));
         }
 
         queryBuilder.must(rangeQuery("createdDateTime").from("now-7d/d"));
@@ -99,7 +101,7 @@ public class JobAlertServiceImpl implements JobAlertService {
     private int getJobAlertBucketNumber(int period) throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = new Date();
-        Date startDate = format.parse(CONFIGURED_JOB_ALERT_START_DATE);
+        Date startDate = format.parse(CONFIGURED_JOB_ALERT_LAUNCH_DATE);
         int numberOfDays = Days.daysBetween(new DateTime(currentDate), new DateTime(startDate)).getDays();
         return numberOfDays % period;
     }

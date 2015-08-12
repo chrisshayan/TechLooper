@@ -24,7 +24,7 @@ public class JobAlertServiceImplTest {
 
     @Test
     public void testSearchJob() throws Exception {
-        JobAlertRegistration jobAlertRegistration = new JobAlertRegistration();
+        JobAlertRegistrationEntity jobAlertRegistration = new JobAlertRegistrationEntity();
         jobAlertRegistration.setEmail("ndkhoa.is@gmail.com");
         jobAlertRegistration.setKeyword("Java");
         jobAlertRegistration.setLocation("Ho Chi Minh");
