@@ -13,7 +13,7 @@
             <p translate="activeChallenges"></p>
           </div>
           <div class="total-people">
-            <strong>324</strong>
+            <strong>{{dashboardInfo.challenges | total: "numberOfRegistrants"}}</strong>
             <p translate="contestants"></p>
           </div>
         </div>
@@ -31,7 +31,7 @@
             <p translate="activeProjects"></p>
           </div>
           <div class="total-people">
-            <strong>532</strong>
+            <strong>{{dashboardInfo.projects | total: "numberOfApplications"}}</strong>
             <p translate="freelancerHasApplied"></p>
           </div>
         </div>

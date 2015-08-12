@@ -1,8 +1,9 @@
 package com.techlooper.config.web.sec;
 
-import com.techlooper.entity.*;
+import com.techlooper.entity.AccessGrant;
+import com.techlooper.entity.UserProfile;
+import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.vnw.RoleName;
-import com.techlooper.model.SocialConfig;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserProfileDto;
 import com.techlooper.repository.JsonConfigRepository;
@@ -26,55 +27,58 @@ import java.util.Arrays;
  */
 public class SocialAuthenticationProvider implements AuthenticationProvider {
 
-    @Resource
-    private ApplicationContext applicationContext;
+  @Resource
+  private ApplicationContext applicationContext;
 
-    @Resource
-    protected Mapper dozerBeanMapper;
+  @Resource
+  protected Mapper dozerBeanMapper;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SocialAuthenticationProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SocialAuthenticationProvider.class);
 
-    @Resource
-    private JsonConfigRepository jsonConfigRepository;
+  @Resource
+  private JsonConfigRepository jsonConfigRepository;
 
-    @Resource
-    private VietnamWorksUserService vietnamWorksUserService;
+  @Resource
+  private VietnamWorksUserService vietnamWorksUserService;
 
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UsernamePasswordAuthenticationToken socialAuthenticationToken = (UsernamePasswordAuthenticationToken) authentication;
-        SocialProvider socialProvider = SocialProvider.valueOf(socialAuthenticationToken.getCredentials().toString());
-        String code = authentication.getPrincipal().toString();
-        SocialService socialService = (SocialService) applicationContext.getBean(socialProvider.name() + "Service");
+  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    UsernamePasswordAuthenticationToken socialAuthenticationToken = (UsernamePasswordAuthenticationToken) authentication;
+    SocialProvider socialProvider = SocialProvider.valueOf(socialAuthenticationToken.getCredentials().toString());
+    String code = authentication.getPrincipal().toString();
+    SocialService socialService = (SocialService) applicationContext.getBean(socialProvider.name() + "Service");
 
-        UserProfile userProfile = null;
-        UserProfileDto userProfileDto = null;
-        try {
-            AccessGrant accessGrant = socialService.getAccessGrant(code);
-            userProfile = socialService.getProfile(accessGrant);
-            userProfileDto = dozerBeanMapper.map(userProfile, UserProfileDto.class);
-        } catch (Exception ex) {
-            LOGGER.error(ex.getMessage(), ex);
-        }
-
-        if (userProfile != null) {
-            try {
-                VnwUserProfile vnwUserProfile = VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
-                        .withEmail(userProfileDto.getEmail())
-                        .withFirstname(userProfileDto.getFirstName())
-                        .withLastname(userProfileDto.getLastName()).build();
-                vietnamWorksUserService.register(vnwUserProfile);
-            } catch (Exception ex) {
-                LOGGER.error(ex.getMessage(), ex);
-            }
-
-            return new UsernamePasswordAuthenticationToken(userProfileDto, null,
-                    Arrays.asList(new SimpleGrantedAuthority(RoleName.JOB_SEEKER.name())));
-        }
-
-        return null;
+    UserProfile userProfile = null;
+    UserProfileDto userProfileDto = null;
+    try {
+      AccessGrant accessGrant = socialService.getAccessGrant(code);
+      userProfile = socialService.getProfile(accessGrant);
+      userProfileDto = dozerBeanMapper.map(userProfile, UserProfileDto.class);
+      userProfileDto.setRoleName(RoleName.JOB_SEEKER);
+    }
+    catch (Exception ex) {
+      LOGGER.error(ex.getMessage(), ex);
     }
 
-    public boolean supports(Class<?> authentication) {
-        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+    if (userProfile != null) {
+      try {
+        VnwUserProfile vnwUserProfile = VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
+          .withEmail(userProfileDto.getEmail())
+          .withFirstname(userProfileDto.getFirstName())
+          .withLastname(userProfileDto.getLastName()).build();
+        vietnamWorksUserService.register(vnwUserProfile);
+      }
+      catch (Exception ex) {
+        LOGGER.error(ex.getMessage(), ex);
+      }
+
+      return new UsernamePasswordAuthenticationToken(userProfileDto, null,
+        Arrays.asList(new SimpleGrantedAuthority(RoleName.JOB_SEEKER.name())));
     }
+
+    return null;
+  }
+
+  public boolean supports(Class<?> authentication) {
+    return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+  }
 }
