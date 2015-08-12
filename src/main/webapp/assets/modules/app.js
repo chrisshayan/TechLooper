@@ -276,6 +276,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
       case jsonValue.views.login:
         var protectedPage = localStorageService.get("protectedPage");
+        localStorageService.remove("social");
         if (!protectedPage) {
           return $location.path("/");
         }

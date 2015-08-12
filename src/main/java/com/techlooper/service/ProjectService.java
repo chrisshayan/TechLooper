@@ -48,4 +48,8 @@ public interface ProjectService {
   Long countTotalNumberOfSkills();
 
   Collection<ProjectDto> findByOwner(String owner);
+
+  Collection<ProjectRegistrantDto> findRegistrantsByProjectId(Long projectId);
+
+  Long countRegistrantsByProjectId(Long projectId);
 }
