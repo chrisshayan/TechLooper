@@ -299,7 +299,7 @@
   "category": "Category",
   "youWantToLearnMoreTopSkills": "Do you want to learn more top skills above? <strong>*</strong>",
   "employees": "employees",
-  "business": "Business",
+  "business": "Business owner",
   "personal": "Personal",
   "getAnalytics": "Get Analytics",
   "getYourSalaryReport": "Get Your Salary Report",
@@ -619,5 +619,7 @@
   "keywordEx": "Ex: Java Developer",
   "jobAlertEmailEx": "Ex: example@techlooper.com",
   "sendMeJobs": "Send Me Jobs",
-  "jobSkillCompany": "Job Title, Skills or Company"
+  "jobSkillCompany": "Job Title, Skills or Company",
+  "techTalent": "Tech Talent",
+  "howItWorks": "How It Works"
 }
