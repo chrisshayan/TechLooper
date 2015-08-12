@@ -3,6 +3,7 @@ package com.techlooper.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 @Document(indexName = "techlooper", type = "jobAlertRegistration")
@@ -22,6 +23,9 @@ public class JobAlertRegistrationEntity {
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String createdDate;
+
+    @Field(type = Integer)
+    private Integer bucket;
 
     public Long getJobAlertRegistrationId() {
         return jobAlertRegistrationId;
@@ -61,5 +65,13 @@ public class JobAlertRegistrationEntity {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Integer getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(Integer bucket) {
+        this.bucket = bucket;
     }
 }

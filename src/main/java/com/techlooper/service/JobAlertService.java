@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface JobAlertService {
 
-    List<ScrapeJobEntity> searchJob(JobAlertRegistration jobAlertRegistration);
+    List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity);
 
-    JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration);
+    JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception;
 
-    List<JobAlertRegistrationEntity> searchJobAlertRegistration(int period);
+    List<JobAlertRegistrationEntity> searchJobAlertRegistration(int period) throws Exception;
 
 }
