@@ -405,7 +405,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
       page.spliterator().forEachRemaining(challenge -> {
         if (condition.test(challenge)) {
-          challenges.add(dozerMapper.map(challenge, ChallengeDetailDto.class));
+          ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
+          challengeDetailDto.setNumberOfRegistrants(countRegistrantsByChallengeId(challenge.getChallengeId()));
+          challenges.add(challengeDetailDto);
         }
       });
     }
@@ -422,5 +424,31 @@ public class ChallengeServiceImpl implements ChallengeService {
       boolean atBoundary = now.isEqual(startDate) || now.isEqual(submissionDate);
       return inRange || atBoundary;
     });
+  }
+
+  public Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId) {
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
+    queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)));
+
+    int pageIndex = 0;
+    Set<ChallengeRegistrantDto> registrants = new HashSet<>();
+    while (true) {
+      queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
+      FacetedPage<ChallengeRegistrantEntity> page = challengeRegistrantRepository.search(queryBuilder.build());
+      if (!page.hasContent()) {
+        break;
+      }
+
+      page.spliterator().forEachRemaining(registrant -> registrants.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
+    }
+
+    return registrants;
+  }
+
+  public Long countRegistrantsByChallengeId(Long challengeId) {
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
+    queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)))
+      .withSearchType(SearchType.COUNT);
+    return challengeRegistrantRepository.search(queryBuilder.build()).getTotalElements();
   }
 }

@@ -353,8 +353,35 @@ public class ProjectServiceImpl implements ProjectService {
       if (!page.hasContent()) {
         break;
       }
-      page.spliterator().forEachRemaining(project -> projects.add(dozerMapper.map(project, ProjectDto.class)));
+      page.spliterator().forEachRemaining(project -> {
+        ProjectDto projectDto = dozerMapper.map(project, ProjectDto.class);
+        projectDto.setNumberOfApplications(countRegistrantsByProjectId(project.getProjectId()));
+        projects.add(projectDto);
+      });
     }
     return projects;
+  }
+
+  public Collection<ProjectRegistrantDto> findRegistrantsByProjectId(Long projectId) {
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
+    queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("projectId", projectId)));
+
+    int pageIndex = 0;
+    Set<ProjectRegistrantDto> registrants = new HashSet<>();
+    while (true) {
+      queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
+      FacetedPage<ProjectRegistrantEntity> page = projectRegistrantRepository.search(queryBuilder.build());
+      if (!page.hasContent()) {
+        break;
+      }
+      page.spliterator().forEachRemaining(registrant -> registrants.add(dozerMapper.map(registrant, ProjectRegistrantDto.class)));
+    }
+    return registrants;
+  }
+
+  public Long countRegistrantsByProjectId(Long projectId) {
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
+    queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("projectId", projectId))).withSearchType(SearchType.COUNT);
+    return projectRegistrantRepository.search(queryBuilder.build()).getTotalElements();
   }
 }

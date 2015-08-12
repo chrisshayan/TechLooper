@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.dto.DashBoardInfo;
 import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmployerService;
@@ -24,6 +25,9 @@ public class EmployerServiceImpl implements EmployerService {
 
   @Resource
   private VnwUserRepo vnwUserRepo;
+
+  @Resource
+  private ChallengeRegistrantRepository challengeRegistrantRepository;
 
   public DashBoardInfo getDashboardInfo(String owner) {
     VnwUser user = vnwUserRepo.findByUsernameIgnoreCase(owner);

@@ -51,4 +51,8 @@ public interface ChallengeService {
   Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner, Predicate<? super ChallengeEntity> condition);
 
   Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
+
+  Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId);
+
+  Long countRegistrantsByChallengeId(Long challengeId);
 }

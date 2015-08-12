@@ -14,7 +14,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
     return;
   }
 
-  securityService.getCurrentUser("social");
+  //securityService.getCurrentUser("social");
 
   $scope.loginBySocial = function (provider) {
     apiService.getSocialLoginUrl(provider).success(function (url) {
