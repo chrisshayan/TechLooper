@@ -265,6 +265,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     switch (view) {
       case jsonValue.views.freelancerPostProject:
         var lastPage = "/freelancer/post-project";
+      case jsonValue.views.employerDashboard:
+        var lastPage = "/employer-dashboard";
       case jsonValue.views.postChallenge:
         securityService.getCurrentUser().error(function () {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");

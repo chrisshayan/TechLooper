@@ -100,6 +100,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     getPersonalHomepage: function() {
       return $http.get("personalHomepage");
+    },
+
+    getEmployerDashboardInfo: function() {
+      return $http.get("user/employer/dashboard-info");
     }
   }
 
