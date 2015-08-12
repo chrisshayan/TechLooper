@@ -4,7 +4,7 @@ import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.KimonoJob;
 import com.techlooper.model.KimonoJobList;
 import com.techlooper.model.KimonoJobModel;
-import com.techlooper.repository.elasticsearch.ScrapeJobRepository;
+import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.ScrapeJobService;
 import org.springframework.stereotype.Service;
 
