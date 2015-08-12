@@ -11,13 +11,16 @@
                 </div>
                 <p>{{$root.userInfo.name}}</p>
                 <!--<a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>-->
-                <a href="#/user-type">Sign In</a>
+                <a href="#/user-type" translate="signIn"></a>
             </div>
         </div>
     </div>
     <div class="main-menu-job-seeker-block">
         <div class="main-menu-job-seeker-content">
             <ul>
+                <li>
+                    <a data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
+                </li>
                 <li>
                     <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
                 </li>
