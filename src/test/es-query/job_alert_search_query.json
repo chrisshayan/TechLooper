@@ -1,0 +1,33 @@
+GET techlooper/job/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query": "Java"
+          }
+        },
+        {
+          "match": {
+            "location": "Ha Noi"
+          }
+        },
+        {
+          "range": {
+            "createdDateTime": {
+              "from": "now-7d/d"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "createdDateTime": {
+        "order": "desc"
+      }
+    }
+  ]
+}
