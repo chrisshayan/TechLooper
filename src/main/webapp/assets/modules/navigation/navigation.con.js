@@ -1,5 +1,19 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
                                                   jsonValue, utils, $timeout, $rootScope) {
+
+  $scope.state = function(type) {
+    switch (type) {
+      case "employer-signed-in":
+        if (!$rootScope.userInfo) return false;
+        return $rootScope.userInfo.roleName === "EMPLOYER";
+
+      case "job-seeker-signed-in":
+        if (!$rootScope.userInfo) return false;
+        return $rootScope.userInfo.roleName === "JOB_SEEKER";
+    }
+
+  }
+
   $scope.logout = function() {
     securityService.logout();
   }
@@ -14,7 +28,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
     return;
   }
 
-  //securityService.getCurrentUser("social");
+  securityService.getCurrentUser("social");
 
   $scope.loginBySocial = function (provider) {
     apiService.getSocialLoginUrl(provider).success(function (url) {
