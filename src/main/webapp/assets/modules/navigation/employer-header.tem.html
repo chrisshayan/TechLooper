@@ -10,13 +10,16 @@
                     <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
                 </div>
                 <p>java Mark</p> -->
-                <a href="#/login" ng-show="!$root.userInfo">Sign In</a>
+                <a href="#/user-type" translate="signIn"></a>
             </div>
         </div>
     </div>
     <div class="main-menu-job-seeker-block">
         <div class="main-menu-job-seeker-content">
             <ul>
+                <li>
+                    <a href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
+                </li>
             	<li>
                     <a href="#/price-job" translate="jobPostEvaluation" class="help"></a>
                 </li>
