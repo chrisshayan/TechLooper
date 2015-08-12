@@ -347,14 +347,17 @@
                     display: inline-block
                     text-transform: uppercase
                     background: url(../images/line-black-white.png) left top repeat-y
-                    padding: 0 10px
+                    padding: 0 15px
 
                     a
                         color: #2d2d2d
                         background: url(../images/ic-navi-job-seeker.png) left top no-repeat
                         display: block
                         padding: 5px 0 5px 45px
-
+                        cursor: pointer
+                    a.jobSeekerSignIn
+                        background-position: 0 -269px
+                        padding-left: 30px
                     a.challenges
                         background-position: 0 2px
 
@@ -377,7 +380,9 @@
                 li:first-child
                     background: none
                     padding-left: 0
-
+.no-submenu
+    .main-menu-job-seeker-block
+        display: none
 .modal-header
     h4
         text-transform: capitalize
@@ -405,8 +410,10 @@
         border-radius: 5px
         color: #fff
         text-transform: capitalize
-        min-width: 120px
-        display: inline-block
+        min-width: 220px
+        clear: both
+        display: block
+        margin: auto
 
     button.btn-fb
         background: #3b5998
@@ -417,8 +424,10 @@
         border-radius: 5px
         color: #fff
         text-transform: capitalize
-        min-width: 120px
-        display: inline-block
+        min-width: 220px
+        clear: both
+        display: block
+        margin: auto
 
     .sign-in-social
         clear: both
@@ -512,7 +521,83 @@
         text-align: left
         max-width: 1000px
         padding-bottom: 20px
-
+        .job-alert-box
+            display: inline-block
+            clear: both
+            width: 100%
+            padding: 10px 0 0
+            h3
+                font-size: 16px
+                font-weight: 300
+                text-transform: capitalize
+                width: 100%
+                color: #878787
+                margin: 0
+                padding: 0 0 5px 0
+            .box-content
+                -webkit-border-radius: 3px
+                -moz-border-radius: 3px
+                border-radius: 3px
+                border: 1px solid #e7e7e7
+                padding: 15px
+                width: 100%
+                background-color: #fff
+                .it-job-corner-content
+                    display: inline-block
+                    clear: both
+                    width: 100%
+                    padding: 20px 0 0 0
+                    background: url(../images/line-li-gray.png) center top repeat-y
+                    ul
+                        margin: 0
+                        padding: 35px 0 0
+                        li
+                            width: 100%
+                            clear: both
+                            display: inline-block
+                            padding: 15px 0 0 30px
+                            background: url(../images/check-blue.png) left 17px no-repeat
+                .send-me-jobs-form
+                    display: inline-block
+                    clear: both
+                    width: 100%
+                    padding-left: 15px
+                    h4
+                        margin: 0
+                        padding: 10px
+                        text-align: center
+                        font-size: 18px
+                        font-weight: 500
+                    .send-me-jobs-field
+                        display: inline-block
+                        clear: both
+                        width: 100%
+                        padding-top: 5px
+                        p.note
+                            text-align: right
+                            margin: 0
+                            padding: 0
+                        .error-messages
+                            padding-left: 30%
+                    label
+                        width: 30%
+                        float: left
+                        font-size: 14px
+                        font-weight: 300
+                        padding-top: 7px
+                        strong
+                            font-weight: 500
+                            color: red
+                    input
+                        width: 70%
+                        float: left
+                    input.input-style
+                        clear: none
+                    .selectize-input
+                        width: 70%
+                        float: left
+                    .send-me-jobs-field.submit
+                        text-align: center
         .box-container-block
             width: 32%
             float: left
@@ -785,3 +870,70 @@
 
         .box-container-block.right
             margin-right: 0
+.content-page-block.user-type-page
+    margin-bottom: 20px
+    .header-page
+        h2
+            line-height: 25px
+    .content-page-detail
+        width: 100%
+        padding: 50px 20px
+    .user-type-content
+        padding-top: 20px
+        cursor: pointer
+        a
+            color: #333333
+
+    .line-center
+        background: url(../images/line-li-gray.png) center top repeat-y
+        min-height: 300px
+        text-align: center
+        vertical-align: middle
+        position: relative
+        p
+            width: 50px
+            background-color: #fff
+            display: inline
+            margin: auto
+            position: absolute
+            font-size: 25px
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+            height: 35px
+            color: #b0b0b0
+    .ic-user-type
+        background: url(../images/ic-user-type.png) center top no-repeat
+        height: 120px
+        width: 100%
+        clear: both
+        display: inline-block
+    .ic-user-type.job-seeker
+        background-position: center -150px
+    .ic-user-type.employer
+        background-position: center 0
+    .user-type-name
+        width: 100%
+        clear: both
+        display: inline-block
+        p
+            font-size: 18px
+            font-weight: 300
+            strong
+                font-weight: 500
+                color: #337ab7
+    .user-type-explain
+        display: inline-block
+        width: 100%
+        clear: both
+        text-align: left
+        ul
+            margin: 0
+            padding: 0
+            li
+                width: 100%
+                clear: both
+                display: inline-block
+                padding: 5px 0 0 30px
+                background: url(../images/check-blue.png) left 9px no-repeat

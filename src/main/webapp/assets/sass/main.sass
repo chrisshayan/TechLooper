@@ -129,7 +129,8 @@ a:focus
 .text-left
   text-align: left
   padding-left: 10px
-
+.align-left
+  text-align: left !important
 
 .example-animate-container
   background: white
@@ -1813,7 +1814,7 @@ label.bootstrap-checkbox.disabled
 .js-footer
   background: #333333
   width: 100%
-  min-height: 200px
+  min-height: 180px
   position: absolute
   bottom: 0
   left: 0
@@ -1841,20 +1842,26 @@ label.bootstrap-checkbox.disabled
         color: #ccc
         cursor: pointer
     .site-map-content
-      width: 33.3333%
+      width: 50%
       float: left
-    ul
-      margin: 0
-      padding: 0
-      li
-        width: 100%
-        clear: both
-        font-size: 14px
-        a
-          color: #898989
-          cursor: pointer
-        a:hover
-          color: #eeeeee
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: 50%
+          float: left
+          font-size: 14px
+          i
+            color: #898989
+            font-size: 5px
+            padding: 8px 10px 0 0
+            float: left
+          a
+            color: #898989
+            cursor: pointer
+            text-transform: capitalize
+          a:hover
+            color: #eeeeee
   .footer-content-block
     width: 100%
     display: block

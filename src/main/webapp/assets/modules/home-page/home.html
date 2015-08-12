@@ -1,10 +1,49 @@
-<jobseeker-header></jobseeker-header>
 <div class="personal-site-container">
   <div class="techlooper-spotlight-block">
     <h2 translate="techLooperSpotLight"></h2>
     <span class="local-time">{{$root.today}}</span>
   </div>
   <div class="personal-site-content-detail">
+    <div class="job-alert-box">
+      <h3 translate="itJobCorner"></h3>
+      <div class="box-content">
+        <div class="it-job-corner-content">
+          <div class="col-md-6 left">
+            <ul>
+              <li translate="itJobCornerContent1"></li>
+              <li translate="itJobCornerContent2"></li>
+              <li translate="itJobCornerContent3"></li>
+            </ul>
+          </div>
+          <div class="col-md-6 right">
+            <div class="send-me-jobs-form">
+              <h4 translate="sendMeJobs"></h4>
+              <div class="send-me-jobs-field">
+                <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
+                <input id="jobAlertEmail" type="email" class="input-style" placeholder="{{'jobAlertEmailEx' | translate}}"/>
+                <div class="error-messages">sfdsgfdgf fdgdf</div>
+              </div>
+              <div class="send-me-jobs-field">
+                <label for="jobAlertKeywords">{{'keyword' | translate}}: <strong>*</strong></label>
+                <input id="jobAlertKeywords" type="text" class="input-style" placeholder="{{'keywordEx' | translate}}"/>
+                <p class="note" translate="jobSkillCompany"></p>
+              </div>
+              <div class="send-me-jobs-field">
+                <label>{{'location' | translate}}: <strong>*</strong></label>
+                <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
+                           ng-model="salaryReview.locationId" required
+                           name="{{'location' | translate}}" class="locationSelectbox" validate></selectize>
+                <div class="error-messages">
+                  {{error['salaryReview.locationId']}}</div>
+              </div>
+              <div class="send-me-jobs-field submit">
+                <button translate="emailMeJobs" class="btn btn-primary btn-flat"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="box-container-block left">
       <h3 translate="whatCurrentTrend"></h3>
       <div class="box-content">

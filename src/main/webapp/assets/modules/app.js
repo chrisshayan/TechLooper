@@ -204,6 +204,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/why-challenge/whyChallenge.html",
         controller: "whyChallengeController"
       })
+      .when("/employer-dashboard", {
+        templateUrl: "modules/employer-dashboard/employer-dashboard.html",
+        controller: "employerDashboardController"
+      })
+      .when("/user-type", {
+        templateUrl: "modules/user-type/user-type.html",
+        controller: "userTypeController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -257,6 +265,8 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     switch (view) {
       case jsonValue.views.freelancerPostProject:
         var lastPage = "/freelancer/post-project";
+      case jsonValue.views.employerDashboard:
+        var lastPage = "/employer-dashboard";
       case jsonValue.views.postChallenge:
         securityService.getCurrentUser().error(function () {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");
@@ -264,12 +274,13 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         });
         break;
 
-      case jsonValue.views.login:
-        var protectedPage = localStorageService.get("protectedPage");
-        if (!protectedPage) {
-          return $location.path("/");
-        }
-        break;
+      //case jsonValue.views.login:
+      //  var protectedPage = localStorageService.get("protectedPage");
+      //  localStorageService.remove("social");
+      //  if (!protectedPage) {
+      //    return $location.path("/");
+      //  }
+      //  break;
     }
   });
 
@@ -279,6 +290,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       localStorageService.remove("protectedPage");
       return $location.url(protectedPage);
     }
+    securityService.getCurrentUser();
   });
 
   var param = $location.search();
@@ -297,15 +309,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
     }
 
-    var lastFoot = localStorageService.get("lastFoot");
-    if (lastFoot) {
-      localStorageService.remove("lastFoot");
-      return $location.url(lastFoot);
-    }
-  }
-
-  if (localStorageService.get("social")) {
-    securityService.getCurrentUser("social");
+    //var lastFoot = localStorageService.get("lastFoot");
+    //if (lastFoot) {
+    //  localStorageService.remove("lastFoot");
+    //  return $location.url(lastFoot);
+    //}
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);

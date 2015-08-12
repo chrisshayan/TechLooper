@@ -3,6 +3,7 @@ package com.techlooper.integration;
 import com.techlooper.config.BaseConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.model.ChallengeDetailDto;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.impl.ChallengeServiceImpl;
@@ -32,6 +33,9 @@ public class ChallengeServiceIntegrationTest {
   @Resource
   private ChallengeRepository challengeRepository;
 
+  @Resource
+  private ChallengeRegistrantRepository challengeRegistrantRepository;
+
   @Value("${elasticsearch.userimport.index.name}")
   private String techlooperIndex;
 
@@ -40,6 +44,7 @@ public class ChallengeServiceIntegrationTest {
   public void before() {
     challengeService = new ChallengeServiceImpl();
     ReflectionTestUtils.setField(challengeService, "challengeRepository", challengeRepository);
+    ReflectionTestUtils.setField(challengeService, "challengeRegistrantRepository", challengeRegistrantRepository);
     ReflectionTestUtils.setField(challengeService, "techlooperIndex", techlooperIndex);
     ReflectionTestUtils.setField(challengeService, "dozerMapper", new DozerBeanMapper());
   }
@@ -49,4 +54,8 @@ public class ChallengeServiceIntegrationTest {
     Collection<ChallengeDetailDto> challenges = challengeService.findInProgressChallenges("thu.hoang@navigosgroup.com");
     Assert.assertNotNull(challenges);
   }
+
+//  public void testCountRegistrantsByChallengeId() {
+//    challengeService.countRegistrantsByChallengeId(1436339203843L);
+//  }
 }

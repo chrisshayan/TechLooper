@@ -13,11 +13,11 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
   //TODO remove timeout function
   $timeout(function () {
     var tallest = 0;
-    $('.personal-site-content-detail').find('.box-content').each(function () {
+    $('.box-container-block').find('.box-content').each(function () {
       var thisHeight = $(this).height();
       if (thisHeight > tallest)
         tallest = thisHeight;
     });
-    $('.personal-site-content-detail').find('.box-content').height(tallest + $('.cta-button').height());
+    $('.box-container-block').find('.box-content').height(tallest + $('.cta-button').height());
   }, 1400);
 });
