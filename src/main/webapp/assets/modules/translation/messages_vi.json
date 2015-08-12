@@ -610,7 +610,16 @@
   "businessOwnerContent2": "Tôi muốn đăng các thử thách về lập trình để thu hút các nhân tài công nghệ.",
   "salaryReview": "ĐÁNH GIÁ LƯƠNG",
   "subMenuAnalytics": "XU HƯỚNG",
-  "subMenuGetPromoted": "THĂNG TIẾN"
+  "subMenuGetPromoted": "THĂNG TIẾN",
+  "itJobCorner": "Trung Tâm Việc Làm Cho Các Ứng Viên IT",
+  "itJobCornerContent1": "Hàng ngàn công việc sẵn có từ các website về tuyển dụng.",
+  "itJobCornerContent2": "Nhận ngay thông báo việc làm hàng tuần phù hợp với tiêu chí của bạn.",
+  "itJobCornerContent3": "Nhanh chóng, dễ dàng và hoàn toàn miễn phí khi đăng ký thông báo việc làm.",
+  "keyword": "Từ Khoá",
+  "keywordEx": "Ví dụ: Java Developer",
+  "jobAlertEmailEx": "Ví dụ: example@techlooper.com",
+  "sendMeJobs": "Gửi Việc Cho Tôi",
+  "jobSkillCompany": "Từ khoá có thể là Chức danh công việc, Kỹ năng hay Tên nhà tuyển dụng"
 }
 
 

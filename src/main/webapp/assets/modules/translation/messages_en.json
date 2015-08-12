@@ -610,5 +610,14 @@
   "businessOwnerContent2": "I want to post code challenge to attract talents better and faster.",
   "salaryReview": "Salary Review",
   "subMenuAnalytics": "Analytics",
-  "subMenuGetPromoted": "Get Promoted"
+  "subMenuGetPromoted": "Get Promoted",
+  "itJobCorner": "IT Job Corner",
+  "itJobCornerContent1": "Thousands of new jobs available from job sites.",
+  "itJobCornerContent2": "Receive email notification every week about jobs which match perfectly your expectations.",
+  "itJobCornerContent3": "Easily, quickly and totally FREE for job alert registration.",
+  "keyword": "Key Word",
+  "keywordEx": "Ex: Java Developer",
+  "jobAlertEmailEx": "Ex: example@techlooper.com",
+  "sendMeJobs": "Send Me Jobs",
+  "jobSkillCompany": "Job Title, Skills or Company"
 }
