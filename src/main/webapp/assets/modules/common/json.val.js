@@ -215,7 +215,8 @@ angular.module("Common").constant("jsonValue", (function () {
       freelancerProjects: "freelancerProjects",
       whyFreelancer: "whyFreelancer",
       "whyChallenge": "whyChallenge",
-      "employerDashboard": "employerDashboard"
+      "employerDashboard": "employerDashboard",
+      "userType": "userType"
     },
 
     httpUri: {
@@ -238,7 +239,8 @@ angular.module("Common").constant("jsonValue", (function () {
       challenges: "challenges",
       whyFreelancer: "whyFreelancer",
       "whyChallenge": "whyChallenge",
-      "employerDashboard": "employerDashboard"
+      "employerDashboard": "employerDashboard",
+      "userType": "userType"
     },
 
     socketUri: {

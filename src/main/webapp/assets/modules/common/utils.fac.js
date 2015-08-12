@@ -287,6 +287,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/employer-dashboard/.test(path)) {
         return jsonValue.views.employerDashboard;
       }
+      else if (/\/user-type/.test(path)) {
+        return jsonValue.views.userType;
+      }
     },
 
     sum: function (array, prop) {
