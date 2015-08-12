@@ -3,7 +3,7 @@ package com.techlooper.model;
 /**
  * Created by NguyenDangKhoa on 8/12/15.
  */
-public class JobAlertCriteria {
+public class JobAlertRegistration {
 
     private String email;
 
