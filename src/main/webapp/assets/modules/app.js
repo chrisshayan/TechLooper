@@ -274,13 +274,13 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         });
         break;
 
-      case jsonValue.views.login:
-        var protectedPage = localStorageService.get("protectedPage");
-        localStorageService.remove("social");
-        if (!protectedPage) {
-          return $location.path("/");
-        }
-        break;
+      //case jsonValue.views.login:
+      //  var protectedPage = localStorageService.get("protectedPage");
+      //  localStorageService.remove("social");
+      //  if (!protectedPage) {
+      //    return $location.path("/");
+      //  }
+      //  break;
     }
   });
 
@@ -290,6 +290,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       localStorageService.remove("protectedPage");
       return $location.url(protectedPage);
     }
+    securityService.getCurrentUser();
   });
 
   var param = $location.search();
@@ -308,15 +309,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
     }
 
-    var lastFoot = localStorageService.get("lastFoot");
-    if (lastFoot) {
-      localStorageService.remove("lastFoot");
-      return $location.url(lastFoot);
-    }
-  }
-
-  if (localStorageService.get("social")) {
-    securityService.getCurrentUser("social");
+    //var lastFoot = localStorageService.get("lastFoot");
+    //if (lastFoot) {
+    //  localStorageService.remove("lastFoot");
+    //  return $location.url(lastFoot);
+    //}
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);

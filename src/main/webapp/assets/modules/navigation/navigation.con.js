@@ -4,18 +4,39 @@ techlooper.controller("navigationController", function ($scope, securityService,
   $scope.state = function(type) {
     switch (type) {
       case "employer-signed-in":
-        if (!$rootScope.userInfo) return false;
+        if (!$rootScope.userInfo) {
+          switch (utils.getView()) {
+            case jsonValue.views.hiring:
+            case jsonValue.views.whyChallenge:
+            case jsonValue.views.whyFreelancer:
+            case jsonValue.views.priceJob:
+              return true;
+          }
+          return false;
+        }
         return $rootScope.userInfo.roleName === "EMPLOYER";
 
       case "job-seeker-signed-in":
-        if (!$rootScope.userInfo) return false;
+        if (!$rootScope.userInfo) {
+          switch (utils.getView()) {
+            case jsonValue.views.home:
+            case jsonValue.views.pieChart:
+            case jsonValue.views.salaryReview:
+            case jsonValue.views.getPromoted:
+            case jsonValue.views.contest:
+            case jsonValue.views.challenges:
+            case jsonValue.views.freelancerProjects:
+              return true;
+          }
+          return false;
+        }
         return $rootScope.userInfo.roleName === "JOB_SEEKER";
     }
-
   }
 
   $scope.logout = function() {
     securityService.logout();
+    localStorageService.remove("social");
   }
 
   var code = localStorageService.get("code");
@@ -28,7 +49,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
     return;
   }
 
-  securityService.getCurrentUser("social");
+  securityService.getCurrentUser(localStorageService.get("social") ? "social" : undefined);
 
   $scope.loginBySocial = function (provider) {
     apiService.getSocialLoginUrl(provider).success(function (url) {

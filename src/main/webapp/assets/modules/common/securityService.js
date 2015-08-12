@@ -1,4 +1,4 @@
-techlooper.factory("securityService", function (apiService, $rootScope, $q, utils, jsonValue, $location) {
+techlooper.factory("securityService", function (apiService, $rootScope, $q, utils, jsonValue, $location, localStorageService) {
 
   //localStorage.setItem('CAPTURE-PATHS', '/');
 
@@ -28,6 +28,21 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       $rootScope.userInfo = undefined;
       return apiService.getCurrentUser(type).success(function (data) {
         $rootScope.userInfo = data;
+
+        var lastFoot = localStorageService.get("lastFoot");
+        if (lastFoot && ["/login", "/user-type"].indexOf(lastFoot) == -1) {
+          localStorageService.remove("lastFoot");
+          return $location.path(lastFoot);
+        }
+        localStorageService.remove("lastFoot");
+
+        switch (data.roleName) {
+          case "EMPLOYER":
+            return $location.path("/hiring");
+
+          case "JOB_SEEKER":
+            return $location.path("/home");
+        }
       });
     },
 

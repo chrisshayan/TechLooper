@@ -3,6 +3,7 @@ techlooper
     return {
       restrict: "E",
       replace: true,
+      scope: {},
       templateUrl: "modules/navigation/nav-bar.html",
       controller: "navigationController"
     }
