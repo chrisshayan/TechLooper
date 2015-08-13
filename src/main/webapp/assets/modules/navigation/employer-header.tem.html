@@ -1,36 +1,37 @@
 <div class="header-site">
-    <div class="personal-header-block">
-        <div class="personal-header-content">
-            <div class="logo-block">
-                <h1><a href="#/hiring"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
-            </div>
-            <div class="user-info-basic-block">
-                <!-- <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
-                <div class="user-avatar" ng-show="$root.userInfo">
-                    <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
-                </div>
-                <p>java Mark</p> -->
-                <a href="#/user-type" translate="signIn"></a>
-              {{$root.userInfo.username}}
-            </div>
-        </div>
+  <div class="personal-header-block">
+    <div class="personal-header-content">
+      <div class="logo-block">
+        <h1><a href="#/hiring"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
+      </div>
+      <div class="user-info-basic-block">
+        <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+
+        <p translate="{{$root.userInfo.username | textTruncate: 'email'}}"/>
+        <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"/>
+        <!--<span translate="{{$root.userInfo.username}}" />-->
+      </div>
     </div>
-    <div class="main-menu-job-seeker-block">
-        <div class="main-menu-job-seeker-content">
-            <ul>
-                <li>
-                    <a href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
-                </li>
-            	<li>
-                    <a href="#/price-job" translate="jobPostEvaluation" class="help"></a>
-                </li>
-                <li>
-                    <a href="#/post-challenge" translate="postAChallenge" class="challenges"></a>
-                </li>
-                <li>
-                    <a href="#/freelancer/post-project" translate="postAProject" class="freelancer"></a>
-                </li>
-            </ul>
-        </div>
+  </div>
+  <div class="main-menu-job-seeker-block">
+    <div class="main-menu-job-seeker-content">
+      <ul>
+        <li>
+          <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
+        </li>
+        <li>
+          <a href="#/employer-dashboard" translate="myDashboard" class="help"></a>
+        </li>
+        <li>
+          <a href="#/price-job" translate="jobPostEvaluation" class="help"></a>
+        </li>
+        <li>
+          <a href="#/post-challenge" translate="postAChallenge" class="challenges"></a>
+        </li>
+        <li>
+          <a href="#/freelancer/post-project" translate="postAProject" class="freelancer"></a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
