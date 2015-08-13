@@ -122,11 +122,6 @@
                                             <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
-                                    <td style="padding:10px" align="right" class="logo">
-                                        <a href="http://www.vietnamworks.com/?utm_source=jobalertemail&utm_medium=vietnamworkslogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
-                                            <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
-                                        </a>
-                                    </td>
                                 </tr>
                             </table>
                             <!-- Brand lines-->
@@ -205,7 +200,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                                     <tr>
                                                         <td align="left" style="color: #277cbd" >
-                                                            <a href="${job.jobTitleUrl}" target="_blank">${job.jobTitle}</a>
+                                                            <a href="${webBaseUrl}jobAlert/redirect?utm_source=jobalert&utm_medium=email&targetUrl=${job.jobTitleUrl}" target="_blank">${job.jobTitle}</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -235,7 +230,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td align="left" style="color: #892890" >
-                                                            Mức Lương: <span style="color: #277cbd"><#if job.salary??>${job.salary}<#else>Negotiable</#if></span>
+                                                            Mức Lương: <span style="color: #277cbd"><#if job.salary?has_content>${job.salary}<#else>Negotiable</#if></span>
                                                         </td>
                                                     </tr>
                                                 </table>

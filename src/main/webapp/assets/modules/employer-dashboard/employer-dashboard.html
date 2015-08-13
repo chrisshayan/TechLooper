@@ -4,7 +4,7 @@
       <div class="dashboard-box">
         <div class="sub-header-dashboard">
           <h3 translate="myChallenges"></h3>
-          <a translate="postNow" class="btn btn-primary btn-flat" href="#/"></a>
+          <a translate="postNow" class="btn btn-primary btn-flat" href="#/post-challenge"></a>
         </div>
         <div class="dashboard-content">
           <div class="active-item">
@@ -22,7 +22,7 @@
       <div class="dashboard-box">
         <div class="sub-header-dashboard">
           <h3 translate="myProjects"></h3>
-          <a translate="postNow" class="btn btn-primary btn-flat" href="#/"></a>
+          <a translate="postNow" class="btn btn-primary btn-flat" href="#/freelancer/post-project"></a>
         </div>
         <div class="dashboard-content">
           <div class="active-item">
@@ -50,7 +50,7 @@
           <tbody>
           <tr ng-repeat="challenge in dashboardInfo.challenges">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
-              {{challenge.challengeName}}
+              <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" class="name">{{challenge.challengeName}}</a>
             </td>
             <td data-label="{{'currentPhase' | translate}}">
               <span translate="{{challenge | progress:'challenge'}}" />
@@ -78,7 +78,7 @@
           <tbody>
             <tr ng-repeat="project in dashboardInfo.projects">
               <td data-label="{{'activeProjectsDashBoard' | translate}}">
-                {{project.projectTitle}}
+                <a href="#/freelancer/project-detai/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" class="name">{{project.projectTitle}}</a>
               </td>
               <td data-label="{{'applications' | translate}}">
                 {{project.numberOfApplications}}
