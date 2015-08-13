@@ -84,7 +84,7 @@
           </tr>
             <tr ng-repeat="project in dashboardInfo.projects">
               <td data-label="{{'activeProjectsDashBoard' | translate}}">
-                <a href="#/freelancer/project-detai/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" class="name">{{project.projectTitle}}</a>
+                <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" class="name">{{project.projectTitle}}</a>
               </td>
               <td data-label="{{'applications' | translate}}">
                 {{project.numberOfApplications}}
