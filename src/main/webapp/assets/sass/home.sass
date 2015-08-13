@@ -333,7 +333,7 @@
             display: inline-block
             background: url(../images/line-black-white-up.jpg) left bottom repeat-x
             text-align: center
-            padding: 10px 0
+            padding: 0
 
             ul
                 margin: auto
@@ -344,10 +344,10 @@
 
                 li
                     width: auto
-                    display: inline-block
+                    float: left
                     text-transform: uppercase
                     background: url(../images/line-black-white.png) left top repeat-y
-                    padding: 0 15px
+                    padding: 5px 15px
 
                     a
                         color: #2d2d2d
@@ -357,7 +357,7 @@
                         cursor: pointer
                     a.jobSeekerSignIn
                         background-position: 0 -269px
-                        padding-left: 30px
+                        padding-left: 28px
                     a.challenges
                         background-position: 0 2px
 
@@ -376,10 +376,28 @@
                     a.promoted
                         background-position: 0 -226px
                         padding-left: 25px
-
+                    a.my-dashboard
+                        background-position: 0 -361px
+                        padding-left: 30px
+                    a.post-challenges
+                        background-position: 0 -475px
+                        padding-left: 30px
+                    a.post-freelancer
+                        background-position: 0 -531px
+                        padding-left: 30px
+                    a.post-evaluation
+                        background-position: 0 -416px
+                        padding-left: 30px
                 li:first-child
                     background: none
                     padding-left: 0
+                li.active
+                    background-color: #337ab7
+                    padding-left: 10px
+                    a
+                        color: #fff
+                    a.jobSeekerSignIn
+                        background-position: 0 -584px
 .no-submenu
     .main-menu-job-seeker-block
         display: none

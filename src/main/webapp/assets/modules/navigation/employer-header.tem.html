@@ -16,20 +16,21 @@
   <div class="main-menu-job-seeker-block">
     <div class="main-menu-job-seeker-content">
       <ul>
-        <li>
+        <li class="active">
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
         <li>
-          <a href="#/employer-dashboard" translate="myDashboard" class="help"></a>
+          <a href="#/employer-dashboard" translate="myDashboard" class="my-dashboard"></a>
+        </li>
+
+        <li>
+          <a href="#/post-challenge" translate="postAChallenge" class="post-challenges"></a>
         </li>
         <li>
-          <a href="#/price-job" translate="jobPostEvaluation" class="help"></a>
+          <a href="#/freelancer/post-project" translate="postAProject" class="post-freelancer"></a>
         </li>
         <li>
-          <a href="#/post-challenge" translate="postAChallenge" class="challenges"></a>
-        </li>
-        <li>
-          <a href="#/freelancer/post-project" translate="postAProject" class="freelancer"></a>
+          <a href="#/price-job" translate="jobPostEvaluation" class="post-evaluation"></a>
         </li>
       </ul>
     </div>
