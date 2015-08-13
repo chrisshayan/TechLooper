@@ -109,9 +109,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.JobAlertController.getCompany
      * */
-    createTechlooperJobAlert: function(email, keyword, location) {
+    createTechlooperJobAlert: function(email, keyword, location, lang) {
       return $http.post("jobAlert/register", {
-        email: email, keyword: keyword, location: location
+        email: email, keyword: keyword, location: location, lang : lang
       });
     }
   }
