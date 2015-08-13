@@ -10,12 +10,11 @@ import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +58,11 @@ public class JobAlertController {
                 }
             }
         }
+    }
+
+    @RequestMapping(value = "jobAlert/redirect", method = RequestMethod.GET)
+    public void redirect(@RequestParam(required = true) String targetUrl, HttpServletResponse response) throws IOException {
+        response.sendRedirect(targetUrl);
     }
 
     private boolean checkIfEmailAlreadySentToday(String lastEmailSentDateTime) {
