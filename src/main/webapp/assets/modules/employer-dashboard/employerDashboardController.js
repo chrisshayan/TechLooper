@@ -4,7 +4,6 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
       $scope.dashboardInfo = data;
-        console.log($scope.dashboardInfo);
       })
     .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
 
