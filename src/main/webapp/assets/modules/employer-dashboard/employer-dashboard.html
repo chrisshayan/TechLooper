@@ -41,36 +41,26 @@
         <table class="contests-table">
           <thead>
           <tr>
-            <th translate="activeChallenges" class="align-left"></th>
-            <th translate="timeline.schedule"></th>
-            <th translate="prize"></th>
-            <th translate="prize"></th>
+            <th translate="activeChallengesDashBoard" class="align-left"></th>
+            <th translate="currentPhase"></th>
+            <th translate="closeOn"></th>
+            <th translate="contestantsDashBoard"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
+          <tr ng-repeat="challenge in dashboardInfo.challenges">
+            <td data-label="{{'activeChallengesDashBoard' | translate}}">
+              {{challenge.challengeName}}
+            </td>
+            <td data-label="{{'currentPhase' | translate}}">
+              {{challenge.submissionDateTime}}
+            </td>
+            <td data-label="{{'closeOn' | translate}}">
+              {{challenge.submissionDateTime}}
+            </td>
+            <td data-label="{{'contestantsDashBoard' | translate}}">
+              {{challenge.numberOfRegistrants}}
+            </td>
           </tr>
           </tbody>
         </table>
@@ -81,37 +71,19 @@
         <table class="contests-table">
           <thead>
           <tr>
-            <th translate="activeChallenges" class="align-left"></th>
-            <th translate="timeline.schedule"></th>
-            <th translate="prize"></th>
-            <th translate="prize"></th>
+            <th translate="activeProjectsDashBoard" class="align-left"></th>
+            <th translate="applications"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>Interactive Job</td>
-            <td>Registration</td>
-            <td>10th September</td>
-            <td>30</td>
-          </tr>
+            <tr ng-repeat="project in dashboardInfo.projects">
+              <td data-label="{{'activeProjectsDashBoard' | translate}}">
+                {{project.projectTitle}}
+              </td>
+              <td data-label="{{'applications' | translate}}">
+                {{project.numberOfApplications}}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
