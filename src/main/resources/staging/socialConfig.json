@@ -11,6 +11,7 @@
     "secretKey": "dc25bf6805886ee435f2bc56db3f393e",
     "redirectUri": "http://staging.techlooper.com/login/social/FACEBOOK",
     "apiUrl": {
+      "login": "https://www.facebook.com/dialog/oauth?client_id={apiKey}&redirect_uri={redirectUri}&scope=email",
       "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
     }
   },

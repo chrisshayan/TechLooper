@@ -1,23 +1,4 @@
 <div>
   <jobseeker-header ng-show="state('job-seeker-signed-in')"></jobseeker-header>
   <employer-header ng-show="state('employer-signed-in')"></employer-header>
-
-  <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-          <h4 class="modal-title" id="myModalLabel" translate="signInTitle"></h4>
-        </div>
-        <div class="modal-body sign-in-with-fb-gl">
-          <div class="sign-in-social">
-            <button ng-click="loginBySocial('FACEBOOK')" class="btn-fb"><i class="fa fa-facebook"></i><span translate="signInWithFaceBook"></span></button>
-            <p translate="or">Or</p>
-            <button ng-click="loginBySocial('GOOGLE')" class="btn-gl"><i class="fa fa-google-plus"></i><span translate="signInWithGooglePlus"</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
