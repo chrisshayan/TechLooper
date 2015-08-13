@@ -236,6 +236,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+  securityService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
@@ -262,42 +263,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   $rootScope.jsonValue = jsonValue;
 
   $('html, body').animate({scrollTop: 0});
-
-  $rootScope.$on("$routeChangeStart", function (event, next, current) {
-    var view = utils.getView();
-    switch (view) {
-      case jsonValue.views.freelancerPostProject:
-        var lastPage = "/freelancer/post-project";
-      case jsonValue.views.employerDashboard:
-        var lastPage = "/employer-dashboard";
-      case jsonValue.views.postChallenge:
-        if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
-          alert("no permission");
-          return event.preventDefault();
-        }
-        else if (!$rootScope.userInfo) {
-          localStorageService.set("protectedPage", lastPage || "/post-challenge");
-          securityService.getCurrentUser().error(function () {
-            localStorageService.set("lastFoot", $location.url());
-            return $location.path("/login");
-          });
-        }
-        break;
-
-      case jsonValue.views.userType:
-      case jsonValue.views.login:
-        if (current) {
-          localStorageService.set("lastFoot", current.$$route.originalPath);
-        }
-        if ($rootScope.userInfo) {
-          return event.preventDefault();
-        }
-        break;
-
-      //default:
-      //  return localStorageService.set("lastFoot", $location.path());
-    }
-  });
 
   //$rootScope.$on("$loginSuccess", function () {
   //  var protectedPage = localStorageService.get("protectedPage");

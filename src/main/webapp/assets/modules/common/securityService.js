@@ -111,7 +111,47 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         .error(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
 
-    init: function () {}
+    removeProtectedLastFoot: function() {
+      var path = localStorageService.get("protectedPage");
+      if (/\/freelancer\/post-project/.test(path) || /\/employer-dashboard/.test(path) || /\/post-challenge/.test(path)) {
+        localStorageService.remove("protectedPage");
+      }
+    },
+
+    initialize: function () {
+      $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        var view = utils.getView();
+        switch (view) {
+          case jsonValue.views.freelancerPostProject:
+            var lastPage = "/freelancer/post-project";
+          case jsonValue.views.employerDashboard:
+            var lastPage = "/employer-dashboard";
+          case jsonValue.views.postChallenge:
+            if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
+              alert("no permission");
+              return event.preventDefault();
+            }
+            else if (!$rootScope.userInfo) {
+              localStorageService.set("protectedPage", lastPage || "/post-challenge");
+              instance.getCurrentUser().error(function () {
+                localStorageService.set("lastFoot", $location.url());
+                return $location.path("/login");
+              });
+            }
+            break;
+
+          case jsonValue.views.userType:
+          case jsonValue.views.login:
+            if (current) {
+              localStorageService.set("lastFoot", current.$$route.originalPath);
+            }
+            if ($rootScope.userInfo) {
+              return event.preventDefault();
+            }
+            break;
+        }
+      });
+    }
   };
 
   return instance;
