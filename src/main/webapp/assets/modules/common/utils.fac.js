@@ -290,7 +290,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/user-type/.test(path)) {
         return jsonValue.views.userType;
       }
-      else if (/\/how-it-works/.test(path)) {
+      else if (/\/how-does-it-work/.test(path)) {
         return jsonValue.views.howItWorks;
       }
     },
