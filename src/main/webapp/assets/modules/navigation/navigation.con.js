@@ -27,6 +27,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
             case jsonValue.views.challenges:
             case jsonValue.views.freelancerProjects:
             case jsonValue.views.howItWorks:
+            case jsonValue.views.analyticsSkill:
               return true;
           }
           return false;

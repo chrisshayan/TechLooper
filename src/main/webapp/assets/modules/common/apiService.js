@@ -65,10 +65,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
-      localStorageService.set("lastFoot", $location.url());
+      //localStorageService.set("lastFoot", $location.url());
       utils.sendNotification(jsonValue.notifications.loading);
       instance.getFBLoginUrl().success(function (url) {
-        localStorageService.set("lastFoot", $location.url());
+        //localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
         window.location = url;
       });
