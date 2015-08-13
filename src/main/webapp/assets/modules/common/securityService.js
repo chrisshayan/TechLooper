@@ -4,11 +4,40 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
   var instance = {
     logout: function () {
-      return apiService.logout()
+
+      var view = utils.getView();
+      switch (view) {
+        case jsonValue.views.freelancerPostProject:
+        case jsonValue.views.employerDashboard:
+        case jsonValue.views.postChallenge:
+          break;
+
+        default:
+          localStorageService.set("lastFoot", $location.path());
+          break;
+      }
+
+      apiService.logout()
         .success(function (data, status, headers, config) {
           $rootScope.userInfo = undefined;
+
+          switch (view) {
+            case jsonValue.views.freelancerPostProject:
+            case jsonValue.views.employerDashboard:
+            case jsonValue.views.postChallenge:
+              break;
+
+            default:
+              var lastFoot = localStorageService.get("lastFoot");
+              if (lastFoot) {
+                return $location.url(lastFoot);
+              }
+          }
+
+
           return $location.path("/");
-        });
+        })
+        .finally(function () {localStorageService.remove("lastFoot");});
     },
 
     login: function (username, password, type) {
@@ -33,13 +62,19 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         });
     },
 
-    routeByRole: function() {
+    routeByRole: function () {
       if (!$rootScope.userInfo) return;
 
       var protectedPage = localStorageService.get("protectedPage");
       if (protectedPage) {
         localStorageService.remove("protectedPage");
         return $location.url(protectedPage);
+      }
+
+      var lastFoot = localStorageService.get("lastFoot");
+      if (lastFoot) {
+        localStorageService.remove("lastFoot");
+        return $location.url(lastFoot);
       }
 
       switch ($rootScope.userInfo.roleName) {
@@ -64,12 +99,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
           $rootScope.userInfo = data;
 
-          var lastFoot = localStorageService.get("lastFoot");
-          if (lastFoot && ["/login", "/user-type"].indexOf(lastFoot) == -1) {
-            localStorageService.remove("lastFoot");
-            return $location.path(lastFoot);
-          }
-          localStorageService.remove("lastFoot");
+          //var lastFoot = localStorageService.get("lastFoot");
+          //if (lastFoot && ["/login", "/user-type"].indexOf(lastFoot) == -1) {
+          //  localStorageService.remove("lastFoot");
+          //  return $location.path(lastFoot);
+          //}
+          //localStorageService.remove("lastFoot");
 
           instance.routeByRole();
         })

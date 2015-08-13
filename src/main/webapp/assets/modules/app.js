@@ -278,6 +278,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         else if (!$rootScope.userInfo) {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");
           securityService.getCurrentUser().error(function () {
+            localStorageService.set("lastFoot", $location.url());
             return $location.path("/login");
           });
         }
@@ -285,15 +286,16 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
       case jsonValue.views.userType:
       case jsonValue.views.login:
+        if (current) {
+          localStorageService.set("lastFoot", current.$$route.originalPath);
+        }
         if ($rootScope.userInfo) {
           return event.preventDefault();
         }
         break;
-      //var protectedPage = localStorageService.get("protectedPage");
-      //localStorageService.remove("social");
-      //if (!protectedPage) {
-      //  return event.preventDefault();
-      //}
+
+      //default:
+      //  return localStorageService.set("lastFoot", $location.path());
     }
   });
 
@@ -323,6 +325,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     }
 
     //var lastFoot = localStorageService.get("lastFoot");
+    //console.log("lastFoot", lastFoot);
     //if (lastFoot) {
     //  localStorageService.remove("lastFoot");
     //  return $location.url(lastFoot);

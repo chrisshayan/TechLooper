@@ -293,6 +293,9 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/how-it-works/.test(path)) {
         return jsonValue.views.howItWorks;
       }
+      else if (/\/salary-review/.test(path)) {
+        return jsonValue.views.salaryReview;
+      }
     },
 
     sum: function (array, prop) {
