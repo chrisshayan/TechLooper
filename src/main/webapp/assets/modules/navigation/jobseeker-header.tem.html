@@ -6,10 +6,11 @@
             </div>
             <div class="user-info-basic-block">
                 <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+                <p>{{$root.userInfo.name}}</p>
                 <div class="user-avatar" ng-show="$root.userInfo">
                     <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
                 </div>
-                <p>{{$root.userInfo.name}}</p>
+
                 <!--<a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>-->
                 <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
             </div>
@@ -19,13 +20,14 @@
         <div class="main-menu-job-seeker-content">
             <ul>
                 <li class="active">
+                    <a class="no-icon">{{$root.userInfo.name | limitTo: 10}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
                 <li>
                     <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
                 </li>
                 <li>
-                    <a href="#/freelancer/projects" translate="freelancerProjects" class="freelancer"></a>
+                    <a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>
                 </li>
                 <li>
                     <a href="#/pie-chart" translate="subMenuAnalytics" class="analytics"></a>
