@@ -4,6 +4,9 @@
       <div class="logo-block">
         <h1><a href="#/hiring"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
       </div>
+      <div class="ic-menu-mobile" ng-modal="mobileMenuEmployer" ng-click="mobileMenuEmployer = !mobileMenuEmployer">
+        <i class="fa fa-bars"></i>
+      </div>
       <div class="user-info-basic-block">
         <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
 
@@ -16,24 +19,24 @@
       </div>
     </div>
   </div>
-  <div class="main-menu-job-seeker-block">
+  <div class="main-menu-job-seeker-block" ng-show="mobileMenuEmployer">
     <div class="main-menu-job-seeker-content">
       <ul>
-        <li class="active">
+        <li class="active" ng-click="mobileMenuEmployer = !mobileMenuEmployer">
           <a class="no-icon" ng-show="$root.userInfo">{{$root.userInfo.username | textTruncate: 'email'}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
-        <li>
+        <li ng-click="mobileMenuEmployer = !mobileMenuEmployer">
           <a href="#/employer-dashboard" translate="myDashboard" class="my-dashboard"></a>
         </li>
 
-        <li>
+        <li ng-click="mobileMenuEmployer = !mobileMenuEmployer">
           <a href="#/post-challenge" translate="postAChallenge" class="post-challenges"></a>
         </li>
-        <li>
+        <li ng-click="mobileMenuEmployer = !mobileMenuEmployer">
           <a href="#/freelancer/post-project" translate="postAProject" class="post-freelancer"></a>
         </li>
-        <li>
+        <li ng-click="mobileMenuEmployer = !mobileMenuEmployer">
           <a href="#/price-job" translate="jobPostEvaluation" class="post-evaluation"></a>
         </li>
       </ul>
