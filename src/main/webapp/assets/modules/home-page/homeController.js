@@ -1,5 +1,5 @@
 techlooper.controller("homeController", function ($scope, securityService, apiService, localStorageService, $location,
-                                                  jsonValue, utils, $timeout, $rootScope) {
+                                                  jsonValue, utils, $timeout, vnwConfigService, $translate) {
 
   apiService.getPersonalHomepage().success(function (data) {
     $scope.homePage = data;
@@ -19,16 +19,18 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     $('.box-container-block').find('.box-content').height(tallest + $('.cta-button').height());
   }, 1400);
 
-  //scope.status = function (type) {
-  //  switch (type) {
-  //    case "show-error":
-  //      var errorType = arguments[1];
-  //      return scope.jobAlert.tag.$error[errorType] || scope.jobAlert.autoTag.$error[errorType];
-  //
-  //    //case "show-errors":
-  //    //  return scope.tagForm.$submitted || scope.tagForm.tag.$edited || scope.tagForm.autoTag.$edited;
-  //  }
+  $scope.locationsConfig = vnwConfigService.locationsSelectize;
 
-  //  return false;
-  //}
+  $scope.createJobAlert = function () {
+    $scope.jobAlertForm.$setSubmitted();
+    if ($scope.jobAlertForm.$invalid) {
+      return;
+    }
+
+    apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword,
+      vnwConfigService.getLocationText($scope.jobAlert.locationId, "en"), $translate.use())
+      .success(function (data) {
+          $scope.sendMailSuccessfulMessage = true;
+      });
+  }
 });

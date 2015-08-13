@@ -4,6 +4,9 @@
             <div class="logo-block">
                 <h1><a href="#/"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
             </div>
+            <div class="ic-menu-mobile" ng-modal="mobileMenu" ng-click="mobileMenu = !mobileMenu">
+                <i class="fa fa-bars"></i>
+            </div>
             <div class="user-info-basic-block">
                 <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
                 <p>{{$root.userInfo.name}}</p>
@@ -14,13 +17,14 @@
                 <!--<a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>-->
                 <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
             </div>
+
         </div>
     </div>
-    <div class="main-menu-job-seeker-block">
+    <div class="main-menu-job-seeker-block" ng-show="!mobileMenu">
         <div class="main-menu-job-seeker-content">
             <ul>
                 <li class="active">
-                    <a class="no-icon">{{$root.userInfo.name | limitTo: 10}}</a>
+                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.name | limitTo: 10}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
                 <li>

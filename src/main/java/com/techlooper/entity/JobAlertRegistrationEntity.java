@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
@@ -26,6 +27,12 @@ public class JobAlertRegistrationEntity {
 
     @Field(type = Integer)
     private Integer bucket;
+
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private Language lang;
+
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
+    private String lastEmailSentDateTime;
 
     public Long getJobAlertRegistrationId() {
         return jobAlertRegistrationId;
@@ -73,5 +80,21 @@ public class JobAlertRegistrationEntity {
 
     public void setBucket(Integer bucket) {
         this.bucket = bucket;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
+
+    public String getLastEmailSentDateTime() {
+        return lastEmailSentDateTime;
+    }
+
+    public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+        this.lastEmailSentDateTime = lastEmailSentDateTime;
     }
 }

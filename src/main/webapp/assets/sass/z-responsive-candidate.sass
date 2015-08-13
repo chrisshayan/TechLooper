@@ -1186,7 +1186,8 @@
         display: inline-block
     table.contests-table td:last-child
       border-bottom: 0
-
+    table.contests-table td:last-child
+      text-align: right
     table.contests-table td:before
       content: attr(data-label)
       float: left
@@ -1203,6 +1204,14 @@
       top: auto
       bottom: auto
       max-height: none
+  .content-page-block
+    .content-page-detail.dashboard
+      padding: 10px
+      .my-challenges-block
+        padding: 0 0 10px 0
+      .dashboard-box
+      .my-projects-block
+        padding: 0
   .content-page-block
     padding-top: 20px
     .header-page
@@ -1430,6 +1439,41 @@
               padding-left: 45px
             a.post-evaluation
               padding-left: 45px
+  .header-site
+    .personal-header-block
+      .personal-header-content
+        .logo-block
+          padding: 5px 0
+          img
+            width: 100%
+        .user-info-basic-block
+          padding-top: 3px
+          width: 30%
+          p
+            display: none
+    .ic-menu-mobile
+      display: block
+      width: 30px
+      padding: 2px 5px 0 0
+      font-size: 25px
+      font-weight: 300
+      float: right
+      text-align: right
+      cursor: pointer
+    .main-menu-job-seeker-block
+      position: absolute
+      left: 0
+      top: 50px
+      z-index: 999
+      display: none
+      ul
+        display: inline-block
+        width: 100%
+        li
+          display: inline
+          float: left
+    .main-menu-job-seeker-block.ng-hide
+      display: block !important
 @media (min-width: 640px)
   .rwd-table
     margin: auto

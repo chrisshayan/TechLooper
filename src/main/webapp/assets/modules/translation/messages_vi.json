@@ -600,7 +600,7 @@
   "activeChallenges": "Thử Thách Đang Diễn Ra",
   "contestants": "Thí Sinh Tham Gia",
   "activeProjects": "Dự Án Đang Đăng Tuyển",
-  "freelancerHasApplied": "Freelancer(s) Has Applied",
+  "freelancerHasApplied": "Số Lượng Freelancer Ứng Tuyển",
   "getStarted": "Bắt đầu nào! <br/>Trước hết, cho chúng tôi biết bạn là ai.",
   "asATechTalent": "Như 1 <strong>Nhân Tài Công Nghệ</strong>",
   "asABusinessOwner": "Như 1 <strong>Chủ Doanh Nghiệp</strong>",
@@ -631,8 +631,15 @@
   "getPromotedTagLineContent": "Chỉ với một bước đơn giản để biết những kỹ năng hàng đầu đang được yêu cầu nhiều nhất từ các nhà tuyển dụng. Từ đó, bạn có thể bắt tay hoàn thiện các kỹ năng nhằm hướng tới công việc mơ ước.",
   "freelancerProjectsHighLight": "*** TechLooper không chịu trách nhiệm về thoả thuận chi trả giữa Nhà Tuyển Dụng đã đăng dự án và (các) freelancer đã được tuyển dụng cho dự án đó.",
   "codingChallengesTip": "Thử Thách",
-  "codingChallengesContent": "Hơn cả giái thưởng và kinh nghiệm đạt được, hãy chứng tỏ đam mê lập trình và khả năng của bạn cho các nhà tuyển dụng hàng đầu thông qua các thử thách dành cho cộng đồng IT.",
-  "codingChallengesHighLight": "*** TechLooper không chịu trách nhiệm về thoả thuận chi trả giữa Nhà Tổ Chức Thử Thách và (các) thí sinh chiến thắng thử thách đó."
+  "codingChallengesContent": "Hơn cả giải thưởng và kinh nghiệm đạt được, hãy chứng tỏ đam mê lập trình và khả năng của bạn cho các nhà tuyển dụng hàng đầu thông qua các thử thách dành cho cộng đồng IT.",
+  "codingChallengesHighLight": "*** TechLooper không chịu trách nhiệm về thoả thuận chi trả giữa Nhà Tổ Chức Thử Thách và (các) thí sinh chiến thắng thử thách đó.",
+  "activeChallengesDashBoard": "Thử Thách Đang Diễn Ra",
+  "activeProjectsDashBoard": "Dự Án Đang Đăng Tuyển",
+  "closeOn": "Ngày Kết Thúc",
+  "contestantsDashBoard": "Số Lượng Thí Sinh",
+  "applications": "Lượt Ứng Tuyển",
+  "authorizationMessages": "Tài khoản hiện tại của bạn không có quyền truy cập vào chức năng này. Vui lòng sử dụng tài khoản VietnamWorks của Nhà Tuyển Dụng/ Chủ Doanh Nghiệp để sử dụng chức năng.",
+  "jobAlertSuccessful": "Bạn vừa tạo xong Thông Báo Công Việc cho ứng viên IT thành công. Hãy kiểm tra hộp mail của bạn."
 }
 
 

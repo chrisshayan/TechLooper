@@ -700,10 +700,10 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       return ($translate.use() === "en" ? "en" : "vn");
     },
 
-    getLocationText: function (locationId) {
+    getLocationText: function (locationId, lang) {
       if (!locationId) return undefined;
       var text = "";
-      $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});
+      $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location["lang_" + lang] || location[vnwLang]);}});
       return text;
     },
     getCompanySizeText: function (companySizeId) {
@@ -775,7 +775,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
     locationsSelectize: {
       items: locations.map(function (location) {
-        return {id: location.location_id, translate: location[vnwLang]};
+        return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
       }),
       config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },

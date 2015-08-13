@@ -1,6 +1,5 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
                                                   jsonValue, utils, $timeout, $rootScope) {
-
   $scope.state = function(type) {
     switch (type) {
       case "employer-signed-in":
@@ -35,6 +34,12 @@ techlooper.controller("navigationController", function ($scope, securityService,
           return false;
         }
         return $rootScope.userInfo.roleName === "JOB_SEEKER";
+
+      case "navBarHided":
+        return !($scope.state("employer-signed-in") && $scope.state("job-seeker-signed-in"));
+
+      case "current-view":
+        return utils.getView();
     }
   }
 
@@ -54,12 +59,5 @@ techlooper.controller("navigationController", function ($scope, securityService,
   }
 
   securityService.getCurrentUser(localStorageService.get("social") ? "social" : undefined);
-
-  //$scope.loginBySocial = function (provider) {
-  //  apiService.getSocialLoginUrl(provider).success(function (url) {
-  //    localStorageService.set("lastFoot", $location.url());
-  //    window.location = url;
-  //  });
-  //}
 
 });
