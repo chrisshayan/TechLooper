@@ -289,12 +289,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
     }
 
-    //var lastFoot = localStorageService.get("lastFoot");
-    //console.log("lastFoot", lastFoot);
-    //if (lastFoot) {
-    //  localStorageService.remove("lastFoot");
-    //  return $location.url(lastFoot);
-    //}
+    var lastFoot = localStorageService.get("lastFoot");
+    if (lastFoot) {
+      localStorageService.remove("lastFoot");
+      return $location.url(lastFoot);
+    }
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
