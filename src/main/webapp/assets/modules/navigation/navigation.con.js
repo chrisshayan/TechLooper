@@ -52,11 +52,11 @@ techlooper.controller("navigationController", function ($scope, securityService,
 
   securityService.getCurrentUser(localStorageService.get("social") ? "social" : undefined);
 
-  $scope.loginBySocial = function (provider) {
-    apiService.getSocialLoginUrl(provider).success(function (url) {
-      localStorageService.set("lastFoot", $location.url());
-      window.location = url;
-    });
-  }
+  //$scope.loginBySocial = function (provider) {
+  //  apiService.getSocialLoginUrl(provider).success(function (url) {
+  //    localStorageService.set("lastFoot", $location.url());
+  //    window.location = url;
+  //  });
+  //}
 
 });
