@@ -4,6 +4,7 @@ import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.JobAlertRegistration;
 
+import javax.mail.internet.AddressException;
 import java.util.List;
 
 public interface JobAlertService {
@@ -13,5 +14,7 @@ public interface JobAlertService {
     JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception;
 
     List<JobAlertRegistrationEntity> searchJobAlertRegistration(int period) throws Exception;
+
+    void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, List<ScrapeJobEntity> scrapeJobEntities) throws Exception;
 
 }
