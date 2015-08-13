@@ -225,7 +225,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td align="left" style="pcolor: #892890" >
-                                                            Location: <#if job.location??>${job.location}</#if>
+                                                            Vị Trí: <#if job.location??>${job.location}</#if>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -235,7 +235,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td align="left" style="color: #892890" >
-                                                            Salary: <span style="color: #277cbd"><#if job.salary??>${job.salary}<#else>Negotiable</#if></span>
+                                                            Mức Lương: <span style="color: #277cbd"><#if job.salary??>${job.salary}<#else>Negotiable</#if></span>
                                                         </td>
                                                     </tr>
                                                 </table>

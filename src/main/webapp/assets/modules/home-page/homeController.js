@@ -1,5 +1,5 @@
 techlooper.controller("homeController", function ($scope, securityService, apiService, localStorageService, $location,
-                                                  jsonValue, utils, $timeout, vnwConfigService) {
+                                                  jsonValue, utils, $timeout, vnwConfigService, $translate) {
 
   apiService.getPersonalHomepage().success(function (data) {
     $scope.homePage = data;
@@ -28,9 +28,9 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     }
 
     apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword,
-      vnwConfigService.getLocationText($scope.jobAlert.locationId, "en"))
+      vnwConfigService.getLocationText($scope.jobAlert.locationId, "en"), $translate.use())
       .success(function (data) {
-        console.log(data);
+          $scope.sendMailSuccessfulMessage = true;
       });
   }
 });

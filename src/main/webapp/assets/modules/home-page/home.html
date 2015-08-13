@@ -6,7 +6,6 @@
   <div class="personal-site-content-detail">
     <div class="job-alert-box">
       <h3 translate="itJobCorner"></h3>
-
       <div class="box-content">
         <div class="it-job-corner-content">
           <div class="col-md-6 left">
@@ -17,10 +16,12 @@
             </ul>
           </div>
           <div class="col-md-6 right">
+            <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
+              <p translate="jobAlertSuccessful"></p>
+            </div>
             <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
               <div class="send-me-jobs-form">
                 <h4 translate="sendMeJobs"></h4>
-
                 <div class="send-me-jobs-field">
                   <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
                   <input id="jobAlertEmail" type="email" class="input-style"
