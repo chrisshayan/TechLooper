@@ -24,22 +24,22 @@
         <div class="main-menu-job-seeker-content">
             <ul>
                 <li class="active">
-                    <a class="no-icon" ng-show="$root.userInfo">{{$root.userInfo.name | limitTo: 10}}</a>
+                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.name | limitTo: 10}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
-                <li ng-click="mobileMenu = !mobileMenu">
+                <li>
                     <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
                 </li>
-                <li ng-click="mobileMenu = !mobileMenu">
+                <li>
                     <a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>
                 </li>
-                <li ng-click="mobileMenu = !mobileMenu">
+                <li>
                     <a href="#/pie-chart" translate="subMenuAnalytics" class="analytics"></a>
                 </li>
-                <li ng-click="mobileMenu = !mobileMenu">
+                <li>
                     <a href="#/salary-review" translate="salaryReview" class="help"></a>
                 </li>
-                <li ng-click="mobileMenu = !mobileMenu">
+                <li>
                     <a href="#/get-promoted" translate="getPromoted" class="promoted"></a>
                 </li>
             </ul>
