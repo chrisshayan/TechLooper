@@ -53,7 +53,7 @@
               {{challenge.challengeName}}
             </td>
             <td data-label="{{'currentPhase' | translate}}">
-              {{challenge | progress:'challenge'}}
+              <span translate="{{challenge | progress:'challenge'}}" />
             </td>
             <td data-label="{{'closeOn' | translate}}">
               {{challenge.submissionDateTime}}
