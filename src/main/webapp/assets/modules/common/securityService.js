@@ -73,11 +73,8 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
-        var param = $location.search();
-        if (!$.isEmptyObject(param)) {
           localStorageService.remove("lastFoot");
           return $location.url(lastFoot);
-        }
       }
 
       switch ($rootScope.userInfo.roleName) {
@@ -109,7 +106,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           //}
           //localStorageService.remove("lastFoot");
 
-          instance.routeByRole();
+          //instance.routeByRole();
         })
         .error(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
