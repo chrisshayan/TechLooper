@@ -8,6 +8,9 @@
         <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
 
         <p translate="{{$root.userInfo.username | textTruncate: 'email'}}"/>
+        <div class="user-avatar" ng-show="$root.userInfo">
+          <img src="images/no-avatar.png" alt="">
+        </div>
         <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"/>
         <!--<span translate="{{$root.userInfo.username}}" />-->
       </div>
@@ -17,6 +20,7 @@
     <div class="main-menu-job-seeker-content">
       <ul>
         <li class="active">
+          <a class="no-icon">{{$root.userInfo.username | textTruncate: 'email'}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
         <li>
