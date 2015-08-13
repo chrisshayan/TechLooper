@@ -29,12 +29,13 @@
 
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$edited">
                     <div translate="requiredThisField" ng-show="jobAlertForm.email.$error.required"/>
+                    <div translate="emailInvalid" ng-show="jobAlertForm.email.$error.email"/>
                   </div>
                 </div>
                 <div class="send-me-jobs-field">
                   <label for="jobAlertKeywords">{{'keyword' | translate}}: <strong>*</strong></label>
                   <input id="jobAlertKeywords" type="text" class="input-style" name="keyword"
-                         placeholder="{{'keywordEx' | translate}}" ng-model="jobAlertForm.keyword" touchable ng-required="true"/>
+                         placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>
 
                   <p class="note" translate="jobSkillCompany"></p>
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$edited">
@@ -43,15 +44,25 @@
                 </div>
                 <div class="send-me-jobs-field">
                   <label>{{'location' | translate}}: <strong>*</strong></label>
-                  <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
-                             ng-model="salaryReview.locationId" ng-required="true"
-                             name="location" class="locationSelectbox" touchable></selectize>
-                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$edited">
+                  <selectize config="locationsConfig.config"
+                             options="locationsConfig.items"
+                             ng-model="jobAlert.locationId" ng-required="true"
+                             name="location" class="locationSelectbox"></selectize>
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
                     <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
                   </div>
+
+                  <!--<selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"-->
+                             <!--ng-model="hourly.estimatedWorkload"-->
+                             <!--options="$root.resourcesService.estimatedWorkloadConfig.options"-->
+                             <!--config="$root.resourcesService.estimatedWorkloadConfig"></selectize>-->
+                  <!--<div ng-show="hourlyForm.estimatedWorkload.$dirty || hourlyForm.$submitted">-->
+                    <!--<div class="error-messages"-->
+                         <!--ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />-->
+                    <!--</div>-->
                 </div>
                 <div class="send-me-jobs-field submit">
-                  <button translate="emailMeJobs" class="btn btn-primary btn-flat"></button>
+                  <button translate="emailMeJobs" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
                 </div>
               </div>
             </ng-form>
