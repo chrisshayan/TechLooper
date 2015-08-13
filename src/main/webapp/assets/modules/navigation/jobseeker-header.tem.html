@@ -23,23 +23,23 @@
     <div class="main-menu-job-seeker-block" ng-show="!mobileMenu">
         <div class="main-menu-job-seeker-content">
             <ul>
-                <li class="active">
+                <li class="active" ng-class="{ here: isActive('/home') }">
                     <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.name | limitTo: 10}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
-                <li>
+                <li ng-class="{ here: isActive('/challenges') }">
                     <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
                 </li>
-                <li>
+                <li ng-class="{ here: isActive('/freelancer/projects') }">
                     <a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>
                 </li>
-                <li>
+                <li ng-class="{ here: isActive('/pie-chart') }">
                     <a href="#/pie-chart" translate="subMenuAnalytics" class="analytics"></a>
                 </li>
-                <li>
+                <li ng-class="{ here: isActive('/salary-review') }">
                     <a href="#/salary-review" translate="salaryReview" class="help"></a>
                 </li>
-                <li>
+                <li ng-class="{ here: isActive('/get-promoted') }">
                     <a href="#/get-promoted" translate="getPromoted" class="promoted"></a>
                 </li>
             </ul>

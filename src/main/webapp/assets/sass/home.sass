@@ -272,7 +272,7 @@
     width: 100%
     text-align: center
     background-color: #fff
-
+    height: 79px
     .personal-header-block
         width: 100%
 
@@ -326,7 +326,7 @@
         clear: both
         width: 100%
         background: url(../images/line-li-gray.png) #f0f3f4 left top repeat-x
-
+        height: 40px
         .main-menu-job-seeker-content
             width: 100%
             clear: both
@@ -395,15 +395,20 @@
                     background: none
                     padding-left: 0
                 li.active
-                    background-color: #337ab7
+                    background-color: #337ab7 !important
                     padding-left: 10px
                     a
                         color: #fff
                     a.jobSeekerSignIn
                         background-position: 0 -584px
+                li.here
+                    background-color: #f4f4f4
+                    border-top: 1px solid #d1d1d1
     .ic-menu-mobile
         display: none
 .no-submenu
+    height: auto !important
+    margin-bottom: 15px
     .main-menu-job-seeker-block
         display: none
 .modal-header
@@ -892,6 +897,8 @@
 
         .box-container-block.right
             margin-right: 0
+.no-menu-page
+    margin-top: -20px
 .content-page-block.user-type-page
     margin-bottom: 20px
     .header-page

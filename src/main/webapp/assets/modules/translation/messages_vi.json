@@ -640,7 +640,8 @@
   "applications": "Lượt Ứng Tuyển",
   "authorizationMessages": "Tài khoản hiện tại của bạn không có quyền truy cập vào chức năng này. Vui lòng sử dụng tài khoản VietnamWorks của Nhà Tuyển Dụng/ Chủ Doanh Nghiệp để sử dụng chức năng.",
   "jobAlertSuccessful": "Bạn vừa tạo xong Thông Báo Công Việc cho ứng viên IT thành công. Hãy kiểm tra hộp mail của bạn.",
-  "signInBusinessOwner": "Đăng Nhập Như Chủ Doanh Nghiệp"
+  "signInBusinessOwner": "Đăng Nhập Như Chủ Doanh Nghiệp",
+  "noData": "Không tìm thấy dữ liệu."
 }
 
 

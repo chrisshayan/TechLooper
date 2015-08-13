@@ -48,6 +48,9 @@
           </tr>
           </thead>
           <tbody>
+          <tr ng-show="dashboardInfo.challenges.length < 0">
+            <td colspan="4">{{'noData' | translate}}</td>
+          </tr>
           <tr ng-repeat="challenge in dashboardInfo.challenges">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" class="name">{{challenge.challengeName}}</a>
@@ -76,6 +79,9 @@
           </tr>
           </thead>
           <tbody>
+          <tr ng-show="dashboardInfo.projects.length < 0">
+            <td colspan="2">{{'noData' | translate}}</td>
+          </tr>
             <tr ng-repeat="project in dashboardInfo.projects">
               <td data-label="{{'activeProjectsDashBoard' | translate}}">
                 <a href="#/freelancer/project-detai/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" class="name">{{project.projectTitle}}</a>

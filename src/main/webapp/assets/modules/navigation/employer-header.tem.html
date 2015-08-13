@@ -22,21 +22,21 @@
   <div class="main-menu-job-seeker-block" ng-show="!mobileMenuEmployer">
     <div class="main-menu-job-seeker-content">
       <ul>
-        <li class="active">
+        <li class="active" ng-class="{ here: isActive('/hiring') }">
           <a class="no-icon" href="#/hiring" ng-show="$root.userInfo">{{$root.userInfo.username | textTruncate: 'email'}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
-        <li>
+        <li ng-class="{ here: isActive('/employer-dashboard') }">
           <a href="#/employer-dashboard" translate="myDashboard" class="my-dashboard"></a>
         </li>
 
-        <li>
+        <li ng-class="{ here: isActive('/post-challenge') }">
           <a href="#/post-challenge" translate="postAChallenge" class="post-challenges"></a>
         </li>
-        <li>
+        <li ng-class="{ here: isActive('/freelancer/post-project') }">
           <a href="#/freelancer/post-project" translate="postAProject" class="post-freelancer"></a>
         </li>
-        <li>
+        <li ng-class="{ here: isActive('/price-job') }">
           <a href="#/price-job" translate="jobPostEvaluation" class="post-evaluation"></a>
         </li>
       </ul>

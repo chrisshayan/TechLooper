@@ -60,4 +60,9 @@ techlooper.controller("navigationController", function ($scope, securityService,
 
   securityService.getCurrentUser(localStorageService.get("social") ? "social" : undefined);
 
+  $scope.isActive = function (viewLocation) {
+    var active = (viewLocation === $location.path());
+    return active;
+  };
+
 });
