@@ -30,7 +30,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword,
       vnwConfigService.getLocationText($scope.jobAlert.locationId, "en"))
       .success(function (data) {
-        console.log(data);
+          $scope.sendMailSuccessfulMessage = true;
       });
   }
 });
