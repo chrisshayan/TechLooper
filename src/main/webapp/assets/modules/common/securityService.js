@@ -132,7 +132,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             var lastPage = "/employer-dashboard";
           case jsonValue.views.postChallenge:
             if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
-              alert("no permission");
+              alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");
               return event.preventDefault();
             }
             else if (!$rootScope.userInfo) {
