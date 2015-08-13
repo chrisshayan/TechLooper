@@ -375,17 +375,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 
   @Override
   public ChallengeDetailDto getTheLatestChallenge() {
-    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-    searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
-    searchQueryBuilder.withSort(SortBuilders.fieldSort("challengeId").order(SortOrder.DESC));
-    searchQueryBuilder.withPageable(new PageRequest(0, 1));
-
-    List<ChallengeEntity> challengeEntities = challengeRepository.search(searchQueryBuilder.build()).getContent();
-    if (!challengeEntities.isEmpty()) {
-      ChallengeEntity challengeEntity = challengeEntities.get(0);
-      return dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
-    }
-    return null;
+//    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+//    searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
+//    searchQueryBuilder.withSort(SortBuilders.fieldSort("challengeId").order(SortOrder.DESC));
+//    searchQueryBuilder.withPageable(new PageRequest(0, 1));
+//
+//    List<ChallengeEntity> challengeEntities = challengeRepository.search(searchQueryBuilder.build()).getContent();
+//    if (!challengeEntities.isEmpty()) {
+//      ChallengeEntity challengeEntity = challengeEntities.get(0);
+//      return dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+//    }
+    return listChallenges().get(0);
   }
 
   public Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner,
