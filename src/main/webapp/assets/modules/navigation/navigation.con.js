@@ -1,6 +1,6 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
                                                   jsonValue, utils, $timeout, $rootScope) {
-
+  $scope.mobileMenuEmployer = true;
   $scope.state = function(type) {
     switch (type) {
       case "employer-signed-in":
