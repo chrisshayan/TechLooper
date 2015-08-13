@@ -10,9 +10,9 @@ techlooper.controller("loginController", function ($scope, securityService, $roo
       .success(function() {
         //utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
         //$scope.loginError = false;
-        securityService.getCurrentUser().success(function() {
-          securityService.routeByRole();
-        });
+        //securityService.getCurrentUser().success(function() {
+        //  securityService.routeByRole();
+        //});
       })
       .error(function() {
         utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
