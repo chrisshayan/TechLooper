@@ -639,5 +639,7 @@
   "contestantsDashBoard": "Contestants",
   "applications": "Applications",
   "authorizationMessages": "Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.",
-  "jobAlertSuccessful": "You have just created job alert. Please check your email box."
+  "jobAlertSuccessful": "You have just created job alert. Please check your email box.",
+  "signInBusinessOwner": "Sign In As A Business Owner",
+  "signIntechTalent": "Sign In As A Tech Talent"
 }
