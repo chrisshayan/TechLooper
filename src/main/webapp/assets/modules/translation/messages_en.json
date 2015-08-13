@@ -571,7 +571,7 @@
   "SEOMarketing": "SEO Marketing",
   "SEOMarketingDescription": "Starting from $150",
   "codingChallenges": "Challenges",
-  "freelancerProjects": "Freelancer",
+  "freelancer": "Freelancer",
   "techLooperSpotLight": "<strong>TechLooper</strong> SpotLight",
   "whatCurrentTrend": "What's The Current Trend?",
   "latestCodingChallenge": "Latest Coding Challenge",
@@ -632,5 +632,10 @@
   "freelancerProjectsHighLight": "*** TechLooper is not responsible for payment agreement between employer who posts the Freelancer project and freelancer(s) whom get hired for that project.",
   "codingChallengesTip": "Coding Challenges",
   "codingChallengesContent": "More than gaining experience and getting rewarded, show off your coding passion to figure out challenges and competence to top IT employers.",
-  "codingChallengesHighLight": "*** TechLooper is not responsible for payment agreement between Challenge Owner who posts the challenge and contestant(s) who win(s) that challenge."
+  "codingChallengesHighLight": "*** TechLooper is not responsible for payment agreement between Challenge Owner who posts the challenge and contestant(s) who win(s) that challenge.",
+  "activeChallengesDashBoard": "Active Challenges",
+  "activeProjectsDashBoard": "Active Freelancer Projects",
+  "closeOn": "Close On",
+  "contestantsDashBoard": "Contestants",
+  "applications": "Applications"
 }

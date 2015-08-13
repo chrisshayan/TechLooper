@@ -1,8 +1,6 @@
 techlooper.controller("homeController", function ($scope, securityService, apiService, localStorageService, $location,
                                                   jsonValue, utils, $timeout, $rootScope) {
 
-  
-
   apiService.getPersonalHomepage().success(function (data) {
     $scope.homePage = data;
     $scope.homePage.termStatistic.logo = "images/" + $.grep(jsonValue.technicalSkill, function (skill) {
@@ -20,4 +18,17 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     });
     $('.box-container-block').find('.box-content').height(tallest + $('.cta-button').height());
   }, 1400);
+
+  //scope.status = function (type) {
+  //  switch (type) {
+  //    case "show-error":
+  //      var errorType = arguments[1];
+  //      return scope.jobAlert.tag.$error[errorType] || scope.jobAlert.autoTag.$error[errorType];
+  //
+  //    //case "show-errors":
+  //    //  return scope.tagForm.$submitted || scope.tagForm.tag.$edited || scope.tagForm.autoTag.$edited;
+  //  }
+
+  //  return false;
+  //}
 });

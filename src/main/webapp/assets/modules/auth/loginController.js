@@ -7,10 +7,13 @@ techlooper.controller("loginController", function ($scope, securityService, $roo
     utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
     securityService.login($scope.username, $scope.password)
-      //.success(function() {
-      //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
-      //  $scope.loginError = false;
-      //})
+      .success(function() {
+        //utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
+        //$scope.loginError = false;
+        securityService.getCurrentUser().success(function() {
+          securityService.routeByRole();
+        });
+      })
       .error(function() {
         utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
         $scope.loginError = true;

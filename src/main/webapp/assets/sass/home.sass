@@ -317,7 +317,7 @@
                     width: auto
                     float: right
                     text-transform: uppercase
-                    padding-right: 5px
+                    padding-right: 15px
                     line-height: 28px
                     margin: 0
 
@@ -325,15 +325,15 @@
         display: inline-block
         clear: both
         width: 100%
-        background: url(../images/line-black-white-down.jpg) #f0f3f4 left top repeat-x
+        background: url(../images/line-li-gray.png) #f0f3f4 left top repeat-x
 
         .main-menu-job-seeker-content
             width: 100%
             clear: both
             display: inline-block
-            background: url(../images/line-black-white-up.jpg) left bottom repeat-x
+            background: url(../images/line-li-gray.png) left bottom repeat-x
             text-align: center
-            padding: 10px 0
+            padding: 0
 
             ul
                 margin: auto
@@ -344,10 +344,10 @@
 
                 li
                     width: auto
-                    display: inline-block
+                    float: left
                     text-transform: uppercase
-                    background: url(../images/line-black-white.png) left top repeat-y
-                    padding: 0 15px
+                    background: url(../images/line-li-gray.png) left top repeat-y
+                    padding: 5px 15px
 
                     a
                         color: #2d2d2d
@@ -357,7 +357,7 @@
                         cursor: pointer
                     a.jobSeekerSignIn
                         background-position: 0 -269px
-                        padding-left: 30px
+                        padding-left: 28px
                     a.challenges
                         background-position: 0 2px
 
@@ -376,10 +376,31 @@
                     a.promoted
                         background-position: 0 -226px
                         padding-left: 25px
-
+                    a.my-dashboard
+                        background-position: 0 -361px
+                        padding-left: 30px
+                    a.post-challenges
+                        background-position: 0 -475px
+                        padding-left: 30px
+                    a.post-freelancer
+                        background-position: 0 -531px
+                        padding-left: 30px
+                    a.post-evaluation
+                        background-position: 0 -416px
+                        padding-left: 30px
+                    a.no-icon
+                        background: transparent
+                        padding-left: 0
                 li:first-child
                     background: none
                     padding-left: 0
+                li.active
+                    background-color: #337ab7
+                    padding-left: 10px
+                    a
+                        color: #fff
+                    a.jobSeekerSignIn
+                        background-position: 0 -584px
 .no-submenu
     .main-menu-job-seeker-block
         display: none
@@ -886,7 +907,7 @@
 
     .line-center
         background: url(../images/line-li-gray.png) center top repeat-y
-        min-height: 300px
+        min-height: 265px
         text-align: center
         vertical-align: middle
         position: relative
@@ -905,7 +926,7 @@
             color: #b0b0b0
     .ic-user-type
         background: url(../images/ic-user-type.png) center top no-repeat
-        height: 120px
+        height: 95px
         width: 100%
         clear: both
         display: inline-block

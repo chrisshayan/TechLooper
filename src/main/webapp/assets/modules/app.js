@@ -212,7 +212,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/user-type/user-type.html",
         controller: "userTypeController"
       })
-      .when("/how-it-works", {
+      .when("/how-does-it-work", {
         templateUrl: "modules/how-it-works/how-it-works.html"
       })
       .otherwise({
@@ -236,6 +236,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   historyFactory.initialize();
   routerService.initialize();
   userService.initialize();
+  securityService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
@@ -263,40 +264,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
-  $rootScope.$on("$routeChangeStart", function (event, next, current) {
-    var view = utils.getView();
-    switch (view) {
-      case jsonValue.views.freelancerPostProject:
-        var lastPage = "/freelancer/post-project";
-      case jsonValue.views.employerDashboard:
-        var lastPage = "/employer-dashboard";
-      case jsonValue.views.postChallenge:
-        if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
-          alert("no permission");
-          return event.preventDefault();
-        }
-        else if (!$rootScope.userInfo) {
-          localStorageService.set("protectedPage", lastPage || "/post-challenge");
-          securityService.getCurrentUser().error(function () {
-            return $location.path("/login");
-          });
-        }
-        break;
-
-      case jsonValue.views.userType:
-      case jsonValue.views.login:
-        if ($rootScope.userInfo) {
-          return event.preventDefault();
-        }
-        break;
-      //var protectedPage = localStorageService.get("protectedPage");
-      //localStorageService.remove("social");
-      //if (!protectedPage) {
-      //  return event.preventDefault();
-      //}
-    }
-  });
-
   //$rootScope.$on("$loginSuccess", function () {
   //  var protectedPage = localStorageService.get("protectedPage");
   //  if (protectedPage) {
@@ -322,11 +289,11 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
     }
 
-    //var lastFoot = localStorageService.get("lastFoot");
-    //if (lastFoot) {
-    //  localStorageService.remove("lastFoot");
-    //  return $location.url(lastFoot);
-    //}
+    var lastFoot = localStorageService.get("lastFoot");
+    if (lastFoot) {
+      localStorageService.remove("lastFoot");
+      return $location.url(lastFoot);
+    }
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
