@@ -20,7 +20,7 @@
     <div class="main-menu-job-seeker-content">
       <ul>
         <li class="active">
-          <a class="no-icon">{{$root.userInfo.username | textTruncate: 'email'}}</a>
+          <a class="no-icon" ng-show="$root.userInfo">{{$root.userInfo.username | textTruncate: 'email'}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
         <li>
