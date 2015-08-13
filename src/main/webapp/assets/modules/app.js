@@ -212,7 +212,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/user-type/user-type.html",
         controller: "userTypeController"
       })
-      .when("/how-it-works", {
+      .when("/how-does-it-work", {
         templateUrl: "modules/how-it-works/how-it-works.html"
       })
       .otherwise({
