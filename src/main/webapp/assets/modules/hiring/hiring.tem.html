@@ -1,123 +1,80 @@
-<div class="personal-site-container">
-  <div class="techlooper-spotlight-block">
-    <h2 translate="techLooperSpotLight"></h2>
-    <span class="local-time">{{$root.today}}</span>
+<div class="hiring-page ng-scope">
+
+  <div class="hiring-banner-block">
+    <div class="hiring-banner-content">
+      <h2 translate="hiringTagLine" class="ng-scope"></h2>
+    </div>
+    <div class="hiring-banner-bg">
+      <div class="banner-images"></div>
+    </div>
   </div>
-  <div class="personal-site-content-detail">
-    <div class="box-container-block left">
-      <h3 translate="whatCurrentTrend"></h3>
-      <div class="box-content">
-        <div class="box-header">
-          <h4>{{homePage.termStatistic.term}}</h4>
-          <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
-        </div>
-        <div class="box-content-detail">
-          <div class="main-term">
-            <div class="main-skill-logo">
-              <img ng-src="/{{homePage.termStatistic.logo}}"  alt=""/>
-            </div>
-            <div class="main-skill-info">
-              <ul>
-                <li><span translate="jobs"></span>:<strong>{{homePage.termStatistic.totalJob}}</strong></li>
-                <li><span translate="salaryRange"></span>:
-                <strong>${{homePage.termStatistic.averageSalaryMin | number}} - ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
-              </li>
-              </ul>
-            </div>
+  <div class="hiring-body-block">
+    <div class="hiring-main-feature-block">
+      <div class="hiring-main-feature-content">
+        <div class="hiring-main-feature-item left">
+          <div class="feature-icon post-challenge-feature">
+            <p translate="desSubContestTagLine" class="sub-header ng-scope"></p>
+            <h3 translate="postAChallenge" class="ng-scope"></h3>
           </div>
-          <div class="top-detail-skill-block">
-            <div class="box-header">
-              <h4 translate="topskills"></h4>
-            </div>
-            <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob" number-width="45"/>
+          <ul>
+            <li translate="contestValue1" class="ng-scope"></li>
+            <li translate="contestValue2" class="ng-scope"></li>
+            <li translate="contestValue3" class="ng-scope"></li>
+          </ul>
+          <div class="cta-button">
+            <a ng-click="checkingGoogle()" translate="postNow" href="#/post-challenge" class="ng-scope"></a>
           </div>
         </div>
-      </div>
-      <div class="view-more-items">
-        <a href="#/pie-chart" translate="viewMoreTrends"></a>
-      </div>
-    </div>
-    <div class="box-container-block">
-      <h3 translate="latestCodingChallenge"></h3>
-      <div class="box-content">
-        <div class="box-header">
-          <h4>
-            {{homePage.latestChallenge.challengeName | limitTo: 23}}
-            <span ng-show="homePage.latestChallenge.challengeName.length > 23">...</span>
-          </h4>
-          <a href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id" translate="viewDetails"></a>
-          <!-- <a href="http://techlooper.com/#/challenge-detail/interactive-job-1436339203843-id" translate="viewDetails"></a> -->
-        </div>
-        <div class="box-content-detail">
-          <div class="row reward-block">
-            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
-              <p translate="stPrize" ng-show="homePage.latestChallenge.secondPlaceReward != null"></p>
-              <p translate="prize" ng-show="homePage.latestChallenge.secondPlaceReward == null"></p>
-              <strong>${{homePage.latestChallenge.firstPlaceReward | number:0}}</strong>
-            </div>
-            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"  ng-show="homePage.latestChallenge.secondPlaceReward != null">
-              <p translate="ndPrize"></p>
-              <strong>${{homePage.latestChallenge.secondPlaceReward | number:0}}</strong>
-            </div>
-            <div class="col-md-4" ng-show="homePage.latestChallenge.thirdPlaceReward != null">
-              <p translate="rdPrize"></p>
-              <strong>${{homePage.latestChallenge.thirdPlaceReward | number:0}}</strong>
-            </div>
+        <div class="hiring-main-feature-item">
+          <div class="feature-icon post-project-feature">
+            <p translate="desSubProjectTagLine" class="sub-header ng-scope"></p>
+            <h3 translate="subProjectTagLine" class="ng-scope"></h3>
           </div>
-          <div class="status-of-challenge-block">
-            <div class="status-of-challenge-info">
-              <h4 translate="currentPhase" />
-            <ul>
-              <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
-              <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" >
-              </li>
-            </ul>
-            </div>
-            <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
-          </div>
-          <div class="challenge-overview-block">
-            <p class="title" translate="challengeOverView"></p>
-            <p class="detail">
-              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 200}}"></span>
-              <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
-            </p>
-          </div>
-          <div class="technologies-block">
-            <p class="title">Technologies:</p>
-            <p class="detail">
-              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
-                {{skill}}
-              </span>
-            </p>
-          </div>
-          <div class="quality-of-idea-block">
-            <p translate="evaluateContestants"></p>
-            <p class="detail">
-             {{homePage.latestChallenge.qualityIdea}} 
-            </p>
+          <ul>
+            <li translate="projectValue1" class="ng-scope"></li>
+            <li translate="projectValue2" class="ng-scope"></li>
+            <li translate="projectValue3" class="ng-scope"></li>
+          </ul>
+          <div class="cta-button">
+            <a translate="postNow" class="ng-scope" href="#/freelancer/post-project"></a>
           </div>
         </div>
-
-      </div>
-      <div class="view-more-items">
-        <a href="#/challenges" translate="viewMoreChallenges"></a>
+        <div class="hiring-main-feature-item right">
+          <div class="feature-icon price-job-feature">
+            <p translate="desSubHiringTagLine" class="sub-header ng-scope"></p>
+            <h3 translate="subHiringTagLine" class="ng-scope"></h3>
+          </div>
+          <ul>
+            <li translate="hiringValue1" class="ng-scope"></li>
+            <li translate="hiringValue2" class="ng-scope"></li>
+            <li translate="hiringValue3" class="ng-scope"></li>
+          </ul>
+          <div class="cta-button">
+            <a translate="evaluateJobPost" class="ng-scope" href="#/price-job"></a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="box-container-block right">
-      <h3 translate="latestFreelancerProjects"></h3>
-      <div class="box-content">
-        <div class="box-header">
-          <h4 translate="becomeAFreelancer"></h4>
-        </div>
-        <div class="box-content-detail">
-          <div class="freelancer-banner">
-            <img ng-src="images/freelancers.jpg" alt=""/>
-          </div>
-        </div>
-
-      </div>
-      <div class="view-more-items" class="hide">
-        <a href="#/freelancer/projects" translate="viewMoreProjects"></a>
+    <div class="hiring-how-does-work-block">
+      <div class="hiring-how-does-work-content">
+        <h3 translate="homepage.howitworks.title" class="ng-scope"></h3>
+        <ul class="hiring">
+          <li class="left">
+            <h4 translate="postAChallenge" class="ng-scope"></h4>
+            <div class="ic-how-does-it-work your-job"></div>
+            <p translate="desPostAChallenge" class="ng-scope"></p>
+          </li>
+          <li>
+            <h4 translate="desSubProjectTagLine" class="ng-scope"></h4>
+            <div class="ic-how-does-it-work project"></div>
+            <p translate="desPostFreelancerProject" class="ng-scope"></p>
+          </li>
+          <li class="right">
+            <h4 translate="getInsights" class="ng-scope"></h4>
+            <div class="ic-how-does-it-work insights"></div>
+            <p translate="desGetInsights" class="ng-scope"></p>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
