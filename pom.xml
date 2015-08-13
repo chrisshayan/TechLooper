@@ -318,7 +318,7 @@
         </plugins>
       </build>
     </profile>
-    
+
     <profile>
       <id>debug</id>
       <properties>
