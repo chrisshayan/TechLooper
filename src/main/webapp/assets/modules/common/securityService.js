@@ -65,11 +65,11 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     routeByRole: function () {
       if (!$rootScope.userInfo) return;
 
-      var protectedPage = localStorageService.get("protectedPage");
-      if (protectedPage) {
-        localStorageService.remove("protectedPage");
-        return $location.url(protectedPage);
-      }
+      //var protectedPage = localStorageService.get("protectedPage");
+      //if (protectedPage) {
+      //  localStorageService.remove("protectedPage");
+      //  return $location.url(protectedPage);
+      //}
 
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
@@ -132,7 +132,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
               return event.preventDefault();
             }
             else if (!$rootScope.userInfo) {
-              localStorageService.set("protectedPage", lastPage || "/post-challenge");
+              //localStorageService.set("protectedPage", lastPage || "/post-challenge");
               instance.getCurrentUser().error(function () {
                 localStorageService.set("lastFoot", $location.url());
                 return $location.path("/login");
