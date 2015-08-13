@@ -637,5 +637,6 @@
   "activeProjectsDashBoard": "Active Freelancer Projects",
   "closeOn": "Close On",
   "contestantsDashBoard": "Contestants",
-  "applications": "Applications"
+  "applications": "Applications",
+  "authorizationMessages": "Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead."
 }
