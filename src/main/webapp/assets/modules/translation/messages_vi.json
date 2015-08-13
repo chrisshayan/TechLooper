@@ -621,7 +621,18 @@
   "sendMeJobs": "Gửi Việc Cho Tôi",
   "jobSkillCompany": "Từ khoá có thể là Chức danh công việc, Kỹ năng hay Tên nhà tuyển dụng",
   "techTalent": "Nhân Tài Công Nghệ",
-  "howItWorks": "Cách thức hoạt động"
+  "howItWorks": "Cách thức hoạt động",
+  "analyticsDemand": "Phân Tích Và Nghiên Cứu Nhu Cầu Thị Trường",
+  "analyticsDemandContent": "Giúp bạn hiểu sâu các kỹ năng đang có nhu cầu cao trên thị trường. Từ đó giúp bạn luôn đón đầu công nghệ và xu hướng phát triển của thị trường.",
+  "checkYourSalary": "Đánh Giá Mức Lương Của Bạn",
+  "checkYourSalaryContent": "Giúp bạn đánh giá thu nhập của mình so với thị trường chung.",
+  "freelancerProjects": "Dự Án Freelancer",
+  "freelancerProjectsContent": "Công việc đang trở thành trực tuyến. Và các freelancer hàng đầu hiện đang tạo ra thu nhập tuyệt vời từ những công việc như vậy. Với khả năng, trách nhiệm và cam kết tạo ra những sản phẩm tuyệt vời, bạn có thể nhanh chóng xây dựng sự nghiệp riêng mà bạn yêu thích thông qua các dự án freelancer.",
+  "getPromotedTagLineContent": "Chỉ với một bước đơn giản để biết những kỹ năng hàng đầu đang được yêu cầu nhiều nhất từ các nhà tuyển dụng. Từ đó, bạn có thể bắt tay hoàn thiện các kỹ năng nhằm hướng tới công việc mơ ước.",
+  "freelancerProjectsHighLight": "*** TechLooper không chịu trách nhiệm về thoả thuận chi trả giữa Nhà Tuyển Dụng đã đăng dự án và (các) freelancer đã được tuyển dụng cho dự án đó.",
+  "codingChallengesTip": "Thử Thách",
+  "codingChallengesContent": "Hơn cả giái thưởng và kinh nghiệm đạt được, hãy chứng tỏ đam mê lập trình và khả năng của bạn cho các nhà tuyển dụng hàng đầu thông qua các thử thách dành cho cộng đồng IT.",
+  "codingChallengesHighLight": "*** TechLooper không chịu trách nhiệm về thoả thuận chi trả giữa Nhà Tổ Chức Thử Thách và (các) thí sinh chiến thắng thử thách đó."
 }
 
 
