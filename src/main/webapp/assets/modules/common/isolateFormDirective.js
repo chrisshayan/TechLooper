@@ -14,6 +14,9 @@ techlooper
 
         // Get the parent of the form
         var parent = elm.parent().controller('form');
+
+        if (!parent) return;
+
         // Remove parent link to the controller
         parent.$removeControl(ctrl);
 

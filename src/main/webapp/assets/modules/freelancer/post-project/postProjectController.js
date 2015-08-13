@@ -116,4 +116,6 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
 
   $scope.changeState('default');
 
+  //console.log(resourcesService.paymentConfig);
+  //$scope.paymentConfig = resourcesService.paymentConfig;
 });

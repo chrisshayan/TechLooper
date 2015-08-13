@@ -5,6 +5,7 @@ import com.techlooper.config.JobAlertServiceConfigurationTest;
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.JobAlertRegistration;
+import com.techlooper.model.Language;
 import com.techlooper.service.JobAlertService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,10 +37,12 @@ public class JobAlertServiceImplTest {
     public void testRegisterJobAlert() throws Exception {
         JobAlertRegistration jobAlertRegistration = new JobAlertRegistration();
         jobAlertRegistration.setEmail("ndkhoa.is@gmail.com");
-        jobAlertRegistration.setKeyword("C++");
+        jobAlertRegistration.setKeyword("Java");
         jobAlertRegistration.setLocation("Ho Chi Minh");
+        jobAlertRegistration.setLang(Language.en);
         JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAlertService.registerJobAlert(jobAlertRegistration);
         Assert.assertNotNull(jobAlertRegistrationEntity);
         Assert.assertNotNull(jobAlertRegistrationEntity.getJobAlertRegistrationId());
     }
+
 }

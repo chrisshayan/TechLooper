@@ -104,6 +104,15 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     getEmployerDashboardInfo: function() {
       return $http.get("user/employer/dashboard-info");
+    },
+
+    /**
+     * @see com.techlooper.controller.JobAlertController.getCompany
+     * */
+    createTechlooperJobAlert: function(email, keyword, location) {
+      return $http.post("jobAlert/register", {
+        email: email, keyword: keyword, location: location
+      });
     }
   }
 

@@ -65,16 +65,16 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     routeByRole: function () {
       if (!$rootScope.userInfo) return;
 
-      var protectedPage = localStorageService.get("protectedPage");
-      if (protectedPage) {
-        localStorageService.remove("protectedPage");
-        return $location.url(protectedPage);
-      }
+      //var protectedPage = localStorageService.get("protectedPage");
+      //if (protectedPage) {
+      //  localStorageService.remove("protectedPage");
+      //  return $location.url(protectedPage);
+      //}
 
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
-        localStorageService.remove("lastFoot");
-        return $location.url(lastFoot);
+          localStorageService.remove("lastFoot");
+          return $location.url(lastFoot);
       }
 
       switch ($rootScope.userInfo.roleName) {
@@ -106,12 +106,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           //}
           //localStorageService.remove("lastFoot");
 
-          instance.routeByRole();
+          //instance.routeByRole();
         })
         .error(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
 
-    removeProtectedLastFoot: function() {
+    removeProtectedLastFoot: function () {
       var path = localStorageService.get("protectedPage");
       if (/\/freelancer\/post-project/.test(path) || /\/employer-dashboard/.test(path) || /\/post-challenge/.test(path)) {
         localStorageService.remove("protectedPage");
@@ -132,7 +132,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
               return event.preventDefault();
             }
             else if (!$rootScope.userInfo) {
-              localStorageService.set("protectedPage", lastPage || "/post-challenge");
+              //localStorageService.set("protectedPage", lastPage || "/post-challenge");
               instance.getCurrentUser().error(function () {
                 localStorageService.set("lastFoot", $location.url());
                 return $location.path("/login");
@@ -149,6 +149,9 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
               return event.preventDefault();
             }
             break;
+
+          default:
+            return localStorageService.set("lastFoot", $location.path());
         }
       });
     }

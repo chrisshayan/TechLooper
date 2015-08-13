@@ -6,6 +6,7 @@
   <div class="personal-site-content-detail">
     <div class="job-alert-box">
       <h3 translate="itJobCorner"></h3>
+
       <div class="box-content">
         <div class="it-job-corner-content">
           <div class="col-md-6 left">
@@ -16,36 +17,62 @@
             </ul>
           </div>
           <div class="col-md-6 right">
-            <div class="send-me-jobs-form">
-              <h4 translate="sendMeJobs"></h4>
-              <div class="send-me-jobs-field">
-                <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
-                <input id="jobAlertEmail" type="email" class="input-style" placeholder="{{'jobAlertEmailEx' | translate}}"/>
-                <div class="error-messages">sfdsgfdgf fdgdf</div>
+            <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
+              <div class="send-me-jobs-form">
+                <h4 translate="sendMeJobs"></h4>
+
+                <div class="send-me-jobs-field">
+                  <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
+                  <input id="jobAlertEmail" type="email" class="input-style"
+                         placeholder="{{'jobAlertEmailEx' | translate}}" touchable
+                         ng-required="true" ng-model="jobAlert.email" name="email"/>
+
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$edited">
+                    <div translate="requiredThisField" ng-show="jobAlertForm.email.$error.required"/>
+                    <div translate="emailInvalid" ng-show="jobAlertForm.email.$error.email"/>
+                  </div>
+                </div>
+                <div class="send-me-jobs-field">
+                  <label for="jobAlertKeywords">{{'keyword' | translate}}: <strong>*</strong></label>
+                  <input id="jobAlertKeywords" type="text" class="input-style" name="keyword"
+                         placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>
+
+                  <p class="note" translate="jobSkillCompany"></p>
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$edited">
+                    <div translate="requiredThisField" ng-show="jobAlertForm.keyword.$error.required"/>
+                  </div>
+                </div>
+                <div class="send-me-jobs-field">
+                  <label>{{'location' | translate}}: <strong>*</strong></label>
+                  <selectize config="locationsConfig.config"
+                             options="locationsConfig.items"
+                             ng-model="jobAlert.locationId" ng-required="true"
+                             name="location" class="locationSelectbox"></selectize>
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
+                    <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
+                  </div>
+
+                  <!--<selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"-->
+                             <!--ng-model="hourly.estimatedWorkload"-->
+                             <!--options="$root.resourcesService.estimatedWorkloadConfig.options"-->
+                             <!--config="$root.resourcesService.estimatedWorkloadConfig"></selectize>-->
+                  <!--<div ng-show="hourlyForm.estimatedWorkload.$dirty || hourlyForm.$submitted">-->
+                    <!--<div class="error-messages"-->
+                         <!--ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />-->
+                    <!--</div>-->
+                </div>
+                <div class="send-me-jobs-field submit">
+                  <button translate="emailMeJobs" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
+                </div>
               </div>
-              <div class="send-me-jobs-field">
-                <label for="jobAlertKeywords">{{'keyword' | translate}}: <strong>*</strong></label>
-                <input id="jobAlertKeywords" type="text" class="input-style" placeholder="{{'keywordEx' | translate}}"/>
-                <p class="note" translate="jobSkillCompany"></p>
-              </div>
-              <div class="send-me-jobs-field">
-                <label>{{'location' | translate}}: <strong>*</strong></label>
-                <selectize config='selectize.locationsSelectize.config' options='selectize.locationsSelectize.items'
-                           ng-model="salaryReview.locationId" required
-                           name="{{'location' | translate}}" class="locationSelectbox" validate></selectize>
-                <div class="error-messages">
-                  {{error['salaryReview.locationId']}}</div>
-              </div>
-              <div class="send-me-jobs-field submit">
-                <button translate="emailMeJobs" class="btn btn-primary btn-flat"></button>
-              </div>
-            </div>
+            </ng-form>
           </div>
         </div>
       </div>
     </div>
     <div class="box-container-block left">
       <h3 translate="whatCurrentTrend"></h3>
+
       <div class="box-content">
         <div class="box-header">
           <h4>{{homePage.termStatistic.term}}</h4>
@@ -54,14 +81,15 @@
         <div class="box-content-detail">
           <div class="main-term">
             <div class="main-skill-logo">
-              <img ng-src="/{{homePage.termStatistic.logo}}"  alt=""/>
+              <img ng-src="/{{homePage.termStatistic.logo}}" alt=""/>
             </div>
             <div class="main-skill-info">
               <ul>
                 <li><span translate="jobs"></span>:<strong>{{homePage.termStatistic.totalJob}}</strong></li>
                 <li><span translate="salaryRange"></span>:
-                <strong>${{homePage.termStatistic.averageSalaryMin | number}} - ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
-              </li>
+                  <strong>${{homePage.termStatistic.averageSalaryMin | number}} -
+                    ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
+                </li>
               </ul>
             </div>
           </div>
@@ -69,7 +97,8 @@
             <div class="box-header">
               <h4 translate="topskills"></h4>
             </div>
-            <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob" number-width="45"/>
+            <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob"
+                       number-width="45"/>
           </div>
         </div>
       </div>
@@ -79,23 +108,29 @@
     </div>
     <div class="box-container-block">
       <h3 translate="latestCodingChallenge"></h3>
+
       <div class="box-content">
         <div class="box-header">
           <h4>
             {{homePage.latestChallenge.challengeName | limitTo: 23}}
             <span ng-show="homePage.latestChallenge.challengeName.length > 23">...</span>
           </h4>
-          <a href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id" translate="viewDetails"></a>
+          <a
+            href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id"
+            translate="viewDetails"></a>
           <!-- <a href="http://techlooper.com/#/challenge-detail/interactive-job-1436339203843-id" translate="viewDetails"></a> -->
         </div>
         <div class="box-content-detail">
           <div class="row reward-block">
-            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
+            <div class="col-md-4"
+                 ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
               <p translate="stPrize" ng-show="homePage.latestChallenge.secondPlaceReward != null"></p>
+
               <p translate="prize" ng-show="homePage.latestChallenge.secondPlaceReward == null"></p>
               <strong>${{homePage.latestChallenge.firstPlaceReward | number:0}}</strong>
             </div>
-            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"  ng-show="homePage.latestChallenge.secondPlaceReward != null">
+            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"
+                 ng-show="homePage.latestChallenge.secondPlaceReward != null">
               <p translate="ndPrize"></p>
               <strong>${{homePage.latestChallenge.secondPlaceReward | number:0}}</strong>
             </div>
@@ -106,17 +141,20 @@
           </div>
           <div class="status-of-challenge-block">
             <div class="status-of-challenge-info">
-              <h4 translate="currentPhase" />
-            <ul>
-              <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
-              <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}" translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}" >
-              </li>
-            </ul>
+              <h4 translate="currentPhase"/>
+              <ul>
+                <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
+                <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}"
+                    translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}">
+                </li>
+              </ul>
             </div>
-            <p translate="registerNumber" translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
+            <p translate="registerNumber"
+               translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
           </div>
           <div class="challenge-overview-block">
             <p class="title" translate="challengeOverView"></p>
+
             <p class="detail">
               <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 200}}"></span>
               <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
@@ -124,6 +162,7 @@
           </div>
           <div class="technologies-block">
             <p class="title">Technologies:</p>
+
             <p class="detail">
               <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
                 {{skill}}
@@ -132,8 +171,9 @@
           </div>
           <div class="quality-of-idea-block">
             <p translate="evaluateContestants"></p>
+
             <p class="detail">
-             {{homePage.latestChallenge.qualityIdea}} 
+              {{homePage.latestChallenge.qualityIdea}}
             </p>
           </div>
         </div>
@@ -145,6 +185,7 @@
     </div>
     <div class="box-container-block right">
       <h3 translate="latestFreelancerProjects"></h3>
+
       <div class="box-content">
         <div class="box-header">
           <h4 translate="becomeAFreelancer"></h4>
