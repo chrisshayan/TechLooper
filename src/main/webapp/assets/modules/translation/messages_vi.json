@@ -638,7 +638,8 @@
   "closeOn": "Ngày Kết Thúc",
   "contestantsDashBoard": "Số Lượng Thí Sinh",
   "applications": "Lượt Ứng Tuyển",
-  "authorizationMessages": "Tài khoản hiện tại của bạn không có quyền truy cập vào chức năng này. Vui lòng sử dụng tài khoản VietnamWorks của Nhà Tuyển Dụng/ Chủ Doanh Nghiệp để sử dụng chức năng."
+  "authorizationMessages": "Tài khoản hiện tại của bạn không có quyền truy cập vào chức năng này. Vui lòng sử dụng tài khoản VietnamWorks của Nhà Tuyển Dụng/ Chủ Doanh Nghiệp để sử dụng chức năng.",
+  "jobAlertSuccessful": "Bạn vừa tạo xong Thông Báo Công Việc cho ứng viên IT thành công. Hãy kiểm tra hộp mail của bạn."
 }
 
 
