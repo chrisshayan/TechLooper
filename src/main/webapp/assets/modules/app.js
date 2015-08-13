@@ -271,30 +271,40 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       case jsonValue.views.employerDashboard:
         var lastPage = "/employer-dashboard";
       case jsonValue.views.postChallenge:
-        securityService.getCurrentUser().error(function () {
+        if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
+          alert("no permission");
+          return event.preventDefault();
+        }
+        else if (!$rootScope.userInfo) {
           localStorageService.set("protectedPage", lastPage || "/post-challenge");
-          return $location.path("/login");
-        });
+          securityService.getCurrentUser().error(function () {
+            return $location.path("/login");
+          });
+        }
         break;
 
-      //case jsonValue.views.login:
-      //  var protectedPage = localStorageService.get("protectedPage");
-      //  localStorageService.remove("social");
-      //  if (!protectedPage) {
-      //    return $location.path("/");
-      //  }
-      //  break;
+      case jsonValue.views.userType:
+      case jsonValue.views.login:
+        if ($rootScope.userInfo) {
+          return event.preventDefault();
+        }
+        break;
+      //var protectedPage = localStorageService.get("protectedPage");
+      //localStorageService.remove("social");
+      //if (!protectedPage) {
+      //  return event.preventDefault();
+      //}
     }
   });
 
-  $rootScope.$on("$loginSuccess", function () {
-    var protectedPage = localStorageService.get("protectedPage");
-    if (protectedPage) {
-      localStorageService.remove("protectedPage");
-      return $location.url(protectedPage);
-    }
-    securityService.getCurrentUser();
-  });
+  //$rootScope.$on("$loginSuccess", function () {
+  //  var protectedPage = localStorageService.get("protectedPage");
+  //  if (protectedPage) {
+  //    localStorageService.remove("protectedPage");
+  //    return $location.url(protectedPage);
+  //  }
+  //  securityService.getCurrentUser();
+  //});
 
   var param = $location.search();
   if (!$.isEmptyObject(param)) {

@@ -5,15 +5,17 @@ techlooper.controller("loginController", function ($scope, securityService, $roo
       return false;
     }
     utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+
     securityService.login($scope.username, $scope.password)
-      .success(function() {
-        utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
-        $scope.loginError = false;
-      })
+      //.success(function() {
+      //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
+      //  $scope.loginError = false;
+      //})
       .error(function() {
         utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
         $scope.loginError = true;
       });
   }
 
+  //securityService.routeByRole();
 });
