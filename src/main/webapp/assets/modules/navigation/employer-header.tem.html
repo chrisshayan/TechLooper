@@ -22,21 +22,20 @@
   <div class="main-menu-job-seeker-block" ng-show="!mobileMenuEmployer">
     <div class="main-menu-job-seeker-content">
       <ul>
-        <li class="active" ng-class="{ here: isActive('/hiring') }">
+        <li class="active" ng-class="{ here: isActive('/hiring') }" ng-click="hideMenu()">
           <a class="no-icon" href="#/hiring" ng-show="$root.userInfo">{{$root.userInfo.username | textTruncate: 'email'}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
-        <li ng-class="{ here: isActive('/employer-dashboard') }">
+        <li ng-class="{ here: isActive('/employer-dashboard') }" ng-click="hideMenu()">
           <a href="#/employer-dashboard" translate="myDashboard" class="my-dashboard"></a>
         </li>
-
-        <li ng-class="{ here: isActive('/post-challenge') }">
+        <li ng-class="{ here: isActive('/post-challenge') }" ng-click="hideMenu()">
           <a href="#/post-challenge" translate="postAChallenge" class="post-challenges"></a>
         </li>
-        <li ng-class="{ here: isActive('/freelancer/post-project') }">
+        <li ng-class="{ here: isActive('/freelancer/post-project') }" ng-click="hideMenu()">
           <a href="#/freelancer/post-project" translate="postAProject" class="post-freelancer"></a>
         </li>
-        <li ng-class="{ here: isActive('/price-job') }">
+        <li ng-class="{ here: isActive('/price-job') }" ng-click="hideMenu()">
           <a href="#/price-job" translate="jobPostEvaluation" class="post-evaluation"></a>
         </li>
       </ul>
