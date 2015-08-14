@@ -289,7 +289,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
 
       case "redirectJA":
-        window.open(param.targetUrl);
+        window.location.href = param.targetUrl;
         break;
     }
 
