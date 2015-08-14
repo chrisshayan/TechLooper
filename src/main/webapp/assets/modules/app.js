@@ -292,11 +292,14 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         window.location.href = param.targetUrl;
         break;
     }
-
+//http://localhost:8080/#/salary-review?campaign=email&lang=en&id=MTQzOTUyNjczMDI4Ng==&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport
     var lastFoot = localStorageService.get("lastFoot");
-    if (lastFoot) {
-      localStorageService.remove("lastFoot");
-      return $location.url(lastFoot);
+    localStorageService.remove("lastFoot");
+    if (lastFoot && !param.utm_campaign) {
+      if (lastFoot !== "/login" && lastFoot !== "/user-type") {
+        return $location.url(lastFoot);
+      }
+      //return $location.url(lastFoot);
     }
   }
 

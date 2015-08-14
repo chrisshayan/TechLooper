@@ -2,7 +2,7 @@
     <div class="personal-header-block">
         <div class="personal-header-content">
             <div class="logo-block">
-                <h1><a href="#/"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
+                <h1><a ng-href="#{{state('home-url')}}"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
             </div>
             <div class="ic-menu-mobile" ng-modal="mobileMenu" ng-click="mobileMenu = !mobileMenu">
                 <i class="fa fa-bars"></i>
@@ -24,7 +24,7 @@
         <div class="main-menu-job-seeker-content">
             <ul>
                 <li class="active" ng-class="{ here: isActive('/home') }" ng-click="mobileMenu = !mobileMenu">
-                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.name | limitTo: 10}}</a>
+                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.firstName | limitTo: 10}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
                 <li ng-class="{ here: isActive('/challenges') }" ng-click="hideMenu()">
