@@ -289,7 +289,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
 
       case "redirectJA":
-        window.open(param.targetUrl);
+        window.location.href = param.targetUrl;
         break;
     }
 //http://localhost:8080/#/salary-review?campaign=email&lang=en&id=MTQzOTUyNjczMDI4Ng==&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport

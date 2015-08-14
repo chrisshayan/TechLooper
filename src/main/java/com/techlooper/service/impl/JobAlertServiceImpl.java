@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
+import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.JobAlertRegistration;
 import com.techlooper.model.Language;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
@@ -28,7 +29,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.parseDate2String;
 import static com.techlooper.util.DateTimeUtils.parseString2Date;
@@ -89,10 +93,10 @@ public class JobAlertServiceImpl implements JobAlertService {
 
         queryBuilder.must(rangeQuery("createdDateTime").from("now-7d/d"));
         searchQueryBuilder.withQuery(queryBuilder);
-        searchQueryBuilder.withSort(fieldSort("createdDateTime").order(SortOrder.DESC));
-        searchQueryBuilder.withPageable(new PageRequest(0, 10));
+        searchQueryBuilder.withPageable(new PageRequest(0, 100));
 
-        return scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
+        List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
+        return sortJobByDescendingStartDate(jobs);
     }
 
     @Override
@@ -140,7 +144,7 @@ public class JobAlertServiceImpl implements JobAlertService {
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("email", jobAlertRegistrationEntity.getEmail());
         templateModel.put("numberOfJobs", scrapeJobEntities.size());
-        templateModel.put("jobs", scrapeJobEntities);
+        templateModel.put("jobs", scrapeJobEntities.stream().limit(10).collect(Collectors.toList()));
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, jobAlertRegistrationEntity.getKeyword(), jobAlertRegistrationEntity.getLocation());
@@ -161,6 +165,28 @@ public class JobAlertServiceImpl implements JobAlertService {
         Date launchDate = parseString2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, "dd/MM/yyyy");
         int numberOfDays = Days.daysBetween(new DateTime(launchDate), new DateTime(currentDate)).getDays();
         return numberOfDays % period;
+    }
+
+    private List<ScrapeJobEntity> sortJobByDescendingStartDate(List<ScrapeJobEntity> jobs) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return jobs.stream().sorted((job1, job2) -> {
+            try {
+                long challenge2StartDate = sdf.parse(job2.getCreatedDateTime()).getTime();
+                long challenge1StartDate = sdf.parse(job1.getCreatedDateTime()).getTime();
+                if (challenge2StartDate - challenge1StartDate > 0) {
+                    return 1;
+                }
+                else if (challenge2StartDate - challenge1StartDate < 0) {
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+            catch (ParseException e) {
+                return 0;
+            }
+        }).collect(Collectors.toList());
     }
 
 }
