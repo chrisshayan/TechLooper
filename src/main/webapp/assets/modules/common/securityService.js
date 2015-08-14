@@ -19,6 +19,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
       apiService.logout()
         .success(function (data, status, headers, config) {
+          localStorageService.remove("social");
           $rootScope.userInfo = undefined;
 
           switch (view) {
@@ -73,14 +74,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       };
       return apiService.login(auth)
         .success(function (data, status, headers, config) {
-          //$rootScope.$broadcast("$loginSuccess");
-
-          //var protectedPage = localStorageService.get("protectedPage");
-          //if (protectedPage) {
-          //  localStorageService.remove("protectedPage");
-          //  return $location.url(protectedPage);
-          //}
-          instance.getCurrentUser().then(function () {
+          if (localStorageService.get("social")) {
+            var type = "social";
+          }
+          instance.getCurrentUser(type).success(function () {
             instance.routeByRole();
           });
         })

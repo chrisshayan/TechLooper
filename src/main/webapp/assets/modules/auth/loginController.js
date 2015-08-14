@@ -20,5 +20,8 @@ techlooper.controller("loginController", function ($scope, securityService, $roo
       });
   }
 
+  //if ($rootScope.userInfo) {
+  //  securityService.routeByRole();
+  //}
   //securityService.routeByRole();
 });
