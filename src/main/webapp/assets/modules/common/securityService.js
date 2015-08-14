@@ -19,6 +19,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
       apiService.logout()
         .success(function (data, status, headers, config) {
+          localStorageService.remove("social");
           $rootScope.userInfo = undefined;
 
           switch (view) {
@@ -73,14 +74,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       };
       return apiService.login(auth)
         .success(function (data, status, headers, config) {
-          //$rootScope.$broadcast("$loginSuccess");
-
-          //var protectedPage = localStorageService.get("protectedPage");
-          //if (protectedPage) {
-          //  localStorageService.remove("protectedPage");
-          //  return $location.url(protectedPage);
-          //}
-          instance.getCurrentUser().then(function () {
+          if (localStorageService.get("social")) {
+            var type = "social";
+          }
+          instance.getCurrentUser(type).success(function () {
             instance.routeByRole();
           });
         })
@@ -99,6 +96,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       //}
 
       var lastFoot = localStorageService.get("lastFoot");
+      console.log("routeByRole", lastFoot);
       if (lastFoot) {
         localStorageService.remove("lastFoot");
         if (lastFoot !== "/login" && lastFoot !== "/user-type") {
@@ -138,7 +136,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             else if (!$rootScope.userInfo) {
               //localStorageService.set("protectedPage", lastPage || "/post-challenge");
               instance.getCurrentUser().error(function () {
-                localStorageService.set("lastFoot", $location.url());
+                localStorageService.set("lastFoot", $location.path());
                 return $location.path("/login");
               });
             }
@@ -155,7 +153,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             break;
 
           default:
-            return localStorageService.set("lastFoot", $location.path());
+            return localStorageService.set("lastFoot", $location.url());
         }
       });
     }

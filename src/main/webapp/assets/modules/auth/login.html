@@ -13,8 +13,8 @@
   <!--<div class="overlap-background"></div>-->
   <div class="sign-in-content">
     <div class="sign-in-form">
-      <h2 translate="signInBusinessOwner"></h2>
-      <form novalidate name="loginForm" autocomplete="off" ng-submit="login()">
+      <h2><span translate="signInBusinessOwner"></span> <a href="#/user-type" class="ic-info-white"></a></h2>
+      <form class="employer-sign-in-form" novalidate name="loginForm" autocomplete="off" ng-submit="login()">
         <div class="sign-in-field errorFromServer" ng-show="loginError">
           <p class="error-messages">{{'errorMessageEmailServer' | translate}}</p>
         </div>
