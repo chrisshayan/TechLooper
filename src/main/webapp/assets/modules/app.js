@@ -237,6 +237,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   routerService.initialize();
   userService.initialize();
   securityService.initialize();
+  //resourcesService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
