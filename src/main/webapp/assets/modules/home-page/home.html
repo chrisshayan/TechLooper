@@ -28,7 +28,7 @@
                          placeholder="{{'jobAlertEmailEx' | translate}}" touchable
                          ng-required="true" ng-model="jobAlert.email" name="email"/>
 
-                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$edited">
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$dirty">
                     <div translate="requiredThisField" ng-show="jobAlertForm.email.$error.required"/>
                     <div translate="emailInvalid" ng-show="jobAlertForm.email.$error.email"/>
                   </div>
@@ -39,7 +39,7 @@
                          placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>
 
                   <p class="note" translate="jobSkillCompany"></p>
-                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$edited">
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$dirty">
                     <div translate="requiredThisField" ng-show="jobAlertForm.keyword.$error.required"/>
                   </div>
                 </div>

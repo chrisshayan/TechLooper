@@ -96,7 +96,6 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       //}
 
       var lastFoot = localStorageService.get("lastFoot");
-      console.log("routeByRole", lastFoot);
       if (lastFoot) {
         localStorageService.remove("lastFoot");
         if (lastFoot !== "/login" && lastFoot !== "/user-type") {
