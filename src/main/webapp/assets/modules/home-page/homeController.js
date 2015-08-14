@@ -27,8 +27,8 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
       return;
     }
 
-    apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword,
-      vnwConfigService.getLocationText($scope.jobAlert.locationId, "en"), $translate.use())
+    var location = vnwConfigService.getLocationText($scope.jobAlert.locationId, "en");
+    apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword, location, $translate.use())
       .success(function (data) {
         $scope.sendMailSuccessfulMessage = true;
         $scope.jobAlert = {};

@@ -296,7 +296,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     var lastFoot = localStorageService.get("lastFoot");
     if (lastFoot) {
       localStorageService.remove("lastFoot");
-      return $location.url(lastFoot);
+      if (lastFoot !== "/login" && lastFoot !== "/user-type") {
+        return $location.url(lastFoot);
+      }
+      //return $location.url(lastFoot);
     }
   }
 
