@@ -287,6 +287,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         localStorageService.set("social", param.social);
         localStorageService.set("code", param.code);
         break;
+
+      case "redirectJA":
+        window.open(param.targetUrl);
+        break;
     }
 
     var lastFoot = localStorageService.get("lastFoot");
