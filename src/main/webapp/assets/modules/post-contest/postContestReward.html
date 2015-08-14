@@ -7,7 +7,9 @@
         <div class="post-contest-field">
           <div class="post-contest-field-content">
             <label translate="qualityIdea"></label>
-            <selectize name="qualityIdea" ng-model="contest.qualityIdea" config="config.qualityIdea" required touchable></selectize>
+            <selectize name="qualityIdea" ng-model="contest.qualityIdea"
+                       config="config.qualityIdea" options="config.qualityIdea.options"
+                       required touchable></selectize>
             <div class="error-messages"
                  ng-show="rewardForm.qualityIdea.$error.required && (rewardForm.qualityIdea.$edited || rewardForm.$submitted)"
                  translate="requiredThisField"></div>

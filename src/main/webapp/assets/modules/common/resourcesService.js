@@ -1,5 +1,8 @@
 techlooper.factory("resourcesService", function ($translate, $q) {
-  var reviewStyleOptions = [{translate: "contestOwnerSignOff", id: "contestOwnerSignOff"}];
+  var reviewStyleOptions = [
+    {translate: "contestOwnerSignOff", id: "contestOwnerSignOff"}
+  ];
+
   var qualityIdeaOptions = [
     {translate: "hasAcceptableTradeoffs", id: "hasAcceptableTradeoffs"},
     {translate: "theSolutionAchievesTheStatedGoals", id: "theSolutionAchievesTheStatedGoals"},
@@ -33,6 +36,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
       labelField: 'title',
       maxItems: 1,
       plugins: ["techlooper"],
+      selectizeDeffer: $q.defer(),
       getSelectize: function () {
         if (instance[key].selectizeDeffer) return instance[key].selectizeDeffer.promise;
         instance[key].selectizeDeffer = $q.defer();
@@ -51,6 +55,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
       labelField: 'title',
       maxItems: 1,
       plugins: ["techlooper"],
+      selectizeDeffer: $q.defer(),
       getSelectize: function () {
         if (instance[key].selectizeDeffer) return instance[key].selectizeDeffer.promise;
         instance[key].selectizeDeffer = $q.defer();
@@ -88,6 +93,8 @@ techlooper.factory("resourcesService", function ($translate, $q) {
       });
       return option;
     }
+
+    //initialize: function() {}
   }
 
   var translations = [
@@ -106,6 +113,25 @@ techlooper.factory("resourcesService", function ($translate, $q) {
       });
 
       $.each(item.ins.options, function (i, row) {
+        //console.log(row);
+        //console.log($.type(row));
+        //console.log(row);
+        if ($.type(row) == "array") {
+          //row = row[0];
+          //console.log(row);
+          item.ins.options = [];
+          $.each(row, function (i, r) {
+            $translate(r.translate).then(function (translate) {
+              r.title = translate;
+              item.ins.options.push(r);
+            });
+          });
+          //console.log(row);
+          //console.log(array);
+          //
+          //return (item.ins.options = array);
+          return ;
+        }
         $translate(row.translate).then(function (translate) {
           row.title = translate;
         });
