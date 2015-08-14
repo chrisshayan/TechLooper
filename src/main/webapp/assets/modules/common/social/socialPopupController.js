@@ -6,4 +6,8 @@ techlooper.controller("socialPopupController", function($scope, apiService, secu
       window.location = url;
     });
   }
+  $scope.closeSignIn = function(){
+    $('#signIn').modal('hide');
+    window.location.href = "#/user-type";
+  }
 });

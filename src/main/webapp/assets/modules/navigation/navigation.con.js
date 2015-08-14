@@ -1,7 +1,5 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
                                                         jsonValue, utils, $timeout, $rootScope) {
-  console.log($rootScope.userInfo);
-
   $scope.state = function (type) {
     switch (type) {
       case "home-url":
