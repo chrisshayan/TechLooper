@@ -557,7 +557,7 @@
   "whyChallengeFeature3": "Shorten your tech talents cycle",
   "registrantsNumber": "Registrants",
   "ourCustomers": "Our Customers",
-  "getStarted": "Get Started",
+  "getStartedBTN": "Get Started",
   "projects": "Projects",
   "faceVietnamworksHeader": "face.vietnamworks.com",
   "faceVietnamworksDescription": "&ldquo; Given business requirements sometimes we need to scale our team cost-effectively. We hire freelancers to help us to develop and run specific campaigns and products, with most of them we still work today. &rdquo;",
@@ -634,7 +634,7 @@
   "codingChallengesContent": "More than gaining experience and getting rewarded, show off your coding passion to figure out challenges and competence to top IT employers.",
   "codingChallengesHighLight": "*** TechLooper is not responsible for payment agreement between Challenge Owner who posts the challenge and contestant(s) who win(s) that challenge.",
   "activeChallengesDashBoard": "Active Challenges",
-  "activeProjectsDashBoard": "Active Freelancer Projects",
+  "activeProjectsDashBoard": "Freelancer Projects",
   "closeOn": "Close On",
   "contestantsDashBoard": "Contestants",
   "applications": "Applications",
@@ -642,5 +642,6 @@
   "jobAlertSuccessful": "You have just created job alert. Please check your email box.",
   "signInBusinessOwner": "Sign In As A Business Owner",
   "signInTechTalent": "Sign In As A Tech Talent",
-  "noData": "No data found."
+  "noData": "No data found.",
+  "subMenuGetPromoted": "Get Promoted"
 }

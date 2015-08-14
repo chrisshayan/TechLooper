@@ -23,7 +23,7 @@
     <div class="main-menu-job-seeker-block" ng-show="!mobileMenu">
         <div class="main-menu-job-seeker-content">
             <ul>
-                <li class="active" ng-class="{ here: isActive('/home') }" ng-click="mobileMenu = !mobileMenu">
+                <li class="active" ng-class="{ here: isActive('/home') }" ng-click="hideMenu()">
                     <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.name | limitTo: 10}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
@@ -36,10 +36,10 @@
                 <li ng-class="{ here: isActive('/pie-chart') }" ng-click="hideMenu()">
                     <a href="#/pie-chart" translate="subMenuAnalytics" class="analytics"></a>
                 </li>
-                <li ng-class="{ here: isActive('/salary-review') }" ng-click="mobileMenu = !mobileMenu">
+                <li ng-class="{ here: isActive('/salary-review') }" ng-click="hideMenu()">
                     <a href="#/salary-review" translate="salaryReview" class="help"></a>
                 </li>
-                <li ng-class="{ here: isActive('/get-promoted') }" ng-click="mobileMenu = !mobileMenu">
+                <li ng-class="{ here: isActive('/get-promoted') }" ng-click="hideMenu()">
                     <a href="#/get-promoted" translate="getPromoted" class="promoted"></a>
                 </li>
             </ul>
