@@ -31,8 +31,9 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword, location, $translate.use())
       .success(function (data) {
         $scope.sendMailSuccessfulMessage = true;
-        $scope.jobAlert = {};
         $scope.jobAlertForm.$setPristine();
+        //$scope.jobAlertForm.$submitted = false;
+        $scope.jobAlert = {};
       });
   }
 });
