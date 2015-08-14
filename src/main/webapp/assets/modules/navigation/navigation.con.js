@@ -1,17 +1,15 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
                                                         jsonValue, utils, $timeout, $rootScope) {
-  console.log($rootScope.userInfo);
-
   $scope.state = function (type) {
     switch (type) {
       case "home-url":
         if ($rootScope.userInfo) {
           if ($rootScope.userInfo.roleName === "JOB_SEEKER") {
-            return "/home";
+            return "home";
           }
-          return "/hiring";
+          return "hiring";
         }
-        return "/home";
+        return "home";
 
       case "employer-signed-in":
         if (!$rootScope.userInfo) {
