@@ -1,7 +1,18 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
-                                                  jsonValue, utils, $timeout, $rootScope) {
-  $scope.state = function(type) {
+                                                        jsonValue, utils, $timeout, $rootScope) {
+  console.log($rootScope.userInfo);
+
+  $scope.state = function (type) {
     switch (type) {
+      case "home-url":
+        if ($rootScope.userInfo) {
+          if ($rootScope.userInfo.roleName === "JOB_SEEKER") {
+            return "/home";
+          }
+          return "/hiring";
+        }
+        return "/home";
+
       case "employer-signed-in":
         if (!$rootScope.userInfo) {
           switch (utils.getView()) {
@@ -43,7 +54,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
     }
   }
 
-  $scope.logout = function() {
+  $scope.logout = function () {
     securityService.logout();
     localStorageService.remove("social");
   }
@@ -64,8 +75,8 @@ techlooper.controller("navigationController", function ($scope, securityService,
     var active = (viewLocation === $location.path());
     return active;
   };
-  $scope.hideMenu = function(){
-    if(utils.isMobile() == true){
+  $scope.hideMenu = function () {
+    if (utils.isMobile() == true) {
       $scope.mobileMenuEmployer = !$scope.mobileMenuEmployer;
       $scope.mobileMenu = !$scope.mobileMenu;
     }
