@@ -96,6 +96,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       //}
 
       var lastFoot = localStorageService.get("lastFoot");
+      console.log("routeByRole", lastFoot);
       if (lastFoot) {
         localStorageService.remove("lastFoot");
         if (lastFoot !== "/login" && lastFoot !== "/user-type") {
@@ -135,7 +136,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             else if (!$rootScope.userInfo) {
               //localStorageService.set("protectedPage", lastPage || "/post-challenge");
               instance.getCurrentUser().error(function () {
-                localStorageService.set("lastFoot", $location.url());
+                localStorageService.set("lastFoot", $location.path());
                 return $location.path("/login");
               });
             }
@@ -152,7 +153,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             break;
 
           default:
-            return localStorageService.set("lastFoot", $location.path());
+            return localStorageService.set("lastFoot", $location.url());
         }
       });
     }
