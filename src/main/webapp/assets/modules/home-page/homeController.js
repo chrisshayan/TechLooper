@@ -17,7 +17,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
         tallest = thisHeight;
     });
     $('.box-container-block').find('.box-content').height(tallest + $('.cta-button').height());
-  }, 1400);
+  }, 1800);
 
   $scope.locationsConfig = vnwConfigService.locationsSelectize;
 

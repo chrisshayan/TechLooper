@@ -1,3 +1,5 @@
-techlooper.controller("jobListingController", function ($scope, $rootScope, securityService) {
+techlooper.controller("jobListingController", function ($scope, vnwConfigService) {
+
+  $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
 
 });

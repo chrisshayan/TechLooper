@@ -216,7 +216,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/how-it-works/how-it-works.html"
       })
       .when("/job-listing", {
-        templateUrl: "modules/job-listing/job-listing.html"
+        templateUrl: "modules/job-listing/job-listing.html",
+        controller: "jobListingController"
       })
       .otherwise({
         redirectTo: function () {

@@ -1,1 +1,86 @@
+<div class="content-page-block job-listing-container">
+  <div class="header-page">
+    <h2 translate="ItJobHub"></h2>
+  </div>
+  <div class="content-page-detail">
+    <div class="job-listing-search-bar">
+      <form action="" autocomplete="off" name="jobListingSearch">
 
+        <div class="keyword-block">
+          <div auto-suggestion text="searchJobKeyword.jobTitle" items="jobTitles"
+               get-url="suggestion/jobTitle/" input-model="jobListingSearch.jobTitle">
+          </div>
+          <autocomplete name="jobTitle" ng-model="searchJobKeyword.jobTitle" data="jobTitles" ng-required="true"
+                        attr-placeholder="{{'jobTitle.placeholder' | translate}}" touchable>
+          </autocomplete>
+        </div>
+        <div class="location-block">
+          <label translate="withIn"></label>
+          <selectize config="locationsConfig.config"
+                     options="locationsConfig.items"
+                     ng-model="searchJob.locationId"
+                     name="location" class="locationSelectbox">
+          </selectize>
+        </div>
+        <div class="submit-search-block">
+          <button translate="search" class="btn btn-primary btn-flat"></button>
+        </div>
+      </form>
+    </div>
+    <div class="job-listing-result">
+      <div class="paging-block">
+        <div class="total-items" translate="totalJobs" translate-value-number="234"></div>
+        <div class="paging-list">
+          <ul>
+            <li><span><i class="fa fa-angle-left"></i></span></li>
+            <li><span>1</span></li>
+            <li><span>2</span></li>
+            <li><span class="active">3</span></li>
+            <li><span>4</span></li>
+            <li><span>5</span></li>
+            <li><span><i class="fa fa-angle-right"></i></span></li>
+          </ul>
+        </div>
+        <div class="total-pages" translate="totalPages" translate-value-number="61"></div>
+      </div>
+      <div class="job-listing-container contestant-page">
+        <table class="contests-table">
+          <thead>
+          <tr>
+            <th translate="jobTitle"></th>
+            <th translate="company"></th>
+            <th translate="location"></th>
+            <th translate="salary"></th>
+            <th translate="action"></th>
+          </tr>
+          </thead>
+          <tr>
+            <td data-label="{{'jobTitle' | translate}}">sdvfg</td>
+            <td data-label="{{'company' | translate}}">csdf</td>
+            <td data-label="{{'location' | translate}}">dvsdv</td>
+            <td data-label="{{'salary' | translate}}">dwqf</td>
+            <td data-label="{{'action' | translate}}">sav</td>
+          </tr>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="paging-block">
+        <div class="total-items" translate="totalJobs" translate-value-number="234"></div>
+        <div class="paging-list">
+          <ul>
+            <li><span><i class="fa fa-angle-left"></i></span></li>
+            <li><span>1</span></li>
+            <li><span>2</span></li>
+            <li><span class="active">3</span></li>
+            <li><span>4</span></li>
+            <li><span>5</span></li>
+            <li><span><i class="fa fa-angle-right"></i></span></li>
+          </ul>
+        </div>
+        <div class="total-pages" translate="totalPages" translate-value-number="61"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

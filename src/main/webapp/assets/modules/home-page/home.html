@@ -55,15 +55,6 @@
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
                     <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
                   </div>
-
-                  <!--<selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"-->
-                             <!--ng-model="hourly.estimatedWorkload"-->
-                             <!--options="$root.resourcesService.estimatedWorkloadConfig.options"-->
-                             <!--config="$root.resourcesService.estimatedWorkloadConfig"></selectize>-->
-                  <!--<div ng-show="hourlyForm.estimatedWorkload.$dirty || hourlyForm.$submitted">-->
-                    <!--<div class="error-messages"-->
-                         <!--ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />-->
-                    <!--</div>-->
                 </div>
                 <div class="send-me-jobs-field submit">
                   <button translate="emailMeJobs" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
