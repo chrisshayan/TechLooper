@@ -2,9 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
-import com.techlooper.model.ChallengeDetailDto;
-import com.techlooper.model.JobAlertRegistration;
-import com.techlooper.model.Language;
+import com.techlooper.model.*;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
@@ -41,6 +39,8 @@ import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 
 @Service
 public class JobAlertServiceImpl implements JobAlertService {
+
+    public final static int NUMBER_OF_ITEMS_PER_PAGE = 10;
 
     @Value("${jobAlert.period}")
     private int CONFIGURED_JOB_ALERT_PERIOD;
@@ -144,7 +144,7 @@ public class JobAlertServiceImpl implements JobAlertService {
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("email", jobAlertRegistrationEntity.getEmail());
         templateModel.put("numberOfJobs", scrapeJobEntities.size());
-        templateModel.put("jobs", scrapeJobEntities.stream().limit(10).collect(Collectors.toList()));
+        templateModel.put("jobs", scrapeJobEntities.stream().limit(NUMBER_OF_ITEMS_PER_PAGE).collect(Collectors.toList()));
 
         template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, jobAlertRegistrationEntity.getKeyword(), jobAlertRegistrationEntity.getLocation());
@@ -158,6 +158,50 @@ public class JobAlertServiceImpl implements JobAlertService {
 
         jobAlertRegistrationEntity.setLastEmailSentDateTime(parseDate2String(new Date(), "dd/MM/yyyy HH:mm"));
         jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
+    }
+
+    @Override
+    public List<JobResponse> listJob(JobListingCriteria criteria) {
+        NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
+        List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
+
+        List<JobResponse> result = new ArrayList<>();
+        if (!jobs.isEmpty()) {
+            List<ScrapeJobEntity> sortedJobs = sortJobByDescendingStartDate(jobs);
+            for (ScrapeJobEntity jobEntity : sortedJobs) {
+                JobResponse.Builder builder = new JobResponse.Builder();
+                JobResponse job = builder.withUrl(jobEntity.getJobTitleUrl())
+                        .withTitle(jobEntity.getJobTitle())
+                        .withCompany(jobEntity.getCompany())
+                        .withLocation(jobEntity.getLocation())
+                        .withSalary(jobEntity.getSalary()).build();
+                result.add(job);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Long countJob(JobListingCriteria criteria) {
+        NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
+        return scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
+    }
+
+    private NativeSearchQueryBuilder getJobListingQueryBuilder(JobListingCriteria criteria) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
+        BoolQueryBuilder queryBuilder = boolQuery();
+
+        if (StringUtils.isNotEmpty(criteria.getKeyword())) {
+            queryBuilder.must(queryString(criteria.getKeyword()));
+        }
+
+        if (StringUtils.isNotEmpty(criteria.getLocation())) {
+            queryBuilder.must(matchQuery("location", criteria.getLocation()));
+        }
+
+        searchQueryBuilder.withQuery(queryBuilder);
+        searchQueryBuilder.withPageable(new PageRequest(criteria.getPage(), NUMBER_OF_ITEMS_PER_PAGE));
+        return searchQueryBuilder;
     }
 
     private int getJobAlertBucketNumber(int period) throws Exception {
