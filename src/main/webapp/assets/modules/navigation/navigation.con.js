@@ -27,20 +27,15 @@ techlooper.controller("navigationController", function ($scope, securityService,
       case "job-seeker-signed-in":
         if (!$rootScope.userInfo) {
           switch (utils.getView()) {
-            case jsonValue.views.home:
-            case jsonValue.views.pieChart:
-            case jsonValue.views.salaryReview:
-            case jsonValue.views.getPromoted:
-            case jsonValue.views.contest:
-            case jsonValue.views.challenges:
-            case jsonValue.views.challengeDetail:
-            case jsonValue.views.freelancerProjectDetail:
-            case jsonValue.views.freelancerProjects:
-            case jsonValue.views.howItWorks:
-            case jsonValue.views.analyticsSkill:
-              return true;
+            case jsonValue.views.login:
+            case jsonValue.views.userType:
+              return false;
           }
-          return false;
+
+          if ($scope.state("employer-signed-in")) {
+            return false;
+          }
+          return true;
         }
         return $rootScope.userInfo.roleName === "JOB_SEEKER";
 
