@@ -7,11 +7,11 @@
       <form action="" autocomplete="off" name="jobListingSearch">
 
         <div class="keyword-block">
-          <div auto-suggestion text="searchJobKeyword.jobTitle" items="jobTitles"
+          <div auto-suggestion text="searchJobKeyword1" items="jobTitles"
                get-url="suggestion/jobTitle/" input-model="jobListingSearch.jobTitle">
           </div>
           <autocomplete name="jobTitle" ng-model="searchJobKeyword.jobTitle" data="jobTitles" ng-required="true"
-                        attr-placeholder="{{'jobTitle.placeholder' | translate}}" touchable>
+                        attr-placeholder="{{'searchJobKeyword1' | translate}}" touchable>
           </autocomplete>
         </div>
         <div class="location-block">
