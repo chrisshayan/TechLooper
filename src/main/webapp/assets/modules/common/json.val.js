@@ -214,10 +214,10 @@ angular.module("Common").constant("jsonValue", (function () {
       freelancerProjectDetail: "freelancerProjectDetail",
       freelancerProjects: "freelancerProjects",
       whyFreelancer: "whyFreelancer",
-      "whyChallenge": "whyChallenge",
-      "employerDashboard": "employerDashboard",
-      "userType": "userType",
-      "howItWorks": "howItWorks"
+      whyChallenge: "whyChallenge",
+      employerDashboard: "employerDashboard",
+      userType: "userType",
+      howItWorks: "howItWorks"
     },
 
     httpUri: {
