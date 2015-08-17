@@ -644,5 +644,13 @@
   "signInTechTalent": "Sign In As A Tech Talent",
   "noData": "No data found.",
   "subMenuGetPromoted": "Get Promoted",
-  "viewMore": "View More"
+  "viewMore": "View More",
+  "ItJobHub": "IT Job Hub",
+  "searchJobKeyword1": "Enter Job title or Skills or Company to search jobs",
+  "withIn": "with In",
+  "allLocations": "All Locations",
+  "totalJobs": "<strong>{{number}}</strong> Jobs returned",
+  "totalPages": "Total Pages: <strong>{{number}}</strong>",
+  "company": "company",
+  "salary": "salary"
 }
