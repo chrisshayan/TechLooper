@@ -42,6 +42,8 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     public final static int NUMBER_OF_ITEMS_PER_PAGE = 10;
 
+    private static final long CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION = 5;
+
     @Value("${jobAlert.period}")
     private int CONFIGURED_JOB_ALERT_PERIOD;
 
@@ -231,6 +233,17 @@ public class JobAlertServiceImpl implements JobAlertService {
                 return 0;
             }
         }).collect(Collectors.toList());
+    }
+
+    public boolean checkIfUserExceedRegistrationLimit(String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
+
+        if (StringUtils.isNotEmpty(email)) {
+            searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("email", email));
+        }
+
+        long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();
+        return numberOfRegistrations >= CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION;
     }
 
 }
