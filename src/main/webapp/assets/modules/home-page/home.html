@@ -151,7 +151,7 @@
             <p class="title" translate="challengeOverView"></p>
 
             <p class="detail">
-              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 200}}"></span>
+              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 160}}"></span>
               <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
             </p>
           </div>
@@ -159,9 +159,10 @@
             <p class="title">Technologies:</p>
 
             <p class="detail">
-              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
+              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies | limitTo: 3">
                 {{skill}}
               </span>
+              <span class="tag" ng-show="homePage.latestChallenge.technologies.length > 3">...</span>
             </p>
           </div>
           <div class="quality-of-idea-block">
