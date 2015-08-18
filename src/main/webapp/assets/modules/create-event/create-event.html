@@ -7,19 +7,31 @@
       <form action="" autocomplete="off" name="createEventForm">
         <div class="create-event-field">
           <label for="txtWebinarName" translate="yourWebinarName"></label>
-          <input type="text" id="txtWebinarName" placeholder="{{'yourWebinarNameEx' | translate}}" class="input-style"/>
+          <input type="text" id="txtWebinarName" placeholder="{{'yourWebinarNameEx' | translate}}" class="input-style date"/>
           <div class="error-messages">This email is already added.</div>
         </div>
         <div class="create-event-field-group">
           <label for="txtTimeLineEvent" translate="whenEvent"></label>
           <div class="create-event-field">
-            <input type="text" id="txtTimeLineEvent"  class="input-style"
-                   placeholder="{{'ex' | translate}} {{date}} 6:30 PM"/>
+            <div class="selection-date">
+              <input type="text" id="txtTimeLineEvent" class="date input-style"
+                     placeholder="{{'ex' | translate}} {{$root.today}}">
+            </div>
+            <div class="section-hours">
+              <selectize config='selectize.selectionTimeFrom.config' options='selectize.selectionTimeFrom.items'
+                         ng-model="createEventForm.selectionTimeFromId"></selectize>
+            </div>
           </div>
           <div class="time-to" translate="to"></div>
           <div class="create-event-field">
-            <input type="text"  class="input-style"
-                   placeholder="{{'ex' | translate}} {{date}} 7:30 PM"/>
+            <div class="selection-date">
+              <input type="text" class="date input-style"
+                     placeholder="{{'ex' | translate}} {{$root.today}}"/>
+            </div>
+            <div class="section-hours">
+              <selectize config='selectize.selectionTimeTo.config' options='selectize.selectionTimeTo.items'
+                         ng-model="createEventForm.selectionTimeFromToId"></selectize>
+            </div>
           </div>
           <div class="error-messages">This email is already added.</div>
         </div>
@@ -55,7 +67,30 @@
               <ul>
                 <li>
                   <p>phamthanhtrinh.vt@gmail.com</p>
-                  <span translate="Organiser"></span>
+                  <span translate="organiser"></span>
+                </li>
+                <li>
+                  <p>phamthanhtrinh.vt@gmail.com</p>
+                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
+                </li>
+                <li>
+                  <p>phamthanhtrinh.vt@gmail.com</p>
+                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
+                </li>
+                <li>
+                  <p>phamthanhtrinh.vt@gmail.com</p>
+                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
+                </li>
+                <li>
+                  <p>phamthanhtrinh.vt@gmail.com</p>
+                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
+                </li>
+                <li>
+                  <p>phamthanhtrinh.vt@gmail.com</p>
+                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
+                </li>
+                <li>
+                  <p>phamthanhtrinh.vt@gmail.com</p>
                   <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
                 </li>
                 <li>
@@ -75,7 +110,7 @@
           </div>
         </div>
         <div class="create-event-field submit">
-          <buton translate="createEvent" class="btn btn-primary btn-flat"></buton>
+          <button translate="createEvent" class="btn btn-primary btn-flat"></buton>
           <button translate="cancel" class="btn btn-primary btn-flat"></button>
         </div>
       </form>
