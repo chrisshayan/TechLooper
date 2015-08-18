@@ -113,6 +113,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.post("jobAlert/register", {
         email: email, keyword: keyword, location: location, lang : lang
       });
+    },
+
+    listJob: function() {
+      return $http.post("jobListing", {
+        keyword: null, location: null, page : 0
+      });
     }
   }
 
