@@ -4,6 +4,7 @@ import com.techlooper.model.JobListingCriteria;
 import com.techlooper.model.JobListingModel;
 import com.techlooper.model.JobResponse;
 import com.techlooper.service.JobAlertService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +27,15 @@ public class JobListingController {
     public JobListingModel list(@RequestBody JobListingCriteria criteria) throws Exception {
         JobListingModel jobListing = new JobListingModel();
 
-        Long totalJob = jobAlertService.countJob(criteria);
+        Long totalJob = jobAlertService.countAllJobs();
+        List<JobResponse> jobs = jobAlertService.listAllJobs(criteria.getPage());
+        if (StringUtils.isNotEmpty(criteria.getKeyword()) || StringUtils.isNotEmpty(criteria.getLocation())) {
+            totalJob = jobAlertService.countJob(criteria);
+            jobs = jobAlertService.listJob(criteria);
+        }
+
         Long totalPage = totalJob % NUMBER_OF_ITEMS_PER_PAGE == 0 ?
                 totalJob / NUMBER_OF_ITEMS_PER_PAGE : totalJob / NUMBER_OF_ITEMS_PER_PAGE + 1;
-        List<JobResponse> jobs = jobAlertService.listJob(criteria);
-
         jobListing.setPage(criteria.getPage());
         jobListing.setTotalPage(totalPage);
         jobListing.setTotalJob(totalJob);
