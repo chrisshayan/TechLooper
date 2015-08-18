@@ -189,6 +189,31 @@ public class JobAlertServiceImpl implements JobAlertService {
         return scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
     }
 
+    @Override
+    public List<JobResponse> listAllJobs(int page) {
+        List<ScrapeJobEntity> jobEntities = scrapeJobRepository.findAll(new PageRequest(page, NUMBER_OF_ITEMS_PER_PAGE)).getContent();
+
+        List<JobResponse> result = new ArrayList<>();
+        if (!jobEntities.isEmpty()) {
+            List<ScrapeJobEntity> sortedJobs = sortJobByDescendingStartDate(jobEntities);
+            for (ScrapeJobEntity jobEntity : sortedJobs) {
+                JobResponse.Builder builder = new JobResponse.Builder();
+                JobResponse job = builder.withUrl(jobEntity.getJobTitleUrl())
+                        .withTitle(jobEntity.getJobTitle())
+                        .withCompany(jobEntity.getCompany())
+                        .withLocation(jobEntity.getLocation())
+                        .withSalary(jobEntity.getSalary()).build();
+                result.add(job);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Long countAllJobs() {
+        return scrapeJobRepository.count();
+    }
+
     private NativeSearchQueryBuilder getJobListingQueryBuilder(JobListingCriteria criteria) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
         BoolQueryBuilder queryBuilder = boolQuery();

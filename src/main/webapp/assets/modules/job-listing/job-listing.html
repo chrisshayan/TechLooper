@@ -29,19 +29,15 @@
     </div>
     <div class="job-listing-result">
       <div class="paging-block">
-        <div class="total-items" translate="totalJobs" translate-value-number="234"></div>
+        <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
         <div class="paging-list">
           <ul>
             <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
-            <li><span>1</span></li>
-            <li><span>2</span></li>
-            <li><span class="active">3</span></li>
-            <li><span>4</span></li>
-            <li><span>5</span></li>
+            <li ng-repeat="i in getPageRange(totalPage, page + 1)"><span>{{i}}</span></li>
             <li><span><i class="fa fa-angle-right"></i></span></li>
           </ul>
         </div>
-        <div class="total-pages" translate="totalPages" translate-value-number="61"></div>
+        <div class="total-pages" translate="totalPages" translate-value-number="{{totalPage}}"></div>
       </div>
       <div class="job-listing-container contestant-page">
         <table class="contests-table">
@@ -54,34 +50,32 @@
             <th translate="action"></th>
           </tr>
           </thead>
-          <tr>
+          <tr ng-show="!jobs.length">
             <td colspan="5" translate="noData"></td>
           </tr>
-          <tr>
-            <td data-label="{{'jobTitle' | translate}}">sdvfg</td>
-            <td data-label="{{'company' | translate}}">csdf</td>
-            <td data-label="{{'location' | translate}}">dvsdv</td>
-            <td data-label="{{'salary' | translate}}">dwqf</td>
-            <td data-label="{{'action' | translate}}">sav</td>
+          <tr ng-repeat="job in jobs">
+            <td data-label="{{'jobTitle' | translate}}">
+               <a href="{{job.url}}" target="_blank">{{job.title}}</a>
+            </td>
+            <td data-label="{{'company' | translate}}">{{job.company}}</td>
+            <td data-label="{{'location' | translate}}">{{job.location}}</td>
+            <td data-label="{{'salary' | translate}}">{{job.salary}}</td>
+            <td data-label="{{'action' | translate}}"></td>
           </tr>
           <tbody>
           </tbody>
         </table>
       </div>
       <div class="paging-block">
-        <div class="total-items" translate="totalJobs" translate-value-number="234"></div>
+        <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
         <div class="paging-list">
           <ul>
             <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
-            <li><span>1</span></li>
-            <li><span>2</span></li>
-            <li><span class="active">3</span></li>
-            <li><span>4</span></li>
-            <li><span>5</span></li>
+            <li ng-repeat="i in getPageRange(totalPage, page + 1)"><span>{{i}}</span></li>
             <li><span><i class="fa fa-angle-right"></i></span></li>
           </ul>
         </div>
-        <div class="total-pages" translate="totalPages" translate-value-number="61"></div>
+        <div class="total-pages" translate="totalPages" translate-value-number="{{totalPage}}"></div>
       </div>
     </div>
 
