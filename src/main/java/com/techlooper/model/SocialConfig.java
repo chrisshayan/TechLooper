@@ -20,16 +20,6 @@ public class SocialConfig {
 
   private Map<String, String> apiUrl;
 
-  private String serviceAccountEmail;
-
-  public String getServiceAccountEmail() {
-    return serviceAccountEmail;
-  }
-
-  public void setServiceAccountEmail(String serviceAccountEmail) {
-    this.serviceAccountEmail = serviceAccountEmail;
-  }
-
   public Map<String, String> getApiUrl() {
     return apiUrl;
   }
