@@ -58,7 +58,7 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
     String email = vnwUserRepo.findByUsernameIgnoreCase(organiser).getEmail();
     entity.setOrganiser(email);
 
-//    entity = webinarRepository.save(entity);
+    entity = webinarRepository.save(entity);
     return dozerMapper.map(entity, WebinarInfoDto.class);
   }
 }
