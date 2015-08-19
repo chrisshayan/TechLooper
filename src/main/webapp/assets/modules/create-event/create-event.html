@@ -14,9 +14,9 @@
           <label for="txtTimeLineEvent" translate="whenEvent"></label>
           <div class="create-event-field">
             <div class='input-group date selectionTime' id='datetimepicker1'>
-              <input type='text' class="form-control" />
+              <input type='text' class="form-control" placeholder="{{'ex' | translate}} {{$root.today}} 06:30 PM"/>
                     <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
+                        <i class="fa fa-calendar"></i>
                     </span>
             </div>
             <!--<div class="selection-date">-->
@@ -39,9 +39,9 @@
                          <!--ng-model="createEventForm.selectionTimeFromToId"></selectize>-->
             <!--</div>-->
             <div class='input-group date selectionTime' id='datetimepicker2'>
-              <input type='text' class="form-control" />
+              <input type='text' class="form-control"  placeholder="{{'ex' | translate}} {{$root.today}} 07:30 PM"/>
                     <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
+                        <i class="fa fa-calendar"></i>
                     </span>
             </div>
           </div>
