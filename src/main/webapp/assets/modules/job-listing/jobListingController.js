@@ -32,4 +32,16 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     }
     return list;
   }
+
+  $scope.filterJob = function() {
+    var keyword = $scope.searchJob.keyword;
+    var location = vnwConfigService.getLocationText($scope.searchJob.locationId, "en");
+    var page = $scope.page;
+    apiService.filterJob(keyword, location, page).success(function(response) {
+      $scope.totalPage = response.totalPage;
+      $scope.totalJob = response.totalJob;
+      $scope.page = response.page;
+      $scope.jobs = response.jobs;
+    });
+  }
 });
