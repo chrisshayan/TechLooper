@@ -15,18 +15,18 @@
         </div>
         <div class="create-event-field-group">
           <label for="txtTimeLineEvent" translate="whenEvent"></label>
-
           <div class="create-event-field">
-            <div class='input-group date selectionTime'>
-
-              <input datetime-picker ng-model="webinar.startDate" options="options"
-                     required/>
-            </div>
-            <div class="time-to" translate="to"></div>
-            <div class="create-event-field">
-              <input datetime-picker ng-model="webinar.endDate" options="options"
-                     required/>
-            </div>
+            <input datetime-picker id="txtTimeLineEvent" class="input-style"
+                   ng-model="webinar.startDate"
+                   placeholder="{{'ex' | translate}} {{$root.today}} 06:30 PM"
+                   options="options" required/>
+          </div>
+          <div class="time-to" translate="to"></div>
+          <div class="create-event-field">
+            <input datetime-picker ng-model="webinar.endDate"
+                   options="options"
+                   placeholder="{{'ex' | translate}} {{$root.today}} 07:30 PM"
+                   class="input-style"  required/>
           </div>
           <div class="error-messages">This email is already added.</div>
         </div>

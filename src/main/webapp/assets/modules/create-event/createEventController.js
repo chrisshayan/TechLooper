@@ -57,7 +57,8 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
   $scope.start_date = new Date();
 
   $scope.options = {
-    step:10
+    step:10,
+    minDate: $scope.start_date
   }
   //$scope.showTime = function(){
   //  //check binding 2 ways
