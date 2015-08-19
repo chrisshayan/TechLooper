@@ -9,7 +9,7 @@
       <div class="box-content">
         <div class="it-job-corner-content">
           <div class="col-md-6 left">
-            <ul>
+            <ul class="left-content">
               <li translate="itJobCornerContent1"></li>
               <li translate="itJobCornerContent2"></li>
               <li translate="itJobCornerContent3"></li>
@@ -37,9 +37,15 @@
                   </div>
                 </div>
                 <div class="send-me-jobs-field">
-                  <label for="jobAlertKeywords">{{'keyword' | translate}}: <strong>*</strong></label>
-                  <input id="jobAlertKeywords" type="text" class="input-style" name="keyword"
-                         placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>
+                  <label>{{'keyword' | translate}}: <strong>*</strong></label>
+                  <!--<input id="jobAlertKeywords" type="text" class="input-style" name="keyword"-->
+                         <!--placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>-->
+                  <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
+                       get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
+                  </div>
+                  <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="true"
+                                attr-placeholder="{{'keywordEx' | translate}}" touchable>
+                  </autocomplete>
 
                   <p class="note" translate="jobSkillCompany"></p>
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$dirty">
