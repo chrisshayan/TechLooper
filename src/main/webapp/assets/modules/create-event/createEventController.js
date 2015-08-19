@@ -1,7 +1,5 @@
 techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService) {
 
-  //$('.selectionTime').datetimepicker();
-
   var placeholder = $translate.instant('whoJoinAndWhyEx');
   $('#txtWhyEvent').val(placeholder);
   $('#txtWhyEvent').focus(function () {
@@ -64,6 +62,11 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     attendantsConfig: {
       type: "email",
       placeholder: "attendantsEx"
+    },
+
+    fromNowDatetimeConfig: {
+      step:10,
+      minDate: new Date()
     }
   }
 

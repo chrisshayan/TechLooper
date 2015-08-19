@@ -20,12 +20,12 @@
             <input datetime-picker id="txtTimeLineEvent" class="input-style"
                    ng-model="webinar.startDate" name="startDate"
                    placeholder="{{'ex' | translate}} {{$root.today}} 06:30 PM"
-                   options="options" ng-required="true"/>
+                   options="uiConfig.fromNowDatetimeConfig" ng-required="true"/>
           </div>
           <div class="time-to" translate="to"></div>
           <div class="create-event-field">
             <input datetime-picker ng-model="webinar.endDate"
-                   options="options" name="endDate"
+                   options="uiConfig.fromNowDatetimeConfig" name="endDate"
                    placeholder="{{'ex' | translate}} {{$root.today}} 07:30 PM"
                    class="input-style"  ng-required="true"/>
           </div>
