@@ -313,6 +313,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
+
+  //$('body').click(function(e) {
+  //  $rootScope.$broadcast("bodyClicked", e);
+  //});
 });
 
 techlooper.directive("navigation", function () {

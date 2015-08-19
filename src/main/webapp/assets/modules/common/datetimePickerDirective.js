@@ -7,8 +7,6 @@ techlooper.directive('datetimePicker', function ($timeout) {
     },
     link: function (scope, element) {
       var options = scope.options || {};
-
-
       var init_options = {
         format: "d/m/Y h:i A",
         allowTimes: [],

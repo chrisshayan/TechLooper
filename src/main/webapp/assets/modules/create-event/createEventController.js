@@ -4,15 +4,15 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
 
   var placeholder = $translate.instant('whoJoinAndWhyEx');
   $('#txtWhyEvent').val(placeholder);
-  $('#txtWhyEvent').focus(function(){
-    if($(this).val() === placeholder){
+  $('#txtWhyEvent').focus(function () {
+    if ($(this).val() === placeholder) {
       $(this).val('');
       $(this).removeClass('change-color');
     }
   });
 
-  $('#txtWhyEvent').blur(function(){
-    if($(this).val() ===''){
+  $('#txtWhyEvent').blur(function () {
+    if ($(this).val() === '') {
       $(this).val(placeholder);
       $(this).addClass('change-color');
     }
@@ -32,7 +32,7 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     if (!newTag || !newTag.length) {
       return;
     }
-    if($('#txtAttendants').hasClass("ng-invalid-email")){
+    if ($('#txtAttendants').hasClass("ng-invalid-email")) {
       return $scope.errors.push("emailInvalid");
     }
     else if ($scope.emails.length >= 100) {
@@ -49,18 +49,41 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     $scope.attendants = "";
   }
 
-  $scope.createWebinar = function() {
-    console.log($scope);
+  $scope.createWebinar = function () {
+    $scope.webinarForm.$setSubmitted();
+    if ($scope.webinarForm.$invalid) {
+      return;
+    }
+
     apiService.createWebinar($scope.webinar);
+
+    $scope.webinarForm.$setPristine();
   }
 
-  $scope.start_date = new Date();
-
-  $scope.options = {
-    step:10
+  $scope.uiConfig = {
+    attendantsConfig: {
+      type: "email",
+      placeholder: "attendantsEx"
+    }
   }
-  //$scope.showTime = function(){
-  //  //check binding 2 ways
-  //  alert( $scope.start_date );
-  //}
+
+  $scope.state = function(type) {
+    switch (type) {
+      case "error-event-date":
+        return $scope.webinarForm.$submitted || $scope.webinarForm.startDate.$dirty || $scope.webinarForm.endDate.$dirty;
+
+      case "error-required-event-date":
+        if ($scope.webinarForm.startDate.$error.required) {
+          return true;
+        }
+        if (!$scope.webinarForm.endDate.$dirty) return false;
+        if ($scope.webinarForm.endDate.$error.required) {
+          return true;
+        }
+        break;
+    }
+
+    return false;
+  }
+
 });
