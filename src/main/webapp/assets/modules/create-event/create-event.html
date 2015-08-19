@@ -13,24 +13,36 @@
         <div class="create-event-field-group">
           <label for="txtTimeLineEvent" translate="whenEvent"></label>
           <div class="create-event-field">
-            <div class="selection-date">
-              <input type="text" id="txtTimeLineEvent" class="date input-style"
-                     placeholder="{{'ex' | translate}} {{$root.today}}">
+            <div class='input-group date selectionTime' id='datetimepicker1'>
+              <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
             </div>
-            <div class="section-hours">
-              <selectize config='selectize.selectionTimeFrom.config' options='selectize.selectionTimeFrom.items'
-                         ng-model="createEventForm.selectionTimeFromId"></selectize>
-            </div>
+            <!--<div class="selection-date">-->
+              <!--<input type="text" id="txtTimeLineEvent" class="date input-style"-->
+                     <!--placeholder="{{'ex' | translate}} {{$root.today}}">-->
+            <!--</div>-->
+            <!--<div class="section-hours">-->
+              <!--<selectize config='selectize.selectionTimeFrom.config' options='selectize.selectionTimeFrom.items'-->
+                         <!--ng-model="createEventForm.selectionTimeFromId"></selectize>-->
+            <!--</div>-->
           </div>
           <div class="time-to" translate="to"></div>
           <div class="create-event-field">
-            <div class="selection-date">
-              <input type="text" class="date input-style"
-                     placeholder="{{'ex' | translate}} {{$root.today}}"/>
-            </div>
-            <div class="section-hours">
-              <selectize config='selectize.selectionTimeTo.config' options='selectize.selectionTimeTo.items'
-                         ng-model="createEventForm.selectionTimeFromToId"></selectize>
+            <!--<div class="selection-date">-->
+              <!--<input type="text" class="date input-style"-->
+                     <!--placeholder="{{'ex' | translate}} {{$root.today}}"/>-->
+            <!--</div>-->
+            <!--<div class="section-hours">-->
+              <!--<selectize config='selectize.selectionTimeTo.config' options='selectize.selectionTimeTo.items'-->
+                         <!--ng-model="createEventForm.selectionTimeFromToId"></selectize>-->
+            <!--</div>-->
+            <div class='input-group date selectionTime' id='datetimepicker2'>
+              <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
             </div>
           </div>
           <div class="error-messages">This email is already added.</div>

@@ -1,5 +1,7 @@
 techlooper.controller("createEventController", function ($scope, $translate, jsonValue) {
 
+  $('.selectionTime').datetimepicker();
+
   $scope.selectize = {
     selectionTimeFrom: {
       items: jsonValue.hours,
