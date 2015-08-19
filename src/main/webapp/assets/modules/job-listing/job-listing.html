@@ -45,10 +45,10 @@
             <div class="left-content">
               <h4><a href="{{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul>
-                <li>{{job.datePost}}</li>
-                <li>{{job.location}}</li>
+                <li class="date"><i class="fa fa-calendar"></i>{{job.datePost}} 12/05/2015</li>
+                <li class="location"><i class="fa fa-map-marker"></i>{{job.location}}</li>
               </ul>
-              <p><span translate="salary"></span>{{job.salary}}</p>
+              <p><i class="fa fa-money"></i><span translate="salary"></span>: <strong>{{job.salary}}</strong></p>
             </div>
             <div class="right-content">
               <ul>
