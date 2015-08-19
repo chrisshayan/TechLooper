@@ -1,0 +1,173 @@
+.content-page-block.job-listing-container
+  .content-page-detail
+    padding-bottom: 10px
+  .job-listing-search-bar
+    display: inline-block
+    width: 100%
+    clear: both
+    padding: 10px 20px 5px 20px
+    text-align: left
+    background-color: #f1f1f1
+    border: 0
+    border-top: 1px solid #ebebeb
+    border-bottom: 1px solid #ebebeb
+    .keyword-block
+      width: 50%
+      float: left
+      padding-right: 10px
+      .autocomplete
+        width: 100%
+        float: left
+        ul
+          margin: 0
+          padding: 0
+          z-index: 666
+          border-bottom: 1px solid #d4d7d8
+          border-left: 1px solid #d4d7d8
+          border-right: 1px solid #d4d7d8
+          .highlight
+            background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+            color: #000
+          li.active
+            background-color: #f5f5f5
+        input
+          font-size: 14px
+          border: 1px solid #d4d7d8
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          padding: 6px 12px
+          width: 100%
+    .location-block
+      width: 40%
+      float: left
+      padding-right: 10px
+      label
+        width: 15%
+        float: left
+        line-height: 34px
+        font-weight: 300
+        text-align: right
+        padding-right: 5px
+      .selectize-control
+        width: 85%
+        float: left
+    .submit-search-block
+      width: 10%
+      float: left
+      button
+        width: 100%
+        height: 34px
+
+  .job-listing-result
+    display: inline-block
+    clear: both
+    width: 100%
+    padding-top: 20px
+  .paging-block
+    display: inline-block
+    clear: both
+    width: 100%
+    padding: 0 20px
+    text-align: left
+    strong
+      font-weight: 500
+    .total-items
+      width: 55%
+      float: left
+      line-height: 32px
+      strong
+        font-size: 18px
+    .total-pages
+      width: auto
+      float: right
+      line-height: 32px
+      strong
+        font-size: 18px
+    .paging-list
+      width: 30%
+      float: right
+      ul
+        margin: 0
+        padding: 0
+        float: right
+        li
+          width: auto
+          padding: 0 2px
+          float: left
+          span
+            display: inline-block
+            width: auto
+            padding: 5px 10px
+            border: 1px solid #ebebeb
+            cursor: pointer
+          span.active
+            font-weight: 500
+            border: 1px solid #333333
+          span.unClick
+            color: #ddd
+            border: 1px solid #ddd
+            cursor: default
+  .job-listing-container
+    display: inline-block
+    clear: both
+    width: 100%
+    padding: 3px 20px 5px 20px
+    .job-items
+      display: inline-block
+      clear: both
+      width: 100%
+      .job-item
+        display: inline-block
+        clear: both
+        width: 100%
+        padding: 10px
+        p
+          margin: 0
+          padding: 0
+        .left-content
+          width: 60%
+          float: left
+          text-align: left
+          h4
+            font-size: 14px
+            font-weight: 500
+            clear: both
+            width: 100%
+            margin: 0
+            padding: 0 0 5px 0
+          ul
+            margin: 0
+            padding: 0
+            width: 80%
+            display: inline-block
+            clear: both
+            li
+              width: 70%
+              float: left
+              padding: 0
+              color: #808080
+            li:first-child
+              width: 30%
+
+          p
+            margin: 0
+            padding: 0
+            text-transform: capitalize
+            span
+              display: inline-block
+              padding: 0 0 0 10px
+            strong
+              font-weight: 400
+        .right-content
+          width: 40%
+          float: left
+          padding-top: 15px
+          ul
+            display: inline-block
+            width: 100%
+            li
+              width: 100%
+              clear: both
+              display: inline-block
+              color: #808080

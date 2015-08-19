@@ -30,10 +30,16 @@ public class JobAlertController {
 
     @ResponseBody
     @RequestMapping(value = "jobAlert/register", method = RequestMethod.POST)
-    public JobAlertRegistrationEntity getCompany(@RequestBody JobAlertRegistration jobAlertRegistration) throws Exception {
+    public JobAlertRegistrationEntity getCompany(@RequestBody JobAlertRegistration jobAlertRegistration,
+                                                 HttpServletResponse response) throws Exception {
+        boolean isOverLimit = jobAlertService.checkIfUserExceedRegistrationLimit(jobAlertRegistration.getEmail());
+        if (isOverLimit) {
+            response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            return null;
+        }
+
         JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAlertService.registerJobAlert(jobAlertRegistration);
         List<ScrapeJobEntity> scrapeJobEntities = jobAlertService.searchJob(jobAlertRegistrationEntity);
-
         if (!scrapeJobEntities.isEmpty()) {
             jobAlertService.sendEmail(jobAlertRegistrationEntity, scrapeJobEntities);
         }

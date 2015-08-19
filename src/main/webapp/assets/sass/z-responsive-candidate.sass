@@ -1384,7 +1384,7 @@
             ul
               padding: 0
             .send-me-jobs-form
-              padding: 10px 0 0
+              padding: 30px 0 0
               label
                 clear: both
                 width: 100%
@@ -1480,9 +1480,11 @@
       position: absolute
       left: 0
       top: 50px
-      z-index: 999
+      z-index: 999999
       display: none
       height: auto
+      bottom: 0
+      right: 0
       ul
         display: inline-block
         width: 100%
@@ -1522,6 +1524,75 @@
             max-width: 60px
         .client-info-block
           width: 70%
+  .content-page-block.job-listing-container
+    .job-listing-search-bar
+      padding: 10px 5px
+      .keyword-block
+        width: 100%
+        padding: 0 0 10px 0
+      .location-block
+        width: 100%
+        padding: 0 0 5px 0
+        .selectize-control
+          width: 100%
+        label
+          display: none
+      .submit-search-block
+        width: 100%
+        padding: 0
+        text-align: center
+    .job-listing-result
+      padding-top: 5px
+    .paging-block
+      padding: 0 5px
+      .total-items
+        width: 100%
+        padding: 0 0 5px 0
+      .paging-list
+        width: 100%
+        padding: 0 0 5px 0
+        text-align: center
+        ul
+          float: none
+          margin: auto
+          li
+            float: none
+            display: inline-block
+      .total-pages
+        width: 100%
+        padding: 0 0 10px 0
+    .job-listing-container
+      padding: 5px
+      .job-items
+        .job-item
+          .left-content
+            width: 100%
+            ul
+              width: 100%
+              li
+                width: 100%
+              li:first-child
+                width: 100%
+          .right-content
+            width: 100%
+            text-align: left
+  .content-page-block.create-event-container
+    .content-page-detail
+      padding: 10px
+      .create-event-form
+        width: 100%
+        .create-event-field-group
+          .create-event-field
+            width: 100%
+            clear: both
+          .time-to
+            display: inline-block
+            clear: both
+            width: 100%
+          .error-messages
+            width: 100%
+            clear: both
+
 @media (min-width: 640px)
   .rwd-table
     margin: auto

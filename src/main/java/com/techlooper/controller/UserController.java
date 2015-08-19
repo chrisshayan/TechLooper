@@ -1,9 +1,11 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.DashBoardInfo;
+import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
+import com.techlooper.entity.WebinarEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
@@ -78,6 +80,9 @@ public class UserController {
 
   @Resource
   private EmployerService employerService;
+
+  @Resource
+  private GoogleCalendarService googleCalendarService;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -281,5 +286,14 @@ public class UserController {
   @RequestMapping(value = "/user/employer/dashboard-info", method = RequestMethod.GET)
   public DashBoardInfo getEmployerDashboardInfo(HttpServletRequest request) {
     return employerService.getDashboardInfo(request.getRemoteUser());
+  }
+
+  @PreAuthorize("hasAnyAuthority('EMPLOYER')")
+  @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
+  public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
+//    String organiser = userService.findVnwUserByUsername(request.getRemoteUser()).getEmail();
+//    webinarInfoDto.setOrganiser(organiser);
+//    webinarInfoDto.getAttendees().add(organiser);
+    return googleCalendarService.createWebinarInfo(webinarInfoDto, request.getRemoteUser());
   }
 }

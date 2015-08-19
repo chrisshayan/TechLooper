@@ -575,15 +575,21 @@
                     width: 100%
                     padding: 0
                     background: url(../images/line-li-gray.png) center top repeat-y
-                    ul
+                    ul.left-content
                         margin: 0
-                        padding: 35px 0 0
+                        padding: 15px 0 0
                         li
                             width: 100%
                             clear: both
                             display: inline-block
                             padding: 15px 0 0 30px
                             background: url(../images/check-blue.png) left 17px no-repeat
+                    .btn-view-more
+                        display: inline-block
+                        clear: both
+                        width: 100%
+                        text-align: center
+                        padding: 25px 0 0
                 .send-me-jobs-form
                     display: inline-block
                     clear: both
@@ -600,6 +606,30 @@
                         clear: both
                         width: 100%
                         padding-top: 5px
+                        .autocomplete
+                            width: 70%
+                            float: left
+                            ul
+                                margin: 0
+                                padding: 0
+                                z-index: 999
+                                border-bottom: 1px solid #d4d7d8
+                                border-left: 1px solid #d4d7d8
+                                border-right: 1px solid #d4d7d8
+                                top: 34px
+                                .highlight
+                                    background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+                                    color: #000
+                                li.active
+                                    background-color: #f5f5f5
+                            input
+                                font-size: 14px
+                                border: 1px solid #d4d7d8
+                                -webkit-border-radius: 5px
+                                -moz-border-radius: 5px
+                                border-radius: 5px
+                                padding: 6px 12px
+                                width: 100%
                         p.note
                             text-align: right
                             margin: 0
@@ -744,7 +774,7 @@
                             display: inline-block
                             clear: both
                             width: 100%
-                            padding: 10px
+                            padding: 10px 10px 0 10px
                             background-color: #f4f4f4
 
                             ul

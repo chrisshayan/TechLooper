@@ -21,6 +21,8 @@ public class JobResponse {
 
     private String logoUrl;
 
+    private String salary;
+
     public static class Builder {
 
         private JobResponse instance = new JobResponse();
@@ -62,6 +64,11 @@ public class JobResponse {
 
         public Builder withLogoUrl(String logoUrl) {
             instance.logoUrl = logoUrl;
+            return this;
+        }
+
+        public Builder withSalary(String salary) {
+            instance.salary = salary;
             return this;
         }
 
@@ -147,5 +154,13 @@ public class JobResponse {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
     }
 }

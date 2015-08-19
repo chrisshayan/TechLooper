@@ -296,6 +296,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/salary-review/.test(path)) {
         return jsonValue.views.salaryReview;
       }
+      else if (/\/job-listing/.test(path)) {
+        return jsonValue.views.jobListing;
+      }
+      else if (/\/create-event/.test(path)) {
+        return jsonValue.views.createEvent;
+      }
     },
 
     sum: function (array, prop) {

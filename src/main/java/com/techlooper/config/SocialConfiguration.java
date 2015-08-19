@@ -31,12 +31,12 @@ public class SocialConfiguration {
         return new LinkedInConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
     }
 
-    @Bean
-    public ConnectionFactory twitterConnectionFactory() {
-        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
-                .filter(config -> TWITTER == config.getProvider()).findFirst().get();
-        return new TwitterConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
-    }
+//    @Bean
+//    public ConnectionFactory twitterConnectionFactory() {
+//        SocialConfig socialConfig = jsonConfigRepository.getSocialConfig().stream()
+//                .filter(config -> TWITTER == config.getProvider()).findFirst().get();
+//        return new TwitterConnectionFactory(socialConfig.getApiKey(), socialConfig.getSecretKey());
+//    }
 
     @Bean
     public ConnectionFactory gitHubConnectionFactory() {

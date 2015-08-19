@@ -2,14 +2,25 @@ package com.techlooper.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventAttendee;
+import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
 import com.techlooper.entity.*;
-import com.techlooper.model.UserInfo;
-import com.techlooper.model.VNWJobSearchRequest;
-import com.techlooper.model.VnwJobAlert;
-import com.techlooper.model.VnwJobAlertRequest;
+import com.techlooper.model.*;
+import com.techlooper.repository.JsonConfigRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
@@ -44,339 +55,397 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.security.GeneralSecurityException;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
 @PropertySources({
-        @PropertySource("classpath:techlooper.properties"),
-        @PropertySource("classpath:secret.properties")})
+  @PropertySource("classpath:techlooper.properties"),
+  @PropertySource("classpath:secret.properties")})
 @EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching(proxyTargetClass = true)
 public class CoreConfiguration implements ApplicationContextAware {
 
-    @Resource
-    private Environment environment;
+  @Resource
+  private Environment environment;
 
-    @Value("${mail.techlooper.form}")
-    private String mailTechlooperForm;
+  @Value("${mail.techlooper.form}")
+  private String mailTechlooperForm;
 
-    @Value("${mail.techlooper.reply_to}")
-    private String mailTechlooperReplyTo;
+  @Value("${mail.techlooper.reply_to}")
+  private String mailTechlooperReplyTo;
 
-    @Value("${mail.form}")
-    private String mailForm;
+  @Value("${mail.form}")
+  private String mailForm;
 
-    @Value("${mail.reply_to}")
-    private String mailReplyTo;
+  @Value("${mail.reply_to}")
+  private String mailReplyTo;
 
-    @Value("${mail.citibank.cc_promotion.to}")
-    private String mailCitibankCreditCardPromotionTo;
+  @Value("${mail.citibank.cc_promotion.to}")
+  private String mailCitibankCreditCardPromotionTo;
 
-    @Value("${mail.citibank.cc_promotion.subject}")
-    private String mailCitibankCreditCardPromotionSubject;
+  @Value("${mail.citibank.cc_promotion.subject}")
+  private String mailCitibankCreditCardPromotionSubject;
 
-    @Value("classpath:vnwConfig.json")
-    private org.springframework.core.io.Resource vnwConfigRes;
+  @Value("classpath:vnwConfig.json")
+  private org.springframework.core.io.Resource vnwConfigRes;
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
-        configurer.setFileEncoding("UTF-8");
-        return configurer;
-    }
+  @Value("classpath:google-auth")
+  private org.springframework.core.io.Resource googleApiAuthResource;
 
-    @Bean
-    public CacheManager cacheManager() {
-        CompositeCacheManager manager = new CompositeCacheManager();
-        manager.setCacheManagers(Arrays.asList(
-                new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
-                new ConcurrentMapCacheManager("COMMON_TERM"),
-                new ConcurrentMapCacheManager("SKILL_CONFIG")));
-        return manager;
-    }
+  private ApplicationContext applicationContext;
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+    configurer.setFileEncoding("UTF-8");
+    return configurer;
+  }
 
-    @Bean
-    public MultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(500000);
-        return multipartResolver;
-    }
+  @Bean
+  public CacheManager cacheManager() {
+    CompositeCacheManager manager = new CompositeCacheManager();
+    manager.setCacheManagers(Arrays.asList(
+      new ConcurrentMapCacheManager("SOCIAL_CONFIG"),
+      new ConcurrentMapCacheManager("COMMON_TERM"),
+      new ConcurrentMapCacheManager("SKILL_CONFIG")));
+    return manager;
+  }
 
-    @Bean
-    public Mapper dozerBeanMapper() {
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        dozerBeanMapper.addMapping(new BeanMappingBuilder() {
-            protected void configure() {
-                mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
-                        .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
-                mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-                        .fields("name", "firstName", FieldsMappingOptions.copyByReference())
-                        .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
+  @Bean
+  public MultipartResolver multipartResolver() {
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    multipartResolver.setMaxUploadSize(500000);
+    return multipartResolver;
+  }
 
-                mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-                        .fields("name", "firstName", FieldsMappingOptions.copyByReference())
-                        .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+  @Bean
+  public Mapper dozerBeanMapper() {
+    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+    dozerBeanMapper.addMapping(new BeanMappingBuilder() {
+      protected void configure() {
+        mapping(FacebookProfile.class, com.techlooper.entity.FacebookProfile.class)
+          .fields("locale", "locale", FieldsMappingOptions.customConverter(LocaleConverter.class));
 
-                mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-                        .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
-                        .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
-                        .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
-                        .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+        mapping(TwitterProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+          .fields("screenName", "userName", FieldsMappingOptions.copyByReference());
 
-                mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-                        .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
+        mapping(GitHubUserProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("name", "firstName", FieldsMappingOptions.copyByReference())
+          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
-                mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
-                        .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
+        mapping(Person.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("givenName", "firstName", FieldsMappingOptions.copyByReference())
+          .fields("familyName", "lastName", FieldsMappingOptions.copyByReference())
+          .fields("accountEmail", "emailAddress", FieldsMappingOptions.copyByReference())
+          .fields("imageUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-                mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
-                        .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+        mapping(com.techlooper.entity.FacebookProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("email", "emailAddress", FieldsMappingOptions.copyByReference());
 
-                mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
-                        .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
+        mapping(LinkedInProfile.class, com.techlooper.entity.UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("profilePictureUrl", "profileImageUrl", FieldsMappingOptions.copyByReference());
 
-                mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
+        mapping(UserEntity.class, UserInfo.class, TypeMappingOptions.oneWay())
+          .fields("profiles", "profileNames", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
-                mapping(SalaryReviewEntity.class, VNWJobSearchRequest.class)
-                        .fields("jobLevelIds", "jobLevel")
-                        .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
-                        .fields("netSalary", "jobSalary")
-                        .fields("locationId", "jobLocation");
+        mapping(UserInfo.class, UserEntity.class, TypeMappingOptions.oneWay())
+          .fields("profileNames", "profiles", FieldsMappingOptions.customConverter(ProfileNameConverter.class));
 
-                mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
-                        .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
-                        .fields("minSalary", "netSalary");
-            }
-        });
-        return dozerBeanMapper;
-    }
+        mapping(UserEntity.class, VnwUserProfile.class).exclude("accessGrant");
 
-    @Bean
-    public TextEncryptor textEncryptor() {
-        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
-        return textEncryptor;
-    }
+        mapping(SalaryReviewEntity.class, VNWJobSearchRequest.class)
+          .fields("jobLevelIds", "jobLevel")
+          .fields("jobCategories", "jobCategories", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
+          .fields("netSalary", "jobSalary")
+          .fields("locationId", "jobLocation");
 
-    @Bean
-    public JavaMailSender mailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("localhost");
-        mailSender.setPort(25);
+        mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
+          .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
+          .fields("minSalary", "netSalary");
+      }
+    });
+    return dozerBeanMapper;
+  }
 
-        Properties javaMailProperties = new Properties();
-        javaMailProperties.put("mail.transport.protocol", "smtp");
-        mailSender.setJavaMailProperties(javaMailProperties);
-        return mailSender;
-    }
+  @Bean
+  public TextEncryptor textEncryptor() {
+    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+    textEncryptor.setPassword(environment.getProperty("core.textEncryptor.password"));
+    return textEncryptor;
+  }
 
-    @Bean
-    public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(mailForm);
-        mailMessage.setTo(mailCitibankCreditCardPromotionTo);
-        mailMessage.setReplyTo(mailReplyTo);
-        mailMessage.setSubject(mailCitibankCreditCardPromotionSubject);
-        return mailMessage;
-    }
+  @Bean
+  public JavaMailSender mailSender() {
+    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    mailSender.setHost("localhost");
+    mailSender.setPort(25);
 
-    @Bean
-    public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
-        freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
-        cfg.setDirectoryForTemplateLoading(Paths.get(this.getClass().getClassLoader().getResource("/template").toURI()).toFile());
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        return cfg;
-    }
+    Properties javaMailProperties = new Properties();
+    javaMailProperties.put("mail.transport.protocol", "smtp");
+    mailSender.setJavaMailProperties(javaMailProperties);
+    return mailSender;
+  }
 
-    @Bean
-    public Template citibankCreditCardPromotionTemplate(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
-        return template;
-    }
+  @Bean
+  public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
+    SimpleMailMessage mailMessage = new SimpleMailMessage();
+    mailMessage.setFrom(mailForm);
+    mailMessage.setTo(mailCitibankCreditCardPromotionTo);
+    mailMessage.setReplyTo(mailReplyTo);
+    mailMessage.setSubject(mailCitibankCreditCardPromotionSubject);
+    return mailMessage;
+  }
 
-    @Bean
-    public Map<Long, String> locationMap() {
-        Map<Long, String> locations = new HashMap<>();
-        locations.put(29L, "Ho Chi Minh");
-        locations.put(24L, "Ha Noi");
-        return locations;
-    }
+  @Bean
+  public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
+    freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
+    cfg.setDirectoryForTemplateLoading(Paths.get(this.getClass().getClassLoader().getResource("/template").toURI()).toFile());
+    cfg.setDefaultEncoding("UTF-8");
+    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+    return cfg;
+  }
 
-    @Bean
-    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
-    }
+  @Bean
+  public Template citibankCreditCardPromotionTemplate(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
+    return template;
+  }
 
-    @Bean
-    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
-    }
+  @Bean
+  public Map<Long, String> locationMap() {
+    Map<Long, String> locations = new HashMap<>();
+    locations.put(29L, "Ho Chi Minh");
+    locations.put(24L, "Ha Noi");
+    return locations;
+  }
 
-    @Bean
-    public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
-    }
+  @Bean
+  public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+    MimeMessage mailMessage = mailSender.createMimeMessage();
+    mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+    mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+    return mailMessage;
+  }
 
-    @Bean
-    public MimeMessage applyJobMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
-    }
+  @Bean
+  public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+    MimeMessage mailMessage = mailSender.createMimeMessage();
+    mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+    mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+    return mailMessage;
+  }
 
-    @Bean
-    public MimeMessage jobAlertMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
-    }
+  @Bean
+  public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+    MimeMessage mailMessage = mailSender.createMimeMessage();
+    mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+    mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+    return mailMessage;
+  }
 
-    @Bean
-    public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
-        return template;
-    }
+  @Bean
+  public MimeMessage applyJobMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+    MimeMessage mailMessage = mailSender.createMimeMessage();
+    mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+    return mailMessage;
+  }
 
-    @Bean
-    public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("salaryReviewReport.vi.ftl");
-        return template;
-    }
+  @Bean
+  public MimeMessage jobAlertMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+    MimeMessage mailMessage = mailSender.createMimeMessage();
+    mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+    mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+    return mailMessage;
+  }
 
-    @Bean
-    public Template getPromotedTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("getPromoted.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template getPromotedTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("getPromoted.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("salaryReviewReport.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template postChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("postChallenge.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template getPromotedTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("getPromoted.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template postChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("postChallenge.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template getPromotedTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("getPromoted.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template confirmUserJoinChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template postChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("postChallenge.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template confirmUserJoinChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template postChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("postChallenge.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertEmployerChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template confirmUserJoinChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertEmployerChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template confirmUserJoinChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertJobSeekerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertEmployerChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertEmployerChallenge.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertJobSeekerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertEmployerChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertEmployerChallenge.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertEmployerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertJobSeekerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertEmployerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertJobSeekerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertEmployerPostJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertEmployerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertEmployerPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertEmployerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template alertTechloopiesPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertTechloopiesApplyJob.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertEmployerPostJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertEmployerPostJob.vi.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template jobAlertMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("jobAlert.en.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertEmployerPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertEmployerPostJob.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public Template jobAlertMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("jobAlert.vi.ftl");
-        return template;
-    }
+  @Bean
+  public Template alertTechloopiesPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("alertTechloopiesApplyJob.en.ftl");
+    return template;
+  }
 
-    @Bean
-    public JsonNode vietnamworksConfiguration() throws IOException {
-        return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
-    }
+  @Bean
+  public Template jobAlertMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("jobAlert.en.ftl");
+    return template;
+  }
 
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        applicationContext.getEnvironment().acceptsProfiles(environment.getProperty("spring.profiles.active"));
-    }
+  @Bean
+  public Template jobAlertMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    Template template = freemakerConfig.getTemplate("jobAlert.vi.ftl");
+    return template;
+  }
+
+  @Bean
+  public JsonNode vietnamworksConfiguration() throws IOException {
+    return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
+  }
+
+  @Bean
+  @DependsOn("jsonConfigRepository")
+  public Calendar googleCalendar() throws GeneralSecurityException, IOException {
+    JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+    HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
+
+    SocialConfig googleConfig = applicationContext.getBean(JsonConfigRepository.class).getSocialConfig().stream()
+      .filter(socialConfig -> socialConfig.getProvider() == SocialProvider.GOOGLE)
+      .findFirst().get();
+
+    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
+      googleConfig.getApiKey(), googleConfig.getSecretKey(),
+      Collections.singleton(CalendarScopes.CALENDAR))
+      .setDataStoreFactory(new FileDataStoreFactory(googleApiAuthResource.getFile()))
+      .setAccessType("offline").build();
+
+    Credential credential = flow.loadCredential("techlooper");
+
+    return new Calendar.Builder(transport, jsonFactory, credential)
+      .setApplicationName("Techlooper").build();
+
+//    Event event = new Event()
+//      .setSummary("Google I/O 2015")
+//      .setLocation("800 Howard St., San Francisco, CA 94103")
+//      .setDescription("A chance to hear more about Google's developer products.");
+//
+//    DateTime startDateTime = new DateTime("2015-09-28T09:00:00-07:00");
+//    EventDateTime start = new EventDateTime()
+//      .setDateTime(startDateTime)
+//      .setTimeZone("America/Los_Angeles");
+//    event.setStart(start);
+//
+//    DateTime endDateTime = new DateTime("2015-09-28T17:00:00-07:00");
+//    EventDateTime end = new EventDateTime()
+//      .setDateTime(endDateTime)
+//      .setTimeZone("America/Los_Angeles");
+//    event.setEnd(end);
+//
+//    EventAttendee[] attendees = new EventAttendee[]{
+//      new EventAttendee().setEmail("phuonghqh@gmail.com"),
+//      new EventAttendee().setEmail("thu.hoang@navigosgroup.com"),
+//    };
+//    event.setAttendees(Arrays.asList(attendees));
+//
+//    String calendarId = "techlooperawesome@gmail.com";
+//    event = calendar.events().insert(calendarId, event).setSendNotifications(true).execute();
+//    System.out.printf("Event created: %s\n", event.getHtmlLink());
+//    event.getHangoutLink()
+//    return calendar;
+  }
+
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    this.applicationContext = applicationContext;
+    this.applicationContext.getEnvironment().acceptsProfiles(environment.getProperty("spring.profiles.active"));
+  }
 }

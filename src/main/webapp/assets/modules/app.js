@@ -215,6 +215,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/how-does-it-work", {
         templateUrl: "modules/how-it-works/how-it-works.html"
       })
+      .when("/job-listing/:searchText?/:page?", {
+        templateUrl: "modules/job-listing/job-listing.html",
+        controller: "jobListingController"
+      })
+      .when("/create-event", {
+        templateUrl: "modules/create-event/create-event.html",
+        controller: "createEventController"
+      })
       .otherwise({
         redirectTo: function () {
           if (window.location.host.indexOf("hiring") >= 0) {
@@ -246,7 +254,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
       "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
       "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
+      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50", "whoJoinAndWhyEx"]).then(function (translate) {
       $rootScope.translate = translate;
     });
   }
@@ -305,6 +313,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
+
+  //$('body').click(function(e) {
+  //  $rootScope.$broadcast("bodyClicked", e);
+  //});
 });
 
 techlooper.directive("navigation", function () {

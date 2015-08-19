@@ -1,0 +1,29 @@
+<div class="list-input">
+  <ng-form novalidate name="listForm" autocomplete="off" isolate-form>
+    <div class="input">
+      <input type="{{config.type}}" id="txtAttendants"
+             ng-model="item" class="input-style"
+             placeholder="{{config.placeholder | translate}}"
+             name="inputItem" />
+      <button type="submit" translate="add" class="btn btn-primary btn-flat add-item" ng-click="addItem()" />
+    </div>
+    <div class="error-messages" ng-show="listForm.$submitted || listForm.$dirty">
+      <div translate="requiredThisField" ng-show="listForm.inputItem.$error.required"/>
+      <div translate="emailInvalid" ng-show="listForm.inputItem.$error.email"/>
+      <div translate="alreadyExistValue" ng-show="listForm.inputItem.$error.unique"/>
+    </div>
+    <div class="items">
+      <ul>
+        <li>
+          <p>{{$root.userInfo.username | textTruncate: 'email'}}</p>
+          <span translate="Organiser"></span>
+        </li>
+        <li ng-repeat="item in ngModel track by $index">
+          <p>{{item}}</p>
+          <i class="fa fa-trash-o" title="{{'remove' | translate}}" ng-click="removeItem($index)" />
+        </li>
+      </ul>
+    </div>
+  </ng-form>
+
+</div>

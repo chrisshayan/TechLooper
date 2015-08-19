@@ -9,11 +9,14 @@
       <div class="box-content">
         <div class="it-job-corner-content">
           <div class="col-md-6 left">
-            <ul>
+            <ul class="left-content">
               <li translate="itJobCornerContent1"></li>
               <li translate="itJobCornerContent2"></li>
               <li translate="itJobCornerContent3"></li>
             </ul>
+            <div class="btn-view-more">
+              <a href="#/job-listing" class="btn btn-primary btn-flat" translate="viewMore"></a>
+            </div>
           </div>
           <div class="col-md-6 right">
             <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
@@ -34,9 +37,15 @@
                   </div>
                 </div>
                 <div class="send-me-jobs-field">
-                  <label for="jobAlertKeywords">{{'keyword' | translate}}: <strong>*</strong></label>
-                  <input id="jobAlertKeywords" type="text" class="input-style" name="keyword"
-                         placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>
+                  <label>{{'keyword' | translate}}: <strong>*</strong></label>
+                  <!--<input id="jobAlertKeywords" type="text" class="input-style" name="keyword"-->
+                         <!--placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>-->
+                  <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
+                       get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
+                  </div>
+                  <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="true"
+                                attr-placeholder="{{'keywordEx' | translate}}" touchable>
+                  </autocomplete>
 
                   <p class="note" translate="jobSkillCompany"></p>
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$dirty">
@@ -52,15 +61,6 @@
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
                     <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
                   </div>
-
-                  <!--<selectize name="estimatedWorkload" ng-required="status('show-hourly-price-fields')"-->
-                             <!--ng-model="hourly.estimatedWorkload"-->
-                             <!--options="$root.resourcesService.estimatedWorkloadConfig.options"-->
-                             <!--config="$root.resourcesService.estimatedWorkloadConfig"></selectize>-->
-                  <!--<div ng-show="hourlyForm.estimatedWorkload.$dirty || hourlyForm.$submitted">-->
-                    <!--<div class="error-messages"-->
-                         <!--ng-show="hourlyForm.estimatedWorkload.$error.required" translate="requiredThisField" />-->
-                    <!--</div>-->
                 </div>
                 <div class="send-me-jobs-field submit">
                   <button translate="emailMeJobs" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
@@ -157,7 +157,7 @@
             <p class="title" translate="challengeOverView"></p>
 
             <p class="detail">
-              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 200}}"></span>
+              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 160}}"></span>
               <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
             </p>
           </div>
@@ -165,9 +165,10 @@
             <p class="title">Technologies:</p>
 
             <p class="detail">
-              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies">
+              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies | limitTo: 3">
                 {{skill}}
               </span>
+              <span class="tag" ng-show="homePage.latestChallenge.technologies.length > 3">...</span>
             </p>
           </div>
           <div class="quality-of-idea-block">

@@ -42,7 +42,8 @@
     "bootstrap-datepicker": "latest",
     "jquery.cookie": "latest",
     "angular-sanitize": "latest",
-    "moment": "latest"
+    "moment": "latest",
+    "datetimepicker": "latest"
   },
   "overrides": {
     "jquery": {
@@ -153,6 +154,12 @@
     },
     "moment":{
       "main": "moment.js"
+    },
+    "eonasdan-bootstrap-datetimepicker": {
+      "main": [
+      "build/css/bootstrap-datetimepicker.min.css",
+      "build/js/bootstrap-datetimepicker.min.js"
+      ]
     }
   },
   "resolutions": {
