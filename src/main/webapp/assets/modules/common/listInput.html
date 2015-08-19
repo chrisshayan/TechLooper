@@ -3,7 +3,7 @@
     <div class="input">
       <input type="{{config.type}}" id="txtAttendants"
              ng-model="item" class="input-style"
-             placeholder="{{config.placeholder | translate}}" ng-required="true"
+             placeholder="{{config.placeholder | translate}}"
              name="inputItem" />
       <button type="submit" translate="add" class="btn btn-primary btn-flat add-item" ng-click="addItem()" />
     </div>
@@ -12,8 +12,12 @@
       <div translate="emailInvalid" ng-show="listForm.inputItem.$error.email"/>
       <div translate="alreadyExistValue" ng-show="listForm.inputItem.$error.unique"/>
     </div>
-    <div class="items" ng-show="ngModel.length">
+    <div class="items">
       <ul>
+        <li>
+          <p>{{$root.userInfo.username | textTruncate: 'email'}}</p>
+          <span translate="Organiser"></span>
+        </li>
         <li ng-repeat="item in ngModel track by $index">
           <p>{{item}}</p>
           <i class="fa fa-trash-o" title="{{'remove' | translate}}" ng-click="removeItem($index)" />
