@@ -32,14 +32,28 @@
         <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
         <div class="paging-list">
           <ul>
-            <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
+            <li>
+                <span ng-show="previousPage.isEnable">
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{previousPage.pageIndex}}"><i class="fa fa-angle-left"></i></a>
+                </span>
+                <span ng-show="!previousPage.isEnable" class="unClick">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+            </li>
             <li ng-repeat="i in getPageRange()">
                 <span ng-if="i == page" class="active">{{i}}</span>
                 <span ng-if="i != page">
                     <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{i}}">{{i}}</a>
                 </span>
             </li>
-            <li><span><i class="fa fa-angle-right"></i></span></li>
+            <li>
+                <span ng-show="nextPage.isEnable">
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{nextPage.pageIndex}}"><i class="fa fa-angle-right"></i></a>
+                </span>
+                <span ng-show="!nextPage.isEnable" class="unClick">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </li>
           </ul>
         </div>
         <div class="total-pages" translate="totalPages" translate-value-number="{{totalPage}}"></div>
@@ -71,18 +85,32 @@
       </div>
       <div class="paging-block" ng-show="jobs.length >= 10">
         <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
-        <div class="paging-list">
-          <ul>
-            <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
-            <li ng-repeat="i in getPageRange(totalPage, page)">
-              <span ng-if="i == page" class="active">{{i}}</span>
-                <span ng-if="i != page">
-                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{i}}">{{i}}</a>
+          <div class="paging-list">
+              <ul>
+                  <li>
+                <span ng-show="previousPage.isEnable">
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{previousPage.pageIndex}}"><i class="fa fa-angle-left"></i></a>
                 </span>
-            </li>
-            <li><span><i class="fa fa-angle-right"></i></span></li>
-          </ul>
-        </div>
+                <span ng-show="!previousPage.isEnable" class="unClick">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+                  </li>
+                  <li ng-repeat="i in getPageRange()">
+                      <span ng-if="i == page" class="active">{{i}}</span>
+                <span ng-if="i != page">
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{i}}">{{i}}</a>
+                </span>
+                  </li>
+                  <li>
+                <span ng-show="nextPage.isEnable">
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{nextPage.pageIndex}}"><i class="fa fa-angle-right"></i></a>
+                </span>
+                <span ng-show="!nextPage.isEnable" class="unClick">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+                  </li>
+              </ul>
+          </div>
         <div class="total-pages" translate="totalPages" translate-value-number="{{totalPage}}"></div>
       </div>
     </div>

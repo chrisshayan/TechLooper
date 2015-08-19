@@ -46,6 +46,27 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     for (var i = start; i <= end; i++) {
       list.push(i);
     }
+
+    $scope.previousPage = {
+      isEnable : false,
+      pageIndex : 1
+    };
+
+    $scope.nextPage = {
+      isEnable : false,
+      pageIndex : 1
+    };
+
+    if (start > 1 || (start == 1 && $scope.page > 1)) {
+      $scope.previousPage.isEnable = true;
+      $scope.previousPage.pageIndex = $scope.page - 1;
+    }
+
+    if ($scope.page < $scope.totalPage) {
+      $scope.nextPage.isEnable = true;
+      $scope.nextPage.pageIndex = $scope.page + 1;
+    }
+
     return list;
   }
 
