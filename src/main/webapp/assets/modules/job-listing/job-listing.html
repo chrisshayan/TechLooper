@@ -48,7 +48,9 @@
                 <li class="date"><i class="fa fa-calendar"></i>{{job.datePost}} 12/05/2015</li>
                 <li class="location"><i class="fa fa-map-marker"></i>{{job.location}}</li>
               </ul>
-              <p><i class="fa fa-money"></i><span translate="salary"></span>: <strong>{{job.salary}}</strong></p>
+              <p><i class="fa fa-money"></i><span translate="salary"></span>:
+                  <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
+                  <strong>{{job.salary}}</strong></p>
             </div>
             <div class="right-content">
               <ul>
