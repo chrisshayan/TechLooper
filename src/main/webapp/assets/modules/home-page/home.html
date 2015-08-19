@@ -41,7 +41,7 @@
                   <!--<input id="jobAlertKeywords" type="text" class="input-style" name="keyword"-->
                          <!--placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>-->
                   <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
-                       get-url="suggestion/jobTitle/" input-model="promotionForm.jobTitle">
+                       get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
                   </div>
                   <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="true"
                                 attr-placeholder="{{'keywordEx' | translate}}" touchable>
