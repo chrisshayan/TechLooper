@@ -1480,9 +1480,11 @@
       position: absolute
       left: 0
       top: 50px
-      z-index: 999
+      z-index: 999999
       display: none
       height: auto
+      bottom: 0
+      right: 0
       ul
         display: inline-block
         width: 100%
@@ -1561,6 +1563,19 @@
         padding: 0 0 10px 0
     .job-listing-container
       padding: 5px
+      .job-items
+        .job-item
+          .left-content
+            width: 100%
+            ul
+              width: 100%
+              li
+                width: 100%
+              li:first-child
+                width: 100%
+          .right-content
+            width: 100%
+            text-align: left
 @media (min-width: 640px)
   .rwd-table
     margin: auto
