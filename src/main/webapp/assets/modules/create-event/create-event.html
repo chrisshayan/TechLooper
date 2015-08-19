@@ -71,7 +71,10 @@
           <label for="txtAttendants" translate="attendants"></label>
           <div class="attendants-block">
             <div class="attendants-input">
-              <input type="email" id="txtAttendants" ng-model="attendants" class="input-style" placeholder="{{'attendantsEx' | translate}}"/>
+              <input type="email" id="txtAttendants"
+                     ng-model="attendants" class="input-style"
+                     placeholder="{{'attendantsEx' | translate}}"
+                     name="attendants" touchable/>
               <button translate="add" class="btn btn-primary btn-flat" ng-click="addTag()"></button>
             </div>
             <div class="error-messages" ng-show="errors.length">
