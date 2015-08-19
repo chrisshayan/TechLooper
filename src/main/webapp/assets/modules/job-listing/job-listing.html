@@ -40,31 +40,24 @@
         <div class="total-pages" translate="totalPages" translate-value-number="{{totalPage}}"></div>
       </div>
       <div class="job-listing-container contestant-page">
-        <table class="contests-table">
-          <thead>
-          <tr>
-            <th translate="jobTitle"></th>
-            <th translate="company"></th>
-            <th translate="location"></th>
-            <th translate="salary"></th>
-            <th translate="action"></th>
-          </tr>
-          </thead>
-          <tr ng-show="!jobs.length">
-            <td colspan="5" translate="noData"></td>
-          </tr>
-          <tr ng-repeat="job in jobs">
-            <td data-label="{{'jobTitle' | translate}}">
-               <a href="{{job.url}}" target="_blank">{{job.title}}</a>
-            </td>
-            <td data-label="{{'company' | translate}}">{{job.company}}</td>
-            <td data-label="{{'location' | translate}}">{{job.location}}</td>
-            <td data-label="{{'salary' | translate}}">{{job.salary}}</td>
-            <td data-label="{{'action' | translate}}"></td>
-          </tr>
-          <tbody>
-          </tbody>
-        </table>
+        <div class="job-items">
+          <div class="job-item" ng-repeat="job in jobs">
+            <div class="left-content">
+              <h4><a href="{{job.url}}" target="_blank">{{job.title}}</a></h4>
+              <ul>
+                <li>{{job.datePost}}</li>
+                <li>{{job.location}}</li>
+              </ul>
+              <p><span translate="salary"></span>{{job.salary}}</p>
+            </div>
+            <div class="right-content">
+              <ul>
+                <li>{{job.company}}</li>
+                <li><a href="{{job.url}}" target="_blank" translate="viewDetails"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="paging-block">
         <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
