@@ -28,7 +28,7 @@
       </form>
     </div>
     <div class="job-listing-result">
-      <div class="paging-block" ng-show="totalJob > 0">
+      <div class="paging-block" ng-show="jobs.length > 0">
         <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
         <div class="paging-list">
           <ul>
@@ -46,7 +46,7 @@
       </div>
       <div class="job-listing-container contestant-page">
         <div class="job-items">
-          <div class="job-item" ng-show="totalJob < 1">
+          <div class="job-item" ng-show="jobs.length == 0">
             <p translate="noData"></p>
           </div>
           <div class="job-item" ng-repeat="job in jobs">
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="paging-block" ng-show="totalJob > 10">
+      <div class="paging-block" ng-show="jobs.length >= 10">
         <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
         <div class="paging-list">
           <ul>
