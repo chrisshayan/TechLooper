@@ -51,4 +51,34 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     }
   });
 
+  $scope.errors = [];
+
+  $scope.removeTag = function (tag) {
+    $scope.emails.splice($scope.emails.indexOf(tag), 1);
+    $scope.errors.length = 0;
+  }
+
+  $scope.emails = $scope.emails || [];
+
+  $scope.addTag = function () {
+    var newTag = $scope.attendants;
+    if (!newTag || !newTag.length) {
+      return;
+    }
+    if($('#txtAttendants').hasClass("ng-invalid-email")){
+      return $scope.errors.push("emailInvalid");
+    }
+    else if ($scope.emails.length >= 50) {
+      return $scope.errors.push("maximum50");
+    }
+    else if (newTag.length > 40) {
+      return $scope.errors.push("tooLong");
+    }
+    else if ($scope.emails.indexOf(newTag) > -1) {
+      return $scope.errors.push("hasExist");
+    }
+    $scope.emails.push(newTag);
+    $scope.errors.length = 0;
+    $scope.attendants = "";
+  }
 });

@@ -2,12 +2,19 @@ package com.techlooper.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventAttendee;
+import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
@@ -48,6 +55,7 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -91,7 +99,7 @@ public class CoreConfiguration implements ApplicationContextAware {
   @Value("classpath:vnwConfig.json")
   private org.springframework.core.io.Resource vnwConfigRes;
 
-  @Value("classpath:googleApiAuth.p12")
+  @Value("classpath:google-auth")
   private org.springframework.core.io.Resource googleApiAuthResource;
 
   private ApplicationContext applicationContext;
@@ -391,20 +399,49 @@ public class CoreConfiguration implements ApplicationContextAware {
     JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
     HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
 
-    String serviceAccountEmail = applicationContext.getBean(JsonConfigRepository.class).getSocialConfig().stream()
+    SocialConfig googleConfig = applicationContext.getBean(JsonConfigRepository.class).getSocialConfig().stream()
       .filter(socialConfig -> socialConfig.getProvider() == SocialProvider.GOOGLE)
-      .findFirst().get().getServiceAccountEmail();
+      .findFirst().get();
 
-    GoogleCredential credential = new GoogleCredential.Builder()
-      .setTransport(transport)
-      .setJsonFactory(jsonFactory)
-      .setServiceAccountId(serviceAccountEmail)
-      .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
-      .setServiceAccountPrivateKeyFromP12File(googleApiAuthResource.getFile())
-      .build();
+    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
+      googleConfig.getApiKey(), googleConfig.getSecretKey(),
+      Collections.singleton(CalendarScopes.CALENDAR))
+      .setDataStoreFactory(new FileDataStoreFactory(googleApiAuthResource.getFile()))
+      .setAccessType("offline").build();
+
+    Credential credential = flow.loadCredential("techlooper");
 
     return new Calendar.Builder(transport, jsonFactory, credential)
       .setApplicationName("Techlooper").build();
+
+//    Event event = new Event()
+//      .setSummary("Google I/O 2015")
+//      .setLocation("800 Howard St., San Francisco, CA 94103")
+//      .setDescription("A chance to hear more about Google's developer products.");
+//
+//    DateTime startDateTime = new DateTime("2015-09-28T09:00:00-07:00");
+//    EventDateTime start = new EventDateTime()
+//      .setDateTime(startDateTime)
+//      .setTimeZone("America/Los_Angeles");
+//    event.setStart(start);
+//
+//    DateTime endDateTime = new DateTime("2015-09-28T17:00:00-07:00");
+//    EventDateTime end = new EventDateTime()
+//      .setDateTime(endDateTime)
+//      .setTimeZone("America/Los_Angeles");
+//    event.setEnd(end);
+//
+//    EventAttendee[] attendees = new EventAttendee[]{
+//      new EventAttendee().setEmail("phuonghqh@gmail.com"),
+//      new EventAttendee().setEmail("thu.hoang@navigosgroup.com"),
+//    };
+//    event.setAttendees(Arrays.asList(attendees));
+//
+//    String calendarId = "techlooperawesome@gmail.com";
+//    event = calendar.events().insert(calendarId, event).setSendNotifications(true).execute();
+//    System.out.printf("Event created: %s\n", event.getHtmlLink());
+//    event.getHangoutLink()
+//    return calendar;
   }
 
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

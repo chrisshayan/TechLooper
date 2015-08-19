@@ -59,59 +59,27 @@
           <label for="txtAttendants" translate="attendants"></label>
           <div class="attendants-block">
             <div class="attendants-input">
-              <input type="text" id="txtAttendants" class="input-style" placeholder="{{'attendantsEx' | translate}}"/>
-              <button translate="add" class="btn btn-primary btn-flat"></button>
+              <input type="email" id="txtAttendants" ng-model="attendants" class="input-style" placeholder="{{'attendantsEx' | translate}}"/>
+              <button translate="add" class="btn btn-primary btn-flat" ng-click="addTag()"></button>
             </div>
-            <div class="error-messages">This email is already added.</div>
-            <div class="attendants-list">
+            <div class="error-messages" ng-show="errors.length">
+              <span ng-repeat="error in errors track by $last">
+                {{error | translate}}
+              </span>
+            </div>
+            <div class="attendants-list" ng-show="emails.length">
               <ul>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <span translate="organiser"></span>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
-                </li>
-                <li>
-                  <p>phamthanhtrinh.vt@gmail.com</p>
-                  <i class="fa fa-trash-o" title="{{'remove' | translate}}"></i>
+                <li ng-repeat="email in emails">
+                  <p>{{email}}</p>
+                  <i class="fa fa-trash-o" title="{{'remove' | translate}}" ng-click="removeTag()"></i>
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="create-event-field submit">
-          <button translate="createEvent" class="btn btn-primary btn-flat"></buton>
-          <button translate="cancel" class="btn btn-primary btn-flat"></button>
+          <button translate="createEvent" class="btn btn-primary btn-flat"></button>
+            <button translate="cancel" class="btn btn-primary btn-flat"></button>
         </div>
       </form>
     </div>
