@@ -40,10 +40,10 @@
         <div class="paging-list">
           <ul>
             <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
-            <li ng-repeat="i in getPageRange(totalPage, page)">
+            <li ng-repeat="i in getPageRange()">
                 <span ng-if="i == page" class="active">{{i}}</span>
                 <span ng-if="i != page">
-                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{i}}">{{i}}</a>
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{searchJob.location}}/{{i}}">{{i}}</a>
                 </span>
             </li>
             <li><span><i class="fa fa-angle-right"></i></span></li>
