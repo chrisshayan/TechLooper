@@ -43,7 +43,7 @@
     "jquery.cookie": "latest",
     "angular-sanitize": "latest",
     "moment": "latest",
-    "eonasdan-bootstrap-datetimepicker": "latest"
+    "datetimepicker": "latest"
   },
   "overrides": {
     "jquery": {

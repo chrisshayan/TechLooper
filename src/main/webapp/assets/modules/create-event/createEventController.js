@@ -1,6 +1,6 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService) {
 
-  $('.selectionTime').datetimepicker();
+  //$('.selectionTime').datetimepicker();
 
   $scope.selectize = {
     selectionTimeFrom: {
@@ -83,4 +83,19 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     $scope.errors.length = 0;
     $scope.attendants = "";
   }
+
+  $scope.createWebinar = function() {
+    console.log($scope);
+    apiService.createWebinar($scope.webinar);
+  }
+
+  $scope.start_date = new Date();
+
+  $scope.options = {
+    step:10
+  }
+  //$scope.showTime = function(){
+  //  //check binding 2 ways
+  //  alert( $scope.start_date );
+  //}
 });

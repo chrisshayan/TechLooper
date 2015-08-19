@@ -10,7 +10,7 @@ public class WebinarInfoDto implements Serializable {
 
   private String name;
 
-  private String stateDate;
+  private String startDate;
 
   private String endDate;
 
@@ -18,7 +18,15 @@ public class WebinarInfoDto implements Serializable {
 
   private Set<String> attendees;
 
-  private String organiser;
+  private String whatEvent;
+
+  public String getWhatEvent() {
+    return whatEvent;
+  }
+
+  public void setWhatEvent(String whatEvent) {
+    this.whatEvent = whatEvent;
+  }
 
   public String getName() {
     return name;
@@ -28,12 +36,12 @@ public class WebinarInfoDto implements Serializable {
     this.name = name;
   }
 
-  public String getStateDate() {
-    return stateDate;
+  public String getStartDate() {
+    return startDate;
   }
 
-  public void setStateDate(String stateDate) {
-    this.stateDate = stateDate;
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
   }
 
   public String getEndDate() {
@@ -60,11 +68,4 @@ public class WebinarInfoDto implements Serializable {
     this.attendees = attendees;
   }
 
-  public String getOrganiser() {
-    return organiser;
-  }
-
-  public void setOrganiser(String organiser) {
-    this.organiser = organiser;
-  }
 }

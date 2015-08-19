@@ -27,9 +27,29 @@ public class WebinarEntity {
 
   private String organiser;
 
+  private String where = "Google Hangout";
+
   private String calendarUrl;
 
   private String hangoutLink;
+
+  private String whatEvent;
+
+  public String getWhatEvent() {
+    return whatEvent;
+  }
+
+  public void setWhatEvent(String whatEvent) {
+    this.whatEvent = whatEvent;
+  }
+
+  public String getWhere() {
+    return where;
+  }
+
+  public void setWhere(String where) {
+    this.where = where;
+  }
 
   public String getHangoutLink() {
     return hangoutLink;

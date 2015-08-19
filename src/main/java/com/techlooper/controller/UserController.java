@@ -291,9 +291,9 @@ public class UserController {
   @PreAuthorize("hasAnyAuthority('EMPLOYER')")
   @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
   public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
-    String organiser = userService.findVnwUserByUsername(request.getRemoteUser()).getEmail();
-    webinarInfoDto.setOrganiser(organiser);
-    webinarInfoDto.getAttendees().add(organiser);
-    return googleCalendarService.createWebinarInfo(webinarInfoDto);
+//    String organiser = userService.findVnwUserByUsername(request.getRemoteUser()).getEmail();
+//    webinarInfoDto.setOrganiser(organiser);
+//    webinarInfoDto.getAttendees().add(organiser);
+    return googleCalendarService.createWebinarInfo(webinarInfoDto, request.getRemoteUser());
   }
 }

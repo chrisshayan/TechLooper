@@ -4,57 +4,78 @@
   </div>
   <div class="content-page-detail">
     <div class="create-event-form">
-      <form action="" autocomplete="off" name="createEventForm">
+      <form action="" autocomplete="off" name="webinarForm">
         <div class="create-event-field">
           <label for="txtWebinarName" translate="yourWebinarName"></label>
-          <input type="text" id="txtWebinarName" placeholder="{{'yourWebinarNameEx' | translate}}" class="input-style date"/>
+          <input type="text" id="txtWebinarName" placeholder="{{'yourWebinarNameEx' | translate}}"
+                 ng-model="webinar.name"
+                 class="input-style date"/>
+
           <div class="error-messages">This email is already added.</div>
         </div>
         <div class="create-event-field-group">
           <label for="txtTimeLineEvent" translate="whenEvent"></label>
+
           <div class="create-event-field">
-            <div class='input-group date selectionTime' id='datetimepicker1'>
-              <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+            <div class='input-group date selectionTime'>
+
+              <input datetime-picker ng-model="webinar.startDate" options="options"
+                     required/>
+
+              <!--<date-time-picker recipient="recipient"></date-time-picker>-->
+              <!--<datetimepicker data-ng-model="data.date"-->
+              <!--data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }">-->
+              <!--</datetimepicker>-->
+              <!--<input id="txtTimeLineEvent" type='text' class="form-control"-->
+              <!--data-ng-model="webinar.startDate" />-->
+              <!--<span class="input-group-addon">-->
+              <!--<span class="glyphicon glyphicon-calendar"></span>-->
+              <!--</span>-->
             </div>
             <!--<div class="selection-date">-->
-              <!--<input type="text" id="txtTimeLineEvent" class="date input-style"-->
-                     <!--placeholder="{{'ex' | translate}} {{$root.today}}">-->
+            <!--<input type="text" id="txtTimeLineEvent" class="date input-style"-->
+            <!--placeholder="{{'ex' | translate}} {{$root.today}}">-->
             <!--</div>-->
             <!--<div class="section-hours">-->
-              <!--<selectize config='selectize.selectionTimeFrom.config' options='selectize.selectionTimeFrom.items'-->
-                         <!--ng-model="createEventForm.selectionTimeFromId"></selectize>-->
+            <!--<selectize config='selectize.selectionTimeFrom.config' options='selectize.selectionTimeFrom.items'-->
+            <!--ng-model="webinar.selectionTimeFromId"></selectize>-->
             <!--</div>-->
           </div>
           <div class="time-to" translate="to"></div>
           <div class="create-event-field">
+            <input datetime-picker ng-model="webinar.endDate" options="options"
+                   required/>
             <!--<div class="selection-date">-->
-              <!--<input type="text" class="date input-style"-->
-                     <!--placeholder="{{'ex' | translate}} {{$root.today}}"/>-->
+            <!--<input type="text" class="date input-style"-->
+            <!--placeholder="{{'ex' | translate}} {{$root.today}}"/>-->
             <!--</div>-->
             <!--<div class="section-hours">-->
-              <!--<selectize config='selectize.selectionTimeTo.config' options='selectize.selectionTimeTo.items'-->
-                         <!--ng-model="createEventForm.selectionTimeFromToId"></selectize>-->
+            <!--<selectize config='selectize.selectionTimeTo.config' options='selectize.selectionTimeTo.items'-->
+            <!--ng-model="webinar.selectionTimeFromToId"></selectize>-->
             <!--</div>-->
             <div class='input-group date selectionTime' id='datetimepicker2'>
-              <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+              <!--<input datetime-picker ng-model="webinar.endDate" options="options"  />-->
+              <!--<input type='text' class="form-control"-->
+              <!--ng-model="webinar.endDate"/>-->
+              <!--<span class="input-group-addon">-->
+              <!--<span class="glyphicon glyphicon-calendar"></span>-->
+              <!--</span>-->
             </div>
           </div>
           <div class="error-messages">This email is already added.</div>
         </div>
         <div class="create-event-field">
           <label for="txtWhereEvent" translate="whereEvent"></label>
-          <input type="text" id="txtWhereEvent" value="Google Hangout" placeholder="" disabled="disabled" class="input-style"/>
+          <input type="text" id="txtWhereEvent" value="Google Hangout" disabled="disabled"
+                 class="input-style"/>
+
           <p class="note" translate="whereEventNode"></p>
         </div>
         <div class="create-event-field">
           <label for="txtWhatEvent" translate="whatEvent"></label>
-          <input type="text" id="txtWhatEvent" placeholder="{{'whatEventEx' | translate}}" class="input-style"/>
+          <input type="text" id="txtWhatEvent" placeholder="{{'whatEventEx' | translate}}"
+                 ng-model="webinar.whatEvent" class="input-style"/>
+
           <p class="note" translate="whatEventNote"></p>
         </div>
         <div class="create-event-field">
@@ -64,14 +85,20 @@
         </div>
         <div class="create-event-field">
           <label for="txtWhyEvent" translate="whoJoinAndWhy"></label>
-          <textarea name="" cols="30" rows="10" id="txtWhyEvent"  class="change-color textarea-style"></textarea>
+          <textarea name="" cols="30" rows="10" id="txtWhyEvent"
+                    ng-model="webinar.description"
+                    class="change-color textarea-style"></textarea>
+
           <p class="note" translate="whoJoinAndWhyNote"></p>
         </div>
+
         <div class="create-event-field">
           <label for="txtAttendants" translate="attendants"></label>
+
           <div class="attendants-block">
             <div class="attendants-input">
-              <input type="email" id="txtAttendants" ng-model="attendants" class="input-style" placeholder="{{'attendantsEx' | translate}}"/>
+              <input type="email" id="txtAttendants" ng-model="attendants" class="input-style"
+                     placeholder="{{'attendantsEx' | translate}}"/>
               <button translate="add" class="btn btn-primary btn-flat" ng-click="addTag()"></button>
             </div>
             <div class="error-messages" ng-show="errors.length">
@@ -89,9 +116,10 @@
             </div>
           </div>
         </div>
+
         <div class="create-event-field submit">
-          <button translate="createEvent" class="btn btn-primary btn-flat"></button>
-            <button translate="cancel" class="btn btn-primary btn-flat"></button>
+          <button translate="createEvent" class="btn btn-primary btn-flat" ng-click="createWebinar()"/>
+          <button translate="cancel" class="btn btn-primary btn-flat"></button>
         </div>
       </form>
     </div>

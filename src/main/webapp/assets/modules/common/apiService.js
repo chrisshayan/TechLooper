@@ -125,6 +125,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.post("jobListing", {
         keyword: keyword, location: location, page : page
       });
+    },
+
+    createWebinar: function(webinar) {
+      return $http.post("user/employer/webinar", webinar);
     }
   }
 
