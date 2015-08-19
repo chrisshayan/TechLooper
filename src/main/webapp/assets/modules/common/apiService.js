@@ -119,6 +119,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.post("jobListing", {
         keyword: null, location: null, page : 0
       });
+    },
+
+    filterJob: function(keyword, location, page) {
+      return $http.post("jobListing", {
+        keyword: keyword, location: location, page : page
+      });
     }
   }
 
