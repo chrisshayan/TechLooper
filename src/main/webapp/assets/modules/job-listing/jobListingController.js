@@ -1,17 +1,32 @@
-techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService) {
+techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams) {
 
   $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
 
-  apiService.listJob().success(function(response) {
-    $scope.totalPage = response.totalPage;
-    $scope.totalJob = response.totalJob;
-    $scope.page = response.page;
-    $scope.jobs = response.jobs;
-  });
+  var searchText = $routeParams.searchText;
+  if (!searchText) {
+    apiService.listAllJobs().success(function(response) {
+      $scope.totalPage = response.totalPage;
+      $scope.totalJob = response.totalJob;
+      $scope.page = response.page;
+      $scope.jobs = response.jobs;
+    });
+  } else {
+    var searchParams = searchText.split("+", 3);
+    var keyword = searchParams.length > 0 ? searchParams[0] : "";
+    var location = searchParams.length > 1 ? searchParams[1] : "";
+    var page = searchParams.length > 2 ? searchParams[2] : 0;
+
+    apiService.filterJob(keyword, location, page).success(function(response) {
+      $scope.totalPage = response.totalPage;
+      $scope.totalJob = response.totalJob;
+      $scope.page = response.page;
+      $scope.jobs = response.jobs;
+    });
+  }
 
   $scope.getPageRange = function(totalPage, currentPage) {
     var numberOfShownPages = 5;
-    var median = numberOfShownPages / 2 + 1;
+    var median = Math.floor(numberOfShownPages / 2) + 1;
 
     var start = 1;
     if (currentPage > median) {

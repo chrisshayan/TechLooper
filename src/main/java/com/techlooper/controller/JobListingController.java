@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.techlooper.service.impl.JobAlertServiceImpl.NUMBER_OF_ITEMS_PER_PAGE;
@@ -27,9 +28,12 @@ public class JobListingController {
     public JobListingModel list(@RequestBody JobListingCriteria criteria) throws Exception {
         JobListingModel jobListing = new JobListingModel();
 
-        Long totalJob = jobAlertService.countAllJobs();
-        List<JobResponse> jobs = jobAlertService.listAllJobs(criteria.getPage());
-        if (StringUtils.isNotEmpty(criteria.getKeyword()) || StringUtils.isNotEmpty(criteria.getLocation())) {
+        Long totalJob = 0L;
+        List<JobResponse> jobs = new ArrayList<>();
+        if (StringUtils.isEmpty(criteria.getKeyword()) && StringUtils.isEmpty(criteria.getLocation())) {
+            totalJob = jobAlertService.countAllJobs();
+            jobs = jobAlertService.listAllJobs(criteria.getPage());
+        } else if (StringUtils.isNotEmpty(criteria.getKeyword()) || StringUtils.isNotEmpty(criteria.getLocation())) {
             totalJob = jobAlertService.countJob(criteria);
             jobs = jobAlertService.listJob(criteria);
         }

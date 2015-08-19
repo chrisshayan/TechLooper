@@ -33,7 +33,10 @@
         <div class="paging-list">
           <ul>
             <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
-            <li ng-repeat="i in getPageRange(totalPage, page + 1)"><span>{{i}}</span></li>
+            <li ng-repeat="i in getPageRange(totalPage, page)">
+                <span ng-if="i == page" class="active">{{i}}</span>
+                <span ng-if="i != page">{{i}}</span>
+            </li>
             <li><span><i class="fa fa-angle-right"></i></span></li>
           </ul>
         </div>

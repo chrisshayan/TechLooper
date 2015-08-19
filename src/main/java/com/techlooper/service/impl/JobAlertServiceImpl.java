@@ -227,7 +227,7 @@ public class JobAlertServiceImpl implements JobAlertService {
         }
 
         searchQueryBuilder.withQuery(queryBuilder);
-        searchQueryBuilder.withPageable(new PageRequest(criteria.getPage(), NUMBER_OF_ITEMS_PER_PAGE));
+        searchQueryBuilder.withPageable(new PageRequest(criteria.getPage() - 1, NUMBER_OF_ITEMS_PER_PAGE));
         return searchQueryBuilder;
     }
 

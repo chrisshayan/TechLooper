@@ -115,9 +115,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       });
     },
 
-    listJob: function() {
+    listAllJobs: function() {
       return $http.post("jobListing", {
-        keyword: null, location: null, page : 0
+        keyword: null, location: null, page : 1
       });
     },
 
