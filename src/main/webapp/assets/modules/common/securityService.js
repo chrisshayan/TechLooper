@@ -10,6 +10,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         case jsonValue.views.freelancerPostProject:
         case jsonValue.views.employerDashboard:
         case jsonValue.views.postChallenge:
+        case jsonValue.views.createEvent:
           break;
 
         default:
@@ -26,6 +27,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             case jsonValue.views.freelancerPostProject:
             case jsonValue.views.employerDashboard:
             case jsonValue.views.postChallenge:
+            case jsonValue.views.createEvent:
               break;
 
             default:
@@ -127,6 +129,8 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             var lastPage = "/freelancer/post-project";
           case jsonValue.views.employerDashboard:
             var lastPage = "/employer-dashboard";
+          case jsonValue.views.createEvent:
+            var lastPage = "/create-event";
           case jsonValue.views.postChallenge:
             if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
               alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");

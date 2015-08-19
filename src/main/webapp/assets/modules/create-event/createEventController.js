@@ -1,42 +1,7 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService) {
 
-  $('.selectionTime').datetimepicker();
+  //$('.selectionTime').datetimepicker();
 
-  $scope.selectize = {
-    selectionTimeFrom: {
-      items: jsonValue.hours,
-      config: {
-        valueField: 'id',
-        labelField: 'value',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['value'],
-        placeholder: '06:30 PM',
-        onInitialize: function (selectize) {
-          $scope.selectize.selectionTimeFrom.$elem = selectize;
-        }
-      }
-    },
-    selectionTimeTo: {
-      items: jsonValue.hours,
-      config: {
-        valueField: 'id',
-        labelField: 'value',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['value'],
-        placeholder: '07:30 PM',
-        onInitialize: function (selectize) {
-          $scope.selectize.selectionTimeTo.$elem = selectize;
-        }
-      }
-    }
-  };
-
-  $('.selection-date').find('.date').datepicker({
-    autoclose:  true,
-    format: 'dd/mm/yyyy'
-  });
   var placeholder = $translate.instant('whoJoinAndWhyEx');
   $('#txtWhyEvent').val(placeholder);
   $('#txtWhyEvent').focus(function(){
@@ -70,17 +35,32 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     if($('#txtAttendants').hasClass("ng-invalid-email")){
       return $scope.errors.push("emailInvalid");
     }
-    else if ($scope.emails.length >= 50) {
-      return $scope.errors.push("maximum50");
+    else if ($scope.emails.length >= 100) {
+      return $scope.errors.push("maximum100");
     }
     else if (newTag.length > 40) {
       return $scope.errors.push("tooLong");
     }
     else if ($scope.emails.indexOf(newTag) > -1) {
-      return $scope.errors.push("hasExist");
+      return $scope.errors.push("hasEmailExist");
     }
     $scope.emails.push(newTag);
     $scope.errors.length = 0;
     $scope.attendants = "";
   }
+
+  $scope.createWebinar = function() {
+    console.log($scope);
+    apiService.createWebinar($scope.webinar);
+  }
+
+  $scope.start_date = new Date();
+
+  $scope.options = {
+    step:10
+  }
+  //$scope.showTime = function(){
+  //  //check binding 2 ways
+  //  alert( $scope.start_date );
+  //}
 });

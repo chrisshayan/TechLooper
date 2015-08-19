@@ -9,6 +9,6 @@ import java.io.IOException;
  */
 public interface GoogleCalendarService {
 
-  WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto) throws IOException;
+  WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, String organiser) throws IOException;
 
 }
