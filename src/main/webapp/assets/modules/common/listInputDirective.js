@@ -25,7 +25,7 @@ techlooper.directive("listInput", function () {
       }
 
       scope.removeItem = function(index) {
-        scope.ngModel.slice(index, 1);
+        scope.ngModel.splice(index, 1);
       }
 
       scope.listForm.inputItem.$validators.unique = function (modelValue, viewValue) {
