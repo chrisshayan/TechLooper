@@ -7,10 +7,10 @@
       <form action="" autocomplete="off" name="jobListingSearch">
 
         <div class="keyword-block">
-          <div auto-suggestion text="searchJobKeyword1" items="jobTitles"
-               get-url="suggestion/jobTitle/" input-model="searchJobKeyword1">
+          <div auto-suggestion text="searchJob.keyword" items="jobTitles"
+               get-url="suggestion/jobTitle/" input-model="searchJob.keyword">
           </div>
-          <autocomplete name="keyword" ng-model="searchJobKeyword1" data="jobTitles" ng-required="true"
+          <autocomplete name="keyword" id="keyword" ng-model="searchJob.keyword" data="jobTitles" ng-required="true"
                         attr-placeholder="{{'searchJobKeyword1' | translate}}" touchable>
           </autocomplete>
 
@@ -42,7 +42,9 @@
             <li><span class="unClick"><i class="fa fa-angle-left"></i></span></li>
             <li ng-repeat="i in getPageRange(totalPage, page)">
                 <span ng-if="i == page" class="active">{{i}}</span>
-                <span ng-if="i != page">{{i}}</span>
+                <span ng-if="i != page">
+                    <a href="/#/job-listing/{{searchJob.keyword}}+{{searchJob.locationId}}+{{i}}">{{i}}</a>
+                </span>
             </li>
             <li><span><i class="fa fa-angle-right"></i></span></li>
           </ul>
