@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -294,8 +295,9 @@ public class UserController {
   public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
     Principal userPrincipal = request.getUserPrincipal();
     String organiser = request.getRemoteUser();
-    if (userPrincipal instanceof UserProfileDto) {
-      organiser = ((UserProfileDto)userPrincipal).getEmail();
+    Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+    if (principal instanceof UserProfileDto) {
+      organiser = ((UserProfileDto)principal).getEmail();
     }
     return googleCalendarService.createWebinarInfo(webinarInfoDto, organiser);
   }

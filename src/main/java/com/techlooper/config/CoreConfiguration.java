@@ -423,7 +423,13 @@ public class CoreConfiguration implements ApplicationContextAware {
       .setServiceAccountId(googleConfig.getServiceAccountEmail())
       .setServiceAccountPrivateKeyFromP12File(googleApiAuthResource.getFile())
       .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
+      .setServiceAccountUser("techlooperawesome@gmail.com")
       .build();
+
+//    boolean bool = credential.refreshToken();
+//    String token = credential.getAccessToken();
+//    System.out.println(bool);
+//    System.out.println(token);
 
     return new Calendar.Builder(transport, jsonFactory, credential)
       .setApplicationName("Techlooper").build();
