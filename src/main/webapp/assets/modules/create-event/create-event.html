@@ -51,7 +51,7 @@
         <div class="create-event-field">
           <label for="txtOrganiser" translate="organiser"></label>
           <input type="text" id="txtOrganiser"
-                 class="input-style" disabled="disabled" value="Thu Hoang"/>
+                 class="input-style" disabled="disabled" ng-value="$root.userInfo.email | textTruncate: 'email'"/>
         </div>
         <div class="create-event-field">
           <label for="txtWhyEvent" translate="whoJoinAndWhy"></label>
@@ -67,7 +67,8 @@
 
           <div class="attendants-block">
             <div class="attendants-input">
-              <list-input ng-model="webinar.attendees" config="uiConfig.attendantsConfig"></list-input>
+              <list-input ng-model="webinar.attendees" organisers="[$root.userInfo.email]"
+                          config="uiConfig.attendantsConfig"></list-input>
             </div>
 
           </div>

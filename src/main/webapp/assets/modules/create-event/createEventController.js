@@ -1,4 +1,4 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope) {
 
   var placeholder = $translate.instant('whoJoinAndWhyEx');
   $('#txtWhyEvent').val(placeholder);
@@ -30,16 +30,21 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
   $scope.uiConfig = {
     attendantsConfig: {
       type: "email",
-      placeholder: "attendantsEx"
+      placeholder: "attendantsEx",
+      showCurrentUserEmail: true
     },
 
     fromNowDatetimeConfig: {
-      step:10,
+      step: 10,
       minDate: new Date()
     }
   }
 
-  $scope.state = function(type) {
+  //$scope.webinar = {
+  //  attendees: [$rootScope.userInfo.email]
+  //}
+
+  $scope.state = function (type) {
     switch (type) {
       case "error-event-date":
         return $scope.webinarForm.$submitted || $scope.webinarForm.startDate.$dirty || $scope.webinarForm.endDate.$dirty;
@@ -57,5 +62,6 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
 
     return false;
   }
+
 
 });
