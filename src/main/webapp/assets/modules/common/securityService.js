@@ -116,13 +116,34 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
     removeProtectedLastFoot: function () {
       var path = localStorageService.get("protectedPage");
-      if (/\/freelancer\/post-project/.test(path) || /\/employer-dashboard/.test(path) || /\/post-challenge/.test(path)) {
+      if (instance.isProtectedPage(path)) {
         localStorageService.remove("protectedPage");
       }
     },
 
+    isProtectedPage: function(path) {
+      //var path = localStorageService.get("protectedPage");
+      switch (utils.getView(path)) {
+        case jsonValue.view.freelancerPostProject:
+          return "/freelancer/post-project";
+
+        case jsonValue.view.employerDashboard:
+          return "/employer-dashboard";
+
+        case jsonValue.view.createEvent:
+          return "/post-event";
+
+        case jsonValue.view.postChallenge:
+          return "/freelancer/post-project";
+      }
+
+      return false;
+    },
+
     initialize: function () {
       $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        //var path = instance.isProtectedPage();
+
         var view = utils.getView();
         switch (view) {
           case jsonValue.views.freelancerPostProject:
@@ -130,7 +151,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           case jsonValue.views.employerDashboard:
             var lastPage = "/employer-dashboard";
           case jsonValue.views.createEvent:
-            var lastPage = "/create-event";
+            var lastPage = "/post-event";
           case jsonValue.views.postChallenge:
             if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
               alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");

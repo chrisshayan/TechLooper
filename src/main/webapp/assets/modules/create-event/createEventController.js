@@ -1,4 +1,4 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope) {
 
   $scope.createWebinar = function () {
     $scope.webinarForm.$setSubmitted();
@@ -14,16 +14,21 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
   $scope.uiConfig = {
     attendantsConfig: {
       type: "email",
-      placeholder: "attendantsEx"
+      placeholder: "attendantsEx",
+      showCurrentUserEmail: true
     },
 
     fromNowDatetimeConfig: {
-      step:10,
+      step: 10,
       minDate: new Date()
     }
   }
 
-  $scope.state = function(type) {
+  //$scope.webinar = {
+  //  attendees: [$rootScope.userInfo.email]
+  //}
+
+  $scope.state = function (type) {
     switch (type) {
       case "error-event-date":
         return $scope.webinarForm.$submitted || $scope.webinarForm.startDate.$dirty || $scope.webinarForm.endDate.$dirty;
@@ -36,7 +41,21 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
         if ($scope.webinarForm.endDate.$error.required) {
           return true;
         }
-        break;
+        return false;
+
+      case "error-event-start-date":
+        if (!$scope.webinar) return false;
+        if ($scope.webinar.startDate && $scope.webinar.endDate) {
+          var startDate = moment($scope.webinar.startDate, jsonValue.dateTimeFormat);
+          var endDate = moment($scope.webinar.startDate, jsonValue.dateTimeFormat);
+          var before = endDate.isBefore(startDate);
+          $scope.webinarForm.startDate.$setValidity("range", before);
+          $scope.webinarForm.endDate.$setValidity("range", before);
+          return !before;
+        }
+        $scope.webinarForm.startDate.$setValidity("range", true);
+        $scope.webinarForm.endDate.$setValidity("range", true);
+        return false;
     }
 
     return false;

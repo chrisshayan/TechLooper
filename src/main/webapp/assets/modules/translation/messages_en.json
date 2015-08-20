@@ -674,5 +674,6 @@
   "attendantsEx": "Ex: Enter email address to add",
   "search" : "Search",
   "negotiable" : "Negotiable",
-  "to": "to"
+  "to": "to",
+  "startDateGTEndDate": "Start date should be ahead of end date."
 }
