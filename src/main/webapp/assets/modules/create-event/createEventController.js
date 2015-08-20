@@ -6,7 +6,9 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
       return;
     }
 
-    apiService.createWebinar($scope.webinar);
+    apiService.createWebinar($scope.webinar).success(function (data) {
+      alert("Successful created Webinar!!");
+    });
 
     $scope.webinarForm.$setPristine();
   }

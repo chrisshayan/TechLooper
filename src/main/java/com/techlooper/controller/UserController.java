@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -288,12 +289,14 @@ public class UserController {
     return employerService.getDashboardInfo(request.getRemoteUser());
   }
 
-  @PreAuthorize("hasAnyAuthority('EMPLOYER')")
+  @PreAuthorize("hasAnyAuthority('EMPLOYER', 'JOB_SEEKER')")
   @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
   public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
-//    String organiser = userService.findVnwUserByUsername(request.getRemoteUser()).getEmail();
-//    webinarInfoDto.setOrganiser(organiser);
-//    webinarInfoDto.getAttendees().add(organiser);
-    return googleCalendarService.createWebinarInfo(webinarInfoDto, request.getRemoteUser());
+    Principal userPrincipal = request.getUserPrincipal();
+    String organiser = request.getRemoteUser();
+    if (userPrincipal instanceof UserProfileDto) {
+      organiser = ((UserProfileDto)userPrincipal).getEmail();
+    }
+    return googleCalendarService.createWebinarInfo(webinarInfoDto, organiser);
   }
 }
