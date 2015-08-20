@@ -673,5 +673,6 @@
   "attendants": "Attendants:",
   "attendantsEx": "Ex: Enter email address to add",
   "search" : "Search",
-  "negotiable" : "Negotiable"
+  "negotiable" : "Negotiable",
+  "to": "to"
 }
