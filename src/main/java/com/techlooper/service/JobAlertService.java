@@ -13,11 +13,13 @@ public interface JobAlertService {
 
     List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity);
 
+    Long countJob(JobAlertRegistrationEntity jobAlertRegistrationEntity);
+
     JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception;
 
     List<JobAlertRegistrationEntity> searchJobAlertRegistration(int period) throws Exception;
 
-    void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, List<ScrapeJobEntity> scrapeJobEntities) throws Exception;
+    void sendEmail(Long numberOfJobs, JobAlertRegistrationEntity jobAlertRegistrationEntity, List<ScrapeJobEntity> scrapeJobEntities) throws Exception;
 
     List<JobResponse> listJob(JobListingCriteria criteria);
 
@@ -25,7 +27,4 @@ public interface JobAlertService {
 
     boolean checkIfUserExceedRegistrationLimit(String email);
 
-    List<JobResponse> listAllJobs(int page);
-
-    Long countAllJobs();
 }

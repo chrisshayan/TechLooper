@@ -675,5 +675,6 @@
   "search" : "Search",
   "negotiable" : "Negotiable",
   "to": "to",
-  "startDateGTEndDate": "Start date should be ahead of end date."
+  "startDateGTEndDate": "Start date should be ahead of end date.",
+  "jobAlertFail" : "You can add up to 5 Job Alerts only for that email."
 }

@@ -170,7 +170,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" width="100%" style="font-size: 14px;">
-                                                Hiện đang có <strong style="font-size: 22px">${numberOfJobs}</strong> công việc phù hợp với bạn:
+                                                Hiện đang có <strong style="font-size: 14px">${numberOfJobs}</strong> công việc <strong style="font-size: 14px"><#if keyword??>#${keyword}</#if> <#if location??>#${location}</#if></strong> phù hợp với bạn:
                                             </td>
                                         </tr>
                                         <tr>
@@ -242,6 +242,21 @@
                                             </td>
                                         </tr>
                                     </#list>
+                                        <tr>
+                                            <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" align="center">
+                                                <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
+                                                    <tr>
+                                                        <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
+                                                            <a href="${webBaseUrl}#/job-listing/${searchPath}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Thêm</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
 
