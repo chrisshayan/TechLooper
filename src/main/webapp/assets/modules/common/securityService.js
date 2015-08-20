@@ -121,7 +121,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       }
     },
 
-    isProtectedPage: function(path) {
+    isProtectedPage: function (path) {
       //var path = localStorageService.get("protectedPage");
       switch (utils.getView(path)) {
         case jsonValue.views.freelancerPostProject:
@@ -142,34 +142,13 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
     initialize: function () {
       $rootScope.$on("$routeChangeStart", function (event, next, current) {
-        //var path = instance.isProtectedPage();
 
+        var roles = ["EMPLOYER"];
         var view = utils.getView();
         switch (view) {
           case jsonValue.views.createEvent:
-            //var lastPage = "/post-event";
             var loginPage = "/user-type"
-            var role = "JOB_SEEKER";
-          //case jsonValue.views.freelancerPostProject:
-          //  var lastPage = "/freelancer/post-project";
-          //case jsonValue.views.employerDashboard:
-          //  var lastPage = "/employer-dashboard";
-          case jsonValue.views.postChallenge:
-            //console.log(role);
-            //if ($rootScope.userInfo) {
-            //  console.log($rootScope.userInfo.roleName !== (role || "EMPLOYER"));
-            //}
-
-            if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
-              alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");
-              return event.preventDefault();
-            }
-            else if (!$rootScope.userInfo) {
-              instance.getCurrentUser().error(function () {
-                localStorageService.set("lastFoot", $location.path());
-                return $location.path(loginPage || "/login");
-              });
-            }
+            var roles = ["JOB_SEEKER", "EMPLOYER"];
             break;
 
           case jsonValue.views.userType:
@@ -183,7 +162,23 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
             break;
 
           default:
-            return localStorageService.set("lastFoot", $location.url());
+            localStorageService.set("lastFoot", $location.url());
+            break;
+        }
+
+        if (instance.isProtectedPage()) {
+          if ($rootScope.userInfo) {
+            if (roles.indexOf($rootScope.userInfo.roleName) < 0) {
+              alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");
+              return event.preventDefault();
+            }
+          }
+          else if (!$rootScope.userInfo) {
+            instance.getCurrentUser().error(function () {
+              localStorageService.set("lastFoot", $location.path());
+              return $location.path(loginPage || "/login");
+            });
+          }
         }
       });
     }
