@@ -669,7 +669,7 @@
   "whatEventNote": "Thông tin sẽ được sử dụng như hashtag để phân loại và tìm kiếm sự kiện",
   "whoJoinAndWhy": "Đối tượng tham dự sự kiện",
   "whoJoinAndWhyNote": "Mô tả ngắn gọn lợi ích khi tham gia sự kiện",
-  "whoJoinAndWhyEx": "Ví dụ: Sự kiện kick-off sẽ được tổ chức trực tuyến vào Thứ 5 ngày 23 tháng 7 từ 18:30 đến 19:30 trên Google Hangout \n \nSự kiện nhằm cung cấp những thông tin như sau:\n• Chức năng và sứ mệnh của TechLooper\n• Lịch trình và yêu cầu nghiệp vụ của cuộc thi Interactive Job\n• Usability test: 5 second test và click test (gợi ý: sử dụng https://usabilityhub.com)\n• VietnamWorks API\n• Hỏi và đáp\n\nĐể biết thêm thông tin, bạn có thể gửi email đến code@vietnamworks.com.\n\nHẹn gặp lại các bạn tại sự kiện!",
+  "whoJoinAndWhyEx": "Ví dụ: Sự kiện kick-off sẽ được tổ chức trực tuyến vào Thứ 5 ngày 23 tháng 7 từ 18:30 đến 19:30 trên Google Hangout. Sự kiện nhằm cung cấp những thông tin như sau:  • Chức năng và sứ mệnh của TechLooper  • Lịch trình và yêu cầu nghiệp vụ của cuộc thi Interactive Job  • Usability test: 5 second test và click test (gợi ý: sử dụng https://usabilityhub.com)  • VietnamWorks API  • Hỏi và đáp.  Để biết thêm thông tin, bạn có thể gửi email đến code@vietnamworks.com.  Hẹn gặp lại các bạn tại sự kiện!",
   "attendants": "Người tham gia:",
   "attendantsEx": "Ví dụ: Điền email để thêm vào danh sách tham dự",
   "search" : "Tìm Kiếm",
