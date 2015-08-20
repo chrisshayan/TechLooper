@@ -38,7 +38,7 @@ public class GoogleCalendarTest {
   }
 
 //  @Test
-  public void test() throws IOException, GeneralSecurityException {
+  public static void main(String[] args) throws IOException, GeneralSecurityException {
 
     JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
     HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
@@ -49,19 +49,19 @@ public class GoogleCalendarTest {
       .setDataStoreFactory(new FileDataStoreFactory(new File(".credentials")))
       .setAccessType("offline").build();
 
-//    AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
-//    String redirectUri = "http://localhost:8080/login/social/GOOGLE";
-//    authorizationUrl.setRedirectUri(redirectUri);
-//    System.out.println("Go to the following address:");
-//    System.out.println(authorizationUrl);
-//
-//    System.out.println("What is the 'code' url parameter?");
-//    String code = new Scanner(System.in).nextLine();
-//    AuthorizationCodeTokenRequest tokenRequest = flow.newTokenRequest(code);
-//    tokenRequest.setRedirectUri(redirectUri);
-//    TokenResponse tokenResponse = tokenRequest.execute();
+    AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
+    String redirectUri = "http://localhost:8080/login/social/GOOGLE";
+    authorizationUrl.setRedirectUri(redirectUri);
+    System.out.println("Go to the following address:");
+    System.out.println(authorizationUrl);
 
-    Credential credential = flow.loadCredential("techlooper");//.createAndStoreCredential(tokenResponse, "techlooper");
+    System.out.println("What is the 'code' url parameter?");
+    String code = new Scanner(System.in).nextLine();
+    AuthorizationCodeTokenRequest tokenRequest = flow.newTokenRequest(code);
+    tokenRequest.setRedirectUri(redirectUri);
+    TokenResponse tokenResponse = tokenRequest.execute();
+
+    Credential credential = flow.createAndStoreCredential(tokenResponse, "techlooper");//.loadCredential("techlooper");//.createAndStoreCredential(tokenResponse, "techlooper");
 
     Calendar service = new Calendar.Builder(transport, jsonFactory, credential)
       .setApplicationName("Techlooper").build();
