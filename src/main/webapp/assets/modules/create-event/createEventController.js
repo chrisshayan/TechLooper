@@ -1,5 +1,5 @@
 techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService) {
-  
+
   $scope.createWebinar = function () {
     $scope.webinarForm.$setSubmitted();
     if ($scope.webinarForm.$invalid) {
