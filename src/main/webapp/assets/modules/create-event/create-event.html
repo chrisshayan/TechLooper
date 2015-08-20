@@ -71,7 +71,8 @@
 
           <div class="attendants-block">
             <div class="attendants-input">
-              <list-input ng-model="webinar.attendees" config="uiConfig.attendantsConfig"></list-input>
+              <list-input ng-model="webinar.attendees" organisers="[$root.userInfo.email]"
+                          config="uiConfig.attendantsConfig"></list-input>
             </div>
 
           </div>
