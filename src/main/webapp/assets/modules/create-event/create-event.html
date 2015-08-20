@@ -36,11 +36,6 @@
               <div translate="requiredThisField" ng-show="webinarForm.endDate.$error.required"/>
             </div>
           </div>
-          <!--<div class="error-messages">-->
-            <!--&lt;!&ndash; webinarForm.startDate.$error.required || webinarForm.endDate.$error.required &ndash;&gt;-->
-            <!--&lt;!&ndash;<div translate="requiredThisField" ng-show="state('error-required-event-date')"/>&ndash;&gt;-->
-            <!--<div translate="startDateGTEndDate" ng-show="state('error-event-start-date')"/>-->
-          <!--</div>-->
         </div>
         <div class="create-event-field">
           <label for="txtWhereEvent" translate="whereEvent"></label>
@@ -59,7 +54,7 @@
         <div class="create-event-field">
           <label for="txtOrganiser" translate="organiser"></label>
           <input type="text" id="txtOrganiser"
-                 class="input-style" disabled="disabled" ng-value="$root.userInfo.email | textTruncate: 'email'"/>
+                 class="input-style" disabled="disabled" value="Thu Hoang"/>
         </div>
         <div class="create-event-field">
           <label for="txtWhyEvent" translate="whoJoinAndWhy"></label>
@@ -76,8 +71,7 @@
 
           <div class="attendants-block">
             <div class="attendants-input">
-              <list-input ng-model="webinar.attendees" organisers="[$root.userInfo.email]"
-                          config="uiConfig.attendantsConfig"></list-input>
+              <list-input ng-model="webinar.attendees" config="uiConfig.attendantsConfig"></list-input>
             </div>
 
           </div>
