@@ -18,8 +18,8 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     var page = $routeParams.page ? $routeParams.page : 1;
 
     var location = "";
-    if (locationId) {
-      location = utils.toAscii(vnwConfigService.getLocationText(locationId));
+    if (locationId && locationId !== "0") {
+      location = utils.toAscii(vnwConfigService.getLocationText(locationId, "en"));
     }
 
     apiService.filterJob(keyword, location, page).success(function(response) {
@@ -86,8 +86,8 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
   }
 
   $scope.filterJob = function() {
-    var keyword = $scope.searchJob.keyword ? utils.toAscii($scope.searchJob.keyword) : "en";
-    var locationId = $scope.searchJob.locationId ? $scope.searchJob.locationId : "";
+    var keyword = $scope.searchJob.keyword ? utils.toAscii($scope.searchJob.keyword) : "";
+    var locationId = $scope.searchJob.locationId && $scope.searchJob.locationId !== "0" ? $scope.searchJob.locationId : "";
     var location = "";
     if (locationId) {
       location = vnwConfigService.getLocationText(locationId, "en");

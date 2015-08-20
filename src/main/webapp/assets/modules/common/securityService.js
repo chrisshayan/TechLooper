@@ -90,7 +90,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
     routeByRole: function () {
       if (!$rootScope.userInfo) return;
-
+      //utils.sendNotification(jsonValue.notifications.loading, $(window).height());
       //var protectedPage = localStorageService.get("protectedPage");
       //if (protectedPage) {
       //  localStorageService.remove("protectedPage");
@@ -124,16 +124,16 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     isProtectedPage: function(path) {
       //var path = localStorageService.get("protectedPage");
       switch (utils.getView(path)) {
-        case jsonValue.view.freelancerPostProject:
+        case jsonValue.views.freelancerPostProject:
           return "/freelancer/post-project";
 
-        case jsonValue.view.employerDashboard:
+        case jsonValue.views.employerDashboard:
           return "/employer-dashboard";
 
-        case jsonValue.view.createEvent:
+        case jsonValue.views.createEvent:
           return "/post-event";
 
-        case jsonValue.view.postChallenge:
+        case jsonValue.views.postChallenge:
           return "/freelancer/post-project";
       }
 
@@ -146,22 +146,28 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
         var view = utils.getView();
         switch (view) {
-          case jsonValue.views.freelancerPostProject:
-            var lastPage = "/freelancer/post-project";
-          case jsonValue.views.employerDashboard:
-            var lastPage = "/employer-dashboard";
           case jsonValue.views.createEvent:
-            var lastPage = "/post-event";
+            //var lastPage = "/post-event";
+            var loginPage = "/user-type"
+            var role = "JOB_SEEKER";
+          //case jsonValue.views.freelancerPostProject:
+          //  var lastPage = "/freelancer/post-project";
+          //case jsonValue.views.employerDashboard:
+          //  var lastPage = "/employer-dashboard";
           case jsonValue.views.postChallenge:
+            //console.log(role);
+            //if ($rootScope.userInfo) {
+            //  console.log($rootScope.userInfo.roleName !== (role || "EMPLOYER"));
+            //}
+
             if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
               alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");
               return event.preventDefault();
             }
             else if (!$rootScope.userInfo) {
-              //localStorageService.set("protectedPage", lastPage || "/post-challenge");
               instance.getCurrentUser().error(function () {
                 localStorageService.set("lastFoot", $location.path());
-                return $location.path("/login");
+                return $location.path(loginPage || "/login");
               });
             }
             break;

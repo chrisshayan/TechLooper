@@ -150,7 +150,7 @@
                     </tr>
                     <tr>
                       <td align="center">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px">Access to a thousand of new jobs available from job sites around you</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px">Access to thousands of new jobs available from job sites around you</p>
                       </td>
                     </tr>
                     <tr>
