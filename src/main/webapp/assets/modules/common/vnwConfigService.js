@@ -769,7 +769,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         labelField: 'value',
         delimiter: '|',
         searchField: ['value'],
-        maxItems: 1,
+        maxItems: 1
       }, createSelectizeConfig("yobsSelectize"))
     },
 
@@ -792,7 +792,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         labelField: 'size',
         delimiter: '|',
         maxItems: 1,
-        searchField: ['size'],
+        searchField: ['size']
       }, createSelectizeConfig("companySizeSelectize"))
     },
 
