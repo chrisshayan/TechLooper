@@ -11,7 +11,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       $scope.jobs = response.jobs;
     });
   } else {
-    var searchParams = searchText.split("+", 3);
+    var searchParams = searchText.split("+");
     var keyword = searchParams.length > 0 ? searchParams[0] : "";
     var locationId = searchParams.length > 1 ? searchParams[1] : "";
     var page = $routeParams.page ? $routeParams.page : 1;
@@ -88,6 +88,24 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     var keyword = $scope.searchJob.keyword;
     var locationId = $scope.searchJob.locationId;
     var location = vnwConfigService.getLocationText(locationId, "en");
-    $location.path("/job-listing/" + utils.toAscii(keyword) + "+" + locationId + "+" + utils.toAscii(location) + "/1");
+    var searchPath = $scope.buildSearchPath(keyword, locationId, location, 1);
+    $location.path(searchPath);
+  }
+
+  $scope.buildSearchPath = function(keyword, locationId, location, page) {
+    var result = "/job-listing/";
+    if (keyword) {
+      result += utils.toAscii(keyword);
+    }
+    if (locationId) {
+      result += "+" + locationId;
+    }
+    if (location) {
+      result += "+" + utils.toAscii(location);
+    }
+    if (page && page > 1) {
+      result += "/" + page;
+    }
+    return result;
   }
 });
