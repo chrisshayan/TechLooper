@@ -876,6 +876,7 @@ angular.module("Common").constant("jsonValue", (function () {
     },
 
     dateFormat: "DD/MM/YYYY",
+    dateTimeFormat: "DD/MM/YYYY hh:mm A",
 
     status: {
       notStarted: {translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
