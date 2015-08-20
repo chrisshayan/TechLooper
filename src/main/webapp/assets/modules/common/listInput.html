@@ -7,7 +7,7 @@
              name="inputItem" />
       <button type="submit" translate="add" class="btn btn-primary btn-flat add-item" ng-click="addItem()" />
     </div>
-    <div class="error-messages" ng-show="listForm.$submitted || listForm.$dirty">
+    <div class="error-messages" ng-show="(listForm.$submitted || listForm.inputItem.$dirty) && listForm.inputItem.$invalid">
       <div translate="requiredThisField" ng-show="listForm.inputItem.$error.required"/>
       <div translate="emailInvalid" ng-show="listForm.inputItem.$error.email"/>
       <div translate="alreadyExistValue" ng-show="listForm.inputItem.$error.unique"/>
