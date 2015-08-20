@@ -674,5 +674,6 @@
   "attendantsEx": "Ví dụ: Điền email để thêm vào danh sách tham dự",
   "search" : "Tìm Kiếm",
   "negotiable" : "Thoả Thuận",
-  "startDateGTEndDate": "Ngày/Giờ Kết Thúc phải sau Ngày/Giờ Bắt Đầu "
+  "to": "đến",
+  "startDateGTEndDate": "Ngày/Giờ Kết Thúc phải sau Ngày/Giờ Bắt Đầu."
 }

@@ -131,7 +131,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           return "/employer-dashboard";
 
         case jsonValue.view.createEvent:
-          return "/create-event";
+          return "/post-event";
 
         case jsonValue.view.postChallenge:
           return "/freelancer/post-project";
@@ -151,7 +151,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           case jsonValue.views.employerDashboard:
             var lastPage = "/employer-dashboard";
           case jsonValue.views.createEvent:
-            var lastPage = "/create-event";
+            var lastPage = "/post-event";
           case jsonValue.views.postChallenge:
             if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
               alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");

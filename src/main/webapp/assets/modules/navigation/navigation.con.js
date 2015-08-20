@@ -68,9 +68,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
     var active = (viewLocation === $location.path());
     return active;
   };
-  if (utils.isMobile() == true){
-    $scope.mobileMenuEmployer = !$scope.mobileMenuEmployer;
-  }
+
   $scope.hideMenu = function () {
     if (utils.isMobile() == true) {
       $scope.mobileMenuEmployer = !$scope.mobileMenuEmployer;
