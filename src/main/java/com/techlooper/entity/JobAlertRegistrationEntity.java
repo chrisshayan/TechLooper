@@ -22,6 +22,9 @@ public class JobAlertRegistrationEntity {
     @Field(type = String)
     private String location;
 
+    @Field(type = Integer)
+    private Integer locationId;
+
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String createdDate;
 
@@ -96,5 +99,13 @@ public class JobAlertRegistrationEntity {
 
     public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
         this.lastEmailSentDateTime = lastEmailSentDateTime;
+    }
+
+    public Integer getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Integer locationId) {
+        this.locationId = locationId;
     }
 }

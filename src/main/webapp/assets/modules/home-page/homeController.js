@@ -27,13 +27,27 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
       return;
     }
 
-    var location = vnwConfigService.getLocationText($scope.jobAlert.locationId, "en");
-    apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword, location, $translate.use())
+    var location = undefined;
+    var locationId = undefined;
+    if ($scope.jobAlert.locationId && $scope.jobAlert.locationId !== "0") {
+      locationId = $scope.jobAlert.locationId;
+      location = vnwConfigService.getLocationText(locationId, "en");
+    }
+    apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword, location, locationId, $translate.use())
       .success(function (data) {
         $scope.sendMailSuccessfulMessage = true;
+        $scope.sendMailFailMessage = false;
         $scope.jobAlertForm.$setPristine();
         //$scope.jobAlertForm.$submitted = false;
         $scope.jobAlert = {};
+      })
+      .error(function(data, status) {
+         if (status == "405") {
+           $scope.sendMailFailMessage = true;
+           $scope.sendMailSuccessfulMessage = false;
+           $scope.jobAlertForm.$setPristine();
+           $scope.jobAlert = {};
+         }
       });
   }
 });

@@ -22,6 +22,9 @@
             <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
               <p translate="jobAlertSuccessful"></p>
             </div>
+          <div class="alert alert-danger" ng-show="sendMailFailMessage">
+              <p translate="jobAlertFail"></p>
+          </div>
             <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
               <div class="send-me-jobs-form">
                 <h4 translate="sendMeJobs"></h4>
@@ -37,13 +40,13 @@
                   </div>
                 </div>
                 <div class="send-me-jobs-field">
-                  <label>{{'keyword' | translate}}: <strong>*</strong></label>
+                  <label>{{'keyword' | translate}}:</label>
                   <!--<input id="jobAlertKeywords" type="text" class="input-style" name="keyword"-->
                          <!--placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>-->
                   <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
                        get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
                   </div>
-                  <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="true"
+                  <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="false"
                                 attr-placeholder="{{'keywordEx' | translate}}" touchable>
                   </autocomplete>
 
@@ -53,10 +56,10 @@
                   </div>
                 </div>
                 <div class="send-me-jobs-field">
-                  <label>{{'location' | translate}}: <strong>*</strong></label>
+                  <label>{{'location' | translate}}:</label>
                   <selectize config="locationsConfig.config"
                              options="locationsConfig.items"
-                             ng-model="jobAlert.locationId" ng-required="true"
+                             ng-model="jobAlert.locationId" ng-required="false"
                              name="location" class="locationSelectbox"></selectize>
                   <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
                     <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>

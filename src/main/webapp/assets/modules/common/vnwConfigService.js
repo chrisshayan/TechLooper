@@ -51,6 +51,11 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   ];
   var locations = [
     {
+      "location_id": "0",
+      "lang_vn": "Tất cả vị trí",
+      "lang_en": "All Locations"
+    },
+    {
       "location_id": "29",
       "lang_vn": "Hồ Chí Minh",
       "lang_en": "Ho Chi Minh"
