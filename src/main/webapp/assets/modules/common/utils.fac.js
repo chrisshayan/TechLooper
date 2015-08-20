@@ -299,7 +299,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/job-listing/.test(path)) {
         return jsonValue.views.jobListing;
       }
-      else if (/\/create-event/.test(path)) {
+      else if (/\/post-event/.test(path)) {
         return jsonValue.views.createEvent;
       }
     },

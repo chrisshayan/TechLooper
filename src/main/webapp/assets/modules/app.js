@@ -219,7 +219,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/job-listing/job-listing.html",
         controller: "jobListingController"
       })
-      .when("/create-event", {
+      .when("/post-event", {
         templateUrl: "modules/create-event/create-event.html",
         controller: "createEventController"
       })
