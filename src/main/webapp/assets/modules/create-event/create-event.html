@@ -32,7 +32,6 @@
                    options="uiConfig.fromNowDatetimeConfig" name="endDate"
                    placeholder="{{'ex' | translate}} {{$root.today}} 07:30 PM"
                    class="input-style"  ng-required="true"/>
-
             <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.endDate.$dirty) && (webinarForm.endDate.$invalid)">
               <div translate="requiredThisField" ng-show="webinarForm.endDate.$error.required"/>
             </div>
