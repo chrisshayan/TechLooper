@@ -155,7 +155,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           //case jsonValue.views.employerDashboard:
           //  var lastPage = "/employer-dashboard";
           case jsonValue.views.postChallenge:
-            if ($rootScope.userInfo && $rootScope.userInfo.roleName !== (role || "EMPLOYER")) {
+            //console.log(role);
+            //if ($rootScope.userInfo) {
+            //  console.log($rootScope.userInfo.roleName !== (role || "EMPLOYER"));
+            //}
+
+            if ($rootScope.userInfo && $rootScope.userInfo.roleName !== "EMPLOYER") {
               alert("Your current account is not authorized to access that feature. Please use your VietnamWorks employer account instead.");
               return event.preventDefault();
             }
