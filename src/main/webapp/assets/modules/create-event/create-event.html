@@ -10,7 +10,7 @@
           <input type="text" id="txtWebinarName" placeholder="{{'yourWebinarNameEx' | translate}}"
                  ng-model="webinar.name" ng-required="true" name="name" class="input-style date"/>
 
-          <div class="error-messages" ng-show="webinarForm.$submitted || webinarForm.name.$dirty">
+          <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.name.$dirty) && (webinarForm.name.$invalid)">
             <div translate="requiredThisField" ng-show="webinarForm.name.$error.required"/>
           </div>
         </div>
@@ -21,6 +21,10 @@
                    ng-model="webinar.startDate" name="startDate"
                    placeholder="{{'ex' | translate}} {{$root.today}} 06:30 PM"
                    options="uiConfig.fromNowDatetimeConfig" ng-required="true"/>
+            <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.startDate.$dirty) && (webinarForm.startDate.$invalid)">
+              <div translate="requiredThisField" ng-show="webinarForm.startDate.$error.required"/>
+              <div translate="startDateGTEndDate" ng-show="state('error-event-start-date')"/>
+            </div>
           </div>
           <div class="time-to" translate="to"></div>
           <div class="create-event-field">
@@ -28,10 +32,10 @@
                    options="uiConfig.fromNowDatetimeConfig" name="endDate"
                    placeholder="{{'ex' | translate}} {{$root.today}} 07:30 PM"
                    class="input-style"  ng-required="true"/>
-          </div>
-          <div class="error-messages" ng-show="state('error-event-date')">
-            <!-- webinarForm.startDate.$error.required || webinarForm.endDate.$error.required -->
-            <div translate="requiredThisField" ng-show="state('error-required-event-date')"/>
+
+            <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.endDate.$dirty) && (webinarForm.endDate.$invalid)">
+              <div translate="requiredThisField" ng-show="webinarForm.endDate.$error.required"/>
+            </div>
           </div>
         </div>
         <div class="create-event-field">
