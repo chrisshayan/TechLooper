@@ -57,11 +57,24 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
         if ($scope.webinarForm.endDate.$error.required) {
           return true;
         }
-        break;
+        return false;
+
+      case "error-event-start-date":
+        if (!$scope.webinar) return false;
+        if ($scope.webinar.startDate && $scope.webinar.endDate) {
+          var startDate = moment($scope.webinar.startDate, jsonValue.dateTimeFormat);
+          var endDate = moment($scope.webinar.startDate, jsonValue.dateTimeFormat);
+          var before = endDate.isBefore(startDate);
+          $scope.webinarForm.startDate.$setValidity("range", before);
+          $scope.webinarForm.endDate.$setValidity("range", before);
+          return !before;
+        }
+        $scope.webinarForm.startDate.$setValidity("range", true);
+        $scope.webinarForm.endDate.$setValidity("range", true);
+        return false;
     }
 
     return false;
   }
-
 
 });

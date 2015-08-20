@@ -33,7 +33,7 @@ techlooper.directive("listInput", function () {
       scope.listForm.inputItem.$validators.unique = function (modelValue, viewValue) {
         if (!modelValue) return true;
         if (modelValue.length == 0) return true;
-        return scope.ngModel.indexOf(modelValue) < 0;
+        return scope.ngModel.indexOf(modelValue) < 0 || oriItems.indexOf(modelValue) < 0;
       };
 
       scope.status = function(type) {
