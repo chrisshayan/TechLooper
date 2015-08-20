@@ -33,13 +33,27 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
   $scope.getPageRange = function() {
     var numberOfShownPages = 5;
+
     var start = 1;
-    if ($scope.page && $scope.totalPage > numberOfShownPages) {
-      start = $scope.page;
-    }
-    var end = start + numberOfShownPages - 1;
-    if (end > $scope.totalPage) {
-      end = $scope.totalPage;
+    var end = numberOfShownPages;
+    if ($scope.totalPage > numberOfShownPages) {
+      var median = numberOfShownPages % 2 == 0 ? numberOfShownPages / 2 : Math.floor(numberOfShownPages / 2) + 1;
+      var distance = median - 1;
+      if ($scope.page > median) {
+        if ($scope.totalPage - $scope.page < distance) {
+          start = $scope.page - (distance + (numberOfShownPages - ($scope.totalPage - $scope.page) - median));
+        } else {
+          start = $scope.page - distance;
+        }
+        if ($scope.page + distance <= $scope.totalPage) {
+          end = $scope.page + distance;
+        } else {
+          end = $scope.totalPage;
+        }
+      } else {
+        start = 1;
+        end = numberOfShownPages;
+      }
     }
 
     var list = [];
