@@ -3,6 +3,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
   $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
 
   var searchText = $routeParams.searchText;
+
   if (!searchText) {
     apiService.listAllJobs().success(function(response) {
       $scope.totalPage = response.totalPage;
@@ -12,7 +13,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     });
   } else {
     var searchParams = searchText.split("+");
-    var keyword = searchParams.length > 0 ? searchParams[0] : "";
+    var keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
     var locationId = searchParams.length > 1 ? searchParams[1] : "";
     var page = $routeParams.page ? $routeParams.page : 1;
 
@@ -85,10 +86,22 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
   }
 
   $scope.filterJob = function() {
-    var keyword = $scope.searchJob.keyword;
-    var locationId = $scope.searchJob.locationId;
-    var location = vnwConfigService.getLocationText(locationId, "en");
-    var searchPath = $scope.buildSearchPath(keyword, locationId, location, 1);
+    var keyword = $scope.searchJob.keyword ? utils.toAscii($scope.searchJob.keyword) : "en";
+    var locationId = $scope.searchJob.locationId ? $scope.searchJob.locationId : "";
+    var location = "";
+    if (locationId) {
+      location = vnwConfigService.getLocationText(locationId, "en");
+    }
+    var page = 1;
+
+    //apiService.filterJob(keyword, location, page).success(function(response) {
+    //  $scope.totalPage = response.totalPage;
+    //  $scope.totalJob = response.totalJob;
+    //  $scope.page = response.page;
+    //  $scope.jobs = response.jobs;
+    //});
+
+    var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
     $location.path(searchPath);
   }
 
@@ -108,4 +121,15 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     }
     return result;
   }
+
+  capitalizeWords : function capitalizeWords(str) {
+    if (str) {
+      str = str.replace(/-/g, ' ');
+      return str.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
+    return "";
+  }
+
 });
