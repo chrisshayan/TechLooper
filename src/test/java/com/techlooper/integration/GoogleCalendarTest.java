@@ -37,7 +37,7 @@ public class GoogleCalendarTest {
     System.out.println(org.joda.time.DateTime.now().toString());
   }
 
-  @Test
+//  @Test
   public void test() throws IOException, GeneralSecurityException {
 
     JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
