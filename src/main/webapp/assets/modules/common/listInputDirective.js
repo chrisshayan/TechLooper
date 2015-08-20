@@ -5,11 +5,13 @@ techlooper.directive("listInput", function () {
     templateUrl: "modules/common/listInput.html",
     scope: {
       ngModel: "=",
-      config: "="
+      config: "=",
+      organisers: "="
     },
 
     link: function (scope, element, attr, ctrl) {
       scope.ngModel = scope.ngModel || [];
+      //var oriItems = angular.copy(scope.ngModel);
 
 
       scope.addItem = function() {
@@ -31,8 +33,22 @@ techlooper.directive("listInput", function () {
       scope.listForm.inputItem.$validators.unique = function (modelValue, viewValue) {
         if (!modelValue) return true;
         if (modelValue.length == 0) return true;
-        return scope.ngModel.indexOf(modelValue) < 0;
+        return scope.ngModel.indexOf(modelValue) < 0 && scope.organisers.indexOf(modelValue) < 0;
       };
+
+      scope.status = function(type) {
+        switch (type) {
+          case "organiser":
+            var item = arguments[1];
+            return $.inArray(item, oriItems) > -1;
+
+          case "attendee":
+            var item = arguments[1];
+            return !scope.status("organiser", item)
+        }
+
+        return false;
+      }
 
       //scope.$on("bodyClicked", function(targetScope, e) {
       //  console.log(2);

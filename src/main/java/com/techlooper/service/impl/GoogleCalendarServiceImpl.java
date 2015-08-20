@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.WebinarEntity;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -39,6 +41,8 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
   private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
 
   public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, String organiser) throws IOException {
+    String organiserEmail = vnwUserRepo.findByUsernameIgnoreCase(organiser).getEmail();
+
     Event event = new Event()
       .setSummary(webinarInfoDto.getName())
       .setDescription(webinarInfoDto.getDescription());
@@ -46,17 +50,23 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
     DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm a");
     org.joda.time.DateTime startDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getStartDate());
     org.joda.time.DateTime endDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getEndDate());
+    event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
+    event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
 
-    event.setStart(new EventDateTime().setDate(new DateTime(startDate.toDate())));
-    event.setEnd(new EventDateTime().setDate(new DateTime(endDate.toDate())));
+    webinarInfoDto.getAttendees().add(organiserEmail);
+    EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
+      .map(attEmail -> new EventAttendee().setEmail(attEmail))
+      .toArray(EventAttendee[]::new);
+
+    event.setAttendees(Arrays.asList(attendees));
+
     event = googleCalendar.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
 
     WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
     entity.setCalendarUrl(event.getHtmlLink());
     entity.setHangoutLink(event.getHangoutLink());
 
-    String email = vnwUserRepo.findByUsernameIgnoreCase(organiser).getEmail();
-    entity.setOrganiser(email);
+    entity.setOrganiser(organiserEmail);
 
     entity = webinarRepository.save(entity);
     return dozerMapper.map(entity, WebinarInfoDto.class);

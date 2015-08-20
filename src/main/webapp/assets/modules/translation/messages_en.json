@@ -669,9 +669,12 @@
   "whatEventNote": "These are used as hashtags to classify your event",
   "whoJoinAndWhy": "Who should join and why?",
   "whoJoinAndWhyNote": "Write a brief description to let members know what to expect",
-  "whoJoinAndWhyEx": "Ex: We are holding an online kick-off event on Thursday 23rd of July from 18:30-19:30 on Google Hangout. \n \n During this event we will talk about:\n• TechLooper vision and features\n• Interactive Job Contest timeline and requirements\n• Usability test: 5 second test and click test (we recommend https://usabilityhub.com)\n• VietnamWorks API\n• And we will go through all your questions\n\nIf you want to contact me, please write to code@vietnamworks.com.\n\nLooking forward to talk to you all!",
+  "whoJoinAndWhyEx": "Ex: We are holding an online kick-off event on Thursday 23rd of July from 18:30-19:30 on Google Hangout. During this event we will talk about: • TechLooper vision and features  • Interactive Job Contest timeline and requirements  • Usability test: 5 second test and click test (we recommend https://usabilityhub.com)  • VietnamWorks API  • And we will go through all your questions.  If you want to contact me, please write to code@vietnamworks.com.  Looking forward to talk to you all!",
   "attendants": "Attendants:",
   "attendantsEx": "Ex: Enter email address to add",
   "search" : "Search",
-  "negotiable" : "Negotiable"
+  "negotiable" : "Negotiable",
+  "to": "to",
+  "startDateGTEndDate": "Start date should be ahead of end date.",
+  "jobAlertFail" : "You can add up to 5 Job Alerts only for that email."
 }

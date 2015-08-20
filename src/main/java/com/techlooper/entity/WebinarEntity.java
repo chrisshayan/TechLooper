@@ -17,7 +17,7 @@ public class WebinarEntity {
 
   private String name;
 
-  private String stateDate;
+  private String startDate;
 
   private String endDate;
 
@@ -83,12 +83,12 @@ public class WebinarEntity {
     this.name = name;
   }
 
-  public String getStateDate() {
-    return stateDate;
+  public String getStartDate() {
+    return startDate;
   }
 
-  public void setStateDate(String stateDate) {
-    this.stateDate = stateDate;
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
   }
 
   public String getEndDate() {

@@ -11,6 +11,8 @@ public class JobAlertRegistration {
 
     private String location;
 
+    private Integer locationId;
+
     private Language lang;
 
     public String getEmail() {
@@ -43,5 +45,13 @@ public class JobAlertRegistration {
 
     public void setLang(Language lang) {
         this.lang = lang;
+    }
+
+    public Integer getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Integer locationId) {
+        this.locationId = locationId;
     }
 }

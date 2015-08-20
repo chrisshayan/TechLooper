@@ -2,7 +2,10 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
-import com.techlooper.model.*;
+import com.techlooper.model.JobAlertRegistration;
+import com.techlooper.model.JobListingCriteria;
+import com.techlooper.model.JobResponse;
+import com.techlooper.model.Language;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
@@ -11,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -35,7 +39,6 @@ import java.util.stream.Collectors;
 import static com.techlooper.util.DateTimeUtils.parseDate2String;
 import static com.techlooper.util.DateTimeUtils.parseString2Date;
 import static org.elasticsearch.index.query.QueryBuilders.*;
-import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 
 @Service
 public class JobAlertServiceImpl implements JobAlertService {
@@ -81,24 +84,17 @@ public class JobAlertServiceImpl implements JobAlertService {
     private JavaMailSender mailSender;
 
     @Override
-    public List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity JobAlertRegistrationEntity) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
-        BoolQueryBuilder queryBuilder = boolQuery();
-
-        if (StringUtils.isNotEmpty(JobAlertRegistrationEntity.getKeyword())) {
-            queryBuilder.must(queryString(JobAlertRegistrationEntity.getKeyword()));
-        }
-
-        if (StringUtils.isNotEmpty(JobAlertRegistrationEntity.getLocation())) {
-            queryBuilder.must(matchQuery("location", JobAlertRegistrationEntity.getLocation()));
-        }
-
-        queryBuilder.must(rangeQuery("createdDateTime").from("now-7d/d"));
-        searchQueryBuilder.withQuery(queryBuilder);
-        searchQueryBuilder.withPageable(new PageRequest(0, 100));
-
+    public List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
+        NativeSearchQueryBuilder searchQueryBuilder = getJobAlertSearchQueryBuilder(jobAlertRegistrationEntity);
+        searchQueryBuilder.withPageable(new PageRequest(0, 5));
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
-        return sortJobByDescendingStartDate(jobs);
+        return jobs;
+    }
+
+    @Override
+    public Long countJob(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
+        NativeSearchQueryBuilder searchQueryBuilder = getJobAlertSearchQueryBuilder(jobAlertRegistrationEntity);
+        return scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
     }
 
     @Override
@@ -134,7 +130,7 @@ public class JobAlertServiceImpl implements JobAlertService {
     }
 
     @Override
-    public void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, List<ScrapeJobEntity> scrapeJobEntities) throws Exception {
+    public void sendEmail(Long numberOfJobs, JobAlertRegistrationEntity jobAlertRegistrationEntity, List<ScrapeJobEntity> scrapeJobEntities) throws Exception {
         String mailSubject = jobAlertRegistrationEntity.getLang() == Language.vi ? jobAlertMailSubjectVn : jobAlertMailSubjectEn;
         Address[] recipientAddresses = InternetAddress.parse(jobAlertRegistrationEntity.getEmail());
         Template template = jobAlertRegistrationEntity.getLang() == Language.vi ? jobAlertMailTemplateVi : jobAlertMailTemplateEn;
@@ -145,11 +141,14 @@ public class JobAlertServiceImpl implements JobAlertService {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("email", jobAlertRegistrationEntity.getEmail());
-        templateModel.put("numberOfJobs", scrapeJobEntities.size());
+        templateModel.put("numberOfJobs", numberOfJobs);
+        templateModel.put("keyword", jobAlertRegistrationEntity.getKeyword());
+        templateModel.put("location", jobAlertRegistrationEntity.getLocation());
+        templateModel.put("locationId", jobAlertRegistrationEntity.getLocationId());
         templateModel.put("jobs", scrapeJobEntities.stream().limit(NUMBER_OF_ITEMS_PER_PAGE).collect(Collectors.toList()));
+        templateModel.put("searchPath", buildSearchPath(jobAlertRegistrationEntity));
 
         template.process(templateModel, stringWriter);
-        mailSubject = String.format(mailSubject, jobAlertRegistrationEntity.getKeyword(), jobAlertRegistrationEntity.getLocation());
         jobAlertMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         jobAlertMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
@@ -169,14 +168,14 @@ public class JobAlertServiceImpl implements JobAlertService {
 
         List<JobResponse> result = new ArrayList<>();
         if (!jobs.isEmpty()) {
-            List<ScrapeJobEntity> sortedJobs = sortJobByDescendingStartDate(jobs);
-            for (ScrapeJobEntity jobEntity : sortedJobs) {
+            for (ScrapeJobEntity jobEntity : jobs) {
                 JobResponse.Builder builder = new JobResponse.Builder();
                 JobResponse job = builder.withUrl(jobEntity.getJobTitleUrl())
                         .withTitle(jobEntity.getJobTitle())
                         .withCompany(jobEntity.getCompany())
                         .withLocation(jobEntity.getLocation())
-                        .withSalary(jobEntity.getSalary()).build();
+                        .withSalary(jobEntity.getSalary())
+                        .withPostedOn(jobEntity.getCreatedDateTime()).build();
                 result.add(job);
             }
         }
@@ -189,44 +188,26 @@ public class JobAlertServiceImpl implements JobAlertService {
         return scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
     }
 
-    @Override
-    public List<JobResponse> listAllJobs(int page) {
-        List<ScrapeJobEntity> jobEntities = scrapeJobRepository.findAll(new PageRequest(page, NUMBER_OF_ITEMS_PER_PAGE)).getContent();
-
-        List<JobResponse> result = new ArrayList<>();
-        if (!jobEntities.isEmpty()) {
-            List<ScrapeJobEntity> sortedJobs = sortJobByDescendingStartDate(jobEntities);
-            for (ScrapeJobEntity jobEntity : sortedJobs) {
-                JobResponse.Builder builder = new JobResponse.Builder();
-                JobResponse job = builder.withUrl(jobEntity.getJobTitleUrl())
-                        .withTitle(jobEntity.getJobTitle())
-                        .withCompany(jobEntity.getCompany())
-                        .withLocation(jobEntity.getLocation())
-                        .withSalary(jobEntity.getSalary()).build();
-                result.add(job);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Long countAllJobs() {
-        return scrapeJobRepository.count();
-    }
-
     private NativeSearchQueryBuilder getJobListingQueryBuilder(JobListingCriteria criteria) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
-        BoolQueryBuilder queryBuilder = boolQuery();
 
-        if (StringUtils.isNotEmpty(criteria.getKeyword())) {
-            queryBuilder.must(queryString(criteria.getKeyword()));
+        if (StringUtils.isEmpty(criteria.getKeyword()) && StringUtils.isEmpty(criteria.getLocation())) {
+            searchQueryBuilder.withQuery(matchAllQuery());
+        } else {
+            BoolQueryBuilder queryBuilder = boolQuery();
+
+            if (StringUtils.isNotEmpty(criteria.getKeyword())) {
+                queryBuilder.must(queryString(criteria.getKeyword()));
+            }
+
+            if (StringUtils.isNotEmpty(criteria.getLocation())) {
+                queryBuilder.must(matchQuery("location", criteria.getLocation()));
+            }
+
+            searchQueryBuilder.withQuery(queryBuilder);
         }
 
-        if (StringUtils.isNotEmpty(criteria.getLocation())) {
-            queryBuilder.must(matchQuery("location", criteria.getLocation()));
-        }
-
-        searchQueryBuilder.withQuery(queryBuilder);
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
         searchQueryBuilder.withPageable(new PageRequest(criteria.getPage() - 1, NUMBER_OF_ITEMS_PER_PAGE));
         return searchQueryBuilder;
     }
@@ -238,27 +219,24 @@ public class JobAlertServiceImpl implements JobAlertService {
         return numberOfDays % period;
     }
 
-    private List<ScrapeJobEntity> sortJobByDescendingStartDate(List<ScrapeJobEntity> jobs) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return jobs.stream().sorted((job1, job2) -> {
-            try {
-                long challenge2StartDate = sdf.parse(job2.getCreatedDateTime()).getTime();
-                long challenge1StartDate = sdf.parse(job1.getCreatedDateTime()).getTime();
-                if (challenge2StartDate - challenge1StartDate > 0) {
-                    return 1;
-                }
-                else if (challenge2StartDate - challenge1StartDate < 0) {
-                    return -1;
-                }
-                else {
-                    return 0;
-                }
-            }
-            catch (ParseException e) {
-                return 0;
-            }
-        }).collect(Collectors.toList());
-    }
+//    private List<ScrapeJobEntity> sortJobByDescendingStartDate(List<ScrapeJobEntity> jobs) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        return jobs.stream().sorted((job1, job2) -> {
+//            try {
+//                long challenge2StartDate = sdf.parse(job2.getCreatedDateTime()).getTime();
+//                long challenge1StartDate = sdf.parse(job1.getCreatedDateTime()).getTime();
+//                if (challenge2StartDate - challenge1StartDate > 0) {
+//                    return 1;
+//                } else if (challenge2StartDate - challenge1StartDate < 0) {
+//                    return -1;
+//                } else {
+//                    return 0;
+//                }
+//            } catch (ParseException e) {
+//                return 0;
+//            }
+//        }).collect(Collectors.toList());
+//    }
 
     public boolean checkIfUserExceedRegistrationLimit(String email) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
@@ -271,4 +249,40 @@ public class JobAlertServiceImpl implements JobAlertService {
         return numberOfRegistrations >= CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION;
     }
 
+    private NativeSearchQueryBuilder getJobAlertSearchQueryBuilder(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
+        BoolQueryBuilder queryBuilder = boolQuery();
+
+        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
+            queryBuilder.must(queryString(jobAlertRegistrationEntity.getKeyword()));
+        }
+
+        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
+            queryBuilder.must(matchQuery("location", jobAlertRegistrationEntity.getLocation()));
+        }
+
+        queryBuilder.must(rangeQuery("createdDateTime").from("now-7d/d"));
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
+        searchQueryBuilder.withQuery(queryBuilder);
+        return searchQueryBuilder;
+    }
+
+    private String buildSearchPath(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
+        StringBuilder pathBuilder = new StringBuilder("");
+        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
+            pathBuilder.append(jobAlertRegistrationEntity.getKeyword().replaceAll("\\W", "-"));
+        }
+
+        if (jobAlertRegistrationEntity.getLocationId() != null) {
+            pathBuilder.append("+");
+            pathBuilder.append(jobAlertRegistrationEntity.getLocationId());
+        }
+
+        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
+            pathBuilder.append("+");
+            pathBuilder.append(jobAlertRegistrationEntity.getLocation().replaceAll("\\W", "-"));
+        }
+
+        return pathBuilder.toString();
+    }
 }
