@@ -651,7 +651,7 @@
   "searchJobKeyword1": "Enter Job title or Skills or Company to search jobs",
   "withIn": "within",
   "allLocations": "All Locations",
-  "totalJobs": "<strong>{{number}}</strong> Jobs returned",
+  "totalJobs": "<strong>{{number}}</strong> Job(s) returned",
   "totalPages": "Total Pages: <strong>{{number}}</strong>",
   "company": "company",
   "salary": "salary",
