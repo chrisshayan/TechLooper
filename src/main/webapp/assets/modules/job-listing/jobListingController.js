@@ -55,6 +55,9 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
         start = 1;
         end = numberOfShownPages;
       }
+    } else {
+      start = 1;
+      end = $scope.totalPage;
     }
 
     var list = [];

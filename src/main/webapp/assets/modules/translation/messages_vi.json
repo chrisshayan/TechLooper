@@ -649,8 +649,8 @@
   "viewMore": "Xem Thêm",
   "ItJobHub": "Trung Tâm Việc Làm Cho Các Ứng Viên IT",
   "searchJobKeyword1": "Điền Chức danh công việc, Kỹ năng hay Tên nhà tuyển dụng để tìm công việc",
-  "withIn": "ở trong",
-  "allLocations": "Tất cả vị trí",
+  "withIn": "tại",
+  "allLocations": "Tất cả địa điểm",
   "totalJobs": "Tìm thấy <strong>{{number}}</strong> công việc",
   "totalPages": "Tổng số trang: <strong>{{number}}</strong>",
   "company": "Công Ty",
@@ -676,5 +676,7 @@
   "negotiable" : "Thoả Thuận",
   "to": "đến",
   "startDateGTEndDate": "Ngày/Giờ Kết Thúc phải sau Ngày/Giờ Bắt Đầu.",
-  "jobAlertFail" : "Bạn có thể tạo tối đa 5 Thông Báo Việc Làm với địa chỉ email này."
+  "jobAlertFail" : "Bạn có thể tạo tối đa 5 Thông Báo Việc Làm với địa chỉ email này.",
+  "searchAll": "Tìm Ngay",
+  "oneSearchAllJobs": "Một lần tìm. Vạn công việc"
 }
