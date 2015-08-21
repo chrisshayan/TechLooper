@@ -1,4 +1,4 @@
-angular.module("Common").constant("jsonValue", (function () {
+techlooper.factory("jsonValue", function () {
   var instance = {
     pieChartType: {
       salary: "SALARY",
@@ -221,6 +221,67 @@ angular.module("Common").constant("jsonValue", (function () {
       jobListing: "jobListing",
       createEvent: "createEvent"
     },
+
+    uiViews: [
+      {
+        name: "rootPage",
+        url: "/"
+      },
+      {
+        name: "postEvent",
+        url: "/post-event",
+        roles: ["EMPLOYER", "JOB_SEEKER"],
+        loginUrl: "/user-type"
+      },
+      {
+        name: "freelancerPostProject",
+        url: "/freelancer/post-project",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
+        name: "employerDashboard",
+        url: "/employer-dashboard",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
+        name: "postChallenge",
+        url: "/post-challenge",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
+        name: "hiring",
+        url: "/hiring",
+        header: "EMPLOYER"
+      },
+      {
+        name: "whyChallenge",
+        url: "/why-challenge",
+        header: "EMPLOYER"
+      },
+      {
+        name: "whyFreelancer",
+        url: "/freelancer/why-freelancer",
+        header: "EMPLOYER"
+      },
+      {
+        name: "priceJob",
+        url: "/price-job",
+        header: "EMPLOYER"
+      },
+      {
+        name: "login",
+        url: "/login",
+        type: "LOGIN"
+      },
+      {
+        name: "userType",
+        url: "/user-type",
+        type: "LOGIN"
+      }
+    ],
 
     httpUri: {
       user: "user",
@@ -907,4 +968,4 @@ angular.module("Common").constant("jsonValue", (function () {
   instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
 
   return instance;
-})());
+});
