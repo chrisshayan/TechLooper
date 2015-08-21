@@ -678,5 +678,9 @@
   "startDateGTEndDate": "Ngày/Giờ Kết Thúc phải sau Ngày/Giờ Bắt Đầu.",
   "jobAlertFail" : "Bạn có thể tạo tối đa 5 Thông Báo Việc Làm với địa chỉ email này.",
   "searchAll": "Tìm Ngay",
-  "oneSearchAllJobs": "Một lần tìm. Vạn công việc"
+  "oneSearchAllJobs": "Một lần tìm. Vạn công việc",
+  "postAnEvent": "Tạo Sự Kiện",
+  "webinar": "Webinar",
+  "allEvents": "Tất cả Sự Kiện",
+  "whatDoWeOffer": "what do we offer?"
 }
