@@ -4,6 +4,7 @@ import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
@@ -18,7 +19,7 @@ public class ChallengeRegistrantEntity {
     @Id
     private Long registrantId;
 
-    @Field(type = String)
+    @Field(type = String, index = FieldIndex.not_analyzed)
     private String registrantEmail;
 
     @Field(type = Long)
@@ -33,7 +34,7 @@ public class ChallengeRegistrantEntity {
     @Field(type = Boolean)
     private Boolean mailSent;
 
-    @Field(type = String)
+    @Field(type = String, index = FieldIndex.not_analyzed)
     private Language lang;
 
     public ChallengeRegistrantEntity() {}
