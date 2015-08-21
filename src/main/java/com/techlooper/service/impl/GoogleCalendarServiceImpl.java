@@ -7,6 +7,7 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.WebinarEntity;
+import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.repository.couchbase.UserRepository;
 import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
@@ -41,7 +42,8 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
   private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
 
   public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, String organiser) throws IOException {
-    String organiserEmail = vnwUserRepo.findByUsernameIgnoreCase(organiser).getEmail();
+    VnwUser vnwUser = vnwUserRepo.findByUsernameIgnoreCase(organiser);
+    String organiserEmail = vnwUser != null ? vnwUser.getEmail() : organiser;
 
     Event event = new Event()
       .setSummary(webinarInfoDto.getName())

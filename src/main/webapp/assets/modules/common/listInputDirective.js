@@ -16,9 +16,9 @@ techlooper.directive("listInput", function () {
 
       scope.addItem = function() {
         scope.listForm.$setSubmitted();
-        if (scope.listForm.$invalid) {
-          return;
-        }
+        if (scope.listForm.$invalid) return;
+
+        if (scope.item === "") return;
 
         scope.ngModel.push(scope.item);
 
