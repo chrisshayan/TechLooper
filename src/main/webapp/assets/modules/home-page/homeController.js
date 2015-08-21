@@ -27,8 +27,8 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
       return;
     }
 
-    var location = undefined;
-    var locationId = undefined;
+    var location = null;
+    var locationId = null;
     if ($scope.jobAlert.locationId && $scope.jobAlert.locationId !== "0") {
       locationId = $scope.jobAlert.locationId;
       location = vnwConfigService.getLocationText(locationId, "en");
