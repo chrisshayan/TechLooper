@@ -5,8 +5,10 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -43,25 +45,40 @@ public class GoogleCalendarTest {
     JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
     HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
 
-    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
-      "339114452335-57uq0b7djh0u478igqj5g3cub376urgp.apps.googleusercontent.com", "qEr_e0VkkMUg4PmCuGGMumjj",
-      Collections.singleton(CalendarScopes.CALENDAR))
-      .setDataStoreFactory(new FileDataStoreFactory(new File(".credentials")))
-      .setAccessType("offline").build();
+//    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
+//      "339114452335-57uq0b7djh0u478igqj5g3cub376urgp.apps.googleusercontent.com", "qEr_e0VkkMUg4PmCuGGMumjj",
+//      Collections.singleton(CalendarScopes.CALENDAR))
+//      .setDataStoreFactory(new FileDataStoreFactory(new File(".credentials")))
+//      .setAccessType("offline").build();
 
-    AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
-    String redirectUri = "http://localhost:8080/login/social/GOOGLE";
-    authorizationUrl.setRedirectUri(redirectUri);
-    System.out.println("Go to the following address:");
-    System.out.println(authorizationUrl);
 
-    System.out.println("What is the 'code' url parameter?");
-    String code = new Scanner(System.in).nextLine();
-    AuthorizationCodeTokenRequest tokenRequest = flow.newTokenRequest(code);
-    tokenRequest.setRedirectUri(redirectUri);
-    TokenResponse tokenResponse = tokenRequest.execute();
+    String emailAddress = "339114452335-ndprm0gt8gsl86ek5ganv7767mg2gc89@developer.gserviceaccount.com";
+    JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    GoogleCredential credential = new GoogleCredential.Builder()
+      .setTransport(httpTransport)
+      .setJsonFactory(JSON_FACTORY)
+      .setServiceAccountId(emailAddress)
+      .setServiceAccountPrivateKeyFromP12File(new File("/Users/phuonghqh/Documents/working/TechLooper/src/test/resources/TechLooper-ccded4853295.p12"))
+      .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
+      .build();
 
-    Credential credential = flow.createAndStoreCredential(tokenResponse, "techlooper");//.loadCredential("techlooper");//.createAndStoreCredential(tokenResponse, "techlooper");
+
+
+
+//    AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
+//    String redirectUri = "http://localhost:8080/login/social/GOOGLE";
+//    authorizationUrl.setRedirectUri(redirectUri);
+//    System.out.println("Go to the following address:");
+//    System.out.println(authorizationUrl);
+//
+//    System.out.println("What is the 'code' url parameter?");
+//    String code = new Scanner(System.in).nextLine();
+//    AuthorizationCodeTokenRequest tokenRequest = flow.newTokenRequest(code);
+//    tokenRequest.setRedirectUri(redirectUri);
+//    TokenResponse tokenResponse = tokenRequest.execute();
+//
+//    Credential credential = flow.createAndStoreCredential(tokenResponse, "techlooper");//.loadCredential("techlooper");//.createAndStoreCredential(tokenResponse, "techlooper");
 
     Calendar service = new Calendar.Builder(transport, jsonFactory, credential)
       .setApplicationName("Techlooper").build();
@@ -71,6 +88,8 @@ public class GoogleCalendarTest {
       .setSummary("Google I/O 2015")
       .setLocation("800 Howard St., San Francisco, CA 94103")
       .setDescription("A chance to hear more about Google's developer products.");
+
+//    event.setHangoutLink()
 
 //    DateTime startDateTime = new DateTime("2015-09-28T09:00:00-07:00");
 //    EventDateTime start = new EventDateTime()
@@ -103,5 +122,6 @@ public class GoogleCalendarTest {
     String calendarId = "techlooperawesome@gmail.com";
     event = service.events().insert(calendarId, event).setSendNotifications(true).execute();
     System.out.printf("Event created: %s\n", event.getHtmlLink());
+    System.out.printf("Event created: %s\n", event.getHangoutLink());
   }
 }

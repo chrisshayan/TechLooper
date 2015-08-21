@@ -7,6 +7,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -99,8 +100,10 @@ public class CoreConfiguration implements ApplicationContextAware {
   @Value("classpath:vnwConfig.json")
   private org.springframework.core.io.Resource vnwConfigRes;
 
-  @Value("classpath:google-auth")
+  @Value("classpath:google-auth/techLooper.p12")
   private org.springframework.core.io.Resource googleApiAuthResource;
+//  @Value("classpath:google-auth")
+//  private org.springframework.core.io.Resource googleApiAuthResource;
 
   private ApplicationContext applicationContext;
 
@@ -403,13 +406,30 @@ public class CoreConfiguration implements ApplicationContextAware {
       .filter(socialConfig -> socialConfig.getProvider() == SocialProvider.GOOGLE)
       .findFirst().get();
 
-    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
-      googleConfig.getApiKey(), googleConfig.getSecretKey(),
-      Collections.singleton(CalendarScopes.CALENDAR))
-      .setDataStoreFactory(new FileDataStoreFactory(googleApiAuthResource.getFile()))
-      .setAccessType("offline").build();
+//    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
+//      googleConfig.getApiKey(), googleConfig.getSecretKey(),
+//      Collections.singleton(CalendarScopes.CALENDAR))
+//      .setDataStoreFactory(new FileDataStoreFactory(googleApiAuthResource.getFile()))
+//      .setAccessType("offline").build();
+//
+//    Credential credential = flow.loadCredential("techlooper");
 
-    Credential credential = flow.loadCredential("techlooper");
+//    String emailAddress = "339114452335-ndprm0gt8gsl86ek5ganv7767mg2gc89@developer.gserviceaccount.com";
+    JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    GoogleCredential credential = new GoogleCredential.Builder()
+      .setTransport(httpTransport)
+      .setJsonFactory(JSON_FACTORY)
+      .setServiceAccountId(googleConfig.getServiceAccountEmail())
+      .setServiceAccountPrivateKeyFromP12File(googleApiAuthResource.getFile())
+      .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
+      .setServiceAccountUser("techlooperawesome@gmail.com")
+      .build();
+
+//    boolean bool = credential.refreshToken();
+//    String token = credential.getAccessToken();
+//    System.out.println(bool);
+//    System.out.println(token);
 
     return new Calendar.Builder(transport, jsonFactory, credential)
       .setApplicationName("Techlooper").build();

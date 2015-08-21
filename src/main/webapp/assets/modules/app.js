@@ -317,6 +317,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   //$('body').click(function(e) {
   //  $rootScope.$broadcast("bodyClicked", e);
   //});
+
+  if (utils.getView() === jsonValue.views.userType) {
+    utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+  }
 });
 
 techlooper.directive("navigation", function () {
