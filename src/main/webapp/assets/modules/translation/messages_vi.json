@@ -676,5 +676,7 @@
   "negotiable" : "Thoả Thuận",
   "to": "đến",
   "startDateGTEndDate": "Ngày/Giờ Kết Thúc phải sau Ngày/Giờ Bắt Đầu.",
-  "jobAlertFail" : "Bạn có thể tạo tối đa 5 Thông Báo Việc Làm với địa chỉ email này."
+  "jobAlertFail" : "Bạn có thể tạo tối đa 5 Thông Báo Việc Làm với địa chỉ email này.",
+  "searchAll": "Tìm Tất Cả",
+  "oneSearchAllJobs": "Một Lần Tìm Cho Tất Cả Các Công Việc"
 }

@@ -676,5 +676,7 @@
   "negotiable" : "Negotiable",
   "to": "to",
   "startDateGTEndDate": "Start date should be ahead of end date.",
-  "jobAlertFail" : "You can add up to 5 Job Alerts only for that email."
+  "jobAlertFail" : "You can add up to 5 Job Alerts only for that email.",
+  "searchAll": "Search All",
+  "oneSearchAllJobs": "One Search All Jobs"
 }
