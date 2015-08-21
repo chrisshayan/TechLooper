@@ -25,13 +25,16 @@ public class JobAlertController {
     @Value("${jobAlert.period}")
     private int CONFIGURED_JOB_ALERT_PERIOD;
 
+    @Value("${jobAlert.enable}")
+    private Boolean enableJobAlert;
+
     @Resource
     private JobAlertService jobAlertService;
 
     @ResponseBody
     @RequestMapping(value = "jobAlert/register", method = RequestMethod.POST)
     public JobAlertRegistrationEntity registerJobAlert(@RequestBody JobAlertRegistration jobAlertRegistration,
-                                                 HttpServletResponse response) throws Exception {
+                                                       HttpServletResponse response) throws Exception {
         boolean isOverLimit = jobAlertService.checkIfUserExceedRegistrationLimit(jobAlertRegistration.getEmail());
         if (isOverLimit) {
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -50,19 +53,21 @@ public class JobAlertController {
 
     @Scheduled(cron = "${scheduled.cron.jobAlert}")
     public void sendJobAlertEmail() throws Exception {
-        List<JobAlertRegistrationEntity> jobAlertRegistrationEntities =
-                jobAlertService.searchJobAlertRegistration(CONFIGURED_JOB_ALERT_PERIOD);
+        if (enableJobAlert) {
+            List<JobAlertRegistrationEntity> jobAlertRegistrationEntities =
+                    jobAlertService.searchJobAlertRegistration(CONFIGURED_JOB_ALERT_PERIOD);
 
-        if (!jobAlertRegistrationEntities.isEmpty()) {
-            for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
-                boolean isAlreadySentToday = checkIfEmailAlreadySentToday(jobAlertRegistrationEntity.getLastEmailSentDateTime());
+            if (!jobAlertRegistrationEntities.isEmpty()) {
+                for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
+                    boolean isAlreadySentToday = checkIfEmailAlreadySentToday(jobAlertRegistrationEntity.getLastEmailSentDateTime());
 
-                if (!isAlreadySentToday) {
-                    Long numberOfJobs = jobAlertService.countJob(jobAlertRegistrationEntity);
-                    if (numberOfJobs > 0) {
-                        List<ScrapeJobEntity> scrapeJobEntities = jobAlertService.searchJob(jobAlertRegistrationEntity);
-                        if (!scrapeJobEntities.isEmpty()) {
-                            jobAlertService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
+                    if (!isAlreadySentToday) {
+                        Long numberOfJobs = jobAlertService.countJob(jobAlertRegistrationEntity);
+                        if (numberOfJobs > 0) {
+                            List<ScrapeJobEntity> scrapeJobEntities = jobAlertService.searchJob(jobAlertRegistrationEntity);
+                            if (!scrapeJobEntities.isEmpty()) {
+                                jobAlertService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
+                            }
                         }
                     }
                 }
