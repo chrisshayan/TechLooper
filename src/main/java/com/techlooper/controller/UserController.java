@@ -277,11 +277,15 @@ public class UserController {
     return personalHomepage;
   }
 
-  @PreAuthorize("hasAnyAuthority('JOB_SEEKER')")
+  @PreAuthorize("hasAnyAuthority('JOB_SEEKER', 'EMPLOYER')")
   @RequestMapping(value = "/user/current", method = RequestMethod.GET)
-  public UserProfileDto getUserProfile() {
-    UserProfileDto userProfile = (UserProfileDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return userProfile;
+  public UserProfileDto getUserProfile(HttpServletRequest request) {
+    Principal userPrincipal = request.getUserPrincipal();
+    Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+    if (!(principal instanceof UserProfileDto)) {
+      return dozerMapper.map(userService.findVnwUserByUsername(request.getRemoteUser()), UserProfileDto.class);
+    }
+    return (UserProfileDto) principal;
   }
 
   @PreAuthorize("hasAnyAuthority('EMPLOYER')")

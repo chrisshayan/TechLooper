@@ -1,6 +1,6 @@
 techlooper.controller("socialPopupController", function($scope, apiService, securityService) {
   $scope.loginBySocial = function (provider) {
-    securityService.removeProtectedLastFoot();
+    //securityService.removeProtectedLastFoot();
     apiService.getSocialLoginUrl(provider).success(function (url) {
       //localStorageService.set("lastFoot", $location.url());
       window.location = url;
@@ -8,6 +8,6 @@ techlooper.controller("socialPopupController", function($scope, apiService, secu
   }
   $scope.closeSignIn = function(){
     $('#signIn').modal('hide');
-    window.location.href = "#/user-type";
+    //window.location.href = "#/user-type";
   }
 });

@@ -7,6 +7,8 @@ import com.techlooper.entity.vnw.RoleName;
  */
 public class UserProfileDto {
 
+  private String username;
+
   private String name;
 
   private String profileImageUrl;
@@ -18,6 +20,14 @@ public class UserProfileDto {
   private String lastName;
 
   private RoleName roleName;
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   public RoleName getRoleName() {
     return roleName;

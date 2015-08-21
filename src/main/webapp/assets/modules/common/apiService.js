@@ -10,13 +10,14 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * Get current login user info
      * */
     getCurrentUser: function (type) {
-      switch (type) {
-        case "social":
-          return $http.get("user/current");
-
-        default:
-          return $http.get("user/vnw-current");
-      }
+      //switch (type) {
+      //  case "social":
+      //    return $http.get("user/current");
+      //
+      //  default:
+      //    return $http.get("user/vnw-current");
+      //}
+      return $http.get("user/current");
     },
 
     logout: function () {
