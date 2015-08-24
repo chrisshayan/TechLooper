@@ -36,6 +36,12 @@ public class VNWJobSearchResponseDataItem {
     @JsonProperty(value = "job_video_url")
     private String videoUrl = "";
 
+    @JsonProperty(value = "salary_min")
+    private Long salaryMin;
+
+    @JsonProperty(value = "salary_max")
+    private Long salaryMax;
+
     public String getUrl() {
         return url;
     }
@@ -98,6 +104,22 @@ public class VNWJobSearchResponseDataItem {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
     }
 
     public JobResponse toJobResponse() {
