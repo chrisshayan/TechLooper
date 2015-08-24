@@ -200,7 +200,8 @@ public class JobAlertServiceImpl implements JobAlertService {
                 JobResponse jobResponse = builder.withTitle(job.getTitle()).withUrl(job.getUrl()).withLocation(job.getLocation())
                         .withCompany(job.getCompany()).withLevel(job.getLevel()).withLogoUrl(job.getLogoUrl())
                         .withPostedOn(job.getPostedOn()).withSalaryMin(job.getSalaryMin()).withSalaryMax(job.getSalaryMax())
-                        .withTechlooperJobType(1).build();
+                        .withTechlooperJobType(1).withSkills(job.getSkills()).withBenefits(job.getBenefits())
+                        .build();
                 result.add(jobResponse);
             }
         }

@@ -1,5 +1,10 @@
 package com.techlooper.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.techlooper.entity.CompanyBenefit;
+
+import java.util.List;
+
 /**
  * Created by phuonghqh on 10/15/14.
  */
@@ -28,6 +33,10 @@ public class JobResponse {
     private Long salaryMax;
 
     private Integer techlooperJobType = 0;
+
+    private List<CompanyBenefit> benefits;
+
+    private List<JobSkill> skills;
 
     public static class Builder {
 
@@ -90,6 +99,16 @@ public class JobResponse {
 
         public Builder withTechlooperJobType(Integer techlooperJobType) {
             instance.techlooperJobType = techlooperJobType;
+            return this;
+        }
+
+        public Builder withBenefits(List<CompanyBenefit> benefits) {
+            instance.benefits = benefits;
+            return this;
+        }
+
+        public Builder withSkills(List<JobSkill> skills) {
+            instance.skills = skills;
             return this;
         }
 
@@ -207,5 +226,21 @@ public class JobResponse {
 
     public void setTechlooperJobType(Integer techlooperJobType) {
         this.techlooperJobType = techlooperJobType;
+    }
+
+    public List<CompanyBenefit> getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(List<CompanyBenefit> benefits) {
+        this.benefits = benefits;
+    }
+
+    public List<JobSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<JobSkill> skills) {
+        this.skills = skills;
     }
 }

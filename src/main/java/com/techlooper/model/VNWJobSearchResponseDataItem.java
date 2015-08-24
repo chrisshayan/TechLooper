@@ -3,6 +3,9 @@ package com.techlooper.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.techlooper.entity.CompanyBenefit;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.ALWAYS)
@@ -41,6 +44,12 @@ public class VNWJobSearchResponseDataItem {
 
     @JsonProperty(value = "salary_max")
     private Long salaryMax;
+
+    @JsonProperty(value = "benefits")
+    private List<CompanyBenefit> benefits;
+
+    @JsonProperty(value = "skills")
+    private List<JobSkill> skills;
 
     public String getUrl() {
         return url;
@@ -120,6 +129,22 @@ public class VNWJobSearchResponseDataItem {
 
     public void setSalaryMax(Long salaryMax) {
         this.salaryMax = salaryMax;
+    }
+
+    public List<CompanyBenefit> getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(List<CompanyBenefit> benefits) {
+        this.benefits = benefits;
+    }
+
+    public List<JobSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<JobSkill> skills) {
+        this.skills = skills;
     }
 
     public JobResponse toJobResponse() {
