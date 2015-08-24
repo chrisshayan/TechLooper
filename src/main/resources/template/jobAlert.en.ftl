@@ -159,6 +159,17 @@
                       </td>
                     </tr>
                     <tr>
+                      <td align="center">
+                        <a href="http://www.techlooper.com/#/challenge-detail/job-search-innovation-hackathon-1439866071515-id"target="_blank">
+                          <img src="http://www.techlooper.com/images/hackathon-job-search.png" style="boder: 0; width: 100%" alt="Job Search Innovation Hackathon"></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:20px; line-height: 20px;" width="100%">
+                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
                       <td align="left" style="font-size: 14px;">
                         Hey ${email},
                       </td>
@@ -179,115 +190,115 @@
                       </td>
                     </tr>
                   <#list jobs as job>
-                      <tr>
-                          <td>
-                              <table style="background:#fff; border-collapse: collapse; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
-                                  <tr>
-                                      <td style="background:#a4a6a4; height:1px; line-height: 1px; width: 100%">
-                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                  </tr>
-                              </table>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                          </td>
-                      </tr>
-                      <tr>
-                          <td align="left" width="100%" style="font-size: 14px;">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                                  <tr>
-                                      <td align="left" style="color: #277cbd" >
-                                          <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.jobTitleUrl}" target="_blank">${job.jobTitle}</a>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td style="height:5px; line-height: 5px;" width="100%">
-                                          <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td align="left" style="color: #a4a6a4" >
-                                        <#if job.company??>${job.company}</#if>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td style="height:5px; line-height: 5px;" width="100%">
-                                          <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td align="left" style="pcolor: #892890" >
-                                          Location: <#if job.location??>${job.location}</#if>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td style="height:5px; line-height: 5px;" width="100%">
-                                          <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td align="left" style="color: #892890" >
-                                          Salary: <span style="color: #277cbd"><#if job.salary?has_content>${job.salary}<#else>Negotiable</#if></span>
-                                      </td>
-                                  </tr>
-                              </table>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                          </td>
-                      </tr>
+                    <tr>
+                      <td>
+                        <table style="background:#fff; border-collapse: collapse; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
+                          <tr>
+                            <td style="background:#a4a6a4; height:1px; line-height: 1px; width: 100%">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" width="100%" style="font-size: 14px;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                          <tr>
+                            <td align="left" style="color: #277cbd" >
+                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.jobTitleUrl}" target="_blank">${job.jobTitle}</a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="height:5px; line-height: 5px;" width="100%">
+                              <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="color: #a4a6a4" >
+                              <#if job.company??>${job.company}</#if>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="height:5px; line-height: 5px;" width="100%">
+                              <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="pcolor: #892890" >
+                              Location: <#if job.location??>${job.location}</#if>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="height:5px; line-height: 5px;" width="100%">
+                              <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="color: #892890" >
+                              Salary: <span style="color: #277cbd"><#if job.salary?has_content>${job.salary}<#else>Negotiable</#if></span>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
                   </#list>
-                      <tr>
-                          <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                          </td>
-                      </tr>
-                      <tr>
-                          <td width="100%" align="center">
-                              <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
-                                  <tr>
-                                      <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                          <a href="${webBaseUrl}#/job-listing/${searchPath}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View More</a>
-                                      </td>
-                                  </tr>
-                              </table>
-                          </td>
-                      </tr>
-              <tr>
-                <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
+                    <tr>
+                      <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="center">
+                        <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
+                          <tr>
+                            <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
+                              <a href="${webBaseUrl}#/job-listing/${searchPath}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View More</a>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
 
-                  <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:5px 0 0 0; padding-top:5px;padding-bottom:5px;" />
-                  <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
-                    <tr>
-                      <td style="text-align: center; margin-top:0px">
-                        <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center; margin-top:0px">
-                        <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; height:20px; display: inline-block">
-                          <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-                  <!--Copyright -->
-                  <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
-                    <tr>
-                      <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                        Copyright © Navigos Group Vietnam Joint Stock Company.
+                        <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:5px 0 0 0; padding-top:5px;padding-bottom:5px;" />
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
+                          <tr>
+                            <td style="text-align: center; margin-top:0px">
+                              <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="text-align: center; margin-top:0px">
+                              <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; height:20px; display: inline-block">
+                                <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                        <!--Copyright -->
+                        <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
+                          <tr>
+                            <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
+                              Copyright © Navigos Group Vietnam Joint Stock Company.
+                            </td>
+                          </tr>
+                        </table>
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
-            </table>
-          </td>
-        </tr>
         </tbody>
       </table>
     </td>
