@@ -223,6 +223,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/create-event/create-event.html",
         controller: "createEventController"
       })
+      .when("/all-events", {
+        templateUrl: "modules/all-events/all-events.html",
+        controller: "allEventsController"
+      })
+      .when("/event-details", {
+        templateUrl: "modules/event-details/event-details.html",
+        controller: "eventDetailsController"
+      })
       .otherwise({
         redirectTo: function (err, path, params) {
           if (!$.isEmptyObject(params)) {
