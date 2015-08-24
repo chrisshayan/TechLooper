@@ -223,18 +223,22 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/create-event/create-event.html",
         controller: "createEventController"
       })
-      .when("/all-events", {
-        templateUrl: "modules/all-events/all-events.html",
-        controller: "allEventsController"
+      .when("/events", {
+        templateUrl: "modules/events/events.html",
+        controller: "eventsController"
       })
       .when("/event-details", {
         templateUrl: "modules/event-details/event-details.html",
         controller: "eventDetailsController"
       })
+      .when("/loading", {
+        templateUrl: "modules/loading-box/loadingBox.html",
+        controller: "loadingBoxController"
+      })
       .otherwise({
         redirectTo: function (err, path, params) {
           if (!$.isEmptyObject(params)) {
-            return undefined;
+            return "/loading";
           }
 
           if (window.location.host.indexOf("hiring") >= 0) {

@@ -51,10 +51,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       }
 
       $rootScope.userInfo = undefined;
-      utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+      //utils.sendNotification(jsonValue.notifications.loading, $(window).height());
       return apiService.getCurrentUser(type)
         .success(function (data) {
-          utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
+          //utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
 
           $rootScope.userInfo = data;
 
@@ -66,8 +66,9 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           //localStorageService.remove("lastFoot");
 
           //instance.routeByRole();
-        })
-        .error(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
+        });
+        //.error(function () {
+        //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
 
     login: function (username, password, type) {
@@ -122,7 +123,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         }
 
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
-        var fromPath =  current && current.$$route && current.$$route.originalPath;
+        var fromPath = current && current.$$route && current.$$route.originalPath;
         var shouldKeepPreviousFoot = isSignInView && fromPath;
         if (shouldKeepPreviousFoot) {// should keep last print
           localStorageService.set("lastFoot", fromPath);
