@@ -27,4 +27,6 @@ public interface JobAlertService {
 
     boolean checkIfUserExceedRegistrationLimit(String email);
 
+    void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, Integer code);
+
 }

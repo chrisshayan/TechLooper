@@ -4,6 +4,7 @@ import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.JobAlertRegistration;
 import com.techlooper.service.JobAlertService;
+import com.techlooper.service.impl.JobAlertServiceImpl;
 import com.techlooper.util.DateTimeUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
+import static com.techlooper.service.impl.JobAlertServiceImpl.*;
 
 @Controller
 public class JobAlertController {
@@ -67,8 +70,12 @@ public class JobAlertController {
                             List<ScrapeJobEntity> scrapeJobEntities = jobAlertService.searchJob(jobAlertRegistrationEntity);
                             if (!scrapeJobEntities.isEmpty()) {
                                 jobAlertService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
+                            } else {
+                                jobAlertService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_JOB_NOT_FOUND);
                             }
                         }
+                    } else {
+                        jobAlertService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_ALREADY_SENT_ON_TODAY);
                     }
                 }
             }

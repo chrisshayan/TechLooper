@@ -45,6 +45,12 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     private static final long CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION = 5;
 
+    public final static int JOB_ALERT_SENT_OK = 200;
+
+    public final static int JOB_ALERT_JOB_NOT_FOUND = 400;
+
+    public final static int JOB_ALERT_ALREADY_SENT_ON_TODAY = 301;
+
     @Value("${jobAlert.period}")
     private int CONFIGURED_JOB_ALERT_PERIOD;
 
@@ -162,6 +168,7 @@ public class JobAlertServiceImpl implements JobAlertService {
 
 
         jobAlertRegistrationEntity.setLastEmailSentDateTime(parseDate2String(new Date(), "dd/MM/yyyy HH:mm"));
+        jobAlertRegistrationEntity.setLastEmailSentCode(JOB_ALERT_SENT_OK);
         jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
     }
 
@@ -284,6 +291,14 @@ public class JobAlertServiceImpl implements JobAlertService {
 
         long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();
         return numberOfRegistrations >= CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION;
+    }
+
+    @Override
+    public void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, Integer code) {
+        if (jobAlertRegistrationEntity != null) {
+            jobAlertRegistrationEntity.setLastEmailSentCode(code);
+            jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
+        }
     }
 
     private NativeSearchQueryBuilder getJobAlertSearchQueryBuilder(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
