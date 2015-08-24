@@ -223,12 +223,29 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/create-event/create-event.html",
         controller: "createEventController"
       })
+      .when("/all-events", {
+        templateUrl: "modules/all-events/all-events.html",
+        controller: "allEventsController"
+      })
+      .when("/event-details", {
+        templateUrl: "modules/event-details/event-details.html",
+        controller: "eventDetailsController"
+      })
       .otherwise({
-        redirectTo: function () {
+        redirectTo: function (err, path, params) {
+          if (!$.isEmptyObject(params)) {
+            return undefined;
+          }
+
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
           return "/home";
+        },
+        resolve: {
+          resolvedVal: function($http) {
+            return $http.get('http://endpoint.com/test');
+          }
         }
       });
   }]);
@@ -293,34 +310,40 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
       //TODO route user to login by social
       case "loginBySocial":
-        localStorageService.set("social", param.social);
-        localStorageService.set("code", param.code);
+        securityService.login(param.code, param.social, param.social);
         break;
 
       case "redirectJA":
         window.location.href = param.targetUrl;
         break;
     }
+
+    //localStorageService.set("redirectUrl", $location.url());
+
 //http://localhost:8080/#/salary-review?campaign=email&lang=en&id=MTQzOTUyNjczMDI4Ng==&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport
-    var lastFoot = localStorageService.get("lastFoot");
-    localStorageService.remove("lastFoot");
-    if (lastFoot && !param.utm_campaign) {
-      if (lastFoot !== "/login" && lastFoot !== "/user-type") {
-        return $location.url(lastFoot);
-      }
-      //return $location.url(lastFoot);
-    }
+
+    //var lastFoot = localStorageService.get("lastFoot");
+    //console.log(lastFoot);
+    //localStorageService.remove("lastFoot");
+    //if (lastFoot && !param.utm_campaign) {
+    //  if (lastFoot !== "/login" && lastFoot !== "/user-type") {
+    //    return $location.url(lastFoot);
+    //  }
+    //}
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
+
+
 
   //$('body').click(function(e) {
   //  $rootScope.$broadcast("bodyClicked", e);
   //});
 
-  if (utils.getView() === jsonValue.views.userType) {
-    utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-  }
+  //if (utils.getView() === jsonValue.views.userType) {
+  //  utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+  //}
+
 });
 
 techlooper.directive("navigation", function () {

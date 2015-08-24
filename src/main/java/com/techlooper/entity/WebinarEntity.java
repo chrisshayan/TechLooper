@@ -1,7 +1,7 @@
 package com.techlooper.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -17,20 +17,27 @@ public class WebinarEntity {
 
   private String name;
 
+  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
   private String startDate;
 
+  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
   private String endDate;
 
   private String description;
 
   private Set<String> attendees;
 
+  @Field(index = FieldIndex.not_analyzed)
   private String organiser;
 
+  @Field(index = FieldIndex.not_analyzed)
   private String where = "Google Hangout";
 
+  @Field(index = FieldIndex.not_analyzed)
   private String calendarUrl;
 
+
+  @Field(index = FieldIndex.not_analyzed)
   private String hangoutLink;
 
   private String whatEvent;

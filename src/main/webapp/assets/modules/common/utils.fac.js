@@ -3,6 +3,19 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
 
   var instance = {
 
+    getUiView: function () {
+      var path = $location.path();
+      var rs = {};
+      $.each(jsonValue.uiViews, function (i, view) {
+        if ((view.regex === undefined && view.url === path) ||
+          (view.regex !== undefined && view.regex.test(path))) {
+          rs = view;
+          return false;
+        }
+      });
+      return rs;
+    },
+
     gotoLastFoot: function() {
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
@@ -301,6 +314,12 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
       else if (/\/post-event/.test(path)) {
         return jsonValue.views.createEvent;
+      }
+      else if (/\/all-events/.test(path)) {
+        return jsonValue.views.allEvents;
+      }
+      else if (/\/event-details/.test(path)) {
+        return jsonValue.views.eventDetails;
       }
     },
 

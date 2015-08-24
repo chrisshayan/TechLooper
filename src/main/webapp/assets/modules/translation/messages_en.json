@@ -678,5 +678,9 @@
   "startDateGTEndDate": "Start date should be ahead of end date.",
   "jobAlertFail" : "You can add up to 5 Job Alerts only for that email.",
   "searchAll": "Search All",
-  "oneSearchAllJobs": "One Search. All Jobs"
+  "oneSearchAllJobs": "One Search. All Jobs",
+  "postAnEvent": "Post An Event",
+  "webinar": "Webinar",
+  "allEvents": "All Events",
+  "whatDoWeOffer": "What do we offer?"
 }
