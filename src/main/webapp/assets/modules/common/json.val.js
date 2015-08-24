@@ -926,6 +926,23 @@ techlooper.factory("jsonValue", function () {
       {id: 12, name: "19 years"},
       {id: 12, name: "> 20 years"}
     ],
+    "benefitIcons": [
+      {id: '1',iconClass: 'fa-dollar'},
+      {id: '2', iconClass: 'fa-user-md'},
+      {id: '3', iconClass: 'fa-file-image-o'},
+      {id: '4', iconClass: 'fa-graduation-cap'},
+      {id: '5', iconClass: 'fa-trophy'},
+      {id: '6', iconClass: 'fa-book'},
+      {id: '7', iconClass: 'fa-laptop'},
+      {id: '8', iconClass: 'fa-mobile'},
+      {id: '9', iconClass: 'fa-plane'},
+      {id: '10', iconClass: 'fa-glass'},
+      {id: '11', iconClass: 'fa-cab'},
+      {id: '12', iconClass: 'fa-coffee'},
+      {id: '13', iconClass: 'fa-gift'},
+      {id: '14', iconClass: 'fa-child'},
+      {id: '15', iconClass: 'fa-check-square-o'}
+    ],
     "companyPromotion": {
       "title": "companyTitle",
       "tagLine": "companyMessages",
@@ -970,6 +987,9 @@ techlooper.factory("jsonValue", function () {
 
   var currentYear = new Date().getFullYear();//yrs old from 15 to 99
   instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
+
+  instance.benefitIconsMap = {};
+  $.each(instance.benefitIcons, function (i, icon) {instance.benefitIconsMap[icon.id] = icon;});
 
   return instance;
 });
