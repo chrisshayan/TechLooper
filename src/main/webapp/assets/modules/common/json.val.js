@@ -220,7 +220,7 @@ techlooper.factory("jsonValue", function () {
       howItWorks: "howItWorks",
       jobListing: "jobListing",
       createEvent: "createEvent",
-      allEvents: "allEvents",
+      events: "events",
       eventDetails: "eventDetails"
     },
 
@@ -310,7 +310,7 @@ techlooper.factory("jsonValue", function () {
       howItWorks: "howItWorks",
       jobListing: "jobListing",
       createEvent: "createEvent",
-      allEvents: "allEvents",
+      events: "events",
       eventDetails: "eventDetails"
     },
 
