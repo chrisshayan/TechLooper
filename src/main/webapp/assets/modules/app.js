@@ -224,11 +224,20 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "createEventController"
       })
       .otherwise({
-        redirectTo: function (securityService) {
+        redirectTo: function (err, path, params) {
+          if (!$.isEmptyObject(params)) {
+            return undefined;
+          }
+
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
           return "/home";
+        },
+        resolve: {
+          resolvedVal: function($http) {
+            return $http.get('http://endpoint.com/test');
+          }
         }
       });
   }]);

@@ -8,6 +8,6 @@ techlooper.controller("socialPopupController", function($scope, apiService, secu
   }
   $scope.closeSignIn = function(){
     $('#signIn').modal('hide');
-    //window.location.href = "#/user-type";
+    window.location.href = "#/user-type";
   }
 });

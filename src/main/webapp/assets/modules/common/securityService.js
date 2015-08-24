@@ -101,7 +101,6 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
     initialize: function () {
       $rootScope.$on("$locationChangeSuccess", function (event, next, current) {
-        console.log(456);
         $rootScope.currentUiView = utils.getUiView();
         if ($rootScope.currentUiView.name == "rootPage") {
           return false;
@@ -117,7 +116,11 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       });
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
-        console.log(123);
+        var fromLastPrint = localStorageService.get("lastFoot");
+        if (fromLastPrint) {
+          return event.preventDefault();
+        }
+
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
         var fromPath =  current && current.$$route && current.$$route.originalPath;
         var shouldKeepPreviousFoot = isSignInView && fromPath;
@@ -145,6 +148,8 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         }
 
       });
+
+      if (!$rootScope.userInfo) instance.getCurrentUser();
     }
   };
 
