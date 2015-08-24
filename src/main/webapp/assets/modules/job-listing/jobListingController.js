@@ -10,7 +10,6 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
       $scope.jobs = response.jobs;
-      console.log($scope.jobs);
     });
   } else {
     var searchParams = searchText.split("+");
@@ -32,9 +31,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
     $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
   }
-  $('p.offers').on("click", function(){
-    $(this).next().toggleClass( "show", 1000);
-  });
+
   $scope.getPageRange = function() {
     var numberOfShownPages = 5;
 
