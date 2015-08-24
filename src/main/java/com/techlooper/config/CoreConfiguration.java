@@ -2,20 +2,13 @@ package com.techlooper.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventAttendee;
-import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
@@ -56,15 +49,12 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
@@ -181,6 +171,10 @@ public class CoreConfiguration implements ApplicationContextAware {
         mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
           .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
           .fields("minSalary", "netSalary");
+
+//        mapping(WebinarInfoDto.class, WebinarEntity.class)
+//          .fields("startDate", "startDate", FieldsMappingOptions.customConverter(DateTime2BasicOrdinalDateTimeConverter.class))
+//          .fields("endDate", "endDate", FieldsMappingOptions.customConverter(DateTime2BasicOrdinalDateTimeConverter.class));
       }
     });
     return dozerBeanMapper;

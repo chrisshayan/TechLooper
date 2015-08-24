@@ -19,8 +19,6 @@ techlooper.directive("listInput", function () {
         //scope.listForm.inputItem.$setValidity("requiredToInput", !requiredToInput);
         scope.listForm.$setSubmitted();
 
-        console.log(scope.listForm);
-
         if (scope.listForm.$invalid) return;
 
         scope.ngModel.push(scope.item);
