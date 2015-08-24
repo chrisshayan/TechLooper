@@ -64,15 +64,16 @@
             <p translate="noData"></p>
           </div>
           <div class="hot-jobs">
-            <div class="job-item">
+            <div class="job-item" ng-repeat="job in jobs | filter:{ techlooperJobType: '1' }">
               <div class="left-content">
-                <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">Hot Job Name</a></h4>
+                <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
                 <ul class="info">
-                  <li class="date"><i class="fa fa-calendar"></i>12/05/2015</li>
-                  <li class="location"><i class="fa fa-map-marker"></i>Ho Chi Minh</li>
+                  <li class="date"><i class="fa fa-calendar"></i>{{job.postedOn}}</li>
+                  <li class="location"><i class="fa fa-map-marker"></i>{{job.location}}</li>
                 </ul>
                 <p><i class="fa fa-money"></i><span translate="salary"></span>:
-                  <strong>$10,000</strong></p>
+                  <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
+                  <strong>{{job.salary}}</strong></p>
                 <div class="skills-list">
                   <ul>
                     <li>
@@ -111,226 +112,14 @@
               </div>
               <div class="right-content">
                 <ul>
-                  <li>Company Name</li>
-                  <li><img src="images/cp-logo-techcombank.png" alt=""/></li>
-                  <li><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" translate="viewDetails"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="job-item">
-              <div class="left-content">
-                <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">Hot Job Name</a></h4>
-                <ul class="info">
-                  <li class="date"><i class="fa fa-calendar"></i>12/05/2015</li>
-                  <li class="location"><i class="fa fa-map-marker"></i>Ho Chi Minh</li>
-                </ul>
-                <p><i class="fa fa-money"></i><span translate="salary"></span>:
-                  <strong>$10,000</strong></p>
-                <div class="skills-list">
-                  <ul>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Angular JS</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Spring</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Photoshop, Illustrator, UI/UX Design</i>
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="offers-list">
-                  <p class="offers">
-                    <i class="fa fa-fw fa-gift blue"></i><span translate="whatDoWeOffer" ></span>
-                  </p>
-                  <ul>
-                    <li><i class="fa fa-fw fa-gift"></i>13th salary payment, opportunities to have training in Japan</li>
-                    <li><i class="fa fa-fw fa-gift"></i>Premium healthcare insurance</li>
-                    <li><i class="fa fa-fw fa-gift"></i> 15 days full paid annual leave per year</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="right-content">
-                <ul>
-                  <li>Company Name</li>
-                  <li><img src="images/cp-logo-techcombank.png" alt=""/></li>
-                  <li><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" translate="viewDetails"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="job-item">
-              <div class="left-content">
-                <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">Hot Job Name</a></h4>
-                <ul class="info">
-                  <li class="date"><i class="fa fa-calendar"></i>12/05/2015</li>
-                  <li class="location"><i class="fa fa-map-marker"></i>Ho Chi Minh</li>
-                </ul>
-                <p><i class="fa fa-money"></i><span translate="salary"></span>:
-                  <strong>$10,000</strong></p>
-                <div class="skills-list">
-                  <ul>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Angular JS</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Spring</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Photoshop, Illustrator, UI/UX Design</i>
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="offers-list">
-                  <p class="offers">
-                    <i class="fa fa-fw fa-gift blue"></i><span translate="whatDoWeOffer" ></span>
-                  </p>
-                  <ul>
-                    <li><i class="fa fa-fw fa-gift"></i>13th salary payment, opportunities to have training in Japan</li>
-                    <li><i class="fa fa-fw fa-gift"></i>Premium healthcare insurance</li>
-                    <li><i class="fa fa-fw fa-gift"></i> 15 days full paid annual leave per year</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="right-content">
-                <ul>
-                  <li>Company Name</li>
-                  <li><img src="images/cp-logo-techcombank.png" alt=""/></li>
-                  <li><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" translate="viewDetails"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="job-item">
-              <div class="left-content">
-                <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">Hot Job Name</a></h4>
-                <ul class="info">
-                  <li class="date"><i class="fa fa-calendar"></i>12/05/2015</li>
-                  <li class="location"><i class="fa fa-map-marker"></i>Ho Chi Minh</li>
-                </ul>
-                <p><i class="fa fa-money"></i><span translate="salary"></span>:
-                  <strong>$10,000</strong></p>
-                <div class="skills-list">
-                  <ul>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Angular JS</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Spring</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Photoshop, Illustrator, UI/UX Design</i>
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="offers-list">
-                  <p class="offers">
-                    <i class="fa fa-fw fa-gift blue"></i><span translate="whatDoWeOffer" ></span>
-                  </p>
-                  <ul>
-                    <li><i class="fa fa-fw fa-gift"></i>13th salary payment, opportunities to have training in Japan</li>
-                    <li><i class="fa fa-fw fa-gift"></i>Premium healthcare insurance</li>
-                    <li><i class="fa fa-fw fa-gift"></i> 15 days full paid annual leave per year</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="right-content">
-                <ul>
-                  <li>Company Name</li>
-                  <li><img src="images/cp-logo-techcombank.png" alt=""/></li>
-                  <li><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" translate="viewDetails"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="job-item">
-              <div class="left-content">
-                <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">Hot Job Name</a></h4>
-                <ul class="info">
-                  <li class="date"><i class="fa fa-calendar"></i>12/05/2015</li>
-                  <li class="location"><i class="fa fa-map-marker"></i>Ho Chi Minh</li>
-                </ul>
-                <p><i class="fa fa-money"></i><span translate="salary"></span>:
-                  <strong>$10,000</strong></p>
-                <div class="skills-list">
-                  <ul>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Angular JS</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Spring</i>
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="left">
-                        <span class="right">
-                          <i>Photoshop, Illustrator, UI/UX Design</i>
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="offers-list">
-                  <p class="offers">
-                    <i class="fa fa-fw fa-gift blue"></i><span translate="whatDoWeOffer" ></span>
-                  </p>
-                  <ul>
-                    <li><i class="fa fa-fw fa-gift"></i>13th salary payment, opportunities to have training in Japan</li>
-                    <li><i class="fa fa-fw fa-gift"></i>Premium healthcare insurance</li>
-                    <li><i class="fa fa-fw fa-gift"></i> 15 days full paid annual leave per year</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="right-content">
-                <ul>
-                  <li>Company Name</li>
-                  <li><img src="images/cp-logo-techcombank.png" alt=""/></li>
+                  <li>{{job.company}}</li>
+                  <li ng-show="job.logoUrl.length"><img ng-src="{{job.logoUrl}}" alt=""/></li>
                   <li><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" translate="viewDetails"></a></li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="job-item" ng-repeat="job in jobs">
+          <div class="job-item" ng-repeat="job in jobs | filter:{ techlooperJobType: '0' }">
             <div class="left-content">
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul>
