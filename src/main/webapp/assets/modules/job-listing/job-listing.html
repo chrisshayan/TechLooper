@@ -104,9 +104,10 @@
                     <i class="fa fa-fw fa-gift blue"></i><span translate="whatDoWeOffer" ></span>
                   </p>
                   <ul>
-                    <li><i class="fa fa-fw fa-gift"></i>13th salary payment, opportunities to have training in Japan</li>
-                    <li><i class="fa fa-fw fa-gift"></i>Premium healthcare insurance</li>
-                    <li><i class="fa fa-fw fa-gift"></i> 15 days full paid annual leave per year</li>
+                    <li ng-repeat="offer in job.benefits">
+                      <i class="fa fa-fw {{jsonValue.benefitIconsMap[offer.benefitId].iconClass}}"></i>
+                      {{offer.benefitValue}}
+                    </li>
                   </ul>
                 </div>
               </div>
