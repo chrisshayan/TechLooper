@@ -23,6 +23,12 @@ public class JobResponse {
 
     private String salary;
 
+    private Long salaryMin;
+
+    private Long salaryMax;
+
+    private Integer techlooperJobType = 0;
+
     public static class Builder {
 
         private JobResponse instance = new JobResponse();
@@ -69,6 +75,21 @@ public class JobResponse {
 
         public Builder withSalary(String salary) {
             instance.salary = salary;
+            return this;
+        }
+
+        public Builder withSalaryMin(Long salaryMin) {
+            instance.salaryMin = salaryMin;
+            return this;
+        }
+
+        public Builder withSalaryMax(Long salaryMax) {
+            instance.salaryMax = salaryMax;
+            return this;
+        }
+
+        public Builder withTechlooperJobType(Integer techlooperJobType) {
+            instance.techlooperJobType = techlooperJobType;
             return this;
         }
 
@@ -162,5 +183,29 @@ public class JobResponse {
 
     public void setSalary(String salary) {
         this.salary = salary;
+    }
+
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
+    }
+
+    public Integer getTechlooperJobType() {
+        return techlooperJobType;
+    }
+
+    public void setTechlooperJobType(Integer techlooperJobType) {
+        this.techlooperJobType = techlooperJobType;
     }
 }

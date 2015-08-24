@@ -682,5 +682,6 @@
   "postAnEvent": "Tạo Sự Kiện",
   "webinar": "Webinar",
   "allEvents": "Tất cả Sự Kiện",
-  "whatDoWeOffer": "what do we offer?"
+  "whatDoWeOffer": "what do we offer?",
+  "cannotInPast": "Trường này không được ở quá khứ."
 }

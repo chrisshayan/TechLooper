@@ -231,10 +231,14 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/event-details/event-details.html",
         controller: "eventDetailsController"
       })
+      .when("/loading", {
+        templateUrl: "modules/loading-box/loadingBox.html",
+        controller: "loadingBoxController"
+      })
       .otherwise({
         redirectTo: function (err, path, params) {
           if (!$.isEmptyObject(params)) {
-            return undefined;
+            return "/loading";
           }
 
           if (window.location.host.indexOf("hiring") >= 0) {

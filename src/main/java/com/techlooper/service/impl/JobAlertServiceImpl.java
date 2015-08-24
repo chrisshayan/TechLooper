@@ -2,13 +2,11 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
-import com.techlooper.model.JobAlertRegistration;
-import com.techlooper.model.JobListingCriteria;
-import com.techlooper.model.JobResponse;
-import com.techlooper.model.Language;
+import com.techlooper.model.*;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
+import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -53,6 +51,9 @@ public class JobAlertServiceImpl implements JobAlertService {
     @Value("${jobAlert.launchDate}")
     private String CONFIGURED_JOB_ALERT_LAUNCH_DATE;
 
+    @Value("${vnw.api.configuration.category.it.software.en}")
+    private String JOB_CATEGORY_IT_SOFTWARE;
+
     @Resource
     private ScrapeJobRepository scrapeJobRepository;
 
@@ -82,6 +83,9 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     @Resource
     private JavaMailSender mailSender;
+
+    @Resource
+    private JobSearchService vietnamWorksJobSearchService;
 
     @Override
     public List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
@@ -163,10 +167,16 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     @Override
     public List<JobResponse> listJob(JobListingCriteria criteria) {
+        List<JobResponse> result = new ArrayList<>();
+        VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest(criteria);
+        VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
+        if (vnwJobSearchResponse.hasData()) {
+            Set<VNWJobSearchResponseDataItem> vnwJobs = vnwJobSearchResponse.getData().getJobs();
+            result.addAll(aggregateJobs(vnwJobs));
+        }
+
         NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
-
-        List<JobResponse> result = new ArrayList<>();
         if (!jobs.isEmpty()) {
             for (ScrapeJobEntity jobEntity : jobs) {
                 JobResponse.Builder builder = new JobResponse.Builder();
@@ -180,6 +190,32 @@ public class JobAlertServiceImpl implements JobAlertService {
             }
         }
         return result;
+    }
+
+    private List<JobResponse> aggregateJobs(Set<VNWJobSearchResponseDataItem> vnwJobs) {
+        List<JobResponse> result = new ArrayList<>();
+        for(VNWJobSearchResponseDataItem job : vnwJobs) {
+            JobResponse.Builder builder = new JobResponse.Builder();
+            if (job.getSalaryMax() != null && job.getSalaryMax() > 0) {
+                JobResponse jobResponse = builder.withTitle(job.getTitle()).withUrl(job.getUrl()).withLocation(job.getLocation())
+                        .withCompany(job.getCompany()).withLevel(job.getLevel()).withLogoUrl(job.getLogoUrl())
+                        .withPostedOn(job.getPostedOn()).withSalaryMin(job.getSalaryMin()).withSalaryMax(job.getSalaryMax())
+                        .withTechlooperJobType(1).build();
+                result.add(jobResponse);
+            }
+        }
+        return result;
+    }
+
+    private VNWJobSearchRequest getTopPriorityJobSearchRequest(JobListingCriteria criteria) {
+        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
+        vnwJobSearchRequest.setJobTitle(criteria.getKeyword());
+        vnwJobSearchRequest.setJobLocation(criteria.getLocation());
+        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT_SOFTWARE);
+        vnwJobSearchRequest.setTechlooperJobType(1);
+        vnwJobSearchRequest.setPageNumber(1);
+        vnwJobSearchRequest.setPageSize(20);
+        return vnwJobSearchRequest;
     }
 
     @Override

@@ -682,5 +682,6 @@
   "postAnEvent": "Post An Event",
   "webinar": "Webinar",
   "allEvents": "All Events",
-  "whatDoWeOffer": "What do we offer?"
+  "whatDoWeOffer": "What do we offer?",
+  "cannotInPast": "This field cannot be in the past."
 }

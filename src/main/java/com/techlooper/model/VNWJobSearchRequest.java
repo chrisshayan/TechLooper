@@ -13,69 +13,91 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class VNWJobSearchRequest {
 
-  @JsonProperty(value = "job_title")
-  private String jobTitle;
+    @JsonProperty(value = "job_title")
+    private String jobTitle;
 
-  @JsonProperty(value = "job_location")
-  private String jobLocation;
+    @JsonProperty(value = "job_location")
+    private String jobLocation;
 
-  @JsonProperty(value = "job_category")
-  private String jobCategories;
+    @JsonProperty(value = "job_category")
+    private String jobCategories;
 
-  @JsonProperty(value = "job_level")
-  private List<Long> jobLevel;
+    @JsonProperty(value = "job_level")
+    private List<Long> jobLevel;
 
-  @JsonProperty(value = "page_number")
-  private String pageNumber;
+    @JsonProperty(value = "page_number")
+    private Integer pageNumber;
 
-  @JsonProperty(value = "job_salary")
-  private Integer jobSalary;
+    @JsonProperty(value = "job_salary")
+    private Integer jobSalary;
 
-  public String getJobTitle() {
-    return jobTitle;
-  }
+    @JsonProperty(value = "tl_type")
+    private Integer techlooperJobType;
 
-  public void setJobTitle(String jobTitle) {
-    this.jobTitle = jobTitle;
-  }
+    @JsonProperty(value = "page_size")
+    private Integer pageSize;
 
-  public String getJobLocation() {
-    return jobLocation;
-  }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-  public void setJobLocation(String jobLocation) {
-    this.jobLocation = jobLocation;
-  }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-  public String getJobCategories() {
-    return jobCategories;
-  }
+    public String getJobLocation() {
+        return jobLocation;
+    }
 
-  public void setJobCategories(String jobCategories) {
-    this.jobCategories = jobCategories;
-  }
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
 
-  public List<Long> getJobLevel() {
-    return jobLevel;
-  }
+    public String getJobCategories() {
+        return jobCategories;
+    }
 
-  public void setJobLevel(List<Long> jobLevel) {
-    this.jobLevel = jobLevel;
-  }
+    public void setJobCategories(String jobCategories) {
+        this.jobCategories = jobCategories;
+    }
 
-  public String getPageNumber() {
-    return pageNumber;
-  }
+    public List<Long> getJobLevel() {
+        return jobLevel;
+    }
 
-  public void setPageNumber(String pageNumber) {
-    this.pageNumber = pageNumber;
-  }
+    public void setJobLevel(List<Long> jobLevel) {
+        this.jobLevel = jobLevel;
+    }
 
-  public Integer getJobSalary() {
-    return jobSalary;
-  }
+    public Integer getJobSalary() {
+        return jobSalary;
+    }
 
-  public void setJobSalary(Integer jobSalary) {
-    this.jobSalary = jobSalary;
-  }
+    public void setJobSalary(Integer jobSalary) {
+        this.jobSalary = jobSalary;
+    }
+
+    public Integer getTechlooperJobType() {
+        return techlooperJobType;
+    }
+
+    public void setTechlooperJobType(Integer techlooperJobType) {
+        this.techlooperJobType = techlooperJobType;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
 }
