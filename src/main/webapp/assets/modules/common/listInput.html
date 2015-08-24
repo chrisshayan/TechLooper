@@ -4,7 +4,7 @@
       <input type="{{config.type}}" id="txtAttendants"
              ng-model="item" class="input-style"
              placeholder="{{config.placeholder | translate}}"
-             name="inputItem" />
+             name="inputItem" ng-required="true" />
       <button type="submit" translate="add" class="btn btn-primary btn-flat add-item" ng-click="addItem()" />
     </div>
     <div class="error-messages" ng-show="(listForm.$submitted || listForm.inputItem.$dirty) && listForm.inputItem.$invalid">
