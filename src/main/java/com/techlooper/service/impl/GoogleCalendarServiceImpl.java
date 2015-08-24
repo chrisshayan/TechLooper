@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -72,5 +73,11 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
 
     entity = webinarRepository.save(entity);
     return dozerMapper.map(entity, WebinarInfoDto.class);
+  }
+
+  public Collection<WebinarInfoDto> findNotExpiredWebinars() {
+    
+
+    return null;
   }
 }

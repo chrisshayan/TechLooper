@@ -3,6 +3,7 @@ package com.techlooper.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class WebinarEntity {
   @Id
   private Long createdDateTime = new Date().getTime();
 
+  @Field(type = FieldType.String)
   private String name;
 
   @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
@@ -23,56 +25,26 @@ public class WebinarEntity {
   @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
   private String endDate;
 
+  @Field(type = FieldType.String)
   private String description;
 
-  private Set<String> attendees;
+  @Field(type = FieldType.String)
+  private Collection<String> attendees;
 
-  @Field(index = FieldIndex.not_analyzed)
+  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String organiser;
 
-  @Field(index = FieldIndex.not_analyzed)
+  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String where = "Google Hangout";
 
-  @Field(index = FieldIndex.not_analyzed)
+  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String calendarUrl;
 
-
-  @Field(index = FieldIndex.not_analyzed)
+  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String hangoutLink;
 
+  @Field(type = FieldType.String)
   private String whatEvent;
-
-  public String getWhatEvent() {
-    return whatEvent;
-  }
-
-  public void setWhatEvent(String whatEvent) {
-    this.whatEvent = whatEvent;
-  }
-
-  public String getWhere() {
-    return where;
-  }
-
-  public void setWhere(String where) {
-    this.where = where;
-  }
-
-  public String getHangoutLink() {
-    return hangoutLink;
-  }
-
-  public void setHangoutLink(String hangoutLink) {
-    this.hangoutLink = hangoutLink;
-  }
-
-  public String getCalendarUrl() {
-    return calendarUrl;
-  }
-
-  public void setCalendarUrl(String calendarUrl) {
-    this.calendarUrl = calendarUrl;
-  }
 
   public Long getCreatedDateTime() {
     return createdDateTime;
@@ -114,11 +86,11 @@ public class WebinarEntity {
     this.description = description;
   }
 
-  public Set<String> getAttendees() {
+  public Collection<String> getAttendees() {
     return attendees;
   }
 
-  public void setAttendees(Set<String> attendees) {
+  public void setAttendees(Collection<String> attendees) {
     this.attendees = attendees;
   }
 
@@ -128,5 +100,37 @@ public class WebinarEntity {
 
   public void setOrganiser(String organiser) {
     this.organiser = organiser;
+  }
+
+  public String getWhere() {
+    return where;
+  }
+
+  public void setWhere(String where) {
+    this.where = where;
+  }
+
+  public String getCalendarUrl() {
+    return calendarUrl;
+  }
+
+  public void setCalendarUrl(String calendarUrl) {
+    this.calendarUrl = calendarUrl;
+  }
+
+  public String getHangoutLink() {
+    return hangoutLink;
+  }
+
+  public void setHangoutLink(String hangoutLink) {
+    this.hangoutLink = hangoutLink;
+  }
+
+  public String getWhatEvent() {
+    return whatEvent;
+  }
+
+  public void setWhatEvent(String whatEvent) {
+    this.whatEvent = whatEvent;
   }
 }

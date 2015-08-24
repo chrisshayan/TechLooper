@@ -100,7 +100,9 @@
               <div class="right-content">
                 <ul>
                   <li>{{job.company}}</li>
-                  <li ng-show="job.logoUrl.length"><img ng-src="{{job.logoUrl}}" alt=""/></li>
+                  <li>
+                    <img ng-src="{{job.logoUrl}}" alt="" ng-show="job.logoUrl.length"/>
+                  </li>
                   <li><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" translate="viewDetails"></a></li>
                 </ul>
               </div>
