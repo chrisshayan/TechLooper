@@ -12,6 +12,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
+import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
@@ -172,9 +173,8 @@ public class CoreConfiguration implements ApplicationContextAware {
           .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
           .fields("minSalary", "netSalary");
 
-//        mapping(WebinarInfoDto.class, WebinarEntity.class)
-//          .fields("startDate", "startDate", FieldsMappingOptions.customConverter(DateTime2BasicOrdinalDateTimeConverter.class))
-//          .fields("endDate", "endDate", FieldsMappingOptions.customConverter(DateTime2BasicOrdinalDateTimeConverter.class));
+        mapping(WebinarInfoDto.class, WebinarEntity.class, TypeMappingOptions.oneWay())
+          .exclude("createdDateTime");
       }
     });
     return dozerBeanMapper;

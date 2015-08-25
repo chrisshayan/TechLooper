@@ -130,6 +130,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     createWebinar: function(webinar) {
       return $http.post("user/employer/webinar", webinar);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.findAvailableWebinars
+     * */
+    findAvailableWebinars: function() {
+      return $http.get("user/webinars");
     }
   }
 
