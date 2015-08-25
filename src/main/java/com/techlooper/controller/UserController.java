@@ -6,6 +6,7 @@ import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
@@ -296,11 +297,9 @@ public class UserController {
   @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
   public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
     Principal userPrincipal = request.getUserPrincipal();
-    String organiser = request.getRemoteUser();
     Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
-    if (principal instanceof UserProfileDto) {
-      organiser = ((UserProfileDto)principal).getEmail();
-    }
+    UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto)principal) :
+      dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
     return webinarService.createWebinarInfo(webinarInfoDto, organiser);
   }
 }

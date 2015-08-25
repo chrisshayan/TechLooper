@@ -1,6 +1,8 @@
 package com.techlooper.service;
 
 import com.techlooper.dto.WebinarInfoDto;
+import com.techlooper.entity.UserProfile;
+import com.techlooper.model.UserProfileDto;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -10,7 +12,7 @@ import java.util.Collection;
  */
 public interface WebinarService {
 
-  WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, String organiser) throws IOException;
+  WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException;
 
   Collection<WebinarInfoDto> findAvailableWebinars();
 
