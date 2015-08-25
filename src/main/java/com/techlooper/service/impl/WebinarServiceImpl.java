@@ -15,7 +15,6 @@ import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.FilteredQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -29,15 +28,15 @@ import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.FacetedPage;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -48,91 +47,105 @@ import java.util.List;
 @Service
 public class WebinarServiceImpl implements WebinarService {
 
-  @Resource
-  private WebinarRepository webinarRepository;
+    @Resource
+    private WebinarRepository webinarRepository;
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  @Resource
-  private Calendar googleCalendar;
+    @Resource
+    private Calendar googleCalendar;
 
-  @Resource
-  private VnwUserRepo vnwUserRepo;
+    @Resource
+    private VnwUserRepo vnwUserRepo;
 
-  private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
+    private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
-  public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException {
+    public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException {
 
-    Event event = new Event()
-      .setSummary(webinarInfoDto.getName())
-      .setDescription(webinarInfoDto.getDescription());
+        Event event = new Event()
+                .setSummary(webinarInfoDto.getName())
+                .setDescription(webinarInfoDto.getDescription());
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm a");
-    org.joda.time.DateTime startDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getStartDate());
-    org.joda.time.DateTime endDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getEndDate());
-    event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
-    event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm a");
+        org.joda.time.DateTime startDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getStartDate());
+        org.joda.time.DateTime endDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getEndDate());
+        event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
+        event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
 
-    webinarInfoDto.getAttendees().add(organiser.getEmail());
-    EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
-      .map(attEmail -> new EventAttendee().setEmail(attEmail))
-      .toArray(EventAttendee[]::new);
+        webinarInfoDto.getAttendees().add(organiser.getEmail());
+        EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
+                .map(attEmail -> new EventAttendee().setEmail(attEmail))
+                .toArray(EventAttendee[]::new);
 
-    event.setAttendees(Arrays.asList(attendees));
+        event.setAttendees(Arrays.asList(attendees));
 
-    event = googleCalendar.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
+        event = googleCalendar.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
 
-    WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
-    entity.setCalendarUrl(event.getHtmlLink());
-    entity.setHangoutLink(event.getHangoutLink());
+        WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
+        entity.setCalendarUrl(event.getHtmlLink());
+        entity.setHangoutLink(event.getHangoutLink());
 
-    entity.setOrganiser(organiser);
+        entity.setOrganiser(organiser);
 
-    entity = webinarRepository.save(entity);
-    return dozerMapper.map(entity, WebinarInfoDto.class);
-  }
+        entity = webinarRepository.save(entity);
+        return dozerMapper.map(entity, WebinarInfoDto.class);
+    }
 
-  public Collection<WebinarInfoDto> findAvailableWebinars() {
-    DateHistogramBuilder availableWebinar = AggregationBuilders.dateHistogram("availableWebinars").field("startDate")
-      .format("dd/MM/yyyy hh:mm a").interval(DateHistogram.Interval.DAY).order(Histogram.Order.COUNT_DESC);
+    public Collection<WebinarInfoDto> findAvailableWebinars() {
+        DateHistogramBuilder availableWebinar = AggregationBuilders.dateHistogram("availableWebinars").field("startDate")
+                .format("dd/MM/yyyy hh:mm a").interval(DateHistogram.Interval.DAY).order(Histogram.Order.COUNT_DESC);
 
-    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
-      .withIndices("techlooper").withTypes("webinar")
-      .withSearchType(SearchType.COUNT).addAggregation(availableWebinar);
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+                .withIndices("techlooper").withTypes("webinar")
+                .withSearchType(SearchType.COUNT).addAggregation(availableWebinar);
 
-    Aggregations availableWebinarAgg = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
-    Histogram availableWebinarHistogram = (Histogram) availableWebinarAgg.get("availableWebinars");
-    availableWebinarHistogram.getBuckets().stream().map(b -> (InternalHistogram.Bucket) b)
-      .forEach(bucket -> {
-        System.out.println(bucket);
+        Aggregations availableWebinarAgg = elasticsearchTemplate.query(queryBuilder.build(), SearchResponse::getAggregations);
+        Histogram availableWebinarHistogram = (Histogram) availableWebinarAgg.get("availableWebinars");
+        availableWebinarHistogram.getBuckets().stream().map(b -> (InternalHistogram.Bucket) b)
+                .forEach(bucket -> {
+                    System.out.println(bucket);
 
-        RangeFilterBuilder filter = FilterBuilders.rangeFilter("startDate").from(bucket.getKeyAsNumber());
-        FieldSortBuilder sort = SortBuilders.fieldSort("startDate").order(SortOrder.DESC);
+                    RangeFilterBuilder filter = FilterBuilders.rangeFilter("startDate").from(bucket.getKeyAsNumber());
+                    FieldSortBuilder sort = SortBuilders.fieldSort("startDate").order(SortOrder.DESC);
 
-        NativeSearchQueryBuilder qry = new NativeSearchQueryBuilder()
-          .withIndices("techlooper").withTypes("webinar");
-        qry.withFilter(filter);//.withSort(sort);
+                    NativeSearchQueryBuilder qry = new NativeSearchQueryBuilder()
+                            .withIndices("techlooper").withTypes("webinar")
+                            .withSearchType(SearchType.COUNT);
+                    qry.withFilter(filter).withSort(sort).withFilter(filter);
 
-
-//        FilteredQueryBuilder query = QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), filter);
-        List<WebinarEntity> abc = elasticsearchTemplate.queryForList(qry.build(), WebinarEntity.class);
-//        List<WebinarEntity> abc = elasticsearchTemplate.queryForList(qry.build(), WebinarEntity.class);
-
-//        ;
-//        FacetedPage<WebinarEntity> abc = webinarRepository.search(qry.build());
-        System.out.println(abc);
+                    FacetedPage<WebinarEntity> abc = webinarRepository.search(qry.build());
+                    System.out.println(abc);
 //        queryBuilder.
 //        queryBuilder.
 //        queryBuilder.addSort(S)
-      });
+                });
 
 //    FacetedPage<WebinarEntity> abc = webinarRepository.search(queryBuilder);
 //    System.out.println(abc);
 
-    return null;
-  }
+        return null;
+    }
+
+    @Override
+    public List<WebinarInfoDto> listUpcomingWebinar() {
+        List<WebinarInfoDto> upcomingWebinars = new ArrayList<>();
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
+        searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate").from("now"));
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, 3));
+
+        List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
+        if (!webinarEntities.isEmpty()) {
+            for (WebinarEntity webinarEntity : webinarEntities) {
+                WebinarInfoDto webinarInfoDto = dozerMapper.map(webinarEntity, WebinarInfoDto.class);
+                upcomingWebinars.add(webinarInfoDto);
+            }
+        }
+
+        return upcomingWebinars;
+    }
 }
