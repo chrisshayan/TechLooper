@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.UserProfileDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
@@ -31,8 +32,8 @@ public class WebinarEntity {
   @Field(type = FieldType.String)
   private Collection<String> attendees;
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-  private String organiser;
+  @Field( type = FieldType.Nested)
+  private UserProfileDto organiser;
 
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String where = "Google Hangout";
@@ -94,11 +95,11 @@ public class WebinarEntity {
     this.attendees = attendees;
   }
 
-  public String getOrganiser() {
+  public UserProfileDto getOrganiser() {
     return organiser;
   }
 
-  public void setOrganiser(String organiser) {
+  public void setOrganiser(UserProfileDto organiser) {
     this.organiser = organiser;
   }
 

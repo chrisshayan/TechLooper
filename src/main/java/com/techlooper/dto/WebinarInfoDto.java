@@ -8,64 +8,83 @@ import java.util.Set;
  */
 public class WebinarInfoDto implements Serializable {
 
-  private String name;
+    private Long createdDateTime;
 
-  private String startDate;
+    private String name;
 
-  private String endDate;
+    private String startDate;
 
-  private String description;
+    private String endDate;
 
-  private Set<String> attendees;
+    private String description;
 
-  private String whatEvent;
+    private Set<String> attendees;
 
-  public String getWhatEvent() {
-    return whatEvent;
-  }
+    private String whatEvent;
 
-  public void setWhatEvent(String whatEvent) {
-    this.whatEvent = whatEvent;
-  }
+    private String organiser;
 
-  public String getName() {
-    return name;
-  }
+    public String getWhatEvent() {
+        return whatEvent;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setWhatEvent(String whatEvent) {
+        this.whatEvent = whatEvent;
+    }
 
-  public String getStartDate() {
-    return startDate;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setStartDate(String startDate) {
-    this.startDate = startDate;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getEndDate() {
-    return endDate;
-  }
+    public String getStartDate() {
+        return startDate;
+    }
 
-  public void setEndDate(String endDate) {
-    this.endDate = endDate;
-  }
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getEndDate() {
+        return endDate;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
-  public Set<String> getAttendees() {
-    return attendees;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setAttendees(Set<String> attendees) {
-    this.attendees = attendees;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public Set<String> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(Set<String> attendees) {
+        this.attendees = attendees;
+    }
+
+    public String getOrganiser() {
+        return organiser;
+    }
+
+    public void setOrganiser(String organiser) {
+        this.organiser = organiser;
+    }
+
+    public Long getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(Long createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
 }
