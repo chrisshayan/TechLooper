@@ -266,6 +266,8 @@ public class UserController {
         ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
         latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
         personalHomepage.setLatestChallenge(latestChallenge);
+
+        personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
         return personalHomepage;
     }
 
@@ -295,9 +297,5 @@ public class UserController {
                 dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
         return webinarService.createWebinarInfo(webinarInfoDto, organiser);
     }
-
-    @RequestMapping(value = "/webinars", method = RequestMethod.GET)
-    public List<WebinarInfoDto> listUpcomingEvents() {
-        return webinarService.listUpcomingWebinar();
-    }
+    
 }
