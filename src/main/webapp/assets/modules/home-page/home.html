@@ -205,7 +205,10 @@
                   </div>
                   <div class="right-content">
                     <ul>
-                      <li class="name" ng-show="event.description.length">{{event.description | limitTo: 45}}...</li>
+                      <li class="name" ng-show="event.name.length">
+                        {{event.name | limitTo: 45}}
+                        <span ng-show="event.name.length > 45">...</span>
+                      </li>
                       <li><strong>231</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
                     </ul>
                   </div>

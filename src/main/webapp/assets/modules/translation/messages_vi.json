@@ -685,10 +685,11 @@
   "whatDoWeOffer": "what do we offer?",
   "cannotInPast": "Trường này không được ở quá khứ.",
   "register": "Đăng Ký",
-  "upcomingEvents": "Upcoming Events",
-  "viewMoreEvents": "View More Events",
+  "upcomingEvents": "Sự Kiện Sắp Diễn Ra",
+  "viewMoreEvents": "Các Sự Kiện Khác",
   "tellYourFriends": "Tell Your Friends",
   "joinWithFacebook": "Join With Facebook",
   "address": "Address",
-  "companyProfile": "Company Profile"
+  "companyProfile": "Company Profile",
+  "attendantsLabel": "Người tham gia"
 }
