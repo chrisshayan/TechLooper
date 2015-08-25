@@ -32,7 +32,7 @@ public class WebinarEntity {
   @Field(type = FieldType.String)
   private Collection<String> attendees;
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+  @Field( type = FieldType.Nested)
   private UserProfileDto organiser;
 
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
