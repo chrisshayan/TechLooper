@@ -10,14 +10,21 @@ import com.techlooper.entity.WebinarEntity;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.repository.userimport.WebinarRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
-import com.techlooper.service.GoogleCalendarService;
+import com.techlooper.service.WebinarService;
 import org.dozer.Mapper;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramBuilder;
-import org.elasticsearch.search.facet.datehistogram.DateHistogramFacetBuilder;
+import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.integration.annotation.Aggregator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.elasticsearch.core.FacetedPage;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +36,7 @@ import java.util.Collection;
  * Created by phuonghqh on 8/18/15.
  */
 @Service
-public class GoogleCalendarServiceImpl implements GoogleCalendarService {
+public class WebinarServiceImpl implements WebinarService {
 
   @Resource
   private WebinarRepository webinarRepository;
@@ -79,7 +86,12 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
   }
 
   public Collection<WebinarInfoDto> findAvailableWebinars() {
-    AggregationBuilders.dateHistogram("availableWebinars").field("startDate").format("");
+    DateHistogramBuilder availableWebinar = AggregationBuilders.dateHistogram("availableWebinars").field("startDate")
+      .format("dd/MM/yyyy hh:mm a").interval(DateHistogram.Interval.DAY).order(Histogram.Order.COUNT_DESC);
+
+    NativeSearchQuery queryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT).addAggregation(availableWebinar).build();
+    FacetedPage<WebinarEntity> abc = webinarRepository.search(queryBuilder);
+    System.out.println(abc);
 
     return null;
   }
