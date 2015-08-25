@@ -295,4 +295,9 @@ public class UserController {
                 dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
         return webinarService.createWebinarInfo(webinarInfoDto, organiser);
     }
+
+    @RequestMapping(value = "/webinars", method = RequestMethod.GET)
+    public List<WebinarInfoDto> listUpcomingEvents() {
+        return webinarService.listUpcomingWebinar();
+    }
 }
