@@ -82,9 +82,6 @@ public class UserController {
     private EmployerService employerService;
 
     @Resource
-    private GoogleCalendarService googleCalendarService;
-
-    @Resource
     private WebinarService webinarService;
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
@@ -293,16 +290,9 @@ public class UserController {
     @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
     public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
         Principal userPrincipal = request.getUserPrincipal();
-        String organiser = request.getRemoteUser();
         Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
-        if (principal instanceof UserProfileDto) {
-            organiser = ((UserProfileDto) principal).getEmail();
-        }
-        return googleCalendarService.createWebinarInfo(webinarInfoDto, organiser);
-    }
-
-    @RequestMapping(value = "/webinars", method = RequestMethod.GET)
-    public List<WebinarInfoDto> listUpcomingEvents() {
-        return webinarService.listUpcomingWebinar();
+        UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto) principal) :
+                dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
+        return webinarService.createWebinarInfo(webinarInfoDto, organiser);
     }
 }

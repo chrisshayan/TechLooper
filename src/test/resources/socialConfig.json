@@ -40,6 +40,7 @@
     "apiKey": "772729238937-mgmqvv3047pu1u5l5t9ia9df61ipm1uk.apps.googleusercontent.com",
     "secretKey": "NR1E7THY9NoNM115cS9W33_I",
     "redirectUri": "http://localhost:8080/login/social/GOOGLE",
+    "serviceAccountEmail": "339114452335-ndprm0gt8gsl86ek5ganv7767mg2gc89@developer.gserviceaccount.com",
     "apiUrl": {
       "login": "https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri={redirectUri}&response_type=code&client_id={apiKey}"
     }
