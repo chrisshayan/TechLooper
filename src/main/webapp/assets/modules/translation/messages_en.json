@@ -686,5 +686,10 @@
   "cannotInPast": "This field cannot be in the past.",
   "register": "Register",
   "upcomingEvents": "Upcoming Events",
-  "viewMoreEvents": "View More Events"
+  "viewMoreEvents": "View More Events",
+  "tellYourFriends": "Tell Your Friends",
+  "thereAreGoing": "There Are <strong>{{number}}</strong> Going",
+  "joinWithFacebook": "Join With Facebook",
+  "address": "Address",
+  "companyProfile": "Company Profile"
 }
