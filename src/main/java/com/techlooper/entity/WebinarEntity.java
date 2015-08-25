@@ -6,7 +6,6 @@ import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -32,7 +31,7 @@ public class WebinarEntity {
   @Field(type = FieldType.String)
   private Collection<String> attendees;
 
-  @Field( type = FieldType.Nested)
+  @Field(type = FieldType.Nested)
   private UserProfileDto organiser;
 
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)

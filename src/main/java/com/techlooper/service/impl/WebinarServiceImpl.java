@@ -98,7 +98,7 @@ public class WebinarServiceImpl implements WebinarService {
       .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC))
       .withFilter(FilterBuilders.rangeFilter("startDate").from("now"));
 
-    Set<WebinarInfoDto> webinarInfoDtos = new HashSet<>();
+    List<WebinarInfoDto> webinarInfoDtos = new ArrayList<>();
     int pageIndex = 0;
     while (true) {
       queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
