@@ -3,8 +3,8 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
 
   var instance = {
 
-    getUiView: function () {
-      var path = $location.path();
+    getUiView: function (pth) {
+      var path = pth || $location.path();
       var rs = {};
       $.each(jsonValue.uiViews, function (i, view) {
         if ((view.regex === undefined && view.url === path) ||

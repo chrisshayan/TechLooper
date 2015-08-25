@@ -8,18 +8,22 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.WebinarEntity;
 import com.techlooper.entity.vnw.VnwUser;
-import com.techlooper.repository.couchbase.UserRepository;
-import com.techlooper.repository.elasticsearch.WebinarRepository;
+import com.techlooper.repository.userimport.WebinarRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
 import com.techlooper.service.GoogleCalendarService;
 import org.dozer.Mapper;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramBuilder;
+import org.elasticsearch.search.facet.datehistogram.DateHistogramFacetBuilder;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.integration.annotation.Aggregator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -72,5 +76,11 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
 
     entity = webinarRepository.save(entity);
     return dozerMapper.map(entity, WebinarInfoDto.class);
+  }
+
+  public Collection<WebinarInfoDto> findAvailableWebinars() {
+    AggregationBuilders.dateHistogram("availableWebinars").field("startDate").format("");
+
+    return null;
   }
 }

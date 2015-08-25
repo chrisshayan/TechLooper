@@ -14,11 +14,12 @@ techlooper.directive("listInput", function () {
       //var oriItems = angular.copy(scope.ngModel);
 
 
-      scope.addItem = function() {
+      scope.addItem = function () {
+        //var requiredToInput = (!scope.item || scope.item.length == 0);
+        //scope.listForm.inputItem.$setValidity("requiredToInput", !requiredToInput);
         scope.listForm.$setSubmitted();
-        if (scope.listForm.$invalid) return;
 
-        if (!scope.item || scope.item.length == 0) return;
+        if (scope.listForm.$invalid) return;
 
         scope.ngModel.push(scope.item);
 
@@ -26,7 +27,7 @@ techlooper.directive("listInput", function () {
         scope.listForm.$setPristine();
       }
 
-      scope.removeItem = function(index) {
+      scope.removeItem = function (index) {
         scope.ngModel.splice(index, 1);
       }
 
@@ -36,7 +37,13 @@ techlooper.directive("listInput", function () {
         return scope.ngModel.indexOf(modelValue) < 0 && scope.organisers.indexOf(modelValue) < 0;
       };
 
-      scope.status = function(type) {
+      //scope.listForm.inputItem.$validators.requiredToInput = function (modelValue, viewValue) {
+      //  if (!modelValue) return false;
+      //  //if (modelValue.length == 0) return true;
+      //  return modelValue.length > 0;
+      //};
+
+      scope.status = function (type) {
         switch (type) {
           case "organiser":
             var item = arguments[1];
@@ -49,17 +56,6 @@ techlooper.directive("listInput", function () {
 
         return false;
       }
-
-      //scope.$on("bodyClicked", function(targetScope, e) {
-      //  console.log(2);
-      //  if ($(e.target).hasClass("add-item")) {
-      //    console.log(123);
-      //    return;
-      //  }
-      //  console.log(3);
-      //  scope.item = "";
-      //  scope.listForm.$setPristine();
-      //});
     }
   }
 });

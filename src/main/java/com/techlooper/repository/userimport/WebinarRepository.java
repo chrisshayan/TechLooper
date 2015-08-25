@@ -1,4 +1,4 @@
-package com.techlooper.repository.elasticsearch;
+package com.techlooper.repository.userimport;
 
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.WebinarEntity;
