@@ -37,6 +37,9 @@ public class JobAlertRegistrationEntity {
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
     private String lastEmailSentDateTime;
 
+    @Field(type = Integer)
+    private Integer lastEmailSentCode;
+
     public Long getJobAlertRegistrationId() {
         return jobAlertRegistrationId;
     }
@@ -107,5 +110,13 @@ public class JobAlertRegistrationEntity {
 
     public void setLocationId(Integer locationId) {
         this.locationId = locationId;
+    }
+
+    public Integer getLastEmailSentCode() {
+        return lastEmailSentCode;
+    }
+
+    public void setLastEmailSentCode(Integer lastEmailSentCode) {
+        this.lastEmailSentCode = lastEmailSentCode;
     }
 }
