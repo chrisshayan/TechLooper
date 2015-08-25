@@ -187,7 +187,7 @@
           <a href="#/challenges" translate="viewMoreChallenges"></a>
         </div>
       </div>
-      <div class="box-container-block right">
+      <div class="box-container-block right" ng-show="homePage.latestEvents.length">
         <h3 translate="upcomingEvents"></h3>
         <div class="box-content">
           <div class="box-content-detail">
@@ -225,9 +225,27 @@
           <a href="#/events" translate="viewMoreEvents"></a>
         </div>
       </div>
+      <div class="box-container-block right" ng-show="!homePage.latestEvents.length">
+        <h3 translate="latestFreelancerProjects"></h3>
+
+        <div class="box-content">
+          <div class="box-header">
+            <h4 translate="becomeAFreelancer"></h4>
+          </div>
+          <div class="box-content-detail">
+            <div class="freelancer-banner">
+              <img alt="" ng-src="images/freelancers.jpg" src="images/freelancers.jpg">
+            </div>
+          </div>
+
+        </div>
+        <div class="view-more-items">
+          <a translate="viewMoreProjects" href="#/freelancer/projects"></a>
+        </div>
+      </div>
     </div>
 
-    <div class="personal-banner-home-page">
+    <div class="personal-banner-home-page" ng-show="homePage.latestEvents.length">
       <h3 translate="latestFreelancerProjects"></h3>
       <div class="box-content">
         <div class="box-header">
@@ -237,9 +255,9 @@
           <div class="freelancer-banner"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>
         </div>
       </div>
-      <!--<div class="view-more-items" class="hide">-->
-        <!--<a href="#/freelancer/projects" translate="viewMoreProjects"></a>-->
-      <!--</div>-->
+      <div class="view-more-items" class="hide">
+        <a href="#/freelancer/projects" translate="viewMoreProjects"></a>
+      </div>
     </div>
   </div>
 </div>
