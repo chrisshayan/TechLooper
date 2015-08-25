@@ -686,5 +686,9 @@
   "cannotInPast": "Trường này không được ở quá khứ.",
   "register": "Đăng Ký",
   "upcomingEvents": "Upcoming Events",
-  "viewMoreEvents": "View More Events"
+  "viewMoreEvents": "View More Events",
+  "tellYourFriends": "Tell Your Friends",
+  "joinWithFacebook": "Join With Facebook",
+  "address": "Address",
+  "companyProfile": "Company Profile"
 }
