@@ -1,5 +1,7 @@
 package com.techlooper.dto;
 
+import com.techlooper.model.UserProfileDto;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -22,7 +24,7 @@ public class WebinarInfoDto implements Serializable {
 
     private String whatEvent;
 
-    private String organiser;
+    private UserProfileDto organiser;
 
     public String getWhatEvent() {
         return whatEvent;
@@ -72,11 +74,11 @@ public class WebinarInfoDto implements Serializable {
         this.attendees = attendees;
     }
 
-    public String getOrganiser() {
+    public UserProfileDto getOrganiser() {
         return organiser;
     }
 
-    public void setOrganiser(String organiser) {
+    public void setOrganiser(UserProfileDto organiser) {
         this.organiser = organiser;
     }
 
