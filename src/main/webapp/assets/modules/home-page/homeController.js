@@ -49,4 +49,14 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
          }
       });
   }
+
+  $scope.goToJobListing = function(){
+    ga("send", {
+      hitType: "event",
+      eventCategory: "techlooperjobhub",
+      eventAction: "click",
+      eventLabel: "searchallbtn"
+    });
+    window.location.href = "#/job-listing";
+  }
 });
