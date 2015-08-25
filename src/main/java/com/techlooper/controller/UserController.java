@@ -5,7 +5,6 @@ import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.entity.WebinarEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
@@ -20,7 +19,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -84,7 +82,7 @@ public class UserController {
   private EmployerService employerService;
 
   @Resource
-  private GoogleCalendarService googleCalendarService;
+  private WebinarService webinarService;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -303,6 +301,6 @@ public class UserController {
     if (principal instanceof UserProfileDto) {
       organiser = ((UserProfileDto)principal).getEmail();
     }
-    return googleCalendarService.createWebinarInfo(webinarInfoDto, organiser);
+    return webinarService.createWebinarInfo(webinarInfoDto, organiser);
   }
 }

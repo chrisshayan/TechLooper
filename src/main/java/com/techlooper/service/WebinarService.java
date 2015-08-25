@@ -8,10 +8,10 @@ import java.util.Collection;
 /**
  * Created by phuonghqh on 8/17/15.
  */
-public interface GoogleCalendarService {
+public interface WebinarService {
 
   WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, String organiser) throws IOException;
 
-  Collection<WebinarInfoDto> findNotExpiredWebinars();
+  Collection<WebinarInfoDto> findAvailableWebinars();
 
 }
