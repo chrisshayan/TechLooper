@@ -16,7 +16,7 @@
               <li translate="itJobCornerContent3"></li>
             </ul>
             <div class="btn-view-more">
-              <a href="#/job-listing" class="btn btn-primary btn-flat" translate="searchAll"></a>
+              <a class="btn btn-primary btn-flat" translate="searchAll" ng-click="goToJobListing()"></a>
             </div>
           </div>
           <div class="col-md-6 right">
@@ -42,8 +42,6 @@
                 </div>
                 <div class="send-me-jobs-field">
                   <label>{{'keyword' | translate}}:</label>
-                  <!--<input id="jobAlertKeywords" type="text" class="input-style" name="keyword"-->
-                         <!--placeholder="{{'keywordEx' | translate}}" ng-model="jobAlert.keyword" touchable ng-required="true"/>-->
                   <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
                        get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
                   </div>
@@ -75,143 +73,220 @@
         </div>
       </div>
     </div>
-    <div class="box-container-block left">
-      <h3 translate="whatCurrentTrend"></h3>
-
-      <div class="box-content">
-        <div class="box-header">
-          <h4>{{homePage.termStatistic.term}}</h4>
-          <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
+    <div class="main-feature">
+      <div class="box-container-block left">
+        <h3 translate="whatCurrentTrend"></h3>
+        <div class="box-content">
+          <div class="box-header">
+            <h4>{{homePage.termStatistic.term}}</h4>
+            <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
+          </div>
+          <div class="box-content-detail">
+            <div class="main-term">
+              <div class="main-skill-logo">
+                <img ng-src="/{{homePage.termStatistic.logo}}" alt=""/>
+              </div>
+              <div class="main-skill-info">
+                <ul>
+                  <li><span translate="jobs"></span>:<strong>{{homePage.termStatistic.totalJob}}</strong></li>
+                  <li><span translate="salaryRange"></span>:
+                    <strong>${{homePage.termStatistic.averageSalaryMin | number}} -
+                      ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="top-detail-skill-block">
+              <div class="box-header">
+                <h4 translate="topskills"></h4>
+              </div>
+              <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob"
+                         number-width="45"/>
+            </div>
+          </div>
         </div>
-        <div class="box-content-detail">
-          <div class="main-term">
-            <div class="main-skill-logo">
-              <img ng-src="/{{homePage.termStatistic.logo}}" alt=""/>
-            </div>
-            <div class="main-skill-info">
-              <ul>
-                <li><span translate="jobs"></span>:<strong>{{homePage.termStatistic.totalJob}}</strong></li>
-                <li><span translate="salaryRange"></span>:
-                  <strong>${{homePage.termStatistic.averageSalaryMin | number}} -
-                    ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="top-detail-skill-block">
-            <div class="box-header">
-              <h4 translate="topskills"></h4>
-            </div>
-            <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob"
-                       number-width="45"/>
-          </div>
+        <div class="view-more-items">
+          <a href="#/pie-chart" translate="viewMoreTrends"></a>
         </div>
       </div>
-      <div class="view-more-items">
-        <a href="#/pie-chart" translate="viewMoreTrends"></a>
-      </div>
-    </div>
-    <div class="box-container-block">
-      <h3 translate="latestCodingChallenge"></h3>
+      <div class="box-container-block">
+        <h3 translate="latestCodingChallenge"></h3>
 
-      <div class="box-content">
-        <div class="box-header">
-          <h4>
-            {{homePage.latestChallenge.challengeName | limitTo: 23}}
-            <span ng-show="homePage.latestChallenge.challengeName.length > 23">...</span>
-          </h4>
-          <a
-            href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id"
-            translate="viewDetails"></a>
-          <!-- <a href="http://techlooper.com/#/challenge-detail/interactive-job-1436339203843-id" translate="viewDetails"></a> -->
-        </div>
-        <div class="box-content-detail">
-          <div class="row reward-block">
-            <div class="col-md-4"
-                 ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
-              <p translate="stPrize" ng-show="homePage.latestChallenge.secondPlaceReward != null"></p>
-
-              <p translate="prize" ng-show="homePage.latestChallenge.secondPlaceReward == null"></p>
-              <strong>${{homePage.latestChallenge.firstPlaceReward | number:0}}</strong>
-            </div>
-            <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"
-                 ng-show="homePage.latestChallenge.secondPlaceReward != null">
-              <p translate="ndPrize"></p>
-              <strong>${{homePage.latestChallenge.secondPlaceReward | number:0}}</strong>
-            </div>
-            <div class="col-md-4" ng-show="homePage.latestChallenge.thirdPlaceReward != null">
-              <p translate="rdPrize"></p>
-              <strong>${{homePage.latestChallenge.thirdPlaceReward | number:0}}</strong>
-            </div>
+        <div class="box-content">
+          <div class="box-header">
+            <h4>
+              {{homePage.latestChallenge.challengeName | limitTo: 23}}
+              <span ng-show="homePage.latestChallenge.challengeName.length > 23">...</span>
+            </h4>
+            <a
+                href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id"
+                translate="viewDetails"></a>
+            <!-- <a href="http://techlooper.com/#/challenge-detail/interactive-job-1436339203843-id" translate="viewDetails"></a> -->
           </div>
-          <div class="status-of-challenge-block">
-            <div class="status-of-challenge-info">
-              <h4 translate="currentPhase"/>
-              <ul>
-                <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
-                <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}"
-                    translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}">
-                </li>
-              </ul>
+          <div class="box-content-detail">
+            <div class="row reward-block">
+              <div class="col-md-4"
+                   ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
+                <p translate="stPrize" ng-show="homePage.latestChallenge.secondPlaceReward != null"></p>
+
+                <p translate="prize" ng-show="homePage.latestChallenge.secondPlaceReward == null"></p>
+                <strong>${{homePage.latestChallenge.firstPlaceReward | number:0}}</strong>
+              </div>
+              <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"
+                   ng-show="homePage.latestChallenge.secondPlaceReward != null">
+                <p translate="ndPrize"></p>
+                <strong>${{homePage.latestChallenge.secondPlaceReward | number:0}}</strong>
+              </div>
+              <div class="col-md-4" ng-show="homePage.latestChallenge.thirdPlaceReward != null">
+                <p translate="rdPrize"></p>
+                <strong>${{homePage.latestChallenge.thirdPlaceReward | number:0}}</strong>
+              </div>
             </div>
-            <p translate="registerNumber"
-               translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
-          </div>
-          <div class="challenge-overview-block">
-            <p class="title" translate="challengeOverView"></p>
+            <div class="status-of-challenge-block">
+              <div class="status-of-challenge-info">
+                <h4 translate="currentPhase"/>
+                <ul>
+                  <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
+                  <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}"
+                      translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}">
+                  </li>
+                </ul>
+              </div>
+              <p translate="registerNumber"
+                 translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
+            </div>
+            <div class="challenge-overview-block">
+              <p class="title" translate="challengeOverView"></p>
 
-            <p class="detail">
-              <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 160}}"></span>
-              <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
-            </p>
-          </div>
-          <div class="technologies-block">
-            <p class="title">Technologies:</p>
+              <p class="detail">
+                <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 160}}"></span>
+                <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
+              </p>
+            </div>
+            <div class="technologies-block">
+              <p class="title">Technologies:</p>
 
-            <p class="detail">
+              <p class="detail">
               <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies | limitTo: 3">
                 {{skill}}
               </span>
-              <span class="tag" ng-show="homePage.latestChallenge.technologies.length > 3">...</span>
-            </p>
-          </div>
-          <div class="quality-of-idea-block">
-            <p translate="evaluateContestants"></p>
+                <span class="tag" ng-show="homePage.latestChallenge.technologies.length > 3">...</span>
+              </p>
+            </div>
+            <div class="quality-of-idea-block">
+              <p translate="evaluateContestants"></p>
 
-            <p class="detail">
-              {{homePage.latestChallenge.qualityIdea}}
-            </p>
+              <p class="detail">
+                {{homePage.latestChallenge.qualityIdea}}
+              </p>
+            </div>
           </div>
+
         </div>
-
+        <div class="view-more-items">
+          <a href="#/challenges" translate="viewMoreChallenges"></a>
+        </div>
       </div>
-      <div class="view-more-items">
-        <a href="#/challenges" translate="viewMoreChallenges"></a>
+      <div class="box-container-block right">
+        <h3 translate="upcomingEvents"></h3>
+        <div class="box-content">
+          <div class="box-content-detail">
+            <div class="upcoming-events-list">
+              <div class="upcoming-events-by-time">
+                <h4>Saturday, 8 August</h4>
+                <div class="upcoming-event-item">
+                  <div class="left-content">
+                    <p>{{'Owner Name' | limitTo: 10}}</p>
+                    <img src="images/lg-jira.png" alt=""/>
+                  </div>
+                  <div class="right-content">
+                    <ul>
+                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
+                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
+                    </ul>
+                  </div>
+                  <div class="registration-link">
+                    <a href="#/event-details" translate="register"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="upcoming-events-by-time">
+                <h4>Saturday, 8 August</h4>
+                <div class="upcoming-event-item">
+                  <div class="left-content">
+                    <p>{{'Owner Name' | limitTo: 10}}</p>
+                    <img src="images/cp-logo-fpt.png" alt=""/>
+                  </div>
+                  <div class="right-content">
+                    <ul>
+                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
+                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
+                    </ul>
+                  </div>
+                  <div class="registration-link">
+                    <a href="#/event-details" translate="register"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="upcoming-events-by-time">
+                <h4>Saturday, 8 August</h4>
+                <div class="upcoming-event-item">
+                  <div class="left-content">
+                    <p>{{'Owner Name' | limitTo: 10}}</p>
+                    <img src="images/cp-logo-techcombank.png" alt=""/>
+                  </div>
+                  <div class="right-content">
+                    <ul>
+                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
+                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
+                    </ul>
+                  </div>
+                  <div class="registration-link">
+                    <a href="#/event-details" translate="register"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="upcoming-events-by-time">
+                <h4>Saturday, 8 August</h4>
+                <div class="upcoming-event-item">
+                  <div class="left-content">
+                    <p>{{'Owner Name' | limitTo: 10}}</p>
+                    <img src="images/lg-jira.png" alt=""/>
+                  </div>
+                  <div class="right-content">
+                    <ul>
+                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
+                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
+                    </ul>
+                  </div>
+                  <div class="registration-link">
+                    <a href="#/event-details" translate="register"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="view-more-items" class="hide">
+          <a href="#/events" translate="viewMoreEvents"></a>
+        </div>
       </div>
     </div>
-    <div class="box-container-block right">
-      <h3 translate="latestFreelancerProjects"></h3>
 
+    <div class="personal-banner-home-page">
+      <h3 translate="latestFreelancerProjects"></h3>
       <div class="box-content">
         <div class="box-header">
           <h4 translate="becomeAFreelancer"></h4>
         </div>
         <div class="box-content-detail">
-          <div class="freelancer-banner">
-            <img ng-src="images/freelancers.jpg" alt=""/>
-          </div>
+          <div class="freelancer-banner"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>
         </div>
-
       </div>
-      <div class="view-more-items" class="hide">
-        <a href="#/freelancer/projects" translate="viewMoreProjects"></a>
-      </div>
-    </div>
-    <div class="personal-banner-home-page">
-      <h2></h2>
-      <div class="box-content">
-        <img src="images/techlooper-personal-home-page-banner.jpg" alt=""/>
-      </div>
+      <!--<div class="view-more-items" class="hide">-->
+        <!--<a href="#/freelancer/projects" translate="viewMoreProjects"></a>-->
+      <!--</div>-->
     </div>
   </div>
 </div>

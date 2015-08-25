@@ -5,7 +5,6 @@ import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.entity.WebinarEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
@@ -20,7 +19,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +31,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -84,7 +83,7 @@ public class UserController {
   private EmployerService employerService;
 
   @Resource
-  private GoogleCalendarService googleCalendarService;
+  private WebinarService webinarService;
 
   @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
   public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -274,6 +273,8 @@ public class UserController {
     ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
     latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
     personalHomepage.setLatestChallenge(latestChallenge);
+
+    personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
     return personalHomepage;
   }
 
@@ -298,11 +299,14 @@ public class UserController {
   @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
   public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
     Principal userPrincipal = request.getUserPrincipal();
-    String organiser = request.getRemoteUser();
     Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
-    if (principal instanceof UserProfileDto) {
-      organiser = ((UserProfileDto)principal).getEmail();
-    }
-    return googleCalendarService.createWebinarInfo(webinarInfoDto, organiser);
+    UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto) principal) :
+      dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
+    return webinarService.createWebinarInfo(webinarInfoDto, organiser);
+  }
+
+  @RequestMapping(value = "user/webinars", method = RequestMethod.GET)
+  public Collection<WebinarInfoDto> findAvailableWebinars() {
+    return webinarService.findAvailableWebinars();
   }
 }

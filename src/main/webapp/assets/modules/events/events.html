@@ -5,138 +5,28 @@
   <div class="content-page-detail">
     <div class="events-list-block">
       <div class="events-items">
-        <div class="events-by-date">
-          <h3>Jun, 12 2015</h3>
-          <div class="events-item">
+        <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup">
+          <h3>{{webinarInfo.startDate}}</h3>
+          <div class="events-item" ng-repeat="webinar in webinarInfo.webinars">
             <div class="left-content">
               <div class="owner">
                 <img src="images/chris.jpg" alt=""/>
-                <p>Owner Name</p>
+                <p>{{webinar.organiser.name || webinar.organiser.email | textTruncate: 'email' }}</p>
               </div>
             </div>
             <div class="right-content">
               <div class="event-name">
-                <h4><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></h4>
+                <h4><a ng-href="#">{{webinar.name}}</a></h4>
               </div>
               <ul>
                 <li class="time">08:30 PM
                 </li>
-                <li class="register"><strong>34</strong> attendants
+                <li class="register"><strong>{{webinar.attendees.length}}</strong> <span translate="attendants" />
                 </li>
               </ul>
             </div>
             <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a href="#"></a>
-            </div>
-          </div>
-          <div class="events-item">
-            <div class="left-content">
-              <div class="owner">
-                <img src="images/chris.jpg" alt=""/>
-                <p>Owner Name</p>
-              </div>
-            </div>
-            <div class="right-content">
-              <div class="event-name">
-                <h4><a href="#">2015, Technical events & conferences</a></h4>
-              </div>
-              <ul>
-                <li class="time">08:30 PM
-                </li>
-                <li class="register"><strong>34</strong> attendants
-                </li>
-              </ul>
-            </div>
-            <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a href="#"></a>
-            </div>
-          </div>
-          <div class="events-item">
-            <div class="left-content">
-              <div class="owner">
-                <img src="images/chris.jpg" alt=""/>
-                <p>Owner Name</p>
-              </div>
-            </div>
-            <div class="right-content">
-              <div class="event-name">
-                <h4><a href="#">Technical Society is one of the most active societies</a></h4>
-              </div>
-              <ul>
-                <li class="time">08:30 PM
-                </li>
-                <li class="register"><strong>34</strong> attendants
-                </li>
-              </ul>
-            </div>
-            <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a href="#"></a>
-            </div>
-          </div>
-          <div class="events-item">
-            <div class="left-content">
-              <div class="owner">
-                <img src="images/chris.jpg" alt=""/>
-                <p>Owner Name</p>
-              </div>
-            </div>
-            <div class="right-content">
-              <div class="event-name">
-                <h4><a href="#">2015, Technical events & conferences</a></h4>
-              </div>
-              <ul>
-                <li class="time">08:30 PM
-                </li>
-                <li class="register"><strong>34</strong> attendants
-                </li>
-              </ul>
-            </div>
-            <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a href="#"></a>
-            </div>
-          </div>
-          <div class="events-item">
-            <div class="left-content">
-              <div class="owner">
-                <img src="images/chris.jpg" alt=""/>
-                <p>Owner Name</p>
-              </div>
-            </div>
-            <div class="right-content">
-              <div class="event-name">
-                <h4><a href="#">2015, Technical events & conferences</a></h4>
-              </div>
-              <ul>
-                <li class="time">08:30 PM
-                </li>
-                <li class="register"><strong>34</strong> attendants
-                </li>
-              </ul>
-            </div>
-            <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a href="#"></a>
-            </div>
-          </div>
-          <div class="events-item">
-            <div class="left-content">
-              <div class="owner">
-                <img src="images/chris.jpg" alt=""/>
-                <p>Owner Name</p>
-              </div>
-            </div>
-            <div class="right-content">
-              <div class="event-name">
-                <h4><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></h4>
-              </div>
-              <ul>
-                <li class="time">08:30 PM
-                </li>
-                <li class="register"><strong>34</strong> attendants
-                </li>
-              </ul>
-            </div>
-            <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a href="#"></a>
+              <a ng-href="#"></a>
             </div>
           </div>
         </div>
