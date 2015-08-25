@@ -8,16 +8,15 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
       })[0].logo;
   });
 
-  //TODO remove timeout function
   $timeout(function () {
     var tallest = 0;
-    $('.box-container-block').find('.box-content').each(function () {
+    $('.main-feature').find('.box-content').each(function () {
       var thisHeight = $(this).height();
       if (thisHeight > tallest)
         tallest = thisHeight;
     });
-    $('.box-container-block').find('.box-content').height(tallest + $('.cta-button').height());
-  }, 1000);
+    $('.main-feature').find('.box-content').height(tallest + $('.cta-button').height());
+  }, 1300);
 
   $scope.locationsConfig = vnwConfigService.locationsSelectize;
 
@@ -49,5 +48,15 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
            $scope.jobAlert = {};
          }
       });
+  }
+
+  $scope.goToJobListing = function(){
+    ga("send", {
+      hitType: "event",
+      eventCategory: "techlooperjobhub",
+      eventAction: "click",
+      eventLabel: "searchallbtn"
+    });
+    window.location.href = "#/job-listing";
   }
 });

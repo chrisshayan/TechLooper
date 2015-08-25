@@ -85,10 +85,15 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     },
 
     routeByRole: function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
         localStorageService.remove("lastFoot");
-        return $location.url(lastFoot);
+
+        var uiView = utils.getUiView(lastFoot);
+        if (!uiView.ignoreIfLastFoot) {
+          return $location.url(lastFoot);
+        }
       }
 
       switch ($rootScope.userInfo.roleName) {

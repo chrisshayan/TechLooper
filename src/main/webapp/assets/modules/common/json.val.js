@@ -230,6 +230,16 @@ techlooper.factory("jsonValue", function () {
         url: "/"
       },
       {
+        name: "home",
+        url: "/home",
+        ignoreIfLastFoot: true
+      },
+      {
+        name: "employerDashboard",
+        url: "/employer-dashboard",
+        ignoreIfLastFoot: true
+      },
+      {
         name: "postEvent",
         url: "/post-event",
         roles: ["EMPLOYER", "JOB_SEEKER"],
