@@ -683,5 +683,7 @@
   "webinar": "Webinar",
   "allEvents": "Tất cả Sự Kiện",
   "whatDoWeOffer": "what do we offer?",
-  "cannotInPast": "Trường này không được ở quá khứ."
+  "cannotInPast": "Trường này không được ở quá khứ.",
+  "register": "Đăng Ký",
+  "upcomingEvents": "Upcoming Events"
 }
