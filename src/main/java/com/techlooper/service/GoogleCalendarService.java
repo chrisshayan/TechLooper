@@ -12,6 +12,6 @@ public interface GoogleCalendarService {
 
   WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, String organiser) throws IOException;
 
-  Collection<WebinarInfoDto> findNotExpiredWebinars();
+  Collection<WebinarInfoDto> findAvailableWebinars();
 
 }

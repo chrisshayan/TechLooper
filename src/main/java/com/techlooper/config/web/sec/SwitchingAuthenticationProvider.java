@@ -12,33 +12,34 @@ import java.util.Map;
 
 public class SwitchingAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SwitchingAuthenticationProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SwitchingAuthenticationProvider.class);
 
-    private Map<SocialProvider, AuthenticationProvider> providers;
+  private Map<SocialProvider, AuthenticationProvider> providers;
 
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        try {
-            SocialProvider socialProvider = SocialProvider.valueOf(authentication.getCredentials().toString());
-            if (socialProvider != null) {
-                AuthenticationProvider delegateTo = providers.get(socialProvider);
-                return delegateTo.authenticate(authentication);
-            }
-        } catch (Exception ex) {
-            LOGGER.error(ex.getMessage(), ex);
-        }
-
-        return providers.get(SocialProvider.VIETNAMWORKS).authenticate(authentication);
+  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    try {
+      SocialProvider socialProvider = SocialProvider.valueOf(authentication.getCredentials().toString());
+      if (socialProvider != null) {
+        AuthenticationProvider delegateTo = providers.get(socialProvider);
+        return delegateTo.authenticate(authentication);
+      }
+    }
+    catch (Exception ex) {
+      LOGGER.debug(ex.getMessage(), ex);
     }
 
-    public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+    return providers.get(SocialProvider.VIETNAMWORKS).authenticate(authentication);
+  }
 
-    public Map<SocialProvider, AuthenticationProvider> getProviders() {
-        return providers;
-    }
+  public boolean supports(Class<?> authentication) {
+    return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+  }
 
-    public void setProviders(Map<SocialProvider, AuthenticationProvider> providers) {
-        this.providers = providers;
-    }
+  public Map<SocialProvider, AuthenticationProvider> getProviders() {
+    return providers;
+  }
+
+  public void setProviders(Map<SocialProvider, AuthenticationProvider> providers) {
+    this.providers = providers;
+  }
 }
