@@ -6,6 +6,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     $scope.homePage.termStatistic.logo = "images/" + $.grep(jsonValue.technicalSkill, function (skill) {
         return skill.term == $scope.homePage.termStatistic.term;
       })[0].logo;
+    console.log($scope.homePage);
   });
 
   $timeout(function () {
@@ -58,5 +59,9 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
       eventLabel: "searchallbtn"
     });
     window.location.href = "#/job-listing";
+  }
+
+  $scope.dateFormation = function(date){
+    return moment(date).format('LL');
   }
 });

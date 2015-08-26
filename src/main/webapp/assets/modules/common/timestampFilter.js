@@ -1,14 +1,14 @@
 techlooper.filter("timestamp", function (jsonValue) {
-  return function (input) {
+  return function (input, type) {
     var date = input;
 
-    //  ...
-    //  Posted 23 hours ago
-    //Posted 1 day ago
-    //Posted x days ago
-    //  ...
-    //  Posted 7 days ago
-    //Posted on DD/MM/YYYY HH:MM
+    switch (type) {
+      case 'hour':
+        return moment(input, jsonValue.dateTimeFormat).format('h:mm A');
+
+      case 'shortDate':
+        return moment(input, jsonValue.dateFormat).format('ddd, DD MMMM');
+    }
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
     if (duration > 7) {

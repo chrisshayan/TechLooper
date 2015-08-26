@@ -691,5 +691,6 @@
   "thereAreGoing": "There Are <strong>{{number}}</strong> Going",
   "joinWithFacebook": "Join With Facebook",
   "address": "Address",
-  "companyProfile": "Company Profile"
+  "companyProfile": "Company Profile",
+  "attendantsLabel": "Attendant(s)"
 }

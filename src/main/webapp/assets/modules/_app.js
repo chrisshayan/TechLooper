@@ -227,7 +227,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/events/events.html",
         controller: "eventsController"
       })
-      .when("/event-details", {
+      .when("/event-details/:id", {
         templateUrl: "modules/event-details/event-details.html",
         controller: "eventDetailsController"
       })
@@ -247,174 +247,13 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           return "/home";
         },
         resolve: {
-          resolvedVal: function($http) {
+          resolvedVal: function ($http) {
             return $http.get('http://endpoint.com/test');
           }
         }
       });
   }]);
 
-techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
-                         apiService, resourcesService) {
-  shortcutFactory.initialize();
-  connectionFactory.initialize();
-  loadingBoxFactory.initialize();
-  cleanupFactory.initialize();
-  historyFactory.initialize();
-  routerService.initialize();
-  userService.initialize();
-  securityService.initialize();
-  //resourcesService.initialize();
-
-  $rootScope.apiService = apiService;
-  $rootScope.resourcesService = resourcesService;
-
-  var doTranslate = function () {
-    $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
-      "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
-      "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50", "whoJoinAndWhyEx"]).then(function (translate) {
-      $rootScope.translate = translate;
-    });
-  }
-
-  var campaign = $location.search();
-  var langKey = (campaign && campaign.lang);
-  langKey !== $translate.use() && ($translate.use(langKey));
-  $rootScope.$on('$translateChangeSuccess', function () {
-    langKey !== $translate.use() && ($translate.use(langKey));
-    doTranslate();
-  });
-
-  doTranslate();
-
-  $rootScope.jsonValue = jsonValue;
-
-  $('html, body').animate({scrollTop: 0});
-
-  //$rootScope.$on("$loginSuccess", function () {
-  //  var protectedPage = localStorageService.get("protectedPage");
-  //  if (protectedPage) {
-  //    localStorageService.remove("protectedPage");
-  //    return $location.url(protectedPage);
-  //  }
-  //  securityService.getCurrentUser();
-  //});
-
-  var param = $location.search();
-  if (!$.isEmptyObject(param)) {
-    switch (param.action) {
-      case "registerVnwUser":
-        localStorageService.set("lastName", param.lastName);
-        localStorageService.set("firstName", param.firstName);
-        localStorageService.set("email", param.email);
-        break;
-
-      //TODO route user to login by social
-      case "loginBySocial":
-        securityService.login(param.code, param.social, param.social);
-        break;
-
-      case "redirectJA":
-        window.location.href = param.targetUrl;
-        break;
-    }
-
-    //localStorageService.set("redirectUrl", $location.url());
-
-//http://localhost:8080/#/salary-review?campaign=email&lang=en&id=MTQzOTUyNjczMDI4Ng==&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport
-
-    //var lastFoot = localStorageService.get("lastFoot");
-    //console.log(lastFoot);
-    //localStorageService.remove("lastFoot");
-    //if (lastFoot && !param.utm_campaign) {
-    //  if (lastFoot !== "/login" && lastFoot !== "/user-type") {
-    //    return $location.url(lastFoot);
-    //  }
-    //}
-  }
-
-  $rootScope.today = moment().format(jsonValue.dateFormat);
 
 
-
-  //$('body').click(function(e) {
-  //  $rootScope.$broadcast("bodyClicked", e);
-  //});
-
-  //if (utils.getView() === jsonValue.views.userType) {
-  //  utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-  //}
-
-});
-
-techlooper.directive("navigation", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/navigation/navigation.tem.html",
-    controller: "navigationController"
-  }
-})
-  .directive("findjobs", function () {
-    return {
-      restrict: "A",
-      replace: true,
-      templateUrl: "modules/job/findJobs.tem.html"
-    }
-  })
-  .directive('onlyDigits', function ($filter) {
-    return {
-      require: 'ngModel',
-      restrict: 'A',
-      link: function (scope, element, attr, ctrl) {
-        function inputValue(val) {
-          if (val) {
-            var digits = val.replace(/[^0-9.]/g, '');
-            if (digits !== val) {
-              ctrl.$setViewValue(digits);
-              ctrl.$render();
-            }
-            var number = parseFloat(digits);
-            if (!isNaN(number)) {
-              //number = $filter('number')(number, 2);
-              //ctrl.$setViewValue(number);
-              //ctrl.$render();
-              return number;
-            }
-            return "";
-          }
-          return '';
-        }
-
-        ctrl.$parsers.push(inputValue);
-      }
-    }
-  })
-  .directive('onlyDigitsString', function () {
-    return {
-      require: 'ngModel',
-      restrict: 'A',
-      link: function (scope, element, attr, ctrl) {
-        function inputValue(val) {
-          if (val) {
-            var digits = val.replace(/[^0-9.]/g, '');
-
-            if (digits !== val) {
-              ctrl.$setViewValue(digits);
-              ctrl.$render();
-            }
-            var number = parseFloat(digits);
-            return isNaN(number) ? "" : val;
-
-          }
-          return '';
-        }
-
-        ctrl.$parsers.push(inputValue);
-      }
-    }
-  });
 
