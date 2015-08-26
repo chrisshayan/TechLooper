@@ -78,7 +78,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       };
       return apiService.login(auth)
         .success(function (data, status, headers, config) {
-          instance.getCurrentUser().success(function () {
+          instance.getCurrentUser().then(function () {
             instance.routeByRole();
           });
         });
@@ -124,12 +124,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
         var fromLastPrint = localStorageService.get("lastFoot");
         if (fromLastPrint) {
-          var uiView = utils.getUiView();
-          var roles = uiView.roles || [];
-          if (roles.length == 0) {
-            localStorageService.remove("lastFoot");
-            return $location.url(fromLastPrint);
-          }
+        //  //var uiView = utils.getUiView();
+        //  //var roles = uiView.roles || [];
+        //  //if (roles.length == 0) {
+        //  //  localStorageService.remove("lastFoot");
+        //  //  return $location.url(fromLastPrint);
+        //  //}
           return event.preventDefault();
         }
 
