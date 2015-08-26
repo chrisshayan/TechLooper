@@ -205,14 +205,14 @@
                   <div class="right-content">
                     <ul>
                       <li class="name" ng-show="event.name.length">
-                        <a href="#/event-details" title="{{event.name}}">{{event.name | limitTo: 50}}</a>
+                        <a  href="#/event-details/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" title="{{event.name}}">{{event.name | limitTo: 50}}</a>
                         <span ng-show="event.name.length > 50">...</span>
                       </li>
                       <li><strong>{{event.attendees.length - 1}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
                     </ul>
                   </div>
                   <div class="registration-link">
-                    <a href="#/event-details" translate="register"></a>
+                    <a href="#/event-details/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" translate="register"></a>
                   </div>
                 </div>
               </div>
