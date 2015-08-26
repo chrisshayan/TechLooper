@@ -14,7 +14,7 @@
         <div class="location-event">
           <i class="fa fa-map-marker"></i> Google Hangouts
         </div>
-        <div class="webinar-keywords">
+        <div class="webinar-keywords" ng-show="webinar.whatEvent.length">
           <p>{{webinar.whatEvent}}</p>
         </div>
         <div class="webinar-why">
@@ -31,16 +31,18 @@
           </a>
         </div>
         <div class="number-going">
-          <p translate="thereAreGoing" translate-value-number="{{'20'}}"></p>
+          <p translate="thereAreGoing" translate-value-number="{{webinar.attendees.length - 1}}"></p>
         </div>
         <div class="join-with-facebook">
-          <a href="" translate="joinWithFacebook" ng-click=""></a>
+          <button class="btn btn-primary btn-flat" translate="joinWithFacebook" ng-click="joinNow()"
+                  ng-disabled="status('not-joined')"></button>
         </div>
       </div>
     </div>
     <div class="organiser-info">
       <div class="left-content">
-        <img ng-src="{{webinar.organiser.profileImageUrl || 'images/no-avatar.png'}}" alt="">
+        <img ng-src="{{webinar.organiser.profileImageUrl}}" alt="" ng-show="webinar.organiser.profileImageUrl.length">
+        <img src="images/no-avatar.png" alt="" ng-show="!webinar.organiser.profileImageUrl.length">
       </div>
       <div class="right-content">
         <ul>
@@ -48,18 +50,18 @@
             <span class="title" translate="organiser"></span>
             <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}}</span>
           </li>
-          <li ng-show="">
+          <li ng-show="webinar.company.address.length">
             <span class="title">{{'address' | translate}}:</span>
-            <span>{{'130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam'}}</span>
+            <span>{{webinar.company.address}}</span>
           </li>
-          <li ng-show="">
+          <li ng-show="webinar.company.companySize.length">
             <span class="title">{{'companySize' | translate}}:</span>
-            <span>199 - 499 </span>
+            <span>{{webinar.company.companySize}}</span>
           </li>
-          <li ng-show="">
-            <span class="title">{{'companyProfile' | translate}}:</span>
-            <span>{{'Công ty TNHH Viettel - CHT (tên thường gọi là Viettel IDC) là công ty trực thuộc Tập đoàn Viễn Thông Quân Đội Viettel. Cùng với với Chunghwa Telecom (Công ty viễn thông-internet lớn nhất Đài Loan)'}}</span>
-          </li>
+          <!--<li ng-show="">-->
+            <!--<span class="title">{{'companyProfile' | translate}}:</span>-->
+            <!--<span>{{'Công ty TNHH Viettel - CHT (tên thường gọi là Viettel IDC) là công ty trực thuộc Tập đoàn Viễn Thông Quân Đội Viettel. Cùng với với Chunghwa Telecom (Công ty viễn thông-internet lớn nhất Đài Loan)'}}</span>-->
+          <!--</li>-->
         </ul>
       </div>
     </div>

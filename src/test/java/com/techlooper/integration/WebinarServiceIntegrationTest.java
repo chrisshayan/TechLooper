@@ -31,14 +31,10 @@ public class WebinarServiceIntegrationTest {
   @Resource
   private WebinarRepository webinarRepository;
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
-
   @Before
   public void before() {
     webinarService = new WebinarServiceImpl();
     ReflectionTestUtils.setField(webinarService, "webinarRepository", webinarRepository);
-    ReflectionTestUtils.setField(webinarService, "elasticsearchTemplate", elasticsearchTemplate);
     ReflectionTestUtils.setField(webinarService, "dozerMapper", new DozerBeanMapper());
   }
 

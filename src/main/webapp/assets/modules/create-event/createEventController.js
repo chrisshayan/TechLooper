@@ -1,4 +1,4 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils) {
 
   $scope.createWebinar = function () {
     $scope.webinarForm.$setSubmitted();
@@ -7,7 +7,8 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     }
 
     apiService.createWebinar($scope.webinar).success(function (data) {
-      alert("Successful created Webinar!!");
+      var title = utils.toAscii(data.name);
+      window.location.href = sprintf('#/event-details/'+title+'-'+data.createdDateTime+ '-id');
     });
 
     $scope.webinarForm.$setPristine();

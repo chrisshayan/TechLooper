@@ -28,8 +28,8 @@ public class WebinarEntity {
   @Field(type = FieldType.String)
   private String description;
 
-  @Field(type = FieldType.String)
-  private Collection<String> attendees;
+  @Field(type = FieldType.Nested)
+  private Collection<UserProfileDto> attendees;
 
   @Field(type = FieldType.Nested)
   private UserProfileDto organiser;
@@ -86,11 +86,11 @@ public class WebinarEntity {
     this.description = description;
   }
 
-  public Collection<String> getAttendees() {
+  public Collection<UserProfileDto> getAttendees() {
     return attendees;
   }
 
-  public void setAttendees(Collection<String> attendees) {
+  public void setAttendees(Collection<UserProfileDto> attendees) {
     this.attendees = attendees;
   }
 

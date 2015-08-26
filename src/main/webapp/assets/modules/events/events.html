@@ -4,13 +4,17 @@
   </div>
   <div class="content-page-detail">
     <div class="events-list-block">
+      <div class="full-content" ng-show="!webinarsGroup.length">
+        <p translate="noDataChart"></p>
+      </div>
       <div class="events-items">
         <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup">
           <h3>{{webinarInfo.startDate}}</h3>
           <div class="events-item" ng-repeat="webinar in webinarInfo.webinars">
             <div class="left-content">
               <div class="owner">
-                <img ng-src="{{webinar.organiser.profileImageUrl || 'images/no-avatar.png'}}" alt="">
+                <img ng-src="{{webinar.organiser.profileImageUrl}}" alt="" ng-show="webinar.organiser.profileImageUrl.length">
+                <img src="images/no-avatar.png" alt="" ng-show="!webinar.organiser.profileImageUrl.length">
                 <p>{{(webinar.organiser.name | limitTo: 10) || (webinar.organiser.email | textTruncate: 'email')}}</p>
               </div>
             </div>

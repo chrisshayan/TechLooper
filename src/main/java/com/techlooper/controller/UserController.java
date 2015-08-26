@@ -1,6 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.DashBoardInfo;
+import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
@@ -313,5 +314,10 @@ public class UserController {
   @RequestMapping(value = "user/webinar/{id}", method = RequestMethod.GET)
   public WebinarInfoDto findWebinarById(@PathVariable Long id) {
     return webinarService.findWebinarById(id);
+  }
+
+  @RequestMapping(value = "user/webinar/join", method = RequestMethod.POST)
+  public WebinarInfoDto joinWebinar(@RequestBody JoinBySocialDto joinBySocialDto) {
+    return webinarService.joinWebinar(joinBySocialDto);
   }
 }

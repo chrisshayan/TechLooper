@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.model.UserProfileDto;
 
@@ -19,4 +20,6 @@ public interface WebinarService {
   List<WebinarInfoDto> listUpcomingWebinar();
 
   WebinarInfoDto findWebinarById(Long id);
+
+  WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto);
 }

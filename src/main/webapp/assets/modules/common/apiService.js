@@ -24,45 +24,51 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("logout");
     },
 
-    getFBLoginUrl: function() {
+    getFBLoginUrl: function () {
       return $http.get("social/FACEBOOK_REGISTER/loginUrl", {transformResponse: function (d, h) {return d;}});
     },
 
-    getSocialLoginUrl: function(provider) {
+    getSocialLoginUrl: function (provider) {
       return $http.get("social/" + provider + "/loginUrl", {transformResponse: function (d, h) {return d;}});
     },
 
-    getContestDetail: function(id) {
+    getContestDetail: function (id) {
       return $http.get("challenge/" + id);
     },
 
-    joinContest: function(contestId, firstName, lastName , registrantEmail, lang) {
+    joinContest: function (contestId, firstName, lastName, registrantEmail, lang) {
       return $http.post("challenge/join",
-        {challengeId: contestId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: registrantEmail, lang: lang},
+        {
+          challengeId: contestId,
+          registrantFirstName: firstName,
+          registrantLastName: lastName,
+          registrantEmail: registrantEmail,
+          lang: lang
+        },
         {transformResponse: function (d, h) {return d;}});
     },
 
-    searchContests: function() {
+    searchContests: function () {
       return $http.get("challenge/list");
     },
 
-    getSuggestSkills: function(text) {
+    getSuggestSkills: function (text) {
       return $http.get("suggestion/skills/" + text);
     },
 
-    postFreelancerProject: function(projectRequest) {
+    postFreelancerProject: function (projectRequest) {
       return $http.post("project/post", projectRequest, {transformResponse: function (d, h) {return d;}})
     },
 
-    getProject: function(id) {
+    getProject: function (id) {
       return $http.get("project/" + id);
     },
 
-    getProjects: function() {
+    getProjects: function () {
       return $http.get("project/list");
     },
 
-    joinNowByFB: function() {
+    joinNowByFB: function () {
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
@@ -72,76 +78,91 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       });
     },
 
-    joinProject: function(projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
+    joinProject: function (projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
       if (!resumeLink.startsWith("http")) {
         resumeLink = "http://" + resumeLink;
       }
       return $http.post("project/join",
-        {projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
-          registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang},
+        {
+          projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
+          registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang
+        },
         {transformResponse: function (d, h) {return d;}});
     },
 
     /**
      * @see com.techlooper.controller.ProjectController.getProjectStatistic
      * */
-    getProjectStatistic: function() {
+    getProjectStatistic: function () {
       return $http.get("project/stats");
     },
 
     /**
      * @see com.techlooper.controller.ChallengeController.getChallengeStatistics
      * */
-    getChallengeStatistic: function() {
+    getChallengeStatistic: function () {
       return $http.get("challenge/stats");
     },
 
-    getPersonalHomepage: function() {
+    getPersonalHomepage: function () {
       return $http.get("personalHomepage");
     },
 
-    getEmployerDashboardInfo: function() {
+    getEmployerDashboardInfo: function () {
       return $http.get("user/employer/dashboard-info");
     },
 
     /**
      * @see com.techlooper.controller.JobAlertController.getCompany
      * */
-    createTechlooperJobAlert: function(email, keyword, location, locationId, lang) {
+    createTechlooperJobAlert: function (email, keyword, location, locationId, lang) {
       return $http.post("jobAlert/register", {
-        email: email, keyword: keyword, location: location, locationId : locationId, lang : lang
+        email: email, keyword: keyword, location: location, locationId: locationId, lang: lang
       });
     },
 
-    listAllJobs: function() {
+    listAllJobs: function () {
       return $http.post("jobListing", {
-        keyword: null, location: null, page : 1
+        keyword: null, location: null, page: 1
       });
     },
 
-    filterJob: function(keyword, location, page) {
+    filterJob: function (keyword, location, page) {
       return $http.post("jobListing", {
-        keyword: keyword, location: location, page : page
+        keyword: keyword, location: location, page: page
       });
     },
 
-    createWebinar: function(webinar) {
-      return $http.post("user/employer/webinar", webinar);
+    createWebinar: function (webinar) {
+      var obj = angular.copy(webinar);
+      var atts = [];
+      $.each(webinar.attendees, function (i, attendee) {
+        atts.push({email: attendee});
+      });
+      obj.attendees = atts;
+      return $http.post("user/employer/webinar", obj);
     },
 
     /**
      * @see com.techlooper.controller.UserController.findAvailableWebinars
      * */
-    findAvailableWebinars: function() {
+    findAvailableWebinars: function () {
       return $http.get("user/webinars");
     },
-
 
     /**
      * @see com.techlooper.controller.UserController.findWebinarById
      * */
-    findWebinarById: function(id) {
+    findWebinarById: function (id) {
       return $http.get("user/webinar/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.joinWebinar
+     * */
+    joinWebinar: function (webinarId, firstName, lastName, email) {
+      return $http.post("user/webinar/join",
+        {id: webinarId, firstName: firstName, lastName: lastName, email: email});
     }
   }
 
