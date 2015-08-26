@@ -1,4 +1,4 @@
-techlooper.factory("seoService", function ($rootScope, utils) {
+techlooper.factory("seoService", function ($rootScope, utils, $location) {
 
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     var uiView = utils.getUiView();
