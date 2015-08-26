@@ -40,7 +40,8 @@
     </div>
     <div class="organiser-info">
       <div class="left-content">
-        <img ng-src="{{webinar.organiser.profileImageUrl || 'images/no-avatar.png'}}" alt="">
+        <img ng-src="{{webinar.organiser.profileImageUrl}}" alt="" ng-show="webinar.organiser.profileImageUrl.length">
+        <img src="images/no-avatar.png" alt="" ng-show="!webinar.organiser.profileImageUrl.length">
       </div>
       <div class="right-content">
         <ul>
