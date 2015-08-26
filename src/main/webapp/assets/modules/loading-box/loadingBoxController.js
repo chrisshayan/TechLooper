@@ -8,7 +8,6 @@ techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope
   var joinNow = localStorageService.get("joinNow");
   if (joinNow == true) {
     var fromLastPrint = localStorageService.get("lastFoot");
-    localStorageService.remove("lastFoot");
     return $location.url(fromLastPrint);
   }
 });
