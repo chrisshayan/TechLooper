@@ -63,7 +63,7 @@
           <div class="job-item" ng-show="jobs.length == 0">
             <p translate="noData"></p>
           </div>
-          <div class="job-item hot-job" ng-repeat="job in jobs | filter:{ techlooperJobType: '1' }">
+          <div class="job-item hot-job" ng-repeat="job in jobs | filter:{ topPriority : true }">
             <div class="left-content">
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul class="info">
@@ -106,7 +106,7 @@
               </ul>
             </div>
           </div>
-          <div class="job-item" ng-repeat="job in jobs | filter:{ techlooperJobType: '0' }">
+          <div class="job-item" ng-repeat="job in jobs | filter:{ topPriority : false }">
             <div class="left-content">
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul>
