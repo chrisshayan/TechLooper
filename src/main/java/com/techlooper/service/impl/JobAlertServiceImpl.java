@@ -10,8 +10,7 @@ import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
@@ -235,22 +234,23 @@ public class JobAlertServiceImpl implements JobAlertService {
     private NativeSearchQueryBuilder getJobListingQueryBuilder(JobListingCriteria criteria) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
+        QueryBuilder queryBuilder = null;
         if (StringUtils.isEmpty(criteria.getKeyword()) && StringUtils.isEmpty(criteria.getLocation())) {
-            searchQueryBuilder.withQuery(matchAllQuery());
+            queryBuilder = matchAllQuery();
         } else {
-            BoolQueryBuilder queryBuilder = boolQuery();
+            queryBuilder = boolQuery();
 
             if (StringUtils.isNotEmpty(criteria.getKeyword())) {
-                queryBuilder.must(queryString(criteria.getKeyword()));
+                ((BoolQueryBuilder)queryBuilder).must(queryString(criteria.getKeyword()));
             }
 
             if (StringUtils.isNotEmpty(criteria.getLocation())) {
-                queryBuilder.must(matchQuery("location", criteria.getLocation()));
+                ((BoolQueryBuilder)queryBuilder).must(matchQuery("location", criteria.getLocation()));
             }
-
-            searchQueryBuilder.withQuery(queryBuilder);
         }
 
+        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, FilterBuilders.rangeFilter("createdDateTime").from("now-30d/d")));
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("salary").missing("_last"));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
         searchQueryBuilder.withPageable(new PageRequest(criteria.getPage() - 1, NUMBER_OF_ITEMS_PER_PAGE));
         return searchQueryBuilder;

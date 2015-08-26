@@ -124,15 +124,23 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
         var fromLastPrint = localStorageService.get("lastFoot");
         if (fromLastPrint) {
+          var uiView = utils.getUiView();
+          var roles = uiView.roles || [];
+          if (roles.length == 0) {
+            localStorageService.remove("lastFoot");
+            return $location.url(fromLastPrint);
+          }
           return event.preventDefault();
         }
 
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
         var fromPath = current && current.$$route && current.$$route.originalPath;
-        var shouldKeepPreviousFoot = isSignInView && fromPath;
+        var isSeoView = $rootScope.currentUiView.type == "SEO";
+        var shouldKeepPreviousFoot = (isSignInView && fromPath) || isSeoView;
         if (shouldKeepPreviousFoot) {// should keep last print
-          localStorageService.set("lastFoot", fromPath);
+          localStorageService.set("lastFoot", isSeoView ? $location.url() : fromPath);
         }
+
       });
 
       $rootScope.$on("$routeChangeStart", function (event, next, current) {
