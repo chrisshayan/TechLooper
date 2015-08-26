@@ -10,9 +10,9 @@
       <div class="user-info-basic-block">
         <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
 
-        <p translate="{{$root.userInfo.username | textTruncate: 'email'}}"/>
+        <p>{{$root.userInfo.name || $root.userInfo.username | textTruncate: 'email'}}</p>
         <div class="user-avatar" ng-show="$root.userInfo">
-          <img src="images/no-avatar.png" alt="">
+          <img src="{{$root.userInfo.profileImageUrl || 'images/no-avatar.png'}}" alt="">
         </div>
         <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"/>
         <!--<span translate="{{$root.userInfo.username}}" />-->

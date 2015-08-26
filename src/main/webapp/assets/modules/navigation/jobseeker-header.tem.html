@@ -11,7 +11,7 @@
                 <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
                 <p>{{$root.userInfo.name}}</p>
                 <div class="user-avatar" ng-show="$root.userInfo">
-                    <img ng-show="$root.userInfo.profileImageUrl" ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+                    <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
                 </div>
 
                 <!--<a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>-->
