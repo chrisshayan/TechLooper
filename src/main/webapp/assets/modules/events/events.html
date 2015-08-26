@@ -16,17 +16,16 @@
             </div>
             <div class="right-content">
               <div class="event-name">
-                <h4><a ng-href="#">{{webinar.name}}</a></h4>
+                <h4><a ng-href="#/event-details/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id">{{webinar.name}}</a></h4>
               </div>
               <ul>
-                <li class="time">08:30 PM
-                </li>
+                <li class="time">{{webinar.startDate | timestamp: 'hour'}}</li>
                 <li class="register"><strong>{{webinar.attendees.length}}</strong> <span translate="attendants" />
                 </li>
               </ul>
             </div>
             <div class="view-details" title="{{'viewDetail' | translate}}">
-              <a ng-href="#"></a>
+              <a ng-href="#/event-details/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id"></a>
             </div>
           </div>
         </div>

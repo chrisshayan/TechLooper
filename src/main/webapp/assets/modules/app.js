@@ -227,7 +227,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/events/events.html",
         controller: "eventsController"
       })
-      .when("/event-details", {
+      .when("/event-details/:id", {
         templateUrl: "modules/event-details/event-details.html",
         controller: "eventDetailsController"
       })
@@ -247,7 +247,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
           return "/home";
         },
         resolve: {
-          resolvedVal: function($http) {
+          resolvedVal: function ($http) {
             return $http.get('http://endpoint.com/test');
           }
         }
@@ -257,7 +257,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
                          utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
-                         apiService, resourcesService) {
+                         apiService, resourcesService, $routeParams) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -294,15 +294,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   $('html, body').animate({scrollTop: 0});
 
-  //$rootScope.$on("$loginSuccess", function () {
-  //  var protectedPage = localStorageService.get("protectedPage");
-  //  if (protectedPage) {
-  //    localStorageService.remove("protectedPage");
-  //    return $location.url(protectedPage);
-  //  }
-  //  securityService.getCurrentUser();
-  //});
-
   var param = $location.search();
   if (!$.isEmptyObject(param)) {
     switch (param.action) {
@@ -321,32 +312,30 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         window.location.href = param.targetUrl;
         break;
     }
-
-    //localStorageService.set("redirectUrl", $location.url());
-
-//http://localhost:8080/#/salary-review?campaign=email&lang=en&id=MTQzOTUyNjczMDI4Ng==&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport
-
-    //var lastFoot = localStorageService.get("lastFoot");
-    //console.log(lastFoot);
-    //localStorageService.remove("lastFoot");
-    //if (lastFoot && !param.utm_campaign) {
-    //  if (lastFoot !== "/login" && lastFoot !== "/user-type") {
-    //    return $location.url(lastFoot);
-    //  }
-    //}
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
 
+  $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    var uiView = utils.getUiView();
+    switch (uiView.type) {
+      case "SEO":
+        if (!next || !next.params) break;
+        var parts = next.params.id.split("-");
+        var lastPart = parts.pop();
+        if (parts.length < 2 || (lastPart !== "id")) {
+          return $location.path("/");
+        }
 
-
-  //$('body').click(function(e) {
-  //  $rootScope.$broadcast("bodyClicked", e);
-  //});
-
-  //if (utils.getView() === jsonValue.views.userType) {
-  //  utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-  //}
+        var id = parts.pop();
+        var title = parts.join("-");
+        if (utils.hasNonAsciiChar(title)) {
+          title = utils.toAscii(title);
+          event.preventDefault();
+          return $location.url(sprintf("%s/%s-%s-id", uiView.url, title, id));
+        }
+    }
+  });
 
 });
 

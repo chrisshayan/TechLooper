@@ -4,7 +4,8 @@ techlooper.filter("timestamp", function (jsonValue) {
 
     switch (type) {
       case 'hour':
-        return moment(input, jsonValue.dateTimeFormat).format('h:mm a');
+        return moment(input, jsonValue.dateTimeFormat).format('h:mm A');
+
       case 'shortDate':
         return moment(input, jsonValue.dateFormat).format('ddd, DD MMMM');
     }
