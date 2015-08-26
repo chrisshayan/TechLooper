@@ -84,6 +84,7 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   public EmployerDto findByUserName(String username) {
+    if (username == null) return null;
     NestedQueryBuilder queryBuilder = QueryBuilders.nestedQuery("employers", matchPhraseQuery("employers.userName", username));
     FacetedPage<EmployerEntity> result = companySearchResultRepository.search(queryBuilder, new PageRequest(0, 1));
     if (result.hasContent()) {
