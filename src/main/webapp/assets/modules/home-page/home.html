@@ -209,7 +209,7 @@
                         <a href="#/event-details" title="{{event.name}}">{{event.name | limitTo: 45}}</a>
                         <span ng-show="event.name.length > 45">...</span>
                       </li>
-                      <li><strong>{{event.attendees.length}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
+                      <li><strong>{{event.attendees.length - 1}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
                     </ul>
                   </div>
                   <div class="registration-link">
