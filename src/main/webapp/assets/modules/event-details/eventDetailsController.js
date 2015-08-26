@@ -1,18 +1,14 @@
-techlooper.controller("eventDetailsController", function ($scope, $routeParams, $location, utils) {
+techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams) {
 
-  //var parts = $routeParams.id.split("-");
-  //var lastPart = parts.pop();
-  //if (parts.length < 2 || (lastPart !== "id")) {
-  //  return $location.path("/");
-  //}
-  //
-  //var contestId = parts.pop();
-  //var title = parts.join("");
-  //if (utils.hasNonAsciiChar(title)) {
-  //  title = utils.toAscii(title);
-  //  return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
-  //}
 
-  console.log(123);
+  var parts = $routeParams.id.split("-");
+  parts.pop();
+  var webinarId = parts.pop();
+
+  apiService.findWebinarById(webinarId)
+    .success(function(webinar) {
+      console.log(webinar);
+      $scope.webinar = webinar;
+    });
 });
 

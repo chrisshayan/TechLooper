@@ -132,4 +132,12 @@ public class WebinarServiceImpl implements WebinarService {
 
     return upcomingWebinars;
   }
+
+  public WebinarInfoDto findWebinarById(Long id) {
+    WebinarEntity entity = webinarRepository.findOne(id);
+    if (entity != null) {
+      return dozerMapper.map(entity, WebinarInfoDto.class);
+    }
+    return null;
+  }
 }
