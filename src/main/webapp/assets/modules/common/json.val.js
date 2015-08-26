@@ -292,6 +292,12 @@ techlooper.factory("jsonValue", function () {
         name: "userType",
         url: "/user-type",
         type: "LOGIN"
+      },
+      {
+        name: "eventDetails",
+        url: "/event-details",
+        regex: /\/event-details\//i,
+        type: "SEO"
       }
     ],
 

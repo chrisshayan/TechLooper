@@ -4,9 +4,10 @@ techlooper.filter("timestamp", function (jsonValue) {
 
     switch (type) {
       case 'hour':
-        return moment(input, jsonValue.dateTimeFormat).format('h:mm a');
+        return moment(input, jsonValue.dateTimeFormat).format('h:mm A');
+
       case 'shortDate':
-        return moment(input, jsonValue.dateFormat).format('MMM Do YYYY');
+        return moment(input, jsonValue.dateFormat).format('MMM DD YYYY');
     }
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
