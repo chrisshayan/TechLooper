@@ -1,4 +1,4 @@
-techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams, $location, utils) {
+techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams, $location, utils, jsonValue) {
 
   $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
 
@@ -6,12 +6,14 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
   if (!searchText) {
     apiService.listAllJobs().success(function(response) {
+      utils.sendNotification(jsonValue.notifications.loading, $(window).height());
       $scope.totalPage = response.totalPage;
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
       $scope.jobs = response.jobs;
-      console.log($scope.jobs);
-    });
+      utils.registerNotification(jsonValue.notifications.loaded, hide);
+    })
+    .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, 'auto');});
   } else {
     var searchParams = searchText.split("+");
     var keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
