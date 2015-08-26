@@ -1,6 +1,4 @@
-techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService) {
-
-
+techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService, vnwConfigService) {
   var parts = $routeParams.id.split("-");
   parts.pop();
   var webinarId = parts.pop();
@@ -8,6 +6,8 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
   apiService.findWebinarById(webinarId)
     .success(function(webinar) {
       $scope.webinar = webinar;
+      $scope.webinar.company.companySize = vnwConfigService.getCompanySizeText($scope.webinar.company.companySizeId);
+      console.log($scope.webinar);
     });
 
   $scope.joinNow = function() {

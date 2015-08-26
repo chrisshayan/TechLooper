@@ -4,6 +4,9 @@
   </div>
   <div class="content-page-detail">
     <div class="events-list-block">
+      <div class="full-content" ng-show="!webinarsGroup.length">
+        <p translate="noDataChart"></p>
+      </div>
       <div class="events-items">
         <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup">
           <h3>{{webinarInfo.startDate}}</h3>
