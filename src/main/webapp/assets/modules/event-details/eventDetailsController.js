@@ -1,4 +1,5 @@
-techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService, vnwConfigService) {
+techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService,
+                                                          vnwConfigService, utils) {
   var parts = $routeParams.id.split("-");
   parts.pop();
   var webinarId = parts.pop();
@@ -19,6 +20,17 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
   $scope.$on("joinAnything", function(fromScope, webinar) {
     $scope.webinar = webinar;
   });
+
+  $scope.status = function(type) {
+    switch (type) {
+      case "not-joined":
+        if (!$scope.webinar) return true;
+        var email = localStorageService.get("email");
+        var attendee = utils.findBy($scope.webinar.attendees, "email", email);
+        return attendee;
+    }
+    return false;
+  }
 
   //$scope.$on("joinAnythingWithoutEmail", function() {
   //  console.log(567);
