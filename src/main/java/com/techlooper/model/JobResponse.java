@@ -32,7 +32,7 @@ public class JobResponse {
 
     private Long salaryMax;
 
-    private Integer techlooperJobType = 0;
+    private Boolean topPriority;
 
     private List<CompanyBenefit> benefits;
 
@@ -97,8 +97,8 @@ public class JobResponse {
             return this;
         }
 
-        public Builder withTechlooperJobType(Integer techlooperJobType) {
-            instance.techlooperJobType = techlooperJobType;
+        public Builder withTopPriority(Boolean topPriority) {
+            instance.topPriority = topPriority;
             return this;
         }
 
@@ -220,14 +220,6 @@ public class JobResponse {
         this.salaryMax = salaryMax;
     }
 
-    public Integer getTechlooperJobType() {
-        return techlooperJobType;
-    }
-
-    public void setTechlooperJobType(Integer techlooperJobType) {
-        this.techlooperJobType = techlooperJobType;
-    }
-
     public List<CompanyBenefit> getBenefits() {
         return benefits;
     }
@@ -242,5 +234,13 @@ public class JobResponse {
 
     public void setSkills(List<JobSkill> skills) {
         this.skills = skills;
+    }
+
+    public Boolean getTopPriority() {
+        return topPriority;
+    }
+
+    public void setTopPriority(Boolean topPriority) {
+        this.topPriority = topPriority;
     }
 }

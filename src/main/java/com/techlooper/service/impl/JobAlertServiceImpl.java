@@ -2,7 +2,10 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
-import com.techlooper.model.*;
+import com.techlooper.model.JobAlertRegistration;
+import com.techlooper.model.JobListingCriteria;
+import com.techlooper.model.JobResponse;
+import com.techlooper.model.Language;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
@@ -10,7 +13,10 @@ import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
@@ -28,8 +34,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -173,15 +177,15 @@ public class JobAlertServiceImpl implements JobAlertService {
     @Override
     public List<JobResponse> listJob(JobListingCriteria criteria) {
         List<JobResponse> result = new ArrayList<>();
-
-        if (criteria.getPage() == 1) {
-            VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest(criteria);
-            VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-            if (vnwJobSearchResponse.hasData()) {
-                Set<VNWJobSearchResponseDataItem> vnwJobs = vnwJobSearchResponse.getData().getJobs();
-                result.addAll(aggregateJobs(vnwJobs));
-            }
-        }
+//
+//        if (criteria.getPage() == 1) {
+//            VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest(criteria);
+//            VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
+//            if (vnwJobSearchResponse.hasData()) {
+//                Set<VNWJobSearchResponseDataItem> vnwJobs = vnwJobSearchResponse.getData().getJobs();
+//                result.addAll(aggregateJobs(vnwJobs));
+//            }
+//        }
 
         NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
@@ -193,50 +197,45 @@ public class JobAlertServiceImpl implements JobAlertService {
                         .withCompany(jobEntity.getCompany())
                         .withLocation(jobEntity.getLocation())
                         .withSalary(jobEntity.getSalary())
-                        .withPostedOn(jobEntity.getCreatedDateTime()).build();
+                        .withPostedOn(jobEntity.getCreatedDateTime())
+                        .withTopPriority(jobEntity.getTopPriority() != null ? jobEntity.getTopPriority() : false)
+                        .withLogoUrl(jobEntity.getCompanyLogoUrl())
+                        .withBenefits(jobEntity.getBenefits())
+                        .withSkills(jobEntity.getSkills())
+                        .withSalaryMin(jobEntity.getSalaryMin())
+                        .withSalaryMax(jobEntity.getSalaryMax()).build();
                 result.add(job);
             }
         }
         return result;
     }
 
-    private List<JobResponse> aggregateJobs(Set<VNWJobSearchResponseDataItem> vnwJobs) {
-        List<JobResponse> result = new ArrayList<>();
-        for(VNWJobSearchResponseDataItem job : vnwJobs) {
-            JobResponse.Builder builder = new JobResponse.Builder();
-            if (job.getSalaryMax() != null && job.getSalaryMax() > 0) {
-                JobResponse jobResponse = builder.withTitle(job.getTitle()).withUrl(job.getUrl()).withLocation(job.getLocation())
-                        .withCompany(job.getCompany()).withLevel(job.getLevel()).withLogoUrl(job.getLogoUrl())
-                        .withPostedOn(job.getPostedOn()).withSalaryMin(job.getSalaryMin()).withSalaryMax(job.getSalaryMax())
-                        .withTechlooperJobType(1).withSkills(job.getSkills()).withBenefits(job.getBenefits())
-                        .build();
-                result.add(jobResponse);
-            }
-        }
-        return result;
-    }
-
-    private VNWJobSearchRequest getTopPriorityJobSearchRequest(JobListingCriteria criteria) {
-        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
-        vnwJobSearchRequest.setJobTitle(criteria.getKeyword());
-        vnwJobSearchRequest.setJobLocation(criteria.getLocation());
-        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
-        vnwJobSearchRequest.setTechlooperJobType(1);
-        vnwJobSearchRequest.setPageNumber(1);
-        vnwJobSearchRequest.setPageSize(20);
-        return vnwJobSearchRequest;
-    }
-
-    private VNWJobSearchRequest getNormalJobSearchRequest(JobListingCriteria criteria) {
-        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
-        vnwJobSearchRequest.setJobTitle(criteria.getKeyword());
-        vnwJobSearchRequest.setJobLocation(criteria.getLocation());
-        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
-        vnwJobSearchRequest.setTechlooperJobType(2);
-        vnwJobSearchRequest.setPageNumber(1);
-        vnwJobSearchRequest.setPageSize(20);
-        return vnwJobSearchRequest;
-    }
+//    private List<JobResponse> aggregateJobs(Set<VNWJobSearchResponseDataItem> vnwJobs) {
+//        List<JobResponse> result = new ArrayList<>();
+//        for(VNWJobSearchResponseDataItem job : vnwJobs) {
+//            JobResponse.Builder builder = new JobResponse.Builder();
+//            if (job.getSalaryMax() != null && job.getSalaryMax() > 0) {
+//                JobResponse jobResponse = builder.withTitle(job.getTitle()).withUrl(job.getUrl()).withLocation(job.getLocation())
+//                        .withCompany(job.getCompany()).withLevel(job.getLevel()).withLogoUrl(job.getLogoUrl())
+//                        .withPostedOn(job.getPostedOn()).withSalaryMin(job.getSalaryMin()).withSalaryMax(job.getSalaryMax())
+//                        .withTechlooperJobType(1).withSkills(job.getSkills()).withBenefits(job.getBenefits())
+//                        .build();
+//                result.add(jobResponse);
+//            }
+//        }
+//        return result;
+//    }
+//
+//    private VNWJobSearchRequest getTopPriorityJobSearchRequest(JobListingCriteria criteria) {
+//        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
+//        vnwJobSearchRequest.setJobTitle(criteria.getKeyword());
+//        vnwJobSearchRequest.setJobLocation(criteria.getLocation());
+//        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
+//        vnwJobSearchRequest.setTechlooperJobType(1);
+//        vnwJobSearchRequest.setPageNumber(1);
+//        vnwJobSearchRequest.setPageSize(20);
+//        return vnwJobSearchRequest;
+//    }
 
     @Override
     public Long countJob(JobListingCriteria criteria) {
@@ -254,15 +253,16 @@ public class JobAlertServiceImpl implements JobAlertService {
             queryBuilder = boolQuery();
 
             if (StringUtils.isNotEmpty(criteria.getKeyword())) {
-                ((BoolQueryBuilder)queryBuilder).must(queryString(criteria.getKeyword()));
+                ((BoolQueryBuilder) queryBuilder).must(queryString(criteria.getKeyword()));
             }
 
             if (StringUtils.isNotEmpty(criteria.getLocation())) {
-                ((BoolQueryBuilder)queryBuilder).must(matchQuery("location", criteria.getLocation()));
+                ((BoolQueryBuilder) queryBuilder).must(matchQuery("location", criteria.getLocation()));
             }
         }
 
         searchQueryBuilder.withQuery(filteredQuery(queryBuilder, FilterBuilders.rangeFilter("createdDateTime").from("now-30d/d")));
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("topPriority").order(SortOrder.DESC));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("salary").missing("_last"));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
         searchQueryBuilder.withPageable(new PageRequest(criteria.getPage() - 1, NUMBER_OF_ITEMS_PER_PAGE));
