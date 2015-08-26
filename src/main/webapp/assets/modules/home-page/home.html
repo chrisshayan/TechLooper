@@ -187,76 +187,29 @@
           <a href="#/challenges" translate="viewMoreChallenges"></a>
         </div>
       </div>
-      <div class="box-container-block right">
+      <div class="box-container-block right" ng-show="homePage.latestEvents.length">
         <h3 translate="upcomingEvents"></h3>
         <div class="box-content">
           <div class="box-content-detail">
             <div class="upcoming-events-list">
-              <div class="upcoming-events-by-time">
-                <h4>Saturday, 8 August</h4>
+              <div class="upcoming-events-by-time" ng-repeat="event in homePage.latestEvents">
+                <h4>{{event.startDate | timestamp: 'shortDate'}}</h4>
                 <div class="upcoming-event-item">
                   <div class="left-content">
-                    <p>{{'Owner Name' | limitTo: 10}}</p>
-                    <img src="images/lg-jira.png" alt=""/>
+                    <p>
+                      <span ng-show="event.organiser.firstName.length"> {{event.organiser.firstName | limitTo: 10}}</span>
+                      <span ng-show="!event.organiser.firstName.length"> {{event.organiser.username | textTruncate: 'email'}}</span>
+                    </p>
+                    <img ng-show="event.organiser.profileImageUrl.length" ng-src="{{event.organiser.profileImageUrl}}" alt="">
+                    <img ng-show="!event.organiser.profileImageUrl.length" ng-src="images/no-avatar.png" alt="">
                   </div>
                   <div class="right-content">
                     <ul>
-                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
-                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
-                    </ul>
-                  </div>
-                  <div class="registration-link">
-                    <a href="#/event-details" translate="register"></a>
-                  </div>
-                </div>
-              </div>
-              <div class="upcoming-events-by-time">
-                <h4>Saturday, 8 August</h4>
-                <div class="upcoming-event-item">
-                  <div class="left-content">
-                    <p>{{'Owner Name' | limitTo: 10}}</p>
-                    <img src="images/cp-logo-fpt.png" alt=""/>
-                  </div>
-                  <div class="right-content">
-                    <ul>
-                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
-                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
-                    </ul>
-                  </div>
-                  <div class="registration-link">
-                    <a href="#/event-details" translate="register"></a>
-                  </div>
-                </div>
-              </div>
-              <div class="upcoming-events-by-time">
-                <h4>Saturday, 8 August</h4>
-                <div class="upcoming-event-item">
-                  <div class="left-content">
-                    <p>{{'Owner Name' | limitTo: 10}}</p>
-                    <img src="images/cp-logo-techcombank.png" alt=""/>
-                  </div>
-                  <div class="right-content">
-                    <ul>
-                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
-                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
-                    </ul>
-                  </div>
-                  <div class="registration-link">
-                    <a href="#/event-details" translate="register"></a>
-                  </div>
-                </div>
-              </div>
-              <div class="upcoming-events-by-time">
-                <h4>Saturday, 8 August</h4>
-                <div class="upcoming-event-item">
-                  <div class="left-content">
-                    <p>{{'Owner Name' | limitTo: 10}}</p>
-                    <img src="images/lg-jira.png" alt=""/>
-                  </div>
-                  <div class="right-content">
-                    <ul>
-                      <li class="name">{{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' | limitTo: 45}}...</li>
-                      <li><strong>231</strong> Attendant(s) - 10:30 PM</li>
+                      <li class="name" ng-show="event.name.length">
+                        {{event.name | limitTo: 45}}
+                        <span ng-show="event.name.length > 45">...</span>
+                      </li>
+                      <li><strong>231</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
                     </ul>
                   </div>
                   <div class="registration-link">
@@ -272,9 +225,27 @@
           <a href="#/events" translate="viewMoreEvents"></a>
         </div>
       </div>
+      <div class="box-container-block right" ng-show="!homePage.latestEvents.length">
+        <h3 translate="latestFreelancerProjects"></h3>
+
+        <div class="box-content">
+          <div class="box-header">
+            <h4 translate="becomeAFreelancer"></h4>
+          </div>
+          <div class="box-content-detail">
+            <div class="freelancer-banner">
+              <img alt="" ng-src="images/freelancers.jpg" src="images/freelancers.jpg">
+            </div>
+          </div>
+
+        </div>
+        <div class="view-more-items">
+          <a translate="viewMoreProjects" href="#/freelancer/projects"></a>
+        </div>
+      </div>
     </div>
 
-    <div class="personal-banner-home-page">
+    <div class="personal-banner-home-page" ng-show="homePage.latestEvents.length">
       <h3 translate="latestFreelancerProjects"></h3>
       <div class="box-content">
         <div class="box-header">
@@ -284,9 +255,9 @@
           <div class="freelancer-banner"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>
         </div>
       </div>
-      <!--<div class="view-more-items" class="hide">-->
-        <!--<a href="#/freelancer/projects" translate="viewMoreProjects"></a>-->
-      <!--</div>-->
+      <div class="view-more-items" class="hide">
+        <a href="#/freelancer/projects" translate="viewMoreProjects"></a>
+      </div>
     </div>
   </div>
 </div>
