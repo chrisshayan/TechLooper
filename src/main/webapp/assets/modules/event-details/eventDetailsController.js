@@ -1,4 +1,4 @@
-techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, joinNowService, localStorageService) {
+techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService) {
 
 
   var parts = $routeParams.id.split("-");

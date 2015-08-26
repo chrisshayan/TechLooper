@@ -1,4 +1,4 @@
-angular.module("Common").factory("utils", function (jsonValue, $location, $rootScope, localStorageService) {
+techlooper.factory("utils", function (jsonValue, $location, $rootScope, localStorageService) {
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {

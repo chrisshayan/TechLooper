@@ -67,8 +67,8 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
           //instance.routeByRole();
         });
-        //.error(function () {
-        //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
+      //.error(function () {
+      //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
 
     login: function (username, password, type) {
@@ -88,12 +88,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       utils.sendNotification(jsonValue.notifications.loaded);
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
-        localStorageService.remove("lastFoot");
-
-        var uiView = utils.getUiView(lastFoot);
-        if (!uiView.ignoreIfLastFoot) {
-          return $location.url(lastFoot);
-        }
+        return $location.url(lastFoot);
+        //localStorageService.remove("lastFoot");
+        //var uiView = utils.getUiView(lastFoot);
+        //if (!uiView.ignoreIfLastFoot) {
+        //  return $location.url(lastFoot);
+        //}
       }
 
       switch ($rootScope.userInfo.roleName) {
@@ -122,25 +122,14 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       });
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
-        var fromLastPrint = localStorageService.get("lastFoot");
-        if (fromLastPrint) {
-        //  //var uiView = utils.getUiView();
-        //  //var roles = uiView.roles || [];
-        //  //if (roles.length == 0) {
-        //  //  localStorageService.remove("lastFoot");
-        //  //  return $location.url(fromLastPrint);
-        //  //}
-          return event.preventDefault();
-        }
-
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
-        var fromPath = current && current.$$route && current.$$route.originalPath;
-        var isSeoView = $rootScope.currentUiView.type == "SEO";
-        var shouldKeepPreviousFoot = (isSignInView && fromPath) || isSeoView;
-        if (shouldKeepPreviousFoot) {// should keep last print
-          localStorageService.set("lastFoot", isSeoView ? $location.url() : fromPath);
+        var priorFoot = localStorageService.get("priorFoot");
+        if (isSignInView) {
+          return localStorageService.set("lastFoot", priorFoot);
         }
 
+        localStorageService.set("priorFoot", $location.url());
+        localStorageService.set("lastFoot", $location.url());
       });
 
       $rootScope.$on("$routeChangeStart", function (event, next, current) {

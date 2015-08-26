@@ -5,6 +5,7 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.techlooper.dto.JoinWebinarDto;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.WebinarEntity;
 import com.techlooper.model.EmployerDto;
@@ -140,6 +141,11 @@ public class WebinarServiceImpl implements WebinarService {
       Optional.ofNullable(companyService.findByUserName(entity.getOrganiser().getUsername())).ifPresent(webinarInfoDto::setCompany);
       return webinarInfoDto;
     }
+    return null;
+  }
+
+  public WebinarInfoDto joinWebinar(JoinWebinarDto joinWebinarDto) {
+
     return null;
   }
 }

@@ -146,6 +146,16 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     findWebinarById: function(id) {
       return $http.get("user/webinar/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.joinWebinar
+     * */
+    joinWebinar: function(webinarId, firstName, lastName, email) {
+      return $http.post({
+        id: webinarId
+        //fir
+      });
     }
   }
 

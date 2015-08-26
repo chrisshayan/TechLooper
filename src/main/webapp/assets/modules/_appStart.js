@@ -11,6 +11,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   userService.initialize();
   securityService.initialize();
   seoService.initialize();
+  //joinNowService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
