@@ -137,6 +137,14 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     findAvailableWebinars: function() {
       return $http.get("user/webinars");
+    },
+
+
+    /**
+     * @see com.techlooper.controller.UserController.findWebinarById
+     * */
+    findWebinarById: function(id) {
+      return $http.get("user/webinar/" + id);
     }
   }
 

@@ -309,4 +309,9 @@ public class UserController {
   public Collection<WebinarInfoDto> findAvailableWebinars() {
     return webinarService.findAvailableWebinars();
   }
+
+  @RequestMapping(value = "user/webinar/{id}", method = RequestMethod.GET)
+  public WebinarInfoDto findWebinarById(@PathVariable Long id) {
+    return webinarService.findWebinarById(id);
+  }
 }
