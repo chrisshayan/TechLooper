@@ -107,7 +107,7 @@ public class WebinarServiceImpl implements WebinarService {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
     searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate").from("now"));
     searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
-    searchQueryBuilder.withPageable(new PageRequest(0, 3));
+    searchQueryBuilder.withPageable(new PageRequest(0, 4));
 
     List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
     if (!webinarEntities.isEmpty()) {
