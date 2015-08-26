@@ -57,7 +57,6 @@ public class SocialController {
   @Resource
   private VietnamWorksUserService vietnamWorksUserService;
 
-
   @RequestMapping(value = "login/social/{social}", method = RequestMethod.GET)
   public void loginBySocial(@PathVariable SocialProvider social, @RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
     response.sendRedirect(code == null ? "/#/?action=cancel" : String.format("/#/?action=loginBySocial&social=%s&code=%s", social, code));

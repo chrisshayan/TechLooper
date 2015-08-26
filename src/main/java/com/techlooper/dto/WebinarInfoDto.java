@@ -1,5 +1,6 @@
 package com.techlooper.dto;
 
+import com.techlooper.model.EmployerDto;
 import com.techlooper.model.UserProfileDto;
 
 import java.io.Serializable;
@@ -10,83 +11,93 @@ import java.util.Set;
  */
 public class WebinarInfoDto implements Serializable {
 
-    private Long createdDateTime;
+  private Long createdDateTime;
 
-    private String name;
+  private String name;
 
-    private String startDate;
+  private String startDate;
 
-    private String endDate;
+  private String endDate;
 
-    private String description;
+  private String description;
 
-    private Set<String> attendees;
+  private Set<UserProfileDto> attendees;
 
-    private String whatEvent;
+  private String whatEvent;
 
-    private UserProfileDto organiser;
+  private UserProfileDto organiser;
 
-    public String getWhatEvent() {
-        return whatEvent;
-    }
+  private EmployerDto company;
 
-    public void setWhatEvent(String whatEvent) {
-        this.whatEvent = whatEvent;
-    }
+  public EmployerDto getCompany() {
+    return company;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setCompany(EmployerDto company) {
+    this.company = company;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getWhatEvent() {
+    return whatEvent;
+  }
 
-    public String getStartDate() {
-        return startDate;
-    }
+  public void setWhatEvent(String whatEvent) {
+    this.whatEvent = whatEvent;
+  }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getEndDate() {
-        return endDate;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+  public String getStartDate() {
+    return startDate;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getEndDate() {
+    return endDate;
+  }
 
-    public Set<String> getAttendees() {
-        return attendees;
-    }
+  public void setEndDate(String endDate) {
+    this.endDate = endDate;
+  }
 
-    public void setAttendees(Set<String> attendees) {
-        this.attendees = attendees;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public UserProfileDto getOrganiser() {
-        return organiser;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setOrganiser(UserProfileDto organiser) {
-        this.organiser = organiser;
-    }
+  public Set<UserProfileDto> getAttendees() {
+    return attendees;
+  }
 
-    public Long getCreatedDateTime() {
-        return createdDateTime;
-    }
+  public void setAttendees(Set<UserProfileDto> attendees) {
+    this.attendees = attendees;
+  }
 
-    public void setCreatedDateTime(Long createdDateTime) {
-        this.createdDateTime = createdDateTime;
-    }
+  public UserProfileDto getOrganiser() {
+    return organiser;
+  }
+
+  public void setOrganiser(UserProfileDto organiser) {
+    this.organiser = organiser;
+  }
+
+  public Long getCreatedDateTime() {
+    return createdDateTime;
+  }
+
+  public void setCreatedDateTime(Long createdDateTime) {
+    this.createdDateTime = createdDateTime;
+  }
 }

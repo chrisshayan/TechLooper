@@ -7,9 +7,12 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.WebinarEntity;
+import com.techlooper.model.EmployerDto;
 import com.techlooper.model.UserProfileDto;
+import com.techlooper.repository.elasticsearch.CompanySearchResultRepository;
 import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
+import com.techlooper.service.CompanyService;
 import com.techlooper.service.WebinarService;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
@@ -54,12 +57,9 @@ public class WebinarServiceImpl implements WebinarService {
   private Calendar googleCalendar;
 
   @Resource
-  private VnwUserRepo vnwUserRepo;
+  private CompanyService companyService;
 
   private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
-
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
 
   public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException {
 
@@ -73,9 +73,9 @@ public class WebinarServiceImpl implements WebinarService {
     event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
     event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
 
-    webinarInfoDto.getAttendees().add(organiser.getEmail());
+    webinarInfoDto.getAttendees().add(organiser);
     EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
-      .map(attEmail -> new EventAttendee().setEmail(attEmail))
+      .map(attEmail -> new EventAttendee().setEmail(attEmail.getEmail()))
       .toArray(EventAttendee[]::new);
 
     event.setAttendees(Arrays.asList(attendees));
@@ -95,7 +95,7 @@ public class WebinarServiceImpl implements WebinarService {
   public Collection<WebinarInfoDto> findAvailableWebinars() {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
       .withIndices("techlooper").withTypes("webinar")
-      .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC))
+      .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.ASC))
       .withFilter(FilterBuilders.rangeFilter("startDate").from("now"));
 
     List<WebinarInfoDto> webinarInfoDtos = new ArrayList<>();
@@ -136,7 +136,9 @@ public class WebinarServiceImpl implements WebinarService {
   public WebinarInfoDto findWebinarById(Long id) {
     WebinarEntity entity = webinarRepository.findOne(id);
     if (entity != null) {
-      return dozerMapper.map(entity, WebinarInfoDto.class);
+      WebinarInfoDto webinarInfoDto = dozerMapper.map(entity, WebinarInfoDto.class);
+      Optional.ofNullable(companyService.findByUserName(entity.getOrganiser().getUsername())).ifPresent(webinarInfoDto::setCompany);
+      return webinarInfoDto;
     }
     return null;
   }
