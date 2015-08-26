@@ -1,5 +1,5 @@
 techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils,
-                                                         resourcesService) {
+                                                         resourcesService, $anchorScroll) {
   var state = {
     challenge: {
       showChallenge: true,
@@ -95,6 +95,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       nextState: function () {
         var request = angular.copy($scope.contest);
         request.lang = $translate.use();
+        $anchorScroll();
         utils.sendNotification(jsonValue.notifications.loading);
         $('.submit-contest-content').find('button').addClass('disabled');
         $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
