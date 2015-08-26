@@ -298,6 +298,18 @@ techlooper.factory("jsonValue", function () {
         url: "/event-details",
         regex: /\/event-details\//i,
         type: "SEO"
+      },
+      {
+        name: "challengeDetail",
+        url: "/challenge-detail",
+        regex: /\/challenge-detail\//i,
+        type: "SEO"
+      },
+      {
+        name: "freelancerProjectDetail",
+        url: "/freelancer/project-detail",
+        regex: /\/freelancer\/project-detail\//i,
+        type: "SEO"
       }
     ],
 
