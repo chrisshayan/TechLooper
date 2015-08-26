@@ -126,6 +126,11 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     createWebinar: function(webinar) {
+      var atts = [];
+      $.each(webinar.attendees, function(i, attendee) {
+        atts.push({email: attendee});
+      });
+      webinar.attendees = atts;
       return $http.post("user/employer/webinar", webinar);
     },
 
@@ -135,7 +140,6 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     findAvailableWebinars: function() {
       return $http.get("user/webinars");
     },
-
 
     /**
      * @see com.techlooper.controller.UserController.findWebinarById
