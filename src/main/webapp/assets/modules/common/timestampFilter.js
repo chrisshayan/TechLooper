@@ -7,7 +7,7 @@ techlooper.filter("timestamp", function (jsonValue) {
         return moment(input, jsonValue.dateTimeFormat).format('h:mm A');
 
       case 'shortDate':
-        return moment(input, jsonValue.dateFormat).format('MMM DD YYYY');
+        return moment(input, jsonValue.dateFormat).format('ddd, DD MMMM');
     }
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));
