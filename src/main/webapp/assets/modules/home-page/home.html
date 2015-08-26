@@ -197,8 +197,7 @@
                 <div class="upcoming-event-item">
                   <div class="left-content">
                     <p>
-                      <span ng-show="event.organiser.firstName.length"> {{event.organiser.firstName | limitTo: 10}}</span>
-                      <span ng-show="!event.organiser.firstName.length"> {{event.organiser.username | textTruncate: 'email'}}</span>
+                      {{(event.organiser.name | limitTo: 10) || (event.organiser.email | textTruncate: 'email')}}
                     </p>
                     <img ng-show="event.organiser.profileImageUrl.length" ng-src="{{event.organiser.profileImageUrl}}" alt="">
                     <img ng-show="!event.organiser.profileImageUrl.length" ng-src="images/no-avatar.png" alt="">
