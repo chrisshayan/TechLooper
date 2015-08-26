@@ -1,7 +1,7 @@
 techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
                          signInService, historyFactory, userService, routerService, $location,
                          utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
-                         apiService, resourcesService, seoService) {
+                         apiService, resourcesService, seoService, joinAnythingService) {
   shortcutFactory.initialize();
   connectionFactory.initialize();
   loadingBoxFactory.initialize();
@@ -11,7 +11,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   userService.initialize();
   securityService.initialize();
   seoService.initialize();
-  //joinNowService.initialize();
+  joinAnythingService.initialize();
 
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
@@ -48,7 +48,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         localStorageService.set("email", param.email);
         break;
 
-      //TODO route user to login by social
       case "loginBySocial":
         securityService.login(param.code, param.social, param.social);
         break;

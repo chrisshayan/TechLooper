@@ -11,9 +11,18 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
     });
 
   $scope.joinNow = function() {
-    localStorageService.set("joinForm", "webinar");
+    localStorageService.set("joinAnything", "webinar");
     localStorageService.set("id", webinarId);
     apiService.joinNowByFB();
   }
+
+  $scope.$on("joinAnything", function(fromScope, webinar) {
+    $scope.webinar = webinar;
+  });
+
+  //$scope.$on("joinAnythingWithoutEmail", function() {
+  //  console.log(567);
+  //  console.log(arguments);
+  //});
 });
 

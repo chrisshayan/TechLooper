@@ -5,35 +5,21 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
-import com.techlooper.dto.JoinWebinarDto;
+import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.WebinarEntity;
-import com.techlooper.model.EmployerDto;
 import com.techlooper.model.UserProfileDto;
-import com.techlooper.repository.elasticsearch.CompanySearchResultRepository;
 import com.techlooper.repository.elasticsearch.WebinarRepository;
-import com.techlooper.repository.vnw.VnwUserRepo;
 import com.techlooper.service.CompanyService;
 import com.techlooper.service.WebinarService;
 import org.dozer.Mapper;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeFilterBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.Aggregations;
-import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
-import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramBuilder;
-import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
-import org.elasticsearch.search.aggregations.bucket.histogram.InternalHistogram;
-import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -144,8 +130,10 @@ public class WebinarServiceImpl implements WebinarService {
     return null;
   }
 
-  public WebinarInfoDto joinWebinar(JoinWebinarDto joinWebinarDto) {
-
-    return null;
+  public WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) {
+    WebinarEntity webinar = webinarRepository.findOne(joinBySocialDto.getId());
+    UserProfileDto attendee = dozerMapper.map(joinBySocialDto, UserProfileDto.class);
+    webinar.getAttendees().add(attendee);
+    return dozerMapper.map(webinarRepository.save(webinar), WebinarInfoDto.class);
   }
 }

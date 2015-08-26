@@ -5,13 +5,23 @@ import java.io.Serializable;
 /**
  * Created by phuonghqh on 8/26/15.
  */
-public class JoinWebinarDto implements Serializable {
+public class JoinBySocialDto implements Serializable {
 
   private Long id;
 
   private String firstName;
 
   private String lastName;
+
+  private String email;
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
   public Long getId() {
     return id;

@@ -76,4 +76,72 @@ public class UserProfileDto {
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
+
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    UserProfileDto that = (UserProfileDto) o;
+
+    if (username != null ? !username.equals(that.username) : that.username != null) return false;
+    return !(email != null ? !email.equals(that.email) : that.email != null);
+
+  }
+
+  public int hashCode() {
+    int result = username != null ? username.hashCode() : 0;
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    return result;
+  }
+
+  public static class UserProfileDtoBuilder {
+    private UserProfileDto userProfileDto;
+
+    private UserProfileDtoBuilder() {
+      userProfileDto = new UserProfileDto();
+    }
+
+    public UserProfileDtoBuilder withUsername(String username) {
+      userProfileDto.username = username;
+      return this;
+    }
+
+    public UserProfileDtoBuilder withName(String name) {
+      userProfileDto.name = name;
+      return this;
+    }
+
+    public UserProfileDtoBuilder withProfileImageUrl(String profileImageUrl) {
+      userProfileDto.profileImageUrl = profileImageUrl;
+      return this;
+    }
+
+    public UserProfileDtoBuilder withEmail(String email) {
+      userProfileDto.email = email;
+      return this;
+    }
+
+    public UserProfileDtoBuilder withFirstName(String firstName) {
+      userProfileDto.firstName = firstName;
+      return this;
+    }
+
+    public UserProfileDtoBuilder withLastName(String lastName) {
+      userProfileDto.lastName = lastName;
+      return this;
+    }
+
+    public UserProfileDtoBuilder withRoleName(RoleName roleName) {
+      userProfileDto.roleName = roleName;
+      return this;
+    }
+
+    public static UserProfileDtoBuilder userProfileDto() {
+      return new UserProfileDtoBuilder();
+    }
+
+    public UserProfileDto build() {
+      return userProfileDto;
+    }
+  }
 }

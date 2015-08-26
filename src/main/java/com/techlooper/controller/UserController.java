@@ -1,7 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.DashBoardInfo;
-import com.techlooper.dto.JoinWebinarDto;
+import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
@@ -317,7 +317,7 @@ public class UserController {
   }
 
   @RequestMapping(value = "user/webinar/join", method = RequestMethod.POST)
-  public void joinWebinar(@RequestBody JoinWebinarDto joinWebinarDto) {
-
+  public WebinarInfoDto joinWebinar(@RequestBody JoinBySocialDto joinBySocialDto) {
+    return webinarService.joinWebinar(joinBySocialDto);
   }
 }
