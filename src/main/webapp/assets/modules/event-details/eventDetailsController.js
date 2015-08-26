@@ -9,6 +9,7 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
     .success(function(webinar) {
       console.log(webinar);
       $scope.webinar = webinar;
+
     });
 });
 

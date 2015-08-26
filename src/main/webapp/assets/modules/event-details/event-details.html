@@ -1,21 +1,24 @@
 <div class="content-page-block event-details-page">
   <div class="header-page">
-    <h2 class="text-left">{{'Job Search Innovation Hackathon Share'}}</h2>
+    <h2 class="text-left">{{webinar.name}}</h2>
   </div>
   <div class="content-page-detail">
     <div class="event-details-block">
       <div class="left-content">
         <div class="date-time-event">
-          <i class="fa fa-calendar"></i> gnfgfnfgd d f
+          <i class="fa fa-calendar"></i>
+          {{webinar.startDate | timestamp: 'shortDate'}} -  {{webinar.startDate | timestamp: 'hour'}}
+          <span translate="to"></span>
+          {{webinar.endDate | timestamp: 'shortDate'}} -  {{webinar.endDate | timestamp: 'hour'}}
         </div>
         <div class="location-event">
-          <i class="fa fa-map-marker"></i> nbfgbfgb  f fd
+          <i class="fa fa-map-marker"></i> Google Hangouts
         </div>
         <div class="webinar-keywords">
-          <p>fbfgjb brbrt</p>
+          <p>{{webinar.whatEvent}}</p>
         </div>
         <div class="webinar-why">
-          We are holding an online kick-off event on Thursday 23rd of July from 18:30-19:30 on Google Hangout. <br><br>During this event we will talk about: <br>TechLooper vision and features; <br>Interactive Job Contest timeline and requirements; <br><br>Usability test: <br>5 second test and click test (we recommend https://usabilityhub.com); <br>VietnamWorks API; <br>And we will go through all your questions. <br><br>If you want to contact me, please write to code@vietnamworks.com. <br><br>Looking forward to talk to you all!
+          {{webinar.description | lineBreak}}
         </div>
       </div>
       <div class="right-content">
@@ -37,29 +40,25 @@
     </div>
     <div class="organiser-info">
       <div class="left-content">
-        <img src="images/cp-logo-atlassian.png" alt=""/>
+        <img ng-src="{{webinar.organiser.profileImageUrl || 'images/no-avatar.png'}}" alt="">
       </div>
       <div class="right-content">
         <ul>
           <li>
             <span class="title" translate="organiser"></span>
-            <span>{{'Atlassian Vietnam Company JSC'}}</span>
+            <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}}</span>
           </li>
-          <li>
-            <span class="title" translate="address"></span>
+          <li ng-show="">
+            <span class="title">{{'address' | translate}}:</span>
             <span>{{'130 Suong Nguyet Anh Street, Ben Thanh Ward, District 1, Ho Chi Minh City, Vietnam'}}</span>
           </li>
-          <li>
-            <span class="title" translate="companySize"></span>
+          <li ng-show="">
+            <span class="title">{{'companySize' | translate}}:</span>
             <span>199 - 499 </span>
           </li>
-          <li>
-            <span class="title" translate="companyProfile"></span>
+          <li ng-show="">
+            <span class="title">{{'companyProfile' | translate}}:</span>
             <span>{{'Công ty TNHH Viettel - CHT (tên thường gọi là Viettel IDC) là công ty trực thuộc Tập đoàn Viễn Thông Quân Đội Viettel. Cùng với với Chunghwa Telecom (Công ty viễn thông-internet lớn nhất Đài Loan)'}}</span>
-          </li>
-          <li>
-            <span class="title"></span>
-            <span></span>
           </li>
         </ul>
       </div>
