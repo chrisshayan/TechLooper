@@ -10,6 +10,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
       $scope.jobs = response.jobs;
+      console.log($scope.jobs);
     });
   } else {
     var searchParams = searchText.split("+");

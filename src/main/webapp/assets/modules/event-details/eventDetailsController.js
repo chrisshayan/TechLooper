@@ -1,4 +1,4 @@
-techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams) {
+techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, joinNowService, localStorageService) {
 
 
   var parts = $routeParams.id.split("-");
@@ -7,9 +7,13 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
 
   apiService.findWebinarById(webinarId)
     .success(function(webinar) {
-      console.log(webinar);
       $scope.webinar = webinar;
-
     });
+
+  $scope.joinNow = function() {
+    localStorageService.set("joinForm", "webinar");
+    localStorageService.set("id", webinarId);
+    apiService.joinNowByFB();
+  }
 });
 
