@@ -16,7 +16,7 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       return rs;
     },
 
-    gotoLastFoot: function() {
+    gotoLastFoot: function () {
       var lastFoot = localStorageService.get("lastFoot");
       if (lastFoot) {
         localStorageService.remove("lastFoot");
@@ -25,17 +25,17 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       return $location.url("/");
     },
 
-    openFBShare: function(uri) {
+    openFBShare: function (uri) {
       window.open(
         'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri,
         'name', 'width=450,height=350');
     },
 
-    isFormSubmitted: function(form, inputName) {
+    isFormSubmitted: function (form, inputName) {
       return form && (form[inputName].$edited || form.$submitted);
     },
 
-    toPromises: function(defersObj) {
+    toPromises: function (defersObj) {
       var promises = [];
       for (var prop in defersObj) {
         promises.push(defersObj[prop].promise);
@@ -43,7 +43,7 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       return promises;
     },
 
-    toObject: function(obj) {
+    toObject: function (obj) {
       for (var prop in obj) {
         try {
           obj[prop] = JSON.parse(obj[prop]);
@@ -53,15 +53,15 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       return obj;
     },
 
-    toStrings: function(array, prop) {
-      $.each(array, function(i, item) {
+    toStrings: function (array, prop) {
+      $.each(array, function (i, item) {
         item[prop] = '' + item[prop];
       });
       return array;
     },
 
-    removeRedundantAttrs: function(obj, attrs) {
-      $.each(attrs, function(i, attr) {
+    removeRedundantAttrs: function (obj, attrs) {
+      $.each(attrs, function (i, attr) {
         delete obj[attr];
       });
     },
@@ -81,10 +81,10 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       }
     },
 
-    hasNonAsciiChar: function(str) {
+    hasNonAsciiChar: function (str) {
       var chars = str.split("-").join("").split("");
       var rs = false;
-      $.each(chars, function(i, c) {
+      $.each(chars, function (i, c) {
         rs = rs || (c < "0");
         rs = rs || (c > "9" && c < "A");
         rs = rs || (c > "Z" && c < "a");
@@ -347,6 +347,8 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
     },
 
     findBy: function (array, attr, value) {
+      if (!value) return undefined;
+
       var val = undefined;
       $.each(array, function (index, item) {
         if (item[attr].toLowerCase() === value.toLowerCase()) {
