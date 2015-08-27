@@ -44,7 +44,8 @@
     "apiUrl": {
       "login": "https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri={redirectUri}&response_type=code&client_id={apiKey}"
     },
-    "calendarId": "techlooperawesome@gmail.com"
+    "calendarId": "3iahuurbarqql927vhtibk49pc@group.calendar.google.com",
+    "calendarOwner": "techlooperawesome@gmail.com"
   },
   {
     "provider": "TWITTER",

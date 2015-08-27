@@ -24,6 +24,16 @@ public class SocialConfig {
 
   private String calendarId;
 
+  private String calendarOwner;
+
+  public String getCalendarOwner() {
+    return calendarOwner;
+  }
+
+  public void setCalendarOwner(String calendarOwner) {
+    this.calendarOwner = calendarOwner;
+  }
+
   public String getCalendarId() {
     return calendarId;
   }
