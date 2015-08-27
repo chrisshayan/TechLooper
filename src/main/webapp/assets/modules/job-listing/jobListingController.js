@@ -1,4 +1,4 @@
-techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams, $location, utils, jsonValue) {
+techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams, $location, utils, jsonValue, $timeout ) {
 
   $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
 
@@ -11,9 +11,9 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
       $scope.jobs = response.jobs;
-      utils.registerNotification(jsonValue.notifications.loaded, hide);
-    })
-    .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, 'auto');});
+    }).finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
+    });
   } else {
     var searchParams = searchText.split("+");
     var keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
@@ -137,5 +137,9 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     }
     return "";
   }
-
+  $timeout(function () {
+    $('p.offers').on("click", function(){
+      $(this).next().toggleClass( "show", 1000);
+    });
+  }, 1000);
 });
