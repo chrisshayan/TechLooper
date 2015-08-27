@@ -115,7 +115,6 @@ public class WebinarServiceImpl implements WebinarService {
       .from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
 
     searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
-    searchQueryBuilder.withPageable(new PageRequest(0, 4));
 
     List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
     if (!webinarEntities.isEmpty()) {
