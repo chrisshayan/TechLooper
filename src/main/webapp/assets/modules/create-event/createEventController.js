@@ -1,14 +1,18 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils, $anchorScroll) {
 
   $scope.createWebinar = function () {
     $scope.webinarForm.$setSubmitted();
+    $anchorScroll();
     if ($scope.webinarForm.$invalid) {
       return;
     }
 
     apiService.createWebinar($scope.webinar).success(function (data) {
+      utils.sendNotification(jsonValue.notifications.loading, $(window).height());
       var title = utils.toAscii(data.name);
       window.location.href = sprintf('#/event-details/'+title+'-'+data.createdDateTime+ '-id');
+    }).finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
     });
 
     $scope.webinarForm.$setPristine();

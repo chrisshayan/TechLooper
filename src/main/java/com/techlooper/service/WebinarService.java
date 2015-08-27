@@ -21,5 +21,5 @@ public interface WebinarService {
 
   WebinarInfoDto findWebinarById(Long id);
 
-  WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto);
+  WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) throws IOException;
 }

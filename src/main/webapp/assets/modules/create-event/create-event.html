@@ -23,7 +23,7 @@
                    options="uiConfig.fromNowDatetimeConfig" ng-required="true"/>
             <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.startDate.$dirty) && (webinarForm.startDate.$invalid)">
               <div translate="requiredThisField" ng-show="webinarForm.startDate.$error.required"/>
-              <div translate="cannotInPast" ng-show="state('error-past-date')"/>
+              <div translate="mustBeInTheFuture" ng-show="state('error-past-date')"/>
               <div translate="startDateGTEndDate" ng-show="state('error-range-date')"/>
             </div>
           </div>
@@ -35,7 +35,7 @@
                    class="input-style"  ng-required="true"/>
             <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.endDate.$dirty) && (webinarForm.endDate.$invalid)">
               <div translate="requiredThisField" ng-show="webinarForm.endDate.$error.required"/>
-              <div translate="cannotInPast" ng-show="state('error-past-date')"/>
+              <div translate="mustBeInTheFuture" ng-show="state('error-past-date')"/>
             </div>
           </div>
         </div>

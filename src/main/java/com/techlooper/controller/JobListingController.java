@@ -1,9 +1,10 @@
 package com.techlooper.controller;
 
-import com.techlooper.model.JobListingCriteria;
-import com.techlooper.model.JobListingModel;
-import com.techlooper.model.JobResponse;
+import com.techlooper.model.*;
 import com.techlooper.service.JobAlertService;
+import com.techlooper.service.JobSearchService;
+import com.techlooper.service.ScrapeJobService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,16 @@ import static com.techlooper.service.impl.JobAlertServiceImpl.NUMBER_OF_ITEMS_PE
 @Controller
 public class JobListingController {
 
+    private final static String JOB_CATEGORY_IT = "35,55,57";
+
     @Resource
     private JobAlertService jobAlertService;
+
+    @Resource
+    private ScrapeJobService scrapeJobService;
+
+    @Resource
+    private JobSearchService vietnamWorksJobSearchService;
 
     @ResponseBody
     @RequestMapping(value = "/jobListing", method = RequestMethod.POST)
@@ -35,6 +44,40 @@ public class JobListingController {
         jobListing.setTotalJob(totalJob);
         jobListing.setJobs(jobs);
         return jobListing;
+    }
+
+    @Scheduled(cron = "${scheduled.cron.indexVietnamworksJob}")
+    public void indexJobFromVietnamworks() throws Exception {
+        VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest();
+        VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
+        if (vnwJobSearchResponse.hasData()) {
+            scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.TRUE);
+        }
+
+        vnwJobSearchRequest = getNormalJobSearchRequest();
+        vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
+        if (vnwJobSearchResponse.hasData()) {
+            scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.FALSE);
+        }
+
+    }
+
+    private VNWJobSearchRequest getTopPriorityJobSearchRequest() {
+        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
+        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
+        vnwJobSearchRequest.setTechlooperJobType(1);
+        vnwJobSearchRequest.setPageNumber(1);
+        vnwJobSearchRequest.setPageSize(20);
+        return vnwJobSearchRequest;
+    }
+
+    private VNWJobSearchRequest getNormalJobSearchRequest() {
+        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
+        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
+        vnwJobSearchRequest.setTechlooperJobType(2);
+        vnwJobSearchRequest.setPageNumber(1);
+        vnwJobSearchRequest.setPageSize(20);
+        return vnwJobSearchRequest;
     }
 
 }

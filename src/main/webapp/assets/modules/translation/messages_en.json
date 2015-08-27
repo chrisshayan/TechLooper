@@ -684,6 +684,7 @@
   "allEvents": "All Events",
   "whatDoWeOffer": "What do we offer?",
   "cannotInPast": "This field cannot be in the past.",
+  "mustBeInTheFuture": "This field should be in the future.",
   "register": "Register",
   "upcomingEvents": "Upcoming Events",
   "viewMoreEvents": "View More Events",

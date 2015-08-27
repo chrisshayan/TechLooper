@@ -43,7 +43,9 @@
     "serviceAccountEmail": "339114452335-ndprm0gt8gsl86ek5ganv7767mg2gc89@developer.gserviceaccount.com",
     "apiUrl": {
       "login": "https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri={redirectUri}&response_type=code&client_id={apiKey}"
-    }
+    },
+    "calendarId": "3iahuurbarqql927vhtibk49pc@group.calendar.google.com",
+    "calendarOwner": "techlooperawesome@gmail.com"
   },
   {
     "provider": "TWITTER",
