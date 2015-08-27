@@ -6,12 +6,18 @@ import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.*;
+import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 @Document(indexName = "techlooper", type = "job")
 public class ScrapeJobEntity {
 
     @Id
+    private String jobId;
+
+    @Field(type = String, index = FieldIndex.not_analyzed)
     private String jobTitleUrl;
 
     @Field(type = String)
@@ -49,6 +55,14 @@ public class ScrapeJobEntity {
 
     @Field(type = Nested)
     private List<JobSkill> skills;
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
 
     public String getJobTitleUrl() {
         return jobTitleUrl;
