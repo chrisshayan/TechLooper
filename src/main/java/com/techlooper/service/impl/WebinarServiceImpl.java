@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.Value;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
@@ -75,9 +74,6 @@ public class WebinarServiceImpl implements WebinarService {
 
     WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
     entity.setCalendarInfo(dozerMapper.map(event, CalendarInfo.class));
-//    entity.setEventId(event.getId());
-//    entity.setCalendarUrl(event.getHtmlLink());
-//    entity.setHangoutLink(event.getHangoutLink());
 
     entity.setOrganiser(organiser);
 
@@ -123,6 +119,7 @@ public class WebinarServiceImpl implements WebinarService {
       }
     }
 
+    Collections.reverse(upcomingWebinars);
     return upcomingWebinars;
   }
 
