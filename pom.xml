@@ -281,7 +281,7 @@
       <id>staging</id>
       <properties>
         <env>staging</env>
-        <grunt.task>build</grunt.task>
+        <grunt.task>local</grunt.task>
       </properties>
       <build>
         <plugins>
@@ -378,7 +378,7 @@
       <id>production</id>
       <properties>
         <env>production</env>
-        <grunt.task>build</grunt.task>
+        <grunt.task>local</grunt.task>
       </properties>
       <build>
         <plugins>
