@@ -54,8 +54,6 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     public final static int JOB_ALERT_ALREADY_SENT_ON_TODAY = 301;
 
-    private final static String JOB_CATEGORY_IT = "35,55,57";
-
     @Value("${jobAlert.period}")
     private int CONFIGURED_JOB_ALERT_PERIOD;
 
@@ -91,9 +89,6 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     @Resource
     private JavaMailSender mailSender;
-
-    @Resource
-    private JobSearchService vietnamWorksJobSearchService;
 
     @Override
     public List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
@@ -177,15 +172,6 @@ public class JobAlertServiceImpl implements JobAlertService {
     @Override
     public List<JobResponse> listJob(JobListingCriteria criteria) {
         List<JobResponse> result = new ArrayList<>();
-//
-//        if (criteria.getPage() == 1) {
-//            VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest(criteria);
-//            VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-//            if (vnwJobSearchResponse.hasData()) {
-//                Set<VNWJobSearchResponseDataItem> vnwJobs = vnwJobSearchResponse.getData().getJobs();
-//                result.addAll(aggregateJobs(vnwJobs));
-//            }
-//        }
 
         NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
@@ -209,33 +195,6 @@ public class JobAlertServiceImpl implements JobAlertService {
         }
         return result;
     }
-
-//    private List<JobResponse> aggregateJobs(Set<VNWJobSearchResponseDataItem> vnwJobs) {
-//        List<JobResponse> result = new ArrayList<>();
-//        for(VNWJobSearchResponseDataItem job : vnwJobs) {
-//            JobResponse.Builder builder = new JobResponse.Builder();
-//            if (job.getSalaryMax() != null && job.getSalaryMax() > 0) {
-//                JobResponse jobResponse = builder.withTitle(job.getTitle()).withUrl(job.getUrl()).withLocation(job.getLocation())
-//                        .withCompany(job.getCompany()).withLevel(job.getLevel()).withLogoUrl(job.getLogoUrl())
-//                        .withPostedOn(job.getPostedOn()).withSalaryMin(job.getSalaryMin()).withSalaryMax(job.getSalaryMax())
-//                        .withTechlooperJobType(1).withSkills(job.getSkills()).withBenefits(job.getBenefits())
-//                        .build();
-//                result.add(jobResponse);
-//            }
-//        }
-//        return result;
-//    }
-//
-//    private VNWJobSearchRequest getTopPriorityJobSearchRequest(JobListingCriteria criteria) {
-//        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
-//        vnwJobSearchRequest.setJobTitle(criteria.getKeyword());
-//        vnwJobSearchRequest.setJobLocation(criteria.getLocation());
-//        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
-//        vnwJobSearchRequest.setTechlooperJobType(1);
-//        vnwJobSearchRequest.setPageNumber(1);
-//        vnwJobSearchRequest.setPageSize(20);
-//        return vnwJobSearchRequest;
-//    }
 
     @Override
     public Long countJob(JobListingCriteria criteria) {
