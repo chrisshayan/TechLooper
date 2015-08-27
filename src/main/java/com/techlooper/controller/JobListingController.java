@@ -49,16 +49,24 @@ public class JobListingController {
     @Scheduled(cron = "${scheduled.cron.indexVietnamworksJob}")
     public void indexJobFromVietnamworks() throws Exception {
         VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest();
+        VNWJobSearchResponse vnwJobSearchResponse;
         do {
-            VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-            scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.TRUE);
+            vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
+            if (vnwJobSearchResponse.hasData()) {
+                scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.TRUE);
+                vnwJobSearchRequest.setPageNumber(vnwJobSearchRequest.getPageNumber() + 1);
+            }
         } while (vnwJobSearchResponse.hasData());
 
-        vnwJobSearchRequest = getNormalJobSearchRequest();
-        vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-        if (vnwJobSearchResponse.hasData()) {
-            scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.FALSE);
-        }
+        VNWJobSearchRequest vnwNormalJobSearchRequest = getNormalJobSearchRequest();
+        VNWJobSearchResponse vnwNormalJobSearchResponse;
+        do {
+            vnwNormalJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwNormalJobSearchRequest);
+            if (vnwNormalJobSearchResponse.hasData()) {
+                scrapeJobService.save(vnwNormalJobSearchResponse.getData().getJobs(), Boolean.FALSE);
+                vnwNormalJobSearchRequest.setPageNumber(vnwNormalJobSearchRequest.getPageNumber() + 1);
+            }
+        } while (vnwNormalJobSearchResponse.hasData());
 
     }
 
