@@ -21,8 +21,10 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
     apiService.joinNowByFB();
   }
 
-  $scope.$on("joinAnything", function(fromScope, webinar) {
+  $scope.$on("joinAnythingSuccess", function(fromScope, webinar) {
     $scope.webinar = webinar;
+
+    //join success
   });
 
   $scope.status = function(type) {
@@ -49,5 +51,6 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
     });
     utils.openFBShare("/shareWebinar/" + $translate.use() + "/" + webinarId);
   }
+
 });
 

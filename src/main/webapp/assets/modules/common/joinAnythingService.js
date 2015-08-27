@@ -19,7 +19,7 @@ techlooper.factory("joinAnythingService", function (apiService, localStorageServ
     case "webinar":
       apiService.joinWebinar(id, firstName, lastName, email)
         .success(function (webinar) {
-          $rootScope.$broadcast("joinAnything", webinar);
+          $rootScope.$broadcast("joinAnythingSuccess", webinar);
         });
       break;
   }
