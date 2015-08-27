@@ -22,6 +22,16 @@ public class SocialConfig {
 
   private String serviceAccountEmail;
 
+  private String calendarId;
+
+  public String getCalendarId() {
+    return calendarId;
+  }
+
+  public void setCalendarId(String calendarId) {
+    this.calendarId = calendarId;
+  }
+
   public String getServiceAccountEmail() {
     return serviceAccountEmail;
   }

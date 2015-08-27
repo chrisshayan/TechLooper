@@ -33,7 +33,8 @@
       "users": "https://api.github.com/users/{username}",
       "repos": "https://api.github.com/users/{username}/repos",
       "followers": "https://api.github.com/users/{username}/followers"
-    }
+    },
+    "calendarId": "techlooperawesome@gmail.com"
   },
   {
     "provider": "GOOGLE",

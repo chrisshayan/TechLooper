@@ -7,7 +7,9 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
+import com.techlooper.entity.CalendarInfo;
 import com.techlooper.entity.WebinarEntity;
+import com.techlooper.model.SocialConfig;
 import com.techlooper.model.UserProfileDto;
 import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.service.CompanyService;
@@ -34,107 +36,119 @@ import java.util.*;
 @Service
 public class WebinarServiceImpl implements WebinarService {
 
-    @Resource
-    private WebinarRepository webinarRepository;
+  @Resource
+  private WebinarRepository webinarRepository;
 
-    @Resource
-    private Mapper dozerMapper;
+  @Resource
+  private Mapper dozerMapper;
 
-    @Resource
-    private Calendar googleCalendar;
+  @Resource
+  private Calendar googleCalendar;
 
-    @Resource
-    private CompanyService companyService;
+  @Resource
+  private CompanyService companyService;
 
-    private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
+  @Resource
+  private SocialConfig googleSocialConfig;
 
-    public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException {
+  public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException {
 
-        Event event = new Event()
-                .setSummary(webinarInfoDto.getName())
-                .setDescription(webinarInfoDto.getDescription());
+    Event event = new Event()
+      .setSummary(webinarInfoDto.getName())
+      .setDescription(webinarInfoDto.getDescription());
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm a");
-        org.joda.time.DateTime startDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getStartDate());
-        org.joda.time.DateTime endDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getEndDate());
-        event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
-        event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
+    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm a");
+    org.joda.time.DateTime startDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getStartDate());
+    org.joda.time.DateTime endDate = dateTimeFormatter.parseDateTime(webinarInfoDto.getEndDate());
+    event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
+    event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
 
-        webinarInfoDto.getAttendees().add(organiser);
-        EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
-                .map(attEmail -> new EventAttendee().setEmail(attEmail.getEmail()))
-                .toArray(EventAttendee[]::new);
+    webinarInfoDto.getAttendees().add(organiser);
+    EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
+      .map(attEmail -> new EventAttendee().setEmail(attEmail.getEmail()))
+      .toArray(EventAttendee[]::new);
 
-        event.setAttendees(Arrays.asList(attendees));
+    event.setAttendees(Arrays.asList(attendees));
 
-        event = googleCalendar.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
+    event = googleCalendar.events().insert(googleSocialConfig.getCalendarId(), event).setSendNotifications(true).execute();
 
-        WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
-        entity.setCalendarUrl(event.getHtmlLink());
-        entity.setHangoutLink(event.getHangoutLink());
+    WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
+    entity.setCalendarInfo(dozerMapper.map(event, CalendarInfo.class));
 
-        entity.setOrganiser(organiser);
+    entity.setOrganiser(organiser);
 
-        entity = webinarRepository.save(entity);
-        return dozerMapper.map(entity, WebinarInfoDto.class);
+    entity = webinarRepository.save(entity);
+    return dozerMapper.map(entity, WebinarInfoDto.class);
+  }
+
+  public Collection<WebinarInfoDto> findAvailableWebinars() {
+    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
+      .withIndices("techlooper").withTypes("webinar")
+      .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.ASC))
+      .withFilter(FilterBuilders.rangeFilter("startDate").from("now"));
+
+    List<WebinarInfoDto> webinarInfoDtos = new ArrayList<>();
+    int pageIndex = 0;
+    while (true) {
+      queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
+      FacetedPage<WebinarEntity> page = webinarRepository.search(queryBuilder.build());
+      if (!page.hasContent()) {
+        break;
+      }
+
+      page.spliterator().forEachRemaining(webinarEntity -> {
+        webinarInfoDtos.add(dozerMapper.map(webinarEntity, WebinarInfoDto.class));
+      });
     }
 
-    public Collection<WebinarInfoDto> findAvailableWebinars() {
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
-                .withIndices("techlooper").withTypes("webinar")
-                .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.ASC))
-                .withFilter(FilterBuilders.rangeFilter("startDate").from("now"));
+    return webinarInfoDtos;
+  }
 
-        List<WebinarInfoDto> webinarInfoDtos = new ArrayList<>();
-        int pageIndex = 0;
-        while (true) {
-            queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
-            FacetedPage<WebinarEntity> page = webinarRepository.search(queryBuilder.build());
-            if (!page.hasContent()) {
-                break;
-            }
+  public List<WebinarInfoDto> listUpcomingWebinar() {
+    List<WebinarInfoDto> upcomingWebinars = new ArrayList<>();
+    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
+    searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate").from("now"));
+    searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
+    searchQueryBuilder.withPageable(new PageRequest(0, 4));
 
-            page.spliterator().forEachRemaining(webinarEntity -> {
-                webinarInfoDtos.add(dozerMapper.map(webinarEntity, WebinarInfoDto.class));
-            });
-        }
-
-        return webinarInfoDtos;
+    List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
+    if (!webinarEntities.isEmpty()) {
+      for (WebinarEntity webinarEntity : webinarEntities) {
+        WebinarInfoDto webinarInfoDto = dozerMapper.map(webinarEntity, WebinarInfoDto.class);
+        upcomingWebinars.add(webinarInfoDto);
+      }
     }
 
-    public List<WebinarInfoDto> listUpcomingWebinar() {
-        List<WebinarInfoDto> upcomingWebinars = new ArrayList<>();
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
-        searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate").from("now"));
-        searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
-        searchQueryBuilder.withPageable(new PageRequest(0, 4));
+    Collections.reverse(upcomingWebinars);
+    return upcomingWebinars;
+  }
 
-        List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
-        if (!webinarEntities.isEmpty()) {
-            for (WebinarEntity webinarEntity : webinarEntities) {
-                WebinarInfoDto webinarInfoDto = dozerMapper.map(webinarEntity, WebinarInfoDto.class);
-                upcomingWebinars.add(webinarInfoDto);
-            }
-        }
+  public WebinarInfoDto findWebinarById(Long id) {
+    WebinarEntity entity = webinarRepository.findOne(id);
+    if (entity != null) {
+      WebinarInfoDto webinarInfoDto = dozerMapper.map(entity, WebinarInfoDto.class);
+      Optional.ofNullable(companyService.findByUserName(entity.getOrganiser().getUsername())).ifPresent(webinarInfoDto::setCompany);
+      return webinarInfoDto;
+    }
+    return null;
+  }
 
-        Collections.reverse(upcomingWebinars);
-        return upcomingWebinars;
+  public WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) throws IOException {
+    WebinarEntity webinar = webinarRepository.findOne(joinBySocialDto.getId());
+    if (webinar.getAttendees().size() == 100) {
+      return dozerMapper.map(webinar, WebinarInfoDto.class);
     }
 
-    public WebinarInfoDto findWebinarById(Long id) {
-        WebinarEntity entity = webinarRepository.findOne(id);
-        if (entity != null) {
-            WebinarInfoDto webinarInfoDto = dozerMapper.map(entity, WebinarInfoDto.class);
-            Optional.ofNullable(companyService.findByUserName(entity.getOrganiser().getUsername())).ifPresent(webinarInfoDto::setCompany);
-            return webinarInfoDto;
-        }
-        return null;
+    UserProfileDto attendee = dozerMapper.map(joinBySocialDto, UserProfileDto.class);
+    if (webinar.getAttendees().add(attendee)) {
+      Event event = googleCalendar.events().get(googleSocialConfig.getCalendarId(), webinar.getCalendarInfo().getId()).execute();
+      EventAttendee att = new EventAttendee().setEmail(attendee.getEmail())
+        .setDisplayName(String.format("%s %s", joinBySocialDto.getFirstName(), joinBySocialDto.getLastName()));
+      event.getAttendees().add(att);
+      event = googleCalendar.events().update(googleSocialConfig.getCalendarId(), webinar.getCalendarInfo().getId(), event)
+        .setSendNotifications(true).execute();
+      webinar.setCalendarInfo(dozerMapper.map(event, CalendarInfo.class));
     }
-
-    public WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) {
-        WebinarEntity webinar = webinarRepository.findOne(joinBySocialDto.getId());
-        UserProfileDto attendee = dozerMapper.map(joinBySocialDto, UserProfileDto.class);
-        webinar.getAttendees().add(attendee);
-        return dozerMapper.map(webinarRepository.save(webinar), WebinarInfoDto.class);
-    }
+    return dozerMapper.map(webinarRepository.save(webinar), WebinarInfoDto.class);
+  }
 }
