@@ -420,7 +420,7 @@ public class CoreConfiguration implements ApplicationContextAware {
       .setServiceAccountId(googleConfig.getServiceAccountEmail())
       .setServiceAccountPrivateKeyFromP12File(googleApiAuthResource.getFile())
       .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
-      .setServiceAccountUser(googleConfig.getCalendarId())
+      .setServiceAccountUser(googleConfig.getCalendarOwner())
       .build();
 
     return new Calendar.Builder(transport, jsonFactory, credential)

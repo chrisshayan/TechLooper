@@ -2,17 +2,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
                          signInService, historyFactory, userService, routerService, $location,
                          utils, $rootScope, $translate, jsonValue, localStorageService, securityService,
                          apiService, resourcesService, seoService, joinAnythingService) {
-  shortcutFactory.initialize();
-  connectionFactory.initialize();
-  loadingBoxFactory.initialize();
-  cleanupFactory.initialize();
-  historyFactory.initialize();
-  routerService.initialize();
-  userService.initialize();
-  securityService.initialize();
-  seoService.initialize();
-  joinAnythingService.initialize();
-
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
 
@@ -59,4 +48,16 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   }
 
   $rootScope.today = moment().format(jsonValue.dateFormat);
+
+  //Exec all services
+  shortcutFactory.initialize();
+  connectionFactory.initialize();
+  loadingBoxFactory.initialize();
+  cleanupFactory.initialize();
+  historyFactory.initialize();
+  routerService.initialize();
+  userService.initialize();
+  securityService.initialize();
+  seoService.initialize();
+  joinAnythingService.initialize();
 });

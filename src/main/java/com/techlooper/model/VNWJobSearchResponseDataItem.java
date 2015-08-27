@@ -15,6 +15,9 @@ public class VNWJobSearchResponseDataItem {
 
     public static final String JOB_LEVEL = "top_level";
 
+    @JsonProperty(value = "job_id")
+    private Long jobId;
+
     @JsonProperty(value = "job_detail_url")
     private String url;
 
@@ -50,6 +53,14 @@ public class VNWJobSearchResponseDataItem {
 
     @JsonProperty(value = "skills")
     private List<JobSkill> skills;
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
 
     public String getUrl() {
         return url;
