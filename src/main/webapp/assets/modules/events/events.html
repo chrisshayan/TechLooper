@@ -20,7 +20,7 @@
             </div>
             <div class="right-content">
               <div class="event-name">
-                <h4><a ng-href="#/event-details/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank">{{webinar.name}}</a></h4>
+                <h4><a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank">{{webinar.name}}</a></h4>
               </div>
               <ul>
                 <li class="time">{{webinar.startDate | timestamp: 'hour'}}</li>
@@ -29,7 +29,7 @@
               </ul>
             </div>
             <div class="view-details" title="{{'viewDetails' | translate}}">
-              <a ng-href="#/event-details/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank"></a>
+              <a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank"></a>
             </div>
           </div>
         </div>

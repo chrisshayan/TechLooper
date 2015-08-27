@@ -17,7 +17,7 @@ techlooper.directive("listInput", function () {
       scope.addItem = function () {
         //var requiredToInput = (!scope.item || scope.item.length == 0);
         //scope.listForm.inputItem.$setValidity("requiredToInput", !requiredToInput);
-        scope.listForm.$setSubmitted();
+        //scope.listForm.$setSubmitted();
 
         if (scope.listForm.$invalid) return;
 

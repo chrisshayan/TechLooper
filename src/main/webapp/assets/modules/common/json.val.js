@@ -300,8 +300,8 @@ techlooper.factory("jsonValue", function () {
       },
       {
         name: "eventDetails",
-        url: "/event-details",
-        regex: /\/event-details\//i,
+        url: "/event-detail",
+        regex: /\/event-detail\//i,
         type: "SEO"
       },
       {

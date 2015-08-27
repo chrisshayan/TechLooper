@@ -693,5 +693,7 @@
   "address": "Address",
   "companyProfile": "Sơ Lược Về Công Ty",
   "attendantsLabel": "Người tham gia",
-  "eventsTitle": "Hãy cùng Gặp Gỡ và Giao Lưu thông qua các Sự Kiện Trực Tuyến"
+  "eventsTitle": "Hãy cùng Gặp Gỡ và Giao Lưu thông qua các Sự Kiện Trực Tuyến",
+  "postedEventSuccessful": "Bạn vừa tạo sự kiện thành công.",
+  "joinedEventAlert": "Bạn đã tham gia sự kiện này."
 }

@@ -56,7 +56,7 @@
         <div class="create-event-field">
           <label for="txtOrganiser" translate="organiser"></label>
           <input type="text" id="txtOrganiser"
-                 class="input-style" disabled="disabled" value="Thu Hoang"/>
+                 class="input-style" disabled="disabled" value="{{$root.userInfo.name || $root.userInfo.username | textTruncate: 'email'}}"/>
         </div>
         <div class="create-event-field">
           <label for="txtWhyEvent" translate="whoJoinAndWhy"></label>

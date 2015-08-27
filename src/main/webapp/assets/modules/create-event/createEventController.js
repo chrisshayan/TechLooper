@@ -1,19 +1,25 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils, $anchorScroll) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils,
+                                                         $location, $anchorScroll, localStorageService) {
 
   $scope.createWebinar = function () {
-    $scope.webinarForm.$setSubmitted();
     $anchorScroll();
+    utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+    $scope.webinarForm.$setSubmitted();
     if ($scope.webinarForm.$invalid) {
+      utils.sendNotification(jsonValue.notifications.loaded);
       return;
     }
 
-    apiService.createWebinar($scope.webinar).success(function (data) {
-      utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-      var title = utils.toAscii(data.name);
-      window.location.href = sprintf('#/event-details/'+title+'-'+data.createdDateTime+ '-id');
-    }).finally(function () {
-      utils.sendNotification(jsonValue.notifications.loaded);
-    });
+    apiService.createWebinar($scope.webinar)
+      .success(function (data) {
+        var title = utils.toAscii(data.name);
+        var path = sprintf("event-detail/%s-%s-id", title, data.createdDateTime);
+        localStorageService.set("webinarCreated", true);
+        $location.path(path);
+      })
+      .finally(function () {
+        utils.sendNotification(jsonValue.notifications.loaded);
+      });
 
     $scope.webinarForm.$setPristine();
   }

@@ -1,4 +1,10 @@
 <div class="content-page-block event-details-page">
+  <div class="alert alert-success" ng-show="showPostSuccessfulMessage">
+    <p translate="postedEventSuccessful"></p>
+  </div>
+  <div class="alert alert-success" ng-show="status('not-joined')">
+    <p translate="joinedEventAlert"></p>
+  </div>
   <div class="header-page">
     <h2 class="text-left">{{webinar.name}}</h2>
   </div>
@@ -21,7 +27,7 @@
       </div>
       <div class="right-content">
         <div class="tell-your-friends">
-          <a href="#" >
+          <a href="" ng-click="fbShare()">
             <span translate="tellYourFriends"></span>
             <span class="btn-facebook">
               <i class="fa fa-facebook"></i>
@@ -29,7 +35,7 @@
           </a>
         </div>
         <div class="number-going">
-          <p translate="thereAreGoing" translate-value-number="{{webinar.attendees.length - 1}}"></p>
+          <p translate="thereAreGoing" translate-value-number="{{webinar.attendees.length}}"></p>
         </div>
         <div class="join-with-facebook">
           <button class="btn btn-primary btn-flat" translate="joinWithFacebook" ng-click="joinNow()"
@@ -46,7 +52,8 @@
         <ul>
           <li>
             <span class="title" translate="organiser"></span>
-            <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}}</span>
+            <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}} <strong ng-show="webinar.company.companyName.length">({{webinar.company.companyName}})</strong></span>
+
           </li>
           <li ng-show="webinar.company.address.length">
             <span class="title">{{'address' | translate}}:</span>
