@@ -69,10 +69,10 @@ module.exports = function (grunt) {
         publicDirs: ["<%=pkg.public%>css"],
         blockReplacements: {
           js: function (block) {
-            return '<script src="' + block.dest + "?v=" + timestamp + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<script src="' + block.dest.replace(".min.js", "-") + timestamp + '.min.js" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
           },
           css: function (block) {
-            return '<link rel="stylesheet" href="' + block.dest + "?v=" + timestamp + '">';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<link rel="stylesheet" href="' + block.dest.replace(".min.css", "-") + timestamp + '.min.css">';//'<link rel="stylesheet" href="' + block.dest + '">';
           }
         }
       }
@@ -197,6 +197,21 @@ module.exports = function (grunt) {
           preserveComments: false
         }
       }
+    },
+
+    rename: {
+      build: {
+        files: [
+          {
+            src: ['<%=pkg.public%>generate-resources/techlooper.min.js'],
+            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.js'
+          },
+          {
+            src: ['<%=pkg.public%>generate-resources/techlooper.min.css'],
+            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.css'
+          }
+        ]
+      }
     }
   });
 
@@ -213,6 +228,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-ng-annotate");
   grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-contrib-rename');
 
   grunt.registerTask("build", [
     "clean:build",
@@ -228,7 +244,8 @@ module.exports = function (grunt) {
     "usemin",
     "clean:release",
     "copy:font",
-    "replace:cssConcat"
+    "replace:cssConcat",
+    "rename:build"
   ]);
 
   grunt.registerTask("local", [
