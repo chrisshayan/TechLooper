@@ -36,9 +36,13 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
     return false;
   }
 
+  $scope.showPostSuccessfulMessage = localStorageService.get("webinarCreated");
+
+  localStorageService.remove("webinarCreated");
+
   //$scope.$on("joinAnythingWithoutEmail", function() {
   //  console.log(567);
-  //  console.log(arguments);
+  //  //console.log(arguments);
   //});
 });
 

@@ -49,10 +49,10 @@ public class JobListingController {
     @Scheduled(cron = "${scheduled.cron.indexVietnamworksJob}")
     public void indexJobFromVietnamworks() throws Exception {
         VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest();
-        VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-        if (vnwJobSearchResponse.hasData()) {
+        do {
+            VNWJobSearchResponse vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
             scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.TRUE);
-        }
+        } while (vnwJobSearchResponse.hasData());
 
         vnwJobSearchRequest = getNormalJobSearchRequest();
         vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);

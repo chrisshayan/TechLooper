@@ -64,7 +64,6 @@ public class WebinarServiceImpl implements WebinarService {
     event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
 
     Set<UserProfileDto> webinarAttendees = webinarInfoDto.getAttendees();
-    webinarAttendees.remove(organiser);
 
     EventAttendee[] attendees = webinarAttendees.stream()
       .map(attEmail -> new EventAttendee().setEmail(attEmail.getEmail()))
@@ -79,6 +78,7 @@ public class WebinarServiceImpl implements WebinarService {
 
     entity.setOrganiser(organiser);
 
+    webinarAttendees.remove(organiser);//Remove organiser
     entity = webinarRepository.save(entity);
     return dozerMapper.map(entity, WebinarInfoDto.class);
   }
@@ -146,7 +146,8 @@ public class WebinarServiceImpl implements WebinarService {
       Event event = googleCalendar.events().get(googleSocialConfig.getCalendarId(), webinar.getCalendarInfo().getId()).execute();
       EventAttendee att = new EventAttendee().setEmail(attendee.getEmail())
         .setDisplayName(String.format("%s %s", joinBySocialDto.getFirstName(), joinBySocialDto.getLastName()));
-      event.getAttendees().add(att);
+      List<EventAttendee> attendees = Optional.ofNullable(event.getAttendees()).orElseGet(ArrayList::new);
+      attendees.add(att);
       event = googleCalendar.events().update(googleSocialConfig.getCalendarId(), webinar.getCalendarInfo().getId(), event)
         .setSendNotifications(true).execute();
       webinar.setCalendarInfo(dozerMapper.map(event, CalendarInfo.class));
