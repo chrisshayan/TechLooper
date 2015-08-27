@@ -1,5 +1,5 @@
 techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService,
-                                                          vnwConfigService, utils, jsonValue) {
+                                                          vnwConfigService, utils, jsonValue, $translate) {
   var parts = $routeParams.id.split("-");
   parts.pop();
   var webinarId = parts.pop();
@@ -21,8 +21,10 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
     apiService.joinNowByFB();
   }
 
-  $scope.$on("joinAnything", function(fromScope, webinar) {
+  $scope.$on("joinAnythingSuccess", function(fromScope, webinar) {
     $scope.webinar = webinar;
+
+    //join success
   });
 
   $scope.status = function(type) {
@@ -40,9 +42,15 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
 
   localStorageService.remove("webinarCreated");
 
-  //$scope.$on("joinAnythingWithoutEmail", function() {
-  //  console.log(567);
-  //  //console.log(arguments);
-  //});
+  $scope.fbShare = function () {
+    ga("send", {
+      hitType: "event",
+      eventCategory: "facebookshare",
+      eventAction: "click",
+      eventLabel: "webinarDetails"
+    });
+    utils.openFBShare("/shareWebinar/" + $translate.use() + "/" + webinarId);
+  }
+
 });
 
