@@ -684,6 +684,7 @@
   "allEvents": "Tất cả Sự Kiện",
   "whatDoWeOffer": "Phúc lợi công ty",
   "cannotInPast": "Trường này không được ở quá khứ.",
+  "mustBeInTheFuture": "Trường này phải ở tương lai.",
   "register": "Đăng Ký",
   "upcomingEvents": "Sự Kiện Sắp Diễn Ra",
   "viewMoreEvents": "Các Sự Kiện Khác",
