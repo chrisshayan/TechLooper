@@ -4,43 +4,15 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
   var instance = {
     logout: function () {
-
-      var view = utils.getView();
-      switch (view) {
-        case jsonValue.views.freelancerPostProject:
-        case jsonValue.views.employerDashboard:
-        case jsonValue.views.postChallenge:
-        case jsonValue.views.createEvent:
-          break;
-
-        default:
-          localStorageService.set("lastFoot", $location.path());
-          break;
-      }
-
       apiService.logout()
         .success(function (data, status, headers, config) {
           $.removeCookie("JSESSIONID");
-          localStorageService.remove("social");
           $rootScope.userInfo = undefined;
-
-          switch (view) {
-            case jsonValue.views.freelancerPostProject:
-            case jsonValue.views.employerDashboard:
-            case jsonValue.views.postChallenge:
-            case jsonValue.views.createEvent:
-              break;
-
-            default:
-              var lastFoot = localStorageService.get("lastFoot");
-              if (lastFoot) {
-                return $location.url(lastFoot);
-              }
+          var roles = $rootScope.currentUiView.roles || [];
+          if (roles.length > 0) {
+            $location.path("/");
           }
-
-          return $location.path("/");
-        })
-        .finally(function () {localStorageService.remove("lastFoot");});
+        });
     },
 
     getCurrentUser: function (type) {

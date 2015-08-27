@@ -87,7 +87,7 @@ public class WebinarServiceImpl implements WebinarService {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder()
       .withIndices("techlooper").withTypes("webinar")
       .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.ASC))
-      .withFilter(FilterBuilders.rangeFilter("startDate").from("now"));
+      .withFilter(FilterBuilders.rangeFilter("startDate").from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
 
     List<WebinarInfoDto> webinarInfoDtos = new ArrayList<>();
     int pageIndex = 0;
@@ -109,7 +109,10 @@ public class WebinarServiceImpl implements WebinarService {
   public List<WebinarInfoDto> listUpcomingWebinar() {
     List<WebinarInfoDto> upcomingWebinars = new ArrayList<>();
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
-    searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate").from("now"));
+
+    searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate")
+      .from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
+
     searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
     searchQueryBuilder.withPageable(new PageRequest(0, 4));
 
@@ -154,4 +157,10 @@ public class WebinarServiceImpl implements WebinarService {
     }
     return dozerMapper.map(webinarRepository.save(webinar), WebinarInfoDto.class);
   }
+
+//  public static void main(String[] ar) {
+////    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm a");
+//    org.joda.time.DateTime now = org.joda.time.DateTime.now();
+//    System.out.println(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a"));
+//  }
 }

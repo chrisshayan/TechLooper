@@ -4,6 +4,16 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
   var searchText = $routeParams.searchText;
 
+  var capitalizeWords = function capitalizeWords(str) {
+    if (str) {
+      str = str.replace(/-/g, ' ');
+      return str.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
+    return "";
+  }
+
   if (!searchText) {
     apiService.listAllJobs().success(function(response) {
       utils.sendNotification(jsonValue.notifications.loading, $(window).height());
@@ -128,15 +138,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     return result;
   }
 
-  capitalizeWords : function capitalizeWords(str) {
-    if (str) {
-      str = str.replace(/-/g, ' ');
-      return str.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
-    }
-    return "";
-  }
+
   $timeout(function () {
     $('p.offers').on("click", function(){
       $(this).next().toggleClass( "show", 1000);
