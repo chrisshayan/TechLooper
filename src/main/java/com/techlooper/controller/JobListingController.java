@@ -63,7 +63,7 @@ public class JobListingController {
         do {
             vnwNormalJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwNormalJobSearchRequest);
             if (vnwNormalJobSearchResponse.hasData()) {
-                scrapeJobService.save(vnwNormalJobSearchResponse.getData().getJobs(), Boolean.FALSE);
+                scrapeJobService.save(vnwNormalJobSearchResponse.getData().getJobs(), null);
                 vnwNormalJobSearchRequest.setPageNumber(vnwNormalJobSearchRequest.getPageNumber() + 1);
             }
         } while (vnwNormalJobSearchResponse.hasData());

@@ -212,17 +212,17 @@ public class JobAlertServiceImpl implements JobAlertService {
             queryBuilder = boolQuery();
 
             if (StringUtils.isNotEmpty(criteria.getKeyword())) {
-                ((BoolQueryBuilder) queryBuilder).must(queryString(criteria.getKeyword()));
+                ((BoolQueryBuilder) queryBuilder).must(multiMatchQuery(criteria.getKeyword(), "jobTitle", "company"));
             }
 
             if (StringUtils.isNotEmpty(criteria.getLocation())) {
-                ((BoolQueryBuilder) queryBuilder).must(matchQuery("location", criteria.getLocation()));
+                ((BoolQueryBuilder) queryBuilder).should(matchQuery("location", criteria.getLocation()));
             }
         }
 
         searchQueryBuilder.withQuery(filteredQuery(queryBuilder, FilterBuilders.rangeFilter("createdDateTime").from("now-30d/d")));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("topPriority").order(SortOrder.DESC));
-        searchQueryBuilder.withSort(SortBuilders.fieldSort("salary").missing("_last"));
+        searchQueryBuilder.withSort(SortBuilders.scoreSort());
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
         searchQueryBuilder.withPageable(new PageRequest(criteria.getPage() - 1, NUMBER_OF_ITEMS_PER_PAGE));
         return searchQueryBuilder;
