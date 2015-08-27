@@ -8,7 +8,7 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
   apiService.findWebinarById(webinarId)
     .success(function(webinar) {
       $scope.webinar = webinar;
-        if($scope.webinar.company = !undefined){
+        if($scope.webinar.company){
           $scope.webinar.company.companySize = vnwConfigService.getCompanySizeText($scope.webinar.company.companySizeId);
         }
     }).finally(function () {
