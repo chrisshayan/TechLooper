@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -125,7 +126,7 @@ public class WebinarServiceImpl implements WebinarService {
     }
 
     Collections.reverse(upcomingWebinars);
-    return upcomingWebinars;
+    return upcomingWebinars.stream().limit(4).collect(Collectors.toList());
   }
 
   public WebinarInfoDto findWebinarById(Long id) {
