@@ -1,5 +1,5 @@
-techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams,
-                                                          jsonValue, localStorageService, vnwConfigService, utils) {
+techlooper.controller("eventDetailsController", function ($scope, apiService, $routeParams, localStorageService,
+                                                          vnwConfigService, utils, jsonValue) {
   var parts = $routeParams.id.split("-");
   parts.pop();
   var webinarId = parts.pop();
