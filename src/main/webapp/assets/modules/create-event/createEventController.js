@@ -1,4 +1,5 @@
-techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils, $anchorScroll) {
+techlooper.controller("createEventController", function ($scope, $translate, jsonValue, apiService, $rootScope, utils,
+                                                         $location, $anchorScroll, localStorageService) {
 
   $scope.createWebinar = function () {
     $anchorScroll();
@@ -9,13 +10,16 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
       return;
     }
 
-    apiService.createWebinar($scope.webinar).success(function (data) {
-
-      var title = utils.toAscii(data.name);
-      window.location.href = sprintf('#/event-details/'+title+'-'+data.createdDateTime+ '-id');
-    }).finally(function () {
-      utils.sendNotification(jsonValue.notifications.loaded);
-    });
+    apiService.createWebinar($scope.webinar)
+      .success(function (data) {
+        var title = utils.toAscii(data.name);
+        var path = sprintf("event-details/%s-%s-id", title, data.createdDateTime);
+        localStorageService.set("webinarCreated", true);
+        $location.path(path);
+      })
+      .finally(function () {
+        utils.sendNotification(jsonValue.notifications.loaded);
+      });
 
     $scope.webinarForm.$setPristine();
   }
