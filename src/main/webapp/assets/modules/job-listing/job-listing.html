@@ -89,7 +89,7 @@
                   <i class="fa fa-fw fa-gift blue"></i><span translate="whatDoWeOffer" ></span>
                 </p>
                 <ul>
-                  <li ng-repeat="offer in job.benefits" show-hide-benefits>
+                  <li ng-repeat="offer in job.benefits">
                     <i class="fa fa-fw {{jsonValue.benefitIconsMap[offer.benefitId].iconClass}}"></i>
                     {{offer.benefitValue}}
                   </li>
