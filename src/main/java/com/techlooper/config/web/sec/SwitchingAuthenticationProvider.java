@@ -25,7 +25,7 @@ public class SwitchingAuthenticationProvider implements AuthenticationProvider {
       }
     }
     catch (Exception ex) {
-      LOGGER.debug(ex.getMessage(), ex);
+      LOGGER.debug(ex.getMessage());
     }
 
     return providers.get(SocialProvider.VIETNAMWORKS).authenticate(authentication);

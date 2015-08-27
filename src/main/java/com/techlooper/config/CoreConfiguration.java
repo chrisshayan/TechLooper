@@ -93,8 +93,6 @@ public class CoreConfiguration implements ApplicationContextAware {
 
   @Value("classpath:google-auth/techLooper.p12")
   private org.springframework.core.io.Resource googleApiAuthResource;
-//  @Value("classpath:google-auth")
-//  private org.springframework.core.io.Resource googleApiAuthResource;
 
   private ApplicationContext applicationContext;
 
@@ -392,13 +390,18 @@ public class CoreConfiguration implements ApplicationContextAware {
 
   @Bean
   @DependsOn("jsonConfigRepository")
+  public SocialConfig googleSocialConfig() {
+    return applicationContext.getBean(JsonConfigRepository.class).getSocialConfig().stream()
+      .filter(socialConfig -> socialConfig.getProvider() == SocialProvider.GOOGLE)
+      .findFirst().get();
+  }
+
+  @Bean
   public Calendar googleCalendar() throws GeneralSecurityException, IOException {
     JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
     HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
 
-    SocialConfig googleConfig = applicationContext.getBean(JsonConfigRepository.class).getSocialConfig().stream()
-      .filter(socialConfig -> socialConfig.getProvider() == SocialProvider.GOOGLE)
-      .findFirst().get();
+    SocialConfig googleConfig = googleSocialConfig();
 
 //    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
 //      googleConfig.getApiKey(), googleConfig.getSecretKey(),
@@ -417,45 +420,11 @@ public class CoreConfiguration implements ApplicationContextAware {
       .setServiceAccountId(googleConfig.getServiceAccountEmail())
       .setServiceAccountPrivateKeyFromP12File(googleApiAuthResource.getFile())
       .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
-      .setServiceAccountUser("techlooperawesome@gmail.com")
+      .setServiceAccountUser(googleConfig.getCalendarId())
       .build();
-
-//    boolean bool = credential.refreshToken();
-//    String token = credential.getAccessToken();
-//    System.out.println(bool);
-//    System.out.println(token);
 
     return new Calendar.Builder(transport, jsonFactory, credential)
       .setApplicationName("Techlooper").build();
-
-//    Event event = new Event()
-//      .setSummary("Google I/O 2015")
-//      .setLocation("800 Howard St., San Francisco, CA 94103")
-//      .setDescription("A chance to hear more about Google's developer products.");
-//
-//    DateTime startDateTime = new DateTime("2015-09-28T09:00:00-07:00");
-//    EventDateTime start = new EventDateTime()
-//      .setDateTime(startDateTime)
-//      .setTimeZone("America/Los_Angeles");
-//    event.setStart(start);
-//
-//    DateTime endDateTime = new DateTime("2015-09-28T17:00:00-07:00");
-//    EventDateTime end = new EventDateTime()
-//      .setDateTime(endDateTime)
-//      .setTimeZone("America/Los_Angeles");
-//    event.setEnd(end);
-//
-//    EventAttendee[] attendees = new EventAttendee[]{
-//      new EventAttendee().setEmail("phuonghqh@gmail.com"),
-//      new EventAttendee().setEmail("thu.hoang@navigosgroup.com"),
-//    };
-//    event.setAttendees(Arrays.asList(attendees));
-//
-//    String calendarId = "techlooperawesome@gmail.com";
-//    event = calendar.events().insert(calendarId, event).setSendNotifications(true).execute();
-//    System.out.printf("Event created: %s\n", event.getHtmlLink());
-//    event.getHangoutLink()
-//    return calendar;
   }
 
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

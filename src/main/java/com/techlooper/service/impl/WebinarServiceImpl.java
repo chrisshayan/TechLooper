@@ -1,13 +1,16 @@
 package com.techlooper.service.impl;
 
 import com.google.api.client.util.DateTime;
+import com.google.api.client.util.Value;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
+import com.techlooper.entity.CalendarInfo;
 import com.techlooper.entity.WebinarEntity;
+import com.techlooper.model.SocialConfig;
 import com.techlooper.model.UserProfileDto;
 import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.service.CompanyService;
@@ -46,7 +49,8 @@ public class WebinarServiceImpl implements WebinarService {
   @Resource
   private CompanyService companyService;
 
-  private static final String CALENDAR_ID = "techlooperawesome@gmail.com";
+  @Resource
+  private SocialConfig googleSocialConfig;
 
   public WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException {
 
@@ -67,11 +71,13 @@ public class WebinarServiceImpl implements WebinarService {
 
     event.setAttendees(Arrays.asList(attendees));
 
-    event = googleCalendar.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
+    event = googleCalendar.events().insert(googleSocialConfig.getCalendarId(), event).setSendNotifications(true).execute();
 
     WebinarEntity entity = dozerMapper.map(webinarInfoDto, WebinarEntity.class);
-    entity.setCalendarUrl(event.getHtmlLink());
-    entity.setHangoutLink(event.getHangoutLink());
+    entity.setCalendarInfo(dozerMapper.map(event, CalendarInfo.class));
+//    entity.setEventId(event.getId());
+//    entity.setCalendarUrl(event.getHtmlLink());
+//    entity.setHangoutLink(event.getHangoutLink());
 
     entity.setOrganiser(organiser);
 
@@ -130,10 +136,22 @@ public class WebinarServiceImpl implements WebinarService {
     return null;
   }
 
-  public WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) {
+  public WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) throws IOException {
     WebinarEntity webinar = webinarRepository.findOne(joinBySocialDto.getId());
+    if (webinar.getAttendees().size() == 100) {
+      return dozerMapper.map(webinar, WebinarInfoDto.class);
+    }
+
     UserProfileDto attendee = dozerMapper.map(joinBySocialDto, UserProfileDto.class);
-    webinar.getAttendees().add(attendee);
+    if (webinar.getAttendees().add(attendee)) {
+      Event event = googleCalendar.events().get(googleSocialConfig.getCalendarId(), webinar.getCalendarInfo().getId()).execute();
+      EventAttendee att = new EventAttendee().setEmail(attendee.getEmail())
+        .setDisplayName(String.format("%s %s", joinBySocialDto.getFirstName(), joinBySocialDto.getLastName()));
+      event.getAttendees().add(att);
+      event = googleCalendar.events().update(googleSocialConfig.getCalendarId(), webinar.getCalendarInfo().getId(), event)
+        .setSendNotifications(true).execute();
+      webinar.setCalendarInfo(dozerMapper.map(event, CalendarInfo.class));
+    }
     return dozerMapper.map(webinarRepository.save(webinar), WebinarInfoDto.class);
   }
 }
