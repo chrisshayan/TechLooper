@@ -13,7 +13,7 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
     apiService.createWebinar($scope.webinar)
       .success(function (data) {
         var title = utils.toAscii(data.name);
-        var path = sprintf("event-details/%s-%s-id", title, data.createdDateTime);
+        var path = sprintf("event-detail/%s-%s-id", title, data.createdDateTime);
         localStorageService.set("webinarCreated", true);
         $location.path(path);
       })

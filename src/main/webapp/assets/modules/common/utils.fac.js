@@ -318,7 +318,7 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       else if (/\/all-events/.test(path)) {
         return jsonValue.views.allEvents;
       }
-      else if (/\/event-details/.test(path)) {
+      else if (/\/event-detail/.test(path)) {
         return jsonValue.views.eventDetails;
       }
     },
