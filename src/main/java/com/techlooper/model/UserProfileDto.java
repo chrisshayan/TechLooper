@@ -2,10 +2,12 @@ package com.techlooper.model;
 
 import com.techlooper.entity.vnw.RoleName;
 
+import java.io.Serializable;
+
 /**
  * Created by NguyenDangKhoa on 7/30/15.
  */
-public class UserProfileDto {
+public class UserProfileDto implements Serializable {
 
   private String username;
 

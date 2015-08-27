@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -29,7 +30,7 @@ public class WebinarEntity {
   private String description;
 
   @Field(type = FieldType.Nested)
-  private Collection<UserProfileDto> attendees;
+  private Set<UserProfileDto> attendees;
 
   @Field(type = FieldType.Nested)
   private UserProfileDto organiser;
@@ -37,14 +38,28 @@ public class WebinarEntity {
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String where = "Google Hangout";
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-  private String calendarUrl;
+  @Field(type = FieldType.Nested)
+  private CalendarInfo calendarInfo;
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-  private String hangoutLink;
+//  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+//  private String calendarUrl;
+//
+//  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+//  private String hangoutLink;
+//
+//  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+//  private String eventId;
 
   @Field(type = FieldType.String)
   private String whatEvent;
+
+  public CalendarInfo getCalendarInfo() {
+    return calendarInfo;
+  }
+
+  public void setCalendarInfo(CalendarInfo calendarInfo) {
+    this.calendarInfo = calendarInfo;
+  }
 
   public Long getCreatedDateTime() {
     return createdDateTime;
@@ -86,11 +101,11 @@ public class WebinarEntity {
     this.description = description;
   }
 
-  public Collection<UserProfileDto> getAttendees() {
+  public Set<UserProfileDto> getAttendees() {
     return attendees;
   }
 
-  public void setAttendees(Collection<UserProfileDto> attendees) {
+  public void setAttendees(Set<UserProfileDto> attendees) {
     this.attendees = attendees;
   }
 
@@ -108,22 +123,6 @@ public class WebinarEntity {
 
   public void setWhere(String where) {
     this.where = where;
-  }
-
-  public String getCalendarUrl() {
-    return calendarUrl;
-  }
-
-  public void setCalendarUrl(String calendarUrl) {
-    this.calendarUrl = calendarUrl;
-  }
-
-  public String getHangoutLink() {
-    return hangoutLink;
-  }
-
-  public void setHangoutLink(String hangoutLink) {
-    this.hangoutLink = hangoutLink;
   }
 
   public String getWhatEvent() {

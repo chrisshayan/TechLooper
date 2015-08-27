@@ -22,6 +22,26 @@ public class SocialConfig {
 
   private String serviceAccountEmail;
 
+  private String calendarId;
+
+  private String calendarOwner;
+
+  public String getCalendarOwner() {
+    return calendarOwner;
+  }
+
+  public void setCalendarOwner(String calendarOwner) {
+    this.calendarOwner = calendarOwner;
+  }
+
+  public String getCalendarId() {
+    return calendarId;
+  }
+
+  public void setCalendarId(String calendarId) {
+    this.calendarId = calendarId;
+  }
+
   public String getServiceAccountEmail() {
     return serviceAccountEmail;
   }
