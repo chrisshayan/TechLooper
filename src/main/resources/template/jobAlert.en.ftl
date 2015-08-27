@@ -160,7 +160,7 @@
                     </tr>
                     <tr>
                       <td align="center">
-                        <a href="http://www.techlooper.com/#/challenge-detail/job-search-innovation-hackathon-1439866071515-id"target="_blank">
+                        <a href="http://www.techlooper.com/#/challenge-detail/job-search-innovation-hackathon-1439866071515-id?utm_source=jobalertemail&utm_medium=hackathon&utm_campaign=techlooperjobhub" target="_blank">
                           <img src="http://www.techlooper.com/images/hackathon-job-search.png" style="boder: 0; width: 100%" alt="Job Search Innovation Hackathon"></a>
                       </td>
                     </tr>

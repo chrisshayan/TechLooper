@@ -49,7 +49,8 @@
         <ul>
           <li>
             <span class="title" translate="organiser"></span>
-            <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}}</span>
+            <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}} <strong ng-show="webinar.company.companyName.length">({{webinar.company.companyName}})</strong></span>
+
           </li>
           <li ng-show="webinar.company.address.length">
             <span class="title">{{'address' | translate}}:</span>
