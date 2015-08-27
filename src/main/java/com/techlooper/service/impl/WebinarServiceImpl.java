@@ -63,8 +63,10 @@ public class WebinarServiceImpl implements WebinarService {
     event.setStart(new EventDateTime().setDateTime(new DateTime(startDate.toString())));
     event.setEnd(new EventDateTime().setDateTime(new DateTime(endDate.toString())));
 
-    webinarInfoDto.getAttendees().add(organiser);
-    EventAttendee[] attendees = webinarInfoDto.getAttendees().stream()
+    Set<UserProfileDto> webinarAttendees = webinarInfoDto.getAttendees();
+    webinarAttendees.remove(organiser);
+
+    EventAttendee[] attendees = webinarAttendees.stream()
       .map(attEmail -> new EventAttendee().setEmail(attEmail.getEmail()))
       .toArray(EventAttendee[]::new);
 
