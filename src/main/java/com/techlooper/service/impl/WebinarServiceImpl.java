@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -114,7 +115,6 @@ public class WebinarServiceImpl implements WebinarService {
       .from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
 
     searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
-    searchQueryBuilder.withPageable(new PageRequest(0, 4));
 
     List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
     if (!webinarEntities.isEmpty()) {
@@ -125,7 +125,7 @@ public class WebinarServiceImpl implements WebinarService {
     }
 
     Collections.reverse(upcomingWebinars);
-    return upcomingWebinars;
+    return upcomingWebinars.stream().limit(4).collect(Collectors.toList());
   }
 
   public WebinarInfoDto findWebinarById(Long id) {
