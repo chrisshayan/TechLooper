@@ -281,7 +281,7 @@
       <id>staging</id>
       <properties>
         <env>staging</env>
-        <grunt.task>local</grunt.task>
+        <grunt.task>build</grunt.task>
       </properties>
       <build>
         <plugins>
