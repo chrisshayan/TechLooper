@@ -58,15 +58,16 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: "<%=pkg.public%>index.html",
       options: {
-        dest: "<%=pkg.public%>"
-        //flow: {
-        //  html: {
-        //    steps: {
-        //      js: ['concat'],
-        //      css: ['concat']
-        //    }
-        //  }
-        //}
+        dest: "<%=pkg.public%>",
+        flow: {
+          html: {
+            steps: {
+              //js: ['concat', "uglify"],
+              js: ['concat'],
+              css: ['concat', 'cssmin']
+            }
+          }
+        }
       }
     },
 
@@ -182,6 +183,8 @@ module.exports = function (grunt) {
       generated: {
         options: {
           separator: grunt.util.linefeed + ";" + grunt.util.linefeed
+          //banner: ";(function( window, undefined ){ \n 'use strict';",
+          //footer: "}( window ));"
           //banner: "'use strict';\n",
           //process: function(src, filepath) {
           //  return '// Source: ' + filepath + '\n' +
