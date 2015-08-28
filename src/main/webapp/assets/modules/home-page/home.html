@@ -8,18 +8,51 @@
       <h3 translate="itJobCorner"></h3>
       <div class="box-content">
         <div class="it-job-corner-content">
-          <div class="col-md-6 left">
+          <div class="it-job-corner-messages">
             <h4 translate="oneSearchAllJobs"></h4>
-            <ul class="left-content">
-              <li translate="itJobCornerContent1"></li>
-              <li translate="itJobCornerContent2"></li>
-              <li translate="itJobCornerContent3"></li>
-            </ul>
-            <div class="btn-view-more">
-              <a class="btn btn-primary btn-flat" translate="searchAll" ng-click="goToJobListing()"></a>
-            </div>
+            <p>
+              <span translate="itJobCornerContent1"></span>
+              <span translate="itJobCornerContent2"></span>
+              <span translate="itJobCornerContent3"></span>
+            </p>
           </div>
-          <div class="col-md-6 right">
+          <div class="latest-jobs-block">
+            <h4 translate="latestJobs"></h4>
+            <ul>
+              <li>
+                <div class="left">
+                  <h5><a href="#">{{'Java Team Leader - Urgent Need'}}</a></h5>
+                  <p>{{'Galaxy Media'}}</p>
+                </div>
+                <div class="right">
+                  {{'$1,500 - $2,500'}}
+                </div>
+              </li>
+              <li>
+                <div class="left">
+                  <h5><a href="#">{{'Full-stack Engineers - Working In Japan'}}</a></h5>
+                  <p>{{'HR Vietnam’s ESS Client'}}</p>
+                </div>
+                <div class="right">
+                  {{'$1,000 - $1,500'}}
+                </div>
+              </li>
+              <li>
+                <div class="left">
+                  <h5><a href="#">{{'Senior Java Developer (Front & Back End)'}}</a></h5>
+                  <p>{{'T & M Development - Tripolis Vietnam'}}</p>
+                </div>
+                <div class="right">
+                  {{'$2,000 - $3,500'}}
+                </div>
+              </li>
+              <li>
+                <a class="btn btn-primary btn-flat" translate="searchAll" ng-click="goToJobListing()"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="send-me-job-alert-block">
+            <h4 translate="sendMeJobs"></h4>
             <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
               <p translate="jobAlertSuccessful"></p>
             </div>
@@ -28,7 +61,7 @@
           </div>
             <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
               <div class="send-me-jobs-form">
-                <h4 translate="sendMeJobs"></h4>
+
                 <div class="send-me-jobs-field">
                   <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
                   <input id="jobAlertEmail" type="email" class="input-style"
@@ -250,8 +283,104 @@
         <div class="box-header">
           <h4 translate="becomeAFreelancer"></h4>
         </div>
-        <div class="box-content-detail">
-          <div class="freelancer-banner"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>
+        <div class="box-content-detail project-list">
+          <div class="project-items">
+            <div class="project-item">
+              <h5><a href="#">{{'Port custom .net user controls to Universal app'}}</a><a class="view-detail" translate="viewDetails" href="#"></a></h5>
+
+              <div class="left-content">
+                <img src="images/cp-logo-fpt.png" alt=""/>
+              </div>
+              <div class="right-content">
+                <p class="payment-time-post">
+                  <strong translate="fixedPrice"></strong>
+                  -
+                  <span translate="estBudget"></span>
+                  : $100 -
+                  <span class="time-stamp" translate="posted"></span>
+                  <span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>
+                </p>
+                <div class="project-description ng-binding is-truncated">
+                  We have a dll with custom controls from a desktop app. We are looking for someone who can convert them for use in a universal app (desktop/tablets/phones)...
+                </div>
+                <div class="skills-of-project">
+                  <h6 translate="skillsNeed"></h6>
+                  <ul>
+                    <li>
+                      <span>Web, Mobile &amp; Software Dev</span>
+                    </li>
+                    <li>
+                      <span>Mobile Development</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="project-item">
+              <h5><a href="#">{{'Port custom .net user controls to Universal app'}}</a><a class="view-detail" translate="viewDetails" href="#"></a></h5>
+
+              <div class="left-content">
+                <img src="images/cp-logo-harveynash.png" alt=""/>
+              </div>
+              <div class="right-content">
+                <p class="payment-time-post">
+                  <strong translate="fixedPrice"></strong>
+                  -
+                  <span translate="estBudget"></span>
+                  : $100 -
+                  <span class="time-stamp" translate="posted"></span>
+                  <span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>
+                </p>
+                <div class="project-description ng-binding is-truncated">
+                  We have a dll with custom controls from a desktop app. We are looking for someone who can convert them for use in a universal app (desktop/tablets/phones)...
+                </div>
+                <div class="skills-of-project">
+                  <h6 translate="skillsNeed"></h6>
+                  <ul>
+                    <li>
+                      <span>Web, Mobile &amp; Software Dev</span>
+                    </li>
+                    <li>
+                      <span>Mobile Development</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="project-item">
+              <h5><a href="#">{{'Port custom .net user controls to Universal app'}}</a><a class="view-detail" translate="viewDetails" href="#"></a></h5>
+
+              <div class="left-content">
+                <img src="images/cp-logo-techcombank.png" alt=""/>
+              </div>
+              <div class="right-content">
+                <p class="payment-time-post">
+                  <strong translate="fixedPrice"></strong>
+                  -
+                  <span translate="estBudget"></span>
+                  : $100 -
+                  <span class="time-stamp" translate="posted"></span>
+                  <span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>
+                </p>
+                <div class="project-description ng-binding is-truncated">
+                  We have a dll with custom controls from a desktop app. We are looking for someone who can convert them for use in a universal app (desktop/tablets/phones)...
+                </div>
+                <div class="skills-of-project">
+                  <h6 translate="skillsNeed"></h6>
+                  <ul>
+                    <li>
+                      <span>Web, Mobile &amp; Software Dev</span>
+                    </li>
+                    <li>
+                      <span>Mobile Development</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!--<div class="freelancer-banner"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>-->
         </div>
       </div>
       <div class="view-more-items" class="hide">
