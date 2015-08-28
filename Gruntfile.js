@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       },
       font: {
         files: [{
-          cwd: "<%=pkg.assets%>bower_components/components-font-awesome/",
+          cwd: "<%=pkg.public%>bower_components/components-font-awesome/",
           expand: true,
           src: ["fonts/**"],
           dest: "<%=pkg.public%>/generate-resources"
@@ -278,8 +278,8 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
-    "clean:release",
     "copy:font",
+    "clean:release",
     "replace:cssConcat",
     "rename:build"
   ]);
