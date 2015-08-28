@@ -59,6 +59,14 @@ module.exports = function (grunt) {
       html: "<%=pkg.public%>index.html",
       options: {
         dest: "<%=pkg.public%>"
+        //flow: {
+        //  html: {
+        //    steps: {
+        //      js: ['concat'],
+        //      css: ['concat']
+        //    }
+        //  }
+        //}
       }
     },
 
@@ -174,6 +182,11 @@ module.exports = function (grunt) {
       generated: {
         options: {
           separator: grunt.util.linefeed + ";" + grunt.util.linefeed
+          //banner: "'use strict';\n",
+          //process: function(src, filepath) {
+          //  return '// Source: ' + filepath + '\n' +
+          //    src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+          //}
         }
       }
     },
@@ -203,6 +216,10 @@ module.exports = function (grunt) {
       build: {
         files: [
           {
+            src: ['<%=pkg.public%>generate-resources/techlooper-bower.min.js'],
+            dest: '<%=pkg.public%>generate-resources/techlooper-bower-' + timestamp + '.min.js'
+          },
+          {
             src: ['<%=pkg.public%>generate-resources/techlooper.min.js'],
             dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.js'
           },
@@ -212,23 +229,39 @@ module.exports = function (grunt) {
           }
         ]
       }
+    },
+
+    imagemin: {
+      dist: {
+        options: {
+          optimizationLevel: 5
+        },
+        files: [{
+          expand: true,
+          cwd: '<%=pkg.assets%>images',
+          src: ['**/*.{png,jpg,gif}'],
+          dest: '<%=pkg.public%>images'
+        }]
+      }
     }
   });
 
-  grunt.loadNpmTasks("grunt-contrib-watch");
-  grunt.loadNpmTasks("grunt-contrib-connect");
-  grunt.loadNpmTasks("grunt-include-source");
-  grunt.loadNpmTasks("grunt-wiredep");
-  grunt.loadNpmTasks("grunt-bower-install-simple");
-  grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks("grunt-contrib-concat");
-  grunt.loadNpmTasks("grunt-contrib-cssmin");
-  grunt.loadNpmTasks("grunt-usemin");
-  grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-ng-annotate");
-  grunt.loadNpmTasks('grunt-text-replace');
-  grunt.loadNpmTasks('grunt-contrib-rename');
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+
+  //grunt.loadNpmTasks("grunt-contrib-watch");
+  //grunt.loadNpmTasks("grunt-contrib-connect");
+  //grunt.loadNpmTasks("grunt-include-source");
+  //grunt.loadNpmTasks("grunt-wiredep");
+  //grunt.loadNpmTasks("grunt-bower-install-simple");
+  //grunt.loadNpmTasks("grunt-contrib-uglify");
+  //grunt.loadNpmTasks("grunt-contrib-concat");
+  //grunt.loadNpmTasks("grunt-contrib-cssmin");
+  //grunt.loadNpmTasks("grunt-usemin");
+  //grunt.loadNpmTasks("grunt-contrib-copy");
+  //grunt.loadNpmTasks("grunt-contrib-clean");
+  //grunt.loadNpmTasks("grunt-ng-annotate");
+  //grunt.loadNpmTasks('grunt-text-replace');
+  //grunt.loadNpmTasks('grunt-contrib-rename');
 
   grunt.registerTask("build", [
     "clean:build",
