@@ -34,13 +34,18 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by phuonghqh on 12/23/14.
  */
 @RestController
 public class UserController {
+
+    private final int MAX_NUMBER_OF_JOBS = 3;
+
+    private final int MAX_NUMBER_OF_PAGES = 10;
 
     @Resource
     private ApplicationContext applicationContext;
@@ -89,6 +94,9 @@ public class UserController {
 
     @Resource
     private ProjectService projectService;
+
+    @Resource
+    private JobAlertService jobAlertService;
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
     public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -275,8 +283,11 @@ public class UserController {
 
         personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
 
-        List<ProjectDto> latestProjects = projectService.listProject().stream().limit(3).collect(Collectors.toList());
+        List<ProjectDto> latestProjects = projectService.listProject().stream().limit(3).collect(toList());
         personalHomepage.setLatestProjects(latestProjects);
+
+        List<JobResponse> latestJobs = jobAlertService.listNormalJob(new JobListingCriteria(1), MAX_NUMBER_OF_JOBS, MAX_NUMBER_OF_PAGES);
+        personalHomepage.setLatestJobs(latestJobs);
 
         return personalHomepage;
     }

@@ -49,7 +49,7 @@ public class JobAlertServiceImplTest {
 
     @Test
     public void testListJob() throws Exception {
-        JobListingCriteria criteria = new JobListingCriteria();
+        JobListingCriteria criteria = new JobListingCriteria(1);
         criteria.setKeyword("Java Developer");
         criteria.setLocation("");
         criteria.setPage(0);
@@ -59,7 +59,7 @@ public class JobAlertServiceImplTest {
 
     @Test
     public void testListJobEmptyResult() throws Exception {
-        JobListingCriteria criteria = new JobListingCriteria();
+        JobListingCriteria criteria = new JobListingCriteria(1);
         criteria.setKeyword("ABC.XYZ");
         criteria.setLocation("");
         criteria.setPage(0);
