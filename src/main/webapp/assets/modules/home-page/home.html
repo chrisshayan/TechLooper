@@ -10,40 +10,22 @@
         <div class="it-job-corner-content">
           <div class="it-job-corner-messages">
             <h4 translate="oneSearchAllJobs"></h4>
-            <p>
-              <span translate="itJobCornerContent1"></span>
-              <span translate="itJobCornerContent2"></span>
-              <span translate="itJobCornerContent3"></span>
-            </p>
+            <p translate="jobAggregator"></p>
           </div>
           <div class="latest-jobs-block">
             <h4 translate="latestJobs"></h4>
             <ul>
-              <li>
+              <li ng-repeat="job in homePage.latestJobs">
                 <div class="left">
-                  <h5><a href="#">{{'Java Team Leader - Urgent Need'}}</a></h5>
-                  <p>{{'Galaxy Media'}}</p>
+                  <h5><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" title="{{job.title}}">
+                    {{job.title | limitTo: 40}}
+                    <span ng-show="job.title.length > 40">...</span>
+                  </a></h5>
+                  <p>{{job.company}}</p>
                 </div>
                 <div class="right">
-                  {{'$1,500 - $2,500'}}
-                </div>
-              </li>
-              <li>
-                <div class="left">
-                  <h5><a href="#">{{'Full-stack Engineers - Working In Japan'}}</a></h5>
-                  <p>{{'HR Vietnam’s ESS Client'}}</p>
-                </div>
-                <div class="right">
-                  {{'$1,000 - $1,500'}}
-                </div>
-              </li>
-              <li>
-                <div class="left">
-                  <h5><a href="#">{{'Senior Java Developer (Front & Back End)'}}</a></h5>
-                  <p>{{'T & M Development - Tripolis Vietnam'}}</p>
-                </div>
-                <div class="right">
-                  {{'$2,000 - $3,500'}}
+                  <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
+                  <strong ng-show="job.salary">{{job.salary}}</strong>
                 </div>
               </li>
               <li>
@@ -154,7 +136,6 @@
             <a
                 href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id"
                 translate="viewDetails"></a>
-            <!-- <a href="http://techlooper.com/#/challenge-detail/interactive-job-1436339203843-id" translate="viewDetails"></a> -->
           </div>
           <div class="box-content-detail">
             <div class="row reward-block">
@@ -238,7 +219,8 @@
                   <div class="right-content">
                     <ul>
                       <li class="name" ng-show="event.name.length">
-                        <a  href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" title="{{event.name}}">{{event.name | limitTo: 50}}</a>
+                        <a  href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" title="{{event.name}}">
+                          {{event.name | limitTo: 50}}</a>
                         <span ng-show="event.name.length > 50">...</span>
                       </li>
                       <li><strong>{{event.attendees.length}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
@@ -284,103 +266,47 @@
           <h4 translate="becomeAFreelancer"></h4>
         </div>
         <div class="box-content-detail project-list">
-          <div class="project-items">
-            <div class="project-item">
-              <h5><a href="#">{{'Port custom .net user controls to Universal app'}}</a><a class="view-detail" translate="viewDetails" href="#"></a></h5>
-
+          <div class="project-items" ng-show="homePage.latestProjects.length">
+            <div class="project-item" ng-repeat="project in homePage.latestProjects" on-finish-render="addDotDotDot">
+              <h5>
+                <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id">{{project.projectTitle}}</a>
+                </h5>
               <div class="left-content">
-                <img src="images/cp-logo-fpt.png" alt=""/>
-              </div>
-              <div class="right-content">
-                <p class="payment-time-post">
-                  <strong translate="fixedPrice"></strong>
-                  -
-                  <span translate="estBudget"></span>
-                  : $100 -
-                  <span class="time-stamp" translate="posted"></span>
-                  <span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>
+                <p class="payment-time-post" ng-show="status('show-fixed-price-fields', project)">
+                  <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estBudget"></span>: ${{project.budget | number}} -
+                  <span class="time-stamp" translate="posted"/>
+          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
+                translate-value-number="{{(project.projectId | timestamp).number}}" />
+                </p>
+                <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
+                  <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedDuration}}"/></span> -
+                  <span class="time-stamp" translate="posted" />
+          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
+                translate-value-number="{{(project.projectId | timestamp).number}}" />
                 </p>
                 <div class="project-description ng-binding is-truncated">
-                  We have a dll with custom controls from a desktop app. We are looking for someone who can convert them for use in a universal app (desktop/tablets/phones)...
+                  {{project.projectDescription | limitTo: 250}}
+                  <span ng-show="project.projectDescription.length > 250">...</span>
                 </div>
                 <div class="skills-of-project">
                   <h6 translate="skillsNeed"></h6>
                   <ul>
-                    <li>
-                      <span>Web, Mobile &amp; Software Dev</span>
-                    </li>
-                    <li>
-                      <span>Mobile Development</span>
+                    <li ng-repeat="skill in project.skills">
+                      <span>{{skill}}</span>
                     </li>
                   </ul>
                 </div>
-              </div>
-            </div>
-            <div class="project-item">
-              <h5><a href="#">{{'Port custom .net user controls to Universal app'}}</a><a class="view-detail" translate="viewDetails" href="#"></a></h5>
-
-              <div class="left-content">
-                <img src="images/cp-logo-harveynash.png" alt=""/>
               </div>
               <div class="right-content">
-                <p class="payment-time-post">
-                  <strong translate="fixedPrice"></strong>
-                  -
-                  <span translate="estBudget"></span>
-                  : $100 -
-                  <span class="time-stamp" translate="posted"></span>
-                  <span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>
-                </p>
-                <div class="project-description ng-binding is-truncated">
-                  We have a dll with custom controls from a desktop app. We are looking for someone who can convert them for use in a universal app (desktop/tablets/phones)...
-                </div>
-                <div class="skills-of-project">
-                  <h6 translate="skillsNeed"></h6>
-                  <ul>
-                    <li>
-                      <span>Web, Mobile &amp; Software Dev</span>
-                    </li>
-                    <li>
-                      <span>Mobile Development</span>
-                    </li>
-                  </ul>
-                </div>
+                <p>{{project.companyName}}</p>
+                <img ng-show="project.companyLogoURL.length" ng-src="{{project.companyLogoURL}}" alt="{{project.companyName}}"/>
+                <a class="view-detail"
+                   translate="viewDetails"
+                   href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id"></a>
               </div>
             </div>
-            <div class="project-item">
-              <h5><a href="#">{{'Port custom .net user controls to Universal app'}}</a><a class="view-detail" translate="viewDetails" href="#"></a></h5>
-
-              <div class="left-content">
-                <img src="images/cp-logo-techcombank.png" alt=""/>
-              </div>
-              <div class="right-content">
-                <p class="payment-time-post">
-                  <strong translate="fixedPrice"></strong>
-                  -
-                  <span translate="estBudget"></span>
-                  : $100 -
-                  <span class="time-stamp" translate="posted"></span>
-                  <span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>
-                </p>
-                <div class="project-description ng-binding is-truncated">
-                  We have a dll with custom controls from a desktop app. We are looking for someone who can convert them for use in a universal app (desktop/tablets/phones)...
-                </div>
-                <div class="skills-of-project">
-                  <h6 translate="skillsNeed"></h6>
-                  <ul>
-                    <li>
-                      <span>Web, Mobile &amp; Software Dev</span>
-                    </li>
-                    <li>
-                      <span>Mobile Development</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
           </div>
-          <!--<div class="freelancer-banner"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>-->
+          <div class="freelancer-banner" ng-show="!homePage.latestProjects.length"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>
         </div>
       </div>
       <div class="view-more-items" class="hide">
