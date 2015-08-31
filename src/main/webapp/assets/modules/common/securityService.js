@@ -95,7 +95,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
-        var priorFoot = $rootScope.priorFoot || localStorageService.get("priorFoot");
+        var priorFoot = localStorageService.get("priorFoot");
         if (isSignInView) {
           return localStorageService.set("lastFoot", priorFoot);
         }

@@ -1,4 +1,4 @@
-techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope, localStorageService, $location, $rootScope) {
+techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope, localStorageService, $location) {
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
   $scope.$on('$destroy', function () {
@@ -7,7 +7,7 @@ techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope
 
   var joinNow = localStorageService.get("joinNow");
   if (joinNow == true) {
-    var fromLastPrint = $rootScope.lastFoot || localStorageService.get("lastFoot");
+    var fromLastPrint = localStorageService.get("lastFoot");
     var roles = utils.getUiView(fromLastPrint).roles || [];// $rootScope.currentUiView.roles || [];
     if (roles.length == 0) {
       return $location.url(fromLastPrint);
