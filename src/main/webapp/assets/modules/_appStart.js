@@ -47,6 +47,18 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
     }
   }
 
+  //$rootScope.$watchCollection([
+  //  function () {
+  //    return localStorageService.get("lastFoot");
+  //  },
+  //  function () {
+  //    return localStorageService.get("priorFoot");
+  //  }
+  //], function () {
+  //  $rootScope.priorFoot = localStorageService.get("priorFoot");
+  //  $rootScope.lastFoot = localStorageService.get("lastFoot");
+  //});
+
   $rootScope.today = moment().format(jsonValue.dateFormat);
 
   //Exec all services
