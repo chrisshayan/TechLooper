@@ -1,4 +1,4 @@
-angular.module("Common").factory("userService", function (jsonValue, utils, connectionFactory, $rootScope, $q, localStorageService, $cookies) {
+angular.module("Common").factory("userService", function (jsonValue, utils, connectionFactory, $rootScope, $q) {
 
   var defers = {
     getUserInfo: []
@@ -44,7 +44,8 @@ angular.module("Common").factory("userService", function (jsonValue, utils, conn
     },
 
     verifyUserSession: function() {
-      return localStorageService.cookie.get(jsonValue.storage.key) !== null;
+      return false;
+      //return localStorageService.cookie.get(jsonValue.storage.key) !== null;
     }
   }
 
