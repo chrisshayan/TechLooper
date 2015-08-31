@@ -65,7 +65,7 @@
       <div class="post-contest-field">
         <div class="post-contest-field-content" data-toggle="tooltip" data-original-title="{{'technologiesTip' | translate}}">
           <label translate="technologies"></label>
-          <tagbox name="technologies" tags="contest.technologies"
+          <tagbox name="technologies" tags="contest.technologies" get-tags="apiService.getSuggestSkills"
                   type="text" placeholder="technologiesEX"
                   list-max-length="10" max-tag-length="40"
                   ng-model="contest.technologies" array-model touchable></tagbox>
@@ -73,7 +73,6 @@
           <div class="error-messages"
                ng-show="challengeForm.technologies.$error.required && (challengeForm.technologies.$edited || challengeForm.$submitted)"
                translate="listRequire1Item"/>
-
         </div>
       </div>
       <div class="post-contest-field">

@@ -1,4 +1,4 @@
-techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope, localStorageService, $location, utils) {
+techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope, localStorageService, $location) {
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
   $scope.$on('$destroy', function () {
