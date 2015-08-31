@@ -26,7 +26,7 @@ var baseUrl = (function () {
 })();
 
 var techlooper = angular.module("Techlooper", [
-  "ngSanitize", "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
+  "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
   "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
   "UserProfile", "selectize", "autocomplete", "focusOn"
 ]);
@@ -59,8 +59,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     localStorageServiceProvider
       .setPrefix('techlooper')
-      .setNotify(true, true)
-      .setStorageCookie(45, "/");
+      .setNotify(true, true);
 
     //$.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
     //  .done(function (resp) {
@@ -124,22 +123,22 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
       })
-      .when("/jobs/search", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "searchFormController"
-      })
-      .when("/jobs/search/:text", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "searchResultController"
-      })
+      //.when("/jobs/search", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "searchFormController"
+      //})
+      //.when("/jobs/search/:text", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "searchResultController"
+      //})
       //.when("/analytics/skill/:term/:period?", {
       //  templateUrl: "modules/it-professional/main.tem.html",
       //  controller: "skillAnalyticsController"
       //})
-      .when("/signin", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "signInController"
-      })
+      //.when("/signin", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "signInController"
+      //})
       .when("/register", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "registerController"
