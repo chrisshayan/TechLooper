@@ -6,38 +6,44 @@
   <div class="content-page-detail project-list">
     <div class="project-items">
       <div class="project-item" ng-repeat="project in projects " ng-class="{last: $last, even: $even}" on-finish-render="addDotDotDot">
-        <h3>
-          <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" target="_blank" title="{{'viewDetails' | translate}}">
-            <span>{{project.projectTitle}}</span>
-          </a>
+        <div class="left-content">
+          <h3>
+            <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" target="_blank" title="{{'viewDetails' | translate}}">
+              <span>{{project.projectTitle}}</span>
+            </a>
+          </h3>
+          <p class="payment-time-post" ng-show="status('show-fixed-price-fields', project)">
+            <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estBudget"></span>: ${{project.budget | number}} -
+            <span class="time-stamp" translate="posted"/>
+          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
+                translate-value-number="{{(project.projectId | timestamp).number}}" />
+          </p>
+          <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
+            <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedDuration}}"/></span> -
+            <span class="time-stamp" translate="posted" />
+          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
+                translate-value-number="{{(project.projectId | timestamp).number}}" />
+          </p>
+          <div class="project-description">
+            {{project.projectDescription}}
+          </div>
+          <div class="hiring-status" ng-show="project.numberOfHires > 1">
+            <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
+          </div>
+          <div class="skills-of-project">
+            <h4 translate="skillsNeed"></h4>
+            <ul>
+              <li ng-repeat="skill in project.skills">
+                <span>{{skill}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="right-content">
+          <p>{{project.companyName}}</p>
+          <img ng-show="project.companyLogoURL.length" ng-src="{{project.companyLogoURL}}" alt="{{project.companyName}}"/>
           <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id"
              translate="viewDetails" class="view-detail" target="_blank" />
-        </h3>
-        <p class="payment-time-post" ng-show="status('show-fixed-price-fields', project)">
-          <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estBudget"></span>: ${{project.budget | number}} -
-          <span class="time-stamp" translate="posted"/>
-          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
-                translate-value-number="{{(project.projectId | timestamp).number}}" />
-        </p>
-        <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
-          <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedDuration}}"/></span> -
-          <span class="time-stamp" translate="posted" />
-          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
-                translate-value-number="{{(project.projectId | timestamp).number}}" />
-        </p>
-        <div class="project-description">
-          {{project.projectDescription}}
-        </div>
-        <div class="hiring-status" ng-show="project.numberOfHires > 1">
-          <span translate="needHireFreelancerWithParam" translate-value-number="{{project.numberOfHires}}"/>
-        </div>
-        <div class="skills-of-project">
-          <h4 translate="skillsNeed"></h4>
-          <ul>
-            <li ng-repeat="skill in project.skills">
-            <span>{{skill}}</span>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
