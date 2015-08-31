@@ -9,7 +9,6 @@ import com.techlooper.model.Language;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
-import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -93,7 +92,6 @@ public class JobAlertServiceImpl implements JobAlertService {
     @Override
     public List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
         NativeSearchQueryBuilder searchQueryBuilder = getJobAlertSearchQueryBuilder(jobAlertRegistrationEntity);
-        searchQueryBuilder.withPageable(new PageRequest(0, 5));
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
         return jobs;
     }
@@ -197,6 +195,22 @@ public class JobAlertServiceImpl implements JobAlertService {
     }
 
     @Override
+    public List<JobResponse> listNormalJob(JobListingCriteria criteria, int limit, int totalPage) {
+        List<JobResponse> result = new ArrayList<>();
+        int pageNumber = 1;
+        while (result.size() < limit && pageNumber <= totalPage) {
+            criteria.setPage(pageNumber);
+            List<JobResponse> normalJobs = listJob(criteria).stream().filter(job -> job.getTopPriority() == null || job.getTopPriority() == false)
+                    .collect(Collectors.toList());
+            if (!normalJobs.isEmpty()) {
+                result.addAll(normalJobs);
+            }
+            pageNumber++;
+        }
+        return result.stream().limit(limit).collect(Collectors.toList());
+    }
+
+    @Override
     public Long countJob(JobListingCriteria criteria) {
         NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
         return scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
@@ -275,19 +289,27 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     private NativeSearchQueryBuilder getJobAlertSearchQueryBuilder(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
-        BoolQueryBuilder queryBuilder = boolQuery();
 
-        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
-            queryBuilder.must(queryString(jobAlertRegistrationEntity.getKeyword()));
+        QueryBuilder queryBuilder = null;
+        if (StringUtils.isEmpty(jobAlertRegistrationEntity.getKeyword()) && StringUtils.isEmpty(jobAlertRegistrationEntity.getLocation())) {
+            queryBuilder = matchAllQuery();
+        } else {
+            queryBuilder = boolQuery();
+
+            if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
+                ((BoolQueryBuilder) queryBuilder).must(multiMatchQuery(jobAlertRegistrationEntity.getKeyword(), "jobTitle", "company"));
+            }
+
+            if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
+                ((BoolQueryBuilder) queryBuilder).should(matchQuery("location", jobAlertRegistrationEntity.getLocation()));
+            }
         }
 
-        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
-            queryBuilder.must(matchQuery("location", jobAlertRegistrationEntity.getLocation()));
-        }
-
-        queryBuilder.must(rangeQuery("createdDateTime").from("now-7d/d"));
+        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, FilterBuilders.rangeFilter("createdDateTime").from("now-7d/d")));
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("topPriority").order(SortOrder.DESC));
+        searchQueryBuilder.withSort(SortBuilders.scoreSort());
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
-        searchQueryBuilder.withQuery(queryBuilder);
+        searchQueryBuilder.withPageable(new PageRequest(0, 5));
         return searchQueryBuilder;
     }
 

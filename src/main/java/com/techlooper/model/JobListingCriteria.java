@@ -11,6 +11,10 @@ public class JobListingCriteria {
 
     private Integer page;
 
+    public JobListingCriteria(Integer page) {
+        this.page = page;
+    }
+
     public String getKeyword() {
         return keyword;
     }

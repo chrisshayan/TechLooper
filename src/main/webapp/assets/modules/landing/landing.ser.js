@@ -1,4 +1,4 @@
-techlooper.factory("landingService", function ($http, jsonValue, $http, $timeout, $q, connectionFactory, utils) {
+techlooper.factory("landingService", function ($http, jsonValue, $timeout, $q, connectionFactory, utils) {
   var maxTotal = function (number) {
     return Math.max(5000 - parseInt(number), 0);
   }
