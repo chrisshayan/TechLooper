@@ -53,6 +53,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           instance.getCurrentUser().then(function () {
             instance.routeByRole();
           });
+        })
+        .error(function () {
+          if ($rootScope.currentUiView && $rootScope.currentUiView.loginUrl) {
+            $location.path($rootScope.currentUiView.loginUrl);
+          }
+          utils.sendNotification(jsonValue.notifications.loaded);
         });
     },
 
@@ -87,10 +93,13 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         var param = $location.search();
         var notHasParam = !$.isEmptyObject(param);
 
-        var notSignedIn = !$rootScope.userInfo && $rootScope.currentUiView.type !== "LOGIN";
+        var isSignInView = $rootScope.currentUiView.type == "LOGIN";
+        var notSignedIn = !$rootScope.userInfo && isSignInView;
         if (notSignedIn && notHasParam) {// should keep last print
           localStorageService.set("lastFoot", $location.url());
         }
+
+        if (!isSignInView) localStorageService.set("priorFoot", $location.url());
       });
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
