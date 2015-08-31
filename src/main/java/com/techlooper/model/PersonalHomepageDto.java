@@ -17,6 +17,8 @@ public class PersonalHomepageDto {
 
     private List<ProjectDto> latestProjects;
 
+    private List<JobResponse> latestJobs;
+
     public TermStatisticResponse getTermStatistic() {
         return termStatistic;
     }
@@ -47,5 +49,13 @@ public class PersonalHomepageDto {
 
     public void setLatestProjects(List<ProjectDto> latestProjects) {
         this.latestProjects = latestProjects;
+    }
+
+    public List<JobResponse> getLatestJobs() {
+        return latestJobs;
+    }
+
+    public void setLatestJobs(List<JobResponse> latestJobs) {
+        this.latestJobs = latestJobs;
     }
 }

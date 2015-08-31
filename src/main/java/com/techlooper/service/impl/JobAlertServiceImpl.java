@@ -9,7 +9,6 @@ import com.techlooper.model.Language;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
-import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -193,6 +192,22 @@ public class JobAlertServiceImpl implements JobAlertService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<JobResponse> listNormalJob(JobListingCriteria criteria, int limit, int totalPage) {
+        List<JobResponse> result = new ArrayList<>();
+        int pageNumber = 1;
+        while (result.size() < limit && pageNumber <= totalPage) {
+            criteria.setPage(pageNumber);
+            List<JobResponse> normalJobs = listJob(criteria).stream().filter(job -> job.getTopPriority() == null || job.getTopPriority() == false)
+                    .collect(Collectors.toList());
+            if (!normalJobs.isEmpty()) {
+                result.addAll(normalJobs);
+            }
+            pageNumber++;
+        }
+        return result.stream().limit(limit).collect(Collectors.toList());
     }
 
     @Override
