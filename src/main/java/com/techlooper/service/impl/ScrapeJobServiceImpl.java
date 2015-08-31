@@ -48,7 +48,8 @@ public class ScrapeJobServiceImpl implements ScrapeJobService {
 
     private ScrapeJobEntity convertToJobEntity(KimonoJob job, String crawlSource) {
         ScrapeJobEntity jobEntity = new ScrapeJobEntity();
-        jobEntity.setJobId(String.valueOf(new Date().getTime()));
+        // Let ElasticSearch auto-generate ID for job from KimonoLab
+        jobEntity.setJobId(null);
         jobEntity.setJobTitle(job.getJobTitle().getText());
         jobEntity.setJobTitleUrl(job.getJobTitle().getHref());
         jobEntity.setCompany(job.getCompany());
