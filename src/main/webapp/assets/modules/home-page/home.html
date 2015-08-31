@@ -19,31 +19,16 @@
           <div class="latest-jobs-block">
             <h4 translate="latestJobs"></h4>
             <ul>
-              <li>
+              <li ng-repeat="job in homePage.latestJobs">
                 <div class="left">
-                  <h5><a href="#">{{'Java Team Leader - Urgent Need'}}</a></h5>
-                  <p>{{'Galaxy Media'}}</p>
+                  <h5><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" title="{{job.title}}">
+                    {{job.title}}
+                  </a></h5>
+                  <p>{{job.company}}</p>
                 </div>
                 <div class="right">
-                  {{'$1,500 - $2,500'}}
-                </div>
-              </li>
-              <li>
-                <div class="left">
-                  <h5><a href="#">{{'Full-stack Engineers - Working In Japan'}}</a></h5>
-                  <p>{{'HR Vietnam’s ESS Client'}}</p>
-                </div>
-                <div class="right">
-                  {{'$1,000 - $1,500'}}
-                </div>
-              </li>
-              <li>
-                <div class="left">
-                  <h5><a href="#">{{'Senior Java Developer (Front & Back End)'}}</a></h5>
-                  <p>{{'T & M Development - Tripolis Vietnam'}}</p>
-                </div>
-                <div class="right">
-                  {{'$2,000 - $3,500'}}
+                  <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
+                  <strong ng-show="job.salary">{{job.salary}}</strong>
                 </div>
               </li>
               <li>
@@ -302,15 +287,6 @@
           <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
                 translate-value-number="{{(project.projectId | timestamp).number}}" />
                 </p>
-
-                <!--<p>-->
-                  <!--<strong translate="fixedPrice"></strong>-->
-                  <!----->
-                  <!--<span translate="estBudget"></span>-->
-                  <!--: $100 --->
-                  <!--<span class="time-stamp" translate="posted"></span>-->
-                  <!--<span class="time-stamp" translate-value-number="19" translate="xHoursAgo"></span>-->
-                <!--</p>-->
                 <div class="project-description ng-binding is-truncated">
                   {{project.projectDescription | limitTo: 250}}
                   <span ng-show="project.projectDescription.length > 250">...</span>

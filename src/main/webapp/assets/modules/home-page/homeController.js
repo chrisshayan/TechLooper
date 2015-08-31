@@ -6,6 +6,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     $scope.homePage.termStatistic.logo = "images/" + $.grep(jsonValue.technicalSkill, function (skill) {
         return skill.term == $scope.homePage.termStatistic.term;
       })[0].logo;
+    console.log($scope.homePage);
   }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
   });
