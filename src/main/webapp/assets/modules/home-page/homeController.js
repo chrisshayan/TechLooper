@@ -1,5 +1,5 @@
 techlooper.controller("homeController", function ($scope, securityService, apiService, localStorageService, $location,
-                                                  jsonValue, utils, $timeout, vnwConfigService, $translate) {
+                                                  jsonValue, utils, $timeout, vnwConfigService, $translate, resourcesService) {
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   apiService.getPersonalHomepage().success(function (data) {
     $scope.homePage = data;
@@ -11,6 +11,32 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     utils.sendNotification(jsonValue.notifications.loaded);
   });
 
+  $scope.status = function (type) {
+    switch (type) {
+      case "show-fixed-price-fields":
+        var project = arguments[1];
+        if (!project) return false;
+        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.id == "fixedPrice";
+
+      case "show-hourly-price-fields":
+        var project = arguments[1];
+        if (!project) return false;
+        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.id == "hourly";
+
+      case "get-payment-method-translate":
+        var project = arguments[1];
+        if (!project) return false;
+        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
+        if (!option) return false;
+        return option.reviewTranslate;
+    }
+    return false;
+  }
+
   $timeout(function () {
     var tallest = 0;
     $('.main-feature').find('.box-content').each(function () {
@@ -19,7 +45,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
         tallest = thisHeight;
     });
     $('.main-feature').find('.box-content').height(tallest + $('.cta-button').height());
-  }, 1500);
+  }, 2500);
 
   $scope.locationsConfig = vnwConfigService.locationsSelectize;
 
