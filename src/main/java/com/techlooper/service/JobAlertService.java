@@ -23,6 +23,8 @@ public interface JobAlertService {
 
     List<JobResponse> listJob(JobListingCriteria criteria);
 
+    List<JobResponse> listNormalJob(JobListingCriteria criteria, int limit, int totalPage);
+
     Long countJob(JobListingCriteria criteria);
 
     boolean checkIfUserExceedRegistrationLimit(String email);

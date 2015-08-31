@@ -35,6 +35,10 @@ public class ProjectDto {
 
     private Language lang;
 
+    private String companyLogoURL;
+
+    private String companyName;
+
     public Long getProjectId() {
         return projectId;
     }
@@ -145,5 +149,21 @@ public class ProjectDto {
 
     public void setLang(Language lang) {
         this.lang = lang;
+    }
+
+    public String getCompanyLogoURL() {
+        return companyLogoURL;
+    }
+
+    public void setCompanyLogoURL(String companyLogoURL) {
+        this.companyLogoURL = companyLogoURL;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

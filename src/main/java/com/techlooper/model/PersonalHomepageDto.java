@@ -15,6 +15,10 @@ public class PersonalHomepageDto {
 
     private List<WebinarInfoDto> latestEvents;
 
+    private List<ProjectDto> latestProjects;
+
+    private List<JobResponse> latestJobs;
+
     public TermStatisticResponse getTermStatistic() {
         return termStatistic;
     }
@@ -37,5 +41,21 @@ public class PersonalHomepageDto {
 
     public void setLatestEvents(List<WebinarInfoDto> latestEvents) {
         this.latestEvents = latestEvents;
+    }
+
+    public List<ProjectDto> getLatestProjects() {
+        return latestProjects;
+    }
+
+    public void setLatestProjects(List<ProjectDto> latestProjects) {
+        this.latestProjects = latestProjects;
+    }
+
+    public List<JobResponse> getLatestJobs() {
+        return latestJobs;
+    }
+
+    public void setLatestJobs(List<JobResponse> latestJobs) {
+        this.latestJobs = latestJobs;
     }
 }
