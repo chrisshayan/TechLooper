@@ -1,11 +1,14 @@
 techlooper.controller("homeController", function ($scope, securityService, apiService, localStorageService, $location,
                                                   jsonValue, utils, $timeout, vnwConfigService, $translate) {
-
+  utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   apiService.getPersonalHomepage().success(function (data) {
     $scope.homePage = data;
     $scope.homePage.termStatistic.logo = "images/" + $.grep(jsonValue.technicalSkill, function (skill) {
         return skill.term == $scope.homePage.termStatistic.term;
       })[0].logo;
+    console.log($scope.homePage);
+  }).finally(function () {
+    utils.sendNotification(jsonValue.notifications.loaded);
   });
 
   $timeout(function () {
