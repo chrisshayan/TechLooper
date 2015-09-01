@@ -119,7 +119,7 @@
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
                     <a href="http://www.techlooper.com/#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                      <img alt="TechLooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                 </tr>
