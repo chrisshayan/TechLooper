@@ -120,7 +120,7 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.techlooper.com/#/home?utm_source=webinaremail&utm_medium=techlooperlogo&utm_campaign=webinar" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -162,7 +162,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        There is a new attendant. <strong style="font-size: 14px;">Johnson Pham</strong>, <a href="mailto:trinh.pham@gmail.com" style="color: #277cbd">trinh.pham@gmail.com</a> has just registered to the following event:
+                        There is a new attendant. <strong style="font-size: 14px;"><#if attendee.firstName??>${attendee.firstName}</#if> <#if attendee.lastName??>${attendee.lastName}</#if></strong>, <a href="mailto:<#if attendee.email??>${attendee.email}</#if>" style="color: #277cbd"><#if attendee.email??>${attendee.email}</#if></a> has just registered to the following event:
                       </td>
                     </tr>
                     <tr>
@@ -178,7 +178,7 @@
                               Your webinar name:
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                <#if webinar.name??>${webinar.name}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -194,7 +194,7 @@
                               When are you running this event?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                              Fri, 28 August - 5:44 PM to Sat, 29 August - 7:00 PM
+                                <#if webinar.startDate??>${webinar.startDate}</#if> to <#if webinar.endDate??>${webinar.endDate}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -210,7 +210,7 @@
                               Where are you running this event?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                              Google Hangout
+                                <#if webinar.where??>${webinar.where}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -226,7 +226,7 @@
                               What would be your webinar about?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                              Contrary to popular belief, Lorem Ipsum is not simply random text.
+                                <#if webinar.whatEvent??>${webinar.whatEvent}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -242,7 +242,7 @@
                               Organiser:
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                              Pham Thanh Trinh
+                            <#if webinar.organiser.firstName??>${webinar.organiser.firstName}</#if> <#if webinar.organiser.lastName??>${webinar.organiser.lastName}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -258,7 +258,7 @@
                               Who should join and why?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br/><br/>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. <br/><br/>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. <br/>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                <#if webinar.description??>${webinar.description}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -286,7 +286,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/job-listing/${searchPath}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View Event</a>
+                              <a href="${webBaseUrl}#/event-detail/${webinarNameAlias}?utm_source=webinaremail&utm_medium=vieweventbtn&utm_campaign=webinar" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View Event</a>
                             </td>
                           </tr>
                         </table>
