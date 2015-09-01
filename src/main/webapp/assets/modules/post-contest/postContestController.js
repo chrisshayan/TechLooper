@@ -1,5 +1,6 @@
 techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils,
                                                          resourcesService, $anchorScroll) {
+  utils.sendNotification(jsonValue.notifications.loading);
   var state = {
     challenge: {
       name: "challenge",
@@ -188,7 +189,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   }
 
   $scope.changeState(state.challenge);
-  
+
   $scope.detectDeleteKey = function (e) {
     if (e.which == 8)
       return false;

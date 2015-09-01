@@ -16,7 +16,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
   if (!searchText) {
     apiService.listAllJobs().success(function(response) {
-      utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+      utils.sendNotification(jsonValue.notifications.loading);
       $scope.totalPage = response.totalPage;
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
