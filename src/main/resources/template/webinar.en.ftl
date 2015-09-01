@@ -167,7 +167,7 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        There is a new attendant. <strong style="font-size: 14px;"><#if attendee.firstName??>${attendee.firstName}</#if> <#if attendee.lastName??>${attendee.lastName}</#if></strong>,
+                          There is a new attendant <strong style="font-size: 14px;"><#if attendee.firstName??>${attendee.firstName}</#if> <#if attendee.lastName??>${attendee.lastName}</#if></strong>,
                         <a href="mailto:<#if attendee.email??>${attendee.email}</#if>" style="color: #277cbd">
                         <#if attendee.email??>${attendee.email}</#if>
                         </a> has just registered to the following event:
@@ -183,7 +183,7 @@
                         <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
                           <tr>
                             <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                              Your webinar name:
+                                Webinar name :
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                             <#if webinar.name??>${webinar.name}</#if>
@@ -199,7 +199,7 @@
                           </tr>
                           <tr>
                             <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                              When are you running this event?
+                                When this event is being held?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                             <#if webinar.startDate??>${webinar.startDate}</#if> to
@@ -216,7 +216,7 @@
                           </tr>
                           <tr>
                             <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                              Where are you running this event?
+                                Where this event is being held?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                             <#if webinar.where??>${webinar.where}</#if>
@@ -232,7 +232,7 @@
                           </tr>
                           <tr>
                             <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                              What would be your webinar about?
+                                What is webinar about?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                             <#if webinar.whatEvent??>${webinar.whatEvent}</#if>
@@ -248,24 +248,7 @@
                           </tr>
                           <tr>
                             <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                              Organiser:
-                            </td>
-                            <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                            <#if webinar.organiser.firstName??>${webinar.organiser.firstName}</#if>
-                                                                    <#if webinar.organiser.lastName??>${webinar.organiser.lastName}</#if>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:15px; line-height: 15px;">
-                              <img height="15" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                            <td style="height:15px; line-height: 15px;">
-                              <img height="15" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                              Who should join and why?
+                                Who should join this event and why?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                             <#if webinar.description??>${webinar.description}</#if>
@@ -279,6 +262,21 @@
                               <img height="15" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                             </td>
                           </tr>
+                            <tr>
+                                <td align="left" width="55%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                    You can access this online event here
+                                </td>
+                                <td align="left" width="45%" style="color: #000000; font-size: 14px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:15px; line-height: 15px;">
+                                    <img height="15" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                </td>
+                                <td style="height:15px; line-height: 15px;">
+                                    <img height="15" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                </td>
+                            </tr>
                         </table>
                       </td>
                     </tr>
