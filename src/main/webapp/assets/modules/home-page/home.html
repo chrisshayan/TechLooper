@@ -18,7 +18,8 @@
               <li ng-repeat="job in homePage.latestJobs">
                 <div class="left">
                   <h5><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" title="{{job.title}}">
-                    {{job.title}}
+                    {{job.title | limitTo: 40}}
+                    <span ng-show="job.title.length > 40">...</span>
                   </a></h5>
                   <p>{{job.company}}</p>
                 </div>

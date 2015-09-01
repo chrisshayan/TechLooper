@@ -1,13 +1,21 @@
 techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils,
                                                          resourcesService, $anchorScroll) {
+  utils.sendNotification(jsonValue.notifications.loading);
   var state = {
     challenge: {
+      name: "challenge",
       showChallenge: true,
       status: function (type) {
         switch (type) {
           case "is-form-valid":
             $scope.challengeForm.$setSubmitted();
             return $scope.challengeForm.$valid;
+
+          case "set-form-pristine":
+            return $scope.challengeForm && $scope.challengeForm.$setPristine();
+
+          case "is-form-pristine":
+            return $scope.challengeForm.$pristine;
 
           case "challenge-tab-class":
             return "active showNavi";
@@ -17,12 +25,19 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     },
 
     timeline: {
+      name: "timeline",
       showTimeline: true,
       status: function (type) {
         switch (type) {
           case "is-form-valid":
             $scope.timelineForm.$setSubmitted();
             return $scope.timelineForm.$valid;
+
+          case "is-form-pristine":
+            return $scope.timelineForm.$pristine;
+
+          case "set-form-pristine":
+            return $scope.timelineForm.$setPristine();
 
           case "challenge-tab-class":
             return "active";
@@ -60,12 +75,19 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     },
 
     reward: {
+      name: "reward",
       showReward: true,
       status: function (type, param) {
         switch (type) {
           case "is-form-valid":
             $scope.rewardForm.$setSubmitted();
             return $scope.rewardForm.$valid;
+
+          case "is-form-pristine":
+            return $scope.rewardForm.$pristine;
+
+          case "set-form-pristine":
+            return $scope.rewardForm.$setPristine();
 
           case "challenge-tab-class":
           case "timeline-tab-class":
@@ -104,7 +126,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
             $location.url(sprintf("/challenge-detail/%s-%s-id", title, response.data));
           })
           .finally(function () {
-              $('.submit-contest-content').find('button').removeClass('disabled');
+            $('.submit-contest-content').find('button').removeClass('disabled');
             utils.sendNotification(jsonValue.notifications.hideLoadingBox);
           });
         return true;
@@ -112,9 +134,26 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     }
   }
 
-  $scope.changeState = function (st) {
-    if (!st || ($scope.state && !$scope.state.status("is-form-valid"))) {
-      return false;
+  var orderState = function (st) {
+    switch (st) {
+      case "challenge":
+        return 0;
+
+      case "timeline":
+        return 1;
+
+      case "reward":
+        return 2;
+    }
+    return -1;
+  }
+
+  $scope.changeState = function (st, param) {
+    var ignoreInvalidForm = param && param.ignoreInvalidForm;
+    if (ignoreInvalidForm != true) {
+      if (!st || ($scope.state && !$scope.state.status("is-form-valid"))) {
+        return false;
+      }
     }
 
     if ($.type(st) === "function") {
@@ -123,10 +162,25 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
+    $scope.state.status("set-form-pristine");
   }
 
   $scope.nextState = function () {
     $scope.changeState($scope.state.nextState);
+  }
+
+  $scope.toState = function (st) {
+    var currentStateOrder = orderState($scope.state.name);
+    var toStateOrder = orderState(st);
+    if (toStateOrder < currentStateOrder) {
+      if ($scope.state.status("is-form-pristine")) {
+        $scope.changeState(st, {ignoreInvalidForm: true});
+      }
+    }
+    else if (currentStateOrder == toStateOrder) {
+      return false;
+    }
+    $scope.changeState(st);
   }
 
   $scope.config = {
@@ -136,16 +190,8 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
   $scope.changeState(state.challenge);
 
-  $('*').bind('touchend', function (e) {
-    if ($(e.target).attr('data-toggle') !== 'tooltip' && ($('.tooltip').length > 0)) {
-      $('[data-toggle=tooltip]').mouseleave();
-    }
-    else {
-      $(e.target).mouseenter();
-    }
-  });
-  $scope.detectDeleteKey = function(e) {
-    if(e.which == 8)
+  $scope.detectDeleteKey = function (e) {
+    if (e.which == 8)
       return false;
   };
 });

@@ -7,6 +7,10 @@
   button
     margin: auto
     padding: 6px 35px
+  a
+    margin-right: 5px
+    cursor: pointer
+    display: none
 .post-contest-block
   width: 100%
   clear: both
@@ -71,6 +75,22 @@
         line-height: 34px
         padding: 0 10px
         font-size: 14px
+      .autocomplete
+        float: left
+        width: 85%
+        ul
+          border-bottom: 1px solid #d4d7d8
+          border-left: 1px solid #d4d7d8
+          border-right: 1px solid #d4d7d8
+          margin: 0
+          padding: 0
+          z-index: 666
+          top: 34px
+          .highlight
+            background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+            color: black
+          li.active
+            background-color: whitesmoke
       .add-skill-input
         input
           width: 85%
