@@ -200,6 +200,7 @@ public class WebinarServiceImpl implements WebinarService {
         mailSubject = String.format(mailSubject, webinarEntity.getName());
         Address[] emailAddress = InternetAddress.parse(webinarEntity.getOrganiser().getEmail());
         alertEventOrganiserMailMessage.setRecipients(Message.RecipientType.TO, emailAddress);
+        alertEventOrganiserMailMessage.setReplyTo(InternetAddress.parse(attendee.getEmail()));
 
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> templateModel = new HashMap<>();
