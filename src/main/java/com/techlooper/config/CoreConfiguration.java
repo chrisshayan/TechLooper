@@ -272,7 +272,6 @@ public class CoreConfiguration implements ApplicationContextAware {
     @Bean
     public MimeMessage alertEventOrganiserMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
         mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
         return mailMessage;
     }
