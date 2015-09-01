@@ -260,7 +260,7 @@ module.exports = function (grunt) {
     "usemin",
     "imagemin:build",
     "copy:font",
-    //"clean:release",
+    "clean:release",
     "replace:cssConcat",
     "rename:build"
   ]);
