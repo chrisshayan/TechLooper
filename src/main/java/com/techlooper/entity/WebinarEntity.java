@@ -1,10 +1,10 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
 import com.techlooper.model.UserProfileDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,32 +14,32 @@ import java.util.Set;
 @Document(indexName = "techlooper", type = "webinar")
 public class WebinarEntity {
 
-  @Id
-  private Long createdDateTime = new Date().getTime();
+    @Id
+    private Long createdDateTime = new Date().getTime();
 
-  @Field(type = FieldType.String)
-  private String name;
+    @Field(type = FieldType.String)
+    private String name;
 
-  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
-  private String startDate;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
+    private String startDate;
 
-  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
-  private String endDate;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy hh:mm a")
+    private String endDate;
 
-  @Field(type = FieldType.String)
-  private String description;
+    @Field(type = FieldType.String)
+    private String description;
 
-  @Field(type = FieldType.Nested)
-  private Set<UserProfileDto> attendees;
+    @Field(type = FieldType.Nested)
+    private Set<UserProfileDto> attendees;
 
-  @Field(type = FieldType.Nested)
-  private UserProfileDto organiser;
+    @Field(type = FieldType.Nested)
+    private UserProfileDto organiser;
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-  private String where = "Google Hangout";
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private String where = "Google Hangout";
 
-  @Field(type = FieldType.Nested)
-  private CalendarInfo calendarInfo;
+    @Field(type = FieldType.Nested)
+    private CalendarInfo calendarInfo;
 
 //  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 //  private String calendarUrl;
@@ -50,86 +50,97 @@ public class WebinarEntity {
 //  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 //  private String eventId;
 
-  @Field(type = FieldType.String)
-  private String whatEvent;
+    @Field(type = FieldType.String)
+    private String whatEvent;
 
-  public CalendarInfo getCalendarInfo() {
-    return calendarInfo;
-  }
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private Language lang;
 
-  public void setCalendarInfo(CalendarInfo calendarInfo) {
-    this.calendarInfo = calendarInfo;
-  }
+    public CalendarInfo getCalendarInfo() {
+        return calendarInfo;
+    }
 
-  public Long getCreatedDateTime() {
-    return createdDateTime;
-  }
+    public void setCalendarInfo(CalendarInfo calendarInfo) {
+        this.calendarInfo = calendarInfo;
+    }
 
-  public void setCreatedDateTime(Long createdDateTime) {
-    this.createdDateTime = createdDateTime;
-  }
+    public Long getCreatedDateTime() {
+        return createdDateTime;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setCreatedDateTime(Long createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getStartDate() {
-    return startDate;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setStartDate(String startDate) {
-    this.startDate = startDate;
-  }
+    public String getStartDate() {
+        return startDate;
+    }
 
-  public String getEndDate() {
-    return endDate;
-  }
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 
-  public void setEndDate(String endDate) {
-    this.endDate = endDate;
-  }
+    public String getEndDate() {
+        return endDate;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public Set<UserProfileDto> getAttendees() {
-    return attendees;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public void setAttendees(Set<UserProfileDto> attendees) {
-    this.attendees = attendees;
-  }
+    public Set<UserProfileDto> getAttendees() {
+        return attendees;
+    }
 
-  public UserProfileDto getOrganiser() {
-    return organiser;
-  }
+    public void setAttendees(Set<UserProfileDto> attendees) {
+        this.attendees = attendees;
+    }
 
-  public void setOrganiser(UserProfileDto organiser) {
-    this.organiser = organiser;
-  }
+    public UserProfileDto getOrganiser() {
+        return organiser;
+    }
 
-  public String getWhere() {
-    return where;
-  }
+    public void setOrganiser(UserProfileDto organiser) {
+        this.organiser = organiser;
+    }
 
-  public void setWhere(String where) {
-    this.where = where;
-  }
+    public String getWhere() {
+        return where;
+    }
 
-  public String getWhatEvent() {
-    return whatEvent;
-  }
+    public void setWhere(String where) {
+        this.where = where;
+    }
 
-  public void setWhatEvent(String whatEvent) {
-    this.whatEvent = whatEvent;
-  }
+    public String getWhatEvent() {
+        return whatEvent;
+    }
+
+    public void setWhatEvent(String whatEvent) {
+        this.whatEvent = whatEvent;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
 }
