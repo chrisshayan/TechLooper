@@ -3,7 +3,9 @@ package com.techlooper.service;
 import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.model.UserProfileDto;
+import freemarker.template.TemplateException;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -21,5 +23,5 @@ public interface WebinarService {
 
   WebinarInfoDto findWebinarById(Long id);
 
-  WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) throws IOException;
+  WebinarInfoDto joinWebinar(JoinBySocialDto joinBySocialDto) throws IOException, MessagingException, TemplateException;
 }

@@ -330,7 +330,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "user/webinar/join", method = RequestMethod.POST)
-    public WebinarInfoDto joinWebinar(@RequestBody JoinBySocialDto joinBySocialDto) throws IOException {
+    public WebinarInfoDto joinWebinar(@RequestBody JoinBySocialDto joinBySocialDto) throws Exception {
         return webinarService.joinWebinar(joinBySocialDto);
     }
 }
