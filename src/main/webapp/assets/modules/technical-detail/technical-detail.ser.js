@@ -8,14 +8,15 @@ techlooper.factory("technicalDetailService", function (utils, $translate, jsonVa
      * @param {object} skill - Skill object
      * @see skill-level-analytics.json
      */
-    showSkillsList: function (skill, maxValue) {
+    showSkillsList: function (skill, maxValue, numRad) {
+      numRad = numRad || 60;
       skill.colors = [];
       skill.colors.unshift(fnColor(skill.id));
       skill.colors.unshift("#e9e8e7");
 
       Circles.create({
         id: 'circles-' + skill.id,
-        radius: 60,
+        radius: parseInt(numRad),
         value: skill.totalJob,
         maxValue: maxValue,
         width: 5,

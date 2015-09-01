@@ -16,7 +16,10 @@
     "grunt-contrib-clean": "latest",
     "grunt-bower-install-simple": "latest",
     "grunt-ng-annotate": "latest",
-    "grunt-text-replace": "latest"
+    "grunt-text-replace": "latest",
+    "matchdep": "latest",
+    "grunt-contrib-imagemin": "latest",
+    "grunt-contrib-rename": "latest"
   },
   "assets": "src/main/webapp/assets/",
   "public": "src/main/webapp/public/"

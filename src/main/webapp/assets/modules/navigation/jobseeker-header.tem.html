@@ -1,10 +1,48 @@
-<nav class="navbar">
-  <div class="logo-block text-center">
-    <div class="logo" id="logo">
-      <h1><a href="#/"> <img src="images/logo.svg" alt="Career Analytics. Awesome!"></a></h1>
+<div class="header-site">
+    <div class="personal-header-block">
+        <div class="personal-header-content">
+            <div class="logo-block">
+                <h1><a ng-href="#/{{state('home-url')}}"> <img src="images/logo-small.svg" alt="Career Analytics. Awesome!"></a></h1>
+            </div>
+            <div class="ic-menu-mobile" ng-modal="mobileMenu" ng-click="mobileMenu = !mobileMenu">
+                <i class="fa fa-bars"></i>
+            </div>
+            <div class="user-info-basic-block">
+                <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+                <p>{{$root.userInfo.name}}</p>
+                <div class="user-avatar" ng-show="$root.userInfo">
+                    <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+                </div>
+
+                <!--<a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>-->
+                <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
+            </div>
+
+        </div>
     </div>
-    <div class="vnw-logo">
-      <a href="http://www.vietnamworks.com/" target="_blank"><img src="images/vnw-logo.svg" alt="Career Analytics. Awesome!"></a>
+    <div class="main-menu-job-seeker-block" ng-show="!mobileMenu">
+        <div class="main-menu-job-seeker-content">
+            <ul>
+                <li class="active" ng-class="{ here: isActive('/home') }" ng-click="hideMenu()">
+                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.firstName | limitTo: 10}}</a>
+                    <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
+                </li>
+                <li ng-class="{ here: isActive('/challenges') }" ng-click="hideMenu()">
+                    <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
+                </li>
+                <li ng-class="{ here: isActive('/freelancer/projects') }" ng-click="hideMenu()">
+                    <a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>
+                </li>
+                <li ng-class="{ here: isActive('/pie-chart') }" ng-click="hideMenu()">
+                    <a href="#/pie-chart" translate="subMenuAnalytics" class="analytics"></a>
+                </li>
+                <li ng-class="{ here: isActive('/salary-review') }" ng-click="hideMenu()">
+                    <a href="#/salary-review" translate="salaryReview" class="help"></a>
+                </li>
+                <li ng-class="{ here: isActive('/get-promoted') }" ng-click="hideMenu()">
+                    <a href="#/get-promoted" translate="subMenuGetPromoted" class="promoted"></a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
-</nav>
+</div>

@@ -1,15 +1,15 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.SimpleUserProfile;
+import com.techlooper.entity.GoogleProfile;
 import com.techlooper.entity.UserProfile;
+import com.techlooper.model.SocialConfig;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.plus.Person;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,6 @@ import javax.inject.Inject;
  * Created by phuonghqh on 12/16/14.
  */
 @Service("GOOGLEService")
-@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class GoogleService extends AbstractSocialService {
 
     @Resource
@@ -37,9 +36,20 @@ public class GoogleService extends AbstractSocialService {
 
     public UserProfile getProfile(AccessGrant accessGrant) {
         Connection<Google> connection = googleConnectionFactory.createConnection(getAccessGrant(accessGrant));
-        SimpleUserProfile gProfile = new SimpleUserProfile();
+        Person person = connection.getApi().plusOperations().getGoogleProfile();
+        GoogleProfile gProfile = new GoogleProfile();
         gProfile.setAccessGrant(accessGrant);
-        gProfile.setActual(connection.getApi().plusOperations().getGoogleProfile());
+        gProfile.setProfileImageUrl(person.getImageUrl());
+        gProfile.setName(person.getDisplayName());
+        gProfile.setEmail(person.getAccountEmail());
+        gProfile.setFirstName(person.getGivenName());
+        gProfile.setLastName(person.getFamilyName());
         return gProfile;
+    }
+
+    public org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig) {
+        org.springframework.social.oauth2.AccessGrant access = googleConnectionFactory.getOAuthOperations().exchangeForAccess(code, socialConfig.getRedirectUri(), null);
+        org.springframework.social.connect.UserProfile userProfile = googleConnectionFactory.createConnection(access).fetchUserProfile();
+        return userProfile;
     }
 }

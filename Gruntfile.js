@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       },
       font: {
         files: [{
-          cwd: "<%=pkg.assets%>bower_components/components-font-awesome/",
+          cwd: "<%=pkg.public%>bower_components/components-font-awesome/",
           expand: true,
           src: ["fonts/**"],
           dest: "<%=pkg.public%>/generate-resources"
@@ -58,7 +58,16 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: "<%=pkg.public%>index.html",
       options: {
-        dest: "<%=pkg.public%>"
+        dest: "<%=pkg.public%>",
+        flow: {
+          html: {
+            steps: {
+              js: ['concat', "uglify"],
+              //js: ['concat'],
+              css: ['concat', 'cssmin']
+            }
+          }
+        }
       }
     },
 
@@ -69,10 +78,10 @@ module.exports = function (grunt) {
         publicDirs: ["<%=pkg.public%>css"],
         blockReplacements: {
           js: function (block) {
-            return '<script src="' + block.dest + "?v=" + timestamp + '" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<script src="' + block.dest.replace(".min.js", "-") + timestamp + '.min.js" charset="utf-8"></script>';//'<link rel="stylesheet" href="' + block.dest + '">';
           },
           css: function (block) {
-            return '<link rel="stylesheet" href="' + block.dest + "?v=" + timestamp + '">';//'<link rel="stylesheet" href="' + block.dest + '">';
+            return '<link rel="stylesheet" href="' + block.dest.replace(".min.css", "-") + timestamp + '.min.css">';//'<link rel="stylesheet" href="' + block.dest + '">';
           }
         }
       }
@@ -174,6 +183,13 @@ module.exports = function (grunt) {
       generated: {
         options: {
           separator: grunt.util.linefeed + ";" + grunt.util.linefeed
+          //banner: ";(function( window, undefined ){ \n 'use strict';",
+          //footer: "}( window ));"
+          //banner: "'use strict';\n",
+          //process: function(src, filepath) {
+          //  return '// Source: ' + filepath + '\n' +
+          //    src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+          //}
         }
       }
     },
@@ -197,22 +213,58 @@ module.exports = function (grunt) {
           preserveComments: false
         }
       }
+    },
+
+    rename: {
+      build: {
+        files: [
+          {
+            src: ['<%=pkg.public%>generate-resources/techlooper-bower.min.js'],
+            dest: '<%=pkg.public%>generate-resources/techlooper-bower-' + timestamp + '.min.js'
+          },
+          {
+            src: ['<%=pkg.public%>generate-resources/techlooper.min.js'],
+            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.js'
+          },
+          {
+            src: ['<%=pkg.public%>generate-resources/techlooper.min.css'],
+            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.css'
+          }
+        ]
+      }
+    },
+
+    imagemin: {
+      dist: {
+        options: {
+          optimizationLevel: 5
+        },
+        files: [{
+          expand: true,
+          cwd: '<%=pkg.assets%>images',
+          src: ['**/*.{png,jpg,gif}'],
+          dest: '<%=pkg.public%>images'
+        }]
+      }
     }
   });
 
-  grunt.loadNpmTasks("grunt-contrib-watch");
-  grunt.loadNpmTasks("grunt-contrib-connect");
-  grunt.loadNpmTasks("grunt-include-source");
-  grunt.loadNpmTasks("grunt-wiredep");
-  grunt.loadNpmTasks("grunt-bower-install-simple");
-  grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks("grunt-contrib-concat");
-  grunt.loadNpmTasks("grunt-contrib-cssmin");
-  grunt.loadNpmTasks("grunt-usemin");
-  grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-ng-annotate");
-  grunt.loadNpmTasks('grunt-text-replace');
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+
+  //grunt.loadNpmTasks("grunt-contrib-watch");
+  //grunt.loadNpmTasks("grunt-contrib-connect");
+  //grunt.loadNpmTasks("grunt-include-source");
+  //grunt.loadNpmTasks("grunt-wiredep");
+  //grunt.loadNpmTasks("grunt-bower-install-simple");
+  //grunt.loadNpmTasks("grunt-contrib-uglify");
+  //grunt.loadNpmTasks("grunt-contrib-concat");
+  //grunt.loadNpmTasks("grunt-contrib-cssmin");
+  //grunt.loadNpmTasks("grunt-usemin");
+  //grunt.loadNpmTasks("grunt-contrib-copy");
+  //grunt.loadNpmTasks("grunt-contrib-clean");
+  //grunt.loadNpmTasks("grunt-ng-annotate");
+  //grunt.loadNpmTasks('grunt-text-replace');
+  //grunt.loadNpmTasks('grunt-contrib-rename');
 
   grunt.registerTask("build", [
     "clean:build",
@@ -226,9 +278,10 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
-    "clean:release",
     "copy:font",
-    "replace:cssConcat"
+    "clean:release",
+    "replace:cssConcat",
+    "rename:build"
   ]);
 
   grunt.registerTask("local", [

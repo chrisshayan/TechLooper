@@ -1,4 +1,4 @@
-@media (min-width: 320px) and (max-width: 719px)
+@media (min-width: 320px) and (max-width: 767px)
   .body-content
     padding-bottom: 0
   .navbar
@@ -367,6 +367,14 @@
       .site-map-content
         width: 100%
         padding-top: 10px
+        border: 0
+        padding-left: 0
+        ul
+          li
+            width: 100%
+            padding-bottom: 0
+      .site-map-content.left
+        border: 0
     .copyright-block
       padding-bottom: 10px
       p
@@ -464,7 +472,7 @@
                 max-height: 60px
   .salary-review-page
     width: 100%
-    padding: 10px 5px
+    padding: 0px 5px
     .salary-review-block
       padding-bottom: 10px
       .navi-step-salary-review
@@ -493,7 +501,7 @@
       //.navi-step-salary-review.fixed
       //  position: inherit
       .salary-review-content
-        padding: 10px 0 20px 0
+        padding: 10px
         .arrow-up-active
           display: none
         h3
@@ -1076,6 +1084,11 @@
           width: 100%
         .post-contest-field-tooltip
           display: none
+    .tooltip
+      display: none !important
+  .submit-contest-content
+    a
+      display: inline-block
   .sign-in-block
     .sign-in-content
       padding: 15px 0
@@ -1186,7 +1199,8 @@
         display: inline-block
     table.contests-table td:last-child
       border-bottom: 0
-
+    table.contests-table td:last-child
+      text-align: right
     table.contests-table td:before
       content: attr(data-label)
       float: left
@@ -1203,6 +1217,484 @@
       top: auto
       bottom: auto
       max-height: none
+  .content-page-block
+    .content-page-detail.dashboard
+      padding: 10px
+      .my-challenges-block
+        padding: 0 0 10px 0
+      .dashboard-box
+      .my-projects-block
+        padding: 0
+  .content-page-block
+    .header-page
+      h2
+        font-size: 18px
+    .content-page-detail.how-does-it-work
+      padding: 10px
+      .review-project-content-block
+        padding: 0
+        .alert
+          margin-bottom: 0
+        .review-project-content
+          padding: 10px 0
+          .time-and-payment-block
+            .col-md-4
+              width: 100%
+              clear: both
+              padding: 5px 0
+              text-align: left
+              p
+                width: 100%
+                float: left
+            .apply-with-facebook.col-md-4
+              p
+                padding: 10px 0
+        .client-logo-block
+          width: 100%
+          clear: both
+          text-align: left
+          img
+            position: relative
+            padding-top: 10px
+        .client-info-block
+          width: 100%
+      .project-items
+        .project-item
+          padding: 10px
+          h3
+            span
+              width: 100%
+            a.view-detail
+              width: 100%
+              clear: both
+              display: block
+              text-align: left
+          .skills-of-project ul li
+            margin-bottom: 0
+      .help-item
+        width: 100%
+        padding: 20px 0
+        min-height: inherit
+        h3
+          padding-bottom: 5px
+        .ic-help-item
+          width: 30%
+        .help-item-content
+          width: 70%
+  .content-page-block.project-owner
+    padding-top: 0
+    margin-bottom: 0
+  .content-page-block.project-list
+    margin-bottom: 0
+  .apply-to-this-job-block
+    padding: 10px 5px
+  .form-content
+    .field-content
+      .top-three-skills
+        .autocomplete
+          width: 80%
+        button
+          width: 20%
+          text-align: center
+          padding: 0
+  .form-content .tooltip
+    display: none !important
+  .content-page-block
+    .why-freelancer-content
+      padding-top: 20px
+    .tip-and-help
+      .interactive-job
+        padding: 10px
+        .interactive-job-img
+          width: 100%
+          clear: both
+          padding-bottom: 10px
+          padding-right: 0
+        .interactive-job-content
+          width: 100%
+          clear: both
+          padding-bottom: 10px
+    .partner-company-logos
+      ul li
+        width: 100%
+        clear: both
+        display: inline-block
+  .hiring-page
+    .hiring-header-block
+      height: 39px
+      img
+        max-height: 38px
+    .hiring-banner-block
+      height: 111px
+      .hiring-banner-bg
+        height: auto
+      .hiring-banner-content
+        top: 18%
+        h2
+          font-size: 16px
+          font-weight: 300
+          text-transform: uppercase
+      .hiring-banner-bg
+        height: 111px
+        .banner-images
+          max-height: 111px
+    .hiring-body-block
+      padding: 10px
+      .hiring-main-feature-block
+        padding-top: 0
+        .hiring-main-feature-content
+          .hiring-main-feature-item
+            width: 100%
+            margin: 5px 0
+          .hiring-main-feature-item.left
+            margin: 0 0 5px 0
+          .hiring-main-feature-item.right
+            margin: 5px 0 0 0
+      .hiring-how-does-work-block
+        h3
+          font-size: 22px
+        h4
+          font-size: 16px
+          padding-bottom: 0
+        ul
+          li
+            width: 100%
+            clear: both
+            margin: 5px 0
+            .ic-how-does-it-work.your-job
+              height: 40px
+            h4
+              padding-bottom: 0
+          li.left
+            margin: 0 0 5px 0
+          li.right
+            margin: 5px 0 0 0
+  .personal-site-container
+    .techlooper-spotlight-block
+      .local-time
+        display: none
+    .personal-site-content-detail
+      padding-bottom: 0
+      .job-alert-box
+        display: inline-block
+        clear: both
+        width: 100%
+        padding: 10px
+        .box-content
+          width: 100%
+          padding: 0
+          .it-job-corner-content
+            background: transparent
+            padding: 20px 5px
+            ul
+              padding: 0
+            .send-me-jobs-form
+              padding: 30px 0 0
+              label
+                clear: both
+                width: 100%
+              input.input-style
+                width: 100%
+              .selectize-input
+                width: 100%
+              .error-messages
+                padding-left: 0
+              .send-me-jobs-field
+                .autocomplete
+                  width: 100%
+            .alert-success
+              margin-top: 20px
+            .alert-danger
+              margin-top: 20px
+        .latest-jobs-block
+          width: 100%
+          clear: both
+          margin-bottom: 20px
+          ul
+            padding: 5px !important
+            li:last-child
+              padding-bottom: 10px
+        .send-me-job-alert-block
+          width: 100%
+          clear: both
+          .send-me-jobs-form
+            padding: 10px 5px !important
+      .box-container-block
+        width: 100%
+        clear: both
+        display: inline-block
+        margin: 10px 0
+        padding-left: 10px
+        padding-right: 10px
+        .box-content
+          padding: 10px
+          height: auto !important
+        .view-more-items
+          padding: 10px
+      .box-container-block.left
+        padding-left: 10px
+        padding-right: 10px
+      .personal-banner-home-page
+        padding: 0 10px
+  .content-page-block.user-type-page
+    padding-top: 10px
+    margin-bottom: 0
+    .content-page-detail
+      padding: 0
+    .user-type-content
+      padding: 20px 10px
+      width: 100%
+      float: left
+    .line-center
+      display: none
+  .header-site
+    .main-menu-job-seeker-block
+      .main-menu-job-seeker-content
+        ul
+          li
+            width: 100%
+            clear: both
+            background: transparent
+            padding: 5px 10px
+            text-align: left
+            background: url(../images/line-li-gray.png) left top repeat-x
+            a
+              padding-left: 45px
+            a.jobSeekerSignIn
+              padding-left: 45px
+            a.challenges
+              padding-left: 45px
+            a.freelancer
+              padding-left: 45px
+            a.analytics
+              padding-left: 45px
+            a.help
+              padding-left: 45px
+            a.promoted
+              padding-left: 45px
+            a.my-dashboard
+              padding-left: 45px
+            a.post-challenges
+              padding-left: 45px
+            a.post-freelancer
+              padding-left: 45px
+            a.post-evaluation
+              padding-left: 45px
+  .header-site
+    height: auto
+    .personal-header-block
+      .personal-header-content
+        .logo-block
+          padding: 3px 0 0 10px
+          img
+            width: 100%
+        .user-info-basic-block
+          padding-top: 3px
+          width: 30%
+          p
+            display: none
+    .ic-menu-mobile
+      display: block
+      width: 40px
+      padding: 3px 10px 0 10px
+      font-size: 25px
+      font-weight: 300
+      float: right
+      text-align: right
+      cursor: pointer
+    .main-menu-job-seeker-block
+      position: absolute
+      left: 0
+      top: 50px
+      z-index: 888
+      display: none
+      height: auto
+      bottom: 0
+      right: 0
+      ul
+        display: inline-block
+        width: 100%
+        li
+          display: inline
+          float: left
+    .main-menu-job-seeker-block.ng-hide
+      display: block !important
+  .no-submenu
+    margin-bottom: 0
+  .chart-page
+    margin-top: 0
+    padding-top: 0
+  .content-page-block
+    .content-page-detail.post-project
+      padding: 0 10px
+  .content-page-block
+    .content-page-detail
+      .review-project-content-block
+        .review-project-content
+          padding: 10px 0
+          .time-and-payment-block
+            .col-md-4
+              width: 100%
+              clear: both
+              padding: 5px 0
+            .apply-with-facebook
+              text-align: center
+              p
+                text-align: center
+                width: 100%
+      .review-project-content-block
+        .client-logo-block
+          width: 30%
+          img
+            width: 100%
+            max-width: 60px
+        .client-info-block
+          width: 70%
+  .content-page-block.job-listing-container
+    .job-listing-search-bar
+      padding: 10px 5px
+      .keyword-block
+        width: 100%
+        padding: 0 0 10px 0
+      .location-block
+        width: 100%
+        padding: 0 0 5px 0
+        .selectize-control
+          width: 100%
+        label
+          display: none
+      .submit-search-block
+        width: 100%
+        padding: 0
+        text-align: center
+    .job-listing-result
+      padding-top: 5px
+    .paging-block
+      padding: 0 5px
+      .total-items
+        width: 100%
+        padding: 0 0 5px 0
+      .paging-list
+        width: 100%
+        padding: 0 0 5px 0
+        text-align: center
+        ul
+          float: none
+          margin: auto
+          li
+            float: none
+            display: inline-block
+      .total-pages
+        width: 100%
+        padding: 0 0 10px 0
+    .job-listing-container
+      padding: 5px
+      .job-items
+        .job-item
+          .left-content
+            width: 100%
+            ul
+              width: 100%
+              li
+                width: 100%
+              li:first-child
+                width: 100%
+          .right-content
+            width: 100%
+            text-align: left
+  .content-page-block.create-event-container
+    .content-page-detail
+      padding: 10px
+      .create-event-form
+        width: 100%
+        .create-event-field-group
+          .create-event-field
+            width: 100%
+            clear: both
+          .time-to
+            display: inline-block
+            clear: both
+            width: 100%
+          .error-messages
+            width: 100%
+            clear: both
+  .content-page-block.events-page
+    .content-page-detail
+      padding: 10px
+      .events-list-block
+        .events-items
+          .events-item
+            width: 100%
+            margin: 0 0 10px 0
+            max-height: inherit
+            .right-content
+              background: transparent
+              width: 75%
+              ul
+                li
+                  font-size: 12px
+                li.register
+                  padding-right: 0
+            .left-content
+              width: 25%
+            .view-details
+              display: none
+          .events-item:nth-child(2n)
+            margin: 0 0 10px 0
+  .content-page-block.event-details-page
+    .content-page-detail
+      padding: 10px
+      .event-details-block
+        .left-content
+          width: 100%
+          background: transparent
+        .right-content
+          width: 100%
+          padding-left: 0
+          text-align: center
+          padding-top: 10px
+          background: url(../images/line-li-gray.png) left top repeat-x
+      .organiser-info
+        .right-content
+          width: 100%
+          clear: both
+          ul
+            li
+              span
+                width: 100%
+                clear: both
+                text-align: left
+              span.title
+                width: 100%
+                text-align: left
+        .left-content
+          width: 100%
+          clear: both
+          padding-bottom: 10px
+  .personal-site-container
+    .personal-site-content-detail
+      .personal-banner-home-page
+        .box-content
+          .project-items
+            .project-item
+              .left-content
+                width: 100%
+                clear: both
+                padding-bottom: 10px
+
+              .right-content
+                width: 100%
+                clear: both
+                text-align: center
+                a.view-detail
+                  text-align: center
+              h5
+                a
+                  width: 100%
+                a.view-detail
+                  display: none
+
+
 @media (min-width: 640px)
   .rwd-table
     margin: auto
@@ -1254,7 +1746,7 @@
           ul li .select-group
             float: left
             width: 100%
-@media (min-width: 720px) and (max-width: 999px)
+@media (min-width: 768px) and (max-width: 999px)
   .techlooper-homepage
     .main-banner-block
       .main-banner-content
@@ -1275,3 +1767,59 @@
             margin-left: 1%
           .main-feature-item.right
             margin-right: 1%
+  .content-page-block
+    .content-page-detail
+      .review-project-content-block
+        .client-logo-block
+          width: 20%
+        .client-info-block
+          width: 80%
+        .review-project-content
+          padding: 10px 0
+          .time-and-payment-block
+            .col-md-4
+              float: left
+  .header-site
+    .main-menu-job-seeker-block
+      .main-menu-job-seeker-content
+        ul
+          li
+            a
+              background: transparent !important
+              padding: 5px 0 5px 5px !important
+  .personal-site-container
+    .personal-site-content-detail
+      .job-alert-box .box-content
+        .it-job-corner-content
+          background: transparent
+          .left
+            width: 100%
+            display: inline-block
+            clear: both
+            padding-bottom: 20px
+          .right
+            width: 100%
+            clear: both
+            display: inline-block
+
+  .content-page-block.event-details-page
+    .content-page-detail
+      .organiser-info
+        .left-content
+          width: 15%
+        .right-content
+          width: 85%
+  .content-page-block.events-page
+    .content-page-detail
+      .events-list-block
+        .events-items
+          .events-item
+            width: 100%
+            margin: 0 20px 0 0
+            .right-content
+              width: 70%
+
+
+
+
+

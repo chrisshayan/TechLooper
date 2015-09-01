@@ -1,18 +1,41 @@
-angular.module("Common").factory("utils", function (jsonValue, $location, $rootScope) {
+techlooper.factory("utils", function (jsonValue, $location, $rootScope, localStorageService) {
   var techlooperObserver = $.microObserver.get("techlooper");
 
   var instance = {
-    openFBShare: function(uri) {
+
+    getUiView: function (pth) {
+      var path = pth || $location.path();
+      var rs = {};
+      $.each(jsonValue.uiViews, function (i, view) {
+        if ((view.regex === undefined && view.url === path) ||
+          (view.regex !== undefined && view.regex.test(path))) {
+          rs = view;
+          return false;
+        }
+      });
+      return rs;
+    },
+
+    gotoLastFoot: function () {
+      var lastFoot = localStorageService.get("lastFoot");
+      if (lastFoot) {
+        localStorageService.remove("lastFoot");
+        return $location.url(lastFoot);
+      }
+      return $location.url("/");
+    },
+
+    openFBShare: function (uri) {
       window.open(
         'https://www.facebook.com/sharer/sharer.php?u=' + baseUrl + uri,
         'name', 'width=450,height=350');
     },
 
-    isFormSubmitted: function(form, inputName) {
+    isFormSubmitted: function (form, inputName) {
       return form && (form[inputName].$edited || form.$submitted);
     },
 
-    toPromises: function(defersObj) {
+    toPromises: function (defersObj) {
       var promises = [];
       for (var prop in defersObj) {
         promises.push(defersObj[prop].promise);
@@ -20,7 +43,7 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       return promises;
     },
 
-    toObject: function(obj) {
+    toObject: function (obj) {
       for (var prop in obj) {
         try {
           obj[prop] = JSON.parse(obj[prop]);
@@ -30,15 +53,15 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       return obj;
     },
 
-    toStrings: function(array, prop) {
-      $.each(array, function(i, item) {
+    toStrings: function (array, prop) {
+      $.each(array, function (i, item) {
         item[prop] = '' + item[prop];
       });
       return array;
     },
 
-    removeRedundantAttrs: function(obj, attrs) {
-      $.each(attrs, function(i, attr) {
+    removeRedundantAttrs: function (obj, attrs) {
+      $.each(attrs, function (i, attr) {
         delete obj[attr];
       });
     },
@@ -58,10 +81,10 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       }
     },
 
-    hasNonAsciiChar: function(str) {
+    hasNonAsciiChar: function (str) {
       var chars = str.split("-").join("").split("");
       var rs = false;
-      $.each(chars, function(i, c) {
+      $.each(chars, function (i, c) {
         rs = rs || (c < "0");
         rs = rs || (c > "9" && c < "A");
         rs = rs || (c > "Z" && c < "a");
@@ -265,6 +288,39 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
       else if (/\/freelancer\/project-detail/.test(path)) {
         return jsonValue.views.freelancerProjectDetail;
       }
+      else if (/\/freelancer\/projects/.test(path)) {
+        return jsonValue.views.freelancerProjects;
+      }
+      else if (/\/freelancer\/why-freelancer/.test(path)) {
+        return jsonValue.views.whyFreelancer;
+      }
+      else if (/\/why-challenge/.test(path)) {
+        return jsonValue.views.whyChallenge;
+      }
+      else if (/\/employer-dashboard/.test(path)) {
+        return jsonValue.views.employerDashboard;
+      }
+      else if (/\/user-type/.test(path)) {
+        return jsonValue.views.userType;
+      }
+      else if (/\/how-does-it-work/.test(path)) {
+        return jsonValue.views.howItWorks;
+      }
+      else if (/\/salary-review/.test(path)) {
+        return jsonValue.views.salaryReview;
+      }
+      else if (/\/job-listing/.test(path)) {
+        return jsonValue.views.jobListing;
+      }
+      else if (/\/post-event/.test(path)) {
+        return jsonValue.views.createEvent;
+      }
+      else if (/\/all-events/.test(path)) {
+        return jsonValue.views.allEvents;
+      }
+      else if (/\/event-detail/.test(path)) {
+        return jsonValue.views.eventDetails;
+      }
     },
 
     sum: function (array, prop) {
@@ -291,6 +347,8 @@ angular.module("Common").factory("utils", function (jsonValue, $location, $rootS
     },
 
     findBy: function (array, attr, value) {
+      if (!value) return undefined;
+
       var val = undefined;
       $.each(array, function (index, item) {
         if (item[attr].toLowerCase() === value.toLowerCase()) {

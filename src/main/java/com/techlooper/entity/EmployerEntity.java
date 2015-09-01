@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Nested;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -22,6 +23,12 @@ public class EmployerEntity {
 
     @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String companyName;
+
+    @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
+    private String address;
+
+    @Field(type = Integer)
+    private Integer companySizeId;
 
     @Field(type = Nested)
     private List<Employer> employers;
@@ -48,6 +55,22 @@ public class EmployerEntity {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getCompanySizeId() {
+        return companySizeId;
+    }
+
+    public void setCompanySizeId(Integer companySizeId) {
+        this.companySizeId = companySizeId;
     }
 
     public List<Employer> getEmployers() {

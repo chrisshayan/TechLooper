@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.config.ProjectServiceConfigurationTest;
 import com.techlooper.entity.ProjectEntity;
+import com.techlooper.model.ProjectDetailDto;
 import com.techlooper.model.ProjectDto;
 import com.techlooper.service.ProjectService;
 import org.junit.Test;
@@ -39,5 +40,13 @@ public class ProjectServiceImplTest {
         ProjectEntity projectEntity = projectService.saveProject(projectDto);
         assertTrue(projectEntity.getProjectId() != null);
         assertTrue(projectEntity.getCreatedDate() != null);
+    }
+
+    @Test
+    public void testGetProjectDetail() throws Exception {
+        Long projectId = 1436867134185L;
+        ProjectDetailDto projectDetailDto = projectService.getProjectDetail(projectId);
+        assertTrue(projectDetailDto.getProject() != null);
+        assertTrue(projectDetailDto.getCompany() != null);
     }
 }

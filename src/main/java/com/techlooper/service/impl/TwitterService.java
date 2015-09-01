@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserProfile;
+import com.techlooper.model.SocialConfig;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -43,5 +44,10 @@ public class TwitterService extends AbstractSocialService {
         com.techlooper.entity.TwitterProfile twProfile = dozerBeanMapper.map(profile, com.techlooper.entity.TwitterProfile.class);
         twProfile.setAccessGrant(accessGrant);
         return twProfile;
+    }
+
+    @Override
+    public org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig) {
+        return null;
     }
 }

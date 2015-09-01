@@ -1,0 +1,373 @@
+.content-page-block.create-event-container
+  .content-page-detail
+    padding: 10px 20px
+    text-align: center
+    .create-event-form
+      padding: 40px 0 0
+      display: inline-block
+      clear: both
+      width: 60%
+      margin: auto
+      text-align: left
+      label
+        font-weight: 300
+        width: 100%
+        clear: both
+        display: inline-block
+        text-transform: capitalize
+        strong
+          font-weight: 500
+          color: red
+      .create-event-field
+        display: inline-block
+        width: 100%
+        padding: 0 0 10px 0
+        clear: both
+        input
+          width: 100%
+        .error-messages
+          display: inline-block
+          clear: both
+          width: 100%
+          text-align: left
+        p.note
+          text-align: left
+          width: 100%
+          margin: 0
+          padding: 0
+        textarea
+          height: 275px
+        .attendants-block
+          display: inline-block
+          clear: both
+          width: 100%
+          .attendants-input
+            display: inline-block
+            clear: both
+            width: 100%
+            input
+              width: 80%
+              float: left
+            button
+              width: 19%
+              float: right
+              height: 34px
+          .input
+            display: inline-block
+            clear: both
+            width: 100%
+          .items
+            display: inline-block
+            clear: both
+            width: 100%
+            background-color: #f4f4f4
+            padding: 2px
+            border: 1px solid #d4d7d8
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            margin-top: 10px
+            ul
+              margin: 0
+              padding: 0
+              width: 100%
+              max-height: 200px
+              overflow: auto
+              li
+                width: 100%
+                clear: both
+                float: left
+                padding: 5px 10px
+                p
+                  margin: 0
+                  padding: 0
+                  width: 60%
+                  float: left
+                span
+                  display: block
+                  width: 40%
+                  float: left
+                  text-align: right
+                i
+                  width: auto
+                  float: right
+                  cursor: pointer
+              li:nth-child(2n)
+                background-color: #f8f7f7
+                border-top: 1px solid #e3e3e3
+                border-bottom: 1px solid #e3e3e3
+              li:first-child
+                border-top: 0
+              li:last-child
+                border-bottom: 0
+          .error-messages
+            display: inline-block
+            clear: both
+            width: 100%
+            padding-bottom: 10px
+      .create-event-field.submit
+        text-align: center
+        padding: 10px 0 40px 0
+        button
+          padding: 6px 25px
+          margin: 0 5px
+      .create-event-field-group
+        clear: both
+        display: inline-block
+        width: 100%
+        padding-bottom: 10px
+        .create-event-field
+          width: 47%
+          float: left
+          clear: none
+          padding-bottom: 0
+          .picker-switch
+            text-align: center
+          .togglePicker
+            text-align: center
+            width: 100%
+            display: inline-block
+          .selection-date
+            width: 58%
+            float: left
+          .section-hours
+            width: 42%
+            float: left
+            padding-left: 5px
+
+        .time-to
+          width: 6%
+          float: left
+          text-align: center
+          line-height: 34px
+.xdsoft_datetimepicker .xdsoft_today_button
+  display: none !important
+.xdsoft_datetimepicker .xdsoft_calendar td > div
+  text-align: center
+  padding-right: 0
+.xdsoft_calendar td.xdsoft_current
+  background-color: #337ab7 !important
+.xdsoft_time_box > div > div.xdsoft_current
+  background-color: #337ab7 !important
+.content-page-block.events-page
+  .content-page-detail
+    float: left
+    width: 100%
+    padding: 20px
+    .events-list-block
+      display: inline-block
+      width: 100%
+      clear: both
+      text-align: left
+      .events-items
+        display: inline-block
+        clear: both
+        width: 100%
+        padding: 0
+        .events-by-date
+          display: inline-block
+          clear: both
+          width: 100%
+          margin-bottom: 20px
+        h3
+          font-size: 16px
+          font-weight: 400
+          text-transform: capitalize
+          color: gray
+          margin: 0 0 10px 0
+          padding: 5px 10px
+          text-align: left
+          background-color: #f4f4f4
+          border-bottom: 1px solid #ebebeb
+
+        .events-item
+          width: 49%
+          float: left
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          background-color: #fff
+          margin: 0 0 2% 1%
+          max-height: 100px
+          min-height: 100px
+          padding: 15px 10px 10px 10px
+          border: 1px solid #ebebeb
+          border-left: 2px solid #337ab7
+          .left-content
+            float: left
+            width: 100px
+            .owner
+              display: inline-block
+              clear: both
+              width: 100%
+              text-align: center
+              img
+                width: 50px
+                height: 50px
+              p
+                margin: 0
+                padding: 5px 0 0
+                line-height: 100%
+          .right-content
+            width: 280px
+            float: left
+            padding-left: 10px
+            background: url(../images/line-li-gray.png) left top repeat-y
+            h4
+              margin: 0
+              padding: 0
+              font-size: 14px
+              font-weight: 500
+              text-transform: capitalize
+              line-height: 18px
+            .event-name
+              height: 30px
+              display: inline-block
+              clear: both
+              width: 100%
+              
+            ul
+              margin: 0
+              padding: 10px 0 0 0
+              width: 100%
+              clear: both
+              display: inline-block
+              li
+                width: auto
+                float: left
+                padding: 0 15px 0 25px
+                color: #808080
+                background: url(../images/ic-general.png) left top no-repeat
+                strong
+                  color: #333
+                  font-weight: 500
+              li.time
+                background-position: 0 0
+                padding-left: 20px
+              li.register
+                background-position: 0 -40px
+          .view-details
+            width: 50px
+            float: right
+            vertical-align: middle
+            text-align: center
+            line-height: 71px
+            background: url(../images/line-li-gray.png) left top repeat-y
+            padding-left: 5px
+            i
+              font-weight: 500
+              font-size: 25px
+            a
+              color: #333
+              display: block
+              width: 100%
+              height: 71px
+              background: url(../images/ic-general.png) center -80px no-repeat
+        .events-item:nth-child(2n)
+          margin: 0 1% 2% 0
+.content-page-block.event-details-page
+  .content-page-detail
+    padding: 20px
+    .event-details-block
+      display: inline-block
+      clear: both
+      width: 100%
+      text-align: left
+      .left-content
+        width: 75%
+        float: left
+        padding-right: 20px
+        background: url(../images/line-li-gray.png) right top repeat-y
+        i
+          padding-right: 10px
+          width: 20px
+        .date-time-event
+          display: inline-block
+          clear: both
+          width: 100%
+          padding-bottom: 10px
+        .location-event
+          display: inline-block
+          clear: both
+          width: 100%
+          padding-bottom: 10px
+        .webinar-keywords
+          display: inline-block
+          clear: both
+          width: 100%
+          padding-bottom: 10px
+          p
+            background-color: #f3fafe
+            border-radius: 5px
+            box-shadow: 1px 1px 1px 0 #cccccc
+            display: inline-block
+            font-weight: 400
+            padding: 5px 15px
+            width: auto
+      .right-content
+        width: 25%
+        float: left
+        padding-left: 20px
+        text-align: right
+        .tell-your-friends
+          display: inline-block
+          clear: both
+          width: 100%
+          padding-bottom: 10px
+          span
+            display: inline-block
+
+          span.btn-facebook
+            padding: 5px 15px
+            background-color: #335bb0
+            color: #fff
+            border-radius: 5px
+        .number-going
+          display: inline-block
+          clear: both
+          width: 100%
+    .organiser-info
+      display: inline-block
+      clear: both
+      width: 100%
+      padding-top: 10px
+      text-align: left
+      background-color: #f4f4f4
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+      margin-top: 50px
+      .left-content
+        width: 8%
+        float: left
+        padding: 0 10px 10px 10px
+        text-align: center
+        img
+          max-width: 80px
+          margin: auto
+      .right-content
+        width: 92%
+        float: left
+        padding-left: 10px
+        ul
+          margin: 0
+          padding: 0
+          width: 100%
+          li
+            width: 100%
+            clear: both
+            display: inline-block
+            strong
+              font-weight: 500
+            span
+              display: block
+              padding: 0 10px
+              text-align: left
+              float: left
+              width: auto
+              width: 85%
+            span.title
+              color: #808080
+              text-align: right
+              padding-left: 0
+              width: 15%

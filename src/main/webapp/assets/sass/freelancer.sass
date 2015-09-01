@@ -11,27 +11,30 @@
     -moz-box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
     box-shadow: 0px 1px 0px 0px rgba(235,235,235,1)
     clear: both
-    display: block
+    display: inline-block
     text-align: center
     width: 100%
+    padding: 10px 0
     h2
       display: inline-block
       clear: both
       font-weight: 400
       font-size: 20px
       text-transform: capitalize
-      padding: 12px 20px 5px 20px
+      padding: 5px 20px
       margin: 0
       width: 100%
+    h2.text-left
+      text-align: left
     p
-      padding: 0 20px 15px 20px
+      padding: 0 20px
       font-size: 12px
       font-style: italic
       margin-bottom: 1px
   .content-page-detail
     display: block
     clear: both
-    padding: 20px
+    padding: 0
     text-align: center
     -webkit-border-bottom-right-radius: 5px
     -webkit-border-bottom-left-radius: 5px
@@ -56,6 +59,7 @@
       clear: both
       display: inline-block
       text-align: left
+      padding: 10px 20px
       h2
         margin: 0
         padding: 10px 20px
@@ -70,7 +74,7 @@
         width: 100%
         clear: both
         display: inline-block
-        padding: 20px 0
+        padding: 10px 20px
         .time-and-payment-block
           display: inline-block
           clear: both
@@ -91,11 +95,11 @@
           .working-time-block
             width: 50%
             float: left
-            padding-right: 10px
+            padding: 0 10px 0 0
             text-align: left
             h3
               padding-bottom: 0
-              background: url(../images/ic-project.png) left top no-repeat
+              background: url(../images/ic-project.png) left 2px no-repeat
               height: 25px
               padding-left: 30px
               line-height: 25px
@@ -115,15 +119,30 @@
               text-transform: inherit
             p
               padding-left: 30px
+
             strong
               display: none
+          .apply-with-facebook
+            text-align: right
+            p
+              font-size: 14px
+              width: 200px
+              clear: both
+              float: right
+              strong
+                font-weight: 500
+                color: #000
+            button.btn
+              width: 200px
+          .col-md-4
+            width: 33.3333%
         .project-detail-block
           display: inline-block
           clear: both
           width: 100%
           h3
-            font-size: 14px
-            font-weight: 500
+            font-size: 16px
+            font-weight: 400
             margin: 0
             padding: 0
             text-align: left
@@ -150,11 +169,11 @@
                 -moz-border-radius: 5px
                 border-radius: 5px
                 padding: 5px 15px
-                font-weight: 500
+                font-weight: 400
             .project-description
               display: inline-block
               width: 100%
-              padding: 15px 0
+              padding: 15px 0 15px 0
           .skills-required-block
             display: inline-block
             width: 100%
@@ -192,11 +211,359 @@
           padding-top: 10px
           a
             cursor: pointer
+      .client-logo-block
+        width: 15%
+        max-width: 230px
+        float: left
+        padding-right: 30px
+        display: inline-block
+        min-height: 120px
+        vertical-align: middle
+        position: relative
+        img
+          width: auto
+          max-width: 120px
+          vertical-align: middle
+          margin: auto
+          position: absolute
+          left: 0
+          top: 0
+          bottom: 0
+      .client-info-block
+        display: inline-block
+        width: 85%
+        float: left
+        p
+          display: inline-block
+          display: block
+          margin: 0
+          padding: 0 0 8px 0
+          strong
+            font-size: 14px
+            font-weight: 500
+        p.member-since
+          color: #727272
+
+    .project-items
+      display: inline-block
+      clear: both
+      text-align: left
+      width: 100%
+      .project-item
+        clear: both
+        display: inline-block
+        padding: 10px 20px
+        background-color: #f9f9f9
+        width: 100%
+        border-top: 1px solid #e5e5e5
+        .left-content
+          width: 70%
+          float: left
+          padding-right: 10px
+        .right-content
+          width: 30%
+          padding-left: 10px
+          float: left
+          text-align: right
+          img
+            max-width: 130px
+        h3
+          font-size: 16px
+          font-weight: 400
+          text-align: left
+          padding: 0
+          margin: 0
+          text-transform: capitalize
+          a
+            color: #333
+          span
+            width: 100%
+            float: left
+          a.view-detail
+            float: right
+            font-size: 14px
+            width: 10%
+            text-align: right
+            color: #337ab7
+        p.payment-time-post
+          clear: both
+          display: block
+          margin: 0
+          padding: 10px 0 5px 0
+          span.time-stamp
+            font-size: 12px
+            color: #727272
+          strong
+            color: #333
+            font-weight: 500
+        .project-description
+          display: inline-block
+          clear: both
+          padding-top: 10px
+          width: 100%
+          max-width: 1000px
+          height: 50px
+        .hiring-status
+          display: inline-block
+          clear: both
+          padding-top: 10px
+          span
+            width: auto
+            display: inline-block
+            background-color: #f3fafe
+            -moz-box-shadow: 1px 1px 1px 0px #cccccc
+            -webkit-box-shadow: 1px 1px 1px 0px #cccccc
+            box-shadow: 1px 1px 1px 0px #cccccc
+            -webkit-border-radius: 5px
+            -moz-border-radius: 5px
+            border-radius: 5px
+            padding: 5px 15px
+            font-weight: 400
+        .skills-of-project
+          padding-top: 10px
+          h4
+            font-size: 16px
+            font-weight: 400
+            text-align: left
+            padding: 0
+          ul
+            background-color: #fff
+            border-radius: 5px
+            display: inline-block
+            width: 100%
+            padding: 5px
+            li
+              width: auto
+              float: left
+              padding: 5px 0 5px 5px
+              span
+                background-color: #f4f4f4
+                border-radius: 5px
+                box-shadow: 1px 1px 1px 0 #cccccc
+                display: inline-block
+                margin-right: 5px
+                padding: 5px 15px
+                width: auto
+      .project-item.last
+        border-bottom: 0
+        padding-bottom: 0
+      .project-item.even
+        background-color: #fff
+        .skills-of-project
+          ul
+            background-color: #f4f4f4
+            span
+              background-color: #fff
+.content-page-block
+  .why-freelancer
+    padding: 20px 0
+    .why-freelancer-banner
+      img
+        width: 100%
+  .why-freelancer-content
+    text-align: left
+    h3
+      font-size: 16px
+      font-weight: 400
+      margin: 0
+      padding: 0 0 5px 0
+      text-align: left
+      line-height: 22px
+    p
+      margin: 0
+      padding: 5px 0
+    ul
+      margin: 0
+      padding: 10px 0
+      width: 100%
+      li
+        width: 100%
+        clear: both
+        display: inline-block
+        padding-left: 25px
+        background: url(../images/dot.png) left 5px no-repeat
+        padding-bottom: 5px
+    .btn-start-now
+      display: inline-block
+      clear: both
+      padding-top: 10px
+      text-align: center
+      width: 100%
+      a
+        padding: 0 45px
+        height: 46px
+        line-height: 46px
+  .why-freelancer-statistical
+    padding: 20px
+    display: inline-block
+    clear: both
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    width: 100%
+    .statistical-content
+      border-bottom: 2px solid #277cbd
+      border-top: 2px solid #277cbd
+      display: inline-block
+      clear: both
+      width: 100%
+      padding: 20px
+    .col-md-4
+      text-align: center
+      strong
+        font-size: 30px
+        font-weight: 500
+        display: inline-block
+        clear: both
+      p
+        font-size: 16px
+        text-transform: uppercase
+        color: #8c8c8c
+    .col-md-3
+      text-align: center
+      strong
+        font-size: 30px
+        font-weight: 500
+        display: inline-block
+        clear: both
+      p
+        font-size: 16px
+        text-transform: uppercase
+        color: #8c8c8c
+  .tip-and-help
+    .interactive-job
+      text-align: left
+      .interactive-job-img
+        width: 50%
+        float: left
+        padding-right: 10px
+        img
+          width: 100%
+      .interactive-job-content
+        width: 50%
+        float: left
+        h3
+          margin: 0
+          padding: 0
+          font-size: 16px
+          font-weight: 400
+          text-align: left
+        p
+          margin: 0
+          padding: 0
+          font-style: italic
+        ul
+          margin: 0
+          padding: 10px 0 0
+          width: 100%
+          display: inline-block
+          li
+            display: inline-block
+            clear: both
+            font-weight: 400
+            width: 100%
+        ul.help
+          strong
+            font-weight: 400
+          li
+            font-weight: 300
+            padding: 3px 0
+            p
+              font-style: inherit
+  .partner-company-logos
+    padding-top: 30px
+    text-align: left
+    h3
+      margin: 0
+      padding: 0
+      font-size: 16px
+      font-weight: 500
+      text-align: center
+      text-transform: uppercase
+    ul
+      margin: 0px
+      padding: 10px 0 0
+      text-align: center
+      width: 100%
+      display: inline-block
+      li
+        width: auto
+        display: inline
+        padding: 0 10px 10px 10px
+        img
+          max-width: 150px
+          filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale")
+          filter: grayscale(100%)
+          -moz-filter: grayscale(100%)
+          -ms-filter: grayscale(100%)
+          -o-filter: grayscale(100%)
+          filter: gray
+          -webkit-filter: grayscale(100%)
+    p
+      width: 100%
+      clear: both
+      display: inline-block
+      padding: 20px 20px 0 20px
+      font-style: italic
+      text-align: center
+      margin: 0      
+  .content-page-detail.project-list
+    padding: 0
+    margin-bottom: 20px
+.content-page-block
+  .content-page-detail.post-project
+    margin-bottom: 20px
+    width: 100%
+.content-page-block.project-owner
+  padding-top: 0
+.content-page-block.project-list
+  margin-bottom: 20px
+.apply-to-this-job-block
+  width: 100%
+  clear: both
+  display: inline-block
+  padding: 20px
+  p
+    margin: 0
+    padding: 0
+  .field
+    width: 100%
+    clear: both
+    display: inline-block
+    padding-bottom: 10px
+    label
+      font-weight: 300
+      strong
+        font-weight: 500
+        color: red
+  .group-form
+    display: inline-block
+    clear: both
+    width: 100%
+    padding-bottom: 10px
+    .field
+      width: 50%
+      float: left
+      clear: none
+      padding-bottom: 0
+    .field.left
+      padding-right: 10px
+    .field.right
+      padding-left: 10px
+.submit-form
+  text-align: center
+  a
+    cursor: pointer
+.content-page-block
+  .modal-header
+    background-color: #f3fafe
+  .modal-footer
+    background-color: #f4f4f4
 .form-content
   display: inline-block
   margin: auto
   max-width: 600px
-  padding: 20px 0 0
+  padding: 20px 0 10px 0
   text-align: left
   width: 100%
   .field-content

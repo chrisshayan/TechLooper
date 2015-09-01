@@ -2,14 +2,20 @@ package com.techlooper.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
+import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.*;
-import com.techlooper.model.UserInfo;
-import com.techlooper.model.VNWJobSearchRequest;
-import com.techlooper.model.VnwJobAlert;
-import com.techlooper.model.VnwJobAlertRequest;
+import com.techlooper.model.*;
+import com.techlooper.repository.JsonConfigRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
@@ -48,10 +54,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.security.GeneralSecurityException;
+import java.util.*;
 
 @Configuration
 @ComponentScan(basePackages = "com.techlooper")
@@ -86,6 +90,11 @@ public class CoreConfiguration implements ApplicationContextAware {
 
     @Value("classpath:vnwConfig.json")
     private org.springframework.core.io.Resource vnwConfigRes;
+
+    @Value("classpath:google-auth/techLooper.p12")
+    private org.springframework.core.io.Resource googleApiAuthResource;
+
+    private ApplicationContext applicationContext;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -161,6 +170,9 @@ public class CoreConfiguration implements ApplicationContextAware {
                 mapping(VnwJobAlert.class, VnwJobAlertRequest.class)
                         .fields("jobLocations", "locationId", FieldsMappingOptions.customConverter(ListCSVStringConverter.class))
                         .fields("minSalary", "netSalary");
+
+                mapping(WebinarInfoDto.class, WebinarEntity.class, TypeMappingOptions.oneWay())
+                        .exclude("createdDateTime");
             }
         });
         return dozerBeanMapper;
@@ -243,6 +255,28 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
+    public MimeMessage applyJobMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
+    public MimeMessage jobAlertMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
+    public MimeMessage alertEventOrganiserMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
     public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
         Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
         return template;
@@ -303,11 +337,117 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
+    public Template alertJobSeekerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertJobSeekerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerPostJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEmployerPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertTechloopiesPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("alertTechloopiesApplyJob.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template jobAlertMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("jobAlert.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template jobAlertMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("jobAlert.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEventOrganiserMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("webinar.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template alertEventOrganiserMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("webinar.vi.ftl");
+        return template;
+    }
+
+    @Bean
     public JsonNode vietnamworksConfiguration() throws IOException {
         return new ObjectMapper().readTree(vnwConfigRes.getInputStream());
     }
 
+    @Bean
+    @DependsOn("jsonConfigRepository")
+    public SocialConfig googleSocialConfig() {
+        return applicationContext.getBean(JsonConfigRepository.class).getSocialConfig().stream()
+                .filter(socialConfig -> socialConfig.getProvider() == SocialProvider.GOOGLE)
+                .findFirst().get();
+    }
+
+    @Bean
+    public Calendar googleCalendar() throws GeneralSecurityException, IOException {
+        JacksonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+        HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
+
+        SocialConfig googleConfig = googleSocialConfig();
+
+//    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
+//      googleConfig.getApiKey(), googleConfig.getSecretKey(),
+//      Collections.singleton(CalendarScopes.CALENDAR))
+//      .setDataStoreFactory(new FileDataStoreFactory(googleApiAuthResource.getFile()))
+//      .setAccessType("offline").build();
+//
+//    Credential credential = flow.loadCredential("techlooper");
+
+//    String emailAddress = "339114452335-ndprm0gt8gsl86ek5ganv7767mg2gc89@developer.gserviceaccount.com";
+        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+        GoogleCredential credential = new GoogleCredential.Builder()
+                .setTransport(httpTransport)
+                .setJsonFactory(JSON_FACTORY)
+                .setServiceAccountId(googleConfig.getServiceAccountEmail())
+                .setServiceAccountPrivateKeyFromP12File(googleApiAuthResource.getFile())
+                .setServiceAccountScopes(Collections.singleton(CalendarScopes.CALENDAR))
+                .setServiceAccountUser(googleConfig.getCalendarOwner())
+                .build();
+
+        return new Calendar.Builder(transport, jsonFactory, credential)
+                .setApplicationName("Techlooper").build();
+    }
+
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        applicationContext.getEnvironment().acceptsProfiles(environment.getProperty("spring.profiles.active"));
+        this.applicationContext = applicationContext;
+        this.applicationContext.getEnvironment().acceptsProfiles(environment.getProperty("spring.profiles.active"));
     }
 }

@@ -1,0 +1,303 @@
+<div class="personal-site-container">
+  <div class="techlooper-spotlight-block">
+    <h2 translate="techLooperSpotLight"></h2>
+    <span class="local-time">{{$root.today}}</span>
+  </div>
+  <div class="personal-site-content-detail">
+    <div class="job-alert-box">
+      <h3 translate="itJobCorner"></h3>
+      <div class="box-content">
+        <div class="it-job-corner-content">
+          <div class="it-job-corner-messages">
+            <h4 translate="oneSearchAllJobs"></h4>
+            <p translate="jobAggregator"></p>
+          </div>
+          <div class="latest-jobs-block">
+            <h4 translate="latestJobs"></h4>
+            <ul>
+              <li ng-repeat="job in homePage.latestJobs">
+                <div class="left">
+                  <h5><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" title="{{job.title}}">
+                    {{job.title | limitTo: 40}}
+                    <span ng-show="job.title.length > 40">...</span>
+                  </a></h5>
+                  <p>{{job.company}}</p>
+                </div>
+                <div class="right">
+                  <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
+                  <strong ng-show="job.salary">{{job.salary}}</strong>
+                </div>
+              </li>
+              <li>
+                <a class="btn btn-primary btn-flat" translate="searchAll" ng-click="goToJobListing()"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="send-me-job-alert-block">
+            <h4 translate="sendMeJobs"></h4>
+            <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
+              <p translate="jobAlertSuccessful"></p>
+            </div>
+          <div class="alert alert-danger" ng-show="sendMailFailMessage">
+              <p translate="jobAlertFail"></p>
+          </div>
+            <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
+              <div class="send-me-jobs-form">
+
+                <div class="send-me-jobs-field">
+                  <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
+                  <input id="jobAlertEmail" type="email" class="input-style"
+                         placeholder="{{'jobAlertEmailEx' | translate}}" touchable
+                         ng-required="true" ng-model="jobAlert.email" name="email"/>
+
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$dirty">
+                    <div translate="requiredThisField" ng-show="jobAlertForm.email.$error.required"/>
+                    <div translate="emailInvalid" ng-show="jobAlertForm.email.$error.email"/>
+                  </div>
+                </div>
+                <div class="send-me-jobs-field">
+                  <label>{{'keyword' | translate}}:</label>
+                  <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
+                       get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
+                  </div>
+                  <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="false"
+                                attr-placeholder="{{'keywordEx' | translate}}" touchable>
+                  </autocomplete>
+
+                  <p class="note" translate="jobSkillCompany"></p>
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$dirty">
+                    <div translate="requiredThisField" ng-show="jobAlertForm.keyword.$error.required"/>
+                  </div>
+                </div>
+                <div class="send-me-jobs-field">
+                  <label>{{'location' | translate}}:</label>
+                  <selectize config="locationsConfig.config"
+                             options="locationsConfig.items"
+                             ng-model="jobAlert.locationId" ng-required="false"
+                             name="location" class="locationSelectbox"></selectize>
+                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
+                    <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
+                  </div>
+                </div>
+                <div class="send-me-jobs-field submit">
+                  <button translate="emailMeJobs" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
+                </div>
+              </div>
+            </ng-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-feature">
+      <div class="box-container-block left">
+        <h3 translate="whatCurrentTrend"></h3>
+        <div class="box-content">
+          <div class="box-header">
+            <h4>{{homePage.termStatistic.term}}</h4>
+            <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
+          </div>
+          <div class="box-content-detail">
+            <div class="main-term">
+              <div class="main-skill-logo">
+                <img ng-src="/{{homePage.termStatistic.logo}}" alt=""/>
+              </div>
+              <div class="main-skill-info">
+                <ul>
+                  <li><span translate="jobs"></span>:<strong>{{homePage.termStatistic.totalJob}}</strong></li>
+                  <li><span translate="salaryRange"></span>:
+                    <strong>${{homePage.termStatistic.averageSalaryMin | number}} -
+                      ${{homePage.termStatistic.averageSalaryMax | number}}</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="top-detail-skill-block">
+              <div class="box-header">
+                <h4 translate="topskills"></h4>
+              </div>
+              <top-skill skills="homePage.termStatistic.skills" total-job="homePage.termStatistic.totalJob"
+                         number-width="45"/>
+            </div>
+          </div>
+        </div>
+        <div class="view-more-items">
+          <a href="#/pie-chart" translate="viewMoreTrends"></a>
+        </div>
+      </div>
+      <div class="box-container-block">
+        <h3 translate="latestCodingChallenge"></h3>
+
+        <div class="box-content">
+          <div class="box-header">
+            <h4>
+              {{homePage.latestChallenge.challengeName | limitTo: 23}}
+              <span ng-show="homePage.latestChallenge.challengeName.length > 23">...</span>
+            </h4>
+            <a
+                href="#/challenge-detail/{{homePage.latestChallenge.challengeName | nonAscii}}-{{homePage.latestChallenge.challengeId}}-id"
+                translate="viewDetails"></a>
+          </div>
+          <div class="box-content-detail">
+            <div class="row reward-block">
+              <div class="col-md-4"
+                   ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null, 'col12': homePage.latestChallenge.secondPlaceReward == null, }">
+                <p translate="stPrize" ng-show="homePage.latestChallenge.secondPlaceReward != null"></p>
+
+                <p translate="prize" ng-show="homePage.latestChallenge.secondPlaceReward == null"></p>
+                <strong>${{homePage.latestChallenge.firstPlaceReward | number:0}}</strong>
+              </div>
+              <div class="col-md-4" ng-class="{'col6': homePage.latestChallenge.thirdPlaceReward == null}"
+                   ng-show="homePage.latestChallenge.secondPlaceReward != null">
+                <p translate="ndPrize"></p>
+                <strong>${{homePage.latestChallenge.secondPlaceReward | number:0}}</strong>
+              </div>
+              <div class="col-md-4" ng-show="homePage.latestChallenge.thirdPlaceReward != null">
+                <p translate="rdPrize"></p>
+                <strong>${{homePage.latestChallenge.thirdPlaceReward | number:0}}</strong>
+              </div>
+            </div>
+            <div class="status-of-challenge-block">
+              <div class="status-of-challenge-info">
+                <h4 translate="currentPhase"/>
+                <ul>
+                  <li translate="{{homePage.latestChallenge | progress: 'challenge'}}"></li>
+                  <li class="count-down-day" translate="{{homePage.latestChallenge.progress.timeLeftTranslate}}"
+                      translate-value-day-left="{{homePage.latestChallenge | countdown: 'challenge'}}">
+                  </li>
+                </ul>
+              </div>
+              <p translate="registerNumber"
+                 translate-value-register-number="<strong>{{homePage.latestChallenge.numberOfRegistrants}}</strong>"></p>
+            </div>
+            <div class="challenge-overview-block">
+              <p class="title" translate="challengeOverView"></p>
+
+              <p class="detail">
+                <span translate="{{homePage.latestChallenge.challengeOverview | limitTo: 160}}"></span>
+                <span ng-show="homePage.latestChallenge.challengeOverview.length > 200">...</span>
+              </p>
+            </div>
+            <div class="technologies-block">
+              <p class="title">Technologies:</p>
+
+              <p class="detail">
+              <span class="tag" ng-repeat="skill in homePage.latestChallenge.technologies | limitTo: 3">
+                {{skill}}
+              </span>
+                <span class="tag" ng-show="homePage.latestChallenge.technologies.length > 3">...</span>
+              </p>
+            </div>
+            <div class="quality-of-idea-block">
+              <p translate="evaluateContestants"></p>
+
+              <p class="detail">
+                {{homePage.latestChallenge.qualityIdea}}
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <div class="view-more-items">
+          <a href="#/challenges" translate="viewMoreChallenges"></a>
+        </div>
+      </div>
+      <div class="box-container-block right">
+        <h3 translate="upcomingEvents"></h3>
+        <div class="box-content">
+          <div class="box-content-detail" ng-show="homePage.latestEvents.length">
+            <div class="upcoming-events-list">
+              <div class="upcoming-events-by-time" ng-repeat="event in homePage.latestEvents">
+                <h4>{{event.startDate | timestamp: 'shortDate'}}</h4>
+                <div class="upcoming-event-item">
+                  <div class="left-content">
+                    <p>
+                      {{(event.organiser.name | limitTo: 10) || (event.organiser.email | textTruncate: 'email')}}
+                    </p>
+                    <img ng-show="event.organiser.profileImageUrl.length" ng-src="{{event.organiser.profileImageUrl}}" alt="">
+                    <img ng-show="!event.organiser.profileImageUrl.length" ng-src="images/no-avatar.png" alt="">
+                  </div>
+                  <div class="right-content">
+                    <ul>
+                      <li class="name" ng-show="event.name.length">
+                        <a  href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" title="{{event.name}}">
+                          {{event.name | limitTo: 50}}</a>
+                        <span ng-show="event.name.length > 50">...</span>
+                      </li>
+                      <li><strong>{{event.attendees.length}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
+                    </ul>
+                  </div>
+                  <div class="registration-link">
+                    <a href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" translate="register"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-content-detail" ng-show="!homePage.latestEvents.length">
+            <div class="freelancer-banner">
+              <img alt="" ng-src="images/events.jpg" src="images/freelancers.jpg">
+            </div>
+          </div>
+        </div>
+        <div class="view-more-items" class="hide">
+          <a href="#/events" translate="viewMoreEvents"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="personal-banner-home-page" ng-show="homePage.latestEvents.length">
+      <h3 translate="latestFreelancerProjects"></h3>
+      <div class="box-content">
+        <div class="box-header">
+          <h4 translate="becomeAFreelancer"></h4>
+        </div>
+        <div class="box-content-detail project-list">
+          <div class="project-items" ng-show="homePage.latestProjects.length">
+            <div class="project-item" ng-repeat="project in homePage.latestProjects" on-finish-render="addDotDotDot">
+              <h5>
+                <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id">{{project.projectTitle}}</a>
+                </h5>
+              <div class="left-content">
+                <p class="payment-time-post" ng-show="status('show-fixed-price-fields', project)">
+                  <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estBudget"></span>: ${{project.budget | number}} -
+                  <span class="time-stamp" translate="posted"/>
+          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
+                translate-value-number="{{(project.projectId | timestamp).number}}" />
+                </p>
+                <p class="payment-time-post" ng-show="status('show-hourly-price-fields', project)">
+                  <strong translate="{{status('get-payment-method-translate', project)}}"></strong> - <span translate="estTime"></span>: <span translate="{{project.estimatedDuration}}"/></span> -
+                  <span class="time-stamp" translate="posted" />
+          <span class="time-stamp" translate="{{(project.projectId | timestamp).translate}}"
+                translate-value-number="{{(project.projectId | timestamp).number}}" />
+                </p>
+                <div class="project-description ng-binding is-truncated">
+                  {{project.projectDescription | limitTo: 250}}
+                  <span ng-show="project.projectDescription.length > 250">...</span>
+                </div>
+                <div class="skills-of-project">
+                  <h6 translate="skillsNeed"></h6>
+                  <ul>
+                    <li ng-repeat="skill in project.skills">
+                      <span>{{skill}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="right-content">
+                <p>{{project.companyName}}</p>
+                <img ng-show="project.companyLogoURL.length" ng-src="{{project.companyLogoURL}}" alt="{{project.companyName}}"/>
+                <a class="view-detail"
+                   translate="viewDetails"
+                   href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id"></a>
+              </div>
+            </div>
+          </div>
+          <div class="freelancer-banner" ng-show="!homePage.latestProjects.length"><img src="images/techlooper-personal-home-page-banner.jpg" alt=""/></div>
+        </div>
+      </div>
+      <div class="view-more-items" class="hide">
+        <a href="#/freelancer/projects" translate="viewMoreProjects"></a>
+      </div>
+    </div>
+  </div>
+</div>

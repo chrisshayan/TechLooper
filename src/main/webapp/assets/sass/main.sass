@@ -11,6 +11,8 @@ body
   margin: 0px
   padding: 0px
   position: relative
+div.breaking
+  word-break: break-all
 input:invalid
   box-shadow: none
 input:-moz-submit-invalid
@@ -42,6 +44,30 @@ textarea.textarea-style
   border-radius: 5px
   height: 120px
   padding: 5px 10px
+textarea.change-color
+  color: #808080
+.blue
+  background-color: transparent
+  color: #0573c7 !important
+
+.full-content
+  display: inline-block
+  clear: both
+  width: 100%
+  padding: 20px
+.sample-show-hide
+  padding: 10px
+  border: 1px solid black
+  background: white
+
+.sample-show-hide
+  -webkit-transition: all linear 0.5s
+  transition: all linear 0.5s
+
+.sample-show-hide.ng-hide
+  opacity: 0
+
+
 .datepicker-days
   td,
   th
@@ -79,12 +105,14 @@ a img
   border: 0
 a
   text-decoration: none
-a:active,
+a:active
+  text-decoration: none
 a:hover
   text-decoration: none
 a:focus
   border: 0
   outline: none
+  text-decoration: none
 .error-messages
   color: red
   font-size: 12px
@@ -120,7 +148,8 @@ a:focus
 .desktop
   display: block
 .body-content
-  padding-bottom: 200px
+  padding-bottom: 240px
+  padding-top: 20px
 .techlooper-body
   display: block
   clear: both
@@ -129,7 +158,8 @@ a:focus
 .text-left
   text-align: left
   padding-left: 10px
-
+.align-left
+  text-align: left !important
 
 .example-animate-container
   background: white
@@ -1448,7 +1478,7 @@ label.bootstrap-checkbox.disabled
         border: 1px solid #fff
       span:hover
         img
-          filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
+          filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")   
           filter: grayscale(0%)
           -moz-filter: grayscale(0%)
           -ms-filter: grayscale(0%)
@@ -1468,12 +1498,16 @@ label.bootstrap-checkbox.disabled
   margin: auto
   .modal-header
     padding: 10px 15px
+    h4
+      font-weight: 400
+    h4.align-center
+      text-align: center
     .close
       margin-top: 0
-  .modal-footer
-    -webkit-border-radius: 6px
-    -moz-border-radius: 6px
-    border-radius: 6px
+    p.align-center
+      text-align: center
+      margin: 0
+      padding: 0
 .signin-popup
   width: 100%
   text-align: center
@@ -1533,7 +1567,7 @@ label.bootstrap-checkbox.disabled
   border: 1px solid #828282
   color: #fff
 .popover.right > .arrow:after,
-.popover.right > .arrow,
+.popover.right > .arrow
   border-right-color: #828282
 .popover.left > .arrow:after,
 .popover.left > .arrow
@@ -1815,7 +1849,7 @@ label.bootstrap-checkbox.disabled
 .js-footer
   background: #333333
   width: 100%
-  height: 200px
+  min-height: 240px
   position: absolute
   bottom: 0
   left: 0
@@ -1843,20 +1877,29 @@ label.bootstrap-checkbox.disabled
         color: #ccc
         cursor: pointer
     .site-map-content
-      width: 50%
+      width: 33.333%
       float: left
-    ul
-      margin: 0
-      padding: 0
-      li
-        width: 100%
-        clear: both
-        font-size: 14px
-        a
-          color: #898989
-          cursor: pointer
-        a:hover
-          color: #eeeeee
+      padding-left: 20px
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: 100%
+          float: left
+          font-size: 14px
+          i
+            color: #898989
+            font-size: 5px
+            padding: 8px 10px 0 0
+            float: left
+          a
+            color: #898989
+            cursor: pointer
+            text-transform: capitalize
+          a:hover
+            color: #eeeeee
+    .site-map-content.left
+      padding-left: 0
   .footer-content-block
     width: 100%
     display: block
@@ -2073,3 +2116,30 @@ a.salary-report-share:hover
   i
     color: #ff7f19
     font-size: 20px
+.ic-info-black
+  background: url(../images/ic-info.png) right -66px no-repeat
+  display: inline-block
+  height: 35px
+  cursor: pointer
+  width: 20%
+  float: left
+  padding-top: 10px
+.job-seeker-sign-in-form
+  text-align: left
+  display: inline-block
+  clear: both
+  padding: 10px 20px 0 20px
+  border-bottom: 1px solid #898989
+  width: 100%
+  .header-title
+    width: 80%
+    float: left
+  h4
+    width: auto
+    float: left
+    padding: 0
+    clear: both
+  p
+    width: auto
+    float: left
+    clear: both

@@ -1,0 +1,74 @@
+<div class="content-page-block event-details-page">
+  <div class="alert alert-success" ng-show="showPostSuccessfulMessage">
+    <p translate="postedEventSuccessful"></p>
+  </div>
+  <div class="alert alert-success" ng-show="status('not-joined')">
+    <p translate="joinedEventAlert"></p>
+  </div>
+  <div class="header-page">
+    <h2 class="text-left">{{webinar.name}}</h2>
+  </div>
+  <div class="content-page-detail">
+    <div class="event-details-block">
+      <div class="left-content">
+        <div class="date-time-event">
+          <i class="fa fa-calendar"></i>
+          {{webinar.startDate | timestamp: 'shortDate'}} -  {{webinar.startDate | timestamp: 'hour'}}
+          <span translate="to"></span>
+          {{webinar.endDate | timestamp: 'shortDate'}} -  {{webinar.endDate | timestamp: 'hour'}}
+        </div>
+        <div class="location-event">
+          <i class="fa fa-map-marker"></i> Google Hangouts
+        </div>
+        <div class="webinar-keywords" ng-show="webinar.whatEvent.length">
+          <p>{{webinar.whatEvent}}</p>
+        </div>
+        <div class="webinar-why" translate="{{webinar.description | lineBreak}}"></div>
+      </div>
+      <div class="right-content">
+        <div class="tell-your-friends">
+          <a href="" ng-click="fbShare()">
+            <span translate="tellYourFriends"></span>
+            <span class="btn-facebook">
+              <i class="fa fa-facebook"></i>
+            </span>
+          </a>
+        </div>
+        <div class="number-going">
+          <p translate="thereAreGoing" translate-value-number="{{webinar.attendees.length}}"></p>
+        </div>
+        <div class="join-with-facebook">
+          <button class="btn btn-primary btn-flat" translate="joinWithFacebook" ng-click="joinNow()"
+                  ng-disabled="status('not-joined')"></button>
+        </div>
+      </div>
+    </div>
+    <div class="organiser-info">
+      <div class="left-content">
+        <img ng-src="{{webinar.organiser.profileImageUrl}}" alt="" ng-show="webinar.organiser.profileImageUrl.length">
+        <img src="images/no-avatar.png" alt="" ng-show="!webinar.organiser.profileImageUrl.length">
+      </div>
+      <div class="right-content">
+        <ul>
+          <li>
+            <span class="title" translate="organiser"></span>
+            <span>{{(webinar.organiser.name) || (webinar.organiser.email | textTruncate: 'email')}} <strong ng-show="webinar.company.companyName.length">({{webinar.company.companyName}})</strong></span>
+
+          </li>
+          <li ng-show="webinar.company.address.length">
+            <span class="title">{{'address' | translate}}:</span>
+            <span>{{webinar.company.address}}</span>
+          </li>
+          <li ng-show="webinar.company.companySize.length">
+            <span class="title">{{'companySize' | translate}}:</span>
+            <span>{{webinar.company.companySize}}</span>
+          </li>
+          <!--<li ng-show="">-->
+            <!--<span class="title">{{'companyProfile' | translate}}:</span>-->
+            <!--<span>{{'Công ty TNHH Viettel - CHT (tên thường gọi là Viettel IDC) là công ty trực thuộc Tập đoàn Viễn Thông Quân Đội Viettel. Cùng với với Chunghwa Telecom (Công ty viễn thông-internet lớn nhất Đài Loan)'}}</span>-->
+          <!--</li>-->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

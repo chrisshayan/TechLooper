@@ -1,4 +1,5 @@
-techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope, apiService, $location, utils) {
+techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope,
+                                                                   apiService, $location, utils, $translate, localStorageService) {
   $scope.status = function (type) {
     switch (type) {
       case "ex-today":
@@ -10,16 +11,14 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         return resourcesService.paymentConfig.options[index];
 
       case "show-fixed-price-fields":
-        if (!$scope.postProject) return false;
-        var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].id == "fixedPrice";
+        if (!$scope.postProject || !$scope.postProject.payMethod) return false;
+        var option = resourcesService.getOption($scope.postProject.payMethod, resourcesService.paymentConfig);
+        return option.id == "fixedPrice";
 
       case "show-hourly-price-fields":
-        if (!$scope.postProject) return false;
-        var index = resourcesService.inOptions($scope.postProject.payMethod, resourcesService.paymentConfig);
-        if (index == -1) return false;
-        return resourcesService.paymentConfig.options[index].id == "hourly";
+        if (!$scope.postProject || !$scope.postProject.payMethod) return false;
+        var option = resourcesService.getOption($scope.postProject.payMethod, resourcesService.paymentConfig);
+        return option.id == "hourly";
 
       case "is-form-valid":
         if (!$scope.postProjectForm) return true;
@@ -106,13 +105,17 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     }
 
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
-    //TODO : send to server
+    postProject.lang = $translate.use();
     apiService.postFreelancerProject(postProject)
       .success(function (projectId) {
-        $location.path("/hiring");
+        localStorageService.set("postProject", true);
+        var title =  utils.toAscii($scope.postProject.projectTitle);
+        return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", title, projectId));
       });
   }
 
   $scope.changeState('default');
 
+  //console.log(resourcesService.paymentConfig);
+  //$scope.paymentConfig = resourcesService.paymentConfig;
 });

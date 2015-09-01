@@ -18,8 +18,9 @@
     "provider": "FACEBOOK",
     "apiKey": "596454787147962",
     "secretKey": "dc25bf6805886ee435f2bc56db3f393e",
-    "redirectUri": "http://techlooper.com/authentication",
+    "redirectUri": "http://techlooper.com/login/social/FACEBOOK",
     "apiUrl": {
+      "login": "https://www.facebook.com/dialog/oauth?client_id={apiKey}&redirect_uri={redirectUri}&scope=email",
       "picture": "https://graph.facebook.com/v2.2/me/picture?redirect=false"
     }
   },
@@ -38,7 +39,13 @@
     "provider": "GOOGLE",
     "apiKey": "339114452335-57uq0b7djh0u478igqj5g3cub376urgp.apps.googleusercontent.com",
     "secretKey": "qEr_e0VkkMUg4PmCuGGMumjj",
-    "redirectUri": "http://techlooper.com/authentication"
+    "redirectUri": "http://techlooper.com/login/social/GOOGLE",
+    "serviceAccountEmail": "339114452335-ndprm0gt8gsl86ek5ganv7767mg2gc89@developer.gserviceaccount.com",
+    "apiUrl": {
+      "login": "https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri={redirectUri}&response_type=code&client_id={apiKey}"
+    },
+    "calendarId": "3iahuurbarqql927vhtibk49pc@group.calendar.google.com",
+    "calendarOwner": "techlooperawesome@gmail.com"
   },
   {
     "provider": "TWITTER",

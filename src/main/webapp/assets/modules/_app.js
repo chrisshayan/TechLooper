@@ -26,7 +26,7 @@ var baseUrl = (function () {
 })();
 
 var techlooper = angular.module("Techlooper", [
-  "ngSanitize", "pascalprecht.translate", "ngResource", "ngCookies", "ngRoute", "satellizer", "LocalStorageModule",
+  "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
   "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
   "UserProfile", "selectize", "autocomplete", "focusOn"
 ]);
@@ -41,10 +41,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
           responseError: function (rejection) {
             switch (rejection.status) {
-              case 403:
-                $rootScope.lastPath = $location.path();
-                $location.path("/login");
-                break;
+              //case 403:
+              //  $rootScope.lastPath = $location.path();
+              //  $location.path("/login");
+              //  break;
 
               case 500:
               case 404:
@@ -59,8 +59,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     localStorageServiceProvider
       .setPrefix('techlooper')
-      .setNotify(true, true)
-      .setStorageCookie(45, "/");
+      .setNotify(true, true);
 
     //$.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
     //  .done(function (resp) {
@@ -93,8 +92,8 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
     $routeProvider
       .when("/home", {
-        templateUrl: "modules/home-page/home-page.tem.html",
-        controller: "homePageController"
+        templateUrl: "modules/home-page/home.html",
+        controller: "homeController"
       })
       .when("/hiring", {
         templateUrl: "modules/hiring/hiring.tem.html",
@@ -124,22 +123,22 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
       })
-      .when("/jobs/search", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "searchFormController"
-      })
-      .when("/jobs/search/:text", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "searchResultController"
-      })
+      //.when("/jobs/search", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "searchFormController"
+      //})
+      //.when("/jobs/search/:text", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "searchResultController"
+      //})
       //.when("/analytics/skill/:term/:period?", {
       //  templateUrl: "modules/it-professional/main.tem.html",
       //  controller: "skillAnalyticsController"
       //})
-      .when("/signin", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "signInController"
-      })
+      //.when("/signin", {
+      //  templateUrl: "modules/it-professional/main.tem.html",
+      //  controller: "signInController"
+      //})
       .when("/register", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "registerController"
@@ -188,164 +187,72 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/freelancer/post-project/postProject.html",
         controller: "freelancerPostProjectController"
       })
-      .when("/freelancer/project-detail", {
+      .when("/freelancer/project-detail/:id", {
         templateUrl: "modules/freelancer/project-detail/projectDetail.html",
         controller: "freelancerProjectDetailController"
       })
+      .when("/freelancer/projects", {
+        templateUrl: "modules/freelancer/projects/projects.html",
+        controller: "freelancerProjectsController"
+      })
+      .when("/freelancer/why-freelancer", {
+        templateUrl: "modules/freelancer/why-freelancer/whyFreelancer.html",
+        controller: "whyFreelancerController"
+      })
+      .when("/why-challenge", {
+        templateUrl: "modules/why-challenge/whyChallenge.html",
+        controller: "whyChallengeController"
+      })
+      .when("/employer-dashboard", {
+        templateUrl: "modules/employer-dashboard/employer-dashboard.html",
+        controller: "employerDashboardController"
+      })
+      .when("/user-type", {
+        templateUrl: "modules/user-type/user-type.html",
+        controller: "userTypeController"
+      })
+      .when("/how-does-it-work", {
+        templateUrl: "modules/how-it-works/how-it-works.html"
+      })
+      .when("/job-listing/:searchText?/:page?", {
+        templateUrl: "modules/job-listing/job-listing.html",
+        controller: "jobListingController"
+      })
+      .when("/post-event", {
+        templateUrl: "modules/create-event/create-event.html",
+        controller: "createEventController"
+      })
+      .when("/events", {
+        templateUrl: "modules/events/events.html",
+        controller: "eventsController"
+      })
+      .when("/event-detail/:id", {
+        templateUrl: "modules/event-details/event-details.html",
+        controller: "eventDetailsController"
+      })
+      .when("/loading", {
+        templateUrl: "modules/loading-box/loadingBox.html",
+        controller: "loadingBoxController"
+      })
       .otherwise({
-        redirectTo: function () {
+        redirectTo: function (err, path, params) {
+          if (!$.isEmptyObject(params)) {
+            return "/loading";
+          }
+
           if (window.location.host.indexOf("hiring") >= 0) {
             return "/home";
           }
           return "/home";
+        },
+        resolve: {
+          resolvedVal: function ($http) {
+            return $http.get('http://endpoint.com/test');
+          }
         }
       });
   }]);
 
-techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, cleanupFactory,
-                         signInService, historyFactory, userService, routerService, $location,
-                         utils, $rootScope, $translate, jsonValue, localStorageService, securityService, apiService, resourcesService) {
-  shortcutFactory.initialize();
-  connectionFactory.initialize();
-  loadingBoxFactory.initialize();
-  cleanupFactory.initialize();
-  historyFactory.initialize();
-  routerService.initialize();
-  userService.initialize();
-  $rootScope.apiService = apiService;
-  $rootScope.resourcesService = resourcesService;
 
-  //signInService.init();
 
-  //var locationPathFn = $location.path;
-  //$location.path = function () {
-  //  var rsLocationPathFn = locationPathFn.apply($location, arguments);
-  //  utils.apply();
-  //  return rsLocationPathFn;
-  //}
-
-  var doTranslate = function () {
-    $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
-      "salaryRangeJob", "jobNumber", "salaryRangeInJob", "jobNumberLabel", "allLevel", "newGradLevel", "exHoChiMinh", "exManager",
-      "experienced", "manager", "maximum5", "maximum3", "hasExist", "directorAndAbove", "requiredThisField",
-      "genderMale", "genderFemale", "exMale", "exYob", 'exDay', 'day', 'week', 'month', "maximum50"]).then(function (translate) {
-      $rootScope.translate = translate;
-    });
-  }
-
-  var campaign = $location.search();
-  var langKey = (campaign && campaign.lang);
-  langKey !== $translate.use() && ($translate.use(langKey));
-  $rootScope.$on('$translateChangeSuccess', function () {
-    langKey !== $translate.use() && ($translate.use(langKey));
-    doTranslate();
-  });
-
-  doTranslate();
-
-  $rootScope.jsonValue = jsonValue;
-
-  $('html, body').animate({scrollTop: 0});
-
-  $rootScope.$on("$routeChangeStart", function (event, next, current) {
-    switch (utils.getView()) {
-      case jsonValue.views.freelancerPostProject:
-        var lastPage = "/freelancer/post-project";
-      case jsonValue.views.postChallenge:
-        securityService.getCurrentUser().catch(function () {
-          localStorageService.set("protectedPage", lastPage || "/post-challenge");
-        });
-        break;
-
-      case jsonValue.views.login:
-        var protectedPage = localStorageService.get("protectedPage");
-        if (!protectedPage) {
-          return $location.path("/");
-        }
-        break;
-    }
-  });
-
-  var param = $location.search();
-  if (param.registerVnwUser) {
-    if (param.registerVnwUser !== "cancel") {
-      localStorageService.set("registerVnwUser", param.registerVnwUser);
-    }
-
-    var lastFoot = localStorageService.get("lastFoot");
-    if (lastFoot) {
-      localStorageService.remove("lastFoot");
-      return $location.url(lastFoot);
-    }
-  }
-
-});
-
-techlooper.directive("navigation", function () {
-  return {
-    restrict: "A",
-    replace: true,
-    templateUrl: "modules/navigation/navigation.tem.html",
-    controller: "navigationController"
-  }
-})
-  .directive("findjobs", function () {
-    return {
-      restrict: "A",
-      replace: true,
-      templateUrl: "modules/job/findJobs.tem.html"
-    }
-  })
-  .directive('onlyDigits', function ($filter) {
-    return {
-      require: 'ngModel',
-      restrict: 'A',
-      link: function (scope, element, attr, ctrl) {
-        function inputValue(val) {
-          if (val) {
-            var digits = val.replace(/[^0-9.]/g, '');
-            if (digits !== val) {
-              ctrl.$setViewValue(digits);
-              ctrl.$render();
-            }
-            var number = parseFloat(digits);
-            if (!isNaN(number)) {
-              //number = $filter('number')(number, 2);
-              //ctrl.$setViewValue(number);
-              //ctrl.$render();
-              return number;
-            }
-            return "";
-          }
-          return '';
-        }
-
-        ctrl.$parsers.push(inputValue);
-      }
-    }
-  })
-  .directive('onlyDigitsString', function () {
-    return {
-      require: 'ngModel',
-      restrict: 'A',
-      link: function (scope, element, attr, ctrl) {
-        function inputValue(val) {
-          if (val) {
-            var digits = val.replace(/[^0-9.]/g, '');
-
-            if (digits !== val) {
-              ctrl.$setViewValue(digits);
-              ctrl.$render();
-            }
-            var number = parseFloat(digits);
-            return isNaN(number) ? "" : val;
-
-          }
-          return '';
-        }
-
-        ctrl.$parsers.push(inputValue);
-      }
-    }
-  });
 

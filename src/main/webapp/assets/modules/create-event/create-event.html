@@ -1,0 +1,90 @@
+<div class="content-page-block create-event-container">
+  <div class="header-page">
+    <h2 translate="createYourNewEvent"></h2>
+  </div>
+  <div class="content-page-detail">
+    <div class="create-event-form">
+      <ng-form name="webinarForm" novalidate autocomplete="off">
+        <div class="create-event-field">
+          <label for="txtWebinarName" translate="yourWebinarName"></label>
+          <input type="text" id="txtWebinarName" placeholder="{{'yourWebinarNameEx' | translate}}"
+                 ng-model="webinar.name" ng-required="true" name="name" class="input-style date"/>
+
+          <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.name.$dirty) && (webinarForm.name.$invalid)">
+            <div translate="requiredThisField" ng-show="webinarForm.name.$error.required"/>
+          </div>
+        </div>
+        <div class="create-event-field-group">
+          <label for="txtTimeLineEvent" translate="whenEvent"></label>
+          <div class="create-event-field">
+            <input datetime-picker id="txtTimeLineEvent" class="input-style"
+                   ng-model="webinar.startDate" name="startDate"
+                   placeholder="{{'ex' | translate}} {{$root.today}} 06:30 PM"
+                   options="uiConfig.fromNowDatetimeConfig" ng-required="true"/>
+            <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.startDate.$dirty) && (webinarForm.startDate.$invalid)">
+              <div translate="requiredThisField" ng-show="webinarForm.startDate.$error.required"/>
+              <div translate="mustBeInTheFuture" ng-show="state('error-past-date')"/>
+              <div translate="startDateGTEndDate" ng-show="state('error-range-date')"/>
+            </div>
+          </div>
+          <div class="time-to" translate="to"></div>
+          <div class="create-event-field">
+            <input datetime-picker ng-model="webinar.endDate"
+                   options="uiConfig.fromNowDatetimeConfig" name="endDate"
+                   placeholder="{{'ex' | translate}} {{$root.today}} 07:30 PM"
+                   class="input-style"  ng-required="true"/>
+            <div class="error-messages" ng-show="(webinarForm.$submitted || webinarForm.endDate.$dirty) && (webinarForm.endDate.$invalid)">
+              <div translate="requiredThisField" ng-show="webinarForm.endDate.$error.required"/>
+              <div translate="mustBeInTheFuture" ng-show="state('error-past-date')"/>
+            </div>
+          </div>
+        </div>
+        <div class="create-event-field">
+          <label for="txtWhereEvent" translate="whereEvent"></label>
+          <input type="text" id="txtWhereEvent" value="Google Hangout" disabled="disabled"
+                 class="input-style"/>
+
+          <p class="note" translate="whereEventNode"></p>
+        </div>
+        <div class="create-event-field">
+          <label for="txtWhatEvent" translate="whatEvent"></label>
+          <input type="text" id="txtWhatEvent" placeholder="{{'whatEventEx' | translate}}"
+                 ng-model="webinar.whatEvent" class="input-style"/>
+
+          <p class="note" translate="whatEventNote"></p>
+        </div>
+        <div class="create-event-field">
+          <label for="txtOrganiser" translate="organiser"></label>
+          <input type="text" id="txtOrganiser"
+                 class="input-style" disabled="disabled" value="{{$root.userInfo.name || $root.userInfo.username | textTruncate: 'email'}}"/>
+        </div>
+        <div class="create-event-field">
+          <label for="txtWhyEvent" translate="whoJoinAndWhy"></label>
+          <textarea name="" cols="30" rows="10" id="txtWhyEvent"
+                    ng-model="webinar.description"
+                    placeholder="{{'whoJoinAndWhyEx' | translate}}"
+                    class="textarea-style"></textarea>
+
+          <p class="note" translate="whoJoinAndWhyNote"></p>
+        </div>
+
+        <div class="create-event-field">
+          <label translate="attendants"></label>
+
+          <div class="attendants-block">
+            <div class="attendants-input">
+              <list-input ng-model="webinar.attendees" organisers="[$root.userInfo.email]"
+                          config="uiConfig.attendantsConfig"></list-input>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="create-event-field submit">
+          <button translate="createEvent" class="btn btn-primary btn-flat" ng-click="createWebinar()"/>
+          <button translate="cancel" class="btn btn-primary btn-flat"></button>
+        </div>
+      </ng-form>
+    </div>
+  </div>
+</div>

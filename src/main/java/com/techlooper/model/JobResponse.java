@@ -1,5 +1,10 @@
 package com.techlooper.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.techlooper.entity.CompanyBenefit;
+
+import java.util.List;
+
 /**
  * Created by phuonghqh on 10/15/14.
  */
@@ -20,6 +25,18 @@ public class JobResponse {
     private String videoUrl;
 
     private String logoUrl;
+
+    private String salary;
+
+    private Long salaryMin;
+
+    private Long salaryMax;
+
+    private Boolean topPriority;
+
+    private List<CompanyBenefit> benefits;
+
+    private List<JobSkill> skills;
 
     public static class Builder {
 
@@ -62,6 +79,36 @@ public class JobResponse {
 
         public Builder withLogoUrl(String logoUrl) {
             instance.logoUrl = logoUrl;
+            return this;
+        }
+
+        public Builder withSalary(String salary) {
+            instance.salary = salary;
+            return this;
+        }
+
+        public Builder withSalaryMin(Long salaryMin) {
+            instance.salaryMin = salaryMin;
+            return this;
+        }
+
+        public Builder withSalaryMax(Long salaryMax) {
+            instance.salaryMax = salaryMax;
+            return this;
+        }
+
+        public Builder withTopPriority(Boolean topPriority) {
+            instance.topPriority = topPriority;
+            return this;
+        }
+
+        public Builder withBenefits(List<CompanyBenefit> benefits) {
+            instance.benefits = benefits;
+            return this;
+        }
+
+        public Builder withSkills(List<JobSkill> skills) {
+            instance.skills = skills;
             return this;
         }
 
@@ -147,5 +194,53 @@ public class JobResponse {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
+    }
+
+    public List<CompanyBenefit> getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(List<CompanyBenefit> benefits) {
+        this.benefits = benefits;
+    }
+
+    public List<JobSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<JobSkill> skills) {
+        this.skills = skills;
+    }
+
+    public Boolean getTopPriority() {
+        return topPriority;
+    }
+
+    public void setTopPriority(Boolean topPriority) {
+        this.topPriority = topPriority;
     }
 }

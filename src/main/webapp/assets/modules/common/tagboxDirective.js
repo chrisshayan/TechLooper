@@ -16,7 +16,6 @@ techlooper.directive('tagbox', function ($http) {
      * @event "addedTagSuccessful"
      * */
     link: function (scope, element, attr, ctrl) {
-
       var resetForm = function () {
         scope.tagForm.$setPristine();
         scope.tagForm.tag.$edited = false;
@@ -31,6 +30,7 @@ techlooper.directive('tagbox', function ($http) {
 
       scope.removeTag = function (tag) {
         scope.tags.splice(scope.tags.indexOf(tag), 1);
+        $(element).find('input[type=text]').focus();
         resetForm();
       }
 
@@ -39,12 +39,6 @@ techlooper.directive('tagbox', function ($http) {
 
         var tag = tag || scope.tag || scope.autoTag || "";
         if (tag.length == 0) return false;
-
-        //var limitation = scope.tags.length >= scope.listMaxLength;
-        //scope.tagForm.tag.$setValidity("listMaxLength", !limitation);
-        //if (limitation) {
-        //  return false;
-        //}
 
         if (!scope.tagForm.$valid) {
           return false;
@@ -57,9 +51,9 @@ techlooper.directive('tagbox', function ($http) {
         scope.tags.push(tag);
         resetForm();
 
-        if ($event) {
-          scope.$apply();
-        }
+        //if ($event) {
+        //  scope.$apply();
+        //}
       }
 
       var getTags = function () {
@@ -73,8 +67,10 @@ techlooper.directive('tagbox', function ($http) {
 
         scope.tagList.length = 0;
         scope.getTags(scope.autoTag)
-          .success(function (data) {
-            scope.tagList = data;
+          .success(function (tagList) {
+            scope.tagList = $.grep(tagList, function(tag) {
+              return tag.length <= scope.maxTagLength;
+            });
           })
           .error(function () {scope.tagList.length = 0;});
       }
@@ -100,10 +96,9 @@ techlooper.directive('tagbox', function ($http) {
 
       scope.submitTag = function (event) {
         if (event.which === 13) {
-          scope.addTag(undefined, event);
-          return event.preventDefault();;
+          scope.addTag();
+          return event.preventDefault();
         }
-        getTags();
       }
 
       var uniqueValidator = function (modelValue, viewValue) {
@@ -129,12 +124,14 @@ techlooper.directive('tagbox', function ($http) {
       if (scope.getTags) {
         element.find("input").keypress(function (event) {
           scope.submitTag(event);
+          scope.$apply();
         });
       }
 
       scope.autoTagType = function (tag) {
         if (tag.length == 0) scope.tagList.length = 0;
         scope.tagForm.$setPristine();
+        getTags();
       }
     }
   }

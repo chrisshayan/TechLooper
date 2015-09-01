@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class ProjectDto {
 
+    private Long projectId;
+
     private String projectTitle;
 
     private String projectDescription;
@@ -28,6 +30,22 @@ public class ProjectDto {
     private Long numberOfHires;
 
     private String authorEmail;
+
+    private Long numberOfApplications;
+
+    private Language lang;
+
+    private String companyLogoURL;
+
+    private String companyName;
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
 
     public String getProjectTitle() {
         return projectTitle;
@@ -115,5 +133,37 @@ public class ProjectDto {
 
     public void setAuthorEmail(String authorEmail) {
         this.authorEmail = authorEmail;
+    }
+
+    public Long getNumberOfApplications() {
+        return numberOfApplications;
+    }
+
+    public void setNumberOfApplications(Long numberOfApplications) {
+        this.numberOfApplications = numberOfApplications;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
+
+    public String getCompanyLogoURL() {
+        return companyLogoURL;
+    }
+
+    public void setCompanyLogoURL(String companyLogoURL) {
+        this.companyLogoURL = companyLogoURL;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

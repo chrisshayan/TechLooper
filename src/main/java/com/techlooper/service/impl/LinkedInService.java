@@ -3,6 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.LinkedInProfile;
 import com.techlooper.entity.UserProfile;
+import com.techlooper.model.SocialConfig;
 import com.techlooper.repository.JsonConfigRepository;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -44,5 +45,10 @@ public class LinkedInService extends AbstractSocialService {
         LinkedInProfile liProfile = dozerBeanMapper.map(profile, LinkedInProfile.class);
         liProfile.setAccessGrant(accessGrant);
         return liProfile;
+    }
+
+    @Override
+    public org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig) {
+        return null;
     }
 }

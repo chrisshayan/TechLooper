@@ -20,6 +20,36 @@ public class SocialConfig {
 
   private Map<String, String> apiUrl;
 
+  private String serviceAccountEmail;
+
+  private String calendarId;
+
+  private String calendarOwner;
+
+  public String getCalendarOwner() {
+    return calendarOwner;
+  }
+
+  public void setCalendarOwner(String calendarOwner) {
+    this.calendarOwner = calendarOwner;
+  }
+
+  public String getCalendarId() {
+    return calendarId;
+  }
+
+  public void setCalendarId(String calendarId) {
+    this.calendarId = calendarId;
+  }
+
+  public String getServiceAccountEmail() {
+    return serviceAccountEmail;
+  }
+
+  public void setServiceAccountEmail(String serviceAccountEmail) {
+    this.serviceAccountEmail = serviceAccountEmail;
+  }
+
   public Map<String, String> getApiUrl() {
     return apiUrl;
   }

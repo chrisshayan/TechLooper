@@ -1,4 +1,4 @@
-angular.module("Common").constant("jsonValue", (function () {
+techlooper.factory("jsonValue", function () {
   var instance = {
     pieChartType: {
       salary: "SALARY",
@@ -179,7 +179,9 @@ angular.module("Common").constant("jsonValue", (function () {
       challenges: "/challenges",
       postChallenge: "/post-challenge",
       freelancerPostProject: "/freelancer/post-project",
-      freelancerProjectDetail: "/freelancer/project-detail"
+      freelancerProjectDetail: "/freelancer/project-detail",
+      freelancerProjects: "/freelancer/projects",
+      whyFreelancer: "/freelancer/whyFreelancer"
     },
 
     views: {
@@ -209,8 +211,112 @@ angular.module("Common").constant("jsonValue", (function () {
       challengeDetail: "challengeDetail",
       challenges: "challenges",
       freelancerPostProject: "freelancerPostProject",
-      freelancerProjectDetail: "freelancerProjectDetail"
+      freelancerProjectDetail: "freelancerProjectDetail",
+      freelancerProjects: "freelancerProjects",
+      whyFreelancer: "whyFreelancer",
+      whyChallenge: "whyChallenge",
+      employerDashboard: "employerDashboard",
+      userType: "userType",
+      howItWorks: "howItWorks",
+      jobListing: "jobListing",
+      createEvent: "createEvent",
+      events: "events",
+      eventDetails: "eventDetails"
     },
+
+    uiViews: [
+      {
+        name: "rootPage",
+        url: "/"
+      },
+      {
+        name: "home",
+        url: "/home",
+        ignoreIfLastFoot: true
+      },
+      {
+        name: "employerDashboard",
+        url: "/employer-dashboard",
+        ignoreIfLastFoot: true
+      },
+      {
+        name: "postEvent",
+        url: "/post-event",
+        roles: ["EMPLOYER", "JOB_SEEKER"],
+        loginUrl: "/user-type"
+      },
+      {
+        name: "freelancerPostProject",
+        url: "/freelancer/post-project",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
+        name: "employerDashboard",
+        url: "/employer-dashboard",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
+        name: "postChallenge",
+        url: "/post-challenge",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
+        name: "hiring",
+        url: "/hiring",
+        header: "EMPLOYER"
+      },
+      {
+        name: "whyChallenge",
+        url: "/why-challenge",
+        header: "EMPLOYER"
+      },
+      {
+        name: "whyFreelancer",
+        url: "/freelancer/why-freelancer",
+        header: "EMPLOYER"
+      },
+      {
+        name: "priceJob",
+        url: "/price-job",
+        header: "EMPLOYER"
+      },
+      {
+        name: "login",
+        url: "/login",
+        type: "LOGIN"
+      },
+      {
+        name: "userType",
+        url: "/user-type",
+        type: "LOGIN"
+      },
+      {
+        name: "loading",
+        url: "/loading",
+        type: "LOGIN"
+      },
+      {
+        name: "eventDetails",
+        url: "/event-detail",
+        regex: /\/event-detail\//i,
+        type: "SEO"
+      },
+      {
+        name: "challengeDetail",
+        url: "/challenge-detail",
+        regex: /\/challenge-detail\//i,
+        type: "SEO"
+      },
+      {
+        name: "freelancerProjectDetail",
+        url: "/freelancer/project-detail",
+        regex: /\/freelancer\/project-detail\//i,
+        type: "SEO"
+      }
+    ],
 
     httpUri: {
       user: "user",
@@ -229,7 +335,16 @@ angular.module("Common").constant("jsonValue", (function () {
       salaryReview: "salaryReview",
       getPromoted: "getPromoted",
       contest: "contest",
-      challenges: "challenges"
+      challenges: "challenges",
+      whyFreelancer: "whyFreelancer",
+      whyChallenge: "whyChallenge",
+      employerDashboard: "employerDashboard",
+      userType: "userType",
+      howItWorks: "howItWorks",
+      jobListing: "jobListing",
+      createEvent: "createEvent",
+      events: "events",
+      eventDetails: "eventDetails"
     },
 
     socketUri: {
@@ -632,6 +747,56 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 1, translate: "genderMale"},
       {id: 2, translate: "genderFemale"}
     ],
+    hours: [
+      {id: 1, value: "12:00 AM"},
+      {id: 2, value: "12:30 AM"},
+      {id: 3, value: "01:00 AM"},
+      {id: 4, value: "01:30 AM"},
+      {id: 5, value: "02:00 AM"},
+      {id: 6, value: "02:30 AM"},
+      {id: 7, value: "03:00 AM"},
+      {id: 8, value: "03:30 AM"},
+      {id: 9, value: "04:00 AM"},
+      {id: 10, value: "04:30 AM"},
+      {id: 11, value: "05:00 AM"},
+      {id: 12, value: "05:30 AM"},
+      {id: 13, value: "06:00 AM"},
+      {id: 14, value: "06:30 AM"},
+      {id: 15, value: "07:00 AM"},
+      {id: 16, value: "07:30 AM"},
+      {id: 17, value: "08:00 AM"},
+      {id: 18, value: "08:30 AM"},
+      {id: 19, value: "09:00 AM"},
+      {id: 20, value: "09:30 AM"},
+      {id: 21, value: "10:00 AM"},
+      {id: 22, value: "10:30 AM"},
+      {id: 23, value: "11:00 AM"},
+      {id: 24, value: "11:30 AM"},
+      {id: 25, value: "12:00 PM"},
+      {id: 26, value: "12:30 PM"},
+      {id: 27, value: "01:00 PM"},
+      {id: 28, value: "01:30 PM"},
+      {id: 29, value: "02:00 PM"},
+      {id: 30, value: "02:30 PM"},
+      {id: 31, value: "03:00 PM"},
+      {id: 32, value: "03:30 PM"},
+      {id: 33, value: "04:00 PM"},
+      {id: 34, value: "04:30 PM"},
+      {id: 35, value: "05:00 PM"},
+      {id: 36, value: "05:30 PM"},
+      {id: 37, value: "06:00 PM"},
+      {id: 38, value: "06:30 PM"},
+      {id: 39, value: "07:00 PM"},
+      {id: 40, value: "07:30 PM"},
+      {id: 41, value: "08:00 PM"},
+      {id: 42, value: "08:30 PM"},
+      {id: 43, value: "09:00 PM"},
+      {id: 44, value: "09:30 PM"},
+      {id: 45, value: "10:00 PM"},
+      {id: 46, value: "10:30 PM"},
+      {id: 47, value: "11:00 PM"},
+      {id: 48, value: "11:30 PM"}
+    ],
     timeToSends: [
       {id: 2, translate: "day"},
       {id: 3, translate: "week"}
@@ -794,6 +959,23 @@ angular.module("Common").constant("jsonValue", (function () {
       {id: 12, name: "19 years"},
       {id: 12, name: "> 20 years"}
     ],
+    "benefitIcons": [
+      {id: '1',iconClass: 'fa-dollar'},
+      {id: '2', iconClass: 'fa-user-md'},
+      {id: '3', iconClass: 'fa-file-image-o'},
+      {id: '4', iconClass: 'fa-graduation-cap'},
+      {id: '5', iconClass: 'fa-trophy'},
+      {id: '6', iconClass: 'fa-book'},
+      {id: '7', iconClass: 'fa-laptop'},
+      {id: '8', iconClass: 'fa-mobile'},
+      {id: '9', iconClass: 'fa-plane'},
+      {id: '10', iconClass: 'fa-glass'},
+      {id: '11', iconClass: 'fa-cab'},
+      {id: '12', iconClass: 'fa-coffee'},
+      {id: '13', iconClass: 'fa-gift'},
+      {id: '14', iconClass: 'fa-child'},
+      {id: '15', iconClass: 'fa-check-square-o'}
+    ],
     "companyPromotion": {
       "title": "companyTitle",
       "tagLine": "companyMessages",
@@ -809,6 +991,7 @@ angular.module("Common").constant("jsonValue", (function () {
     },
 
     dateFormat: "DD/MM/YYYY",
+    dateTimeFormat: "DD/MM/YYYY hh:mm A",
 
     status: {
       notStarted: {translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
@@ -838,5 +1021,8 @@ angular.module("Common").constant("jsonValue", (function () {
   var currentYear = new Date().getFullYear();//yrs old from 15 to 99
   instance.yobs = Array.apply(0, Array(84)).map(function (x, y) { return {value: currentYear - (y + 15)}; });
 
+  instance.benefitIconsMap = {};
+  $.each(instance.benefitIcons, function (i, icon) {instance.benefitIconsMap[icon.id] = icon;});
+
   return instance;
-})());
+});

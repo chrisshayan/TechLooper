@@ -1,0 +1,265 @@
+.content-page-block.job-listing-container
+  .content-page-detail
+    padding-bottom: 10px
+  .job-listing-search-bar
+    display: inline-block
+    width: 100%
+    clear: both
+    padding: 10px 20px 5px 20px
+    text-align: left
+    background-color: #f1f1f1
+    border: 0
+    border-top: 1px solid #ebebeb
+    border-bottom: 1px solid #ebebeb
+    .keyword-block
+      width: 50%
+      float: left
+      padding-right: 10px
+      .autocomplete
+        width: 100%
+        float: left
+        ul
+          margin: 0
+          padding: 0
+          z-index: 666
+          border-bottom: 1px solid #d4d7d8
+          border-left: 1px solid #d4d7d8
+          border-right: 1px solid #d4d7d8
+          .highlight
+            background: rgba(255, 237, 40, 0.4) none repeat scroll 0 0
+            color: #000
+          li.active
+            background-color: #f5f5f5
+        input
+          font-size: 14px
+          border: 1px solid #d4d7d8
+          -webkit-border-radius: 5px
+          -moz-border-radius: 5px
+          border-radius: 5px
+          padding: 6px 12px
+          width: 100%
+    .location-block
+      width: 40%
+      float: left
+      padding-right: 10px
+      label
+        width: 15%
+        float: left
+        line-height: 34px
+        font-weight: 300
+        text-align: center
+        padding-right: 5px
+      .selectize-control
+        width: 85%
+        float: left
+    .submit-search-block
+      width: 10%
+      float: left
+      button
+        width: 100%
+        height: 34px
+
+  .job-listing-result
+    display: inline-block
+    clear: both
+    width: 100%
+    padding-top: 20px
+  .paging-block
+    display: inline-block
+    clear: both
+    width: 100%
+    padding: 0 20px
+    text-align: left
+    strong
+      font-weight: 500
+    .total-items
+      width: 35%
+      float: left
+      line-height: 32px
+      strong
+        font-size: 18px
+    .total-pages
+      width: auto
+      float: right
+      line-height: 32px
+      padding-right: 20px
+      strong
+        font-size: 18px
+    .paging-list
+      width: auto
+      float: right
+      ul
+        margin: 0
+        padding: 0
+        float: right
+        li
+          width: auto
+          padding: 0 2px
+          float: left
+          span
+            display: inline-block
+            width: auto
+            border: 1px solid #ebebeb
+            cursor: pointer
+            a
+              display: inline-block
+              width: 100%
+              padding: 5px 10px
+          span.active
+            font-weight: 500
+            border: 1px solid #333333
+            padding: 5px 10px
+          span.unClick
+            color: #ddd
+            border: 1px solid #ddd
+            cursor: default
+            padding: 5px 10px
+          span:hover
+            background-color: #f4f4f4
+          span.unClick:hover
+            background-color: transparent
+  .job-listing-container
+    display: inline-block
+    clear: both
+    width: 100%
+    padding: 3px 20px 5px 20px
+    .job-items
+      display: inline-block
+      clear: both
+      width: 100%
+      .job-item
+        display: inline-block
+        clear: both
+        width: 100%
+        padding: 10px
+        border-bottom: 0
+        border-top: 1px solid #d2d2d2
+        p
+          margin: 0
+          padding: 0
+        .left-content
+          width: 70%
+          float: left
+          text-align: left
+          h4
+            font-size: 14px
+            font-weight: 500
+            clear: both
+            width: 100%
+            margin: 0
+            padding: 0 0 5px 0
+          ul.info
+            margin: 0
+            padding: 0
+            width: 80%
+            display: inline-block
+            clear: both
+            li
+              width: 70%
+              float: left
+              padding: 0
+              color: #808080
+              i
+                color: #333
+            li:first-child
+              width: 30%
+          p
+            margin: 0
+            padding: 0
+            text-transform: capitalize
+            span
+              display: inline-block
+              padding: 0 0 0 10px
+              color: #808080
+            strong
+              font-weight: 400
+              color: #808080
+          .skills-list
+            display: inline-block
+            clear: none
+            width: 100%
+            padding-top: 10px
+            ul
+              margin: 0
+              padding: 0
+              li
+                width: auto
+                float: left
+                padding: 0 5px 5px 0
+                span
+                  display: inline-block
+                  i
+                    font-size: 12px
+                    padding-right: 0
+                span.left
+                  background: url(../images/left-tag.png) left -39px no-repeat
+                  padding-left: 25px
+                span.right
+                  background: url(../images/right-tag.png) right -39px no-repeat
+                  padding-right: 10px
+                  line-height: 23px
+                  height: 25px
+                  text-transform: capitalize
+          .offers-list
+            display: inline-block
+            clear: both
+            width: 100%
+            p
+              color: #333
+              text-transform: none
+              cursor: pointer
+              span
+                color: #333
+                font-size: 14px
+                font-weight: 400
+                padding-left: 5px
+            ul
+              margin: 0
+              padding: 5px 2px
+              background-color: #fdf0fe
+              border: 1px solid #fadbfc
+              -webkit-border-radius: 3px
+              -moz-border-radius: 3px
+              border-radius: 3px
+              display: none
+              li
+                width: 100%
+                clear: both
+                padding: 0 0 2px 10px
+                display: inline-block
+                font-size: 14px
+        .right-content
+          width: 30%
+          float: left
+          padding-top: 15px
+          text-align: right
+          ul
+            display: inline-block
+            width: 100%
+            li
+              width: 100%
+              clear: both
+              display: inline-block
+              color: #808080
+              padding: 0 0 5px 0
+              img
+                max-width: 100px
+      .job-item:first-child
+        border-top: 0
+      .job-item.hot-job
+        border-top: 1px solid #9fd1ee
+        border-left: 1px solid #9fd1ee
+        border-right: 1px solid #9fd1ee
+        background-color: #f3fafe
+      .job-item.hot-job:last-child
+        border-bottom: 1px solid #9fd1ee
+      .hot-jobs
+        display: inline-block
+        clear: both
+        width: 100%
+        border: 1px solid #9fd1ee
+        background-color: #fff
+        padding: 1px
+        .job-item
+          background-color: #f3fafe
+          text-align: left

@@ -47,7 +47,7 @@
     <link href="bower_components/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet" type="text/css">
     <link href="bower_components/blueimp-bootstrap-image-gallery/css/bootstrap-image-gallery.min.css" rel="stylesheet" type="text/css">
     <link href="bower_components/allmighty-autocomplete/style/autocomplete.css" rel="stylesheet" type="text/css">
-    <!--<link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>-->
+    <link rel="stylesheet" href="bower_components/datetimepicker/jquery.datetimepicker.css"/>
 
     <!-- include: "type": "css", "files": "css/**/*.css" -->
     <!-- endbuild -->
@@ -89,49 +89,35 @@
         });
         window.location.href = "#/challenges";
     }
+    gotoProjects  = function(){
+        ga("send", {
+            hitType: "event",
+            eventCategory: "freelancer",
+            eventAction: "click",
+            eventLabel: "allprojects"
+        });
+        window.location.href = "#/freelancer/projects";
+    }
+    gotoPostProject  = function(){
+        ga("send", {
+            hitType: "event",
+            eventCategory: "freelancer",
+            eventAction: "click",
+            eventLabel: "postproject"
+        });
+        window.location.href = "#/freelancer/post-project";
+    }
 </script>
 
 <!--[if lt IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
+<nav-bar></nav-bar>
+<social-popup></social-popup>
 <div id="bodyContent" class="body-content" autoscroll="true" ng-view>
 </div>
-<div class="js-footer">
-    <div class="js-footer-block">
-        <div class="site-map-block">
-            <div class="site-map-content">
-                <h3><a href="#/home" translate="personal"></a></h3>
-                <ul>
-                    <li><a href="#/pie-chart" translate="getAnalytics"></a></li>
-                    <li><a href="#/salary-review" translate="getYourSalaryReport"></a></li>
-                    <li><a href="#/get-promoted" translate="getPromotedTagLine"></a></li>
-                    <li><a href="#/contest" translate="joinTechLooperChallenge"></a></li>
-                    <li><a onClick="gotoChallenges()" translate="allChallenges"></a></li>
-                </ul>
-            </div>
-            <div class="site-map-content">
-                <h3><a href="#/hiring" translate="business"></a></h3>
-                <ul>
-                    <li><a href="#/price-job" translate="priceAJob"></a></li>
-                    <li><a onClick="gotoPostChallenge()" translate="postAChallenge"></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-content-block">
-            <div class="copyright-block">
-                <p translate="copyright"></p>
-                <p class="address" translate="companyAddress"></p>
-            </div>
-
-            <div class="social-network-block">
-                <ul>
-                    <li><a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<footer></footer>
 <div class="loading-data">
     <div class="windows8">
         <div class="wBall" id="wBall_1">
@@ -162,10 +148,14 @@
     </div>
 </div>
 </body>
-<!-- build:js generate-resources/techlooper.min.js -->
+<!-- build:js generate-resources/techlooper-bower.min.js -->
 
 <!-- bower:js -->
 <!-- endbower -->
+
+<!-- endbuild -->
+
+<!-- build:js generate-resources/techlooper.min.js -->
 
 <!-- include: "type": "js", "files": "custom-js/**/*.js" -->
 <!-- include: "type": "js", "files": "modules/**/*.js" -->

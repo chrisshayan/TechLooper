@@ -42,3 +42,4 @@ static/
 
 #Gruntfile.js
 .tmp/
+.credentials/

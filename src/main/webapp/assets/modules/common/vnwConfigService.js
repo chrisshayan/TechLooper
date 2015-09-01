@@ -51,6 +51,11 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   ];
   var locations = [
     {
+      "location_id": "0",
+      "lang_vn": "Tất cả vị trí",
+      "lang_en": "All Locations"
+    },
+    {
       "location_id": "29",
       "lang_vn": "Hồ Chí Minh",
       "lang_en": "Ho Chi Minh"
@@ -700,10 +705,10 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       return ($translate.use() === "en" ? "en" : "vn");
     },
 
-    getLocationText: function (locationId) {
+    getLocationText: function (locationId, lang) {
       if (!locationId) return undefined;
       var text = "";
-      $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location[vnwLang]);}});
+      $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location["lang_" + lang] || location[vnwLang]);}});
       return text;
     },
     getCompanySizeText: function (companySizeId) {
@@ -769,17 +774,22 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         labelField: 'value',
         delimiter: '|',
         searchField: ['value'],
-        maxItems: 1,
+        maxItems: 1
       }, createSelectizeConfig("yobsSelectize"))
     },
 
     locationsSelectize: {
       items: locations.map(function (location) {
-        return {id: location.location_id, translate: location[vnwLang]};
+        return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
       }),
       config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },
-
+    locationsSearchSelectize: {
+      items: locations.map(function (location) {
+        return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
+      }),
+      config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
+    },
     companySizeSelectize: {
       items: jsonValue.companySizesArray,
       config: $.extend(true, {}, {
@@ -787,7 +797,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         labelField: 'size',
         delimiter: '|',
         maxItems: 1,
-        searchField: ['size'],
+        searchField: ['size']
       }, createSelectizeConfig("companySizeSelectize"))
     },
 
@@ -810,6 +820,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     {key: "yobsSelectize", placeholder: "exYob"},
     {key: "gendersSelectize", placeholder: "exMale", translate: true},
     {key: "locationsSelectize", placeholder: "exHoChiMinh"},
+    {key: "locationsSearchSelectize", placeholder: "allLocations"},
     {key: "industriesSelectize", placeholder: "exItSoftware"},
     {key: "companySizeSelectize", placeholder: "ex149", translate: true}
   ];

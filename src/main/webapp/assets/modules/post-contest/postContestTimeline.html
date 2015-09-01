@@ -1,4 +1,4 @@
-<form novalidate name="timelineForm" autocomplete="off">
+<ng-form novalidate name="timelineForm" autocomplete="off">
   <div class="post-contest-block">
     <p class="sub-header" translate="subHeaderDeadlines"></p>
     <div class="post-contest-form">
@@ -9,8 +9,9 @@
             <input id="dateChallengeStart" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                    placeholder="{{'ex' | translate}}{{state.status('ex-start-date')}}"
                    name="startDate"
+                   data-toggle="tooltip" data-original-title="{{'challengeStartTip' | translate}}"
                    required-expr="state.status('start-date-wt-4w')"
-                   ng-model="contest.startDate" required>
+                   ng-model="contest.startDate" required/>
               <span class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </span>
@@ -25,9 +26,6 @@
           </div>
 
         </div>
-        <div class="post-contest-field-tooltip">
-          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'challengeStartTip' | translate}}"></a>
-        </div>
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
@@ -36,6 +34,7 @@
             <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                    placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                    name="registrationDate"
+                   data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
                    required-expr="state.status('register-date-gt-start-date')"
                    ng-model="contest.registrationDate" required>
                   <span class="input-group-addon">
@@ -52,9 +51,6 @@
           </div>
 
         </div>
-        <div class="post-contest-field-tooltip">
-          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"></a>
-        </div>
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
@@ -63,6 +59,7 @@
             <input id="dateChallengeSubmit" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                    placeholder="{{'ex' | translate}}{{state.status('ex-submit-date')}}"
                    name="submissionDate"
+                   data-toggle="tooltip" data-original-title="{{'challengeSubmitTip' | translate}}"
                    required-expr="state.status('submit-date-gt-register-date')"
                    ng-model="contest.submissionDate" required>
                   <span class="input-group-addon">
@@ -79,13 +76,10 @@
           </div>
 
         </div>
-        <div class="post-contest-field-tooltip">
-          <a class="ic-tooltip" data-toggle="tooltip" data-original-title="{{'challengeSubmitTip' | translate}}"></a>
-        </div>
       </div>
       <!--<div class="post-contest-field submit">-->
         <!--<button class="btn btn-primary btn-flat" translate="next"></button>-->
       <!--</div>-->
     </div>
   </div>
-</form>
+</ng-form>

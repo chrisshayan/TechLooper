@@ -4,6 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
+import com.techlooper.model.ChallengeStatsDto;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.EmailValidator;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,6 +48,15 @@ public class ChallengeController {
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
     public List<ChallengeDetailDto> listChallenges() throws Exception {
         return challengeService.listChallenges();
+    }
+
+    @RequestMapping(value = "/challenge/stats", method = RequestMethod.GET)
+    public ChallengeStatsDto getChallengeStatistics() throws Exception {
+        ChallengeStatsDto challengeStatsDto = new ChallengeStatsDto();
+        challengeStatsDto.setNumberOfChallenges(challengeService.getTotalNumberOfChallenges());
+        challengeStatsDto.setNumberOfRegistrants(challengeService.getTotalNumberOfRegistrants());
+        challengeStatsDto.setTotalPrizeAmount(challengeService.getTotalAmountOfPrizeValues());
+        return challengeStatsDto;
     }
 
 }

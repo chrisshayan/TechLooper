@@ -26,7 +26,7 @@
     <jackson.version>2.4.4</jackson.version>
     <aspectj.version>1.8.1</aspectj.version>
     <spring-data-jpa.version>1.7.0.RELEASE</spring-data-jpa.version>
-    <spring-data-elasticsearch>1.1.0.RELEASE</spring-data-elasticsearch>
+    <spring-data-elasticsearch>1.2.2.RELEASE</spring-data-elasticsearch>
     <spring-data-couchbase>1.3.0.RELEASE</spring-data-couchbase>
     <hsqldb.version>2.3.2</hsqldb.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,7 +42,7 @@
     <sass-maven-plugin.version>1.1.1</sass-maven-plugin.version>
     <commons-io.version>1.3.2</commons-io.version>
     <log4j.version>1.2.17</log4j.version>
-    <elasticsearch.version>1.4.2</elasticsearch.version>
+    <elasticsearch.version>1.7.1</elasticsearch.version>
     <commons-codec.version>1.9</commons-codec.version>
     <commons-fileupload.version>1.3.1</commons-fileupload.version>
     <spring.security.version>4.0.0.RC1</spring.security.version>
@@ -64,6 +64,7 @@
     <HikariCP.version>2.3.6</HikariCP.version>
     <hibernate-entitymanager.version>4.3.8.Final</hibernate-entitymanager.version>
     <mysql-connector-java.version>5.1.34</mysql-connector-java.version>
+    <joda-time.version>2.8.1</joda-time.version>
   </properties>
   <build>
     <finalName>techlooper</finalName>
@@ -72,6 +73,11 @@
         <directory>src/main/resources/common</directory>
       </resource>
     </resources>
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src/test/resources</directory>
+      </testResource>
+    </testResources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -270,6 +276,7 @@
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>staging</id>
       <properties>
@@ -317,6 +324,56 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>debug</id>
+      <properties>
+        <env>staging</env>
+        <grunt.task>build</grunt.task>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+              <warSourceExcludes>assets/**</warSourceExcludes>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>1.9</version>
+            <executions>
+              <execution>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>add-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>src/main/resources/staging</directory>
+                    </resource>
+                    <resource>
+                      <directory>src/main/resources/couchbase_view</directory>
+                      <targetPath>couchbase_view</targetPath>
+                    </resource>
+                    <resource>
+                      <directory>src/main/resources/template</directory>
+                      <targetPath>template</targetPath>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+
     <profile>
       <id>production</id>
       <properties>
@@ -809,12 +866,47 @@
       <artifactId>joda-money</artifactId>
       <version>${joda-money.version}</version>
     </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${joda-time.version}</version>
+    </dependency>
 
-      <dependency>
-          <groupId>commons-dbcp</groupId>
-          <artifactId>commons-dbcp</artifactId>
-          <version>1.4</version>
-      </dependency>
+    <!--<dependency>-->
+      <!--<groupId>commons-dbcp</groupId>-->
+      <!--<artifactId>commons-dbcp</artifactId>-->
+      <!--<version>1.4</version>-->
+    <!--</dependency>-->
+
+    <!-- Google API -->
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>1.20.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-calendar</artifactId>
+      <version>v3-rev135-1.20.0</version>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.google.oauth-client</groupId>-->
+      <!--<artifactId>google-oauth-client-jetty</artifactId>-->
+      <!--<version>1.20.0</version>-->
+    <!--</dependency>-->
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.4.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5</version>
+    </dependency>
+
   </dependencies>
 
   <repositories>

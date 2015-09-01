@@ -79,20 +79,20 @@ angular.module("Common").factory("connectionFactory",
       },
 
       login: function () {
-        var key = localStorageService.cookie.get(jsonValue.storage.key);
-        if (key === null) {
-          return utils.sendNotification(jsonValue.notifications.loginFailed);
-        }
-
-        $$.post(jsonValue.httpUri.login,
-          $.param({key: key}),
-          {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
-          .then(function (data, status, headers, config) {
-            utils.sendNotification(jsonValue.notifications.loginSuccess, data, status, headers, config);
-          })
-          .catch(function (data, status, headers, config) {
-            utils.sendNotification(jsonValue.notifications.loginFailed, data, status, headers, config);
-          });
+        //var key = localStorageService.cookie.get(jsonValue.storage.key);
+        //if (key === null) {
+        //  return utils.sendNotification(jsonValue.notifications.loginFailed);
+        //}
+        //
+        //$$.post(jsonValue.httpUri.login,
+        //  $.param({key: key}),
+        //  {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+        //  .then(function (data, status, headers, config) {
+        //    utils.sendNotification(jsonValue.notifications.loginSuccess, data, status, headers, config);
+        //  })
+        //  .catch(function (data, status, headers, config) {
+        //    utils.sendNotification(jsonValue.notifications.loginFailed, data, status, headers, config);
+        //  });
       },
 
       saveUserInfo: function (json) {

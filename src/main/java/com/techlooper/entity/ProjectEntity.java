@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
@@ -22,7 +23,7 @@ public class ProjectEntity {
     @Field(type = String)
     private String projectDescription;
 
-    @Field(type = String)
+    @Field(type = String, index = FieldIndex.not_analyzed)
     private List<String> skills;
 
     @Field(type = String, index = FieldIndex.not_analyzed)
@@ -51,6 +52,9 @@ public class ProjectEntity {
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String createdDate;
+
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private Language lang;
 
     public Long getProjectId() {
         return projectId;
@@ -154,5 +158,13 @@ public class ProjectEntity {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
     }
 }
