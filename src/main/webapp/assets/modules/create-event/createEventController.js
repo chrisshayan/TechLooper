@@ -10,7 +10,9 @@ techlooper.controller("createEventController", function ($scope, $translate, jso
       return;
     }
 
-    apiService.createWebinar($scope.webinar)
+    var webinar = $scope.webinar;
+    webinar.lang = $translate.use();
+    apiService.createWebinar(webinar)
       .success(function (data) {
         var title = utils.toAscii(data.name);
         var path = sprintf("event-detail/%s-%s-id", title, data.createdDateTime);
