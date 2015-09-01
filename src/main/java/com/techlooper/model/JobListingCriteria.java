@@ -11,6 +11,8 @@ public class JobListingCriteria {
 
     private Integer page;
 
+    public JobListingCriteria(){}
+
     public JobListingCriteria(Integer page) {
         this.page = page;
     }
