@@ -201,10 +201,10 @@
           <a href="#/challenges" translate="viewMoreChallenges"></a>
         </div>
       </div>
-      <div class="box-container-block right" ng-show="homePage.latestEvents.length">
+      <div class="box-container-block right">
         <h3 translate="upcomingEvents"></h3>
         <div class="box-content">
-          <div class="box-content-detail">
+          <div class="box-content-detail" ng-show="homePage.latestEvents.length">
             <div class="upcoming-events-list">
               <div class="upcoming-events-by-time" ng-repeat="event in homePage.latestEvents">
                 <h4>{{event.startDate | timestamp: 'shortDate'}}</h4>
@@ -233,28 +233,14 @@
               </div>
             </div>
           </div>
-
+          <div class="box-content-detail" ng-show="!homePage.latestEvents.length">
+            <div class="freelancer-banner">
+              <img alt="" ng-src="images/events.jpg" src="images/freelancers.jpg">
+            </div>
+          </div>
         </div>
         <div class="view-more-items" class="hide">
           <a href="#/events" translate="viewMoreEvents"></a>
-        </div>
-      </div>
-      <div class="box-container-block right" ng-show="!homePage.latestEvents.length">
-        <h3 translate="latestFreelancerProjects"></h3>
-
-        <div class="box-content">
-          <div class="box-header">
-            <h4 translate="becomeAFreelancer"></h4>
-          </div>
-          <div class="box-content-detail">
-            <div class="freelancer-banner">
-              <img alt="" ng-src="images/freelancers.jpg" src="images/freelancers.jpg">
-            </div>
-          </div>
-
-        </div>
-        <div class="view-more-items">
-          <a translate="viewMoreProjects" href="#/freelancer/projects"></a>
         </div>
       </div>
     </div>
