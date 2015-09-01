@@ -125,7 +125,7 @@
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=webinar" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=webinaremail&utm_medium=vietnamworkslogo&utm_campaign=webinar" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
