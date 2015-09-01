@@ -1,4 +1,4 @@
-techlooper.directive("postContestChallenge", function ($http, utils) {
+techlooper.directive("postContestChallenge", function ($http, utils, jsonValue) {
   return {
     restrict: "E",
     replace: true,

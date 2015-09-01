@@ -31,6 +31,8 @@
       <post-contest-timeline ng-show="state.showTimeline"></post-contest-timeline>
       <post-contest-reward ng-show="state.showReward"></post-contest-reward>
       <div class="submit-contest-content">
+        <a translate="goBack" ng-click="toState('challenge')" ng-show="state.status('timeline-tab-class') && !state.status('reward-tab-class')"></a>
+        <a translate="goBack" ng-click="toState('timeline')" ng-show="state.status('reward-tab-class')"></a>
         <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="next" ng-show="!state.status('reward-tab-class')"/>
         <button ng-click="nextState()" type="button" class="btn btn-primary btn-flat" translate="publishChallenge" ng-show="state.status('reward-tab-class')"/>
       </div>

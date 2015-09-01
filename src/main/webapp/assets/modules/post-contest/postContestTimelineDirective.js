@@ -1,4 +1,4 @@
-techlooper.directive("postContestTimeline", function ($http, utils) {
+techlooper.directive("postContestTimeline", function ($http, utils, jsonValue) {
   return {
     restrict: "E",
     replace: true,
@@ -14,6 +14,7 @@ techlooper.directive("postContestTimeline", function ($http, utils) {
         autoclose:  true,
         format: 'dd/mm/yyyy'
       });
+      utils.sendNotification(jsonValue.notifications.loaded);
     }
   }
 });
