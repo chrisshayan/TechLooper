@@ -58,16 +58,16 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: "<%=pkg.public%>index.html",
       options: {
-        dest: "<%=pkg.public%>",
-        flow: {
-          html: {
-            steps: {
-              js: ['concat', "uglify"],
-              //js: ['concat'],
-              css: ['concat', 'cssmin']
-            }
-          }
-        }
+        dest: "<%=pkg.public%>"
+        //flow: {
+        //  html: {
+        //    steps: {
+        //      js: ['concat', "uglify"],
+        //      //js: ['concat'],
+        //      css: ['concat', 'cssmin']
+        //    }
+        //  }
+        //}
       }
     },
 
@@ -171,25 +171,18 @@ module.exports = function (grunt) {
       }
     },
 
-    cssmin: {
-      generated: {
-        options: {
-          keepSpecialComments: 0
-        }
-      }
-    },
+    //cssmin: {
+    //  generated: {
+    //    options: {
+    //      keepSpecialComments: 0
+    //    }
+    //  }
+    //},
 
     concat: {
       generated: {
         options: {
           separator: grunt.util.linefeed + ";" + grunt.util.linefeed
-          //banner: ";(function( window, undefined ){ \n 'use strict';",
-          //footer: "}( window ));"
-          //banner: "'use strict';\n",
-          //process: function(src, filepath) {
-          //  return '// Source: ' + filepath + '\n' +
-          //    src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-          //}
         }
       }
     },
@@ -207,13 +200,15 @@ module.exports = function (grunt) {
       }
     },
 
-    uglify: {
-      generated: {
-        options: {
-          preserveComments: false
-        }
-      }
-    },
+    //uglify: {
+    //  generated: {
+    //    options: {
+    //      preserveComments: false,
+    //      source_map: true,
+    //      semicolons: true
+    //    }
+    //  }
+    //},
 
     rename: {
       build: {
@@ -235,7 +230,7 @@ module.exports = function (grunt) {
     },
 
     imagemin: {
-      dist: {
+      build: {
         options: {
           optimizationLevel: 5
         },
@@ -251,21 +246,6 @@ module.exports = function (grunt) {
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
-  //grunt.loadNpmTasks("grunt-contrib-watch");
-  //grunt.loadNpmTasks("grunt-contrib-connect");
-  //grunt.loadNpmTasks("grunt-include-source");
-  //grunt.loadNpmTasks("grunt-wiredep");
-  //grunt.loadNpmTasks("grunt-bower-install-simple");
-  //grunt.loadNpmTasks("grunt-contrib-uglify");
-  //grunt.loadNpmTasks("grunt-contrib-concat");
-  //grunt.loadNpmTasks("grunt-contrib-cssmin");
-  //grunt.loadNpmTasks("grunt-usemin");
-  //grunt.loadNpmTasks("grunt-contrib-copy");
-  //grunt.loadNpmTasks("grunt-contrib-clean");
-  //grunt.loadNpmTasks("grunt-ng-annotate");
-  //grunt.loadNpmTasks('grunt-text-replace');
-  //grunt.loadNpmTasks('grunt-contrib-rename');
-
   grunt.registerTask("build", [
     "clean:build",
     "copy:build",
@@ -278,8 +258,9 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
+    "imagemin:build",
     "copy:font",
-    "clean:release",
+    //"clean:release",
     "replace:cssConcat",
     "rename:build"
   ]);
