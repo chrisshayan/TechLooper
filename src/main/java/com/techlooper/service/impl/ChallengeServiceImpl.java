@@ -319,6 +319,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return challenges.stream().sorted((challenge1, challenge2) -> {
             try {
+                if (challenge2.getStartDateTime() == null) {
+                    return -1;
+                } else if (challenge1.getStartDateTime() == null) {
+                    return 1;
+                }
                 long challenge2StartDate = sdf.parse(challenge2.getStartDateTime()).getTime();
                 long challenge1StartDate = sdf.parse(challenge1.getStartDateTime()).getTime();
                 if (challenge2StartDate - challenge1StartDate > 0) {
