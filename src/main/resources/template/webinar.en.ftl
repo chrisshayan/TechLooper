@@ -121,7 +121,12 @@
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
                     <a href="http://www.techlooper.com/#/home?utm_source=webinaremail&utm_medium=techlooperlogo&utm_campaign=webinar" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                      <img alt="Techlooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                    </a>
+                  </td>
+                  <td style="padding:10px" align="right" class="logo">
+                    <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=webinar" style="border:none; outline:none" target="_blank">
+                      <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                 </tr>
@@ -162,7 +167,10 @@
                     </tr>
                     <tr>
                       <td align="left" width="100%" style="font-size: 14px;">
-                        There is a new attendant. <strong style="font-size: 14px;"><#if attendee.firstName??>${attendee.firstName}</#if> <#if attendee.lastName??>${attendee.lastName}</#if></strong>, <a href="mailto:<#if attendee.email??>${attendee.email}</#if>" style="color: #277cbd"><#if attendee.email??>${attendee.email}</#if></a> has just registered to the following event:
+                        There is a new attendant. <strong style="font-size: 14px;"><#if attendee.firstName??>${attendee.firstName}</#if> <#if attendee.lastName??>${attendee.lastName}</#if></strong>,
+                        <a href="mailto:<#if attendee.email??>${attendee.email}</#if>" style="color: #277cbd">
+                        <#if attendee.email??>${attendee.email}</#if>
+                        </a> has just registered to the following event:
                       </td>
                     </tr>
                     <tr>
@@ -178,7 +186,7 @@
                               Your webinar name:
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                <#if webinar.name??>${webinar.name}</#if>
+                            <#if webinar.name??>${webinar.name}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -194,7 +202,8 @@
                               When are you running this event?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                <#if webinar.startDate??>${webinar.startDate}</#if> to <#if webinar.endDate??>${webinar.endDate}</#if>
+                            <#if webinar.startDate??>${webinar.startDate}</#if> to
+                            <#if webinar.endDate??>${webinar.endDate}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -210,7 +219,7 @@
                               Where are you running this event?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                <#if webinar.where??>${webinar.where}</#if>
+                            <#if webinar.where??>${webinar.where}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -226,7 +235,7 @@
                               What would be your webinar about?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                <#if webinar.whatEvent??>${webinar.whatEvent}</#if>
+                            <#if webinar.whatEvent??>${webinar.whatEvent}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -242,7 +251,8 @@
                               Organiser:
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                            <#if webinar.organiser.firstName??>${webinar.organiser.firstName}</#if> <#if webinar.organiser.lastName??>${webinar.organiser.lastName}</#if>
+                            <#if webinar.organiser.firstName??>${webinar.organiser.firstName}</#if>
+                                                                    <#if webinar.organiser.lastName??>${webinar.organiser.lastName}</#if>
                             </td>
                           </tr>
                           <tr>
@@ -258,7 +268,7 @@
                               Who should join and why?
                             </td>
                             <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                <#if webinar.description??>${webinar.description}</#if>
+                            <#if webinar.description??>${webinar.description}</#if>
                             </td>
                           </tr>
                           <tr>
