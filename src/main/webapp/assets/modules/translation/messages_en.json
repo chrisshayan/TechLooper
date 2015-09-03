@@ -146,7 +146,7 @@
   "categories": "Categories",
   "level": "Level",
   "requiredThisField": "You can’t leave this empty.",
-  "requiredURL": "Not valid url!",
+  "requiredURL": "This is invalid url.",
   "yob": "Year of birth",
   "exYob": "Ex: 1988",
   "doYouWantToEarnMore": "Do you want to earn more?",

@@ -17,19 +17,10 @@
 package com.techlooper.config.web;
 
 import com.techlooper.config.CoreConfiguration;
-import com.techlooper.config.VmwDbConfiguration;
+import com.techlooper.config.VnwDbConfiguration;
 import com.techlooper.config.web.sec.SecurityConfiguration;
-import org.omg.CORBA.Environment;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.SystemPropertyUtils;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -47,7 +38,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
   protected Class<?>[] getServletConfigClasses() {
     return new Class<?>[]{
       CoreConfiguration.class,
-      VmwDbConfiguration.class,
+      VnwDbConfiguration.class,
       WebConfiguration.class,
       SecurityConfiguration.class
     };

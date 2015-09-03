@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * Created by phuonghqh on 6/25/15.
  */
 @Service
-@Profile("default")
+@Profile("local")
 public class VnwUserRepoSimple implements VnwUserRepo {
   @Override
   public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
