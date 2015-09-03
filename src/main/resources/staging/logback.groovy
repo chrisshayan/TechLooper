@@ -10,10 +10,10 @@ import static ch.qos.logback.classic.Level.*
 
 scan()
 
-def LOG_FOLDER = "~"
+def LOG_FOLDER = "/data/www-logs/"
 
 appender("ALL", RollingFileAppender) {
-  file = "${LOG_FOLDER}/techlooper-all.log"
+  file = "${LOG_FOLDER}techlooper-all.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-all_%i.log"
     minIndex = 1
@@ -28,7 +28,7 @@ appender("ALL", RollingFileAppender) {
 }
 
 appender("ERROR", RollingFileAppender) {
-  file = "${LOG_FOLDER}/techlooper-error.log"
+  file = "${LOG_FOLDER}techlooper-error.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-error_%i.log"
     minIndex = 1
