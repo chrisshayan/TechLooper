@@ -1,4 +1,5 @@
-techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window, $translate, $filter) {
+techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window, $translate, $filter, utils) {
+  utils.sendNotification(jsonValue.notifications.loading);
   $scope.contestTimeLeft = function(contest) {
     switch (contest.progress.translate) {
       case jsonValue.status.progress.translate:
@@ -18,7 +19,10 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   }
 
   apiService.searchContests().success(function(contests) {
+
     $scope.contestsList = contests;
+  }).finally(function () {
+    utils.sendNotification(jsonValue.notifications.loaded);
   });
 
 });
