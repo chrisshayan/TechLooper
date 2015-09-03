@@ -49,11 +49,11 @@ public class JobSearchController {
 //    return new VNWJobSearchRequest(jobSearchRequest.getTerms(), category, jobSearchRequest.getPageNumber());
 //  }
 
-  private JobSearchResponse convertToJobSearchResponse(VNWJobSearchResponse vnwJobSearchResponse) {
-    final JobSearchResponse jobSearchResponse = new JobSearchResponse();
-    jobSearchResponse.setTotal(vnwJobSearchResponse.getData().getTotal());
-    final Stream<VNWJobSearchResponseDataItem> responseDataItemStream = vnwJobSearchResponse.getData().getJobs().stream();
-    jobSearchResponse.setJobs(responseDataItemStream.map(VNWJobSearchResponseDataItem::toJobResponse).collect(Collectors.toSet()));
-    return jobSearchResponse;
-  }
+//  private JobSearchResponse convertToJobSearchResponse(VNWJobSearchResponse vnwJobSearchResponse) {
+//    final JobSearchResponse jobSearchResponse = new JobSearchResponse();
+//    jobSearchResponse.setTotal(vnwJobSearchResponse.getData().getTotal());
+//    final Stream<VNWJobSearchResponseDataItem> responseDataItemStream = vnwJobSearchResponse.getData().getJobs().stream();
+//    jobSearchResponse.setJobs(responseDataItemStream.map(VNWJobSearchResponseDataItem::toJobResponse).collect(Collectors.toSet()));
+//    return jobSearchResponse;
+//  }
 }
