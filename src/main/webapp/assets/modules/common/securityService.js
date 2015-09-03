@@ -10,7 +10,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           $rootScope.userInfo = undefined;
           var roles = $rootScope.currentUiView.roles || [];
           if (roles.length > 0) {
-            $location.path("/");
+            $location.url("/");
           }
         });
     },
@@ -139,7 +139,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
         if (roles.length > 0) {//is protected pages
           instance.getCurrentUser().error(function (userInfo) {
-            return $location.path(uiView.loginUrl);
+            return $location.url(uiView.loginUrl);
           });
         }
 
