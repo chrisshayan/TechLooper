@@ -241,6 +241,20 @@ module.exports = function (grunt) {
           dest: '<%=pkg.public%>images'
         }]
       }
+    },
+
+    cache_control: {
+      build: {
+        source: "<%=pkg.public%>index.html",
+        options: {
+          version: timestamp,
+          links: true,
+          scripts: true,
+          replace: false,
+          outputDest: "<%=pkg.public%>index.html",
+          dojoCacheBust: true
+        }
+      }
     }
   });
 
@@ -262,7 +276,8 @@ module.exports = function (grunt) {
     "copy:font",
     "clean:release",
     "replace:cssConcat",
-    "rename:build"
+    "rename:build",
+    "cache_control:build"
   ]);
 
   grunt.registerTask("local", [

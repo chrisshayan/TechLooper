@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 /**
  * Created by phuonghqh on 6/25/15.
  */
-@Profile("has-db")
+@Profile("prod")
 @Configuration
 @EnableJpaAuditing
 @EnableTransactionManagement

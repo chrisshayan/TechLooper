@@ -19,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by phuonghqh on 6/25/15.
  */
-@ActiveProfiles("has-db")
+@ActiveProfiles("prod")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {BaseConfigurationTest.class, VmwDbConfiguration.class})
 public class VmwDbTest {

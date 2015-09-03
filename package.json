@@ -19,7 +19,8 @@
     "grunt-text-replace": "latest",
     "matchdep": "latest",
     "grunt-contrib-imagemin": "latest",
-    "grunt-contrib-rename": "latest"
+    "grunt-contrib-rename": "latest",
+    "grunt-cache-control": "latest"
   },
   "assets": "src/main/webapp/assets/",
   "public": "src/main/webapp/public/"
