@@ -237,6 +237,8 @@ techlooper.factory("jsonValue", function () {
       {
         name: "employerDashboard",
         url: "/employer-dashboard",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login",
         ignoreIfLastFoot: true
       },
       {
@@ -248,12 +250,6 @@ techlooper.factory("jsonValue", function () {
       {
         name: "freelancerPostProject",
         url: "/freelancer/post-project",
-        roles: ["EMPLOYER"],
-        loginUrl: "/login"
-      },
-      {
-        name: "employerDashboard",
-        url: "/employer-dashboard",
         roles: ["EMPLOYER"],
         loginUrl: "/login"
       },
