@@ -12,6 +12,12 @@
             <h4 translate="oneSearchAllJobs"></h4>
             <p translate="jobAggregator"></p>
           </div>
+          <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
+            <p translate="jobAlertSuccessful"></p>
+          </div>
+          <div class="alert alert-danger" ng-show="sendMailFailMessage">
+            <p translate="jobAlertFail"></p>
+          </div>
           <div class="latest-jobs-block">
             <h4 translate="latestJobs"></h4>
             <ul>
@@ -35,12 +41,6 @@
           </div>
           <div class="send-me-job-alert-block">
             <h4 translate="sendMeJobs"></h4>
-            <div class="alert alert-success" ng-show="sendMailSuccessfulMessage">
-              <p translate="jobAlertSuccessful"></p>
-            </div>
-          <div class="alert alert-danger" ng-show="sendMailFailMessage">
-              <p translate="jobAlertFail"></p>
-          </div>
             <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
               <div class="send-me-jobs-form">
 
