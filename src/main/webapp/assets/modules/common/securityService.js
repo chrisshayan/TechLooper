@@ -65,21 +65,33 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     routeByRole: function () {
       utils.sendNotification(jsonValue.notifications.loaded);
       var lastFoot = localStorageService.get("lastFoot");
-      if (lastFoot) {
+      var uiView = utils.getUiView(lastFoot);
+      var roles = uiView.roles || [];
+      //if (lastFoot) {
+      //  if (!uiView.ignoreIfLastFoot) {
+      //    return $location.url(lastFoot);
+      //  }
+      //}
+
+      if (lastFoot && !uiView.ignoreIfLastFoot) {
         return $location.url(lastFoot);
-        //localStorageService.remove("lastFoot");
-        //var uiView = utils.getUiView(lastFoot);
-        //if (!uiView.ignoreIfLastFoot) {
-        //  return $location.url(lastFoot);
-        //}
       }
+
+      //if (lastFoot && !uiView.ignoreIfLastFoot) {
+      //  return $location.url(lastFoot);
+      //}
+
+
+      //if (roles.length == 0) {
+      //  return $location.url(lastFoot);
+      //}
 
       switch ($rootScope.userInfo.roleName) {
         case "EMPLOYER":
-          return $location.path("/employer-dashboard");
+          return $location.url("/employer-dashboard");
 
         case "JOB_SEEKER":
-          return $location.path("/home");
+          return $location.url("/home");
       }
     },
 
