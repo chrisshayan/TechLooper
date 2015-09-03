@@ -27,7 +27,10 @@
                     {{job.title | limitTo: 40}}
                     <span ng-show="job.title.length > 40">...</span>
                   </a></h5>
-                  <p>{{job.company}}</p>
+                  <p title="{{job.company}}">
+                    {{job.company | limitTo: 45}}
+                    <span ng-show="job.company.length > 45">...</span>
+                  </p>
                 </div>
                 <div class="right">
                   <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
@@ -80,7 +83,7 @@
                   </div>
                 </div>
                 <div class="send-me-jobs-field submit">
-                  <button translate="emailMeJobs" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
+                  <button translate="sendNow" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
                 </div>
               </div>
             </ng-form>

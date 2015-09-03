@@ -131,22 +131,15 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           });
         return true;
       }
-    }
+    },
+
+    orderStates: ["challenge", "timeline", "reward"]
   }
 
-  var orderState = function (st) {
-    switch (st) {
-      case "challenge":
-        return 0;
-
-      case "timeline":
-        return 1;
-
-      case "reward":
-        return 2;
-    }
-    return -1;
-  }
+  //var orderState = function (st) {
+  //  var states = ["challenge", "timeline", "reward"];
+  //  return states.indexOf(st);
+  //}
 
   $scope.changeState = function (st, param) {
     var ignoreInvalidForm = param && param.ignoreInvalidForm;
@@ -163,6 +156,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     var pState = angular.copy(state[st] || st);
     $scope.state = pState;
     $scope.state.status("set-form-pristine");
+    return true;
   }
 
   $scope.nextState = function () {
@@ -170,17 +164,46 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   }
 
   $scope.toState = function (st) {
-    var currentStateOrder = orderState($scope.state.name);
-    var toStateOrder = orderState(st);
-    if (toStateOrder < currentStateOrder) {
-      if ($scope.state.status("is-form-pristine")) {
-        $scope.changeState(st, {ignoreInvalidForm: true});
+    var currentStateOrder = state.orderStates.indexOf($scope.state.name);
+    var toStateOrder = state.orderStates.indexOf(st);
+    var next = currentStateOrder < toStateOrder;
+    var currentStatePristine = $scope.state.status("is-form-pristine")
+    var index = currentStateOrder;
+    var lastStep = false;
+    while (!lastStep) {
+      if (index == toStateOrder) {
+        lastStep = true;
       }
+      var stateName = state.orderStates[index];
+      if (!$scope.changeState(stateName, {ignoreInvalidForm: !next && currentStatePristine})) {
+        break;
+      }
+      index += (next ? 1 : -1);
     }
-    else if (currentStateOrder == toStateOrder) {
-      return false;
-    }
-    $scope.changeState(st);
+    //for (var index = currentStateOrder; index <= toStateOrder; index += (next ? 1 : -1)) {
+    //  var stateName = state.orderStates[index];
+    //  if (!$scope.changeState(stateName, !next)) {
+    //    break;
+    //  }
+    //}
+
+    //if (toStateOrder < currentStateOrder) {
+    //  if ($scope.state.status("is-form-pristine")) {
+    //    $scope.changeState(st, {ignoreInvalidForm: true});
+    //  }
+    //}
+    //else if (toStateOrder > currentStateOrder) {
+    //  for (var index = currentStateOrder; index < toStateOrder; index++) {
+    //    var stateName = state.orderStates[index];
+    //    if (!$scope.changeState(stateName)) {
+    //      break;
+    //    }
+    //  }
+    //}
+    //else if (currentStateOrder == toStateOrder) {
+    //  return false;
+    //}
+    //$scope.changeState(st);
   }
 
   $scope.config = {
