@@ -171,13 +171,13 @@ module.exports = function (grunt) {
       }
     },
 
-    //cssmin: {
-    //  generated: {
-    //    options: {
-    //      keepSpecialComments: 0
-    //    }
-    //  }
-    //},
+    cssmin: {
+      generated: {
+        options: {
+          keepSpecialComments: 0
+        }
+      }
+    },
 
     concat: {
       generated: {
@@ -200,15 +200,13 @@ module.exports = function (grunt) {
       }
     },
 
-    //uglify: {
-    //  generated: {
-    //    options: {
-    //      preserveComments: false,
-    //      source_map: true,
-    //      semicolons: true
-    //    }
-    //  }
-    //},
+    uglify: {
+      generated: {
+        options: {
+          preserveComments: false
+        }
+      }
+    },
 
     rename: {
       build: {
