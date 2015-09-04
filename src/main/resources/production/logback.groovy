@@ -1,4 +1,4 @@
-package staging
+package production
 
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.core.ConsoleAppender
