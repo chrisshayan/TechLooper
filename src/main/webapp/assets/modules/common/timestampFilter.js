@@ -1,7 +1,11 @@
 techlooper.filter("timestamp", function (jsonValue) {
   return function (input, type) {
     var date = input;
-
+    if(localStorage.NG_TRANSLATE_LANG_KEY === 'en'){
+      moment.locale('en');
+    }else{
+      moment.locale('vi');
+    }
     switch (type) {
       case 'hour':
         return moment(input, jsonValue.dateTimeFormat).format('h:mm A');
