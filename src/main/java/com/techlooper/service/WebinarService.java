@@ -17,7 +17,7 @@ public interface WebinarService {
 
   WebinarInfoDto createWebinarInfo(WebinarInfoDto webinarInfoDto, UserProfileDto organiser) throws IOException;
 
-  Collection<WebinarInfoDto> findAvailableWebinars();
+  Collection<WebinarInfoDto> findAllWebinars();
 
   List<WebinarInfoDto> listUpcomingWebinar();
 

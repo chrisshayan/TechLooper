@@ -321,7 +321,7 @@ public class UserController {
 
     @RequestMapping(value = "user/webinars", method = RequestMethod.GET)
     public Collection<WebinarInfoDto> findAvailableWebinars() {
-        return webinarService.findAvailableWebinars();
+        return webinarService.findAllWebinars();
     }
 
     @RequestMapping(value = "user/webinar/{id}", method = RequestMethod.GET)
