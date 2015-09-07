@@ -3,7 +3,7 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
   var parts = $routeParams.id.split("-");
   parts.pop();
   var webinarId = parts.pop();
-
+  var today = moment().format('YYYY MM DD');
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   apiService.findWebinarById(webinarId)
     .success(function(webinar) {
@@ -11,8 +11,7 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
         if($scope.webinar.company){
           $scope.webinar.company.companySize = vnwConfigService.getCompanySizeText($scope.webinar.company.companySizeId);
         }
-        //var today = new Date();
-        $scope.webinar.expired = moment($scope.webinar.startDate).isBefore(moment());
+        $scope.webinar.expired = moment($scope.webinar.startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });

@@ -1,7 +1,7 @@
 techlooper.controller("eventsController", function ($scope, apiService, utils, jsonValue) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-
+  var today = moment().format('YYYY MM DD');
   apiService.findAvailableWebinars()
     .success(function (webinars) {//group by startDate
       var group = [];
@@ -17,6 +17,7 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
           if (startDate.isSame(moment(webinars[j].startDate, jsonValue.dateTimeFormat), "day")) {
             lastVisitWebinars.push(webinars[j]);
           }
+          webinars[j].expired = moment(webinars[j].startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
         }
         web.webinars = lastVisitWebinars;
       }
