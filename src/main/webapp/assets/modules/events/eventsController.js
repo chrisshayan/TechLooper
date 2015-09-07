@@ -1,4 +1,4 @@
-techlooper.controller("eventsController", function ($scope, apiService, utils, jsonValue) {
+techlooper.controller("eventsController", function ($scope, apiService, utils, jsonValue, $timeout) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   var today = moment().format('YYYY MM DD');
@@ -12,6 +12,9 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
         if (!startDate.isValid()) continue;
         var web = {startDate: startDate.format(jsonValue.dateFormat)};
         web.expired = moment(web.startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
+        if(web.expired == true){
+          group.now = true;
+        }
         group.push(web);
         lastVisitWebinars = [];
         for (var j = i; j < webinars.length; j++) {
@@ -23,10 +26,13 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
         web.webinars = lastVisitWebinars;
       }
       $scope.webinarsGroup = group;
-        console.log($scope.webinarsGroup);
     })
     .finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
-
+  $timeout(function () {
+    $('html,body').animate({
+      scrollTop: $(".event-timeline").offset().top - 200
+    }, 1500);
+  }, 2500);
 });
