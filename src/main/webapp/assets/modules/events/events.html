@@ -8,9 +8,9 @@
         <p translate="noDataChart"></p>
       </div>
       <div class="events-items">
-        <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup">
+        <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup" ng-class="{expired: webinarInfo.expired}" >
           <h3>{{webinarInfo.startDate}}</h3>
-          <div class="events-item"  ng-class="{expired: webinar.expired}" ng-repeat="webinar in webinarInfo.webinars">
+          <div class="events-item" ng-repeat="webinar in webinarInfo.webinars">
             <div class="left-content">
               <div class="owner">
                 <p>{{(webinar.organiser.name | limitTo: 13) || (webinar.organiser.email | textTruncate: 'email')}}</p>

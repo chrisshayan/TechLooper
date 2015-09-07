@@ -10,6 +10,7 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
         if ($.inArray(webinars[i], lastVisitWebinars) >= 0) continue;
         var startDate = moment(webinars[i].startDate, jsonValue.dateTimeFormat);
         var web = {startDate: startDate.format(jsonValue.dateFormat)};
+        web.expired = moment(web.startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
         group.push(web);
         lastVisitWebinars = [];
         for (var j = i; j < webinars.length; j++) {
@@ -17,11 +18,11 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
           if (startDate.isSame(moment(webinars[j].startDate, jsonValue.dateTimeFormat), "day")) {
             lastVisitWebinars.push(webinars[j]);
           }
-          webinars[j].expired = moment(webinars[j].startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
         }
         web.webinars = lastVisitWebinars;
       }
       $scope.webinarsGroup = group;
+        console.log($scope.webinarsGroup);
     })
     .finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
