@@ -8,6 +8,7 @@ import com.techlooper.model.JobAlertRegistration;
 import com.techlooper.model.JobListingCriteria;
 import com.techlooper.model.JobResponse;
 import com.techlooper.model.Language;
+import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ElasticsearchUserImportConfiguration.class, JobAlertServiceConfigurationTest.class})
@@ -24,6 +26,12 @@ public class JobAlertServiceImplTest {
 
     @Resource
     private JobAlertService jobAlertService;
+
+    @Resource
+    private Set<String> topPriorityJobIds;
+
+    @Resource
+    private ScrapeJobRepository scrapeJobRepository;
 
     @Test
     public void testSearchJob() throws Exception {
@@ -65,5 +73,16 @@ public class JobAlertServiceImplTest {
         criteria.setPage(0);
         List<JobResponse> jobs = jobAlertService.listJob(criteria);
         Assert.assertTrue(jobs.isEmpty());
+    }
+
+    @Test
+    public void updateTopPriorityJobManually() throws Exception {
+        for(String jobId : topPriorityJobIds) {
+            ScrapeJobEntity jobEntity = scrapeJobRepository.findOne(jobId);
+            if (jobEntity != null) {
+                jobEntity.setTopPriority(Boolean.TRUE);
+                scrapeJobRepository.save(jobEntity);
+            }
+        }
     }
 }

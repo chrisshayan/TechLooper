@@ -4,6 +4,8 @@ import com.techlooper.service.JobAlertService;
 import com.techlooper.service.impl.JobAlertServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,11 +21,14 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 7/13/15.
@@ -40,6 +45,9 @@ public class JobAlertServiceConfigurationTest {
 
     @Value("classpath:template/jobAlert.en.ftl")
     private Resource jobAlertEmailTemplate;
+
+    @Value("classpath:topPriorityJobId.csv")
+    private org.springframework.core.io.Resource topPriorityJobIdResource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -95,6 +103,16 @@ public class JobAlertServiceConfigurationTest {
     public Template jobAlertMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
         Template template = freemakerConfig.getTemplate("jobAlert.vi.ftl");
         return template;
+    }
+
+    @Bean
+    public Set<String> topPriorityJobIds() throws IOException {
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(new FileReader(topPriorityJobIdResource.getFile()));
+        Set<String> ids = new HashSet<>();
+        for (CSVRecord record : records) {
+            ids.add(record.get(0));
+        }
+        return ids;
     }
 
 }
