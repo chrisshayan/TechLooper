@@ -31,12 +31,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.techlooper.util.DateTimeUtils.parseDate2String;
-import static com.techlooper.util.DateTimeUtils.parseString2Date;
+import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -114,7 +112,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
 
         Date currentDate = new Date();
         jobAlertRegistrationEntity.setJobAlertRegistrationId(currentDate.getTime());
-        jobAlertRegistrationEntity.setCreatedDate(parseDate2String(currentDate, "dd/MM/yyyy"));
+        jobAlertRegistrationEntity.setCreatedDate(currentDate(BASIC_DATE_PATTERN));
         jobAlertRegistrationEntity.setBucket(getJobAlertBucketNumber(CONFIGURED_JOB_ALERT_PERIOD));
         return jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
     }
@@ -167,7 +165,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         mailSender.send(jobAlertMailMessage);
 
 
-        jobAlertRegistrationEntity.setLastEmailSentDateTime(parseDate2String(new Date(), "dd/MM/yyyy HH:mm"));
+        jobAlertRegistrationEntity.setLastEmailSentDateTime(date2String(new Date(), "dd/MM/yyyy HH:mm"));
         jobAlertRegistrationEntity.setLastEmailSentCode(JOB_ALERT_SENT_OK);
         jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
     }
@@ -250,29 +248,10 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
 
     private int getJobAlertBucketNumber(int period) throws Exception {
         Date currentDate = new Date();
-        Date launchDate = parseString2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, "dd/MM/yyyy");
+        Date launchDate = string2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, BASIC_DATE_PATTERN);
         int numberOfDays = Days.daysBetween(new DateTime(launchDate), new DateTime(currentDate)).getDays();
         return numberOfDays % period;
     }
-
-//    private List<ScrapeJobEntity> sortJobByDescendingStartDate(List<ScrapeJobEntity> jobs) {
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//        return jobs.stream().sorted((job1, job2) -> {
-//            try {
-//                long challenge2StartDate = sdf.parse(job2.getCreatedDateTime()).getTime();
-//                long challenge1StartDate = sdf.parse(job1.getCreatedDateTime()).getTime();
-//                if (challenge2StartDate - challenge1StartDate > 0) {
-//                    return 1;
-//                } else if (challenge2StartDate - challenge1StartDate < 0) {
-//                    return -1;
-//                } else {
-//                    return 0;
-//                }
-//            } catch (ParseException e) {
-//                return 0;
-//            }
-//        }).collect(Collectors.toList());
-//    }
 
     public boolean checkIfUserExceedRegistrationLimit(String email) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
@@ -350,7 +329,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(jobSearchRequest);
             if (vnwJobSearchResponse.hasData()) {
                 List<ScrapeJobEntity> jobEntities = vnwJobSearchResponse.getData().getJobs().stream().map(job ->
-                        convertToJobEntity(job, "vietnamworks", isTopPriorityJob)).collect(toList());
+                        convertToJobEntity(job, isTopPriorityJob)).collect(toList());
                 scrapeJobRepository.save(jobEntities);
                 jobSearchRequestBuilder.withPageNumber(jobSearchRequest.getPageNumber() + 1);
             }
@@ -359,7 +338,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         return vnwJobSearchResponse != null ? vnwJobSearchResponse.getData().getTotal() : 0;
     }
 
-    private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, String crawlSource, Boolean isTopPriority) {
+    private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, Boolean isTopPriority) {
         ScrapeJobEntity jobEntity = new ScrapeJobEntity();
         jobEntity.setJobId(String.valueOf(job.getJobId()));
         jobEntity.setJobTitle(job.getTitle());
@@ -372,10 +351,8 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         jobEntity.setSalaryMax(job.getSalaryMax());
         jobEntity.setSkills(job.getSkills());
         jobEntity.setTopPriority(isTopPriority);
-        jobEntity.setCrawlSource(crawlSource);
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        jobEntity.setCreatedDateTime(simpleDateFormat.format(new Date()));
+        jobEntity.setCrawlSource("vietnamworks");
+        jobEntity.setCreatedDateTime(currentDate(BASIC_DATE_PATTERN));
         return jobEntity;
     }
 }

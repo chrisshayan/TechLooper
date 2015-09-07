@@ -92,7 +92,7 @@ public class JobAlertController {
         }
 
         try {
-            Date lastSentDate = DateTimeUtils.parseString2Date(lastEmailSentDateTime, "dd/MM/yyyy HH:mm");
+            Date lastSentDate = DateTimeUtils.string2Date(lastEmailSentDateTime, "dd/MM/yyyy HH:mm");
             Date currentDate = new Date();
             int diffDays = Days.daysBetween(new DateTime(lastSentDate), new DateTime(currentDate)).getDays();
             return diffDays == 0 ? true : false;
