@@ -17,10 +17,10 @@ appender("ALL", RollingFileAppender) {
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-all_%i.log"
     minIndex = 1
-    maxIndex = 12
+    maxIndex = 24
   }
   triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
+    maxFileSize = "100MB"
   }
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
@@ -32,10 +32,10 @@ appender("SPRING", RollingFileAppender) {
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-spring-all_%i.log"
     minIndex = 1
-    maxIndex = 12
+    maxIndex = 24
   }
   triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
+    maxFileSize = "100MB"
   }
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
@@ -47,10 +47,10 @@ appender("ERROR", RollingFileAppender) {
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-error_%i.log"
     minIndex = 1
-    maxIndex = 12
+    maxIndex = 24
   }
   triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
+    maxFileSize = "100MB"
   }
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
