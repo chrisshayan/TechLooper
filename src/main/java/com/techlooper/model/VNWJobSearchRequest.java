@@ -100,4 +100,33 @@ public class VNWJobSearchRequest {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
+    public static class Builder {
+
+        private VNWJobSearchRequest instance = new VNWJobSearchRequest();
+
+        public Builder withJobCategories(String jobCategories) {
+            instance.jobCategories = jobCategories;
+            return this;
+        }
+
+        public Builder withTechlooperJobType(Integer techlooperJobType) {
+            instance.techlooperJobType = techlooperJobType;
+            return this;
+        }
+
+        public Builder withPageNumber(Integer pageNumber) {
+            instance.pageNumber = pageNumber;
+            return this;
+        }
+
+        public Builder withPageSize(Integer pageSize) {
+            instance.pageSize = pageSize;
+            return this;
+        }
+
+        public VNWJobSearchRequest build() {
+            return instance;
+        }
+    }
 }

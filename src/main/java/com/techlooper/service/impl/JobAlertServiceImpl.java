@@ -2,13 +2,11 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
-import com.techlooper.model.JobAlertRegistration;
-import com.techlooper.model.JobListingCriteria;
-import com.techlooper.model.JobResponse;
-import com.techlooper.model.Language;
+import com.techlooper.model.*;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAlertService;
+import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -33,15 +31,19 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.parseDate2String;
 import static com.techlooper.util.DateTimeUtils.parseString2Date;
+import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
 public class JobAlertServiceImpl implements JobAlertService {
+
+    private final static String JOB_CATEGORY_IT = "35,55,57";
 
     public final static int NUMBER_OF_ITEMS_PER_PAGE = 10;
 
@@ -64,6 +66,9 @@ public class JobAlertServiceImpl implements JobAlertService {
 
     @Resource
     private JobAlertRegistrationRepository jobAlertRegistrationRepository;
+
+    @Resource
+    private JobSearchService vietnamWorksJobSearchService;
 
     @Resource
     private Mapper dozerMapper;
@@ -331,5 +336,46 @@ public class JobAlertServiceImpl implements JobAlertService {
         }
 
         return pathBuilder.toString();
+    }
+
+    @Override
+    public int importVietnamworksJob(int jobType) {
+        VNWJobSearchRequest.Builder jobSearchRequestBuilder = new VNWJobSearchRequest.Builder()
+                .withJobCategories(JOB_CATEGORY_IT).withTechlooperJobType(jobType).withPageNumber(1).withPageSize(20);
+        VNWJobSearchRequest jobSearchRequest = jobSearchRequestBuilder.build();
+        Boolean isTopPriorityJob = jobType == 1 ? Boolean.TRUE : Boolean.FALSE;
+
+        VNWJobSearchResponse vnwJobSearchResponse;
+        do {
+            vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(jobSearchRequest);
+            if (vnwJobSearchResponse.hasData()) {
+                List<ScrapeJobEntity> jobEntities = vnwJobSearchResponse.getData().getJobs().stream().map(job ->
+                        convertToJobEntity(job, "vietnamworks", isTopPriorityJob)).collect(toList());
+                scrapeJobRepository.save(jobEntities);
+                jobSearchRequestBuilder.withPageNumber(jobSearchRequest.getPageNumber() + 1);
+            }
+        } while (vnwJobSearchResponse.hasData());
+
+        return vnwJobSearchResponse != null ? vnwJobSearchResponse.getData().getTotal() : 0;
+    }
+
+    private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, String crawlSource, Boolean isTopPriority) {
+        ScrapeJobEntity jobEntity = new ScrapeJobEntity();
+        jobEntity.setJobId(String.valueOf(job.getJobId()));
+        jobEntity.setJobTitle(job.getTitle());
+        jobEntity.setJobTitleUrl(job.getUrl());
+        jobEntity.setCompany(job.getCompany());
+        jobEntity.setLocation(job.getLocation());
+        jobEntity.setBenefits(job.getBenefits());
+        jobEntity.setCompanyLogoUrl(job.getLogoUrl());
+        jobEntity.setSalaryMin(job.getSalaryMin());
+        jobEntity.setSalaryMax(job.getSalaryMax());
+        jobEntity.setSkills(job.getSkills());
+        jobEntity.setTopPriority(isTopPriority);
+        jobEntity.setCrawlSource(crawlSource);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        jobEntity.setCreatedDateTime(simpleDateFormat.format(new Date()));
+        return jobEntity;
     }
 }

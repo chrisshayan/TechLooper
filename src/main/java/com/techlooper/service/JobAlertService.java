@@ -5,9 +5,11 @@ import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.JobAlertRegistration;
 import com.techlooper.model.JobListingCriteria;
 import com.techlooper.model.JobResponse;
+import com.techlooper.model.VNWJobSearchResponseDataItem;
 
 import javax.mail.internet.AddressException;
 import java.util.List;
+import java.util.Set;
 
 public interface JobAlertService {
 
@@ -30,5 +32,7 @@ public interface JobAlertService {
     boolean checkIfUserExceedRegistrationLimit(String email);
 
     void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, Integer code);
+
+    int importVietnamworksJob(int jobType);
 
 }
