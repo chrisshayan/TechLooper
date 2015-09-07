@@ -35,20 +35,20 @@
         </div>
         <div class="partner-company-field">
           <label>{{'salaryPaymentMethod' | translate}} <strong>*</strong></label>
-
           <div class="selection-group">
             <ul>
               <li>
                 <input ng-model="promotion.paymentMethod" ng-init="promotion.paymentMethod = 'BANK_TRANSFER'"
-                       value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01"/>
+                       value="BANK_TRANSFER" type="radio" name="paymentMethod" id="rdPayment01" required/>
                 <label for="rdPayment01">{{'paymentMethodOption1' | translate}}</label>
               </li>
               <li>
                 <input ng-model="promotion.paymentMethod" type="radio" value="CASH" name="paymentMethod"
-                       id="rdPayment02"/>
+                       id="rdPayment02" required/>
                 <label for="rdPayment02">{{'paymentMethodOption2' | translate}}</label>
               </li>
             </ul>
+            <div class="error-messages">{{error['promotion.paymentMethod']}}</div>
           </div>
         </div>
         <div class="partner-company-field">
