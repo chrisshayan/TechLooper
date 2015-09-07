@@ -30,9 +30,11 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
     .finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
-  $timeout(function () {
-    $('html,body').animate({
-      scrollTop: $(".event-timeline").offset().top - 200
-    }, 1500);
-  }, 2500);
+  if($(".event-timeline").length > 0){
+    $timeout(function () {
+      $('html,body').animate({
+        scrollTop: $(".event-timeline").offset().top - 200
+      }, 1500);
+    }, 2500);
+  }
 });
