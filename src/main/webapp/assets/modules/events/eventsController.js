@@ -9,6 +9,7 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
       for (var i = 0; i < webinars.length; i++) {
         if ($.inArray(webinars[i], lastVisitWebinars) >= 0) continue;
         var startDate = moment(webinars[i].startDate, jsonValue.dateTimeFormat);
+        if (!startDate.isValid()) continue;
         var web = {startDate: startDate.format(jsonValue.dateFormat)};
         web.expired = moment(web.startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
         group.push(web);
