@@ -100,8 +100,8 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     if ($scope.status("show-fixed-price-fields")) {
       $scope.fixedPriceForm.$setSubmitted();
     }
-    if ($scope.postProjectForm.$invalid) {
-      return;
+    if ($scope.state && !$scope.status("is-form-valid")) {
+      return false;
     }
 
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
