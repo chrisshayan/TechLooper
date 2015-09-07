@@ -699,5 +699,6 @@
   "joinedEventAlert": "You have already joined this event.",
   "latestJobs": "Latest Jobs",
   "jobAggregator": "Access to thousands of new jobs from job sites around you and receive weekly email notification about jobs which match perfectly your expectations through free job alert registration.",
-  "sendNow" : "Send Now"
+  "sendNow" : "Send Now",
+  "thisEventExpired": "This event is expired!"
 }
