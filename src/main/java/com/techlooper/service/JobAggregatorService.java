@@ -11,7 +11,7 @@ import javax.mail.internet.AddressException;
 import java.util.List;
 import java.util.Set;
 
-public interface JobAlertService {
+public interface JobAggregatorService {
 
     List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity);
 

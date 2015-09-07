@@ -3,8 +3,8 @@ package com.techlooper.controller;
 import com.techlooper.model.JobListingCriteria;
 import com.techlooper.model.JobListingModel;
 import com.techlooper.model.JobResponse;
-import com.techlooper.service.JobAlertService;
-import com.techlooper.service.impl.JobAlertServiceImpl;
+import com.techlooper.service.JobAggregatorService;
+import com.techlooper.service.impl.JobAggregatorServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,17 +20,17 @@ public class JobListingController {
     public static final int NUMBER_OF_ITEMS_PER_PAGE = 10;
 
     @Resource
-    private JobAlertService jobAlertService;
+    private JobAggregatorService jobAggregatorService;
 
     @ResponseBody
     @RequestMapping(value = "/jobListing", method = RequestMethod.POST)
     public JobListingModel list(@RequestBody JobListingCriteria criteria) throws Exception {
         JobListingModel jobListing = new JobListingModel();
-        Long totalJob = jobAlertService.countJob(criteria);
-        List<JobResponse> jobs = jobAlertService.listJob(criteria);
+        Long totalJob = jobAggregatorService.countJob(criteria);
+        List<JobResponse> jobs = jobAggregatorService.listJob(criteria);
 
         Long totalPage = totalJob % NUMBER_OF_ITEMS_PER_PAGE == 0 ?
-                totalJob / JobAlertServiceImpl.NUMBER_OF_ITEMS_PER_PAGE : totalJob / JobAlertServiceImpl.NUMBER_OF_ITEMS_PER_PAGE + 1;
+                totalJob / JobAggregatorServiceImpl.NUMBER_OF_ITEMS_PER_PAGE : totalJob / JobAggregatorServiceImpl.NUMBER_OF_ITEMS_PER_PAGE + 1;
         jobListing.setPage(criteria.getPage());
         jobListing.setTotalPage(totalPage);
         jobListing.setTotalJob(totalJob);

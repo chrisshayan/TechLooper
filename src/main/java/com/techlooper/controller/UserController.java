@@ -96,7 +96,7 @@ public class UserController {
     private ProjectService projectService;
 
     @Resource
-    private JobAlertService jobAlertService;
+    private JobAggregatorService jobAggregatorService;
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
     public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -286,7 +286,7 @@ public class UserController {
         List<ProjectDto> latestProjects = projectService.listProject().stream().limit(3).collect(toList());
         personalHomepage.setLatestProjects(latestProjects);
 
-        List<JobResponse> latestJobs = jobAlertService.listNormalJob(new JobListingCriteria(1), MAX_NUMBER_OF_JOBS, MAX_NUMBER_OF_PAGES);
+        List<JobResponse> latestJobs = jobAggregatorService.listNormalJob(new JobListingCriteria(1), MAX_NUMBER_OF_JOBS, MAX_NUMBER_OF_PAGES);
         personalHomepage.setLatestJobs(latestJobs);
 
         return personalHomepage;

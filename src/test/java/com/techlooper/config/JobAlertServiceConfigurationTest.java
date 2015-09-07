@@ -1,7 +1,7 @@
 package com.techlooper.config;
 
-import com.techlooper.service.JobAlertService;
-import com.techlooper.service.impl.JobAlertServiceImpl;
+import com.techlooper.service.JobAggregatorService;
+import com.techlooper.service.impl.JobAggregatorServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.commons.csv.CSVFormat;
@@ -25,7 +25,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -55,8 +54,8 @@ public class JobAlertServiceConfigurationTest {
     }
 
     @Bean
-    public JobAlertService jobAlertService() {
-        return new JobAlertServiceImpl();
+    public JobAggregatorService jobAlertService() {
+        return new JobAggregatorServiceImpl();
     }
 
     @Bean

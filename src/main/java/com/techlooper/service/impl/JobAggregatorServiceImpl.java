@@ -5,7 +5,7 @@ import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
-import com.techlooper.service.JobAlertService;
+import com.techlooper.service.JobAggregatorService;
 import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +41,7 @@ import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
-public class JobAlertServiceImpl implements JobAlertService {
+public class JobAggregatorServiceImpl implements JobAggregatorService {
 
     private final static String JOB_CATEGORY_IT = "35,55,57";
 

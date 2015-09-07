@@ -9,7 +9,7 @@ import com.techlooper.model.JobListingCriteria;
 import com.techlooper.model.JobResponse;
 import com.techlooper.model.Language;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
-import com.techlooper.service.JobAlertService;
+import com.techlooper.service.JobAggregatorService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +22,10 @@ import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ElasticsearchUserImportConfiguration.class, JobAlertServiceConfigurationTest.class})
-public class JobAlertServiceImplTest {
+public class JobAggregatorServiceImplTest {
 
     @Resource
-    private JobAlertService jobAlertService;
+    private JobAggregatorService jobAggregatorService;
 
     @Resource
     private Set<String> topPriorityJobIds;
@@ -39,7 +39,7 @@ public class JobAlertServiceImplTest {
         jobAlertRegistration.setEmail("ndkhoa.is@gmail.com");
         jobAlertRegistration.setKeyword("Java");
         jobAlertRegistration.setLocation("Ho Chi Minh");
-        List<ScrapeJobEntity> jobs = jobAlertService.searchJob(jobAlertRegistration);
+        List<ScrapeJobEntity> jobs = jobAggregatorService.searchJob(jobAlertRegistration);
         Assert.assertTrue(jobs.size() > 0);
     }
 
@@ -50,7 +50,7 @@ public class JobAlertServiceImplTest {
         jobAlertRegistration.setKeyword("Java");
         jobAlertRegistration.setLocation("Ho Chi Minh");
         jobAlertRegistration.setLang(Language.en);
-        JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAlertService.registerJobAlert(jobAlertRegistration);
+        JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAggregatorService.registerJobAlert(jobAlertRegistration);
         Assert.assertNotNull(jobAlertRegistrationEntity);
         Assert.assertNotNull(jobAlertRegistrationEntity.getJobAlertRegistrationId());
     }
@@ -61,7 +61,7 @@ public class JobAlertServiceImplTest {
         criteria.setKeyword("Java Developer");
         criteria.setLocation("");
         criteria.setPage(0);
-        List<JobResponse> jobs = jobAlertService.listJob(criteria);
+        List<JobResponse> jobs = jobAggregatorService.listJob(criteria);
         Assert.assertFalse(jobs.isEmpty());
     }
 
@@ -71,7 +71,7 @@ public class JobAlertServiceImplTest {
         criteria.setKeyword("ABC.XYZ");
         criteria.setLocation("");
         criteria.setPage(0);
-        List<JobResponse> jobs = jobAlertService.listJob(criteria);
+        List<JobResponse> jobs = jobAggregatorService.listJob(criteria);
         Assert.assertTrue(jobs.isEmpty());
     }
 
