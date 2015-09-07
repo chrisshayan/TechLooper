@@ -11,6 +11,8 @@ techlooper.controller("eventDetailsController", function ($scope, apiService, $r
         if($scope.webinar.company){
           $scope.webinar.company.companySize = vnwConfigService.getCompanySizeText($scope.webinar.company.companySizeId);
         }
+        //var today = new Date();
+        $scope.webinar.expired = moment($scope.webinar.startDate).isBefore(moment());
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });

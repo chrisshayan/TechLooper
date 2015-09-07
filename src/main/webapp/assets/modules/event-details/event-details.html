@@ -38,8 +38,13 @@
           <p translate="thereAreGoing" translate-value-number="{{webinar.attendees.length}}"></p>
         </div>
         <div class="join-with-facebook">
-          <button class="btn btn-primary btn-flat" translate="joinWithFacebook" ng-click="joinNow()"
+          <button class="btn btn-primary btn-flat" ng-show="webinar.expired"
+                  translate="joinWithFacebook" ng-click="joinNow()"
                   ng-disabled="status('not-joined')"></button>
+          <button class="btn btn-primary btn-flat"
+                  disabled="disabled"
+                  ng-show="!webinar.expired"
+                  translate="thisEventExpired"></button>
         </div>
       </div>
     </div>
