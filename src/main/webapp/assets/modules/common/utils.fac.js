@@ -7,10 +7,16 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       var path = pth || $location.path();
       var rs = {};
       $.each(jsonValue.uiViews, function (i, view) {
-        if ((view.regex === undefined && view.url === path) ||
-          (view.regex !== undefined && view.regex.test(path))) {
+        if (!$.isEmptyObject(rs)) return false;
+
+        if (view.regex) {
+          if (view.regex.test(path)) {
+            rs = view;
+          }
+        }
+
+        if (view.url === path) {
           rs = view;
-          return false;
         }
       });
       return rs;
