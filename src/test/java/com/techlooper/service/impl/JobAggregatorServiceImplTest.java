@@ -4,10 +4,7 @@ import com.techlooper.config.ElasticsearchUserImportConfiguration;
 import com.techlooper.config.JobAlertServiceConfigurationTest;
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.ScrapeJobEntity;
-import com.techlooper.model.JobAlertRegistration;
-import com.techlooper.model.JobListingCriteria;
-import com.techlooper.model.JobResponse;
-import com.techlooper.model.Language;
+import com.techlooper.model.*;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.JobAggregatorService;
 import org.junit.Assert;
@@ -24,7 +21,7 @@ import java.util.Set;
 @ContextConfiguration(classes = {ElasticsearchUserImportConfiguration.class, JobAlertServiceConfigurationTest.class})
 public class JobAggregatorServiceImplTest {
 
-    @Resource
+    //@Resource
     private JobAggregatorService jobAggregatorService;
 
     @Resource
@@ -57,22 +54,22 @@ public class JobAggregatorServiceImplTest {
 
     @Test
     public void testListJob() throws Exception {
-        JobListingCriteria criteria = new JobListingCriteria(1);
+        JobSearchCriteria criteria = new JobSearchCriteria(1);
         criteria.setKeyword("Java Developer");
         criteria.setLocation("");
         criteria.setPage(0);
-        List<JobResponse> jobs = jobAggregatorService.listJob(criteria);
-        Assert.assertFalse(jobs.isEmpty());
+        JobSearchResponse jobSearchResponse = jobAggregatorService.listJob(criteria);
+        Assert.assertFalse(jobSearchResponse.getJobs().isEmpty());
     }
 
     @Test
     public void testListJobEmptyResult() throws Exception {
-        JobListingCriteria criteria = new JobListingCriteria(1);
+        JobSearchCriteria criteria = new JobSearchCriteria(1);
         criteria.setKeyword("ABC.XYZ");
         criteria.setLocation("");
         criteria.setPage(0);
-        List<JobResponse> jobs = jobAggregatorService.listJob(criteria);
-        Assert.assertTrue(jobs.isEmpty());
+        JobSearchResponse jobSearchResponse = jobAggregatorService.listJob(criteria);
+        Assert.assertTrue(jobSearchResponse.getJobs().isEmpty());
     }
 
     @Test
@@ -80,7 +77,7 @@ public class JobAggregatorServiceImplTest {
         for(String jobId : topPriorityJobIds) {
             ScrapeJobEntity jobEntity = scrapeJobRepository.findOne(jobId);
             if (jobEntity != null) {
-                jobEntity.setTopPriority(Boolean.TRUE);
+                jobEntity.setTopPriority(null);
                 scrapeJobRepository.save(jobEntity);
             }
         }
