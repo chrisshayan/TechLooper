@@ -1,25 +1,25 @@
 techlooper.controller("priceJobController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route, validatorService, vnwConfigService) {
 
-  var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-
-  $scope.$watch("translate", function () {
-    if ($rootScope.translate === undefined) {
-      return;
-    }
-
-    var translate = $rootScope.translate;
-    $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
-
-    $.each([
-      {item: "jobLevels", translate: "exManager"}
-    ], function (i, select) {
-      if (!$scope.selectize[select.item].$elem) {
-        return true;
-      }
-      $scope.selectize[select.item].$elem.settings.placeholder = translate[select.translate];
-      $scope.selectize[select.item].$elem.updatePlaceholder();
-    });
-  });
+  //var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
+  //
+  //$scope.$watch("translate", function () {
+  //  if ($rootScope.translate === undefined) {
+  //    return;
+  //  }
+  //
+  //  var translate = $rootScope.translate;
+  //  $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
+  //
+  //  $.each([
+  //    {item: "jobLevels", translate: "exManager"}
+  //  ], function (i, select) {
+  //    if (!$scope.selectize[select.item].$elem) {
+  //      return true;
+  //    }
+  //    $scope.selectize[select.item].$elem.settings.placeholder = translate[select.translate];
+  //    $scope.selectize[select.item].$elem.updatePlaceholder();
+  //  });
+  //});
 
   $scope.locationsConfig = vnwConfigService.locationsSelectize;
   $scope.industriesConfig = vnwConfigService.industriesSelectize;
@@ -27,22 +27,23 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   $scope.companySizeConfig = vnwConfigService.companySizeSelectize;
   $scope.yearsOfExperienceConfig = vnwConfigService.yearsOfExperience;
   $scope.languagesConfig = vnwConfigService.languagesSelectize;
-  $scope.selectize = {
-    jobLevels: {
-      items: jobLevels,
-      config: {
-        valueField: 'id',
-        labelField: 'translate',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['translate'],
-        placeholder: $translate.instant("exManager"),
-        onInitialize: function (selectize) {
-          $scope.selectize.jobLevels.$elem = selectize;
-        }
-      }
-    }
-  }
+  $scope.jobLevelsConfig = vnwConfigService.jobsSelectize;
+  //$scope.selectize = {
+  //  jobLevels: {
+  //    items: jobLevels,
+  //    config: {
+  //      valueField: 'id',
+  //      labelField: 'translate',
+  //      delimiter: '|',
+  //      maxItems: 1,
+  //      searchField: ['translate'],
+  //      placeholder: $translate.instant("exManager"),
+  //      onInitialize: function (selectize) {
+  //        $scope.selectize.jobLevels.$elem = selectize;
+  //      }
+  //    }
+  //  }
+  //}
 
   $scope.selectedTime = $translate.instant("day");
   $scope.error = {};
@@ -131,11 +132,10 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
 
     switch (swstep) {
       case "step3":
-        console.log($scope.priceJob);
         var priceJob = $.extend(true, {}, $scope.priceJob);
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
-        priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].ids;
-        //priceJob.yearsExperienceId = vnwConfigService.experiences.map[];
+        priceJob.jobLevelName = jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate;
+        //priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].id;
         console.log(priceJob);
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
