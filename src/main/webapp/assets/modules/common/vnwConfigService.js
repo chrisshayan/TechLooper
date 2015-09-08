@@ -6,7 +6,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     delimiter: '|',
     maxItems: 1,
     searchField: ['translate']
-  }
+  };
 
   var vnwLang = "lang_" + ($translate.use() === "en" ? "en" : "vn");
   var companySizes = [
@@ -1113,7 +1113,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         instance[key].config.selectizeDeffer.resolve(selectize);
       }
     }
-  }
+  };
 
   var instance = {
     getLang: function () {
@@ -1250,7 +1250,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         searchField: ['translate']
       }, createSelectizeConfig("industriesSelectize"), {plugins: ['remove_button', "techlooper"]})
     }
-  }
+  };
 
   var transSelectizes = [
     {key: "jobLevelsSelectize", placeholder: "exManager", translate: true},
