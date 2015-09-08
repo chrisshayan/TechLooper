@@ -1245,12 +1245,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       config: $.extend(true, {}, createSelectizeConfig("yearsOfExperience"), translateConfigBase)
     },
 
-    locationsSearchSelectize: {
-      items: locations.map(function (location) {
-        return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
-      }),
-      config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
-    },
+    //locationsSearchSelectize: {
+    //  items: locations.map(function (location) {
+    //    return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
+    //  }),
+    //  config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
+    //},
     companySizeSelectize: {
       items: companySize.map(function (size) {
         return {id: size.companySize_id, translate: size[vnwLang], en: size.lang_en};
@@ -1287,11 +1287,11 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
   var transSelectizes = [
     {key: "jobLevelsSelectize", placeholder: "exManager", translate: true},
-    {key: "yobsSelectize", placeholder: "exYob"},
+    {key: "yobsSelectize", placeholder: "exYob", translate: true},
     {key: "gendersSelectize", placeholder: "exMale", translate: true},
-    {key: "locationsSelectize", placeholder: "exHoChiMinh"},
-    {key: "locationsSearchSelectize", placeholder: "allLocations"},
-    {key: "industriesSelectize", placeholder: "exItSoftware"},
+    {key: "locationsSelectize", placeholder: "exHoChiMinh", translate: true},
+    //{key: "locationsSearchSelectize", placeholder: "allLocations", translate: true},
+    {key: "industriesSelectize", placeholder: "exItSoftware", translate: true},
     {key: "companySizeSelectize", placeholder: "ex149", translate: true},
     {key: "educationLevel", placeholder: "exEducation", translate: true},
     {key: "yearsOfExperience", placeholder: "exExperience", translate: true},
