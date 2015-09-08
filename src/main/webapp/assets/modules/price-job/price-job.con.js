@@ -1,4 +1,4 @@
-techlooper.controller("priceJobController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route, validatorService, vnwConfigService) {
+techlooper.controller("priceJobController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route, validatorService) {
 
   var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
 
@@ -11,7 +11,10 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
 
     $.each([
-      {item: "jobLevels", translate: "exManager"}
+      {item: "locations", translate: "exHoChiMinh"},
+      {item: "jobLevels", translate: "exManager"},
+      {item: "industries", translate: "exItSoftware"},
+      {item: "companySize", translate: "ex149"}
     ], function (i, select) {
       if (!$scope.selectize[select.item].$elem) {
         return true;
@@ -21,27 +24,21 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     });
   });
 
-  $scope.locationsConfig = vnwConfigService.locationsSelectize;
-  $scope.industriesConfig = vnwConfigService.industriesSelectize;
-  $scope.educationLevelConfig = vnwConfigService.educationLevel;
-  $scope.companySizeConfig = vnwConfigService.companySizeSelectize;
-  $scope.yearsOfExperienceConfig = vnwConfigService.yearsOfExperience;
-  $scope.languagesConfig = vnwConfigService.languagesSelectize;
   $scope.selectize = {
-    //locations: {
-    //  items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
-    //  config: {
-    //    valueField: 'id',
-    //    labelField: 'name',
-    //    delimiter: '|',
-    //    maxItems: 1,
-    //    searchField: ['name'],
-    //    placeholder: $translate.instant("exHoChiMinh"),
-    //    onInitialize: function (selectize) {
-    //      $scope.selectize.locations.$elem = selectize;
-    //    }
-    //  }
-    //},
+    locations: {
+      items: jsonValue.locations.filter(function (location) {return location.id > 0; }),
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 1,
+        searchField: ['name'],
+        placeholder: $translate.instant("exHoChiMinh"),
+        onInitialize: function (selectize) {
+          $scope.selectize.locations.$elem = selectize;
+        }
+      }
+    },
     jobLevels: {
       items: jobLevels,
       config: {
@@ -56,21 +53,21 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         }
       }
     },
-    //industries: {
-    //  items: jsonValue.industriesArray,
-    //  config: {
-    //    valueField: 'id',
-    //    labelField: 'name',
-    //    delimiter: '|',
-    //    maxItems: 3,
-    //    plugins: ['remove_button'],
-    //    searchField: ['name'],
-    //    placeholder: $translate.instant("exItSoftware"),
-    //    onInitialize: function (selectize) {
-    //      $scope.selectize.industries.$elem = selectize;
-    //    }
-    //  }
-    //},
+    industries: {
+      items: jsonValue.industriesArray,
+      config: {
+        valueField: 'id',
+        labelField: 'name',
+        delimiter: '|',
+        maxItems: 3,
+        plugins: ['remove_button'],
+        searchField: ['name'],
+        placeholder: $translate.instant("exItSoftware"),
+        onInitialize: function (selectize) {
+          $scope.selectize.industries.$elem = selectize;
+        }
+      }
+    },
     companySize: {
       items: jsonValue.companySizesArray,
       config: {
@@ -217,11 +214,9 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
 
     switch (swstep) {
       case "step3":
-        console.log($scope.priceJob);
         var priceJob = $.extend(true, {}, $scope.priceJob);
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
-        //priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].ids;
-        //priceJob.yearsExperienceId = vnwConfigService.experiences.map[];
+        priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].id;
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
