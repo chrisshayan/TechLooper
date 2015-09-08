@@ -212,16 +212,22 @@ module.exports = function (grunt) {
       build: {
         files: [
           {
-            src: ['<%=pkg.public%>generate-resources/techlooper-bower.min.js'],
-            dest: '<%=pkg.public%>generate-resources/techlooper-bower-' + timestamp + '.min.js'
+            expand: true,
+            cwd: '<%=pkg.public%>generate-resources',
+            src: ['**/*.min.js'],
+            dest: '<%=pkg.public%>generate-resources',
+            rename: function(dest, src) {
+              return dest + "/" + src.replace(".min.js", "-" + timestamp + '.min.js');
+            }
           },
           {
-            src: ['<%=pkg.public%>generate-resources/techlooper.min.js'],
-            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.js'
-          },
-          {
-            src: ['<%=pkg.public%>generate-resources/techlooper.min.css'],
-            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.css'
+            expand: true,
+            cwd: '<%=pkg.public%>generate-resources',
+            src: ['**/*.min.css'],
+            dest: '<%=pkg.public%>generate-resources',
+            rename: function(dest, src) {
+              return dest + "/" + src.replace(".min.css", "-" + timestamp + '.min.css');
+            }
           }
         ]
       }
@@ -254,12 +260,70 @@ module.exports = function (grunt) {
         }
       }
     }
+
+    //template: {
+    //  staging: {
+    //    options: {
+    //      data: {
+    //        vnwDomainName: 'staging.vietnamworks.com'
+    //      }
+    //    },
+    //    files: [{
+    //      expand: true,
+    //      cwd: '<%=pkg.assets%>modules',
+    //      src: ['**/*.grt.html'],
+    //      dest: '<%=pkg.assets%>modules',
+    //      rename: function(dest, src) {
+    //        return dest + "/" + src.replace(".grt.html", ".html");
+    //      }
+    //    }]
+    //  },
+    //  prod: {
+    //    options: {
+    //      data: {
+    //        vnwDomainName: 'staging.vietnamworks.com'
+    //      }
+    //    },
+    //    files: [{
+    //      expand: true,
+    //      cwd: '<%=pkg.assets%>modules',
+    //      src: ['**/*.grt.html'],
+    //      dest: '<%=pkg.assets%>modules',
+    //      rename: function(dest, src) {
+    //        grunt.log.writeln(dest + "/" + src.replace(".grt.html", ".html"));
+    //        return dest + "/" + src.replace(".grt.html", ".html");
+    //      }
+    //    }]
+    //  }
+    //}
   });
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
+  //grunt.registerTask("staging", [
+  //  "clean:build",
+  //  "template:staging",
+  //  "copy:build",
+  //  "bower-install-simple:build",
+  //  "includeSource:target",
+  //  "wiredep:target",
+  //  "ngAnnotate:main",
+  //  "useminPrepare",
+  //  "concat:generated",
+  //  "uglify:generated",
+  //  "cssmin:generated",
+  //  "usemin",
+  //  "imagemin:build",
+  //  "copy:font",
+  //  "clean:release",
+  //  "replace:cssConcat",
+  //  "rename:build",
+  //  "cache_control:build"
+  //]);
+
   grunt.registerTask("build", [
     "clean:build",
+    //"template:prod",
     "copy:build",
     "bower-install-simple:build",
     "includeSource:target",
@@ -280,6 +344,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask("local", [
     "clean:build",
+    //"template:staging",
     "copy",
     "bower-install-simple:build",
     "includeSource:target",

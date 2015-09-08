@@ -72,4 +72,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   securityService.initialize();
   seoService.initialize();
   joinAnythingService.initialize();
+
+  $rootScope.vnwDomainName = (window.location.host.indexOf("staging") >= 0 ? "staging.vietnamworks.com" : "vietnamworks.com");
 });

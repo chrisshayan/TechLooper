@@ -70,6 +70,10 @@
     <finalName>techlooper</finalName>
     <resources>
       <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
         <directory>src/main/resources/common</directory>
       </resource>
     </resources>
@@ -824,9 +828,9 @@
     </dependency>
 
     <!--<dependency>-->
-      <!--<groupId>commons-dbcp</groupId>-->
-      <!--<artifactId>commons-dbcp</artifactId>-->
-      <!--<version>1.4</version>-->
+    <!--<groupId>commons-dbcp</groupId>-->
+    <!--<artifactId>commons-dbcp</artifactId>-->
+    <!--<version>1.4</version>-->
     <!--</dependency>-->
 
     <!-- Google API -->
@@ -841,9 +845,9 @@
       <version>v3-rev135-1.20.0</version>
     </dependency>
     <!--<dependency>-->
-      <!--<groupId>com.google.oauth-client</groupId>-->
-      <!--<artifactId>google-oauth-client-jetty</artifactId>-->
-      <!--<version>1.20.0</version>-->
+    <!--<groupId>com.google.oauth-client</groupId>-->
+    <!--<artifactId>google-oauth-client-jetty</artifactId>-->
+    <!--<version>1.20.0</version>-->
     <!--</dependency>-->
 
     <dependency>
