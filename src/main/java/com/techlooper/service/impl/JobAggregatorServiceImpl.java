@@ -10,8 +10,8 @@ import com.techlooper.service.JobSearchService;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,8 @@ import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
+import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
+import static org.elasticsearch.index.query.FilterBuilders.termFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
@@ -171,11 +174,15 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
     }
 
     @Override
-    public List<JobResponse> listJob(JobListingCriteria criteria) {
-        List<JobResponse> result = new ArrayList<>();
-
+    public JobSearchResponse listJob(JobSearchCriteria criteria) {
         NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
+        FacetedPage<ScrapeJobEntity> searchResult = scrapeJobRepository.search(searchQueryBuilder.build());
+
+        Long totalJob = searchResult.getTotalElements();
+        Integer totalPage = searchResult.getTotalPages();
+
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
+        List<JobResponse> result = new ArrayList<>();
         if (!jobs.isEmpty()) {
             for (ScrapeJobEntity jobEntity : jobs) {
                 JobResponse.Builder builder = new JobResponse.Builder();
@@ -195,32 +202,13 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                 result.add(job);
             }
         }
-        return result;
+
+        JobSearchResponse jobSearchResponse = new JobSearchResponse.Builder()
+                .withTotalJob(totalJob).withTotalPage(totalPage).withPage(criteria.getPage()).withJobs(result).build();
+        return jobSearchResponse;
     }
 
-    @Override
-    public List<JobResponse> listNormalJob(JobListingCriteria criteria, int limit, int totalPage) {
-        List<JobResponse> result = new ArrayList<>();
-        int pageNumber = 1;
-        while (result.size() < limit && pageNumber <= totalPage) {
-            criteria.setPage(pageNumber);
-            List<JobResponse> normalJobs = listJob(criteria).stream().filter(job -> job.getTopPriority() == null || job.getTopPriority() == false)
-                    .collect(Collectors.toList());
-            if (!normalJobs.isEmpty()) {
-                result.addAll(normalJobs);
-            }
-            pageNumber++;
-        }
-        return result.stream().limit(limit).collect(Collectors.toList());
-    }
-
-    @Override
-    public Long countJob(JobListingCriteria criteria) {
-        NativeSearchQueryBuilder searchQueryBuilder = getJobListingQueryBuilder(criteria);
-        return scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
-    }
-
-    private NativeSearchQueryBuilder getJobListingQueryBuilder(JobListingCriteria criteria) {
+    private NativeSearchQueryBuilder getJobListingQueryBuilder(JobSearchCriteria criteria) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
         QueryBuilder queryBuilder = null;
@@ -238,7 +226,17 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             }
         }
 
-        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, FilterBuilders.rangeFilter("createdDateTime").from("now-30d/d")));
+        BoolFilterBuilder filterBuilder = new BoolFilterBuilder();
+        filterBuilder.must(rangeFilter("createdDateTime").from("now-30d/d"));
+        if (criteria.getTopPriority() != null) {
+            if (criteria.getTopPriority() == true) {
+                filterBuilder.must(termFilter("topPriority", true));
+            } else {
+                filterBuilder.mustNot(termFilter("topPriority", true));
+            }
+        }
+
+        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, filterBuilder));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("topPriority").order(SortOrder.DESC));
         searchQueryBuilder.withSort(SortBuilders.scoreSort());
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
@@ -290,7 +288,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             }
         }
 
-        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, FilterBuilders.rangeFilter("createdDateTime").from("now-7d/d")));
+        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, rangeFilter("createdDateTime").from("now-7d/d")));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("topPriority").order(SortOrder.DESC));
         searchQueryBuilder.withSort(SortBuilders.scoreSort());
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));

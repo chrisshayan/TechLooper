@@ -36,6 +36,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * Created by phuonghqh on 12/23/14.
@@ -43,9 +44,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 public class UserController {
 
-    private final int MAX_NUMBER_OF_JOBS = 3;
-
-    private final int MAX_NUMBER_OF_PAGES = 10;
+    private final int MAX_NUMBER_OF_ITEMS_DISPLAY = 3;
 
     @Resource
     private ApplicationContext applicationContext;
@@ -283,11 +282,13 @@ public class UserController {
 
         personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
 
-        List<ProjectDto> latestProjects = projectService.listProject().stream().limit(3).collect(toList());
+        List<ProjectDto> latestProjects = projectService.listProject().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toList());
         personalHomepage.setLatestProjects(latestProjects);
 
-        List<JobResponse> latestJobs = jobAggregatorService.listNormalJob(new JobListingCriteria(1), MAX_NUMBER_OF_JOBS, MAX_NUMBER_OF_PAGES);
-        personalHomepage.setLatestJobs(latestJobs);
+        JobSearchCriteria criteria = new JobSearchCriteria();
+        criteria.setTopPriority(Boolean.FALSE);
+        JobSearchResponse latestJobSearchResponse = jobAggregatorService.listJob(criteria);
+        personalHomepage.setLatestJobs(latestJobSearchResponse.getJobs().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toSet()));
 
         return personalHomepage;
     }

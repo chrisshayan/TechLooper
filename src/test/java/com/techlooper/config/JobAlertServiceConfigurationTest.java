@@ -53,10 +53,10 @@ public class JobAlertServiceConfigurationTest {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Bean
-    public JobAggregatorService jobAlertService() {
-        return new JobAggregatorServiceImpl();
-    }
+//    @Bean
+//    public JobAggregatorService jobAlertService() {
+//        return new JobAggregatorServiceImpl();
+//    }
 
     @Bean
     public Mapper dozerBeanMapper() {
