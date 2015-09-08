@@ -18,22 +18,34 @@
           <div class="price-job-step-form">
             <div class="price-job-step-field">
               <label>{{'companyMainActivity' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.industries.config' options='selectize.industries.items'
-                         ng-model="priceJob.jobCategories"
+              <!--<selectize config='selectize.industries.config' options='selectize.industries.items'-->
+                         <!--ng-model="priceJob.jobCategories"-->
+                         <!--name="{{'jobCategory' | translate}}"></selectize>-->
+              <selectize config="industriesConfig.config"
+                         options="industriesConfig.items"
+                         ng-model="priceJob.jobCategories" ng-required="false"
                          name="{{'jobCategory' | translate}}"></selectize>
               <div class="error-messages">{{error['priceJob.jobCategories']}}</div>
             </div>
 
             <div class="price-job-step-field">
               <label>{{'companyEmployeeSize' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.companySize.config' options='selectize.companySize.items'
-                         ng-model="priceJob.companySizeId" name="{{'companySizeId' | translate}}"></selectize>
+              <!--<selectize config='selectize.companySize.config' options='selectize.companySize.items'-->
+                         <!--ng-model="priceJob.companySizeId" name="{{'companySizeId' | translate}}"></selectize>-->
+              <selectize config="companySizeConfig.config"
+                         options="companySizeConfig.items"
+                         ng-model="priceJob.companySizeId" ng-required="false"
+                         name="{{'companySizeId' | translate}}"></selectize>
               <div class="error-messages">{{error['priceJob.companySizeId']}}</div>
             </div>
             <div class="price-job-step-field">
               <label>{{'cityHiring' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.locations.config' options='selectize.locations.items'
-                         ng-model="priceJob.locationId"
+              <!--<selectize config='selectize.locations.config' options='selectize.locations.items'-->
+                         <!--ng-model="priceJob.locationId"-->
+                         <!--name="{{'location' | translate}}" class="locationSelectbox"></selectize>-->
+              <selectize config="locationsConfig.config"
+                         options="locationsConfig.items"
+                         ng-model="priceJob.locationId" ng-required="false"
                          name="{{'location' | translate}}" class="locationSelectbox"></selectize>
               <div class="error-messages">{{error['priceJob.locationId']}}</div>
             </div>
@@ -62,14 +74,22 @@
             </div>
             <div class="price-job-step-field">
               <label>{{'yearsExperienceRequired' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.experience.config' options='selectize.experience.items'
-                         ng-model="priceJob.yearsExperienceId" name="{{'experienceId' | translate}}"></selectize>
+              <!--<selectize config='selectize.experience.config' options='selectize.experience.items'-->
+                         <!--ng-model="priceJob.yearsExperienceId" name="{{'experienceId' | translate}}"></selectize>-->
+              <selectize config="yearsOfExperienceConfig.config"
+                         options="yearsOfExperienceConfig.items"
+                         ng-model="priceJob.yearsExperienceId" ng-required="false"
+                         name="{{'experienceId' | translate}}"></selectize>
               <div class="error-messages">{{error['priceJob.yearsExperienceId']}}</div>
             </div>
             <div class="price-job-step-field">
               <label>{{'minEduLevel' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.education.config' options='selectize.education.items'
-                         ng-model="priceJob.educationRequiredId"
+              <!--<selectize config='selectize.education.config' options='selectize.education.items'-->
+                         <!--ng-model="priceJob.educationRequiredId"-->
+                         <!--name="{{'educationId' | translate}}"></selectize>-->
+              <selectize config="educationLevelConfig.config"
+                         options="educationLevelConfig.items"
+                         ng-model="priceJob.educationRequiredId" ng-required="false"
                          name="{{'educationId' | translate}}"></selectize>
               <div class="error-messages">{{error['priceJob.educationRequiredId']}}</div>
             </div>
@@ -97,8 +117,12 @@
             </div>
             <div class="price-job-step-field">
               <label>{{'languagesRequired' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.languages.config' options='selectize.languages.items'
-                         ng-model="priceJob.languagesId"
+              <!--<selectize config='selectize.languages.config' options='selectize.languages.items'-->
+                         <!--ng-model="priceJob.languagesId"-->
+                         <!--name="{{'languagesId' | translate}}"></selectize>-->
+              <selectize config="languagesConfig.config"
+                         options="languagesConfig.items"
+                         ng-model="priceJob.languagesId" ng-required="false"
                          name="{{'languagesId' | translate}}"></selectize>
               <div class="error-messages">{{error['priceJob.languagesId']}}</div>
             </div>
