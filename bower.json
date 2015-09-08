@@ -133,6 +133,9 @@
     "jquery.easing": {
       "main": "js/jquery.easing.js"
     },
+    "angular-selectize2": {
+      "main": "dist/angular-selectize.js"
+    },
     "bootstrap-select": {
       "main": "dist/js/bootstrap-select.js"
     },

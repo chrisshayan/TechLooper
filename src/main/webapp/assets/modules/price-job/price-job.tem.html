@@ -68,8 +68,12 @@
             </div>
             <div class="price-job-step-field">
               <label>{{'forWhichJobLevel' | translate}} <strong>*</strong></label>
-              <selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'
-                         ng-model="priceJob.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>
+              <!--<selectize config='selectize.jobLevels.config' options='selectize.jobLevels.items'-->
+                         <!--ng-model="priceJob.jobLevelIds" name="{{'jobLevel' | translate}}"></selectize>-->
+              <selectize config="jobLevelsConfig.config"
+                         options="jobLevelsConfig.items"
+                         ng-model="priceJob.jobLevelIds" ng-required="false"
+                         name="{{'jobLevelIds' | translate}}"></selectize>
               <div class="error-messages">{{error['priceJob.jobLevelIds']}}</div>
             </div>
             <div class="price-job-step-field">
@@ -143,7 +147,7 @@
               <li>
                 <span translate="experienceLevel" />
                 <p>
-                  {{jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate | translate}}
+                  {{priceJob.jobLevelName | translate}}
                 </p>
               </li>
               <li>
