@@ -1,6 +1,6 @@
 techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams, $location, utils, jsonValue, $timeout ) {
 
-  $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
+  $scope.locationsConfig = vnwConfigService.locationsSelectize;
 
   var searchText = $routeParams.searchText;
 
