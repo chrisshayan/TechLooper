@@ -55,7 +55,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
           $scope.selectize.jobLevels.$elem = selectize;
         }
       }
-    },
+    }
     //industries: {
     //  items: jsonValue.industriesArray,
     //  config: {
@@ -71,63 +71,63 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     //    }
     //  }
     //},
-    companySize: {
-      items: jsonValue.companySizesArray,
-      config: {
-        valueField: 'id',
-        labelField: 'size',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['size'],
-        placeholder: $translate.instant("ex149"),
-        onInitialize: function (selectize) {
-          $scope.selectize.companySize.$elem = selectize;
-        }
-      }
-    },
-    languages: {
-      items: jsonValue.languagesJob,
-      config: {
-        valueField: 'name',
-        labelField: 'name',
-        delimiter: '|',
-        maxItems: 3,
-        plugins: ['remove_button'],
-        searchField: ['name'],
-        placeholder: $translate.instant("exLanguages"),
-        onInitialize: function (selectize) {
-          $scope.selectize.languages.$elem = selectize;
-        }
-      }
-    },
-    education: {
-      items: jsonValue.educationLevel,
-      config: {
-        valueField: 'id',
-        labelField: 'name',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['name'],
-        placeholder: $translate.instant("exEducation"),
-        onInitialize: function (selectize) {
-          $scope.selectize.education.$elem = selectize;
-        }
-      }
-    },
-    experience: {
-      items: jsonValue.yearsOfExperience,
-      config: {
-        valueField: 'name',
-        labelField: 'name',
-        delimiter: '|',
-        maxItems: 1,
-        searchField: ['name'],
-        placeholder: $translate.instant("exExperience"),
-        onInitialize: function (selectize) {
-          $scope.selectize.education.$elem = selectize;
-        }
-      }
-    }
+    //companySize: {
+    //  items: jsonValue.companySizesArray,
+    //  config: {
+    //    valueField: 'id',
+    //    labelField: 'size',
+    //    delimiter: '|',
+    //    maxItems: 1,
+    //    searchField: ['size'],
+    //    placeholder: $translate.instant("ex149"),
+    //    onInitialize: function (selectize) {
+    //      $scope.selectize.companySize.$elem = selectize;
+    //    }
+    //  }
+    //},
+    //languages: {
+    //  items: jsonValue.languagesJob,
+    //  config: {
+    //    valueField: 'name',
+    //    labelField: 'name',
+    //    delimiter: '|',
+    //    maxItems: 3,
+    //    plugins: ['remove_button'],
+    //    searchField: ['name'],
+    //    placeholder: $translate.instant("exLanguages"),
+    //    onInitialize: function (selectize) {
+    //      $scope.selectize.languages.$elem = selectize;
+    //    }
+    //  }
+    //},
+    //education: {
+    //  items: jsonValue.educationLevel,
+    //  config: {
+    //    valueField: 'id',
+    //    labelField: 'name',
+    //    delimiter: '|',
+    //    maxItems: 1,
+    //    searchField: ['name'],
+    //    placeholder: $translate.instant("exEducation"),
+    //    onInitialize: function (selectize) {
+    //      $scope.selectize.education.$elem = selectize;
+    //    }
+    //  }
+    //},
+    //experience: {
+    //  items: jsonValue.yearsOfExperience,
+    //  config: {
+    //    valueField: 'name',
+    //    labelField: 'name',
+    //    delimiter: '|',
+    //    maxItems: 1,
+    //    searchField: ['name'],
+    //    placeholder: $translate.instant("exExperience"),
+    //    onInitialize: function (selectize) {
+    //      $scope.selectize.education.$elem = selectize;
+    //    }
+    //  }
+    //}
   }
 
   $scope.selectedTime = $translate.instant("day");
@@ -220,7 +220,7 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         console.log($scope.priceJob);
         var priceJob = $.extend(true, {}, $scope.priceJob);
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
-        //priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].ids;
+        priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].ids;
         //priceJob.yearsExperienceId = vnwConfigService.experiences.map[];
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)

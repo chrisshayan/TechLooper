@@ -1098,7 +1098,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_vn": "Khác",
       "lang_en": "Other"
     }
-  ]
+  ];
 
   //TODO 1. Translation, 2. Validation
 
