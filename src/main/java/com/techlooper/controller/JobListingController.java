@@ -20,7 +20,7 @@ public class JobListingController {
     @ResponseBody
     @RequestMapping(value = "/jobListing", method = RequestMethod.POST)
     public JobSearchResponse list(@RequestBody JobSearchCriteria criteria) throws Exception {
-        return jobAggregatorService.listJob(criteria);
+        return jobAggregatorService.findJob(criteria);
     }
 
 }

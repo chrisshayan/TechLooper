@@ -287,7 +287,7 @@ public class UserController {
 
         JobSearchCriteria criteria = new JobSearchCriteria();
         criteria.setTopPriority(Boolean.FALSE);
-        JobSearchResponse latestJobSearchResponse = jobAggregatorService.listJob(criteria);
+        JobSearchResponse latestJobSearchResponse = jobAggregatorService.findJob(criteria);
         personalHomepage.setLatestJobs(latestJobSearchResponse.getJobs().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toSet()));
 
         return personalHomepage;

@@ -1,5 +1,8 @@
 package com.techlooper.util;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +27,10 @@ public class DateTimeUtils {
     public static String currentDate(String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(new Date());
+    }
+
+    public static int daysBetween(Date firstDate, Date secondDate) {
+        return Days.daysBetween(new DateTime(firstDate), new DateTime(secondDate)).getDays();
     }
 
 }

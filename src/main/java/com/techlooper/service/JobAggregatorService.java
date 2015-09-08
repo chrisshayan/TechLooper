@@ -8,19 +8,15 @@ import java.util.List;
 
 public interface JobAggregatorService {
 
-    List<ScrapeJobEntity> searchJob(JobAlertRegistrationEntity jobAlertRegistrationEntity);
-
-    Long countJob(JobAlertRegistrationEntity jobAlertRegistrationEntity);
+    JobSearchResponse findJob(JobSearchCriteria criteria);
 
     JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception;
 
-    List<JobAlertRegistrationEntity> searchJobAlertRegistration(int period) throws Exception;
+    List<JobAlertRegistrationEntity> findJobAlertRegistration(int period) throws Exception;
 
-    void sendEmail(Long numberOfJobs, JobAlertRegistrationEntity jobAlertRegistrationEntity, List<ScrapeJobEntity> scrapeJobEntities) throws Exception;
+    void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobSearchResponse jobSearchResponse) throws Exception;
 
-    JobSearchResponse listJob(JobSearchCriteria criteria);
-
-    boolean checkIfUserExceedRegistrationLimit(String email);
+    boolean exceedJobAlertRegistrationLimit(String email);
 
     void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, Integer code);
 
