@@ -6,21 +6,25 @@ import ch.qos.logback.core.rolling.FixedWindowRollingPolicy
 import ch.qos.logback.core.rolling.RollingFileAppender
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy
 
+import java.text.SimpleDateFormat
+
 import static ch.qos.logback.classic.Level.*
 
 scan()
 
-def LOG_FOLDER = "/data/www-logs/"
+def LOG_FOLDER = "/data/www-logs/techlooper/" + (new SimpleDateFormat("yyyy-MM-dd")).format(new Date())
+
+new File(LOG_FOLDER).mkdirs()
 
 appender("ALL", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-all.log"
+  file = "${LOG_FOLDER}/techlooper-all.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-all_%i.log"
     minIndex = 1
-    maxIndex = 24
+    maxIndex = 100
   }
   triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "100MB"
+    maxFileSize = "500MB"
   }
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
@@ -28,14 +32,14 @@ appender("ALL", RollingFileAppender) {
 }
 
 appender("SPRING", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-spring-all.log"
+  file = "${LOG_FOLDER}/techlooper-spring-all.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-spring-all_%i.log"
     minIndex = 1
-    maxIndex = 24
+    maxIndex = 100
   }
   triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "100MB"
+    maxFileSize = "500MB"
   }
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
@@ -43,14 +47,14 @@ appender("SPRING", RollingFileAppender) {
 }
 
 appender("ERROR", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-error.log"
+  file = "${LOG_FOLDER}/techlooper-error.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-error_%i.log"
     minIndex = 1
-    maxIndex = 24
+    maxIndex = 100
   }
   triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "100MB"
+    maxFileSize = "500MB"
   }
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"

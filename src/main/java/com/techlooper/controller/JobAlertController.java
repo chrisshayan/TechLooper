@@ -1,10 +1,12 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
-import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.JobAlertRegistration;
+import com.techlooper.model.JobSearchCriteria;
+import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
 import com.techlooper.util.DateTimeUtils;
+import org.dozer.Mapper;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +21,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import static com.techlooper.service.impl.JobAggregatorServiceImpl.*;
+import static com.techlooper.service.impl.JobAggregatorServiceImpl.JOB_ALERT_ALREADY_SENT_ON_TODAY;
+import static com.techlooper.service.impl.JobAggregatorServiceImpl.JOB_ALERT_JOB_NOT_FOUND;
 
 @Controller
 public class JobAlertController {
@@ -33,21 +36,26 @@ public class JobAlertController {
     @Resource
     private JobAggregatorService jobAggregatorService;
 
+    @Resource
+    private Mapper dozerMapper;
+
     @ResponseBody
     @RequestMapping(value = "jobAlert/register", method = RequestMethod.POST)
     public JobAlertRegistrationEntity registerJobAlert(@RequestBody JobAlertRegistration jobAlertRegistration,
                                                        HttpServletResponse response) throws Exception {
-        boolean isOverLimit = jobAggregatorService.checkIfUserExceedRegistrationLimit(jobAlertRegistration.getEmail());
+        boolean isOverLimit = jobAggregatorService.exceedJobAlertRegistrationLimit(jobAlertRegistration.getEmail());
         if (isOverLimit) {
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
             return null;
         }
 
         JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAggregatorService.registerJobAlert(jobAlertRegistration);
-        Long numberOfJobs = jobAggregatorService.countJob(jobAlertRegistrationEntity);
-        if (numberOfJobs > 0) {
-            List<ScrapeJobEntity> scrapeJobEntities = jobAggregatorService.searchJob(jobAlertRegistrationEntity);
-            jobAggregatorService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
+
+        JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
+        JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
+        Long totalJob = jobSearchResponse.getTotalJob();
+        if (jobSearchResponse.getTotalJob() > 0) {
+            jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
         }
 
         return jobAlertRegistrationEntity;
@@ -57,21 +65,20 @@ public class JobAlertController {
     public void sendJobAlertEmail() throws Exception {
         if (enableJobAlert) {
             List<JobAlertRegistrationEntity> jobAlertRegistrationEntities =
-                    jobAggregatorService.searchJobAlertRegistration(CONFIGURED_JOB_ALERT_PERIOD);
+                    jobAggregatorService.findJobAlertRegistration(CONFIGURED_JOB_ALERT_PERIOD);
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     boolean isAlreadySentToday = checkIfEmailAlreadySentToday(jobAlertRegistrationEntity.getLastEmailSentDateTime());
 
                     if (!isAlreadySentToday) {
-                        Long numberOfJobs = jobAggregatorService.countJob(jobAlertRegistrationEntity);
+                        JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
+                        JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
+                        Long numberOfJobs = jobSearchResponse.getTotalJob();
                         if (numberOfJobs > 0) {
-                            List<ScrapeJobEntity> scrapeJobEntities = jobAggregatorService.searchJob(jobAlertRegistrationEntity);
-                            if (!scrapeJobEntities.isEmpty()) {
-                                jobAggregatorService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
-                            } else {
-                                jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_JOB_NOT_FOUND);
-                            }
+                            jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
+                        } else {
+                            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_JOB_NOT_FOUND);
                         }
                     } else {
                         jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_ALREADY_SENT_ON_TODAY);

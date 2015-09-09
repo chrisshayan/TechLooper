@@ -127,20 +127,22 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     if ((($scope.step === priorStep || step === "step3") && !$scope.validate()) || $scope.step === "step3") {
       return;
     }
-    var swstep = step || $scope.step;
-    $scope.step = swstep;
 
-    switch (swstep) {
+    step = step || $scope.step;
+    $scope.step = step;
+
+    switch (step) {
       case "step3":
         var priceJob = $.extend(true, {}, $scope.priceJob);
         priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
         priceJob.jobLevelName = jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate;
         //priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].id;
-        console.log(priceJob);
+        //console.log(priceJob);
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
             $scope.priceJob = data;
+            $scope.priceJob.jobLevelName = jsonValue.jobLevelsMap[$scope.priceJob.jobLevelIds].translate;
             $scope.priceJob.jobCategoryLabels = $scope.priceJob.jobCategories.map(function(cat) {
               return jsonValue.industries[cat].value;
             });
