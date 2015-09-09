@@ -14,6 +14,8 @@ public class DateTimeUtils {
 
     public static final String BASIC_DATE_PATTERN = "dd/MM/yyyy";
 
+    public static final String BASIC_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
+
     public static Date string2Date(String datetime, String pattern) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.parse(datetime);

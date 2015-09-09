@@ -6,6 +6,8 @@ import com.techlooper.model.KimonoJobList;
 import com.techlooper.model.KimonoJobModel;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.ScrapeJobService;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +31,7 @@ public class ScrapeJobServiceImpl implements ScrapeJobService {
         if (jobList != null) {
             List<KimonoJob> jobs = jobList.getJobs();
             if (jobs != null && !jobs.isEmpty()) {
-                List<ScrapeJobEntity> jobEntities = jobs.stream().map(job ->
+                List<ScrapeJobEntity> jobEntities = jobs.stream().filter(job -> notExist(job)).map(job ->
                         convertToJobEntity(job, crawlSource)).collect(toList());
                 scrapeJobRepository.save(jobEntities);
             }
@@ -52,6 +54,13 @@ public class ScrapeJobServiceImpl implements ScrapeJobService {
             jobEntity.setCompanyLogoUrl(job.getCompanyLogoUrl().getHref());
         }
         return jobEntity;
+    }
+
+    private boolean notExist(KimonoJob job) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
+        searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("jobTitleUrl", job.getJobTitle().getHref()));
+        long totalJob = scrapeJobRepository.search(searchQueryBuilder.build()).getTotalElements();
+        return totalJob == 0;
     }
 
 }

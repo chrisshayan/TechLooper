@@ -32,7 +32,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
@@ -42,21 +41,6 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
 public class JobAggregatorServiceImpl implements JobAggregatorService {
-
-    private final static String JOB_CATEGORY_IT = "35,55,57";
-
-    public final static int NUMBER_OF_ITEMS_PER_PAGE = 10;
-
-    private static final long CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION = 5;
-
-    public final static int JOB_ALERT_SENT_OK = 200;
-
-    public final static int JOB_ALERT_JOB_NOT_FOUND = 400;
-
-    public final static int JOB_ALERT_ALREADY_SENT_ON_TODAY = 301;
-
-    @Value("${jobAlert.period}")
-    private int CONFIGURED_JOB_ALERT_PERIOD;
 
     @Value("${jobAlert.launchDate}")
     private String CONFIGURED_JOB_ALERT_LAUNCH_DATE;
@@ -100,12 +84,12 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                 dozerMapper.map(jobAlertRegistration, JobAlertRegistrationEntity.class);
         jobAlertRegistrationEntity.setJobAlertRegistrationId(new Date().getTime());
         jobAlertRegistrationEntity.setCreatedDate(currentDate(BASIC_DATE_PATTERN));
-        jobAlertRegistrationEntity.setBucket(getJobAlertBucketNumber(CONFIGURED_JOB_ALERT_PERIOD));
+        jobAlertRegistrationEntity.setBucket(getJobAlertBucketNumber(JobAlertPeriodEnum.WEEKLY));
         return jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
     }
 
     @Override
-    public List<JobAlertRegistrationEntity> findJobAlertRegistration(int period) throws Exception {
+    public List<JobAlertRegistrationEntity> findJobAlertRegistration(JobAlertPeriodEnum period) throws Exception {
         List<JobAlertRegistrationEntity> jobAlertRegistrationEntities = new ArrayList<>();
         int bucketNumber = getJobAlertBucketNumber(period);
 
@@ -140,7 +124,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         templateModel.put("keyword", jobAlertRegistrationEntity.getKeyword());
         templateModel.put("location", jobAlertRegistrationEntity.getLocation());
         templateModel.put("locationId", jobAlertRegistrationEntity.getLocationId());
-        templateModel.put("jobs", jobSearchResponse.getJobs().stream().limit(NUMBER_OF_ITEMS_PER_PAGE).collect(Collectors.toList()));
+        templateModel.put("jobs", jobSearchResponse.getJobs());
         templateModel.put("searchPath", buildSearchPath(jobAlertRegistrationEntity));
 
         template.process(templateModel, stringWriter);
@@ -151,9 +135,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         jobAlertMailMessage.saveChanges();
         mailSender.send(jobAlertMailMessage);
 
-
-        jobAlertRegistrationEntity.setLastEmailSentDateTime(date2String(new Date(), "dd/MM/yyyy HH:mm"));
-        jobAlertRegistrationEntity.setLastEmailSentCode(JOB_ALERT_SENT_OK);
+        jobAlertRegistrationEntity.setLastEmailSentDateTime(currentDate(BASIC_DATE_TIME_PATTERN));
         jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
     }
 
@@ -169,20 +151,8 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         List<JobResponse> result = new ArrayList<>();
         if (!jobs.isEmpty()) {
             for (ScrapeJobEntity jobEntity : jobs) {
-                JobResponse.Builder builder = new JobResponse.Builder();
-                JobResponse job = builder.withUrl(jobEntity.getJobTitleUrl())
-                        .withTitle(jobEntity.getJobTitle())
-                        .withCompany(jobEntity.getCompany())
-                        .withLocation(jobEntity.getLocation())
-                        .withSalary(jobEntity.getSalary())
-                        .withPostedOn(jobEntity.getCreatedDateTime())
-                        .withTopPriority(jobEntity.getTopPriority() != null ? jobEntity.getTopPriority() : false)
-                        .withLogoUrl(jobEntity.getCompanyLogoUrl())
-                        .withBenefits(jobEntity.getBenefits())
-                        .withSkills(jobEntity.getSkills())
-                        .withSalaryMin(jobEntity.getSalaryMin())
-                        .withSalaryMax(jobEntity.getSalaryMax()).build();
-
+                JobResponse job = dozerMapper.map(jobEntity, JobResponse.class);
+                job.setTopPriority(jobEntity.getTopPriority() != null ? jobEntity.getTopPriority() : Boolean.FALSE);
                 result.add(job);
             }
         }
@@ -192,7 +162,81 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         return jobSearchResponse;
     }
 
+    @Override
+    public boolean exceedJobAlertRegistrationLimit(String email) {
+        final long CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION = 5;
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
+
+        if (StringUtils.isNotEmpty(email)) {
+            searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("email", email));
+        }
+
+        long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();
+        return numberOfRegistrations >= CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION;
+    }
+
+    @Override
+    public void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobAlertEmailResultEnum result) {
+        if (jobAlertRegistrationEntity != null) {
+            jobAlertRegistrationEntity.setLastEmailSentCode(result.getValue());
+            jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
+        }
+    }
+
+    @Override
+    public int importVietnamworksJob(JobTypeEnum jobType) {
+        final String JOB_CATEGORY_IT = "35,55,57";
+        VNWJobSearchRequest.Builder jobSearchRequestBuilder = new VNWJobSearchRequest.Builder()
+                .withJobCategories(JOB_CATEGORY_IT).withTechlooperJobType(jobType.getValue()).withPageNumber(1).withPageSize(20);
+        VNWJobSearchRequest jobSearchRequest = jobSearchRequestBuilder.build();
+        Boolean isTopPriorityJob = (jobType == JobTypeEnum.TOP_PRIORITY) ? Boolean.TRUE : Boolean.FALSE;
+
+        VNWJobSearchResponse vnwJobSearchResponse;
+        do {
+            vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(jobSearchRequest);
+            if (vnwJobSearchResponse.hasData()) {
+                List<ScrapeJobEntity> jobEntities = vnwJobSearchResponse.getData().getJobs().stream().map(job ->
+                        convertToJobEntity(job, isTopPriorityJob)).collect(toList());
+                scrapeJobRepository.save(jobEntities);
+                jobSearchRequest.setPageNumber(jobSearchRequest.getPageNumber() + 1);
+                jobSearchRequestBuilder.withPageNumber(jobSearchRequest.getPageNumber());
+            }
+        } while (vnwJobSearchResponse.hasData());
+
+        return vnwJobSearchResponse != null ? vnwJobSearchResponse.getData().getTotal() : 0;
+    }
+
+    private String buildSearchPath(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
+        StringBuilder pathBuilder = new StringBuilder("");
+        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
+            pathBuilder.append(jobAlertRegistrationEntity.getKeyword().replaceAll("\\W", "-"));
+        }
+
+        if (jobAlertRegistrationEntity.getLocationId() != null) {
+            pathBuilder.append("+");
+            pathBuilder.append(jobAlertRegistrationEntity.getLocationId());
+        }
+
+        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
+            pathBuilder.append("+");
+            pathBuilder.append(jobAlertRegistrationEntity.getLocation().replaceAll("\\W", "-"));
+        }
+
+        return pathBuilder.toString();
+    }
+
+    private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, Boolean isTopPriority) {
+        ScrapeJobEntity jobEntity = dozerMapper.map(job, ScrapeJobEntity.class);
+        jobEntity.setTopPriority(isTopPriority);
+        jobEntity.setCrawlSource("vietnamworks");
+        if (!scrapeJobRepository.exists(String.valueOf(job.getJobId()))) {
+            jobEntity.setCreatedDateTime(currentDate(BASIC_DATE_PATTERN));
+        }
+        return jobEntity;
+    }
+
     private NativeSearchQueryBuilder getJobListingQueryBuilder(JobSearchCriteria criteria) {
+        final int NUMBER_OF_ITEMS_PER_PAGE = 10;
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
         QueryBuilder queryBuilder = null;
@@ -200,11 +244,9 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             queryBuilder = matchAllQuery();
         } else {
             queryBuilder = boolQuery();
-
             if (StringUtils.isNotEmpty(criteria.getKeyword())) {
                 ((BoolQueryBuilder) queryBuilder).must(multiMatchQuery(criteria.getKeyword(), "jobTitle", "company"));
             }
-
             if (StringUtils.isNotEmpty(criteria.getLocation())) {
                 ((BoolQueryBuilder) queryBuilder).should(matchQuery("location", criteria.getLocation()));
             }
@@ -228,86 +270,9 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         return searchQueryBuilder;
     }
 
-    private int getJobAlertBucketNumber(int period) throws Exception {
+    private int getJobAlertBucketNumber(JobAlertPeriodEnum period) throws Exception {
         Date launchDate = string2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, BASIC_DATE_PATTERN);
         int numberOfDays = DateTimeUtils.daysBetween(launchDate, new Date());
-        return numberOfDays % period;
-    }
-
-    public boolean exceedJobAlertRegistrationLimit(String email) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
-
-        if (StringUtils.isNotEmpty(email)) {
-            searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("email", email));
-        }
-
-        long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();
-        return numberOfRegistrations >= CONFIGURED_JOB_ALERT_LIMIT_REGISTRATION;
-    }
-
-    @Override
-    public void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, Integer code) {
-        if (jobAlertRegistrationEntity != null) {
-            jobAlertRegistrationEntity.setLastEmailSentCode(code);
-            jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
-        }
-    }
-
-    private String buildSearchPath(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
-        StringBuilder pathBuilder = new StringBuilder("");
-        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
-            pathBuilder.append(jobAlertRegistrationEntity.getKeyword().replaceAll("\\W", "-"));
-        }
-
-        if (jobAlertRegistrationEntity.getLocationId() != null) {
-            pathBuilder.append("+");
-            pathBuilder.append(jobAlertRegistrationEntity.getLocationId());
-        }
-
-        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
-            pathBuilder.append("+");
-            pathBuilder.append(jobAlertRegistrationEntity.getLocation().replaceAll("\\W", "-"));
-        }
-
-        return pathBuilder.toString();
-    }
-
-    @Override
-    public int importVietnamworksJob(int jobType) {
-        VNWJobSearchRequest.Builder jobSearchRequestBuilder = new VNWJobSearchRequest.Builder()
-                .withJobCategories(JOB_CATEGORY_IT).withTechlooperJobType(jobType).withPageNumber(1).withPageSize(20);
-        VNWJobSearchRequest jobSearchRequest = jobSearchRequestBuilder.build();
-        Boolean isTopPriorityJob = jobType == 1 ? Boolean.TRUE : Boolean.FALSE;
-
-        VNWJobSearchResponse vnwJobSearchResponse;
-        do {
-            vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(jobSearchRequest);
-            if (vnwJobSearchResponse.hasData()) {
-                List<ScrapeJobEntity> jobEntities = vnwJobSearchResponse.getData().getJobs().stream().map(job ->
-                        convertToJobEntity(job, isTopPriorityJob)).collect(toList());
-                scrapeJobRepository.save(jobEntities);
-                jobSearchRequestBuilder.withPageNumber(jobSearchRequest.getPageNumber() + 1);
-            }
-        } while (vnwJobSearchResponse.hasData());
-
-        return vnwJobSearchResponse != null ? vnwJobSearchResponse.getData().getTotal() : 0;
-    }
-
-    private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, Boolean isTopPriority) {
-        ScrapeJobEntity jobEntity = new ScrapeJobEntity();
-        jobEntity.setJobId(String.valueOf(job.getJobId()));
-        jobEntity.setJobTitle(job.getTitle());
-        jobEntity.setJobTitleUrl(job.getUrl());
-        jobEntity.setCompany(job.getCompany());
-        jobEntity.setLocation(job.getLocation());
-        jobEntity.setBenefits(job.getBenefits());
-        jobEntity.setCompanyLogoUrl(job.getLogoUrl());
-        jobEntity.setSalaryMin(job.getSalaryMin());
-        jobEntity.setSalaryMax(job.getSalaryMax());
-        jobEntity.setSkills(job.getSkills());
-        jobEntity.setTopPriority(isTopPriority);
-        jobEntity.setCrawlSource("vietnamworks");
-        jobEntity.setCreatedDateTime(currentDate(BASIC_DATE_PATTERN));
-        return jobEntity;
+        return numberOfDays % period.getValue();
     }
 }
