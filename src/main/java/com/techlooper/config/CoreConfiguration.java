@@ -177,12 +177,13 @@ public class CoreConfiguration implements ApplicationContextAware {
                 mapping(ScrapeJobEntity.class, VNWJobSearchResponseDataItem.class)
                         .fields("jobTitle", "title")
                         .fields("jobTitleUrl", "url")
-                        .fields("companyLogoUrl", "logoUrl");
+                        .fields("companyLogoUrl", "logoUrl")
+                        .exclude("createdDateTime");
 
                 mapping(ScrapeJobEntity.class, JobResponse.class)
                         .fields("jobTitle", "title")
                         .fields("jobTitleUrl", "url")
-                        .fields("postedOn", "createdDateTime")
+                        .fields("createdDateTime", "postedOn")
                         .fields("companyLogoUrl", "logoUrl");
             }
         });
