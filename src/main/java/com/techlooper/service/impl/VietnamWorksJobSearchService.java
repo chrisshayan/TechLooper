@@ -112,7 +112,7 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         .orElse(VNWJobSearchResponse.getDefaultObject());
 
       if (actualResult.hasData()) {
-        mergeSearchResultWithConfiguration(actualResult, getConfiguration());
+        //mergeSearchResultWithConfiguration(actualResult, getConfiguration());
         return actualResult;
       }
     }
