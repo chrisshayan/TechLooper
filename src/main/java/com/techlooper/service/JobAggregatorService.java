@@ -12,14 +12,14 @@ public interface JobAggregatorService {
 
     JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception;
 
-    List<JobAlertRegistrationEntity> findJobAlertRegistration(int period) throws Exception;
+    List<JobAlertRegistrationEntity> findJobAlertRegistration(JobAlertPeriodEnum period) throws Exception;
 
     void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobSearchResponse jobSearchResponse) throws Exception;
 
     boolean exceedJobAlertRegistrationLimit(String email);
 
-    void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, Integer code);
+    void updateSendEmailResultCode(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobAlertEmailResultEnum result);
 
-    int importVietnamworksJob(int jobType);
+    int importVietnamworksJob(JobTypeEnum jobType);
 
 }
