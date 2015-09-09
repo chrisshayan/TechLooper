@@ -402,7 +402,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   var educationLevel = [
     {
       "education_id": "1",
-      "lang_vn": "Không yêu",
+      "lang_vn": "Không nêu",
       "lang_en": "None"
     },
     {

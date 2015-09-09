@@ -143,20 +143,15 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
-            console.log(data);
             var jobLevel = vnwConfigService.getJobLevel($scope.priceJob.jobLevelIds);
             data.languagesId = data.languages;
             data.jobLevelIds = jobLevel.id;
             data.jobLevelName = jobLevel.translate;//jsonValue.jobLevelsMap[data.jobLevelIds].translate;
             data.yearsExperienceId = data.yearsExperienceId + "";
-            data.jobCategoryLabels = data.jobCategories.map(function(cat) {
-              return jsonValue.industries[cat].value;
-            });
-
+            data.jobCategoryLabels = vnwConfigService.getIndustryTexts(data.jobCategories);
+            data.locationLabel = vnwConfigService.getLocationText(data.locationId);
             if (!angular.isNumber(data.priceJobReport.targetPay)) delete data.priceJobReport;
-
             $scope.priceJob = data;
-            //console.log($scope.priceJob);
             utils.sendNotification(jsonValue.notifications.loaded);
           });
         break;
