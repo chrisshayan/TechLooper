@@ -149,13 +149,13 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
             data.jobLevelIds = jobLevel.id;
             data.jobLevelName = jobLevel.translate;//jsonValue.jobLevelsMap[data.jobLevelIds].translate;
             data.yearsExperienceId = data.yearsExperienceId + "";
-            data.jobCategoryLabels = data.jobCategories.map(function(cat) {
-              return jsonValue.industries[cat].value;
-            });
+            data.jobCategoryLabels = vnwConfigService.getIndustryTexts(data.jobCategories);
+            data.locationLabel = vnwConfigService.getLocationText(data.locationId);
 
             if (!angular.isNumber(data.priceJobReport.targetPay)) delete data.priceJobReport;
 
             $scope.priceJob = data;
+            console.log($scope.priceJob);
             //console.log($scope.priceJob);
             utils.sendNotification(jsonValue.notifications.loaded);
           });
