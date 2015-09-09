@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
+import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
+
 /**
  * Job alert registration controller
  *
@@ -57,6 +60,9 @@ public class JobAlertController {
         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
         if (jobSearchResponse.getTotalJob() > 0) {
             jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
+            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
+        } else {
+            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_NOT_FOUND);
         }
 
         return jobAlertRegistrationEntity;
