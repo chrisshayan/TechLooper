@@ -9,6 +9,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   };
 
   var vnwLang = "lang_" + ($translate.use() === "en" ? "en" : "vn");
+
   var companySizes = [
     {
       "id": "1",
@@ -49,6 +50,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "value": "Over 50,000"
     }
   ];
+
   var locations = [
     {
       "location_id": "0",
@@ -396,6 +398,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Hau Giang"
     }
   ];
+
   var educationLevel = [
     {
       "education_id": "1",
@@ -453,6 +456,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Others"
     }
   ];
+
   var companySize = [
     {
       "companySize_id": "1",
@@ -505,6 +509,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Over 50,000"
     }
   ];
+
   var experiences = [
     {
       "experience_id": "1",
@@ -617,6 +622,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Over 20 years"
     }
   ];
+
   var categories = [
     {
       "category_id": "1",
@@ -904,6 +910,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Other"
     }
   ];
+
   var languages =[
     {
       "language_id": "38",
@@ -1099,6 +1106,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Other"
     }
   ];
+
   var jobLevels = [
     {
       "jobLevel_id": "-1",
@@ -1126,6 +1134,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Director and Above"
     }
   ];
+
   //TODO 1. Translation, 2. Validation
 
   var createSelectizeConfig = function (key) {
@@ -1152,12 +1161,14 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location["lang_" + lang] || location[vnwLang]);}});
       return text;
     },
+
     getCompanySizeText: function (companySizeId) {
       if (!companySizeId) return '';
       var text = "";
       $.each(companySizes, function (i, item) {if (item.id == companySizeId) {return text = item.value;}});
       return text;
     },
+
     getJobLevelText: function (jobLevelId) {
       var jobLevelTitle = undefined;
       if ($.type(jobLevelId) === "string") return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
@@ -1232,12 +1243,14 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       }),
       config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },
+
     jobsSelectize: {
       items: jobLevels.map(function (job) {
         return {id: job.jobLevel_id, translate: job[vnwLang], en: job.lang_en};
       }),
       config: $.extend(true, {}, createSelectizeConfig("jobsSelectize"), translateConfigBase)
     },
+
     yearsOfExperience: {
       items: experiences.map(function (number) {
         return {id: number.experience_id, translate: number[vnwLang], en: number.lang_en};
