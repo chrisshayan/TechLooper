@@ -116,8 +116,8 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/?utm_source=getpromotedemail&utm_medium=techlooperlogo&utm_campaign=howtogetpromoted" style="border:none; outline:none" target="_blank">
-                      <img alt="VietnamWorks Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                    <a href="${webBaseUrl}?utm_source=getpromotedemail&utm_medium=techlooperlogo&utm_campaign=howtogetpromoted" style="border:none; outline:none" target="_blank">
+                      <img alt="VietnamWorks Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">

@@ -1,105 +1,71 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
-import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.JobAlertRegistration;
-import com.techlooper.service.JobAlertService;
-import com.techlooper.service.impl.JobAlertServiceImpl;
-import com.techlooper.util.DateTimeUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.techlooper.model.JobSearchCriteria;
+import com.techlooper.model.JobSearchResponse;
+import com.techlooper.service.JobAggregatorService;
+import org.dozer.Mapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
 
-import static com.techlooper.service.impl.JobAlertServiceImpl.*;
+import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
+import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
 
+/**
+ * Job alert registration controller
+ *
+ * @author Khoa Nguyen
+ * @version v0.0-beta9.Release39, 09/09/2015
+ */
 @Controller
 public class JobAlertController {
 
-    @Value("${jobAlert.period}")
-    private int CONFIGURED_JOB_ALERT_PERIOD;
-
-    @Value("${jobAlert.enable}")
-    private Boolean enableJobAlert;
+    @Resource
+    private JobAggregatorService jobAggregatorService;
 
     @Resource
-    private JobAlertService jobAlertService;
+    private Mapper dozerMapper;
 
+    /**
+     * This method is used to register job alert for user
+     *
+     * @param jobAlertRegistration
+     * @param response
+     * @return jobAlertRegistrationEntity
+     * @throws Exception
+     */
     @ResponseBody
     @RequestMapping(value = "jobAlert/register", method = RequestMethod.POST)
     public JobAlertRegistrationEntity registerJobAlert(@RequestBody JobAlertRegistration jobAlertRegistration,
                                                        HttpServletResponse response) throws Exception {
-        boolean isOverLimit = jobAlertService.checkIfUserExceedRegistrationLimit(jobAlertRegistration.getEmail());
+        //Check number of registration for on user has been exceeded the limit or not
+        boolean isOverLimit = jobAggregatorService.exceedJobAlertRegistrationLimit(jobAlertRegistration.getEmail());
         if (isOverLimit) {
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
             return null;
         }
 
-        JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAlertService.registerJobAlert(jobAlertRegistration);
-        Long numberOfJobs = jobAlertService.countJob(jobAlertRegistrationEntity);
-        if (numberOfJobs > 0) {
-            List<ScrapeJobEntity> scrapeJobEntities = jobAlertService.searchJob(jobAlertRegistrationEntity);
-            jobAlertService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
+        //Register a new job alert record for this user
+        JobAlertRegistrationEntity jobAlertRegistrationEntity = jobAggregatorService.registerJobAlert(jobAlertRegistration);
+
+        //Send list of jobs that matches user's criteria immediately after user submitted registration form
+        JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
+        JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
+        if (jobSearchResponse.getTotalJob() > 0) {
+            jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
+            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
+        } else {
+            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_NOT_FOUND);
         }
 
         return jobAlertRegistrationEntity;
-    }
-
-    @Scheduled(cron = "${scheduled.cron.jobAlert}")
-    public void sendJobAlertEmail() throws Exception {
-        if (enableJobAlert) {
-            List<JobAlertRegistrationEntity> jobAlertRegistrationEntities =
-                    jobAlertService.searchJobAlertRegistration(CONFIGURED_JOB_ALERT_PERIOD);
-
-            if (!jobAlertRegistrationEntities.isEmpty()) {
-                for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
-                    boolean isAlreadySentToday = checkIfEmailAlreadySentToday(jobAlertRegistrationEntity.getLastEmailSentDateTime());
-
-                    if (!isAlreadySentToday) {
-                        Long numberOfJobs = jobAlertService.countJob(jobAlertRegistrationEntity);
-                        if (numberOfJobs > 0) {
-                            List<ScrapeJobEntity> scrapeJobEntities = jobAlertService.searchJob(jobAlertRegistrationEntity);
-                            if (!scrapeJobEntities.isEmpty()) {
-                                jobAlertService.sendEmail(numberOfJobs, jobAlertRegistrationEntity, scrapeJobEntities);
-                            } else {
-                                jobAlertService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_JOB_NOT_FOUND);
-                            }
-                        }
-                    } else {
-                        jobAlertService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_ALERT_ALREADY_SENT_ON_TODAY);
-                    }
-                }
-            }
-        }
-    }
-
-    @RequestMapping(value = "jobAlert/redirect", method = RequestMethod.GET)
-    public void redirect(@RequestParam(required = true) String targetUrl, HttpServletResponse response) throws IOException {
-        response.sendRedirect(targetUrl);
-    }
-
-    private boolean checkIfEmailAlreadySentToday(String lastEmailSentDateTime) {
-        if (lastEmailSentDateTime == null) {
-            return false;
-        }
-
-        try {
-            Date lastSentDate = DateTimeUtils.parseString2Date(lastEmailSentDateTime, "dd/MM/yyyy HH:mm");
-            Date currentDate = new Date();
-            int diffDays = Days.daysBetween(new DateTime(lastSentDate), new DateTime(currentDate)).getDays();
-            return diffDays == 0 ? true : false;
-        } catch (ParseException e) {
-            return false;
-        }
     }
 
 }

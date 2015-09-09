@@ -111,6 +111,8 @@
         button
           padding: 6px 25px
           margin: 0 5px
+        a
+          padding: 6px 25px
       .create-event-field-group
         clear: both
         display: inline-block
@@ -169,47 +171,45 @@
           clear: both
           width: 100%
           margin-bottom: 20px
+          background-color: #f3fafe
+          border: 1px solid #ebebeb
         h3
           font-size: 16px
           font-weight: 400
           text-transform: capitalize
-          color: gray
+          color: #333
           margin: 0 0 10px 0
           padding: 5px 10px
           text-align: left
           background-color: #f4f4f4
           border-bottom: 1px solid #ebebeb
-
+          margin: 0
         .events-item
-          width: 49%
+          width: 50%
           float: left
-          -webkit-border-radius: 5px
-          -moz-border-radius: 5px
-          border-radius: 5px
-          background-color: #fff
-          margin: 0 0 2% 1%
-          max-height: 100px
-          min-height: 100px
-          padding: 15px 10px 10px 10px
-          border: 1px solid #ebebeb
-          border-left: 2px solid #337ab7
+          //margin: 0 0 2% 1%
+          padding: 10px
+          border-bottom: 1px solid #fff
+          border-left: 1px solid #ebebeb
           .left-content
             float: left
-            width: 100px
+            width: 25%
             .owner
               display: inline-block
               clear: both
               width: 100%
-              text-align: center
+              text-align: right
+              padding-right: 10px
               img
-                width: 50px
-                height: 50px
+                width: 25px
+                height: 25px
               p
                 margin: 0
-                padding: 5px 0 0
+                padding: 2px 0 5px 0
                 line-height: 100%
+                text-transform: capitalize
           .right-content
-            width: 280px
+            width: 75%
             float: left
             padding-left: 10px
             background: url(../images/line-li-gray.png) left top repeat-y
@@ -221,7 +221,6 @@
               text-transform: capitalize
               line-height: 18px
             .event-name
-              height: 30px
               display: inline-block
               clear: both
               width: 100%
@@ -232,6 +231,7 @@
               width: 100%
               clear: both
               display: inline-block
+              font-size: 12px
               li
                 width: auto
                 float: left
@@ -251,7 +251,6 @@
             float: right
             vertical-align: middle
             text-align: center
-            line-height: 71px
             background: url(../images/line-li-gray.png) left top repeat-y
             padding-left: 5px
             i
@@ -261,10 +260,34 @@
               color: #333
               display: block
               width: 100%
-              height: 71px
-              background: url(../images/ic-general.png) center -80px no-repeat
+              line-height: 35px
+              background: url(../images/ic-general.png) center -110px no-repeat
         .events-item:nth-child(2n)
-          margin: 0 1% 2% 0
+          //margin: 0 1% 2% 0
+          border-left: 0
+      .events-by-date.expired
+        background-color: #f9f9f9
+      .event-timeline
+        height: 2px
+        background-color: #337ab7
+        display: inline-block
+        clear: both
+        width: 100%
+        margin-bottom: 25px
+        margin-top: 10px
+        text-align: center
+        position: relative
+        p
+          position: absolute
+          left: 0
+          right: 0
+          top: -10px
+          font-weight: 500
+          width: 10%
+          margin: auto
+          padding: 0
+          text-transform: uppercase
+          background-color: #fff
 .content-page-block.event-details-page
   .content-page-detail
     padding: 20px

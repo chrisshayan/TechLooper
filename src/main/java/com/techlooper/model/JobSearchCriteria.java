@@ -3,7 +3,7 @@ package com.techlooper.model;
 /**
  * Created by NguyenDangKhoa on 8/17/15.
  */
-public class JobListingCriteria {
+public class JobSearchCriteria {
 
     private String keyword;
 
@@ -11,9 +11,13 @@ public class JobListingCriteria {
 
     private Integer page;
 
-    public JobListingCriteria(){}
+    private Boolean topPriority;
 
-    public JobListingCriteria(Integer page) {
+    public JobSearchCriteria(){
+        this.page = 1;
+    }
+
+    public JobSearchCriteria(Integer page) {
         this.page = page;
     }
 
@@ -39,5 +43,13 @@ public class JobListingCriteria {
 
     public void setPage(Integer page) {
         this.page = page;
+    }
+
+    public Boolean getTopPriority() {
+        return topPriority;
+    }
+
+    public void setTopPriority(Boolean topPriority) {
+        this.topPriority = topPriority;
     }
 }

@@ -802,6 +802,7 @@ techlooper.factory("jsonValue", function () {
       en: 2,
       vi: 1
     },
+
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
       {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1], alertId: 1},

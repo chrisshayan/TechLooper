@@ -118,8 +118,8 @@
                             <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                                 <tr>
                                     <td align="left" style="padding:10px" class="logo">
-                                        <a href="http://www.techlooper.com/#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
-                                            <img alt="TechLooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                                        <a href="${webBaseUrl}#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
+                                            <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
                                 </tr>
@@ -160,8 +160,8 @@
                                         </tr>
                                       <tr>
                                         <td align="center">
-                                          <a href="http://www.techlooper.com/#/challenge-detail/job-search-innovation-hackathon-1439866071515-id?utm_source=jobalertemail&utm_medium=hackathon&utm_campaign=techlooperjobhub" target="_blank">
-                                            <img src="http://www.techlooper.com/images/hackathon-job-search.png" style="boder: 0; width: 100%" alt="Job Search Innovation Hackathon"></a>
+                                          <a href="${webBaseUrl}#/challenge-detail/job-search-innovation-hackathon-1439866071515-id?utm_source=jobalertemail&utm_medium=hackathon&utm_campaign=techlooperjobhub" target="_blank">
+                                            <img src="${webBaseUrl}images/hackathon-job-search.png" style="boder: 0; width: 100%" alt="Job Search Innovation Hackathon"></a>
                                         </td>
                                       </tr>
                                       <tr>
@@ -211,7 +211,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                                     <tr>
                                                         <td align="left" style="color: #277cbd" >
-                                                            <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.jobTitleUrl}" target="_blank">${job.jobTitle}</a>
+                                                            <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.title}" target="_blank">${job.title}</a>
                                                         </td>
                                                     </tr>
                                                     <tr>

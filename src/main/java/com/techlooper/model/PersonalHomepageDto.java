@@ -3,6 +3,7 @@ package com.techlooper.model;
 import com.techlooper.dto.WebinarInfoDto;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 7/27/15.
@@ -17,7 +18,7 @@ public class PersonalHomepageDto {
 
     private List<ProjectDto> latestProjects;
 
-    private List<JobResponse> latestJobs;
+    private Set<JobResponse> latestJobs;
 
     public TermStatisticResponse getTermStatistic() {
         return termStatistic;
@@ -51,11 +52,11 @@ public class PersonalHomepageDto {
         this.latestProjects = latestProjects;
     }
 
-    public List<JobResponse> getLatestJobs() {
+    public Set<JobResponse> getLatestJobs() {
         return latestJobs;
     }
 
-    public void setLatestJobs(List<JobResponse> latestJobs) {
+    public void setLatestJobs(Set<JobResponse> latestJobs) {
         this.latestJobs = latestJobs;
     }
 }

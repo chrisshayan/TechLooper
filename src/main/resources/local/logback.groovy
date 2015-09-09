@@ -1,4 +1,4 @@
-package staging
+package local
 
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.core.ConsoleAppender
@@ -13,7 +13,7 @@ scan()
 def LOG_FOLDER = "./"
 
 appender("ALL", RollingFileAppender) {
-  file = "${LOG_FOLDER}/techlooper-all.log"
+  file = "${LOG_FOLDER}techlooper-all.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-all_%i.log"
     minIndex = 1
@@ -27,8 +27,23 @@ appender("ALL", RollingFileAppender) {
   }
 }
 
+appender("SPRING", RollingFileAppender) {
+  file = "${LOG_FOLDER}techlooper-spring-all.log"
+  rollingPolicy(FixedWindowRollingPolicy) {
+    fileNamePattern = "techlooper-spring-all_%i.log"
+    minIndex = 1
+    maxIndex = 12
+  }
+  triggeringPolicy(SizeBasedTriggeringPolicy) {
+    maxFileSize = "10MB"
+  }
+  encoder(PatternLayoutEncoder) {
+    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
+  }
+}
+
 appender("ERROR", RollingFileAppender) {
-  file = "${LOG_FOLDER}/techlooper-error.log"
+  file = "${LOG_FOLDER}techlooper-error.log"
   rollingPolicy(FixedWindowRollingPolicy) {
     fileNamePattern = "techlooper-error_%i.log"
     minIndex = 1
@@ -43,5 +58,6 @@ appender("ERROR", RollingFileAppender) {
 }
 
 logger("com.techlooper", ALL, ["ALL"], Boolean.FALSE)
+logger("org.springframework", ALL, ["SPRING"], Boolean.FALSE)
 
-root(ALL, ["ERROR"])
+root(ERROR, ["ERROR"])

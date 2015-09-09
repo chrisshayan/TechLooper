@@ -495,7 +495,7 @@
   "allFreelancerProjects": "All Freelancer Projects",
   "postAFreelancerProject": "Post A Freelancer Project",
   "applyWithFacebook": "Apply with Facebook",
-  "numberOfApplicants": "Already has <strong>{{number}}</strong> applicants for this job",
+  "numberOfApplicants": "Already has <strong>{{number}}</strong> applicants <br/>for this job",
   "aboutThisClient": "About This Client",
   "memberSince": "Member since {{date}}",
   "findProjects": "Find Projects",
@@ -699,5 +699,7 @@
   "joinedEventAlert": "You have already joined this event.",
   "latestJobs": "Latest Jobs",
   "jobAggregator": "Access to thousands of new jobs from job sites around you and receive weekly email notification about jobs which match perfectly your expectations through free job alert registration.",
-  "sendNow" : "Send Now"
+  "sendNow" : "Send Now",
+  "thisEventExpired": "This event is expired!",
+  "now": "Now"
 }

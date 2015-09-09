@@ -8,7 +8,7 @@
                 <i class="fa fa-bars"></i>
             </div>
             <div class="user-info-basic-block">
-                <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+                <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
                 <p>{{$root.userInfo.name}}</p>
                 <div class="user-avatar" ng-show="$root.userInfo">
                     <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">

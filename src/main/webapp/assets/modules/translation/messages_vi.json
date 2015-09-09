@@ -322,6 +322,7 @@
   "descriptionChallengePost": "Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến.",
   "subHeaderChallenge": "Hãy bắt đầu bằng những thông tin về thử thách của bạn.",
   "challengeName": "Tên Thử Thách: <strong>*</strong>",
+  "challengeNamePost": "Tên Thử Thách: <strong>*</strong>",
   "challengeOverView": "Tổng Quan: <strong>*</strong>",
   "challengeNameEX": "Ví dụ: Interactive Job",
   "challengeNameTip": "Tên Thử Thách sẽ được hiển thị đại diện trong kết quả tìm kiếm. Việc sử dụng Tên Thử Thách ngắn gọn và dễ nhớ sẽ giúp thu hút các thí sinh. Ngoài ra, bạn cũng nên dùng các từ khoá riêng biệt cho Tên Thử Thách.",
@@ -499,7 +500,7 @@
   "allFreelancerProjects": "Freelancer",
   "postAFreelancerProject": "Đăng dự án Freelancer",
   "applyWithFacebook": "Ứng tuyển với Facebook",
-  "numberOfApplicants": "Đã có <strong>{{number}}</strong> lượt ứng tuyển cho <br/>công việc này",
+  "numberOfApplicants": "Đã có <strong>{{number}}</strong> lượt ứng tuyển <br/>cho công việc này",
   "aboutThisClient": "Thông tin về nhà tuyển dụng",
   "memberSince": "Thành viên từ {{date}}",
   "findProjects": "Dự Án Freelancer",
@@ -699,5 +700,7 @@
   "joinedEventAlert": "Bạn đã tham gia sự kiện này.",
   "latestJobs": "Công việc mới nhất",
   "jobAggregator": "Truy cập ngay hàng ngàn công việc mới từ các website tuyển dụng và nhận thông báo việc làm miễn phí hàng tuần phù hợp với tiêu chí của bạn.",
-  "sendNow" : "Gửi Ngay"
+  "sendNow" : "Gửi Ngay",
+  "thisEventExpired": "Sự kiện đã hết hạn!",
+  "now": "Hiện tại"
 }
