@@ -33,7 +33,9 @@ public class ScrapeJobServiceImpl implements ScrapeJobService {
             if (jobs != null && !jobs.isEmpty()) {
                 List<ScrapeJobEntity> jobEntities = jobs.stream().filter(job -> notExist(job)).map(job ->
                         convertToJobEntity(job, crawlSource)).collect(toList());
-                scrapeJobRepository.save(jobEntities);
+                if (!jobEntities.isEmpty()) {
+                    scrapeJobRepository.save(jobEntities);
+                }
             }
         }
     }
