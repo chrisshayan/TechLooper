@@ -11,10 +11,7 @@ import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +34,7 @@ import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
+import static org.elasticsearch.index.query.MatchQueryBuilder.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
@@ -248,7 +246,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                 ((BoolQueryBuilder) queryBuilder).must(multiMatchQuery(criteria.getKeyword(), "jobTitle", "company"));
             }
             if (StringUtils.isNotEmpty(criteria.getLocation())) {
-                ((BoolQueryBuilder) queryBuilder).should(matchQuery("location", criteria.getLocation()));
+                ((BoolQueryBuilder) queryBuilder).must(matchQuery("location", criteria.getLocation()).operator(Operator.AND));
             }
         }
 
