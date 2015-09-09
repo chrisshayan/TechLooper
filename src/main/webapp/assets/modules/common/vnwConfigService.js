@@ -1107,34 +1107,6 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     }
   ];
 
-  var jobLevels = [
-    {
-      "jobLevel_id": "-1",
-      "lang_vn": "Tất cả cấp bậc",
-      "lang_en": "All levels"
-    },
-    {
-      "jobLevel_id": "1",
-      "lang_vn": "Mới tốt nghiệp",
-      "lang_en": "Entry"
-    },
-    {
-      "jobLevel_id": "5",
-      "lang_vn": "Có Kinh Nghiệm",
-      "lang_en": "Experienced"
-    },
-    {
-      "jobLevel_id": "7",
-      "lang_vn": "Trưởng Phòng",
-      "lang_en": "Manager"
-    },
-    {
-      "jobLevel_id": "10",
-      "lang_vn": "Giám Đốc",
-      "lang_en": "Director and Above"
-    }
-  ];
-
   //TODO 1. Translation, 2. Validation
 
   var createSelectizeConfig = function (key) {
@@ -1191,6 +1163,28 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       return jobLevelTitle;
     },
 
+    getJobLevel: function (jobLevelId) {
+      var jobLevel = undefined;
+      if ($.type(jobLevelId) === "string") return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id");
+      else if ($.type(jobLevelId) === "array") {
+        var jobLevelIds = jobLevelId;
+        var matchTimes = 0;
+        $.each(instance.jobLevelsSelectize.items, function (i, item) {
+          $.each(jobLevelIds, function (j, id) {
+            if ($.type(id) === "string") id = parseInt(id);
+            if ($.inArray(id, item.ids) > -1) {
+              matchTimes++;
+            }
+          });
+          if (matchTimes === jobLevelIds.length) {
+            jobLevel = item;
+            return false;
+          }
+        });
+      }
+      return jobLevel;
+    },
+
     getJobLevelIds: function (jobLevelId) {
       if ($.type(jobLevelId) !== "string") return jobLevelId;
       return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").ids;
@@ -1244,12 +1238,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },
 
-    jobsSelectize: {
-      items: jobLevels.map(function (job) {
-        return {id: job.jobLevel_id, translate: job[vnwLang], en: job.lang_en};
-      }),
-      config: $.extend(true, {}, createSelectizeConfig("jobsSelectize"), translateConfigBase)
-    },
+    //jobsSelectize: {
+    //  items: jobLevels.map(function (job) {
+    //    return {id: job.jobLevel_id, translate: job[vnwLang], en: job.lang_en};
+    //  }),
+    //  config: $.extend(true, {}, createSelectizeConfig("jobsSelectize"), translateConfigBase)
+    //},
 
     yearsOfExperience: {
       items: experiences.map(function (number) {
@@ -1308,8 +1302,8 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     {key: "companySizeSelectize", placeholder: "ex149", translate: true},
     {key: "educationLevel", placeholder: "exEducation", translate: true},
     {key: "yearsOfExperience", placeholder: "exExperience", translate: true},
-    {key: "languagesSelectize", placeholder: "exLanguages", translate: true},
-    {key: "jobsSelectize", placeholder: "exManager", translate: true}
+    {key: "languagesSelectize", placeholder: "exLanguages", translate: true}
+    //{key: "jobsSelectize", placeholder: "exManager", translate: true}
 
   ];
 
