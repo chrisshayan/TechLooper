@@ -27,7 +27,8 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   $scope.companySizeConfig = vnwConfigService.companySizeSelectize;
   $scope.yearsOfExperienceConfig = vnwConfigService.yearsOfExperience;
   $scope.languagesConfig = vnwConfigService.languagesSelectize;
-  $scope.jobLevelsConfig = vnwConfigService.jobsSelectize;
+  //console.log($scope.languagesConfig);
+  $scope.jobLevelsConfig = vnwConfigService.jobLevelsSelectize;
   //$scope.selectize = {
   //  jobLevels: {
   //    items: jobLevels,
@@ -134,18 +135,28 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     switch (step) {
       case "step3":
         var priceJob = $.extend(true, {}, $scope.priceJob);
-        priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
         priceJob.jobLevelName = jsonValue.jobLevelsMap[priceJob.jobLevelIds].translate;
+        priceJob.jobLevelIds = jsonValue.jobLevelsMap[priceJob.jobLevelIds].ids;
+        priceJob.languages = priceJob.languagesId;
         //priceJob.yearsExperienceId = jsonValue.yearsOfExperienceMap[priceJob.yearsExperienceId].id;
         //console.log(priceJob);
         utils.sendNotification(jsonValue.notifications.switchScope);
         $http.post("priceJob", priceJob)
           .success(function (data, status, headers, config) {
-            $scope.priceJob = data;
-            $scope.priceJob.jobLevelName = jsonValue.jobLevelsMap[$scope.priceJob.jobLevelIds].translate;
-            $scope.priceJob.jobCategoryLabels = $scope.priceJob.jobCategories.map(function(cat) {
+            console.log(data);
+            var jobLevel = vnwConfigService.getJobLevel($scope.priceJob.jobLevelIds);
+            data.languagesId = data.languages;
+            data.jobLevelIds = jobLevel.id;
+            data.jobLevelName = jobLevel.translate;//jsonValue.jobLevelsMap[data.jobLevelIds].translate;
+            data.yearsExperienceId = data.yearsExperienceId + "";
+            data.jobCategoryLabels = data.jobCategories.map(function(cat) {
               return jsonValue.industries[cat].value;
             });
+
+            if (!angular.isNumber(data.priceJobReport.targetPay)) delete data.priceJobReport;
+
+            $scope.priceJob = data;
+            //console.log($scope.priceJob);
             utils.sendNotification(jsonValue.notifications.loaded);
           });
         break;

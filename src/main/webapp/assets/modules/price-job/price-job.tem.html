@@ -163,7 +163,7 @@
               <img src="images/verified-data.png" alt=""/>
             </div>
           </div>
-          <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
+          <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport">
             <h3>{{'yourTargetPay' | translate}}</h3>
             <div class="your-pay-snapshot-content">
               <div class="your-pay-snapshot-info">
@@ -204,7 +204,7 @@
               </div>
             </div>
           </div>
-          <div class="your-pay-snapshot-block" ng-show="priceJob.priceJobReport.targetPay == 'NaN'">
+          <div class="your-pay-snapshot-block" ng-show="!priceJob.priceJobReport">
             <h3>{{'yourPaySnapshot' | translate}}</h3>
             <div class="your-pay-snapshot-content">
               <div class="your-pay-snapshot-info">
@@ -248,7 +248,7 @@
             </div>
           </div>
         </div>
-          <div class="salary-report-feedback" ng-show="priceJob.priceJobReport.targetPay !== 'NaN'">
+          <div class="salary-report-feedback" ng-show="priceJob.priceJobReport">
             <div class="title-header">
               <h3 translate="whatYouThinkReport" ng-show="!survey.saved"></h3>
               <div class="hidden-box" title="Close" ng-click="removeBoxContent('salary-report-feedback')">X</div>
