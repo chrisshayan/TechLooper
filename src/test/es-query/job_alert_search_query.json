@@ -6,16 +6,6 @@ GET techlooper/job/_search
         "bool": {
           "must": [
             {
-              "match": {
-                "location": {
-                  "query" : "Ha Noi",
-                  "operator": "and"
-                }
-              }
-            }
-          ],
-          "must": [
-            {
               "multi_match": {
                 "query": "Java Architect",
                 "fields": [
@@ -28,10 +18,28 @@ GET techlooper/job/_search
         }
       },
       "filter": {
-        "range": {
-          "createdDateTime": {
-            "from": "now-30d/d"
-          }
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "createdDateTime": {
+                  "from": "now-30d/d"
+                }
+              }
+            },
+            {
+              "term": {
+                "topPriority": true
+              }
+            }
+          ],
+          "must_not": [
+            {
+              "term": {
+                "isActive": 0
+              }
+            }
+          ]
         }
       }
     }
