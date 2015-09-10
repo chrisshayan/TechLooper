@@ -12,12 +12,18 @@ import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
+import org.elasticsearch.common.joda.time.DateTime;
+import org.elasticsearch.common.joda.time.format.DateTimeFormat;
+import org.elasticsearch.common.joda.time.format.DateTimeFormatter;
+import org.elasticsearch.common.joda.time.format.ISODateTimeFormat;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
@@ -43,6 +49,8 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
 public class JobAggregatorServiceImpl implements JobAggregatorService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JobAggregatorServiceImpl.class);
 
     @Value("${jobAlert.launchDate}")
     private String CONFIGURED_JOB_ALERT_LAUNCH_DATE;
@@ -174,6 +182,10 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                     JobEntity jobEntity = vietnamWorksJobSearchService.findJobById(job.getJobId());
                     if (jobEntity != null) {
                         job.setIsActive(jobEntity.getIsActive());
+
+                        DateTime parsedTime = ISODateTimeFormat.dateOptionalTimeParser().parseDateTime(jobEntity.getApprovedDate());
+                        DateTimeFormatter basicDateTimeFmt = DateTimeFormat.forPattern(BASIC_DATE_PATTERN);
+                        job.setCreatedDateTime(parsedTime.toString(basicDateTimeFmt));
                         scrapeJobRepository.save(job);
                     }
                 }
@@ -308,4 +320,5 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         }
         return result;
     }
+
 }
