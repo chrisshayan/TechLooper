@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -35,6 +36,9 @@ public class JobEntity {
 
     @Field(type = FieldType.Nested)
     private List<JobSkill> skills;
+
+    @Field(type = Integer)
+    private Integer isActive;
 
     public String getId() {
         return id;
@@ -82,6 +86,14 @@ public class JobEntity {
 
     public void setSkills(List<JobSkill> skills) {
         this.skills = skills;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 
     @Override
