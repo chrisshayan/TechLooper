@@ -227,9 +227,6 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         ScrapeJobEntity jobEntity = dozerMapper.map(job, ScrapeJobEntity.class);
         jobEntity.setTopPriority(isTopPriority);
         jobEntity.setCrawlSource("vietnamworks");
-        if (!scrapeJobRepository.exists(String.valueOf(job.getJobId()))) {
-            jobEntity.setCreatedDateTime(currentDate(BASIC_DATE_PATTERN));
-        }
         return jobEntity;
     }
 
