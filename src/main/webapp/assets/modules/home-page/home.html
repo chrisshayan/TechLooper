@@ -211,7 +211,7 @@
           <div class="box-content-detail" ng-show="homePage.latestEvents.length">
             <div class="upcoming-events-list">
               <div class="upcoming-events-by-time" ng-repeat="event in homePage.latestEvents">
-                <h4>{{event.startDate | timestamp: 'shortDate'}}</h4>
+                <h4>{{event.startDate | timestamp: 'longDate'}}</h4>
                 <div class="upcoming-event-item">
                   <div class="left-content">
                     <p>

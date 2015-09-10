@@ -111,6 +111,7 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       str = str.replace(/đ/g, "d");
       str = str.replace(/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g, "-");
       str = str.replace(/-+-/g, "-"); //change "--" to "-"
+      str = str.replace(/_/g, "-"); //change "--" to "-"
       str = str.replace(/^\-+|\-+$/g, "");//trim "-"
       return str;
     },

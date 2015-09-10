@@ -13,8 +13,6 @@
                 <div class="user-avatar" ng-show="$root.userInfo">
                     <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
                 </div>
-
-                <!--<a data-toggle="modal" data-target="#signIn" ng-show="!$root.userInfo">Sign In</a>-->
                 <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
             </div>
 
@@ -24,7 +22,7 @@
         <div class="main-menu-job-seeker-content">
             <ul>
                 <li class="active" ng-class="{ here: isActive('/home') }" ng-click="hideMenu()">
-                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{$root.userInfo.firstName | limitTo: 10}}</a>
+                    <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{($root.userInfo.name | limitTo:10) || ($root.userInfo.username | textTruncate: 'email')}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
                 <li ng-class="{ here: isActive('/challenges') }" ng-click="hideMenu()">
