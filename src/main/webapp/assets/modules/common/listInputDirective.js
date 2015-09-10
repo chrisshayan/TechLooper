@@ -9,8 +9,11 @@ techlooper.directive("listInput", function () {
       organisers: "="
     },
 
+    //TODO refactor organiser attribute
     link: function (scope, element, attr, ctrl) {
       scope.ngModel = scope.ngModel || [];
+      //scope.organisers = scope.organisers || [];
+      //scope.ngModel = $.merge(scope.ngModel, scope.organisers);
       //var oriItems = angular.copy(scope.ngModel);
 
 
@@ -43,19 +46,19 @@ techlooper.directive("listInput", function () {
       //  return modelValue.length > 0;
       //};
 
-      scope.status = function (type) {
-        switch (type) {
-          case "organiser":
-            var item = arguments[1];
-            return $.inArray(item, oriItems) > -1;
-
-          case "attendee":
-            var item = arguments[1];
-            return !scope.status("organiser", item)
-        }
-
-        return false;
-      }
+      //scope.status = function (type) {
+      //  switch (type) {
+      //    case "organiser":
+      //      var item = arguments[1];
+      //      return $.inArray(item, oriItems) > -1;
+      //
+      //    case "attendee":
+      //      var item = arguments[1];
+      //      return !scope.status("organiser", item)
+      //  }
+      //
+      //  return false;
+      //}
     }
   }
 });
