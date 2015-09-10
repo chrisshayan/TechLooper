@@ -469,7 +469,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "10-24"
     },
     {
-      "companySize_id": "2",
+      "companySize_id": "3",
       "lang_vn": "25-99",
       "lang_en": "25-99"
     },

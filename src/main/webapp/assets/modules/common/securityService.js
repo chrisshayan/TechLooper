@@ -56,7 +56,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         })
         .error(function () {
           if ($rootScope.currentUiView && $rootScope.currentUiView.loginUrl) {
-            $location.path($rootScope.currentUiView.loginUrl);
+            $location.url($rootScope.currentUiView.loginUrl);
+          }
+          else {
+            $location.url("/");
           }
           utils.sendNotification(jsonValue.notifications.loaded);
         });
@@ -66,25 +69,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       utils.sendNotification(jsonValue.notifications.loaded);
       var lastFoot = localStorageService.get("lastFoot");
       var uiView = utils.getUiView(lastFoot);
-      var roles = uiView.roles || [];
-      //if (lastFoot) {
-      //  if (!uiView.ignoreIfLastFoot) {
-      //    return $location.url(lastFoot);
-      //  }
-      //}
 
       if (lastFoot && !uiView.ignoreIfLastFoot) {
         return $location.url(lastFoot);
       }
-
-      //if (lastFoot && !uiView.ignoreIfLastFoot) {
-      //  return $location.url(lastFoot);
-      //}
-
-
-      //if (roles.length == 0) {
-      //  return $location.url(lastFoot);
-      //}
 
       switch ($rootScope.userInfo.roleName) {
         case "EMPLOYER":
@@ -97,15 +85,15 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
 
     initialize: function () {
       $rootScope.$on("$locationChangeSuccess", function (event, next, current) {
-        $rootScope.currentUiView = utils.getUiView();
-        if ($rootScope.currentUiView.name == "rootPage") {
+        var uiView = utils.getUiView();
+        if (uiView.name == "rootPage") {
           return false;
         }
 
         var param = $location.search();
         var notHasParam = !$.isEmptyObject(param);
 
-        var isSignInView = $rootScope.currentUiView.type == "LOGIN";
+        var isSignInView = uiView.type == "LOGIN";
         var notSignedIn = !$rootScope.userInfo && isSignInView;
         if (notSignedIn && notHasParam) {// should keep last print
           localStorageService.set("lastFoot", $location.url());
@@ -115,6 +103,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       });
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
+        $rootScope.currentUiView = utils.getUiView();
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
         var priorFoot = localStorageService.get("priorFoot");
         if (isSignInView) {
@@ -137,6 +126,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           return false;
         }
 
+        //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
           instance.getCurrentUser().error(function (userInfo) {
             return $location.url(uiView.loginUrl);
