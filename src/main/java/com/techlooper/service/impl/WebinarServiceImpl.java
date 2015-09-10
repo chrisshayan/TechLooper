@@ -18,7 +18,6 @@ import com.techlooper.service.WebinarService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
@@ -41,7 +40,6 @@ import javax.mail.internet.MimeUtility;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by phuonghqh on 8/18/15.
@@ -142,11 +140,8 @@ public class WebinarServiceImpl implements WebinarService {
   public List<WebinarInfoDto> listUpcomingWebinar() {
     List<WebinarInfoDto> upcomingWebinars = new ArrayList<>();
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
-
-    searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate")
-      .from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
-
-    searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
+    searchQueryBuilder.withPageable(new PageRequest(0, 4)).withQuery(QueryBuilders.rangeQuery("startDate").from("now"))
+      .withSort(SortBuilders.fieldSort("startDate").order(SortOrder.ASC));
 
     List<WebinarEntity> webinarEntities = webinarRepository.search(searchQueryBuilder.build()).getContent();
     if (!webinarEntities.isEmpty()) {
@@ -156,8 +151,8 @@ public class WebinarServiceImpl implements WebinarService {
       }
     }
 
-    Collections.reverse(upcomingWebinars);
-    return upcomingWebinars.stream().limit(4).collect(Collectors.toList());
+//    Collections.reverse(upcomingWebinars);
+    return upcomingWebinars;//.stream().limit(4).collect(Collectors.toList());
   }
 
   public WebinarInfoDto findWebinarById(Long id) {

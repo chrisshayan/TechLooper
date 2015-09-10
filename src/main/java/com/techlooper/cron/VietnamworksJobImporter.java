@@ -1,5 +1,7 @@
 package com.techlooper.cron;
 
+import com.techlooper.model.JobCrawlerSourceEnum;
+import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobTypeEnum;
 import com.techlooper.service.JobAggregatorService;
 import org.slf4j.Logger;
@@ -35,6 +37,10 @@ public class VietnamworksJobImporter {
             int numberOfNormalJobs = jobAggregatorService.importVietnamworksJob(JobTypeEnum.NORMAL);
             LOGGER.info(numberOfTopPriorityJobs + " top priority jobs has been indexed already.");
             LOGGER.info(numberOfNormalJobs + " normal jobs has been indexed already.");
+
+            JobSearchCriteria criteria = new JobSearchCriteria();
+            criteria.setCrawlSource(JobCrawlerSourceEnum.VIETNAMWORKS.getValue());
+            jobAggregatorService.updateJobExpiration(criteria);
         } catch (Throwable ex) {
             LOGGER.error(ex.getMessage(), ex);
         }

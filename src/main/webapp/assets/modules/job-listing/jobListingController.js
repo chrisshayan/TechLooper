@@ -21,6 +21,24 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
       $scope.jobs = response.jobs;
+      $.each($scope.jobs, function (i, job) {
+        var locations = job.location.split(",");
+        $.each(locations, function(j, id){
+           if($.isNumeric(id)){
+             if(j == 0){
+               job.locationText = vnwConfigService.getLocationText(id);
+             }else{
+               job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
+             }
+          }else{
+             if(j == 0){
+               job.locationText = id;
+             }else{
+               job.locationText = job.locationText + ', ' + job.locationText+ id;
+             }
+          }
+        });
+      });
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
@@ -40,6 +58,25 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       $scope.totalJob = response.totalJob;
       $scope.page = response.page;
       $scope.jobs = response.jobs;
+      $.each($scope.jobs, function (i, job) {
+        var locations = job.location.split(",");
+        $.each(locations, function(j, id){
+          if($.isNumeric(id)){
+            if(j == 0){
+              job.locationText = vnwConfigService.getLocationText(id);
+            }else{
+              job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
+            }
+          }else{
+            if(j == 0){
+              job.locationText = id;
+            }else{
+              job.locationText = job.locationText + ', ' + job.locationText+ id;
+            }
+          }
+        });
+      });
+      console.log($scope.jobs);
     });
 
     $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};

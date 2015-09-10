@@ -34,4 +34,8 @@ public interface JobSearchService {
     List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity);
 
     Double getAverageSalary(Long salaryMin, Long salaryMax);
+
+    JobEntity findJobById(String id);
+
+    JobEntity updateJob(JobEntity jobEntity);
 }
