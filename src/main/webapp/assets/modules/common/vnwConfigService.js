@@ -388,11 +388,6 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Other"
     },
     {
-      "location_id": "70",
-      "lang_vn": "Quốc tế",
-      "lang_en": "International"
-    },
-    {
       "location_id": "72",
       "lang_vn": "Hậu Giang",
       "lang_en": "Hau Giang"
@@ -401,14 +396,14 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
 
   var educationLevel = [
     {
-      "education_id": "1",
-      "lang_vn": "Không nêu",
-      "lang_en": "None"
+      "education_id": "12",
+      "lang_vn": "Tiến sĩ",
+      "lang_en": "Doctorate"
     },
     {
-      "education_id": "2",
-      "lang_vn": "Trung học",
-      "lang_en": "High school"
+      "education_id": "9",
+      "lang_vn": "Thạc sĩ",
+      "lang_en": "Masters"
     },
     {
       "education_id": "3",
@@ -421,37 +416,17 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Diploma"
     },
     {
-      "education_id": "12",
-      "lang_vn": "Cao đẳng",
-      "lang_en": "College"
+      "education_id": "2",
+      "lang_vn": "Trung học",
+      "lang_en": "High school"
     },
     {
-      "education_id": "14",
-      "lang_vn": "Kỹ Sư",
-      "lang_en": "Bachelor of Engineering"
+      "education_id": "1",
+      "lang_vn": "Tất cả trình độ",
+      "lang_en": "None"
     },
     {
-      "education_id": "13",
-      "lang_vn": "Sau đại học",
-      "lang_en": "Post-graduate"
-    },
-    {
-      "education_id": "5",
-      "lang_vn": "Thạc Sĩ",
-      "lang_en": "Masters"
-    },
-    {
-      "education_id": "6",
-      "lang_vn": "Tiến sĩ",
-      "lang_en": "Doctorate"
-    },
-    {
-      "education_id": "7",
-      "lang_vn": "Thạc sĩ Quản trị Kinh doanh",
-      "lang_en": "MBA"
-    },
-    {
-      "education_id": "11",
+      "education_id": "15",
       "lang_vn": "Khác",
       "lang_en": "Others"
     }
@@ -513,7 +488,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
   var experiences = [
     {
       "experience_id": "1",
-      "lang_vn": "Lực lượng lao động mới",
+      "lang_vn": "Mới tốt nghiệp",
       "lang_en": "New to workforce"
     },
     {
