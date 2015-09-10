@@ -211,7 +211,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                                     <tr>
                                                         <td align="left" style="color: #277cbd" >
-                                                            <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.title}" target="_blank">${job.title}</a>
+                                                            <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.url}" target="_blank">${job.title}</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
