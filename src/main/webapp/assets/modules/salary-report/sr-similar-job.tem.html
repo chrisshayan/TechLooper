@@ -25,7 +25,7 @@
               </li>
             </ul>
             <div class="btn-see-more">
-              <a ng-href="http://www.vietnamworks.com/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
+              <a ng-href="http://{{$root.vnwDomainName}}/{{job.jobId}}-jd" target="_blank">{{'seeMore' | translate}}</a>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@
     </div>
     <div class="see-more-jobs">
       <p translate="higherJobOfferDisclaimer" class="note" ng-show="state.showJobAlert"></p> <a
-      ng-href="http://www.vietnamworks.com/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary | number:0}}-en"
+      ng-href="http://{{$root.vnwDomainName}}/{{salaryReview.jobTitle}}+jobs-s{{salaryReport.netSalary | number:0}}-en"
       target="_blank" class="btn">{{'seeMoreHigherSalaryJob' | translate}}</a>
     </div>
     <div class="email-me-similar-jobs" ng-show="state.showJobAlertButton">
