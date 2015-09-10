@@ -68,7 +68,7 @@
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul class="info">
                 <li class="date"><i class="fa fa-calendar"></i>{{job.postedOn}}</li>
-                <li class="location"><i class="fa fa-map-marker"></i>{{job.location}}</li>
+                <li class="location"><i class="fa fa-map-marker"></i>{{job.locationText}}</li>
               </ul>
               <p><i class="fa fa-money"></i><span translate="salary"></span>:
                 <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
@@ -111,7 +111,7 @@
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul>
                 <li class="date"><i class="fa fa-calendar"></i>{{job.postedOn}}</li>
-                <li class="location"><i class="fa fa-map-marker"></i>{{job.location}}</li>
+                <li class="location"><i class="fa fa-map-marker"></i>{{job.locationText}}</li>
               </ul>
               <p><i class="fa fa-money"></i><span translate="salary"></span>:
                   <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
