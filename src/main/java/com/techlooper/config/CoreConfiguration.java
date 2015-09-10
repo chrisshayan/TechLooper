@@ -178,7 +178,7 @@ public class CoreConfiguration implements ApplicationContextAware {
                         .fields("jobTitle", "title")
                         .fields("jobTitleUrl", "url")
                         .fields("companyLogoUrl", "logoUrl")
-                        .exclude("createdDateTime");
+                        .fields("createdDateTime", "postedOn");
 
                 mapping(ScrapeJobEntity.class, JobResponse.class)
                         .fields("jobTitle", "title")
