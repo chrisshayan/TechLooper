@@ -18,75 +18,77 @@
           <div class="alert alert-danger" ng-show="sendMailFailMessage">
             <p translate="jobAlertFail"></p>
           </div>
-          <div class="latest-jobs-block">
-            <h4 translate="latestJobs"></h4>
-            <ul>
-              <li ng-repeat="job in homePage.latestJobs">
-                <div class="left">
-                  <h5><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" title="{{job.title}}">
-                    {{job.title | limitTo: 40}}
-                    <span ng-show="job.title.length > 40">...</span>
-                  </a></h5>
-                  <p title="{{job.company}}">
-                    {{job.company | limitTo: 45}}
-                    <span ng-show="job.company.length > 45">...</span>
-                  </p>
-                </div>
-                <div class="right">
-                  <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
-                  <strong ng-show="job.salary">{{job.salary}}</strong>
-                </div>
-              </li>
-              <li>
-                <a class="btn btn-primary btn-flat" translate="searchAll" ng-click="goToJobListing()"></a>
-              </li>
-            </ul>
-          </div>
-          <div class="send-me-job-alert-block">
-            <h4 translate="sendMeJobs"></h4>
-            <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
-              <div class="send-me-jobs-form">
+          <div class="it-job-corner-content-form">
+            <div class="latest-jobs-block">
+              <h4 translate="latestJobs"></h4>
+              <ul>
+                <li ng-repeat="job in homePage.latestJobs">
+                  <div class="left">
+                    <h5><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank" title="{{job.title}}">
+                      {{job.title | limitTo: 40}}
+                      <span ng-show="job.title.length > 40">...</span>
+                    </a></h5>
+                    <p title="{{job.company}}">
+                      {{job.company | limitTo: 45}}
+                      <span ng-show="job.company.length > 45">...</span>
+                    </p>
+                  </div>
+                  <div class="right">
+                    <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
+                    <strong ng-show="job.salary">{{job.salary}}</strong>
+                  </div>
+                </li>
+                <li>
+                  <a class="btn btn-primary btn-flat" translate="searchAll" ng-click="goToJobListing()"></a>
+                </li>
+              </ul>
+            </div>
+            <div class="send-me-job-alert-block">
+              <h4 translate="sendMeJobs"></h4>
+              <ng-form novalidate name="jobAlertForm" autocomplete="off" isolate-form>
+                <div class="send-me-jobs-form">
 
-                <div class="send-me-jobs-field">
-                  <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
-                  <input id="jobAlertEmail" type="email" class="input-style"
-                         placeholder="{{'jobAlertEmailEx' | translate}}" touchable
-                         ng-required="true" ng-model="jobAlert.email" name="email"/>
+                  <div class="send-me-jobs-field">
+                    <label for="jobAlertEmail">{{'emailAddress' | translate}}: <strong>*</strong></label>
+                    <input id="jobAlertEmail" type="email" class="input-style"
+                           placeholder="{{'jobAlertEmailEx' | translate}}" touchable
+                           ng-required="true" ng-model="jobAlert.email" name="email"/>
 
-                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$dirty">
-                    <div translate="requiredThisField" ng-show="jobAlertForm.email.$error.required"/>
-                    <div translate="emailInvalid" ng-show="jobAlertForm.email.$error.email"/>
+                    <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.email.$dirty">
+                      <div translate="requiredThisField" ng-show="jobAlertForm.email.$error.required"/>
+                      <div translate="emailInvalid" ng-show="jobAlertForm.email.$error.email"/>
+                    </div>
                   </div>
-                </div>
-                <div class="send-me-jobs-field">
-                  <label>{{'keyword' | translate}}:</label>
-                  <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
-                       get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
-                  </div>
-                  <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="false"
-                                attr-placeholder="{{'keywordEx' | translate}}" touchable>
-                  </autocomplete>
+                  <div class="send-me-jobs-field">
+                    <label>{{'keyword' | translate}}:</label>
+                    <div auto-suggestion text="jobAlert.keyword" items="jobTitles"
+                         get-url="suggestion/jobTitle/" input-model="jobAlert.keyword">
+                    </div>
+                    <autocomplete name="keyword" ng-model="jobAlert.keyword" data="jobTitles" ng-required="false"
+                                  attr-placeholder="{{'keywordEx' | translate}}" touchable>
+                    </autocomplete>
 
-                  <p class="note" translate="jobSkillCompany"></p>
-                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$dirty">
-                    <div translate="requiredThisField" ng-show="jobAlertForm.keyword.$error.required"/>
+                    <p class="note" translate="jobSkillCompany"></p>
+                    <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.keyword.$dirty">
+                      <div translate="requiredThisField" ng-show="jobAlertForm.keyword.$error.required"/>
+                    </div>
+                  </div>
+                  <div class="send-me-jobs-field">
+                    <label>{{'location' | translate}}:</label>
+                    <selectize config="locationsConfig.config"
+                               options="locationsConfig.items"
+                               ng-model="jobAlert.locationId" ng-required="false"
+                               name="location" class="locationSelectbox"></selectize>
+                    <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
+                      <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
+                    </div>
+                  </div>
+                  <div class="send-me-jobs-field submit">
+                    <button translate="sendNow" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
                   </div>
                 </div>
-                <div class="send-me-jobs-field">
-                  <label>{{'location' | translate}}:</label>
-                  <selectize config="locationsConfig.config"
-                             options="locationsConfig.items"
-                             ng-model="jobAlert.locationId" ng-required="false"
-                             name="location" class="locationSelectbox"></selectize>
-                  <div class="error-messages" ng-show="jobAlertForm.$submitted || jobAlertForm.location.$dirty">
-                    <div translate="requiredThisField" ng-show="jobAlertForm.location.$error.required"/>
-                  </div>
-                </div>
-                <div class="send-me-jobs-field submit">
-                  <button translate="sendNow" class="btn btn-primary btn-flat" ng-click="createJobAlert()"></button>
-                </div>
-              </div>
-            </ng-form>
+              </ng-form>
+            </div>
           </div>
         </div>
       </div>
