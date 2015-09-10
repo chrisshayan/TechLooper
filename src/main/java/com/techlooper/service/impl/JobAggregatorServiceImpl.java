@@ -264,7 +264,8 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         } else {
             queryBuilder = boolQuery();
             if (StringUtils.isNotEmpty(criteria.getKeyword())) {
-                ((BoolQueryBuilder) queryBuilder).must(multiMatchQuery(criteria.getKeyword(), "jobTitle", "company"));
+                ((BoolQueryBuilder) queryBuilder).must(
+                        multiMatchQuery(criteria.getKeyword()).field("jobTitle", 8).field("company", 2));
             }
             if (StringUtils.isNotEmpty(criteria.getLocation())) {
                 ((BoolQueryBuilder) queryBuilder).must(matchQuery("location", criteria.getLocation()).operator(Operator.AND));
