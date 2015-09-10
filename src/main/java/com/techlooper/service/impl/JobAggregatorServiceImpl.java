@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
+import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
@@ -11,7 +12,10 @@ import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +38,7 @@ import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
-import static org.elasticsearch.index.query.MatchQueryBuilder.*;
+import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
@@ -146,18 +150,36 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         Integer totalPage = searchResult.getTotalPages();
 
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
-        List<JobResponse> result = new ArrayList<>();
-        if (!jobs.isEmpty()) {
-            for (ScrapeJobEntity jobEntity : jobs) {
-                JobResponse job = dozerMapper.map(jobEntity, JobResponse.class);
-                job.setTopPriority(jobEntity.getTopPriority() != null ? jobEntity.getTopPriority() : Boolean.FALSE);
-                result.add(job);
-            }
-        }
+        List<JobResponse> result = getJobResponses(jobs);
 
         JobSearchResponse jobSearchResponse = new JobSearchResponse.Builder()
                 .withTotalJob(totalJob).withTotalPage(totalPage).withPage(criteria.getPage()).withJobs(result).build();
         return jobSearchResponse;
+    }
+
+    @Override
+    public void updateJobExpiration(JobSearchCriteria criteria) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
+        searchQueryBuilder.withQuery(termQuery("crawlSource", criteria.getCrawlSource()));
+
+        int page = 0;
+        List<ScrapeJobEntity> jobs = new ArrayList<>();
+        do {
+            searchQueryBuilder.withPageable(new PageRequest(page, 100));
+            FacetedPage<ScrapeJobEntity> searchResult = scrapeJobRepository.search(searchQueryBuilder.build());
+            jobs = searchResult.getContent();
+
+            if (!jobs.isEmpty()) {
+                for (ScrapeJobEntity job : jobs) {
+                    JobEntity jobEntity = vietnamWorksJobSearchService.findJobById(job.getJobId());
+                    if (jobEntity != null) {
+                        job.setIsActive(jobEntity.getIsActive());
+                        scrapeJobRepository.save(job);
+                    }
+                }
+            }
+            page++;
+        } while (!jobs.isEmpty());
     }
 
     @Override
@@ -190,6 +212,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         Boolean isTopPriorityJob = (jobType == JobTypeEnum.TOP_PRIORITY) ? Boolean.TRUE : Boolean.FALSE;
 
         VNWJobSearchResponse vnwJobSearchResponse;
+        int sum = 0;
         do {
             vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(jobSearchRequest);
             if (vnwJobSearchResponse.hasData()) {
@@ -198,10 +221,11 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                 scrapeJobRepository.save(jobEntities);
                 jobSearchRequest.setPageNumber(jobSearchRequest.getPageNumber() + 1);
                 jobSearchRequestBuilder.withPageNumber(jobSearchRequest.getPageNumber());
+                sum += vnwJobSearchResponse.getData().getTotal();
             }
         } while (vnwJobSearchResponse.hasData());
 
-        return vnwJobSearchResponse != null ? vnwJobSearchResponse.getData().getTotal() : 0;
+        return sum;
     }
 
     private String buildSearchPath(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
@@ -248,6 +272,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         }
 
         BoolFilterBuilder filterBuilder = new BoolFilterBuilder();
+        filterBuilder.mustNot(termFilter("isActive", 0));
         filterBuilder.must(rangeFilter("createdDateTime").from("now-30d/d"));
         if (criteria.getTopPriority() != null) {
             if (criteria.getTopPriority() == true) {
@@ -269,5 +294,17 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         Date launchDate = string2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, BASIC_DATE_PATTERN);
         int numberOfDays = DateTimeUtils.daysBetween(launchDate, new Date());
         return numberOfDays % period.getValue();
+    }
+
+    private List<JobResponse> getJobResponses(List<ScrapeJobEntity> jobs) {
+        List<JobResponse> result = new ArrayList<>();
+        if (!jobs.isEmpty()) {
+            for (ScrapeJobEntity jobEntity : jobs) {
+                JobResponse job = dozerMapper.map(jobEntity, JobResponse.class);
+                job.setTopPriority(jobEntity.getTopPriority() != null ? jobEntity.getTopPriority() : Boolean.FALSE);
+                result.add(job);
+            }
+        }
+        return result;
     }
 }

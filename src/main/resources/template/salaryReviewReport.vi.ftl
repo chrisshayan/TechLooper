@@ -430,7 +430,7 @@
                         <table width="250px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/salary-review?campaign=email&lang=vi&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; text-align: center; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
+                              <a href="${webBaseUrl}#/salary-review?campaign=email&id=${id}&utm_source=salaryreportemail&utm_medium=updatereportbutton&utm_campaign=sendmereport" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; text-align: center; color: #ffffff; text-decoration: none; display: inline-block;">Cập Nhật Báo Cáo Lương</a>
                             </td>
                           </tr>
                         </table>

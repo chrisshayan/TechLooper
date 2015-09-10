@@ -13,6 +13,8 @@ public class JobSearchCriteria {
 
     private Boolean topPriority;
 
+    private String crawlSource;
+
     public JobSearchCriteria(){
         this.page = 1;
     }
@@ -51,5 +53,13 @@ public class JobSearchCriteria {
 
     public void setTopPriority(Boolean topPriority) {
         this.topPriority = topPriority;
+    }
+
+    public String getCrawlSource() {
+        return crawlSource;
+    }
+
+    public void setCrawlSource(String crawlSource) {
+        this.crawlSource = crawlSource;
     }
 }

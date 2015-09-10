@@ -2,7 +2,6 @@ package com.techlooper.model;
 
 import com.techlooper.entity.CompanyBenefit;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -10,239 +9,249 @@ import java.util.List;
  */
 public class JobResponse {
 
-  private String url;
+    private String jobId;
 
-  private String title;
+    private String url;
 
-  private String location;
+    private String title;
 
-  private String level;
+    private String location;
 
-  private String postedOn;
+    private String level;
 
-  private String company;
+    private String postedOn;
 
-  private String videoUrl;
+    private String company;
 
-  private String logoUrl;
+    private String videoUrl;
 
-  private String salary;
+    private String logoUrl;
 
-  private Long salaryMin;
+    private String salary;
 
-  private Long salaryMax;
+    private Long salaryMin;
 
-  private Boolean topPriority;
+    private Long salaryMax;
 
-  private List<CompanyBenefit> benefits;
+    private Boolean topPriority;
 
-  private List<JobSkill> skills;
+    private List<CompanyBenefit> benefits;
+
+    private List<JobSkill> skills;
 
 //  public static Collection<Long> topPriorityJobIds;
 
-  public static class Builder {
+    public static class Builder {
 
-    private JobResponse instance = new JobResponse();
+        private JobResponse instance = new JobResponse();
 
-    public Builder withUrl(String url) {
-      instance.url = url;
-      return this;
+        public Builder withUrl(String url) {
+            instance.url = url;
+            return this;
+        }
+
+        public Builder withTitle(String title) {
+            instance.title = title;
+            return this;
+        }
+
+        public Builder withLocation(String location) {
+            instance.location = location;
+            return this;
+        }
+
+        public Builder withLevel(String level) {
+            instance.level = level;
+            return this;
+        }
+
+        public Builder withPostedOn(String postedOn) {
+            instance.postedOn = postedOn;
+            return this;
+        }
+
+        public Builder withCompany(String company) {
+            instance.company = company;
+            return this;
+        }
+
+        public Builder withVideoUrl(String videoUrl) {
+            instance.videoUrl = videoUrl;
+            return this;
+        }
+
+        public Builder withLogoUrl(String logoUrl) {
+            instance.logoUrl = logoUrl;
+            return this;
+        }
+
+        public Builder withSalary(String salary) {
+            instance.salary = salary;
+            return this;
+        }
+
+        public Builder withSalaryMin(Long salaryMin) {
+            instance.salaryMin = salaryMin;
+            return this;
+        }
+
+        public Builder withSalaryMax(Long salaryMax) {
+            instance.salaryMax = salaryMax;
+            return this;
+        }
+
+        public Builder withTopPriority(Boolean topPriority) {
+            instance.setTopPriority(topPriority);
+            return this;
+        }
+
+        public Builder withBenefits(List<CompanyBenefit> benefits) {
+            instance.benefits = benefits;
+            return this;
+        }
+
+        public Builder withSkills(List<JobSkill> skills) {
+            instance.skills = skills;
+            return this;
+        }
+
+        public JobResponse build() {
+            return instance;
+        }
     }
 
-    public Builder withTitle(String title) {
-      instance.title = title;
-      return this;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JobResponse that = (JobResponse) o;
+
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+
+        return true;
     }
 
-    public Builder withLocation(String location) {
-      instance.location = location;
-      return this;
+    public int hashCode() {
+        return url != null ? url.hashCode() : 0;
     }
 
-    public Builder withLevel(String level) {
-      instance.level = level;
-      return this;
+    public String getJobId() {
+        return jobId;
     }
 
-    public Builder withPostedOn(String postedOn) {
-      instance.postedOn = postedOn;
-      return this;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
-    public Builder withCompany(String company) {
-      instance.company = company;
-      return this;
+    public String getUrl() {
+        return url;
     }
 
-    public Builder withVideoUrl(String videoUrl) {
-      instance.videoUrl = videoUrl;
-      return this;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public Builder withLogoUrl(String logoUrl) {
-      instance.logoUrl = logoUrl;
-      return this;
+    public String getTitle() {
+        return title;
     }
 
-    public Builder withSalary(String salary) {
-      instance.salary = salary;
-      return this;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Builder withSalaryMin(Long salaryMin) {
-      instance.salaryMin = salaryMin;
-      return this;
+    public String getLocation() {
+        return location;
     }
 
-    public Builder withSalaryMax(Long salaryMax) {
-      instance.salaryMax = salaryMax;
-      return this;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public Builder withTopPriority(Boolean topPriority) {
-      instance.setTopPriority(topPriority);
-      return this;
+    public String getLevel() {
+        return level;
     }
 
-    public Builder withBenefits(List<CompanyBenefit> benefits) {
-      instance.benefits = benefits;
-      return this;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public Builder withSkills(List<JobSkill> skills) {
-      instance.skills = skills;
-      return this;
+    public String getPostedOn() {
+        return postedOn;
     }
 
-    public JobResponse build() {
-      return instance;
+    public void setPostedOn(String postedOn) {
+        this.postedOn = postedOn;
     }
-  }
 
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    public String getCompany() {
+        return company;
+    }
 
-    JobResponse that = (JobResponse) o;
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
-    if (url != null ? !url.equals(that.url) : that.url != null) return false;
+    public String getVideoUrl() {
+        return videoUrl;
+    }
 
-    return true;
-  }
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
-  public int hashCode() {
-    return url != null ? url.hashCode() : 0;
-  }
+    public String getLogoUrl() {
+        return logoUrl;
+    }
 
-  public String getUrl() {
-    return url;
-  }
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
+    public String getSalary() {
+        return salary;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
 
-  public String getLocation() {
-    return location;
-  }
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
 
-  public void setLocation(String location) {
-    this.location = location;
-  }
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
 
-  public String getLevel() {
-    return level;
-  }
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
+    }
 
-  public void setLevel(String level) {
-    this.level = level;
-  }
+    public List<CompanyBenefit> getBenefits() {
+        return benefits;
+    }
 
-  public String getPostedOn() {
-    return postedOn;
-  }
+    public void setBenefits(List<CompanyBenefit> benefits) {
+        this.benefits = benefits;
+    }
 
-  public void setPostedOn(String postedOn) {
-    this.postedOn = postedOn;
-  }
+    public List<JobSkill> getSkills() {
+        return skills;
+    }
 
-  public String getCompany() {
-    return company;
-  }
+    public void setSkills(List<JobSkill> skills) {
+        this.skills = skills;
+    }
 
-  public void setCompany(String company) {
-    this.company = company;
-  }
+    public Boolean getTopPriority() {
+        return topPriority;
+    }
 
-  public String getVideoUrl() {
-    return videoUrl;
-  }
-
-  public void setVideoUrl(String videoUrl) {
-    this.videoUrl = videoUrl;
-  }
-
-  public String getLogoUrl() {
-    return logoUrl;
-  }
-
-  public void setLogoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-  }
-
-  public String getSalary() {
-    return salary;
-  }
-
-  public void setSalary(String salary) {
-    this.salary = salary;
-  }
-
-  public Long getSalaryMin() {
-    return salaryMin;
-  }
-
-  public void setSalaryMin(Long salaryMin) {
-    this.salaryMin = salaryMin;
-  }
-
-  public Long getSalaryMax() {
-    return salaryMax;
-  }
-
-  public void setSalaryMax(Long salaryMax) {
-    this.salaryMax = salaryMax;
-  }
-
-  public List<CompanyBenefit> getBenefits() {
-    return benefits;
-  }
-
-  public void setBenefits(List<CompanyBenefit> benefits) {
-    this.benefits = benefits;
-  }
-
-  public List<JobSkill> getSkills() {
-    return skills;
-  }
-
-  public void setSkills(List<JobSkill> skills) {
-    this.skills = skills;
-  }
-
-  public Boolean getTopPriority() {
-    return topPriority;
-  }
-
-  public void setTopPriority(Boolean topPriority) {
-    this.topPriority = topPriority;
-  }
+    public void setTopPriority(Boolean topPriority) {
+        this.topPriority = topPriority;
+    }
 }
