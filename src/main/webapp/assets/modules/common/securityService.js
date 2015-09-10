@@ -58,9 +58,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           if ($rootScope.currentUiView && $rootScope.currentUiView.loginUrl) {
             $location.url($rootScope.currentUiView.loginUrl);
           }
-          else {
-            $location.url("/");
-          }
+          //else {
+          //  $location.url("/");
+          //}
+          //utils.sendNotification(jsonValue.notifications.loaded);
           utils.sendNotification(jsonValue.notifications.loaded);
         });
     },
