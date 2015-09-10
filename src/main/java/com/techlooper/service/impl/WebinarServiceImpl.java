@@ -143,8 +143,8 @@ public class WebinarServiceImpl implements WebinarService {
     List<WebinarInfoDto> upcomingWebinars = new ArrayList<>();
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("webinar");
 
-    searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate")
-      .from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
+//    searchQueryBuilder.withQuery(QueryBuilders.rangeQuery("startDate")
+//      .from(org.joda.time.DateTime.now().toString("dd/MM/yyyy hh:mm a")));
 
     searchQueryBuilder.withSort(SortBuilders.fieldSort("startDate").order(SortOrder.DESC));
 
