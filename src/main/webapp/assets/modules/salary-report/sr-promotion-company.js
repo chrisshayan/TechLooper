@@ -10,6 +10,9 @@ techlooper.directive("srPromotionCompany", function ($http, validatorService, vn
       }
 
       scope.sendCitibankPromotion = function () {
+        if(scope.promotion.agree == undefined){
+          return;
+        }
         var error = validatorService.validate($(".partner-company-form").find('input'));
         scope.error = error;
         if (!$.isEmptyObject(error)) {
