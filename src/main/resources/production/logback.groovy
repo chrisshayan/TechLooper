@@ -19,7 +19,7 @@ new File(LOG_FOLDER).mkdirs()
 appender("ALL", RollingFileAppender) {
   file = "${LOG_FOLDER}/techlooper-all.log"
   rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper-all_%i.log"
+    fileNamePattern = "${LOG_FOLDER}/techlooper-all_%i.log"
     minIndex = 1
     maxIndex = 100
   }
@@ -34,7 +34,7 @@ appender("ALL", RollingFileAppender) {
 appender("SPRING", RollingFileAppender) {
   file = "${LOG_FOLDER}/techlooper-spring-all.log"
   rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper-spring-all_%i.log"
+    fileNamePattern = "${LOG_FOLDER}/techlooper-spring-all_%i.log"
     minIndex = 1
     maxIndex = 100
   }
@@ -49,7 +49,7 @@ appender("SPRING", RollingFileAppender) {
 appender("ERROR", RollingFileAppender) {
   file = "${LOG_FOLDER}/techlooper-error.log"
   rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper-error_%i.log"
+    fileNamePattern = "${LOG_FOLDER}/techlooper-error_%i.log"
     minIndex = 1
     maxIndex = 100
   }
