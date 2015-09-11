@@ -139,7 +139,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
   }
 
   $scope.filterJob = function() {
-    var keyword = $scope.searchJob.keyword ? utils.toAscii($scope.searchJob.keyword) : "";
+    var keyword = $scope.searchJob.keyword ? $scope.searchJob.keyword : "";
     var locationId = $scope.searchJob.locationId && $scope.searchJob.locationId !== "0" ? $scope.searchJob.locationId : "";
     var location = "";
     if (locationId) {
@@ -147,15 +147,15 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     }
     var page = 1;
 
-    //apiService.filterJob(keyword, location, page).success(function(response) {
-    //  $scope.totalPage = response.totalPage;
-    //  $scope.totalJob = response.totalJob;
-    //  $scope.page = response.page;
-    //  $scope.jobs = response.jobs;
-    //});
+    apiService.filterJob(keyword, location, page).success(function(response) {
+      $scope.totalPage = response.totalPage;
+      $scope.totalJob = response.totalJob;
+      $scope.page = response.page;
+      $scope.jobs = response.jobs;
+    });
 
-    var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
-    $location.path(searchPath);
+    //var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
+    //$location.path(searchPath);
   }
 
   $scope.buildSearchPath = function(keyword, locationId, location, page) {
