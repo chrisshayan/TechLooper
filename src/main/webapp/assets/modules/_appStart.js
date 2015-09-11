@@ -44,6 +44,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
       case "redirectJA":
         window.location.href = param.targetUrl;
         break;
+
+      case "cancel":
+        $location.url("/");
+        break;
     }
   }
 
