@@ -114,34 +114,36 @@ techlooper.factory("jsonValue", function () {
       ]
     },
 
-    termColor: [{
+    termColor: [
+      {
       "Name": "JAVA",
       "color": "#bf06b7"
-    }, {
-      "Name": "DOTNET",
-      "color": "#d50708"
-    }, {
-      "Name": "PHP",
-      "color": "#450770"
-    }, {
-      "Name": "PROJECT_MANAGER",
-      "color": "#17875f"
-    }, {
-      "Name": "RUBY",
-      "color": "#d5876a"
-    }, {
-      "Name": "PYTHON",
-      "color": "#d7c500"
-    }, {
-      "Name": "DBA",
-      "color": "#666600"
-    }, {
-      "Name": "QA",
-      "color": "#1fb43f"
-    }, {
-      "Name": "BA",
-      "color": "#996600"
-    }],
+      }, {
+        "Name": "DOTNET",
+        "color": "#d50708"
+      }, {
+        "Name": "PHP",
+        "color": "#450770"
+      }, {
+        "Name": "PROJECT_MANAGER",
+        "color": "#17875f"
+      }, {
+        "Name": "RUBY",
+        "color": "#d5876a"
+      }, {
+        "Name": "PYTHON",
+        "color": "#d7c500"
+      }, {
+        "Name": "DBA",
+        "color": "#666600"
+      }, {
+        "Name": "QA",
+        "color": "#1fb43f"
+      }, {
+        "Name": "BA",
+        "color": "#996600"
+      }
+    ],
 
     skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "#00eaff", "#10F4FB", "#2404FB", "#35E811"],
 
@@ -221,7 +223,8 @@ techlooper.factory("jsonValue", function () {
       jobListing: "jobListing",
       createEvent: "createEvent",
       events: "events",
-      eventDetails: "eventDetails"
+      eventDetails: "eventDetails",
+      topics: "topics"
     },
 
     uiViews: [
