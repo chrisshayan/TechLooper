@@ -4,6 +4,7 @@
   "findjobs": "Find Jobs",
   "note": "This real-time data is powered by VietnamWorks",
   "tagLine": "Career Analytics. Open Source. Awesome!",
+  "careerAnalytics" :"<i class='fa fa-pie-chart'></i> Career Analytics",
   "loadMore": "Scroll Down to Load More",
   "loading": "Loading data...",
   "enterText2Search": "Enter text to search...",
@@ -61,6 +62,7 @@
   "from": "From",
   "upto": "Up to",
   "topskills": "Top Skills",
+  "topDemandedSkills": "Top Demanded Skills In The Market",
   "salaryRangeLabel": "The salary range for",
   "is": "is",
   "allLevel": "All levels",
@@ -697,9 +699,11 @@
   "eventsTitle": "Let's Hang Out 'cause WE are AWESOME when getting TOGETHER",
   "postedEventSuccessful": "You have posted this event successfully.",
   "joinedEventAlert": "You have already joined this event.",
-  "latestJobs": "Latest Jobs",
+  "latestJobs": "<strong>Latest Jobs</strong> in {{number}} job(s)",
   "jobAggregator": "Access to thousands of new jobs from job sites around you and receive weekly email notification about jobs which match perfectly your expectations through free job alert registration.",
   "sendNow" : "Send Now",
   "thisEventExpired": "This event is expired!",
-  "now": "Now"
+  "now": "Now",
+  "techForum": "Tech Forum",
+  "latestTopics": "Latest Topics"
 }

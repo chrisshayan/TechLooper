@@ -4,6 +4,7 @@
   "findjobs": "Tìm việc",
   "note": "Số lượng công việc được cung cấp bởi VietnamWorks",
   "tagLine": "Career Analytics. Open Source. Awesome!",
+  "careerAnalytics" :"<i class='fa fa-pie-chart'></i> Xu hướng công nghệ",
   "loadMore": "Scroll Down to Load More",
   "loading": "Loading data...",
   "enterText2Search": "Nhập từ cần tìm và nhấn Enter...",
@@ -63,6 +64,7 @@
   "salaryRangeLabel": "Lương của",
   "is": "khoảng",
   "topskills": "Kỹ Năng Hàng Đầu",
+  "topDemandedSkills": "Kỹ Năng Hàng Đầu",
   "allLevel": "Tất cả cấp bậc",
   "newGradLevel": "Mới Tốt Nghiệp",
   "experienced": "Có Kinh Nghiệm",
@@ -698,9 +700,11 @@
   "eventsTitle": "Hãy cùng Gặp Gỡ và Giao Lưu thông qua các Sự Kiện Trực Tuyến",
   "postedEventSuccessful": "Bạn vừa tạo sự kiện thành công.",
   "joinedEventAlert": "Bạn đã tham gia sự kiện này.",
-  "latestJobs": "Công việc mới nhất",
+  "latestJobs": "Công việc mới nhất trong {{number}} công việc",
   "jobAggregator": "Truy cập ngay hàng ngàn công việc mới từ các website tuyển dụng và nhận thông báo việc làm miễn phí hàng tuần phù hợp với tiêu chí của bạn.",
   "sendNow" : "Gửi Ngay",
   "thisEventExpired": "Sự kiện đã hết hạn!",
-  "now": "Hiện tại"
+  "now": "Hiện tại",
+  "techForum": "Tech Forum",
+  "latestTopics": "Latest Topics"
 }
