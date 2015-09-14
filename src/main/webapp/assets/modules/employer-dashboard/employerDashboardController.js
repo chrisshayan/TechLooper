@@ -15,10 +15,6 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     })
     .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
 
-  //$scope.sortOrder = function(newSortingOrder){
-  //  $scope.sortingOrder = newSortingOrder;
-  //  $scope.reverse =! $scope.reverse;
-  //};
   $scope.myFunction = function(val) {
     return val.progress.translate != 'notStart' && val.progress.translate != 'closed';
   };

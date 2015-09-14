@@ -104,7 +104,7 @@
             <td>
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" title="{{'viewDetails' | translate}}"><i class="fa fa-eye"></i></a>
               <a title="{{'edit' | translate}}" ng-show="challenge.progress.translate == 'notStart'"><i class="fa fa-pencil-square-o"></i></a>
-              <a title="{{'delete' | translate}}" ng-show="challenge.progress.translate == 'notStart'"><i class="fa fa-trash-o"></i></a>
+              <a title="{{'delete' | translate}}" ng-show="challenge.progress.translate == 'notStart'" data-toggle="modal" data-target="#deletionConfirmation"><i class="fa fa-trash-o"></i></a>
             </td>
           </tr>
           </tbody>
@@ -137,5 +137,17 @@
       </div>
     </div>
   </div>
-
+  <div class="modal fade" id="deletionConfirmation">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p translate="deleteConfirmation"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" translate="cancel"></button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" translate="ok"></button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </div>
