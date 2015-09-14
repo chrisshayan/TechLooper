@@ -708,5 +708,7 @@
   "thisEventExpired": "Sự kiện đã hết hạn!",
   "now": "Hiện tại",
   "techForum": "Tech Forum",
-  "latestTopics": "Latest Topics"
+  "latestTopics": "Latest Topics",
+  "all": "All",
+  "active": "Active"
 }

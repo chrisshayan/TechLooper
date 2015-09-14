@@ -654,7 +654,7 @@
   "ItJobHub": "IT Job Hub",
   "searchJobKeyword1": "Enter Job title or Skills or Company to search jobs",
   "withIn": "within",
-  "allLocations": "All Locations",
+  "allLocations": "Any Locations",
   "totalJobs": "<strong>{{number}}</strong> Job(s) returned",
   "totalPages": "Total Pages: <strong>{{number}}</strong>",
   "company": "company",
@@ -707,5 +707,7 @@
   "thisEventExpired": "This event is expired!",
   "now": "Now",
   "techForum": "Tech Forum",
-  "latestTopics": "Latest Topics"
+  "latestTopics": "Latest Topics",
+  "all": "All",
+  "active": "Active"
 }
