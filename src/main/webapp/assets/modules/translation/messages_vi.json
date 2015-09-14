@@ -702,7 +702,7 @@
   "eventsTitle": "Hãy cùng Gặp Gỡ và Giao Lưu thông qua các Sự Kiện Trực Tuyến",
   "postedEventSuccessful": "Bạn vừa tạo sự kiện thành công.",
   "joinedEventAlert": "Bạn đã tham gia sự kiện này.",
-  "latestJobs": "Công việc mới nhất trong {{number}} công việc",
+  "latestJobs": "<strong>Công việc mới nhất</strong> trong {{number}} công việc",
   "jobAggregator": "Truy cập ngay hàng ngàn công việc mới từ các website tuyển dụng và nhận thông báo việc làm miễn phí hàng tuần phù hợp với tiêu chí của bạn.",
   "sendNow" : "Gửi Ngay",
   "thisEventExpired": "Sự kiện đã hết hạn!",

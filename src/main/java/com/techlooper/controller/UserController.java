@@ -306,6 +306,13 @@ public class UserController {
         }
 
         JobSearchCriteria criteria = new JobSearchCriteria();
+        try {
+            JobSearchResponse allJobSearchResponse = jobAggregatorService.findJob(criteria);
+            personalHomepage.setTotalLatestJob(allJobSearchResponse.getTotalJob());
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+
         criteria.setTopPriority(Boolean.FALSE);
         try {
             JobSearchResponse latestJobSearchResponse = jobAggregatorService.findJob(criteria);
