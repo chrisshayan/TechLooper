@@ -5,25 +5,32 @@
     display: inline-block
     width: 100%
     clear: both
-    padding: 20px
+    padding: 0
+    border: 0
+    border-radius: 0
+    box-shadow: inherit
+    background-color: transparent
     .my-challenges-block
       padding-left: 0
+      padding-right: 5px
     .my-projects-block
       padding-right: 0
     .dashboard-box
       display: inline-block
       border: 1px solid #d5dadc
-      padding: 10px
       width: 100%
+      background-color: #fff
+      border-radius: 3px
       .sub-header-dashboard
         width: 100%
         clear: both
+        background-color: #f3fafe
         display: inline-block
         border-bottom: 1px solid #d5dadc
-        padding-bottom: 10px
+        padding: 5px 10px
         h3
           font-size: 18px
-          font-weight: 500
+          font-weight: 400
           width: 50%
           float: left
           margin: 0
@@ -31,31 +38,101 @@
           line-height: 34px
           text-align: left
         a
-          width: 120px
+          width: auto
           float: right
+          padding: 7px 12px 0px 12px
       .dashboard-content
         display: inline-block
         clear: both
         width: 100%
-        padding: 20px 0 0 0
+        padding: 20px 10px 10px 10px
         min-height: 110px
+        .ic-dashboard
+          width: 30%
+          float: left
+          padding-top: 3px
+          span
+            width: 90px
+            height: 90px
+            border-radius: 50%
+            background-color: #92cdff
+            color: #fff
+            display: inline-block
+            line-height: 90px
+            font-size: 45px
+            font-weight: 400
+            text-align: center
+        .dashboard-details
+          width: 70%
+          float: left
+          padding-left: 10px
         p
           margin: 0
-          font-size: 16px
+          font-size: 14px
           color: #878787
           font-weight: 300
         strong
           font-size: 30px
-          font-weight: 500
+          font-weight: 400
+          line-height: 22px
         .active-item
-          width: 50%
-          float: left
+          width: 100%
+          clear: both
+          display: inline-block
+          text-align: left
         .total-people
-          width: 40%
-          float: right
+          width: 100%
+          clear: both
+          text-align: left
+          display: inline-block
+          padding-top: 10px
+    tr:nth-child(2n+1)
+      background-color: #f9f9f9
+    th
+      background-color: #f3fafe !important
     .active-challenges-list
       padding: 20px 0
+      .filter-item
+        display: inline-block
+        clear: both
+        padding: 5px 0
+        text-align: left
+        width: 100%
+        span
+          display: inline-block
+          width: auto
+          margin-right: 5px
+          border-radius: 5px
+          padding: 3px 15px
+          background-color: red
+          color: #333
+          cursor: pointer
+          i
+            padding: 4px
+            font-weight: 400
+            font-style: normal
+          i.fa-check-square-o
+            display: none
+        span.all
+          background-color: #cae3f9
+        span.activating
+          background-color: #cbedd9
+        span.notStarted
+          background-color: #dbc6fe
+        span.closed
+          background-color: #d0d0d0
+        span.active
+          i.fa-check-square-o
+            display: inline-block
+      .challenges-list
+        width: 100%
+        clear: both
+        display: inline-block
+        height: 300px
+        overflow: auto
       table.contests-table
+        background-color: #fff
+        border-radius: 3px
         th:nth-child(2)
           width: 20%
         td:nth-child(2)
@@ -70,6 +147,8 @@
           width: 18%
     .active-projects-list
       padding: 0
+      table.contests-table
+        background-color: #fff
       th:nth-child(2)
         width: 36%
       td:nth-child(2)
