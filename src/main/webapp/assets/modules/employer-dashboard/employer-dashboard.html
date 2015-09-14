@@ -48,17 +48,17 @@
     </div>
     <div class="row">
       <div class="active-challenges-list contestant-page">
-        <div class="filter-item">
-          <span class="all active" ng-click="challenge.progress.translate = ''">
-             <i class="fa fa-check-square-o"></i>{{'all' | translate}} (<i>{{dashboardInfo.challenges.length}}</i>)</span>
-          <span class="activating" ng-click="challenge.progress.translate = myFunction">
-            <i class="fa fa-check-square-o"></i> {{'active' | translate}}
+        <div class="filter-item"ng-modal="active" data-ng-init="active='all'">
+          <span class="all" ng-class="{active: active =='all'}" ng-click="challenge.progress.translate = ''; active ='all'">
+           {{'all' | translate}} (<i>{{dashboardInfo.challenges.length}}</i>)</span>
+          <span class="activating" ng-class="{active: active =='registration'}" ng-click="challenge.progress.translate = myFunction; active ='registration'">
+            {{'active' | translate}}
             (<i>{{dashboardInfo.challenges.length - ((dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'notStart').length + (dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'closed').length)}}</i>)</span>
-          <span class="notStarted" ng-click="challenge.progress.translate = 'notStart'">
-            <i class="fa fa-check-square-o"></i> {{'notStart' | translate}}
+          <span class="notStarted" ng-class="{active: active =='notStart'}" ng-click="challenge.progress.translate = 'notStart'; active ='notStart'">
+            {{'notStart' | translate}}
             (<i>{{(dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'notStart').length}}</i>)</span>
-          <span class="closed" ng-click="challenge.progress.translate = 'closed'">
-            <i class="fa fa-check-square-o"></i>{{'closed' | translate}}
+          <span class="closed" ng-class="{active: active =='closed'}" ng-click="challenge.progress.translate = 'closed'; active ='closed'">
+            {{'closed' | translate}}
             (<i>{{(dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'closed').length}}</i>)</span>
         </div>
         <table class="contests-table">
@@ -69,6 +69,7 @@
             <th translate="closeOn">
             </th>
             <th translate="contestantsDashBoard"></th>
+            <th translate="actions"></th>
           </tr>
           </thead>
           <tbody>
@@ -87,6 +88,11 @@
             </td>
             <td data-label="{{'contestantsDashBoard' | translate}}">
               {{challenge.numberOfRegistrants}}
+            </td>
+            <td>
+              <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" title="{{'viewDetails' | translate}}"><i class="fa fa-eye"></i></a>
+              <a title="{{'edit' | translate}}"><i class="fa fa-pencil-square-o"></i></a>
+              <a title="{{'delete' | translate}}"><i class="fa fa-trash-o"></i></a>
             </td>
           </tr>
           </tbody>

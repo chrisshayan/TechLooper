@@ -90,6 +90,7 @@
       background-color: #f9f9f9
     th
       background-color: #f3fafe !important
+      text-transform: none
     .active-challenges-list
       padding: 20px 0
       .filter-item
@@ -104,26 +105,21 @@
           margin-right: 5px
           border-radius: 5px
           padding: 3px 15px
-          background-color: red
-          color: #333
+          color: gray
           cursor: pointer
+          background-color: #d0d0d0
           i
             padding: 4px
             font-weight: 400
             font-style: normal
           i.fa-check-square-o
             display: none
-        span.all
-          background-color: #cae3f9
-        span.activating
-          background-color: #cbedd9
-        span.notStarted
-          background-color: #dbc6fe
-        span.closed
-          background-color: #d0d0d0
         span.active
-          i.fa-check-square-o
-            display: inline-block
+          background-color: #337ab7
+          color: #fff
+        span:hover
+          background-color: #337ab7
+          color: #fff
       .challenges-list
         width: 100%
         clear: both
@@ -133,18 +129,14 @@
       table.contests-table
         background-color: #fff
         border-radius: 3px
-        th:nth-child(2)
-          width: 20%
-        td:nth-child(2)
-          width: 20%
-        th:nth-child(3)
-          width: 18%
-        td:nth-child(3)
-          width: 18%
-        th:nth-child(4)
-          width: 18%
-        td:nth-child(4)
-          width: 18%
+        td:first-child
+          width: 50%
+        td:last-child
+          a
+            width: auto
+            display: inline-block
+            cursor: pointer
+            padding: 0 5px
     .active-projects-list
       padding: 0
       table.contests-table
