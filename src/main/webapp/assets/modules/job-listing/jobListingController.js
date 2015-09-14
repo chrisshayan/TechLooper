@@ -14,31 +14,36 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     return "";
   }
 
+  var bindSearchResultData = function bindSearchResultData(response) {
+    $scope.totalPage = response.totalPage;
+    $scope.totalJob = response.totalJob;
+    $scope.page = response.page;
+    $scope.jobs = response.jobs;
+    $.each($scope.jobs, function (i, job) {
+      job.crawlSource = jsonValue.crawlSourcesMap[job.crawlSource] ? jsonValue.crawlSourcesMap[job.crawlSource].name : "Internet";
+      var locations = job.location.split(",");
+      $.each(locations, function(j, id){
+        if($.isNumeric(id)){
+          if(j == 0){
+            job.locationText = vnwConfigService.getLocationText(id);
+          }else{
+            job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
+          }
+        }else{
+          if(j == 0){
+            job.locationText = id;
+          }else{
+            job.locationText = job.locationText + ', ' + job.locationText+ id;
+          }
+        }
+      });
+    });
+  }
+
   if (!searchText) {
     apiService.listAllJobs().success(function(response) {
       utils.sendNotification(jsonValue.notifications.loading);
-      $scope.totalPage = response.totalPage;
-      $scope.totalJob = response.totalJob;
-      $scope.page = response.page;
-      $scope.jobs = response.jobs;
-      $.each($scope.jobs, function (i, job) {
-        var locations = job.location.split(",");
-        $.each(locations, function(j, id){
-           if($.isNumeric(id)){
-             if(j == 0){
-               job.locationText = vnwConfigService.getLocationText(id);
-             }else{
-               job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
-             }
-          }else{
-             if(j == 0){
-               job.locationText = id;
-             }else{
-               job.locationText = job.locationText + ', ' + job.locationText+ id;
-             }
-          }
-        });
-      });
+      bindSearchResultData(response);
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
@@ -54,29 +59,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     }
 
     apiService.filterJob(keyword, location, page).success(function(response) {
-      $scope.totalPage = response.totalPage;
-      $scope.totalJob = response.totalJob;
-      $scope.page = response.page;
-      $scope.jobs = response.jobs;
-      $.each($scope.jobs, function (i, job) {
-        var locations = job.location.split(",");
-        $.each(locations, function(j, id){
-          if($.isNumeric(id)){
-            if(j == 0){
-              job.locationText = vnwConfigService.getLocationText(id);
-            }else{
-              job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
-            }
-          }else{
-            if(j == 0){
-              job.locationText = id;
-            }else{
-              job.locationText = job.locationText + ', ' + job.locationText+ id;
-            }
-          }
-        });
-      });
-      console.log($scope.jobs);
+      bindSearchResultData(response);
     });
 
     $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
@@ -148,10 +131,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     var page = 1;
 
     apiService.filterJob(keyword, location, page).success(function(response) {
-      $scope.totalPage = response.totalPage;
-      $scope.totalJob = response.totalJob;
-      $scope.page = response.page;
-      $scope.jobs = response.jobs;
+      bindSearchResultData(response);
     });
 
     //var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
