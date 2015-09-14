@@ -707,8 +707,10 @@
   "sendNow" : "Gửi Ngay",
   "thisEventExpired": "Sự kiện đã hết hạn!",
   "now": "Hiện tại",
-  "techForum": "Tech Forum",
-  "latestTopics": "Latest Topics",
-  "all": "All",
-  "active": "Active"
+  "techForum": "Diễn Đàn Công Nghệ",
+  "latestTopics": "Chủ Đề Mới Nhất",
+  "all": "Tất cả thử thách",
+  "active": "Thử thách đang diễn ra",
+  "deleteConfirmation": "Bạn có muốn xoá Thử Thách này?",
+  "ok": "Có"
 }

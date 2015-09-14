@@ -710,5 +710,7 @@
   "techForum": "Tech Forum",
   "latestTopics": "Latest Topics",
   "all": "All",
-  "active": "Active"
+  "active": "Active",
+  "deleteConfirmation": "Are you sure you want to delete this challenge?",
+  "ok": "Ok"
 }
