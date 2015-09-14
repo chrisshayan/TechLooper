@@ -39,6 +39,8 @@ public class JobResponse {
 
     private List<JobSkill> skills;
 
+    private String crawlSource;
+
 //  public static Collection<Long> topPriorityJobIds;
 
     public static class Builder {
@@ -253,5 +255,13 @@ public class JobResponse {
 
     public void setTopPriority(Boolean topPriority) {
         this.topPriority = topPriority;
+    }
+
+    public String getCrawlSource() {
+        return crawlSource;
+    }
+
+    public void setCrawlSource(String crawlSource) {
+        this.crawlSource = crawlSource;
     }
 }

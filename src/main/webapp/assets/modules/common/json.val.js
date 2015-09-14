@@ -998,7 +998,18 @@ techlooper.factory("jsonValue", function () {
       registration: {translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
       progress: {translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
       closed: {translate: "closed", timeLeftTranslate: "moreDayToClosed"}
-    }
+    },
+
+    "crawlSources": [
+      {id: "vietnamworks", name: "Vietnamworks"},
+      {id: "careerbuilder-jobs-api-pagination", name: "CareerBuilder"},
+      {id: "jobstreet-jobs-api-pagination", name: "JobStreet"},
+      {id: "tuyendung-jobs-api-pagination", name: "TuyenDung"},
+      {id: "itviec-jobs-api-pagination", name: "ITViec"},
+      {id: "careerlink-jobs-api-pagination", name: "CareerLink"},
+      {id: "vieclam24h-jobs-api-pagination", name: "Vieclam24h"},
+      {id: "linkedin-jobs-api-pagination", name: "LinkedIn"}
+    ]
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
@@ -1023,6 +1034,9 @@ techlooper.factory("jsonValue", function () {
 
   instance.benefitIconsMap = {};
   $.each(instance.benefitIcons, function (i, icon) {instance.benefitIconsMap[icon.id] = icon;});
+
+  instance.crawlSourcesMap = {};
+  $.each(instance.crawlSources, function (i, crawlSource) {instance.crawlSourcesMap[crawlSource.id] = crawlSource;});
 
   return instance;
 });
