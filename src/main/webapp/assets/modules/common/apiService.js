@@ -174,6 +174,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     deleteChallengeById: function(id) {
       return $http.delete("challenge/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.findChallengeById
+     * */
+    findChallengeById: function(id) {
+      return $http.get("challenges/" + id);
     }
   }
 

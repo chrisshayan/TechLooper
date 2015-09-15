@@ -126,17 +126,17 @@ public class ChallengeServiceImpl implements ChallengeService {
   @Value("${elasticsearch.userimport.index.name}")
   private String techlooperIndex;
 
-  @Override
   public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
     ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
-    challengeEntity.setChallengeId(new Date().getTime());
-    challengeEntity.setStartDateTime(challengeDto.getStartDate());
-    challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
-    challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
+    if (challengeDto.getChallengeId() != null) {
+      challengeEntity.setChallengeId(new Date().getTime());
+    }
+//    challengeEntity.setStartDateTime(challengeDto.getStartDate());
+//    challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
+//    challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
     return challengeRepository.save(challengeEntity);
   }
 
-  @Override
   public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
     throws MessagingException, IOException, TemplateException {
     String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
@@ -145,7 +145,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
   }
 
-  @Override
   public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
     throws MessagingException, IOException, TemplateException {
     String mailSubject = postChallengeTechloopiesMailSubject;
@@ -153,7 +152,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, postChallengeMailTemplateEn);
   }
 
-  @Override
   public ChallengeDetailDto getChallengeDetail(Long challengeId) {
     ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
     if (challengeEntity != null) {
@@ -164,14 +162,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     return null;
   }
 
-  @Override
   public Long getNumberOfRegistrants(Long challengeId) {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
     searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
     return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
   }
 
-  @Override
   public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
     Template template = challengeRegistrantEntity.getLang() == Language.vi ?
       confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
@@ -182,7 +178,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, false);
   }
 
-  @Override
   public void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
     Template template = challengeRegistrantEntity.getLang() == Language.vi ?
       alertEmployerChallengeMailTemplateVi : alertEmployerChallengeMailTemplateEn;
@@ -193,7 +188,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, true);
   }
 
-  @Override
   public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
     Long challengeId = challengeRegistrantDto.getChallengeId();
     boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
@@ -211,7 +205,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     return getNumberOfRegistrants(challengeId);
   }
 
-  @Override
   public List<ChallengeDetailDto> listChallenges() {
     List<ChallengeDetailDto> challenges = new ArrayList<>();
     NotFilterBuilder filter = FilterBuilders.notFilter(FilterBuilders.termFilter("expired", Boolean.TRUE));
@@ -358,12 +351,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     return (total > 0);
   }
 
-  @Override
   public Long getTotalNumberOfChallenges() {
     return challengeRepository.count();
   }
 
-  @Override
   public Double getTotalAmountOfPrizeValues() {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
     searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
@@ -376,12 +367,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     return sumReponse != null ? sumReponse.getValue() : 0D;
   }
 
-  @Override
   public Long getTotalNumberOfRegistrants() {
     return challengeRegistrantRepository.count();
   }
 
-  @Override
   public ChallengeDetailDto getTheLatestChallenge() {
 //    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
 //    searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
@@ -468,5 +457,9 @@ public class ChallengeServiceImpl implements ChallengeService {
       return true;
     }
     return false;
+  }
+
+  public ChallengeDto findChallengeById(Long id) {
+    return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
   }
 }

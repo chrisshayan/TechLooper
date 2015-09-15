@@ -1,4 +1,4 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService) {
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   apiService.getEmployerDashboardInfo()
@@ -19,9 +19,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     return val.progress.translate != 'notStart' && val.progress.translate != 'closed';
   };
 
-  //$scope.setCurrentChallenge = function(challenge) {
-  //  $scope.currentChallenge = challenge;
-  //}
+  $scope.toEditPage = function(challenge) {
+    $location.url("post-challenge?id=" + challenge.challengeId);
+  }
 
   $scope.deleteCurrentChallenge = function (challenge) {
     $("#challenge-" + challenge.challengeId).find("td")

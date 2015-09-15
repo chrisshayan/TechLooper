@@ -57,4 +57,6 @@ public interface ChallengeService {
   Long countRegistrantsByChallengeId(Long challengeId);
 
   boolean delete(Long id, String ownerEmail);
+
+  ChallengeDto findChallengeById(Long id);
 }

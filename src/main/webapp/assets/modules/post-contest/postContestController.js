@@ -1,5 +1,13 @@
 techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils,
-                                                         resourcesService, $anchorScroll) {
+                                                         resourcesService, $anchorScroll, apiService) {
+
+  var param = $location.search();
+  if (param.id) {
+    apiService.findChallengeById(param.id).success(function (data) {
+      $scope.contest = data;
+    });
+  }
+
   utils.sendNotification(jsonValue.notifications.loading);
   var state = {
     challenge: {

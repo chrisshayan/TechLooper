@@ -104,11 +104,15 @@
             </td>
             <td>
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" title="{{'viewDetails' | translate}}"><i class="fa fa-eye"></i></a>
-              <a title="{{'edit' | translate}}" ng-show="challenge.progress.translate == 'notStart'"><i class="fa fa-pencil-square-o"></i></a>
+              <a title="{{'edit' | translate}}" ng-show="challenge.progress.translate == 'notStart'"
+                ng-click="toEditPage(challenge)">
+                <i class="fa fa-pencil-square-o"></i>
+              </a>
               <!--<a title="{{'delete' | translate}}" ng-show="challenge.progress.translate == 'notStart'" data-toggle="modal"-->
                  <!--ng-click="setCurrentChallenge(challenge)"-->
                  <!--data-target="#deletionConfirmation"><i class="fa fa-trash-o"></i></a>-->
-              <a data-placement="top" ng-show="challenge.progress.translate == 'notStart'"
+              <a ng-show="challenge.progress.translate == 'notStart'"
+                 data-auto-close="true" data-placement="top"
                  data-template-url="modules/employer-dashboard/deleteChallenge.html" bs-popover title="{{'delete' | translate}}">
                 <i class="fa fa-trash-o"></i>
               </a>
