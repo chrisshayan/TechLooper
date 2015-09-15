@@ -1236,14 +1236,36 @@
       max-height: none
   .content-page-block
     .content-page-detail.dashboard
-      padding: 10px
+      padding: 0 10px
       .my-challenges-block
         padding: 0 0 10px 0
       .dashboard-box
+        .dashboard-content
+          .ic-dashboard
+            width: 100%
+            padding-bottom: 20px
+            clear: both
+          .dashboard-details
+            width: 100%
+            clear: both
+            padding-left: 0
+            .active-item
+              text-align: center
+            .total-people
+              text-align: center
+      .active-challenges-list
+        .filter-item
+          width: 100%
+          span
+            width: 47.5%
+            float: left
+            margin-bottom: 5px
       .my-projects-block
         padding: 0
       .active-challenges-list
         table.contests-table
+          td:first-child
+            width: 100%
           td:nth-child(2)
             width: 100%
           td:nth-child(3)
