@@ -9,6 +9,7 @@ import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmployerService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -124,6 +125,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Value("${elasticsearch.userimport.index.name}")
     private String techlooperIndex;
+
+    @Resource
+    private EmployerService employerService;
 
     @Override
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {

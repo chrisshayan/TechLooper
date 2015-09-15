@@ -11,23 +11,23 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("local")
 public class VnwUserRepoSimple implements VnwUserRepo {
-  @Override
-  public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
-    return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
-  }
+    @Override
+    public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
+        return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
+    }
 
-  @Override
-  public VnwUser findByUsernameIgnoreCase(String username) {
-    return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
-  }
+    @Override
+    public VnwUser findByUsernameIgnoreCase(String username) {
+        return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
+    }
 
-  @Override
-  public VnwUser findOne(Long aLong) {
-    return null;
-  }
+    @Override
+    public VnwUser findOne(Long aLong) {
+        return null;
+    }
 
-  @Override
-  public Iterable<VnwUser> findAll() {
-    return null;
-  }
+    @Override
+    public Iterable<VnwUser> findAll() {
+        return null;
+    }
 }
