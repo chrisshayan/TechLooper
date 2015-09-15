@@ -48,7 +48,7 @@
     </div>
     <div class="row">
       <div class="active-challenges-list contestant-page">
-        <div class="filter-item"ng-modal="active" data-ng-init="active='all'">
+        <div class="filter-item" ng-modal="active" data-ng-init="active='all'">
           <span class="all"
                 ng-show="dashboardInfo.challenges.length"
                 ng-class="{active: active =='all'}"
@@ -88,7 +88,8 @@
           <tr ng-show="dashboardInfo.challenges.length < 0">
             <td colspan="4">{{'noData' | translate}}</td>
           </tr>
-          <tr ng-repeat="challenge in dashboardInfo.challenges | filter:challenge.progress.translate">
+          <tr ng-repeat="challenge in dashboardInfo.challenges | filter:challenge.progress.translate"
+              id="challenge-{{challenge.challengeId}}">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" class="name">{{challenge.challengeName}}</a>
             </td>
@@ -104,7 +105,13 @@
             <td>
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" title="{{'viewDetails' | translate}}"><i class="fa fa-eye"></i></a>
               <a title="{{'edit' | translate}}" ng-show="challenge.progress.translate == 'notStart'"><i class="fa fa-pencil-square-o"></i></a>
-              <a title="{{'delete' | translate}}" ng-show="challenge.progress.translate == 'notStart'" data-toggle="modal" data-target="#deletionConfirmation"><i class="fa fa-trash-o"></i></a>
+              <!--<a title="{{'delete' | translate}}" ng-show="challenge.progress.translate == 'notStart'" data-toggle="modal"-->
+                 <!--ng-click="setCurrentChallenge(challenge)"-->
+                 <!--data-target="#deletionConfirmation"><i class="fa fa-trash-o"></i></a>-->
+              <a data-placement="top" ng-show="challenge.progress.translate == 'notStart'"
+                 data-template-url="modules/employer-dashboard/deleteChallenge.html" bs-popover>
+                delete
+              </a>
             </td>
           </tr>
           </tbody>
@@ -145,7 +152,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" translate="cancel"></button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" translate="ok"></button>
+          <button type="button" ng-click="deleteCurrentChallenge()" class="btn btn-primary" data-dismiss="modal" translate="ok"></button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

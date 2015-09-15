@@ -15,7 +15,38 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     })
     .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
 
-  $scope.myFunction = function(val) {
+  $scope.myFunction = function (val) {
     return val.progress.translate != 'notStart' && val.progress.translate != 'closed';
   };
+
+  //$scope.setCurrentChallenge = function(challenge) {
+  //  $scope.currentChallenge = challenge;
+  //}
+
+  $scope.deleteCurrentChallenge = function (challenge) {
+    $("#challenge-" + challenge.challengeId).find("td")
+      .animate({padding: 0}).wrapInner("<div />").children("div")
+      .slideUp(100, function () {
+        var index = $.inArray(challenge, $scope.dashboardInfo.challenges);
+        if (index < 0) {
+          return;
+        }
+        $scope.dashboardInfo.challenges.splice(index, 1);
+        $scope.$apply();
+      });
+
+    //apiService.deleteChallengeById(challenge.challengeId)
+    //  .success(function () {
+    //    $("#challenge-" + challenge.challengeId).find("td")
+    //      .animate({padding: 0}).wrapInner("<div />").children("div")
+    //      .slideUp(100, function () {
+    //        var index = $.inArray(challenge, $scope.dashboardInfo.challenges);
+    //        if (index < 0) {
+    //          return;
+    //        }
+    //        $scope.dashboardInfo.challenges.splice(index, 1);
+    //        $scope.$apply();
+    //      });
+    //  });
+  }
 });

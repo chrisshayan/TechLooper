@@ -99,6 +99,11 @@ public class VnwUser {
       return this;
     }
 
+    public VnwUserBuilder withEmail(String email) {
+      vnwUser.email = email;
+      return this;
+    }
+
     public VnwUserBuilder withRoleName(RoleName roleName) {
       vnwUser.roleName = roleName;
       return this;
