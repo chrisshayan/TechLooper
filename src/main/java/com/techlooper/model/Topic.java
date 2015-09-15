@@ -11,7 +11,7 @@ import java.util.List;
 public class Topic {
 
     @JsonProperty(value = "id")
-    private String id;
+    private Integer id;
 
     @JsonProperty(value = "title")
     private String title;
@@ -22,11 +22,13 @@ public class Topic {
     @JsonProperty(value = "tags")
     private List<String> tags;
 
-    public String getId() {
+    private String url;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,5 +54,13 @@ public class Topic {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
