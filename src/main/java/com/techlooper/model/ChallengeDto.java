@@ -7,183 +7,193 @@ import java.util.List;
  */
 public class ChallengeDto {
 
-    private String challengeName;
+  private Long challengeId;
 
-    private String businessRequirement;
+  private String challengeName;
 
-    private String generalNote;
+  private String businessRequirement;
 
-    private List<String> technologies;
+  private String generalNote;
 
-    private String documents;
+  private List<String> technologies;
 
-    private String deliverables;
+  private String documents;
 
-    private List<String> receivedEmails;
+  private String deliverables;
 
-    private String reviewStyle;
+  private List<String> receivedEmails;
 
-    private String startDate;
+  private String reviewStyle;
 
-    private String registrationDate;
+  private String startDate;
 
-    private String submissionDate;
+  private String registrationDate;
 
-    private Integer firstPlaceReward;
+  private String submissionDate;
 
-    private Integer secondPlaceReward;
+  private Integer firstPlaceReward;
 
-    private Integer thirdPlaceReward;
+  private Integer secondPlaceReward;
 
-    private String qualityIdea;
+  private Integer thirdPlaceReward;
 
-    private String authorEmail;
+  private String qualityIdea;
 
-    private Language lang;
+  private String authorEmail;
 
-    private String challengeOverview;
+  private Language lang;
 
-    public String getChallengeName() {
-        return challengeName;
-    }
+  private String challengeOverview;
 
-    public void setChallengeName(String challengeName) {
-        this.challengeName = challengeName;
-    }
+  public Long getChallengeId() {
+    return challengeId;
+  }
 
-    public String getBusinessRequirement() {
-        return businessRequirement;
-    }
+  public void setChallengeId(Long challengeId) {
+    this.challengeId = challengeId;
+  }
 
-    public void setBusinessRequirement(String businessRequirement) {
-        this.businessRequirement = businessRequirement;
-    }
+  public String getChallengeName() {
+    return challengeName;
+  }
 
-    public String getGeneralNote() {
-        return generalNote;
-    }
+  public void setChallengeName(String challengeName) {
+    this.challengeName = challengeName;
+  }
 
-    public void setGeneralNote(String generalNote) {
-        this.generalNote = generalNote;
-    }
+  public String getBusinessRequirement() {
+    return businessRequirement;
+  }
 
-    public List<String> getTechnologies() {
-        return technologies;
-    }
+  public void setBusinessRequirement(String businessRequirement) {
+    this.businessRequirement = businessRequirement;
+  }
 
-    public void setTechnologies(List<String> technologies) {
-        this.technologies = technologies;
-    }
+  public String getGeneralNote() {
+    return generalNote;
+  }
 
-    public String getDocuments() {
-        return documents;
-    }
+  public void setGeneralNote(String generalNote) {
+    this.generalNote = generalNote;
+  }
 
-    public void setDocuments(String documents) {
-        this.documents = documents;
-    }
+  public List<String> getTechnologies() {
+    return technologies;
+  }
 
-    public String getDeliverables() {
-        return deliverables;
-    }
+  public void setTechnologies(List<String> technologies) {
+    this.technologies = technologies;
+  }
 
-    public void setDeliverables(String deliverables) {
-        this.deliverables = deliverables;
-    }
+  public String getDocuments() {
+    return documents;
+  }
 
-    public List<String> getReceivedEmails() {
-        return receivedEmails;
-    }
+  public void setDocuments(String documents) {
+    this.documents = documents;
+  }
 
-    public void setReceivedEmails(List<String> receivedEmails) {
-        this.receivedEmails = receivedEmails;
-    }
+  public String getDeliverables() {
+    return deliverables;
+  }
 
-    public String getReviewStyle() {
-        return reviewStyle;
-    }
+  public void setDeliverables(String deliverables) {
+    this.deliverables = deliverables;
+  }
 
-    public void setReviewStyle(String reviewStyle) {
-        this.reviewStyle = reviewStyle;
-    }
+  public List<String> getReceivedEmails() {
+    return receivedEmails;
+  }
 
-    public String getStartDate() {
-        return startDate;
-    }
+  public void setReceivedEmails(List<String> receivedEmails) {
+    this.receivedEmails = receivedEmails;
+  }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+  public String getReviewStyle() {
+    return reviewStyle;
+  }
 
-    public String getRegistrationDate() {
-        return registrationDate;
-    }
+  public void setReviewStyle(String reviewStyle) {
+    this.reviewStyle = reviewStyle;
+  }
 
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate = registrationDate;
-    }
+  public String getStartDate() {
+    return startDate;
+  }
 
-    public String getSubmissionDate() {
-        return submissionDate;
-    }
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
+  }
 
-    public void setSubmissionDate(String submissionDate) {
-        this.submissionDate = submissionDate;
-    }
+  public String getRegistrationDate() {
+    return registrationDate;
+  }
 
-    public Integer getFirstPlaceReward() {
-        return firstPlaceReward;
-    }
+  public void setRegistrationDate(String registrationDate) {
+    this.registrationDate = registrationDate;
+  }
 
-    public void setFirstPlaceReward(Integer firstPlaceReward) {
-        this.firstPlaceReward = firstPlaceReward;
-    }
+  public String getSubmissionDate() {
+    return submissionDate;
+  }
 
-    public Integer getSecondPlaceReward() {
-        return secondPlaceReward;
-    }
+  public void setSubmissionDate(String submissionDate) {
+    this.submissionDate = submissionDate;
+  }
 
-    public void setSecondPlaceReward(Integer secondPlaceReward) {
-        this.secondPlaceReward = secondPlaceReward;
-    }
+  public Integer getFirstPlaceReward() {
+    return firstPlaceReward;
+  }
 
-    public Integer getThirdPlaceReward() {
-        return thirdPlaceReward;
-    }
+  public void setFirstPlaceReward(Integer firstPlaceReward) {
+    this.firstPlaceReward = firstPlaceReward;
+  }
 
-    public void setThirdPlaceReward(Integer thirdPlaceReward) {
-        this.thirdPlaceReward = thirdPlaceReward;
-    }
+  public Integer getSecondPlaceReward() {
+    return secondPlaceReward;
+  }
 
-    public String getQualityIdea() {
-        return qualityIdea;
-    }
+  public void setSecondPlaceReward(Integer secondPlaceReward) {
+    this.secondPlaceReward = secondPlaceReward;
+  }
 
-    public void setQualityIdea(String qualityIdea) {
-        this.qualityIdea = qualityIdea;
-    }
+  public Integer getThirdPlaceReward() {
+    return thirdPlaceReward;
+  }
 
-    public String getAuthorEmail() {
-        return authorEmail;
-    }
+  public void setThirdPlaceReward(Integer thirdPlaceReward) {
+    this.thirdPlaceReward = thirdPlaceReward;
+  }
 
-    public void setAuthorEmail(String authorEmail) {
-        this.authorEmail = authorEmail;
-    }
+  public String getQualityIdea() {
+    return qualityIdea;
+  }
 
-    public Language getLang() {
-        return lang;
-    }
+  public void setQualityIdea(String qualityIdea) {
+    this.qualityIdea = qualityIdea;
+  }
 
-    public void setLang(Language lang) {
-        this.lang = lang;
-    }
+  public String getAuthorEmail() {
+    return authorEmail;
+  }
 
-    public String getChallengeOverview() {
-        return challengeOverview;
-    }
+  public void setAuthorEmail(String authorEmail) {
+    this.authorEmail = authorEmail;
+  }
 
-    public void setChallengeOverview(String challengeOverview) {
-        this.challengeOverview = challengeOverview;
-    }
+  public Language getLang() {
+    return lang;
+  }
+
+  public void setLang(Language lang) {
+    this.lang = lang;
+  }
+
+  public String getChallengeOverview() {
+    return challengeOverview;
+  }
+
+  public void setChallengeOverview(String challengeOverview) {
+    this.challengeOverview = challengeOverview;
+  }
 }

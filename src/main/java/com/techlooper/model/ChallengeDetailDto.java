@@ -41,6 +41,16 @@ public class ChallengeDetailDto {
 
   private Long numberOfRegistrants;
 
+  private List<String> receivedEmails;
+
+  public List<String> getReceivedEmails() {
+    return receivedEmails;
+  }
+
+  public void setReceivedEmails(List<String> receivedEmails) {
+    this.receivedEmails = receivedEmails;
+  }
+
   public Long getChallengeId() {
     return challengeId;
   }

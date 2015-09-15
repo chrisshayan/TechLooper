@@ -43,6 +43,7 @@
     "jquery.cookie": "latest",
     "angular-sanitize": "latest",
     "moment": "latest",
+    "angular-strap": "latest",
     "datetimepicker": "latest"
   },
   "overrides": {

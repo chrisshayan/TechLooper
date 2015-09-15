@@ -114,7 +114,6 @@ public class VnwUser {
         if (o == null || getClass() != o.getClass()) return false;
         VnwUser vnwUser = (VnwUser) o;
         return !(userId != null ? !userId.equals(vnwUser.userId) : vnwUser.userId != null);
-
     }
 
     public int hashCode() {
@@ -126,6 +125,11 @@ public class VnwUser {
 
         private VnwUserBuilder() {
             vnwUser = new VnwUser();
+        }
+
+        public VnwUserBuilder withEmail(String email) {
+            vnwUser.email = email;
+            return this;
         }
 
         public VnwUserBuilder withUserId(Long userId) {

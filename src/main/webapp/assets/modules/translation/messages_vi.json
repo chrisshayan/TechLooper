@@ -436,6 +436,7 @@
   "prize": "Giải Thưởng",
   "registrants": "Số người tham gia",
   "action": "Thao Tác",
+  "actions": "Thao Tác",
   "notStart": "Chưa Bắt Đầu",
   "inProgress": "Đang Diễn Ra",
   "closed": "Đã Kết Thúc",
@@ -702,7 +703,7 @@
   "eventsTitle": "Hãy cùng Gặp Gỡ và Giao Lưu thông qua các Sự Kiện Trực Tuyến",
   "postedEventSuccessful": "Bạn vừa tạo sự kiện thành công.",
   "joinedEventAlert": "Bạn đã tham gia sự kiện này.",
-  "latestJobs": "<strong>Công việc mới nhất</strong> trong {{number}} công việc",
+  "latestJobs": "<strong>Công Việc Mới Nhất</strong> Trong Tổng Số {{number}} Công Việc",
   "jobAggregator": "Truy cập ngay hàng ngàn công việc mới từ các website tuyển dụng và nhận thông báo việc làm miễn phí hàng tuần phù hợp với tiêu chí của bạn.",
   "sendNow" : "Gửi Ngay",
   "thisEventExpired": "Sự kiện đã hết hạn!",
@@ -712,5 +713,8 @@
   "all": "Tất cả thử thách",
   "active": "Thử thách đang diễn ra",
   "deleteConfirmation": "Bạn có muốn xoá Thử Thách này?",
-  "ok": "Có"
+  "ok": "Có",
+  "latestTopicsTitle": "Chủ Đề Công Nghệ Mới Nhất",
+  "edit": "Cập nhật",
+  "delete": "Xoá"
 }

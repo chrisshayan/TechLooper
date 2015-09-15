@@ -66,8 +66,8 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/{challengeId}", method = RequestMethod.GET)
-    public ChallengeDetailDto getChallengeDetail(@PathVariable Long challengeId) throws Exception {
-        return challengeService.getChallengeDetail(challengeId);
+    public ChallengeDto getChallengeDetail(@PathVariable Long challengeId) throws Exception {
+        return challengeService.findChallengeById(challengeId);
     }
 
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)

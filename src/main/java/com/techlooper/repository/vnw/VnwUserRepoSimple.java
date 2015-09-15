@@ -11,11 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("local")
 public class VnwUserRepoSimple implements VnwUserRepo {
-    @Override
-    public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
-        return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
-    }
-
+    
     @Override
     public VnwUser findByUsernameIgnoreCase(String username) {
         return VnwUser.VnwUserBuilder.vnwUser().withRoleName(RoleName.EMPLOYER).withUsername("sample").build();
@@ -29,5 +25,14 @@ public class VnwUserRepoSimple implements VnwUserRepo {
     @Override
     public Iterable<VnwUser> findAll() {
         return null;
+    }
+
+    public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
+        return userThuHoang();
+    }
+
+    private static VnwUser userThuHoang() {
+        return VnwUser.VnwUserBuilder.vnwUser()
+                .withRoleName(RoleName.EMPLOYER).withUsername("thu.hoang@navigosgroup.com").withEmail("thu.hoang@navigosgroup.com").build();
     }
 }

@@ -164,8 +164,23 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.post("user/webinar/join",
         {id: webinarId, firstName: firstName, lastName: lastName, email: email});
     },
+
     getlatestTopics: function () {
       return $http.get("forum/latestTopic");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.deleteChallengeById
+     * */
+    deleteChallengeById: function(id) {
+      return $http.delete("challenge/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.findChallengeById
+     * */
+    findChallengeById: function(id) {
+      return $http.get("challenges/" + id);
     }
   }
 

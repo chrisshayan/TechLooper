@@ -1,6 +1,6 @@
 <div class="content-page-block">
   <div class="header-page">
-    <h2>{{'latestTopics' | translate}}</h2>
+    <h2>{{'latestTopicsTitle' | translate}}</h2>
   </div>
   <div class="content-page-detail latest-topics-detail">
     <div class="latest-topics">
@@ -8,14 +8,14 @@
         <p translate="noData"></p>
       </div>
       <div class="topic-item" ng-repeat="topic in topics">
-        <h3><a href="#" target="_blank">{{topic.title}}</a></h3>
+        <h3><a ng-href="/#/?action=redirectJA&targetUrl={{topic.url}}" target="_blank">{{topic.title}}</a></h3>
         <p ng-show="topic.excerpt.length">{{topic.excerpt | limitTo: 250}}<span ng-show="topic.excerpt.length > 250">...</span></p>
         <ul ng-show="topic.tags.length">
           <li ng-repeat="tag in topic.tags">
             <span>{{tag}}</span>
           </li>
         </ul>
-        <p><strong>{{'from' | translate}}:</strong> <a href="http://daynhauhoc.com/" target="_blank">daynhauhoc.com</a></p>
+        <!--<p><strong>{{'from' | translate}}:</strong> <a href="http://daynhauhoc.com/" target="_blank">daynhauhoc.com</a></p>-->
       </div>
     </div>
   </div>

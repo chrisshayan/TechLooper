@@ -455,4 +455,14 @@ public class ChallengeServiceImpl implements ChallengeService {
                 .withSearchType(SearchType.COUNT);
         return challengeRegistrantRepository.search(queryBuilder.build()).getTotalElements();
     }
+
+    @Override
+    public boolean delete(Long id, String ownerEmail) {
+        return false;
+    }
+
+    public ChallengeDto findChallengeById(Long id) {
+        return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
+    }
+
 }
