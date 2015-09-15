@@ -49,5 +49,4 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     //      });
     //  });
   };
-  $('body').popover({ selector: '[data-popover]', trigger: 'click hover', placement: 'auto', delay: {show: 50, hide: 400}});
 });
