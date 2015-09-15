@@ -109,8 +109,8 @@
                  <!--ng-click="setCurrentChallenge(challenge)"-->
                  <!--data-target="#deletionConfirmation"><i class="fa fa-trash-o"></i></a>-->
               <a data-placement="top" ng-show="challenge.progress.translate == 'notStart'"
-                 data-template-url="modules/employer-dashboard/deleteChallenge.html" bs-popover>
-                delete
+                 data-template-url="modules/employer-dashboard/deleteChallenge.html" bs-popover title="{{'delete' | translate}}">
+                <i class="fa fa-trash-o"></i>
               </a>
             </td>
           </tr>
@@ -144,17 +144,4 @@
       </div>
     </div>
   </div>
-  <div class="modal fade delete-confirmation" id="deletionConfirmation">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p translate="deleteConfirmation"></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default btn-flat gray" data-dismiss="modal" translate="no"></button>
-          <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" translate="yes"></button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 </div>

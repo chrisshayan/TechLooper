@@ -2,9 +2,9 @@
   <div class="arrow"></div>
   <div class="popover-content">
     <div class="text-center">
-      <p>Are you sure?</p>
-      <a ng-click="deleteCurrentChallenge(challenge)">yes</a> |
-      <a ng-click="$hide()">no</a>
+      <p translate="deleteConfirmation"></p>
+      <a ng-click="$hide()" translate="no"  class="btn btn-primary btn-flat gray"></a>
+      <a ng-click="deleteCurrentChallenge(challenge)" translate="yes" class="btn btn-primary btn-flat"></a>
     </div>
   </div>
 </div>
