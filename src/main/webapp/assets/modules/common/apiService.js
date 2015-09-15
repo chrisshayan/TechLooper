@@ -163,6 +163,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     joinWebinar: function (webinarId, firstName, lastName, email) {
       return $http.post("user/webinar/join",
         {id: webinarId, firstName: firstName, lastName: lastName, email: email});
+    },
+    getlatestTopics: function () {
+      return $http.get("forum/latestTopic");
     }
   }
 
