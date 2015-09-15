@@ -27,12 +27,10 @@
       </div>
       <div class="right-content">
         <div class="tell-your-friends">
-          <a href="" ng-click="fbShare()">
-            <span translate="tellYourFriends"></span>
-            <span class="btn-facebook">
-              <i class="fa fa-facebook"></i>
-            </span>
-          </a>
+          <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span></button>
+          <!--<a href="" ng-click="fbShare()" class="btnz facebook">-->
+            <!--<i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span>-->
+          <!--</a>-->
         </div>
         <div class="number-going">
           <p translate="thereAreGoing" translate-value-number="{{webinar.attendees.length}}"></p>
