@@ -6,6 +6,7 @@ import com.techlooper.model.LeadEventEnum;
 import com.techlooper.model.LeadModel;
 import com.techlooper.service.LeadAPIService;
 import com.techlooper.util.JsonUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,8 +30,8 @@ public class LeadAPIServiceImpl implements LeadAPIService {
     @Value("${CRM.LeadAPI.CreateLead.URL}")
     private String createLeadUrl;
 
-    @Value("${CRM.LeadAPI.CreateLead.QualityCode}")
-    private Integer qualityCode;
+    @Value("${CRM.LeadAPI.CreateLead.QnttSource}")
+    private Integer qnttSource;
 
     @Value("${CRM.LeadAPI.CreateLead.CampaignId}")
     private String campaignId;
@@ -59,9 +60,10 @@ public class LeadAPIServiceImpl implements LeadAPIService {
         String subject = (leadEvent == LeadEventEnum.POST_CHALLENGE) ? postChallengeLeadSubject : postProjectLeadSubject;
         leadModel.setSubject(subject);
         leadModel.setTelephone1(company.getTelephone());
-        leadModel.setFirstName(employer.getFirstName());
-        leadModel.setSource(company.getCompanyName());
-        leadModel.setLeadQualityCode(qualityCode);
+        String firstName = StringUtils.isNotEmpty(employer.getFirstName()) ? employer.getFirstName() : "Unknown";
+        leadModel.setFirstName(firstName);
+        leadModel.setSource(qnttSource);
+        leadModel.setLeadQualityCode("Warm");
         leadModel.setLegalName(company.getCompanyName());
         leadModel.setCampaignId(campaignId);
         leadModel.setCompanyName(company.getCompanyName());
