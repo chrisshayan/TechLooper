@@ -78,7 +78,6 @@ public class LeadAPIServiceImpl implements LeadAPIService {
         leadModel.setDistrict(company.getDistrict());
         leadModel.setCity(company.getCity());
         leadModel.setCountry(company.getCountry());
-        leadModel.setCompanySize(company.getCompanySize());
         return leadModel;
     }
 
