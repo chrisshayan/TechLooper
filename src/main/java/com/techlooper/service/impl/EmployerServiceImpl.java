@@ -39,7 +39,7 @@ public class EmployerServiceImpl implements EmployerService {
         String email = user.getEmail();
         return DashBoardInfo.DashBoardInfoBuilder.dashBoardInfo()
                 .withProjects(projectService.findByOwner(email))
-                .withChallenges(challengeService.listChallenges())
+                .withChallenges(challengeService.listChallenges(email))
 //      .withChallenges(challengeService.findInProgressChallenges(email))
                 .build();
     }

@@ -12,7 +12,7 @@
           </div>
           <div class="dashboard-details">
             <div class="active-item">
-              <strong>{{dashboardInfo.challenges.length | number}}</strong>
+              <strong>{{dashboardInfo.challenges.length}}</strong>
               <p translate="challenges"></p>
             </div>
             <div class="total-people">
@@ -35,7 +35,7 @@
           </div>
           <div class="dashboard-details">
             <div class="active-item">
-              <strong>{{dashboardInfo.projects.length | number}}</strong>
+              <strong>{{dashboardInfo.projects.length}}</strong>
               <p translate="activeProjects"></p>
             </div>
             <div class="total-people">
@@ -61,20 +61,20 @@
                 ng-click="changeChallengeStatus([jsonValue.status.registration, jsonValue.status.progress])">
                 <!--ng-click="challenge.progress.translate = myFunction; active ='registration'">-->
             {{'active' | translate}}
-            (<i>{{dashboardInfo.challenges.length - ((dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'notStart').length + (dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'closed').length)}}</i>)</span>
+            (<i>{{filterChallenges([jsonValue.status.registration, jsonValue.status.progress]).length}}</i>)</span>
           <span class="notStarted"
                 ng-show="(dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'notStart').length"
                 ng-class="{active: challengeStatus.id == 'notStarted'}"
                 ng-click="changeChallengeStatus(jsonValue.status.notStarted)">
                 <!--ng-click="challenge.progress.translate = 'notStart'; active ='notStart'">-->
             {{'notStart' | translate}}
-            (<i>{{(dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'notStart').length}}</i>)</span>
+            (<i>{{filterChallenges(jsonValue.status.notStarted).length}}</i>)</span>
           <span class="closed"
                 ng-show="(dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'closed').length"
                 ng-class="{active: challengeStatus.id == 'closed'}"
                 ng-click="changeChallengeStatus(jsonValue.status.closed)">
             {{'closed' | translate}}
-            (<i>{{(dashboardInfo.challenges | filter: dashboardInfo.challenges.progress.translate | filter:'closed').length}}</i>)</span>
+            (<i>{{filterChallenges(jsonValue.status.closed).length}}</i>)</span>
         </div>
         <table class="contests-table">
           <thead>

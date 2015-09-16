@@ -49,10 +49,10 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           $scope.$apply();
         });
     }
-
-    //apiService.deleteChallengeById(challenge.challengeId)
-    //  .success(function () {
-    //    deleteById();
-    //  });
+    //deleteById();
+    apiService.deleteChallengeById(challenge.challengeId)
+      .success(function () {
+        deleteById();
+      });
   };
 });

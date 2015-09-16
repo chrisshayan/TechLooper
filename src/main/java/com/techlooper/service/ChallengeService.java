@@ -40,6 +40,8 @@ public interface ChallengeService {
 
   List<ChallengeDetailDto> listChallenges();
 
+  List<ChallengeDetailDto> listChallenges(String ownerEmail);
+
   Long getTotalNumberOfChallenges();
 
   Double getTotalAmountOfPrizeValues();
