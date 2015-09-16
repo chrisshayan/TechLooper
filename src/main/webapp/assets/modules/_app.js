@@ -28,7 +28,7 @@ var baseUrl = (function () {
 var techlooper = angular.module("Techlooper", [
   "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
   "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
-  "UserProfile", "selectize", "autocomplete", "focusOn"
+  "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
@@ -192,6 +192,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/events", {
         templateUrl: "modules/events/events.html",
         controller: "eventsController"
+      })
+      .when("/topics", {
+        templateUrl: "modules/topics/topics.html",
+        controller: "topicsController"
       })
       .when("/event-detail/:id", {
         templateUrl: "modules/event-details/event-details.html",

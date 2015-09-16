@@ -1,5 +1,13 @@
 techlooper.controller("postContestController", function ($scope, $http, jsonValue, $translate, $location, utils,
-                                                         resourcesService, $anchorScroll) {
+                                                         resourcesService, $anchorScroll, apiService) {
+
+  var param = $location.search();
+  if (param.id) {
+    apiService.findChallengeById(param.id).success(function (data) {
+      $scope.contest = data;
+    });
+  }
+
   utils.sendNotification(jsonValue.notifications.loading);
   var state = {
     challenge: {
@@ -120,10 +128,10 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         $anchorScroll();
         utils.sendNotification(jsonValue.notifications.loading);
         $('.submit-contest-content').find('button').addClass('disabled');
-        $http.post("challenge/publish", request, {transformResponse: function (d, h) {return d;}})
+        $http.post("challenge/publish", request)
           .then(function (response) {
             var title = utils.toAscii($scope.contest.challengeName);
-            $location.url(sprintf("/challenge-detail/%s-%s-id", title, response.data));
+            $location.url(sprintf("/challenge-detail/%s-%s-id", title, response.data.challengeId));
           })
           .finally(function () {
             $('.submit-contest-content').find('button').removeClass('disabled');
