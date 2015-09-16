@@ -134,6 +134,8 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         templateModel.put("keyword", jobAlertRegistrationEntity.getKeyword());
         templateModel.put("location", jobAlertRegistrationEntity.getLocation());
         templateModel.put("locationId", jobAlertRegistrationEntity.getLocationId());
+
+        mapJobCrawlSource(jobSearchResponse);
         templateModel.put("jobs", jobSearchResponse.getJobs());
         templateModel.put("searchPath", buildSearchPath(jobAlertRegistrationEntity));
 
@@ -319,6 +321,21 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             }
         }
         return result;
+    }
+
+    private void mapJobCrawlSource(JobSearchResponse jobSearchResponse) {
+        for (JobResponse job : jobSearchResponse.getJobs()) {
+            if (StringUtils.isNotEmpty(job.getCrawlSource())) {
+                String crawlSource = job.getCrawlSource();
+                StringTokenizer tokenizer = new StringTokenizer(crawlSource, "-");
+                while (tokenizer.hasMoreTokens()) {
+                    String sourceName = tokenizer.nextToken();
+                    job.setCrawlSource(sourceName.toUpperCase());
+                    break;
+                }
+            }
+        }
+
     }
 
 }

@@ -244,6 +244,16 @@
                                                             Mức Lương: <span style="color: #277cbd"><#if job.salary?has_content>${job.salary}<#else>Negotiable</#if></span>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td style="height:5px; line-height: 5px;" width="100%">
+                                                            <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" style="pcolor: #892890" >
+                                                            Từ: <#if job.crawlSource??>${job.crawlSource}</#if>
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </td>
                                         </tr>

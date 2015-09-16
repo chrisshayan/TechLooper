@@ -1001,19 +1001,19 @@ techlooper.factory("jsonValue", function () {
     },
 
     "crawlSources": [
-      {id: "vietnamworks", name: "Vietnamworks"},
-      {id: "careerbuilder-jobs-api-pagination", name: "CareerBuilder"},
-      {id: "jobstreet-jobs-api-pagination", name: "JobStreet"},
-      {id: "tuyendung-jobs-api-pagination", name: "TuyenDung"},
-      {id: "itviec-jobs-api-pagination", name: "ITViec"},
-      {id: "careerlink-jobs-api-pagination", name: "CareerLink"},
-      {id: "vieclam24h-jobs-api-pagination", name: "Vieclam24h"},
-      {id: "linkedin-jobs-api-pagination", name: "LinkedIn"},
-      {id: "vietnamworks-jobs-api", name: "Vietnamworks"},
-      {id: "jobstreet-jobs-api", name: "JobStreet"},
-      {id: "careerbuilder-jobs-api", name: "CareerBuilder"},
-      {id: "itviec-jobs-api", name: "ITViec"},
-      {id: "itviec-jobs-api-v2", name: "ITViec"}
+      {id: "vietnamworks", name: "VIETNAMWORKS"},
+      {id: "careerbuilder-jobs-api-pagination", name: "CAREERBUILDER"},
+      {id: "jobstreet-jobs-api-pagination", name: "JOBSTREET"},
+      {id: "tuyendung-jobs-api-pagination", name: "TUYENDUNG"},
+      {id: "itviec-jobs-api-pagination", name: "ITVIEC"},
+      {id: "careerlink-jobs-api-pagination", name: "CAREERLINK"},
+      {id: "vieclam24h-jobs-api-pagination", name: "VIECLAM24H"},
+      {id: "linkedin-jobs-api-pagination", name: "LINKEDIN"},
+      {id: "vietnamworks-jobs-api", name: "VIETNAMWORKS"},
+      {id: "jobstreet-jobs-api", name: "JOBSTREET"},
+      {id: "careerbuilder-jobs-api", name: "CAREERBUILDER"},
+      {id: "itviec-jobs-api", name: "ITVIEC"},
+      {id: "itviec-jobs-api-v2", name: "ITVIEC"}
     ]
   }
 
