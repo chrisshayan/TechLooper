@@ -6,6 +6,6 @@ import com.techlooper.model.LeadEventEnum;
 
 public interface LeadAPIService {
 
-    int createNewLead(VnwUser employer, VnwCompany company, LeadEventEnum leadEvent);
+    int createNewLead(VnwUser employer, VnwCompany company, LeadEventEnum leadEvent, String leadEventName);
 
 }

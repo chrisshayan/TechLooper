@@ -42,7 +42,8 @@ public class ProjectController {
             VnwUser employer = employerService.findEmployerByUsername(employerEmail);
             VnwCompany company = employerService.findCompanyById(employer.getCompanyId());
             if (employer != null && company != null) {
-                int responseCode = leadAPIService.createNewLead(employer, company, LeadEventEnum.POST_FREELANCE_PROJECT);
+                int responseCode = leadAPIService.createNewLead(
+                        employer, company, LeadEventEnum.POST_FREELANCE_PROJECT, projectEntity.getProjectTitle());
 
                 String logMessage = "Create Lead API Response Code : %d ,EmployerID : %d ,CompanyID : %d";
                 LOGGER.info(String.format(logMessage, responseCode, employer.getUserId(), company.getCompanyId()));
