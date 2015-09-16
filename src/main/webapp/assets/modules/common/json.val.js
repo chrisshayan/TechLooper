@@ -116,8 +116,8 @@ techlooper.factory("jsonValue", function () {
 
     termColor: [
       {
-      "Name": "JAVA",
-      "color": "#bf06b7"
+        "Name": "JAVA",
+        "color": "#bf06b7"
       }, {
         "Name": "DOTNET",
         "color": "#d50708"
@@ -960,7 +960,7 @@ techlooper.factory("jsonValue", function () {
       {id: 12, name: "> 20 years"}
     ],
     "benefitIcons": [
-      {id: '1',iconClass: 'fa-dollar'},
+      {id: '1', iconClass: 'fa-dollar'},
       {id: '2', iconClass: 'fa-user-md'},
       {id: '3', iconClass: 'fa-file-image-o'},
       {id: '4', iconClass: 'fa-graduation-cap'},
@@ -994,10 +994,10 @@ techlooper.factory("jsonValue", function () {
     dateTimeFormat: "DD/MM/YYYY hh:mm A",
 
     status: {
-      notStarted: {translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
-      registration: {translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
-      progress: {translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
-      closed: {translate: "closed", timeLeftTranslate: "moreDayToClosed"}
+      notStarted: {id: "notStarted", translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
+      registration: {id: "registration", translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
+      progress: {id: "progress", translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
+      closed: {id: "closed", translate: "closed", timeLeftTranslate: "moreDayToClosed"}
     },
 
     "crawlSources": [

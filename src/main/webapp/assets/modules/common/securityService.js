@@ -67,7 +67,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     },
 
     routeByRole: function () {
-      utils.sendNotification(jsonValue.notifications.loaded);
+      //utils.sendNotification(jsonValue.notifications.loaded);
       var lastFoot = localStorageService.get("lastFoot");
       var uiView = utils.getUiView(lastFoot);
 

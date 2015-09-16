@@ -9,17 +9,20 @@ import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmployerService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.NotFilterBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.Filter;
+import org.elasticsearch.search.aggregations.bucket.filters.Filters;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.joda.time.DateTime;
@@ -126,17 +129,20 @@ public class ChallengeServiceImpl implements ChallengeService {
   @Value("${elasticsearch.userimport.index.name}")
   private String techlooperIndex;
 
+  @Resource
+  private EmployerService employerService;
+
+  @Override
   public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
     ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
-    if (challengeDto.getChallengeId() != null) {
-      challengeEntity.setChallengeId(new Date().getTime());
-    }
-//    challengeEntity.setStartDateTime(challengeDto.getStartDate());
-//    challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
-//    challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
+    challengeEntity.setChallengeId(new Date().getTime());
+    challengeEntity.setStartDateTime(challengeDto.getStartDate());
+    challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
+    challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
     return challengeRepository.save(challengeEntity);
   }
 
+  @Override
   public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
     throws MessagingException, IOException, TemplateException {
     String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
@@ -145,6 +151,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
   }
 
+  @Override
   public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
     throws MessagingException, IOException, TemplateException {
     String mailSubject = postChallengeTechloopiesMailSubject;
@@ -152,6 +159,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, postChallengeMailTemplateEn);
   }
 
+  @Override
   public ChallengeDetailDto getChallengeDetail(Long challengeId) {
     ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
     if (challengeEntity != null) {
@@ -162,12 +170,14 @@ public class ChallengeServiceImpl implements ChallengeService {
     return null;
   }
 
+  @Override
   public Long getNumberOfRegistrants(Long challengeId) {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
     searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
     return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
   }
 
+  @Override
   public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
     Template template = challengeRegistrantEntity.getLang() == Language.vi ?
       confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
@@ -178,6 +188,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, false);
   }
 
+  @Override
   public void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
     Template template = challengeRegistrantEntity.getLang() == Language.vi ?
       alertEmployerChallengeMailTemplateVi : alertEmployerChallengeMailTemplateEn;
@@ -188,6 +199,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, true);
   }
 
+  @Override
   public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
     Long challengeId = challengeRegistrantDto.getChallengeId();
     boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
@@ -205,11 +217,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     return getNumberOfRegistrants(challengeId);
   }
 
+  @Override
   public List<ChallengeDetailDto> listChallenges() {
     List<ChallengeDetailDto> challenges = new ArrayList<>();
-    NotFilterBuilder filter = FilterBuilders.notFilter(FilterBuilders.termFilter("expired", Boolean.TRUE));
-    Iterator<ChallengeEntity> challengeIter = challengeRepository.search(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), filter)).iterator();
-//    Iterator<ChallengeEntity> challengeIter = challengeRepository.findAll().iterator();
+    Iterator<ChallengeEntity> challengeIter = challengeRepository.findAll().iterator();
     while (challengeIter.hasNext()) {
       ChallengeEntity challengeEntity = challengeIter.next();
       ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
@@ -351,10 +362,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     return (total > 0);
   }
 
+  @Override
   public Long getTotalNumberOfChallenges() {
     return challengeRepository.count();
   }
 
+  @Override
   public Double getTotalAmountOfPrizeValues() {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
     searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
@@ -367,10 +380,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     return sumReponse != null ? sumReponse.getValue() : 0D;
   }
 
+  @Override
   public Long getTotalNumberOfRegistrants() {
     return challengeRegistrantRepository.count();
   }
 
+  @Override
   public ChallengeDetailDto getTheLatestChallenge() {
 //    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
 //    searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
@@ -388,7 +403,7 @@ public class ChallengeServiceImpl implements ChallengeService {
   public Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner,
                                                                 Predicate<? super ChallengeEntity> condition) {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challenge");
-    QueryStringQueryBuilder query = QueryBuilders.queryString(owner).defaultField("authorEmail");
+    QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(owner).defaultField("authorEmail");
     queryBuilder.withFilter(FilterBuilders.queryFilter(query));
 
     int pageIndex = 0;
@@ -409,6 +424,20 @@ public class ChallengeServiceImpl implements ChallengeService {
       });
     }
     return challenges;
+  }
+
+  public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
+    BoolQueryBuilder query = QueryBuilders.boolQuery().must(QueryBuilders.queryStringQuery(ownerEmail).defaultField("authorEmail"))
+      .mustNot(QueryBuilders.termQuery("expired", Boolean.TRUE));
+    Iterable<ChallengeEntity> challenges = challengeRepository.search(query);
+    ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
+    challenges.forEach(challengeEntity -> {
+      ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+      challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
+      dtos.add(challengeDetailDto);
+    });
+    dozerMapper.map(challenges, dtos);
+    return dtos;
   }
 
   public Collection<ChallengeDetailDto> findInProgressChallenges(String owner) {
@@ -462,4 +491,5 @@ public class ChallengeServiceImpl implements ChallengeService {
   public ChallengeDto findChallengeById(Long id) {
     return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
   }
+
 }

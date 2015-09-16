@@ -5,26 +5,34 @@ import com.techlooper.entity.vnw.VnwUser;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by phuonghqh on 6/25/15.
  */
 @Service
 @Profile("local")
-public class VnwUserRepoSimple implements VnwUserRepo {
-  public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
-    return userThuHoang();
-  }
+public class VnwUserRepoLocal implements VnwUserRepo {
 
   public VnwUser findByUsernameIgnoreCase(String username) {
     return userThuHoang();
   }
 
+
   public VnwUser findOne(Long aLong) {
-    return null;
+    return userThuHoang();
   }
 
   public Iterable<VnwUser> findAll() {
-    return null;
+    List<VnwUser> ls = Collections.emptyList();
+    ls.add(userThuHoang());
+    return ls;
+  }
+
+  public VnwUser findByUsernameIgnoreCaseAndUserPassAndRoleName(String username, String userPass, RoleName roleName) {
+    return userThuHoang();
   }
 
   private static VnwUser userThuHoang() {
