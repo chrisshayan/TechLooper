@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by NguyenDangKhoa on 9/15/15.
  */
@@ -13,35 +11,27 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class LeadModel {
 
-    @NotNull
     @JsonProperty(value = "Subject")
     private String subject;
 
-    @NotNull
     @JsonProperty(value = "Telephone1")
     private String telephone1;
 
-    @NotNull
     @JsonProperty(value = "FirstName")
     private String firstName;
 
-    @NotNull
     @JsonProperty(value = "Qntt_Source")
-    private String source;
+    private Integer source;
 
-    @NotNull
     @JsonProperty(value = "LeadQualityCode")
-    private Integer leadQualityCode;
+    private String leadQualityCode;
 
-    @NotNull
     @JsonProperty(value = "Qntt_LegalName")
     private String legalName;
 
-    @NotNull
     @JsonProperty(value = "CampaignId")
     private String campaignId;
 
-    @NotNull
     @JsonProperty(value = "CompanyName")
     private String companyName;
 
@@ -102,19 +92,19 @@ public class LeadModel {
         this.firstName = firstName;
     }
 
-    public String getSource() {
+    public Integer getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(Integer source) {
         this.source = source;
     }
 
-    public Integer getLeadQualityCode() {
+    public String getLeadQualityCode() {
         return leadQualityCode;
     }
 
-    public void setLeadQualityCode(Integer leadQualityCode) {
+    public void setLeadQualityCode(String leadQualityCode) {
         this.leadQualityCode = leadQualityCode;
     }
 
