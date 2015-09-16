@@ -46,7 +46,7 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public VnwCompany findCompanyById(Long companyId) {
-        return vnwCompanyRepo.findByCompanyId(companyId);
+        return vnwCompanyRepo.findOne(companyId);
     }
 
     @Override
