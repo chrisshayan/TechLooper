@@ -32,7 +32,8 @@ public class ProjectController {
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/project/post", method = RequestMethod.POST)
-    public long postProject(@RequestBody ProjectDto projectDto, HttpServletRequest servletRequest) throws Exception {
+    public ProjectResponse postProject(@RequestBody ProjectDto projectDto, HttpServletRequest servletRequest) throws Exception {
+        int responseCode = 0;
         String employerEmail = servletRequest.getRemoteUser();
         projectDto.setAuthorEmail(employerEmail);
         ProjectEntity projectEntity = projectService.saveProject(projectDto);
@@ -42,7 +43,7 @@ public class ProjectController {
             VnwUser employer = employerService.findEmployerByUsername(employerEmail);
             VnwCompany company = employerService.findCompanyById(employer.getCompanyId());
             if (employer != null && company != null) {
-                int responseCode = leadAPIService.createNewLead(
+                responseCode = leadAPIService.createNewLead(
                         employer, company, LeadEventEnum.POST_FREELANCE_PROJECT, projectEntity.getProjectTitle());
 
                 String logMessage = "Create Lead API Response Code : %d ,EmployerID : %d ,CompanyID : %d";
@@ -52,7 +53,7 @@ public class ProjectController {
             LOGGER.error(ex.getMessage(), ex);
         }
 
-        return projectEntity.getProjectId();
+        return new ProjectResponse(projectEntity.getProjectId(), responseCode);
     }
 
     @RequestMapping(value = "/project/list", method = RequestMethod.GET)

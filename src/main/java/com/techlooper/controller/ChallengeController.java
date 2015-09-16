@@ -4,10 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
-import com.techlooper.model.ChallengeDetailDto;
-import com.techlooper.model.ChallengeDto;
-import com.techlooper.model.ChallengeStatsDto;
-import com.techlooper.model.LeadEventEnum;
+import com.techlooper.model.*;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.service.LeadAPIService;
@@ -38,7 +35,8 @@ public class ChallengeController {
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
-    public long publishChallenge(@RequestBody ChallengeDto challengeDto, HttpServletRequest servletRequest) throws Exception {
+    public ChallengeResponse publishChallenge(@RequestBody ChallengeDto challengeDto, HttpServletRequest servletRequest) throws Exception {
+        int responseCode = 0;
         String employerEmail = servletRequest.getRemoteUser();
         challengeDto.setAuthorEmail(employerEmail);
         ChallengeEntity challengeEntity = challengeService.savePostChallenge(challengeDto);
@@ -54,7 +52,7 @@ public class ChallengeController {
             VnwUser employer = employerService.findEmployerByUsername(employerEmail);
             VnwCompany company = employerService.findCompanyById(employer.getCompanyId());
             if (employer != null && company != null) {
-                int responseCode = leadAPIService.createNewLead(
+                responseCode = leadAPIService.createNewLead(
                         employer, company, LeadEventEnum.POST_CHALLENGE, challengeEntity.getChallengeName());
 
                 String logMessage = "Create Lead API Response Code : %d ,EmployerID : %d ,CompanyID : %d";
@@ -64,7 +62,7 @@ public class ChallengeController {
             LOGGER.error(ex.getMessage(), ex);
         }
 
-        return challengeEntity.getChallengeId();
+        return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);
     }
 
     @RequestMapping(value = "/challenge/{challengeId}", method = RequestMethod.GET)
