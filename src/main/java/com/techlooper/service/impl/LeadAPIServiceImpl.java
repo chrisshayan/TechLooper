@@ -40,13 +40,14 @@ public class LeadAPIServiceImpl implements LeadAPIService {
     private RestTemplate restTemplate;
 
     @Override
-    public int createNewLead(VnwUser employer, VnwCompany company, LeadEventEnum leadEvent) {
-        LeadModel leadModel = buildLeadModel(employer, company, leadEvent);
+    public int createNewLead(VnwUser employer, VnwCompany company, LeadEventEnum leadEvent, String leadEventName) {
+        LeadModel leadModel = buildLeadModel(employer, company, leadEvent, leadEventName);
         HttpEntity<String> requestEntity = configureHttpRequestEntity(leadModel);
 
         ResponseEntity<String> responseEntity;
         try {
             responseEntity = restTemplate.exchange(createLeadUrl, HttpMethod.POST, requestEntity, String.class);
+            System.out.println(responseEntity.getBody());
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
             return HttpStatus.INTERNAL_SERVER_ERROR.value();
@@ -55,10 +56,10 @@ public class LeadAPIServiceImpl implements LeadAPIService {
         return responseEntity.getStatusCode().value();
     }
 
-    private LeadModel buildLeadModel(VnwUser employer, VnwCompany company, LeadEventEnum leadEvent) {
+    private LeadModel buildLeadModel(VnwUser employer, VnwCompany company, LeadEventEnum leadEvent, String leadEventName) {
         LeadModel leadModel = new LeadModel();
         String subject = (leadEvent == LeadEventEnum.POST_CHALLENGE) ? postChallengeLeadSubject : postProjectLeadSubject;
-        leadModel.setSubject(subject);
+        leadModel.setSubject(String.format(subject, leadEventName));
         leadModel.setTelephone1(company.getTelephone());
         String firstName = StringUtils.isNotEmpty(employer.getFirstName()) ? employer.getFirstName() : "Unknown";
         leadModel.setFirstName(firstName);
