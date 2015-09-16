@@ -520,7 +520,7 @@
   "justNow": "just now",
   "estBudget": "Est. Budget",
   "estTime": "Est. Time",
-  "detail": "Detail",
+  "detail": "Details",
   "skillsNeed": "Skills:",
   "thisJobIsExpired": "This Job Post is expired!",
   "postedProjectSuccessful": "You have posted this project successfully.",
@@ -702,7 +702,7 @@
   "eventsTitle": "Let's Hang Out 'cause WE are AWESOME when getting TOGETHER",
   "postedEventSuccessful": "You have posted this event successfully.",
   "joinedEventAlert": "You have already joined this event.",
-  "latestJobs": "<strong>Latest Jobs</strong> in {{number}} job(s)",
+  "latestJobs": "<strong>Latest Jobs</strong> in {{number}} Job(s)",
   "jobAggregator": "Access to thousands of new jobs from job sites around you and receive weekly email notification about jobs which match perfectly your expectations through free job alert registration.",
   "sendNow" : "Send Now",
   "thisEventExpired": "This event is expired!",
@@ -715,5 +715,8 @@
   "ok": "Ok",
   "latestTopicsTitle": "Latest Topics",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "registrationDate": "Registration Date",
+  "score": "Score",
+  "reject": "Reject"
 }

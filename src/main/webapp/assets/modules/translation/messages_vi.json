@@ -716,5 +716,8 @@
   "ok": "Có",
   "latestTopicsTitle": "Chủ Đề Công Nghệ Mới Nhất",
   "edit": "Cập nhật",
-  "delete": "Xoá"
+  "delete": "Xoá",
+  "registrationDate": "Registration Date",
+  "score": "Score",
+  "reject": "Reject"
 }
