@@ -44,7 +44,7 @@ techlooper.filter("progress", function (jsonValue, resourcesService) {
         progressIds = progressIds || "";
 
         return $.grep(challenges, function (challenge, index) {
-          if (challenge.progress) progressFn(challenge, "challenge");
+          if (!challenge.progress) progressFn(challenge, "challenge");
           return progressIds.indexOf(challenge.progress.id) >= 0;
         });
 
