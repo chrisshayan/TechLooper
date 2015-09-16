@@ -1008,7 +1008,12 @@ techlooper.factory("jsonValue", function () {
       {id: "itviec-jobs-api-pagination", name: "ITViec"},
       {id: "careerlink-jobs-api-pagination", name: "CareerLink"},
       {id: "vieclam24h-jobs-api-pagination", name: "Vieclam24h"},
-      {id: "linkedin-jobs-api-pagination", name: "LinkedIn"}
+      {id: "linkedin-jobs-api-pagination", name: "LinkedIn"},
+      {id: "vietnamworks-jobs-api", name: "Vietnamworks"},
+      {id: "jobstreet-jobs-api", name: "JobStreet"},
+      {id: "careerbuilder-jobs-api", name: "CareerBuilder"},
+      {id: "itviec-jobs-api", name: "ITViec"},
+      {id: "itviec-jobs-api-v2", name: "ITViec"}
     ]
   }
 
