@@ -9,11 +9,6 @@ import org.springframework.stereotype.Service;
 public class VnwCompanyRepoLocal implements VnwCompanyRepo {
 
     @Override
-    public VnwCompany findByCompanyId(Long companyId) {
-        return null;
-    }
-
-    @Override
     public VnwCompany findOne(Long aLong) {
         return null;
     }

@@ -40,9 +40,6 @@ public class VnwCompany {
     @Column(name = "countryid")
     private Integer country;
 
-    @Column(name = "companysizeid")
-    private Integer companySize;
-
     public Long getCompanyId() {
         return companyId;
     }
@@ -121,13 +118,5 @@ public class VnwCompany {
 
     public void setCountry(Integer country) {
         this.country = country;
-    }
-
-    public Integer getCompanySize() {
-        return companySize;
-    }
-
-    public void setCompanySize(Integer companySize) {
-        this.companySize = companySize;
     }
 }
