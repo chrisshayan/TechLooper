@@ -1,9 +1,10 @@
 techlooper.filter("progress", function (jsonValue, resourcesService) {
-  return function (input, type) {
+  var progressFn = function (input, type, param1) {
     if (!input) return "";
     switch (type) {
       case "challenge":
         var contestDetail = input;
+
         //if current date < start date
         var startDate = moment(contestDetail.startDateTime, jsonValue.dateFormat);
         contestDetail.progress = jsonValue.status.notStarted;
@@ -34,6 +35,19 @@ techlooper.filter("progress", function (jsonValue, resourcesService) {
         delete contestDetail.progress;
         return "";
 
+      case "challenges":
+        var challenges = input || [];
+        var progress = param1;//@see jsonValue.status
+        if (!progress) return challenges;
+
+        var progressIds = $.isArray(progress) ? $.map(progress, function (prg) {return prg.id;}).join(",") : progress.id;
+        progressIds = progressIds || "";
+
+        return $.grep(challenges, function (challenge, index) {
+          if (challenge.progress) progressFn(challenge, "challenge");
+          return progressIds.indexOf(challenge.progress.id) >= 0;
+        });
+
       case "freelancer-review-project-payment-method":
         var payMethod = input;
         var option = resourcesService.getOption(payMethod, resourcesService.paymentConfig);
@@ -41,4 +55,5 @@ techlooper.filter("progress", function (jsonValue, resourcesService) {
         return option.reviewTranslate;
     }
   }
+  return progressFn;
 });
