@@ -64,7 +64,7 @@ public class ChallengeController {
 
         return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);
     }
-
+    
     @RequestMapping(value = "/challenge/{challengeId}", method = RequestMethod.GET)
     public ChallengeDto getChallengeDetail(@PathVariable Long challengeId) throws Exception {
         return challengeService.findChallengeById(challengeId);
