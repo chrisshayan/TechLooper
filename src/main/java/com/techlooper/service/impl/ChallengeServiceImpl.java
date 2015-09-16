@@ -456,8 +456,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         return challengeRegistrantRepository.search(queryBuilder.build()).getTotalElements();
     }
 
-    @Override
     public boolean delete(Long id, String ownerEmail) {
+        ChallengeEntity challenge = challengeRepository.findOne(id);
+        if (challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+            challenge.setExpired(Boolean.TRUE);
+            challengeRepository.save(challenge);
+            return true;
+        }
         return false;
     }
 

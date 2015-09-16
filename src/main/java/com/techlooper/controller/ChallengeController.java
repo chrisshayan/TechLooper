@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -90,4 +91,16 @@ public class ChallengeController {
         return challengeStatsDto;
     }
 
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "/challenge/{id}", method = RequestMethod.DELETE)
+    public void deleteChallengeById(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response) {
+        if (!challengeService.delete(id, request.getRemoteUser())) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
+    public ChallengeDto findChallengeById(@PathVariable Long challengeId) throws Exception {
+        return challengeService.findChallengeById(challengeId);
+    }
 }

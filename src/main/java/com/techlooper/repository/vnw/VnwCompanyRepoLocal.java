@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile("local")
-public class VnwCompanyRepoSimple implements VnwCompanyRepo {
+public class VnwCompanyRepoLocal implements VnwCompanyRepo {
 
     @Override
     public VnwCompany findByCompanyId(Long companyId) {
