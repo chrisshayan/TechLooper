@@ -16,10 +16,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.Filter;
+import org.elasticsearch.search.aggregations.bucket.filters.Filters;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.joda.time.DateTime;
@@ -424,7 +427,8 @@ public class ChallengeServiceImpl implements ChallengeService {
   }
 
   public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
-    QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(ownerEmail).defaultField("authorEmail");
+    BoolQueryBuilder query = QueryBuilders.boolQuery().must(QueryBuilders.queryStringQuery(ownerEmail).defaultField("authorEmail"))
+      .mustNot(QueryBuilders.termQuery("expired", Boolean.TRUE));
     Iterable<ChallengeEntity> challenges = challengeRepository.search(query);
     ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
     challenges.forEach(challengeEntity -> {
