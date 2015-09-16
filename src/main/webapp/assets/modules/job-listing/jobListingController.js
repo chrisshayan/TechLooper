@@ -134,6 +134,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
       bindSearchResultData(response);
     });
 
+    $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
     //var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
     //$location.path(searchPath);
   }
