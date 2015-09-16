@@ -57,7 +57,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     postFreelancerProject: function (projectRequest) {
-      return $http.post("project/post", projectRequest, {transformResponse: function (d, h) {return d;}})
+      return $http.post("project/post", projectRequest)
     },
 
     getProject: function (id) {
