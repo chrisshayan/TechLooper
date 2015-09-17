@@ -251,7 +251,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td align="left" style="pcolor: #892890" >
-                                                            Từ: <#if job.crawlSource??>${job.crawlSource}</#if>
+                                                            Từ <#if job.crawlSource??>${job.crawlSource}</#if>
                                                         </td>
                                                     </tr>
                                                 </table>
