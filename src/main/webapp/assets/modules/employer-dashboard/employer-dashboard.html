@@ -62,22 +62,22 @@
                 <!--ng-click="challenge.progress.translate = ''; active ='all'">-->
            {{'all' | translate}} (<i>{{dashboardInfo.challenges.length}}</i>)</span>
           <span class="activating"
-                ng-show="activeChallenges.length"
+                ng-show="dashboardInfo.activeChallenges.length"
                 ng-class="{active: challengesByStatus.status == 'active'}"
                 ng-click="changeChallengesByStatus('active')">
                 <!--ng-click="challenge.progress.translate = myFunction; active ='registration'">-->
             {{'active' | translate}}
             (<i>{{filterChallenges([jsonValue.status.registration, jsonValue.status.progress]).length}}</i>)</span>
           <span class="notStarted"
-                ng-show="notStartedChallenges.length"
+                ng-show="dashboardInfo.notStartedChallenges.length"
                 ng-class="{active: challengesByStatus.status == 'notStarted'}"
                 ng-click="changeChallengesByStatus('notStarted')">
                 <!--ng-click="challenge.progress.translate = 'notStart'; active ='notStart'">-->
             {{'notStart' | translate}}
             (<i>{{filterChallenges(jsonValue.status.notStarted).length}}</i>)</span>
           <span class="closed"
-                ng-show="closedChallenges.length"
-                ng-class="{active: challengesStatus == 'closed'}"
+                ng-show="dashboardInfo.closedChallenges.length"
+                ng-class="{active: challengesByStatus.status == 'closed'}"
                 ng-click="changeChallengesByStatus('closed')">
             {{'closed' | translate}}
             (<i>{{filterChallenges(jsonValue.status.closed).length}}</i>)</span>
@@ -87,8 +87,7 @@
           <tr>
             <th translate="activeChallengesDashBoard" class="align-left"></th>
             <th translate="currentPhase"></th>
-            <th translate="closeOn">
-            </th>
+            <th translate="closeOn"></th>
             <th translate="contestantsDashBoard"></th>
             <th translate="actions"></th>
           </tr>

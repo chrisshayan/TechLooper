@@ -40,27 +40,30 @@ public class ChallengeController {
     String employerEmail = servletRequest.getRemoteUser();
     challengeDto.setAuthorEmail(employerEmail);
     ChallengeEntity challengeEntity = challengeService.savePostChallenge(challengeDto);
-    if (challengeEntity.getChallengeId() != -1L) {
-      if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
-        challengeService.sendPostChallengeEmailToEmployer(challengeEntity);
+    boolean newEntity = challengeDto.getChallengeId() == null;
+    if (newEntity) {
+      if (challengeEntity != null) {
+        if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
+          challengeService.sendPostChallengeEmailToEmployer(challengeEntity);
+        }
+        challengeService.sendPostChallengeEmailToTechloopies(challengeEntity);
       }
-      challengeService.sendPostChallengeEmailToTechloopies(challengeEntity);
-    }
 
-    // Call Lead Management API to create new lead on CRM system
-    try {
-      VnwUser employer = employerService.findEmployerByUsername(employerEmail);
-      VnwCompany company = employerService.findCompanyById(employer.getCompanyId());
-      if (employer != null && company != null) {
-        responseCode = leadAPIService.createNewLead(
-          employer, company, LeadEventEnum.POST_CHALLENGE, challengeEntity.getChallengeName());
+      // Call Lead Management API to create new lead on CRM system
+      try {
+        VnwUser employer = employerService.findEmployerByUsername(employerEmail);
+        VnwCompany company = employerService.findCompanyById(employer.getCompanyId());
+        if (employer != null && company != null) {
+          responseCode = leadAPIService.createNewLead(
+            employer, company, LeadEventEnum.POST_CHALLENGE, challengeEntity.getChallengeName());
 
-        String logMessage = "Create Lead API Response Code : %d ,EmployerID : %d ,CompanyID : %d";
-        LOGGER.info(String.format(logMessage, responseCode, employer.getUserId(), company.getCompanyId()));
+          String logMessage = "Create Lead API Response Code : %d ,EmployerID : %d ,CompanyID : %d";
+          LOGGER.info(String.format(logMessage, responseCode, employer.getUserId(), company.getCompanyId()));
+        }
       }
-    }
-    catch (Exception ex) {
-      LOGGER.error(ex.getMessage(), ex);
+      catch (Exception ex) {
+        LOGGER.error(ex.getMessage(), ex);
+      }
     }
 
     return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);

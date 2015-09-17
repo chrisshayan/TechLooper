@@ -43,6 +43,16 @@ public class ChallengeDetailDto {
 
   private List<String> receivedEmails;
 
+  private Boolean expired;
+
+  public Boolean getExpired() {
+    return expired;
+  }
+
+  public void setExpired(Boolean expired) {
+    this.expired = expired;
+  }
+
   public List<String> getReceivedEmails() {
     return receivedEmails;
   }
