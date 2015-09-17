@@ -272,7 +272,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/job-listing/${searchPath}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View More</a>
+                              <a href="${webBaseUrl}#/job-listing/${jobAlertRegistrationId}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View More</a>
                             </td>
                           </tr>
                         </table>
