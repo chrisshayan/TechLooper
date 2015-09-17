@@ -9,13 +9,15 @@ public class JobSearchCriteria {
 
     private String location;
 
+    private Integer locationId;
+
     private Integer page;
 
     private Boolean topPriority;
 
     private String crawlSource;
 
-    public JobSearchCriteria(){
+    public JobSearchCriteria() {
         this.page = 1;
     }
 
@@ -61,5 +63,13 @@ public class JobSearchCriteria {
 
     public void setCrawlSource(String crawlSource) {
         this.crawlSource = crawlSource;
+    }
+
+    public Integer getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Integer locationId) {
+        this.locationId = locationId;
     }
 }

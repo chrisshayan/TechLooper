@@ -49,20 +49,31 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     });
   } else {
     var searchParams = searchText.split("+");
-    var keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
-    var locationId = searchParams.length > 1 ? searchParams[1] : "";
-    var page = $routeParams.page ? $routeParams.page : 1;
+    var jobAlertRegistrationId = searchParams.length > 0 ? searchParams[0] : "";
 
-    var location = "";
-    if (locationId && locationId !== "0") {
-      location = utils.toAscii(vnwConfigService.getLocationText(locationId, "en"));
+    if (jobAlertRegistrationId && !isNaN(jobAlertRegistrationId)) {
+      apiService.getJobAlertCriteria(jobAlertRegistrationId).success(function (jobAlertCriteria) {
+        apiService.filterJob(jobAlertCriteria.keyword, jobAlertCriteria.location, jobAlertCriteria.page).success(function (response) {
+          bindSearchResultData(response);
+          $scope.searchJob = {keyword: jobAlertCriteria.keyword, locationId: jobAlertCriteria.locationId, location: jobAlertCriteria.location};
+        });
+      });
+    } else {
+      var keyword, locationId, location, page;
+      keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
+      locationId = searchParams.length > 1 ? searchParams[1] : "";
+      page = $routeParams.page ? $routeParams.page : 1;
+
+      location = "";
+      if (locationId && locationId !== "0") {
+        location = utils.toAscii(vnwConfigService.getLocationText(locationId, "en"));
+      }
+
+      apiService.filterJob(keyword, location, page).success(function (response) {
+        bindSearchResultData(response);
+        $scope.searchJob = {keyword: keyword, locationId: locationId, location: location};
+      });
     }
-
-    apiService.filterJob(keyword, location, page).success(function(response) {
-      bindSearchResultData(response);
-    });
-
-    $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
   }
 
   $scope.getPageRange = function() {
@@ -135,26 +146,24 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     });
 
     $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
-    //var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
-    //$location.path(searchPath);
   }
 
-  $scope.buildSearchPath = function(keyword, locationId, location, page) {
-    var result = "/job-listing/";
-    if (keyword) {
-      result += utils.toAscii(keyword);
-    }
-    if (locationId) {
-      result += "+" + locationId;
-    }
-    if (location) {
-      result += "+" + utils.toAscii(location);
-    }
-    if (page && page > 1) {
-      result += "/" + page;
-    }
-    return result;
-  }
+  //$scope.buildSearchPath = function(keyword, locationId, location, page) {
+  //  var result = "/job-listing/";
+  //  if (keyword) {
+  //    result += utils.toAscii(keyword);
+  //  }
+  //  if (locationId) {
+  //    result += "+" + locationId;
+  //  }
+  //  if (location) {
+  //    result += "+" + utils.toAscii(location);
+  //  }
+  //  if (page && page > 1) {
+  //    result += "/" + page;
+  //  }
+  //  return result;
+  //}
 
 
   $timeout(function () {

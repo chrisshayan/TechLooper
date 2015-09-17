@@ -13,6 +13,8 @@ public interface JobAggregatorService {
 
     JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception;
 
+    JobSearchCriteria findJobAlertCriteriaById(Long jobAlertRegistrationId);
+
     List<JobAlertRegistrationEntity> findJobAlertRegistration(JobAlertPeriodEnum period) throws Exception;
 
     void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobSearchResponse jobSearchResponse) throws Exception;

@@ -242,6 +242,19 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         return sum;
     }
 
+    @Override
+    public JobSearchCriteria findJobAlertCriteriaById(Long jobAlertRegistrationId) {
+        JobAlertRegistrationEntity registrationEntity = jobAlertRegistrationRepository.findOne(jobAlertRegistrationId);
+
+        JobSearchCriteria criteria = new JobSearchCriteria();
+        if (registrationEntity != null) {
+            criteria.setKeyword(registrationEntity.getKeyword());
+            criteria.setLocation(registrationEntity.getLocation());
+            criteria.setLocationId(registrationEntity.getLocationId());
+        }
+        return criteria;
+    }
+
     private String buildSearchPath(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
         StringBuilder pathBuilder = new StringBuilder("");
         if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
