@@ -719,5 +719,9 @@
   "registrationDate": "Registration Date",
   "score": "Score",
   "reject": "Reject",
-  "pageNotFound": "This page doesn't exist."
+  "pageNotFound": "This page does not exist.",
+  "rejectConfirmation": "Are you sure you want to reject this contestant?",
+  "reason": "Reason",
+  "vietnamese": "Vietnamese",
+  "english": "English"
 }

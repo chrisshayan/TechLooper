@@ -720,5 +720,9 @@
   "registrationDate": "Registration Date",
   "score": "Score",
   "reject": "Reject",
-  "pageNotFound": "Trang này không tồn tại."
+  "pageNotFound": "Trang này không tồn tại.",
+  "rejectConfirmation": "Are you sure you want to reject this contestant?",
+  "reason": "Reason",
+  "vietnamese": "Tiếng Việt",
+  "english": "Tiếng Anh"
 }
