@@ -95,7 +95,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       $scope.contestDetail = data;
       $filter("progress")($scope.contestDetail, "challenge");
     })
-    .error(function () {$location.url("challenges");});
+    .error(function () {$location.url("404");});
 
   $scope.fbShare = function () {
     ga("send", {
