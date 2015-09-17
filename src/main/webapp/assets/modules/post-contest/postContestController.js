@@ -2,10 +2,13 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
                                                          resourcesService, $anchorScroll, apiService) {
 
   var param = $location.search();
-  if (param.id) {
+  if (param.id && (param.a == "edit")) {
     apiService.findChallengeById(param.id).success(function (data) {
       $scope.contest = data;
     });
+  }
+  else {
+    $location.search({});
   }
 
   utils.sendNotification(jsonValue.notifications.loading);
@@ -17,7 +20,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         switch (type) {
           case "is-form-valid":
             $scope.challengeForm.$setSubmitted();
-            return $scope.challengeForm.$valid;
+            return !$scope.challengeForm.$invalid;
 
           case "set-form-pristine":
             return $scope.challengeForm && $scope.challengeForm.$setPristine();
@@ -38,8 +41,9 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type) {
         switch (type) {
           case "is-form-valid":
+            if (!$scope.timelineForm.$valid) return true;
             $scope.timelineForm.$setSubmitted();
-            return $scope.timelineForm.$valid;
+            return !$scope.timelineForm.$invalid;
 
           case "is-form-pristine":
             return $scope.timelineForm.$pristine;
@@ -89,7 +93,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         switch (type) {
           case "is-form-valid":
             $scope.rewardForm.$setSubmitted();
-            return $scope.rewardForm.$valid;
+            return !$scope.rewardForm.$invalid;
 
           case "is-form-pristine":
             return $scope.rewardForm.$pristine;
@@ -188,30 +192,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       }
       index += (next ? 1 : -1);
     }
-    //for (var index = currentStateOrder; index <= toStateOrder; index += (next ? 1 : -1)) {
-    //  var stateName = state.orderStates[index];
-    //  if (!$scope.changeState(stateName, !next)) {
-    //    break;
-    //  }
-    //}
-
-    //if (toStateOrder < currentStateOrder) {
-    //  if ($scope.state.status("is-form-pristine")) {
-    //    $scope.changeState(st, {ignoreInvalidForm: true});
-    //  }
-    //}
-    //else if (toStateOrder > currentStateOrder) {
-    //  for (var index = currentStateOrder; index < toStateOrder; index++) {
-    //    var stateName = state.orderStates[index];
-    //    if (!$scope.changeState(stateName)) {
-    //      break;
-    //    }
-    //  }
-    //}
-    //else if (currentStateOrder == toStateOrder) {
-    //  return false;
-    //}
-    //$scope.changeState(st);
   }
 
   $scope.config = {
