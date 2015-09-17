@@ -9,7 +9,7 @@ angular.module("Common").factory("connectionFactory",
     var isConnecting = false;
 
     //var contextUrl = window.location.protocol + '//' + window.location.host + paths.join('/');
-    var stompUrl = '/' + socketUri.sockjs;
+    var stompUrl = baseUrl + '/' + socketUri.sockjs;
     var broadcastClient = Stomp.over(new SockJS(stompUrl));
     broadcastClient.debug = function () {};
 
