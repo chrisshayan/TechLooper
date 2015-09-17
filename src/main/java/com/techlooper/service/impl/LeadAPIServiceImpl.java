@@ -47,7 +47,6 @@ public class LeadAPIServiceImpl implements LeadAPIService {
         ResponseEntity<String> responseEntity;
         try {
             responseEntity = restTemplate.exchange(createLeadUrl, HttpMethod.POST, requestEntity, String.class);
-            System.out.println(responseEntity.getBody());
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
             return HttpStatus.INTERNAL_SERVER_ERROR.value();
