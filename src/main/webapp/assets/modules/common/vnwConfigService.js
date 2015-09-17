@@ -55,7 +55,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     {
       "location_id": "1",
       "lang_vn": "Tất cả vị trí",
-      "lang_en": "All locations"
+      "lang_en": "Any location"
     },
     {
       "location_id": "29",
