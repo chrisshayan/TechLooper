@@ -65,9 +65,6 @@ public class LeadModel {
     @JsonProperty(value = "Qntt_Country")
     private Integer country;
 
-    @JsonProperty(value = "Qntt_NoOfEmployees")
-    private Integer companySize;
-
     public String getSubject() {
         return subject;
     }
@@ -210,13 +207,5 @@ public class LeadModel {
 
     public void setCountry(Integer country) {
         this.country = country;
-    }
-
-    public Integer getCompanySize() {
-        return companySize;
-    }
-
-    public void setCompanySize(Integer companySize) {
-        this.companySize = companySize;
     }
 }

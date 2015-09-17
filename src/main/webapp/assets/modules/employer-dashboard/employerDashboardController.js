@@ -9,6 +9,10 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         return rightStartDate.isAfter(leftStartDate);
       });
 
+      data.activeChallenges = $filter("progress")(data.challenges, "challenges", [jsonValue.status.registration, jsonValue.status.progress]);
+      data.notStartedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.notStarted);
+      data.closedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.closed);
+
       data.projects.sort(function (left, right) {
         return right.projectId - left.projectId;
       });
@@ -25,8 +29,34 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     $location.url("post-challenge?id=" + challenge.challengeId);
   }
 
-  $scope.changeChallengeStatus = function (status) {
-    $scope.challengeStatus = status;
+  $scope.changeChallengesByStatus = function (status) {
+    switch (status) {
+      case "active":
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.activeChallenges,
+          status: "active"
+        }
+        break;
+
+      case "notStated":
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.notStartedChallenges,
+          status: "notStarted"
+        }
+        break;
+
+      case "closed":
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.closedChallenges,
+          status: "closed"
+        }
+        break;
+
+      default:
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.challenges
+        }
+    }
   }
 
   $scope.filterChallenges = function (status) {
