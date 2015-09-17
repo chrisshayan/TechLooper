@@ -15,10 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
@@ -420,9 +417,9 @@ public class ChallengeServiceImpl implements ChallengeService {
   }
 
   public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
-    BoolQueryBuilder query = QueryBuilders.boolQuery().must(QueryBuilders.queryStringQuery(ownerEmail).defaultField("authorEmail"))
-      .mustNot(QueryBuilders.termQuery("expired", Boolean.TRUE));
-    Iterable<ChallengeEntity> challenges = challengeRepository.search(query);
+    MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
+    TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
+    Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
     ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
     challenges.forEach(challengeEntity -> {
       ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
