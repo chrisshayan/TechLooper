@@ -4,10 +4,7 @@ import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -32,6 +29,17 @@ public class JobListingController {
     @RequestMapping(value = "/jobListing", method = RequestMethod.POST)
     public JobSearchResponse list(@RequestBody JobSearchCriteria criteria) throws Exception {
         return jobAggregatorService.findJob(criteria);
+    }
+
+    /**
+     * @param jobAlertRegistrationId job alert registration id
+     * @return jobSearchCriteria job alert registration information
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/jobAlertCriteria/{jobAlertRegistrationId}", method = RequestMethod.GET)
+    public JobSearchCriteria getJobAlertCriteria(@PathVariable Long jobAlertRegistrationId) throws Exception {
+        return jobAggregatorService.findJobAlertCriteriaById(jobAlertRegistrationId);
     }
 
 }

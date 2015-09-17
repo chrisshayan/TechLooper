@@ -133,6 +133,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       });
     },
 
+    getJobAlertCriteria: function (jobAlertRegistrationId) {
+      return $http.get("jobAlertCriteria/" + jobAlertRegistrationId);
+    },
+
     createWebinar: function (webinar) {
       var obj = angular.copy(webinar);
       var atts = [];
