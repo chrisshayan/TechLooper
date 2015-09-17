@@ -29,7 +29,7 @@
 
 </head>
 
-<body onload="window.location='${baseUrl}#/event-details/${freelancerProject.projectTitle.replaceAll("\\W", "-")}-${freelancerProject.projectId}-id?lang=${lang}'">
+<body onload="window.location='${baseUrl}#/freelancer/project-detail/${freelancerProject.projectTitle.replaceAll("\\W", "-")}-${freelancerProject.projectId}-id?lang=${lang}'">
 </body>
 
 </html>
