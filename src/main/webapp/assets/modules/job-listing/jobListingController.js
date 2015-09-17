@@ -134,7 +134,8 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
   $scope.filterJob = function() {
     var keyword = $scope.searchJob.keyword ? $scope.searchJob.keyword : "";
-    var locationId = $scope.searchJob.locationId && $scope.searchJob.locationId !== "0" ? $scope.searchJob.locationId : "";
+    var locationId = $scope.searchJob.locationId && $scope.searchJob.locationId !== "0"
+                    && $scope.searchJob.locationId !== "1"? $scope.searchJob.locationId : "";
     var location = "";
     if (locationId) {
       location = vnwConfigService.getLocationText(locationId, "en");

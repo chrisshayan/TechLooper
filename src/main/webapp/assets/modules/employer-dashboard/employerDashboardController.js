@@ -1,4 +1,4 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $rootScope) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   var sortByStartDate = function (left, right) {
@@ -77,8 +77,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           if (index < 0) {
             return;
           }
-          $scope.dashboardInfo.challenges.splice(index, 1);
-          if (!$scope.filterChallenges().length) $scope.changeChallengeStatus();
+          $scope.dashboardInfo.notStartedChallenges.splice(index, 1);
+          //data.closedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.closed);
+          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();;
           $scope.$apply();
         });
     }
