@@ -328,6 +328,9 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       else if (/\/event-detail/.test(path)) {
         return jsonValue.views.eventDetails;
       }
+      else if (/\/404/.test(path)) {
+        return jsonValue.views.notFound;
+      }
     },
 
     sum: function (array, prop) {

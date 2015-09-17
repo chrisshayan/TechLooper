@@ -718,5 +718,6 @@
   "delete": "Delete",
   "registrationDate": "Registration Date",
   "score": "Score",
-  "reject": "Reject"
+  "reject": "Reject",
+  "pageNotFound": "This page doesn't exist."
 }
