@@ -137,7 +137,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
 
         mapJobCrawlSource(jobSearchResponse);
         templateModel.put("jobs", jobSearchResponse.getJobs());
-        templateModel.put("searchPath", buildSearchPath(jobAlertRegistrationEntity));
+        templateModel.put("jobAlertRegistrationId", String.valueOf(jobAlertRegistrationEntity.getJobAlertRegistrationId()));
 
         template.process(templateModel, stringWriter);
         jobAlertMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));

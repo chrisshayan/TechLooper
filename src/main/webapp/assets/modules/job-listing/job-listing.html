@@ -107,7 +107,7 @@
               </ul>
             </div>
           </div>
-          <div class="job-item" ng-repeat="job in jobs | filter:{ topPriority : false }">
+          <div class="job-item" ng-repeat="job in jobs | filter:{ topPriority : false }" ng-class="{highlight: job.crawlSource == 'VIETNAMWORKS'}">
             <div class="left-content">
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
               <ul>
@@ -117,7 +117,7 @@
               <p><i class="fa fa-money"></i><span translate="salary"></span>:
                   <strong ng-show="!job.salary">{{'negotiable' | translate}}</strong>
                   <strong>{{job.salary}}</strong></p>
-              <p><i class="fa fa-globe"></i> <span>{{'from' | translate}}</span> <strong>{{job.crawlSource}}</strong></p>
+              <p><i class="fa fa-globe"></i> <span>{{'from' | translate}}</span> <strong class="company-name">{{job.crawlSource}}</strong></p>
             </div>
             <div class="right-content">
               <ul>

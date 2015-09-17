@@ -13,7 +13,7 @@
           </div>
           <div class="dashboard-details">
             <div class="active-item">
-              <strong>{{dashboardInfo.challenges.length}}</strong>
+              <strong>{{dashboardInfo.challenges.length | number}}</strong>
 
               <p translate="challenges"></p>
             </div>
@@ -39,7 +39,7 @@
           </div>
           <div class="dashboard-details">
             <div class="active-item">
-              <strong>{{dashboardInfo.projects.length}}</strong>
+              <strong>{{dashboardInfo.projects.length | number:0}}</strong>
 
               <p translate="activeProjects"></p>
             </div>
@@ -94,7 +94,7 @@
           </thead>
           <tbody>
           <tr ng-show="dashboardInfo.challenges.length == 0">
-            <td colspan="4">{{'noData' | translate}}</td>
+            <td colspan="5">{{'noData' | translate}}</td>
           </tr>
 
           <tr ng-repeat="challenge in challengesByStatus.challenges"

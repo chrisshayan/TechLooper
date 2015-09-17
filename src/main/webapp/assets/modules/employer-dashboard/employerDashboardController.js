@@ -29,7 +29,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   };
 
   $scope.toEditPage = function (challenge) {
-    $location.url("post-challenge?id=" + challenge.challengeId);
+    $location.url("post-challenge?a=edit&id=" + challenge.challengeId);
   }
 
   $scope.changeChallengesByStatus = function (status) {
