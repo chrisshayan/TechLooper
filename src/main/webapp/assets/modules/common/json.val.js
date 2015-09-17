@@ -224,7 +224,8 @@ techlooper.factory("jsonValue", function () {
       createEvent: "createEvent",
       events: "events",
       eventDetails: "eventDetails",
-      topics: "topics"
+      topics: "topics",
+      notFound: "notFound"
     },
 
     uiViews: [
@@ -343,7 +344,8 @@ techlooper.factory("jsonValue", function () {
       jobListing: "jobListing",
       createEvent: "createEvent",
       events: "events",
-      eventDetails: "eventDetails"
+      eventDetails: "eventDetails",
+      notFound: "notFound"
     },
 
     socketUri: {

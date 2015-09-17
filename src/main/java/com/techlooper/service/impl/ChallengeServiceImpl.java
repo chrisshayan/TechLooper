@@ -9,7 +9,6 @@ import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmployerService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +20,6 @@ import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
-import org.elasticsearch.search.aggregations.bucket.filter.Filter;
-import org.elasticsearch.search.aggregations.bucket.filters.Filters;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.joda.time.DateTime;
@@ -129,16 +126,12 @@ public class ChallengeServiceImpl implements ChallengeService {
   @Value("${elasticsearch.userimport.index.name}")
   private String techlooperIndex;
 
-  @Resource
-  private EmployerService employerService;
-
   @Override
   public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
     ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
-    challengeEntity.setChallengeId(new Date().getTime());
-    challengeEntity.setStartDateTime(challengeDto.getStartDate());
-    challengeEntity.setRegistrationDateTime(challengeDto.getRegistrationDate());
-    challengeEntity.setSubmissionDateTime(challengeDto.getSubmissionDate());
+    if (challengeDto.getChallengeId() == null) {
+      challengeEntity.setChallengeId(new Date().getTime());
+    }
     return challengeRepository.save(challengeEntity);
   }
 
@@ -162,7 +155,7 @@ public class ChallengeServiceImpl implements ChallengeService {
   @Override
   public ChallengeDetailDto getChallengeDetail(Long challengeId) {
     ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-    if (challengeEntity != null) {
+    if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
       ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
       challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
       return challengeDetailDto;

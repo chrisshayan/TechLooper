@@ -47,5 +47,6 @@ appender("ERROR", RollingFileAppender) {
 }
 
 logger("com.techlooper", ALL, ["ALL"], Boolean.FALSE)
+logger("org.springframework", ERROR, ["ALL"], Boolean.FALSE)
 
 root(ERROR, ["ERROR"])

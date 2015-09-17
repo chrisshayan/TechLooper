@@ -1,19 +1,26 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
+  var sortByStartDate = function (left, right) {
+    var rightStartDate = moment(right.startDateTime, jsonValue.dateFormat);
+    var leftStartDate = moment(left.startDateTime, jsonValue.dateFormat);
+    var before = rightStartDate.isBefore(leftStartDate, "day");
+    var same = rightStartDate.isSame(leftStartDate, "day");
+    return same ? 0 : (before ? -1 : 1);
+  };
+
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
-      data.challenges.sort(function (left, right) {
-        var rightStartDate = moment(right.startDateTime, jsonValue.dateFormat);
-        var leftStartDate = moment(left.startDateTime, jsonValue.dateFormat);
-        return rightStartDate.isAfter(leftStartDate);
-      });
+      data.challenges.sort(sortByStartDate);
 
-      data.projects.sort(function (left, right) {
-        return right.projectId - left.projectId;
-      });
+      data.activeChallenges = $filter("progress")(data.challenges, "challenges", [jsonValue.status.registration, jsonValue.status.progress]);
+      data.notStartedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.notStarted);
+      data.closedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.closed);
+
+      data.projects.sort(function (left, right) {return right.projectId - left.projectId;});
 
       $scope.dashboardInfo = data;
+      $scope.changeChallengesByStatus();
     })
     .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
 
@@ -25,8 +32,34 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     $location.url("post-challenge?id=" + challenge.challengeId);
   }
 
-  $scope.changeChallengeStatus = function (status) {
-    $scope.challengeStatus = status;
+  $scope.changeChallengesByStatus = function (status) {
+    switch (status) {
+      case "active":
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.activeChallenges,
+          status: "active"
+        }
+        break;
+
+      case "notStarted":
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.notStartedChallenges,
+          status: "notStarted"
+        }
+        break;
+
+      case "closed":
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.closedChallenges,
+          status: "closed"
+        }
+        break;
+
+      default:
+        $scope.challengesByStatus = {
+          challenges: $scope.dashboardInfo.challenges
+        }
+    }
   }
 
   $scope.filterChallenges = function (status) {

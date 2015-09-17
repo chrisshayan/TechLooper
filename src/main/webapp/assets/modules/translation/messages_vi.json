@@ -719,5 +719,6 @@
   "delete": "Xoá",
   "registrationDate": "Registration Date",
   "score": "Score",
-  "reject": "Reject"
+  "reject": "Reject",
+  "pageNotFound": "Trang này không tồn tại."
 }
