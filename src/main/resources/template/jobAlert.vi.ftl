@@ -303,179 +303,137 @@
                     </tr>
                     <tr>
                       <td align="left">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                          <tr>
-                            <td align="left" style="font-size: 14px">
-                              <strong>Here are latest tech topics of the week:</strong>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="15"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td align="left">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                                <tr>
-                                  <td align="left" style="color: #277cbd">
-                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=" target="_blank" style="color: #277cbd">Topics Name</a>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                                  </td>
-                                </tr>
-                                <tr>
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                 align="center" style="margin: 0 auto;">
+                              <tr>
                                   <td align="left" style="font-size: 14px">
-                                    Hi everybody, I create this special topic just for chit-chat. Feel free to talk about anything you like, such as General topics What music are you listening? What is your hobby? What are your favorite movies? &hellip;
+                                      <strong>Danh sách các chủ đề mới nhất trong tuần:</strong>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                              </tr>
+                              <tr>
+                                  <td width="100%" height="15"><img height="1" width="1"
+                                                                    src=" http://images.vietnamworks.com/x.gif"
+                                                                    style="display:block"
+                                                                    border="0"/>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" style="font-size: 12px">
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Java</span>
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Angular JS</span>
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Project Management</span>
+                              </tr>
+                          <#list topics as topic>
+                              <tr>
+                                  <td>
+                                      <table width="100%" cellspacing="0" cellpadding="0"
+                                             border="0" align="center"
+                                             style="background:#fff; border-collapse: collapse; margin:0 auto">
+                                          <tbody>
+                                          <tr>
+                                              <td style="background:#d9d9d9; height:1px; line-height: 1px; width: 100%">
+                                                  <img width="1" height="1"
+                                                       style="display:block; border: 0px"
+                                                       src="http://images.vietnamworks.com/x.gif">
+                                              </td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
                                   </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="background:#fff; border-collapse: collapse; margin:0 auto">
-                                <tbody>
-                                <tr>
-                                  <td style="background:#d9d9d9; height:1px; line-height: 1px; width: 100%">
-                                    <img width="1" height="1" style="display:block; border: 0px" src="http://images.vietnamworks.com/x.gif">
+                              </tr>
+                              <tr>
+                                  <td width="100%" height="10"><img height="1" width="1"
+                                                                    src=" http://images.vietnamworks.com/x.gif"
+                                                                    style="display:block"
+                                                                    border="0">
                                   </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td align="left">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                                <tr>
-                                  <td align="left" style="color: #277cbd">
-                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=" target="_blank" style="color: #277cbd">Topics Name</a>
+                              </tr>
+                              <tr>
+                                  <td align="left">
+                                      <table width="100%" border="0" cellspacing="0"
+                                             cellpadding="0" align="center"
+                                             style="margin: 0 auto; font-size: 14px">
+                                          <tbody>
+                                          <tr>
+                                              <td align="left" style="color: #277cbd">
+                                                  <a href="${webBaseUrl}#/?action=redirectJA&amp;utm_source=jobalertemail&amp;utm_medium=viewmorebtn&amp;utm_campaign=techlooperjobhub&amp;targetUrl=${topic.url}"
+                                                     target="_blank" style="color: #277cbd"><#if topic.title??>${topic.title}</#if></a>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td width="100%" height="5"><img height="1"
+                                                                               width="1"
+                                                                               src=" http://images.vietnamworks.com/x.gif"
+                                                                               style="display:block"
+                                                                               border="0">
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td align="left" style="font-size: 14px"><#if topic.excerpt??>${topic.excerpt}</#if></td>
+                                          </tr>
+                                          <tr>
+                                              <td width="100%" height="5"><img height="1"
+                                                                               width="1"
+                                                                               src=" http://images.vietnamworks.com/x.gif"
+                                                                               style="display:block"
+                                                                               border="0">
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td align="left" style="font-size: 12px">
+                                                  <#if topic.tags??>
+                                                      <#assign tags=topic.tags>
+                                                      <#list tags as tag>
+                                                          <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b"><#if tag??>${tag}</#if></span>
+                                                      </#list>
+                                                  </#if>
+                                              </td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                              </tr>
+                              <tr>
+                                  <td width="100%" height="10"><img height="1" width="1"
+                                                                    src=" http://images.vietnamworks.com/x.gif"
+                                                                    style="display:block"
+                                                                    border="0">
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" style="font-size: 14px">
-                                    Hi everybody, I create this special topic just for chit-chat. Feel free to talk about anything you like, such as General topics What music are you listening? What is your hobby? What are your favorite movies? &hellip;
+                              </tr>
+                          </#list>
+                              <tr>
+                                  <td width="100%" height="20"><img height="1" width="1"
+                                                                    src=" http://images.vietnamworks.com/x.gif"
+                                                                    style="display:block"
+                                                                    border="0"/>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                              </tr>
+                              <tr>
+                                  <td width="100%" align="center">
+                                      <a href="${webBaseUrl}#/topics?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub"
+                                         target="_blank"
+                                         style="font-family: Arial, sans-serif; font-size: 16px; text-decoration: none; color:#277cbd">Xem Thêm Chủ Đề</a>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" style="font-size: 12px">
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Java</span>
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Angular JS</span>
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Project Management</span>
+                              </tr>
+                              <tr>
+                                  <td width="100%" height="20"><img height="1" width="1"
+                                                                    src=" http://images.vietnamworks.com/x.gif"
+                                                                    style="display:block"
+                                                                    border="0"/>
                                   </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="background:#fff; border-collapse: collapse; margin:0 auto">
-                                <tbody>
-                                <tr>
-                                  <td style="background:#d9d9d9; height:1px; line-height: 1px; width: 100%">
-                                    <img width="1" height="1" style="display:block; border: 0px" src="http://images.vietnamworks.com/x.gif">
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <table width="100%" cellspacing="0" cellpadding="0"
+                                             border="0" align="center"
+                                             style="background:#fff; border-collapse: collapse; margin:0 auto">
+                                          <tbody>
+                                          <tr>
+                                              <td style="background:#a4a6a4; height:1px; line-height: 1px; width: 100%">
+                                                  <img width="1" height="1"
+                                                       style="display:block; border: 0px"
+                                                       src="http://images.vietnamworks.com/x.gif">
+                                              </td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
                                   </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                          <tr>
-                            <td align="left">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
-                                <tr>
-                                  <td align="left" style="color: #277cbd">
-                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=" target="_blank" style="color: #277cbd">Topics Name</a>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" style="font-size: 14px">
-                                    Hi everybody, I create this special topic just for chit-chat. Feel free to talk about anything you like, such as General topics What music are you listening? What is your hobby? What are your favorite movies? &hellip;
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" style="font-size: 12px">
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Java</span>
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Angular JS</span>
-                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Project Management</span>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="20"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" align="center">
-                              <a href="${webBaseUrl}#/job-listing/${jobAlertRegistrationId}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; text-decoration: none; color:#277cbd">View More Topics</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" height="20"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="background:#fff; border-collapse: collapse; margin:0 auto">
-                                <tbody>
-                                <tr>
-                                  <td style="background:#a4a6a4; height:1px; line-height: 1px; width: 100%">
-                                    <img width="1" height="1" style="display:block; border: 0px" src="http://images.vietnamworks.com/x.gif">
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
+                              </tr>
+                          </table>
                       </td>
                     </tr>
                     <tr>
