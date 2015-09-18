@@ -5,6 +5,9 @@ techlooper.filter("textTruncate", function () {
     switch (type) {
       case "email":
         return text.replace(/@.*/, "");
+
+      case "display-text":
+        return text.split(" ")[0];
     }
     return text;
   };

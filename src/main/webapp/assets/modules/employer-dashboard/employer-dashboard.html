@@ -4,16 +4,24 @@
       <div class="dashboard-box">
         <div class="sub-header-dashboard">
           <h3 translate="myChallenges"></h3>
-          <a translate="postNow" class="btn btn-primary btn-flat" href="#/post-challenge"></a>
+          <a class="btn btn-primary btn-flat" href="#/post-challenge" title="{{'postNow' | translate}}">{{'postNow' |
+            translate}}</a>
         </div>
         <div class="dashboard-content">
-          <div class="active-item">
-            <strong>{{dashboardInfo.challenges.length}}</strong>
-            <p translate="activeChallenges"></p>
+          <div class="ic-dashboard challenge">
+            <span><i class="fa fa-usd"></i></span>
           </div>
-          <div class="total-people">
-            <strong>{{dashboardInfo.challenges | total: "numberOfRegistrants"}}</strong>
-            <p translate="contestants"></p>
+          <div class="dashboard-details">
+            <div class="active-item">
+              <strong>{{dashboardInfo.challenges.length | number}}</strong>
+
+              <p translate="challenges"></p>
+            </div>
+            <div class="total-people">
+              <strong>{{dashboardInfo.challenges | total: "numberOfRegistrants"}}</strong>
+
+              <p translate="contestants"></p>
+            </div>
           </div>
         </div>
       </div>
@@ -22,22 +30,58 @@
       <div class="dashboard-box">
         <div class="sub-header-dashboard">
           <h3 translate="myProjects"></h3>
-          <a translate="postNow" class="btn btn-primary btn-flat" href="#/freelancer/post-project"></a>
+          <a class="btn btn-primary btn-flat" href="#/freelancer/post-project" title="{{'postNow' | translate}}">{{'postNow'
+            | translate}}</a>
         </div>
         <div class="dashboard-content">
-          <div class="active-item">
-            <strong>{{dashboardInfo.projects.length}}</strong>
-            <p translate="activeProjects"></p>
+          <div class="ic-dashboard project">
+            <span><i class="fa fa-laptop"></i></span>
           </div>
-          <div class="total-people">
-            <strong>{{dashboardInfo.projects | total: "numberOfApplications"}}</strong>
-            <p translate="freelancerHasApplied"></p>
+          <div class="dashboard-details">
+            <div class="active-item">
+              <strong>{{dashboardInfo.projects.length | number:0}}</strong>
+
+              <p translate="activeProjects"></p>
+            </div>
+            <div class="total-people">
+              <strong>{{dashboardInfo.projects | total: "numberOfApplications"}}</strong>
+
+              <p translate="freelancerHasApplied"></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="active-challenges-list contestant-page">
+        <div class="filter-item" ng-modal="active" data-ng-init="active='all'">
+          <span class="all"
+                ng-show="dashboardInfo.challenges.length"
+                ng-class="{active: !challengesByStatus.status}"
+                ng-click="changeChallengesByStatus()">
+                <!--ng-click="challenge.progress.translate = ''; active ='all'">-->
+           {{'all' | translate}} (<i>{{dashboardInfo.challenges.length}}</i>)</span>
+          <span class="activating"
+                ng-show="dashboardInfo.activeChallenges.length"
+                ng-class="{active: challengesByStatus.status == 'active'}"
+                ng-click="changeChallengesByStatus('active')">
+                <!--ng-click="challenge.progress.translate = myFunction; active ='registration'">-->
+            {{'active' | translate}}
+            (<i>{{filterChallenges([jsonValue.status.registration, jsonValue.status.progress]).length}}</i>)</span>
+          <span class="notStarted"
+                ng-show="dashboardInfo.notStartedChallenges.length"
+                ng-class="{active: challengesByStatus.status == 'notStarted'}"
+                ng-click="changeChallengesByStatus('notStarted')">
+                <!--ng-click="challenge.progress.translate = 'notStart'; active ='notStart'">-->
+            {{'notStart' | translate}}
+            (<i>{{filterChallenges(jsonValue.status.notStarted).length}}</i>)</span>
+          <span class="closed"
+                ng-show="dashboardInfo.closedChallenges.length"
+                ng-class="{active: challengesByStatus.status == 'closed'}"
+                ng-click="changeChallengesByStatus('closed')">
+            {{'closed' | translate}}
+            (<i>{{filterChallenges(jsonValue.status.closed).length}}</i>)</span>
+        </div>
         <table class="contests-table">
           <thead>
           <tr>
@@ -45,24 +89,45 @@
             <th translate="currentPhase"></th>
             <th translate="closeOn"></th>
             <th translate="contestantsDashBoard"></th>
+            <th translate="actions"></th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-show="dashboardInfo.challenges.length < 0">
-            <td colspan="4">{{'noData' | translate}}</td>
+          <tr ng-show="dashboardInfo.challenges.length == 0">
+            <td colspan="5">{{'noData' | translate}}</td>
           </tr>
-          <tr ng-repeat="challenge in dashboardInfo.challenges">
+
+          <tr ng-repeat="challenge in challengesByStatus.challenges"
+              id="challenge-{{challenge.challengeId}}">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
-              <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" class="name">{{challenge.challengeName}}</a>
+              <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"
+                 class="name">{{challenge.challengeName}}</a>
             </td>
             <td data-label="{{'currentPhase' | translate}}">
-              <span translate="{{challenge | progress:'challenge'}}" />
+              <span translate="{{challenge | progress:'challenge'}}"/>
             </td>
             <td data-label="{{'closeOn' | translate}}">
               {{challenge.submissionDateTime}}
             </td>
             <td data-label="{{'contestantsDashBoard' | translate}}">
               {{challenge.numberOfRegistrants}}
+            </td>
+            <td>
+              <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"
+                 title="{{'viewDetails' | translate}}"><i class="fa fa-eye"></i></a>
+              <a title="{{'edit' | translate}}" ng-show="challenge.progress.translate == 'notStart'"
+                 ng-click="toEditPage(challenge)">
+                <i class="fa fa-pencil-square-o"></i>
+              </a>
+              <!--<a title="{{'delete' | translate}}" ng-show="challenge.progress.translate == 'notStart'" data-toggle="modal"-->
+              <!--ng-click="setCurrentChallenge(challenge)"-->
+              <!--data-target="#deletionConfirmation"><i class="fa fa-trash-o"></i></a>-->
+              <a ng-show="challenge.progress.translate == 'notStart'"
+                 data-auto-close="true" data-placement="top"
+                 data-template-url="modules/employer-dashboard/deleteChallenge.html" bs-popover
+                 title="{{'delete' | translate}}">
+                <i class="fa fa-trash-o"></i>
+              </a>
             </td>
           </tr>
           </tbody>
@@ -79,21 +144,21 @@
           </tr>
           </thead>
           <tbody>
-          <tr ng-show="dashboardInfo.projects.length < 0">
+          <tr ng-show="dashboardInfo.projects.length == 0">
             <td colspan="2">{{'noData' | translate}}</td>
           </tr>
-            <tr ng-repeat="project in dashboardInfo.projects">
-              <td data-label="{{'activeProjectsDashBoard' | translate}}">
-                <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id" class="name">{{project.projectTitle}}</a>
-              </td>
-              <td data-label="{{'applications' | translate}}">
-                {{project.numberOfApplications}}
-              </td>
-            </tr>
+          <tr ng-repeat="project in dashboardInfo.projects">
+            <td data-label="{{'activeProjectsDashBoard' | translate}}">
+              <a href="#/freelancer/project-detail/{{project.projectTitle | nonAscii}}-{{project.projectId}}-id"
+                 class="name">{{project.projectTitle}}</a>
+            </td>
+            <td data-label="{{'applications' | translate}}">
+              {{project.numberOfApplications}}
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
 </div>

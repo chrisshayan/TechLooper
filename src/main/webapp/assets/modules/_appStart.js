@@ -4,6 +4,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
                          apiService, resourcesService, seoService, joinAnythingService) {
   $rootScope.apiService = apiService;
   $rootScope.resourcesService = resourcesService;
+  $rootScope.jsonValue = jsonValue;
 
   var doTranslate = function () {
     $translate(["newGradLevel", "experienced", "manager", "timeline", "numberOfJobs", "jobs", "isRequired", "exItSoftware", "ex149",
@@ -24,8 +25,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
   doTranslate();
 
-  $rootScope.jsonValue = jsonValue;
-
   $('html, body').animate({scrollTop: 0});
 
   var param = $location.search();
@@ -43,6 +42,10 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
 
       case "redirectJA":
         window.location.href = param.targetUrl;
+        break;
+
+      case "cancel":
+        $location.url("/");
         break;
     }
   }
@@ -72,4 +75,6 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
   securityService.initialize();
   seoService.initialize();
   joinAnythingService.initialize();
+
+  $rootScope.vnwDomainName = (window.location.host.indexOf("staging") >= 0 ? "staging.vietnamworks.com" : "vietnamworks.com");
 });

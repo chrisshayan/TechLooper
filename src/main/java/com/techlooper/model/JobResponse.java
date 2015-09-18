@@ -1,6 +1,5 @@
 package com.techlooper.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techlooper.entity.CompanyBenefit;
 
 import java.util.List;
@@ -9,6 +8,8 @@ import java.util.List;
  * Created by phuonghqh on 10/15/14.
  */
 public class JobResponse {
+
+    private String jobId;
 
     private String url;
 
@@ -37,6 +38,10 @@ public class JobResponse {
     private List<CompanyBenefit> benefits;
 
     private List<JobSkill> skills;
+
+    private String crawlSource;
+
+//  public static Collection<Long> topPriorityJobIds;
 
     public static class Builder {
 
@@ -98,7 +103,7 @@ public class JobResponse {
         }
 
         public Builder withTopPriority(Boolean topPriority) {
-            instance.topPriority = topPriority;
+            instance.setTopPriority(topPriority);
             return this;
         }
 
@@ -130,6 +135,14 @@ public class JobResponse {
 
     public int hashCode() {
         return url != null ? url.hashCode() : 0;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public String getUrl() {
@@ -242,5 +255,13 @@ public class JobResponse {
 
     public void setTopPriority(Boolean topPriority) {
         this.topPriority = topPriority;
+    }
+
+    public String getCrawlSource() {
+        return crawlSource;
+    }
+
+    public void setCrawlSource(String crawlSource) {
+        this.crawlSource = crawlSource;
     }
 }

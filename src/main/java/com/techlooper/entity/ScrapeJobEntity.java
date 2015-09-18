@@ -56,6 +56,9 @@ public class ScrapeJobEntity {
     @Field(type = Nested)
     private List<JobSkill> skills;
 
+    @Field(type = Integer)
+    private Integer isActive;
+
     public String getJobId() {
         return jobId;
     }
@@ -166,5 +169,13 @@ public class ScrapeJobEntity {
 
     public void setSkills(List<JobSkill> skills) {
         this.skills = skills;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 }

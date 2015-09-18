@@ -3,14 +3,14 @@ package com.techlooper.entity;
 import com.techlooper.model.JobSkill;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 
 /**
  * Created by chrisshayan on 7/10/14.
@@ -35,6 +35,12 @@ public class JobEntity {
 
     @Field(type = FieldType.Nested)
     private List<JobSkill> skills;
+
+    @Field(type = Integer)
+    private Integer isActive;
+
+    @Field(type = Date, format = DateFormat.date_optional_time)
+    private String approvedDate;
 
     public String getId() {
         return id;
@@ -82,6 +88,22 @@ public class JobEntity {
 
     public void setSkills(List<JobSkill> skills) {
         this.skills = skills;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getApprovedDate() {
+        return approvedDate;
+    }
+
+    public void setApprovedDate(String approvedDate) {
+        this.approvedDate = approvedDate;
     }
 
     @Override

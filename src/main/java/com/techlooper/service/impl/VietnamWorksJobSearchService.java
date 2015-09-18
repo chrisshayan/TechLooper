@@ -7,6 +7,7 @@ import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.JsonUtils;
@@ -63,6 +64,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
 
+    @Resource
+    private VietnamworksJobRepository vietnamworksJobRepository;
+
     private static final long VIETNAM_CURRENCY_SALARY_DETECTOR = 1000000L;
 
     private static final long VND_USD_RATE = 21000L;
@@ -112,7 +116,7 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                     .orElse(VNWJobSearchResponse.getDefaultObject());
 
             if (actualResult.hasData()) {
-                mergeSearchResultWithConfiguration(actualResult, getConfiguration());
+                //mergeSearchResultWithConfiguration(actualResult, getConfiguration());
                 return actualResult;
             }
         }
@@ -134,6 +138,7 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         responseDataItemStream.forEach(responseDataItem -> {
             responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), JOB_LOCATION));
             responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), JOB_LEVEL));
+
         });
     }
 
@@ -217,6 +222,16 @@ public class VietnamWorksJobSearchService implements JobSearchService {
             return salaryMin * 1.25D;
         }
         return (salaryMin + salaryMax) / 2D;
+    }
+
+    @Override
+    public JobEntity findJobById(String id) {
+        return vietnamworksJobRepository.findOne(id);
+    }
+
+    @Override
+    public JobEntity updateJob(JobEntity jobEntity) {
+        return vietnamworksJobRepository.save(jobEntity);
     }
 
     public List<JobEntity> getJobSearchResult(NativeSearchQueryBuilder queryBuilder) {

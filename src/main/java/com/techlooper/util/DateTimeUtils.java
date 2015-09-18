@@ -1,5 +1,8 @@
 package com.techlooper.util;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,14 +12,29 @@ import java.util.Date;
  */
 public class DateTimeUtils {
 
-    public static Date parseString2Date(String datetime, String pattern) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        return format.parse(datetime);
+    public static final String BASIC_DATE_PATTERN = "dd/MM/yyyy";
+
+    public static final String BASIC_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
+
+    public static final String ISO_DATETIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZ";
+
+    public static Date string2Date(String datetime, String pattern) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.parse(datetime);
     }
 
-    public static String parseDate2String(Date datetime, String pattern) {
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        return format.format(datetime);
+    public static String date2String(Date datetime, String pattern) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.format(datetime);
+    }
+
+    public static String currentDate(String pattern) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.format(new Date());
+    }
+
+    public static int daysBetween(Date firstDate, Date secondDate) {
+        return Days.daysBetween(new DateTime(firstDate), new DateTime(secondDate)).getDays();
     }
 
 }

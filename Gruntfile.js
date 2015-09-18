@@ -58,16 +58,16 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: "<%=pkg.public%>index.html",
       options: {
-        dest: "<%=pkg.public%>",
-        flow: {
-          html: {
-            steps: {
-              js: ['concat', "uglify"],
-              //js: ['concat'],
-              css: ['concat', 'cssmin']
-            }
-          }
-        }
+        dest: "<%=pkg.public%>"
+        //flow: {
+        //  html: {
+        //    steps: {
+        //      js: ['concat', "uglify"],
+        //      //js: ['concat'],
+        //      css: ['concat', 'cssmin']
+        //    }
+        //  }
+        //}
       }
     },
 
@@ -183,13 +183,6 @@ module.exports = function (grunt) {
       generated: {
         options: {
           separator: grunt.util.linefeed + ";" + grunt.util.linefeed
-          //banner: ";(function( window, undefined ){ \n 'use strict';",
-          //footer: "}( window ));"
-          //banner: "'use strict';\n",
-          //process: function(src, filepath) {
-          //  return '// Source: ' + filepath + '\n' +
-          //    src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-          //}
         }
       }
     },
@@ -219,23 +212,29 @@ module.exports = function (grunt) {
       build: {
         files: [
           {
-            src: ['<%=pkg.public%>generate-resources/techlooper-bower.min.js'],
-            dest: '<%=pkg.public%>generate-resources/techlooper-bower-' + timestamp + '.min.js'
+            expand: true,
+            cwd: '<%=pkg.public%>generate-resources',
+            src: ['**/*.min.js'],
+            dest: '<%=pkg.public%>generate-resources',
+            rename: function(dest, src) {
+              return dest + "/" + src.replace(".min.js", "-" + timestamp + '.min.js');
+            }
           },
           {
-            src: ['<%=pkg.public%>generate-resources/techlooper.min.js'],
-            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.js'
-          },
-          {
-            src: ['<%=pkg.public%>generate-resources/techlooper.min.css'],
-            dest: '<%=pkg.public%>generate-resources/techlooper-' + timestamp + '.min.css'
+            expand: true,
+            cwd: '<%=pkg.public%>generate-resources',
+            src: ['**/*.min.css'],
+            dest: '<%=pkg.public%>generate-resources',
+            rename: function(dest, src) {
+              return dest + "/" + src.replace(".min.css", "-" + timestamp + '.min.css');
+            }
           }
         ]
       }
     },
 
     imagemin: {
-      dist: {
+      build: {
         options: {
           optimizationLevel: 5
         },
@@ -246,28 +245,85 @@ module.exports = function (grunt) {
           dest: '<%=pkg.public%>images'
         }]
       }
+    },
+
+    cache_control: {
+      build: {
+        source: "<%=pkg.public%>index.html",
+        options: {
+          version: timestamp,
+          links: true,
+          scripts: true,
+          replace: false,
+          outputDest: "<%=pkg.public%>index.html",
+          dojoCacheBust: true
+        }
+      }
     }
+
+    //template: {
+    //  staging: {
+    //    options: {
+    //      data: {
+    //        vnwDomainName: 'staging.vietnamworks.com'
+    //      }
+    //    },
+    //    files: [{
+    //      expand: true,
+    //      cwd: '<%=pkg.assets%>modules',
+    //      src: ['**/*.grt.html'],
+    //      dest: '<%=pkg.assets%>modules',
+    //      rename: function(dest, src) {
+    //        return dest + "/" + src.replace(".grt.html", ".html");
+    //      }
+    //    }]
+    //  },
+    //  prod: {
+    //    options: {
+    //      data: {
+    //        vnwDomainName: 'staging.vietnamworks.com'
+    //      }
+    //    },
+    //    files: [{
+    //      expand: true,
+    //      cwd: '<%=pkg.assets%>modules',
+    //      src: ['**/*.grt.html'],
+    //      dest: '<%=pkg.assets%>modules',
+    //      rename: function(dest, src) {
+    //        grunt.log.writeln(dest + "/" + src.replace(".grt.html", ".html"));
+    //        return dest + "/" + src.replace(".grt.html", ".html");
+    //      }
+    //    }]
+    //  }
+    //}
   });
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
-  //grunt.loadNpmTasks("grunt-contrib-watch");
-  //grunt.loadNpmTasks("grunt-contrib-connect");
-  //grunt.loadNpmTasks("grunt-include-source");
-  //grunt.loadNpmTasks("grunt-wiredep");
-  //grunt.loadNpmTasks("grunt-bower-install-simple");
-  //grunt.loadNpmTasks("grunt-contrib-uglify");
-  //grunt.loadNpmTasks("grunt-contrib-concat");
-  //grunt.loadNpmTasks("grunt-contrib-cssmin");
-  //grunt.loadNpmTasks("grunt-usemin");
-  //grunt.loadNpmTasks("grunt-contrib-copy");
-  //grunt.loadNpmTasks("grunt-contrib-clean");
-  //grunt.loadNpmTasks("grunt-ng-annotate");
-  //grunt.loadNpmTasks('grunt-text-replace');
-  //grunt.loadNpmTasks('grunt-contrib-rename');
+  //grunt.registerTask("staging", [
+  //  "clean:build",
+  //  "template:staging",
+  //  "copy:build",
+  //  "bower-install-simple:build",
+  //  "includeSource:target",
+  //  "wiredep:target",
+  //  "ngAnnotate:main",
+  //  "useminPrepare",
+  //  "concat:generated",
+  //  "uglify:generated",
+  //  "cssmin:generated",
+  //  "usemin",
+  //  "imagemin:build",
+  //  "copy:font",
+  //  "clean:release",
+  //  "replace:cssConcat",
+  //  "rename:build",
+  //  "cache_control:build"
+  //]);
 
   grunt.registerTask("build", [
     "clean:build",
+    //"template:prod",
     "copy:build",
     "bower-install-simple:build",
     "includeSource:target",
@@ -278,14 +334,17 @@ module.exports = function (grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
+    "imagemin:build",
     "copy:font",
     "clean:release",
     "replace:cssConcat",
-    "rename:build"
+    "rename:build",
+    "cache_control:build"
   ]);
 
   grunt.registerTask("local", [
     "clean:build",
+    //"template:staging",
     "copy",
     "bower-install-simple:build",
     "includeSource:target",

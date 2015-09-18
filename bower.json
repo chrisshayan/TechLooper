@@ -19,7 +19,7 @@
     "highcharts-release": "latest",
     "ngInfiniteScroll": "latest",
     "selectize": "latest",
-    "angular-selectize2": "latest",
+    "angular-selectize2": "1.2.3",
     "perfect-scrollbar": "latest",
     "mousetrap": "latest",
     "JSONPath": "latest",
@@ -43,6 +43,7 @@
     "jquery.cookie": "latest",
     "angular-sanitize": "latest",
     "moment": "latest",
+    "angular-strap": "latest",
     "datetimepicker": "latest"
   },
   "overrides": {
@@ -90,9 +91,6 @@
     },
     "selectize": {
       "main": "dist/js/standalone/selectize.min.js"
-    },
-    "angular-selectize2": {
-      "main": "dist/selectize.js"
     },
     "perfect-scrollbar": {
       "main": "js/perfect-scrollbar.js"
@@ -153,7 +151,10 @@
       ]
     },
     "moment":{
-      "main": "moment.js"
+      "main": [
+        "moment.js",
+        "locale/vi.js"
+      ]
     },
     "eonasdan-bootstrap-datetimepicker": {
       "main": [

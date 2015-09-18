@@ -6,9 +6,10 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
     delimiter: '|',
     maxItems: 1,
     searchField: ['translate']
-  }
+  };
 
   var vnwLang = "lang_" + ($translate.use() === "en" ? "en" : "vn");
+
   var companySizes = [
     {
       "id": "1",
@@ -49,11 +50,12 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "value": "Over 50,000"
     }
   ];
+
   var locations = [
     {
-      "location_id": "0",
+      "location_id": "1",
       "lang_vn": "Tất cả vị trí",
-      "lang_en": "All Locations"
+      "lang_en": "Any Location"
     },
     {
       "location_id": "29",
@@ -386,14 +388,213 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Other"
     },
     {
-      "location_id": "70",
-      "lang_vn": "Quốc tế",
-      "lang_en": "International"
-    },
-    {
       "location_id": "72",
       "lang_vn": "Hậu Giang",
       "lang_en": "Hau Giang"
+    }
+  ];
+
+  var educationLevel = [
+    {
+      "education_id": "12",
+      "lang_vn": "Tiến sĩ",
+      "lang_en": "Doctorate"
+    },
+    {
+      "education_id": "9",
+      "lang_vn": "Thạc sĩ",
+      "lang_en": "Masters"
+    },
+    {
+      "education_id": "3",
+      "lang_vn": "Trung cấp",
+      "lang_en": "Degree"
+    },
+    {
+      "education_id": "4",
+      "lang_vn": "Cử nhân",
+      "lang_en": "Diploma"
+    },
+    {
+      "education_id": "2",
+      "lang_vn": "Trung học",
+      "lang_en": "High school"
+    },
+    {
+      "education_id": "1",
+      "lang_vn": "Tất cả trình độ",
+      "lang_en": "None"
+    },
+    {
+      "education_id": "15",
+      "lang_vn": "Khác",
+      "lang_en": "Others"
+    }
+  ];
+
+  var companySize = [
+    {
+      "companySize_id": "1",
+      "lang_vn": "Ít hơn 10",
+      "lang_en": "Less Than 10"
+    },
+    {
+      "companySize_id": "2",
+      "lang_vn": "10-24",
+      "lang_en": "10-24"
+    },
+    {
+      "companySize_id": "3",
+      "lang_vn": "25-99",
+      "lang_en": "25-99"
+    },
+    {
+      "companySize_id": "4",
+      "lang_vn": "100-499",
+      "lang_en": "100-499"
+    },
+    {
+      "companySize_id": "5",
+      "lang_vn": "500-999",
+      "lang_en": "500-999"
+    },
+    {
+      "companySize_id": "6",
+      "lang_vn": "1,000-4,999",
+      "lang_en": "1,000-4,999"
+    },
+    {
+      "companySize_id": "7",
+      "lang_vn": "5,000-9,999",
+      "lang_en": "5,000-9,999"
+    },
+    {
+      "companySize_id": "8",
+      "lang_vn": "10,000-19,999",
+      "lang_en": "10,000-19,999"
+    },
+    {
+      "companySize_id": "9",
+      "lang_vn": "20,000-49,999",
+      "lang_en": "20,000-49,999"
+    },
+    {
+      "companySize_id": "10",
+      "lang_vn": "Hơn 50,000",
+      "lang_en": "Over 50,000"
+    }
+  ];
+
+  var experiences = [
+    {
+      "experience_id": "1",
+      "lang_vn": "Mới tốt nghiệp",
+      "lang_en": "New to workforce"
+    },
+    {
+      "experience_id": "2",
+      "lang_vn": "Ít hơn một năm",
+      "lang_en": "Less than one year"
+    },
+    {
+      "experience_id": "3",
+      "lang_vn": "1 năm",
+      "lang_en": "1 year"
+    },
+    {
+      "experience_id": "4",
+      "lang_vn": "2 năm",
+      "lang_en": "2 years"
+    },
+    {
+      "experience_id": "5",
+      "lang_vn": "3 năm",
+      "lang_en": "3 years"
+    },
+    {
+      "experience_id": "6",
+      "lang_vn": "4 năm",
+      "lang_en": "4 years"
+    },
+    {
+      "experience_id": "7",
+      "lang_vn": "5 năm",
+      "lang_en": "5 years"
+    },
+    {
+      "experience_id": "8",
+      "lang_vn": "6 năm",
+      "lang_en": "6 years"
+    },
+    {
+      "experience_id": "9",
+      "lang_vn": "7 năm",
+      "lang_en": "7 years"
+    },
+    {
+      "experience_id": "10",
+      "lang_vn": "8 năm",
+      "lang_en": "8 years"
+    },
+    {
+      "experience_id": "11",
+      "lang_vn": "9 năm",
+      "lang_en": "9 years"
+    },
+    {
+      "experience_id": "12",
+      "lang_vn": "10 năm",
+      "lang_en": "10 years"
+    },
+    {
+      "experience_id": "13",
+      "lang_vn": "11 năm",
+      "lang_en": "11 years"
+    },
+    {
+      "experience_id": "14",
+      "lang_vn": "12 năm",
+      "lang_en": "12 years"
+    },
+    {
+      "experience_id": "15",
+      "lang_vn": "13 năm",
+      "lang_en": "13 years"
+    },
+    {
+      "experience_id": "16",
+      "lang_vn": "14 năm",
+      "lang_en": "14 years"
+    },
+    {
+      "experience_id": "17",
+      "lang_vn": "15 năm",
+      "lang_en": "15 years"
+    },
+    {
+      "experience_id": "18",
+      "lang_vn": "16 năm",
+      "lang_en": "16 years"
+    },
+    {
+      "experience_id": "19",
+      "lang_vn": "17 năm",
+      "lang_en": "17 years"
+    },
+    {
+      "experience_id": "20",
+      "lang_vn": "18 năm",
+      "lang_en": "18 years"
+    },
+    {
+      "experience_id": "21",
+      "lang_vn": "19 năm",
+      "lang_en": "19 years"
+    },
+    {
+      "experience_id": "22",
+      "lang_vn": "Hơn 20 năm",
+      "lang_en": "Over 20 years"
     }
   ];
 
@@ -683,7 +884,203 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_vn": "Khác",
       "lang_en": "Other"
     }
-  ]
+  ];
+
+  var languages =[
+    {
+      "language_id": "38",
+      "lang_vn": "Việt Nam",
+      "lang_en": "Vietnamese"
+    },
+    {
+      "language_id": "12",
+      "lang_vn": "Anh",
+      "lang_en": "English"
+    },
+    {
+      "language_id": "21",
+      "lang_vn": "Nhật Bản",
+      "lang_en": "Japanese"
+    },
+    {
+      "language_id": "23",
+      "lang_vn": "Hàn Quốc",
+      "lang_en": "Korean"
+    },
+    {
+      "language_id": "24",
+      "lang_vn": "Lào",
+      "lang_en": "Laotian"
+    },
+    {
+      "language_id": "1",
+      "lang_vn": "Ả Rập",
+      "lang_en": "Arabic"
+    },
+    {
+      "language_id": "2",
+      "lang_vn": "Bengal",
+      "lang_en": "Bengali"
+    },
+    {
+      "language_id": "3",
+      "lang_vn": "Bungary",
+      "lang_en": "Bulgarian"
+    },
+    {
+      "language_id": "4",
+      "lang_vn": "Myanmar",
+      "lang_en": "Burmese"
+    },
+    {
+      "language_id": "5",
+      "lang_vn": "Campuchia",
+      "lang_en": "Cambodian"
+    },
+    {
+      "language_id": "6",
+      "lang_vn": "Philippin",
+      "lang_en": "Cebuano"
+    },
+    {
+      "language_id": "7",
+      "lang_vn": "Trung Quốc (Quảng Đông)",
+      "lang_en": "Chinese (Cantonese)"
+    },
+    {
+      "language_id": "8",
+      "lang_vn": "Trung Quốc (Quan thoại)",
+      "lang_en": "Chinese (Mandarin)"
+    },
+    {
+      "language_id": "9",
+      "lang_vn": "Séc",
+      "lang_en": "Czech"
+    },
+    {
+      "language_id": "10",
+      "lang_vn": "Đan Mạch",
+      "lang_en": "Danish"
+    },
+    {
+      "language_id": "11",
+      "lang_vn": "Dutch",
+      "lang_en": "Dutch"
+    },
+    {
+      "language_id": "13",
+      "lang_vn": "Finnish",
+      "lang_en": "Finnish"
+    },
+    {
+      "language_id": "14",
+      "lang_vn": "Pháp",
+      "lang_en": "French"
+    },
+    {
+      "language_id": "15",
+      "lang_vn": "Đức",
+      "lang_en": "German"
+    },{
+      "language_id": "16",
+      "lang_vn": "Hy Lạp",
+      "lang_en": "Greek"
+    },
+    {
+      "language_id": "17",
+      "lang_vn": "Ấn Độ",
+      "lang_en": "Hindi"
+    },
+    {
+      "language_id": "18",
+      "lang_vn": "Hungary",
+      "lang_en": "Hungarian"
+    },
+    {
+      "language_id": "19",
+      "lang_vn": "Indonesia",
+      "lang_en": "Indonesian"
+    },
+    {
+      "language_id": "20",
+      "lang_vn": "Ý",
+      "lang_en": "Italian"
+    },
+    {
+      "language_id": "22",
+      "lang_vn": "Tiếng Java",
+      "lang_en": "Javanese"
+    },
+    {
+      "language_id": "25",
+      "lang_vn": "Malaysia",
+      "lang_en": "Malay"
+    },
+    {
+      "language_id": "26",
+      "lang_vn": "Na Uy",
+      "lang_en": "Norwegian"
+    },
+    {
+      "language_id": "27",
+      "lang_vn": "Ba Lan",
+      "lang_en": "Polish"
+    },
+    {
+      "language_id": "28",
+      "lang_vn": "Bồ Đào Nha",
+      "lang_en": "Portuguese"
+    },
+    {
+      "language_id": "29",
+      "lang_vn": "Rumani",
+      "lang_en": "Romanian"
+    },
+    {
+      "language_id": "30",
+      "lang_vn": "Russian",
+      "lang_en": "Russian"
+    },
+    {
+      "language_id": "31",
+      "lang_vn": "Tây Ban Nha",
+      "lang_en": "Spanish"
+    },
+    {
+      "language_id": "32",
+      "lang_vn": "Thụy Điển",
+      "lang_en": "Swedish"
+    },
+    {
+      "language_id": "33",
+      "lang_vn": "Philippin (Tagalog)",
+      "lang_en": "Tagalog"
+    },
+    {
+      "language_id": "34",
+      "lang_vn": "Đài Loan",
+      "lang_en": "Taiwanese"
+    },
+    {
+      "language_id": "35",
+      "lang_vn": "Thái Lan",
+      "lang_en": "Thai"
+    },
+    {
+      "language_id": "36",
+      "lang_vn": "Turkish",
+      "lang_en": "Turkish"
+    },
+    {
+      "language_id": "37",
+      "lang_vn": "Ukraina",
+      "lang_en": "Ukrainia"
+    },{
+      "language_id": "39",
+      "lang_vn": "Khác",
+      "lang_en": "Other"
+    }
+  ];
 
   //TODO 1. Translation, 2. Validation
 
@@ -698,7 +1095,7 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         instance[key].config.selectizeDeffer.resolve(selectize);
       }
     }
-  }
+  };
 
   var instance = {
     getLang: function () {
@@ -711,12 +1108,14 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       $.each(locations, function (i, location) {if (location.location_id == locationId) {return (text = location["lang_" + lang] || location[vnwLang]);}});
       return text;
     },
+
     getCompanySizeText: function (companySizeId) {
       if (!companySizeId) return '';
       var text = "";
       $.each(companySizes, function (i, item) {if (item.id == companySizeId) {return text = item.value;}});
       return text;
     },
+
     getJobLevelText: function (jobLevelId) {
       var jobLevelTitle = undefined;
       if ($.type(jobLevelId) === "string") return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id").translate;
@@ -737,6 +1136,28 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         });
       }
       return jobLevelTitle;
+    },
+
+    getJobLevel: function (jobLevelId) {
+      var jobLevel = undefined;
+      if ($.type(jobLevelId) === "string") return instance.jobLevelsSelectize.items.findFirst(parseInt(jobLevelId), "id");
+      else if ($.type(jobLevelId) === "array") {
+        var jobLevelIds = jobLevelId;
+        var matchTimes = 0;
+        $.each(instance.jobLevelsSelectize.items, function (i, item) {
+          $.each(jobLevelIds, function (j, id) {
+            if ($.type(id) === "string") id = parseInt(id);
+            if ($.inArray(id, item.ids) > -1) {
+              matchTimes++;
+            }
+          });
+          if (matchTimes === jobLevelIds.length) {
+            jobLevel = item;
+            return false;
+          }
+        });
+      }
+      return jobLevel;
     },
 
     getJobLevelIds: function (jobLevelId) {
@@ -778,27 +1199,58 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       }, createSelectizeConfig("yobsSelectize"))
     },
 
+    educationLevel: {
+      items: educationLevel.map(function (education) {
+        return {id: education.education_id, translate: education[vnwLang], en: education.lang_en};
+      }),
+        config: $.extend(true, {}, createSelectizeConfig("educationLevel"), translateConfigBase)
+    },
+
     locationsSelectize: {
       items: locations.map(function (location) {
         return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
       }),
       config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
     },
-    locationsSearchSelectize: {
-      items: locations.map(function (location) {
-        return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
+
+    //jobsSelectize: {
+    //  items: jobLevels.map(function (job) {
+    //    return {id: job.jobLevel_id, translate: job[vnwLang], en: job.lang_en};
+    //  }),
+    //  config: $.extend(true, {}, createSelectizeConfig("jobsSelectize"), translateConfigBase)
+    //},
+
+    yearsOfExperience: {
+      items: experiences.map(function (number) {
+        return {id: number.experience_id, translate: number[vnwLang], en: number.lang_en};
       }),
-      config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
+      config: $.extend(true, {}, createSelectizeConfig("yearsOfExperience"), translateConfigBase)
     },
+
+    //locationsSearchSelectize: {
+    //  items: locations.map(function (location) {
+    //    return {id: location.location_id, translate: location[vnwLang], en: location.lang_en};
+    //  }),
+    //  config: $.extend(true, {}, createSelectizeConfig("locationsSelectize"), translateConfigBase)
+    //},
     companySizeSelectize: {
-      items: jsonValue.companySizesArray,
+      items: companySize.map(function (size) {
+        return {id: size.companySize_id, translate: size[vnwLang], en: size.lang_en};
+      }),
+      config: $.extend(true, {}, createSelectizeConfig("companySizeSelectize"), translateConfigBase)
+    },
+
+    languagesSelectize: {
+      items: languages.map(function (language) {
+        return {id: language.language_id, translate: language[vnwLang]};
+      }),
       config: $.extend(true, {}, {
         valueField: 'id',
-        labelField: 'size',
+        labelField: 'translate',
         delimiter: '|',
-        maxItems: 1,
-        searchField: ['size']
-      }, createSelectizeConfig("companySizeSelectize"))
+        maxItems: 3,
+        searchField: ['translate']
+      }, createSelectizeConfig("languagesSelectize"), {plugins: ['remove_button', "techlooper"]})
     },
 
     industriesSelectize: {
@@ -813,16 +1265,21 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
         searchField: ['translate']
       }, createSelectizeConfig("industriesSelectize"), {plugins: ['remove_button', "techlooper"]})
     }
-  }
+  };
 
   var transSelectizes = [
     {key: "jobLevelsSelectize", placeholder: "exManager", translate: true},
-    {key: "yobsSelectize", placeholder: "exYob"},
+    {key: "yobsSelectize", placeholder: "exYob", translate: true},
     {key: "gendersSelectize", placeholder: "exMale", translate: true},
-    {key: "locationsSelectize", placeholder: "exHoChiMinh"},
-    {key: "locationsSearchSelectize", placeholder: "allLocations"},
-    {key: "industriesSelectize", placeholder: "exItSoftware"},
-    {key: "companySizeSelectize", placeholder: "ex149", translate: true}
+    {key: "locationsSelectize", placeholder: "exHoChiMinh", translate: true},
+    //{key: "locationsSearchSelectize", placeholder: "allLocations", translate: true},
+    {key: "industriesSelectize", placeholder: "exItSoftware", translate: true},
+    {key: "companySizeSelectize", placeholder: "ex149", translate: true},
+    {key: "educationLevel", placeholder: "exEducation", translate: true},
+    {key: "yearsOfExperience", placeholder: "exExperience", translate: true},
+    {key: "languagesSelectize", placeholder: "exLanguages", translate: true}
+    //{key: "jobsSelectize", placeholder: "exManager", translate: true}
+
   ];
 
   $.each(transSelectizes, function (i, item) {

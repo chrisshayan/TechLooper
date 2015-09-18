@@ -8,9 +8,9 @@
         <i class="fa fa-bars"></i>
       </div>
       <div class="user-info-basic-block">
-        <a ng-click="logout()" ng-show="$root.userInfo">Sign Out</a>
+        <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
 
-        <p>{{$root.userInfo.name || $root.userInfo.username | textTruncate: 'email'}}</p>
+        <p>{{($root.userInfo.name) || ($root.userInfo.username | textTruncate: 'email')}}</p>
         <div class="user-avatar" ng-show="$root.userInfo">
           <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="" ng-show="$root.userInfo.profileImageUrl.length">
           <img src="images/no-avatar.png" alt="" ng-show="!$root.userInfo.profileImageUrl.length"/>
@@ -24,7 +24,7 @@
     <div class="main-menu-job-seeker-content">
       <ul>
         <li class="active" ng-class="{ here: isActive('/hiring') }" ng-click="hideMenu()">
-          <a class="no-icon" href="#/hiring" ng-show="$root.userInfo">{{$root.userInfo.username | textTruncate: 'email'}}</a>
+          <a class="no-icon" href="#/hiring" ng-show="$root.userInfo">{{($root.userInfo.name | textTruncate: 'display-text') || ($root.userInfo.username | textTruncate: 'email')}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
         </li>
         <li ng-class="{ here: isActive('/employer-dashboard') }" ng-click="hideMenu()">

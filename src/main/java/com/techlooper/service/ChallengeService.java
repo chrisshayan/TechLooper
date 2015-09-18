@@ -40,6 +40,8 @@ public interface ChallengeService {
 
   List<ChallengeDetailDto> listChallenges();
 
+  List<ChallengeDetailDto> listChallenges(String ownerEmail);
+
   Long getTotalNumberOfChallenges();
 
   Double getTotalAmountOfPrizeValues();
@@ -52,7 +54,11 @@ public interface ChallengeService {
 
   Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
 
-  Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId);
+//  Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId);
 
   Long countRegistrantsByChallengeId(Long challengeId);
+
+  boolean delete(Long id, String ownerEmail);
+
+  ChallengeDto findChallengeById(Long id);
 }

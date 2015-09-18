@@ -14,6 +14,8 @@ import freemarker.template.TemplateException;
 import org.apache.commons.io.IOUtils;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -36,6 +38,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * Created by phuonghqh on 12/23/14.
@@ -43,9 +46,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 public class UserController {
 
-    private final int MAX_NUMBER_OF_JOBS = 3;
-
-    private final int MAX_NUMBER_OF_PAGES = 10;
+    private final int MAX_NUMBER_OF_ITEMS_DISPLAY = 3;
 
     @Resource
     private ApplicationContext applicationContext;
@@ -96,7 +97,9 @@ public class UserController {
     private ProjectService projectService;
 
     @Resource
-    private JobAlertService jobAlertService;
+    private JobAggregatorService jobAggregatorService;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
     public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -272,22 +275,51 @@ public class UserController {
         PersonalHomepageDto personalHomepage = new PersonalHomepageDto();
 
         TermStatisticRequest termStatisticRequest = new TermStatisticRequest();
-        termStatisticRequest.setTerm(jobStatisticService.getTechnicalTermHasTheMostJob().getKey());
-        TermStatisticResponse termStatisticResponse =
-                jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
-        personalHomepage.setTermStatistic(termStatisticResponse);
+        try {
+            termStatisticRequest.setTerm(jobStatisticService.getTechnicalTermHasTheMostJob().getKey());
+            TermStatisticResponse termStatisticResponse =
+                    jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
+            personalHomepage.setTermStatistic(termStatisticResponse);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
 
-        ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
-        latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
-        personalHomepage.setLatestChallenge(latestChallenge);
+        try {
+            ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
+            latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
+            personalHomepage.setLatestChallenge(latestChallenge);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
 
-        personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
+        try {
+            personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
 
-        List<ProjectDto> latestProjects = projectService.listProject().stream().limit(3).collect(toList());
-        personalHomepage.setLatestProjects(latestProjects);
+        try {
+            List<ProjectDto> latestProjects = projectService.listProject().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toList());
+            personalHomepage.setLatestProjects(latestProjects);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
 
-        List<JobResponse> latestJobs = jobAlertService.listNormalJob(new JobListingCriteria(1), MAX_NUMBER_OF_JOBS, MAX_NUMBER_OF_PAGES);
-        personalHomepage.setLatestJobs(latestJobs);
+        JobSearchCriteria criteria = new JobSearchCriteria();
+        try {
+            JobSearchResponse allJobSearchResponse = jobAggregatorService.findJob(criteria);
+            personalHomepage.setTotalLatestJob(allJobSearchResponse.getTotalJob());
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+
+        criteria.setTopPriority(Boolean.FALSE);
+        try {
+            JobSearchResponse latestJobSearchResponse = jobAggregatorService.findJob(criteria);
+            personalHomepage.setLatestJobs(latestJobSearchResponse.getJobs().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toSet()));
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
 
         return personalHomepage;
     }
@@ -295,6 +327,7 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('JOB_SEEKER', 'EMPLOYER')")
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
     public UserProfileDto getUserProfile(HttpServletRequest request) {
+        LOGGER.debug("Reading current user profile info");
         Principal userPrincipal = request.getUserPrincipal();
         Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
         if (!(principal instanceof UserProfileDto)) {
@@ -321,7 +354,7 @@ public class UserController {
 
     @RequestMapping(value = "user/webinars", method = RequestMethod.GET)
     public Collection<WebinarInfoDto> findAvailableWebinars() {
-        return webinarService.findAvailableWebinars();
+        return webinarService.findAllWebinars();
     }
 
     @RequestMapping(value = "user/webinar/{id}", method = RequestMethod.GET)

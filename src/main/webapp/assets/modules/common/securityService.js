@@ -10,7 +10,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           $rootScope.userInfo = undefined;
           var roles = $rootScope.currentUiView.roles || [];
           if (roles.length > 0) {
-            $location.path("/");
+            $location.url("/");
           }
         });
     },
@@ -56,8 +56,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         })
         .error(function () {
           if ($rootScope.currentUiView && $rootScope.currentUiView.loginUrl) {
-            $location.path($rootScope.currentUiView.loginUrl);
+            $location.url($rootScope.currentUiView.loginUrl);
           }
+          //else {
+          //  $location.url("/");
+          //}
+          //utils.sendNotification(jsonValue.notifications.loaded);
           utils.sendNotification(jsonValue.notifications.loaded);
         });
     },
@@ -65,35 +69,32 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     routeByRole: function () {
       utils.sendNotification(jsonValue.notifications.loaded);
       var lastFoot = localStorageService.get("lastFoot");
-      if (lastFoot) {
+      var uiView = utils.getUiView(lastFoot);
+
+      if (lastFoot && !uiView.ignoreIfLastFoot) {
         return $location.url(lastFoot);
-        //localStorageService.remove("lastFoot");
-        //var uiView = utils.getUiView(lastFoot);
-        //if (!uiView.ignoreIfLastFoot) {
-        //  return $location.url(lastFoot);
-        //}
       }
 
       switch ($rootScope.userInfo.roleName) {
         case "EMPLOYER":
-          return $location.path("/employer-dashboard");
+          return $location.url("/employer-dashboard");
 
         case "JOB_SEEKER":
-          return $location.path("/home");
+          return $location.url("/home");
       }
     },
 
     initialize: function () {
       $rootScope.$on("$locationChangeSuccess", function (event, next, current) {
-        $rootScope.currentUiView = utils.getUiView();
-        if ($rootScope.currentUiView.name == "rootPage") {
+        var uiView = utils.getUiView();
+        if (uiView.name == "rootPage") {
           return false;
         }
 
         var param = $location.search();
         var notHasParam = !$.isEmptyObject(param);
 
-        var isSignInView = $rootScope.currentUiView.type == "LOGIN";
+        var isSignInView = uiView.type == "LOGIN";
         var notSignedIn = !$rootScope.userInfo && isSignInView;
         if (notSignedIn && notHasParam) {// should keep last print
           localStorageService.set("lastFoot", $location.url());
@@ -103,6 +104,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       });
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
+        $rootScope.currentUiView = utils.getUiView();
         var isSignInView = $rootScope.currentUiView.type == "LOGIN";
         var priorFoot = localStorageService.get("priorFoot");
         if (isSignInView) {
@@ -125,9 +127,10 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           return false;
         }
 
+        //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
           instance.getCurrentUser().error(function (userInfo) {
-            return $location.path(uiView.loginUrl);
+            return $location.url(uiView.loginUrl);
           });
         }
 

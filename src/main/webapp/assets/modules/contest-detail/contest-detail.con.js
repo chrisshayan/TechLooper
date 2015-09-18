@@ -90,10 +90,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       });
   }
 
-  apiService.getContestDetail(contestId).success(function (data) {
-    $scope.contestDetail = data;
-    $filter("progress")($scope.contestDetail, "challenge");
-  });
+  apiService.getContestDetail(contestId)
+    .success(function (data) {
+      $scope.contestDetail = data;
+      $filter("progress")($scope.contestDetail, "challenge");
+    })
+    .error(function () {$location.url("404");});
 
   $scope.fbShare = function () {
     ga("send", {

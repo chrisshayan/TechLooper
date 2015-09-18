@@ -516,7 +516,7 @@
         margin: auto
         text-align: left
         border-bottom: 2px solid #277dbe
-        padding: 0
+        padding: 0 10px
 
         h2
             font-size: 25px
@@ -574,7 +574,9 @@
                     clear: both
                     width: 100%
                     padding: 0
-
+                .it-job-corner-content-form
+                    display: -webkit-flex
+                    display: flex
                 .send-me-jobs-form
                     display: inline-block
                     clear: both
@@ -639,7 +641,6 @@
             h4
                 margin: 0
                 padding: 0
-                text-transform: capitalize
                 font-weight: 400
                 font-size: 16px
             .it-job-corner-messages
@@ -663,10 +664,13 @@
                 border-top: 0
                 min-height: 250px
                 margin-right: 0.5%
+                flex: 1
                 h4
                     background-color: #f4f4f4
                     padding: 10px
                     border-bottom: 1px solid #d5dadc
+                    strong
+                        font-weight: 500
                 ul
                     margin: 0
                     padding: 10px
@@ -713,6 +717,7 @@
                 border-top: 0
                 min-height: 250px
                 margin-left: 0.5%
+                flex: 1
                 h4
                     background-color: #f4f4f4
                     padding: 10px
@@ -783,6 +788,7 @@
                                 float: left
                                 display: inline-block
                                 line-height: 18px
+                                padding-top: 5px
                         strong
                             font-weight: 500
                         .right-content
@@ -800,6 +806,7 @@
                                 text-align: right
                                 width: 100%
                                 clear: both
+                                padding-top: 5px
                             p
                                 color: #808080
                         .left-content

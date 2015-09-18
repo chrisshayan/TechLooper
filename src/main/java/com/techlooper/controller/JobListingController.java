@@ -1,91 +1,45 @@
 package com.techlooper.controller;
 
-import com.techlooper.model.*;
-import com.techlooper.service.JobAlertService;
-import com.techlooper.service.JobSearchService;
-import com.techlooper.service.ScrapeJobService;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.techlooper.model.JobSearchCriteria;
+import com.techlooper.model.JobSearchResponse;
+import com.techlooper.service.JobAggregatorService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
-import static com.techlooper.service.impl.JobAlertServiceImpl.NUMBER_OF_ITEMS_PER_PAGE;
-
+/**
+ * Job Listing Controller. It searches the job matching user's criteria
+ *
+ * @author Khoa Nguyen
+ * @version v0.0-beta9.Release39, 09/09/2015
+ */
 @Controller
 public class JobListingController {
 
-    private final static String JOB_CATEGORY_IT = "35,55,57";
-
     @Resource
-    private JobAlertService jobAlertService;
+    private JobAggregatorService jobAggregatorService;
 
-    @Resource
-    private ScrapeJobService scrapeJobService;
-
-    @Resource
-    private JobSearchService vietnamWorksJobSearchService;
-
+    /**
+     * @param criteria job search criteria
+     * @return jobSearchResponse job search response matching search criteria
+     * @throws Exception
+     */
     @ResponseBody
     @RequestMapping(value = "/jobListing", method = RequestMethod.POST)
-    public JobListingModel list(@RequestBody JobListingCriteria criteria) throws Exception {
-        JobListingModel jobListing = new JobListingModel();
-        Long totalJob = jobAlertService.countJob(criteria);
-        List<JobResponse> jobs = jobAlertService.listJob(criteria);
-
-        Long totalPage = totalJob % NUMBER_OF_ITEMS_PER_PAGE == 0 ?
-                totalJob / NUMBER_OF_ITEMS_PER_PAGE : totalJob / NUMBER_OF_ITEMS_PER_PAGE + 1;
-        jobListing.setPage(criteria.getPage());
-        jobListing.setTotalPage(totalPage);
-        jobListing.setTotalJob(totalJob);
-        jobListing.setJobs(jobs);
-        return jobListing;
+    public JobSearchResponse list(@RequestBody JobSearchCriteria criteria) throws Exception {
+        return jobAggregatorService.findJob(criteria);
     }
 
-    @Scheduled(cron = "${scheduled.cron.indexVietnamworksJob}")
-    public void indexJobFromVietnamworks() throws Exception {
-        VNWJobSearchRequest vnwJobSearchRequest = getTopPriorityJobSearchRequest();
-        VNWJobSearchResponse vnwJobSearchResponse;
-        do {
-            vnwJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwJobSearchRequest);
-            if (vnwJobSearchResponse.hasData()) {
-                scrapeJobService.save(vnwJobSearchResponse.getData().getJobs(), Boolean.TRUE);
-                vnwJobSearchRequest.setPageNumber(vnwJobSearchRequest.getPageNumber() + 1);
-            }
-        } while (vnwJobSearchResponse.hasData());
-
-        VNWJobSearchRequest vnwNormalJobSearchRequest = getNormalJobSearchRequest();
-        VNWJobSearchResponse vnwNormalJobSearchResponse;
-        do {
-            vnwNormalJobSearchResponse = vietnamWorksJobSearchService.searchJob(vnwNormalJobSearchRequest);
-            if (vnwNormalJobSearchResponse.hasData()) {
-                scrapeJobService.save(vnwNormalJobSearchResponse.getData().getJobs(), null);
-                vnwNormalJobSearchRequest.setPageNumber(vnwNormalJobSearchRequest.getPageNumber() + 1);
-            }
-        } while (vnwNormalJobSearchResponse.hasData());
-
-    }
-
-    private VNWJobSearchRequest getTopPriorityJobSearchRequest() {
-        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
-        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
-        vnwJobSearchRequest.setTechlooperJobType(1);
-        vnwJobSearchRequest.setPageNumber(1);
-        vnwJobSearchRequest.setPageSize(20);
-        return vnwJobSearchRequest;
-    }
-
-    private VNWJobSearchRequest getNormalJobSearchRequest() {
-        VNWJobSearchRequest vnwJobSearchRequest = new VNWJobSearchRequest();
-        vnwJobSearchRequest.setJobCategories(JOB_CATEGORY_IT);
-        vnwJobSearchRequest.setTechlooperJobType(2);
-        vnwJobSearchRequest.setPageNumber(1);
-        vnwJobSearchRequest.setPageSize(20);
-        return vnwJobSearchRequest;
+    /**
+     * @param jobAlertRegistrationId job alert registration id
+     * @return jobSearchCriteria job alert registration information
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/jobAlertCriteria/{jobAlertRegistrationId}", method = RequestMethod.GET)
+    public JobSearchCriteria getJobAlertCriteria(@PathVariable Long jobAlertRegistrationId) throws Exception {
+        return jobAggregatorService.findJobAlertCriteriaById(jobAlertRegistrationId);
     }
 
 }

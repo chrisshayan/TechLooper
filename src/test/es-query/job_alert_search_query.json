@@ -1,29 +1,60 @@
 GET techlooper/job/_search
 {
   "query": {
-    "bool": {
-      "must": [
-        {
-          "query_string": {
-            "query": "Java"
-          }
-        },
-        {
-          "match": {
-            "location": "Ha Noi"
-          }
-        },
-        {
-          "range": {
-            "createdDateTime": {
-              "from": "now-7d/d"
+    "filtered": {
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "multi_match": {
+                "query": "Java Architect",
+                "fields": [
+                  "jobTitle",
+                  "company"
+                ]
+              }
             }
-          }
+          ]
         }
-      ]
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "createdDateTime": {
+                  "from": "now-30d/d"
+                }
+              }
+            },
+            {
+              "term": {
+                "topPriority": true
+              }
+            }
+          ],
+          "must_not": [
+            {
+              "term": {
+                "isActive": 0
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "sort": [
+    {
+      "topPriority": {
+        "order": "desc"
+      }
+    },
+    {
+      "_score": {
+        "order": "desc"
+      }
+    },
     {
       "createdDateTime": {
         "order": "desc"

@@ -125,5 +125,14 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     $scope.showPostSuccessfulMessage = true;
   }
 
+  $scope.fbShare = function () {
+    ga("send", {
+      hitType: "event",
+      eventCategory: "facebookshare",
+      eventAction: "click",
+      eventLabel: "freelancerdetail"
+    });
+    utils.openFBShare("/shareFreelancerProject/" + $translate.use() + "/" + projectId);
+  }
 });
 

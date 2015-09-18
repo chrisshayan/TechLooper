@@ -118,8 +118,8 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="http://www.techlooper.com/#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
-                      <img alt="TechLooper Logo" class="logo" src="http://www.techlooper.com/images/logo.png" style="border:none; outline:none" width="150" />
+                    <a href="${webBaseUrl}#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
+                      <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                 </tr>
@@ -160,8 +160,8 @@
                     </tr>
                     <tr>
                       <td align="center">
-                        <a href="http://www.techlooper.com/#/challenge-detail/job-search-innovation-hackathon-1439866071515-id?utm_source=jobalertemail&utm_medium=hackathon&utm_campaign=techlooperjobhub" target="_blank">
-                          <img src="http://www.techlooper.com/images/hackathon-job-search.png" style="boder: 0; width: 100%" alt="Job Search Innovation Hackathon"></a>
+                        <a href="${webBaseUrl}#/challenge-detail/job-search-innovation-hackathon-1439866071515-id?utm_source=jobalertemail&utm_medium=hackathon&utm_campaign=techlooperjobhub" target="_blank">
+                          <img src="${webBaseUrl}images/hackathon-job-search.png" style="boder: 0; width: 100%" alt="Job Search Innovation Hackathon"></a>
                       </td>
                     </tr>
                     <tr>
@@ -211,7 +211,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" style="color: #277cbd" >
-                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.jobTitleUrl}" target="_blank">${job.jobTitle}</a>
+                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.url}" target="_blank">${job.title}</a>
                             </td>
                           </tr>
                           <tr>
@@ -244,6 +244,16 @@
                               Salary: <span style="color: #277cbd"><#if job.salary?has_content>${job.salary}<#else>Negotiable</#if></span>
                             </td>
                           </tr>
+                            <tr>
+                                <td style="height:5px; line-height: 5px;" width="100%">
+                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="pcolor: #892890" >
+                                    From <#if job.crawlSource??>${job.crawlSource}</#if>
+                                </td>
+                            </tr>
                         </table>
                       </td>
                     </tr>
@@ -262,7 +272,7 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/job-listing/${searchPath}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View More</a>
+                              <a href="${webBaseUrl}#/job-listing/${jobAlertRegistrationId}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">View More</a>
                             </td>
                           </tr>
                         </table>

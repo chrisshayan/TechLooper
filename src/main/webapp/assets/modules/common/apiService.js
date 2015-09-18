@@ -57,7 +57,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     postFreelancerProject: function (projectRequest) {
-      return $http.post("project/post", projectRequest, {transformResponse: function (d, h) {return d;}})
+      return $http.post("project/post", projectRequest)
     },
 
     getProject: function (id) {
@@ -133,6 +133,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       });
     },
 
+    getJobAlertCriteria: function (jobAlertRegistrationId) {
+      return $http.get("jobAlertCriteria/" + jobAlertRegistrationId);
+    },
+
     createWebinar: function (webinar) {
       var obj = angular.copy(webinar);
       var atts = [];
@@ -163,6 +167,24 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     joinWebinar: function (webinarId, firstName, lastName, email) {
       return $http.post("user/webinar/join",
         {id: webinarId, firstName: firstName, lastName: lastName, email: email});
+    },
+
+    getlatestTopics: function () {
+      return $http.get("forum/latestTopic");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.deleteChallengeById
+     * */
+    deleteChallengeById: function(id) {
+      return $http.delete("challenge/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.findChallengeById
+     * */
+    findChallengeById: function(id) {
+      return $http.get("challenges/" + id);
     }
   }
 

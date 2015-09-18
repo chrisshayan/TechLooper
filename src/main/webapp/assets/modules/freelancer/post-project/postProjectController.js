@@ -100,18 +100,19 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     if ($scope.status("show-fixed-price-fields")) {
       $scope.fixedPriceForm.$setSubmitted();
     }
-    if ($scope.postProjectForm.$invalid) {
-      return;
+    if ($scope.state && !$scope.status("is-form-valid")) {
+      return false;
     }
-
+    utils.sendNotification(jsonValue.notifications.loading);
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
     postProject.lang = $translate.use();
     apiService.postFreelancerProject(postProject)
-      .success(function (projectId) {
+      .success(function (projectResponse) {
         localStorageService.set("postProject", true);
         var title =  utils.toAscii($scope.postProject.projectTitle);
-        return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", title, projectId));
+        return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", title, projectResponse.projectId));
       });
+    utils.sendNotification(jsonValue.notifications.loaded);
   }
 
   $scope.changeState('default');

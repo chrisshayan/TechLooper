@@ -130,6 +130,21 @@
         font-size: 45px
   .technical-detail-page
     padding-top: 0
+    .technical-info
+      .technical-info-detail
+        h4
+          a
+            display: block
+            clear: both
+            text-align: center
+            width: 100%
+    .technical-skills-block
+      h3
+        p
+          width: 80%
+        span
+          a
+            display: none
   .bubble-chart-container
     width: 80%
     min-height: 280px
@@ -501,7 +516,7 @@
       //.navi-step-salary-review.fixed
       //  position: inherit
       .salary-review-content
-        padding: 10px
+        padding: 10px 0px
         .arrow-up-active
           display: none
         h3
@@ -527,6 +542,10 @@
               li:last-child
                 width: 100%
                 padding-top: 0
+                text-align: center
+                button
+                  float: none
+                  margin: auto
               li.fullCol
                 padding-top: 10px
           .your-pay-snapshot-chart
@@ -1201,6 +1220,8 @@
       border-bottom: 0
     table.contests-table td:last-child
       text-align: right
+      a
+        text-align: right
     table.contests-table td:before
       content: attr(data-label)
       float: left
@@ -1219,12 +1240,54 @@
       max-height: none
   .content-page-block
     .content-page-detail.dashboard
-      padding: 10px
+      padding: 0 10px
       .my-challenges-block
         padding: 0 0 10px 0
       .dashboard-box
+        .dashboard-content
+          .ic-dashboard
+            width: 100%
+            padding-bottom: 20px
+            clear: both
+          .dashboard-details
+            width: 100%
+            clear: both
+            padding-left: 0
+            .active-item
+              text-align: center
+            .total-people
+              text-align: center
+      .active-challenges-list
+        .filter-item
+          width: 100%
+          span
+            width: 47.5%
+            float: left
+            margin-bottom: 5px
       .my-projects-block
         padding: 0
+      .active-challenges-list
+        table.contests-table
+          td:first-child
+            width: 100%
+          td:nth-child(2)
+            width: 100%
+          td:nth-child(3)
+            width: 100%
+          td:nth-child(4)
+            width: 100%
+          th:nth-child(2)
+            width: 100%
+          th:nth-child(3)
+            width: 100%
+          th:nth-child(4)
+            width: 100%
+      .active-projects-list
+        table.contests-table
+          td:nth-child(2)
+            width: 100%
+          th:nth-child(2)
+            width: 100%
   .content-page-block
     .header-page
       h2
@@ -1281,6 +1344,10 @@
           width: 30%
         .help-item-content
           width: 70%
+    .delete-confirmation
+      .modal-dialog
+        width: 100%
+
   .content-page-block.project-owner
     padding-top: 0
     margin-bottom: 0
@@ -1406,10 +1473,13 @@
               margin-top: 20px
             .alert-danger
               margin-top: 20px
+          .it-job-corner-content-form
+            display: block
         .latest-jobs-block
           width: 100%
           clear: both
           margin-bottom: 20px
+          display: block
           ul
             padding: 5px !important
             li:last-child
@@ -1542,6 +1612,10 @@
               p
                 text-align: center
                 width: 100%
+                padding-bottom: 10px
+              button.facebook
+                float: none
+                margin: auto
       .review-project-content-block
         .client-logo-block
           width: 30%
@@ -1574,6 +1648,7 @@
       .total-items
         width: 100%
         padding: 0 0 5px 0
+        text-align: center
       .paging-list
         width: 100%
         padding: 0 0 5px 0
@@ -1587,6 +1662,7 @@
       .total-pages
         width: 100%
         padding: 0 0 10px 0
+        text-align: center
     .job-listing-container
       padding: 5px
       .job-items
@@ -1596,12 +1672,12 @@
             ul
               width: 100%
               li
-                width: 100%
+                width: 100% !important
               li:first-child
                 width: 100%
           .right-content
             width: 100%
-            text-align: left
+            text-align: center
   .content-page-block.create-event-container
     .content-page-detail
       padding: 10px
@@ -1654,6 +1730,13 @@
           text-align: center
           padding-top: 10px
           background: url(../images/line-li-gray.png) left top repeat-x
+          .tell-your-friends
+            width: 100%
+            clear: both
+            text-align: center
+            button
+              margin: auto
+              float: none
       .organiser-info
         .right-content
           width: 100%
@@ -1693,8 +1776,40 @@
                   width: 100%
                 a.view-detail
                   display: none
-
-
+  .content-page-block
+    .content-page-detail
+      .project-items
+        .project-item
+          .left-content
+            width: 100%
+          .right-content
+            width: 100%
+            text-align: center
+  .salary-review-page
+    .salary-review-block
+      .top-three-skills
+        padding: 10px 5px
+  .post-contest-block
+    .post-contest-form
+      .post-contest-field
+        .autocomplete
+          width: 80%
+  .salary-review-page
+    .salary-review-block
+      .top-three-skills
+        button
+          width: 20%
+  .content-page-block
+    .content-page-detail
+      .review-project-content-block
+        .review-project-content
+          .time-and-payment-block
+            .working-time-block
+              width: 100%
+            .payment-block
+              width: 100%
+              clear: both
+              padding-top: 10px
 @media (min-width: 640px)
   .rwd-table
     margin: auto

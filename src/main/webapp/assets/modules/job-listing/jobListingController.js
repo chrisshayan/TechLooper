@@ -1,6 +1,6 @@
 techlooper.controller("jobListingController", function (apiService, $scope, vnwConfigService, $routeParams, $location, utils, jsonValue, $timeout ) {
 
-  $scope.locationsConfig = vnwConfigService.locationsSearchSelectize;
+  $scope.locationsConfig = vnwConfigService.locationsSelectize;
 
   var searchText = $routeParams.searchText;
 
@@ -14,35 +14,66 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     return "";
   }
 
+  var bindSearchResultData = function bindSearchResultData(response) {
+    $scope.totalPage = response.totalPage;
+    $scope.totalJob = response.totalJob;
+    $scope.page = response.page;
+    $scope.jobs = response.jobs;
+    $.each($scope.jobs, function (i, job) {
+      job.crawlSource = jsonValue.crawlSourcesMap[job.crawlSource] ? jsonValue.crawlSourcesMap[job.crawlSource].name : "Internet";
+      var locations = job.location.split(",");
+      $.each(locations, function(j, id){
+        if($.isNumeric(id)){
+          if(j == 0){
+            job.locationText = vnwConfigService.getLocationText(id);
+          }else{
+            job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
+          }
+        }else{
+          if(j == 0){
+            job.locationText = id;
+          }else{
+            job.locationText = job.locationText + ', ' + job.locationText+ id;
+          }
+        }
+      });
+    });
+  }
+
   if (!searchText) {
     apiService.listAllJobs().success(function(response) {
       utils.sendNotification(jsonValue.notifications.loading);
-      $scope.totalPage = response.totalPage;
-      $scope.totalJob = response.totalJob;
-      $scope.page = response.page;
-      $scope.jobs = response.jobs;
+      bindSearchResultData(response);
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
   } else {
     var searchParams = searchText.split("+");
-    var keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
-    var locationId = searchParams.length > 1 ? searchParams[1] : "";
-    var page = $routeParams.page ? $routeParams.page : 1;
+    var jobAlertRegistrationId = searchParams.length > 0 ? searchParams[0] : "";
 
-    var location = "";
-    if (locationId && locationId !== "0") {
-      location = utils.toAscii(vnwConfigService.getLocationText(locationId, "en"));
+    if (jobAlertRegistrationId && !isNaN(jobAlertRegistrationId)) {
+      apiService.getJobAlertCriteria(jobAlertRegistrationId).success(function (jobAlertCriteria) {
+        apiService.filterJob(jobAlertCriteria.keyword, jobAlertCriteria.location, jobAlertCriteria.page).success(function (response) {
+          bindSearchResultData(response);
+          $scope.searchJob = {keyword: jobAlertCriteria.keyword, locationId: jobAlertCriteria.locationId, location: jobAlertCriteria.location};
+        });
+      });
+    } else {
+      var keyword, locationId, location, page;
+      keyword = searchParams.length > 0 ? capitalizeWords(searchParams[0]) : "";
+      locationId = searchParams.length > 1 ? searchParams[1] : "";
+      page = $routeParams.page ? $routeParams.page : 1;
+
+      location = "";
+      if (locationId && locationId !== "0") {
+        location = utils.toAscii(vnwConfigService.getLocationText(locationId, "en"));
+      }
+
+      apiService.filterJob(keyword, location, page).success(function (response) {
+        bindSearchResultData(response);
+        $scope.searchJob = {keyword: keyword, locationId: locationId, location: location};
+      });
     }
-
-    apiService.filterJob(keyword, location, page).success(function(response) {
-      $scope.totalPage = response.totalPage;
-      $scope.totalJob = response.totalJob;
-      $scope.page = response.page;
-      $scope.jobs = response.jobs;
-    });
-
-    $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
   }
 
   $scope.getPageRange = function() {
@@ -102,41 +133,38 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
   }
 
   $scope.filterJob = function() {
-    var keyword = $scope.searchJob.keyword ? utils.toAscii($scope.searchJob.keyword) : "";
-    var locationId = $scope.searchJob.locationId && $scope.searchJob.locationId !== "0" ? $scope.searchJob.locationId : "";
+    var keyword = $scope.searchJob.keyword ? $scope.searchJob.keyword : "";
+    var locationId = $scope.searchJob.locationId && $scope.searchJob.locationId !== "0"
+                    && $scope.searchJob.locationId !== "1"? $scope.searchJob.locationId : "";
     var location = "";
     if (locationId) {
       location = vnwConfigService.getLocationText(locationId, "en");
     }
     var page = 1;
 
-    //apiService.filterJob(keyword, location, page).success(function(response) {
-    //  $scope.totalPage = response.totalPage;
-    //  $scope.totalJob = response.totalJob;
-    //  $scope.page = response.page;
-    //  $scope.jobs = response.jobs;
-    //});
+    apiService.filterJob(keyword, location, page).success(function(response) {
+      bindSearchResultData(response);
+    });
 
-    var searchPath = $scope.buildSearchPath(keyword, locationId, location, page);
-    $location.path(searchPath);
+    $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
   }
 
-  $scope.buildSearchPath = function(keyword, locationId, location, page) {
-    var result = "/job-listing/";
-    if (keyword) {
-      result += utils.toAscii(keyword);
-    }
-    if (locationId) {
-      result += "+" + locationId;
-    }
-    if (location) {
-      result += "+" + utils.toAscii(location);
-    }
-    if (page && page > 1) {
-      result += "/" + page;
-    }
-    return result;
-  }
+  //$scope.buildSearchPath = function(keyword, locationId, location, page) {
+  //  var result = "/job-listing/";
+  //  if (keyword) {
+  //    result += utils.toAscii(keyword);
+  //  }
+  //  if (locationId) {
+  //    result += "+" + locationId;
+  //  }
+  //  if (location) {
+  //    result += "+" + utils.toAscii(location);
+  //  }
+  //  if (page && page > 1) {
+  //    result += "/" + page;
+  //  }
+  //  return result;
+  //}
 
 
   $timeout(function () {

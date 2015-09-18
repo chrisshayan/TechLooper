@@ -28,50 +28,37 @@ var baseUrl = (function () {
 var techlooper = angular.module("Techlooper", [
   "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
   "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
-  "UserProfile", "selectize", "autocomplete", "focusOn"
+  "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
   function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
     $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location, $rootScope) {
-        return {
-          request: function (request) {
-            return request || $q.when(request);
-          },
+      return {
+        request: function (request) {
+          return request || $q.when(request);
+        },
 
-          responseError: function (rejection) {
-            switch (rejection.status) {
-              //case 403:
-              //  $rootScope.lastPath = $location.path();
-              //  $location.path("/login");
-              //  break;
+        responseError: function (rejection) {
+          switch (rejection.status) {
+            //case 403:
+            //  $rootScope.lastPath = $location.path();
+            //  $location.path("/login");
+            //  break;
 
-              case 500:
-              case 404:
-                utils.sendNotification(jsonValue.notifications.serverError);
-                break;
-            }
-            return $q.reject(rejection);
+            case 500:
+            case 404:
+              utils.sendNotification(jsonValue.notifications.serverError);
+              break;
           }
-        };
-      }
-    );
+          return $q.reject(rejection);
+        }
+      };
+    });
 
     localStorageServiceProvider
       .setPrefix('techlooper')
       .setNotify(true, true);
-
-    //$.post("getSocialConfig", {providers: ["LINKEDIN", "FACEBOOK", "GOOGLE", "TWITTER", "GITHUB"]})
-    //  .done(function (resp) {
-    //    var oauth1Providers = ["TWITTER"];
-    //    $.each(resp, function (i, prov) {
-    //      $authProvider[prov.provider.toLowerCase()]({
-    //        url: "auth/" + (oauth1Providers.indexOf(prov.provider) >= 0 ? "oath1/" : "") + prov.provider,
-    //        clientId: prov.apiKey,
-    //        redirectUri: prov.redirectUri
-    //      });
-    //    });
-    //  });
 
     $authProvider.loginRedirect = undefined;
 
@@ -115,30 +102,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/talent-search/home.tem.html",
         controller: "companyProfileController"
       })
-      //.when("/bubble-chart", {
-      //  templateUrl: "modules/it-professional/main.tem.html",
-      //  controller: "chartController"
-      //})
       .when("/pie-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
       })
-      //.when("/jobs/search", {
-      //  templateUrl: "modules/it-professional/main.tem.html",
-      //  controller: "searchFormController"
-      //})
-      //.when("/jobs/search/:text", {
-      //  templateUrl: "modules/it-professional/main.tem.html",
-      //  controller: "searchResultController"
-      //})
-      //.when("/analytics/skill/:term/:period?", {
-      //  templateUrl: "modules/it-professional/main.tem.html",
-      //  controller: "skillAnalyticsController"
-      //})
-      //.when("/signin", {
-      //  templateUrl: "modules/it-professional/main.tem.html",
-      //  controller: "signInController"
-      //})
       .when("/register", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "registerController"
@@ -226,6 +193,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/events/events.html",
         controller: "eventsController"
       })
+      .when("/topics", {
+        templateUrl: "modules/topics/topics.html",
+        controller: "topicsController"
+      })
       .when("/event-detail/:id", {
         templateUrl: "modules/event-details/event-details.html",
         controller: "eventDetailsController"
@@ -233,6 +204,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/loading", {
         templateUrl: "modules/loading-box/loadingBox.html",
         controller: "loadingBoxController"
+      })
+      .when("/404", {
+        templateUrl: "modules/404/404.html"
       })
       .otherwise({
         redirectTo: function (err, path, params) {
@@ -244,11 +218,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
             return "/home";
           }
           return "/home";
-        },
-        resolve: {
-          resolvedVal: function ($http) {
-            return $http.get('http://endpoint.com/test');
-          }
         }
       });
   }]);

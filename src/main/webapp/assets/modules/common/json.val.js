@@ -114,34 +114,36 @@ techlooper.factory("jsonValue", function () {
       ]
     },
 
-    termColor: [{
-      "Name": "JAVA",
-      "color": "#bf06b7"
-    }, {
-      "Name": "DOTNET",
-      "color": "#d50708"
-    }, {
-      "Name": "PHP",
-      "color": "#450770"
-    }, {
-      "Name": "PROJECT_MANAGER",
-      "color": "#17875f"
-    }, {
-      "Name": "RUBY",
-      "color": "#d5876a"
-    }, {
-      "Name": "PYTHON",
-      "color": "#d7c500"
-    }, {
-      "Name": "DBA",
-      "color": "#666600"
-    }, {
-      "Name": "QA",
-      "color": "#1fb43f"
-    }, {
-      "Name": "BA",
-      "color": "#996600"
-    }],
+    termColor: [
+      {
+        "Name": "JAVA",
+        "color": "#bf06b7"
+      }, {
+        "Name": "DOTNET",
+        "color": "#d50708"
+      }, {
+        "Name": "PHP",
+        "color": "#450770"
+      }, {
+        "Name": "PROJECT_MANAGER",
+        "color": "#17875f"
+      }, {
+        "Name": "RUBY",
+        "color": "#d5876a"
+      }, {
+        "Name": "PYTHON",
+        "color": "#d7c500"
+      }, {
+        "Name": "DBA",
+        "color": "#666600"
+      }, {
+        "Name": "QA",
+        "color": "#1fb43f"
+      }, {
+        "Name": "BA",
+        "color": "#996600"
+      }
+    ],
 
     skillColors: ["#bf06b7", "#9ed701", "#3c6373", "#006600", "#c53046", "#fbb425", "#666600", "#0071bb", "#996600", "#00eaff", "#10F4FB", "#2404FB", "#35E811"],
 
@@ -221,7 +223,9 @@ techlooper.factory("jsonValue", function () {
       jobListing: "jobListing",
       createEvent: "createEvent",
       events: "events",
-      eventDetails: "eventDetails"
+      eventDetails: "eventDetails",
+      topics: "topics",
+      notFound: "notFound"
     },
 
     uiViews: [
@@ -237,6 +241,8 @@ techlooper.factory("jsonValue", function () {
       {
         name: "employerDashboard",
         url: "/employer-dashboard",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login",
         ignoreIfLastFoot: true
       },
       {
@@ -248,12 +254,6 @@ techlooper.factory("jsonValue", function () {
       {
         name: "freelancerPostProject",
         url: "/freelancer/post-project",
-        roles: ["EMPLOYER"],
-        loginUrl: "/login"
-      },
-      {
-        name: "employerDashboard",
-        url: "/employer-dashboard",
         roles: ["EMPLOYER"],
         loginUrl: "/login"
       },
@@ -344,7 +344,8 @@ techlooper.factory("jsonValue", function () {
       jobListing: "jobListing",
       createEvent: "createEvent",
       events: "events",
-      eventDetails: "eventDetails"
+      eventDetails: "eventDetails",
+      notFound: "notFound"
     },
 
     socketUri: {
@@ -806,6 +807,7 @@ techlooper.factory("jsonValue", function () {
       en: 2,
       vi: 1
     },
+
     jobLevels: [
       {id: -1, name: "ALL", translate: "allLevel"},
       {id: 1, name: "ENTRY", translate: "newGradLevel", ids: [1], alertId: 1},
@@ -960,7 +962,7 @@ techlooper.factory("jsonValue", function () {
       {id: 12, name: "> 20 years"}
     ],
     "benefitIcons": [
-      {id: '1',iconClass: 'fa-dollar'},
+      {id: '1', iconClass: 'fa-dollar'},
       {id: '2', iconClass: 'fa-user-md'},
       {id: '3', iconClass: 'fa-file-image-o'},
       {id: '4', iconClass: 'fa-graduation-cap'},
@@ -994,11 +996,27 @@ techlooper.factory("jsonValue", function () {
     dateTimeFormat: "DD/MM/YYYY hh:mm A",
 
     status: {
-      notStarted: {translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
-      registration: {translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
-      progress: {translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
-      closed: {translate: "closed", timeLeftTranslate: "moreDayToClosed"}
-    }
+      notStarted: {id: "notStarted", translate: "notStart", timeLeftTranslate: "moreDayToNotStarted"},
+      registration: {id: "registration", translate: "registration", timeLeftTranslate: "moreDayToRegistration"},
+      progress: {id: "progress", translate: "inProgress", timeLeftTranslate: "moreDayToSubmit"},
+      closed: {id: "closed", translate: "closed", timeLeftTranslate: "moreDayToClosed"}
+    },
+
+    "crawlSources": [
+      {id: "vietnamworks", name: "VIETNAMWORKS"},
+      {id: "careerbuilder-jobs-api-pagination", name: "CAREERBUILDER"},
+      {id: "jobstreet-jobs-api-pagination", name: "JOBSTREET"},
+      {id: "tuyendung-jobs-api-pagination", name: "TUYENDUNG"},
+      {id: "itviec-jobs-api-pagination", name: "ITVIEC"},
+      {id: "careerlink-jobs-api-pagination", name: "CAREERLINK"},
+      {id: "vieclam24h-jobs-api-pagination", name: "VIECLAM24H"},
+      {id: "linkedin-jobs-api-pagination", name: "LINKEDIN"},
+      {id: "vietnamworks-jobs-api", name: "VIETNAMWORKS"},
+      {id: "jobstreet-jobs-api", name: "JOBSTREET"},
+      {id: "careerbuilder-jobs-api", name: "CAREERBUILDER"},
+      {id: "itviec-jobs-api", name: "ITVIEC"},
+      {id: "itviec-jobs-api-v2", name: "ITVIEC"}
+    ]
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
@@ -1023,6 +1041,9 @@ techlooper.factory("jsonValue", function () {
 
   instance.benefitIconsMap = {};
   $.each(instance.benefitIcons, function (i, icon) {instance.benefitIconsMap[icon.id] = icon;});
+
+  instance.crawlSourcesMap = {};
+  $.each(instance.crawlSources, function (i, crawlSource) {instance.crawlSourcesMap[crawlSource.id] = crawlSource;});
 
   return instance;
 });

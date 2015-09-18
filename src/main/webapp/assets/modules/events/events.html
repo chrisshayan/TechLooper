@@ -1,6 +1,6 @@
 <div class="content-page-block events-page">
   <div class="header-page">
-    <h2 class="text-left" translate="eventsTitle"></h2>
+    <h2 class="text-left">{{'eventsTitle' | translate}} <a href="#/post-event" class="post-event"><i class="fa fa-pencil-square-o"></i>{{'postAnEvent' | translate}}</a></h2>
   </div>
   <div class="content-page-detail">
     <div class="events-list-block">
@@ -8,19 +8,23 @@
         <p translate="noDataChart"></p>
       </div>
       <div class="events-items">
-        <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup">
+        <div class="events-by-date expired" ng-repeat="webinarInfo in webinarsGroup | filter:{ expired : true }">
           <h3>{{webinarInfo.startDate}}</h3>
           <div class="events-item" ng-repeat="webinar in webinarInfo.webinars">
             <div class="left-content">
               <div class="owner">
+                <p>{{(webinar.organiser.name | limitTo: 13) || (webinar.organiser.email | textTruncate: 'email')}}</p>
                 <img ng-src="{{webinar.organiser.profileImageUrl}}" alt="" ng-show="webinar.organiser.profileImageUrl.length">
                 <img src="images/no-avatar.png" alt="" ng-show="!webinar.organiser.profileImageUrl.length">
-                <p>{{(webinar.organiser.name | limitTo: 10) || (webinar.organiser.email | textTruncate: 'email')}}</p>
+
               </div>
             </div>
             <div class="right-content">
               <div class="event-name">
-                <h4><a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank">{{webinar.name}}</a></h4>
+                <h4><a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank" title="{{webinar.name}}">
+                  {{webinar.name | limitTo: 45}}
+                  <span ng-show="webinar.name.length > 45">...</span>
+                </a></h4>
               </div>
               <ul>
                 <li class="time">{{webinar.startDate | timestamp: 'hour'}}</li>
@@ -28,9 +32,41 @@
                 </li>
               </ul>
             </div>
-            <div class="view-details" title="{{'viewDetails' | translate}}">
-              <a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank"></a>
+            <!--<div class="view-details" title="{{'viewDetails' | translate}}">-->
+              <!--<a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank"></a>-->
+            <!--</div>-->
+          </div>
+        </div>
+
+        <div class="event-timeline" ng-show="webinarsGroup.now"><p translate="now"></p></div>
+
+        <div class="events-by-date" ng-repeat="webinarInfo in webinarsGroup | filter:{ expired : false }">
+          <h3>{{webinarInfo.startDate}}</h3>
+          <div class="events-item" ng-repeat="webinar in webinarInfo.webinars">
+            <div class="left-content">
+              <div class="owner">
+                <p>{{(webinar.organiser.name | limitTo: 13) || (webinar.organiser.email | textTruncate: 'email')}}</p>
+                <img ng-src="{{webinar.organiser.profileImageUrl}}" alt="" ng-show="webinar.organiser.profileImageUrl.length">
+                <img src="images/no-avatar.png" alt="" ng-show="!webinar.organiser.profileImageUrl.length">
+
+              </div>
             </div>
+            <div class="right-content">
+              <div class="event-name">
+                <h4><a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank" title="{{webinar.name}}">
+                  {{webinar.name | limitTo: 45}}
+                  <span ng-show="webinar.name.length > 45">...</span>
+                </a></h4>
+              </div>
+              <ul>
+                <li class="time">{{webinar.startDate | timestamp: 'hour'}}</li>
+                <li class="register"><strong>{{webinar.attendees.length}}</strong> <span translate="attendantsLabel" />
+                </li>
+              </ul>
+            </div>
+            <!--<div class="view-details" title="{{'viewDetails' | translate}}">-->
+            <!--<a ng-href="#/event-detail/{{webinar.name | nonAscii}}-{{webinar.createdDateTime}}-id" target="_blank"></a>-->
+            <!--</div>-->
           </div>
         </div>
       </div>

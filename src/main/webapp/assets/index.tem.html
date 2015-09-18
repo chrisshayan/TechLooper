@@ -35,6 +35,60 @@
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,300italic,400italic,500,500italic&subset=latin,vietnamese,latin-ext' rel='stylesheet' type='text/css'>
 
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                  (i[r].q = i[r].q || []).push(arguments)
+              }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+              m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-55364092-1', 'auto');
+        ga('send', 'pageview');
+
+        gotoPostChallenge  = function(){
+            ga("send", {
+                hitType: "event",
+                eventCategory: "onlinecontest",
+                eventAction: "click",
+                eventLabel: "footerpostchallenge"
+            });
+            window.location.href = "#/post-challenge";
+        }
+        gotoChallenges  = function(){
+            ga("send", {
+                hitType: "event",
+                eventCategory: "onlinecontest",
+                eventAction: "click",
+                eventLabel: "allchallenges"
+            });
+            window.location.href = "#/challenges";
+        }
+        gotoProjects  = function(){
+            ga("send", {
+                hitType: "event",
+                eventCategory: "freelancer",
+                eventAction: "click",
+                eventLabel: "allprojects"
+            });
+            window.location.href = "#/freelancer/projects";
+        }
+        gotoPostProject  = function(){
+            ga("send", {
+                hitType: "event",
+                eventCategory: "freelancer",
+                eventAction: "click",
+                eventLabel: "postproject"
+            });
+            window.location.href = "#/freelancer/post-project";
+        }
+    </script>
+
     <!-- build:css generate-resources/techlooper.min.css -->
 
     <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -55,59 +109,6 @@
 </head>
 
 <body ng-app="Techlooper">
-<script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-55364092-1', 'auto');
-    ga('send', 'pageview');
-
-    gotoPostChallenge  = function(){
-        ga("send", {
-            hitType: "event",
-            eventCategory: "onlinecontest",
-            eventAction: "click",
-            eventLabel: "footerpostchallenge"
-        });
-        window.location.href = "#/post-challenge";
-    }
-    gotoChallenges  = function(){
-        ga("send", {
-            hitType: "event",
-            eventCategory: "onlinecontest",
-            eventAction: "click",
-            eventLabel: "allchallenges"
-        });
-        window.location.href = "#/challenges";
-    }
-    gotoProjects  = function(){
-        ga("send", {
-            hitType: "event",
-            eventCategory: "freelancer",
-            eventAction: "click",
-            eventLabel: "allprojects"
-        });
-        window.location.href = "#/freelancer/projects";
-    }
-    gotoPostProject  = function(){
-        ga("send", {
-            hitType: "event",
-            eventCategory: "freelancer",
-            eventAction: "click",
-            eventLabel: "postproject"
-        });
-        window.location.href = "#/freelancer/post-project";
-    }
-</script>
 
 <!--[if lt IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
