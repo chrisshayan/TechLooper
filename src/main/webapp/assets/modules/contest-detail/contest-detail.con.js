@@ -130,8 +130,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
-  function activaTab(tabID){
-    $('.nav-tabs a[href=".' + tabID + '"]').tab('show');
-  };
+  var param = $location.search();
+  if (param.a == "registrants") {
+    $('.nav-tabs a[href=".registrants"]').tab('show');
+  }
 });
 

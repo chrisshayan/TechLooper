@@ -1,4 +1,4 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $rootScope) {
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   var sortByStartDate = function (left, right) {
@@ -89,4 +89,8 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         deleteById();
       });
   };
+
+  $scope.goToChallengeDetails = function (challenge) {
+    $location.url("challenge-detail/-" + challenge.challengeId+"-id?a=registrants");
+  }
 });

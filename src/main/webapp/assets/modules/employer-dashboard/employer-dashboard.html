@@ -110,7 +110,9 @@
               {{challenge.submissionDateTime}}
             </td>
             <td data-label="{{'contestantsDashBoard' | translate}}">
-              {{challenge.numberOfRegistrants}}
+              <a ng-click="goToChallengeDetails(challenge)" ng-modal="tabName">
+                {{challenge.numberOfRegistrants}}
+              </a>
             </td>
             <td>
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"
