@@ -2,8 +2,6 @@
   <div class="contest-detail-content">
     <div class="row contest-name">
       <h2>{{contestDetail.challengeName}}</h2>
-      <!--<a class="salary-report-share"  ng-click="fbShare()">-->
-        <!--<i class="fa fa-facebook"></i> <span class="text" translate="share"></span></a>-->
       <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span></button>
     </div>
     <div class="row timeline-reward-block">
@@ -58,50 +56,99 @@
       </div>
     </div>
     <div class="row contest-content-detail">
-      <div class="col-md-12">
-        <div class="row contest-content-item">
-          <p class="title" translate="challengeOverView"></p>
-          <p class="detail" translate="{{contestDetail.challengeOverview | lineBreak}}">
-          </p>
-        </div>
-        <div class="row contest-content-item">
-          <p class="title" translate="businessRequirements"></p>
-          <p class="detail" translate="{{contestDetail.businessRequirement | lineBreak}}" />
-        </div>
-        <div class="row contest-content-item">
-          <p class="title" translate="generalNotes"></p>
-          <p class="detail" translate="{{contestDetail.generalNote | lineBreak}}" />
-        </div>
-        <div class="row contest-content-item">
-          <p class="title" translate="technologies"></p>
-          <p class="detail">
+
+      <ul class="nav nav-tabs contest-content-tab">
+        <li class="active"><a data-toggle="tab" href=".home" translate="detail"></a></li>
+        <li><a data-toggle="tab" href=".menu1">{{'registration' | translate}} (53)</a></li>
+      </ul>
+
+      <div class="tab-content contest-content-tab-detail">
+        <div class="home tab-pane fade in active">
+          <div class="row contest-content-item">
+            <p class="title" translate="challengeOverView"></p>
+            <p class="detail" translate="{{contestDetail.challengeOverview | lineBreak}}">
+            </p>
+          </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="businessRequirements"></p>
+            <p class="detail" translate="{{contestDetail.businessRequirement | lineBreak}}" />
+          </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="generalNotes"></p>
+            <p class="detail" translate="{{contestDetail.generalNote | lineBreak}}" />
+          </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="technologies"></p>
+            <p class="detail">
             <span class="tag" ng-repeat="skill in contestDetail.technologies">
               {{skill}}
             </span>
-          </p>
-        </div>
-        <div class="row contest-content-item">
-          <p class="title" translate="documents"></p>
-          <p class="detail" translate="{{contestDetail.documents | lineBreak}}" />
-        </div>
-        <div class="row contest-content-item">
-          <p class="title" translate="deliverables"></p>
-          <p class="detail" translate="{{contestDetail.deliverables | lineBreak}}" />
-        </div>
-        <div class="row contest-content-item">
-          <p class="title" translate="reviewStyle"></p>
-          <p class="detail">
-            {{contestDetail.reviewStyle}}
-          </p>
-        </div>
-        <div class="quality-idea-block">
-          <p class="header" translate="howWeEvaluateContestants"/>
-          <div class="row contest-content-item">
-            <p class="title" translate="qualityIdea" />
-            <p class="detail">
-              {{contestDetail.qualityIdea}}
             </p>
           </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="documents"></p>
+            <p class="detail" translate="{{contestDetail.documents | lineBreak}}" />
+          </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="deliverables"></p>
+            <p class="detail" translate="{{contestDetail.deliverables | lineBreak}}" />
+          </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="reviewStyle"></p>
+            <p class="detail">
+              {{contestDetail.reviewStyle}}
+            </p>
+          </div>
+          <div class="quality-idea-block">
+            <p class="header" translate="howWeEvaluateContestants"/>
+            <div class="row contest-content-item">
+              <p class="title" translate="qualityIdea" />
+              <p class="detail">
+                {{contestDetail.qualityIdea}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="menu1 tab-pane fade">
+          <dir-pagination-controls
+              max-size="10"
+              direction-links="true"
+              boundary-links="true" >
+          </dir-pagination-controls>
+          <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th>{{'firstName' | translate}}</th>
+              <th>{{'lastName' | translate}}</th>
+              <th>{{'emailAddress' | translate}}</th>
+              <th ng-click="sortUsers('registration')">{{'registrationDate' | translate}}
+                <span class="glyphicon sort-icon" ng-show="sortKey=='registration'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th ng-click="sortUsers('score')">{{'score' | translate}}
+                <span class="glyphicon sort-icon" ng-show="sortKey=='score'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th>{{'action' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="user in userRegisters|orderBy:sortKey:reverse|itemsPerPage:10">
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+              <td>{{user.registration}}</td>
+              <td><input type="text" value="{{user.score}}" maxlength="2"/></td>
+              <td><a data-auto-close="true" data-placement="top"
+                     data-template-url="modules/contest-detail/reject.html" bs-popover
+                     translate="reject"></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <dir-pagination-controls
+              max-size="10"
+              direction-links="true"
+              boundary-links="true" >
+          </dir-pagination-controls>
         </div>
       </div>
     </div>

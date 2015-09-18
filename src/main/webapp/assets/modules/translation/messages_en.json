@@ -723,5 +723,6 @@
   "rejectConfirmation": "Are you sure you want to reject this contestant?",
   "reason": "Reason",
   "vietnamese": "Vietnamese",
-  "english": "English"
+  "english": "English",
+  "registrants": "registrants"
 }

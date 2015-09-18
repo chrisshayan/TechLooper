@@ -16,7 +16,10 @@
           <img src="images/no-avatar.png" alt="" ng-show="!$root.userInfo.profileImageUrl.length"/>
         </div>
         <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"/>
-        <!--<span translate="{{$root.userInfo.username}}" />-->
+        <div class="lang-block">
+          <a ng-click="changeLanguages('vi')" class="vi" title="{{'vietnamese' | translate}}"></a>
+          <a ng-click="changeLanguages('en')" class="en" title="{{'english' | translate}}"></a>
+        </div>
       </div>
     </div>
   </div>
