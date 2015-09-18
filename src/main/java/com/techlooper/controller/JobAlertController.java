@@ -6,6 +6,8 @@ import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
 import org.dozer.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
 import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
+import static com.techlooper.model.JobAlertEmailResultEnum.SERVER_ERROR;
 
 /**
  * Job alert registration controller
@@ -26,6 +29,8 @@ import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
  */
 @Controller
 public class JobAlertController {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JobAlertController.class);
 
     @Resource
     private JobAggregatorService jobAggregatorService;
@@ -59,8 +64,13 @@ public class JobAlertController {
         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
         if (jobSearchResponse.getTotalJob() > 0) {
-            jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
-            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
+            try {
+                jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
+                jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
+            } catch (Exception ex) {
+                jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, SERVER_ERROR);
+                LOGGER.error(ex.getMessage(), ex);
+            }
         } else {
             jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_NOT_FOUND);
         }
