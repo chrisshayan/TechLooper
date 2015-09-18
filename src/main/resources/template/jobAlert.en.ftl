@@ -211,7 +211,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" style="color: #277cbd" >
-                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.url}" target="_blank">${job.title}</a>
+                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.url}" style="color: #277cbd" target="_blank">${job.title}</a>
                             </td>
                           </tr>
                           <tr>
@@ -244,16 +244,16 @@
                               Salary: <span style="color: #277cbd"><#if job.salary?has_content>${job.salary}<#else>Negotiable</#if></span>
                             </td>
                           </tr>
-                            <tr>
-                                <td style="height:5px; line-height: 5px;" width="100%">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="pcolor: #892890" >
-                                    From <#if job.crawlSource??>${job.crawlSource}</#if>
-                                </td>
-                            </tr>
+                          <tr>
+                            <td style="height:5px; line-height: 5px;" width="100%">
+                              <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="pcolor: #892890" >
+                              From <#if job.crawlSource??>${job.crawlSource}</#if>
+                            </td>
+                          </tr>
                         </table>
                       </td>
                     </tr>
@@ -267,6 +267,7 @@
                       <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
                       </td>
                     </tr>
+
                     <tr>
                       <td width="100%" align="center">
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
@@ -279,32 +280,223 @@
                       </td>
                     </tr>
                     <tr>
-                      <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
-
-                        <hr style="background:none; border:solid 1px #d9d9d9; border-width:1px 0 0 0; height:1px; width:100%; margin:5px 0 0 0; padding-top:5px;padding-bottom:5px;" />
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
+                      <td width="100%" height="15"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <table style="background:#fff; border-collapse: collapse; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
                           <tr>
-                            <td style="text-align: center; margin-top:0px">
-                              <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="text-align: center; margin-top:0px">
-                              <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; height:20px; display: inline-block">
-                                <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
-                              </a>
-                            </td>
-                          </tr>
-                        </table>
-                        <!--Copyright -->
-                        <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
-                          <tr>
-                            <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                              Copyright © Navigos Group Vietnam Joint Stock Company.
+                            <td style="background:#a4a6a4; height:1px; line-height: 1px; width: 100%">
+                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                             </td>
                           </tr>
                         </table>
                       </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" height="15"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                          <tr>
+                            <td align="left" style="font-size: 14px">
+                              <strong>Here are latest tech topics of the week:</strong>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="15"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                                <tr>
+                                  <td align="left" style="color: #277cbd" >
+                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=" target="_blank" style="color: #277cbd">Topics Name</a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" style="font-size: 14px">
+                                    Hi everybody, I create this special topic just for chit-chat. Feel free to talk about anything you like, such as General topics What music are you listening? What is your hobby? What are your favorite movies? &hellip;
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" style="font-size: 12px">
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Java</span>
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Angular JS</span>
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Project Management</span>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="background:#fff; border-collapse: collapse; margin:0 auto">
+                                <tbody><tr>
+                                  <td style="background:#d9d9d9; height:1px; line-height: 1px; width: 100%">
+                                    <img width="1" height="1" style="display:block; border: 0px" src="http://images.vietnamworks.com/x.gif">
+                                  </td>
+                                </tr>
+                                </tbody></table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                                <tr>
+                                  <td align="left" style="color: #277cbd" >
+                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=" target="_blank" style="color: #277cbd">Topics Name</a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" style="font-size: 14px">
+                                    Hi everybody, I create this special topic just for chit-chat. Feel free to talk about anything you like, such as General topics What music are you listening? What is your hobby? What are your favorite movies? &hellip;
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" style="font-size: 12px">
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Java</span>
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Angular JS</span>
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Project Management</span>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="background:#fff; border-collapse: collapse; margin:0 auto">
+                                <tbody><tr>
+                                  <td style="background:#d9d9d9; height:1px; line-height: 1px; width: 100%">
+                                    <img width="1" height="1" style="display:block; border: 0px" src="http://images.vietnamworks.com/x.gif">
+                                  </td>
+                                </tr>
+                                </tbody></table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="10"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <td align="left">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
+                                <tr>
+                                  <td align="left" style="color: #277cbd" >
+                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=" target="_blank" style="color: #277cbd">Topics Name</a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" style="font-size: 14px">
+                                    Hi everybody, I create this special topic just for chit-chat. Feel free to talk about anything you like, such as General topics What music are you listening? What is your hobby? What are your favorite movies? &hellip;
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="5"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="left" style="font-size: 12px">
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Java</span>
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Angular JS</span>
+                                    <span style="display: inline-block; padding: 2px 5px 4px 5px; background-color: #f4f4f4; border: 1px solid #e6e5e5; color: #7b7b7b">Project Management</span>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="20"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" align="center">
+                              <a href="${webBaseUrl}#/job-listing/${jobAlertRegistrationId}?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; text-decoration: none; color:#277cbd">View More Topics</a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" height="20"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="background:#fff; border-collapse: collapse; margin:0 auto">
+                                <tbody><tr>
+                                  <td style="background:#a4a6a4; height:1px; line-height: 1px; width: 100%">
+                                    <img width="1" height="1" style="display:block; border: 0px" src="http://images.vietnamworks.com/x.gif">
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+
+                    <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
+
+
+                      <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
+                        <tr>
+                          <td style="text-align: center; margin-top:0px">
+                            <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center; margin-top:0px">
+                            <a href="https://www.linkedin.com/company/techlooper?trk=top_nav_home" style="padding:0 8px; border: 0; height:20px; display: inline-block">
+                              <img class="icon-sn" src="http://images.vietnamworks.com/img/icon_sn_linkedin.png" title="TechLooper LinkedIn" alt="LinkedIn" style="border:0">
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                      <!--Copyright -->
+                      <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
+                        <tr>
+                          <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
+                            Copyright © Navigos Group Vietnam Joint Stock Company.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
                     </tr>
                   </table>
                 </td>
