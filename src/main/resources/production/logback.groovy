@@ -24,7 +24,7 @@ appender("ALL", RollingFileAppender) {
     maxHistory = 30
   }
   encoder(PatternLayoutEncoder) {
-    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
+    pattern = "%d{HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
   }
 }
 
@@ -35,7 +35,7 @@ appender("SPRING", RollingFileAppender) {
     maxHistory = 30
   }
   encoder(PatternLayoutEncoder) {
-    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
+    pattern = "%d{HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
   }
 }
 
