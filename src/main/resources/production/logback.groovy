@@ -17,10 +17,10 @@ def LOG_FOLDER = "/data/www-logs/techlooper/"
 
 new File(LOG_FOLDER).mkdirs()
 
-appender("ALL", RollingFileAppender) {
+appender("ROOT_FILE", RollingFileAppender) {
   file = "${LOG_FOLDER}techlooper-all.log"
   rollingPolicy(TimeBasedRollingPolicy) {
-    fileNamePattern = "${LOG_FOLDER}%d{yyyyMMdd}-techlooper.log"
+    fileNamePattern = "${LOG_FOLDER}techlooper-%d{yyyyMMdd}.log"
     maxHistory = 30
   }
   encoder(PatternLayoutEncoder) {
@@ -28,17 +28,8 @@ appender("ALL", RollingFileAppender) {
   }
 }
 
-appender("SPRING", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-spring-all.log"
-  rollingPolicy(TimeBasedRollingPolicy) {
-    fileNamePattern = "${LOG_FOLDER}%d{yyyyMMdd}-techlooper-spring.log"
-    maxHistory = 30
-  }
-  encoder(PatternLayoutEncoder) {
-    pattern = "%d{HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
-  }
-}
+logger("org.elasticsearch", ERROR)
+logger("org.hibernate", ERROR)
+logger("org.dozer", ERROR)
 
-logger("org.springframework", ALL, ["SPRING"], Boolean.FALSE)
-
-root(ALL, ["ALL"])
+root(ALL, ["ROOT_FILE"])

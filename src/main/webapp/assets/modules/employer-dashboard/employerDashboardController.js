@@ -79,7 +79,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           }
           $scope.dashboardInfo.notStartedChallenges.splice(index, 1);
           //data.closedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.closed);
-          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();;
+          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();
           $scope.$apply();
         });
     }
