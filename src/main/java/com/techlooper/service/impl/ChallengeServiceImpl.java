@@ -442,25 +442,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     });
   }
 
-//    public Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId) {
-//        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
-//        queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)));
-//
-//        int pageIndex = 0;
-//        Set<ChallengeRegistrantDto> registrants = new HashSet<>();
-//        while (true) {
-//            queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
-//            FacetedPage<ChallengeRegistrantEntity> page = challengeRegistrantRepository.search(queryBuilder.build());
-//            if (!page.hasContent()) {
-//                break;
-//            }
-//
-//            page.spliterator().forEachRemaining(registrant -> registrants.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
-//        }
-//
-//        return registrants;
-//    }
-
   public Long countRegistrantsByChallengeId(Long challengeId) {
     NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
     queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)))
@@ -480,6 +461,23 @@ public class ChallengeServiceImpl implements ChallengeService {
 
   public ChallengeDto findChallengeById(Long id) {
     return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
+  }
+
+  public Set<ChallengeRegistrantDto> findByOwner(String ownerEmail, Long challengeId) {
+    MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
+    TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
+    TermQueryBuilder challengeQuery = QueryBuilders.termQuery("challengeId", challengeId);
+    BoolQueryBuilder query = QueryBuilders.boolQuery().must(authorEmailQuery).must(challengeQuery).mustNot(notExpiredQuery);
+
+    Iterator<ChallengeEntity> challengeIterator = challengeRepository.search(query).iterator();
+    Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
+
+    if (challengeIterator.hasNext()) {
+      Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
+      registrants.forEachRemaining(registrant -> registrantDtos.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
+    }
+    
+    return registrantDtos;
   }
 
 }

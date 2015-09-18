@@ -1,4 +1,4 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $rootScope) {
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   var sortByStartDate = function (left, right) {
@@ -79,7 +79,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           }
           $scope.dashboardInfo.notStartedChallenges.splice(index, 1);
           //data.closedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.closed);
-          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();;
+          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();
           $scope.$apply();
         });
     }
@@ -89,4 +89,8 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         deleteById();
       });
   };
+
+  $scope.goToChallengeDetails = function (challenge) {
+    $location.url("challenge-detail/-" + challenge.challengeId+"-id?a=registrants");
+  }
 });

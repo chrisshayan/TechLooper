@@ -58,12 +58,12 @@
     <div class="row contest-content-detail">
 
       <ul class="nav nav-tabs contest-content-tab">
-        <li class="active"><a data-toggle="tab" href=".home" translate="detail"></a></li>
-        <li><a data-toggle="tab" href=".menu1">{{'registration' | translate}} (53)</a></li>
+        <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
+        <li><a data-toggle="tab" href=".registrants">{{'registrants' | translate}} (53)</a></li>
       </ul>
 
       <div class="tab-content contest-content-tab-detail">
-        <div class="home tab-pane fade in active">
+        <div class="detail tab-pane fade in active">
           <div class="row contest-content-item">
             <p class="title" translate="challengeOverView"></p>
             <p class="detail" translate="{{contestDetail.challengeOverview | lineBreak}}">
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="menu1 tab-pane fade">
+        <div class="registrants tab-pane fade">
           <dir-pagination-controls
               max-size="10"
               direction-links="true"

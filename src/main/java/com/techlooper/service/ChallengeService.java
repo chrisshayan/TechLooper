@@ -11,6 +11,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 /**
@@ -61,4 +62,6 @@ public interface ChallengeService {
   boolean delete(Long id, String ownerEmail);
 
   ChallengeDto findChallengeById(Long id);
+
+  Set<ChallengeRegistrantDto> findByOwner(String ownerEmail, Long challengeId);
 }
