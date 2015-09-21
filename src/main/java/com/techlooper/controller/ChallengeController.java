@@ -114,4 +114,10 @@ public class ChallengeController {
   public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) {
     return challengeService.findRegistrantsByOwner(request.getRemoteUser(), challengeId);
   }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "/challengeDetail/registrant", method = RequestMethod.POST)
+  public ChallengeRegistrantDto saveRegistrant(@RequestBody ChallengeRegistrantDto dto, HttpServletRequest request) {
+    return challengeService.saveRegistrant(request.getRemoteUser(), dto);
+  }
 }
