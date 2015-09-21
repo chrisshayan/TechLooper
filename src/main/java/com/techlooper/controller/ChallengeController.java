@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ChallengeController {
@@ -106,5 +107,11 @@ public class ChallengeController {
   @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
   public ChallengeDto findChallengeById(@PathVariable Long challengeId) throws Exception {
     return challengeService.findChallengeById(challengeId);
+  }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "/challenges/{challengeId}/registrants", method = RequestMethod.GET)
+  public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) {
+    return challengeService.findRegistrantsByOwner(request.getRemoteUser(), challengeId);
   }
 }

@@ -15,10 +15,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
-  //var parts = $routeParams.id.split("-");
-  //var contestId = parts.pop();
-  //contestId = parts.pop();
-
   $scope.status = function (type) {
     switch (type) {
       case "able-to-join":
@@ -130,9 +126,15 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
-  var param = $location.search();
-  if (param.a == "registrants") {
-    $('.nav-tabs a[href=".registrants"]').tab('show');
-  }
+
+  //var param = $location.search();
+  //if (param.a == "registrants") {
+  //  $('.nav-tabs a[href=".registrants"]').tab('show');
+  //}
+
+  apiService.getChallengeRegistrants(contestId)
+    .success(function(registrants) {
+      $scope.registrants = registrants;
+    });
 });
 

@@ -185,6 +185,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     findChallengeById: function(id) {
       return $http.get("challenges/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getRegistrantsById
+     * */
+    getChallengeRegistrants: function(challengeId) {
+      return $http.get("challenges/" + challengeId + "/registrants");
     }
   }
 

@@ -463,7 +463,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
   }
 
-  public Set<ChallengeRegistrantDto> findByOwner(String ownerEmail, Long challengeId) {
+  public Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId) {
     MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
     TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
     TermQueryBuilder challengeQuery = QueryBuilders.termQuery("challengeId", challengeId);
@@ -476,8 +476,7 @@ public class ChallengeServiceImpl implements ChallengeService {
       Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
       registrants.forEachRemaining(registrant -> registrantDtos.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
     }
-    
+
     return registrantDtos;
   }
-
 }
