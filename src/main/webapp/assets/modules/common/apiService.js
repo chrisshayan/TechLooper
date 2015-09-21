@@ -192,6 +192,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getChallengeRegistrants: function(challengeId) {
       return $http.get("challenges/" + challengeId + "/registrants");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.saveRegistrant
+     * */
+    saveChallengeRegistrant: function(registrant) {
+      return $http.post("challengeDetail/registrant", registrant);
     }
   }
 
