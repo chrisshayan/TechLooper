@@ -1,4 +1,4 @@
-<div class="contest-detail-page">
+<div class="contestant-page contest-detail-page">
   <div class="contest-detail-content">
     <div class="row contest-name">
       <h2>{{contestDetail.challengeName}}</h2>
@@ -59,7 +59,7 @@
 
       <ul class="nav nav-tabs contest-content-tab">
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
-        <li><a data-toggle="tab" href=".registrants">{{'registrants' | translate}} ({{contestDetail.numberOfRegistrants}})</a></li>
+        <li ng-show="registrants.length"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}} ({{contestDetail.numberOfRegistrants}})</a></li>
       </ul>
 
       <div class="tab-content contest-content-tab-detail">
@@ -115,7 +115,7 @@
               direction-links="true"
               boundary-links="true" >
           </dir-pagination-controls>
-          <table class="table table-striped table-hover">
+          <table class="contests-table">
             <thead>
             <tr>
               <th>{{'fullNameField' | translate}}</th>

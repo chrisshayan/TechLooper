@@ -1,7 +1,7 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter) {
 
-
+  utils.sendNotification(jsonValue.notifications.loading);
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -108,18 +108,20 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-  //var param = $location.search();
-  //if (param.a == "registrants") {
-  //  $('.nav-tabs a[href=".registrants"]').tab('show');
-  //}
 
+  var registrantsNumber = 0;
   apiService.getChallengeRegistrants(contestId)
     .success(function(registrants) {
       $scope.registrants = registrants;
-        $.each($scope.registrants, function(i, registrant){
-          registrant.registrationDate = moment(registrant.challengeId);
-        });
-        console.log($scope.registrants);
+      $.each($scope.registrants, function(i, registrant){
+        registrant.registrationDate = moment(registrant.challengeId);
+      });
+      var param = $location.search();
+      if (param.a == "registrants" && registrants.length) {
+        $('.nav-tabs a[href=".registrants"]').tab('show');
+      }
+    }).finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
     });
 });
 
