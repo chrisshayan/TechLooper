@@ -474,7 +474,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     if (challengeIterator.hasNext()) {
       Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
-      registrants.forEachRemaining(registrant -> registrantDtos.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
+      registrants.forEachRemaining(registrant -> {
+        ChallengeRegistrantDto registrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+        registrantDto.setRegistrantEmail(null);
+        registrantDtos.add(registrantDto);
+      });
     }
 
     return registrantDtos;
