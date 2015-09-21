@@ -7,53 +7,73 @@ import com.techlooper.model.Language;
  */
 public class ChallengeRegistrantDto {
 
-    private Long challengeId;
+  private Long challengeId;
 
-    private String registrantEmail;
+  private String registrantEmail;
 
-    private String registrantFirstName;
+  private String registrantFirstName;
 
-    private String registrantLastName;
+  private String registrantLastName;
 
-    private Language lang;
+  private Language lang;
 
-    public Long getChallengeId() {
-        return challengeId;
-    }
+  private Long score;
 
-    public void setChallengeId(Long challengeId) {
-        this.challengeId = challengeId;
-    }
+  private Long registrantId;
 
-    public String getRegistrantEmail() {
-        return registrantEmail;
-    }
+  public Long getRegistrantId() {
+    return registrantId;
+  }
 
-    public void setRegistrantEmail(String registrantEmail) {
-        this.registrantEmail = registrantEmail;
-    }
+  public void setRegistrantId(Long registrantId) {
+    this.registrantId = registrantId;
+  }
 
-    public String getRegistrantFirstName() {
-        return registrantFirstName;
-    }
+  public Long getScore() {
+    return score;
+  }
 
-    public void setRegistrantFirstName(String registrantFirstName) {
-        this.registrantFirstName = registrantFirstName;
-    }
+  public void setScore(Long score) {
+    this.score = score;
+  }
 
-    public String getRegistrantLastName() {
-        return registrantLastName;
-    }
+  public Long getChallengeId() {
+    return challengeId;
+  }
 
-    public void setRegistrantLastName(String registrantLastName) {
-        this.registrantLastName = registrantLastName;
-    }
+  public void setChallengeId(Long challengeId) {
+    this.challengeId = challengeId;
+  }
 
-    public Language getLang() {
-        return lang;
-    }
+  public String getRegistrantEmail() {
+    return registrantEmail;
+  }
 
-    public void setLang(Language lang) {
-        this.lang = lang;
-    }
+  public void setRegistrantEmail(String registrantEmail) {
+    this.registrantEmail = registrantEmail;
+  }
+
+  public String getRegistrantFirstName() {
+    return registrantFirstName;
+  }
+
+  public void setRegistrantFirstName(String registrantFirstName) {
+    this.registrantFirstName = registrantFirstName;
+  }
+
+  public String getRegistrantLastName() {
+    return registrantLastName;
+  }
+
+  public void setRegistrantLastName(String registrantLastName) {
+    this.registrantLastName = registrantLastName;
+  }
+
+  public Language getLang() {
+    return lang;
+  }
+
+  public void setLang(Language lang) {
+    this.lang = lang;
+  }
 }

@@ -15,10 +15,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
-  //var parts = $routeParams.id.split("-");
-  //var contestId = parts.pop();
-  //contestId = parts.pop();
-
   $scope.status = function (type) {
     switch (type) {
       case "able-to-join":
@@ -106,33 +102,24 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     });
     utils.openFBShare("/shareChallenge/" + $translate.use() + "/" + contestId);
   }
-  $scope.userRegisters =
-      [
-        {"id":1,"first_name":"Heather","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "12/05/2015", "score": "50"},
-        {"id":2,"first_name":"Johnson","last_name":"Pham","email":"thuhoang@navigosgroup.com", "registration": "08/05/2015", "score": "30"},
-        {"id":3,"first_name":"Mart","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "06/06/2015", "score": "60"},
-        {"id":4,"first_name":"Robert","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "12/05/2015", "score": "70"},
-        {"id":5,"first_name":"Nguyen","last_name":"Hoang","email":"trinh.pham@navigosgroup.com", "registration": "18/05/2015", "score": "90"},
-        {"id":6,"first_name":"Heather","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "12/05/2015", "score": "50"},
-        {"id":7,"first_name":"Johnson","last_name":"Pham","email":"thuhoang@navigosgroup.com", "registration": "08/05/2015", "score": "30"},
-        {"id":8,"first_name":"Mart","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "06/06/2015", "score": "60"},
-        {"id":9,"first_name":"Robert","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "12/05/2015", "score": "70"},
-        {"id":10,"first_name":"Nguyen","last_name":"Hoang","email":"trinh.pham@navigosgroup.com", "registration": "18/05/2015", "score": "90"},
-        {"id":11,"first_name":"Heather","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "12/05/2015", "score": "50"},
-        {"id":12,"first_name":"Johnson","last_name":"Pham","email":"thuhoang@navigosgroup.com", "registration": "08/05/2015", "score": "30"},
-        {"id":13,"first_name":"Mart","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "06/06/2015", "score": "60"},
-        {"id":14,"first_name":"Robert","last_name":"Bell","email":"trinh.pham@navigosgroup.com", "registration": "12/05/2015", "score": "70"},
-        {"id":15,"first_name":"Nguyen","last_name":"Hoang","email":"trinh.pham@navigosgroup.com", "registration": "18/05/2015", "score": "90"}
-
-      ];
 
   $scope.sortUsers = function(keyname){
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
-  var param = $location.search();
-  if (param.a == "registrants") {
-    $('.nav-tabs a[href=".registrants"]').tab('show');
-  }
+
+  //var param = $location.search();
+  //if (param.a == "registrants") {
+  //  $('.nav-tabs a[href=".registrants"]').tab('show');
+  //}
+
+  apiService.getChallengeRegistrants(contestId)
+    .success(function(registrants) {
+      $scope.registrants = registrants;
+        $.each($scope.registrants, function(i, registrant){
+          registrant.registrationDate = moment(registrant.challengeId);
+        });
+        console.log($scope.registrants);
+    });
 });
 

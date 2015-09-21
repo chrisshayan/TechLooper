@@ -59,7 +59,7 @@
 
       <ul class="nav nav-tabs contest-content-tab">
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
-        <li><a data-toggle="tab" href=".registrants">{{'registrants' | translate}} (53)</a></li>
+        <li><a data-toggle="tab" href=".registrants">{{'registrants' | translate}} ({{contestDetail.numberOfRegistrants}})</a></li>
       </ul>
 
       <div class="tab-content contest-content-tab-detail">
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="registrants tab-pane fade">
+        <div class="registrants tab-pane fade" ng-show="registrants.length">
           <dir-pagination-controls
               max-size="10"
               direction-links="true"
@@ -118,9 +118,7 @@
           <table class="table table-striped table-hover">
             <thead>
             <tr>
-              <th>{{'firstName' | translate}}</th>
-              <th>{{'lastName' | translate}}</th>
-              <th>{{'emailAddress' | translate}}</th>
+              <th>{{'fullNameField' | translate}}</th>
               <th ng-click="sortUsers('registration')">{{'registrationDate' | translate}}
                 <span class="glyphicon sort-icon" ng-show="sortKey=='registration'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
@@ -131,12 +129,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="user in userRegisters|orderBy:sortKey:reverse|itemsPerPage:10">
-              <td>{{user.first_name}}</td>
-              <td>{{user.last_name}}</td>
-              <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
-              <td>{{user.registration}}</td>
-              <td><input type="text" value="{{user.score}}" maxlength="2"/></td>
+            <tr dir-paginate="user in registrants|orderBy:sortKey:reverse|itemsPerPage:10">
+              <td>{{user.registrantFirstName}} {{user.registrantLastName}}</td>
+              <td>{{user.registrationDate | timestamp: 'numberDate'}}</td>
+              <td><input type="text" value="{{user.score || 0}}" maxlength="2"/></td>
               <td><a data-auto-close="true" data-placement="top"
                      data-template-url="modules/contest-detail/reject.html" bs-popover
                      translate="reject"></a>

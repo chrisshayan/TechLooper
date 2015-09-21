@@ -483,4 +483,17 @@ public class ChallengeServiceImpl implements ChallengeService {
         return registrantDtos;
     }
 
+    public ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto) {
+        ChallengeEntity challenge = challengeRepository.findOne(challengeRegistrantDto.getChallengeId());
+        if (ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(challengeRegistrantDto.getChallengeId());
+            dozerMapper.map(challengeRegistrantDto, registrant);
+            registrant = challengeRegistrantRepository.save(registrant);
+            challengeRegistrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+//      challengeRegistrantDto.setRegistrantEmail(null);
+        }
+        return challengeRegistrantDto;
+    }
+
+
 }
