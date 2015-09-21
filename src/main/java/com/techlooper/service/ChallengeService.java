@@ -64,4 +64,6 @@ public interface ChallengeService {
   ChallengeDto findChallengeById(Long id);
 
   Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId);
+
+  ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
 }
