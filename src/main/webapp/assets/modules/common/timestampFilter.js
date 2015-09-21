@@ -15,6 +15,9 @@ techlooper.filter("timestamp", function (jsonValue) {
 
       case 'longDate':
         return moment(input, jsonValue.dateFormat).format('ddd, DD MMMM YYYY');
+
+      case 'numberDate':
+        return moment(input, jsonValue.dateFormat).format('DD/MM/YYYY');
     }
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));

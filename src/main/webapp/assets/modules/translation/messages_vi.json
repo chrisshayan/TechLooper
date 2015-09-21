@@ -725,5 +725,6 @@
   "reason": "Reason",
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
-  "registrants": "đăng ký"
+  "registrants": "Đăng ký",
+  "fullNameField": "Họ & Tên"
 }
