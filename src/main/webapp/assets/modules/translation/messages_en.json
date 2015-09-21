@@ -724,5 +724,6 @@
   "reason": "Reason",
   "vietnamese": "Vietnamese",
   "english": "English",
-  "registrants": "registrants"
+  "registrants": "Registrants",
+  "fullNameField": "Full Name"
 }
