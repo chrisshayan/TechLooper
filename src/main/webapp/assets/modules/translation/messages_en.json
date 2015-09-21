@@ -725,5 +725,7 @@
   "vietnamese": "Vietnamese",
   "english": "English",
   "registrants": "Registrants",
-  "fullNameField": "Full Name"
+  "fullNameField": "Full Name",
+  "disqualify": "Disqualify",
+  "qualify": "Qualify"
 }

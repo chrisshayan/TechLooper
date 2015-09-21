@@ -115,6 +115,7 @@
               direction-links="true"
               boundary-links="true" >
           </dir-pagination-controls>
+          <form>
           <table class="contests-table">
             <thead>
             <tr>
@@ -126,20 +127,27 @@
                 <span class="glyphicon sort-icon" ng-show="sortKey=='score'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
               <th>{{'action' | translate}}</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="user in registrants|orderBy:sortKey:reverse|itemsPerPage:10">
+            <tr dir-paginate="user in registrants|orderBy:sortKey:reverse|itemsPerPage:10" class="qualify">
               <td>{{user.registrantFirstName}} {{user.registrantLastName}}</td>
               <td>{{user.registrationDate | timestamp: 'numberDate'}}</td>
-              <td><input type="text" value="{{user.score || 0}}" maxlength="2"/></td>
+              <td>
+                <input type="text" value="{{user.score || 0}}" maxlength="2" ng-modal="user.score"/>
+                <button ng-click="updateChallenge(user)">aa</button>
+              </td>
               <td><a data-auto-close="true" data-placement="top"
                      data-template-url="modules/contest-detail/reject.html" bs-popover
-                     translate="reject"></a>
+                     translate="disqualify"></a>
+              </td>
+              <td><a translate="qualify"></a>
               </td>
             </tr>
             </tbody>
           </table>
+          </form>
           <dir-pagination-controls
               max-size="10"
               direction-links="true"

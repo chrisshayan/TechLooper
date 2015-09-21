@@ -109,13 +109,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   };
 
 
-  var registrantsNumber = 0;
   apiService.getChallengeRegistrants(contestId)
     .success(function(registrants) {
       $scope.registrants = registrants;
       $.each($scope.registrants, function(i, registrant){
         registrant.registrationDate = moment(registrant.challengeId);
       });
+        console.log($scope.registrants);
       var param = $location.search();
       if (param.a == "registrants" && registrants.length) {
         $('.nav-tabs a[href=".registrants"]').tab('show');
@@ -123,5 +123,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
+
+  $scope.updateChallenge =function(challenge){
+    apiService.saveChallengeRegistrant(challenge);
+  };
 });
 

@@ -726,5 +726,7 @@
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
   "registrants": "Đăng ký",
-  "fullNameField": "Họ & Tên"
+  "fullNameField": "Họ tên",
+  "disqualify": "disqualify",
+  "qualify": "Qualify"
 }
