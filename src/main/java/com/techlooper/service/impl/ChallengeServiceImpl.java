@@ -47,8 +47,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
-import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
+import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
@@ -508,7 +507,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         // from <= NOW < to
         RangeFilterBuilder fromFilter = rangeFilter(challengePhase.getFromDateTimeField()).to("now/d");
         RangeFilterBuilder toFilter = rangeFilter(challengePhase.getToDateTimeField()).from("now-1d/d");
-        BoolFilterBuilder dateTimeRangeFilter = boolFilter().must(fromFilter).must(toFilter);
+        TermFilterBuilder expiredChallengeFilter = termFilter("expired", Boolean.TRUE);
+        BoolFilterBuilder dateTimeRangeFilter = boolFilter().must(fromFilter).must(toFilter).mustNot(expiredChallengeFilter);
 
         Iterator<ChallengeEntity> challengeIterator =
                 challengeRepository.search(filteredQuery(matchAllQuery(), dateTimeRangeFilter)).iterator();
