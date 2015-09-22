@@ -18,8 +18,16 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
     return "";
   }
 
-  apiService.searchContests().success(function(contests) {
+  var sortByStartDate = function (left, right) {
+    var rightStartDate = moment(right.startDateTime, jsonValue.dateFormat);
+    var leftStartDate = moment(left.startDateTime, jsonValue.dateFormat);
+    var before = rightStartDate.isBefore(leftStartDate, "day");
+    var same = rightStartDate.isSame(leftStartDate, "day");
+    return same ? 0 : (before ? -1 : 1);
+  };
 
+  apiService.searchContests().success(function(contests) {
+    contests.sort(sortByStartDate);
     $scope.contestsList = contests;
   }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
