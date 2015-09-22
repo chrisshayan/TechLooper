@@ -721,7 +721,7 @@
   "reject": "Reject",
   "pageNotFound": "This page does not exist.",
   "rejectConfirmation": "Are you sure you want to reject this contestant?",
-  "reason": "Reason",
+  "disqualifyingReason": "Disqualifying Reason",
   "vietnamese": "Vietnamese",
   "english": "English",
   "registrants": "Registrants",

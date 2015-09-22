@@ -717,16 +717,16 @@
   "latestTopicsTitle": "Chủ Đề Công Nghệ Mới Nhất",
   "edit": "Cập nhật",
   "delete": "Xoá",
-  "registrationDate": "Registration Date",
-  "score": "Score",
+  "registrationDate": "Ngày Đăng Ký",
+  "score": "Điểm",
   "reject": "Reject",
   "pageNotFound": "Trang này không tồn tại.",
-  "rejectConfirmation": "Are you sure you want to reject this contestant?",
-  "reason": "Reason",
+  "rejectConfirmation": "Bạn có muốn chọn lại thí sinh này?",
+  "disqualifyingReason": "Lý Do Loại Bỏ",
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
-  "registrants": "Đăng ký",
+  "registrants": "Thí Sinh",
   "fullNameField": "Họ tên",
-  "disqualify": "disqualify",
-  "qualify": "Qualify"
+  "disqualify": "Loại Bỏ",
+  "qualify": "Chọn Lại"
 }
