@@ -23,6 +23,16 @@ public class ChallengeRegistrantDto {
 
   private Boolean disqualified;
 
+  private String disqualifiedReason;
+
+  public String getDisqualifiedReason() {
+    return disqualifiedReason;
+  }
+
+  public void setDisqualifiedReason(String disqualifiedReason) {
+    this.disqualifiedReason = disqualifiedReason;
+  }
+
   public Boolean getDisqualified() {
     return disqualified;
   }

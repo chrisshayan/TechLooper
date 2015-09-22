@@ -44,6 +44,9 @@ public class ChallengeRegistrantEntity {
   @Field(type = Boolean)
   private Boolean disqualified;
 
+  @Field(type = String, index = FieldIndex.not_analyzed)
+  private String disqualifiedReason;
+
   public ChallengeRegistrantEntity() {
   }
 
@@ -52,6 +55,14 @@ public class ChallengeRegistrantEntity {
     this.registrantEmail = registrantEmail;
     this.registrantLastName = registrantLastName;
     this.registrantFirstName = registrantFirstName;
+  }
+
+  public java.lang.String getDisqualifiedReason() {
+    return disqualifiedReason;
+  }
+
+  public void setDisqualifiedReason(java.lang.String disqualifiedReason) {
+    this.disqualifiedReason = disqualifiedReason;
   }
 
   public java.lang.Boolean getDisqualified() {
