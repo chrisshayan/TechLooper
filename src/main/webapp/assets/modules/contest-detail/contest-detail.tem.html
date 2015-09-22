@@ -123,10 +123,10 @@
             <tr>
               <th>{{'fullNameField' | translate}}</th>
               <th ng-click="sortUsers('registration')">{{'registrationDate' | translate}}
-                <span class="glyphicon sort-icon" ng-show="sortKey=='registration'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                <i class="fa fa-chevron-circle-down" ng-class="{'fa-chevron-circle-down':reverse,'fa-chevron-circle-up':!reverse}"></i>
               </th>
               <th ng-click="sortUsers('score')">{{'score' | translate}}
-                <span class="glyphicon sort-icon" ng-show="sortKey=='score'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                <i class="fa fa-chevron-circle-down" ng-show="sortKey=='score'" ng-class="{'fa-chevron-circle-down':reverse,'fa-chevron-circle-up':!reverse}"></i>
               </th>
               <th>{{'action' | translate}}</th>
             </tr>
