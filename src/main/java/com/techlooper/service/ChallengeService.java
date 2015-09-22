@@ -28,6 +28,10 @@ public interface ChallengeService {
     void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge)
             throws MessagingException, IOException, TemplateException;
 
+    void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
+            ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase)
+            throws MessagingException, IOException, TemplateException;
+
     ChallengeDetailDto getChallengeDetail(Long challengeId);
 
     Long getNumberOfRegistrants(Long challengeId);

@@ -132,6 +132,18 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${elasticsearch.userimport.index.name}")
     private String techlooperIndex;
 
+    @Value("${mail.notifyChallengeTimeline.subject.vn}")
+    private String notifyChallengeTimelineMailSubjectVn;
+
+    @Value("${mail.notifyChallengeTimeline.subject.en}")
+    private String notifyChallengeTimelineMailSubjectEn;
+
+    @Resource
+    private Template notifyChallengeTimelineMailTemplateVi;
+
+    @Resource
+    private Template notifyChallengeTimelineMailTemplateEn;
+
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
         if (challengeDto.getChallengeId() == null) {
@@ -155,6 +167,18 @@ public class ChallengeServiceImpl implements ChallengeService {
         Template mailTemplate = isNewChallenge ? postChallengeMailTemplateEn : postChallengeUpdateMailTemplateEn;
         Address[] recipientAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
         sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, mailTemplate);
+    }
+
+    @Override
+    public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
+                  ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase)
+            throws MessagingException, IOException, TemplateException {
+        String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
+                notifyChallengeTimelineMailSubjectVn : notifyChallengeTimelineMailSubjectEn;
+        Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
+        Template template = challengeRegistrantEntity.getLang() == Language.vi ?
+                notifyChallengeTimelineMailTemplateVi : notifyChallengeTimelineMailTemplateEn;
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
     }
 
     public ChallengeDetailDto getChallengeDetail(Long challengeId) {
