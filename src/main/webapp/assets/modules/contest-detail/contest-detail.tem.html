@@ -136,7 +136,7 @@
               <td data-label="{{'fullNameField' | translate}}">{{user.registrantFirstName}} {{user.registrantLastName}}</td>
               <td data-label="{{'registrationDate' | translate}}">{{user.registrationDate | timestamp: 'numberDate'}}</td>
               <td data-label="{{'score' | translate}}">
-                <input type="number" value="{{user.score || 0}}" maxlength="2" ng-model="user.score"/>
+                <input type="text" value="{{user.score}" maxlength="3" input-number ng-model="user.score"/>
                 <button ng-click="updateChallenge(user)"><i class="fa fa-check"></i></button>
               </td>
               <td data-label="{{'action' | translate}}">
