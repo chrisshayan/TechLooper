@@ -110,11 +110,13 @@
           </div>
         </div>
         <div class="registrants tab-pane fade" ng-show="registrants.length">
+          <div class="registrants-paging">
           <dir-pagination-controls
               max-size="10"
               direction-links="true"
               boundary-links="true" >
           </dir-pagination-controls>
+            </div>
           <form>
           <table class="contests-table">
             <thead>
@@ -127,32 +129,34 @@
                 <span class="glyphicon sort-icon" ng-show="sortKey=='score'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
               <th>{{'action' | translate}}</th>
-              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="user in registrants|orderBy:sortKey:reverse|itemsPerPage:10" class="qualify">
-              <td>{{user.registrantFirstName}} {{user.registrantLastName}}</td>
-              <td>{{user.registrationDate | timestamp: 'numberDate'}}</td>
-              <td>
-                <input type="text" value="{{user.score || 0}}" maxlength="2" ng-model="user.score"/>
-                <button ng-click="updateChallenge(user)">aa</button>
+            <tr dir-paginate="user in registrants|orderBy:sortKey:reverse|itemsPerPage:10" ng-class="{qualify: user.disqualified ==!null}">
+              <td data-label="{{'fullNameField' | translate}}">{{user.registrantFirstName}} {{user.registrantLastName}}</td>
+              <td data-label="{{'registrationDate' | translate}}">{{user.registrationDate | timestamp: 'numberDate'}}</td>
+              <td data-label="{{'score' | translate}}">
+                <input type="number" value="{{user.score || 0}}" maxlength="2" ng-model="user.score"/>
+                <button ng-click="updateChallenge(user)"><i class="fa fa-check"></i></button>
               </td>
-              <td><a data-auto-close="true" data-placement="top"
-                     data-template-url="modules/contest-detail/reject.html" bs-popover
+              <td data-label="{{'action' | translate}}">
+                <a data-auto-close="true" data-placement="top" ng-show="user.disqualified == null"
+                     data-template-url="modules/contest-detail/disqualify.html" bs-popover
                      translate="disqualify"></a>
-              </td>
-              <td><a translate="qualify"></a>
+                <a translate="qualify" ng-show="user.disqualified ==true" ng-click="qualify(user)"></a>
+                <span ng-show="user.disqualifiedReason.length; user.disqualified ==true" ng-click="">{{user.disqualifiedReason}}</span>
               </td>
             </tr>
             </tbody>
           </table>
           </form>
+          <div class="registrants-paging">
           <dir-pagination-controls
               max-size="10"
               direction-links="true"
               boundary-links="true" >
           </dir-pagination-controls>
+          </div>
         </div>
       </div>
     </div>
