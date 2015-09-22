@@ -114,6 +114,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       $scope.registrants = registrants;
       $.each($scope.registrants, function(i, registrant){
         registrant.registrationDate = moment(registrant.challengeId);
+        if(registrant.score == null){
+          registrant.score = 0;
+        }
       });
       var param = $location.search();
       if (param.a == "registrants" && registrants.length) {
