@@ -3,6 +3,16 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
 
   var instance = {
 
+    sortByDateFn: function (array, dateField) {
+      return array.sort(function(left, right) {
+        var rightStartDate = moment(right[dateField], jsonValue.dateFormat);
+        var leftStartDate = moment(left[dateField], jsonValue.dateFormat);
+        var before = rightStartDate.isBefore(leftStartDate, "day");
+        var same = rightStartDate.isSame(leftStartDate, "day");
+        return same ? 0 : (before ? -1 : 1);
+      });
+    },
+
     getUiView: function (pth) {
       var path = pth || $location.path();
       var rs = {};
