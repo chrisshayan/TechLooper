@@ -5,6 +5,7 @@ import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
+import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -46,6 +47,10 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
 
 /**
@@ -54,160 +59,160 @@ import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplateUserImport;
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
-  @Resource
-  private MimeMessage postChallengeMailMessage;
+    @Resource
+    private MimeMessage postChallengeMailMessage;
 
-  @Resource
-  private Template postChallengeMailTemplateEn;
+    @Resource
+    private Template postChallengeMailTemplateEn;
 
-  @Resource
-  private Template postChallengeUpdateMailTemplateEn;
+    @Resource
+    private Template postChallengeUpdateMailTemplateEn;
 
-  @Resource
-  private Template postChallengeMailTemplateVi;
+    @Resource
+    private Template postChallengeMailTemplateVi;
 
-  @Value("${mail.postChallenge.subject.vn}")
-  private String postChallengeMailSubjectVn;
+    @Value("${mail.postChallenge.subject.vn}")
+    private String postChallengeMailSubjectVn;
 
-  @Value("${mail.postChallenge.subject.en}")
-  private String postChallengeMailSubjectEn;
+    @Value("${mail.postChallenge.subject.en}")
+    private String postChallengeMailSubjectEn;
 
-  @Value("${mail.postChallenge.techloopies.mailSubject}")
-  private String postChallengeTechloopiesMailSubject;
+    @Value("${mail.postChallenge.techloopies.mailSubject}")
+    private String postChallengeTechloopiesMailSubject;
 
-  @Value("${mail.postChallenge.techloopies.updateMailSubject}")
-  private String postChallengeTechloopiesUpdateMailSubject;
+    @Value("${mail.postChallenge.techloopies.updateMailSubject}")
+    private String postChallengeTechloopiesUpdateMailSubject;
 
-  @Value("${mail.postChallenge.techloopies.mailList}")
-  private String postChallengeTechloopiesMailList;
+    @Value("${mail.postChallenge.techloopies.mailList}")
+    private String postChallengeTechloopiesMailList;
 
-  @Value("${web.baseUrl}")
-  private String webBaseUrl;
+    @Value("${web.baseUrl}")
+    private String webBaseUrl;
 
-  @Resource
-  private Template confirmUserJoinChallengeMailTemplateEn;
+    @Resource
+    private Template confirmUserJoinChallengeMailTemplateEn;
 
-  @Resource
-  private Template confirmUserJoinChallengeMailTemplateVi;
+    @Resource
+    private Template confirmUserJoinChallengeMailTemplateVi;
 
-  @Value("${mail.confirmUserJoinChallenge.subject.vn}")
-  private String confirmUserJoinChallengeMailSubjectVn;
+    @Value("${mail.confirmUserJoinChallenge.subject.vn}")
+    private String confirmUserJoinChallengeMailSubjectVn;
 
-  @Value("${mail.confirmUserJoinChallenge.subject.en}")
-  private String confirmUserJoinChallengeMailSubjectEn;
+    @Value("${mail.confirmUserJoinChallenge.subject.en}")
+    private String confirmUserJoinChallengeMailSubjectEn;
 
-  @Resource
-  private Template alertEmployerChallengeMailTemplateEn;
+    @Resource
+    private Template alertEmployerChallengeMailTemplateEn;
 
-  @Resource
-  private Template alertEmployerChallengeMailTemplateVi;
+    @Resource
+    private Template alertEmployerChallengeMailTemplateVi;
 
-  @Value("${mail.alertEmployerChallenge.subject.vn}")
-  private String alertEmployerChallengeMailSubjectVn;
+    @Value("${mail.alertEmployerChallenge.subject.vn}")
+    private String alertEmployerChallengeMailSubjectVn;
 
-  @Value("${mail.alertEmployerChallenge.subject.en}")
-  private String alertEmployerChallengeMailSubjectEn;
+    @Value("${mail.alertEmployerChallenge.subject.en}")
+    private String alertEmployerChallengeMailSubjectEn;
 
-  @Value("${mail.techlooper.reply_to}")
-  private String mailTechlooperReplyTo;
+    @Value("${mail.techlooper.reply_to}")
+    private String mailTechlooperReplyTo;
 
-  @Resource
-  private JavaMailSender mailSender;
+    @Resource
+    private JavaMailSender mailSender;
 
-  @Resource
-  private ChallengeRepository challengeRepository;
+    @Resource
+    private ChallengeRepository challengeRepository;
 
-  @Resource
-  private ChallengeRegistrantRepository challengeRegistrantRepository;
+    @Resource
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  @Value("${elasticsearch.userimport.index.name}")
-  private String techlooperIndex;
+    @Value("${elasticsearch.userimport.index.name}")
+    private String techlooperIndex;
 
-  public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
-    ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
-    if (challengeDto.getChallengeId() == null) {
-      challengeEntity.setChallengeId(new Date().getTime());
-    }
-    return challengeRepository.save(challengeEntity);
-  }
-
-  public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
-    throws MessagingException, IOException, TemplateException {
-    String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
-    Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
-    Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
-    sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
-  }
-
-  public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge)
-    throws MessagingException, IOException, TemplateException {
-    String mailSubject = isNewChallenge ? postChallengeTechloopiesMailSubject :
-      String.format(postChallengeTechloopiesUpdateMailSubject, challengeEntity.getChallengeName());
-    Template mailTemplate = isNewChallenge ? postChallengeMailTemplateEn : postChallengeUpdateMailTemplateEn;
-    Address[] recipientAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
-    sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, mailTemplate);
-  }
-
-  public ChallengeDetailDto getChallengeDetail(Long challengeId) {
-    ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-    if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
-      ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
-      challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
-      return challengeDetailDto;
-    }
-    return null;
-  }
-
-  public Long getNumberOfRegistrants(Long challengeId) {
-    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
-    searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
-    return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
-  }
-
-  public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
-    Template template = challengeRegistrantEntity.getLang() == Language.vi ?
-      confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
-    String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
-      confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
-    mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
-    Address[] emailAddress = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
-    sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, false);
-  }
-
-  public void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
-    Template template = challengeRegistrantEntity.getLang() == Language.vi ?
-      alertEmployerChallengeMailTemplateVi : alertEmployerChallengeMailTemplateEn;
-    String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
-      alertEmployerChallengeMailSubjectVn : alertEmployerChallengeMailSubjectEn;
-    mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
-    Address[] emailAddress = getRecipientAddresses(challengeEntity, false);
-    sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, true);
-  }
-
-  public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
-    Long challengeId = challengeRegistrantDto.getChallengeId();
-    boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
-
-    if (!isExist) {
-      ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
-      ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-      sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-      sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
-      challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-      challengeRegistrantEntity.setRegistrantId(new Date().getTime());
-      challengeRegistrantRepository.save(challengeRegistrantEntity);
+    public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
+        ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
+        if (challengeDto.getChallengeId() == null) {
+            challengeEntity.setChallengeId(new Date().getTime());
+        }
+        return challengeRepository.save(challengeEntity);
     }
 
-    return getNumberOfRegistrants(challengeId);
-  }
+    public void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
+            throws MessagingException, IOException, TemplateException {
+        String mailSubject = challengeEntity.getLang() == Language.vi ? postChallengeMailSubjectVn : postChallengeMailSubjectEn;
+        Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
+        Template template = challengeEntity.getLang() == Language.vi ? postChallengeMailTemplateVi : postChallengeMailTemplateEn;
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
+    }
 
-  public List<ChallengeDetailDto> listChallenges() {
+    public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge)
+            throws MessagingException, IOException, TemplateException {
+        String mailSubject = isNewChallenge ? postChallengeTechloopiesMailSubject :
+                String.format(postChallengeTechloopiesUpdateMailSubject, challengeEntity.getChallengeName());
+        Template mailTemplate = isNewChallenge ? postChallengeMailTemplateEn : postChallengeUpdateMailTemplateEn;
+        Address[] recipientAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
+        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, mailTemplate);
+    }
+
+    public ChallengeDetailDto getChallengeDetail(Long challengeId) {
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+        if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
+            return challengeDetailDto;
+        }
+        return null;
+    }
+
+    public Long getNumberOfRegistrants(Long challengeId) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
+        return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
+    }
+
+    public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
+        Template template = challengeRegistrantEntity.getLang() == Language.vi ?
+                confirmUserJoinChallengeMailTemplateVi : confirmUserJoinChallengeMailTemplateEn;
+        String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
+                confirmUserJoinChallengeMailSubjectVn : confirmUserJoinChallengeMailSubjectEn;
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        Address[] emailAddress = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
+        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, false);
+    }
+
+    public void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) throws MessagingException, IOException, TemplateException {
+        Template template = challengeRegistrantEntity.getLang() == Language.vi ?
+                alertEmployerChallengeMailTemplateVi : alertEmployerChallengeMailTemplateEn;
+        String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
+                alertEmployerChallengeMailSubjectVn : alertEmployerChallengeMailSubjectEn;
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        Address[] emailAddress = getRecipientAddresses(challengeEntity, false);
+        sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, true);
+    }
+
+    public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
+        Long challengeId = challengeRegistrantDto.getChallengeId();
+        boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
+
+        if (!isExist) {
+            ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
+            ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+            sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+            sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+            challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            challengeRegistrantEntity.setRegistrantId(new Date().getTime());
+            challengeRegistrantRepository.save(challengeRegistrantEntity);
+        }
+
+        return getNumberOfRegistrants(challengeId);
+    }
+
+    public List<ChallengeDetailDto> listChallenges() {
 //    List<ChallengeDetailDto> challenges = new ArrayList<>();
 //    Iterator<ChallengeEntity> challengeIter = challengeRepository.findAll().iterator();
 //    while (challengeIter.hasNext()) {
@@ -217,175 +222,170 @@ public class ChallengeServiceImpl implements ChallengeService {
 //      challenges.add(challengeDetailDto);
 //    }
 //    return sortChallengesByDescendingStartDate(challenges);
-    TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
-    Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().mustNot(notExpiredQuery));
-    ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
-    challenges.forEach(challengeEntity -> {
-      ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
-      challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
-      dtos.add(challengeDetailDto);
-    });
-    dozerMapper.map(challenges, dtos);
-    return dtos;
-  }
-
-  private void sendContestApplicationEmail(Template template, String mailSubject, Address[] recipientAddresses,
-                                           ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity, boolean hasReplyTo)
-    throws MessagingException, IOException, TemplateException {
-    postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-
-    if (hasReplyTo) {
-      postChallengeMailMessage.setReplyTo(InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail()));
-    }
-    else {
-      postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
+        Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().mustNot(notExpiredQuery));
+        ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
+        challenges.forEach(challengeEntity -> {
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
+            dtos.add(challengeDetailDto);
+        });
+        dozerMapper.map(challenges, dtos);
+        return dtos;
     }
 
-    StringWriter stringWriter = new StringWriter();
-    Map<String, Object> templateModel = new HashMap<>();
-    templateModel.put("webBaseUrl", webBaseUrl);
-    templateModel.put("challengeName", challengeEntity.getChallengeName());
-    templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
-    templateModel.put("generalNote", challengeEntity.getGeneralNote());
-    templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
-    templateModel.put("documents", challengeEntity.getDocuments());
-    templateModel.put("deliverables", challengeEntity.getDeliverables());
-    templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
-    templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
-    templateModel.put("startDate", challengeEntity.getStartDateTime());
-    templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
-    templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
-    templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
-    templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
-    templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
-    templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
-    templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
-    templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
-    templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
-    templateModel.put("firstName", challengeRegistrantEntity.getRegistrantFirstName());
-    templateModel.put("lastName", challengeRegistrantEntity.getRegistrantLastName());
-    templateModel.put("registrantEmail", challengeRegistrantEntity.getRegistrantEmail());
-    templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+    private void sendContestApplicationEmail(Template template, String mailSubject, Address[] recipientAddresses,
+                                             ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity, boolean hasReplyTo)
+            throws MessagingException, IOException, TemplateException {
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
 
-    template.process(templateModel, stringWriter);
-    postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
-    postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+        if (hasReplyTo) {
+            postChallengeMailMessage.setReplyTo(InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail()));
+        } else {
+            postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        }
 
-    stringWriter.flush();
-    postChallengeMailMessage.saveChanges();
-    mailSender.send(postChallengeMailMessage);
-  }
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
+        templateModel.put("generalNote", challengeEntity.getGeneralNote());
+        templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
+        templateModel.put("documents", challengeEntity.getDocuments());
+        templateModel.put("deliverables", challengeEntity.getDeliverables());
+        templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
+        templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
+        templateModel.put("startDate", challengeEntity.getStartDateTime());
+        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
+        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
+        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
+        templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
+        templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
+        templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
+        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
+        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("firstName", challengeRegistrantEntity.getRegistrantFirstName());
+        templateModel.put("lastName", challengeRegistrantEntity.getRegistrantLastName());
+        templateModel.put("registrantEmail", challengeRegistrantEntity.getRegistrantEmail());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
-  private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject,
-                                      Address[] recipientAddresses, Template template) throws MessagingException, IOException, TemplateException {
-    postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-    postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-    StringWriter stringWriter = new StringWriter();
+        template.process(templateModel, stringWriter);
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
-    Map<String, Object> templateModel = new HashMap<>();
-    templateModel.put("webBaseUrl", webBaseUrl);
-    templateModel.put("challengeName", challengeEntity.getChallengeName());
-    templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
-    templateModel.put("generalNote", challengeEntity.getGeneralNote());
-    templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
-    templateModel.put("documents", challengeEntity.getDocuments());
-    templateModel.put("deliverables", challengeEntity.getDeliverables());
-    templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
-    templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
-    templateModel.put("startDate", challengeEntity.getStartDateTime());
-    templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
-    templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
-    templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
-    templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
-    templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
-    templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
-    templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
-    templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
-    templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
-    templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
-
-    template.process(templateModel, stringWriter);
-    mailSubject = String.format(mailSubject, challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
-    postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
-    postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
-
-    stringWriter.flush();
-    postChallengeMailMessage.saveChanges();
-    mailSender.send(postChallengeMailMessage);
-  }
-
-  private Address[] getRecipientAddresses(ChallengeEntity challengeEntity, boolean includeAuthor) throws AddressException {
-    Set<String> emails = new HashSet<>(challengeEntity.getReceivedEmails());
-    if (includeAuthor) {
-      emails.add(challengeEntity.getAuthorEmail());
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
     }
-    return InternetAddress.parse(StringUtils.join(emails, ','));
-  }
 
-  private List<ChallengeDetailDto> sortChallengesByDescendingStartDate(List<ChallengeDetailDto> challenges) {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    return challenges.stream().sorted((challenge1, challenge2) -> {
-      try {
-        if (challenge2.getStartDateTime() == null) {
-          return -1;
+    private void sendPostChallengeEmail(ChallengeEntity challengeEntity, String mailSubject,
+                                        Address[] recipientAddresses, Template template) throws MessagingException, IOException, TemplateException {
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
+        templateModel.put("generalNote", challengeEntity.getGeneralNote());
+        templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
+        templateModel.put("documents", challengeEntity.getDocuments());
+        templateModel.put("deliverables", challengeEntity.getDeliverables());
+        templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
+        templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
+        templateModel.put("startDate", challengeEntity.getStartDateTime());
+        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
+        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
+        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
+        templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
+        templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
+        templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
+        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
+        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+
+        template.process(templateModel, stringWriter);
+        mailSubject = String.format(mailSubject, challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
+    }
+
+    private Address[] getRecipientAddresses(ChallengeEntity challengeEntity, boolean includeAuthor) throws AddressException {
+        Set<String> emails = new HashSet<>(challengeEntity.getReceivedEmails());
+        if (includeAuthor) {
+            emails.add(challengeEntity.getAuthorEmail());
         }
-        else if (challenge1.getStartDateTime() == null) {
-          return 1;
-        }
-        long challenge2StartDate = sdf.parse(challenge2.getStartDateTime()).getTime();
-        long challenge1StartDate = sdf.parse(challenge1.getStartDateTime()).getTime();
-        if (challenge2StartDate - challenge1StartDate > 0) {
-          return 1;
-        }
-        else if (challenge2StartDate - challenge1StartDate < 0) {
-          return -1;
-        }
-        else {
-          return 0;
-        }
-      }
-      catch (ParseException e) {
-        return 0;
-      }
-    }).collect(Collectors.toList());
-  }
+        return InternetAddress.parse(StringUtils.join(emails, ','));
+    }
 
-  public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
-    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-    searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
-      .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
-      .must(QueryBuilders.termQuery("challengeId", challengeId))
-      .must(QueryBuilders.termQuery("mailSent", true)));
+    private List<ChallengeDetailDto> sortChallengesByDescendingStartDate(List<ChallengeDetailDto> challenges) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return challenges.stream().sorted((challenge1, challenge2) -> {
+            try {
+                if (challenge2.getStartDateTime() == null) {
+                    return -1;
+                } else if (challenge1.getStartDateTime() == null) {
+                    return 1;
+                }
+                long challenge2StartDate = sdf.parse(challenge2.getStartDateTime()).getTime();
+                long challenge1StartDate = sdf.parse(challenge1.getStartDateTime()).getTime();
+                if (challenge2StartDate - challenge1StartDate > 0) {
+                    return 1;
+                } else if (challenge2StartDate - challenge1StartDate < 0) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            } catch (ParseException e) {
+                return 0;
+            }
+        }).collect(Collectors.toList());
+    }
 
-    long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
-    return (total > 0);
-  }
+    public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+        searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
+                .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
+                .must(QueryBuilders.termQuery("challengeId", challengeId))
+                .must(QueryBuilders.termQuery("mailSent", true)));
 
-  @Override
-  public Long getTotalNumberOfChallenges() {
-    return challengeRepository.count();
-  }
+        long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
+        return (total > 0);
+    }
 
-  @Override
-  public Double getTotalAmountOfPrizeValues() {
-    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
-    searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
+    @Override
+    public Long getTotalNumberOfChallenges() {
+        return challengeRepository.count();
+    }
 
-    SumBuilder sumPrizeBuilder = sum("sumPrize").script("doc['firstPlaceReward'].value + doc['secondPlaceReward'].value + doc['thirdPlaceReward'].value");
-    searchQueryBuilder.addAggregation(sumPrizeBuilder);
+    @Override
+    public Double getTotalAmountOfPrizeValues() {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
 
-    Aggregations aggregations = elasticsearchTemplateUserImport.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
-    Sum sumReponse = aggregations.get("sumPrize");
-    return sumReponse != null ? sumReponse.getValue() : 0D;
-  }
+        SumBuilder sumPrizeBuilder = sum("sumPrize").script("doc['firstPlaceReward'].value + doc['secondPlaceReward'].value + doc['thirdPlaceReward'].value");
+        searchQueryBuilder.addAggregation(sumPrizeBuilder);
 
-  @Override
-  public Long getTotalNumberOfRegistrants() {
-    return challengeRegistrantRepository.count();
-  }
+        Aggregations aggregations = elasticsearchTemplateUserImport.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
+        Sum sumReponse = aggregations.get("sumPrize");
+        return sumReponse != null ? sumReponse.getValue() : 0D;
+    }
 
-  @Override
-  public ChallengeDetailDto getTheLatestChallenge() {
+    @Override
+    public Long getTotalNumberOfRegistrants() {
+        return challengeRegistrantRepository.count();
+    }
+
+    @Override
+    public ChallengeDetailDto getTheLatestChallenge() {
 //    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
 //    searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
 //    searchQueryBuilder.withSort(SortBuilders.fieldSort("challengeId").order(SortOrder.DESC));
@@ -396,110 +396,127 @@ public class ChallengeServiceImpl implements ChallengeService {
 //      ChallengeEntity challengeEntity = challengeEntities.get(0);
 //      return dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
 //    }
-    return listChallenges().get(0);
-  }
+        return listChallenges().get(0);
+    }
 
-  public Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner,
-                                                                Predicate<? super ChallengeEntity> condition) {
-    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challenge");
-    QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(owner).defaultField("authorEmail");
-    queryBuilder.withFilter(FilterBuilders.queryFilter(query));
+    public Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner,
+                                                                  Predicate<? super ChallengeEntity> condition) {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challenge");
+        QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(owner).defaultField("authorEmail");
+        queryBuilder.withFilter(FilterBuilders.queryFilter(query));
 
-    int pageIndex = 0;
-    Set<ChallengeDetailDto> challenges = new HashSet<>();
-    while (true) {
-      queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
-      FacetedPage<ChallengeEntity> page = challengeRepository.search(queryBuilder.build());
-      if (!page.hasContent()) {
-        break;
-      }
+        int pageIndex = 0;
+        Set<ChallengeDetailDto> challenges = new HashSet<>();
+        while (true) {
+            queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
+            FacetedPage<ChallengeEntity> page = challengeRepository.search(queryBuilder.build());
+            if (!page.hasContent()) {
+                break;
+            }
 
-      page.spliterator().forEachRemaining(challenge -> {
-        if (condition.test(challenge)) {
-          ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
-          challengeDetailDto.setNumberOfRegistrants(countRegistrantsByChallengeId(challenge.getChallengeId()));
-          challenges.add(challengeDetailDto);
+            page.spliterator().forEachRemaining(challenge -> {
+                if (condition.test(challenge)) {
+                    ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
+                    challengeDetailDto.setNumberOfRegistrants(countRegistrantsByChallengeId(challenge.getChallengeId()));
+                    challenges.add(challengeDetailDto);
+                }
+            });
         }
-      });
-    }
-    return challenges;
-  }
-
-  public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
-    MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
-    TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
-    Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
-    ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
-    challenges.forEach(challengeEntity -> {
-      ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
-      challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
-      dtos.add(challengeDetailDto);
-    });
-    dozerMapper.map(challenges, dtos);
-    return dtos;
-  }
-
-  public Collection<ChallengeDetailDto> findInProgressChallenges(String owner) {
-    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-    return findByOwnerAndCondition(owner, challengeEntity -> {
-      DateTime startDate = dateTimeFormatter.parseDateTime(challengeEntity.getStartDateTime());
-      DateTime submissionDate = dateTimeFormatter.parseDateTime(challengeEntity.getSubmissionDateTime());
-      DateTime now = DateTime.now();
-      boolean inRange = now.isAfter(startDate) && now.isBefore(submissionDate);
-      boolean atBoundary = now.isEqual(startDate) || now.isEqual(submissionDate);
-      return inRange || atBoundary;
-    });
-  }
-
-  public Long countRegistrantsByChallengeId(Long challengeId) {
-    NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
-    queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)))
-      .withSearchType(SearchType.COUNT);
-    return challengeRegistrantRepository.search(queryBuilder.build()).getTotalElements();
-  }
-
-  public boolean delete(Long id, String ownerEmail) {
-    ChallengeEntity challenge = challengeRepository.findOne(id);
-    if (challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
-      challenge.setExpired(Boolean.TRUE);
-      challengeRepository.save(challenge);
-      return true;
-    }
-    return false;
-  }
-
-  public ChallengeDto findChallengeById(Long id) {
-    return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
-  }
-
-  public Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId) {
-    MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
-    TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
-    TermQueryBuilder challengeQuery = QueryBuilders.termQuery("challengeId", challengeId);
-    BoolQueryBuilder query = QueryBuilders.boolQuery().must(authorEmailQuery).must(challengeQuery).mustNot(notExpiredQuery);
-
-    Iterator<ChallengeEntity> challengeIterator = challengeRepository.search(query).iterator();
-    Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
-
-    if (challengeIterator.hasNext()) {
-      Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
-      registrants.forEachRemaining(registrant -> registrantDtos.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
+        return challenges;
     }
 
-    return registrantDtos;
-  }
+    public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
+        MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
+        TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
+        Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
+        ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
+        challenges.forEach(challengeEntity -> {
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
+            dtos.add(challengeDetailDto);
+        });
+        dozerMapper.map(challenges, dtos);
+        return dtos;
+    }
 
-  public ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto) {
-    ChallengeEntity challenge = challengeRepository.findOne(challengeRegistrantDto.getChallengeId());
-    if (ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
-      ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(challengeRegistrantDto.getRegistrantId());
-      challengeRegistrantDto.setRegistrantEmail(registrant.getRegistrantEmail());
-      dozerMapper.map(challengeRegistrantDto, registrant);
-      registrant = challengeRegistrantRepository.save(registrant);
-      challengeRegistrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+    public Collection<ChallengeDetailDto> findInProgressChallenges(String owner) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+        return findByOwnerAndCondition(owner, challengeEntity -> {
+            DateTime startDate = dateTimeFormatter.parseDateTime(challengeEntity.getStartDateTime());
+            DateTime submissionDate = dateTimeFormatter.parseDateTime(challengeEntity.getSubmissionDateTime());
+            DateTime now = DateTime.now();
+            boolean inRange = now.isAfter(startDate) && now.isBefore(submissionDate);
+            boolean atBoundary = now.isEqual(startDate) || now.isEqual(submissionDate);
+            return inRange || atBoundary;
+        });
+    }
+
+    public Long countRegistrantsByChallengeId(Long challengeId) {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
+        queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)))
+                .withSearchType(SearchType.COUNT);
+        return challengeRegistrantRepository.search(queryBuilder.build()).getTotalElements();
+    }
+
+    public boolean delete(Long id, String ownerEmail) {
+        ChallengeEntity challenge = challengeRepository.findOne(id);
+        if (challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+            challenge.setExpired(Boolean.TRUE);
+            challengeRepository.save(challenge);
+            return true;
+        }
+        return false;
+    }
+
+    public ChallengeDto findChallengeById(Long id) {
+        return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
+    }
+
+    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId) {
+        MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
+        TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
+        TermQueryBuilder challengeQuery = QueryBuilders.termQuery("challengeId", challengeId);
+        BoolQueryBuilder query = QueryBuilders.boolQuery().must(authorEmailQuery).must(challengeQuery).mustNot(notExpiredQuery);
+
+        Iterator<ChallengeEntity> challengeIterator = challengeRepository.search(query).iterator();
+        Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
+
+        if (challengeIterator.hasNext()) {
+            Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
+            registrants.forEachRemaining(registrant -> registrantDtos.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
+        }
+
+        return registrantDtos;
+    }
+
+    public ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto) {
+        ChallengeEntity challenge = challengeRepository.findOne(challengeRegistrantDto.getChallengeId());
+        if (ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(challengeRegistrantDto.getRegistrantId());
+            challengeRegistrantDto.setRegistrantEmail(registrant.getRegistrantEmail());
+            dozerMapper.map(challengeRegistrantDto, registrant);
+            registrant = challengeRegistrantRepository.save(registrant);
+            challengeRegistrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
 //      challengeRegistrantDto.setRegistrantEmail(null);
+        }
+        return challengeRegistrantDto;
     }
-    return challengeRegistrantDto;
-  }
+
+    @Override
+    public List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase) {
+        List<ChallengeEntity> challengeEntities = new ArrayList<>();
+        // from <= NOW < to
+        RangeFilterBuilder fromFilter = rangeFilter(challengePhase.getFromDateTimeField()).to("now/d");
+        RangeFilterBuilder toFilter = rangeFilter(challengePhase.getToDateTimeField()).from("now-1d/d");
+        BoolFilterBuilder dateTimeRangeFilter = boolFilter().must(fromFilter).must(toFilter);
+
+        Iterator<ChallengeEntity> challengeIterator =
+                challengeRepository.search(filteredQuery(matchAllQuery(), dateTimeRangeFilter)).iterator();
+        while (challengeIterator.hasNext()) {
+            challengeEntities.add(challengeIterator.next());
+        }
+
+        return challengeEntities;
+    }
 
 }

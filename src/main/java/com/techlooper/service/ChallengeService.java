@@ -5,6 +5,7 @@ import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
+import com.techlooper.model.ChallengePhaseEnum;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -42,6 +43,8 @@ public interface ChallengeService {
     List<ChallengeDetailDto> listChallenges();
 
     List<ChallengeDetailDto> listChallenges(String ownerEmail);
+
+    List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase);
 
     Long getTotalNumberOfChallenges();
 
