@@ -48,8 +48,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.FilterBuilders.*;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
 
 /**
@@ -221,8 +220,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 //      challenges.add(challengeDetailDto);
 //    }
 //    return sortChallengesByDescendingStartDate(challenges);
-        TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
-        Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().mustNot(notExpiredQuery));
+        TermQueryBuilder notExpiredQuery = termQuery("expired", Boolean.TRUE);
+        Iterable<ChallengeEntity> challenges = challengeRepository.search(boolQuery().mustNot(notExpiredQuery));
         ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
         challenges.forEach(challengeEntity -> {
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
@@ -351,10 +350,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
-        searchQueryBuilder.withQuery(QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchPhraseQuery("registrantEmail", email))
-                .must(QueryBuilders.termQuery("challengeId", challengeId))
-                .must(QueryBuilders.termQuery("mailSent", true)));
+        searchQueryBuilder.withQuery(boolQuery()
+                .must(matchPhraseQuery("registrantEmail", email))
+                .must(termQuery("challengeId", challengeId))
+                .must(termQuery("mailSent", true)));
 
         long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
         return (total > 0);
@@ -368,7 +367,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public Double getTotalAmountOfPrizeValues() {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
-        searchQueryBuilder.withQuery(QueryBuilders.matchAllQuery());
+        searchQueryBuilder.withQuery(matchAllQuery());
 
         SumBuilder sumPrizeBuilder = sum("sumPrize").script("doc['firstPlaceReward'].value + doc['secondPlaceReward'].value + doc['thirdPlaceReward'].value");
         searchQueryBuilder.addAggregation(sumPrizeBuilder);
@@ -401,7 +400,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner,
                                                                   Predicate<? super ChallengeEntity> condition) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challenge");
-        QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(owner).defaultField("authorEmail");
+        QueryStringQueryBuilder query = queryStringQuery(owner).defaultField("authorEmail");
         queryBuilder.withFilter(FilterBuilders.queryFilter(query));
 
         int pageIndex = 0;
@@ -425,9 +424,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
-        MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
-        TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
-        Iterable<ChallengeEntity> challenges = challengeRepository.search(QueryBuilders.boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
+        MatchQueryBuilder authorEmailQuery = matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
+        TermQueryBuilder notExpiredQuery = termQuery("expired", Boolean.TRUE);
+        Iterable<ChallengeEntity> challenges = challengeRepository.search(boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
         ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
         challenges.forEach(challengeEntity -> {
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
@@ -452,7 +451,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     public Long countRegistrantsByChallengeId(Long challengeId) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("challengeRegistrant");
-        queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("challengeId", challengeId)))
+        queryBuilder.withFilter(FilterBuilders.queryFilter(termQuery("challengeId", challengeId)))
                 .withSearchType(SearchType.COUNT);
         return challengeRegistrantRepository.search(queryBuilder.build()).getTotalElements();
     }
@@ -472,12 +471,19 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId) {
-        MatchQueryBuilder authorEmailQuery = QueryBuilders.matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
-        TermQueryBuilder notExpiredQuery = QueryBuilders.termQuery("expired", Boolean.TRUE);
-        TermQueryBuilder challengeQuery = QueryBuilders.termQuery("challengeId", challengeId);
-        BoolQueryBuilder query = QueryBuilders.boolQuery().must(authorEmailQuery).must(challengeQuery).mustNot(notExpiredQuery);
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
 
-        Iterator<ChallengeEntity> challengeIterator = challengeRepository.search(query).iterator();
+        if (StringUtils.isNotEmpty(ownerEmail)) {
+            boolQueryBuilder.must(matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%"));
+        }
+
+        TermQueryBuilder challengeQuery = termQuery("challengeId", challengeId);
+        if (challengeId != null) {
+            boolQueryBuilder.must(challengeQuery);
+        }
+
+        boolQueryBuilder.mustNot(termQuery("expired", Boolean.TRUE));
+        Iterator<ChallengeEntity> challengeIterator = challengeRepository.search(boolQueryBuilder).iterator();
         Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
 
         if (challengeIterator.hasNext()) {
