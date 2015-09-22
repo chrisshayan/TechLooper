@@ -21,6 +21,16 @@ public class ChallengeRegistrantDto {
 
   private Long registrantId;
 
+  private Boolean disqualified;
+
+  public Boolean getDisqualified() {
+    return disqualified;
+  }
+
+  public void setDisqualified(Boolean disqualified) {
+    this.disqualified = disqualified;
+  }
+
   public Long getRegistrantId() {
     return registrantId;
   }

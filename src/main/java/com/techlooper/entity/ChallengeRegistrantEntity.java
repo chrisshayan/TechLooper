@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -37,8 +38,11 @@ public class ChallengeRegistrantEntity {
   @Field(type = String, index = FieldIndex.not_analyzed)
   private Language lang;
 
-  @Field(type = Long, index = FieldIndex.not_analyzed)
+  @Field(type = Long)
   private Long score;
+
+  @Field(type = Boolean)
+  private Boolean disqualified;
 
   public ChallengeRegistrantEntity() {
   }
@@ -48,6 +52,14 @@ public class ChallengeRegistrantEntity {
     this.registrantEmail = registrantEmail;
     this.registrantLastName = registrantLastName;
     this.registrantFirstName = registrantFirstName;
+  }
+
+  public java.lang.Boolean getDisqualified() {
+    return disqualified;
+  }
+
+  public void setDisqualified(java.lang.Boolean disqualified) {
+    this.disqualified = disqualified;
   }
 
   public java.lang.Long getScore() {
