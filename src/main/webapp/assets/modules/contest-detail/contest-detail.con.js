@@ -111,6 +111,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   apiService.getChallengeRegistrants(contestId)
     .success(function(registrants) {
+      utils.sortByDateFn(registrants, "challengeId");
       $scope.registrants = registrants;
       $.each($scope.registrants, function(i, registrant){
         registrant.registrationDate = moment(registrant.challengeId);
