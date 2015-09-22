@@ -1,17 +1,10 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-  var sortByStartDate = function (left, right) {
-    var rightStartDate = moment(right.startDateTime, jsonValue.dateFormat);
-    var leftStartDate = moment(left.startDateTime, jsonValue.dateFormat);
-    var before = rightStartDate.isBefore(leftStartDate, "day");
-    var same = rightStartDate.isSame(leftStartDate, "day");
-    return same ? 0 : (before ? -1 : 1);
-  };
 
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
-      data.challenges.sort(sortByStartDate);
+      utils.sortByDateFn(utils.sortByDateFn(data.challenges, "startDateTime"));
 
       data.activeChallenges = $filter("progress")(data.challenges, "challenges", [jsonValue.status.registration, jsonValue.status.progress]);
       data.notStartedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.notStarted);
