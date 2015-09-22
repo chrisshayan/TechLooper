@@ -135,7 +135,7 @@
               <td>{{user.registrantFirstName}} {{user.registrantLastName}}</td>
               <td>{{user.registrationDate | timestamp: 'numberDate'}}</td>
               <td>
-                <input type="text" value="{{user.score || 0}}" maxlength="2" ng-modal="user.score"/>
+                <input type="text" value="{{user.score || 0}}" maxlength="2" ng-model="user.score"/>
                 <button ng-click="updateChallenge(user)">aa</button>
               </td>
               <td><a data-auto-close="true" data-placement="top"
