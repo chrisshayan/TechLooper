@@ -721,12 +721,13 @@
   "score": "Điểm",
   "reject": "Reject",
   "pageNotFound": "Trang này không tồn tại.",
-  "rejectConfirmation": "Bạn có muốn chọn lại thí sinh này?",
+  "disqualifyConfirmation": "Bạn có muốn loại bỏ thí sinh này?",
   "disqualifyingReason": "Lý Do Loại Bỏ",
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
   "registrants": "Thí Sinh",
   "fullNameField": "Họ tên",
   "disqualify": "Loại Bỏ",
-  "qualify": "Chọn Lại"
+  "qualify": "Chọn Lại",
+  "qualifyConfirmation": "Bạn có muốn chọn lại thí sinh này?"
 }

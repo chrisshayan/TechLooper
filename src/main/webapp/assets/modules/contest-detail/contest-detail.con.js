@@ -154,6 +154,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.updateScore = function(registrant) {
+    console.log(registrant);
     apiService.saveChallengeRegistrant(registrant)
       .success(function (rt) {
         registrant.score = rt.score;

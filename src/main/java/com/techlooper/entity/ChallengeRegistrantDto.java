@@ -17,7 +17,7 @@ public class ChallengeRegistrantDto {
 
   private Language lang;
 
-  private Long score;
+  private Double score;
 
   private Long registrantId;
 
@@ -49,11 +49,11 @@ public class ChallengeRegistrantDto {
     this.registrantId = registrantId;
   }
 
-  public Long getScore() {
+  public Double getScore() {
     return score;
   }
 
-  public void setScore(Long score) {
+  public void setScore(Double score) {
     this.score = score;
   }
 
