@@ -6,6 +6,7 @@ import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
+import com.techlooper.service.ForumService;
 import com.techlooper.service.JobAggregatorService;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.util.DateTimeUtils;
@@ -39,6 +40,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
@@ -63,6 +65,9 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
 
     @Resource
     private JobSearchService vietnamWorksJobSearchService;
+
+    @Resource
+    private ForumService forumService;
 
     @Resource
     private Mapper dozerMapper;
@@ -138,6 +143,10 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         mapJobCrawlSource(jobSearchResponse);
         templateModel.put("jobs", jobSearchResponse.getJobs());
         templateModel.put("jobAlertRegistrationId", String.valueOf(jobAlertRegistrationEntity.getJobAlertRegistrationId()));
+
+        TopicList latestTopicList = forumService.getLatestTopics();
+        List<Topic> topics = latestTopicList.getTopics().stream().limit(3).collect(Collectors.toList());
+        templateModel.put("topics", topics);
 
         template.process(templateModel, stringWriter);
         jobAlertMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));

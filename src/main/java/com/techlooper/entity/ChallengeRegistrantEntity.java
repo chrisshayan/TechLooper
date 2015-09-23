@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Double;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -16,89 +17,123 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 @Document(indexName = "techlooper", type = "challengeRegistrant")
 public class ChallengeRegistrantEntity {
 
-    @Id
-    private Long registrantId;
+  @Id
+  private Long registrantId;
 
-    @Field(type = String, index = FieldIndex.not_analyzed)
-    private String registrantEmail;
+  @Field(type = String, index = FieldIndex.not_analyzed)
+  private String registrantEmail;
 
-    @Field(type = Long)
-    private Long challengeId;
+  @Field(type = Long)
+  private Long challengeId;
 
-    @Field(type = String)
-    private String registrantFirstName;
+  @Field(type = String)
+  private String registrantFirstName;
 
-    @Field(type = String)
-    private String registrantLastName;
+  @Field(type = String)
+  private String registrantLastName;
 
-    @Field(type = Boolean)
-    private Boolean mailSent;
+  @Field(type = Boolean)
+  private Boolean mailSent;
 
-    @Field(type = String, index = FieldIndex.not_analyzed)
-    private Language lang;
+  @Field(type = String, index = FieldIndex.not_analyzed)
+  private Language lang;
 
-    public ChallengeRegistrantEntity() {}
+  @Field(type = Double)
+  private Double score;
 
-    public ChallengeRegistrantEntity(Long registrantId, java.lang.String registrantEmail, java.lang.String registrantFirstName, String registrantLastName) {
-        this.registrantId = registrantId;
-        this.registrantEmail = registrantEmail;
-        this.registrantLastName = registrantLastName;
-        this.registrantFirstName = registrantFirstName;
-    }
+  @Field(type = Boolean)
+  private Boolean disqualified;
 
-    public Long getRegistrantId() {
-        return registrantId;
-    }
+  @Field(type = String, index = FieldIndex.not_analyzed)
+  private String disqualifiedReason;
 
-    public void setRegistrantId(Long registrantId) {
-        this.registrantId = registrantId;
-    }
+  public ChallengeRegistrantEntity() {
+  }
 
-    public Long getChallengeId() {
-        return challengeId;
-    }
+  public ChallengeRegistrantEntity(Long registrantId, java.lang.String registrantEmail, java.lang.String registrantFirstName, String registrantLastName) {
+    this.registrantId = registrantId;
+    this.registrantEmail = registrantEmail;
+    this.registrantLastName = registrantLastName;
+    this.registrantFirstName = registrantFirstName;
+  }
 
-    public void setChallengeId(Long challengeId) {
-        this.challengeId = challengeId;
-    }
+  public java.lang.String getDisqualifiedReason() {
+    return disqualifiedReason;
+  }
 
-    public String getRegistrantEmail() {
-        return registrantEmail;
-    }
+  public void setDisqualifiedReason(java.lang.String disqualifiedReason) {
+    this.disqualifiedReason = disqualifiedReason;
+  }
 
-    public void setRegistrantEmail(String registrantEmail) {
-        this.registrantEmail = registrantEmail;
-    }
+  public java.lang.Boolean getDisqualified() {
+    return disqualified;
+  }
 
-    public String getRegistrantFirstName() {
-        return registrantFirstName;
-    }
+  public void setDisqualified(java.lang.Boolean disqualified) {
+    this.disqualified = disqualified;
+  }
 
-    public void setRegistrantFirstName(String registrantFirstName) {
-        this.registrantFirstName = registrantFirstName;
-    }
+  public Double getScore() {
+    return score;
+  }
 
-    public String getRegistrantLastName() {
-        return registrantLastName;
-    }
+  public void setScore(Double score) {
+    this.score = score;
+  }
 
-    public void setRegistrantLastName(String registrantLastName) {
-        this.registrantLastName = registrantLastName;
-    }
+  public Long getRegistrantId() {
+    return registrantId;
+  }
 
-    public Boolean getMailSent() {
-        return mailSent;
-    }
+  public void setRegistrantId(Long registrantId) {
+    this.registrantId = registrantId;
+  }
 
-    public void setMailSent(Boolean mailSent) {
-        this.mailSent = mailSent;
-    }
+  public Long getChallengeId() {
+    return challengeId;
+  }
 
-    public Language getLang() {
-        return lang;
-    }
+  public void setChallengeId(Long challengeId) {
+    this.challengeId = challengeId;
+  }
 
-    public void setLang(Language lang) {
-        this.lang = lang;
-    }
+  public String getRegistrantEmail() {
+    return registrantEmail;
+  }
+
+  public void setRegistrantEmail(String registrantEmail) {
+    this.registrantEmail = registrantEmail;
+  }
+
+  public String getRegistrantFirstName() {
+    return registrantFirstName;
+  }
+
+  public void setRegistrantFirstName(String registrantFirstName) {
+    this.registrantFirstName = registrantFirstName;
+  }
+
+  public String getRegistrantLastName() {
+    return registrantLastName;
+  }
+
+  public void setRegistrantLastName(String registrantLastName) {
+    this.registrantLastName = registrantLastName;
+  }
+
+  public Boolean getMailSent() {
+    return mailSent;
+  }
+
+  public void setMailSent(Boolean mailSent) {
+    this.mailSent = mailSent;
+  }
+
+  public Language getLang() {
+    return lang;
+  }
+
+  public void setLang(Language lang) {
+    this.lang = lang;
+  }
 }

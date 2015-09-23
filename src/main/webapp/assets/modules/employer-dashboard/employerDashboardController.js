@@ -1,17 +1,10 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $rootScope) {
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-  var sortByStartDate = function (left, right) {
-    var rightStartDate = moment(right.startDateTime, jsonValue.dateFormat);
-    var leftStartDate = moment(left.startDateTime, jsonValue.dateFormat);
-    var before = rightStartDate.isBefore(leftStartDate, "day");
-    var same = rightStartDate.isSame(leftStartDate, "day");
-    return same ? 0 : (before ? -1 : 1);
-  };
 
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
-      data.challenges.sort(sortByStartDate);
+      utils.sortByDate(data.challenges, "startDateTime");
 
       data.activeChallenges = $filter("progress")(data.challenges, "challenges", [jsonValue.status.registration, jsonValue.status.progress]);
       data.notStartedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.notStarted);
@@ -79,7 +72,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           }
           $scope.dashboardInfo.notStartedChallenges.splice(index, 1);
           //data.closedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.closed);
-          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();;
+          if (!$scope.dashboardInfo.notStartedChallenges.length) $scope.changeChallengesByStatus();
           $scope.$apply();
         });
     }
@@ -89,4 +82,8 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         deleteById();
       });
   };
+
+  $scope.goToChallengeDetails = function (challenge) {
+    $location.url("challenge-detail/-" + challenge.challengeId+"-id?a=registrants");
+  }
 });

@@ -201,9 +201,82 @@
             color: #727272
     .contest-content-detail
       margin-top: 20px
-      display: -ms-flexbox
-      display: -webkit-flex
-      display: flex
+      width: 100%
+      clear: both
+      display: inline-block
+      //display: -ms-flexbox
+      //display: -webkit-flex
+      //display: flex
+      .contest-content-tab
+        display: inline-block
+        clear: both
+        width: 100%
+        font-weight: 400
+        float: left
+      .contest-content-tab-detail
+        display: inline-block
+        clear: both
+        width: 100%
+        -webkit-border-bottom-left-radius: 5px
+        -moz-border-radius-bottomleft: 5px
+        border-bottom-left-radius: 5px
+        -webkit-border-bottom-right-radius: 5px
+        -moz-border-radius-bottomright: 5px
+        border-bottom-right-radius: 5px
+        border: 1px solid #ddd
+        border-top: 0
+        padding: 20px
+        .registrants-paging
+          display: inline-block
+          clear: both
+          text-align: right
+          width: 100%
+        table.contests-table
+          margin: 5px 0 10px 0
+          tr.qualify
+            background-color: #f3fafe
+            color: #929292
+            input
+              color: #333
+            button
+              color: #333
+            span
+              font-style: italic
+              font-size: 12px
+              line-height: 16px
+              display: block
+              word-break: break-all
+          th:first-child
+            width: 55%
+            text-align: left
+          th:nth-child(2)
+            width: 20%
+            cursor: pointer
+          td:nth-child(2)
+            min-width: inherit
+          th:nth-child(3)
+            width: 10%
+            cursor: pointer
+          td:nth-child(3)
+            input
+              width: 60px
+              text-align: center
+              border-radius: 5px
+              border: 1px solid #d4d7d8
+            button
+              height: 26px
+              border-radius: 5px
+              border: 1px solid #d4d7d8
+              background-color: #fff
+          th:nth-child(3)
+            width: 15%
+          td
+            p.note
+              text-align: right
+              padding-bottom: 10px
+            a
+              font-weight: 400
+              cursor: pointer
       .col-md-12
         -webkit-border-top-left-radius: 5px
         -webkit-border-bottom-left-radius: 5px
@@ -268,5 +341,33 @@
           text-transform: capitalize
         .contest-content-item
           padding-left: 15px
+      .popover
+        background-color: #fff
+        color: #333
+        border: 1px solid #ddd
+        text-align: center
+        textarea.textarea-style
+          width: 100%
+          height: 70px
+        p
+          text-align: left !important
+          padding-bottom: 5px
+          font-size: 14px
+        a.btn
+          padding: 6px 20px !important
+          height: auto !important
+          color: #fff
+          display: inline-block
+          text-shadow: none
+        a.gray
+          color: #333
+        a.gray:hover
+          color: #fff
+        p.note
+          text-align: right !important
+          font-size: 12px
+      .popover.top > .arrow::after,
+      .popover.top > .arrow
+        border-top-color: #fff
     .alert
       margin-top: 20px

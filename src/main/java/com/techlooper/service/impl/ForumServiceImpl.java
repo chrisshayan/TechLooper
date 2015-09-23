@@ -7,6 +7,7 @@ import com.techlooper.service.ForumService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -32,7 +33,13 @@ public class ForumServiceImpl implements ForumService {
 
         if (enableForumIntegration) {
             String latestTopicUrl = apiEndpoint + "/latest.json";
-            ResponseEntity<TopicModel> responseEntity = restTemplate.getForEntity(latestTopicUrl, TopicModel.class);
+
+            ResponseEntity<TopicModel> responseEntity;
+            try {
+                responseEntity = restTemplate.getForEntity(latestTopicUrl, TopicModel.class);
+            } catch (RestClientException ex) {
+                return topicList;
+            }
 
             if (responseEntity != null) {
                 topicList = responseEntity.getBody().getTopicList();

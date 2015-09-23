@@ -5,12 +5,14 @@ import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
+import com.techlooper.model.ChallengePhaseEnum;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 /**
@@ -18,47 +20,57 @@ import java.util.function.Predicate;
  */
 public interface ChallengeService {
 
-  ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception;
+    ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception;
 
-  void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
-    throws MessagingException, IOException, TemplateException;
+    void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
+            throws MessagingException, IOException, TemplateException;
 
-  void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity)
-    throws MessagingException, IOException, TemplateException;
+    void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge)
+            throws MessagingException, IOException, TemplateException;
 
-  ChallengeDetailDto getChallengeDetail(Long challengeId);
+    void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
+            ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
 
-  Long getNumberOfRegistrants(Long challengeId);
+    ChallengeDetailDto getChallengeDetail(Long challengeId);
 
-  void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-    throws MessagingException, IOException, TemplateException;
+    Long getNumberOfRegistrants(Long challengeId);
 
-  void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-    throws MessagingException, IOException, TemplateException;
+    void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
 
-  long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
+    void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
 
-  List<ChallengeDetailDto> listChallenges();
+    long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
 
-  List<ChallengeDetailDto> listChallenges(String ownerEmail);
+    List<ChallengeDetailDto> listChallenges();
 
-  Long getTotalNumberOfChallenges();
+    List<ChallengeDetailDto> listChallenges(String ownerEmail);
 
-  Double getTotalAmountOfPrizeValues();
+    List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase);
 
-  Long getTotalNumberOfRegistrants();
+    Long getTotalNumberOfChallenges();
 
-  ChallengeDetailDto getTheLatestChallenge();
+    Double getTotalAmountOfPrizeValues();
 
-  Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner, Predicate<? super ChallengeEntity> condition);
+    Long getTotalNumberOfRegistrants();
 
-  Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
+    ChallengeDetailDto getTheLatestChallenge();
+
+    Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner, Predicate<? super ChallengeEntity> condition);
+
+    Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
 
 //  Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId);
 
-  Long countRegistrantsByChallengeId(Long challengeId);
+    Long countRegistrantsByChallengeId(Long challengeId);
 
-  boolean delete(Long id, String ownerEmail);
+    boolean delete(Long id, String ownerEmail);
 
-  ChallengeDto findChallengeById(Long id);
+    ChallengeDto findChallengeById(Long id);
+
+    Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId);
+
+    ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
+
 }
