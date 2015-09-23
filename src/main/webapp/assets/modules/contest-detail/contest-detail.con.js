@@ -153,12 +153,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
   }
 
-  $scope.updateScore = function(registrant) {
-    console.log(registrant);
+  $scope.updateScore = function(registrant, $event) {
     apiService.saveChallengeRegistrant(registrant)
-      .success(function (rt) {
-        registrant.score = rt.score;
-      });
+    .success(function (rt) {
+      registrant.score = rt.score;
+    }).finally(function () {
+      $($event.currentTarget).addClass('blue-text');
+    });
   }
 });
 
