@@ -5,17 +5,20 @@ package com.techlooper.model;
  */
 public enum ChallengePhaseEnum {
 
-    REGISTRATION("startDateTime", "registrationDateTime"),
+    REGISTRATION("startDateTime", "registrationDateTime", "REGISTRATION"),
 
-    IN_PROGRESS("registrationDateTime", "submissionDateTime");
+    IN_PROGRESS("registrationDateTime", "submissionDateTime", "IN_PROGRESS");
 
     private String fromDateTimeField;
 
     private String toDateTimeField;
 
-    private ChallengePhaseEnum(String fromDateTimeField, String toDateTimeField) {
+    private String value;
+
+    private ChallengePhaseEnum(String fromDateTimeField, String toDateTimeField, String value) {
         this.fromDateTimeField = fromDateTimeField;
         this.toDateTimeField = toDateTimeField;
+        this.value = value;
     }
 
     public String getFromDateTimeField() {
@@ -32,5 +35,13 @@ public enum ChallengePhaseEnum {
 
     public void setToDateTimeField(String toDateTimeField) {
         this.toDateTimeField = toDateTimeField;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

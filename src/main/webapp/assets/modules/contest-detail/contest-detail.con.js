@@ -152,7 +152,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
     utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
   }
-
   $scope.updateScore = function(registrant, $event) {
     apiService.saveChallengeRegistrant(registrant)
     .success(function (rt) {

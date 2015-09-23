@@ -142,8 +142,8 @@
                 <input type="text"
                        ng-init="user.score = user.score || 0"
                        ng-model="user.score"
-                       input-number input-number-fraction="1" />
-                <button ng-click="updateScore(user, $event)" class="btn-check"><i class="fa fa-check"></i></button>
+                      input-number="strict" input-number-fraction="1" />
+                <button ng-click="updateScore(user, $event)"><i class="fa fa-check"></i></button>
               </td>
               <td data-label="{{'action' | translate}}">
                 <a data-auto-close="true" data-placement="top" ng-show="user.disqualified == null"

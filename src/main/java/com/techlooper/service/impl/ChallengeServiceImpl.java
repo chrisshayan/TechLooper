@@ -10,6 +10,7 @@ import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -132,11 +133,17 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${elasticsearch.userimport.index.name}")
     private String techlooperIndex;
 
-    @Value("${mail.notifyChallengeTimeline.subject.vn}")
-    private String notifyChallengeTimelineMailSubjectVn;
+    @Value("${mail.notifyChallengeTimelineRegistration.subject.vn}")
+    private String notifyChallengeTimelineRegistrationMailSubjectVn;
 
-    @Value("${mail.notifyChallengeTimeline.subject.en}")
-    private String notifyChallengeTimelineMailSubjectEn;
+    @Value("${mail.notifyChallengeTimelineRegistration.subject.en}")
+    private String notifyChallengeTimelineRegistrationMailSubjectEn;
+
+    @Value("${mail.notifyChallengeTimelineInProgress.subject.vn}")
+    private String notifyChallengeTimelineInProgressMailSubjectVn;
+
+    @Value("${mail.notifyChallengeTimelineInProgress.subject.en}")
+    private String notifyChallengeTimelineInProgressMailSubjectEn;
 
     @Resource
     private Template notifyChallengeTimelineMailTemplateVi;
@@ -171,14 +178,73 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                  ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase)
-            throws MessagingException, IOException, TemplateException {
-        String mailSubject = challengeRegistrantEntity.getLang() == Language.vi ?
-                notifyChallengeTimelineMailSubjectVn : notifyChallengeTimelineMailSubjectEn;
+                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+        String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
                 notifyChallengeTimelineMailTemplateVi : notifyChallengeTimelineMailTemplateEn;
-        sendPostChallengeEmail(challengeEntity, mailSubject, recipientAddresses, template);
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
+        templateModel.put("generalNote", challengeEntity.getGeneralNote());
+        templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
+        templateModel.put("documents", challengeEntity.getDocuments());
+        templateModel.put("deliverables", challengeEntity.getDeliverables());
+        templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
+        templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
+        templateModel.put("startDate", challengeEntity.getStartDateTime());
+        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
+        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
+        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
+        templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
+        templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
+        templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
+        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
+        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+
+        int numberOfDays = 0;
+        if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
+            numberOfDays = DateTimeUtils.daysBetween(DateTimeUtils.currentDate(), challengeEntity.getRegistrationDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
+            numberOfDays = DateTimeUtils.daysBetween(DateTimeUtils.currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
+        }
+
+        templateModel.put("numberOfDays", numberOfDays);
+        templateModel.put("challengePhase", challengePhase.getValue());
+        templateModel.put("challengeRegistrant", challengeRegistrantEntity);
+
+        template.process(templateModel, stringWriter);
+        mailSubject = String.format(mailSubject, numberOfDays, challengeEntity.getChallengeName());
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
+    }
+
+    private String getNotifyRegistrantChallengeTimelineSubject(
+            ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) {
+        if (challengeRegistrantEntity.getLang() == Language.vi) {
+            if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
+                return notifyChallengeTimelineRegistrationMailSubjectVn;
+            } else {
+                return notifyChallengeTimelineInProgressMailSubjectVn;
+            }
+        } else {
+            if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
+                return notifyChallengeTimelineRegistrationMailSubjectEn;
+            } else {
+                return notifyChallengeTimelineInProgressMailSubjectEn;
+            }
+        }
     }
 
     public ChallengeDetailDto getChallengeDetail(Long challengeId) {

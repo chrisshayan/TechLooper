@@ -29,8 +29,7 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-            ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase)
-            throws MessagingException, IOException, TemplateException;
+            ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
 
     ChallengeDetailDto getChallengeDetail(Long challengeId);
 

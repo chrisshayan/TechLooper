@@ -161,12 +161,16 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Dear <strong>${registrantFirstName}</strong> <strong>${registrantLastName}</strong>,
+                        Dear <#if challengeRegistrant.registrantFirstName??><strong>${challengeRegistrant.registrantFirstName}</strong></#if> <#if challengeRegistrant.registrantLastName??><strong>${challengeRegistrant.registrantLastName}</strong></#if>,
                       </td>
                     </tr>
                       <tr>
                           <td align="left" style="font-size: 14px;">
-                              There are <strong>${numberOfDays} more day(s) to start</strong> the following challenge.
+                            <#if challengePhase == "REGISTRATION">
+                                There are <strong>${numberOfDays} more day(s) to start</strong> the following challenge.
+                            <#elseif challengePhase == "IN_PROGRESS">
+                                There are <strong>${numberOfDays} more day(s) to submit your deliverables</strong> for the following challenge.
+                            </#if>
                           </td>
                       </tr>
                     <tr>
