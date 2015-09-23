@@ -28,6 +28,11 @@ public class DateTimeUtils {
         return formatter.format(datetime);
     }
 
+    public static String currentDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat(BASIC_DATE_PATTERN);
+        return formatter.format(new Date());
+    }
+
     public static String currentDate(String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(new Date());
@@ -35,6 +40,12 @@ public class DateTimeUtils {
 
     public static int daysBetween(Date firstDate, Date secondDate) {
         return Days.daysBetween(new DateTime(firstDate), new DateTime(secondDate)).getDays();
+    }
+
+    public static int daysBetween(String firstDateStr, String secondDateStr) throws ParseException {
+        DateTime firstDateTime = new DateTime(string2Date(firstDateStr, BASIC_DATE_PATTERN));
+        DateTime secondDateTime = new DateTime(string2Date(secondDateStr, BASIC_DATE_PATTERN));
+        return Days.daysBetween(firstDateTime, secondDateTime).getDays();
     }
 
 }
