@@ -149,7 +149,9 @@
                 <a data-auto-close="true" data-placement="top" ng-show="user.disqualified == null"
                      data-template-url="modules/contest-detail/disqualify.html" bs-popover
                      translate="disqualify"></a>
-                <a translate="qualify" ng-show="user.disqualified ==true" ng-click="qualify(user)"></a>
+                <a translate="qualify" data-auto-close="true" data-placement="top"
+                   data-template-url="modules/contest-detail/qualify.html" bs-popover
+                   ng-show="user.disqualified ==true"></a>
                 <span ng-show="user.disqualifiedReason.length; user.disqualified ==true" ng-click="">{{user.disqualifiedReason}}</span>
               </td>
             </tr>
