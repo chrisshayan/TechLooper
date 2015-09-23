@@ -720,12 +720,13 @@
   "score": "Score",
   "reject": "Reject",
   "pageNotFound": "This page does not exist.",
-  "rejectConfirmation": "Are you sure you want to reject this contestant?",
+  "disqualifyConfirmation": "Are you sure you want to reject this contestant?",
   "disqualifyingReason": "Disqualifying Reason",
   "vietnamese": "Vietnamese",
   "english": "English",
   "registrants": "Registrants",
   "fullNameField": "Full Name",
   "disqualify": "Disqualify",
-  "qualify": "Qualify"
+  "qualify": "Qualify",
+  "qualifyConfirmation": "Are you sure to qualify this contestant again?"
 }

@@ -1,13 +1,15 @@
 package com.techlooper.entity;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.*;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Double;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
+import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 /**
  * Created by NguyenDangKhoa on 7/3/15.
