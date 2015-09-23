@@ -4,7 +4,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
-      utils.sortByDateFn(data.challenges, "startDateTime");
+      utils.sortByDate(data.challenges, "startDateTime");
 
       data.activeChallenges = $filter("progress")(data.challenges, "challenges", [jsonValue.status.registration, jsonValue.status.progress]);
       data.notStartedChallenges = $filter("progress")(data.challenges, "challenges", jsonValue.status.notStarted);

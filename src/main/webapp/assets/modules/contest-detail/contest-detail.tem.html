@@ -122,22 +122,25 @@
             <thead>
             <tr>
               <th>{{'fullNameField' | translate}}</th>
-              <th ng-click="sortUsers('registration')">{{'registrationDate' | translate}}
-                <i class="fa fa-chevron-circle-down" ng-class="{'fa-chevron-circle-down':reverse,'fa-chevron-circle-up':!reverse}"></i>
+              <th ng-click="sortByStartDate()">{{'registrationDate' | translate}}
+                <i class="fa fa-chevron-circle-down"
+                   ng-class="{'fa-chevron-circle-down':sortStartDate == 'desc','fa-chevron-circle-up': sortStartDate == 'asc'}"></i>
               </th>
-              <th ng-click="sortUsers('score')">{{'score' | translate}}
-                <i class="fa fa-chevron-circle-down" ng-show="sortKey=='score'" ng-class="{'fa-chevron-circle-down':reverse,'fa-chevron-circle-up':!reverse}"></i>
+              <th ng-click="sortByScore()">{{'score' | translate}}
+                <i class="fa fa-chevron-circle-down" ng-show="sortScore"
+                   ng-class="{'fa-chevron-circle-down': sortScore == 'desc','fa-chevron-circle-up': sortScore == 'asc'}"></i>
+                <!--<i class="fa {{sort}}"></i>-->
               </th>
               <th>{{'action' | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="user in registrants|orderBy:sortKey:reverse|itemsPerPage:10" ng-class="{qualify: user.disqualified ==!null}">
+            <tr dir-paginate="user in registrants | itemsPerPage:10" ng-class="{qualify: user.disqualified ==!null}">
               <td data-label="{{'fullNameField' | translate}}">{{user.registrantFirstName}} {{user.registrantLastName}}</td>
-              <td data-label="{{'registrationDate' | translate}}">{{user.registrationDate | timestamp: 'numberDate'}}</td>
+              <td data-label="{{'registrationDate' | translate}}">{{user.registrantId | timestamp: 'number'}}</td>
               <td data-label="{{'score' | translate}}">
-                <input type="text" value="{{user.score}" maxlength="3" input-number ng-model="user.score"/>
-                <button ng-click="updateChallenge(user)"><i class="fa fa-check"></i></button>
+                <input type="text" ng-init="user.score = user.score || 0" ng-model="user.score" input-number />
+                <button ng-click="updateScore(user)"><i class="fa fa-check"></i></button>
               </td>
               <td data-label="{{'action' | translate}}">
                 <a data-auto-close="true" data-placement="top" ng-show="user.disqualified == null"

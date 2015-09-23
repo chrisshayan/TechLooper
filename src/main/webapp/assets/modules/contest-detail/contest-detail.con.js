@@ -103,41 +103,61 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     utils.openFBShare("/shareChallenge/" + $translate.use() + "/" + contestId);
   }
 
-  $scope.sortUsers = function(keyname){
+  $scope.sortUsers = function (keyname) {
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-
   apiService.getChallengeRegistrants(contestId)
-    .success(function(registrants) {
-      utils.sortByDateFn(registrants, "challengeId");
+    .success(function (registrants) {
       $scope.registrants = registrants;
-      $.each($scope.registrants, function(i, registrant){
-        registrant.registrationDate = moment(registrant.challengeId);
-        if(registrant.score == null){
-          registrant.score = 0;
-        }
-      });
+      $scope.sortByStartDate();
       var param = $location.search();
       if (param.a == "registrants" && registrants.length) {
         $('.nav-tabs a[href=".registrants"]').tab('show');
       }
     }).finally(function () {
-      utils.sendNotification(jsonValue.notifications.loaded);
-    });
+    utils.sendNotification(jsonValue.notifications.loaded);
+  });
 
-  $scope.updateChallenge =function(challenge){
-    apiService.saveChallengeRegistrant(challenge);
+  $scope.disqualify = function (registrant) {
+    registrant.disqualified = true;
+    apiService.saveChallengeRegistrant(registrant)
+      .success(function (rt) {
+        registrant.disqualified = rt.disqualified;
+        registrant.disqualifiedReason = rt.disqualifiedReason;
+      });
   };
-  $scope.disqualify =function(challenge){
-    challenge.disqualified = true;
-    $scope.updateChallenge(challenge);
+
+  $scope.qualify = function (registrant) {
+    delete registrant.disqualified;
+    delete registrant.disqualifiedReason;
+    apiService.saveChallengeRegistrant(registrant)
+      .success(function (rt) {
+        registrant.disqualified = rt.disqualified;
+        registrant.disqualifiedReason = rt.disqualifiedReason;
+      });
   };
-  $scope.qualify =function(challenge){
-    challenge.disqualified = null;
-    challenge.disqualifiedReason=null
-    $scope.updateChallenge(challenge);
-  };
+
+  $scope.sortByScore = function () {
+    delete $scope.sortStartDate;
+    $scope.sortScore = $scope.sortScore || "asc";
+    $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
+    utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
+  }
+
+  $scope.sortByStartDate = function () {
+    delete $scope.sortScore;
+    $scope.sortStartDate = $scope.sortStartDate || "asc";
+    $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
+    utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
+  }
+
+  $scope.updateScore = function(registrant) {
+    apiService.saveChallengeRegistrant(registrant)
+      .success(function (rt) {
+        registrant.score = rt.score;
+      });
+  }
 });
 
