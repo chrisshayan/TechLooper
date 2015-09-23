@@ -161,12 +161,16 @@
                     </tr>
                       <tr>
                           <td align="left" style="font-size: 14px;">
-                              Xin chào <strong>${registrantFirstName}</strong> <strong>${registrantLastName}</strong>,
+                              Xin chào <#if challengeRegistrant.registrantFirstName??><strong>${challengeRegistrant.registrantFirstName}</strong></#if> <#if challengeRegistrant.registrantLastName??><strong>${challengeRegistrant.registrantLastName}</strong></#if>,
                           </td>
                       </tr>
                       <tr>
                           <td align="left" style="font-size: 14px;">
-                              Chỉ còn <strong>${numberOfDays} ngày nữa</strong> để bắt đầu thử thách sau.
+                          <#if challengePhase == "REGISTRATION">
+                              Còn <strong>${numberOfDays} ngày nữa sẽ bắt đầu</strong> thử thách sau.
+                          <#elseif challengePhase == "IN_PROGRESS">
+                              Còn <strong>${numberOfDays} ngày nữa để nộp tài liệu </strong> cho thử thách sau.
+                          </#if>
                           </td>
                       </tr>
                     <tr>

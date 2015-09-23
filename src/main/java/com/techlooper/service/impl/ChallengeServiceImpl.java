@@ -178,7 +178,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+           ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
@@ -601,8 +601,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     public List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase) {
         List<ChallengeEntity> challengeEntities = new ArrayList<>();
         // from <= NOW < to
-        RangeFilterBuilder fromFilter = rangeFilter(challengePhase.getFromDateTimeField()).to("now/d");
-        RangeFilterBuilder toFilter = rangeFilter(challengePhase.getToDateTimeField()).from("now-1d/d");
+        RangeFilterBuilder fromFilter = rangeFilter(challengePhase.getFromDateTimeField()).lt("now/d");
+        RangeFilterBuilder toFilter = rangeFilter(challengePhase.getToDateTimeField()).gte("now/d");
         TermFilterBuilder expiredChallengeFilter = termFilter("expired", Boolean.TRUE);
         BoolFilterBuilder dateTimeRangeFilter = boolFilter().must(fromFilter).must(toFilter).mustNot(expiredChallengeFilter);
 
