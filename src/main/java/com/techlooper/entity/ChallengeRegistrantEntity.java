@@ -7,9 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
-import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 
 /**
  * Created by NguyenDangKhoa on 7/3/15.
@@ -38,8 +36,8 @@ public class ChallengeRegistrantEntity {
   @Field(type = String, index = FieldIndex.not_analyzed)
   private Language lang;
 
-  @Field(type = Long)
-  private Long score;
+  @Field(type = Double)
+  private Double score;
 
   @Field(type = Boolean)
   private Boolean disqualified;
@@ -73,11 +71,11 @@ public class ChallengeRegistrantEntity {
     this.disqualified = disqualified;
   }
 
-  public java.lang.Long getScore() {
+  public Double getScore() {
     return score;
   }
 
-  public void setScore(java.lang.Long score) {
+  public void setScore(Double score) {
     this.score = score;
   }
 
