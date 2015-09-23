@@ -89,6 +89,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
   }
 
   $scope.changeLanguages = function(key){
+    $scope.langKey = key;
     localStorage.NG_TRANSLATE_LANG_KEY = key;
     $window.location.reload();
   }
