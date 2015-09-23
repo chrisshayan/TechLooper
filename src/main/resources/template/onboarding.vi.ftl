@@ -207,7 +207,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Giúp bạn hiểu sâu các kỹ năng đang có nhu cầu cao trên thị trường. Từ đó giúp bạn luôn đón đầu công nghệ và xu hướng phát triển của thị trường.</td>
+                                        <td style="font-size: 14px;">Giúp bạn hiểu sâu các kỹ năng đang có <strong style="color:#000; font-size: 14px; font-weight: 600;">nhu cầu cao</strong> trên thị trường. Từ đó giúp bạn luôn <strong style="color:#000; font-size: 14px; font-weight: 600;">đón đầu công nghệ</strong> và <strong style="color:#000; font-size: 14px; font-weight: 600;">xu hướng phát triển</strong> của thị trường.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -230,7 +230,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Giúp bạn đánh giá thu nhập của mình so với thị trường chung.</td>
+                                        <td style="font-size: 14px;">Giúp bạn <strong style="color:#000; font-size: 14px; font-weight: 600;">đánh giá thu nhập</strong> của mình so với thị trường chung.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -251,7 +251,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ffe4ef;float:left; height:165px" class="fullWidth">
+                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ffe4ef;float:left; height:185px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#8b4964">
@@ -261,7 +261,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Chỉ với một bước đơn giản để biết những kỹ năng hàng đầu đang được yêu cầu nhiều nhất từ các nhà tuyển dụng. Từ đó, bạn có thể bắt tay hoàn thiện các kỹ năng nhằm hướng tới công việc mơ ước.</td>
+                                        <td style="font-size: 14px;">Chỉ với một bước đơn giản để biết những <strong style="color:#000; font-size: 14px; font-weight: 600;">kỹ năng hàng đầu</strong> đang được yêu cầu nhiều nhất từ các nhà tuyển dụng. Từ đó, bạn có thể bắt tay hoàn thiện các kỹ năng nhằm hướng tới <strong style="color:#000; font-size: 14px; font-weight: 600;">công việc mơ ước</strong>.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -274,7 +274,7 @@
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fff0dc;float:left; height:165px" class="fullWidth">
+                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fff0dc;float:left; height:185px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#f29b27">
@@ -284,7 +284,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Công việc đang trở thành trực tuyến. Và các freelancer hàng đầu hiện đang tạo ra thu nhập tuyệt vời từ những công việc như vậy. Với khả năng, trách nhiệm và cam kết tạo ra những sản phẩm tuyệt vời, bạn có thể nhanh chóng xây dựng sự nghiệp riêng mà bạn yêu thích thông qua các dự án freelancer.</td>
+                                        <td style="font-size: 14px;"><strong style="color:#000; font-size: 14px; font-weight: 600;">Công việc đang trở thành trực tuyến</strong>. Và các freelancer hàng đầu hiện đang tạo ra thu nhập tuyệt vời từ những công việc như vậy. Với khả năng, trách nhiệm và cam kết tạo ra những sản phẩm tuyệt vời, bạn có thể nhanh chóng <strong style="color:#000; font-size: 14px; font-weight: 600;">xây dựng sự nghiệp riêng mà bạn yêu thích thông qua các dự án freelancer</strong>.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -315,7 +315,8 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Hơn cả giải thưởng và kinh nghiệm đạt được, hãy chứng tỏ đam mê lập trình và khả năng của bạn cho các nhà tuyển dụng hàng đầu thông qua các thử thách dành cho cộng đồng IT.</td>
+                                        <td style="font-size: 14px;">Hơn cả giải thưởng và kinh nghiệm đạt được, hãy chứng tỏ <strong style="color:#000; font-size: 14px; font-weight: 600;">đam mê lập trình
+                                        </strong> và khả năng của bạn cho các nhà tuyển dụng hàng đầu thông qua các <strong style="color:#000; font-size: 14px; font-weight: 600;">thử thách dành cho cộng đồng IT</strong>.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -338,7 +339,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">TechLooper tập hợp nhiều dữ liệu việc làm IT cao nhất ở Việt Nam. Với hơn 8000 việc làm mỗi tháng.</td>
+                                        <td style="font-size: 14px;">TechLooper tập hợp nhiều dữ liệu <strong style="color:#000; font-size: 14px; font-weight: 600;">việc làm IT cao nhất</strong> ở Việt Nam. Với hơn <strong style="color:#000; font-size: 14px; font-weight: 600;">8000</strong> việc làm mỗi tháng.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -369,7 +370,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Cùng nhau chia sẻ và cập nhật kiến thức của bạn thông qua các sự kiện trực tuyến công nghệ cao.</td>
+                                        <td style="font-size: 14px;">Cùng nhau <strong style="color:#000; font-size: 14px; font-weight: 600;">chia sẻ</strong> và <strong style="color:#000; font-size: 14px; font-weight: 600;">cập nhật</strong> kiến thức của bạn thông qua các <strong style="color:#000; font-size: 14px; font-weight: 600;">sự kiện trực tuyến công nghệ cao</strong>.</td>
                                       </tr>
                                     </table>
                                   </td>
@@ -392,7 +393,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">Theo dõi và nghiên cứu vào chủ đề công nghệ mới nhất được quan tâm rất nhiều những ngày qua.</td>
+                                        <td style="font-size: 14px;"><strong style="color:#000; font-size: 14px; font-weight: 600;">Theo dõi</strong> và <strong style="color:#000; font-size: 14px; font-weight: 600;">nghiên cứu</strong> vào chủ đề <strong style="color:#000; font-size: 14px; font-weight: 600;">công nghệ mới nhất</strong> được quan tâm rất nhiều những ngày qua.</td>
                                       </tr>
                                     </table>
                                   </td>
