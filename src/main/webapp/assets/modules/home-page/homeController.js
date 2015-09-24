@@ -52,6 +52,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     utils.sendNotification(jsonValue.notifications.loading);
     $scope.jobAlertForm.$setSubmitted();
     if ($scope.jobAlertForm.$invalid) {
+      utils.sendNotification(jsonValue.notifications.loaded);
       return;
     }
 
