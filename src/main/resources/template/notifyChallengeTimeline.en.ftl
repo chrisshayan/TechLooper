@@ -199,7 +199,7 @@
                                     Challenge Name:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeName}
+                                  ${challengeEntity.challengeName}
                                   </td>
                                 </tr>
                                 <tr>
@@ -215,7 +215,7 @@
                                     Challenge Overview:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeOverview?replace("\n", "<br>")}
+                                  ${challengeEntity.challengeOverview?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -231,7 +231,7 @@
                                     Business Requirements:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${businessRequirement?replace("\n", "<br>")}
+                                  ${challengeEntity.businessRequirement?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -247,7 +247,7 @@
                                     General Notes:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${generalNote?replace("\n", "<br>")}
+                                  ${challengeEntity.generalNote?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -279,7 +279,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${documents?replace("\n", "<br>")}
+                                  ${challengeEntity.documents?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -295,7 +295,7 @@
                                     Deliverables:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${deliverables?replace("\n", "<br>")}
+                                  ${challengeEntity.deliverables?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -327,7 +327,7 @@
                                     Review Style:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${reviewStyle}
+                                  ${challengeEntity.reviewStyle}
                                   </td>
                                 </tr>
                               </table>
@@ -363,7 +363,7 @@
                                     Your Challenge Will Start On:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${startDate}
+                                  ${challengeEntity.startDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -379,7 +379,7 @@
                                     Contestants Have To Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${registrationDate}
+                                  ${challengeEntity.registrationDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -395,7 +395,7 @@
                                     And Contestants Must Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${submissionDate}
+                                  ${challengeEntity.submissionDateTime}
                                   </td>
                                 </tr>
 
@@ -446,7 +446,7 @@
                                     Quality of Idea:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${qualityIdea}
+                                  ${challengeEntity.qualityIdea}
                                   </td>
                                 </tr>
                                 <tr>

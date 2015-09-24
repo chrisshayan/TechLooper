@@ -178,7 +178,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-           ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
@@ -188,25 +188,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         StringWriter stringWriter = new StringWriter();
 
         Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("challengeEntity", challengeEntity);
         templateModel.put("webBaseUrl", webBaseUrl);
-        templateModel.put("challengeName", challengeEntity.getChallengeName());
-        templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
-        templateModel.put("generalNote", challengeEntity.getGeneralNote());
         templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
-        templateModel.put("documents", challengeEntity.getDocuments());
-        templateModel.put("deliverables", challengeEntity.getDeliverables());
         templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
-        templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
-        templateModel.put("startDate", challengeEntity.getStartDateTime());
-        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
-        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
-        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
         templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
         templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
-        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
-        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         int numberOfDays = 0;
