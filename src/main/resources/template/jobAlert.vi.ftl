@@ -301,6 +301,7 @@
                       <td width="100%" height="15"><img height="1" width="1" src=" http://images.vietnamworks.com/x.gif" style="display:block" border="0" />
                       </td>
                     </tr>
+                    <#if topics?has_content>
                     <tr>
                       <td align="left">
                           <table width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -436,6 +437,7 @@
                           </table>
                       </td>
                     </tr>
+                        </#if>
                     <tr>
                       <td style="font-family: Arial, sans-serif; padding:10px 10px 30px 10px; margin: 0 auto; " class="content-padding">
                         <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
