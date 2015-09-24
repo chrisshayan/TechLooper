@@ -1,22 +1,21 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.UserEntity;
-import com.techlooper.entity.UserRegistration;
-import com.techlooper.entity.VnwUserProfile;
+import com.techlooper.entity.*;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.repository.couchbase.UserRegistrationRepository;
 import com.techlooper.repository.couchbase.UserRepository;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.repository.elasticsearch.ProjectRegistrantRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
+import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.repository.talentsearch.query.TalentSearchQuery;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
-import com.techlooper.service.TalentSearchDataProcessor;
-import com.techlooper.service.UserEvaluationService;
-import com.techlooper.service.UserService;
-import com.techlooper.service.VietnamWorksUserService;
+import com.techlooper.service.*;
+import freemarker.template.Template;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -26,6 +25,7 @@ import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,14 +33,19 @@ import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.elasticsearch.index.query.QueryBuilders.wildcardQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 
 /**
  * Created by NguyenDangKhoa on 12/11/14.
@@ -50,26 +55,23 @@ public class UserServiceImpl implements UserService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-  //@Resource
-  private UserRepository userRepository;
+//  @Resource
+//  private UserRepository userRepository;
 
   @Resource
   private UserImportRepository userImportRepository;
 
-  //@Resource
-  private UserRegistrationRepository userRegistrationRepository;
-
   @Resource
   private Mapper dozerMapper;
 
-  @Resource
-  private TextEncryptor textEncryptor;
+//  @Resource
+//  private TextEncryptor textEncryptor;
 
-  @Resource
-  private VietnamWorksUserService vietnamworksUserService;
+//  @Resource
+//  private VietnamWorksUserService vietnamworksUserService;
 
-  @Resource
-  private UserEvaluationService userEvaluationService;
+//  @Resource
+//  private UserEvaluationService userEvaluationService;
 
   @Resource
   private ApplicationContext applicationContext;
@@ -80,45 +82,79 @@ public class UserServiceImpl implements UserService {
   @Resource
   private VnwUserRepo vnwUserRepo;
 
-  public void save(UserEntity userEntity) {
-    userRepository.save(userEntity);
-  }
+  @Resource
+  private Template onBoardingMailTemplateEn;
 
-  public void save(UserInfo userInfo) {
-    UserEntity userEntity = userRepository.findOne(userInfo.getId());
-    dozerMapper.map(userInfo, userEntity);
-    userRepository.save(userEntity);
-  }
+  @Resource
+  private Template onBoardingMailTemplateVi;
 
-  public UserEntity findById(String id) {
-    return userRepository.findOne(id);
-  }
+  @Resource
+  private JavaMailSender mailSender;
 
-  public UserInfo findUserInfoByKey(String key) {
-    return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
-  }
+  @Resource
+  private MimeMessage fromTechlooperMailMessage;
 
-  public UserEntity findUserEntityByKey(String key) {
-    String emailAddress = textEncryptor.decrypt(key);
-    return userRepository.findOne(emailAddress);
-  }
+  @Resource
+  private ChallengeRegistrantRepository challengeRegistrantRepository;
 
-  public boolean verifyVietnamworksAccount(UserEntity userEntity) {
-    boolean result = vietnamworksUserService.existUser(userEntity.getEmailAddress());
-    if (result) {
-      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
-    }
-    return result;
-  }
+  @Resource
+  private ProjectRegistrantRepository projectRegistrantRepository;
 
-  public boolean registerVietnamworksAccount(UserInfo userInfo) {
-    boolean registerSuccess = false;
-    if (userInfo.acceptRegisterVietnamworksAccount() &&
-      !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
-      userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
-    }
-    return registerSuccess;
-  }
+  @Resource
+  private WebinarRepository webinarRepository;
+
+  @Resource
+  private JobAggregatorService jobAggregatorService;
+
+  @Value("${mail.onBoarding.subject.vi}")
+  private String onBoardingEmailSubjectVi;
+
+  @Value("${mail.onBoarding.subject.en}")
+  private String onBoardingEmailSubjectEn;
+
+  @Value("${web.baseUrl}")
+  private String baseUrl;
+
+
+//  public void save(UserEntity userEntity) {
+//    userRepository.save(userEntity);
+//  }
+//
+//  public void save(UserInfo userInfo) {
+//    UserEntity userEntity = userRepository.findOne(userInfo.getId());
+//    dozerMapper.map(userInfo, userEntity);
+//    userRepository.save(userEntity);
+//  }
+
+//  public UserEntity findById(String id) {
+//    return userRepository.findOne(id);
+//  }
+//
+//  public UserInfo findUserInfoByKey(String key) {
+//    return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
+//  }
+//
+//  public UserEntity findUserEntityByKey(String key) {
+//    String emailAddress = textEncryptor.decrypt(key);
+//    return userRepository.findOne(emailAddress);
+//  }
+
+//  public boolean verifyVietnamworksAccount(UserEntity userEntity) {
+//    boolean result = vietnamworksUserService.existUser(userEntity.getEmailAddress());
+//    if (result) {
+//      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
+//    }
+//    return result;
+//  }
+
+//  public boolean registerVietnamworksAccount(UserInfo userInfo) {
+//    boolean registerSuccess = false;
+//    if (userInfo.acceptRegisterVietnamworksAccount() &&
+//      !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
+//      userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
+//    }
+//    return registerSuccess;
+//  }
 
   public boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider) {
     UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
@@ -182,7 +218,7 @@ public class UserServiceImpl implements UserService {
     }
     else {
       QueryFilterBuilder queryFilterBuilder = FilterBuilders.queryFilter(
-        QueryBuilders.queryString(email).defaultOperator(QueryStringQueryBuilder.Operator.AND)).cache(true);
+        QueryBuilders.queryStringQuery(email).defaultOperator(QueryStringQueryBuilder.Operator.AND)).cache(true);
       SearchQuery userSearchQuery = new NativeSearchQueryBuilder()
         .withFilter(queryFilterBuilder)
         .withPageable(new PageRequest(0, 10))
@@ -198,7 +234,6 @@ public class UserServiceImpl implements UserService {
 
   }
 
-  @Override
   public List<UserImportEntity> getAll(int pageNumber, int pageSize) {
     final SearchQuery searchQuery = new NativeSearchQueryBuilder()
       .withQuery(boolQuery()
@@ -210,7 +245,6 @@ public class UserServiceImpl implements UserService {
     return userImportRepository.search(searchQuery).getContent();
   }
 
-  @Override
   public TalentSearchResponse findTalent(TalentSearchRequest param) {
     List<SocialProvider> socialProviders = Arrays.asList(SocialProvider.GITHUB);
     TalentSearchResponse.Builder builder = new TalentSearchResponse.Builder();
@@ -238,17 +272,17 @@ public class UserServiceImpl implements UserService {
     return builder.build();
   }
 
-  public void registerUser(UserInfo userInfo) {
-    UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
-    user.setId(userInfo.getEmailAddress());
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-    user.setCreatedDateTime(sdf.format(new Date()));
-    userRegistrationRepository.save(user);
-  }
-
-  public long countRegisteredUser() {
-    return userRegistrationRepository.count();
-  }
+//  public void registerUser(UserInfo userInfo) {
+//    UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
+//    user.setId(userInfo.getEmailAddress());
+//    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+//    user.setCreatedDateTime(sdf.format(new Date()));
+//    userRegistrationRepository.save(user);
+//  }
+//
+//  public long countRegisteredUser() {
+//    return userRegistrationRepository.count();
+//  }
 
 
   public SalaryReviewDto findSalaryReviewById(String base64Id) {
@@ -258,6 +292,48 @@ public class UserServiceImpl implements UserService {
 
   public VnwUserDto findVnwUserByUsername(String username) {
     return dozerMapper.map(vnwUserRepo.findByUsernameIgnoreCase(username), VnwUserDto.class);
+  }
+
+  public boolean sendOnBoardingEmail(String email, Language language) throws MessagingException {
+//    String email = userProfile.getEmail();
+//    String email = "phamthanhtrinh.vt@gmail.com";
+    Iterator<ChallengeRegistrantEntity> challengeRegistrant = challengeRegistrantRepository.search(matchQuery("registrantEmail", email).minimumShouldMatch("100%")).iterator();
+    boolean hasUser = challengeRegistrant.hasNext();
+    if (!hasUser) {
+      Iterator<ProjectRegistrantEntity> projectRegistrant = projectRegistrantRepository.search(matchQuery("registrantEmail", email).minimumShouldMatch("100%")).iterator();
+      hasUser = projectRegistrant.hasNext();
+    }
+    if (!hasUser) {
+      Iterator<WebinarEntity> webinar = webinarRepository.search(nestedQuery("attendees", matchQuery("attendees.email", email).minimumShouldMatch("100%"))).iterator();
+      hasUser = webinar.hasNext();
+    }
+
+    if (!hasUser) {
+      try {
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", baseUrl);
+        templateModel.put("totalOfItJobs", jobAggregatorService.findJob(new JobSearchCriteria()).getJobs().size());
+
+        Template template = language == Language.vi ? onBoardingMailTemplateVi : onBoardingMailTemplateEn;
+        template.process(templateModel, stringWriter);
+
+        fromTechlooperMailMessage.setSubject(language == Language.vi ? onBoardingEmailSubjectVi : onBoardingEmailSubjectEn);
+        fromTechlooperMailMessage.setRecipients(Message.RecipientType.TO, email);
+        fromTechlooperMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+        fromTechlooperMailMessage.saveChanges();
+        mailSender.send(fromTechlooperMailMessage);
+
+        stringWriter.flush();
+      }
+      catch (Exception e) {
+        LOGGER.error("Can not send on boarding email", e);
+        return false;
+      }
+    }
+
+    return true;
   }
 
 }

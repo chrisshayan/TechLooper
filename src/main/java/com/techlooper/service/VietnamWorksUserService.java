@@ -7,7 +7,7 @@ import com.techlooper.entity.VnwUserProfile;
  */
 public interface VietnamWorksUserService {
 
-    boolean existUser(String userEmail);
+//    boolean existUser(String userEmail);
 
     boolean register(VnwUserProfile userProfile);
 }

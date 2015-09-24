@@ -31,8 +31,8 @@ import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
  */
 public abstract class AbstractSocialService implements SocialService {
 
-    @Resource
-    protected UserService userService;
+//    @Resource
+//    protected UserService userService;
 
     @Resource
     protected Mapper dozerBeanMapper;
@@ -78,34 +78,34 @@ public abstract class AbstractSocialService implements SocialService {
 
     public abstract UserProfile getProfile(com.techlooper.entity.AccessGrant accessGrant);
 
-    public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant) {
-        UserProfile profile = getProfile(accessGrant);
-        UserEntity user = Optional.ofNullable(userService.findById(profile.entityId())).orElse(new UserEntity());
-        UserEntity.UserEntityBuilder builder = userEntity(user)
-                .withProfile(socialConfig.getProvider(), profile)
-                .withAccessGrant(dozerBeanMapper.map(accessGrant, com.techlooper.entity.AccessGrant.class));
-        if (!Optional.ofNullable(user.getId()).isPresent()) {
-            Object instance = profile instanceof SimpleUserProfile ? ((SimpleUserProfile) profile).getActual() : profile;
-            dozerBeanMapper.map(instance, user);
-            builder.withId(profile.entityId()).withLoginSource(socialConfig.getProvider());
-        }
-        userService.verifyVietnamworksAccount(user);
-        userService.save(user);
-        return user;
-    }
-
-    public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
-        UserEntity entity = userService.findUserEntityByKey(key);
-        if (!Optional.ofNullable(entity).isPresent()) {
-            throw new EntityNotFoundException("Can not find User by key: " + key);
-        }
-
-        CompletableFuture.supplyAsync(() -> getProfile(accessGrant)).thenAccept((profile) -> {
-            userEntity(entity).withProfile(socialConfig.getProvider(), profile);
-            userService.save(entity);
-        });
-
-        userEntity(entity).withProfile(socialConfig.getProvider(), null);
-        return entity;
-    }
+//    public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant) {
+//        UserProfile profile = getProfile(accessGrant);
+//        UserEntity user = Optional.ofNullable(userService.findById(profile.entityId())).orElse(new UserEntity());
+//        UserEntity.UserEntityBuilder builder = userEntity(user)
+//                .withProfile(socialConfig.getProvider(), profile)
+//                .withAccessGrant(dozerBeanMapper.map(accessGrant, com.techlooper.entity.AccessGrant.class));
+//        if (!Optional.ofNullable(user.getId()).isPresent()) {
+//            Object instance = profile instanceof SimpleUserProfile ? ((SimpleUserProfile) profile).getActual() : profile;
+//            dozerBeanMapper.map(instance, user);
+//            builder.withId(profile.entityId()).withLoginSource(socialConfig.getProvider());
+//        }
+//        userService.verifyVietnamworksAccount(user);
+////        userService.save(user);
+//        return user;
+//    }
+//
+//    public UserEntity saveFootprint(com.techlooper.entity.AccessGrant accessGrant, String key) {
+//        UserEntity entity = userService.findUserEntityByKey(key);
+//        if (!Optional.ofNullable(entity).isPresent()) {
+//            throw new EntityNotFoundException("Can not find User by key: " + key);
+//        }
+//
+//        CompletableFuture.supplyAsync(() -> getProfile(accessGrant)).thenAccept((profile) -> {
+//            userEntity(entity).withProfile(socialConfig.getProvider(), profile);
+////            userService.save(entity);
+//        });
+//
+//        userEntity(entity).withProfile(socialConfig.getProvider(), null);
+//        return entity;
+//    }
 }

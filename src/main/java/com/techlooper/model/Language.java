@@ -8,11 +8,16 @@ public enum Language {
 
   private final String value;
 
-  private Language(String value) {
+  Language(String value) {
     this.value = value;
   }
 
   public String getValue() {
     return value;
+  }
+
+  public static Language parse(String value) {
+    if ("vi".equalsIgnoreCase(value) || "vn".equalsIgnoreCase(value)) return vi;
+    return en;
   }
 }
