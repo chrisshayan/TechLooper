@@ -191,9 +191,6 @@ public class CoreConfiguration implements ApplicationContextAware {
                         .fields("submissionDateTime", "submissionDate")
                         .fields("registrationDateTime", "registrationDate");
 
-                mapping(ChallengeRegistrantEntity.class, ChallengeRegistrantDto.class, TypeMappingOptions.oneWay())
-                        .exclude("registrantEmail");
-
             }
         });
         return dozerBeanMapper;
