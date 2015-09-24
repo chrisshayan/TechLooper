@@ -339,7 +339,7 @@
                                     </table>
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                       <tr>
-                                        <td style="font-size: 14px;">TechLooper tập hợp nhiều dữ liệu <strong style="color:#000; font-size: 14px; font-weight: 600;">việc làm IT cao nhất</strong> ở Việt Nam. Với hơn <strong style="color:#000; font-size: 14px; font-weight: 600;">8000</strong> việc làm mỗi tháng.</td>
+                                        <td style="font-size: 14px;">TechLooper tập hợp nhiều dữ liệu <strong style="color:#000; font-size: 14px; font-weight: 600;">việc làm IT cao nhất</strong> ở Việt Nam. Với hơn <strong style="color:#000; font-size: 14px; font-weight: 600;">${totalOfItJobs}</strong> việc làm mỗi tháng.</td>
                                       </tr>
                                     </table>
                                   </td>

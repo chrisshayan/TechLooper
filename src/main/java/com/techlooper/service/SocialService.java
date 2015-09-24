@@ -11,11 +11,11 @@ import com.techlooper.model.SocialConfig;
 public interface SocialService {
     AccessGrant getAccessGrant(String accessCode);
 
-    AccessGrant getAccessGrant(String accessToken, String accessSecret);
-
-    UserEntity saveFootprint(AccessGrant accessGrant);
-
-    UserEntity saveFootprint(AccessGrant accessGrant, String key);
+//    AccessGrant getAccessGrant(String accessToken, String accessSecret);
+//
+//    UserEntity saveFootprint(AccessGrant accessGrant);
+//
+//    UserEntity saveFootprint(AccessGrant accessGrant, String key);
 
     org.springframework.social.connect.UserProfile getUserProfile(String code, SocialConfig socialConfig);
 
