@@ -188,25 +188,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         StringWriter stringWriter = new StringWriter();
 
         Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("challengeEntity", challengeEntity);
         templateModel.put("webBaseUrl", webBaseUrl);
-        templateModel.put("challengeName", challengeEntity.getChallengeName());
-        templateModel.put("businessRequirement", challengeEntity.getBusinessRequirement());
-        templateModel.put("generalNote", challengeEntity.getGeneralNote());
         templateModel.put("technologies", StringUtils.join(challengeEntity.getTechnologies(), "<br/>"));
-        templateModel.put("documents", challengeEntity.getDocuments());
-        templateModel.put("deliverables", challengeEntity.getDeliverables());
         templateModel.put("receivedEmails", StringUtils.join(challengeEntity.getReceivedEmails(), "<br/>"));
-        templateModel.put("reviewStyle", challengeEntity.getReviewStyle());
-        templateModel.put("startDate", challengeEntity.getStartDateTime());
-        templateModel.put("registrationDate", challengeEntity.getRegistrationDateTime());
-        templateModel.put("submissionDate", challengeEntity.getSubmissionDateTime());
-        templateModel.put("qualityIdea", challengeEntity.getQualityIdea());
         templateModel.put("firstPlaceReward", challengeEntity.getFirstPlaceReward() != null ? challengeEntity.getFirstPlaceReward() : 0);
         templateModel.put("secondPlaceReward", challengeEntity.getSecondPlaceReward() != null ? challengeEntity.getSecondPlaceReward() : 0);
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
-        templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
-        templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         int numberOfDays = 0;
@@ -601,8 +590,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     public List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase) {
         List<ChallengeEntity> challengeEntities = new ArrayList<>();
         // from <= NOW < to
-        RangeFilterBuilder fromFilter = rangeFilter(challengePhase.getFromDateTimeField()).to("now/d");
-        RangeFilterBuilder toFilter = rangeFilter(challengePhase.getToDateTimeField()).from("now-1d/d");
+        RangeFilterBuilder fromFilter = rangeFilter(challengePhase.getFromDateTimeField()).lt("now/d");
+        RangeFilterBuilder toFilter = rangeFilter(challengePhase.getToDateTimeField()).gte("now/d");
         TermFilterBuilder expiredChallengeFilter = termFilter("expired", Boolean.TRUE);
         BoolFilterBuilder dateTimeRangeFilter = boolFilter().must(fromFilter).must(toFilter).mustNot(expiredChallengeFilter);
 

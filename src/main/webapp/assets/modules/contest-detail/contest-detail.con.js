@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter) {
+                                                           jsonValue, $translate, utils, $filter, $timeout) {
 
   utils.sendNotification(jsonValue.notifications.loading);
   var parts = $routeParams.id.split("-");
@@ -152,12 +152,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
     utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
   }
-
-  $scope.updateScore = function (registrant, $event) {
+  $scope.updateScore = function(registrant, $event) {
+    $($event.currentTarget).addClass('green');
     apiService.saveChallengeRegistrant(registrant)
-      .success(function (rt) {
-        registrant.score = rt.score;
-      });
+    .success(function (rt) {
+      registrant.score = rt.score;
+    }).finally(function () {
+      $timeout(function(){
+        $($event.currentTarget).removeClass('green');
+      },1000);
+    });
   }
 });
 

@@ -161,12 +161,16 @@
                     </tr>
                       <tr>
                           <td align="left" style="font-size: 14px;">
-                              Xin chào <strong>${registrantFirstName}</strong> <strong>${registrantLastName}</strong>,
+                              Xin chào <#if challengeRegistrant.registrantFirstName??><strong>${challengeRegistrant.registrantFirstName}</strong></#if> <#if challengeRegistrant.registrantLastName??><strong>${challengeRegistrant.registrantLastName}</strong></#if>,
                           </td>
                       </tr>
                       <tr>
                           <td align="left" style="font-size: 14px;">
-                              Chỉ còn <strong>${numberOfDays} ngày nữa</strong> để bắt đầu thử thách sau.
+                          <#if challengePhase == "REGISTRATION">
+                              Còn <strong>${numberOfDays} ngày nữa</strong> thử thách sau sẽ diễn ra.
+                          <#elseif challengePhase == "IN_PROGRESS">
+                              Còn <strong>${numberOfDays} ngày nữa</strong> tới hạn gửi sản phẩm cho thử thách sau.
+                          </#if>
                           </td>
                       </tr>
                     <tr>
@@ -195,7 +199,7 @@
                                     Tên Thử Thách:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeName}
+                                  ${challengeEntity.challengeName}
                                   </td>
                                 </tr>
                                 <tr>
@@ -211,7 +215,7 @@
                                     Tổng Quan Thử Thách:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeOverview?replace("\n", "<br>")}
+                                  ${challengeEntity.challengeOverview?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -227,7 +231,7 @@
                                     Yêu Cầu Nghiệp Vụ:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${businessRequirement?replace("\n", "<br>")}
+                                  ${challengeEntity.businessRequirement?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -243,7 +247,7 @@
                                     Yêu Cầu Khác:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${generalNote?replace("\n", "<br>")}
+                                  ${challengeEntity.generalNote?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -275,7 +279,7 @@
                                     Tài Liệu Liên Quan:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${documents?replace("\n", "<br>")}
+                                  ${challengeEntity.documents?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -291,7 +295,7 @@
                                     Yêu Cầu Sản phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${deliverables?replace("\n", "<br>")}
+                                  ${challengeEntity.deliverables?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -323,7 +327,7 @@
                                     Cách đánh giá sản phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${reviewStyle}
+                                  ${challengeEntity.reviewStyle}
                                   </td>
                                 </tr>
                               </table>
@@ -359,7 +363,7 @@
                                     Ngày Bắt Đầu:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${startDate}
+                                  ${challengeEntity.startDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -375,7 +379,7 @@
                                     Ngày Hết Hạn Đăng Ký:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${registrationDate}
+                                  ${challengeEntity.registrationDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -391,7 +395,7 @@
                                     Ngày Hết Hạn Gửi Sản Phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${submissionDate}
+                                  ${challengeEntity.submissionDateTime}
                                   </td>
                                 </tr>
 
@@ -442,7 +446,7 @@
                                     Ý tưởng:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${qualityIdea}
+                                  ${challengeEntity.qualityIdea}
                                   </td>
                                 </tr>
                                 <tr>

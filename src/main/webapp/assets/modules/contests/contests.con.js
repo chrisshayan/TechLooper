@@ -1,6 +1,7 @@
 techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window, $translate, $filter, utils) {
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.contestTimeLeft = function(contest) {
+    if (!contest.progress) return "";
     switch (contest.progress.translate) {
       case jsonValue.status.progress.translate:
         return $filter("countdown")(contest.submissionDateTime);
