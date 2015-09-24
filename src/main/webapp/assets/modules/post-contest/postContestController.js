@@ -19,12 +19,14 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type) {
         switch (type) {
           case "is-form-valid":
-            if (!$scope.challengeForm.$pristine) {
-              $scope.challengeForm.$setSubmitted();
-            }
-            else {
-              $scope.challengeForm.$pristine = false;
-            }
+            //if ($scope.challengeForm.$pristine) return true;
+            $scope.challengeForm.$setSubmitted();
+            //if (!$scope.challengeForm.$pristine) {
+            //  $scope.challengeForm.$setSubmitted();
+            //}
+            //else {
+            //  $scope.challengeForm.$pristine = false;
+            //}
             //$scope.challengeForm.$setSubmitted();
             return $.isEmptyObject($scope.challengeForm.$error);//!$scope.challengeForm.$invalid;
 
@@ -47,12 +49,14 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type) {
         switch (type) {
           case "is-form-valid":
-            if (!$scope.timelineForm.$pristine) {
-              $scope.timelineForm.$setSubmitted();
-            }
-            else {
-              $scope.timelineForm.$pristine = false;
-            }
+            //if ($scope.timelineForm.$pristine) return true;
+            $scope.timelineForm.$setSubmitted();
+            //if (!$scope.timelineForm.$pristine) {
+            //  $scope.timelineForm.$setSubmitted();
+            //}
+            //else {
+            //  $scope.timelineForm.$pristine = false;
+            //}
             return $.isEmptyObject($scope.timelineForm.$error);
 
           case "is-form-pristine":
@@ -102,13 +106,14 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type, param) {
         switch (type) {
           case "is-form-valid":
-            if (!$scope.rewardForm.$pristine) {
-              $scope.rewardForm.$setSubmitted();
-            }
-            else {
-              $scope.rewardForm.$pristine = false;
-            }
-            //$scope.rewardForm.$setSubmitted();
+            //if ($scope.rewardForm.$pristine) return true;
+            //if (!$scope.rewardForm.$pristine) {
+            //  $scope.rewardForm.$setSubmitted();
+            //}
+            //else {
+            //  $scope.rewardForm.$pristine = false;
+            //}
+            $scope.rewardForm.$setSubmitted();
             return $.isEmptyObject($scope.rewardForm.$error);
 
           case "is-form-pristine":
@@ -194,19 +199,23 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   $scope.toState = function (st) {
     var currentStateOrder = state.orderStates.indexOf($scope.state.name);
     var toStateOrder = state.orderStates.indexOf(st);
+    if (currentStateOrder == toStateOrder) return;
+
     var next = currentStateOrder < toStateOrder;
+    if (!next) return $scope.changeState(st, {ignoreInvalidForm: true});
+
     var currentStatePristine = $scope.state.status("is-form-pristine")
     var index = currentStateOrder;
     var lastStep = false;
     while (!lastStep) {
-      if (index == (next ? toStateOrder + 1 : toStateOrder)) {
-        lastStep = true;
-      }
       var stateName = state.orderStates[index];
       if (!$scope.changeState(stateName, {ignoreInvalidForm: !next && currentStatePristine})) {
         break;
       }
       index += (next ? 1 : -1);
+      if (index == toStateOrder + 1) {
+        lastStep = true;
+      }
     }
   }
 
