@@ -197,7 +197,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto; background-color:#cdf5ec; float:left; height:120px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto; background-color:#cdf5ec; float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#1ea185">
@@ -212,15 +212,20 @@
                                     </table>
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/pie-chart" target="_blank" style=" color: #1ea185; text-decoration: none">Chi tiết &raquo;</a>
+                                  </td>
+                                </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e8eddd;float:left; height:120px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e8eddd;float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#9bba5c">
@@ -233,6 +238,11 @@
                                         <td style="font-size: 14px;">Giúp bạn <strong style="color:#000; font-size: 14px; font-weight: 600;">đánh giá thu nhập</strong> của mình so với thị trường chung.</td>
                                       </tr>
                                     </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/salary-review" target="_blank" style=" color: #9bba5c; text-decoration: none">Chi tiết &raquo;</a>
                                   </td>
                                 </tr>
                               </table>
@@ -251,7 +261,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ffe4ef;float:left; height:185px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ffe4ef;float:left; height:200px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#8b4964">
@@ -266,15 +276,20 @@
                                     </table>
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/get-promoted" target="_blank" style=" color: #8b4964; text-decoration: none">Chi tiết &raquo;</a>
+                                  </td>
+                                </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fff0dc;float:left; height:185px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fff0dc;float:left; height:200px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#f29b27">
@@ -287,6 +302,11 @@
                                         <td style="font-size: 14px;"><strong style="color:#000; font-size: 14px; font-weight: 600;">Công việc đang trở thành trực tuyến</strong>. Và các freelancer hàng đầu hiện đang tạo ra thu nhập tuyệt vời từ những công việc như vậy. Với khả năng, trách nhiệm và cam kết tạo ra những sản phẩm tuyệt vời, bạn có thể nhanh chóng <strong style="color:#000; font-size: 14px; font-weight: 600;">xây dựng sự nghiệp riêng mà bạn yêu thích thông qua các dự án freelancer</strong>.</td>
                                       </tr>
                                     </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/freelancer/projects" target="_blank" style=" color: #f29b27; text-decoration: none">Chi tiết &raquo;</a>
                                   </td>
                                 </tr>
                               </table>
@@ -305,7 +325,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td width="46%" align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#d2e3f1;float:left; height:120px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#d2e3f1;float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#257abb">
@@ -321,15 +341,20 @@
                                     </table>
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/challenges" target="_blank" style=" color: #257abb; text-decoration: none">Chi tiết &raquo;</a>
+                                  </td>
+                                </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e6cce6;float:left; height:120px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e6cce6;float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#89288a">
@@ -342,6 +367,11 @@
                                         <td style="font-size: 14px;">TechLooper tập hợp nhiều dữ liệu <strong style="color:#000; font-size: 14px; font-weight: 600;">việc làm IT cao nhất</strong> ở Việt Nam. Với hơn <strong style="color:#000; font-size: 14px; font-weight: 600;">${totalOfItJobs}</strong> việc làm mỗi tháng.</td>
                                       </tr>
                                     </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/job-listing" target="_blank" style=" color: #89288a; text-decoration: none">Chi tiết &raquo;</a>
                                   </td>
                                 </tr>
                               </table>
@@ -360,7 +390,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ebeceb;float:left ; height:100px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ebeceb;float:left ; height:110px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#a6a8a6">
@@ -375,15 +405,20 @@
                                     </table>
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/events" target="_blank" style=" color: #a6a8a6; text-decoration: none">Chi tiết &raquo;</a>
+                                  </td>
+                                </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fee3e7;float:left ; height:100px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fee3e7;float:left ; height:110px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ea6576">
@@ -396,6 +431,11 @@
                                         <td style="font-size: 14px;"><strong style="color:#000; font-size: 14px; font-weight: 600;">Theo dõi</strong> và <strong style="color:#000; font-size: 14px; font-weight: 600;">nghiên cứu</strong> vào chủ đề <strong style="color:#000; font-size: 14px; font-weight: 600;">công nghệ mới nhất</strong> được quan tâm rất nhiều những ngày qua.</td>
                                       </tr>
                                     </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="text-align: right;">
+                                    <a href="${webBaseUrl}#/topics" target="_blank" style=" color: #ea6576; text-decoration: none">Chi tiết &raquo;</a>
                                   </td>
                                 </tr>
                               </table>

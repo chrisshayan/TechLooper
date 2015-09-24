@@ -475,7 +475,7 @@
                                                         <td width="100%" align="center">
                                                             <a href="${webBaseUrl}#/topics?utm_source=jobalertemail&utm_medium=viewmorebtn&utm_campaign=techlooperjobhub"
                                                                target="_blank"
-                                                               style="font-family: Arial, sans-serif; font-size: 16px; text-decoration: none; color:#277cbd">View More Topics</a>
+                                                               style="font-family: Arial, sans-serif; font-size: 14px; text-decoration: none; color:#277cbd; font-weight: 500;">View More Topics</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
