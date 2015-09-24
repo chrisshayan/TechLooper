@@ -7,9 +7,9 @@
       <div class="ic-menu-mobile" ng-modal="mobileMenuEmployer" ng-click="mobileMenuEmployer = !mobileMenuEmployer">
         <i class="fa fa-bars"></i>
       </div>
-      <div class="lang-block" ng-model="langKey" data-ng-init="langKey='en'">
-        <a ng-click="changeLanguages('vi')" ng-show="langKey == 'en'" class="vi">{{'vietnamese' | translate}}</a>
-        <a ng-click="changeLanguages('en')" ng-show="langKey == 'vi'" class="en">{{'english' | translate}}</a>
+      <div class="lang-block" ng-model="langKey">
+        <a ng-click="changeLanguages('vi')" ng-show="langKey == 'en'" class="en">{{'vietnamese' | translate}}</a>
+        <a ng-click="changeLanguages('en')" ng-show="langKey == 'vi'" class="vi">{{'english' | translate}}</a>
       </div>
       <div class="user-info-basic-block">
         <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
