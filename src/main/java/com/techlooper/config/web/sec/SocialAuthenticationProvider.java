@@ -63,6 +63,15 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
     }
 
     if (userProfile != null) {
+      if (StringUtils.hasText(userProfileDto.getEmail())) {
+        try {
+          userService.sendOnBoardingEmail(userProfileDto.getEmail(), Language.en);
+        }
+        catch (Exception e) {
+          userProfileDto.getEmail();
+        }
+      }
+
       try {
         VnwUserProfile vnwUserProfile = VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
           .withEmail(userProfileDto.getEmail())
@@ -72,15 +81,6 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
       }
       catch (Exception ex) {
         LOGGER.error(ex.getMessage(), ex);
-      }
-
-      if (StringUtils.hasText(userProfileDto.getEmail())) {
-        try {
-          userService.sendOnBoardingEmail(userProfileDto.getEmail(), Language.en);
-        }
-        catch (Exception e) {
-          userProfileDto.getEmail();
-        }
       }
 
       return new UsernamePasswordAuthenticationToken(userProfileDto, null,
