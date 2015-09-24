@@ -62,7 +62,7 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     }
     apiService.createTechlooperJobAlert($scope.jobAlert.email, $scope.jobAlert.keyword, location, locationId, $translate.use())
       .success(function (data) {
-          utils.sendNotification(jsonValue.notifications.loading);
+        utils.sendNotification(jsonValue.notifications.loading);
         $scope.sendMailSuccessfulMessage = true;
         $scope.sendMailFailMessage = false;
         $scope.jobAlertForm.$setPristine();
@@ -76,8 +76,9 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
            $scope.jobAlertForm.$setPristine();
            $scope.jobAlert = {};
          }
+      }).finally(function () {
+        utils.sendNotification(jsonValue.notifications.loaded);
       });
-    utils.sendNotification(jsonValue.notifications.loaded);
   }
 
   $scope.goToJobListing = function(){
