@@ -213,7 +213,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" style="color: #277cbd">
-                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalert&utm_medium=email&targetUrl=${job.url}" style="color: #277cbd" target="_blank">${job.title}</a>
+                              <a href="${webBaseUrl}#/?action=redirectJA&utm_source=jobalertemail&utm_medium=clickjob&utm_campaign=techlooperjobhub&targetUrl=${job.url}" style="color: #277cbd" target="_blank">${job.title}</a>
                             </td>
                           </tr>
                           <tr>
@@ -350,7 +350,7 @@
                                           <tbody>
                                           <tr>
                                               <td align="left" style="color: #277cbd">
-                                                  <a href="${webBaseUrl}#/?action=redirectJA&amp;utm_source=jobalertemail&amp;utm_medium=viewmorebtn&amp;utm_campaign=techlooperjobhub&amp;targetUrl=${topic.url}"
+                                                  <a href="${webBaseUrl}#/?action=redirectJA&amp;utm_source=jobalertemail&amp;utm_medium=clicktopic&amp;utm_campaign=techlooperjobhub&amp;targetUrl=${topic.url}"
                                                      target="_blank" style="color: #277cbd"><#if topic.title??>${topic.title}</#if></a>
                                               </td>
                                           </tr>
