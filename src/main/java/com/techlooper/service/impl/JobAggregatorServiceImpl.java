@@ -145,7 +145,10 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         templateModel.put("jobAlertRegistrationId", String.valueOf(jobAlertRegistrationEntity.getJobAlertRegistrationId()));
 
         TopicList latestTopicList = forumService.getLatestTopics();
-        List<Topic> topics = latestTopicList.getTopics().stream().limit(3).collect(Collectors.toList());
+        List<Topic> topics = null;
+        if (latestTopicList.getTopics() != null) {
+            topics = latestTopicList.getTopics().stream().limit(3).collect(Collectors.toList());
+        }
         templateModel.put("topics", topics);
 
         template.process(templateModel, stringWriter);
