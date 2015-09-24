@@ -197,7 +197,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto; background-color:#cdf5ec; float:left; height:150px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto; background-color:#cdf5ec; float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#1ea185">
@@ -218,14 +218,14 @@
                                   </td>
                                 </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e8eddd;float:left; height:150px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e8eddd;float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#9bba5c">
@@ -261,7 +261,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ffe4ef;float:left; height:200px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ffe4ef;float:left; height:200px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#8b4964">
@@ -282,14 +282,14 @@
                                   </td>
                                 </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fff0dc;float:left; height:200px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fff0dc;float:left; height:200px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#f29b27">
@@ -325,7 +325,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td width="46%" align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#d2e3f1;float:left; height:150px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#d2e3f1;float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#257abb">
@@ -347,14 +347,14 @@
                                   </td>
                                 </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e6cce6;float:left; height:150px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#e6cce6;float:left; height:150px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#89288a">
@@ -390,7 +390,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                           <tr>
                             <td align="left" valign="top">
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ebeceb;float:left ; height:110px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ebeceb;float:left ; height:110px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#a6a8a6">
@@ -411,14 +411,14 @@
                                   </td>
                                 </tr>
                               </table>
-                              <table width="26px" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
+                              <table width="4%" height="20px" border="0" cellspacing="0" style="float:left" cellpadding="0" align="center" class="fullWidth">
                                 <tr>
                                   <td>
                                     <img height="1px" width="1px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                               </table>
-                              <table width="290px" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fee3e7;float:left ; height:110px" class="fullWidth">
+                              <table width="48%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#fee3e7;float:left ; height:110px" class="fullWidth">
                                 <tr>
                                   <td align="left" valign="top">
                                     <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#ea6576">
