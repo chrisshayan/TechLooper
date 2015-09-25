@@ -300,15 +300,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 //    }
 //    return sortChallengesByDescendingStartDate(challenges);
         TermQueryBuilder notExpiredQuery = termQuery("expired", Boolean.TRUE);
-        Iterable<ChallengeEntity> challenges = challengeRepository.search(boolQuery().mustNot(notExpiredQuery));
-        ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
-        challenges.forEach(challengeEntity -> {
+        Iterable<ChallengeEntity> challengeIterator = challengeRepository.search(boolQuery().mustNot(notExpiredQuery));
+        ArrayList<ChallengeDetailDto> challenges = new ArrayList<>();
+        challengeIterator.forEach(challengeEntity -> {
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
             challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
-            dtos.add(challengeDetailDto);
+            challenges.add(challengeDetailDto);
         });
-        dozerMapper.map(challenges, dtos);
-        return dtos;
+        return sortChallengesByDescendingStartDate(challenges);
     }
 
     private void sendContestApplicationEmail(Template template, String mailSubject, Address[] recipientAddresses,
