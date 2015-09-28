@@ -7,193 +7,223 @@ import java.util.List;
  */
 public class ChallengeDetailDto {
 
-  private Long challengeId;
+    private Long challengeId;
 
-  private String challengeName;
+    private String challengeName;
 
-  private String challengeOverview;
+    private String challengeOverview;
 
-  private String businessRequirement;
+    private String businessRequirement;
 
-  private String generalNote;
+    private String generalNote;
 
-  private List<String> technologies;
+    private List<String> technologies;
 
-  private String documents;
+    private String documents;
 
-  private String deliverables;
+    private String deliverables;
 
-  private String reviewStyle;
+    private String reviewStyle;
 
-  private String startDateTime;
+    private String startDateTime;
 
-  private String registrationDateTime;
+    private String registrationDateTime;
 
-  private String submissionDateTime;
+    private String ideaSubmissionDateTime;
 
-  private Integer firstPlaceReward;
+    private String uxSubmissionDateTime;
 
-  private Integer secondPlaceReward;
+    private String prototypeSubmissionDateTime;
 
-  private Integer thirdPlaceReward;
+    private String submissionDateTime;
 
-  private String qualityIdea;
+    private Integer firstPlaceReward;
 
-  private Long numberOfRegistrants;
+    private Integer secondPlaceReward;
 
-  private List<String> receivedEmails;
+    private Integer thirdPlaceReward;
 
-  private Boolean expired;
+    private String qualityIdea;
 
-  public Boolean getExpired() {
-    return expired;
-  }
+    private Long numberOfRegistrants;
 
-  public void setExpired(Boolean expired) {
-    this.expired = expired;
-  }
+    private List<String> receivedEmails;
 
-  public List<String> getReceivedEmails() {
-    return receivedEmails;
-  }
+    private Boolean expired;
 
-  public void setReceivedEmails(List<String> receivedEmails) {
-    this.receivedEmails = receivedEmails;
-  }
+    public Boolean getExpired() {
+        return expired;
+    }
 
-  public Long getChallengeId() {
-    return challengeId;
-  }
+    public void setExpired(Boolean expired) {
+        this.expired = expired;
+    }
 
-  public void setChallengeId(Long challengeId) {
-    this.challengeId = challengeId;
-  }
+    public List<String> getReceivedEmails() {
+        return receivedEmails;
+    }
 
-  public String getChallengeName() {
-    return challengeName;
-  }
+    public void setReceivedEmails(List<String> receivedEmails) {
+        this.receivedEmails = receivedEmails;
+    }
 
-  public void setChallengeName(String challengeName) {
-    this.challengeName = challengeName;
-  }
+    public Long getChallengeId() {
+        return challengeId;
+    }
 
-  public String getChallengeOverview() {
-    return challengeOverview;
-  }
+    public void setChallengeId(Long challengeId) {
+        this.challengeId = challengeId;
+    }
 
-  public void setChallengeOverview(String challengeOverview) {
-    this.challengeOverview = challengeOverview;
-  }
+    public String getChallengeName() {
+        return challengeName;
+    }
 
-  public String getBusinessRequirement() {
-    return businessRequirement;
-  }
+    public void setChallengeName(String challengeName) {
+        this.challengeName = challengeName;
+    }
 
-  public void setBusinessRequirement(String businessRequirement) {
-    this.businessRequirement = businessRequirement;
-  }
+    public String getChallengeOverview() {
+        return challengeOverview;
+    }
 
-  public String getGeneralNote() {
-    return generalNote;
-  }
+    public void setChallengeOverview(String challengeOverview) {
+        this.challengeOverview = challengeOverview;
+    }
 
-  public void setGeneralNote(String generalNote) {
-    this.generalNote = generalNote;
-  }
+    public String getBusinessRequirement() {
+        return businessRequirement;
+    }
 
-  public List<String> getTechnologies() {
-    return technologies;
-  }
+    public void setBusinessRequirement(String businessRequirement) {
+        this.businessRequirement = businessRequirement;
+    }
 
-  public void setTechnologies(List<String> technologies) {
-    this.technologies = technologies;
-  }
+    public String getGeneralNote() {
+        return generalNote;
+    }
 
-  public String getDocuments() {
-    return documents;
-  }
+    public void setGeneralNote(String generalNote) {
+        this.generalNote = generalNote;
+    }
 
-  public void setDocuments(String documents) {
-    this.documents = documents;
-  }
+    public List<String> getTechnologies() {
+        return technologies;
+    }
 
-  public String getDeliverables() {
-    return deliverables;
-  }
+    public void setTechnologies(List<String> technologies) {
+        this.technologies = technologies;
+    }
 
-  public void setDeliverables(String deliverables) {
-    this.deliverables = deliverables;
-  }
+    public String getDocuments() {
+        return documents;
+    }
 
-  public String getReviewStyle() {
-    return reviewStyle;
-  }
+    public void setDocuments(String documents) {
+        this.documents = documents;
+    }
 
-  public void setReviewStyle(String reviewStyle) {
-    this.reviewStyle = reviewStyle;
-  }
+    public String getDeliverables() {
+        return deliverables;
+    }
 
-  public String getStartDateTime() {
-    return startDateTime;
-  }
+    public void setDeliverables(String deliverables) {
+        this.deliverables = deliverables;
+    }
 
-  public void setStartDateTime(String startDateTime) {
-    this.startDateTime = startDateTime;
-  }
+    public String getReviewStyle() {
+        return reviewStyle;
+    }
 
-  public String getRegistrationDateTime() {
-    return registrationDateTime;
-  }
+    public void setReviewStyle(String reviewStyle) {
+        this.reviewStyle = reviewStyle;
+    }
 
-  public void setRegistrationDateTime(String registrationDateTime) {
-    this.registrationDateTime = registrationDateTime;
-  }
+    public String getStartDateTime() {
+        return startDateTime;
+    }
 
-  public String getSubmissionDateTime() {
-    return submissionDateTime;
-  }
+    public void setStartDateTime(String startDateTime) {
+        this.startDateTime = startDateTime;
+    }
 
-  public void setSubmissionDateTime(String submissionDateTime) {
-    this.submissionDateTime = submissionDateTime;
-  }
+    public String getRegistrationDateTime() {
+        return registrationDateTime;
+    }
 
-  public Integer getFirstPlaceReward() {
-    return firstPlaceReward;
-  }
+    public void setRegistrationDateTime(String registrationDateTime) {
+        this.registrationDateTime = registrationDateTime;
+    }
 
-  public void setFirstPlaceReward(Integer firstPlaceReward) {
-    this.firstPlaceReward = firstPlaceReward;
-  }
+    public String getIdeaSubmissionDateTime() {
+        return ideaSubmissionDateTime;
+    }
 
-  public Integer getSecondPlaceReward() {
-    return secondPlaceReward;
-  }
+    public void setIdeaSubmissionDateTime(String ideaSubmissionDateTime) {
+        this.ideaSubmissionDateTime = ideaSubmissionDateTime;
+    }
 
-  public void setSecondPlaceReward(Integer secondPlaceReward) {
-    this.secondPlaceReward = secondPlaceReward;
-  }
+    public String getUxSubmissionDateTime() {
+        return uxSubmissionDateTime;
+    }
 
-  public Integer getThirdPlaceReward() {
-    return thirdPlaceReward;
-  }
+    public void setUxSubmissionDateTime(String uxSubmissionDateTime) {
+        this.uxSubmissionDateTime = uxSubmissionDateTime;
+    }
 
-  public void setThirdPlaceReward(Integer thirdPlaceReward) {
-    this.thirdPlaceReward = thirdPlaceReward;
-  }
+    public String getPrototypeSubmissionDateTime() {
+        return prototypeSubmissionDateTime;
+    }
 
-  public String getQualityIdea() {
-    return qualityIdea;
-  }
+    public void setPrototypeSubmissionDateTime(String prototypeSubmissionDateTime) {
+        this.prototypeSubmissionDateTime = prototypeSubmissionDateTime;
+    }
 
-  public void setQualityIdea(String qualityIdea) {
-    this.qualityIdea = qualityIdea;
-  }
+    public String getSubmissionDateTime() {
+        return submissionDateTime;
+    }
 
-  public Long getNumberOfRegistrants() {
-    return numberOfRegistrants;
-  }
+    public void setSubmissionDateTime(String submissionDateTime) {
+        this.submissionDateTime = submissionDateTime;
+    }
 
-  public void setNumberOfRegistrants(Long numberOfRegistrants) {
-    this.numberOfRegistrants = numberOfRegistrants;
-  }
+    public Integer getFirstPlaceReward() {
+        return firstPlaceReward;
+    }
+
+    public void setFirstPlaceReward(Integer firstPlaceReward) {
+        this.firstPlaceReward = firstPlaceReward;
+    }
+
+    public Integer getSecondPlaceReward() {
+        return secondPlaceReward;
+    }
+
+    public void setSecondPlaceReward(Integer secondPlaceReward) {
+        this.secondPlaceReward = secondPlaceReward;
+    }
+
+    public Integer getThirdPlaceReward() {
+        return thirdPlaceReward;
+    }
+
+    public void setThirdPlaceReward(Integer thirdPlaceReward) {
+        this.thirdPlaceReward = thirdPlaceReward;
+    }
+
+    public String getQualityIdea() {
+        return qualityIdea;
+    }
+
+    public void setQualityIdea(String qualityIdea) {
+        this.qualityIdea = qualityIdea;
+    }
+
+    public Long getNumberOfRegistrants() {
+        return numberOfRegistrants;
+    }
+
+    public void setNumberOfRegistrants(Long numberOfRegistrants) {
+        this.numberOfRegistrants = numberOfRegistrants;
+    }
 }
