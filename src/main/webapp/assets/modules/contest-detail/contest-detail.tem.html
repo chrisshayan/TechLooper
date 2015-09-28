@@ -58,17 +58,56 @@
             <div class="col-md-12">
               <p translate="registerNumber" translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
               <div class="join-now">
-                <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span></button>
                 <button ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btnz facebook" ng-class="{disabled: !status('able-to-join')}">
                   <i class="fa fa-facebook"></i> <span translate="joinNow"></span></button>
               </div>
             </div>
           </div>
-
+          <div class="row tell-your-friends">
+            <div class="col-md-12">
+              <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span></button>
+            </div>
+          </div>
           <div class="row contest-content-item">
             <p class="title" translate="challengeOverView"></p>
             <p class="detail" translate="{{contestDetail.challengeOverview | lineBreak}}">
             </p>
+          </div>
+          <div class="row contest-content-item">
+            <p class="title" translate="mileStones"></p>
+            <div class="timeLine-milestone">
+              <div class="phase-box phase-registration">
+                <span translate="registration"></span>
+                <span class="line-color"></span>
+                <span class="date-left"><i class="fa fa-circle-thin"></i> 10/09/2015</span>
+                <span class="date-right">15/09/2015 <i class="fa fa-circle-thin"></i></span>
+              </div>
+              <div class="phase-box phase-idea">
+                <span translate="idea"></span>
+                <span class="line-color"></span>
+                <span class="date-right">15/09/2015 <i class="fa fa-circle-thin"></i></span>
+              </div>
+              <div class="phase-box phase-uiux">
+                <span translate="uiux"></span>
+                <span class="line-color"></span>
+                <span class="date-right">15/09/2015 <i class="fa fa-circle-thin"></i></span>
+              </div>
+              <div class="phase-box phase-prototype">
+                <span translate="prototype"></span>
+                <span class="line-color"></span>
+                <span class="date-right">15/09/2015 <i class="fa fa-circle-thin"></i></span>
+              </div>
+              <!--<div class="phase-box phase-in-progress">-->
+                <!--<span translate="inProgress"></span>-->
+                <!--<span class="line-color"></span>-->
+                <!--<span class="date-right">15/09/2015</span>-->
+              <!--</div>-->
+              <div class="phase-box phase-final-app">
+                <span translate="finalApp"></span>
+                <span class="line-color"></span>
+                <span class="date-right">15/09/2015 <i class="fa fa-circle-thin"></i></span>
+              </div>
+            </div>
           </div>
           <div class="row contest-content-item">
             <p class="title" translate="businessRequirements"></p>
