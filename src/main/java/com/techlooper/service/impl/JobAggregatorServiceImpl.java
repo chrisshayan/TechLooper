@@ -235,7 +235,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         VNWJobSearchRequest.Builder jobSearchRequestBuilder = new VNWJobSearchRequest.Builder()
                 .withJobCategories(JOB_CATEGORY_IT).withTechlooperJobType(jobType.getValue()).withPageNumber(1).withPageSize(20);
         VNWJobSearchRequest jobSearchRequest = jobSearchRequestBuilder.build();
-        Boolean isTopPriorityJob = (jobType == JobTypeEnum.TOP_PRIORITY) ? Boolean.TRUE : Boolean.FALSE;
+        Boolean isTopPriorityJob = (jobType == JobTypeEnum.TOP_PRIORITY) ? Boolean.TRUE : null;
 
         VNWJobSearchResponse vnwJobSearchResponse;
         int sum = 0;
