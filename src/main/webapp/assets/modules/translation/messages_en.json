@@ -728,5 +728,12 @@
   "fullNameField": "Full Name",
   "disqualify": "Disqualify",
   "qualify": "Qualify",
-  "qualifyConfirmation": "Are you sure to qualify this contestant again?"
+  "qualifyConfirmation": "Are you sure to qualify this contestant again?",
+  "milestones": "Mile Stones",
+  "pleaseSelectMileStone": "Please select milestones relevant to your contest.",
+  "prototype": "Prototype",
+  "idea": "Idea",
+  "ideaDeadline": "Contestants Have To Submit Idea By: <strong>*</strong>",
+  "uIDeadline": "Contestants Have To Submit UI/UX By: <strong>*</strong>",
+  "prototypeDeadline": "Contestants Have To Submit Prototype By: <strong>*</strong>"
 }
