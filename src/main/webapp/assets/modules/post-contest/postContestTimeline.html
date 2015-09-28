@@ -54,6 +54,80 @@
       </div>
       <div class="post-contest-field">
         <div class="post-contest-field-content">
+          <h3 translate="milestones"></h3>
+          <p class="mile-stone-note" translate="pleaseSelectMileStone"></p>
+          <ul class="deadline">
+            <li>
+              <div class="left-content">
+                <input type="checkbox" id="ckbIdea" ng-model="ideaChecked"/> <label for="ckbIdea" translate="idea"></label>
+              </div>
+              <div class="right-content" ng-class="{'date-disabled': !ideaChecked}">
+                <label for="txtIdeaDeadline" translate="ideaDeadline"></label>
+                <div class="calendar-deadline input-group date">
+                  <input id="txtIdeaDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+                         placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
+                         name="ideaDate" ng-disabled="!ideaChecked"
+                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
+                         required-expr="state.status('register-date-gt-start-date')"
+                         ng-model="contest.ideaDate" required>
+                  <span class="input-group-addon-disabled" ng-show="!ideaChecked">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  <span class="input-group-addon" ng-show="ideaChecked">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="left-content">
+                <input type="checkbox" id="ckbUiUX" ng-model="uiuxChecked"/> <label for="ckbUiUX">UI/UX</label>
+              </div>
+              <div class="right-content" ng-class="{'date-disabled': !uiuxChecked}">
+                <label for="txtUIDeadline" translate="uIDeadline"></label>
+                <div class="calendar-deadline input-group date">
+                  <input id="txtUIDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+                         name="uIUXDate" ng-disabled="!uiuxChecked"
+                         placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
+                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
+                         required-expr="state.status('register-date-gt-start-date')"
+                         ng-model="contest.uIUXDate" required>
+                  <span class="input-group-addon-disabled" ng-show="!uiuxChecked">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  <span class="input-group-addon" ng-show="uiuxChecked">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="left-content">
+                <input type="checkbox" id="ckbPrototype" model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
+              </div>
+              <div class="right-content" ng-class="{'date-disabled': !prototypeChecked}">
+                <label for="txtPrototypeDeadline" translate="prototypeDeadline"></label>
+                <div class="calendar-deadline input-group date">
+                  <input id="txtPrototypeDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+                         placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
+                         name="prototypeDate" ng-disabled="!prototypeChecked"
+                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
+                         required-expr="state.status('register-date-gt-start-date')"
+                         ng-model="contest.prototypeDate" required>
+                  <span class="input-group-addon-disabled" ng-show="!prototypeChecked">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  <span class="input-group-addon" ng-show="prototypeChecked">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="post-contest-field">
+        <div class="post-contest-field-content">
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
             <input id="dateChallengeSubmit" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
@@ -74,12 +148,8 @@
                  ng-show="timelineForm.submissionDate.$error.requiredExpr"
                  translate="submitDateGTRegisterDate"/>
           </div>
-
         </div>
       </div>
-      <!--<div class="post-contest-field submit">-->
-        <!--<button class="btn btn-primary btn-flat" translate="next"></button>-->
-      <!--</div>-->
     </div>
   </div>
 </ng-form>
