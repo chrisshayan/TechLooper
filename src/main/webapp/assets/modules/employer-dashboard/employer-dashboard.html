@@ -171,13 +171,13 @@
               <div class="mail-body mail-subject">
                 <form class="form-horizontal" method="get">
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">To:</label>
+                    <label class="col-sm-2 control-label" translate="mailTo"></label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" value="alex.smith@corporat.com; trinhpt@navigosgroup.com" readonly>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">Subject:</label>
+                    <label class="col-sm-2 control-label" translate="mailSubject"></label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" value="">
                     </div>
@@ -193,8 +193,8 @@
                 <div class="clearfix"></div>
               </div>
               <div class="mail-body text-right tooltip-demo email-footer">
-                <a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send"  data-dismiss="modal"><i class="fa fa-reply"></i> Send</a>
-                <a class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Cancel"  data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
+                <a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="{{'mailSend' | translate}}"  data-dismiss="modal" ><i class="fa fa-reply"></i> <span translate="mailSend"></span></a>
+                <a class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="{{'cancel' | translate}}"  data-dismiss="modal"><i class="fa fa-times"></i> <span translate="cancel"></span></a>
               </div>
             </div>
           </div>
