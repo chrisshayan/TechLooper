@@ -685,8 +685,11 @@ public class ChallengeServiceImpl implements ChallengeService {
                 challengeEntity.getChallengeId(), currentDateTime, TimePeriodEnum.TWENTY_FOUR_HOURS);
         templateModel.put("latestRegistrants", latestRegistrants);
 
-        template.process(templateModel, stringWriter);
+        List<ChallengeSubmissionEntity> latestSubmissions = findChallengeSubmissionWithinPeriod(
+                challengeEntity.getChallengeId(), currentDateTime, TimePeriodEnum.TWENTY_FOUR_HOURS);
+        templateModel.put("latestSubmissions", latestSubmissions);
 
+        template.process(templateModel, stringWriter);
         mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
         postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");

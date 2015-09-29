@@ -292,6 +292,7 @@
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
+                    <#if latestSubmissions?has_content>
                     <tr>
                       <td align="left">
                         <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="background-color: #f7f7f7; margin: 0 auto; float:left; height:150px" class="fullWidth">
@@ -310,9 +311,10 @@
                                 </tr>
                                 <tr>
                                   <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
-                                    You have received 10 new submissions for the milestone "<strong style="color:#000; font-size: 14px; font-weight: 600;">Idea</strong>" since yesterday:
+                                    You have received ${latestSubmissions.size} new submissions since yesterday:
                                   </td>
                                 </tr>
+                                <#list latestSubmissions as latestSubmission>
                                 <tr>
                                   <td style="height:15px; line-height: 15px;">
                                     <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -323,7 +325,7 @@
                                     <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                       <tr>
                                         <td style="font-size: 14px;" width="40px" align="center">01</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
+                                        <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
                                       </tr>
                                     </table>
                                     <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
@@ -336,213 +338,7 @@
                                     </table>
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">02</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">03</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">04</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">05</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">06</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">07</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">08</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">09</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="height:15px; line-height: 15px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="left" valign="top">
-                                    <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">10</td>
-                                        <td style="font-size: 14px;">Johnson Pham</td>
-                                      </tr>
-                                    </table>
-                                    <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;"><a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a></td>
-
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
+                                </#list>
                               </table>
                             </td>
                           </tr>
@@ -555,6 +351,7 @@
                         </table>
                       </td>
                     </tr>
+                    </#if>
                     <tr>
                       <td style="height:30px; line-height: 30px;" width="100%">
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
