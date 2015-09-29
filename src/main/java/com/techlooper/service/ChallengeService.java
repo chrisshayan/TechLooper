@@ -6,6 +6,7 @@ import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.TimePeriodEnum;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -29,7 +30,7 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-            ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
+                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
 
     ChallengeDetailDto getChallengeDetail(Long challengeId);
 
@@ -72,5 +73,8 @@ public interface ChallengeService {
     Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId);
 
     ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
+
+    List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period);
 
 }
