@@ -738,5 +738,17 @@
   "finalDateGtPrototypeDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Prototype ít nhất 1 ngày."
   "finalDateGtUxDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp UI/UX ít nhất 1 ngày.",
   "finalDateGtIdeaDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Ý Tưởng ít nhất 1 ngày.",
-  "finalDateGtRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày."
+  "finalDateGtRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
+  "mileStones": "Mile Stones:",
+  "pleaseSelectMileStone": "Please select milestones relevant to your contest.",
+  "prototype": "Prototype",
+  "idea": "Idea",
+  "uiux": "UI/UX",
+  "ideaDeadline": "Contestants Have To Submit Idea By: <strong>*</strong>",
+  "uIDeadline": "Contestants Have To Submit UI/UX By: <strong>*</strong>",
+  "prototypeDeadline": "Contestants Have To Submit Prototype By: <strong>*</strong>",
+  "finalApp": "Final App",
+  "mailSubject": "Tiêu đề:",
+  "mailTo": "Gửi tới:",
+  "mailSend": "Gửi Email"
 }

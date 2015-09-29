@@ -747,5 +747,8 @@
   "finalDateGtPrototypeDate": "Final submission day should be ahead of Prototype day at least 1 day.",
   "finalDateGtUxDate": "Final submission day should be ahead of UI/UX day at least 1 day.",
   "finalDateGtIdeaDate": "Final submission day should be ahead of Idea day at least 1 day.",
-  "finalDateGtRegisterDate": "Final submission day should be ahead of Register day at least 1 day."
+  "finalDateGtRegisterDate": "Final submission day should be ahead of Register day at least 1 day.",
+  "mailSubject": "Subject:",
+  "mailTo": "To:",
+  "mailSend": "Send"
 }
