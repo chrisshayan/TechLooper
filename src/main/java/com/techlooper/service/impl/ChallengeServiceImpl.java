@@ -3,9 +3,11 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
+import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
@@ -125,6 +127,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Resource
     private ChallengeRegistrantRepository challengeRegistrantRepository;
+
+    @Resource
+    private ChallengeSubmissionRepository challengeSubmissionRepository;
 
     @Resource
     private Mapper dozerMapper;
@@ -612,6 +617,29 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         List<ChallengeRegistrantEntity> result = new ArrayList<>();
         Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        boolQueryBuilder.must(termQuery("challengeId", challengeId));
+
+        Long pastTime = currentDateTime - period.getMiliseconds() > 0 ? currentDateTime - period.getMiliseconds() : 0;
+        boolQueryBuilder.must(rangeQuery("challengeSubmissionId").from(pastTime));
+        searchQueryBuilder.withQuery(boolQueryBuilder);
+        searchQueryBuilder.withSort(fieldSort("challengeSubmissionId").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, 100));
+
+        List<ChallengeSubmissionEntity> result = new ArrayList<>();
+        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
         while (iterator.hasNext()) {
             result.add(iterator.next());
         }

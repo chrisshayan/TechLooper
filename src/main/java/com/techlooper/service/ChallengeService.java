@@ -3,6 +3,7 @@ package com.techlooper.service;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.ChallengePhaseEnum;
@@ -75,6 +76,9 @@ public interface ChallengeService {
     ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
 
     List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period);
+
+    List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period);
 
     void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception;
