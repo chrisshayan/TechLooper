@@ -77,4 +77,5 @@ public interface ChallengeService {
     List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period);
 
+    void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception;
 }

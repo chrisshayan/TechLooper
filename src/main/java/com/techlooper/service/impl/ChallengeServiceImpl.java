@@ -57,8 +57,6 @@ import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
 
-    private static final Long TWENTY_FOUR_HOURS_IN_MILISECONDS = 86400000L;
-
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
@@ -146,11 +144,23 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.notifyChallengeTimelineInProgress.subject.en}")
     private String notifyChallengeTimelineInProgressMailSubjectEn;
 
+    @Value("${mail.dailyChallengeSummary.subject.en}")
+    private String dailyChallengeSummaryMailSubjectEn;
+
+    @Value("${mail.dailyChallengeSummary.subject.vi}")
+    private String dailyChallengeSummaryMailSubjectVi;
+
     @Resource
     private Template notifyChallengeTimelineMailTemplateVi;
 
     @Resource
     private Template notifyChallengeTimelineMailTemplateEn;
+
+    @Resource
+    private Template dailyChallengeSummaryMailTemplateVi;
+
+    @Resource
+    private Template dailyChallengeSummaryMailTemplateEn;
 
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
@@ -625,6 +635,37 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return challengeEntities;
+    }
+
+    @Override
+    public void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception {
+        String mailSubject = challengeEntity.getLang() == Language.vi ? dailyChallengeSummaryMailSubjectVi :
+                dailyChallengeSummaryMailSubjectEn;
+        Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
+        Template template = challengeEntity.getLang() == Language.vi ?
+                dailyChallengeSummaryMailTemplateVi : dailyChallengeSummaryMailTemplateEn;
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        Address[] replyToAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
+        postChallengeMailMessage.setReplyTo(replyToAddresses);
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("challengeEntity", challengeEntity);
+
+        Long currentDateTime = new Date().getTime();
+        List<ChallengeRegistrantEntity> latestRegistrants = findChallengeRegistrantWithinPeriod(
+                challengeEntity.getChallengeId(), currentDateTime, TimePeriodEnum.TWENTY_FOUR_HOURS);
+        templateModel.put("latestRegistrants", latestRegistrants);
+
+        template.process(templateModel, stringWriter);
+
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
     }
 
 }

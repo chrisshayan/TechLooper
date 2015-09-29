@@ -116,12 +116,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="${webBaseUrl}#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
+                    <a href="${webBaseUrl}#/home?utm_source=dailysummary&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=dailysummary&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -163,7 +163,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey <strong style="color:#000; font-size: 14px; font-weight: 700;">thu.hoang@navigosgroup.com</strong>,</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey <strong style="color:#000; font-size: 14px; font-weight: 700;">${challengeEntity.authorEmail}</strong>,</p>
                       </td>
                     </tr>
                     <tr>
@@ -173,7 +173,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">Challenge Name</a>  in last 24 hours</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeEntity.challengeName}</a>  in last 24 hours</p>
                       </td>
                     </tr>
                     <tr>
@@ -199,12 +199,14 @@
                                 </tr>
                                 <tr>
                                   <td align="left">
-                                    You have received 5 new registrations since yesterday. Below are new contestants:
+                                    You have received ${latestRegistrants.size} new registrations since yesterday
                                   </td>
                                 </tr>
                               </table>
+                            <#if latestRegistrants?has_content>
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
-                                <tr>
+                                <#list latestRegistrants as registrant>
+                                  <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
@@ -212,58 +214,11 @@
                                     <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">01</td>
-                                  <td style="font-size: 14px;">Johnson Pham</td>
+                                  <tr>
+                                  <td style="font-size: 14px;" width="40px" align="center">${registrant?index}</td>
+                                  <td style="font-size: 14px;">${registrant.registrantFirstName} ${registrant.registrantLastName}</td>
                                 </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">02</td>
-                                  <td style="font-size: 14px; text-align: left">Huynh Phuong</td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">03</td>
-                                  <td style="font-size: 14px; text-align: left">Huynh Phuong</td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">04</td>
-                                  <td style="font-size: 14px; text-align: left">Huynh Phuong</td>
-                                </tr>
-                                <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">05</td>
-                                  <td style="font-size: 14px; text-align: left">Huynh Phuong</td>
-                                </tr>
+                                </#list>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -273,8 +228,10 @@
                                   </td>
                                 </tr>
                               </table>
+                            </#if>
                             </td>
                           </tr>
+                        <#if latestRegistrants?has_content>
                           <tr>
                             <td style="text-align: center;">
                               <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
@@ -286,6 +243,7 @@
                               </table>
                             </td>
                           </tr>
+                        </#if>
                           <tr>
                             <td style="height:5px; line-height: 5px;">
                               <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
