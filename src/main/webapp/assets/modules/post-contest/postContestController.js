@@ -19,15 +19,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type) {
         switch (type) {
           case "is-form-valid":
-            //if ($scope.challengeForm.$pristine) return true;
             $scope.challengeForm.$setSubmitted();
-            //if (!$scope.challengeForm.$pristine) {
-            //  $scope.challengeForm.$setSubmitted();
-            //}
-            //else {
-            //  $scope.challengeForm.$pristine = false;
-            //}
-            //$scope.challengeForm.$setSubmitted();
             return $.isEmptyObject($scope.challengeForm.$error);//!$scope.challengeForm.$invalid;
 
           case "set-form-pristine":
@@ -49,14 +41,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type) {
         switch (type) {
           case "is-form-valid":
-            //if ($scope.timelineForm.$pristine) return true;
             $scope.timelineForm.$setSubmitted();
-            //if (!$scope.timelineForm.$pristine) {
-            //  $scope.timelineForm.$setSubmitted();
-            //}
-            //else {
-            //  $scope.timelineForm.$pristine = false;
-            //}
             return $.isEmptyObject($scope.timelineForm.$error);
 
           case "is-form-pristine":
@@ -91,6 +76,11 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
             var lastDate = moment($scope.contest.startDate, jsonValue.dateFormat);
             return moment($scope.contest.registrationDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
 
+          case "idea-date-gt-register-date":
+            if (!$scope.ideaChecked) return true;
+            var ideaDate = moment($scope.contest.ideaSubmissionDate, jsonValue.dateFormat);
+            return ideaDate.isAfter(moment($scope.contest.registrationDate, jsonValue.dateFormat), 'day');
+
           case "submit-date-gt-register-date":
             if (!$scope.contest.submissionDate) return true;
             var lastDate = moment($scope.contest.registrationDate, jsonValue.dateFormat);
@@ -106,13 +96,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       status: function (type, param) {
         switch (type) {
           case "is-form-valid":
-            //if ($scope.rewardForm.$pristine) return true;
-            //if (!$scope.rewardForm.$pristine) {
-            //  $scope.rewardForm.$setSubmitted();
-            //}
-            //else {
-            //  $scope.rewardForm.$pristine = false;
-            //}
             $scope.rewardForm.$setSubmitted();
             return $.isEmptyObject($scope.rewardForm.$error);
 
@@ -167,7 +150,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     },
 
     orderStates: ["challenge", "timeline", "reward"]
-  }
+  };
 
   //var orderState = function (st) {
   //  var states = ["challenge", "timeline", "reward"];
@@ -190,11 +173,11 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     $scope.state = pState;
     $scope.state.status("set-form-pristine");
     return true;
-  }
+  };
 
   $scope.nextState = function () {
     $scope.changeState($scope.state.nextState);
-  }
+  };
 
   $scope.toState = function (st) {
     var currentStateOrder = state.orderStates.indexOf($scope.state.name);
@@ -217,12 +200,12 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         lastStep = true;
       }
     }
-  }
+  };
 
   $scope.config = {
     reviewStyle: resourcesService.reviewStyleConfig,
     qualityIdea: resourcesService.qualityIdeaConfig
-  }
+  };
 
   $scope.changeState(state.challenge);
 

@@ -587,7 +587,6 @@
   "techLooperSpotLight": "<strong>Tâm điểm</strong>",
   "whatCurrentTrend": "Xu hướng hiện tại?",
   "latestCodingChallenge": "Thử thách mới nhất",
-  "latestFreelancerProjects": "Latest Freelancer Projects",
   "viewMoreTrends": "Đọc thêm",
   "viewMoreChallenges": "Các thử thách khác",
   "viewMoreProjects": "Các dự án khác",
@@ -729,5 +728,15 @@
   "fullNameField": "Họ tên",
   "disqualify": "Loại Bỏ",
   "qualify": "Chọn Lại",
-  "qualifyConfirmation": "Bạn có muốn chọn lại thí sinh này?"
+  "qualifyConfirmation": "Bạn có muốn chọn lại thí sinh này?",
+  "ideaDateGtRegisterDate": "Ngày Hết Hạn Nộp Ý Tưởng phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
+  "uxDateGtIdeaDate": "Ngày Hết Hạn Nộp UI/UX phải sau Ngày Hết Hạn Nộp Ý Tưởng ít nhất 1 ngày.",
+  "uxDateGtRegisterDate": "Ngày Hết Hạn Nộp UI/UX phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
+  "prototypeDateGtUxDate": "Ngày Hết Hạn Nộp Prototype phải sau Ngày Hết Hạn Nộp UI/UX ít nhất 1 ngày.",
+  "prototypeDateGtIdeaDate": "Ngày Hết Hạn Nộp Prototype phải sau Ngày Hết Hạn Nộp Ý Tưởng ít nhất 1 ngày.",
+  "prototypeDateGtRegisterDate": "Ngày Hết Hạn Nộp Prototype phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
+  "finalDateGtPrototypeDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Prototype ít nhất 1 ngày."
+  "finalDateGtUxDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp UI/UX ít nhất 1 ngày.",
+  "finalDateGtIdeaDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Ý Tưởng ít nhất 1 ngày.",
+  "finalDateGtRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày."
 }

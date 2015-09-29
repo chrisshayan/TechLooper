@@ -4,18 +4,12 @@ techlooper
       require: 'ngModel',
       restrict: 'A',
       link: function (scope, element, attrs, ngModelCtrl) {
-        scope
-          .$watch(function () {
+        scope.$watch(function () {
             return $parse(attrs.requiredExpr)(scope);
           },
-          function (valid, oldValue) {
+          function (valid) {
             ngModelCtrl.$setValidity("requiredExpr", valid);
           });
-        //scope.$watch(attrs.ngModel,
-        //  function (valid, oldValue) {
-        //    console.log($parse(attrs.requiredExpr)(scope));
-        //    ngModelCtrl.$setValidity("requiredExpr", $parse(attrs.requiredExpr)(scope));
-        //  });
       }
     }
   })
@@ -24,11 +18,10 @@ techlooper
       require: 'ngModel',
       restrict: 'A',
       link: function (scope, element, attrs, ngModelCtrl) {
-        scope
-          .$watch(function () {
+        scope.$watch(function () {
             return $parse(attrs.requiredExpr2)(scope);
           },
-          function (valid, oldValue) {
+          function (valid) {
             ngModelCtrl.$setValidity("requiredExpr2", valid);
           });
       }

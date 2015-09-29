@@ -2,6 +2,11 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
+  var param = $location.search();
+  if (!$.isEmptyObject(param) && param.a == "challenge-daily-mail-registrants") {
+    //TODO send email to all new registrants
+  }
+
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
       utils.sortByDate(data.challenges, "startDateTime");
@@ -12,17 +17,17 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   $scope.changeChallengeStatus = function (status) {
     $scope.challengeStatus = status;
-  }
+  };
 
   $scope.toEditPage = function (challenge) {
     $location.url("post-challenge?a=edit&id=" + challenge.challengeId);
-  }
+  };
 
   $scope.filterChallenges = function (status) {
     if (!$scope.dashboardInfo) return [];
     var challenges = $scope.dashboardInfo.challenges || [];
     return $filter("progress")(challenges, "challenges", status || $scope.challengeStatus);
-  }
+  };
 
   $scope.deleteCurrentChallenge = function (challenge) {
     var deleteById = function () {
@@ -39,7 +44,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           if (!challenges.length) $scope.changeChallengeStatus();
           $scope.$apply();
         });
-    }
+    };
     //deleteById();
     apiService.deleteChallengeById(challenge.challengeId)
       .success(function () {
@@ -48,6 +53,6 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   };
 
   $scope.goToChallengeDetails = function (challenge) {
-    $location.url("challenge-detail/-" + challenge.challengeId+"-id?a=registrants");
+    $location.url("challenge-detail/-" + challenge.challengeId + "-id?a=registrants");
   }
 });

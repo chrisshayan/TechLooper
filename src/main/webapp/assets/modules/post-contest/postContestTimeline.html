@@ -22,7 +22,7 @@
                  ng-show="timelineForm.startDate.$error.required" translate="requiredThisField"></div>
             <div class="error-messages"
                  ng-show="timelineForm.startDate.$error.requiredExpr"
-                 translate="startDateWt4w"/>
+                 translate="startDateWt4w"></div>
           </div>
 
         </div>
@@ -44,10 +44,10 @@
 
           <div ng-show="timelineForm.registrationDate.$touched || timelineForm.$submitted">
             <div class="error-messages"
-                 ng-show="timelineForm.registrationDate.$error.required" translate="requiredThisField" />
+                 ng-show="timelineForm.registrationDate.$error.required" translate="requiredThisField" ></div>
             <div class="error-messages"
                  ng-show="timelineForm.registrationDate.$error.requiredExpr"
-                 translate="registerDateGTStartDate"/>
+                 translate="registerDateGTStartDate"></div>
           </div>
 
         </div>
@@ -66,10 +66,10 @@
                 <div class="calendar-deadline input-group date">
                   <input id="txtIdeaDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
-                         name="ideaDate" ng-disabled="!ideaChecked"
+                         name="ideaSubmissionDate" ng-disabled="!ideaChecked"
                          data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
-                         required-expr="state.status('register-date-gt-start-date')"
-                         ng-model="contest.ideaDate" required>
+                         required-expr="state.status('idea-date-gt-register-date')"
+                         ng-model="contest.ideaSubmissionDate" required>
                   <span class="input-group-addon-disabled" ng-show="!ideaChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -77,6 +77,11 @@
                     <i class="fa fa-calendar"></i>
                   </span>
                 </div>
+              </div>
+              <div ng-show="timelineForm.ideaSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages"
+                     ng-show="timelineForm.ideaSubmissionDate.$error.requiredExpr"
+                     translate="ideaDateGtRegisterDate"></div>
               </div>
             </li>
             <li>
@@ -143,10 +148,10 @@
 
           <div ng-show="timelineForm.submissionDate.$touched || timelineForm.$submitted">
             <div class="error-messages"
-                 ng-show="timelineForm.submissionDate.$error.required" translate="requiredThisField" />
+                 ng-show="timelineForm.submissionDate.$error.required" translate="requiredThisField"></div>
             <div class="error-messages"
                  ng-show="timelineForm.submissionDate.$error.requiredExpr"
-                 translate="submitDateGTRegisterDate"/>
+                 translate="submitDateGTRegisterDate"></div>
           </div>
         </div>
       </div>
