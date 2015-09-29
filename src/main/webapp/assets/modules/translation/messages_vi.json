@@ -729,5 +729,17 @@
   "fullNameField": "Họ tên",
   "disqualify": "Loại Bỏ",
   "qualify": "Chọn Lại",
-  "qualifyConfirmation": "Bạn có muốn chọn lại thí sinh này?"
+  "qualifyConfirmation": "Bạn có muốn chọn lại thí sinh này?",
+  "mileStones": "Mile Stones:",
+  "pleaseSelectMileStone": "Please select milestones relevant to your contest.",
+  "prototype": "Prototype",
+  "idea": "Idea",
+  "uiux": "UI/UX",
+  "ideaDeadline": "Contestants Have To Submit Idea By: <strong>*</strong>",
+  "uIDeadline": "Contestants Have To Submit UI/UX By: <strong>*</strong>",
+  "prototypeDeadline": "Contestants Have To Submit Prototype By: <strong>*</strong>",
+  "finalApp": "Final App",
+  "mailSubject": "Tiêu đề:",
+  "mailTo": "Gửi tới:",
+  "mailSend": "Gửi Email"
 }

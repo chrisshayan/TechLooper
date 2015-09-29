@@ -737,5 +737,8 @@
   "ideaDeadline": "Contestants Have To Submit Idea By: <strong>*</strong>",
   "uIDeadline": "Contestants Have To Submit UI/UX By: <strong>*</strong>",
   "prototypeDeadline": "Contestants Have To Submit Prototype By: <strong>*</strong>",
-  "finalApp": "Final App"
+  "finalApp": "Final App",
+  "mailSubject": "Subject:",
+  "mailTo": "To:",
+  "mailSend": "Send"
 }
