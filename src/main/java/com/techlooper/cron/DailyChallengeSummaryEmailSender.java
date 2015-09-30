@@ -5,6 +5,7 @@ import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.service.ChallengeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +21,24 @@ public class DailyChallengeSummaryEmailSender {
     @Resource
     private ChallengeService challengeService;
 
+    @Value("${jobAlert.enable}")
+    private Boolean enableJobAlert;
+
     @Scheduled(cron = "${scheduled.cron.dailyChallengeSummary}")
     public void notifyRegistrantAboutChallengeTimeline() throws Exception {
-        List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
+        if (enableJobAlert) {
+            List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
 
-        for (ChallengePhaseEnum challengePhase : challengePhases) {
-            List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
+            for (ChallengePhaseEnum challengePhase : challengePhases) {
+                List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
-            for (ChallengeEntity challengeEntity : challengeEntities) {
-                try {
-                    if (challengeEntity.getChallengeId() == 1442478937708L)
-                        challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
-                } catch (Exception ex) {
-                    LOGGER.error(ex.getMessage(), ex);
+                for (ChallengeEntity challengeEntity : challengeEntities) {
+                    try {
+                        if (challengeEntity.getChallengeId() == 1442478937708L)
+                            challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
+                    } catch (Exception ex) {
+                        LOGGER.error(ex.getMessage(), ex);
+                    }
                 }
             }
         }
