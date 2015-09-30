@@ -163,7 +163,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey <strong style="color:#000; font-size: 14px; font-weight: 700;">${challengeEntity.authorEmail}</strong>,</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey,</p>
                       </td>
                     </tr>
                     <tr>
@@ -173,7 +173,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeEntity.challengeName}</a>  in last 24 hours</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=dailysummary&utm_medium=challengename&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>  in last 24 hours</p>
                       </td>
                     </tr>
                     <tr>
@@ -198,8 +198,8 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left">
-                                    You have received ${latestRegistrants.size} new registrations since yesterday
+                                  <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
+                                    You have received ${numberOfRegistrants} new registrations since yesterday
                                   </td>
                                 </tr>
                               </table>
@@ -215,7 +215,7 @@
                                   </td>
                                 </tr>
                                   <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">${registrant?index}</td>
+                                  <td style="font-size: 14px;" width="40px" align="center">${registrant_index + 1}</td>
                                   <td style="font-size: 14px;">${registrant.registrantFirstName} ${registrant.registrantLastName}</td>
                                 </tr>
                                 </#list>
@@ -237,7 +237,7 @@
                               <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                 <tr>
                                   <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                    <a href="#" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Send Them Email</a>
+                                    <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&utm_source=dailysummary&utm_medium=sendthememailbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Send Them Email</a>
                                   </td>
                                 </tr>
                               </table>
@@ -311,7 +311,7 @@
                                 </tr>
                                 <tr>
                                   <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
-                                    You have received ${latestSubmissions.size} new submissions since yesterday:
+                                    You have received ${numberOfSubmissions} new submissions since yesterday:
                                   </td>
                                 </tr>
                                 <#list latestSubmissions as latestSubmission>
@@ -324,7 +324,7 @@
                                   <td align="left" valign="top">
                                     <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                       <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">01</td>
+                                        <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
                                         <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
                                       </tr>
                                     </table>
