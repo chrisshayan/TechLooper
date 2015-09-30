@@ -333,7 +333,7 @@
                                         <td style="font-size: 14px;">
                                           <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${latestSubmission.submissionURL}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
                                         <td style="font-size: 14px;">
-                                            <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&registrantId=${latestSubmission.registrantId}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a>
+                                            <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&challengeId=${challengeId}&registrantId=${latestSubmission.registrantId}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a>
                                         </td>
                                       </tr>
                                     </table>
