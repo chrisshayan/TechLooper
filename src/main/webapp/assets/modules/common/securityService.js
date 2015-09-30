@@ -130,7 +130,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
           instance.getCurrentUser().error(function (userInfo) {
-            return $location.url(uiView.loginUrl);
+            return $location.path(uiView.loginUrl);
           });
         }
 

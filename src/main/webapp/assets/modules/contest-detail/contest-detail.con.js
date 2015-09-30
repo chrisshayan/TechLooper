@@ -90,6 +90,21 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     .success(function (data) {
       $scope.contestDetail = data;
       $filter("progress")($scope.contestDetail, "challenge");
+        var idea = $scope.contestDetail.ideaSubmissionDateTime? true : false,
+            uiux = $scope.contestDetail.uxSubmissionDateTime? true : false,
+            prototype = $scope.contestDetail.prototypeSubmissionDateTime? true : false;
+        if(!idea || !uiux || !prototype){
+          if((idea && uiux) || (idea && prototype) || (prototype && uiux)){
+            $scope.contestDetail.timeline = 4;
+          }
+          else if(((!idea && !uiux) && prototype) || ((!idea && !prototype) && uiux) || ((!prototype && !uiux) && idea)){
+            $scope.contestDetail.timeline = 3;
+          }else{
+            $scope.contestDetail.timeline = 2;
+          }
+        }else{
+          $scope.contestDetail.timeline = 5;
+        }
     })
     .error(function () {$location.url("404");});
 

@@ -3,12 +3,11 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.model.ChallengeDetailDto;
-import com.techlooper.model.ChallengeDto;
-import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.Language;
+import com.techlooper.entity.ChallengeSubmissionEntity;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
+import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
@@ -21,6 +20,7 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -51,6 +51,7 @@ import java.util.stream.Collectors;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
+import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
@@ -128,6 +129,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     private ChallengeRegistrantRepository challengeRegistrantRepository;
 
     @Resource
+    private ChallengeSubmissionRepository challengeSubmissionRepository;
+
+    @Resource
     private Mapper dozerMapper;
 
     @Value("${elasticsearch.userimport.index.name}")
@@ -145,11 +149,23 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.notifyChallengeTimelineInProgress.subject.en}")
     private String notifyChallengeTimelineInProgressMailSubjectEn;
 
+    @Value("${mail.dailyChallengeSummary.subject.en}")
+    private String dailyChallengeSummaryMailSubjectEn;
+
+    @Value("${mail.dailyChallengeSummary.subject.vi}")
+    private String dailyChallengeSummaryMailSubjectVi;
+
     @Resource
     private Template notifyChallengeTimelineMailTemplateVi;
 
     @Resource
     private Template notifyChallengeTimelineMailTemplateEn;
+
+    @Resource
+    private Template dailyChallengeSummaryMailTemplateVi;
+
+    @Resource
+    private Template dailyChallengeSummaryMailTemplateEn;
 
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
@@ -586,6 +602,52 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
+    public List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        boolQueryBuilder.must(termQuery("challengeId", challengeId));
+
+        Long pastTime = currentDateTime - period.getMiliseconds() > 0 ? currentDateTime - period.getMiliseconds() : 0;
+        boolQueryBuilder.must(rangeQuery("registrantId").from(pastTime));
+        searchQueryBuilder.withQuery(boolQueryBuilder);
+        searchQueryBuilder.withSort(fieldSort("registrantId").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, 100));
+
+        List<ChallengeRegistrantEntity> result = new ArrayList<>();
+        Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        boolQueryBuilder.must(termQuery("challengeId", challengeId));
+
+        Long pastTime = currentDateTime - period.getMiliseconds() > 0 ? currentDateTime - period.getMiliseconds() : 0;
+        boolQueryBuilder.must(rangeQuery("challengeSubmissionId").from(pastTime));
+        searchQueryBuilder.withQuery(boolQueryBuilder);
+        searchQueryBuilder.withSort(fieldSort("challengeSubmissionId").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, 100));
+
+        List<ChallengeSubmissionEntity> result = new ArrayList<>();
+        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+
+        return result;
+    }
+
+    @Override
     public List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase) {
         List<ChallengeEntity> challengeEntities = new ArrayList<>();
         // from <= NOW < to
@@ -601,6 +663,46 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return challengeEntities;
+    }
+
+    @Override
+    public void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception {
+        String mailSubject = challengeEntity.getLang() == Language.vi ? dailyChallengeSummaryMailSubjectVi :
+                dailyChallengeSummaryMailSubjectEn;
+        Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
+        Template template = challengeEntity.getLang() == Language.vi ?
+                dailyChallengeSummaryMailTemplateVi : dailyChallengeSummaryMailTemplateEn;
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        Address[] replyToAddresses = InternetAddress.parse(postChallengeTechloopiesMailList);
+        postChallengeMailMessage.setReplyTo(replyToAddresses);
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("currentDateTime", String.valueOf(new Date().getTime()));
+
+        Long currentDateTime = new Date().getTime();
+        List<ChallengeRegistrantEntity> latestRegistrants = findChallengeRegistrantWithinPeriod(
+                challengeEntity.getChallengeId(), currentDateTime, TimePeriodEnum.TWENTY_FOUR_HOURS);
+        templateModel.put("numberOfRegistrants", latestRegistrants.size());
+        templateModel.put("latestRegistrants", latestRegistrants);
+
+        List<ChallengeSubmissionEntity> latestSubmissions = findChallengeSubmissionWithinPeriod(
+                challengeEntity.getChallengeId(), currentDateTime, TimePeriodEnum.TWENTY_FOUR_HOURS);
+        templateModel.put("numberOfSubmissions", latestSubmissions.size());
+        templateModel.put("latestSubmissions", latestSubmissions);
+
+        template.process(templateModel, stringWriter);
+        mailSubject = String.format(mailSubject, challengeEntity.getChallengeName());
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
     }
 
 }
