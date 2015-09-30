@@ -65,26 +65,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
           case "ex-submit-date":
             return moment().add(63, 'day').format('DD/MM/YYYY');
 
-          case "start-date-wt-4w":
-            if (!$scope.contest.startDate) return true;
-            var lastDate = moment().add(4, 'weeks');
-            var startDate = moment($scope.contest.startDate, jsonValue.dateFormat);
-            return startDate.isBetween(moment(), lastDate, 'day') || startDate.isSame(moment(), "day");
-
-          case "register-date-gt-start-date":
-            if (!$scope.contest.registrationDate) return true;
-            var lastDate = moment($scope.contest.startDate, jsonValue.dateFormat);
-            return moment($scope.contest.registrationDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
-
-          case "idea-date-gt-register-date":
-            if (!$scope.ideaChecked) return true;
-            var ideaDate = moment($scope.contest.ideaSubmissionDate, jsonValue.dateFormat);
-            return ideaDate.isAfter(moment($scope.contest.registrationDate, jsonValue.dateFormat), 'day');
-
-          case "submit-date-gt-register-date":
-            if (!$scope.contest.submissionDate) return true;
-            var lastDate = moment($scope.contest.registrationDate, jsonValue.dateFormat);
-            return moment($scope.contest.submissionDate, jsonValue.dateFormat).isAfter(lastDate, 'day');
         }
       },
       nextState: "reward"
@@ -152,11 +132,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     orderStates: ["challenge", "timeline", "reward"]
   };
 
-  //var orderState = function (st) {
-  //  var states = ["challenge", "timeline", "reward"];
-  //  return states.indexOf(st);
-  //}
-
   $scope.changeState = function (st, param) {
     var ignoreInvalidForm = param && param.ignoreInvalidForm;
     if (ignoreInvalidForm != true) {
@@ -210,7 +185,76 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   $scope.changeState(state.challenge);
 
   $scope.detectDeleteKey = function (e) {
-    if (e.which == 8)
-      return false;
+    if (e.which == 8) return false;
   };
+
+  $scope.contest = {};
+
+  var gtDate = function (modelValue, contestProperty) {
+    if (!modelValue) return true;
+
+    var currentDate = moment(modelValue, jsonValue.dateFormat);
+    var compareDate = moment($scope.contest[contestProperty], jsonValue.dateFormat);
+    if (!compareDate.isValid()) return false;
+    return currentDate.isAfter(compareDate, 'day');
+  };
+
+  // timeline validators
+  $scope.$watch(function () {
+    return [
+      $scope.contest.startDate, $scope.contest.registrationDate,
+      $scope.contest.ideaSubmissionDate, $scope.contest.uxSubmissionDate,
+      $scope.contest.prototypeSubmissionDate, $scope.contest.submissionDate,
+      $scope.ideaChecked, $scope.uiuxChecked, $scope.prototypeChecked
+    ];
+  }, function () {
+
+    var currentDate = undefined;
+    var compareDate = undefined;
+    var valid = undefined;
+
+    //start-date
+    currentDate =  moment($scope.contest.startDate, jsonValue.dateFormat);
+    if (currentDate.isValid()) {
+      compareDate = moment().add(4, 'weeks');
+      valid = currentDate.isBetween(moment(), compareDate, 'day') || currentDate.isSame(moment(), "day");
+      $scope.timelineForm.startDate.$setValidity("in4w", valid);
+    }
+
+    //registration-date
+    valid = gtDate($scope.contest.registrationDate, "startDate");
+    $scope.timelineForm && $scope.timelineForm.registrationDate.$setValidity("gtStartDate", valid);
+
+    //idea-date
+    valid = !$scope.ideaChecked || ($scope.ideaChecked && gtDate($scope.contest.ideaSubmissionDate, "registrationDate"));
+    $scope.timelineForm && $scope.timelineForm.ideaSubmissionDate.$setValidity("gtRegistrationDate", valid);
+
+    //ux-date
+    $scope.timelineForm && $scope.timelineForm.uxSubmissionDate.$setValidity("gtRegistrationDate", true);
+    $scope.timelineForm && $scope.timelineForm.uxSubmissionDate.$setValidity("gtIdeaSubmissionDate", true);
+    compareDate = $scope.ideaChecked ? "ideaSubmissionDate" : "registrationDate";
+    valid = !$scope.uiuxChecked || ($scope.uiuxChecked && gtDate($scope.contest.uxSubmissionDate, compareDate));
+    compareDate = compareDate.charAt(0).toUpperCase() + compareDate.substr(1);
+    $scope.timelineForm && $scope.timelineForm.uxSubmissionDate.$setValidity("gt" + compareDate, valid);
+
+    //prototype-date
+    $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gtRegistrationDate", true);
+    $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gtUxSubmissionDate", true);
+    $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gtIdeaSubmissionDate", true);
+    compareDate = $scope.uiuxChecked ? "uxSubmissionDate" : ($scope.ideaChecked ? "ideaSubmissionDate" : "registrationDate");
+    valid = !$scope.prototypeChecked || ($scope.prototypeChecked && gtDate($scope.contest.prototypeSubmissionDate, compareDate));
+    compareDate = compareDate.charAt(0).toUpperCase() + compareDate.substr(1);
+    $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gt" + compareDate, valid);
+
+    // submission-date
+    $scope.timelineForm && $scope.timelineForm.submissionDate.$setValidity("gtRegistrationDate", true);
+    $scope.timelineForm && $scope.timelineForm.submissionDate.$setValidity("gtIdeaSubmissionDate", true);
+    $scope.timelineForm && $scope.timelineForm.submissionDate.$setValidity("gtUxSubmissionDate", true);
+    $scope.timelineForm && $scope.timelineForm.submissionDate.$setValidity("gtPrototypeSubmissionDate", true);
+    compareDate = $scope.prototypeChecked ? "prototypeSubmissionDate" : ($scope.uiuxChecked ? "uxSubmissionDate" : ($scope.ideaChecked ? "ideaSubmissionDate" : "registrationDate"));
+    valid = gtDate($scope.contest.submissionDate, compareDate);
+    compareDate = compareDate.charAt(0).toUpperCase() + compareDate.substr(1);
+    $scope.timelineForm && $scope.timelineForm.submissionDate.$setValidity("gt" + compareDate, valid);
+
+  }, true);
 });
