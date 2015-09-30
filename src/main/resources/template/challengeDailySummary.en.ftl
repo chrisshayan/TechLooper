@@ -237,7 +237,7 @@
                               <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                 <tr>
                                   <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                    <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&utm_source=dailysummary&utm_medium=sendthememailbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Send Them Email</a>
+                                    <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&challengeId=${challengeId}&currentDateTime=${currentDateTime}&utm_source=dailysummary&utm_medium=sendthememailbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Send Them Email</a>
                                   </td>
                                 </tr>
                               </table>
