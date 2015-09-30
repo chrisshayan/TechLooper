@@ -198,8 +198,8 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left">
-                                    You have received ${latestRegistrants.size} new registrations since yesterday
+                                  <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
+                                    You have received ${numberOfRegistrants} new registrations since yesterday
                                   </td>
                                 </tr>
                               </table>
@@ -215,7 +215,7 @@
                                   </td>
                                 </tr>
                                   <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">${registrant?index}</td>
+                                  <td style="font-size: 14px;" width="40px" align="center">${registrant_index + 1}</td>
                                   <td style="font-size: 14px;">${registrant.registrantFirstName} ${registrant.registrantLastName}</td>
                                 </tr>
                                 </#list>
@@ -311,7 +311,7 @@
                                 </tr>
                                 <tr>
                                   <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
-                                    You have received ${latestSubmissions.size} new submissions since yesterday:
+                                    You have received ${numberOfSubmissions} new submissions since yesterday:
                                   </td>
                                 </tr>
                                 <#list latestSubmissions as latestSubmission>
@@ -324,7 +324,7 @@
                                   <td align="left" valign="top">
                                     <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                       <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">01</td>
+                                        <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
                                         <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
                                       </tr>
                                     </table>
