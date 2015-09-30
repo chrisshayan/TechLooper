@@ -3,8 +3,10 @@ techlooper.directive('inputNumber', function ($parse) {
     require: 'ngModel',
     restrict: 'A',
     link: function (scope, element, attrs, ngModelCtrl) {
-      ngModelCtrl.$parsers.push(function(val) {
+      ngModelCtrl.$parsers.push(function (val) {
+        if (attrs.inputNumber == "strict" && !val) val = "0i";
         if (!val) return "";
+
         var digits = val.replace(/[^0-9]/g, '');
         var number = "";
         if (digits !== val) {

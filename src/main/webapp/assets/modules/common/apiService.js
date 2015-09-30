@@ -24,9 +24,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("logout");
     },
 
-    getFBLoginUrl: function () {
-      return $http.get("social/FACEBOOK_REGISTER/loginUrl", {transformResponse: function (d, h) {return d;}});
-    },
+    //getFBLoginUrl: function () {
+    //  return $http.get("social/FACEBOOK_REGISTER/loginUrl", {transformResponse: function (d, h) {return d;}});
+    //},
 
     getSocialLoginUrl: function (provider) {
       return $http.get("social/" + provider + "/loginUrl", {transformResponse: function (d, h) {return d;}});
@@ -72,7 +72,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
-      instance.getFBLoginUrl().success(function (url) {
+      instance.getSocialLoginUrl("FACEBOOK_REGISTER").success(function (url) {
         localStorageService.set("joinNow", true);
         window.location = url;
       });
@@ -185,6 +185,20 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     findChallengeById: function(id) {
       return $http.get("challenges/" + id);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getRegistrantsById
+     * */
+    getChallengeRegistrants: function(challengeId) {
+      return $http.get("challenges/" + challengeId + "/registrants");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.saveRegistrant
+     * */
+    saveChallengeRegistrant: function(registrant) {
+      return $http.post("challengeDetail/registrant", registrant);
     }
   }
 

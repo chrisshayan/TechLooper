@@ -1,63 +1,32 @@
 package local
 
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
-import ch.qos.logback.core.ConsoleAppender
-import ch.qos.logback.core.rolling.FixedWindowRollingPolicy
 import ch.qos.logback.core.rolling.RollingFileAppender
-import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy
+import ch.qos.logback.core.rolling.TimeBasedRollingPolicy
 
-import static ch.qos.logback.classic.Level.*
+import static ch.qos.logback.classic.Level.ALL
+import static ch.qos.logback.classic.Level.ERROR
+import static ch.qos.logback.classic.Level.OFF
 
 scan()
 
-def LOG_FOLDER = "./"
+def LOG_FOLDER = "./log/"
 
-appender("ALL", RollingFileAppender) {
+new File(LOG_FOLDER).mkdirs()
+
+appender("ROOT_FILE", RollingFileAppender) {
   file = "${LOG_FOLDER}techlooper-all.log"
-  rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper-all_%i.log"
-    minIndex = 1
-    maxIndex = 12
-  }
-  triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
+  rollingPolicy(TimeBasedRollingPolicy) {
+    fileNamePattern = "${LOG_FOLDER}%d{yyyyMMdd}-techlooper.log"
+    maxHistory = 30
   }
   encoder(PatternLayoutEncoder) {
-    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
+    pattern = "%d{HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
   }
 }
 
-appender("SPRING", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-spring-all.log"
-  rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper-spring-all_%i.log"
-    minIndex = 1
-    maxIndex = 12
-  }
-  triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
-  }
-  encoder(PatternLayoutEncoder) {
-    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
-  }
-}
+logger("org.elasticsearch", ERROR)
+logger("org.hibernate", ERROR)
+logger("org.dozer", ERROR)
 
-appender("ERROR", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-error.log"
-  rollingPolicy(FixedWindowRollingPolicy) {
-    fileNamePattern = "techlooper-error_%i.log"
-    minIndex = 1
-    maxIndex = 12
-  }
-  triggeringPolicy(SizeBasedTriggeringPolicy) {
-    maxFileSize = "10MB"
-  }
-  encoder(PatternLayoutEncoder) {
-    pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
-  }
-}
-
-logger("com.techlooper", ALL, ["ALL"], Boolean.FALSE)
-logger("org.springframework", ALL, ["SPRING"], Boolean.FALSE)
-
-root(ERROR, ["ERROR"])
+root(ALL, ["ROOT_FILE"])

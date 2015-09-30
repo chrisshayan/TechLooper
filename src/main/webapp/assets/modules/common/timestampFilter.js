@@ -7,6 +7,9 @@ techlooper.filter("timestamp", function (jsonValue) {
       moment.locale('vi');
     }
     switch (type) {
+      case 'number':
+        return moment(input).format(jsonValue.dateFormat);
+
       case 'hour':
         return moment(input, jsonValue.dateTimeFormat).format('h:mm A');
 
@@ -15,6 +18,9 @@ techlooper.filter("timestamp", function (jsonValue) {
 
       case 'longDate':
         return moment(input, jsonValue.dateFormat).format('ddd, DD MMMM YYYY');
+
+      //case 'numberDate':
+      //  return moment(input, jsonValue.dateFormat).format('DD/MM/YYYY');
     }
 
     var duration = Math.abs(moment(date).diff(moment(), "days"));

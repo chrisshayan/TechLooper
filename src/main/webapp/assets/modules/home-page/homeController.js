@@ -49,14 +49,16 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
   $scope.locationsConfig = vnwConfigService.locationsSelectize;
 
   $scope.createJobAlert = function () {
+    utils.sendNotification(jsonValue.notifications.loading);
     $scope.jobAlertForm.$setSubmitted();
     if ($scope.jobAlertForm.$invalid) {
+      utils.sendNotification(jsonValue.notifications.loaded);
       return;
     }
 
     var location = null;
     var locationId = null;
-    if ($scope.jobAlert.locationId && $scope.jobAlert.locationId !== "0") {
+    if ($scope.jobAlert.locationId && $scope.jobAlert.locationId !== "0" && $scope.jobAlert.locationId !== "1") {
       locationId = $scope.jobAlert.locationId;
       location = vnwConfigService.getLocationText(locationId, "en");
     }
@@ -75,6 +77,8 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
            $scope.jobAlertForm.$setPristine();
            $scope.jobAlert = {};
          }
+      }).finally(function () {
+        utils.sendNotification(jsonValue.notifications.loaded);
       });
   }
 

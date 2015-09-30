@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ChallengeController {
@@ -46,7 +47,7 @@ public class ChallengeController {
         if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
           challengeService.sendPostChallengeEmailToEmployer(challengeEntity);
         }
-        challengeService.sendPostChallengeEmailToTechloopies(challengeEntity);
+        challengeService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
       }
 
       // Call Lead Management API to create new lead on CRM system
@@ -64,6 +65,9 @@ public class ChallengeController {
       catch (Exception ex) {
         LOGGER.error(ex.getMessage(), ex);
       }
+    }
+    else {
+      challengeService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
     }
 
     return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);
@@ -107,4 +111,19 @@ public class ChallengeController {
   public ChallengeDto findChallengeById(@PathVariable Long challengeId) throws Exception {
     return challengeService.findChallengeById(challengeId);
   }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "/challenges/{challengeId}/registrants", method = RequestMethod.GET)
+  public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) {
+    return challengeService.findRegistrantsByOwner(request.getRemoteUser(), challengeId);
+  }
+
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "/challengeDetail/registrant", method = RequestMethod.POST)
+  public ChallengeRegistrantDto saveRegistrant(@RequestBody ChallengeRegistrantDto dto, HttpServletRequest request) {
+    return challengeService.saveRegistrant(request.getRemoteUser(), dto);
+  }
+
+
 }

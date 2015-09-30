@@ -4,10 +4,12 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.entity.VnwUserProfile;
 import com.techlooper.entity.vnw.RoleName;
+import com.techlooper.model.Language;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserProfileDto;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
+import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -36,7 +39,7 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
   private static final Logger LOGGER = LoggerFactory.getLogger(SocialAuthenticationProvider.class);
 
   @Resource
-  private JsonConfigRepository jsonConfigRepository;
+  private UserService userService;
 
   @Resource
   private VietnamWorksUserService vietnamWorksUserService;
@@ -60,6 +63,15 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
     }
 
     if (userProfile != null) {
+      if (StringUtils.hasText(userProfileDto.getEmail())) {
+        try {
+          userService.sendOnBoardingEmail(userProfileDto.getEmail(), Language.en);
+        }
+        catch (Exception e) {
+          userProfileDto.getEmail();
+        }
+      }
+
       try {
         VnwUserProfile vnwUserProfile = VnwUserProfile.VnwUserProfileBuilder.vnwUserProfile()
           .withEmail(userProfileDto.getEmail())

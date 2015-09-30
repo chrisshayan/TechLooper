@@ -1,7 +1,7 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter) {
+                                                           jsonValue, $translate, utils, $filter, $timeout) {
 
-
+  utils.sendNotification(jsonValue.notifications.loading);
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -14,10 +14,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
-
-  //var parts = $routeParams.id.split("-");
-  //var contestId = parts.pop();
-  //contestId = parts.pop();
 
   $scope.status = function (type) {
     switch (type) {
@@ -107,5 +103,65 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     utils.openFBShare("/shareChallenge/" + $translate.use() + "/" + contestId);
   }
 
+  $scope.sortUsers = function (keyname) {
+    $scope.sortKey = keyname;   //set the sortKey to the param passed
+    $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+  };
+
+  apiService.getChallengeRegistrants(contestId)
+    .success(function (registrants) {
+      $scope.registrants = registrants;
+      $scope.sortByStartDate();
+      var param = $location.search();
+      if (param.a == "registrants" && registrants.length) {
+        $('.nav-tabs a[href=".registrants"]').tab('show');
+      }
+    }).finally(function () {
+    utils.sendNotification(jsonValue.notifications.loaded);
+  });
+
+  $scope.disqualify = function (registrant) {
+    registrant.disqualified = true;
+    apiService.saveChallengeRegistrant(registrant)
+      .success(function (rt) {
+        registrant.disqualified = rt.disqualified;
+        registrant.disqualifiedReason = rt.disqualifiedReason;
+      });
+  };
+
+  $scope.qualify = function (registrant) {
+    delete registrant.disqualified;
+    delete registrant.disqualifiedReason;
+    apiService.saveChallengeRegistrant(registrant)
+      .success(function (rt) {
+        registrant.disqualified = rt.disqualified;
+        registrant.disqualifiedReason = rt.disqualifiedReason;
+      });
+  };
+
+  $scope.sortByScore = function () {
+    delete $scope.sortStartDate;
+    $scope.sortScore = $scope.sortScore || "asc";
+    $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
+    utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
+  }
+
+  $scope.sortByStartDate = function () {
+    delete $scope.sortScore;
+    $scope.sortStartDate = $scope.sortStartDate || "asc";
+    $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
+    utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
+  }
+  $scope.updateScore = function(registrant, $event) {
+    $($event.currentTarget).addClass('green');
+    apiService.saveChallengeRegistrant(registrant)
+    .success(function (rt) {
+      registrant.score = rt.score;
+    }).finally(function () {
+      $timeout(function(){
+        $($event.currentTarget).removeClass('green');
+      },1000);
+    });
+  }
 });
 

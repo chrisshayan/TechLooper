@@ -57,28 +57,28 @@
         <div class="filter-item" ng-modal="active" data-ng-init="active='all'">
           <span class="all"
                 ng-show="dashboardInfo.challenges.length"
-                ng-class="{active: !challengesByStatus.status}"
-                ng-click="changeChallengesByStatus()">
+                ng-class="{active: !challengeStatus}"
+                ng-click="changeChallengeStatus()">
                 <!--ng-click="challenge.progress.translate = ''; active ='all'">-->
            {{'all' | translate}} (<i>{{dashboardInfo.challenges.length}}</i>)</span>
           <span class="activating"
-                ng-show="dashboardInfo.activeChallenges.length"
-                ng-class="{active: challengesByStatus.status == 'active'}"
-                ng-click="changeChallengesByStatus('active')">
+                ng-show="filterChallenges([jsonValue.status.registration, jsonValue.status.progress]).length"
+                ng-class="{active: challengeStatus[0] == jsonValue.status.registration}"
+                ng-click="changeChallengeStatus([jsonValue.status.registration, jsonValue.status.progress])">
                 <!--ng-click="challenge.progress.translate = myFunction; active ='registration'">-->
             {{'active' | translate}}
             (<i>{{filterChallenges([jsonValue.status.registration, jsonValue.status.progress]).length}}</i>)</span>
           <span class="notStarted"
-                ng-show="dashboardInfo.notStartedChallenges.length"
-                ng-class="{active: challengesByStatus.status == 'notStarted'}"
-                ng-click="changeChallengesByStatus('notStarted')">
+                ng-show="filterChallenges(jsonValue.status.notStarted).length"
+                ng-class="{active: challengeStatus == jsonValue.status.notStarted}"
+                ng-click="changeChallengeStatus(jsonValue.status.notStarted)">
                 <!--ng-click="challenge.progress.translate = 'notStart'; active ='notStart'">-->
             {{'notStart' | translate}}
             (<i>{{filterChallenges(jsonValue.status.notStarted).length}}</i>)</span>
           <span class="closed"
-                ng-show="dashboardInfo.closedChallenges.length"
-                ng-class="{active: challengesByStatus.status == 'closed'}"
-                ng-click="changeChallengesByStatus('closed')">
+                ng-show="filterChallenges(jsonValue.status.closed).length"
+                ng-class="{active: challengeStatus == jsonValue.status.closed}"
+                ng-click="changeChallengeStatus(changeChallengeStatus)">
             {{'closed' | translate}}
             (<i>{{filterChallenges(jsonValue.status.closed).length}}</i>)</span>
         </div>
@@ -97,7 +97,7 @@
             <td colspan="5">{{'noData' | translate}}</td>
           </tr>
 
-          <tr ng-repeat="challenge in challengesByStatus.challenges"
+          <tr ng-repeat="challenge in filterChallenges()"
               id="challenge-{{challenge.challengeId}}">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"
@@ -110,7 +110,9 @@
               {{challenge.submissionDateTime}}
             </td>
             <td data-label="{{'contestantsDashBoard' | translate}}">
-              {{challenge.numberOfRegistrants}}
+              <a ng-click="goToChallengeDetails(challenge)" ng-modal="tabName">
+                {{challenge.numberOfRegistrants}}
+              </a>
             </td>
             <td>
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"

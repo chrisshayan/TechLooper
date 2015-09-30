@@ -1,5 +1,5 @@
 techlooper.controller("navigationController", function ($scope, securityService, apiService, localStorageService, $location,
-                                                        jsonValue, utils, $timeout, $rootScope) {
+                                                        jsonValue, utils, $timeout, $rootScope, $window) {
   $scope.state = function (type) {
     switch (type) {
       case "show-employer-header":
@@ -86,5 +86,11 @@ techlooper.controller("navigationController", function ($scope, securityService,
       $scope.mobileMenuEmployer = !$scope.mobileMenuEmployer;
       $scope.mobileMenu = !$scope.mobileMenu;
     }
+  }
+  $scope.langKey = localStorage.NG_TRANSLATE_LANG_KEY;
+  $scope.changeLanguages = function(key){
+    $scope.langKey = key;
+    localStorage.NG_TRANSLATE_LANG_KEY = key;
+    $window.location.reload();
   }
 });

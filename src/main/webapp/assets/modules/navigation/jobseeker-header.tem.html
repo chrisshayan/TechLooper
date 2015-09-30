@@ -7,6 +7,10 @@
             <div class="ic-menu-mobile" ng-modal="mobileMenu" ng-click="mobileMenu = !mobileMenu">
                 <i class="fa fa-bars"></i>
             </div>
+            <div class="lang-block" ng-model="langKey">
+                <a ng-click="changeLanguages('vi')" ng-show="langKey == 'en'" class="en">{{'vietnamese' | translate}}</a>
+                <a ng-click="changeLanguages('en')" ng-show="langKey == 'vi'" class="vi">{{'english' | translate}}</a>
+            </div>
             <div class="user-info-basic-block">
                 <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
                 <p>{{$root.userInfo.name}}</p>
@@ -15,7 +19,6 @@
                 </div>
                 <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
             </div>
-
         </div>
     </div>
     <div class="main-menu-job-seeker-block" ng-show="!mobileMenu">

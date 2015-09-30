@@ -7,53 +7,93 @@ import com.techlooper.model.Language;
  */
 public class ChallengeRegistrantDto {
 
-    private Long challengeId;
+  private Long challengeId;
 
-    private String registrantEmail;
+  private String registrantEmail;
 
-    private String registrantFirstName;
+  private String registrantFirstName;
 
-    private String registrantLastName;
+  private String registrantLastName;
 
-    private Language lang;
+  private Language lang;
 
-    public Long getChallengeId() {
-        return challengeId;
-    }
+  private Double score;
 
-    public void setChallengeId(Long challengeId) {
-        this.challengeId = challengeId;
-    }
+  private Long registrantId;
 
-    public String getRegistrantEmail() {
-        return registrantEmail;
-    }
+  private Boolean disqualified;
 
-    public void setRegistrantEmail(String registrantEmail) {
-        this.registrantEmail = registrantEmail;
-    }
+  private String disqualifiedReason;
 
-    public String getRegistrantFirstName() {
-        return registrantFirstName;
-    }
+  public String getDisqualifiedReason() {
+    return disqualifiedReason;
+  }
 
-    public void setRegistrantFirstName(String registrantFirstName) {
-        this.registrantFirstName = registrantFirstName;
-    }
+  public void setDisqualifiedReason(String disqualifiedReason) {
+    this.disqualifiedReason = disqualifiedReason;
+  }
 
-    public String getRegistrantLastName() {
-        return registrantLastName;
-    }
+  public Boolean getDisqualified() {
+    return disqualified;
+  }
 
-    public void setRegistrantLastName(String registrantLastName) {
-        this.registrantLastName = registrantLastName;
-    }
+  public void setDisqualified(Boolean disqualified) {
+    this.disqualified = disqualified;
+  }
 
-    public Language getLang() {
-        return lang;
-    }
+  public Long getRegistrantId() {
+    return registrantId;
+  }
 
-    public void setLang(Language lang) {
-        this.lang = lang;
-    }
+  public void setRegistrantId(Long registrantId) {
+    this.registrantId = registrantId;
+  }
+
+  public Double getScore() {
+    return score;
+  }
+
+  public void setScore(Double score) {
+    this.score = score;
+  }
+
+  public Long getChallengeId() {
+    return challengeId;
+  }
+
+  public void setChallengeId(Long challengeId) {
+    this.challengeId = challengeId;
+  }
+
+  public String getRegistrantEmail() {
+    return registrantEmail;
+  }
+
+  public void setRegistrantEmail(String registrantEmail) {
+    this.registrantEmail = registrantEmail;
+  }
+
+  public String getRegistrantFirstName() {
+    return registrantFirstName;
+  }
+
+  public void setRegistrantFirstName(String registrantFirstName) {
+    this.registrantFirstName = registrantFirstName;
+  }
+
+  public String getRegistrantLastName() {
+    return registrantLastName;
+  }
+
+  public void setRegistrantLastName(String registrantLastName) {
+    this.registrantLastName = registrantLastName;
+  }
+
+  public Language getLang() {
+    return lang;
+  }
+
+  public void setLang(Language lang) {
+    this.lang = lang;
+  }
 }
