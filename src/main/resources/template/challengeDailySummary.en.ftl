@@ -163,7 +163,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey <strong style="color:#000; font-size: 14px; font-weight: 700;">${challengeEntity.authorEmail}</strong>,</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey,</p>
                       </td>
                     </tr>
                     <tr>
@@ -173,7 +173,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeEntity.challengeName}</a>  in last 24 hours</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>  in last 24 hours</p>
                       </td>
                     </tr>
                     <tr>

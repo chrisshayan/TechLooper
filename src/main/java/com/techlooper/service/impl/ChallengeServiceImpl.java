@@ -679,7 +679,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
-        templateModel.put("challengeEntity", challengeEntity);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         Long currentDateTime = new Date().getTime();
         List<ChallengeRegistrantEntity> latestRegistrants = findChallengeRegistrantWithinPeriod(

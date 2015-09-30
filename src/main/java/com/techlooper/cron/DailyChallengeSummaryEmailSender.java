@@ -34,8 +34,7 @@ public class DailyChallengeSummaryEmailSender {
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     try {
-                        if (challengeEntity.getChallengeId() == 1442478937708L)
-                            challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
+                        challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
                     } catch (Exception ex) {
                         LOGGER.error(ex.getMessage(), ex);
                     }
