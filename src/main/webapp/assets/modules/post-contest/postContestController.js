@@ -205,7 +205,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       $scope.contest.startDate, $scope.contest.registrationDate,
       $scope.contest.ideaSubmissionDate, $scope.contest.uxSubmissionDate,
       $scope.contest.prototypeSubmissionDate, $scope.contest.submissionDate,
-      $scope.ideaChecked, $scope.uiuxChecked
+      $scope.ideaChecked, $scope.uiuxChecked, $scope.prototypeChecked
     ];
   }, function () {
 
