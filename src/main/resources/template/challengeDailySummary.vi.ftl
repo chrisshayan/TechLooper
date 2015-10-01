@@ -322,18 +322,18 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td align="left" valign="top">
-                                                                            <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                                                            <table width="70%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                                                                 <tr>
                                                                                     <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
                                                                                     <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
                                                                                 </tr>
                                                                             </table>
-                                                                            <table width="20%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                                                            <table width="30%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                                                                 <tr>
                                                                                     <td style="font-size: 14px;">
                                                                                         <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${latestSubmission.submissionURL}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Xem Trước</a></td>
                                                                                     <td style="font-size: 14px;">
-                                                                                        <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${latestSubmission.registrantId}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Phản Hồi</a>
+                                                                                        <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${latestSubmission.registrantId?string}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Phản Hồi</a>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
