@@ -1,14 +1,23 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $route) {
-  $('.summernote').summernote();
-  var edit = function () {
-    $('.click2edit').summernote({
-      focus: true
-    });
-  };
-  var save = function () {
-    var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-    $('.click2edit').destroy();
-  };
+  //$('.summernote').summernote();
+  //var edit = function () {
+  $('.summernote').summernote({
+    toolbar: [
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['table', ['table']],
+      ['insert', ['link']],
+      ['misc', ['undo', 'redo', 'codeview', 'fullscreen']]
+    ]
+  });
+  //var save = function () {
+  //  var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+  //  $('.click2edit').destroy();
+  //};
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
