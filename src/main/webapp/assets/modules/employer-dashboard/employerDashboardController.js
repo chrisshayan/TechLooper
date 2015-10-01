@@ -1,19 +1,19 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $route) {
   //$('.summernote').summernote();
   //var edit = function () {
-  $('.summernote').summernote({
-    toolbar: [
-      ['fontname', ['fontname']],
-      ['fontsize', ['fontsize']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
-      ['color', ['color']],
-      ['para', ['ul', 'ol', 'paragraph']],
-      ['height', ['height']],
-      ['table', ['table']],
-      ['insert', ['link']],
-      ['misc', ['undo', 'redo', 'codeview', 'fullscreen']]
-    ]
-  });
+  //$('.summernote').summernote({
+  //  toolbar: [
+  //    ['fontname', ['fontname']],
+  //    ['fontsize', ['fontsize']],
+  //    ['style', ['bold', 'italic', 'underline', 'clear']],
+  //    ['color', ['color']],
+  //    ['para', ['ul', 'ol', 'paragraph']],
+  //    ['height', ['height']],
+  //    ['table', ['table']],
+  //    ['insert', ['link']],
+  //    ['misc', ['undo', 'redo', 'codeview', 'fullscreen']]
+  //  ]
+  //});
   //var save = function () {
   //  var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
   //  $('.click2edit').destroy();
@@ -21,12 +21,22 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
+  $scope.composeEmail = {
+    send: function() {
+      console.log($scope.composeEmail);
+      var content = $('.click2edit').code();
+      console.log(content);
+    },
+    cancel: function() {
+      $location.search({});
+    }
+  };
+
   var param = $location.search();
   if (!$.isEmptyObject(param)) {
     if (param.a == "challenge-daily-mail-registrants") {
       var challengeId = param.challengeId;
       var now = param.currentDateTime;
-      $scope.composeEmail = {};
       apiService.getDailyChallengeRegistrantNames(challengeId, now)
         .success(function (names) {
           $scope.composeEmail.names = names.join("; ");
@@ -34,10 +44,6 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         });
     }
   }
-
-  $scope.cancelSendEmail = function () {
-    $location.search({});
-  };
 
   apiService.getEmployerDashboardInfo()
     .success(function (data) {

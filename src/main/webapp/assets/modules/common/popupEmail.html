@@ -1,0 +1,38 @@
+<div class="modal fade" id="emailCompose">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="mail-box">
+          <div class="mail-body mail-subject">
+            <form class="form-horizontal" method="get">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" translate="mailTo"></label>
+                <div class="col-sm-10">
+                  <input ng-model="composeEmail.names" type="text" class="form-control" ng-readonly="true">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" translate="mailSubject"></label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" value="">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="mail-text h-200">
+            <div class="summernote">
+              email container ....... ...
+              <br/>
+              <br/>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="mail-body text-right tooltip-demo email-footer">
+            <a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="{{'mailSend' | translate}}"  data-dismiss="modal" ng-click="composeEmail.send()" ><i class="fa fa-reply"></i> <span translate="mailSend"></span></a>
+            <a class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="{{'cancel' | translate}}"  data-dismiss="modal" ng-click="composeEmail.cancel()"><i class="fa fa-times"></i> <span translate="cancel"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
