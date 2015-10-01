@@ -9,6 +9,7 @@ import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -24,6 +25,8 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -58,6 +61,8 @@ import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
  */
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeServiceImpl.class);
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
@@ -167,6 +172,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Resource
     private Template dailyChallengeSummaryMailTemplateEn;
 
+    @Resource
+    private EmailService emailService;
+
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
         if (challengeDto.getChallengeId() == null) {
@@ -233,6 +241,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         stringWriter.flush();
         postChallengeMailMessage.saveChanges();
         mailSender.send(postChallengeMailMessage);
+        LOGGER.info(postChallengeMailMessage.getMessageID() + " has been sent to users " +
+                postChallengeMailMessage.getAllRecipients() + " with challengeId = " + challengeEntity.getChallengeId());
     }
 
     private String getNotifyRegistrantChallengeTimelineSubject(
@@ -704,5 +714,39 @@ public class ChallengeServiceImpl implements ChallengeService {
         postChallengeMailMessage.saveChanges();
         mailSender.send(postChallengeMailMessage);
     }
+
+    public boolean isOwnerOfChallenge(String ownerEmail, Long challengeId) {
+        ChallengeEntity challenge = challengeRepository.findOne(challengeId);
+        return challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail);
+    }
+
+    public boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent) {
+        if (isOwnerOfChallenge(challengeOwner, challengeId)) {
+            List<ChallengeRegistrantEntity> registrants = findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
+            String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(Collectors.joining(","));
+            try {
+                emailContent.setRecipients(InternetAddress.parse(csvEmails));
+            } catch (AddressException e) {
+                LOGGER.debug("Can not parse email address", e);
+                return false;
+            }
+        }
+        return emailService.sendEmail(emailContent);
+    }
+
+  public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
+    if (isOwnerOfChallenge(challengeOwner, challengeId)) {
+      ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+      String csvEmails = registrant.getRegistrantEmail();
+      try {
+        emailContent.setRecipients(InternetAddress.parse(csvEmails));
+      }
+      catch (AddressException e) {
+        LOGGER.debug("Can not parse email address", e);
+        return false;
+      }
+    }
+    return emailService.sendEmail(emailContent);
+  }
 
 }

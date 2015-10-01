@@ -6,7 +6,7 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeStart" translate="challengeStart"></label>
           <div class="input-group date">
-            <input id="dateChallengeStart" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+            <input id="dateChallengeStart" ng-keydown="detectDeleteKey($event)" type="text" class="form-control normal-date"
                    placeholder="{{'ex' | translate}}{{state.status('ex-start-date')}}"
                    name="startDate"
                    data-toggle="tooltip" data-original-title="{{'challengeStartTip' | translate}}"
@@ -30,7 +30,7 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeRegister" translate="challengeRegister"></label>
           <div class="input-group date">
-            <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+            <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control normal-date"
                    placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                    name="registrationDate"
                    data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
@@ -57,7 +57,9 @@
           <ul class="deadline">
             <li>
               <div class="left-content">
-                <input name="ideaSubmissionDateRequire" type="checkbox" id="ckbIdea" ng-model="ideaChecked"/> <label for="ckbIdea" translate="idea"></label>
+                <input name="ideaSubmissionDateRequire" type="checkbox" id="ckbIdea"
+                       ng-click="timelineForm.ideaSubmissionDate.$rollbackViewValue(); contest.ideaSubmissionDate=''"
+                       ng-model="ideaChecked"/> <label for="ckbIdea" translate="idea"></label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !ideaChecked}">
                 <label for="txtIdeaDeadline" translate="ideaDeadline"></label>
@@ -65,8 +67,8 @@
                   <input id="txtIdeaDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          name="ideaSubmissionDate" ng-disabled="!ideaChecked"
-                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
-                         ng-model="contest.ideaSubmissionDate">
+                         data-toggle="tooltip" data-original-title="{{'challengeIdeaTips' | translate}}"
+                         ng-model="contest.ideaSubmissionDate" ng-required="ideaChecked">
                   <span class="input-group-addon-disabled" ng-show="!ideaChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -76,13 +78,16 @@
                 </div>
               </div>
               <div ng-show="timelineForm.ideaSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages" ng-show="timelineForm.ideaSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.ideaSubmissionDate.$error.gtRegistrationDate"
                      translate="ideaDateGtRegisterDate"></div>
               </div>
             </li>
             <li>
               <div class="left-content">
-                <input name="uxSubmissionDateRequire" type="checkbox" id="ckbUiUX" ng-model="uiuxChecked"/> <label for="ckbUiUX">UI/UX</label>
+                <input name="uxSubmissionDateRequire" type="checkbox" id="ckbUiUX"
+                       ng-click="timelineForm.uxSubmissionDate.$rollbackViewValue(); contest.uxSubmissionDate=''"
+                       ng-model="uiuxChecked"/> <label for="ckbUiUX">UI/UX</label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !uiuxChecked}">
                 <label for="txtUIDeadline" translate="uIDeadline"></label>
@@ -90,8 +95,8 @@
                   <input id="txtUIDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          name="uxSubmissionDate" ng-disabled="!uiuxChecked"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
-                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
-                         ng-model="contest.uxSubmissionDate">
+                         data-toggle="tooltip" data-original-title="{{'challengeUIUXTips' | translate}}"
+                         ng-model="contest.uxSubmissionDate" ng-required="uiuxChecked">
                   <span class="input-group-addon-disabled" ng-show="!uiuxChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -101,6 +106,7 @@
                 </div>
               </div>
               <div ng-show="timelineForm.uxSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.gtRegistrationDate"
                      translate="uxDateGtRegisterDate"></div>
                 <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.gtIdeaSubmissionDate"
@@ -109,7 +115,9 @@
             </li>
             <li>
               <div class="left-content">
-                <input type="checkbox" id="ckbPrototype" ng-model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
+                <input type="checkbox" id="ckbPrototype"
+                       ng-click="timelineForm.prototypeSubmissionDate.$rollbackViewValue(); contest.prototypeSubmissionDate=''"
+                       ng-model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !prototypeChecked}">
                 <label for="txtPrototypeDeadline" translate="prototypeDeadline"></label>
@@ -117,8 +125,8 @@
                   <input id="txtPrototypeDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          name="prototypeSubmissionDate" ng-disabled="!prototypeChecked"
-                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
-                         ng-model="contest.prototypeSubmissionDate" required>
+                         data-toggle="tooltip" data-original-title="{{'challengePrototypeTips' | translate}}"
+                         ng-model="contest.prototypeSubmissionDate" ng-required="prototypeChecked">
                   <span class="input-group-addon-disabled" ng-show="!prototypeChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -128,6 +136,7 @@
                 </div>
               </div>
               <div ng-show="timelineForm.prototypeSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.gtRegistrationDate"
                      translate="prototypeDateGtRegisterDate"></div>
                 <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.gtIdeaSubmissionDate"
@@ -143,7 +152,7 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
-            <input id="dateChallengeSubmit" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+            <input id="dateChallengeSubmit" ng-keydown="detectDeleteKey($event)" type="text" class="form-control normal-date"
                    placeholder="{{'ex' | translate}}{{state.status('ex-submit-date')}}"
                    name="submissionDate"
                    data-toggle="tooltip" data-original-title="{{'challengeSubmitTip' | translate}}"

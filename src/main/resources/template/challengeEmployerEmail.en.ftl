@@ -116,12 +116,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="${webBaseUrl}#/home?utm_source=jobalertemail&utm_medium=techlooperlogo&utm_campaign=techlooperjobhub" style="border:none; outline:none" target="_blank">
+                    <a href="${webBaseUrl}#/home?utm_source=employeremail&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=freelancer" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=employeremail&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -163,20 +163,10 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hey <strong style="color:#000; font-size: 14px; font-weight: 700;">thu.hoang@navigosgroup.com</strong>,</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:15px; line-height: 15px;" width="100%">
-                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" style="margin: 0; padding: 0">
                         <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
                           <tr>
                             <td style="text-align: left; margin-top:0px">
-                              email challenge container will be show here
+                              ${emailContent}
                             </td>
                           </tr>
                         </table>

@@ -37,6 +37,7 @@ public class ChallengeTimelineNotifier {
         if (enableJobAlert) {
             List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
 
+            int count = 0;
             for (ChallengePhaseEnum challengePhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
@@ -50,6 +51,7 @@ public class ChallengeTimelineNotifier {
                             if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
                                 challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
                                         challengeEntity, challengeRegistrantEntity, challengePhase);
+                                count++;
                             }
                         } catch (Exception ex) {
                             LOGGER.error(ex.getMessage(), ex);
@@ -57,6 +59,7 @@ public class ChallengeTimelineNotifier {
                     }
                 }
             }
+            LOGGER.info("There are " + count + " emails has been sent to notify challenge timeline");
         }
     }
 

@@ -211,7 +211,7 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .otherwise({
         redirectTo: function (err, path, params) {
           if (!$.isEmptyObject(params)) {
-            return "/loading";
+            return "/loading?" + $.param(params);
           }
 
           if (window.location.host.indexOf("hiring") >= 0) {

@@ -1,4 +1,4 @@
-techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService, utils) {
+techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService, utils, $translate) {
   var instance = {
 
     login: function (techlooperKey) {
@@ -176,31 +176,61 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.deleteChallengeById
      * */
-    deleteChallengeById: function(id) {
+    deleteChallengeById: function (id) {
       return $http.delete("challenge/" + id);
     },
 
     /**
      * @see com.techlooper.controller.ChallengeController.findChallengeById
      * */
-    findChallengeById: function(id) {
+    findChallengeById: function (id) {
       return $http.get("challenges/" + id);
     },
 
     /**
      * @see com.techlooper.controller.ChallengeController.getRegistrantsById
      * */
-    getChallengeRegistrants: function(challengeId) {
+    getChallengeRegistrants: function (challengeId) {
       return $http.get("challenges/" + challengeId + "/registrants");
     },
 
     /**
      * @see com.techlooper.controller.ChallengeController.saveRegistrant
      * */
-    saveChallengeRegistrant: function(registrant) {
+    saveChallengeRegistrant: function (registrant) {
       return $http.post("challengeDetail/registrant", registrant);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.getDailyChallengeRegistrantNames
+     * */
+    getDailyChallengeRegistrantNames: function (challengeId, now) {
+      return $http.get("user/challengeRegistrantNames/" + challengeId + "/" + now);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.sendEmailToDailyChallengeRegistrants
+     * */
+    sendEmailToDailyChallengeRegistrants: function (challengeId, now, emailContent) {
+      emailContent.language = $translate.use();
+      return $http.post("user/challenge/sendMailToDaily/" + challengeId + "/" + now, emailContent);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getChallengeRegistrant
+     * */
+    getChallengeRegistrantFullName: function (challengeRegistrantId) {
+      return $http.get("challengeRegistrant/fullName/" + challengeRegistrantId, {transformResponse: function (d, h) {return d;}});
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.sendFeedbackToRegistrant
+     * */
+    sendFeedbackToRegistrant: function(challengeId, registrantId, emailContent) {
+      emailContent.language = $translate.use();
+      return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
     }
-  }
+  };
 
   return instance;
 });

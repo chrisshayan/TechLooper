@@ -190,7 +190,10 @@ public class CoreConfiguration implements ApplicationContextAware {
                 mapping(ChallengeEntity.class, ChallengeDto.class)
                         .fields("startDateTime", "startDate")
                         .fields("submissionDateTime", "submissionDate")
-                        .fields("registrationDateTime", "registrationDate");
+                        .fields("registrationDateTime", "registrationDate")
+                        .fields("ideaSubmissionDateTime", "ideaSubmissionDate")
+                        .fields("uxSubmissionDateTime", "uxSubmissionDate")
+                        .fields("prototypeSubmissionDateTime", "prototypeSubmissionDate");
 
             }
         });
@@ -504,6 +507,7 @@ public class CoreConfiguration implements ApplicationContextAware {
     public MimeMessage fromTechlooperMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
         return mailMessage;
     }
 
@@ -512,5 +516,17 @@ public class CoreConfiguration implements ApplicationContextAware {
         factory.setReadTimeout(5000);
         factory.setConnectTimeout(5000);
         return factory;
+    }
+
+    @Bean
+    public Template challengeEmployerMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("challengeEmployerEmail.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template challengeEmployerMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("challengeEmployerEmail.vi.ftl");
+        return template;
     }
 }

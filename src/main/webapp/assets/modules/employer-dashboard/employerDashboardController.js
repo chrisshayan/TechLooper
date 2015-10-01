@@ -1,20 +1,55 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
-  $('.summernote').summernote();
-  var edit = function() {
-    $('.click2edit').summernote({
-      focus: true
-    });
-  };
-  var save = function() {
-    var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-    $('.click2edit').destroy();
-  };
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $route) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
+  $scope.composeEmail = {
+    send: function () {
+      $scope.composeEmail.content = $('.summernote').code();
+      if($scope.composeEmail.content == '<p><br></p>'){
+        return;
+      }
+      if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
+        apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
+          .finally(function () {
+            $scope.composeEmail.cancel();
+          });
+      }
+      else if ($scope.composeEmail.action == "feedback-registrant") {
+        apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
+          .finally(function () {
+            $scope.composeEmail.cancel();
+          });
+      }
+    },
+    cancel: function () {
+      $location.search({});
+      $('.modal-backdrop').remove();
+    }
+  };
+
   var param = $location.search();
-  if (!$.isEmptyObject(param) && param.a == "challenge-daily-mail-registrants") {
-    //TODO send email to all new registrants
+  if (!$.isEmptyObject(param)) {
+    $scope.composeEmail.action = param.a;
+    if (param.a == "challenge-daily-mail-registrants") {
+      var challengeId = param.challengeId;
+      var now = param.currentDateTime;
+      $scope.composeEmail.challengeId = challengeId;
+      $scope.composeEmail.now = now;
+      apiService.getDailyChallengeRegistrantNames(challengeId, now)
+        .success(function (names) {
+          $scope.composeEmail.names = names.join("; ");
+          $("#emailCompose").modal();
+        });
+    }
+    else if (param.a == "feedback-registrant") {
+      $scope.composeEmail.challengeId = param.challengeId;
+      $scope.composeEmail.registrantId = param.registrantId;
+      apiService.getChallengeRegistrantFullName($scope.composeEmail.registrantId)
+        .success(function (fullname) {
+          $scope.composeEmail.names = fullname;
+          $("#emailCompose").modal();
+        });
+    }
   }
 
   apiService.getEmployerDashboardInfo()
@@ -23,7 +58,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       data.projects.sort(function (left, right) {return right.projectId - left.projectId;});
       $scope.dashboardInfo = data;
     })
-    .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
+    .finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
+    });
 
   $scope.changeChallengeStatus = function (status) {
     $scope.challengeStatus = status;
