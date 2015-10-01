@@ -740,14 +740,14 @@ public class ChallengeServiceImpl implements ChallengeService {
       String csvEmails = registrant.getRegistrantEmail();
       try {
         csvEmails += ",phuonghqh@gmail.com";//TODO remove this value because its used to test only
-        emailContent.setBcc(InternetAddress.parse(csvEmails));
+        emailContent.setRecipients(InternetAddress.parse(csvEmails));
       }
       catch (AddressException e) {
         LOGGER.debug("Can not parse email address", e);
         return false;
       }
     }
-    return emailService.sendEmailWithBcc(emailContent);
+    return emailService.sendEmail(emailContent);
   }
 
 }
