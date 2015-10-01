@@ -711,4 +711,9 @@ public class ChallengeServiceImpl implements ChallengeService {
         mailSender.send(postChallengeMailMessage);
     }
 
+    public boolean isOwnerOfChallenge(String ownerEmail, Long challengeId) {
+        ChallengeEntity challenge = challengeRepository.findOne(challengeId);
+        return challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail);
+    }
+
 }

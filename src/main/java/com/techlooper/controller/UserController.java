@@ -3,6 +3,7 @@ package com.techlooper.controller;
 import com.techlooper.dto.DashBoardInfo;
 import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
@@ -33,6 +34,8 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -373,4 +376,20 @@ public class UserController {
   public WebinarInfoDto joinWebinar(@RequestBody JoinBySocialDto joinBySocialDto) throws Exception {
     return webinarService.joinWebinar(joinBySocialDto);
   }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "user/challengeRegistrantNames/{challengeId}/{now}", method = RequestMethod.GET)
+  public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
+                                                                      @PathVariable Long challengeId, @PathVariable Long now) {
+    if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
+      List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
+      return registrants.stream()
+        .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
+        .collect(Collectors.toList());
+    }
+    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    return null;
+  }
+
+
 }

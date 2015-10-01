@@ -199,8 +199,15 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     saveChallengeRegistrant: function(registrant) {
       return $http.post("challengeDetail/registrant", registrant);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.getDailyChallengeRegistrantNames
+     * */
+    getDailyChallengeRegistrantNames: function(challengeId, now) {
+      return $http.get("user/challengeRegistrantNames/" + challengeId + "/" + now);
     }
-  }
+  };
 
   return instance;
 });
