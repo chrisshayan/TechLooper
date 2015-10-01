@@ -341,6 +341,7 @@
               height: 20px
               border-right: 1px dotted #ccc
               padding-bottom: 0
+              float: left
             span.date-right
               text-align: right
               font-weight: 300
@@ -349,7 +350,7 @@
               clear: none
               float: right
               font-size: 12px
-              padding: 10px 2px 0 0
+              padding: 0 2px 0 0
             span.date-left
               text-align: left
               font-weight: 300
@@ -358,51 +359,76 @@
               clear: none
               float: left
               font-size: 12px
-              padding: 10px 0 0 2px
+              padding: 0
+            span.line-dot
+              height: 20px
+              width: 100%
+              display: inline-block
+              clear: both
+              float: left
           .phase-box.phase-registration
             color: #1ea185
             padding-bottom: 0
             span.line-color
               background-color: #1ea185
-            span.date-right
+            span.line-dot
               border-right: 1px dotted #1ea185
-            span.date-left
               border-left: 1px dotted #1ea185
+            span.date-left
+              i
+                margin-left: -5px
+            span.date-right
+              margin-right: -7px
           .phase-box.phase-idea
             color: #9bba5c
             padding-bottom: 0
             span.line-color
               background-color: #9bba5c
             span.date-right
+              i
+                margin-right: -7px
+            span.line-dot
               border-right: 1px dotted #9bba5c
           .phase-box.phase-uiux
             color: #f29b27
             padding-bottom: 0
             span.line-color
               background-color: #f29b27
-            span.date-right
+            span.line-dot
               border-right: 1px dotted #f29b27
+            span.date-right
+              i
+                margin-right: -7px
           .phase-box.phase-prototype
             color: #bd392f
             padding-bottom: 0
             span.line-color
               background-color: #bd392f
-            span.date-right
+            span.line-dot
               border-right: 1px dotted #bd392f
+            span.date-right
+              i
+                margin-right: -7px
           .phase-box.phase-in-progress
             color: #257abb
             padding-bottom: 0
             span.line-color
               background-color: #257abb
-            span.date-right
+            span.line-dot
               border-right: 1px dotted #257abb
+            span.date-right
+              i
+                margin-right: -7px
           .phase-box.phase-final-app
             color: #257abb
             padding-bottom: 0
             span.line-color
               background-color: #257abb
-            span.date-right
+            span.line-dot
               border-right: 1px dotted #257abb
+            span.date-right
+              i
+                margin-right: -7px
 
           .phase-box.two-cols
             width: 50%

@@ -349,7 +349,7 @@
   "challengeStartTip": "This is the date when the challenge starts and start accepting registrations. During this time Contest Owner promotes the contest and review the registrations received.",
   "challengeRegister": "Contestants Have To Register By: <strong>*</strong>",
   "challengeRegisterTip": "Typically between 2-4 weeks after the challenge start date. After this date, the contest is officially in-progress and contestants are working on the challenge. It is up to you to accept more registrations at this stage.",
-  "challengeSubmit": "And Contestants Must Submit By: <strong>*</strong>",
+  "challengeSubmit": "And Contestants Must Submit Final App By:: <strong>*</strong>",
   "challengeSubmitTip": "Contest duration should not be longer than 8 weeks. This date officially ends the contest. All the contestants must submit their solutions by this date.",
   "userName": "Enter User Name/Email Address: <strong>*</strong>",
   "userNameEX": "Username / Example@vietnamworks.com",
@@ -750,5 +750,8 @@
   "finalDateGtRegisterDate": "Final submission day should be ahead of Register day at least 1 day.",
   "mailSubject": "Subject:",
   "mailTo": "To:",
-  "mailSend": "Send"
+  "mailSend": "Send",
+  "challengeIdeaTips": "This date officially ends the Idea phase of the contest. Contestants must propose their ideas to Contest Owner by this date. Once the Contest Owner approves the idea, contestant who proposed the idea will be selected to go to the next phase.",
+  "challengeUIUXTips": "This date officially ends the UI/UX phase of the contest. Contestants must propose their UI/UX mockups and/or Usability Test if required to Contest Owner by this date. Once the Contest Owner approves the mockup, contestant who submitted that mockup will be selected to go to the next phase.",
+  "challengePrototypeTips": "This date officially ends the Prototype phase of the contest. Contestants must submit their prototypes to Contest Owner by this date. Once the Contest Owner approves the prototype, contestant who submitted that prototype will be selected to go to the next phase."
 }

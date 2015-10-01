@@ -4,9 +4,15 @@ techlooper.directive("postContestTimeline", function ($http, utils, jsonValue) {
     replace: true,
     templateUrl: "modules/post-contest/postContestTimeline.html",
     link: function (scope, element, attr, ctrl) {
-      $(element).find('[data-toggle="tooltip"]').tooltip({
+      $(".normal-date[data-toggle='tooltip']").tooltip({
         html: true,
         placement: 'right',
+        'trigger': "focus",
+        animation: true
+      });
+      $('.calendar-deadline').find('[data-toggle="tooltip"]').tooltip({
+        html: true,
+        placement: 'left',
         'trigger': "focus",
         animation: true
       });

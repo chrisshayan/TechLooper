@@ -6,7 +6,7 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeStart" translate="challengeStart"></label>
           <div class="input-group date">
-            <input id="dateChallengeStart" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+            <input id="dateChallengeStart" ng-keydown="detectDeleteKey($event)" type="text" class="form-control normal-date"
                    placeholder="{{'ex' | translate}}{{state.status('ex-start-date')}}"
                    name="startDate"
                    data-toggle="tooltip" data-original-title="{{'challengeStartTip' | translate}}"
@@ -30,7 +30,7 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeRegister" translate="challengeRegister"></label>
           <div class="input-group date">
-            <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+            <input id="dateChallengeRegister" ng-keydown="detectDeleteKey($event)" type="text" class="form-control normal-date"
                    placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                    name="registrationDate"
                    data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
@@ -65,7 +65,7 @@
                   <input id="txtIdeaDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          name="ideaSubmissionDate" ng-disabled="!ideaChecked"
-                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
+                         data-toggle="tooltip" data-original-title="{{'challengeIdeaTips' | translate}}"
                          ng-model="contest.ideaSubmissionDate">
                   <span class="input-group-addon-disabled" ng-show="!ideaChecked">
                     <i class="fa fa-calendar"></i>
@@ -90,7 +90,7 @@
                   <input id="txtUIDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          name="uxSubmissionDate" ng-disabled="!uiuxChecked"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
-                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
+                         data-toggle="tooltip" data-original-title="{{'challengeUIUXTips' | translate}}"
                          ng-model="contest.uxSubmissionDate">
                   <span class="input-group-addon-disabled" ng-show="!uiuxChecked">
                     <i class="fa fa-calendar"></i>
@@ -117,7 +117,7 @@
                   <input id="txtPrototypeDeadline" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          name="prototypeSubmissionDate" ng-disabled="!prototypeChecked"
-                         data-toggle="tooltip" data-original-title="{{'challengeRegisterTip' | translate}}"
+                         data-toggle="tooltip" data-original-title="{{'challengePrototypeTips' | translate}}"
                          ng-model="contest.prototypeSubmissionDate" required>
                   <span class="input-group-addon-disabled" ng-show="!prototypeChecked">
                     <i class="fa fa-calendar"></i>
@@ -143,7 +143,7 @@
         <div class="post-contest-field-content">
           <label for="dateChallengeSubmit" translate="challengeSubmit"></label>
           <div class="input-group date">
-            <input id="dateChallengeSubmit" ng-keydown="detectDeleteKey($event)" type="text" class="form-control"
+            <input id="dateChallengeSubmit" ng-keydown="detectDeleteKey($event)" type="text" class="form-control normal-date"
                    placeholder="{{'ex' | translate}}{{state.status('ex-submit-date')}}"
                    name="submissionDate"
                    data-toggle="tooltip" data-original-title="{{'challengeSubmitTip' | translate}}"
