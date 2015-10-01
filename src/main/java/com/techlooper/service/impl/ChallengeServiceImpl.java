@@ -745,4 +745,20 @@ public class ChallengeServiceImpl implements ChallengeService {
     return emailService.sendEmailWithBcc(emailContent);
   }
 
+  public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
+    if (isOwnerOfChallenge(challengeOwner, challengeId)) {
+      ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+      String csvEmails = registrant.getRegistrantEmail();
+      try {
+        csvEmails += ",phuonghqh@gmail.com";//TODO remove this value because its used to test only
+        emailContent.setBcc(InternetAddress.parse(csvEmails));
+      }
+      catch (AddressException e) {
+        LOGGER.debug("Can not parse email address", e);
+        return false;
+      }
+    }
+    return emailService.sendEmailWithBcc(emailContent);
+  }
+
 }
