@@ -190,7 +190,10 @@ public class CoreConfiguration implements ApplicationContextAware {
                 mapping(ChallengeEntity.class, ChallengeDto.class)
                         .fields("startDateTime", "startDate")
                         .fields("submissionDateTime", "submissionDate")
-                        .fields("registrationDateTime", "registrationDate");
+                        .fields("registrationDateTime", "registrationDate")
+                        .fields("ideaSubmissionDateTime", "ideaSubmissionDate")
+                        .fields("uxSubmissionDateTime", "uxSubmissionDate")
+                        .fields("prototypeSubmissionDateTime", "prototypeSubmissionDate");
 
             }
         });
