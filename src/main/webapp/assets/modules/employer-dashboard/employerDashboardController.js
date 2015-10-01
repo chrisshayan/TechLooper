@@ -3,17 +3,25 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
   $scope.composeEmail = {
-    send: function() {
+    send: function () {
       $scope.composeEmail.content = $('.summernote').code();
       if($scope.composeEmail.content == '<p><br></p>'){
         return;
       }
-      apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
-        .finally(function() {
-          $scope.composeEmail.cancel();
-        });
+      if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
+        apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
+          .finally(function () {
+            $scope.composeEmail.cancel();
+          });
+      }
+      else if ($scope.composeEmail.action == "feedback-registrant") {
+        apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
+          .finally(function () {
+            $scope.composeEmail.cancel();
+          });
+      }
     },
-    cancel: function() {
+    cancel: function () {
       $location.search({});
       $('.modal-backdrop').remove();
     }
@@ -21,6 +29,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   var param = $location.search();
   if (!$.isEmptyObject(param)) {
+    $scope.composeEmail.action = param.a;
     if (param.a == "challenge-daily-mail-registrants") {
       var challengeId = param.challengeId;
       var now = param.currentDateTime;
@@ -33,7 +42,13 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         });
     }
     else if (param.a == "feedback-registrant") {
-      //TODO feedback email
+      $scope.composeEmail.challengeId = param.challengeId;
+      $scope.composeEmail.registrantId = param.registrantId;
+      apiService.getChallengeRegistrantFullName($scope.composeEmail.registrantId)
+        .success(function (fullname) {
+          $scope.composeEmail.names = fullname;
+          $("#emailCompose").modal();
+        });
     }
   }
 

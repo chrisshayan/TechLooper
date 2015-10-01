@@ -84,4 +84,6 @@ public interface ChallengeService {
 
   boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
 
+  boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent);
+
 }
