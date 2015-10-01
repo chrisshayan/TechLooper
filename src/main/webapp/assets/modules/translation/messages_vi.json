@@ -735,7 +735,7 @@
   "prototypeDateGtUxDate": "Ngày Hết Hạn Nộp Prototype phải sau Ngày Hết Hạn Nộp UI/UX ít nhất 1 ngày.",
   "prototypeDateGtIdeaDate": "Ngày Hết Hạn Nộp Prototype phải sau Ngày Hết Hạn Nộp Ý Tưởng ít nhất 1 ngày.",
   "prototypeDateGtRegisterDate": "Ngày Hết Hạn Nộp Prototype phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
-  "finalDateGtPrototypeDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Prototype ít nhất 1 ngày."
+  "finalDateGtPrototypeDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Prototype ít nhất 1 ngày.",
   "finalDateGtUxDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp UI/UX ít nhất 1 ngày.",
   "finalDateGtIdeaDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Nộp Ý Tưởng ít nhất 1 ngày.",
   "finalDateGtRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
