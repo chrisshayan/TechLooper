@@ -24,11 +24,11 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   $scope.composeEmail = {
     send: function() {
       $scope.composeEmail.content = $('.summernote').code();
-      console.log($scope.composeEmail);
-      //apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
-      //  .finally(function() {
-      //    $scope.composeEmail.cancel();
-      //  });
+      //console.log($scope.composeEmail);
+      apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
+        .finally(function() {
+          $scope.composeEmail.cancel();
+        });
     },
     cancel: function() {
       $location.search({});

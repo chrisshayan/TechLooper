@@ -34,7 +34,6 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -380,7 +379,7 @@ public class UserController {
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "user/challengeRegistrantNames/{challengeId}/{now}", method = RequestMethod.GET)
   public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
-                                                                      @PathVariable Long challengeId, @PathVariable Long now) {
+                                                       @PathVariable Long challengeId, @PathVariable Long now) {
     if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
       List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
       return registrants.stream()
@@ -391,5 +390,12 @@ public class UserController {
     return null;
   }
 
-
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "user/challengeRegistrantNames/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
+  public void sendEmailToDailyChallengeRegistrants(HttpServletRequest request, HttpServletResponse response,
+                                                   @PathVariable Long challengeId, @PathVariable Long now, @RequestBody EmailContent emailContent) {
+    if (!challengeService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    }
+  }
 }

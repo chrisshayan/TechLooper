@@ -4,10 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity;
-import com.techlooper.model.ChallengeDetailDto;
-import com.techlooper.model.ChallengeDto;
-import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.TimePeriodEnum;
+import com.techlooper.model.*;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -84,5 +81,7 @@ public interface ChallengeService {
   void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception;
 
   boolean isOwnerOfChallenge(String ownerEmail, Long challengeId);
+
+  boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
 
 }
