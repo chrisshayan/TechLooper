@@ -7,6 +7,7 @@ import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,9 @@ public class EmailServiceImpl implements EmailService {
     @Resource
     private Template challengeEmployerMailTemplateVi;
 
+    @Value("${web.baseUrl}")
+    private String webBaseUrl;
+
     public boolean sendEmail(EmailContent emailContent) {
         try {
             String subject = StringUtils.isNotEmpty(emailContent.getSubject()) ? emailContent.getSubject() : "[No Subject]";
@@ -48,6 +52,7 @@ public class EmailServiceImpl implements EmailService {
 
             StringWriter stringWriter = new StringWriter();
             Map<String, Object> templateModel = new HashMap<>();
+            templateModel.put("webBaseUrl", webBaseUrl);
             templateModel.put("emailContent", emailContent.getContent());
             template.process(templateModel, stringWriter);
 
