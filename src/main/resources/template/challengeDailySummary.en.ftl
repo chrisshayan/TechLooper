@@ -199,7 +199,7 @@
                                 </tr>
                                 <tr>
                                   <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
-                                    You have received ${numberOfRegistrants} new registrations since yesterday
+                                    You have received ${numberOfRegistrants} new registration(s) since yesterday
                                   </td>
                                 </tr>
                               </table>
@@ -300,7 +300,7 @@
                             <td align="left" valign="top">
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#a6a8a6">
                                 <tr>
-                                  <td style="color:#fff; font-size: 16px; font-weight: 500;">Discover how many submissions you have since yesterday</td>
+                                  <td style="color:#fff; font-size: 16px; font-weight: 500;">Discover how many submission(s) you have since yesterday</td>
                                 </tr>
                               </table>
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">

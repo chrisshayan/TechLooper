@@ -460,6 +460,7 @@
                           <tr>
                             <td width="100%" align="left" class="fullWidth">
                               <table border="0" cellspacing="0" cellpadding="0" align="left" style="margin: 0 auto; color:#000000" width="100%">
+                                <#if firstPlaceReward > 0>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     1st Place Reward (USD):
@@ -468,7 +469,9 @@
                                     $${firstPlaceReward}
                                   </td>
                                 </tr>
-                                <tr>
+                                </#if>
+                                <#if secondPlaceReward > 0>
+                                    <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
@@ -484,6 +487,8 @@
                                     $${secondPlaceReward}
                                   </td>
                                 </tr>
+                                </#if>
+                                <#if thirdPlaceReward > 0>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
@@ -500,6 +505,7 @@
                                     $${thirdPlaceReward}
                                   </td>
                                 </tr>
+                                </#if>
                               </table>
                             </td>
                           </tr>
