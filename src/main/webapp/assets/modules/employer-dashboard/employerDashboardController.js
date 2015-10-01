@@ -1,11 +1,11 @@
-techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
+techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $route) {
   $('.summernote').summernote();
-  var edit = function() {
+  var edit = function () {
     $('.click2edit').summernote({
       focus: true
     });
   };
-  var save = function() {
+  var save = function () {
     var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
     $('.click2edit').destroy();
   };
@@ -13,9 +13,22 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
   var param = $location.search();
-  if (!$.isEmptyObject(param) && param.a == "challenge-daily-mail-registrants") {
-    //TODO send email to all new registrants
+  if (!$.isEmptyObject(param)) {
+    if (param.a == "challenge-daily-mail-registrants") {
+      var challengeId = param.challengeId;
+      var now = param.currentDateTime;
+      $scope.composeEmail = {};
+      apiService.getDailyChallengeRegistrantNames(challengeId, now)
+        .success(function (names) {
+          $scope.composeEmail.names = names.join("; ");
+          $("#emailCompose").modal();
+        });
+    }
   }
+
+  $scope.cancelSendEmail = function () {
+    $location.search({});
+  };
 
   apiService.getEmployerDashboardInfo()
     .success(function (data) {
@@ -23,7 +36,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       data.projects.sort(function (left, right) {return right.projectId - left.projectId;});
       $scope.dashboardInfo = data;
     })
-    .finally(function () {utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
+    .finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
+    });
 
   $scope.changeChallengeStatus = function (status) {
     $scope.challengeStatus = status;
