@@ -256,5 +256,8 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     compareDate = compareDate.charAt(0).toUpperCase() + compareDate.substr(1);
     $scope.timelineForm && $scope.timelineForm.submissionDate.$setValidity("gt" + compareDate, valid);
 
+    if (!$scope.ideaChecked) delete $scope.contest.ideaSubmissionDate;
+    if (!$scope.uiuxChecked) delete $scope.contest.uxSubmissionDate;
+    if (!$scope.prototypeChecked) delete $scope.contest.prototypeSubmissionDate;
   }, true);
 });

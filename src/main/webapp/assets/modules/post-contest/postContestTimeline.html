@@ -68,7 +68,7 @@
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          name="ideaSubmissionDate" ng-disabled="!ideaChecked"
                          data-toggle="tooltip" data-original-title="{{'challengeIdeaTips' | translate}}"
-                         ng-model="contest.ideaSubmissionDate">
+                         ng-model="contest.ideaSubmissionDate" ng-required="ideaChecked">
                   <span class="input-group-addon-disabled" ng-show="!ideaChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -78,6 +78,7 @@
                 </div>
               </div>
               <div ng-show="timelineForm.ideaSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages" ng-show="timelineForm.ideaSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.ideaSubmissionDate.$error.gtRegistrationDate"
                      translate="ideaDateGtRegisterDate"></div>
               </div>
@@ -95,7 +96,7 @@
                          name="uxSubmissionDate" ng-disabled="!uiuxChecked"
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          data-toggle="tooltip" data-original-title="{{'challengeUIUXTips' | translate}}"
-                         ng-model="contest.uxSubmissionDate">
+                         ng-model="contest.uxSubmissionDate" ng-required="uiuxChecked">
                   <span class="input-group-addon-disabled" ng-show="!uiuxChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -105,6 +106,7 @@
                 </div>
               </div>
               <div ng-show="timelineForm.uxSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.gtRegistrationDate"
                      translate="uxDateGtRegisterDate"></div>
                 <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.gtIdeaSubmissionDate"
@@ -124,7 +126,7 @@
                          placeholder="{{'ex' | translate}}{{state.status('ex-register-date')}}"
                          name="prototypeSubmissionDate" ng-disabled="!prototypeChecked"
                          data-toggle="tooltip" data-original-title="{{'challengePrototypeTips' | translate}}"
-                         ng-model="contest.prototypeSubmissionDate">
+                         ng-model="contest.prototypeSubmissionDate" ng-required="prototypeChecked">
                   <span class="input-group-addon-disabled" ng-show="!prototypeChecked">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -134,6 +136,7 @@
                 </div>
               </div>
               <div ng-show="timelineForm.prototypeSubmissionDate.$touched || timelineForm.$submitted">
+                <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.gtRegistrationDate"
                      translate="prototypeDateGtRegisterDate"></div>
                 <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.gtIdeaSubmissionDate"
