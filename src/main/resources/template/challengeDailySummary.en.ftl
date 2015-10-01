@@ -183,7 +183,7 @@
                     </tr>
                     <tr>
                       <td align="left">
-                        <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="background-color: #edf7ff; margin: 0 auto; float:left; height:150px" class="fullWidth">
+                        <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="background-color: #edf7ff; margin: 0 auto; float:left" class="fullWidth">
                           <tr>
                             <td align="left" valign="top">
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#257abb">
@@ -199,7 +199,7 @@
                                 </tr>
                                 <tr>
                                   <td style="font-size: 14px; margin: 0; padding: 0; text-align:left">
-                                    You have received ${numberOfRegistrants} new registrations since yesterday
+                                    You have received ${numberOfRegistrants} new registration(s) since yesterday
                                   </td>
                                 </tr>
                               </table>
@@ -300,7 +300,7 @@
                             <td align="left" valign="top">
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto;background-color:#a6a8a6">
                                 <tr>
-                                  <td style="color:#fff; font-size: 16px; font-weight: 500;">Discover how many submissions you have since yesterday</td>
+                                  <td style="color:#fff; font-size: 16px; font-weight: 500;">Discover how many submission(s) you have since yesterday</td>
                                 </tr>
                               </table>
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
@@ -322,13 +322,13 @@
                                 </tr>
                                 <tr>
                                   <td align="left" valign="top">
-                                    <table width="70%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                    <table width="65%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                       <tr>
                                         <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
                                         <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
                                       </tr>
                                     </table>
-                                    <table width="30%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                    <table width="35%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                       <tr>
                                         <td style="font-size: 14px;">
                                           <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${latestSubmission.submissionURL}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>

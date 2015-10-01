@@ -5,6 +5,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
   if (param.id && (param.a == "edit")) {
     apiService.findChallengeById(param.id).success(function (data) {
       $scope.contest = data;
+      $scope.contest.fromServer = true;
     });
   }
   else {
@@ -188,7 +189,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     if (e.which == 8) return false;
   };
 
-  $scope.contest = {};
+  //$scope.contest = {};
 
   var gtDate = function (modelValue, contestProperty) {
     if (!modelValue) return true;
@@ -201,6 +202,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
 
   // timeline validators
   $scope.$watch(function () {
+    if (!$scope.contest) return [];
     return [
       $scope.contest.startDate, $scope.contest.registrationDate,
       $scope.contest.ideaSubmissionDate, $scope.contest.uxSubmissionDate,
@@ -208,6 +210,8 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
       $scope.ideaChecked, $scope.uiuxChecked, $scope.prototypeChecked
     ];
   }, function () {
+
+    if (!$scope.contest) return;
 
     var currentDate = undefined;
     var compareDate = undefined;
@@ -226,10 +230,12 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     $scope.timelineForm && $scope.timelineForm.registrationDate.$setValidity("gtStartDate", valid);
 
     //idea-date
+    if ($scope.contest.fromServer && $scope.contest.ideaSubmissionDate) $scope.ideaChecked = true;
     valid = !$scope.ideaChecked || ($scope.ideaChecked && gtDate($scope.contest.ideaSubmissionDate, "registrationDate"));
     $scope.timelineForm && $scope.timelineForm.ideaSubmissionDate.$setValidity("gtRegistrationDate", valid);
 
     //ux-date
+    if ($scope.contest.fromServer && $scope.contest.uxSubmissionDate) $scope.uiuxChecked = true;
     $scope.timelineForm && $scope.timelineForm.uxSubmissionDate.$setValidity("gtRegistrationDate", true);
     $scope.timelineForm && $scope.timelineForm.uxSubmissionDate.$setValidity("gtIdeaSubmissionDate", true);
     compareDate = $scope.ideaChecked ? "ideaSubmissionDate" : "registrationDate";
@@ -238,6 +244,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     $scope.timelineForm && $scope.timelineForm.uxSubmissionDate.$setValidity("gt" + compareDate, valid);
 
     //prototype-date
+    if ($scope.contest.fromServer && $scope.contest.prototypeSubmissionDate) $scope.prototypeChecked = true;
     $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gtRegistrationDate", true);
     $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gtUxSubmissionDate", true);
     $scope.timelineForm && $scope.timelineForm.prototypeSubmissionDate.$setValidity("gtIdeaSubmissionDate", true);
@@ -259,5 +266,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     if (!$scope.ideaChecked) delete $scope.contest.ideaSubmissionDate;
     if (!$scope.uiuxChecked) delete $scope.contest.uxSubmissionDate;
     if (!$scope.prototypeChecked) delete $scope.contest.prototypeSubmissionDate;
+
+    delete $scope.contest.fromServer;
   }, true);
 });
