@@ -206,6 +206,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getDailyChallengeRegistrantNames: function(challengeId, now) {
       return $http.get("user/challengeRegistrantNames/" + challengeId + "/" + now);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.sendEmailToDailyChallengeRegistrants
+     * */
+    sendEmailToDailyChallengeRegistrants: function(challengeId, now, emailContent) {
+      return $http.post("user/challengeRegistrantNames/sendMailToDaily/" + challengeId + "/" + now, emailContent);
     }
   };
 
