@@ -31,7 +31,6 @@ public class EmailServiceImpl implements EmailService {
     try {
       fromTechlooperMailMessage.setSubject(MimeUtility.encodeText(emailContent.getSubject(), "UTF-8", null));
       fromTechlooperMailMessage.setText(emailContent.getContent(), "UTF-8", "html");
-      //InternetAddress.parse(StringUtils.join(emails, ','))
       fromTechlooperMailMessage.setRecipients(Message.RecipientType.BCC, emailContent.getBcc());
       fromTechlooperMailMessage.saveChanges();
       mailSender.send(fromTechlooperMailMessage);

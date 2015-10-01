@@ -1,5 +1,7 @@
 package com.techlooper.model;
 
+import freemarker.template.Template;
+
 import javax.mail.Address;
 import java.io.Serializable;
 import java.util.Set;
@@ -14,6 +16,26 @@ public class EmailContent implements Serializable {
   private String content;
 
   private Address[] bcc;
+
+  private Template template;
+
+  private Language language;
+
+  public Language getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(Language language) {
+    this.language = language;
+  }
+
+  public Template getTemplate() {
+    return template;
+  }
+
+  public void setTemplate(Template template) {
+    this.template = template;
+  }
 
   public Address[] getBcc() {
     return bcc;
