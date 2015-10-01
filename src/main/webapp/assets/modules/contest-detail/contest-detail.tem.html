@@ -90,7 +90,7 @@
                 <span translate="idea"></span>
                 <span class="line-color"></span>
                 <span class="line-dot"></span>
-                <span class="date-right">15/09/2015 <i class="fa fa-circle"></i></span>
+                <span class="date-right">{{contestDetail.ideaSubmissionDateTime}} <i class="fa fa-circle"></i></span>
               </div>
               <div class="phase-box phase-uiux"
                    ng-class="{'three-cols': contestDetail.timeline == 3, 'four-cols': contestDetail.timeline == 4, 'five-cols': contestDetail.timeline == 5}"
@@ -98,7 +98,7 @@
                 <span translate="uiux"></span>
                 <span class="line-color"></span>
                 <span class="line-dot"></span>
-                <span class="date-right">15/09/2015 <i class="fa fa-circle"></i></span>
+                <span class="date-right">{{contestDetail.uxSubmissionDateTime}} <i class="fa fa-circle"></i></span>
               </div>
               <div class="phase-box phase-prototype"
                    ng-class="{'three-cols': contestDetail.timeline == 3, 'four-cols': contestDetail.timeline == 4, 'five-cols': contestDetail.timeline == 5}"
@@ -106,7 +106,7 @@
                 <span translate="prototype"></span>
                 <span class="line-color"></span>
                 <span class="line-dot"></span>
-                <span class="date-right">15/09/2015 <i class="fa fa-circle"></i></span>
+                <span class="date-right">{{contestDetail.prototypeSubmissionDateTime}} <i class="fa fa-circle"></i></span>
               </div>
               <!--<div class="phase-box phase-in-progress">-->
                 <!--<span translate="inProgress"></span>-->
