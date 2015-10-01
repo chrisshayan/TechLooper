@@ -7,5 +7,5 @@ import com.techlooper.model.EmailContent;
  */
 public interface EmailService {
 
-  boolean sendEmailWithBcc(EmailContent emailContent);
+  boolean sendEmail(EmailContent emailContent);
 }
