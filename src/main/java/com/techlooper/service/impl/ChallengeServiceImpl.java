@@ -24,6 +24,8 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -58,6 +60,8 @@ import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
  */
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeServiceImpl.class);
 
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
@@ -233,6 +237,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         stringWriter.flush();
         postChallengeMailMessage.saveChanges();
         mailSender.send(postChallengeMailMessage);
+        LOGGER.info(postChallengeMailMessage.getMessageID() + " has been sent to users " +
+                postChallengeMailMessage.getAllRecipients() + " with challengeId = " + challengeEntity.getChallengeId());
     }
 
     private String getNotifyRegistrantChallengeTimelineSubject(
