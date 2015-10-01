@@ -23,9 +23,12 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   $scope.composeEmail = {
     send: function() {
+      $scope.composeEmail.content = $('.summernote').code();
       console.log($scope.composeEmail);
-      var content = $('.click2edit').code();
-      console.log(content);
+      //apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
+      //  .finally(function() {
+      //    $scope.composeEmail.cancel();
+      //  });
     },
     cancel: function() {
       $location.search({});
@@ -37,6 +40,8 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     if (param.a == "challenge-daily-mail-registrants") {
       var challengeId = param.challengeId;
       var now = param.currentDateTime;
+      $scope.composeEmail.challengeId = challengeId;
+      $scope.composeEmail.now = now;
       apiService.getDailyChallengeRegistrantNames(challengeId, now)
         .success(function (names) {
           $scope.composeEmail.names = names.join("; ");
