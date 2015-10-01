@@ -739,7 +739,6 @@ public class ChallengeServiceImpl implements ChallengeService {
       ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
       String csvEmails = registrant.getRegistrantEmail();
       try {
-        csvEmails += ",phuonghqh@gmail.com";//TODO remove this value because its used to test only
         emailContent.setRecipients(InternetAddress.parse(csvEmails));
       }
       catch (AddressException e) {
