@@ -1,5 +1,17 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter) {
-  $('.summernote').summernote();
+  $('.summernote').summernote({
+    toolbar: [
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['table', ['table']],
+      ['insert', ['link']],
+      ['misc', ['undo', 'redo', 'codeview', 'fullscreen']]
+    ]
+  });
   var edit = function() {
     $('.click2edit').summernote({
       focus: true
