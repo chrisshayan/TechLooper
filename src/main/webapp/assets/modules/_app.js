@@ -32,8 +32,29 @@ var techlooper = angular.module("Techlooper", [
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
-  function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider, languageHttpInterceptor) {
-    $httpProvider.interceptors.push(languageHttpInterceptor);
+  function ($routeProvider, $translateProvider, $authProvider, localStorageServiceProvider, $httpProvider) {
+    $httpProvider.interceptors.push(function ($q, utils, jsonValue, $location, $rootScope) {
+      return {
+        request: function (request) {
+          return request || $q.when(request);
+        },
+
+        responseError: function (rejection) {
+          switch (rejection.status) {
+            //case 403:
+            //  $rootScope.lastPath = $location.path();
+            //  $location.path("/login");
+            //  break;
+
+            case 500:
+            case 404:
+              utils.sendNotification(jsonValue.notifications.serverError);
+              break;
+          }
+          return $q.reject(rejection);
+        }
+      };
+    });
 
     localStorageServiceProvider
       .setPrefix('techlooper')

@@ -515,15 +515,15 @@ public class CoreConfiguration implements ApplicationContextAware {
     return factory;
   }
 
-  @Bean
-  public Template challengeEmployerMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-    Template template = freemakerConfig.getTemplate("challengeEmployerEmail.en.ftl");
-    return template;
-  }
-
-  @Bean
-  public Template challengeEmployerMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-    Template template = freemakerConfig.getTemplate("challengeEmployerEmail.vi.ftl");
-    return template;
-  }
+//  @Bean
+//  public Template challengeEmployerMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+//    Template template = freemakerConfig.getTemplate("challengeEmployerEmail.en.ftl");
+//    return template;
+//  }
+//
+//  @Bean
+//  public Template challengeEmployerMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+//    Template template = freemakerConfig.getTemplate("challengeEmployerEmail.vi.ftl");
+//    return template;
+//  }
 }

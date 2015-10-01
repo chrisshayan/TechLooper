@@ -1,4 +1,4 @@
-techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService, utils) {
+techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService, utils, $translate) {
   var instance = {
 
     login: function (techlooperKey) {
@@ -212,7 +212,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.UserController.sendEmailToDailyChallengeRegistrants
      * */
     sendEmailToDailyChallengeRegistrants: function(challengeId, now, emailContent) {
-      return $http.post("user/challengeRegistrantNames/sendMailToDaily/" + challengeId + "/" + now, emailContent);
+      emailContent.language = $translate.use();
+      return $http.post("user/challenge/sendMailToDaily/" + challengeId + "/" + now, emailContent);
     }
   };
 

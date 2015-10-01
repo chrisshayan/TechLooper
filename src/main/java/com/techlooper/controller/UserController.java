@@ -391,7 +391,7 @@ public class UserController {
   }
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
-  @RequestMapping(value = "user/challengeRegistrantNames/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
+  @RequestMapping(value = "user/challenge/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
   public void sendEmailToDailyChallengeRegistrants(HttpServletRequest request, HttpServletResponse response,
                                                    @PathVariable Long challengeId, @PathVariable Long now, @RequestBody EmailContent emailContent) {
     String lang = request.getParameter("lang");
