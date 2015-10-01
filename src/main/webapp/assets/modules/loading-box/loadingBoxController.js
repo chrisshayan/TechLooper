@@ -10,28 +10,31 @@ techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope
     return securityService.routeByRole();
   }
 
+  //var param = $location.search();
+  //if (!$.isEmptyObject(param)) {
+  //  switch (param.action) {
+  //    case "registerVnwUser":
+  //      localStorageService.set("lastName", param.lastName);
+  //      localStorageService.set("firstName", param.firstName);
+  //      localStorageService.set("email", param.email);
+  //      break;
+  //
+  //    case "loginBySocial":
+  //      securityService.login(param.code, param.social, param.social);
+  //      break;
+  //
+  //    case "redirectJA":
+  //      window.location.href = param.targetUrl;
+  //      break;
+  //
+  //    case "cancel":
+  //      $location.url("/");
+  //      break;
+  //  }
+  //}
+  //
   var param = $location.search();
-  if (!$.isEmptyObject(param)) {
-    switch (param.action) {
-      case "registerVnwUser":
-        localStorageService.set("lastName", param.lastName);
-        localStorageService.set("firstName", param.firstName);
-        localStorageService.set("email", param.email);
-        break;
-
-      case "loginBySocial":
-        securityService.login(param.code, param.social, param.social);
-        break;
-
-      case "redirectJA":
-        window.location.href = param.targetUrl;
-        break;
-
-      case "cancel":
-        $location.url("/");
-        break;
-    }
+  if ($.isEmptyObject(param)) {
+    $location.url("/home");
   }
-
-  $location.url("/");
 });
