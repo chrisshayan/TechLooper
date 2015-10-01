@@ -4,6 +4,7 @@ import com.techlooper.model.EmailContent;
 import com.techlooper.model.Language;
 import com.techlooper.service.EmailService;
 import freemarker.template.Template;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -39,7 +40,8 @@ public class EmailServiceImpl implements EmailService {
 
     public boolean sendEmail(EmailContent emailContent) {
         try {
-            fromTechlooperMailMessage.setSubject(MimeUtility.encodeText(emailContent.getSubject(), "UTF-8", null));
+            String subject = StringUtils.isNotEmpty(emailContent.getSubject()) ? emailContent.getSubject() : "[No Subject]";
+            fromTechlooperMailMessage.setSubject(MimeUtility.encodeText(subject, "UTF-8", null));
 
             Template template = emailContent.getLanguage() == Language.vi ? challengeEmployerMailTemplateVi :
                     challengeEmployerMailTemplateEn;
