@@ -131,7 +131,7 @@ public class ChallengeController {
   }
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
-  @RequestMapping(value = "challengeRegistrant/fullName/{registrantId}", method = RequestMethod.POST)
+  @RequestMapping(value = "challengeRegistrant/fullName/{registrantId}", method = RequestMethod.GET)
   public String getChallengeRegistrant(@PathVariable Long registrantId) {
     ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
     return registrantEntity.getRegistrantFirstName() + " " + registrantEntity.getRegistrantLastName();
