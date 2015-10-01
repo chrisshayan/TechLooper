@@ -32,6 +32,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
     },
     cancel: function() {
       $location.search({});
+      $('.modal-backdrop').remove();
     }
   };
 
