@@ -25,21 +25,24 @@ public class DailyChallengeSummaryEmailSender {
     private Boolean enableJobAlert;
 
     @Scheduled(cron = "${scheduled.cron.dailyChallengeSummary}")
-    public void notifyRegistrantAboutChallengeTimeline() throws Exception {
+    public void sendDailyEmailAboutChallengeSummary() throws Exception {
         if (enableJobAlert) {
             List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
 
+            int count = 0;
             for (ChallengePhaseEnum challengePhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     try {
                         challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
+                        count++;
                     } catch (Exception ex) {
                         LOGGER.error(ex.getMessage(), ex);
                     }
                 }
             }
+            LOGGER.info("There are " + count + " daily emails has been sent about challenge summary");
         }
     }
 }

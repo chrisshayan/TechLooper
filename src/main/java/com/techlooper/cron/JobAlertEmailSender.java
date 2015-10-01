@@ -6,6 +6,8 @@ import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
 import org.dozer.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
  */
 @Service
 public class JobAlertEmailSender {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JobAlertEmailSender.class);
 
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
@@ -48,16 +52,19 @@ public class JobAlertEmailSender {
                     jobAggregatorService.findJobAlertRegistration(JobAlertPeriodEnum.WEEKLY);
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
+                int count = 0;
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
                     JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
                     if (jobSearchResponse.getTotalJob() > 0) {
                         jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
                         jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
+                        count++;
                     } else {
                         jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_NOT_FOUND);
                     }
                 }
+                LOGGER.info("There are " + count + " job alert emails has been sent");
             }
         }
     }
