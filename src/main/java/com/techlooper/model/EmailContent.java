@@ -12,7 +12,7 @@ public class EmailContent implements Serializable {
 
   private String content;
 
-  private Address[] bcc;
+  private Address[] recipients;
 
   private Language language;
 
@@ -24,12 +24,12 @@ public class EmailContent implements Serializable {
     this.language = language;
   }
 
-  public Address[] getBcc() {
-    return bcc;
+  public Address[] getRecipients() {
+    return recipients;
   }
 
-  public void setBcc(Address[] bcc) {
-    this.bcc = bcc;
+  public void setRecipients(Address[] recipients) {
+    this.recipients = recipients;
   }
 
   public String getSubject() {

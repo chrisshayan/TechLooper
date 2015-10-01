@@ -57,7 +57,9 @@
           <ul class="deadline">
             <li>
               <div class="left-content">
-                <input name="ideaSubmissionDateRequire" type="checkbox" id="ckbIdea" ng-model="ideaChecked"/> <label for="ckbIdea" translate="idea"></label>
+                <input name="ideaSubmissionDateRequire" type="checkbox" id="ckbIdea"
+                       ng-click="timelineForm.ideaSubmissionDate.$rollbackViewValue(); contest.ideaSubmissionDate=''"
+                       ng-model="ideaChecked"/> <label for="ckbIdea" translate="idea"></label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !ideaChecked}">
                 <label for="txtIdeaDeadline" translate="ideaDeadline"></label>
@@ -82,7 +84,9 @@
             </li>
             <li>
               <div class="left-content">
-                <input name="uxSubmissionDateRequire" type="checkbox" id="ckbUiUX" ng-model="uiuxChecked"/> <label for="ckbUiUX">UI/UX</label>
+                <input name="uxSubmissionDateRequire" type="checkbox" id="ckbUiUX"
+                       ng-click="timelineForm.uxSubmissionDate.$rollbackViewValue(); contest.uxSubmissionDate=''"
+                       ng-model="uiuxChecked"/> <label for="ckbUiUX">UI/UX</label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !uiuxChecked}">
                 <label for="txtUIDeadline" translate="uIDeadline"></label>
@@ -109,7 +113,9 @@
             </li>
             <li>
               <div class="left-content">
-                <input type="checkbox" id="ckbPrototype" ng-model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
+                <input type="checkbox" id="ckbPrototype"
+                       ng-click="timelineForm.prototypeSubmissionDate.$rollbackViewValue(); contest.prototypeSubmissionDate=''"
+                       ng-model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !prototypeChecked}">
                 <label for="txtPrototypeDeadline" translate="prototypeDeadline"></label>
