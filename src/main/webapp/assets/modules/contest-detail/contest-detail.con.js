@@ -186,22 +186,5 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       subForm.addClass('show');
     }
   }
-  $scope.hideSubmitForm = function(){
-    var subForm = $('.submit-phase-contest');
-    subForm.find('#txtDescription').val('');
-    subForm.find('#txtSubmissionURL').val('');
-    subForm.removeClass('show');
-  }
-  //$scope.pushChallengePhase = function(){
-  //  $scope.submissionForm.$setSubmitted();
-  //  if ($scope.submissionForm.$invalid) {
-  //    $scope.submittedPhase = false;
-  //    return false;
-  //  }
-  //  $scope.submittedPhase = true;
-  //  console.log($scope.submissionDescription);
-  //  console.log($scope.submissionURL);
-  //  $scope.hideSubmitForm();
-  //}
 });
 

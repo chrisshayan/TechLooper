@@ -14,13 +14,6 @@ techlooper.directive('contestList', function () {
           div.addClass('show');
         }
       }
-      scope.hideSubmitForm = function(id){
-        var parent = $('#id-'+id);
-        var div = parent.find('.submit-phase-contest');
-        div.find('#txtDescription').val('');
-        div.find('#txtSubmissionURL').val('');
-        div.removeClass('show');
-      }
     }
   };
 });

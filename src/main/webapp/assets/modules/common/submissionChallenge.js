@@ -15,6 +15,12 @@ techlooper.directive("submissionChallenge", function ($timeout, jsonValue, utils
         console.log(scope.submissionDescription);
         console.log(scope.submissionURL);
       }
+      scope.hideSubmitForm = function(){
+        var subForm = $('.submit-phase-contest');
+        subForm.find('#txtDescription').val('');
+        subForm.find('#txtSubmissionURL').val('');
+        subForm.removeClass('show');
+      }
     }
   }
 });
