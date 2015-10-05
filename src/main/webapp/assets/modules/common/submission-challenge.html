@@ -9,7 +9,7 @@
     <div class="phase-description">
       <label for="txtDescription" translate="description"></label>
         <textarea name="submissionDescription" id="txtDescription" class="textarea-style" placeholder="{{'descriptionSubmissionTips' | translate}}"
-                  ng-model="contest.submissionDescription" maxlength="3000" ng-required="true" touchable></textarea>
+                  ng-model="submissionDescription" maxlength="3000" ng-required="true" touchable></textarea>
       <div class="error-messages"
            ng-show="submissionForm.submissionDescription.$error.required &&  (submissionForm.submissionDescription.$edited || submissionForm.$submitted)"
            translate="requiredThisField" />
@@ -19,7 +19,7 @@
       <input type="text" id="txtSubmissionURL" class="input-style"
              name="submissionURL" placeholder="{{'submissionURLTips' | translate}}"
              ng-pattern="/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\.\/\?\:@\-_=#])*/"
-             ng-model="contest.submissionURL" ng-required="true" touchable />
+             ng-model="submissionURL" ng-required="true" touchable />
       <div class="error-messages"
            ng-show="submissionForm.submissionURL.$error.required && (submissionForm.submissionURL.$edited || submissionForm.$submitted)"
            translate="requiredThisField" />
@@ -28,7 +28,7 @@
            translate="requiredURL" />
     </div>
     <div class="phase-submission">
-      <button translate="submit" class="btn btn-primary btn-flat" ng-click="challengeSubmission()"></button>
+      <button translate="submit" class="btn btn-primary btn-flat" ng-click="pushChallengePhase()"></button>
       <button translate="cancel" class="btn btn-primary btn-flat" ng-click="hideSubmitForm(contest.challengeId)"></button>
     </div>
   </ng-form>

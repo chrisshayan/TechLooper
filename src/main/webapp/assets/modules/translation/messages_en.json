@@ -757,5 +757,6 @@
   "submissionURL": "Submission URL: <strong>*</strong>",
   "submissionURLTips": "Input your submission link",
   "description":"Description: <strong>*</strong>",
-  "descriptionSubmissionTips": "Write some lines to describe your submission to the challenge owner"
+  "descriptionSubmissionTips": "Write some lines to describe your submission to the challenge owner",
+  "submissionPhaseSuccessful": "Submission Successful"
 }

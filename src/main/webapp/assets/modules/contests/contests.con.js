@@ -26,12 +26,4 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
   });
-
-  $scope.challengeSubmission = function(){
-    $scope.submissionForm.$setSubmitted();
-    if ($scope.submissionForm.$invalid) {
-      return false;
-    }
-    // send date
-  }
 });

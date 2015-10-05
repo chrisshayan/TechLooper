@@ -192,5 +192,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     subForm.find('#txtSubmissionURL').val('');
     subForm.removeClass('show');
   }
+  //$scope.pushChallengePhase = function(){
+  //  $scope.submissionForm.$setSubmitted();
+  //  if ($scope.submissionForm.$invalid) {
+  //    $scope.submittedPhase = false;
+  //    return false;
+  //  }
+  //  $scope.submittedPhase = true;
+  //  console.log($scope.submissionDescription);
+  //  console.log($scope.submissionURL);
+  //  $scope.hideSubmitForm();
+  //}
 });
 
