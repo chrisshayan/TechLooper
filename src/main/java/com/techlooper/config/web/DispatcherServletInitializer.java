@@ -21,6 +21,8 @@ import com.techlooper.config.VnwDbConfiguration;
 import com.techlooper.config.web.sec.SecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -30,6 +32,11 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 //
 //  @Value("${spring.profiles.active}")
 //  private String profile;
+
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    servletContext.getSessionCookieConfig().setMaxAge(15770000);
+    super.onStartup(servletContext);
+  }
 
   protected Class<?>[] getRootConfigClasses() {
     return null;
