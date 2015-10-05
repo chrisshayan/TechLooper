@@ -4,6 +4,10 @@
   width: 100%
   text-align: center
   padding-bottom: 20px
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus
+    border-color: #dddddd #dddddd #fff
+  .nav-tabs > li > a
+    font-weight: 500
   .contest-detail-content
     background-color: white
     -webkit-border-radius: 5px
@@ -183,15 +187,12 @@
         .join-now
           width: 40%
           float: right
-          padding-top: 4px
           button
             float: right
             margin-left: 10px
           button.disabled
             background-color: gray !important
             cursor: not-allowed
-            i
-              border-right: 1px solid #ccc
           span
             display: inline-block
             text-align: right
@@ -200,7 +201,7 @@
       display: inline-block
       clear: both
       width: 100%
-      padding: 10px 0 20px 0
+      padding: 0
     .contest-content-detail
       padding: 20px 20px 0 20px
       width: 100%
@@ -288,6 +289,13 @@
             a
               font-weight: 400
               cursor: pointer
+        .submit-phase-contest.show
+          height: 280px
+          background-color: #f1f2f7
+          transition: height 1s
+          padding: 10px 20px
+          margin-top: 10px
+          float: left
       .col-md-12
         padding: 0
       .contest-content-item

@@ -178,5 +178,19 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       },1000);
     });
   }
+  $scope.showSubmitForm = function(){
+    var subForm = $('.submit-phase-contest');
+    if(subForm.hasClass('show')){
+      subForm.removeClass('show');
+    }else{
+      subForm.addClass('show');
+    }
+  }
+  $scope.hideSubmitForm = function(){
+    var subForm = $('.submit-phase-contest');
+    subForm.find('#txtDescription').val('');
+    subForm.find('#txtSubmissionURL').val('');
+    subForm.removeClass('show');
+  }
 });
 

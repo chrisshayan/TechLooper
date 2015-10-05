@@ -12,6 +12,11 @@
 
       <div class="tab-content contest-content-tab-detail">
         <div class="detail tab-pane fade in active">
+          <div class="row tell-your-friends">
+            <div class="col-md-12">
+              <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span></button>
+            </div>
+          </div>
           <div class="row timeline-reward-block">
             <div class="col-md-8">
               <div class="row">
@@ -58,16 +63,16 @@
             <div class="col-md-12">
               <p translate="registerNumber" translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
               <div class="join-now">
-                <button ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btnz facebook" ng-class="{disabled: !status('able-to-join')}">
-                  <i class="fa fa-facebook"></i> <span translate="joinNow"></span></button>
+                <button ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btn btn-primary btn-flat" ng-class="{disabled: !status('able-to-join')}">
+                  <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
+
+                <button ng-click="showSubmitForm()" class="btn btn-primary btn-flat">
+                  <i class="fa fa-paper-plane-o"></i> <span translate="submit"></span></button>
               </div>
             </div>
           </div>
-          <div class="row tell-your-friends">
-            <div class="col-md-12">
-              <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span translate="tellYourFriends"></span></button>
-            </div>
-          </div>
+          <submission-challenge></submission-challenge>
+
           <div class="row contest-content-item">
             <p class="title" translate="challengeOverView"></p>
             <p class="detail" translate="{{contestDetail.challengeOverview | lineBreak}}">
