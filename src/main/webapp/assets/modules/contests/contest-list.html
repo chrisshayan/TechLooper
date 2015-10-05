@@ -22,8 +22,13 @@
       {{contest.numberOfRegistrants}}
     </div>
     <div class="challenge-actions-col">
-      <a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" translate="viewDetails" target="_blank"></a>
-      <a title="{{'submit' | translate}}" translate="submit" ng-click="showSubmitForm(contest.challengeId)"></a>
+      <a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" target="_blank">
+        <i class="fa fa-eye"></i>  |  <span translate="detail"></span>
+      </a>
+      <a title="{{'submit' | translate}}" ng-click="showSubmitForm(contest.challengeId)">
+        <i class="fa fa-paper-plane-o"></i>  |  <span translate="submit"></span>
+      </a>
+      <a title="{{'joinNow' | translate}}"><i class="fa fa-facebook"></i>  |  <span translate="joinNow"></span></a>
     </div>
   </div>
   <div class="submit-phase-contest">
