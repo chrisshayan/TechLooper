@@ -174,7 +174,7 @@
         clear: both
         width: 100%
         border-bottom: 1px solid #ddd
-        padding: 5px 20px
+        padding: 25px 20px 10px 20px
         .challenge-name-col
           height: auto
           a
@@ -256,9 +256,62 @@
           border-radius: 4px
           margin-top: 10px
         .submit-phase-contest.show
-          height: 100px
+          height: 280px
           background-color: #f1f2f7
           transition: height 1s
-          padding: 10px
-
+          padding: 10px 20px
+          margin-top: 10px
+          float: left
+          .registrant-name
+            display: inline-block
+            clear: both
+            width: 100%
+            padding-bottom: 5px
+            span
+              width: 18%
+              float: left
+              display: inline-block
+              font-weight: 400
+          .registrant-email
+            display: inline-block
+            clear: both
+            width: 100%
+            padding-bottom: 10px
+            span
+              width: 18%
+              float: left
+              display: inline-block
+              font-weight: 400
+          .phase-description
+            display: inline-block
+            clear: both
+            width: 100%
+            padding-bottom: 5px
+            label
+              width: 18%
+              float: left
+              display: inline-block
+              font-weight: 400
+              strong
+                color: red
+                font-weight: 500
+            input
+              float: left
+              width: 82%
+              clear: none
+            textarea
+              height: 80px
+              float: left
+              width: 82%
+              clear: none
+            div.error-messages
+              padding-left: 18%
+              width: 100%
+              clear: both
+              display: inline-block
+          .phase-submission
+            text-align: center
+            button
+              margin: auto
+              padding: 6px 30px
 

@@ -753,5 +753,9 @@
   "mailSend": "Send",
   "challengeIdeaTips": "This date officially ends the Idea phase of the contest. Contestants must propose their ideas to Contest Owner by this date. Once the Contest Owner approves the idea, contestant who proposed the idea will be selected to go to the next phase.",
   "challengeUIUXTips": "This date officially ends the UI/UX phase of the contest. Contestants must propose their UI/UX mockups and/or Usability Test if required to Contest Owner by this date. Once the Contest Owner approves the mockup, contestant who submitted that mockup will be selected to go to the next phase.",
-  "challengePrototypeTips": "This date officially ends the Prototype phase of the contest. Contestants must submit their prototypes to Contest Owner by this date. Once the Contest Owner approves the prototype, contestant who submitted that prototype will be selected to go to the next phase."
+  "challengePrototypeTips": "This date officially ends the Prototype phase of the contest. Contestants must submit their prototypes to Contest Owner by this date. Once the Contest Owner approves the prototype, contestant who submitted that prototype will be selected to go to the next phase.",
+  "submissionURL": "Submission URL: <strong>*</strong>",
+  "submissionURLTips": "Input your submission link",
+  "description":"Description: <strong>*</strong>",
+  "descriptionSubmissionTips": "Write some lines to describe your submission to the challenge owner"
 }
