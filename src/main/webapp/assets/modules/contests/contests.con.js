@@ -26,5 +26,4 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
   });
-
 });
