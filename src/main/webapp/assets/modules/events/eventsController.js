@@ -12,7 +12,7 @@ techlooper.controller("eventsController", function ($scope, apiService, utils, j
         if (!startDate.isValid()) continue;
         var web = {startDate: startDate.format(jsonValue.dateFormat)};
         web.expired = moment(web.startDate, jsonValue.dateTimeFormat).isBefore(today, "day");
-        if(web.expired == true){
+        if (web.expired == true) {
           group.now = true;
         }
         group.push(web);

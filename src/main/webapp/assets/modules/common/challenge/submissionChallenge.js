@@ -5,7 +5,7 @@ techlooper.directive("submissionChallenge", function ($timeout, jsonValue, utils
     scope: {
       ngModel: "="
     },
-    templateUrl: "modules/common/submission-challenge.html",
+    templateUrl: "modules/common/challenge/submissionChallenge.html",
     link: function (scope, el, attrs) {
       scope.pushChallengePhase = function(){
         scope.submissionForm.$setSubmitted();
