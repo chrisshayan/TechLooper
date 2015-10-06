@@ -28,6 +28,8 @@ public class ChallengeRegistrantDto {
 
     private String disqualifiedReason;
 
+    private String lastEmailSentDateTime;
+
     private List<ChallengeSubmissionDto> submissions;
 
 
@@ -109,5 +111,13 @@ public class ChallengeRegistrantDto {
 
     public void setSubmissions(List<ChallengeSubmissionDto> submissions) {
         this.submissions = submissions;
+    }
+
+    public String getLastEmailSentDateTime() {
+        return lastEmailSentDateTime;
+    }
+
+    public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+        this.lastEmailSentDateTime = lastEmailSentDateTime;
     }
 }
