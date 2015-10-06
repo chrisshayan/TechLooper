@@ -15,8 +15,6 @@ angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
 angular.module("Skill", []);
-angular.module("SignIn", []);
-angular.module("Register", []);
 angular.module("UserProfile", []);
 
 var baseUrl = (function () {
@@ -27,7 +25,7 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
+  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill",
   "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap", "angularUtils.directives.dirPagination"
 ]);
 
@@ -105,10 +103,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/pie-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
-      })
-      .when("/register", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "registerController"
       })
       .when("/user", {
         templateUrl: "modules/it-professional/main.tem.html",
