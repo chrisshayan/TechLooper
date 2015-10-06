@@ -73,6 +73,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
       instance.getSocialLoginUrl("FACEBOOK_REGISTER").success(function (url) {
+        localStorageService.set("priorFoot", $location.url());
+        localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
         window.location = url;
       });
