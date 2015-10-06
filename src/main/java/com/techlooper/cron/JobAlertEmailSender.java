@@ -13,10 +13,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
 import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
+import static com.techlooper.util.DateTimeUtils.*;
 
 /**
  * This is cron job class that automatically sends job alert email to user periodically
@@ -46,7 +48,7 @@ public class JobAlertEmailSender {
      * @throws Exception
      */
     @Scheduled(cron = "${scheduled.cron.jobAlert}")
-    public void sendJobAlertEmail() throws Exception {
+    public synchronized void sendJobAlertEmail() throws Exception {
         if (enableJobAlert) {
             List<JobAlertRegistrationEntity> jobAlertRegistrationEntities =
                     jobAggregatorService.findJobAlertRegistration(JobAlertPeriodEnum.WEEKLY);
@@ -54,14 +56,19 @@ public class JobAlertEmailSender {
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
-                    JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
-                    JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
-                    if (jobSearchResponse.getTotalJob() > 0) {
-                        jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
-                        jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
-                        count++;
-                    } else {
-                        jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_NOT_FOUND);
+                    Date lastSentDate = string2Date(jobAlertRegistrationEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
+                    Date currentDate = new Date();
+
+                    if (daysBetween(lastSentDate, currentDate) > 0) {
+                        JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
+                        JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
+                        if (jobSearchResponse.getTotalJob() > 0) {
+                            jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
+                            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
+                            count++;
+                        } else {
+                            jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, JOB_NOT_FOUND);
+                        }
                     }
                 }
                 LOGGER.info("There are " + count + " job alert emails has been sent");
