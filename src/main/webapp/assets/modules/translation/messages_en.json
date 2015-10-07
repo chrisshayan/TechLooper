@@ -766,5 +766,7 @@
   "date": "Date",
   "descriptionCol": "Description",
   "join": "Join",
-  "submitPhase": "Submit"
+  "submitPhase": "Submit",
+  "accept": "Accept",
+  "acceptDescription": "Are you sure you want to select this contestant from <strong>{{phase1}}<strong> phase to <strong>{{phase2}}<strong> phase?"
 }

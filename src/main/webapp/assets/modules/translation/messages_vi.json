@@ -769,6 +769,8 @@
   "date": "Date",
   "descriptionCol": "Chú thích",
   "join": "Tham Gia",
-  "submitPhase": "Gửi Bài"
+  "submitPhase": "Gửi Bài",
+  "accept": "Đi Tiếp",
+  "acceptDescription": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{phase1}}<strong> vào vòng <strong>{{phase1}}<strong>?"
 
 }

@@ -34,6 +34,11 @@ techlooper
           showView("feedbackForm");
         }
 
+        scope.registrant.showAcceptance = function () {
+          showView("acceptance");
+        }
+
+
         scope.$on("$destroy", function () {
           if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
         });
@@ -67,55 +72,39 @@ techlooper
       }
     };
   })
-  .directive('contestDetailReviewSubmission', function (apiService) {
+  .directive('contestDetailReviewSubmission', function () {
     return {
       restrict: "E",
       replace: true,
       templateUrl: "modules/contest-detail/contestDetailReviewSubmission.html"
     };
   })
-  .directive('contestDetailDisqualification', function (apiService) {
+  .directive('contestDetailDisqualification', function () {
     return {
       restrict: "E",
       replace: true,
       scope: true,
       templateUrl: "modules/contest-detail/contestDetailDisqualification.html",
       link: function (scope, element, attr, ctrl) {
-        //console.log('a', scope.action);
-        //scope.disqualify = function (registrant) {
-        //  registrant.disqualified = true;
-        //  apiService.saveChallengeRegistrant(registrant)
-        //    .success(function (rt) {
-        //      registrant.disqualified = rt.disqualified;
-        //      registrant.disqualifiedReason = rt.disqualifiedReason;
-        //    }).finally(function () {
-        //    console.log('b', scope.action);
-        //    scope.action = '';
-        //  });
-        //};
       }
     };
   })
-  .directive('contestDetailQualification', function (apiService) {
+  .directive('contestDetailQualification', function () {
     return {
       restrict: "E",
       replace: true,
       scope: true,
       templateUrl: "modules/contest-detail/contestDetailQualification.html",
       link: function (scope, element, attr, ctrl) {
-        //scope.qualify = function (registrant) {
-        //  console.log('xx', scope.action);
-        //  delete registrant.disqualified;
-        //  delete registrant.disqualifiedReason;
-        //  apiService.saveChallengeRegistrant(registrant)
-        //    .success(function (rt) {
-        //      registrant.disqualified = rt.disqualified;
-        //      registrant.disqualifiedReason = rt.disqualifiedReason;
-        //    }).finally(function () {
-        //    console.log('xx', scope.action);
-        //    scope.action = '';
-        //  });
-        //};
       }
     };
-  });
+  }).directive('acceptance', function () {
+  return {
+    restrict: "E",
+    replace: true,
+    scope: true,
+    templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
+    link: function (scope, element, attr, ctrl) {
+    }
+  };
+});
