@@ -5,6 +5,7 @@ import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
+import com.techlooper.model.RegistrantFilterCondition;
 import com.techlooper.service.ChallengeService;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -46,9 +47,11 @@ public class ChallengeTimelineNotifier {
                 List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
-                    Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(
-                            challengeEntity.getAuthorEmail(), challengeEntity.getChallengeId());
-                    
+                    RegistrantFilterCondition condition = new RegistrantFilterCondition();
+                    condition.setAuthorEmail(challengeEntity.getAuthorEmail());
+                    condition.setChallengeId(challengeEntity.getChallengeId());
+                    Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(condition);
+
                     for (ChallengeRegistrantDto challengeRegistrant : challengeRegistrants) {
                         Date lastSentDate = string2Date(challengeRegistrant.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                         Date currentDate = new Date();
