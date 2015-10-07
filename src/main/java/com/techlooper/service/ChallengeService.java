@@ -76,7 +76,7 @@ public interface ChallengeService {
     List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period);
 
-    List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition);
+    List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) throws ParseException;
 
     List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period);
