@@ -9,6 +9,7 @@ import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -92,4 +93,7 @@ public interface ChallengeService {
 
     void updateSendEmailToContestantResultCode(ChallengeRegistrantEntity challengeRegistrantEntity, EmailSentResultEnum code);
 
+    void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code);
+
+    Set<Long> findChallengeSubmissionByDate(String fromDate, String toDate);
 }
