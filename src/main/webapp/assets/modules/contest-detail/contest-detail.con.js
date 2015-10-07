@@ -14,8 +14,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
-
-  $scope.status = function (type) {
+  $scope.action = '';
+  $scope.actionContent = '';
+  $scope.status = function (type, id) {
     switch (type) {
       case "able-to-join":
         if (!$scope.contestDetail) return false;
@@ -36,6 +37,19 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       case "contest-in-progress":
         if (!$scope.contestDetail) return false;
         return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
+
+      case "feedback-form":
+        $scope.action = 'feedback';
+        return $scope.action;
+      case "disqualify-form":
+        $scope.action = 'disqualify';
+        return $scope.action;
+      case "qualify-form":
+        $scope.action = 'qualify';
+        return $scope.action;
+      case "review-history":
+        $scope.action = 'review';
+        return $scope.action;
     }
   }
 
@@ -134,26 +148,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
   });
-
-  $scope.disqualify = function (registrant) {
-    registrant.disqualified = true;
-    apiService.saveChallengeRegistrant(registrant)
-      .success(function (rt) {
-        registrant.disqualified = rt.disqualified;
-        registrant.disqualifiedReason = rt.disqualifiedReason;
-      });
-  };
-
-  $scope.qualify = function (registrant) {
-    delete registrant.disqualified;
-    delete registrant.disqualifiedReason;
-    apiService.saveChallengeRegistrant(registrant)
-      .success(function (rt) {
-        registrant.disqualified = rt.disqualified;
-        registrant.disqualifiedReason = rt.disqualifiedReason;
-      });
-  };
-
   $scope.sortByScore = function () {
     delete $scope.sortStartDate;
     $scope.sortScore = $scope.sortScore || "asc";
@@ -184,6 +178,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       subForm.removeClass('show');
     }else{
       subForm.addClass('show');
+    }
+  }
+  $scope.showActionForm = function(id){
+    $('.action-content').removeClass('show');
+    var parent = $('#id-'+id);
+    var div = parent.find('.action-content');
+    if(div.hasClass('show')){
+      div.removeClass('show');
+    }else{
+      div.addClass('show');
     }
   }
 });

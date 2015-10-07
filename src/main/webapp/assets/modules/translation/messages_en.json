@@ -758,5 +758,11 @@
   "submissionURLTips": "Input your submission link",
   "description":"Description: <strong>*</strong>",
   "descriptionSubmissionTips": "Write some lines to describe your submission to the challenge owner",
-  "submissionPhaseSuccessful": "Submission Successful"
+  "submissionPhaseSuccessful": "Submission Successful",
+  "review": "Review",
+  "feedback": "Feedback",
+  "subject": "Subject",
+  "submissionLink": "Submission Link",
+  "date": "Date",
+  "descriptionCol": "Description"
 }
