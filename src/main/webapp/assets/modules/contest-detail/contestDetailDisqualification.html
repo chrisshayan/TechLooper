@@ -1,11 +1,11 @@
 <div class="disqualify-block">
   <div class="disqualify-form">
     <p translate="disqualifyConfirmation"></p>
-    <textarea class="textarea-style" ng-model="user.disqualifiedReason" maxlength="200" placeholder="{{'disqualifyingReason' | translate}}"></textarea>
-    <p class="note" translate="charactersLeft" translate-value-characters-left="{{200 - user.disqualifiedReason.length}}"></p>
+    <textarea class="textarea-style" ng-model="registrant.disqualifiedReason" maxlength="200" placeholder="{{'disqualifyingReason' | translate}}"></textarea>
+    <p class="note" translate="charactersLeft" translate-value-characters-left="{{200 - registrant.disqualifiedReason.length}}"></p>
     <div class="submission-disqualify">
-      <a ng-click="$hide()" translate="no"  class="btn btn-primary btn-flat gray"></a>
-      <a ng-click="disqualify(user)" translate="yes" class="btn btn-primary btn-flat"></a>
+      <a ng-click="registrant.hide()" translate="no"  class="btn btn-primary btn-flat gray"></a>
+      <a ng-click="registrant.disqualify()" translate="yes" class="btn btn-primary btn-flat"></a>
     </div>
   </div>
 </div>

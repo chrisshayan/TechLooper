@@ -1,5 +1,5 @@
 techlooper
-  .directive("contestDetailAction", function ($rootScope, paginationService) {
+  .directive("contestDetailAction", function ($rootScope, apiService) {
     return {
       restrict: "E",
       replace: true,
@@ -10,9 +10,9 @@ techlooper
       link: function (scope, element, attr, ctrl) {
         var showView = function (view) {
           if ($rootScope.$eval("lastRegistrant.visible")) {
-            console.log($rootScope.lastRegistrant);
             delete $rootScope.lastRegistrant.visible;
           }
+
           scope.registrant.visible = {};
           scope.registrant.visible[view] = true;
           $rootScope.lastRegistrant = scope.registrant;
@@ -33,6 +33,27 @@ techlooper
         scope.$on("$destroy", function () {
           if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
         });
+
+        scope.registrant.qualify = function () {
+          delete scope.registrant.disqualified;
+          delete scope.registrant.disqualifiedReason;
+          apiService.saveChallengeRegistrant(scope.registrant)
+            .success(function(rt) {
+              $.extend(scope.registrant, {visible: {}}, rt);
+            });
+        };
+
+        scope.registrant.disqualify = function () {
+          scope.registrant.disqualified = true;
+          apiService.saveChallengeRegistrant(scope.registrant)
+            .success(function(rt) {
+              $.extend(scope.registrant, {visible: {}}, rt);
+            });
+        };
+
+        scope.registrant.hide = function() {
+          $.extend(scope.registrant, {visible: {}});
+        };
 
         //scope.$watch(function () {
         //  return paginationService.getCurrentPage("__default");
