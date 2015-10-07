@@ -122,6 +122,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       else {
         $scope.contestDetail.timeline = 5;
       }
+        console.log($scope.contestDetail);
     })
     .error(function () {$location.url("404");});
 

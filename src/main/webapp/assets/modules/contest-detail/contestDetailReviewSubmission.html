@@ -6,48 +6,17 @@
       <div class="date-col" translate="date"></div>
     </div>
     <div class="body-row">
-      <div class="submitted-row">
+      <div class="submitted-row" ng-repeat="submission in registrant.submissions">
         <div class="subject-col">
-          Final App Submission 1th time
+          {{submission.submissionDescription}}
         </div>
         <div class="submission-link-col">
-          <a href="http://techlooper.com/challenge-ui-ux-phase.zip" target="_blank">http://techlooper.com/challenge-ui-ux-phase.zip</a>
+          <a href="{{submission.submissionURL}}" target="_blank">
+            {{submission.submissionURL}}
+          </a>
         </div>
         <div class="date-col">
-          12/08/2015
-        </div>
-      </div>
-      <div class="submitted-row">
-        <div class="subject-col">
-          Final App Submission 1th time
-        </div>
-        <div class="submission-link-col">
-          <a href="http://techlooper.com/challenge-ui-ux-phase.zip" target="_blank">http://techlooper.com/challenge-ui-ux-phase.zip</a>
-        </div>
-        <div class="date-col">
-          12/08/2015
-        </div>
-      </div>
-      <div class="submitted-row">
-        <div class="subject-col">
-          Final App Submission 1th time
-        </div>
-        <div class="submission-link-col">
-          <a href="http://techlooper.com/challenge-ui-ux-phase.zip" target="_blank">http://techlooper.com/challenge-ui-ux-phase.zip</a>
-        </div>
-        <div class="date-col">
-          12/08/2015
-        </div>
-      </div>
-      <div class="submitted-row">
-        <div class="subject-col">
-          Final App Submission 1th time
-        </div>
-        <div class="submission-link-col">
-          <a href="http://techlooper.com/challenge-ui-ux-phase.zip" target="_blank">http://techlooper.com/challenge-ui-ux-phase.zip</a>
-        </div>
-        <div class="date-col">
-          12/08/2015
+          {{submission.submissionDateTime}}
         </div>
       </div>
     </div>
