@@ -813,4 +813,12 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
+    @Override
+    public void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code) {
+        if (challengeEntity != null) {
+            challengeEntity.setLastEmailSentDateTime(currentDate(BASIC_DATE_TIME_PATTERN));
+            challengeEntity.setLastEmailSentResultCode(code.getValue());
+            challengeRepository.save(challengeEntity);
+        }
+    }
 }
