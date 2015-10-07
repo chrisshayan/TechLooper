@@ -234,18 +234,22 @@
                 <td>
                   <div class="registrants-challenge-list">
                     <div class="registrant-name">
+                      <div class="label-col" translate="fullNameField"></div>
                       {{user.registrantFirstName}} {{user.registrantLastName}}
                       <p class="note" ng-show="user.disqualifiedReason.length; user.disqualified ==true">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>
                     <div class="registration-date">
+                      <div class="label-col" translate="registrationDate"></div>
                       {{user.registrantId | timestamp: 'number'}}
                     </div>
                     <div class="registration-score">
+                      <div class="label-col" translate="score"></div>
                       <input type="text" ng-init="user.score = user.score || 0" ng-model="user.score"
                              input-number="strict" input-number-fraction="1"/>
                       <button ng-click="updateScore(user, $event)"><i class="fa fa-check"></i></button>
                     </div>
                     <div class="registration-action">
+                      <div class="label-col" translate="action"></div>
                       <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle open-action-content"
                                 type="button" id="menu1" data-toggle="dropdown">
