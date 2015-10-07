@@ -235,6 +235,7 @@
                   <div class="registrants-challenge-list">
                     <div class="registrant-name">
                       {{user.registrantFirstName}} {{user.registrantLastName}}
+                      <p class="note" ng-show="user.disqualifiedReason.length; user.disqualified ==true">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>
                     <div class="registration-date">
                       {{user.registrantId | timestamp: 'number'}}
