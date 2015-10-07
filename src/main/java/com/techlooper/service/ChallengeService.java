@@ -68,12 +68,14 @@ public interface ChallengeService {
 
     ChallengeDto findChallengeById(Long id);
 
-    Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId);
+    Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition);
 
     ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
 
     List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period);
+
+    List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition);
 
     List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period);
