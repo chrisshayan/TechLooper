@@ -574,7 +574,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
     }
 
-    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) {
+    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException {
         BoolQueryBuilder boolQueryBuilder = boolQuery();
 
         if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
@@ -639,7 +639,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) {
+    public List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) throws ParseException {
         List<ChallengeRegistrantEntity> result = new ArrayList<>();
 
         if ("challengeSubmission".equals(condition.getFilterType())) {
@@ -663,14 +663,16 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
 
             if (StringUtils.isNotEmpty(condition.getFilterType())) {
-                if ("challengeRegistrant".equals(condition.getFilterType())) {
+                if ("registrantId".equals(condition.getFilterType())) {
                     RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
 
                     if (StringUtils.isNotEmpty(condition.getFromDate())) {
-                        rangeQueryBuilder.from(condition.getFromDate());
+                        Long from = string2Date(condition.getFromDate(), BASIC_DATE_PATTERN).getTime();
+                        rangeQueryBuilder.from(from);
                     }
                     if (StringUtils.isNotEmpty(condition.getToDate())) {
-                        rangeQueryBuilder.to(condition.getToDate());
+                        Long to = string2Date(condition.getToDate(), BASIC_DATE_PATTERN).getTime();
+                        rangeQueryBuilder.from(to);
                     }
 
                     boolQueryBuilder.must(rangeQueryBuilder);
