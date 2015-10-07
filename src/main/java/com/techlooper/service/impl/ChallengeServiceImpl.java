@@ -640,34 +640,47 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-
-        if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
-            boolQueryBuilder.must(matchQuery("authorEmail", condition.getAuthorEmail()).minimumShouldMatch("100%"));
-        }
-
-        if (condition.getChallengeId() != null) {
-            boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
-        }
-
-        if (StringUtils.isNotEmpty(condition.getFilterType())) {
-            RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
-
-            if (StringUtils.isNotEmpty(condition.getFromDate())) {
-                rangeQueryBuilder.from(condition.getFromDate());
-            }
-            if (StringUtils.isNotEmpty(condition.getToDate())) {
-                rangeQueryBuilder.to(condition.getToDate());
-            }
-
-            boolQueryBuilder.must(rangeQueryBuilder);
-        }
-
         List<ChallengeRegistrantEntity> result = new ArrayList<>();
-        Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
-        while (iterator.hasNext()) {
-            result.add(iterator.next());
+
+        if ("challengeSubmission".equals(condition.getFilterType())) {
+            Set<Long> registrantIds = findChallengeSubmissionByDate(condition.getFromDate(), condition.getToDate());
+            for (Long registrantId : registrantIds) {
+                ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
+                if (registrantEntity != null) {
+                    result.add(registrantEntity);
+                }
+            }
+        } else {
+            NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+            if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
+                boolQueryBuilder.must(matchQuery("authorEmail", condition.getAuthorEmail()).minimumShouldMatch("100%"));
+            }
+
+            if (condition.getChallengeId() != null) {
+                boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
+            }
+
+            if (StringUtils.isNotEmpty(condition.getFilterType())) {
+                if ("challengeRegistrant".equals(condition.getFilterType())) {
+                    RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
+
+                    if (StringUtils.isNotEmpty(condition.getFromDate())) {
+                        rangeQueryBuilder.from(condition.getFromDate());
+                    }
+                    if (StringUtils.isNotEmpty(condition.getToDate())) {
+                        rangeQueryBuilder.to(condition.getToDate());
+                    }
+
+                    boolQueryBuilder.must(rangeQueryBuilder);
+                }
+            }
+
+            Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
+            while (iterator.hasNext()) {
+                result.add(iterator.next());
+            }
         }
 
         return result;
@@ -820,5 +833,29 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeEntity.setLastEmailSentResultCode(code.getValue());
             challengeRepository.save(challengeEntity);
         }
+    }
+
+    @Override
+    public Set<Long> findChallengeSubmissionByDate(String fromDate, String toDate) {
+        Set<Long> registrantIds = new HashSet<>();
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+        RangeQueryBuilder submissionDateQuery = QueryBuilders.rangeQuery("submissionDateTime");
+
+        if (StringUtils.isNotEmpty(fromDate)) {
+            submissionDateQuery.from(fromDate);
+        }
+
+        if (StringUtils.isNotEmpty(toDate)) {
+            submissionDateQuery.to(toDate);
+        }
+
+        searchQueryBuilder.withQuery(submissionDateQuery);
+        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
+        while (iterator.hasNext()) {
+            ChallengeSubmissionEntity challengeSubmissionEntity = iterator.next();
+            registrantIds.add(challengeSubmissionEntity.getRegistrantId());
+        }
+
+        return registrantIds;
     }
 }
