@@ -340,6 +340,8 @@
               background-color: #f6f6f6
               display: inline-block
               border-radius: 3px
+              p.no-submission
+                padding: 10px 0
             .subject-col
               width: 40%
               float: left
@@ -426,11 +428,44 @@
                 width: 100%
                 text-align: right
                 a
-                  margin: auto
                   width: 120px
                   float: right
                   color: #fff
                   margin-left: 5px
+          .feedback-block
+            clear: both
+            display: inline-block
+            width: 100%
+            padding: 0 10px 10px
+            .feedback-form
+              width: 100%
+              clear: both
+              border: 1px solid #fff
+              padding: 10px
+              background-color: #f6f6f6
+              display: inline-block
+              border-radius: 3px
+              .mail-body
+                border: 0
+              .mail-subject
+                padding: 10px 0
+              .mail-text .note-editor
+                background-color: #fff
+                min-height: 200px
+                .note-toolbar
+                  background-color: #f3fafe
+              .note-editable
+                background-color: #fff
+              .email-footer
+                text-align: right
+                padding: 10px 0
+                a
+                  width: auto
+                  margin: auto auto auto 5px
+                  padding: 6px 20px
+                  color: #fff
+                  display: inline-block
+
         .submit-phase-contest.show
           height: 280px
           background-color: #f1f2f7

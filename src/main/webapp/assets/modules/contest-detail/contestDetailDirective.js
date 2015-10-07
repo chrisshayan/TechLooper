@@ -30,6 +30,10 @@ techlooper
           showView("reviewSubmission");
         }
 
+        scope.registrant.showFeedback = function () {
+          showView("feedbackForm");
+        }
+
         scope.$on("$destroy", function () {
           if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
         });
