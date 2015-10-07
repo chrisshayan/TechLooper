@@ -1,6 +1,6 @@
 angular.module('Skill').controller('skillAnalyticsController',
   function ($scope, jsonValue, connectionFactory, $routeParams, animationFactory, utils, skillTableFactory,
-            skillCircleFactory, skillChartFactory, shortcutFactory, skillAnalyticsService, $location, navigationService) {
+            skillCircleFactory, skillChartFactory, skillAnalyticsService) {
     $(window).scrollTop(0);
     var histogramsAndPeriod = skillAnalyticsService.getHistogramsAndPeriod($routeParams.period);
     var skillStatisticRequest = {

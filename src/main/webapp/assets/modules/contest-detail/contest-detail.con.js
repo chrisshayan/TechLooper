@@ -97,6 +97,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         }
 
         localStorageService.set("joinContests", joinContests.join(","));
+        $filter("progress")($scope.contestDetail, "challenge");
       });
   }
 
@@ -104,21 +105,23 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     .success(function (data) {
       $scope.contestDetail = data;
       $filter("progress")($scope.contestDetail, "challenge");
-        var idea = $scope.contestDetail.ideaSubmissionDateTime? true : false,
-            uiux = $scope.contestDetail.uxSubmissionDateTime? true : false,
-            prototype = $scope.contestDetail.prototypeSubmissionDateTime? true : false;
-        if(!idea || !uiux || !prototype){
-          if((idea && uiux) || (idea && prototype) || (prototype && uiux)){
-            $scope.contestDetail.timeline = 4;
-          }
-          else if(((!idea && !uiux) && prototype) || ((!idea && !prototype) && uiux) || ((!prototype && !uiux) && idea)){
-            $scope.contestDetail.timeline = 3;
-          }else{
-            $scope.contestDetail.timeline = 2;
-          }
-        }else{
-          $scope.contestDetail.timeline = 5;
+      var idea = $scope.contestDetail.ideaSubmissionDateTime ? true : false,
+        uiux = $scope.contestDetail.uxSubmissionDateTime ? true : false,
+        prototype = $scope.contestDetail.prototypeSubmissionDateTime ? true : false;
+      if (!idea || !uiux || !prototype) {
+        if ((idea && uiux) || (idea && prototype) || (prototype && uiux)) {
+          $scope.contestDetail.timeline = 4;
         }
+        else if (((!idea && !uiux) && prototype) || ((!idea && !prototype) && uiux) || ((!prototype && !uiux) && idea)) {
+          $scope.contestDetail.timeline = 3;
+        }
+        else {
+          $scope.contestDetail.timeline = 2;
+        }
+      }
+      else {
+        $scope.contestDetail.timeline = 5;
+      }
     })
     .error(function () {$location.url("404");});
 
@@ -161,22 +164,23 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
     utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
   }
-  $scope.updateScore = function(registrant, $event) {
+  $scope.updateScore = function (registrant, $event) {
     $($event.currentTarget).addClass('green');
     apiService.saveChallengeRegistrant(registrant)
-    .success(function (rt) {
-      registrant.score = rt.score;
-    }).finally(function () {
-      $timeout(function(){
+      .success(function (rt) {
+        registrant.score = rt.score;
+      }).finally(function () {
+      $timeout(function () {
         $($event.currentTarget).removeClass('green');
-      },1000);
+      }, 1000);
     });
   }
-  $scope.showSubmitForm = function(){
+  $scope.showSubmitForm = function () {
     var subForm = $('.submit-phase-contest');
-    if(subForm.hasClass('show')){
+    if (subForm.hasClass('show')) {
       subForm.removeClass('show');
-    }else{
+    }
+    else {
       subForm.addClass('show');
     }
   }

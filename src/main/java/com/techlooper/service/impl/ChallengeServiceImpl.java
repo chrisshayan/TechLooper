@@ -592,7 +592,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         if (challengeIterator.hasNext()) {
             Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
-            registrants.forEachRemaining(registrant -> registrantDtos.add(dozerMapper.map(registrant, ChallengeRegistrantDto.class)));
+            registrants.forEachRemaining(registrant -> {
+                ChallengeRegistrantDto registrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+                registrantDto.setSubmissions(findChallengeSubmissionByRegistrant(challengeId, registrant.getRegistrantId()));
+                registrantDtos.add(registrantDto);
+            });
         }
 
         return registrantDtos;
@@ -734,19 +738,35 @@ public class ChallengeServiceImpl implements ChallengeService {
         return emailService.sendEmail(emailContent);
     }
 
-  public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
-    if (isOwnerOfChallenge(challengeOwner, challengeId)) {
-      ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-      String csvEmails = registrant.getRegistrantEmail();
-      try {
-        emailContent.setRecipients(InternetAddress.parse(csvEmails));
-      }
-      catch (AddressException e) {
-        LOGGER.debug("Can not parse email address", e);
-        return false;
-      }
+    public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
+        if (isOwnerOfChallenge(challengeOwner, challengeId)) {
+            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+            String csvEmails = registrant.getRegistrantEmail();
+            try {
+                emailContent.setRecipients(InternetAddress.parse(csvEmails));
+            } catch (AddressException e) {
+                LOGGER.debug("Can not parse email address", e);
+                return false;
+            }
+        }
+        return emailService.sendEmail(emailContent);
     }
-    return emailService.sendEmail(emailContent);
-  }
+
+    @Override
+    public List<ChallengeSubmissionDto> findChallengeSubmissionByRegistrant(Long challengeId, Long registrantId) {
+        List<ChallengeSubmissionDto> result = new ArrayList<>();
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+        BoolFilterBuilder boolFilterBuilder = new BoolFilterBuilder();
+        boolFilterBuilder.must(termFilter("challengeId", challengeId));
+        boolFilterBuilder.must(termFilter("registrantId", registrantId));
+
+        searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
+        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
+        while (iterator.hasNext()) {
+            result.add(dozerMapper.map(iterator.next(), ChallengeSubmissionDto.class));
+        }
+
+        return result;
+    }
 
 }
