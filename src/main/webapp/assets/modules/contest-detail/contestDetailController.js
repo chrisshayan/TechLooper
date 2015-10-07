@@ -175,6 +175,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       }, 1000);
     });
   }
+
   $scope.showSubmitForm = function () {
     var subForm = $('.submit-phase-contest');
     if (subForm.hasClass('show')) {
@@ -184,15 +185,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       subForm.addClass('show');
     }
   }
-  $scope.showActionForm = function(id){
-    $('.action-content').removeClass('show');
-    var parent = $('#id-'+id);
-    var div = parent.find('.action-content');
-    if(div.hasClass('show')){
-      div.removeClass('show');
-    }else{
-      div.addClass('show');
-    }
-  }
+
+  //$scope.showActionForm = function(id){
+  //  $('.action-content').removeClass('show');
+  //  var parent = $('#id-'+id);
+  //  var div = parent.find('.action-content');
+  //  if(div.hasClass('show')){
+  //    div.removeClass('show');
+  //  }else{
+  //    div.addClass('show');
+  //  }
+  //}
 });
 
