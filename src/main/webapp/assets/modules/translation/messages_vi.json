@@ -756,5 +756,21 @@
   "challengePrototypeTips":"Đây là ngày kết thúc giai đoạn Prototype của cuộc thi và thí sinh phải nộp Prototype trước ngày này. Nhà Tổ Chức sẽ chịu trách nhiệm đánh giá Prototype và sẽ lựa chon các thí sinh với Prototype xuất sắc vào vòng tiếp theo.",
   "signInTitle": "Đăng nhập bằng chính tài khoản của bạn",
   "signInWithFaceBook": "Đăng nhập bằng Facebook",
-  "signInWithGooglePlus": "Đăng nhập bằng Google Plus"
+  "signInWithGooglePlus": "Đăng nhập bằng Google Plus",
+  "submissionURL": "URL bài gửi: <strong>*</strong>",
+  "submissionURLTips": "Nhập đường dẫn đến bài gửi",
+  "description":"Chú thích: <strong>*</strong>",
+  "descriptionSubmissionTips": "Chú thích cho bài gửi của bạn",
+  "submissionPhaseSuccessful": "Bạn đã gửi bài thành công.",
+  "review": "Xem bài",
+  "feedback": "Phản hồi",
+  "subject": "Subject",
+  "submissionLink": "URL bài gửi",
+  "date": "Date",
+  "descriptionCol": "Chú thích",
+  "join": "Tham Gia",
+  "submitPhase": "Gửi Bài",
+  "accept": "Đi Tiếp",
+  "acceptDescription": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{phase1}}<strong> vào vòng <strong>{{phase1}}<strong>?"
+
 }

@@ -232,14 +232,22 @@
         border-bottom-right-radius: 5px
         border: 1px solid #ddd
         border-top: 0
-        padding: 20px
+        padding: 20px 0
         .registrants-paging
           display: inline-block
           clear: both
           text-align: right
           width: 100%
+
         table.contests-table
           margin: 5px 0 10px 0
+          td
+            padding: 0
+            border: 0
+          th
+            padding: 0
+            border: 0
+            border-bottom: 2px solid #337ab7
           tr.qualify
             color: #929292
             input
@@ -252,43 +260,212 @@
               line-height: 16px
               display: block
               word-break: break-all
-            td:nth-child(1)
-              //text-decoration: line-through
+            td
               color: #c0c0c0
-            td:nth-child(2)
-              //text-decoration: line-through
-              color: #c0c0c0
-          th:first-child
-            width: 55%
-            text-align: left
-          th:nth-child(2)
-            width: 20%
-            cursor: pointer
-          td:nth-child(2)
-            min-width: inherit
-          th:nth-child(3)
-            width: 10%
-            cursor: pointer
-          td:nth-child(3)
-            input
-              width: 60px
+          .action-content
+            display: none
+          .registrants-challenge-list
+            width: 100%
+            clear: both
+            .registrant-name
+              width: 55%
+              float: left
+              text-align: left
+              padding: 10px
+            .registration-date
+              width: 20%
+              float: left
               text-align: center
-              border-radius: 5px
-              border: 1px solid #d4d7d8
-            button
-              height: 26px
-              border-radius: 5px
-              border: 1px solid #d4d7d8
-              background-color: #fff
-          th:nth-child(3)
-            width: 15%
-          td
-            p.note
+              padding: 10px
+            .registration-score
+              width: 15%
+              float: left
+              text-align: center
+              padding: 10px
+              button
+                height: 24px
+                border-radius: 5px
+                border: 1px solid #d4d7d8
+                background-color: #fff
+              input
+                width: 60px
+                text-align: center
+                border-radius: 3px
+                border: 1px solid #d4d7d8
+            .registration-action
+              width: 10%
+              float: left
               text-align: right
-              padding-bottom: 10px
-            a
+              padding: 10px
+              a
+                margin: auto
+                width: auto
+                float: right
+                color: #333
+                i
+                  font-size: 20px
+              li
+                a
+                  display: block
+                  width: 100%
+                  clear: both
+                  cursor: pointer
+                  text-align: left
+                  font-size: 14px
+                  padding: 0 5px 5px 5px
+                  i
+                    font-size: 14px
+                a:hover
+                  color: #333
+                  background-color: #f1f1f1
+              .dropdown-menu
+                right: 0
+                left: inherit
+                background-color: #f1f1f1
+                padding: 5px
+              button.btn-default
+                background-color: transparent
+                padding: 3px 10px
+                color: #333
+          .review-block
+            width: 100%
+            clear: both
+            display: inline-block
+            padding: 0 10px 10px 10px
+            .submitted-histories
+              width: 100%
+              clear: both
+              border: 1px solid #fff
+              padding: 0 10px
+              background-color: #f6f6f6
+              display: inline-block
+              border-radius: 3px
+              p.no-submission
+                padding: 10px 0
+            .subject-col
+              width: 40%
+              float: left
+              text-align: left
+            .submission-link-col
+              width: 50%
+              float: left
+              text-align: left
+              a
+                text-align: left
+                color: #337ab7
+            .date-col
+              width: 10%
+              float: left
+              text-align: right
+            .header-row
+              width: 100%
               font-weight: 400
-              cursor: pointer
+              clear: both
+              border-bottom: 1px solid #fff
+              display: inline-block
+              padding: 10px 0
+            .body-row
+              width: 100%
+              font-weight: 300
+              clear: both
+              display: inline-block
+              .submitted-row
+                display: inline-block
+                clear: both
+                border-bottom: 1px solid #fff
+                width: 100%
+                padding: 5px 0
+              .submitted-row:last-child
+                border-bottom: 0
+                padding-bottom: 0
+          .qualify-block
+            width: 100%
+            clear: both
+            display: inline-block
+            padding: 0 10px 10px 10px
+            .qualify-form
+              width: 100%
+              clear: both
+              border: 1px solid #fff
+              padding: 10px
+              background-color: #f6f6f6
+              display: inline-block
+              border-radius: 3px
+              text-align: center
+              p
+                margin: 0
+                padding: 0 0 10px 0
+                text-align: center !important
+                color: #333
+              .textarea-style
+                height: 60px
+              a
+                margin: auto
+                width: 120px
+                display: inline-block
+                color: #fff
+          .disqualify-block
+            width: 100%
+            clear: both
+            display: inline-block
+            padding: 0 10px 10px 10px
+            .disqualify-form
+              width: 100%
+              clear: both
+              border: 1px solid #fff
+              padding: 10px
+              background-color: #f6f6f6
+              display: inline-block
+              border-radius: 3px
+              p
+                margin: 0
+                padding: 0
+              .textarea-style
+                height: 60px
+              .submission-disqualify
+                display: inline-block
+                clear: both
+                width: 100%
+                text-align: right
+                a
+                  width: 120px
+                  float: right
+                  color: #fff
+                  margin-left: 5px
+          .feedback-block
+            clear: both
+            display: inline-block
+            width: 100%
+            padding: 0 10px 10px
+            .feedback-form
+              width: 100%
+              clear: both
+              border: 1px solid #fff
+              padding: 10px
+              background-color: #f6f6f6
+              display: inline-block
+              border-radius: 3px
+              .mail-body
+                border: 0
+              .mail-subject
+                padding: 10px 0
+              .mail-text .note-editor
+                background-color: #fff
+                min-height: 200px
+                .note-toolbar
+                  background-color: #f3fafe
+              .note-editable
+                background-color: #fff
+              .email-footer
+                text-align: right
+                padding: 10px 0
+                a
+                  width: auto
+                  margin: auto auto auto 5px
+                  padding: 6px 20px
+                  color: #fff
+                  display: inline-block
+
         .submit-phase-contest.show
           height: 280px
           background-color: #f1f2f7
@@ -296,6 +473,8 @@
           padding: 10px 20px
           margin-top: 10px
           float: left
+
+
       .col-md-12
         padding: 0
       .contest-content-item

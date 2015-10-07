@@ -758,5 +758,15 @@
   "submissionURLTips": "Input your submission link",
   "description":"Description: <strong>*</strong>",
   "descriptionSubmissionTips": "Write some lines to describe your submission to the challenge owner",
-  "submissionPhaseSuccessful": "Submission Successful"
+  "submissionPhaseSuccessful": "You have submitted successfully.",
+  "review": "Review",
+  "feedback": "Feedback",
+  "subject": "Subject",
+  "submissionLink": "Submission Link",
+  "date": "Date",
+  "descriptionCol": "Description",
+  "join": "Join",
+  "submitPhase": "Submit",
+  "accept": "Accept",
+  "acceptDescription": "Are you sure you want to select this contestant from <strong>{{phase1}}<strong> phase to <strong>{{phase2}}<strong> phase?"
 }

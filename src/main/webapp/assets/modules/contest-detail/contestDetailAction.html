@@ -1,0 +1,7 @@
+<div class="contest-detail-action">
+  <contest-detail-disqualification ng-show="registrant.visible.disqualification"></contest-detail-disqualification>
+  <contest-detail-qualification ng-show="registrant.visible.qualification"></contest-detail-qualification>
+  <contest-detail-review-submission ng-show="registrant.visible.reviewSubmission"></contest-detail-review-submission>
+  <feedback-form ng-show="registrant.visible.feedbackForm" compose-email = "registrant"></feedback-form>
+  <acceptance ng-show="registrant.visible.acceptance"></acceptance>
+</div>

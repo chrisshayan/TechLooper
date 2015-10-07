@@ -64,6 +64,8 @@ textarea.change-color
   border: 1px solid #008000 !important
   transition: color 0.5s ease
   color: #008000 !important
+.btn
+  padding: 7px 12px 3px 12px
 .btn-primary
   background-color: #337ab7
   border-color: #2e6da4
@@ -1640,7 +1642,7 @@ label.bootstrap-checkbox.disabled
   border-left-color: #828282
 .popover.top > .arrow:after,
 .popover.top > .arrow
-  border-top-color: #828282
+  border-top-color: #828282 !important
 .popover.bottom > .arrow:after,
 .popover.bottom > .arrow
   border-bottom-color: #828282
@@ -1665,6 +1667,23 @@ label.bootstrap-checkbox.disabled
     float: right
   .prev-tour
     margin-right: 0
+.popover.action-list-block
+  margin-top: -5px
+  padding-bottom: 0
+  .popover-content
+    width: 120px
+    padding: 5px 0 0
+    .action-list
+      ul
+        margin: 0
+        padding: 0
+        li
+          width: 100%
+          display: inline-block
+          clear: both
+          border-bottom: 1px solid #dddddd
+        li:last-child
+          border-bottom: 0
 .bg-tour-giude
   background-color: #000
   opacity: 0.1

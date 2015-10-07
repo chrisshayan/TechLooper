@@ -1,0 +1,27 @@
+<div class="review-block">
+  <div class="submitted-histories" ng-show="!registrant.submissions.length">
+    <p translate="noData" class="no-submission"></p>
+  </div>
+  <div class="submitted-histories" ng-show="registrant.submissions.length" >
+    <div class="header-row">
+      <div class="subject-col" translate="descriptionCol"></div>
+      <div class="submission-link-col" translate="submissionLink"></div>
+      <div class="date-col" translate="date"></div>
+    </div>
+    <div class="body-row">
+      <div class="submitted-row" ng-repeat="submission in registrant.submissions">
+        <div class="subject-col">
+          {{submission.submissionDescription}}
+        </div>
+        <div class="submission-link-col">
+          <a href="{{submission.submissionURL}}" target="_blank">
+            {{submission.submissionURL}}
+          </a>
+        </div>
+        <div class="date-col">
+          {{submission.submissionDateTime}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1227,7 +1227,6 @@
   .contestant-page
     table.contests-table
       border: 0
-
     table.contests-table thead
       display: none
 
@@ -1260,6 +1259,81 @@
       text-align: right
       p
         text-align: right !important
+    .contests-list-management
+      .contest-list-management-header
+        display: none
+      .contest-list-management-body
+        .contest-item-row
+          padding: 5px
+          .label-col
+            display: block
+            font-weight: 500
+            text-transform: capitalize
+            width: 100%
+            clear: both
+          .challenge-name-col
+            width: 100%
+            clear: both
+            padding-bottom: 10px
+          .challenge-timeline-col
+            width: 100%
+            clear: both
+            padding-bottom: 10px
+            text-align: left
+          .challenge-prize-col
+            width: 100%
+            clear: both
+            padding-bottom: 10px
+            text-align: left
+            p
+              width: 30%
+              float: left
+              clear: none
+          .challenge-current-phase-col
+            width: 100%
+            clear: both
+            padding-bottom: 10px
+            text-align: left
+            span
+              padding: 2px 15px
+            span.note
+              text-align: left
+          .challenge-registrants-col
+            width: 100%
+            clear: both
+            padding-bottom: 10px
+            text-align: left
+            .label-col
+              width: auto
+              padding-right: 10px
+              clear: none
+              float: left
+          .challenge-actions-col
+            width: 100%
+            clear: both
+            text-align: left
+    .submit-phase-contest.show
+      height: 380px
+      padding: 10px
+      .registrant-name
+        span
+          width: 100%
+          clear: both
+      .registrant-email
+        span
+          width: 100%
+          clear: both
+      .phase-description
+        label
+          width: 100%
+          clear: both
+        textarea
+          width: 100%
+        input
+          width: 100%
+        div.error-messages
+          text-align: left
+          padding-left: 0
   .warning-alert-block
     .alert-warning
       top: auto
