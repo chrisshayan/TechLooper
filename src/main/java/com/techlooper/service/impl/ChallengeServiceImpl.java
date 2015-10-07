@@ -574,15 +574,15 @@ public class ChallengeServiceImpl implements ChallengeService {
         return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
     }
 
-    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId) {
+    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) {
         BoolQueryBuilder boolQueryBuilder = boolQuery();
 
-        if (StringUtils.isNotEmpty(ownerEmail)) {
-            boolQueryBuilder.must(matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%"));
+        if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
+            boolQueryBuilder.must(matchQuery("authorEmail", condition.getAuthorEmail()).minimumShouldMatch("100%"));
         }
 
-        TermQueryBuilder challengeQuery = termQuery("challengeId", challengeId);
-        if (challengeId != null) {
+        TermQueryBuilder challengeQuery = termQuery("challengeId", condition.getChallengeId());
+        if (condition.getChallengeId() != null) {
             boolQueryBuilder.must(challengeQuery);
         }
 
@@ -591,10 +591,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
 
         if (challengeIterator.hasNext()) {
-            Iterator<ChallengeRegistrantEntity> registrants = challengeRegistrantRepository.search(challengeQuery).iterator();
-            registrants.forEachRemaining(registrant -> {
+            List<ChallengeRegistrantEntity> registrants = filterChallengeRegistrantByDate(condition);
+            registrants.forEach(registrant -> {
                 ChallengeRegistrantDto registrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
-                registrantDto.setSubmissions(findChallengeSubmissionByRegistrant(challengeId, registrant.getRegistrantId()));
+                registrantDto.setSubmissions(findChallengeSubmissionByRegistrant(condition.getChallengeId(), registrant.getRegistrantId()));
                 registrantDtos.add(registrantDto);
             });
         }
@@ -628,6 +628,41 @@ public class ChallengeServiceImpl implements ChallengeService {
         searchQueryBuilder.withQuery(boolQueryBuilder);
         searchQueryBuilder.withSort(fieldSort("registrantId").order(SortOrder.DESC));
         searchQueryBuilder.withPageable(new PageRequest(0, 100));
+
+        List<ChallengeRegistrantEntity> result = new ArrayList<>();
+        Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+        if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
+            boolQueryBuilder.must(matchQuery("authorEmail", condition.getAuthorEmail()).minimumShouldMatch("100%"));
+        }
+
+        if (condition.getChallengeId() != null) {
+            boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
+        }
+
+        if (StringUtils.isNotEmpty(condition.getFilterType())) {
+            RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
+
+            if (StringUtils.isNotEmpty(condition.getFromDate())) {
+                rangeQueryBuilder.from(condition.getFromDate());
+            }
+            if (StringUtils.isNotEmpty(condition.getToDate())) {
+                rangeQueryBuilder.to(condition.getToDate());
+            }
+
+            boolQueryBuilder.must(rangeQueryBuilder);
+        }
 
         List<ChallengeRegistrantEntity> result = new ArrayList<>();
         Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
