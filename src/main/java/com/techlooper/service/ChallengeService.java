@@ -69,7 +69,7 @@ public interface ChallengeService {
 
     ChallengeDto findChallengeById(Long id);
 
-    Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition);
+    Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException;
 
     ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
 

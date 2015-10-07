@@ -574,7 +574,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
     }
 
-    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) {
+    public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException {
         BoolQueryBuilder boolQueryBuilder = boolQuery();
 
         if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
