@@ -1,5 +1,8 @@
 <div class="review-block">
-  <div class="submitted-histories">
+  <div class="submitted-histories" ng-show="!registrant.submissions.length">
+    <p translate="noData" class="no-submission"></p>
+  </div>
+  <div class="submitted-histories" ng-show="registrant.submissions.length" >
     <div class="header-row">
       <div class="subject-col" translate="descriptionCol"></div>
       <div class="submission-link-col" translate="submissionLink"></div>
