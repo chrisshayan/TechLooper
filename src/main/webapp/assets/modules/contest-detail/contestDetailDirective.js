@@ -1,5 +1,5 @@
 techlooper
-  .directive("contestDetailAction", function ($rootScope, apiService) {
+  .directive("contestDetailAction", function ($rootScope, apiService, paginationService) {
     return {
       restrict: "E",
       replace: true,
@@ -41,31 +41,29 @@ techlooper
         scope.registrant.qualify = function () {
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
-          apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function(rt) {
-              $.extend(scope.registrant, {visible: {}}, rt);
-            });
+          apiService.saveChallengeRegistrant(scope.registrant);
+          delete scope.registrant.visible;
         };
 
         scope.registrant.disqualify = function () {
           scope.registrant.disqualified = true;
           apiService.saveChallengeRegistrant(scope.registrant)
             .success(function(rt) {
-              $.extend(scope.registrant, {visible: {}}, rt);
+              scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
+          delete scope.registrant.visible;
         };
 
         scope.registrant.hide = function() {
-          $.extend(scope.registrant, {visible: {}});
+          if (!scope.registrant.visible) return;
+          delete scope.registrant.visible;
         };
 
-        //scope.$watch(function () {
-        //  return paginationService.getCurrentPage("__default");
-        //}, function (currentPage, previousPage) {
-        //  //if (currentPage != previousPage) {
-        //  //
-        //  //}
-        //});
+        scope.$watch(function () {
+          return paginationService.getCurrentPage("__default");
+        }, function (currentPage, previousPage) {
+          scope.registrant.hide();
+        });
       }
     };
   })
