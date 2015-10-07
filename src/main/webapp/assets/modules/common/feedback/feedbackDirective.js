@@ -1,4 +1,4 @@
-techlooper.directive("feedbackForm", function (apiService) {
+techlooper.directive("feedbackForm", function (apiService, $timeout) {
   return {
     restrict: "E",
     replace: true,
@@ -31,9 +31,13 @@ techlooper.directive("feedbackForm", function (apiService) {
         if(scope.composeEmail.content == '<p><br></p>'){
           return;
         }
+        $('#feedback-loading').css('visibility', 'inherit');
         apiService.sendEmailToDailyChallengeRegistrants(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
         .finally(function () {
-           scope.cancel();
+          $timeout(function(){
+            $('#feedback-loading').css('visibility', 'hidden');
+              scope.cancel();
+          }, 500);
         });
       }
       scope.cancel = function () {
