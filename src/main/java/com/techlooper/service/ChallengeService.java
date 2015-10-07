@@ -88,4 +88,6 @@ public interface ChallengeService {
 
     List<ChallengeSubmissionDto> findChallengeSubmissionByRegistrant(Long challengeId, Long registrantId);
 
+    void updateSendEmailToContestantResultCode(ChallengeRegistrantEntity challengeRegistrantEntity, EmailSentResultEnum code);
+
 }

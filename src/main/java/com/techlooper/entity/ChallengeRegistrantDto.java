@@ -1,99 +1,123 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.ChallengeSubmissionDto;
 import com.techlooper.model.Language;
+
+import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 7/6/15.
  */
 public class ChallengeRegistrantDto {
 
-  private Long challengeId;
+    private Long challengeId;
 
-  private String registrantEmail;
+    private String registrantEmail;
 
-  private String registrantFirstName;
+    private String registrantFirstName;
 
-  private String registrantLastName;
+    private String registrantLastName;
 
-  private Language lang;
+    private Language lang;
 
-  private Double score;
+    private Double score;
 
-  private Long registrantId;
+    private Long registrantId;
 
-  private Boolean disqualified;
+    private Boolean disqualified;
 
-  private String disqualifiedReason;
+    private String disqualifiedReason;
 
-  public String getDisqualifiedReason() {
-    return disqualifiedReason;
-  }
+    private String lastEmailSentDateTime;
 
-  public void setDisqualifiedReason(String disqualifiedReason) {
-    this.disqualifiedReason = disqualifiedReason;
-  }
+    private List<ChallengeSubmissionDto> submissions;
 
-  public Boolean getDisqualified() {
-    return disqualified;
-  }
 
-  public void setDisqualified(Boolean disqualified) {
-    this.disqualified = disqualified;
-  }
+    public String getDisqualifiedReason() {
+        return disqualifiedReason;
+    }
 
-  public Long getRegistrantId() {
-    return registrantId;
-  }
+    public void setDisqualifiedReason(String disqualifiedReason) {
+        this.disqualifiedReason = disqualifiedReason;
+    }
 
-  public void setRegistrantId(Long registrantId) {
-    this.registrantId = registrantId;
-  }
+    public Boolean getDisqualified() {
+        return disqualified;
+    }
 
-  public Double getScore() {
-    return score;
-  }
+    public void setDisqualified(Boolean disqualified) {
+        this.disqualified = disqualified;
+    }
 
-  public void setScore(Double score) {
-    this.score = score;
-  }
+    public Long getRegistrantId() {
+        return registrantId;
+    }
 
-  public Long getChallengeId() {
-    return challengeId;
-  }
+    public void setRegistrantId(Long registrantId) {
+        this.registrantId = registrantId;
+    }
 
-  public void setChallengeId(Long challengeId) {
-    this.challengeId = challengeId;
-  }
+    public Double getScore() {
+        return score;
+    }
 
-  public String getRegistrantEmail() {
-    return registrantEmail;
-  }
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
-  public void setRegistrantEmail(String registrantEmail) {
-    this.registrantEmail = registrantEmail;
-  }
+    public Long getChallengeId() {
+        return challengeId;
+    }
 
-  public String getRegistrantFirstName() {
-    return registrantFirstName;
-  }
+    public void setChallengeId(Long challengeId) {
+        this.challengeId = challengeId;
+    }
 
-  public void setRegistrantFirstName(String registrantFirstName) {
-    this.registrantFirstName = registrantFirstName;
-  }
+    public String getRegistrantEmail() {
+        return registrantEmail;
+    }
 
-  public String getRegistrantLastName() {
-    return registrantLastName;
-  }
+    public void setRegistrantEmail(String registrantEmail) {
+        this.registrantEmail = registrantEmail;
+    }
 
-  public void setRegistrantLastName(String registrantLastName) {
-    this.registrantLastName = registrantLastName;
-  }
+    public String getRegistrantFirstName() {
+        return registrantFirstName;
+    }
 
-  public Language getLang() {
-    return lang;
-  }
+    public void setRegistrantFirstName(String registrantFirstName) {
+        this.registrantFirstName = registrantFirstName;
+    }
 
-  public void setLang(Language lang) {
-    this.lang = lang;
-  }
+    public String getRegistrantLastName() {
+        return registrantLastName;
+    }
+
+    public void setRegistrantLastName(String registrantLastName) {
+        this.registrantLastName = registrantLastName;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
+
+    public List<ChallengeSubmissionDto> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<ChallengeSubmissionDto> submissions) {
+        this.submissions = submissions;
+    }
+
+    public String getLastEmailSentDateTime() {
+        return lastEmailSentDateTime;
+    }
+
+    public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+        this.lastEmailSentDateTime = lastEmailSentDateTime;
+    }
 }

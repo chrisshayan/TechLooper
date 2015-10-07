@@ -10,7 +10,6 @@ import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmailService;
-import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +50,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.techlooper.util.DateTimeUtils.*;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
@@ -224,9 +224,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         int numberOfDays = 0;
         if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
-            numberOfDays = DateTimeUtils.daysBetween(DateTimeUtils.currentDate(), challengeEntity.getRegistrationDateTime()) + 1;
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getRegistrationDateTime()) + 1;
         } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
-            numberOfDays = DateTimeUtils.daysBetween(DateTimeUtils.currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
         }
 
         templateModel.put("numberOfDays", numberOfDays);
@@ -767,6 +767,15 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return result;
+    }
+
+    @Override
+    public void updateSendEmailToContestantResultCode(ChallengeRegistrantEntity challengeRegistrantEntity, EmailSentResultEnum code) {
+        if (challengeRegistrantEntity != null) {
+            challengeRegistrantEntity.setLastEmailSentDateTime(currentDate(BASIC_DATE_TIME_PATTERN));
+            challengeRegistrantEntity.setLastEmailSentResultCode(code.getValue());
+            challengeRegistrantRepository.save(challengeRegistrantEntity);
+        }
     }
 
 }
