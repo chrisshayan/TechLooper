@@ -253,18 +253,15 @@
                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                           <li ng-show="!user.disqualified">
                             <a ng-click="user.showDisqualification()">
-                              <i class="fa fa-ban"></i> {{'disqualify' | translate}}
+                              {{'disqualify' | translate}} <i class="fa fa-ban"></i>
                             </a>
                           </li>
                           <li ng-show="user.disqualified == true">
-                            <a ng-click="user.showQualification()">
-                              <i class="fa fa-circle-o"></i> {{'qualify' | translate}}
-                            </a>
+                            <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-circle-o"></i></a>
                           </li>
-                          <li><a ng-click="user.showReviewSubmission()"><i class="fa fa-eye"></i> {{'review' |
-                            translate}}</a></li>
-                          <li><a ng-click="user.showFeedback()"><i class="fa fa-commenting-o"></i> {{'feedback' | translate}}</a></li>
-                          <li><a ng-click="user.showAcceptance()"><i class="fa fa-commenting-o"></i> {{'accept' | translate}}</a></li>
+                          <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
+                          <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
+                          <li><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
                     </div>
