@@ -33,14 +33,14 @@ public class ChallengeRegistrantDto {
 
   private List<ChallengeSubmissionDto> submissions;
 
-  private ChallengePhaseEnum currentStatus;
+  private ChallengePhaseEnum activePhase;
 
-  public ChallengePhaseEnum getCurrentStatus() {
-    return currentStatus;
+  public ChallengePhaseEnum getActivePhase() {
+    return activePhase;
   }
 
-  public void setCurrentStatus(ChallengePhaseEnum currentStatus) {
-    this.currentStatus = currentStatus;
+  public void setActivePhase(ChallengePhaseEnum activePhase) {
+    this.activePhase = activePhase;
   }
 
   public String getDisqualifiedReason() {
