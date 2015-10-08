@@ -23,7 +23,6 @@ import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -897,23 +896,23 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
-        int nextMilestoneIndex = getChallengeNextPhaseIndex(challengeEntity);
+        int nextMilestoneIndex = getChallengeCurrentPhaseIndex(challengeEntity);
         if (nextMilestoneIndex == -1) {
             return ChallengePhaseEnum.FINAL;
         }
-        return CHALLENGE_TIMELINE[nextMilestoneIndex];
+
+        return CHALLENGE_TIMELINE[Math.max(0, nextMilestoneIndex - 1)];
     }
 
     private ChallengePhaseEnum getChallengeCurrentPhase(ChallengeEntity challengeEntity) {
-        int nextMilestoneIndex = getChallengeNextPhaseIndex(challengeEntity);
+        int nextMilestoneIndex = getChallengeCurrentPhaseIndex(challengeEntity);
         if (nextMilestoneIndex == -1) {
             return ChallengePhaseEnum.FINAL;
         }
-        nextMilestoneIndex = Math.min(CHALLENGE_TIMELINE.length - 1, nextMilestoneIndex + 1);
         return CHALLENGE_TIMELINE[nextMilestoneIndex];
     }
 
-    private int getChallengeNextPhaseIndex(ChallengeEntity challengeEntity) {
+    private int getChallengeCurrentPhaseIndex(ChallengeEntity challengeEntity) {
         String now = DateTimeUtils.currentDate();
 
         String timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
@@ -924,16 +923,16 @@ public class ChallengeServiceImpl implements ChallengeService {
                 challengeEntity.getRegistrationDateTime()
         };
 
-        int nextMilestoneIndex = -1;
+        int currentMilestoneIndex = -1;
         for (int i = 0; i < timeline.length; ++i) {
             try {
                 String milestone = timeline[i];
                 if (DateTimeUtils.daysBetween(now, milestone) <= 0) break;
-                nextMilestoneIndex = i;
+                currentMilestoneIndex = i;
             } catch (ParseException e) {
                 continue;
             }
         }
-        return nextMilestoneIndex;
+        return currentMilestoneIndex;
     }
 }
