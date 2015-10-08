@@ -886,12 +886,12 @@ public class ChallengeServiceImpl implements ChallengeService {
       return null;
     }
 
-    registrant.setCurrentStatus(caculateChallengePhase(challenge));
+    registrant.setCurrentStatus(calculateChallengePhase(challenge));
     registrant = challengeRegistrantRepository.save(registrant);
     return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
   }
 
-  private ChallengePhaseEnum caculateChallengePhase(ChallengeEntity challengeEntity) {
+  private ChallengePhaseEnum calculateChallengePhase(ChallengeEntity challengeEntity) {
     DateTime now = DateTime.now();
 
     DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
