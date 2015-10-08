@@ -886,15 +886,15 @@ public class ChallengeServiceImpl implements ChallengeService {
       return null;
     }
 
-    ChallengePhaseEnum currentPhase = calculateChallengePhase(challenge);
-    if (currentPhase != registrant.getActivePhase()) {
-      registrant.setActivePhase(currentPhase);
+    ChallengePhaseEnum nextPhase = getChallengeNextPhase(challenge);
+    if (nextPhase != registrant.getActivePhase()) {
+      registrant.setActivePhase(nextPhase);
       registrant = challengeRegistrantRepository.save(registrant);
     }
     return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
   }
 
-  private ChallengePhaseEnum calculateChallengePhase(ChallengeEntity challengeEntity) {
+  private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
     DateTime now = DateTime.now();
 
     DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
@@ -902,21 +902,24 @@ public class ChallengeServiceImpl implements ChallengeService {
       DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
       DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
       DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getStartDateTime())
+      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
     };
 
-    int i;
-    for (i = 0; i < timeline.length; ++i) {
+    int nextMilestoneIndex = -1;
+    for (int i = 0; i < timeline.length; ++i) {
       if (timeline[i] == null) continue;
-      if (Days.daysBetween(now, timeline[i]).getDays() >= 0) break;
+      if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
+      nextMilestoneIndex = i;
     }
 
-    if (i < timeline.length) {
-      return ChallengePhaseEnum.CHALLENGE_TIMELINE[i];
+    if (nextMilestoneIndex == -1) {
+      return ChallengePhaseEnum.FINAL;
     }
 
-    return ChallengePhaseEnum.FINAL;
+    return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
   }
 
+//  public static void main(String[] args) {
+//    System.out.println(Days.daysBetween(DateTime.now(), DateTimeUtils.parseBasicDate("11/10/2015")).getDays());
+//  }
 }
