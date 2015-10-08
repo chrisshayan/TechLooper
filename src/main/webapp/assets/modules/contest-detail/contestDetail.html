@@ -255,8 +255,8 @@
                   <div class="registrants-challenge-list">
                     <div class="registrant-name">
                       <div class="label-col" translate="fullNameField"></div>
-                      {{user.registrantFirstName}} {{user.registrantLastName}}
-                      <p class="note" ng-show="user.disqualifiedReason.length; user.disqualified ==true">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
+                      <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.disqualified ==true"></i>{{user.registrantFirstName}} {{user.registrantLastName}} <i class="registration">Registration</i>
+                      <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>
                     <div class="registration-date">
                       <div class="label-col" translate="registrationDate"></div>
@@ -285,7 +285,7 @@
                             {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()" ng-class="{active: user.visible.feedbackForm}">
                             {{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li><a ng-click="user.showAcceptance()" ng-class="{active: user.visible.acceptance}">
+                          <li ng-show="!user.disqualified"><a ng-click="user.showAcceptance()" ng-class="{active: user.visible.acceptance}">
                             {{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
@@ -305,7 +305,7 @@
                           </li>
                           <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
+                          <li ng-show="!user.disqualified"><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
                     </div>
