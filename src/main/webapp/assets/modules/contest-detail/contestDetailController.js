@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $timeout) {
+                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService) {
 
   utils.sendNotification(jsonValue.notifications.loading);
   var parts = $routeParams.id.split("-");
@@ -184,17 +184,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     else {
       subForm.addClass('show');
     }
-  }
-
-  //$scope.showActionForm = function(id){
-  //  $('.action-content').removeClass('show');
-  //  var parent = $('#id-'+id);
-  //  var div = parent.find('.action-content');
-  //  if(div.hasClass('show')){
-  //    div.removeClass('show');
-  //  }else{
-  //    div.addClass('show');
-  //  }
-  //}
+  };
+  $scope.config = {
+    registrantsFilter: resourcesService.registrantsFilterConfig
+  };
+  $('.registrants-date').find('.date').datepicker({
+    autoclose:  true,
+    format: 'dd/mm/yyyy'
+  });
 });
 
