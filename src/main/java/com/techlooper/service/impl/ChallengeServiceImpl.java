@@ -66,7 +66,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeServiceImpl.class);
 
-    private static ChallengePhaseEnum CHALLENGE_TIMELINE[] = {
+    private final static ChallengePhaseEnum CHALLENGE_TIMELINE[] = {
             ChallengePhaseEnum.FINAL,
             ChallengePhaseEnum.PROTOTYPE,
             ChallengePhaseEnum.UIUX,
@@ -862,31 +862,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return registrantIds;
-    }
-
-    private ChallengePhaseEnum calculateChallengePhase(ChallengeEntity challengeEntity) {
-        DateTime now = DateTime.now();
-
-        DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
-                DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getStartDateTime())
-        };
-
-        int i;
-        for (i = 0; i < timeline.length; ++i) {
-            if (timeline[i] == null) continue;
-            if (Days.daysBetween(now, timeline[i]).getDays() >= 0) break;
-        }
-
-        if (i < timeline.length) {
-            return ChallengePhaseEnum.CHALLENGE_TIMELINE[i];
-        }
-
-        return ChallengePhaseEnum.FINAL;
     }
 
     public ChallengeDetailDto getChallengeDetail(Long challengeId) {
