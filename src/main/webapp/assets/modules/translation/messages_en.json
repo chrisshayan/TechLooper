@@ -760,6 +760,7 @@
   "descriptionSubmissionTips": "Write some lines to describe your submission to the challenge owner",
   "submissionPhaseSuccessful": "You have submitted successfully.",
   "review": "Review",
+  "noDataSubmission": "This contestant hasn't submitted yet.",
   "feedback": "Feedback",
   "subject": "Subject",
   "submissionLink": "Submission Link",
