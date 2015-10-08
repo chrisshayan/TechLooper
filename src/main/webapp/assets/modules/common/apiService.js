@@ -231,6 +231,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     sendFeedbackToRegistrant: function(challengeId, registrantId, emailContent) {
       emailContent.language = $translate.use();
       return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.acceptChallengeRegistrant
+     * */
+    acceptChallengeRegistrant: function(registrantId) {
+      return $http.get("user/challenge/accept/" + registrantId);
     }
   };
 

@@ -64,6 +64,11 @@ techlooper
           delete scope.registrant.visible;
         };
 
+        scope.registrant.accept = function() {
+          apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
+          delete scope.registrant.visible;
+        };
+
         scope.$watch(function () {
           return paginationService.getCurrentPage("__default");
         }, function (currentPage, previousPage) {
