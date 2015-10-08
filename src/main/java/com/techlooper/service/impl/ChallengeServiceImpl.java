@@ -835,31 +835,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-  private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
-    DateTime now = DateTime.now();
-
-    DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
-      DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
-    };
-
-    int nextMilestoneIndex = -1;
-    for (int i = 0; i < timeline.length; ++i) {
-      if (timeline[i] == null) continue;
-      if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
-      nextMilestoneIndex = i;
-    }
-
-    if (nextMilestoneIndex == -1) {
-      return ChallengePhaseEnum.FINAL;
-    }
-
-    return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
-  }
-
     public Set<Long> findChallengeSubmissionByDate(String fromDate, String toDate) {
         Set<Long> registrantIds = new HashSet<>();
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
@@ -894,36 +869,37 @@ public class ChallengeServiceImpl implements ChallengeService {
             return null;
         }
 
-        ChallengePhaseEnum activePhase = calculateChallengePhase(challenge);
+        ChallengePhaseEnum activePhase = getChallengeNextPhase(challenge);
         if (activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
             registrant = challengeRegistrantRepository.save(registrant);
         }
+
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
     }
 
-    private ChallengePhaseEnum calculateChallengePhase(ChallengeEntity challengeEntity) {
+    private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
         DateTime now = DateTime.now();
 
         DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
-                DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getStartDateTime())
+          DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
+          DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
+          DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
+          DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
+          DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
         };
 
-        int i;
-        for (i = 0; i < timeline.length; ++i) {
+        int nextMilestoneIndex = -1;
+        for (int i = 0; i < timeline.length; ++i) {
             if (timeline[i] == null) continue;
-            if (Days.daysBetween(now, timeline[i]).getDays() >= 0) break;
+            if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
+            nextMilestoneIndex = i;
         }
 
-        if (i < timeline.length) {
-            return ChallengePhaseEnum.CHALLENGE_TIMELINE[i];
+        if (nextMilestoneIndex == -1) {
+            return ChallengePhaseEnum.FINAL;
         }
 
-        return ChallengePhaseEnum.FINAL;
+        return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
     }
 }
