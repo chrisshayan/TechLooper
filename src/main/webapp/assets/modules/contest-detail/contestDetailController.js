@@ -140,7 +140,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-  apiService.getChallengeRegistrants(contestId)
+  var registrantFilterCondition = {
+    challengeId : contestId
+  };
+
+  apiService.getChallengeRegistrants(registrantFilterCondition)
     .success(function (registrants) {
       $scope.registrants = registrants;
       $scope.sortByStartDate();
@@ -151,6 +155,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
   });
+
+
   $scope.sortByScore = function () {
     delete $scope.sortStartDate;
     $scope.sortScore = $scope.sortScore || "asc";

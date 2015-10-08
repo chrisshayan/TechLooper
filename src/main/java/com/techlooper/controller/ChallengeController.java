@@ -118,9 +118,7 @@ public class ChallengeController {
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenges/{challengeId}/registrants", method = RequestMethod.POST)
-    public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId,
-                                                          @RequestBody RegistrantFilterCondition condition, HttpServletRequest request) throws ParseException {
-        condition.setChallengeId(challengeId);
+    public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, @RequestBody RegistrantFilterCondition condition, HttpServletRequest request) throws ParseException {
         condition.setAuthorEmail(request.getRemoteUser());
         return challengeService.findRegistrantsByOwner(condition);
     }

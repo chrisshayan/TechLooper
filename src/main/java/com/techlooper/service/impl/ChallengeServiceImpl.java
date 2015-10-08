@@ -10,6 +10,7 @@ import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmailService;
+import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,7 @@ import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -654,10 +656,6 @@ public class ChallengeServiceImpl implements ChallengeService {
             NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
-            if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
-                boolQueryBuilder.must(matchQuery("authorEmail", condition.getAuthorEmail()).minimumShouldMatch("100%"));
-            }
-
             if (condition.getChallengeId() != null) {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
             }
@@ -679,6 +677,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 }
             }
 
+            searchQueryBuilder.withQuery(boolQueryBuilder);
             Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
             while (iterator.hasNext()) {
                 result.add(iterator.next());
@@ -828,7 +827,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    @Override
     public void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code) {
         if (challengeEntity != null) {
             challengeEntity.setLastEmailSentDateTime(currentDate(BASIC_DATE_TIME_PATTERN));
@@ -837,7 +835,31 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    @Override
+  private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
+    DateTime now = DateTime.now();
+
+    DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
+      DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
+    };
+
+    int nextMilestoneIndex = -1;
+    for (int i = 0; i < timeline.length; ++i) {
+      if (timeline[i] == null) continue;
+      if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
+      nextMilestoneIndex = i;
+    }
+
+    if (nextMilestoneIndex == -1) {
+      return ChallengePhaseEnum.FINAL;
+    }
+
+    return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
+  }
+
     public Set<Long> findChallengeSubmissionByDate(String fromDate, String toDate) {
         Set<Long> registrantIds = new HashSet<>();
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
@@ -859,5 +881,49 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return registrantIds;
+    }
+
+    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (registrant == null) {
+            return null;
+        }
+
+        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
+        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            return null;
+        }
+
+        ChallengePhaseEnum activePhase = calculateChallengePhase(challenge);
+        if (activePhase != registrant.getActivePhase()) {
+            registrant.setActivePhase(activePhase);
+            registrant = challengeRegistrantRepository.save(registrant);
+        }
+        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+    }
+
+    private ChallengePhaseEnum calculateChallengePhase(ChallengeEntity challengeEntity) {
+        DateTime now = DateTime.now();
+
+        DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
+                DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getStartDateTime())
+        };
+
+        int i;
+        for (i = 0; i < timeline.length; ++i) {
+            if (timeline[i] == null) continue;
+            if (Days.daysBetween(now, timeline[i]).getDays() >= 0) break;
+        }
+
+        if (i < timeline.length) {
+            return ChallengePhaseEnum.CHALLENGE_TIMELINE[i];
+        }
+
+        return ChallengePhaseEnum.FINAL;
     }
 }

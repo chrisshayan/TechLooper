@@ -192,8 +192,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.getRegistrantsById
      * */
-    getChallengeRegistrants: function (challengeId) {
-      return $http.get("challenges/" + challengeId + "/registrants");
+    getChallengeRegistrants: function (registrantFilterCondition) {
+      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition);
     },
 
     /**
@@ -231,6 +231,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     sendFeedbackToRegistrant: function(challengeId, registrantId, emailContent) {
       emailContent.language = $translate.use();
       return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.acceptChallengeRegistrant
+     * */
+    acceptChallengeRegistrant: function(registrantId) {
+      return $http.get("user/challenge/accept/" + registrantId);
     }
   };
 
