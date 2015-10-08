@@ -886,9 +886,9 @@ public class ChallengeServiceImpl implements ChallengeService {
       return null;
     }
 
-    ChallengePhaseEnum currentStatus = calculateChallengePhase(challenge);
-    if (currentStatus != registrant.getCurrentStatus()) {
-      registrant.setCurrentStatus(currentStatus);
+    ChallengePhaseEnum currentPhase = calculateChallengePhase(challenge);
+    if (currentPhase != registrant.getActivePhase()) {
+      registrant.setActivePhase(currentPhase);
       registrant = challengeRegistrantRepository.save(registrant);
     }
     return dozerMapper.map(registrant, ChallengeRegistrantDto.class);

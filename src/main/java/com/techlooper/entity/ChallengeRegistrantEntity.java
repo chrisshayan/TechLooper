@@ -54,7 +54,7 @@ public class ChallengeRegistrantEntity {
   private int lastEmailSentResultCode;
 
   @Field(type = String, index = FieldIndex.not_analyzed)
-  private ChallengePhaseEnum currentStatus;
+  private ChallengePhaseEnum activePhase;
 
   public ChallengeRegistrantEntity() {
   }
@@ -162,11 +162,11 @@ public class ChallengeRegistrantEntity {
     this.lastEmailSentResultCode = lastEmailSentResultCode;
   }
 
-  public ChallengePhaseEnum getCurrentStatus() {
-    return currentStatus;
+  public ChallengePhaseEnum getActivePhase() {
+    return activePhase;
   }
 
-  public void setCurrentStatus(ChallengePhaseEnum currentStatus) {
-    this.currentStatus = currentStatus;
+  public void setActivePhase(ChallengePhaseEnum activePhase) {
+    this.activePhase = activePhase;
   }
 }
