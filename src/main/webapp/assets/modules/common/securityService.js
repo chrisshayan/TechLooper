@@ -16,8 +16,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     },
 
     getCurrentUser: function (type) {
-      if ($location.search().noLogin) {
-        $rootScope.noLogin = true;
+      if ($location.search().campaign == 'vietnamworks') {
         return;
       }
 
