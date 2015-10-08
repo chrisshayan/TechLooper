@@ -3,10 +3,7 @@ package com.techlooper.controller;
 import com.techlooper.dto.DashBoardInfo;
 import com.techlooper.dto.JoinBySocialDto;
 import com.techlooper.dto.WebinarInfoDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.entity.GetPromotedEntity;
-import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReviewEntity;
+import com.techlooper.entity.*;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
@@ -406,5 +403,11 @@ public class UserController {
     if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), challengeId, registrantId, emailContent)) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
+  }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "user/challenge/accept/{registrantId}", method = RequestMethod.GET)
+  public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, @PathVariable Long registrantId) {
+    return challengeService.acceptRegistrant(request.getRemoteUser(), registrantId);
   }
 }
