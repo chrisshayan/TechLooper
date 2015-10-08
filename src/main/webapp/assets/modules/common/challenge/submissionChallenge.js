@@ -12,8 +12,6 @@ techlooper.directive("submissionChallenge", function ($timeout, jsonValue, utils
         if (scope.submissionForm.$invalid) {
           return false;
         }
-        console.log(scope.submissionDescription);
-        console.log(scope.submissionURL);
       }
 
       scope.hideSubmitForm = function(){
@@ -21,6 +19,8 @@ techlooper.directive("submissionChallenge", function ($timeout, jsonValue, utils
         subForm.find('#txtDescription').val('');
         subForm.find('#txtSubmissionURL').val('');
         subForm.removeClass('show');
+        delete scope.submissionURL;
+        delete scope.submissionDescription;
       }
     }
   }
