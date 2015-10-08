@@ -234,7 +234,28 @@
         border-top: 0
         padding: 20px 0
         .registrants
-          
+          padding: 0 20px
+          .registrants-filter-block
+            display: inline-block
+            width: 100%
+            clear: both
+            .registrants-query
+              width: 20%
+              float: left
+              padding-right: 5px
+            .registrants-date
+              width: 50%
+              float: left
+              .input-group
+                width: 50%
+                float: left
+                input
+                  border: 1px solid #cccccc
+                .input-group-addon.left
+                  border-radius: 4px 0 0 4px
+                .input-group-addon.none
+                  border-radius: 0
+                  border-left: 0
         .registrants-paging
           display: inline-block
           clear: both

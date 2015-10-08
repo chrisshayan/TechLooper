@@ -188,7 +188,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig
   };
-  $('.registrants-date').find('.date').datepicker({
+  $('.registrants-date').find('.input-daterange').datepicker({
     autoclose:  true,
     format: 'dd/mm/yyyy'
   });
