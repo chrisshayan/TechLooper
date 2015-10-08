@@ -192,8 +192,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.getRegistrantsById
      * */
-    getChallengeRegistrants: function (challengeId) {
-      return $http.get("challenges/" + challengeId + "/registrants");
+    getChallengeRegistrants: function (registrantFilterCondition) {
+      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition);
     },
 
     /**

@@ -197,21 +197,21 @@
           <div class="registrants-filter-block">
             <form name="registrants-filter">
               <div class="registrants-query">
-                <selectize name="registrantsFilter" ng-model="registrantsFilter"
+                <selectize name="registrantsFilter" ng-model="filterType"
                            config="config.registrantsFilter"
                            options="config.registrantsFilter.options"></selectize>
               </div>
               <div class="registrants-date">
                   <div class="input-group  input-daterange">
                       <span class="input-group-addon left" translate="from"></span>
-                      <input type="text" class="form-control" placeholder="">
+                      <input type="text" class="form-control" placeholder="" ng-model="fromDate">
                       <span class="input-group-addon none">
                         <i class="fa fa-calendar"></i>
                       </span>
                   </div>
                   <div class="input-group  input-daterange">
                     <span class="input-group-addon none none-left" translate="to"></span>
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" class="form-control" placeholder="" ng-model="toDate">
                     <span class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </span>
@@ -273,16 +273,20 @@
                       <div class="action-link">
                         <ul>
                           <li ng-show="!user.disqualified">
-                            <a ng-click="user.showDisqualification()">
+                            <a ng-click="user.showDisqualification()" ng-class="{active: user.visible.disqualification}">
                               {{'disqualify' | translate}} <i class="fa fa-ban"></i>
                             </a>
                           </li>
                           <li ng-show="user.disqualified == true">
-                            <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-circle-o"></i></a>
+                            <a ng-click="user.showQualification()" ng-class="{active: user.visible.qualification}">
+                              {{'qualify' | translate}} <i class="fa fa-circle-o"></i></a>
                           </li>
-                          <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
-                          <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
+                          <li><a ng-click="user.showReviewSubmission()" ng-class="{active: user.visible.reviewSubmission}">
+                            {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
+                          <li><a ng-click="user.showFeedback()" ng-class="{active: user.visible.feedbackForm}">
+                            {{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
+                          <li><a ng-click="user.showAcceptance()" ng-class="{active: user.visible.acceptance}">
+                            {{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
                       <div class="dropdown">
