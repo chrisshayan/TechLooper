@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -118,7 +119,7 @@ public class ChallengeController {
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenges/{challengeId}/registrants", method = RequestMethod.POST)
     public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId,
-                                                          @RequestBody RegistrantFilterCondition condition, HttpServletRequest request) {
+                                                          @RequestBody RegistrantFilterCondition condition, HttpServletRequest request) throws ParseException {
         condition.setChallengeId(challengeId);
         condition.setAuthorEmail(request.getRemoteUser());
         return challengeService.findRegistrantsByOwner(condition);
