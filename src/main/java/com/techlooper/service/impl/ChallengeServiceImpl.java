@@ -645,7 +645,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         List<ChallengeRegistrantEntity> result = new ArrayList<>();
 
         if ("challengeSubmission".equals(condition.getFilterType())) {
-            Set<Long> registrantIds = findChallengeSubmissionByDate(condition.getFromDate(), condition.getToDate());
+            Set<Long> registrantIds = findChallengeSubmissionByDate(
+                    condition.getChallengeId(), condition.getFromDate(), condition.getToDate());
             for (Long registrantId : registrantIds) {
                 ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
                 if (registrantEntity != null) {
@@ -661,7 +662,8 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
 
             if (StringUtils.isNotEmpty(condition.getFilterType())) {
-                if ("registrantId".equals(condition.getFilterType())) {
+                if ("registrantId".equals(condition.getFilterType()) &&
+                        (StringUtils.isNotEmpty(condition.getFromDate()) || StringUtils.isNotEmpty(condition.getToDate()))) {
                     RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
 
                     if (StringUtils.isNotEmpty(condition.getFromDate())) {
@@ -835,45 +837,51 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-  private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
-    DateTime now = DateTime.now();
+    private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
+        DateTime now = DateTime.now();
 
-    DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
-      DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
-    };
+        DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
+                DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
+                DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
+        };
 
-    int nextMilestoneIndex = -1;
-    for (int i = 0; i < timeline.length; ++i) {
-      if (timeline[i] == null) continue;
-      if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
-      nextMilestoneIndex = i;
+        int nextMilestoneIndex = -1;
+        for (int i = 0; i < timeline.length; ++i) {
+            if (timeline[i] == null) continue;
+            if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
+            nextMilestoneIndex = i;
+        }
+
+        if (nextMilestoneIndex == -1) {
+            return ChallengePhaseEnum.FINAL;
+        }
+
+        return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
     }
 
-    if (nextMilestoneIndex == -1) {
-      return ChallengePhaseEnum.FINAL;
-    }
-
-    return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
-  }
-
-    public Set<Long> findChallengeSubmissionByDate(String fromDate, String toDate) {
+    public Set<Long> findChallengeSubmissionByDate(Long challengeId, String fromDate, String toDate) {
         Set<Long> registrantIds = new HashSet<>();
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        boolQueryBuilder.must(termQuery("challengeId", challengeId));
+
         RangeQueryBuilder submissionDateQuery = QueryBuilders.rangeQuery("submissionDateTime");
+        if (StringUtils.isNotEmpty(fromDate) || StringUtils.isNotEmpty(toDate)) {
+            if (StringUtils.isNotEmpty(fromDate)) {
+                submissionDateQuery.from(fromDate);
+            }
 
-        if (StringUtils.isNotEmpty(fromDate)) {
-            submissionDateQuery.from(fromDate);
+            if (StringUtils.isNotEmpty(toDate)) {
+                submissionDateQuery.to(toDate);
+            }
+
+            boolQueryBuilder.must(submissionDateQuery);
         }
 
-        if (StringUtils.isNotEmpty(toDate)) {
-            submissionDateQuery.to(toDate);
-        }
-
-        searchQueryBuilder.withQuery(submissionDateQuery);
+        searchQueryBuilder.withQuery(boolQueryBuilder);
         Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
         while (iterator.hasNext()) {
             ChallengeSubmissionEntity challengeSubmissionEntity = iterator.next();

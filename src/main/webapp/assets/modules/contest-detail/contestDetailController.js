@@ -156,13 +156,32 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     utils.sendNotification(jsonValue.notifications.loaded);
   });
 
+  $scope.filterContestant = function () {
+    var registrantFilterCondition = {};
+    registrantFilterCondition.challengeId = contestId;
+    registrantFilterCondition.filterType = $scope.filterType;
+    registrantFilterCondition.fromDate = $scope.fromDate;
+    registrantFilterCondition.toDate = $scope.fromDate;
+
+    apiService.getChallengeRegistrants(registrantFilterCondition)
+      .success(function (registrants) {
+        $scope.registrants = registrants;
+        $scope.sortByStartDate();
+        var param = $location.search();
+        if (param.a == "registrants" && registrants.length) {
+          $('.nav-tabs a[href=".registrants"]').tab('show');
+        }
+      }).finally(function () {
+        utils.sendNotification(jsonValue.notifications.loaded);
+      });
+  };
 
   $scope.sortByScore = function () {
     delete $scope.sortStartDate;
     $scope.sortScore = $scope.sortScore || "asc";
     $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
     utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
-  }
+  };
 
   $scope.sortByStartDate = function () {
     delete $scope.sortScore;

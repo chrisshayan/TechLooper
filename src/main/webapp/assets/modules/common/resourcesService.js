@@ -1,7 +1,7 @@
 techlooper.factory("resourcesService", function ($translate, $q) {
   var registrantsFilterOptions = [
-    {translate: "allContestants", id: "allContestants"},
-    {translate: "allSubmission", id: "allSubmission"}
+    {translate: "allContestants", id: "registrantId"},
+    {translate: "allSubmission", id: "challengeSubmission"}
   ];
 
   var reviewStyleOptions = [
@@ -73,7 +73,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   }
 
   var instance = {
-    registrantsFilterConfig: $.extend(true, {}, {options: registrantsFilterOptions}, titleSelectize("registrantsFilterConfig")),
+    registrantsFilterConfig: $.extend(true, {}, {options: registrantsFilterOptions}, idSelectize("registrantsFilterConfig")),
     reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, titleSelectize("reviewStyleConfig")),
     qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, titleSelectize("qualityIdeaConfig")),
     paymentConfig: $.extend(true, {}, {options: paymentOptions}, idSelectize("paymentConfig")),
