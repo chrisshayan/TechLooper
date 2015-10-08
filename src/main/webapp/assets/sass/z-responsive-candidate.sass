@@ -1218,6 +1218,7 @@
           padding: 10px 5px
           .registrants
             padding: 0 5px
+            background-color: #fff
             .registrants-filter-block
               display: inline-block
               width: 100%
@@ -1240,6 +1241,8 @@
                   .input-group-addon.none-left
                     border-radius: 4px 0 0 4px
                     border-left: 1px solid #ccc
+            tr
+              background-color: #fff
         .contest-content-item
           .timeLine-milestone
             .phase-box
@@ -1249,6 +1252,12 @@
               span
                 border: none !important
         .contest-content-tab-detail
+          .label-col
+            display: block
+            font-weight: 500
+            width: 100%
+            clear: both
+            text-transform: capitalize
           table.contests-table
             .registrants-challenge-list
               .registration-date,
@@ -1258,8 +1267,36 @@
                 width: 100%
                 clear: both
                 text-align: left
-              .registrant-name
-                padding-top: 10px
+                padding: 10px 0 0
+              .registration-score
+                .label-col
+                  width: auto
+                  clear: none
+                  padding-right: 10px
+                  display: inline-block
+              .registration-action
+                padding-bottom: 10px
+                .label-col
+                  width: 25%
+                  clear: none
+                  padding: 3px 0 0
+                  display: inline-block
+                  float: left
+                .action-link
+                  display: inline-block
+                  float: left
+                  width: 75%
+                  ul
+                    margin: 0
+                    padding: 0
+                    width: 100%
+                    li
+                      width: auto
+                      float: left
+                      a
+                        padding: 3px
+                .dropdown
+                  display: none
   .contestant-page
     table.contests-table
       border: 0
