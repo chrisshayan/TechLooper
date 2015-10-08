@@ -16,6 +16,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     },
 
     getCurrentUser: function (type) {
+      if ($location.search().noLogin) {
+        $rootScope.noLogin = true;
+        return;
+      }
+
+
       if ($rootScope.userInfo) {
         var deferred = $q.defer();
         deferred.resolve($rootScope.userInfo);
