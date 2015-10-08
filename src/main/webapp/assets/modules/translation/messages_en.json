@@ -653,7 +653,7 @@
   "subMenuGetPromoted": "Get Promoted",
   "viewMore": "View More",
   "ItJobHub": "IT Job Hub",
-  "searchJobKeyword1": "Enter Job title or Skills or Company to search jobs",
+  "searchJobKeyword1": "Enter job title, skills or company to search jobs",
   "withIn": "within",
   "allLocations": "Any Locations",
   "totalJobs": "<strong>{{number}}</strong> Job(s) returned",

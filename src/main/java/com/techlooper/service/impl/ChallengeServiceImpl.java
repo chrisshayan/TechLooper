@@ -66,6 +66,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeServiceImpl.class);
 
+    private static ChallengePhaseEnum CHALLENGE_TIMELINE[] = {
+            ChallengePhaseEnum.FINAL,
+            ChallengePhaseEnum.PROTOTYPE,
+            ChallengePhaseEnum.UIUX,
+            ChallengePhaseEnum.IDEA,
+            ChallengePhaseEnum.REGISTRATION
+    };
+
     @Resource
     private ElasticsearchTemplate elasticsearchTemplateUserImport;
 
@@ -262,16 +270,6 @@ public class ChallengeServiceImpl implements ChallengeService {
                 return notifyChallengeTimelineInProgressMailSubjectEn;
             }
         }
-    }
-
-    public ChallengeDetailDto getChallengeDetail(Long challengeId) {
-        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-        if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
-            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
-            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
-            return challengeDetailDto;
-        }
-        return null;
     }
 
     public Long getNumberOfRegistrants(Long challengeId) {
@@ -837,31 +835,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
-        DateTime now = DateTime.now();
-
-        DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
-                DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-                DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime())
-        };
-
-        int nextMilestoneIndex = -1;
-        for (int i = 0; i < timeline.length; ++i) {
-            if (timeline[i] == null) continue;
-            if (Days.daysBetween(now, timeline[i]).getDays() <= 0) break;
-            nextMilestoneIndex = i;
-        }
-
-        if (nextMilestoneIndex == -1) {
-            return ChallengePhaseEnum.FINAL;
-        }
-
-        return ChallengePhaseEnum.CHALLENGE_TIMELINE[timeline.length - 1 - nextMilestoneIndex];
-    }
-
     public Set<Long> findChallengeSubmissionByDate(Long challengeId, String fromDate, String toDate) {
         Set<Long> registrantIds = new HashSet<>();
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
@@ -891,25 +864,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         return registrantIds;
     }
 
-    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
-        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (registrant == null) {
-            return null;
-        }
-
-        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
-        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
-            return null;
-        }
-
-        ChallengePhaseEnum activePhase = calculateChallengePhase(challenge);
-        if (activePhase != registrant.getActivePhase()) {
-            registrant.setActivePhase(activePhase);
-            registrant = challengeRegistrantRepository.save(registrant);
-        }
-        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
-    }
-
     private ChallengePhaseEnum calculateChallengePhase(ChallengeEntity challengeEntity) {
         DateTime now = DateTime.now();
 
@@ -933,5 +887,78 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return ChallengePhaseEnum.FINAL;
+    }
+
+    public ChallengeDetailDto getChallengeDetail(Long challengeId) {
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+        if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
+            challengeDetailDto.setCurrentPhase(getChallengeCurrentPhase(challengeEntity));
+            challengeDetailDto.setNextPhase(getChallengeNextPhase(challengeEntity));
+            return challengeDetailDto;
+        }
+        return null;
+    }
+
+    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (registrant == null) {
+            return null;
+        }
+
+        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
+        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            return null;
+        }
+
+        ChallengePhaseEnum activePhase = getChallengeNextPhase(challenge);
+        if (activePhase != registrant.getActivePhase()) {
+            registrant.setActivePhase(activePhase);
+            registrant = challengeRegistrantRepository.save(registrant);
+        }
+
+        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+    }
+
+    private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
+        int nextMilestoneIndex = getChallengeNextPhaseIndex(challengeEntity);
+        if (nextMilestoneIndex == -1) {
+            return ChallengePhaseEnum.FINAL;
+        }
+        return CHALLENGE_TIMELINE[nextMilestoneIndex];
+    }
+
+    private ChallengePhaseEnum getChallengeCurrentPhase(ChallengeEntity challengeEntity) {
+        int nextMilestoneIndex = getChallengeNextPhaseIndex(challengeEntity);
+        if (nextMilestoneIndex == -1) {
+            return ChallengePhaseEnum.FINAL;
+        }
+        nextMilestoneIndex = Math.min(CHALLENGE_TIMELINE.length - 1, nextMilestoneIndex + 1);
+        return CHALLENGE_TIMELINE[nextMilestoneIndex];
+    }
+
+    private int getChallengeNextPhaseIndex(ChallengeEntity challengeEntity) {
+        String now = DateTimeUtils.currentDate();
+
+        String timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
+                challengeEntity.getSubmissionDateTime(),
+                challengeEntity.getPrototypeSubmissionDateTime(),
+                challengeEntity.getUxSubmissionDateTime(),
+                challengeEntity.getIdeaSubmissionDateTime(),
+                challengeEntity.getRegistrationDateTime()
+        };
+
+        int nextMilestoneIndex = -1;
+        for (int i = 0; i < timeline.length; ++i) {
+            try {
+                String milestone = timeline[i];
+                if (DateTimeUtils.daysBetween(now, milestone) <= 0) break;
+                nextMilestoneIndex = i;
+            } catch (ParseException e) {
+                continue;
+            }
+        }
+        return nextMilestoneIndex;
     }
 }
