@@ -283,9 +283,9 @@
             border: 0
             border-bottom: 2px solid #337ab7
           tr.qualify
-            color: #929292
+            color: #999999
             input
-              color: #333
+              color: #999999
             span
               font-style: italic
               font-size: 12px
@@ -293,13 +293,17 @@
               display: block
               word-break: break-all
             button
-              color: #333
+              color: #999999
               span
                 display: inline-block
             a.btn
               span
                 display: inline-block
                 font-style: normal
+            i.registration,
+            i.in-progress,
+            i.final-app
+              background-color: #999999 !important
             td
               color: #c0c0c0
           .action-content
@@ -315,6 +319,20 @@
               i
                 padding-right: 5px
                 color: #930909
+              i.in-progress,
+              i.final-app,
+              i.registration
+                background-color: #f88568
+                font-size: 12px
+                padding: 0 4px
+                color: #fff
+                border-radius: 4px
+                opacity: 0.8
+                margin-left: 5px
+              i.in-progress
+                background-color: #4caf50
+              i.final-app
+                background-color: #257abb
             .registration-date
               width: 20%
               float: left
