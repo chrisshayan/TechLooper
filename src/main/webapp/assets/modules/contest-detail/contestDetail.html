@@ -273,16 +273,20 @@
                       <div class="action-link">
                         <ul>
                           <li ng-show="!user.disqualified">
-                            <a ng-click="user.showDisqualification()">
+                            <a ng-click="user.showDisqualification()" ng-class="{active: user.visible.disqualification}">
                               {{'disqualify' | translate}} <i class="fa fa-ban"></i>
                             </a>
                           </li>
                           <li ng-show="user.disqualified == true">
-                            <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-circle-o"></i></a>
+                            <a ng-click="user.showQualification()" ng-class="{active: user.visible.qualification}">
+                              {{'qualify' | translate}} <i class="fa fa-circle-o"></i></a>
                           </li>
-                          <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
-                          <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
+                          <li><a ng-click="user.showReviewSubmission()" ng-class="{active: user.visible.reviewSubmission}">
+                            {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
+                          <li><a ng-click="user.showFeedback()" ng-class="{active: user.visible.feedbackForm}">
+                            {{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
+                          <li><a ng-click="user.showAcceptance()" ng-class="{active: user.visible.acceptance}">
+                            {{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
                       <div class="dropdown">
