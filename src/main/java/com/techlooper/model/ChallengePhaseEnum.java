@@ -12,10 +12,6 @@ public enum ChallengePhaseEnum {
   PROTOTYPE("uxSubmissionDateTime", "prototypeSubmissionDateTime", "PROTOTYPE"),
   FINAL("prototypeSubmissionDateTime", "submissionDateTime", "FINAL");
 
-  public static ChallengePhaseEnum CHALLENGE_TIMELINE[] = {
-    REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL
-  };
-
   private String fromDateTimeField;
 
   private String toDateTimeField;
