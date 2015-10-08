@@ -233,6 +233,8 @@
         border: 1px solid #ddd
         border-top: 0
         padding: 20px 0
+        .label-col
+          display: none
         .registrants
           padding: 0 20px
           .registrants-filter-block
@@ -256,7 +258,13 @@
                 .input-group-addon.none
                   border-radius: 0
                   border-left: 0
-
+            .submit-filter
+              width: auto
+              float: left
+              padding-left: 5px
+              button
+                padding: 3px 25px 1px 25px
+                height: 34px
         .registrants-paging
           display: inline-block
           clear: both
@@ -351,6 +359,8 @@
                 a:hover
                   color: #333
                   background-color: #f1f1f1
+              .action-link
+                display: none
               .dropdown-menu
                 right: 0
                 left: inherit

@@ -217,6 +217,9 @@
                     </span>
                   </div>
               </div>
+              <div class="submit-filter">
+                <button translate="ok" class="btn btn-primary btn-flat"></button>
+              </div>
             </form>
           </div>
           <form>
@@ -267,6 +270,21 @@
                     </div>
                     <div class="registration-action">
                       <div class="label-col" translate="action"></div>
+                      <div class="action-link">
+                        <ul>
+                          <li ng-show="!user.disqualified">
+                            <a ng-click="user.showDisqualification()">
+                              {{'disqualify' | translate}} <i class="fa fa-ban"></i>
+                            </a>
+                          </li>
+                          <li ng-show="user.disqualified == true">
+                            <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-circle-o"></i></a>
+                          </li>
+                          <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
+                          <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
+                          <li><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
+                        </ul>
+                      </div>
                       <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle open-action-content"
                                 type="button" id="menu1" data-toggle="dropdown">
