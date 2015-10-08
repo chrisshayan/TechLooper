@@ -886,8 +886,11 @@ public class ChallengeServiceImpl implements ChallengeService {
       return null;
     }
 
-    registrant.setCurrentStatus(calculateChallengePhase(challenge));
-    registrant = challengeRegistrantRepository.save(registrant);
+    ChallengePhaseEnum currentStatus = calculateChallengePhase(challenge);
+    if (currentStatus != registrant.getCurrentStatus()) {
+      registrant.setCurrentStatus(currentStatus);
+      registrant = challengeRegistrantRepository.save(registrant);
+    }
     return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
   }
 
@@ -895,12 +898,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     DateTime now = DateTime.now();
 
     DateTime timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
-      DateTimeUtils.parseBasicDate(challengeEntity.getStartDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime()),
       DateTimeUtils.parseBasicDate(challengeEntity.getPrototypeSubmissionDateTime()),
-      DateTimeUtils.parseBasicDate(challengeEntity.getSubmissionDateTime())
+      DateTimeUtils.parseBasicDate(challengeEntity.getUxSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getIdeaSubmissionDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getRegistrationDateTime()),
+      DateTimeUtils.parseBasicDate(challengeEntity.getStartDateTime())
     };
 
     int i;
