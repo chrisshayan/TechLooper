@@ -305,7 +305,7 @@
                           </li>
                           <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
+                          <li ng-show="!user.disqualified"><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
                     </div>
