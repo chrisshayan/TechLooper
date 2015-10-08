@@ -772,6 +772,9 @@
   "join": "Tham Gia",
   "submitPhase": "Gửi Bài",
   "accept": "Đi Tiếp",
-  "acceptDescription": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{phase1}}<strong> vào vòng <strong>{{phase1}}<strong>?"
+  "acceptDescription": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{phase1}}<strong> vào vòng <strong>{{phase1}}<strong>?",
+  "allContestants": "Tất cả thí sinh",
+  "exRegistrantsFilterConfig": "Tất cả thí sinh",
+  "allSubmission": "Tất cả bài nộp"
 
 }

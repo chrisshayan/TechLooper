@@ -187,7 +187,6 @@
 
             <div class="row contest-content-item">
               <p class="title" translate="qualityIdea"/>
-
               <p class="detail">
                 {{contestDetail.qualityIdea}}
               </p>
@@ -195,12 +194,32 @@
           </div>
         </div>
         <div class="registrants tab-pane fade" ng-show="registrants.length">
-          <div class="registrants-paging">
-            <dir-pagination-controls
-              max-size="10"
-              direction-links="true"
-              boundary-links="true">
-            </dir-pagination-controls>
+          <div class="registrants-filter-block">
+            <form name="registrants-filter">
+              <div class="registrants-query">
+                <selectize name="registrantsFilter" ng-model="registrantsFilter"
+                           config="config.registrantsFilter"
+                           options="config.registrantsFilter.options"></selectize>
+              </div>
+              <div class="registrants-date">
+                <div class="input-group input-daterange">
+                  <span class="input-group-addon" translate="from"></span>
+                  <div class="input-group date">
+                      <input type="text" class="form-control" value="2012-04-05">
+                      <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                  <div class="input-group date">
+                    <span class="input-group-addon" translate="to"></span>
+                    <input type="text" class="form-control" value="2012-04-19">
+                    <span class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
           <form>
             <table class="contests-table">
