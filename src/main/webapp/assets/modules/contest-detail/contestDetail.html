@@ -84,7 +84,7 @@
               </div>
             </div>
           </div>
-          <submission-challenge ng-model="contestDetail"></submission-challenge>
+          <submission-challenge challenge="contestDetail"></submission-challenge>
           <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
                ng-show="submittedPhase">
             <p translate="submissionPhaseSuccessful"></p>
@@ -262,7 +262,7 @@
                       <div class="label-col" translate="fullNameField"></div>
                       <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.disqualified ==true"></i>{{user.registrantFirstName}} {{user.registrantLastName}}
                       <i ng-class="{'registration': user.activePhase == 'REGISTRATION', 'idea': user.activePhase == 'IDEA','uiux': user.activePhase == 'UIUX', 'prototype': user.activePhase == 'PROTOTYPE', 'final-app': user.activePhase == 'FINAL'}">
-                        {{user.activePhase}}
+                        {{user.activePhase | textTruncate: "capitalize" }}
                       </i>
                       <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>

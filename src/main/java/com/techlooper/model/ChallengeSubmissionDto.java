@@ -1,87 +1,69 @@
 package com.techlooper.model;
 
+import java.io.Serializable;
+
 /**
  * Created by NguyenDangKhoa on 10/6/15.
  */
-public class ChallengeSubmissionDto {
+public class ChallengeSubmissionDto implements Serializable {
 
-    private Long challengeSubmissionId;
+  private String registrantEmail;
 
-    private Long registrantId;
+  private String registrantFirstName;
 
-    private String registrantName;
+  private String registrantLastName;
 
-    private Long challengeId;
+  private Long challengeId;
 
-    private String submissionURL;
+  private String submissionURL;
 
-    private String submissionDateTime;
+  private String submissionDescription;
 
-    private String submissionDescription;
+  public String getRegistrantFirstName() {
+    return registrantFirstName;
+  }
 
-    private String submissionStatus;
+  public void setRegistrantFirstName(String registrantFirstName) {
+    this.registrantFirstName = registrantFirstName;
+  }
 
-    public Long getChallengeSubmissionId() {
-        return challengeSubmissionId;
-    }
+  public String getRegistrantLastName() {
+    return registrantLastName;
+  }
 
-    public void setChallengeSubmissionId(Long challengeSubmissionId) {
-        this.challengeSubmissionId = challengeSubmissionId;
-    }
+  public void setRegistrantLastName(String registrantLastName) {
+    this.registrantLastName = registrantLastName;
+  }
 
-    public Long getRegistrantId() {
-        return registrantId;
-    }
+  public String getRegistrantEmail() {
+    return registrantEmail;
+  }
 
-    public void setRegistrantId(Long registrantId) {
-        this.registrantId = registrantId;
-    }
+  public void setRegistrantEmail(String registrantEmail) {
+    this.registrantEmail = registrantEmail;
+  }
 
-    public String getRegistrantName() {
-        return registrantName;
-    }
+  public Long getChallengeId() {
+    return challengeId;
+  }
 
-    public void setRegistrantName(String registrantName) {
-        this.registrantName = registrantName;
-    }
+  public void setChallengeId(Long challengeId) {
+    this.challengeId = challengeId;
+  }
 
-    public Long getChallengeId() {
-        return challengeId;
-    }
+  public String getSubmissionURL() {
+    return submissionURL;
+  }
 
-    public void setChallengeId(Long challengeId) {
-        this.challengeId = challengeId;
-    }
+  public void setSubmissionURL(String submissionURL) {
+    this.submissionURL = submissionURL;
+  }
 
-    public String getSubmissionURL() {
-        return submissionURL;
-    }
+  public String getSubmissionDescription() {
+    return submissionDescription;
+  }
 
-    public void setSubmissionURL(String submissionURL) {
-        this.submissionURL = submissionURL;
-    }
-
-    public String getSubmissionDateTime() {
-        return submissionDateTime;
-    }
-
-    public void setSubmissionDateTime(String submissionDateTime) {
-        this.submissionDateTime = submissionDateTime;
-    }
-
-    public String getSubmissionDescription() {
-        return submissionDescription;
-    }
-
-    public void setSubmissionDescription(String submissionDescription) {
-        this.submissionDescription = submissionDescription;
-    }
-
-    public String getSubmissionStatus() {
-        return submissionStatus;
-    }
-
-    public void setSubmissionStatus(String submissionStatus) {
-        this.submissionStatus = submissionStatus;
-    }
+  public void setSubmissionDescription(String submissionDescription) {
+    this.submissionDescription = submissionDescription;
+  }
 }

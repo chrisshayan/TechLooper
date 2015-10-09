@@ -41,7 +41,9 @@ public interface ChallengeService {
   void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
     throws MessagingException, IOException, TemplateException;
 
-  long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
+  ChallengeRegistrantEntity joinChallengeEntity(ChallengeRegistrantDto challengeRegistrantDto);
+
+  long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto);
 
   List<ChallengeDetailDto> listChallenges();
 
