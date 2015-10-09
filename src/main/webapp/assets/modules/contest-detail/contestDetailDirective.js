@@ -66,7 +66,10 @@ techlooper
         };
 
         scope.registrant.accept = function() {
-          apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
+          apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+            .success(function(registrant) {
+              scope.registrant.activePhase = registrant.activePhase;
+            });
           delete scope.registrant.visible;
         };
 
