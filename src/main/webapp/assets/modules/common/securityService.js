@@ -16,6 +16,12 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     },
 
     getCurrentUser: function (type) {
+      $rootScope.campaign = $location.search().campaign;
+      if ($location.search().campaign == 'vietnamworks') {
+        return;
+      }
+
+
       if ($rootScope.userInfo) {
         var deferred = $q.defer();
         deferred.resolve($rootScope.userInfo);

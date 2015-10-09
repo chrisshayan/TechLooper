@@ -2,7 +2,7 @@ techlooper.directive("popupEmail", function () {
   return {
     restrict: "E",
     replace: true,
-    templateUrl: "modules/common/popupEmail.html",
+    templateUrl: "modules/common/email/popupEmail.html",
     scope: {
       composeEmail: "="
     },

@@ -9,6 +9,7 @@ import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,7 @@ public interface ChallengeService {
   void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
                                                        ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
 
-  ChallengeDetailDto getChallengeDetail(Long challengeId);
+  ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
   Long getNumberOfRegistrants(Long challengeId);
 
@@ -40,7 +41,9 @@ public interface ChallengeService {
   void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
     throws MessagingException, IOException, TemplateException;
 
-  long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException;
+  ChallengeRegistrantEntity joinChallengeEntity(ChallengeRegistrantDto challengeRegistrantDto);
+
+  long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto);
 
   List<ChallengeDetailDto> listChallenges();
 
@@ -68,12 +71,14 @@ public interface ChallengeService {
 
   ChallengeDto findChallengeById(Long id);
 
-  Set<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail, Long challengeId);
+  Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException;
 
   ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
 
   List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
     Long challengeId, Long currentDateTime, TimePeriodEnum period);
+
+  List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) throws ParseException;
 
   List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
     Long challengeId, Long currentDateTime, TimePeriodEnum period);
@@ -85,5 +90,15 @@ public interface ChallengeService {
   boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
 
   boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent);
+
+  List<ChallengeSubmissionDto> findChallengeSubmissionByRegistrant(Long challengeId, Long registrantId);
+
+  void updateSendEmailToContestantResultCode(ChallengeRegistrantEntity challengeRegistrantEntity, EmailSentResultEnum code);
+
+  void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code);
+
+  Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate);
+
+  ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId);
 
 }

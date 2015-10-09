@@ -10,6 +10,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.List;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 /**
@@ -86,6 +87,12 @@ public class ChallengeEntity {
 
     @Field(type = Boolean)
     private Boolean expired;
+
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
+    private String lastEmailSentDateTime;
+
+    @Field(type = Integer)
+    private int lastEmailSentResultCode;
 
     public Boolean getExpired() {
         return expired;
@@ -269,5 +276,21 @@ public class ChallengeEntity {
 
     public void setChallengeOverview(String challengeOverview) {
         this.challengeOverview = challengeOverview;
+    }
+
+    public String getLastEmailSentDateTime() {
+        return lastEmailSentDateTime;
+    }
+
+    public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+        this.lastEmailSentDateTime = lastEmailSentDateTime;
+    }
+
+    public int getLastEmailSentResultCode() {
+        return lastEmailSentResultCode;
+    }
+
+    public void setLastEmailSentResultCode(int lastEmailSentResultCode) {
+        this.lastEmailSentResultCode = lastEmailSentResultCode;
     }
 }

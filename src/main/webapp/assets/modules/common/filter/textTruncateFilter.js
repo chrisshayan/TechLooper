@@ -8,6 +8,12 @@ techlooper.filter("textTruncate", function () {
 
       case "display-text":
         return text.split(" ")[0];
+
+      case "capitalize":
+        return text.capitalize();
+
+      case "lowercase":
+        return text.toLowerCase();
     }
     return text;
   };

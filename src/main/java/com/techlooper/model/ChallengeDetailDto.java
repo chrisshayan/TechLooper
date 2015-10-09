@@ -51,6 +51,28 @@ public class ChallengeDetailDto {
 
     private Boolean expired;
 
+    private ChallengePhaseEnum currentPhase;
+
+    private ChallengePhaseEnum nextPhase;
+
+    private Boolean isAuthor;
+
+    public ChallengePhaseEnum getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(ChallengePhaseEnum currentPhase) {
+        this.currentPhase = currentPhase;
+    }
+
+    public ChallengePhaseEnum getNextPhase() {
+        return nextPhase;
+    }
+
+    public void setNextPhase(ChallengePhaseEnum nextPhase) {
+        this.nextPhase = nextPhase;
+    }
+
     public Boolean getExpired() {
         return expired;
     }
@@ -225,5 +247,13 @@ public class ChallengeDetailDto {
 
     public void setNumberOfRegistrants(Long numberOfRegistrants) {
         this.numberOfRegistrants = numberOfRegistrants;
+    }
+
+    public Boolean getIsAuthor() {
+        return isAuthor;
+    }
+
+    public void setIsAuthor(Boolean isAuthor) {
+        this.isAuthor = isAuthor;
     }
 }
