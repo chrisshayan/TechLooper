@@ -16,8 +16,6 @@ techlooper.directive("submissionChallenge", function ($timeout, jsonValue, utils
 
       scope.hideSubmitForm = function(){
         var subForm = $('.submit-phase-contest');
-        subForm.find('#txtDescription').val('');
-        subForm.find('#txtSubmissionURL').val('');
         subForm.removeClass('show');
         delete scope.submissionURL;
         delete scope.submissionDescription;
