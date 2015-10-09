@@ -915,7 +915,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private int getChallengeCurrentPhaseIndex(ChallengeEntity challengeEntity) {
         String now = DateTimeUtils.currentDate();
 
-        String timeline[] = {//@see com.techlooper.model.ChallengePhaseEnum.CHALLENGE_TIMELINE
+        String timeline[] = {
                 challengeEntity.getSubmissionDateTime(),
                 challengeEntity.getPrototypeSubmissionDateTime(),
                 challengeEntity.getUxSubmissionDateTime(),
@@ -927,7 +927,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         for (int i = 0; i < timeline.length; ++i) {
             try {
                 String milestone = timeline[i];
-                if (DateTimeUtils.daysBetween(now, milestone) <= 0) break;
+                if (DateTimeUtils.daysBetween(now, milestone) < 0) break;
                 currentMilestoneIndex = i;
             } catch (ParseException e) {
                 continue;
