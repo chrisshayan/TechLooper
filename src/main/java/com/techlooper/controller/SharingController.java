@@ -5,7 +5,6 @@ import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.WebinarService;
-import org.elasticsearch.rest.support.RestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +48,7 @@ public class SharingController {
 
   @RequestMapping(value = "shareChallenge/{language}/{id}")
   public String renderChallenge(@PathVariable String language, @PathVariable Long id, ModelMap model) {
-    model.put("challenge", challengeService.getChallengeDetail(id));
+    model.put("challenge", challengeService.getChallengeDetail(id, ""));
     model.put("lang", language);
     model.put("baseUrl", baseUrl);
     return "/jsp/challenge-sharing.jsp";
