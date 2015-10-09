@@ -9,26 +9,27 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
     link: function (scope, el, attrs) {
 
       scope.submission = {
-        challengeId: scope.challenge ? scope.challenge.challengeId : "",
         name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
         registrantEmail: localStorageService.get("email"),
         registrantFirstName: localStorageService.get("firstName"),
         registrantLastName: localStorageService.get("lastName")
       }
 
-      scope.pushChallengePhase = function(){
+      scope.pushChallengePhase = function () {
         scope.submissionForm.$setSubmitted();
         if (scope.submissionForm.$invalid) {
           return false;
         }
 
-        apiService.submitMyResult(scope.submission);
-        delete scope.submission.submissionURL;
-        delete scope.submission.submissionDescription;
-        scope.hideSubmitForm();
+        scope.submission.challengeId = scope.challenge.challengeId;
+
+        apiService.submitMyResult(scope.submission)
+          .finally(function () {
+            scope.hideSubmitForm();
+          });
       }
 
-      scope.hideSubmitForm = function(){
+      scope.hideSubmitForm = function () {
         scope.submissionForm.$setPristine();
         scope.submissionForm.$setUntouched();
         var subForm = $('.submit-phase-contest');
