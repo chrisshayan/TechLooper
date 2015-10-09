@@ -167,7 +167,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     registrantFilterCondition.challengeId = contestId;
     registrantFilterCondition.filterType = $scope.filterType;
     registrantFilterCondition.fromDate = $scope.fromDate;
-    registrantFilterCondition.toDate = $scope.fromDate;
+    registrantFilterCondition.toDate = $scope.toDate;
 
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {

@@ -95,7 +95,7 @@ public interface ChallengeService {
 
   void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code);
 
-  Set<Long> findChallengeSubmissionByDate(Long challengeId, String fromDate, String toDate);
+  Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate);
 
   ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId);
 
