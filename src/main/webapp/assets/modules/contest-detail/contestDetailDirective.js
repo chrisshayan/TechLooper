@@ -92,7 +92,6 @@ techlooper
     return {
       restrict: "E",
       replace: true,
-      scope: true,
       templateUrl: "modules/contest-detail/contestDetailDisqualification.html",
       link: function (scope, element, attr, ctrl) {
       }
@@ -102,7 +101,6 @@ techlooper
     return {
       restrict: "E",
       replace: true,
-      scope: true,
       templateUrl: "modules/contest-detail/contestDetailQualification.html",
       link: function (scope, element, attr, ctrl) {
       }
@@ -112,9 +110,6 @@ techlooper
   return {
     restrict: "E",
     replace: true,
-    scope: {
-      registrant: "="
-    },
     templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
     link: function (scope, element, attr, ctrl) {
     }

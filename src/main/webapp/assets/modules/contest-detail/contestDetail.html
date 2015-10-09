@@ -293,7 +293,7 @@
                             {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()" ng-class="{active: user.visible.feedbackForm}">
                             {{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li ng-hide="user.disqualified || contestDetail.currentPhase == user.activePhase"><a ng-click="user.showAcceptance()" ng-class="{active: user.visible.acceptance}">
+                          <li ng-hide="user.disqualified || contestDetail.nextPhase == user.activePhase"><a ng-click="user.showAcceptance()" ng-class="{active: user.visible.acceptance}">
                             {{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
@@ -313,7 +313,7 @@
                           </li>
                           <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-commenting-o"></i></a></li>
-                          <li ng-hide="user.disqualified || contestDetail.currentPhase == user.activePhase"><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
+                          <li ng-hide="user.disqualified || contestDetail.nextPhase == user.activePhase"><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
                         </ul>
                       </div>
                     </div>
