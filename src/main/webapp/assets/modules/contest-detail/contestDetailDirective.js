@@ -107,7 +107,9 @@ techlooper
   return {
     restrict: "E",
     replace: true,
-    scope: true,
+    scope: {
+      registrant: "="
+    },
     templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
     link: function (scope, element, attr, ctrl) {
     }

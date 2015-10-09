@@ -769,7 +769,7 @@
   "join": "Join",
   "submitPhase": "Submit",
   "accept": "Accept",
-  "acceptDescription": "Are you sure you want to select this contestant from <strong>{{phase1}}<strong> phase to <strong>{{phase2}}<strong> phase?",
+  "acceptDescription": "Are you sure you want to select this contestant from <strong>{{current}}</strong> phase to <strong>{{next}}</strong> phase?",
   "exRegistrantsFilterConfig": "All Contestants",
   "allContestants": "All Contestants",
   "allSubmission": "All Submission"
