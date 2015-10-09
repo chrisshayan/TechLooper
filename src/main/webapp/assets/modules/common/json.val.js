@@ -1016,7 +1016,13 @@ techlooper.factory("jsonValue", function () {
       {id: "careerbuilder-jobs-api", name: "CAREERBUILDER"},
       {id: "itviec-jobs-api", name: "ITVIEC"},
       {id: "itviec-jobs-api-v2", name: "ITVIEC"}
-    ]
+    ],
+
+    challengePhase: {
+      values: [{enum: "REGISTRATION"}],
+
+      getRegistration: function () {return instance.challengePhase.values[0]}
+    }
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {

@@ -1,6 +1,7 @@
 <div class="qualify-block">
   <div class="qualify-form">
-    <p translate="acceptDescription" translate-value-current="{{registrant.activePhase}}" translate-value-next="{{registrant.nextPhase}}"></p>
+    <p translate="acceptDescription" translate-value-current="{{registrant | progress: 'registrantActivePhase'}}"
+       translate-value-next="{{challenge.nextPhase}}"></p>
     <a ng-click="registrant.accept()" translate="yes" class="btn btn-primary btn-flat"></a>
     <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
   </div>

@@ -19,6 +19,8 @@ public class ChallengeSubmissionDto implements Serializable {
 
   private String submissionDescription;
 
+  private String submissionDateTime;
+
   public String getRegistrantFirstName() {
     return registrantFirstName;
   }
@@ -49,6 +51,14 @@ public class ChallengeSubmissionDto implements Serializable {
 
   public void setChallengeId(Long challengeId) {
     this.challengeId = challengeId;
+  }
+
+  public String getSubmissionDateTime() {
+    return submissionDateTime;
+  }
+
+  public void setSubmissionDateTime(String submissionDateTime) {
+    this.submissionDateTime = submissionDateTime;
   }
 
   public String getSubmissionURL() {

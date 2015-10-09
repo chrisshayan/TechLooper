@@ -256,8 +256,8 @@
                     <div class="registrant-name">
                       <div class="label-col" translate="fullNameField"></div>
                       <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.disqualified ==true"></i>{{user.registrantFirstName}} {{user.registrantLastName}}
-                      <i ng-class="{'registration': user.activePhase == 'REGISTRATION', 'idea': user.activePhase == 'IDEA','uiux': user.activePhase == 'UIUX', 'prototype': user.activePhase == 'PROTOTYPE', 'final-app': user.activePhase == 'FINAL'}">
-                        {{user.activePhase | textTruncate: "capitalize" }}
+                      <i class="{{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase'}}">
+                        {{user | progress: "registrantActivePhase" | textTruncate: "capitalize"}}
                       </i>
                       <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>
@@ -313,7 +313,7 @@
                       </div>
                     </div>
                   </div>
-                  <contest-detail-action registrant="user"></contest-detail-action>
+                  <contest-detail-action registrant="user" challenge="contestDetail"></contest-detail-action>
                 </td>
               </tr>
               </tbody>

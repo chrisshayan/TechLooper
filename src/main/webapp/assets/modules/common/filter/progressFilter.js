@@ -56,6 +56,11 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
           return progressIds.indexOf(challenge.progress.id) >= 0;
         });
 
+      case "registrantActivePhase":
+        var registrant = input;
+        if (!registrant.activePhase) return jsonValue.challengePhase.getRegistration().enum;
+        return registrant.activePhase;
+
       case "freelancer-review-project-payment-method":
         var payMethod = input;
         var option = resourcesService.getOption(payMethod, resourcesService.paymentConfig);

@@ -147,12 +147,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   apiService.getChallengeRegistrants(registrantFilterCondition)
     .success(function (registrants) {
       $scope.registrants = registrants;
-      $.each($scope.registrants, function(i, registrant){
-        if(registrant.activePhase == null){
-          registrant.activePhase = 'REGISTRATION';
-        }
-        registrant.nextPhase = $scope.contestDetail.nextPhase;
-      });
+      //$.each($scope.registrants, function(i, registrant){
+      //  if(registrant.activePhase == null){
+      //    registrant.activePhase = 'REGISTRATION';
+      //  }
+      //  registrant.nextPhase = $scope.contestDetail.nextPhase;
+      //});
       $scope.sortByStartDate();
       var param = $location.search();
       if (param.a == "registrants" && registrants.length) {
