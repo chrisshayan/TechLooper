@@ -7,7 +7,7 @@
 
       <ul class="nav nav-tabs contest-content-tab">
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
-        <li ng-show="contestDetail.numberOfRegistrants > 0"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}}
+        <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}}
           ({{contestDetail.numberOfRegistrants}})</a></li>
       </ul>
 

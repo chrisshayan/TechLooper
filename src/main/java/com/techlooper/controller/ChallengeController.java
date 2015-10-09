@@ -78,8 +78,8 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/{challengeId}", method = RequestMethod.GET)
-    public ChallengeDetailDto getChallengeDetail(@PathVariable Long challengeId, HttpServletResponse response) throws Exception {
-        ChallengeDetailDto challengeDetail = challengeService.getChallengeDetail(challengeId);
+    public ChallengeDetailDto getChallengeDetail(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ChallengeDetailDto challengeDetail = challengeService.getChallengeDetail(challengeId, request.getRemoteUser());
         if (challengeDetail == null) response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         return challengeDetail;
     }

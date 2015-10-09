@@ -301,7 +301,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
         ChallengeRegistrantEntity entity = joinChallengeEntity(challengeRegistrantDto);
         if (entity != null) {
-          return getNumberOfRegistrants(challengeRegistrantDto.getChallengeId());
+            return getNumberOfRegistrants(challengeRegistrantDto.getChallengeId());
         }
         return 0;
     }
@@ -317,8 +317,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
                 sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
                 challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOGGER.debug("Can not send email", e);
             }
             challengeRegistrantEntity.setRegistrantId(new Date().getTime());
@@ -592,7 +591,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         Long challengeId = condition.getChallengeId();
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
 
-        if (challengeEntity != null) {
+        if (challengeEntity != null && challengeEntity.getAuthorEmail().equals(condition.getAuthorEmail())) {
             List<ChallengeRegistrantEntity> registrants = filterChallengeRegistrantByDate(condition);
             for (ChallengeRegistrantEntity registrant : registrants) {
                 ChallengeRegistrantDto registrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
@@ -667,7 +666,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
                 boolQueryBuilder.must(rangeQueryBuilder);
             }
-            
+
             searchQueryBuilder.withQuery(boolQueryBuilder);
             result.addAll(DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder));
         }
@@ -841,13 +840,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         return submissions.stream().map(submission -> submission.getRegistrantId()).collect(toSet());
     }
 
-    public ChallengeDetailDto getChallengeDetail(Long challengeId) {
+    public ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail) {
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
             challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
             challengeDetailDto.setCurrentPhase(getChallengeCurrentPhase(challengeEntity));
             challengeDetailDto.setNextPhase(getChallengeNextPhase(challengeEntity));
+            challengeDetailDto.setIsAuthor(challengeEntity.getAuthorEmail().equals(loginEmail));
             return challengeDetailDto;
         }
         return null;
