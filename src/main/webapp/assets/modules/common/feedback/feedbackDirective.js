@@ -28,7 +28,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
 
       scope.send = function(){
         scope.composeEmail.content = $('.summernote').code();
-        if(scope.composeEmail.content == '<p><br></p>'){
+        if(scope.composeEmail.content == '<p><br></p>' || scope.composeEmail.content == ''){
           return;
         }
         $('#feedback-loading').css('visibility', 'inherit');
@@ -45,6 +45,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         scope.composeEmail.subject = '';
         $('.summernote').code('');
         delete scope.composeEmail.visible;
+        $('#feedback-loading').css('visibility', 'hidden');
       }
     }
   }
