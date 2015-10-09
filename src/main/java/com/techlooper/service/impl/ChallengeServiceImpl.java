@@ -10,6 +10,7 @@ import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmailService;
+import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -49,10 +50,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
-import static com.techlooper.util.DateTimeUtils.LOGGER;
+import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
@@ -462,7 +462,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             } catch (ParseException e) {
                 return 0;
             }
-        }).collect(Collectors.toList());
+        }).collect(toList());
     }
 
     public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
@@ -588,31 +588,20 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException {
-        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        Set<ChallengeRegistrantDto> result = new HashSet<>();
+        Long challengeId = condition.getChallengeId();
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
 
-        if (StringUtils.isNotEmpty(condition.getAuthorEmail())) {
-            boolQueryBuilder.must(matchQuery("authorEmail", condition.getAuthorEmail()).minimumShouldMatch("100%"));
-        }
-
-        TermQueryBuilder challengeQuery = termQuery("challengeId", condition.getChallengeId());
-        if (condition.getChallengeId() != null) {
-            boolQueryBuilder.must(challengeQuery);
-        }
-
-        boolQueryBuilder.mustNot(termQuery("expired", Boolean.TRUE));
-        Iterator<ChallengeEntity> challengeIterator = challengeRepository.search(boolQueryBuilder).iterator();
-        Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
-
-        if (challengeIterator.hasNext()) {
+        if (challengeEntity != null) {
             List<ChallengeRegistrantEntity> registrants = filterChallengeRegistrantByDate(condition);
-            registrants.forEach(registrant -> {
+            for (ChallengeRegistrantEntity registrant : registrants) {
                 ChallengeRegistrantDto registrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
-                registrantDto.setSubmissions(findChallengeSubmissionByRegistrant(condition.getChallengeId(), registrant.getRegistrantId()));
-                registrantDtos.add(registrantDto);
-            });
+                registrantDto.setSubmissions(findChallengeSubmissionByRegistrant(challengeId, registrant.getRegistrantId()));
+                result.add(registrantDto);
+            }
         }
 
-        return registrantDtos;
+        return result;
     }
 
     public ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto) {
@@ -640,23 +629,15 @@ public class ChallengeServiceImpl implements ChallengeService {
         boolQueryBuilder.must(rangeQuery("registrantId").from(pastTime));
         searchQueryBuilder.withQuery(boolQueryBuilder);
         searchQueryBuilder.withSort(fieldSort("registrantId").order(SortOrder.DESC));
-        searchQueryBuilder.withPageable(new PageRequest(0, 100));
-
-        List<ChallengeRegistrantEntity> result = new ArrayList<>();
-        Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
-        while (iterator.hasNext()) {
-            result.add(iterator.next());
-        }
-
-        return result;
+        return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
     }
 
     @Override
     public List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) throws ParseException {
         List<ChallengeRegistrantEntity> result = new ArrayList<>();
 
-        if ("challengeSubmission".equals(condition.getFilterType())) {
-            Set<Long> registrantIds = findChallengeSubmissionByDate(
+        if (ChallengeRegistrantFilterTypeEnum.BY_SUBMISSION.getValue().equals(condition.getFilterType())) {
+            Set<Long> registrantIds = findRegistrantByChallengeSubmissionDate(
                     condition.getChallengeId(), condition.getFromDate(), condition.getToDate());
             for (Long registrantId : registrantIds) {
                 ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
@@ -672,29 +653,23 @@ public class ChallengeServiceImpl implements ChallengeService {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
             }
 
-            if (StringUtils.isNotEmpty(condition.getFilterType())) {
-                if ("registrantId".equals(condition.getFilterType()) &&
-                        (StringUtils.isNotEmpty(condition.getFromDate()) || StringUtils.isNotEmpty(condition.getToDate()))) {
-                    RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
+            if ((StringUtils.isNotEmpty(condition.getFromDate()) || StringUtils.isNotEmpty(condition.getToDate()))) {
+                RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
 
-                    if (StringUtils.isNotEmpty(condition.getFromDate())) {
-                        Long from = string2Date(condition.getFromDate(), BASIC_DATE_PATTERN).getTime();
-                        rangeQueryBuilder.from(from);
-                    }
-                    if (StringUtils.isNotEmpty(condition.getToDate())) {
-                        Long to = string2Date(condition.getToDate(), BASIC_DATE_PATTERN).getTime();
-                        rangeQueryBuilder.from(to);
-                    }
-
-                    boolQueryBuilder.must(rangeQueryBuilder);
+                if (StringUtils.isNotEmpty(condition.getFromDate())) {
+                    Long from = string2Date(condition.getFromDate(), BASIC_DATE_PATTERN).getTime();
+                    rangeQueryBuilder.from(from);
                 }
-            }
+                if (StringUtils.isNotEmpty(condition.getToDate())) {
+                    Long to = string2Date(condition.getToDate(), BASIC_DATE_PATTERN).getTime();
+                    rangeQueryBuilder.to(to);
+                }
 
-            searchQueryBuilder.withQuery(boolQueryBuilder);
-            Iterator<ChallengeRegistrantEntity> iterator = challengeRegistrantRepository.search(searchQueryBuilder.build()).iterator();
-            while (iterator.hasNext()) {
-                result.add(iterator.next());
+                boolQueryBuilder.must(rangeQueryBuilder);
             }
+            
+            searchQueryBuilder.withQuery(boolQueryBuilder);
+            result.addAll(DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder));
         }
 
         return result;
@@ -789,7 +764,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent) {
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             List<ChallengeRegistrantEntity> registrants = findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
-            String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(Collectors.joining(","));
+            String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(joining(","));
             try {
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
             } catch (AddressException e) {
@@ -816,19 +791,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public List<ChallengeSubmissionDto> findChallengeSubmissionByRegistrant(Long challengeId, Long registrantId) {
-        List<ChallengeSubmissionDto> result = new ArrayList<>();
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
         BoolFilterBuilder boolFilterBuilder = new BoolFilterBuilder();
         boolFilterBuilder.must(termFilter("challengeId", challengeId));
         boolFilterBuilder.must(termFilter("registrantId", registrantId));
 
         searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
-        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
-        while (iterator.hasNext()) {
-            result.add(dozerMapper.map(iterator.next(), ChallengeSubmissionDto.class));
-        }
-
-        return result;
+        List<ChallengeSubmissionEntity> submissions = DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
+        return submissions.stream().map(submission -> dozerMapper.map(submission, ChallengeSubmissionDto.class)).collect(toList());
     }
 
     @Override
@@ -848,8 +818,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    public Set<Long> findChallengeSubmissionByDate(Long challengeId, String fromDate, String toDate) {
-        Set<Long> registrantIds = new HashSet<>();
+    public Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
         BoolQueryBuilder boolQueryBuilder = boolQuery();
         boolQueryBuilder.must(termQuery("challengeId", challengeId));
@@ -868,13 +837,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         searchQueryBuilder.withQuery(boolQueryBuilder);
-        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
-        while (iterator.hasNext()) {
-            ChallengeSubmissionEntity challengeSubmissionEntity = iterator.next();
-            registrantIds.add(challengeSubmissionEntity.getRegistrantId());
-        }
-
-        return registrantIds;
+        List<ChallengeSubmissionEntity> submissions = DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
+        return submissions.stream().map(submission -> submission.getRegistrantId()).collect(toSet());
     }
 
     public ChallengeDetailDto getChallengeDetail(Long challengeId) {

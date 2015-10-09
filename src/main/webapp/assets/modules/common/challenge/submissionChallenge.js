@@ -23,13 +23,8 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         }
 
         apiService.submitMyResult(scope.submission);
-        scope.submission = {
-          challengeId: scope.challenge.challengeId,
-          name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
-          registrantEmail: localStorageService.get("email"),
-          registrantFirstName: localStorageService.get("firstName"),
-          registrantLastName: localStorageService.get("lastName")
-        }
+        delete scope.submission.submissionURL;
+        delete scope.submission.submissionDescription;
         scope.hideSubmitForm();
       }
 
@@ -37,11 +32,9 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         scope.submissionForm.$setPristine();
         scope.submissionForm.$setUntouched();
         var subForm = $('.submit-phase-contest');
-        subForm.find('#txtDescription').val('');
-        subForm.find('#txtSubmissionURL').val('');
         subForm.removeClass('show');
-        delete scope.submissionURL;
-        delete scope.submissionDescription;
+        delete scope.submission.submissionURL;
+        delete scope.submission.submissionDescription;
       }
     }
   }

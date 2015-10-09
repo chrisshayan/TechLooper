@@ -9,16 +9,16 @@
       <span>{{submission.registrantEmail}}</span>
     </div>
     <div class="phase-description">
-      <label for="txtDescription" translate="description"></label>
+      <label translate="description"></label>
         <textarea name="submissionDescription" class="textarea-style" placeholder="{{'descriptionSubmissionTips' | translate}}"
-                  ng-model="submission.submissionDescription" maxlength="3000" ng-required="true" ></textarea>
+                  ng-model="submissionDescription" maxlength="3000" ng-required="true"></textarea>
       <div class="error-messages"
            ng-show="submissionForm.submissionDescription.$error.required &&  (submissionForm.submissionDescription.$touched || submissionForm.$submitted)"
            translate="requiredThisField" />
     </div>
     <div class="phase-description">
-      <label for="txtSubmissionURL" translate="submissionURL"></label>
-      <input type="text" id="txtSubmissionURL" class="input-style"
+      <label translate="submissionURL"></label>
+      <input type="text"  class="input-style"
              name="submissionURL" placeholder="{{'submissionURLTips' | translate}}"
              ng-pattern="/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\.\/\?\:@\-_=#])*/"
              ng-model="submission.submissionURL" ng-required="true" />
