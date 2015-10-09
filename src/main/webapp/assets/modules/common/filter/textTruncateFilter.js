@@ -11,6 +11,9 @@ techlooper.filter("textTruncate", function () {
 
       case "capitalize":
         return text.capitalize();
+
+      case "lowercase":
+        return text.toLowerCase();
     }
     return text;
   };

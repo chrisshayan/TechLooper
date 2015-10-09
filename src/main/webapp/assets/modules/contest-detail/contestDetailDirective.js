@@ -5,7 +5,8 @@ techlooper
       replace: true,
       templateUrl: "modules/contest-detail/contestDetailAction.html",
       scope: {
-        registrant: "="
+        registrant: "=",
+        challenge: "="
       },
       link: function (scope, element, attr, ctrl) {
         var showView = function (view) {
