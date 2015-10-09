@@ -1,7 +1,10 @@
 package com.techlooper.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
@@ -9,94 +12,139 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 @Document(indexName = "techlooper", type = "challengeSubmission")
 public class ChallengeSubmissionEntity {
 
-    @Id
-    private Long challengeSubmissionId;
+  @Id
+  private Long challengeSubmissionId;
 
-    @Field(type = Long)
-    private Long registrantId;
+  @Field(type = Long)
+  private Long registrantId;
 
-    @Field(type = String)
-    private String registrantName;
+  @Field(type = String)
+  private String registrantName;
 
-    @Field(type = Long)
-    private Long challengeId;
+  @Field(type = Long)
+  private Long challengeId;
 
-    @Field(type = String)
-    private String submissionURL;
+  @Field(type = String)
+  private String submissionURL;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
-    private String submissionDateTime;
+  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+  private String submissionDateTime;
 
-    @Field(type = String)
-    private String submissionDescription;
+  @Field(type = String)
+  private String submissionDescription;
 
-    @Field(type = String, index = FieldIndex.not_analyzed)
-    private String submissionStatus;
+  public java.lang.Long getRegistrantId() {
+    return registrantId;
+  }
 
-    public ChallengeSubmissionEntity() {
+  public void setRegistrantId(java.lang.Long registrantId) {
+    this.registrantId = registrantId;
+  }
+
+  public java.lang.Long getChallengeSubmissionId() {
+    return challengeSubmissionId;
+  }
+
+  public void setChallengeSubmissionId(java.lang.Long challengeSubmissionId) {
+    this.challengeSubmissionId = challengeSubmissionId;
+  }
+
+  public java.lang.String getRegistrantName() {
+    return registrantName;
+  }
+
+  public void setRegistrantName(java.lang.String registrantName) {
+    this.registrantName = registrantName;
+  }
+
+  public java.lang.Long getChallengeId() {
+    return challengeId;
+  }
+
+  public void setChallengeId(java.lang.Long challengeId) {
+    this.challengeId = challengeId;
+  }
+
+  public java.lang.String getSubmissionURL() {
+    return submissionURL;
+  }
+
+  public void setSubmissionURL(java.lang.String submissionURL) {
+    this.submissionURL = submissionURL;
+  }
+
+  public java.lang.String getSubmissionDateTime() {
+    return submissionDateTime;
+  }
+
+  public void setSubmissionDateTime(java.lang.String submissionDateTime) {
+    this.submissionDateTime = submissionDateTime;
+  }
+
+  public java.lang.String getSubmissionDescription() {
+    return submissionDescription;
+  }
+
+  public void setSubmissionDescription(java.lang.String submissionDescription) {
+    this.submissionDescription = submissionDescription;
+  }
+
+  public static class ChallengeSubmissionEntityBuilder {
+    private ChallengeSubmissionEntity challengeSubmissionEntity;
+
+    private ChallengeSubmissionEntityBuilder() {
+      challengeSubmissionEntity = new ChallengeSubmissionEntity();
     }
 
-    public Long getChallengeSubmissionId() {
-        return challengeSubmissionId;
+    private ChallengeSubmissionEntityBuilder(ChallengeSubmissionEntity challengeSubmissionEntity) {
+      this.challengeSubmissionEntity = challengeSubmissionEntity;
     }
 
-    public void setChallengeSubmissionId(Long challengeSubmissionId) {
-        this.challengeSubmissionId = challengeSubmissionId;
+    public ChallengeSubmissionEntityBuilder withChallengeSubmissionId(Long challengeSubmissionId) {
+      challengeSubmissionEntity.challengeSubmissionId = challengeSubmissionId;
+      return this;
     }
 
-    public Long getRegistrantId() {
-        return registrantId;
+    public ChallengeSubmissionEntityBuilder withRegistrantId(Long registrantId) {
+      challengeSubmissionEntity.registrantId = registrantId;
+      return this;
     }
 
-    public void setRegistrantId(Long registrantId) {
-        this.registrantId = registrantId;
+    public ChallengeSubmissionEntityBuilder withRegistrantName(String registrantName) {
+      challengeSubmissionEntity.registrantName = registrantName;
+      return this;
     }
 
-    public String getSubmissionURL() {
-        return submissionURL;
+    public ChallengeSubmissionEntityBuilder withChallengeId(Long challengeId) {
+      challengeSubmissionEntity.challengeId = challengeId;
+      return this;
     }
 
-    public String getRegistrantName() {
-        return registrantName;
+    public ChallengeSubmissionEntityBuilder withSubmissionURL(String submissionURL) {
+      challengeSubmissionEntity.submissionURL = submissionURL;
+      return this;
     }
 
-    public void setRegistrantName(String registrantName) {
-        this.registrantName = registrantName;
+    public ChallengeSubmissionEntityBuilder withSubmissionDateTime(String submissionDateTime) {
+      challengeSubmissionEntity.submissionDateTime = submissionDateTime;
+      return this;
     }
 
-    public Long getChallengeId() {
-        return challengeId;
+    public ChallengeSubmissionEntityBuilder withSubmissionDescription(String submissionDescription) {
+      challengeSubmissionEntity.submissionDescription = submissionDescription;
+      return this;
     }
 
-    public void setChallengeId(Long challengeId) {
-        this.challengeId = challengeId;
+    public static ChallengeSubmissionEntityBuilder challengeSubmissionEntity() {
+      return new ChallengeSubmissionEntityBuilder();
     }
 
-    public void setSubmissionURL(String submissionURL) {
-        this.submissionURL = submissionURL;
+    public static ChallengeSubmissionEntityBuilder challengeSubmissionEntity(ChallengeSubmissionEntity entity) {
+      return new ChallengeSubmissionEntityBuilder(entity);
     }
 
-    public String getSubmissionDateTime() {
-        return submissionDateTime;
+    public ChallengeSubmissionEntity build() {
+      return challengeSubmissionEntity;
     }
-
-    public void setSubmissionDateTime(String submissionDateTime) {
-        this.submissionDateTime = submissionDateTime;
-    }
-
-    public String getSubmissionDescription() {
-        return submissionDescription;
-    }
-
-    public void setSubmissionDescription(String submissionDescription) {
-        this.submissionDescription = submissionDescription;
-    }
-
-    public String getSubmissionStatus() {
-        return submissionStatus;
-    }
-
-    public void setSubmissionStatus(String submissionStatus) {
-        this.submissionStatus = submissionStatus;
-    }
+  }
 }

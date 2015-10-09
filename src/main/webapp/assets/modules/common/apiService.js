@@ -238,6 +238,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     acceptChallengeRegistrant: function(registrantId) {
       return $http.get("user/challenge/accept/" + registrantId);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeSubmissionController.submitMyResult
+     * */
+    submitMyResult: function(submission) {
+      return $http.post("user/challengeSubmission", submission);
     }
   };
 

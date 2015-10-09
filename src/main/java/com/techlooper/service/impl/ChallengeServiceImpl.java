@@ -52,6 +52,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
+import static com.techlooper.util.DateTimeUtils.LOGGER;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
@@ -297,21 +298,34 @@ public class ChallengeServiceImpl implements ChallengeService {
         sendContestApplicationEmail(template, mailSubject, emailAddress, challengeEntity, challengeRegistrantEntity, true);
     }
 
-    public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) throws MessagingException, IOException, TemplateException {
+    public long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
+        ChallengeRegistrantEntity entity = joinChallengeEntity(challengeRegistrantDto);
+        if (entity != null) {
+          return getNumberOfRegistrants(challengeRegistrantDto.getChallengeId());
+        }
+        return 0;
+    }
+
+    public ChallengeRegistrantEntity joinChallengeEntity(ChallengeRegistrantDto challengeRegistrantDto) {
         Long challengeId = challengeRegistrantDto.getChallengeId();
         boolean isExist = checkIfChallengeRegistrantExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
 
         if (!isExist) {
             ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
             ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-            sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-            sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
-            challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            try {
+                sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+                sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+                challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+            }
+            catch (Exception e) {
+                LOGGER.debug("Can not send email", e);
+            }
             challengeRegistrantEntity.setRegistrantId(new Date().getTime());
-            challengeRegistrantRepository.save(challengeRegistrantEntity);
+            return challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
 
-        return getNumberOfRegistrants(challengeId);
+        return null;
     }
 
     public List<ChallengeDetailDto> listChallenges() {
