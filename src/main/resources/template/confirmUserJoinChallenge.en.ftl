@@ -468,7 +468,7 @@
                                     $${firstPlaceReward}
                                   </td>
                                 </tr>
-                                <tr>
+                                    <tr>
                                   <td style="height:5px; line-height: 5px;">
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>

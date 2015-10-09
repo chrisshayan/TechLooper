@@ -78,7 +78,7 @@
           <span class="closed"
                 ng-show="filterChallenges(jsonValue.status.closed).length"
                 ng-class="{active: challengeStatus == jsonValue.status.closed}"
-                ng-click="changeChallengeStatus(changeChallengeStatus)">
+                ng-click="changeChallengeStatus(jsonValue.status.closed)">
             {{'closed' | translate}}
             (<i>{{filterChallenges(jsonValue.status.closed).length}}</i>)</span>
         </div>
@@ -162,5 +162,6 @@
         </table>
       </div>
     </div>
+    <popup-email compose-email="composeEmail"></popup-email>
   </div>
 </div>

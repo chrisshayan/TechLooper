@@ -2,9 +2,11 @@ package com.techlooper.controller;
 
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.*;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.service.LeadAPIService;
@@ -33,6 +35,9 @@ public class ChallengeController {
 
   @Resource
   private LeadAPIService leadAPIService;
+
+  @Resource
+  private ChallengeRegistrantRepository challengeRegistrantRepository;
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
@@ -125,5 +130,10 @@ public class ChallengeController {
     return challengeService.saveRegistrant(request.getRemoteUser(), dto);
   }
 
-
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "challengeRegistrant/fullName/{registrantId}", method = RequestMethod.GET)
+  public String getChallengeRegistrant(@PathVariable Long registrantId) {
+    ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
+    return registrantEntity.getRegistrantFirstName() + " " + registrantEntity.getRegistrantLastName();
+  }
 }

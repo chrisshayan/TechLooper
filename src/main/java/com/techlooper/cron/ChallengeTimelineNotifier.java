@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -28,29 +29,37 @@ public class ChallengeTimelineNotifier {
     @Resource
     private Mapper dozerMapper;
 
+    @Value("${jobAlert.enable}")
+    private Boolean enableJobAlert;
+
     @Scheduled(cron = "${scheduled.cron.notifyChallengeTimeline}")
     public void notifyRegistrantAboutChallengeTimeline() throws Exception {
-        List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
+        if (enableJobAlert) {
+            List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
 
-        for (ChallengePhaseEnum challengePhase : challengePhases) {
-            List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
+            int count = 0;
+            for (ChallengePhaseEnum challengePhase : challengePhases) {
+                List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
-            for (ChallengeEntity challengeEntity : challengeEntities) {
-                Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(
-                        challengeEntity.getAuthorEmail(), challengeEntity.getChallengeId());
+                for (ChallengeEntity challengeEntity : challengeEntities) {
+                    Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(
+                            challengeEntity.getAuthorEmail(), challengeEntity.getChallengeId());
 
-                for (ChallengeRegistrantDto challengeRegistrant : challengeRegistrants) {
-                    ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrant, ChallengeRegistrantEntity.class);
-                    try {
-                        if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
-                            challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
-                                    challengeEntity, challengeRegistrantEntity, challengePhase);
+                    for (ChallengeRegistrantDto challengeRegistrant : challengeRegistrants) {
+                        ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrant, ChallengeRegistrantEntity.class);
+                        try {
+                            if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
+                                challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                        challengeEntity, challengeRegistrantEntity, challengePhase);
+                                count++;
+                            }
+                        } catch (Exception ex) {
+                            LOGGER.error(ex.getMessage(), ex);
                         }
-                    } catch (Exception ex) {
-                        LOGGER.error(ex.getMessage(), ex);
                     }
                 }
             }
+            LOGGER.info("There are " + count + " emails has been sent to notify challenge timeline");
         }
     }
 

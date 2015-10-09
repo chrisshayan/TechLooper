@@ -7,23 +7,34 @@ techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope
 
   var joinNow = localStorageService.get("joinNow");
   if (joinNow == true) {
-    //var fromLastPrint = localStorageService.get("lastFoot");
-    //var ui = utils.getUiView(fromLastPrint);
-    //var roles = ui.roles || [];// $rootScope.currentUiView.roles || [];
-    //if (roles.length == 0) {
-    //  return securityService.routeByRole();
-    //}
-
     return securityService.routeByRole();
-    //var fromLastPrint = localStorageService.get("lastFoot");
-    //var ui = utils.getUiView(fromLastPrint);
-    //if (ui.ignoreIfLastFoot) {
-    //  return securityService.routeByRole();
-    //}
-    //var roles = ui.roles || [];// $rootScope.currentUiView.roles || [];
-    //if (roles.length == 0) {
-    //  return $location.url(fromLastPrint);
-    //}
   }
 
+  //var param = $location.search();
+  //if (!$.isEmptyObject(param)) {
+  //  switch (param.action) {
+  //    case "registerVnwUser":
+  //      localStorageService.set("lastName", param.lastName);
+  //      localStorageService.set("firstName", param.firstName);
+  //      localStorageService.set("email", param.email);
+  //      break;
+  //
+  //    case "loginBySocial":
+  //      securityService.login(param.code, param.social, param.social);
+  //      break;
+  //
+  //    case "redirectJA":
+  //      window.location.href = param.targetUrl;
+  //      break;
+  //
+  //    case "cancel":
+  //      $location.url("/");
+  //      break;
+  //  }
+  //}
+  //
+  var param = $location.search();
+  if ($.isEmptyObject(param)) {
+    $location.url("/home");
+  }
 });

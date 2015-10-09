@@ -41,6 +41,7 @@ techlooper.run(function (shortcutFactory, connectionFactory, loadingBoxFactory, 
         break;
 
       case "redirectJA":
+        console.log("redirect");
         window.location.href = param.targetUrl;
         break;
 
