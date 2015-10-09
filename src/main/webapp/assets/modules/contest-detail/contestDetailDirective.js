@@ -103,7 +103,8 @@ techlooper
       link: function (scope, element, attr, ctrl) {
       }
     };
-  }).directive('acceptance', function () {
+  })
+ .directive('acceptance', function () {
   return {
     restrict: "E",
     replace: true,
