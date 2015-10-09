@@ -11,6 +11,7 @@ import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
 import com.techlooper.util.DateTimeUtils;
 import org.dozer.Mapper;
+import org.elasticsearch.common.joda.time.DateTime;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
 
     ChallengeSubmissionEntity challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
     ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
+      .withChallengeSubmissionId(DateTime.now().getMillis())
       .withRegistrantId(registrant.getRegistrantId())
       .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
       .withSubmissionDateTime(DateTimeUtils.currentDate());

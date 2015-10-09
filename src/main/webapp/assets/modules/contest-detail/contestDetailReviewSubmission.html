@@ -9,7 +9,7 @@
       <div class="date-col" translate="date"></div>
     </div>
     <div class="body-row">
-      <div class="submitted-row" ng-repeat="submission in registrant.submissions">
+      <div class="submitted-row" ng-repeat="submission in registrant.submissions | orderBy: '-challengeSubmissionId'">
         <div class="subject-col">
           {{submission.submissionDescription}}
         </div>
