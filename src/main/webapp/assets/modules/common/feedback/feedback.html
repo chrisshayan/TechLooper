@@ -1,7 +1,7 @@
 <div class="feedback-block">
   <div class="mail-box feedback-form">
     <div class="mail-body mail-subject">
-      <form class="form-horizontal" method="get">
+      <form class="form-horizontal" method="get" name="feedbackForm">
         <div class="form-group">
           <label class="col-sm-2 control-label" translate="mailTo"></label>
           <div class="col-sm-10">
@@ -22,7 +22,7 @@
     </div>
     <div class="mail-body text-right tooltip-demo email-footer">
       <a class="btn btn-sm btn-primary" title="{{'mailSend' | translate}}" ng-click="send()" ><i class="fa fa-reply"></i> <span translate="mailSend"></span></a>
-      <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}"  data-dismiss="modal" ng-click="cancel()"><i class="fa fa-times"></i> <span translate="cancel"></span></a>
+      <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}"  ng-click="cancel()"><i class="fa fa-times"></i> <span translate="cancel"></span></a>
     </div>
     <div id="feedback-loading"></div>
   </div>
