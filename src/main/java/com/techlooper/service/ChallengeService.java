@@ -31,7 +31,7 @@ public interface ChallengeService {
   void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
                                                        ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
 
-  ChallengeDetailDto getChallengeDetail(Long challengeId);
+  ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
   Long getNumberOfRegistrants(Long challengeId);
 

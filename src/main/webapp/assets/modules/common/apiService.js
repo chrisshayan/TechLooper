@@ -245,6 +245,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     submitMyResult: function(submission) {
       return $http.post("user/challengeSubmission", submission);
+    },
+
+    /**
+     * @see com.techlooper.controller.SharingController.getUrlResponseCode
+     * */
+    getUrlResponseCode: function(url) {
+      return $http.post("resource/getUrlResponseCode", {url: url}, {transformResponse: function (d, h) {return d;}});
     }
   };
 

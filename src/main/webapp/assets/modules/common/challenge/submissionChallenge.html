@@ -21,13 +21,18 @@
       <input type="text"  class="input-style"
              name="submissionURL" placeholder="{{'submissionURLTips' | translate}}"
              ng-pattern="/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\.\/\?\:@\-_=#])*/"
-             ng-model="submission.submissionURL" ng-required="true" />
+             ng-model="submission.submissionURL" ng-required="true" reset-validator-on-blur="invalidUrl"/>
       <div class="error-messages"
            ng-show="submissionForm.submissionURL.$error.required && (submissionForm.submissionURL.$dirty || submissionForm.$submitted)"
            translate="requiredThisField" />
       <div class="error-messages"
            ng-show="submissionForm.submissionURL.$error.pattern && (submissionForm.submissionURL.$dirty || submissionForm.$submitted)"
            translate="requiredURL" />
+      <div class="error-messages"
+           ng-show="submissionForm.submissionURL.$error.invalidUrl && (submissionForm.submissionURL.$dirty || submissionForm.$submitted)">
+        404 code
+      </div>
+
     </div>
     <div class="phase-submission">
       <button translate="submit" class="btn btn-primary btn-flat" ng-click="pushChallengePhase()"></button>
