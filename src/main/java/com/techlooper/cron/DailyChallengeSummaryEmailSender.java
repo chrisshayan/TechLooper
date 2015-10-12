@@ -4,6 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.service.ChallengeService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,9 +40,12 @@ public class DailyChallengeSummaryEmailSender {
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     try {
+                        if (StringUtils.isEmpty(challengeEntity.getLastEmailSentDateTime())) {
+                            challengeEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
+                        }
+
                         Date lastSentDate = string2Date(challengeEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                         Date currentDate = new Date();
-
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
                             challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);

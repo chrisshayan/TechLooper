@@ -686,19 +686,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         BoolQueryBuilder boolQueryBuilder = boolQuery();
         boolQueryBuilder.must(termQuery("challengeId", challengeId));
 
-        Long pastTime = currentDateTime - period.getMiliseconds() > 0 ? currentDateTime - period.getMiliseconds() : 0;
-        boolQueryBuilder.must(rangeQuery("challengeSubmissionId").from(pastTime));
+        boolQueryBuilder.must(rangeQuery("submissionDateTime").from(yesterdayDate()));
         searchQueryBuilder.withQuery(boolQueryBuilder);
         searchQueryBuilder.withSort(fieldSort("challengeSubmissionId").order(SortOrder.DESC));
-        searchQueryBuilder.withPageable(new PageRequest(0, 100));
 
-        List<ChallengeSubmissionEntity> result = new ArrayList<>();
-        Iterator<ChallengeSubmissionEntity> iterator = challengeSubmissionRepository.search(searchQueryBuilder.build()).iterator();
-        while (iterator.hasNext()) {
-            result.add(iterator.next());
-        }
-
-        return result;
+        return DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
     }
 
     @Override

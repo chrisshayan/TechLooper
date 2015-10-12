@@ -5,6 +5,7 @@ import com.techlooper.model.JobAlertPeriodEnum;
 import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,9 +57,12 @@ public class JobAlertEmailSender {
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
+                    if (StringUtils.isEmpty(jobAlertRegistrationEntity.getLastEmailSentDateTime())) {
+                        jobAlertRegistrationEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
+                    }
+
                     Date lastSentDate = string2Date(jobAlertRegistrationEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                     Date currentDate = new Date();
-
                     if (daysBetween(lastSentDate, currentDate) > 0) {
                         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
                         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);

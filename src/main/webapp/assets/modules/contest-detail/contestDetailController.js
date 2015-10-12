@@ -160,9 +160,30 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     var param = $location.search();
     var registrantFilterCondition = {};
     registrantFilterCondition.challengeId = contestId;
-    registrantFilterCondition.filterType = $scope.filterType ? $scope.filterType : param.filterType ? param.filterType : "registrantId";
-    registrantFilterCondition.fromDate = $scope.fromDate ? $scope.fromDate : param.fromDate;
-    registrantFilterCondition.toDate = $scope.toDate ? $scope.toDate : param.toDate;
+
+    if ($scope.filterType) {
+      registrantFilterCondition.filterType = $scope.filterType;
+    } else if (param.filterType) {
+      registrantFilterCondition.filterType = param.filterType;
+      $scope.filterType = param.filterType;
+    } else {
+      registrantFilterCondition.filterType = "registrantId";
+    }
+
+    if ($scope.fromDate) {
+      registrantFilterCondition.fromDate = $scope.fromDate;
+    } else {
+      registrantFilterCondition.fromDate = param.fromDate;
+      $scope.fromDate = param.fromDate;
+    }
+
+    if ($scope.toDate) {
+      registrantFilterCondition.toDate = $scope.toDate;
+    } else {
+      registrantFilterCondition.toDate = param.toDate;
+      $scope.toDate = param.toDate
+    }
+
     utils.sendNotification(jsonValue.notifications.loading);
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {

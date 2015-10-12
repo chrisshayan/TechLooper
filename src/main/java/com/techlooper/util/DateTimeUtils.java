@@ -56,6 +56,12 @@ public class DateTimeUtils {
         return formatter.format(yesterday.toDate());
     }
 
+    public static String yesterdayDate(String pattern) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        DateTime yesterday = DateTime.now().minusDays(1);
+        return formatter.format(yesterday.toDate());
+    }
+
     public static String currentDate(String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(new Date());

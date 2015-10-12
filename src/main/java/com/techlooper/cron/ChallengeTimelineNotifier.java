@@ -53,9 +53,12 @@ public class ChallengeTimelineNotifier {
                     Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(condition);
 
                     for (ChallengeRegistrantDto challengeRegistrant : challengeRegistrants) {
+                        if (StringUtils.isEmpty(challengeRegistrant.getLastEmailSentDateTime())) {
+                            challengeRegistrant.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
+                        }
+
                         Date lastSentDate = string2Date(challengeRegistrant.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                         Date currentDate = new Date();
-
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrant, ChallengeRegistrantEntity.class);
                             try {
