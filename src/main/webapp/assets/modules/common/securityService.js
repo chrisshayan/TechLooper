@@ -135,6 +135,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
 
       $rootScope.$watch(function () {return $.cookie("JSESSIONID"); }, function () {
         $rootScope.userInfo = undefined;
+        instance.getCurrentUser();
       });
     }
   };
