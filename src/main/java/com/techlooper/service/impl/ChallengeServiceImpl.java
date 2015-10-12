@@ -316,12 +316,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             try {
                 sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
                 sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+                challengeRegistrantEntity.setRegistrantId(new Date().getTime());
                 challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+                return challengeRegistrantRepository.save(challengeRegistrantEntity);
             } catch (Exception e) {
                 LOGGER.debug("Can not send email", e);
             }
-            challengeRegistrantEntity.setRegistrantId(new Date().getTime());
-            return challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
 
         return null;
@@ -540,17 +540,15 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
+        List<ChallengeDetailDto> result = new ArrayList<>();
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
         MatchQueryBuilder authorEmailQuery = matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%");
         TermQueryBuilder notExpiredQuery = termQuery("expired", Boolean.TRUE);
-        Iterable<ChallengeEntity> challenges = challengeRepository.search(boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
-        ArrayList<ChallengeDetailDto> dtos = new ArrayList<>();
-        challenges.forEach(challengeEntity -> {
-            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
-            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeEntity.getChallengeId()));
-            dtos.add(challengeDetailDto);
-        });
-        dozerMapper.map(challenges, dtos);
-        return dtos;
+
+        searchQueryBuilder.withQuery(boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
+        List<ChallengeEntity> challengeEntities = DataUtils.getAllEntities(challengeRepository, searchQueryBuilder);
+        dozerMapper.map(challengeEntities, result);
+        return result;
     }
 
     public Collection<ChallengeDetailDto> findInProgressChallenges(String owner) {
@@ -841,8 +839,16 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail) {
-        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-        if (challengeEntity != null && !Boolean.TRUE.equals(challengeEntity.getExpired())) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
+        TermQueryBuilder challengeIdQuery = termQuery("challengeId", challengeId);
+        MatchQueryBuilder authorEmailQuery = matchQuery("authorEmail", loginEmail).minimumShouldMatch("100%");
+        TermQueryBuilder expiredChallengeQuery = termQuery("expired", Boolean.TRUE);
+
+        searchQueryBuilder.withQuery(boolQuery().must(challengeIdQuery).must(authorEmailQuery).mustNot(expiredChallengeQuery));
+        List<ChallengeEntity> challengeEntities = DataUtils.getAllEntities(challengeRepository, searchQueryBuilder);
+
+        if (!challengeEntities.isEmpty()) {
+            ChallengeEntity challengeEntity = challengeEntities.get(0);
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
             challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
             challengeDetailDto.setCurrentPhase(getChallengeCurrentPhase(challengeEntity));

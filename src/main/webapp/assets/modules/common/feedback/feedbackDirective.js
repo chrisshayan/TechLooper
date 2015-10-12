@@ -43,7 +43,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       scope.cancel = function () {
         if (!scope.composeEmail.visible) return;
         scope.composeEmail.subject = '';
-        $('.summernote').code('');
+        $('.summernote').code('<p><br></p>');
         delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }
