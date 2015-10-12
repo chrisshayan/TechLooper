@@ -21,20 +21,21 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           return false;
         }
 
-
         apiService.getUrlResponseCode(scope.submission.submissionURL)
-          .success(function(code) {
-            if (code == 200) {
+          .success(function (code) {
+            var valid = (code >= 200) || (code < 400);
+            if (valid) {
               scope.submission.challengeId = scope.challenge.challengeId;
               apiService.submitMyResult(scope.submission)
+                .success(function(data) {
+                  
+                })
                 .finally(function () {
                   scope.hideSubmitForm();
                 });
             }
-            scope.submissionForm.submissionURL.$setValidity("invalidUrl", (code >= 200) || (code < 400));
+            scope.submissionForm.submissionURL.$setValidity("invalidUrl", valid);
           });
-
-
       }
 
       scope.hideSubmitForm = function () {
