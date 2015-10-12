@@ -87,6 +87,15 @@
             });
             window.location.href = "#/freelancer/post-project";
         }
+        gotoEvents  = function(){
+            ga("send", {
+                hitType: "event",
+                eventCategory: "techlooperjobhub",
+                eventAction: "click",
+                eventLabel: "latesttopics"
+            });
+            window.location.href = "#/topics";
+        }
     </script>
 
     <!-- build:css generate-resources/techlooper.min.css -->
