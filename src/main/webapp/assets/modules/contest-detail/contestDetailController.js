@@ -140,41 +140,43 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-  var registrantFilterCondition = {
-    challengeId : contestId
-  };
-
-  apiService.getChallengeRegistrants(registrantFilterCondition)
-    .success(function (registrants) {
-      $scope.registrants = registrants;
-      $scope.sortByStartDate();
-      var param = $location.search();
-      if (param.a == "registrants" && registrants.length) {
-        $('.nav-tabs a[href=".registrants"]').tab('show');
-      }
-    }).finally(function () {
-    utils.sendNotification(jsonValue.notifications.loaded);
-  });
+  //var registrantFilterCondition = {
+  //  challengeId : contestId
+  //};
+  //
+  //apiService.getChallengeRegistrants(registrantFilterCondition)
+  //  .success(function (registrants) {
+  //    $scope.registrants = registrants;
+  //    $scope.sortByStartDate();
+  //    var param = $location.search();
+  //    if (param.a == "registrants" && registrants.length) {
+  //      $('.nav-tabs a[href=".registrants"]').tab('show');
+  //    }
+  //  }).finally(function () {
+  //  utils.sendNotification(jsonValue.notifications.loaded);
+  //});
 
   $scope.filterContestant = function () {
+    var param = $location.search();
     var registrantFilterCondition = {};
     registrantFilterCondition.challengeId = contestId;
-    registrantFilterCondition.filterType = $scope.filterType;
-    registrantFilterCondition.fromDate = $scope.fromDate;
-    registrantFilterCondition.toDate = $scope.toDate;
+    registrantFilterCondition.filterType = $scope.filterType ? $scope.filterType : param.filterType ? param.filterType : "registrantId";
+    registrantFilterCondition.fromDate = $scope.fromDate ? $scope.fromDate : param.fromDate;
+    registrantFilterCondition.toDate = $scope.toDate ? $scope.toDate : param.toDate;
     utils.sendNotification(jsonValue.notifications.loading);
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {
         $scope.registrants = registrants;
         $scope.sortByStartDate();
-        var param = $location.search();
-        if (param.a == "registrants" && registrants.length) {
+        if (param.a == "registrants") {
           $('.nav-tabs a[href=".registrants"]').tab('show');
         }
       }).finally(function () {
         utils.sendNotification(jsonValue.notifications.loaded);
       });
   };
+
+  $scope.filterContestant();
 
   $scope.sortByScore = function () {
     delete $scope.sortStartDate;
