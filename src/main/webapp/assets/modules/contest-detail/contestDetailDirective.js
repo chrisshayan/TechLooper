@@ -1,5 +1,5 @@
 techlooper
-  .directive("contestDetailAction", function ($rootScope, apiService, paginationService) {
+  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils) {
     return {
       restrict: "E",
       replace: true,
@@ -78,6 +78,13 @@ techlooper
         }, function (currentPage, previousPage) {
           scope.registrant.hide();
         });
+
+        scope.$on("success-submission-challenge", function(submission) {
+          if (scope.registrant.registrantId != submission.registrantId) return;
+          scope.registrant.submissions.unshift(submission);
+        });
+
+        utils.sortByDate(scope.registrant.submissions, "submissionDateTime");
       }
     };
   })
