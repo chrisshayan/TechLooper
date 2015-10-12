@@ -336,7 +336,7 @@
                                                                                         <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${latestSubmission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Phản Hồi</a>
                                                                                     </td>
                                                                                   <td style="font-size: 14px;">
-                                                                                    <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?a=registrants" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Đi Tiếp</a>
+                                                                                    <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?a=registrants&filterType=challengeSubmission&fromDate=${yesterdayDateTime}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Đi Tiếp</a>
                                                                                   </td>
                                                                                 </tr>
                                                                             </table>

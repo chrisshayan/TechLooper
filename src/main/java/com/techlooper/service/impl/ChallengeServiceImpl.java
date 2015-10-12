@@ -737,6 +737,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
         templateModel.put("currentDateTime", String.valueOf(new Date().getTime()));
+        templateModel.put("yesterdayDateTime", DateTimeUtils.yesterdayDate());
 
         Long currentDateTime = new Date().getTime();
         List<ChallengeRegistrantEntity> latestRegistrants = findChallengeRegistrantWithinPeriod(
