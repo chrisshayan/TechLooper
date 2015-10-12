@@ -277,12 +277,22 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
 
-        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder,
-                boolFilter().must(locationFilterBuilder)
-                        .must(jobLevelFilterBuilder)
-                        .must(approvedDateRangeFilterBuilder)
-                        .must(jobIndustriesFilterBuilder)
-                        .must(salaryRangeFilterBuilder)));
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
+        if (priceJobEntity.getLocationId() != null && priceJobEntity.getLocationId() != 1) {
+            boolFilterBuilder.must(locationFilterBuilder);
+        }
+
+        if (!priceJobEntity.getJobLevelIds().isEmpty()) {
+            boolFilterBuilder.must(jobLevelFilterBuilder);
+        }
+
+        if (!priceJobEntity.getJobCategories().isEmpty()) {
+            boolFilterBuilder.must(jobIndustriesFilterBuilder);
+        }
+
+        boolFilterBuilder.must(approvedDateRangeFilterBuilder);
+        boolFilterBuilder.must(salaryRangeFilterBuilder);
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilterBuilder));
         return queryBuilder;
     }
 
