@@ -39,10 +39,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
         responseError: function (rejection) {
           switch (rejection.status) {
-            //case 403:
+            case 403:
             //  $rootScope.lastPath = $location.path();
             //  $location.path("/login");
-            //  break;
+            //  $rootScope.userInfo = undefined;
+            //  $.removeCookie('JSESSIONID');
+              break;
 
             case 500:
             case 404:

@@ -24,7 +24,6 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
         return;
       }
 
-
       if ($rootScope.userInfo) {
         var deferred = $q.defer();
         deferred.resolve($rootScope.userInfo);
@@ -32,24 +31,10 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
       }
 
       $rootScope.userInfo = undefined;
-      //utils.sendNotification(jsonValue.notifications.loading, $(window).height());
       return apiService.getCurrentUser(type)
         .success(function (data) {
-          //utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
-
           $rootScope.userInfo = data;
-
-          //var lastFoot = localStorageService.get("lastFoot");
-          //if (lastFoot && ["/login", "/user-type"].indexOf(lastFoot) == -1) {
-          //  localStorageService.remove("lastFoot");
-          //  return $location.path(lastFoot);
-          //}
-          //localStorageService.remove("lastFoot");
-
-          //instance.routeByRole();
         });
-      //.error(function () {
-      //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
 
     login: function (username, password, type) {
@@ -139,13 +124,18 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
         //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
           instance.getCurrentUser().error(function (userInfo) {
-            return $location.path(uiView.loginUrl);
+            $location.path(uiView.loginUrl);
+            utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
           });
         }
 
       });
 
       if (!$rootScope.userInfo) instance.getCurrentUser();
+
+      $rootScope.$watch(function () {return $.cookie("JSESSIONID"); }, function () {
+        $rootScope.userInfo = undefined;
+      });
     }
   };
 
