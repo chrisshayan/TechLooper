@@ -61,6 +61,17 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
         if (!registrant.activePhase) return jsonValue.challengePhase.getRegistration().enum;
         return registrant.activePhase;
 
+      case "registrantActivePhaseTitle":
+        var registrant = input;
+        if (!registrant.activePhase) input = jsonValue.challengePhase.getRegistration();
+        if (!input.title) return jsonValue.challengePhase.getEnum(registrant.activePhase).title;
+        return input.title;
+
+      case "challengePhaseTitle":
+        var phase = input ? input : jsonValue.challengePhase.getRegistration().enum;
+        if (!phase.title) return jsonValue.challengePhase.getEnum(phase).title;
+        return phase.title;
+
       case "freelancer-review-project-payment-method":
         var payMethod = input;
         var option = resourcesService.getOption(payMethod, resourcesService.paymentConfig);
