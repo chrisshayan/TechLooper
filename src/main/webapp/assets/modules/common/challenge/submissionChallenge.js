@@ -1,4 +1,4 @@
-techlooper.directive("submissionChallenge", function (localStorageService, apiService) {
+techlooper.directive("submissionChallenge", function (localStorageService, apiService, $rootScope) {
   return {
     restrict: "E",
     replace: true,
@@ -23,12 +23,13 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
 
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
-            var valid = (code >= 200) || (code < 400);
+            var valid = (code >= 200) && (code < 400);
             if (valid) {
               scope.submission.challengeId = scope.challenge.challengeId;
               apiService.submitMyResult(scope.submission)
                 .success(function(data) {
-                  
+                  var submission = data;
+                  $rootScope.$broadcast("success-submission-challenge", submission);
                 })
                 .finally(function () {
                   scope.hideSubmitForm();
