@@ -58,6 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
+    http.headers().frameOptions().disable();
     http.authorizeRequests()
       .and().formLogin().loginPage("/login").usernameParameter("us").passwordParameter("pwd").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
       .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("SESSION").permitAll()
