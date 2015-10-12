@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
 
 /**
@@ -74,15 +75,11 @@ public class SharingController {
   @RequestMapping(value = "resource/getUrlResponseCode", method = RequestMethod.POST)
   public Long getUrlResponseCode(@RequestBody ResourceDto resourceDto) {
     try {
-      URL u = new URL(resourceDto.getUrl());
-      HttpURLConnection huc = (HttpURLConnection) u.openConnection();
-      huc.setDoOutput(true);
-      huc.setRequestMethod("GET");
-      huc.connect();
-      OutputStream os = huc.getOutputStream();
-      int rs = huc.getResponseCode();
-      os.close();
-      return Long.valueOf(rs);
+      HttpURLConnection.setFollowRedirects(false);
+      HttpURLConnection con = (HttpURLConnection) new URL(resourceDto.getUrl()).openConnection();
+      con.setRequestMethod("HEAD");
+      int responseCode = con.getResponseCode();
+      return Long.valueOf(responseCode);
     }
     catch (Exception e) {
       LOGGER.debug("Url not exist", e);

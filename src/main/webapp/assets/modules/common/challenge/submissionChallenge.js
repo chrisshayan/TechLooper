@@ -31,7 +31,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                   scope.hideSubmitForm();
                 });
             }
-            scope.submissionForm.submissionURL.$setValidity("invalidUrl", (code == 200));
+            scope.submissionForm.submissionURL.$setValidity("invalidUrl", (code >= 200) || (code < 400));
           });
 
 
