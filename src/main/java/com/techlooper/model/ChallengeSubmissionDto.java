@@ -15,11 +15,21 @@ public class ChallengeSubmissionDto implements Serializable {
 
   private Long challengeId;
 
+  private Long registrantId;
+
   private String submissionURL;
 
   private String submissionDescription;
 
   private String submissionDateTime;
+
+  public Long getRegistrantId() {
+    return registrantId;
+  }
+
+  public void setRegistrantId(Long registrantId) {
+    this.registrantId = registrantId;
+  }
 
   public String getRegistrantFirstName() {
     return registrantFirstName;

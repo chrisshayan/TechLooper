@@ -76,7 +76,9 @@ public class SharingController {
   public Long getUrlResponseCode(@RequestBody ResourceDto resourceDto) {
     try {
       HttpURLConnection.setFollowRedirects(false);
-      HttpURLConnection con = (HttpURLConnection) new URL(resourceDto.getUrl()).openConnection();
+      String url = resourceDto.getUrl().trim();
+      url = url.startsWith("http://") ? url : "http://" + url;
+      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
       con.setRequestMethod("HEAD");
       int responseCode = con.getResponseCode();
       return Long.valueOf(responseCode);
