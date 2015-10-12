@@ -4,6 +4,7 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
     switch (type) {
       case "challenge":
         var contestDetail = input;
+        if (contestDetail.progress) return contestDetail.progress.title;
 
         var joinContests = localStorageService.get("joinContests") || "";
         var email = localStorageService.get("email") || "";
