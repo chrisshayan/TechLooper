@@ -655,7 +655,8 @@ public class ChallengeServiceImpl implements ChallengeService {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
             }
 
-            if ((StringUtils.isNotEmpty(condition.getFromDate()) || StringUtils.isNotEmpty(condition.getToDate()))) {
+            if (StringUtils.isNotEmpty(condition.getFilterType()) &&
+                    (StringUtils.isNotEmpty(condition.getFromDate()) || StringUtils.isNotEmpty(condition.getToDate()))) {
                 RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(condition.getFilterType());
 
                 if (StringUtils.isNotEmpty(condition.getFromDate())) {
