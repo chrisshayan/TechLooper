@@ -775,6 +775,7 @@
   "acceptDescription": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{current}}</strong> vào vòng <strong>{{next}}</strong>?",
   "allContestants": "Tất cả thí sinh",
   "exRegistrantsFilterConfig": "Tất cả thí sinh",
-  "allSubmission": "Tất cả bài nộp"
+  "allSubmission": "Tất cả bài nộp",
+  "404Error": "URL này dẫn đến trang không tồn tại (lỗi 404). Xin vui lòng kiểm tra lại."
 
 }
