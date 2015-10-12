@@ -140,21 +140,21 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-  var registrantFilterCondition = {
-    challengeId : contestId
-  };
-
-  apiService.getChallengeRegistrants(registrantFilterCondition)
-    .success(function (registrants) {
-      $scope.registrants = registrants;
-      $scope.sortByStartDate();
-      var param = $location.search();
-      if (param.a == "registrants" && registrants.length) {
-        $('.nav-tabs a[href=".registrants"]').tab('show');
-      }
-    }).finally(function () {
-    utils.sendNotification(jsonValue.notifications.loaded);
-  });
+  //var registrantFilterCondition = {
+  //  challengeId : contestId
+  //};
+  //
+  //apiService.getChallengeRegistrants(registrantFilterCondition)
+  //  .success(function (registrants) {
+  //    $scope.registrants = registrants;
+  //    $scope.sortByStartDate();
+  //    var param = $location.search();
+  //    if (param.a == "registrants" && registrants.length) {
+  //      $('.nav-tabs a[href=".registrants"]').tab('show');
+  //    }
+  //  }).finally(function () {
+  //  utils.sendNotification(jsonValue.notifications.loaded);
+  //});
 
   $scope.filterContestant = function () {
     var registrantFilterCondition = {};
@@ -175,6 +175,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         utils.sendNotification(jsonValue.notifications.loaded);
       });
   };
+
+  $scope.filterContestant();
 
   $scope.sortByScore = function () {
     delete $scope.sortStartDate;

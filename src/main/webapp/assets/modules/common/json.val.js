@@ -1018,10 +1018,26 @@ techlooper.factory("jsonValue", function () {
       {id: "itviec-jobs-api-v2", name: "ITVIEC"}
     ],
 
+    //@see com.techlooper.model.ChallengePhaseEnum
     challengePhase: {
-      values: [{enum: "REGISTRATION"}],
+      values: [
+        {enum: "REGISTRATION", title: "Registration"},
+        {enum: "IDEA", title: "Idea"},
+        {enum: "UIUX", title: "UI/UX"},
+        {enum: "PROTOTYPE", title: "Prototype"},
+        {enum: "FINAL", title: "Final App"}
+      ],
 
-      getRegistration: function () {return instance.challengePhase.values[0]}
+      getRegistration: function () {return instance.challengePhase.values[0]},
+
+      getEnum: function(name) {
+        var found = undefined;
+        $.each(instance.challengePhase.values, function(i, value) {
+          found = (value.enum == name) ? value : undefined;
+          return !found;
+        });
+        return found;
+      }
     }
   }
 

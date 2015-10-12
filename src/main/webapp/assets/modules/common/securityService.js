@@ -1,4 +1,4 @@
-techlooper.factory("securityService", function (apiService, $rootScope, $q, utils, jsonValue, $location, localStorageService) {
+techlooper.factory("securityService", function (apiService, $route, $rootScope, $q, utils, jsonValue, $location, localStorageService) {
 
   //localStorage.setItem('CAPTURE-PATHS', '/');
 
@@ -11,6 +11,9 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
           var roles = $rootScope.currentUiView.roles || [];
           if (roles.length > 0) {
             $location.url("/");
+          }
+          else {
+            $route.reload();
           }
         });
     },
