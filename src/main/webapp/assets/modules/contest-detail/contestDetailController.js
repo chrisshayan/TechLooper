@@ -157,6 +157,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //});
 
   $scope.filterContestant = function () {
+    utils.sendNotification(jsonValue.notifications.loading);
     var param = $location.search();
     var registrantFilterCondition = {};
     registrantFilterCondition.challengeId = contestId;
@@ -184,7 +185,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       $scope.toDate = param.toDate
     }
 
-    utils.sendNotification(jsonValue.notifications.loading);
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {
         $scope.registrants = registrants;
