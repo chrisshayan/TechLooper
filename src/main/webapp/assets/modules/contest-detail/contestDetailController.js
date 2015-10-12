@@ -168,7 +168,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         $scope.registrants = registrants;
         $scope.sortByStartDate();
         var param = $location.search();
-        if (param.a == "registrants" && registrants.length) {
+        if (param.a == "registrants") {
           $('.nav-tabs a[href=".registrants"]').tab('show');
         }
       }).finally(function () {
