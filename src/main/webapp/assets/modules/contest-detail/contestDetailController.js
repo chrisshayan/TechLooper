@@ -140,47 +140,64 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-  var registrantFilterCondition = {
-    challengeId : contestId
-  };
-
-  apiService.getChallengeRegistrants(registrantFilterCondition)
-    .success(function (registrants) {
-      $scope.registrants = registrants;
-      //$.each($scope.registrants, function(i, registrant){
-      //  if(registrant.activePhase == null){
-      //    registrant.activePhase = 'REGISTRATION';
-      //  }
-      //  registrant.nextPhase = $scope.contestDetail.nextPhase;
-      //});
-      $scope.sortByStartDate();
-      var param = $location.search();
-      if (param.a == "registrants" && registrants.length) {
-        $('.nav-tabs a[href=".registrants"]').tab('show');
-      }
-    }).finally(function () {
-    utils.sendNotification(jsonValue.notifications.loaded);
-  });
+  //var registrantFilterCondition = {
+  //  challengeId : contestId
+  //};
+  //
+  //apiService.getChallengeRegistrants(registrantFilterCondition)
+  //  .success(function (registrants) {
+  //    $scope.registrants = registrants;
+  //    $scope.sortByStartDate();
+  //    var param = $location.search();
+  //    if (param.a == "registrants" && registrants.length) {
+  //      $('.nav-tabs a[href=".registrants"]').tab('show');
+  //    }
+  //  }).finally(function () {
+  //  utils.sendNotification(jsonValue.notifications.loaded);
+  //});
 
   $scope.filterContestant = function () {
+    utils.sendNotification(jsonValue.notifications.loading);
+    var param = $location.search();
     var registrantFilterCondition = {};
     registrantFilterCondition.challengeId = contestId;
-    registrantFilterCondition.filterType = $scope.filterType;
-    registrantFilterCondition.fromDate = $scope.fromDate;
-    registrantFilterCondition.toDate = $scope.toDate;
+
+    if ($scope.filterType) {
+      registrantFilterCondition.filterType = $scope.filterType;
+    } else if (param.filterType) {
+      registrantFilterCondition.filterType = param.filterType;
+      $scope.filterType = param.filterType;
+    } else {
+      registrantFilterCondition.filterType = "registrantId";
+    }
+
+    if ($scope.fromDate) {
+      registrantFilterCondition.fromDate = $scope.fromDate;
+    } else {
+      registrantFilterCondition.fromDate = param.fromDate;
+      $scope.fromDate = param.fromDate;
+    }
+
+    if ($scope.toDate) {
+      registrantFilterCondition.toDate = $scope.toDate;
+    } else {
+      registrantFilterCondition.toDate = param.toDate;
+      $scope.toDate = param.toDate
+    }
 
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {
         $scope.registrants = registrants;
         $scope.sortByStartDate();
-        var param = $location.search();
-        if (param.a == "registrants" && registrants.length) {
+        if (param.a == "registrants") {
           $('.nav-tabs a[href=".registrants"]').tab('show');
         }
       }).finally(function () {
         utils.sendNotification(jsonValue.notifications.loaded);
       });
   };
+
+  $scope.filterContestant();
 
   $scope.sortByScore = function () {
     delete $scope.sortStartDate;
@@ -219,7 +236,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig
   };
-  $('.registrants-date').find('.input-daterange').datepicker({
+  $('.registrants-date').find('.date').datepicker({
     autoclose:  true,
     format: 'dd/mm/yyyy'
   });

@@ -255,6 +255,9 @@
                 float: left
                 input
                   border: 1px solid #cccccc
+                .input-group-addon
+                  cursor: pointer
+                  text-transform: capitalize
                 .input-group-addon.left
                   border-radius: 4px 0 0 4px
                 .input-group-addon.none
@@ -291,22 +294,19 @@
 
           tr.qualify
             color: #999999
-            input
-              color: #999999
             span
-              font-style: italic
-              font-size: 12px
               line-height: 16px
               display: block
               word-break: break-all
             button
-              color: #999999
               span
                 display: inline-block
             a.btn
               span
                 display: inline-block
                 font-style: normal
+            input
+              color: #333
             i.registration,
             i.in-progress,
             i.idea,
@@ -427,10 +427,14 @@
               width: 40%
               float: left
               text-align: left
+              word-break: break-all
+              padding-right: 5px
             .submission-link-col
               width: 50%
               float: left
               text-align: left
+              word-break: break-all
+              padding-right: 5px
               a
                 text-align: left
                 color: #337ab7
@@ -531,14 +535,18 @@
                 border: 0
               .mail-subject
                 padding: 10px 0
+                .control-label
+                  color: #333
               .mail-text .note-editor
                 background-color: #fff
                 min-height: 200px
                 .note-toolbar
                   background-color: #f3fafe
+                  color: #333
               .note-editable
                 background-color: #fff
                 text-align: left
+                color: #333
               .email-footer
                 text-align: right
                 padding: 10px 0
@@ -708,6 +716,10 @@
             width: 25%
           .phase-box.five-cols
             width: 20%
+        .timeLine-milestone.mobile
+          display: none
+        .timeLine-milestone.desktop
+          display: inline-block
       .col-md-3
         -webkit-border-top-right-radius: 5px
         -webkit-border-bottom-right-radius: 5px

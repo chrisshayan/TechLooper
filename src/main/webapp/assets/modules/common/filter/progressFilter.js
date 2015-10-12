@@ -4,6 +4,7 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
     switch (type) {
       case "challenge":
         var contestDetail = input;
+        if (contestDetail.progress) return contestDetail.progress.title;
 
         var joinContests = localStorageService.get("joinContests") || "";
         var email = localStorageService.get("email") || "";
@@ -60,6 +61,17 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
         var registrant = input;
         if (!registrant.activePhase) return jsonValue.challengePhase.getRegistration().enum;
         return registrant.activePhase;
+
+      case "registrantActivePhaseTitle":
+        var registrant = input;
+        if (!registrant.activePhase) input = jsonValue.challengePhase.getRegistration();
+        if (!input.title) return jsonValue.challengePhase.getEnum(registrant.activePhase).title;
+        return input.title;
+
+      case "challengePhaseTitle":
+        var phase = input ? input : jsonValue.challengePhase.getRegistration().enum;
+        if (!phase.title) return jsonValue.challengePhase.getEnum(phase).title;
+        return phase.title;
 
       case "freelancer-review-project-payment-method":
         var payMethod = input;

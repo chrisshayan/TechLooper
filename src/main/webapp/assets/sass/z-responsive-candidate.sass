@@ -1241,16 +1241,72 @@
                   .input-group-addon.none-left
                     border-radius: 4px 0 0 4px
                     border-left: 1px solid #ccc
+              .submit-filter
+                text-align: center
+                width: 100%
+                button
+                  margin: auto
+                  padding: 6px 30px
             tr
               background-color: #fff
         .contest-content-item
           .timeLine-milestone
+            text-align: center
+            width: 100%
             .phase-box
-              width: 100% !important
+              width: 250px !important
               clear: both
-              margin-bottom: 10px
+              float: none
+              text-align: center
+              margin: auto
+              span.line-color
+                width: 5px
+                height: 100px
+                float: left
               span
                 border: none !important
+                float: left
+                width: auto
+                clear: none
+                span
+                  width: 100%
+                  clear: both
+                  text-align: left
+                  padding: 25px 0
+              span.details
+                width: 35%
+                float: left
+                text-align: left
+                clear: none
+                height: 100px
+                padding-left: 5px
+              span.name
+                float: left
+                width: 45%
+                padding-right: 5px
+                display: inline-block
+                clear: none
+                text-align: right
+                padding-top: 40px
+              span.date-right
+                text-align: left
+                float: left
+                padding-top: 70px
+                i
+                  margin-right: 0 !important
+              span.date-left
+                text-align: left
+                float: left
+                min-width: 50px
+                min-height: 15px
+                i
+                  margin-left: 0 !important
+          .timeLine-milestone.mobile
+            display: inline-block
+          .timeLine-milestone.desktop
+            display: none
+          p.detail span.tag
+            margin-bottom: 5px
         .contest-content-tab-detail
           .label-col
             display: block
