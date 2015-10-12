@@ -316,12 +316,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             try {
                 sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
                 sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
+                challengeRegistrantEntity.setRegistrantId(new Date().getTime());
                 challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+                return challengeRegistrantRepository.save(challengeRegistrantEntity);
             } catch (Exception e) {
                 LOGGER.debug("Can not send email", e);
             }
-            challengeRegistrantEntity.setRegistrantId(new Date().getTime());
-            return challengeRegistrantRepository.save(challengeRegistrantEntity);
         }
 
         return null;
