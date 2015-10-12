@@ -157,13 +157,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //});
 
   $scope.filterContestant = function () {
+    utils.sendNotification(jsonValue.notifications.loading);
     var param = $location.search();
     var registrantFilterCondition = {};
     registrantFilterCondition.challengeId = contestId;
     registrantFilterCondition.filterType = $scope.filterType ? $scope.filterType : param.filterType ? param.filterType : "registrantId";
     registrantFilterCondition.fromDate = $scope.fromDate ? $scope.fromDate : param.fromDate;
     registrantFilterCondition.toDate = $scope.toDate ? $scope.toDate : param.toDate;
-    utils.sendNotification(jsonValue.notifications.loading);
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {
         $scope.registrants = registrants;
