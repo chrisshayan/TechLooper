@@ -140,19 +140,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
 
-  var registrantFilterCondition = {
-    challengeId : contestId
-  };
-
+  //var registrantFilterCondition = {
+  //  challengeId : contestId
+  //};
+  //
   //apiService.getChallengeRegistrants(registrantFilterCondition)
   //  .success(function (registrants) {
   //    $scope.registrants = registrants;
-  //    //$.each($scope.registrants, function(i, registrant){
-  //    //  if(registrant.activePhase == null){
-  //    //    registrant.activePhase = 'REGISTRATION';
-  //    //  }
-  //    //  registrant.nextPhase = $scope.contestDetail.nextPhase;
-  //    //});
   //    $scope.sortByStartDate();
   //    var param = $location.search();
   //    if (param.a == "registrants" && registrants.length) {
@@ -168,7 +162,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     registrantFilterCondition.filterType = $scope.filterType;
     registrantFilterCondition.fromDate = $scope.fromDate;
     registrantFilterCondition.toDate = $scope.toDate;
-
+    utils.sendNotification(jsonValue.notifications.loading);
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {
         $scope.registrants = registrants;
