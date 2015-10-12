@@ -547,7 +547,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         searchQueryBuilder.withQuery(boolQuery().must(authorEmailQuery).mustNot(notExpiredQuery));
         List<ChallengeEntity> challengeEntities = DataUtils.getAllEntities(challengeRepository, searchQueryBuilder);
-        dozerMapper.map(challengeEntities, result);
+
+        for (ChallengeEntity challengeEntity : challengeEntities) {
+            ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+            challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeDetailDto.getChallengeId()));
+            result.add(challengeDetailDto);
+        }
         return result;
     }
 
@@ -911,9 +916,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         for (int i = 0; i < timeline.length; ++i) {
             try {
                 String milestone = timeline[i];
-                if (DateTimeUtils.daysBetween(now, milestone) < 0) break;
+                if (DateTimeUtils.daysBetween(now, milestone) < 0) {
+                    break;
+                }
                 currentMilestoneIndex = i;
-            } catch (ParseException e) {
+            } catch (ParseException | NullPointerException e) {
                 continue;
             }
         }
