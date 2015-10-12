@@ -1,4 +1,4 @@
-techlooper.directive("submissionChallenge", function (localStorageService, apiService) {
+techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout) {
   return {
     restrict: "E",
     replace: true,
@@ -20,21 +20,28 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         if (scope.submissionForm.$invalid) {
           return false;
         }
-
-
+        $('.feedback-loading').css('visibility', 'inherit');
         apiService.getUrlResponseCode(scope.submission.submissionURL)
-          .success(function(code) {
-            if (code == 200) {
+          .success(function (code) {
+            var valid = (code >= 200) || (code < 400);
+            if (valid) {
               scope.submission.challengeId = scope.challenge.challengeId;
               apiService.submitMyResult(scope.submission)
+                .success(function(data) {
+                  
+                })
                 .finally(function () {
                   scope.hideSubmitForm();
                 });
             }
-            scope.submissionForm.submissionURL.$setValidity("invalidUrl", (code == 200));
-          });
-
-
+            scope.submissionForm.submissionURL.$setValidity("invalidUrl", valid);
+          })
+          .finally(function () {
+            $timeout(function(){
+              $('.feedback-loading').css('visibility', 'hidden');
+              scope.cancel();
+            }, 500);
+        });
       }
 
       scope.hideSubmitForm = function () {
