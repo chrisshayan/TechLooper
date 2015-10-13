@@ -313,11 +313,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (!isExist) {
             ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
             ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+            challengeRegistrantEntity.setRegistrantId(new Date().getTime());
             challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
             try {
                 sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
                 sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
-                challengeRegistrantEntity.setRegistrantId(new Date().getTime());
                 challengeRegistrantEntity.setMailSent(Boolean.TRUE);
                 return challengeRegistrantRepository.save(challengeRegistrantEntity);
             } catch (Exception e) {
