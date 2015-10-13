@@ -6,7 +6,6 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
     logout: function () {
       apiService.logout()
         .success(function (data, status, headers, config) {
-          $.removeCookie("JSESSIONID");
           $rootScope.userInfo = undefined;
           var roles = $rootScope.currentUiView.roles || [];
           if (roles.length > 0) {
