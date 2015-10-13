@@ -14,6 +14,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
+
   $scope.action = '';
   $scope.actionContent = '';
   $scope.status = function (type, id) {
@@ -140,23 +141,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
-
-  //var registrantFilterCondition = {
-  //  challengeId : contestId
-  //};
-  //
-  //apiService.getChallengeRegistrants(registrantFilterCondition)
-  //  .success(function (registrants) {
-  //    $scope.registrants = registrants;
-  //    $scope.sortByStartDate();
-  //    var param = $location.search();
-  //    if (param.a == "registrants" && registrants.length) {
-  //      $('.nav-tabs a[href=".registrants"]').tab('show');
-  //    }
-  //  }).finally(function () {
-  //  utils.sendNotification(jsonValue.notifications.loaded);
-  //});
-
   $scope.filterContestant = function () {
     utils.sendNotification(jsonValue.notifications.loading);
     var param = $location.search();
