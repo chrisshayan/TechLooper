@@ -1216,6 +1216,10 @@
           margin-top: 20px
         .contest-content-tab-detail
           padding: 10px 5px
+          .submit-phase-contest.show
+            height: 380px
+            .phase-submission button
+              padding: 6px 20px
           .registrants
             padding: 0 5px
             background-color: #fff
@@ -1274,7 +1278,7 @@
                   text-align: left
                   padding: 25px 0
               span.details
-                width: 35%
+                width: 45%
                 float: left
                 text-align: left
                 clear: none
@@ -1283,22 +1287,25 @@
               span.name
                 float: left
                 width: 45%
-                padding-right: 5px
+                padding-left: 5px
                 display: inline-block
                 clear: none
-                text-align: right
+                text-align: left
                 padding-top: 40px
               span.date-right
-                text-align: left
+                text-align: right
                 float: left
                 padding-top: 70px
+                width: 100%
                 i
                   margin-right: 0 !important
               span.date-left
-                text-align: left
+                text-align: right
                 float: left
                 min-width: 50px
                 min-height: 15px
+                width: 100%
+                padding-right: 5px
                 i
                   margin-left: 0 !important
           .timeLine-milestone.mobile
@@ -1410,6 +1417,8 @@
       text-align: right
       p
         text-align: right !important
+      p.note
+        text-align: left !important
     .contests-list-management
       .contest-list-management-header
         display: none

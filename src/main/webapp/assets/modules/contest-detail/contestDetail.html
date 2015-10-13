@@ -99,44 +99,44 @@
             <p class="title" translate="mileStones"></p>
             <div class="timeLine-milestone mobile">
               <div class="phase-box phase-registration">
-                <span class="name" translate="registration"></span>
-                <span class="line-color"></span>
                 <span class="details">
-                  <span class="date-left"><i class="fa fa-circle"></i> {{contestDetail.startDateTime}}</span>
-                  <span class="date-right"><i class="fa fa-circle"></i> {{contestDetail.registrationDateTime}}</span>
+                  <span class="date-left">{{contestDetail.startDateTime}} <i class="fa fa-caret-right"></i></span>
+                  <span class="date-right">{{contestDetail.registrationDateTime}} <i class="fa fa-caret-right"></i></span>
                 </span>
+                <span class="line-color"></span>
+                <span class="name" translate="registration"></span>
               </div>
               <div class="phase-box phase-idea" ng-show="contestDetail.ideaSubmissionDateTime.length">
-                <span class="name" translate="idea"></span>
-                <span class="line-color"></span>
                 <span class="details">
                   <span class="date-left"></span>
-                  <span class="date-right"><i class="fa fa-circle"></i> {{contestDetail.ideaSubmissionDateTime}}</span>
+                  <span class="date-right">{{contestDetail.ideaSubmissionDateTime}} <i class="fa fa-caret-right"></i></span>
                 </span>
+                <span class="line-color"></span>
+                <span class="name" translate="idea"></span>
               </div>
               <div class="phase-box phase-uiux" ng-show="contestDetail.uxSubmissionDateTime.length">
-                <span class="name" translate="uiux"></span>
-                <span class="line-color"></span>
                 <span class="details">
                   <span class="date-left"></span>
-                  <span class="date-right"><i class="fa fa-circle"></i> {{contestDetail.uxSubmissionDateTime}}</span>
+                  <span class="date-right">{{contestDetail.uxSubmissionDateTime}} <i class="fa fa-caret-right"></i></span>
                 </span>
+                <span class="line-color"></span>
+                <span class="name" translate="uiux"></span>
               </div>
               <div class="phase-box phase-prototype" ng-show="contestDetail.prototypeSubmissionDateTime.length">
-                <span class="name" translate="prototype"></span>
-                <span class="line-color"></span>
                 <span class="details">
                   <span class="date-left"></span>
-                  <span class="date-right"><i class="fa fa-circle"></i> {{contestDetail.prototypeSubmissionDateTime}}</span>
+                  <span class="date-right">{{contestDetail.prototypeSubmissionDateTime}} <i class="fa fa-caret-right"></i></span>
                 </span>
+                <span class="line-color"></span>
+                <span class="name" translate="prototype"></span>
               </div>
               <div class="phase-box phase-final-app">
-                <span class="name" translate="finalApp"></span>
-                <span class="line-color"></span>
                 <span class="details">
                   <span class="date-left"></span>
-                  <span class="date-right"><i class="fa fa-circle"></i> {{contestDetail.submissionDateTime}}</span>
+                  <span class="date-right">{{contestDetail.submissionDateTime}} <i class="fa fa-caret-right"></i></span>
                 </span>
+                <span class="line-color"></span>
+                <span class="name" translate="finalApp"></span>
               </div>
             </div>
             <div class="timeLine-milestone desktop">
