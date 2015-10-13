@@ -13,9 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.URL;
 
 /**
@@ -77,7 +75,7 @@ public class SharingController {
     try {
       HttpURLConnection.setFollowRedirects(false);
       String url = resourceDto.getUrl().trim();
-      url = url.startsWith("http://") ? url : "http://" + url;
+      url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
       HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
       con.setRequestMethod("HEAD");
       int responseCode = con.getResponseCode();
@@ -88,4 +86,19 @@ public class SharingController {
     }
     return 404L;
   }
+//
+//  public static void main(String[] args) {
+//    try {
+//      HttpURLConnection.setFollowRedirects(false);
+//      String url = "https://facebook.com";
+//      url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
+//      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+//      con.setRequestMethod("HEAD");
+//      int responseCode = con.getResponseCode();
+//      System.out.println(responseCode);
+//    }
+//    catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//  }
 }
