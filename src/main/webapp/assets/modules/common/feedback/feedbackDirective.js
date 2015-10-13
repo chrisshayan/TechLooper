@@ -40,17 +40,21 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         }
         $('.feedback-loading').css('visibility', 'inherit');
         apiService.sendEmailToDailyChallengeRegistrants(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
-        .finally(function () {
-          $timeout(function(){
-            $('.feedback-loading').css('visibility', 'hidden');
+        .success(function(){
+            $timeout(function(){
+              $('.feedback-loading').css('visibility', 'hidden');
               scope.cancel();
-          }, 1200);
+            }, 1200);
+        })
+        .error(function(){
+          scope.composeEmail.error = false;
         });
       }
       scope.cancel = function () {
         if (!scope.composeEmail.visible) return;
         scope.composeEmail.subject = '';
         scope.feedbackContent = '';
+        scope.composeEmail.error = true;
         delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }

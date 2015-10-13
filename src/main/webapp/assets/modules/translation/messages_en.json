@@ -773,5 +773,6 @@
   "exRegistrantsFilterConfig": "All Contestants",
   "allContestants": "All Contestants",
   "allSubmission": "All Submission",
-  "404Error": "This URL leads to 404 page. Please check again."
+  "404Error": "This URL leads to 404 page. Please check again.",
+  "cannotSendMail": "You don’t have right to perform this action."
 }

@@ -2,6 +2,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
 
+
   $scope.composeEmail = {
     send: function () {
       $scope.composeEmail.content = $('.summernote').code();
@@ -10,15 +11,21 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       }
       if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
         apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
-          .finally(function () {
-            $scope.composeEmail.cancel();
-          });
+            .success(function(){
+              $scope.composeEmail.cancel();
+            })
+            .error(function(){
+              $scope.composeEmail.error = false;
+            });
       }
       else if ($scope.composeEmail.action == "feedback-registrant") {
         apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
-          .finally(function () {
-            $scope.composeEmail.cancel();
-          });
+            .success(function(){
+              $scope.composeEmail.cancel();
+            })
+            .error(function(){
+              $scope.composeEmail.error = false;
+            });
       }
     },
     cancel: function () {
