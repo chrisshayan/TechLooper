@@ -7,19 +7,25 @@ techlooper.directive("popupEmail", function () {
       composeEmail: "="
     },
     link: function (scope, element, attr, ctrl) {
-      $('.summernote').summernote({
+      scope.options = {
+        height: 150,
+        focus: true,
+        airMode: true,
         toolbar: [
-          ['fontname', ['fontname']],
-          ['fontsize', ['fontsize']],
-          ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
+          ['edit',['undo','redo']],
+          ['headline', ['style']],
+          ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+          ['fontface', ['fontname']],
+          ['textsize', ['fontsize']],
+          ['fontclr', ['color']],
+          ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
           ['height', ['height']],
           ['table', ['table']],
-          ['insert', ['link']],
-          ['misc', ['undo', 'redo', 'codeview', 'fullscreen']]
+          ['insert', ['link','hr']],
+          ['view', ['fullscreen', 'codeview']],
+          ['help', ['help']]
         ]
-      });
+      };
     }
   }
 });
