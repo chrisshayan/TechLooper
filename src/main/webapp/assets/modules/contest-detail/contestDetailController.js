@@ -197,6 +197,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
     utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
   }
+
   $scope.updateScore = function (registrant, $event) {
     $($event.currentTarget).addClass('green');
     apiService.saveChallengeRegistrant(registrant)
@@ -209,15 +210,15 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     });
   }
 
-  $scope.showSubmitForm = function () {
-    var subForm = $('.submit-phase-contest');
-    if (subForm.hasClass('show')) {
-      subForm.removeClass('show');
-    }
-    else {
-      subForm.addClass('show');
-    }
-  };
+  //$scope.showSubmitForm = function () {
+  //  var subForm = $('.submit-phase-contest');
+  //  if (subForm.hasClass('show')) {
+  //    subForm.removeClass('show');
+  //  }
+  //  else {
+  //    subForm.addClass('show');
+  //  }
+  //};
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig
   };

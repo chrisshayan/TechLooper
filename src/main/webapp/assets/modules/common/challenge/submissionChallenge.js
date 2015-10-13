@@ -1,4 +1,4 @@
-techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope) {
+techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $translate) {
   return {
     restrict: "E",
     replace: true,
@@ -7,6 +7,47 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
     },
     templateUrl: "modules/common/challenge/submissionChallenge.html",
     link: function (scope, el, attrs) {
+
+      var mixChallenge = function() {
+        scope.challenge.hideSubmitForm = function () {
+          scope.submissionForm.$setPristine();
+          scope.submissionForm.$setUntouched();
+          delete scope.challenge.visibleSubmitForm;
+          delete scope.submission.submissionURL;
+          delete scope.submission.submissionDescription;
+        }
+
+        scope.challenge.showSubmitForm = function () {
+          localStorageService.set("submitNow", scope.challenge.challengeId);
+          apiService.joinNowByFB();
+        }
+
+        var challengeId = localStorageService.get("submitNow");
+        if (challengeId == scope.challenge.challengeId) {
+          localStorageService.remove("submitNow");
+          localStorageService.remove("joinNow");
+
+          var firstName = localStorageService.get("firstName");
+          var lastName = localStorageService.get("lastName");
+          var email = localStorageService.get("email");
+
+          apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
+            .success(function() {
+              scope.challenge.visibleSubmitForm = true;
+            });
+        }
+      }
+
+      if (scope.challenge) {
+        mixChallenge();
+      }
+      else {
+        scope.$watch("challenge", function() {
+          if (!scope.challenge) return;
+          mixChallenge();
+        });
+      }
+
 
       scope.submission = {
         name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
@@ -20,7 +61,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         if (scope.submissionForm.$invalid) {
           return false;
         }
-        $('.feedback-loading').css('visibility', 'inherit');
+        //$('.feedback-loading').css('visibility', 'inherit');
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
             var valid = (code >= 200) && (code < 400);
@@ -35,27 +76,18 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 .finally(function () {
                   $timeout(function () {
                     $('.feedback-loading').css('visibility', 'hidden');
-                    scope.hideSubmitForm();
+                    scope.challenge.hideSubmitForm();
                   }, 500);
                 });
             }
             scope.submissionForm.submissionURL.$setValidity("invalidUrl", valid);
           })
-          .finally(function () {
-            $timeout(function () {
-              $('.feedback-loading').css('visibility', 'hidden');
-              scope.hideSubmitForm();
-            }, 500);
-          });;
-      }
-
-      scope.hideSubmitForm = function () {
-        scope.submissionForm.$setPristine();
-        scope.submissionForm.$setUntouched();
-        var subForm = $('.submit-phase-contest');
-        subForm.removeClass('show');
-        delete scope.submission.submissionURL;
-        delete scope.submission.submissionDescription;
+          //.finally(function () {
+          //  $timeout(function () {
+          //    $('.feedback-loading').css('visibility', 'hidden');
+          //    scope.challenge.hideSubmitForm();
+          //  }, 500);
+          //});
       }
     }
   }
