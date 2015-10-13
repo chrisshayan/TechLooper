@@ -79,12 +79,13 @@ techlooper
           scope.registrant.hide();
         });
 
-        scope.$on("success-submission-challenge", function(submission) {
+        scope.$on("success-submission-challenge", function(sc, submission) {
           if (scope.registrant.registrantId != submission.registrantId) return;
           scope.registrant.submissions.unshift(submission);
+          console.log(scope.registrant.submissions);
         });
 
-        utils.sortByDate(scope.registrant.submissions, "submissionDateTime");
+        utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })
@@ -92,7 +93,13 @@ techlooper
     return {
       restrict: "E",
       replace: true,
-      templateUrl: "modules/contest-detail/contestDetailReviewSubmission.html"
+      templateUrl: "modules/contest-detail/contestDetailReviewSubmission.html",
+      link: function (scope, element, attr, ctrl){
+        scope.goToSubmissionLink = function(link){
+          var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://"+link;
+          window.open(url, '_newtab');
+        }
+      }
     };
   })
   .directive('contestDetailDisqualification', function () {

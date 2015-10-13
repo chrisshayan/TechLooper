@@ -7,19 +7,25 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       composeEmail: "="
     },
     link: function (scope, element, attr, ctrl, composeEmail) {
-      $('.summernote').summernote({
+      scope.options = {
+        height: 150,
+        focus: true,
+        airMode: true,
         toolbar: [
-          ['fontname', ['fontname']],
-          ['fontsize', ['fontsize']],
-          ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
+          ['edit',['undo','redo']],
+          ['headline', ['style']],
+          ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+          ['fontface', ['fontname']],
+          ['textsize', ['fontsize']],
+          ['fontclr', ['color']],
+          ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
           ['height', ['height']],
           ['table', ['table']],
-          ['insert', ['link']],
-          ['misc', ['undo', 'redo', 'codeview', 'fullscreen']]
+          ['insert', ['link','hr']],
+          ['view', ['fullscreen', 'codeview']],
+          ['help', ['help']]
         ]
-      });
+      };
       if(scope.composeEmail.registrantLastName){
         scope.composeEmail.names = scope.composeEmail.registrantFirstName + ' ' + scope.composeEmail.registrantLastName;
       }else{
@@ -27,23 +33,28 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       }
 
       scope.send = function(){
-        scope.composeEmail.content = $('.summernote').code();
-        if(scope.composeEmail.content == '<p><br></p>' || scope.composeEmail.content == ''){
+        if(scope.feedbackContent == undefined || scope.feedbackContent == ''){
           return;
+        }else{
+          scope.composeEmail.content = scope.feedbackContent;
         }
         $('.feedback-loading').css('visibility', 'inherit');
         apiService.sendEmailToDailyChallengeRegistrants(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
-        .finally(function () {
-          $timeout(function(){
-            $('.feedback-loading').css('visibility', 'hidden');
+        .success(function(){
+            $timeout(function(){
+              $('.feedback-loading').css('visibility', 'hidden');
               scope.cancel();
-          }, 500);
+            }, 1200);
+        })
+        .error(function(){
+          scope.composeEmail.error = false;
         });
       }
       scope.cancel = function () {
         if (!scope.composeEmail.visible) return;
         scope.composeEmail.subject = '';
-        $('.summernote').code('<p><br></p>');
+        scope.feedbackContent = '';
+        scope.composeEmail.error = true;
         delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }

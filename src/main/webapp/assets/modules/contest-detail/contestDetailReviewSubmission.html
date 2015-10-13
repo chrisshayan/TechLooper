@@ -14,7 +14,7 @@
           {{submission.submissionDescription}}
         </div>
         <div class="submission-link-col">
-          <a href="{{submission.submissionURL}}" target="_blank">
+          <a target="_blank" ng-click="goToSubmissionLink(submission.submissionURL)">
             {{submission.submissionURL}}
           </a>
         </div>

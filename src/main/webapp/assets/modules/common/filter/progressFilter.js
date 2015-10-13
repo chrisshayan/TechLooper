@@ -4,7 +4,15 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
     switch (type) {
       case "challenge":
         var contestDetail = input;
-        if (contestDetail.progress) return contestDetail.progress.title;
+        if (contestDetail.progress) {
+          if (contestDetail.progress.id != "closed" && contestDetail.progress.id != "notStarted") {
+            var joinContests = localStorageService.get("joinContests") || "";
+            var email = localStorageService.get("email") || "";
+            var isJoined = (joinContests.indexOf(contestDetail.challengeId) >= 0) && (email.length > 0);
+            contestDetail.currentUserJoined = isJoined;
+          }
+          return contestDetail.progress.translate;
+        }
 
         var joinContests = localStorageService.get("joinContests") || "";
         var email = localStorageService.get("email") || "";

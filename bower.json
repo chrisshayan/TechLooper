@@ -44,7 +44,8 @@
     "angular-sanitize": "latest",
     "moment": "latest",
     "angular-strap": "latest",
-    "datetimepicker": "latest"
+    "datetimepicker": "latest",
+    "angular-summernote": "latest"
   },
   "overrides": {
     "jquery": {
@@ -161,6 +162,9 @@
       "build/css/bootstrap-datetimepicker.min.css",
       "build/js/bootstrap-datetimepicker.min.js"
       ]
+    },
+    "angular-summernote": {
+      "main": "dist/angular-summernote.js"
     }
   },
   "resolutions": {

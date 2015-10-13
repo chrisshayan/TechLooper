@@ -313,6 +313,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (!isExist) {
             ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
             ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+            challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
             try {
                 sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
                 sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);
@@ -664,7 +665,8 @@ public class ChallengeServiceImpl implements ChallengeService {
                     rangeQueryBuilder.from(from);
                 }
                 if (StringUtils.isNotEmpty(condition.getToDate())) {
-                    Long to = string2Date(condition.getToDate(), BASIC_DATE_PATTERN).getTime();
+                    Long to = string2Date(condition.getToDate(), BASIC_DATE_PATTERN).getTime() +
+                            TimePeriodEnum.TWENTY_FOUR_HOURS.getMiliseconds();
                     rangeQueryBuilder.to(to);
                 }
 
@@ -840,10 +842,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     public ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
         TermQueryBuilder challengeIdQuery = termQuery("challengeId", challengeId);
-        MatchQueryBuilder authorEmailQuery = matchQuery("authorEmail", loginEmail).minimumShouldMatch("100%");
+        //MatchQueryBuilder authorEmailQuery = matchQuery("authorEmail", loginEmail).minimumShouldMatch("100%");
         TermQueryBuilder expiredChallengeQuery = termQuery("expired", Boolean.TRUE);
 
-        searchQueryBuilder.withQuery(boolQuery().must(challengeIdQuery).must(authorEmailQuery).mustNot(expiredChallengeQuery));
+        searchQueryBuilder.withQuery(boolQuery().must(challengeIdQuery).mustNot(expiredChallengeQuery));
         List<ChallengeEntity> challengeEntities = DataUtils.getAllEntities(challengeRepository, searchQueryBuilder);
 
         if (!challengeEntities.isEmpty()) {

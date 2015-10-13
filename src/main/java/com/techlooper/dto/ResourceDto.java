@@ -10,8 +10,7 @@ public class ResourceDto implements Serializable {
   private String url;
 
   public String getUrl() {
-    url = url.trim();
-    return url.startsWith("http://") ? url : "http://" + url;
+    return url;
   }
 
   public void setUrl(String url) {
