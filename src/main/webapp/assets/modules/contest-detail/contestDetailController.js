@@ -98,6 +98,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
         localStorageService.set("joinContests", joinContests.join(","));
         $filter("progress")($scope.contestDetail, "challenge");
+        $scope.filterContestant();
       });
   }
 
