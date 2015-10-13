@@ -26,23 +26,27 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
             var valid = (code >= 200) && (code < 400);
             if (valid) {
               scope.submission.challengeId = scope.challenge.challengeId;
+              $('.feedback-loading').css('visibility', 'inherit');
               apiService.submitMyResult(scope.submission)
-                .success(function(data) {
+                .success(function (data) {
                   var submission = data;
                   $rootScope.$broadcast("success-submission-challenge", submission);
                 })
                 .finally(function () {
-                  scope.hideSubmitForm();
+                  $timeout(function () {
+                    $('.feedback-loading').css('visibility', 'hidden');
+                    scope.hideSubmitForm();
+                  }, 500);
                 });
             }
             scope.submissionForm.submissionURL.$setValidity("invalidUrl", valid);
           })
           .finally(function () {
-            $timeout(function(){
+            $timeout(function () {
               $('.feedback-loading').css('visibility', 'hidden');
-              scope.cancel();
+              scope.hideSubmitForm();
             }, 500);
-        });
+          });;
       }
 
       scope.hideSubmitForm = function () {

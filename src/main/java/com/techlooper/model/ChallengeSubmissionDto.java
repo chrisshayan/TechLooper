@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class ChallengeSubmissionDto implements Serializable {
 
+  private Long challengeSubmissionId;
+
   private String registrantEmail;
 
   private String registrantFirstName;
@@ -22,6 +24,14 @@ public class ChallengeSubmissionDto implements Serializable {
   private String submissionDescription;
 
   private String submissionDateTime;
+
+  public Long getChallengeSubmissionId() {
+    return challengeSubmissionId;
+  }
+
+  public void setChallengeSubmissionId(Long challengeSubmissionId) {
+    this.challengeSubmissionId = challengeSubmissionId;
+  }
 
   public Long getRegistrantId() {
     return registrantId;

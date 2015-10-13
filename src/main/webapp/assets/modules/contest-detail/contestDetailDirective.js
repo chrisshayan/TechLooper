@@ -79,12 +79,13 @@ techlooper
           scope.registrant.hide();
         });
 
-        scope.$on("success-submission-challenge", function(submission) {
+        scope.$on("success-submission-challenge", function(sc, submission) {
           if (scope.registrant.registrantId != submission.registrantId) return;
           scope.registrant.submissions.unshift(submission);
+          console.log(scope.registrant.submissions);
         });
 
-        utils.sortByDate(scope.registrant.submissions, "submissionDateTime");
+        utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })
