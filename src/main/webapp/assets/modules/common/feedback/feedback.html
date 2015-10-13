@@ -17,8 +17,7 @@
       </form>
     </div>
     <div class="mail-text h-200">
-      <div class="summernote"></div>
-      <div class="clearfix"></div>
+      <summernote ng-model="feedbackContent" focus config="options"></summernote>
     </div>
     <div class="mail-body text-right tooltip-demo email-footer">
       <a class="btn btn-sm btn-primary" title="{{'mailSend' | translate}}" ng-click="send()" ><i class="fa fa-reply"></i> <span translate="mailSend"></span></a>
