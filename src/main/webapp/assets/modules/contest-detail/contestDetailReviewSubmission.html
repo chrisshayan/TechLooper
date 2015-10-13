@@ -11,14 +11,17 @@
     <div class="body-row">
       <div class="submitted-row" ng-repeat="submission in registrant.submissions | orderBy: '-challengeSubmissionId'">
         <div class="subject-col">
+          <label translate="descriptionCol"></label>
           {{submission.submissionDescription}}
         </div>
         <div class="submission-link-col">
+          <label translate="submissionLink"></label>
           <a target="_blank" ng-click="goToSubmissionLink(submission.submissionURL)">
             {{submission.submissionURL}}
           </a>
         </div>
         <div class="date-col">
+          <label translate="date"></label>
           {{submission.submissionDateTime}}
         </div>
       </div>
