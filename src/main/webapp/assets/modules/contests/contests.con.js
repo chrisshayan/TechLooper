@@ -47,7 +47,6 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   }
 
   apiService.searchContests().success(function (contests) {
-    //contests.sort(sortByStartDate);
     utils.sortByDate(contests, "startDateTime");
     $scope.contestsList = contests;
   }).finally(function () {
