@@ -20,7 +20,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         if (scope.submissionForm.$invalid) {
           return false;
         }
-        //$('.feedback-loading').css('visibility', 'inherit');
+        $('.feedback-loading').css('visibility', 'inherit');
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
             var valid = (code >= 200) && (code < 400);
@@ -40,7 +40,13 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 });
             }
             scope.submissionForm.submissionURL.$setValidity("invalidUrl", valid);
-          });
+          })
+          .finally(function () {
+            $timeout(function () {
+              $('.feedback-loading').css('visibility', 'hidden');
+              scope.hideSubmitForm();
+            }, 500);
+          });;
       }
 
       scope.hideSubmitForm = function () {
