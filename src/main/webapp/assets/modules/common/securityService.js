@@ -37,9 +37,9 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
           $rootScope.userInfo = data;
         })
         .error(function () {
-          if (localStorageService.get("userLogin")) {
-            localStorageService.remove("userLogin");
-            $location.path("/user-type");
+          if (localStorageService.get("employerLogin")) {
+            localStorageService.remove("employerLogin");
+            $location.path("/login");
           }
         });
     },

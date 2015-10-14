@@ -39,8 +39,8 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
         securityService.login(param.code, param.social, param.social);
         break;
 
-      case "userLogin":
-        localStorageService.set("userLogin", true);
+      case "employerLogin":
+        localStorageService.set("employerLogin", true);
         //if (!$rootScope.userInfo) $location.path("/user-type");
         break;
 
