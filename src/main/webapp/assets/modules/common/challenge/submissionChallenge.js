@@ -31,10 +31,11 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           var lastName = localStorageService.get("lastName");
           var email = localStorageService.get("email");
 
-          apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
-            .success(function() {
+          //apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
+          //  .success(function() {
               scope.challenge.visibleSubmitForm = true;
-            });
+            //});
+          scope.challenge.mixed = true;
         }
       }
 
