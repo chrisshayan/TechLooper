@@ -1030,14 +1030,30 @@ techlooper.factory("jsonValue", function () {
 
       getRegistration: function () {return instance.challengePhase.values[0]},
 
-      getEnum: function(name) {
+      getEnum: function (name) {
         var found = undefined;
-        $.each(instance.challengePhase.values, function(i, value) {
+        $.each(instance.challengePhase.values, function (i, value) {
           found = (value.enum == name) ? value : undefined;
           return !found;
         });
         return found;
       }
+    },
+
+    summerNoteConfig: {
+      height: 150,
+      toolbar: [
+        ['headline', ['style']],
+        ['fontface', ['fontname']],
+        ['textsize', ['fontsize']],
+        ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+        ['fontclr', ['color']],
+        ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'hr']],
+        ['view', ['fullscreen', 'codeview']]
+      ]
     }
   }
 
