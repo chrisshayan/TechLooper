@@ -6,6 +6,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
     logout: function () {
       apiService.logout()
         .success(function (data, status, headers, config) {
+          localStorageService.set("logout", true);
           $rootScope.userInfo = undefined;
           var roles = $rootScope.currentUiView.roles || [];
           if (roles.length > 0) {
@@ -41,6 +42,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
         us: $.base64.encode(username),
         pwd: $.base64.encode(password)
       };
+      localStorageService.remove("logout");
       return apiService.login(auth)
         .success(function (data, status, headers, config) {
           instance.getCurrentUser().then(function () {
@@ -132,9 +134,11 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
 
       if (!$rootScope.userInfo) instance.getCurrentUser();
 
-      $rootScope.$watch(function () {return $.cookie("JSESSIONID"); }, function () {
-        $rootScope.userInfo = undefined;
-        instance.getCurrentUser();
+      $rootScope.$watch(function () {return localStorageService.get("logout"); }, function () {
+          if (localStorageService.get("logout")) {
+          $rootScope.userInfo = undefined;
+          instance.getCurrentUser();
+        }
       });
     }
   };
