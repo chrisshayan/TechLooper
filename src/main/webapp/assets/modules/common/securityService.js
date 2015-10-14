@@ -13,7 +13,8 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
             $location.url("/");
           }
           else {
-            $route.reload();
+            $location.search({});
+            //$route.reload();
           }
         });
     },
@@ -34,6 +35,12 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
       return apiService.getCurrentUser(type)
         .success(function (data) {
           $rootScope.userInfo = data;
+        })
+        .error(function () {
+          if (localStorageService.get("employerLogin")) {
+            localStorageService.remove("employerLogin");
+            $location.path("/login");
+          }
         });
     },
 
@@ -135,7 +142,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
       if (!$rootScope.userInfo) instance.getCurrentUser();
 
       $rootScope.$watch(function () {return localStorageService.get("logout"); }, function () {
-          if (localStorageService.get("logout")) {
+        if (localStorageService.get("logout")) {
           $rootScope.userInfo = undefined;
           instance.getCurrentUser();
         }

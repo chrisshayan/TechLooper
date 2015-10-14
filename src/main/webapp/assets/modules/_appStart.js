@@ -35,9 +35,13 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
         localStorageService.set("email", param.email);
         break;
 
-
       case "loginBySocial":
         securityService.login(param.code, param.social, param.social);
+        break;
+
+      case "employerLogin":
+        localStorageService.set("employerLogin", true);
+        //if (!$rootScope.userInfo) $location.path("/user-type");
         break;
 
       case "redirectJA":

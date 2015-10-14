@@ -7,29 +7,31 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       composeEmail: "="
     },
     link: function (scope, element, attr, ctrl, composeEmail) {
-      if(scope.composeEmail.registrantLastName){
+      if (scope.composeEmail.registrantLastName) {
         scope.composeEmail.names = scope.composeEmail.registrantFirstName + ' ' + scope.composeEmail.registrantLastName;
-      }else{
+      }
+      else {
         scope.composeEmail.names = scope.composeEmail.registrantFirstName;
       }
 
-      scope.send = function(){
-        if(scope.feedbackContent == undefined || scope.feedbackContent == ''){
+      scope.send = function () {
+        if (scope.feedbackContent == undefined || scope.feedbackContent == '') {
           return;
-        }else{
+        }
+        else {
           scope.composeEmail.content = scope.feedbackContent;
         }
         $('.feedback-loading').css('visibility', 'inherit');
         apiService.sendEmailToDailyChallengeRegistrants(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
-        .success(function(){
-            $timeout(function(){
+          .success(function () {
+            $timeout(function () {
               $('.feedback-loading').css('visibility', 'hidden');
               scope.cancel();
             }, 1200);
-        })
-        .error(function(){
-          scope.composeEmail.error = false;
-        });
+          })
+          .error(function () {
+            scope.composeEmail.error = false;
+          });
       }
       scope.cancel = function () {
         if (!scope.composeEmail.visible) return;
@@ -41,20 +43,4 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       }
     }
   }
-}).controller('summernoteCtrl', function($scope) {
-  $scope.options = {
-    height: 150,
-    toolbar: [
-      ['headline', ['style']],
-      ['fontface', ['fontname']],
-      ['textsize', ['fontsize']],
-      ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-      ['fontclr', ['color']],
-      ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
-      ['height', ['height']],
-      ['table', ['table']],
-      ['insert', ['link','hr']],
-      ['view', ['fullscreen', 'codeview']]
-    ]
-  };
 });

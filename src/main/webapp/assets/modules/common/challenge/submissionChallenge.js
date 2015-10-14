@@ -8,7 +8,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
     templateUrl: "modules/common/challenge/submissionChallenge.html",
     link: function (scope, el, attrs) {
 
-      var mixChallenge = function() {
+      var mixChallenge = function () {
         scope.challenge.hideSubmitForm = function () {
           scope.submissionForm.$setPristine();
           scope.submissionForm.$setUntouched();
@@ -33,8 +33,8 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
 
           //apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
           //  .success(function() {
-              scope.challenge.visibleSubmitForm = true;
-            //});
+          scope.challenge.visibleSubmitForm = true;
+          //});
           scope.challenge.mixed = true;
         }
       }
@@ -43,7 +43,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         mixChallenge();
       }
       else {
-        scope.$watch("challenge", function() {
+        scope.$watch("challenge", function () {
           if (!scope.challenge) return;
           mixChallenge();
         });
@@ -62,11 +62,11 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         if (scope.submissionForm.$invalid) {
           return false;
         }
-        //$('.feedback-loading').css('visibility', 'inherit');
+        $('.feedback-loading').css('visibility', 'inherit');
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
-            var valid = (code >= 200) && (code < 400);
-            if (valid) {
+            var inValid = (code == 404);
+            if (!inValid) {
               scope.submission.challengeId = scope.challenge.challengeId;
               $('.feedback-loading').css('visibility', 'inherit');
               apiService.submitMyResult(scope.submission)
@@ -81,14 +81,13 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                   }, 500);
                 });
             }
-            scope.submissionForm.submissionURL.$setValidity("invalidUrl", valid);
+            scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
           })
-          //.finally(function () {
-          //  $timeout(function () {
-          //    $('.feedback-loading').css('visibility', 'hidden');
-          //    scope.challenge.hideSubmitForm();
-          //  }, 500);
-          //});
+          .finally(function () {
+            $timeout(function () {
+              $('.feedback-loading').css('visibility', 'hidden');
+            }, 500);
+          });
       }
     }
   }
