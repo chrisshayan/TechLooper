@@ -35,12 +35,12 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
         localStorageService.set("email", param.email);
         break;
 
+
       case "loginBySocial":
         securityService.login(param.code, param.social, param.social);
         break;
 
       case "redirectJA":
-        console.log("redirect");
         window.location.href = param.targetUrl;
         break;
 

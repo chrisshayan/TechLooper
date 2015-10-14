@@ -469,8 +469,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
         searchQueryBuilder.withQuery(boolQuery()
                 .must(matchPhraseQuery("registrantEmail", email))
-                .must(termQuery("challengeId", challengeId))
-                .must(termQuery("mailSent", true)));
+                .must(termQuery("challengeId", challengeId)));
 
         long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
         return (total > 0);
