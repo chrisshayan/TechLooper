@@ -647,12 +647,21 @@ public class ChallengeServiceImpl implements ChallengeService {
                     result.add(registrantEntity);
                 }
             }
+
+            if (StringUtils.isNotEmpty(condition.getPhase())) {
+                result = result.stream().filter(registrantEntity ->
+                        condition.getPhase().equals(registrantEntity.getActivePhase().getValue())).collect(toList());
+            }
         } else {
             NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
             if (condition.getChallengeId() != null) {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
+            }
+
+            if (StringUtils.isNotEmpty(condition.getPhase())) {
+                boolQueryBuilder.must(matchPhraseQuery("activePhase", condition.getPhase()));
             }
 
             if (StringUtils.isNotEmpty(condition.getFilterType()) &&
