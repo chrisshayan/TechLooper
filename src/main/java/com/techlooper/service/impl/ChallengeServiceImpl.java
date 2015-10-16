@@ -769,6 +769,14 @@ public class ChallengeServiceImpl implements ChallengeService {
     return challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail);
   }
 
+  public ChallengeEntity findChallengeIdAndOwnerEmail(Long challengeId, String ownerEmail) {
+    ChallengeEntity challenge = challengeRepository.findOne(challengeId);
+    if (challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+      return challenge;
+    }
+    return null;
+  }
+
   public boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent) {
     if (isOwnerOfChallenge(challengeOwner, challengeId)) {
       List<ChallengeRegistrantEntity> registrants = findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);

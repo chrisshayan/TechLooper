@@ -22,6 +22,9 @@ public class ChallengeEntity {
     @Id
     private Long challengeId;
 
+    @Field(type = FieldType.Nested)
+    private ChallengeCriteria criteria;
+
     @Field(type = String)
     private String challengeName;
 
@@ -93,6 +96,14 @@ public class ChallengeEntity {
 
     @Field(type = Integer)
     private int lastEmailSentResultCode;
+
+    public ChallengeCriteria getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(ChallengeCriteria criteria) {
+        this.criteria = criteria;
+    }
 
     public Boolean getExpired() {
         return expired;
