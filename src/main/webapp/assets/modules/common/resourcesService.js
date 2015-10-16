@@ -15,6 +15,13 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     {translate: "theSolutionIsInnovative", id: "theSolutionIsInnovative"}
   ];
 
+  var emailTemplateOptions = [
+    {translate: "welcomeContestant", id: "welcomeContestant"},
+    {translate: "askContestantSubmission", id: "askContestantSubmission"},
+    {translate: "disqualifyContestant", id: "disqualifyContestant"},
+    {translate: "winnerAnnouncement", id: "winnerAnnouncement"}
+  ];
+
   var paymentOptions = [
     {translate: "hourlyByByHour", reviewTranslate: "hourlyJob", id: "hourly"},
     {translate: "fixedPricePayByProject", reviewTranslate: "fixedPrice", id: "fixedPrice"}
@@ -79,6 +86,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     paymentConfig: $.extend(true, {}, {options: paymentOptions}, idSelectize("paymentConfig")),
     estimatedDurationConfig: $.extend(true, {}, {options: estimatedDurationOptions}, idSelectize("estimatedDurationConfig")),
     estimatedWorkloadConfig: $.extend(true, {}, {options: estimatedWorkloadOptions}, idSelectize("estimatedWorkloadConfig")),
+    emailTemplateConfig: $.extend(true, {}, {options: emailTemplateOptions}, titleSelectize("emailTemplateConfig")),
     inOptions: function (title, config) {
       var index = -1;
       $.each(config.options, function (i, opt) {
@@ -109,7 +117,8 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"},
     {ins: instance.paymentConfig, placeholder: "exPaymentConfig"},
     {ins: instance.estimatedDurationConfig, placeholder: "exEstimatedDurationConfig"},
-    {ins: instance.estimatedWorkloadConfig, placeholder: "exEstimatedWorkloadConfig"}
+    {ins: instance.estimatedWorkloadConfig, placeholder: "exEstimatedWorkloadConfig"},
+    {ins: instance.emailTemplateConfig, placeholder: "exChooseATemplate"}
   ];
 
   $.each(translations, function (i, item) {

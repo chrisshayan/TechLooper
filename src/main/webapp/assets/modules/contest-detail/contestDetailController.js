@@ -213,15 +213,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     });
   }
 
-  //$scope.showSubmitForm = function () {
-  //  var subForm = $('.submit-phase-contest');
-  //  if (subForm.hasClass('show')) {
-  //    subForm.removeClass('show');
-  //  }
-  //  else {
-  //    subForm.addClass('show');
-  //  }
-  //};
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig
   };

@@ -13,7 +13,6 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       else {
         scope.composeEmail.names = scope.composeEmail.registrantFirstName;
       }
-
       scope.send = function () {
         if (scope.feedbackContent == undefined || scope.feedbackContent == '') {
           return;
