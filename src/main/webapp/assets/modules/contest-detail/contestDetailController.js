@@ -156,6 +156,15 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       registrantFilterCondition.filterType = "registrantId";
     }
 
+    if ($scope.phase) {
+      registrantFilterCondition.phase = $scope.phase;
+    } else if (param.phase) {
+      registrantFilterCondition.phase = param.phase;
+      $scope.phase = param.phase;
+    } else {
+      registrantFilterCondition.phase = "";
+    }
+
     if ($scope.fromDate) {
       registrantFilterCondition.fromDate = $scope.fromDate;
     } else {

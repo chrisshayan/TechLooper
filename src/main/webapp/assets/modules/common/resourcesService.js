@@ -5,12 +5,13 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   ];
 
   var registrantsPhaseOptions = [
-    {translate: "allPhase", id: "allPhase"},
-    {translate: "registration", id: "registration"},
-    {translate: "idea", id: "idea"},
-    {translate: "uiux", id: "uiux"},
-    {translate: "prototype", id: "prototype"},
-    {translate: "finalApp", id: "finalApp"}
+    {translate: "allPhase", id: ""},
+    {translate: "registration", id: "REGISTRATION"},
+    {translate: "inProgress", id: "IN_PROGRESS"},
+    {translate: "idea", id: "IDEA"},
+    {translate: "uiux", id: "UIUX"},
+    {translate: "prototype", id: "PROTOTYPE"},
+    {translate: "finalApp", id: "FINAL"}
   ];
   var reviewStyleOptions = [
     {translate: "contestOwnerSignOff", id: "contestOwnerSignOff"}
