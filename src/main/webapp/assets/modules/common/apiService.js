@@ -258,14 +258,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getUrlResponseCode: function (url) {
       return $http.post("resource/getUrlResponseCode", {url: url}, {transformResponse: function (d, h) {return d;}});
-    },
-
-    /**
-     * @see com.techlooper.controller.ChallengeCriteriaController.save
-     * */
-    saveChallengeCriteria: function(criteria) {
-      return $http.post("challenge/criteria", criteria);
     }
+
+
+    
   };
 
   return instance;

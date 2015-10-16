@@ -10,6 +10,8 @@ import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by phuonghqh on 10/16/15.
@@ -26,14 +28,15 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
   @Resource
   private Mapper dozerMapper;
 
-  public ChallengeCriteriaDto save(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
+  public ChallengeEntity saveChallengeCriterias(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
     ChallengeEntity challenge = challengeService.findChallengeIdAndOwnerEmail(challengeCriteriaDto.getChallengeId(), ownerEmail);
     if (challenge == null) {
       return null;
     }
 
-    challenge.setCriteria(dozerMapper.map(challengeCriteriaDto, ChallengeCriteria.class));
-    challengeRepository.save(challenge);
-    return challengeCriteriaDto;
+    Set<ChallengeCriteria> criterias = new HashSet<>();
+    challengeCriteriaDto.getChallengeCriterias().forEach(criterias::add);
+    challenge.setChallengeCriterias(criterias);
+    return challengeRepository.save(challenge);
   }
 }

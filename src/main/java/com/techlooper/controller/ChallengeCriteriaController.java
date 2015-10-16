@@ -1,6 +1,6 @@
 package com.techlooper.controller;
 
-import com.techlooper.entity.ChallengeCriteria;
+import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengeCriteriaDto;
 import com.techlooper.service.ChallengeCriteriaService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +22,7 @@ public class ChallengeCriteriaController {
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "challenge/criteria", method = RequestMethod.POST)
-  public ChallengeCriteriaDto save(ChallengeCriteriaDto challengeCriteriaDto, HttpServletRequest request) {
-    return challengeCriteriaService.save(challengeCriteriaDto, request.getRemoteUser());
+  public ChallengeEntity save(ChallengeCriteriaDto challengeCriteriaDto, HttpServletRequest request) {
+    return challengeCriteriaService.saveChallengeCriterias(challengeCriteriaDto, request.getRemoteUser());
   }
 }
