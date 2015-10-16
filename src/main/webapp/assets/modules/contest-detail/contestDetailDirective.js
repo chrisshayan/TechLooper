@@ -27,6 +27,10 @@ techlooper
           showView("qualification");
         }
 
+        scope.registrant.showScore = function () {
+          showView("score");
+        }
+
         scope.registrant.showReviewSubmission = function () {
           showView("reviewSubmission");
         }
@@ -57,6 +61,14 @@ techlooper
             .success(function(rt) {
               scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
+          delete scope.registrant.visible;
+        };
+
+        scope.registrant.score = function() {
+          //apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+          //    .success(function(registrant) {
+          //      scope.registrant.activePhase = registrant.activePhase;
+          //    });
           delete scope.registrant.visible;
         };
 
@@ -121,10 +133,19 @@ techlooper
     };
   })
  .directive('acceptance', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+.directive('contestDetailScore', function () {
   return {
     restrict: "E",
     replace: true,
-    templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
+    templateUrl: "modules/contest-detail/contestDetailScore.html",
     link: function (scope, element, attr, ctrl) {
     }
   };
