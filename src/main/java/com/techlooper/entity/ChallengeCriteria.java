@@ -1,9 +1,11 @@
 package com.techlooper.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by phuonghqh on 10/16/15.
  */
-public class ChallengeCriteria {
+public class ChallengeCriteria implements Serializable {
 
   private String name;
 
