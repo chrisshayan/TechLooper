@@ -4,6 +4,14 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     {translate: "allSubmission", id: "challengeSubmission"}
   ];
 
+  var registrantsPhaseOptions = [
+    {translate: "allPhase", id: "allPhase"},
+    {translate: "registration", id: "registration"},
+    {translate: "idea", id: "idea"},
+    {translate: "uiux", id: "uiux"},
+    {translate: "prototype", id: "prototype"},
+    {translate: "finalApp", id: "finalApp"}
+  ];
   var reviewStyleOptions = [
     {translate: "contestOwnerSignOff", id: "contestOwnerSignOff"}
   ];
@@ -81,6 +89,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
 
   var instance = {
     registrantsFilterConfig: $.extend(true, {}, {options: registrantsFilterOptions}, idSelectize("registrantsFilterConfig")),
+    registrantsPhaseConfig: $.extend(true, {}, {options: registrantsPhaseOptions}, idSelectize("registrantsPhaseConfig")),
     reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, titleSelectize("reviewStyleConfig")),
     qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, titleSelectize("qualityIdeaConfig")),
     paymentConfig: $.extend(true, {}, {options: paymentOptions}, idSelectize("paymentConfig")),
@@ -113,6 +122,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
 
   var translations = [
     {ins: instance.registrantsFilterConfig, placeholder: "exRegistrantsFilterConfig"},
+    {ins: instance.registrantsPhaseConfig, placeholder: "exRegistrantsPhaseConfig"},
     {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
     {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"},
     {ins: instance.paymentConfig, placeholder: "exPaymentConfig"},

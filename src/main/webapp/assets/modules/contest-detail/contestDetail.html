@@ -235,21 +235,21 @@
                 <selectize name="registrantsFilter" ng-model="filterType"
                            config="config.registrantsFilter"
                            options="config.registrantsFilter.options"></selectize>
-                <selectize name="registrantsFilter" ng-model="filterType"
-                           config="config.registrantsFilter"
-                           options="config.registrantsFilter.options"></selectize>
+                <selectize name="registrantsPhase" ng-model="PhaseType"
+                           config="config.registrantsPhase"
+                           options="config.registrantsPhase.options"></selectize>
               </div>
               <div class="registrants-date">
                   <div class="input-group date">
                       <span class="input-group-addon left" translate="from"></span>
-                      <input type="text" class="form-control" placeholder="" ng-model="fromDate">
+                      <input type="text" class="form-control" placeholder={{dateFrom}}  ng-model="fromDate">
                       <span class="input-group-addon none">
                         <i class="fa fa-calendar"></i>
                       </span>
                   </div>
                   <div class="input-group date">
                     <span class="input-group-addon none none-left" translate="to"></span>
-                    <input type="text" class="form-control" placeholder="" ng-model="toDate">
+                    <input type="text" class="form-control" placeholder={{dateTo}} ng-model="toDate">
                     <span class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </span>
