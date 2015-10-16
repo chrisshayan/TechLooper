@@ -774,7 +774,7 @@
   "acceptDescription": "Are you sure you want to select this contestant from <strong>{{current}}</strong> phase to <strong>{{next}}</strong> phase?",
   "exRegistrantsFilterConfig": "All Contestants",
   "allContestants": "All Contestants",
-  "allSubmission": "All Submission",
+  "allSubmission": "All Submissions",
   "404Error": "This URL leads to 404 page. Please check again.",
   "cannotSendMail": "You don’t have right to perform this action.",
   "template": "Template:",
@@ -782,5 +782,8 @@
   "askContestantSubmission": "Ask for submission",
   "disqualifyContestant": "Disqualify a contestant",
   "winnerAnnouncement": "Winner announcement",
-  "exChooseATemplate": "Choose a template"
+  "exChooseATemplate": "Choose a template",
+  "points": "Points",
+  "comment": "Comment",
+  "totalPoints": "Total Points"
 }

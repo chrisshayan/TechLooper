@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengeCriteriaDto;
 
 /**
@@ -7,5 +8,5 @@ import com.techlooper.model.ChallengeCriteriaDto;
  */
 public interface ChallengeCriteriaService {
 
-  ChallengeCriteriaDto save(ChallengeCriteriaDto challengeCriteriaDto, String owner);
+  ChallengeEntity saveChallengeCriterias(ChallengeCriteriaDto challengeCriteriaDto, String owner);
 }

@@ -3,6 +3,7 @@ package com.techlooper.model;
 import com.techlooper.entity.ChallengeCriteria;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 7/3/15.
@@ -59,14 +60,14 @@ public class ChallengeDetailDto {
 
   private Boolean isAuthor;
 
-  private ChallengeCriteria criteria;
+  private Set<ChallengeCriteria> challengeCriterias;
 
-  public ChallengeCriteria getCriteria() {
-    return criteria;
+  public Set<ChallengeCriteria> getChallengeCriterias() {
+    return challengeCriterias;
   }
 
-  public void setCriteria(ChallengeCriteria criteria) {
-    this.criteria = criteria;
+  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
+    this.challengeCriterias = challengeCriterias;
   }
 
   public Boolean getAuthor() {

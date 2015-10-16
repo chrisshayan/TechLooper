@@ -1,6 +1,9 @@
 package com.techlooper.model;
 
+import com.techlooper.entity.ChallengeCriteria;
+
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by phuonghqh on 10/16/15.
@@ -9,9 +12,7 @@ public class ChallengeCriteriaDto implements Serializable {
 
   private Long challengeId;
 
-  private String name;
-
-  private Long weight;
+  private Set<ChallengeCriteria> challengeCriterias;
 
   public Long getChallengeId() {
     return challengeId;
@@ -21,19 +22,11 @@ public class ChallengeCriteriaDto implements Serializable {
     this.challengeId = challengeId;
   }
 
-  public String getName() {
-    return name;
+  public Set<ChallengeCriteria> getChallengeCriterias() {
+    return challengeCriterias;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Long getWeight() {
-    return weight;
-  }
-
-  public void setWeight(Long weight) {
-    this.weight = weight;
+  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
+    this.challengeCriterias = challengeCriterias;
   }
 }

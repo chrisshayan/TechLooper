@@ -310,9 +310,7 @@
                     </div>
                     <div class="registration-score">
                       <div class="label-col" translate="score"></div>
-                      <input type="text" ng-init="user.score = user.score || 0" ng-model="user.score"
-                             input-number="strict" input-number-fraction="1"/>
-                      <button ng-click="updateScore(user, $event)"><i class="fa fa-check"></i></button>
+                      {{user.score}}
                     </div>
                     <div class="registration-action">
                       <div class="label-col" translate="action"></div>
@@ -327,6 +325,8 @@
                             <a ng-click="user.showQualification()" ng-class="{active: user.visible.qualification}">
                               {{'qualify' | translate}} <i class="fa fa-check-circle"></i></a>
                           </li>
+                          <li><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
+                            {{'score' | translate}} <i class="fa fa-star-o"></i></a></li>
                           <li><a ng-click="user.showReviewSubmission()" ng-class="{active: user.visible.reviewSubmission}">
                             {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()" ng-class="{active: user.visible.feedbackForm}">
@@ -349,6 +349,8 @@
                           <li ng-show="user.disqualified == true">
                             <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-check-circle"></i></a>
                           </li>
+                          <li><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
+                            {{'score' | translate}} <i class="fa fa-star-o"></i></a></li>
                           <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-comments"></i></a></li>
                           <li ng-hide="user.disqualified || contestDetail.nextPhase == user.activePhase"><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
