@@ -785,6 +785,9 @@
   "askContestantSubmission": "Ask for submission",
   "disqualifyContestant": "Disqualify a contestant",
   "winnerAnnouncement": "Winner announcement",
-  "exChooseATemplate": "choose a template"
+  "exChooseATemplate": "choose a template",
+  "points": "Points",
+  "comment": "Comment",
+  "totalPoints": "Total Points"
 
 }
