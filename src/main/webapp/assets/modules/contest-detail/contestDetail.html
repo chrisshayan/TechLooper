@@ -1,7 +1,10 @@
 <div class="contestant-page contest-detail-page">
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
-      <h2 class="text-left">{{contestDetail.challengeName}}</h2>
+      <h2 class="text-left">{{contestDetail.challengeName}}
+        <span ng-class="{'registration': contestDetail.currentPhase == 'REGISTRATION','idea': contestDetail.currentPhase == 'IDEA','uiux': contestDetail.currentPhase == 'UIUX','prototype': contestDetail.currentPhase == 'PROTOTYPE','final': contestDetail.currentPhase == 'FINAL'}">
+          {{contestDetail.currentPhase | progress: 'challengePhaseTitle'}}</span>
+      </h2>
     </div>
     <div class="row contest-content-detail">
 
@@ -45,7 +48,12 @@
               <div class="time-block">
                 <h3 translate="currentPhase"/>
 
-                <p translate="{{contestDetail.progress.translate}}"/>
+                <p>
+                  {{contestDetail.progress.translate | translate}}
+                  <span ng-show="contestDetail.currentPhase != 'REGISTRATION'">
+                    ({{contestDetail.currentPhase | progress: 'challengePhaseTitle'}})
+                  </span>
+                </p>
 
                 <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}"
                    translate-value-day-left="{{contestTimeLeft(contestDetail)}}"></p>
