@@ -101,4 +101,6 @@ public interface ChallengeService {
 
   ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId);
 
+  void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
+
 }

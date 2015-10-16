@@ -874,7 +874,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     return null;
   }
 
-  public static void calculateChallengePhases(ChallengeDetailDto challengeDetailDto) {
+  public void calculateChallengePhases(ChallengeDetailDto challengeDetailDto) {
     String now = DateTimeUtils.currentDate();
 
     String timeline[] = {
