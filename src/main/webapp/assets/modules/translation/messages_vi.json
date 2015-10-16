@@ -777,6 +777,12 @@
   "exRegistrantsFilterConfig": "Tất cả thí sinh",
   "allSubmission": "Tất cả bài nộp",
   "404Error": "URL này dẫn đến trang không tồn tại (lỗi 404). Xin vui lòng kiểm tra lại.",
-  "cannotSendMail": "Bạn không có quyền thực hiện hành động này."
+  "cannotSendMail": "Bạn không có quyền thực hiện hành động này.",
+  "template": "Template:",
+  "welcomeContestant": "Welcome new contestant",
+  "askContestantSubmission": "Ask for submission",
+  "disqualifyContestant": "Disqualify a contestant",
+  "winnerAnnouncement": "Winner announcement",
+  "exChooseATemplate": "choose a template"
 
 }

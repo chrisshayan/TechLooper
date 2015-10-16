@@ -774,5 +774,11 @@
   "allContestants": "All Contestants",
   "allSubmission": "All Submission",
   "404Error": "This URL leads to 404 page. Please check again.",
-  "cannotSendMail": "You don’t have right to perform this action."
+  "cannotSendMail": "You don’t have right to perform this action.",
+  "template": "Template:",
+  "welcomeContestant": "Welcome new contestant",
+  "askContestantSubmission": "Ask for submission",
+  "disqualifyContestant": "Disqualify a contestant",
+  "winnerAnnouncement": "Winner announcement",
+  "exChooseATemplate": "Choose a template"
 }
