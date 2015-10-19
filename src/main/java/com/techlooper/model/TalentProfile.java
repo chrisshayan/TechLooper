@@ -2,7 +2,6 @@ package com.techlooper.model;
 
 import com.techlooper.entity.userimport.UserImportEntity;
 
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -3,7 +3,6 @@ package com.techlooper.entity.userimport;
 import com.techlooper.model.SocialProvider;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

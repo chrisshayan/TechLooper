@@ -1,7 +1,6 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.AccessGrant;
-import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialConfig;
 

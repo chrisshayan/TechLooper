@@ -2,15 +2,11 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeCriteria;
 import com.techlooper.entity.ChallengeEntity;
-import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeCriteriaDto;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeCriteriaService;
 import com.techlooper.service.ChallengeService;
-import org.apache.lucene.queryparser.xml.QueryBuilder;
-import org.apache.lucene.queryparser.xml.builders.TermQueryBuilder;
-import org.apache.lucene.search.TermQuery;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
 

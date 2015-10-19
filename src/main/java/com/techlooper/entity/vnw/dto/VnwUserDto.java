@@ -2,11 +2,6 @@ package com.techlooper.entity.vnw.dto;
 
 import com.techlooper.entity.vnw.RoleName;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-
 /**
  * Created by phuonghqh on 6/26/15.
  */
