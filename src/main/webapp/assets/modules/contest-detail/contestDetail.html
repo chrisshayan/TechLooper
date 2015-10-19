@@ -12,6 +12,9 @@
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
         <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}}
           ({{contestDetail.numberOfRegistrants}})</a></li>
+        <li>
+          <a  data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>
+        </li>
       </ul>
 
       <div class="tab-content contest-content-tab-detail">
@@ -373,12 +376,16 @@
             </table>
           </form>
           <div class="registrants-paging">
+            <span translate="contestantsReturned" translate-value-number="{{registrants.length}}"></span>
             <dir-pagination-controls
               max-size="10"
               direction-links="true"
               boundary-links="true">
             </dir-pagination-controls>
           </div>
+        </div>
+        <div class="evaluation-criteria tab-pane fade">
+          <evaluation-criteria></evaluation-criteria>
         </div>
       </div>
     </div>

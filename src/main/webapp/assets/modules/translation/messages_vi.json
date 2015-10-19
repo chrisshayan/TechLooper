@@ -741,11 +741,11 @@
   "finalDateGtRegisterDate": "Ngày Hết Hạn Gửi Sán Phẩm phải sau Ngày Hết Hạn Đăng Ký ít nhất 1 ngày.",
   "mileStones": "Giai Đoạn:",
   "pleaseSelectMileStone": "Lựa chọn các giai đoạn cho cuộc thi của bạn",
-  "allPhase": "All Phase",
+  "allPhase": "Mọi giai đoạn",
   "prototype": "Prototype",
   "idea": "Ý Tưởng",
   "uiux": "UI/UX",
-  "exRegistrantsPhaseConfig": "All Phase",
+  "exRegistrantsPhaseConfig": "Mọi giai đoạn",
   "ideaDeadline": "Thí Sinh Phải Đề Xuất Ý Tưởng Trước Ngày: <strong>*</strong>",
   "uIDeadline": "Thí Sinh Phải Nộp UI/UX Trước Ngày: <strong>*</strong>",
   "prototypeDeadline": "Thí Sinh Phải Nộp Prototype Trước Ngày: <strong>*</strong>",
@@ -788,6 +788,12 @@
   "exChooseATemplate": "Lựa chọn mẫu Email",
   "points": "Điểm",
   "comment": "Nhận xét",
-  "totalPoints": "Tổng Điểm"
+  "totalPoints": "Tổng Điểm",
+  "contestantsReturned": "Tìm thấy <strong>{{number}}</strong> thí sinh",
+  "evaluationCriteria": "Tiêu Chí Đánh Giá",
+  "criteriaName": "Tiêu Chí",
+  "criteriaWeight": "Trọng Số %",
+  "criteriaTotalWeight": "Tổng Trọng Số %",
+  "maximumScore": "Điểm Tối Đa"
 
 }

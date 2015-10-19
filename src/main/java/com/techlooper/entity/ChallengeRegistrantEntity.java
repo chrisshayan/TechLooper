@@ -59,7 +59,7 @@ public class ChallengeRegistrantEntity {
   private ChallengePhaseEnum activePhase;
 
   @Field(type = FieldType.Nested)
-  private Set<ChallengeCriteria> challengeCriterias;
+  private Set<ChallengeRegistrantCriteria> challengeCriterias;
 
   public ChallengeRegistrantEntity() {
   }
@@ -71,11 +71,11 @@ public class ChallengeRegistrantEntity {
     this.registrantFirstName = registrantFirstName;
   }
 
-  public Set<ChallengeCriteria> getChallengeCriterias() {
+  public Set<ChallengeRegistrantCriteria> getChallengeCriterias() {
     return challengeCriterias;
   }
 
-  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
+  public void setChallengeCriterias(Set<ChallengeRegistrantCriteria> challengeCriterias) {
     this.challengeCriterias = challengeCriterias;
   }
 

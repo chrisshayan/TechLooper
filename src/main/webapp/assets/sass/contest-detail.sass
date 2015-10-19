@@ -294,9 +294,12 @@
         .registrants-paging
           display: inline-block
           clear: both
-          text-align: right
+          text-align: left
           width: 100%
           padding: 0 10px
+          ul.pagination
+            float: right
+
         table.contests-table
           margin: 5px 0 10px 0
           td
@@ -656,8 +659,6 @@
           padding: 10px 20px
           margin-top: 10px
           float: left
-
-
       .col-md-12
         padding: 0
       .contest-content-item
@@ -870,3 +871,65 @@
         border-top-color: #fff
     .alert
       margin-top: 20px
+    .evaluation-criteria
+      width: 100%
+      clear: both
+      display: inline-block
+      padding: 20px
+      .evaluation-criteria-head
+        width: 100%
+        display: inline-block
+        padding-bottom: 5px
+        font-weight: 500
+        clear: both
+      .evaluation-criteria-body
+        width: 100%
+        clear: both
+        display: inline-block
+        .evaluation-criteria-item
+          display: inline-block
+          clear: both
+          width: 100%
+          padding: 5px 0
+      .evaluation-criteria-name
+        width: 80%
+        float: left
+        padding-right: 10px
+      .evaluation-criteria-weight
+        width: 20%
+        float: left
+        input
+          width: 50%
+          margin-right: 10px
+          text-align: center
+        button
+          padding: 4px 10px
+          width: 30%
+          height: 32px
+        button.remove
+          background-color: #fff
+          color: #333
+        button.add
+          background-color: #337ab7
+          color: #fff
+      .evaluation-criteria-total-weight
+        width: 50%
+        float: left
+        padding-right: 10px
+        input
+          text-align: center
+      .evaluation-criteria-maximum-score
+        width: 50%
+        float: left
+        input
+          text-align: center
+          width: 50%
+      .evaluation-criteria-left
+        width: 70%
+        float: left
+        display: inline-block
+        padding-right: 10px
+      .evaluation-criteria-right
+        width: 30%
+        float: left
+        display: inline-block

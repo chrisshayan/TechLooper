@@ -3,8 +3,6 @@ package com.techlooper.entity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeSubmissionDto;
 import com.techlooper.model.Language;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 import java.util.Set;
@@ -38,13 +36,13 @@ public class ChallengeRegistrantDto {
 
   private ChallengePhaseEnum activePhase;
 
-  private Set<ChallengeCriteria> challengeCriterias;
+  private Set<ChallengeRegistrantCriteria> challengeCriterias;
 
-  public Set<ChallengeCriteria> getChallengeCriterias() {
+  public Set<ChallengeRegistrantCriteria> getChallengeCriterias() {
     return challengeCriterias;
   }
 
-  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
+  public void setChallengeCriterias(Set<ChallengeRegistrantCriteria> challengeCriterias) {
     this.challengeCriterias = challengeCriterias;
   }
 

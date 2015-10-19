@@ -317,8 +317,16 @@ public class ChallengeServiceImpl implements ChallengeService {
       ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
       ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
       challengeRegistrantEntity.setRegistrantId(new Date().getTime());
-      challengeRegistrantEntity.setChallengeCriterias(challengeEntity.getChallengeCriterias());
+//      challengeRegistrantEntity.setChallengeCriterias(challengeEntity.getChallengeCriterias());
+      if (challengeEntity.getChallengeCriterias() != null) {
+        final Set<ChallengeRegistrantCriteria> criterias = new HashSet<>();
+        challengeEntity.getChallengeCriterias().forEach(criteria -> {
+          criterias.add(dozerMapper.map(criteria, ChallengeRegistrantCriteria.class));
+        });
+        challengeRegistrantEntity.setChallengeCriterias(criterias);
+      }
       challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
+
       try {
         sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
         //sendApplicationEmailToEmployer(challengeEntity, challengeRegistrantEntity);

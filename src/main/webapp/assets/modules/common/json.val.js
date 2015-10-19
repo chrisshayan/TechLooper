@@ -1045,16 +1045,15 @@ techlooper.factory("jsonValue", function () {
     summerNoteConfig: {
       height: 150,
       toolbar: [
-        ['headline', ['style']],
         ['fontface', ['fontname']],
         ['textsize', ['fontsize']],
-        ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+        ['style', ['bold', 'italic', 'underline', 'strikethrough']],
         ['fontclr', ['color']],
         ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
         ['height', ['height']],
         ['table', ['table']],
         ['insert', ['link', 'hr']],
-        ['view', ['fullscreen', 'codeview']]
+        ['view', ['fullscreen']]
       ]
     }
   }
