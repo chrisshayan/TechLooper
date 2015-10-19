@@ -26,4 +26,30 @@ public class ChallengeCriteria implements Serializable {
   public void setWeight(Long weight) {
     this.weight = weight;
   }
+
+  public static class ChallengeCriteriaBuilder {
+    private ChallengeCriteria challengeCriteria;
+
+    private ChallengeCriteriaBuilder() {
+      challengeCriteria = new ChallengeCriteria();
+    }
+
+    public ChallengeCriteriaBuilder withName(String name) {
+      challengeCriteria.name = name;
+      return this;
+    }
+
+    public ChallengeCriteriaBuilder withWeight(Long weight) {
+      challengeCriteria.weight = weight;
+      return this;
+    }
+
+    public static ChallengeCriteriaBuilder challengeCriteria() {
+      return new ChallengeCriteriaBuilder();
+    }
+
+    public ChallengeCriteria build() {
+      return challengeCriteria;
+    }
+  }
 }

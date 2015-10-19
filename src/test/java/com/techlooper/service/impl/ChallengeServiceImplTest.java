@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.config.ChallengeServiceConfigurationTest;
+import com.techlooper.config.BaseConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.Language;
@@ -16,7 +16,7 @@ import java.util.Random;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ElasticsearchConfiguration.class, ChallengeServiceConfigurationTest.class})
+@ContextConfiguration(classes = {ElasticsearchConfiguration.class, BaseConfigurationTest.class})
 public class ChallengeServiceImplTest {
 
     private static final int NUMBER_OF_ITEMS = 50;

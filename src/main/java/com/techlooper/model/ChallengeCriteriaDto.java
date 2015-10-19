@@ -29,4 +29,30 @@ public class ChallengeCriteriaDto implements Serializable {
   public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
     this.challengeCriterias = challengeCriterias;
   }
+
+  public static class ChallengeCriteriaDtoBuilder {
+    private ChallengeCriteriaDto challengeCriteriaDto;
+
+    private ChallengeCriteriaDtoBuilder() {
+      challengeCriteriaDto = new ChallengeCriteriaDto();
+    }
+
+    public ChallengeCriteriaDtoBuilder withChallengeId(Long challengeId) {
+      challengeCriteriaDto.challengeId = challengeId;
+      return this;
+    }
+
+    public ChallengeCriteriaDtoBuilder withChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
+      challengeCriteriaDto.challengeCriterias = challengeCriterias;
+      return this;
+    }
+
+    public static ChallengeCriteriaDtoBuilder challengeCriteriaDto() {
+      return new ChallengeCriteriaDtoBuilder();
+    }
+
+    public ChallengeCriteriaDto build() {
+      return challengeCriteriaDto;
+    }
+  }
 }

@@ -2,11 +2,16 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeCriteria;
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeCriteriaDto;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeCriteriaService;
 import com.techlooper.service.ChallengeService;
-import org.dozer.Mapper;
+import org.apache.lucene.queryparser.xml.QueryBuilder;
+import org.apache.lucene.queryparser.xml.builders.TermQueryBuilder;
+import org.apache.lucene.search.TermQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +31,7 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
   private ChallengeService challengeService;
 
   @Resource
-  private Mapper dozerMapper;
+  private ChallengeRegistrantRepository challengeRegistrantRepository;
 
   public ChallengeEntity saveChallengeCriterias(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
     ChallengeEntity challenge = challengeService.findChallengeIdAndOwnerEmail(challengeCriteriaDto.getChallengeId(), ownerEmail);
@@ -37,6 +42,15 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
     Set<ChallengeCriteria> criterias = new HashSet<>();
     challengeCriteriaDto.getChallengeCriterias().forEach(criterias::add);
     challenge.setChallengeCriterias(criterias);
+
+    //TODO update to all registrants
+    challengeRegistrantRepository.search(QueryBuilders.termQuery("challengeId", challengeCriteriaDto.getChallengeId()))
+      .forEach(challengeRegistrantEntity -> {
+        challengeRegistrantEntity
+      });
+
+
+
     return challengeRepository.save(challenge);
   }
 }
