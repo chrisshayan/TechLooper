@@ -46,7 +46,7 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
     //TODO update to all registrants
     challengeRegistrantRepository.search(QueryBuilders.termQuery("challengeId", challengeCriteriaDto.getChallengeId()))
       .forEach(challengeRegistrantEntity -> {
-        challengeRegistrantEntity
+//        challengeRegistrantEntity
       });
 
 
