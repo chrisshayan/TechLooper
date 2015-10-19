@@ -179,8 +179,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                                 .filter(item -> item.getDegreeId().equals(id))
                                 .findFirst();
                 return degreeOptional.isPresent() ? degreeOptional.get().getEnglish() : EMPTY;
+            default:
+                return EMPTY;
         }
-        return EMPTY;
     }
 
     public List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity) {
