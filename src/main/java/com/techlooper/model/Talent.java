@@ -113,9 +113,7 @@ public class Talent {
 
         Talent talent = (Talent) o;
 
-        if (!email.equals(talent.email)) return false;
-
-        return true;
+        return email.equals(talent.email);
     }
 
     public int hashCode() {

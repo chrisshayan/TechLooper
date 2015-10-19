@@ -39,9 +39,7 @@ public class SalaryRange {
 
         SalaryRange that = (SalaryRange) o;
 
-        if (!percentile.equals(that.percentile)) return false;
-
-        return true;
+        return percentile.equals(that.percentile);
     }
 
     @Override
