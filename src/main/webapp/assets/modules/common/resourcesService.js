@@ -27,8 +27,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   var emailTemplateOptions = [
     {translate: "welcomeContestant", id: "welcomeContestant"},
     {translate: "askContestantSubmission", id: "askContestantSubmission"},
-    {translate: "disqualifyContestant", id: "disqualifyContestant"},
-    {translate: "winnerAnnouncement", id: "winnerAnnouncement"}
+    {translate: "disqualifyContestant", id: "disqualifyContestant"}
   ];
 
   var paymentOptions = [

@@ -780,14 +780,14 @@
   "allSubmission": "Tất cả bài nộp",
   "404Error": "URL này dẫn đến trang không tồn tại (lỗi 404). Xin vui lòng kiểm tra lại.",
   "cannotSendMail": "Bạn không có quyền thực hiện hành động này.",
-  "template": "Template:",
-  "welcomeContestant": "Welcome new contestant",
-  "askContestantSubmission": "Ask for submission",
-  "disqualifyContestant": "Disqualify a contestant",
+  "template": "Mẫu Email:",
+  "welcomeContestant": "Chào mừng thí sinh mới",
+  "askContestantSubmission": "Yêu cầu về bài gửi",
+  "disqualifyContestant": "Loại bỏ thí sinh",
   "winnerAnnouncement": "Winner announcement",
-  "exChooseATemplate": "choose a template",
-  "points": "Points",
-  "comment": "Comment",
-  "totalPoints": "Total Points"
+  "exChooseATemplate": "Lựa chọn mẫu Email",
+  "points": "Điểm",
+  "comment": "Nhận xét",
+  "totalPoints": "Tổng Điểm"
 
 }
