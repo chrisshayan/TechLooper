@@ -1,6 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.dto.DashBoardInfo;
+import com.techlooper.dto.EmailSettingDto;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 
@@ -15,4 +16,5 @@ public interface EmployerService {
 
     VnwUser findEmployerByUsername(String employerUsername);
 
+    EmailSettingDto saveEmployerEmailSetting(EmailSettingDto emailSettingDto);
 }

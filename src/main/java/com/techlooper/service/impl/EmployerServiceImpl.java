@@ -1,14 +1,18 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.dto.DashBoardInfo;
+import com.techlooper.dto.EmailSettingDto;
+import com.techlooper.entity.EmailSettingEntity;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.repository.elasticsearch.EmailSettingRepository;
 import com.techlooper.repository.vnw.VnwCompanyRepo;
 import com.techlooper.repository.vnw.VnwUserRepo;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.service.ProjectService;
+import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +38,12 @@ public class EmployerServiceImpl implements EmployerService {
     @Resource
     private ChallengeRegistrantRepository challengeRegistrantRepository;
 
+    @Resource
+    private EmailSettingRepository emailSettingRepository;
+
+    @Resource
+    private Mapper dozerMapper;
+
     public DashBoardInfo getDashboardInfo(String owner) {
         VnwUser user = vnwUserRepo.findByUsernameIgnoreCase(owner);
         String email = user.getEmail();
@@ -52,5 +62,12 @@ public class EmployerServiceImpl implements EmployerService {
     @Override
     public VnwUser findEmployerByUsername(String employerUsername) {
         return vnwUserRepo.findByUsernameIgnoreCase(employerUsername);
+    }
+
+    @Override
+    public EmailSettingDto saveEmployerEmailSetting(EmailSettingDto emailSettingDto) {
+        EmailSettingEntity emailSettingEntity = dozerMapper.map(emailSettingDto, EmailSettingEntity.class);
+        emailSettingRepository.save(emailSettingEntity);
+        return emailSettingDto;
     }
 }
