@@ -149,4 +149,12 @@ techlooper
     link: function (scope, element, attr, ctrl) {
     }
   };
+}).directive('evaluationCriteria', function () {
+  return {
+    restrict: "E",
+    replace: true,
+    templateUrl: "modules/contest-detail/evaluationCriteria.html",
+    link: function (scope, element, attr, ctrl) {
+    }
+  };
 });

@@ -6,12 +6,11 @@
     <div class="email-setting-form">
       <form name="emailSetting">
       <div class="form-group">
-          <label class="col-sm-2 control-label" translate="mailTo"></label>
-          <div class="col-sm-10">
-            <input ng-model="emailSetting.names" type="text" class="form-control">
-          </div>
+          <label class="col-sm-2 control-label" translate="replyTo"></label>
+          <input ng-model="emailSetting.names" type="text" class="input-style">
         </div>
         <div class="mail-text h-200">
+          <label translate="emailSignature"></label>
           <summernote ng-model="emailSignature" focus config="$root.jsonValue.summerNoteConfig"></summernote>
           <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">
             <p translate="cannotSendMail"></p>
