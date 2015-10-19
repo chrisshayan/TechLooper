@@ -655,12 +655,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         } else {
             NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            final String registrationPhase = ChallengePhaseEnum.REGISTRATION.getValue();
 
             if (condition.getChallengeId() != null) {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
             }
 
-            if (StringUtils.isNotEmpty(condition.getPhase())) {
+            if (StringUtils.isNotEmpty(condition.getPhase()) && !registrationPhase.equals(condition.getPhase())) {
                 boolQueryBuilder.must(matchPhraseQuery("activePhase", condition.getPhase()));
             }
 
@@ -683,6 +684,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 
             searchQueryBuilder.withQuery(boolQueryBuilder);
             result.addAll(DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder));
+
+            if (registrationPhase.equals(condition.getPhase())) {
+                result = result.stream().filter(registrantEntity -> registrantEntity.getActivePhase() == null
+                        || registrationPhase.equals(registrantEntity.getActivePhase().getValue())).collect(toList());
+            }
         }
 
         return result;
