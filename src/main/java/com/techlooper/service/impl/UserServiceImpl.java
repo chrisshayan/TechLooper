@@ -187,6 +187,7 @@ public class UserServiceImpl implements UserService {
                         } else {
                             shouldBeSavedUsers.add(user);
                         }
+                        break;
                     default: //MERGE
                         if (userImportEntity != null) {
                             userImportEntity.mergeProfile(socialProvider, user.getProfiles().get(socialProvider));
@@ -194,6 +195,7 @@ public class UserServiceImpl implements UserService {
                         } else {
                             shouldBeSavedUsers.add(user);
                         }
+                        break;
                 }
             } catch (Exception ex) {
                 LOGGER.error("User Import Fail : " + user.getEmail(), ex);
