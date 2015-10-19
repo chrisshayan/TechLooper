@@ -785,5 +785,14 @@
   "exChooseATemplate": "Choose a template",
   "points": "Points",
   "comment": "Comment",
-  "totalPoints": "Total Points"
+  "totalPoints": "Total Points",
+  "contestantsReturned": "<strong>{{number}}</strong> contestant(s) returned",
+  "evaluationCriteria": "Evaluation Criteria",
+  "criteriaName": "Criteria Name",
+  "criteriaWeight": "Weight %",
+  "criteriaTotalWeight": "Total weight %",
+  "maximumScore": "Maximum Score",
+  "emailSetting": "Email Setting",
+  "replyTo": "Reply-To Email Address:",
+  "emailSignature": "Email Signature:"
 }
