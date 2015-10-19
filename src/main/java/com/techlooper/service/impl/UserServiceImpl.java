@@ -250,13 +250,14 @@ public class UserServiceImpl implements UserService {
             TalentSearchDataProcessor talentSearchDataProcessor =
                     applicationContext.getBean(socialProvider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
 
+            TalentSearchRequest customizedParam = param;
             if (param != null) {
                 talentSearchDataProcessor.normalizeInputParameter(param);
             } else {
-                param = talentSearchDataProcessor.getSearchAllRequestParameter();
+                customizedParam = talentSearchDataProcessor.getSearchAllRequestParameter();
             }
 
-            FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(param));
+            FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(customizedParam));
             builder.withTotal(pageResult.getTotalElements());
             builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
         }
