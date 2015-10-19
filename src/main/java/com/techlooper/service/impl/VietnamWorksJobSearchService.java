@@ -215,14 +215,14 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     }
 
     public Double getAverageSalary(Long salaryMin, Long salaryMax) {
-        salaryMin = convertVND2ToUSD(salaryMin);
-        salaryMax = convertVND2ToUSD(salaryMax);
-        if (salaryMin == 0) {
-            return salaryMax * 0.75D;
-        } else if (salaryMax == 0) {
-            return salaryMin * 1.25D;
+        Long salaryMinUsd = convertVND2ToUSD(salaryMin);
+        Long salaryMaxUsd = convertVND2ToUSD(salaryMax);
+        if (salaryMinUsd == 0) {
+            return salaryMaxUsd * 0.75D;
+        } else if (salaryMaxUsd == 0) {
+            return salaryMinUsd * 1.25D;
         }
-        return (salaryMin + salaryMax) / 2D;
+        return (salaryMinUsd + salaryMaxUsd) / 2D;
     }
 
     @Override
