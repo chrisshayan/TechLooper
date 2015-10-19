@@ -5,6 +5,8 @@ import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import java.util.Set;
+
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Double;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
@@ -56,6 +58,9 @@ public class ChallengeRegistrantEntity {
   @Field(type = String, index = FieldIndex.not_analyzed)
   private ChallengePhaseEnum activePhase;
 
+  @Field(type = FieldType.Nested)
+  private Set<ChallengeCriteria> challengeCriterias;
+
   public ChallengeRegistrantEntity() {
   }
 
@@ -64,6 +69,14 @@ public class ChallengeRegistrantEntity {
     this.registrantEmail = registrantEmail;
     this.registrantLastName = registrantLastName;
     this.registrantFirstName = registrantFirstName;
+  }
+
+  public Set<ChallengeCriteria> getChallengeCriterias() {
+    return challengeCriterias;
+  }
+
+  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
+    this.challengeCriterias = challengeCriterias;
   }
 
   public java.lang.String getDisqualifiedReason() {

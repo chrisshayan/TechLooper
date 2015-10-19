@@ -188,18 +188,7 @@ public class ChallengeServiceImpl implements ChallengeService {
       challengeEntity.setChallengeId(new Date().getTime());
     }
 
-    Set<ChallengeCriteria> defaultCriterias = new HashSet<>();
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("UI/UX implemented solution").withWeight(25L).build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Creativity on the proposed solution").withWeight(25L).build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Source code quality").withWeight(25L).build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Usage of top edge technology").withWeight(25L).build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Application functionality").withWeight(25L).build());
-
+    challengeEntity.setChallengeCriterias(DataUtils.defaultChallengeCriterias());
     return challengeRepository.save(challengeEntity);
   }
 
@@ -328,6 +317,7 @@ public class ChallengeServiceImpl implements ChallengeService {
       ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
       ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
       challengeRegistrantEntity.setRegistrantId(new Date().getTime());
+      challengeRegistrantEntity.setChallengeCriterias(challengeEntity.getChallengeCriterias());
       challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
       try {
         sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
