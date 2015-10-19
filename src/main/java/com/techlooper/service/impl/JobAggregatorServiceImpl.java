@@ -356,7 +356,6 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                 while (tokenizer.hasMoreTokens()) {
                     String sourceName = tokenizer.nextToken();
                     job.setCrawlSource(sourceName.toUpperCase());
-                    break;
                 }
             }
         }
