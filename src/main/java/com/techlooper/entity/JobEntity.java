@@ -1,7 +1,6 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.JobSkill;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -11,6 +10,9 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.List;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.*;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
+import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 /**
  * Created by chrisshayan on 7/10/14.
@@ -113,9 +115,7 @@ public class JobEntity {
 
         JobEntity jobEntity = (JobEntity) o;
 
-        if (!id.equals(jobEntity.id)) return false;
-
-        return true;
+        return id.equals(jobEntity.id);
     }
 
     @Override
