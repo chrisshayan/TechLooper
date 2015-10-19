@@ -183,7 +183,8 @@ techlooper.factory("jsonValue", function () {
       freelancerPostProject: "/freelancer/post-project",
       freelancerProjectDetail: "/freelancer/project-detail",
       freelancerProjects: "/freelancer/projects",
-      whyFreelancer: "/freelancer/whyFreelancer"
+      whyFreelancer: "/freelancer/whyFreelancer",
+      emailSetting: "/email-setting"
     },
 
     views: {
@@ -225,7 +226,8 @@ techlooper.factory("jsonValue", function () {
       events: "events",
       eventDetails: "eventDetails",
       topics: "topics",
-      notFound: "notFound"
+      notFound: "notFound",
+      emailSetting: "emailSetting"
     },
 
     uiViews: [

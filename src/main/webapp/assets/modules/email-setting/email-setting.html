@@ -1,0 +1,27 @@
+<div class="content-page-block email-setting-page">
+  <div class="header-page">
+    <h2 translate="emailSetting"></h2>
+  </div>
+  <div class="content-page-detail">
+    <div class="email-setting-form">
+      <form name="emailSetting">
+      <div class="form-group">
+          <label class="col-sm-2 control-label" translate="mailTo"></label>
+          <div class="col-sm-10">
+            <input ng-model="emailSetting.names" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="mail-text h-200">
+          <summernote ng-model="emailSignature" focus config="$root.jsonValue.summerNoteConfig"></summernote>
+          <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">
+            <p translate="cannotSendMail"></p>
+          </div>
+        </div>
+        <div class="mail-body text-right tooltip-demo email-footer">
+          <a class="btn btn-sm btn-primary" title="{{'save' | translate}}" ><i class="fa fa-reply"></i> <span translate="save"></span></a>
+          <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}"><i class="fa fa-times"></i> <span translate="cancel"></span></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
