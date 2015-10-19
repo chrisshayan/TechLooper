@@ -13,7 +13,7 @@ public class GetPromotedResponse {
 
     private Double salaryMax;
 
-    List<TopDemandedSkillResponse> topDemandedSkills;
+    private List<TopDemandedSkillResponse> topDemandedSkills;
 
     public Long getTotalJob() {
         return totalJob;
