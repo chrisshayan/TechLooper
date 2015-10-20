@@ -20,4 +20,12 @@ techlooper.controller("emailSetting", function ($scope, apiService) {
       })
   };
 
+  $scope.cancleEmailSetting = function () {
+    apiService.loadEmailSetting()
+      .success(function (data) {
+        $scope.replyEmail = data.replyEmail;
+        $scope.emailSignature = data.emailSignature;
+      })
+  };
+
 });
