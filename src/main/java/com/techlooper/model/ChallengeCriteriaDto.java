@@ -3,6 +3,7 @@ package com.techlooper.model;
 import com.techlooper.entity.ChallengeCriteria;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,7 +13,18 @@ public class ChallengeCriteriaDto implements Serializable {
 
   private Long challengeId;
 
-  private Set<ChallengeCriteria> challengeCriterias;
+  private Set<ChallengeCriteria> challengeCriteria;
+
+  private Set<ChallengeRegistrantCriteriaDto> registrantCriteria;
+
+  public Set<ChallengeRegistrantCriteriaDto> getRegistrantCriteria() {
+    if (registrantCriteria == null) registrantCriteria = new HashSet<>();
+    return registrantCriteria;
+  }
+
+  public void setRegistrantCriteria(Set<ChallengeRegistrantCriteriaDto> registrantCriteria) {
+    this.registrantCriteria = registrantCriteria;
+  }
 
   public Long getChallengeId() {
     return challengeId;
@@ -22,12 +34,12 @@ public class ChallengeCriteriaDto implements Serializable {
     this.challengeId = challengeId;
   }
 
-  public Set<ChallengeCriteria> getChallengeCriterias() {
-    return challengeCriterias;
+  public Set<ChallengeCriteria> getChallengeCriteria() {
+    return challengeCriteria;
   }
 
-  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
-    this.challengeCriterias = challengeCriterias;
+  public void setChallengeCriteria(Set<ChallengeCriteria> challengeCriteria) {
+    this.challengeCriteria = challengeCriteria;
   }
 
   public static class ChallengeCriteriaDtoBuilder {
@@ -42,8 +54,13 @@ public class ChallengeCriteriaDto implements Serializable {
       return this;
     }
 
-    public ChallengeCriteriaDtoBuilder withChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
-      challengeCriteriaDto.challengeCriterias = challengeCriterias;
+    public ChallengeCriteriaDtoBuilder withChallengeCriteria(Set<ChallengeCriteria> challengeCriteria) {
+      challengeCriteriaDto.challengeCriteria = challengeCriteria;
+      return this;
+    }
+
+    public ChallengeCriteriaDtoBuilder withRegistrantCriteria(Set<ChallengeRegistrantCriteriaDto> registrantCriteria) {
+      challengeCriteriaDto.registrantCriteria = registrantCriteria;
       return this;
     }
 

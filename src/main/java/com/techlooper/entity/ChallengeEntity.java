@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class ChallengeEntity {
   private Long challengeId;
 
   @Field(type = FieldType.Nested)
-  private Set<ChallengeCriteria> challengeCriterias;
+  private Set<ChallengeCriteria> criteria;
 
   @Field(type = String)
   private String challengeName;
@@ -98,12 +99,13 @@ public class ChallengeEntity {
   @Field(type = Integer)
   private int lastEmailSentResultCode;
 
-  public Set<ChallengeCriteria> getChallengeCriterias() {
-    return challengeCriterias;
+  public Set<ChallengeCriteria> getCriteria() {
+    if (criteria == null) criteria = new HashSet<>();
+    return criteria;
   }
 
-  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
-    this.challengeCriterias = challengeCriterias;
+  public void setCriteria(Set<ChallengeCriteria> criteria) {
+    this.criteria = criteria;
   }
 
   public Boolean getExpired() {
