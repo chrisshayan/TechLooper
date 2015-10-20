@@ -1,14 +1,10 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.SimpleUserProfile;
-import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.UserProfile;
-import com.techlooper.exception.EntityNotFoundException;
 import com.techlooper.model.SocialConfig;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
-import com.techlooper.service.UserService;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.springframework.social.connect.support.OAuth1ConnectionFactory;
@@ -21,10 +17,8 @@ import org.springframework.social.oauth2.AccessGrant;
 
 import javax.annotation.Resource;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import static com.techlooper.entity.AccessGrant.AccessGrantBuilder.accessGrant;
-import static com.techlooper.entity.UserEntity.UserEntityBuilder.userEntity;
 
 /**
  * Created by phuonghqh on 12/15/14.

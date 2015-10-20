@@ -6,7 +6,6 @@ import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeCriteriaDto;
 import com.techlooper.model.ChallengeRegistrantCriteriaDto;
-import com.techlooper.model.ChallengeRegistrantCriteriaDto.ChallengeRegistrantCriteriaDtoBuilder;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeCriteriaService;

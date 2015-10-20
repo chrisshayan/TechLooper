@@ -258,10 +258,16 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getUrlResponseCode: function (url) {
       return $http.post("resource/getUrlResponseCode", {url: url}, {transformResponse: function (d, h) {return d;}});
+    },
+
+    saveEmailSetting: function (emailSetting) {
+      return $http.post("user/employer/saveEmailSetting", emailSetting);
+    },
+
+    loadEmailSetting: function () {
+      return $http.get("user/employer/emailSetting");
     }
 
-
-    
   };
 
   return instance;

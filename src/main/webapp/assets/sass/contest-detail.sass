@@ -875,11 +875,11 @@
       width: 100%
       clear: both
       display: inline-block
-      padding: 20px
+      padding: 0 20px
       .evaluation-criteria-head
         width: 100%
         display: inline-block
-        padding-bottom: 5px
+        padding: 10px 0 0 0
         font-weight: 500
         clear: both
       .evaluation-criteria-body
@@ -891,21 +891,69 @@
           clear: both
           width: 100%
           padding: 5px 0
+        .add-criteria-and-save
+          width: 100%
+          clear: both
+          padding-top: 5px
+          display: inline-block
+          .add-criteria
+            float: left
+            width: 30%
+            a
+              font-weight: 500
+          .save-evaluation-criteria
+            width: 70%
+            float: left
+            text-align: right
+            input
+              width: 80px
+              float: right
+              clear: none
+            span
+              width: 53px
+              float: right
+              font-size: 30px
+              line-height: 100%
+              text-align: center
+              padding-left: 15px
+              i
+                margin-top: -5px
+            span.successful
+              color: #337ab7
+            span.fail
+              color: red
+            p
+              width: auto
+              float: right
+              clear: both
+          .save-evaluation
+            width: 100%
+            clear: both
+            display: inline-block
+            padding: 10px 0
+            text-align: right
+            a
+              margin: auto auto auto 10px
+              padding: 6px 30px
+              height: 32px
       .evaluation-criteria-name
-        width: 80%
+        width: 85%
         float: left
         padding-right: 10px
       .evaluation-criteria-weight
-        width: 20%
+        width: 15%
         float: left
+        padding-left: 5px
         input
-          width: 50%
+          width: 60%
           margin-right: 10px
           text-align: center
+          float: left
         button
           padding: 4px 10px
           width: 30%
           height: 32px
+          float: right
         button.remove
           background-color: #fff
           color: #333
@@ -924,12 +972,3 @@
         input
           text-align: center
           width: 50%
-      .evaluation-criteria-left
-        width: 70%
-        float: left
-        display: inline-block
-        padding-right: 10px
-      .evaluation-criteria-right
-        width: 30%
-        float: left
-        display: inline-block

@@ -794,5 +794,8 @@
   "maximumScore": "Maximum Score",
   "emailSetting": "Email Setting",
   "replyTo": "Reply-To Email Address:",
-  "emailSignature": "Email Signature:"
+  "emailSignature": "Email Signature:",
+  "evaluationCriteriaDes": "Input scoring criteria and their weight that will be used for final score calculation",
+  "addCriteria": "Add Criteria",
+  "makeSure100Percent": "Make sure total weight is 100%"
 }

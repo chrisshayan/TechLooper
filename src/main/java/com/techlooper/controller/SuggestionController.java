@@ -3,7 +3,6 @@ package com.techlooper.controller;
 import com.techlooper.model.SuggestionItem;
 import com.techlooper.model.SuggestionResponse;
 import com.techlooper.service.SuggestionService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.trim;
 
 @RestController
 public class SuggestionController {

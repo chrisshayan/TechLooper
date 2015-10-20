@@ -17,7 +17,6 @@ import org.elasticsearch.index.query.TermQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.Iterator;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;

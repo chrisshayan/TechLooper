@@ -408,4 +408,10 @@ public class UserController {
         emailSettingDto.setEmployerEmail(request.getRemoteUser());
         return employerService.saveEmployerEmailSetting(emailSettingDto);
     }
+
+    @PreAuthorize("hasAnyAuthority('EMPLOYER')")
+    @RequestMapping(value = "/user/employer/emailSetting", method = RequestMethod.GET)
+    public EmailSettingDto findEmployerEmailSetting(HttpServletRequest request) {
+        return employerService.findEmployerEmailSetting(request.getRemoteUser());
+    }
 }
