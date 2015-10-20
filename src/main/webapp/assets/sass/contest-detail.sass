@@ -630,19 +630,70 @@
                   border-bottom: 1px solid #fff
                   text-align: left
                   display: inline-block
+                  p
+                    margin: 0
+                    padding: 0
                   .points-name
-                    width: 40%
+                    width: 25%
                     float: left
                     display: inline-block
-                  .points-input
+                  .weight-input
                     width: 8%
+                    float: left
+                    span
+                      height: 34px
+                      line-height: 34px
+                      text-align: center
+                    span.points
+                      border: 1px solid #d4d7d8
+                      border-radius: 5px
+                      padding: 0 10px
+                      width: 60%
+                      display: inline-block
+                      background-color: #fff
+                    span.math
+                      width: 40px
+                      text-align: center
+                      padding-left: 8px
+                  .points-input
+                    width: 10%
                     float: left
                     display: inline-block
                     padding: 0 5px
+                    input
+                      width: 75%
+                      float: left
+                    span
+                      height: 34px
+                      line-height: 34px
+                      text-align: center
+                      float: right
+                      display: inline-block
+                    span.math
+                      width: 15px
+                  .all-points
+                    width: 5%
+                    float: left
+                    input
+                      width: 75%
+                      float: left
+                      max-width: 45px
+                    span
+                      height: 34px
+                      line-height: 34px
+                      text-align: center
+                    span.points
+                      border: 1px solid #d4d7d8
+                      border-radius: 5px
+                      padding: 0 10px
+                      width: 100%
+                      display: inline-block
+                      background-color: #fff
                   .points-comment
                     width: 52%
                     float: left
                     display: inline-block
+                    padding-left: 10px
                 li:last-child
                   padding-bottom: 0
                   text-align: right
@@ -652,6 +703,53 @@
                     display: inline-block
                     color: #fff
                     padding: 8px 35px 4px 35px
+                li.header
+                  font-weight: 400
+                  border-bottom: 1px solid #fff
+                  .points-input
+                    width: 10%
+                    padding-right: 15px
+                li.total
+                  text-align: right
+                  .points-comment
+                    width: 57%
+                    float: right
+                    text-align: left
+                    padding-left: 0
+                    .score
+                      width: 10%
+                      float: left
+                      span
+                        clear: both
+                        width: 100%
+                        display: inline-block
+                        text-align: center
+                      span.math
+                        padding-bottom: 10px
+                        max-width: 45px
+                      span.points
+                        border: 1px solid #d4d7d8
+                        border-radius: 5px
+                        padding: 0 10px
+                        width: 100%
+                        display: inline-block
+                        background-color: #fff
+                        height: 34px
+                        line-height: 34px
+                        max-width: 45px
+                    p
+                      width: 90%
+                      float: left
+                      clear: none
+                      padding: 36px 0 0 5px
+                    .submission-criteria
+                      clear: both
+                      width: 100%
+                      display: inline-block
+                      text-align: right
+                      padding-top: 20px
+                      a
+                        margin: auto auto auto 5px
         .submit-phase-contest.show
           height: 280px
           background-color: #f1f2f7
@@ -874,7 +972,6 @@
     .evaluation-criteria
       width: 100%
       clear: both
-      display: inline-block
       padding: 0 20px
       .evaluation-criteria-head
         width: 100%

@@ -2,12 +2,34 @@
   <div class="score-form">
     <form name="registrantScore">
       <ul>
+        <li class="header">
+          <div class="points-name">
+            <p translate="criteriaName"></p>
+          </div>
+          <div class="weight-input">
+            <p translate="criteriaWeight"></p>
+          </div>
+          <div class="points-input">
+            <p translate="givenPoints"></p>
+          </div>
+          <div class="all-points">
+            <p translate="totalPoints"></p>
+          </div>
+        </li>
         <li>
           <div class="points-name">
-            Lorem Ipsum is simply dummy text of the printing:
+            Lorem Ipsum is simply dummy text of the printing
+          </div>
+          <div class="weight-input">
+            <span class="points">25</span>
+            <span class="math">x</span>
           </div>
           <div class="points-input">
             <input type="text" placeholder="{{'points' | translate}}" maxlength="3" class="input-style"/>
+            <span class="math">=</span>
+          </div>
+          <div class="all-points">
+            <span class="points">0</span>
           </div>
           <div class="points-comment">
             <input type="text" maxlength="200" placeholder="{{'comment' | translate}}" class="input-style"/>
@@ -15,10 +37,18 @@
         </li>
         <li>
           <div class="points-name">
-            Lorem Ipsum is simply dummy text of the printing:
+            Lorem Ipsum is simply dummy text of the printing
+          </div>
+          <div class="weight-input">
+            <span class="points">25</span>
+            <span class="math">x</span>
           </div>
           <div class="points-input">
             <input type="text" placeholder="{{'points' | translate}}" maxlength="3" class="input-style"/>
+            <span class="math">=</span>
+          </div>
+          <div class="all-points">
+            <span class="points">0</span>
           </div>
           <div class="points-comment">
             <input type="text" maxlength="200" placeholder="{{'comment' | translate}}" class="input-style"/>
@@ -26,10 +56,18 @@
         </li>
         <li>
           <div class="points-name">
-            Lorem Ipsum is simply dummy text of the printing:
+            Lorem Ipsum is simply dummy text of the printing
+          </div>
+          <div class="weight-input">
+            <span class="points">25</span>
+            <span class="math">x</span>
           </div>
           <div class="points-input">
             <input type="text" placeholder="{{'points' | translate}}" maxlength="3" class="input-style"/>
+            <span class="math">=</span>
+          </div>
+          <div class="all-points">
+            <span class="points">0</span>
           </div>
           <div class="points-comment">
             <input type="text" maxlength="200" placeholder="{{'comment' | translate}}" class="input-style"/>
@@ -37,18 +75,56 @@
         </li>
         <li>
           <div class="points-name">
-            {{'totalPoints' | translate}}
+            Lorem Ipsum is simply
+          </div>
+          <div class="weight-input">
+            <span class="points">25</span>
+            <span class="math">x</span>
           </div>
           <div class="points-input">
             <input type="text" placeholder="{{'points' | translate}}" maxlength="3" class="input-style"/>
+            <span class="math">=</span>
+          </div>
+          <div class="all-points">
+            <span class="points">0</span>
           </div>
           <div class="points-comment">
-
+            <input type="text" maxlength="200" placeholder="{{'comment' | translate}}" class="input-style"/>
           </div>
         </li>
         <li>
-          <a class="btn btn-primary btn-flat" translate="save" ng-click="registrant.score()"></a>
-          <a class="btn btn-primary btn-flat" translate="cancel" ng-click="registrant.hide()" ></a>
+          <div class="points-name">
+            Lorem Ipsum is simply dummy text
+          </div>
+          <div class="weight-input">
+            <span class="points">25</span>
+            <span class="math">x</span>
+          </div>
+          <div class="points-input">
+            <input type="text" placeholder="{{'points' | translate}}" maxlength="3" class="input-style"/>
+            <span class="math">=</span>
+          </div>
+          <div class="all-points">
+            <span class="points">0</span>
+          </div>
+          <div class="points-comment">
+            <input type="text" maxlength="200" placeholder="{{'comment' | translate}}" class="input-style"/>
+          </div>
+        </li>
+        <li class="total">
+          <div class="points-name"></div>
+          <div class="points-input"></div>
+          <div class="points-comment">
+            <div class="score">
+              <span class="math">||</span>
+              <span class="points">0</span>
+            </div>
+            <p translate="automaticallySumCriteria"></p>
+            <div class="submission-criteria">
+              <a translate="yes" class="btn btn-primary btn-flat"></a>
+              <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+            </div>
+          </div>
         </li>
       </ul>
     </form>
