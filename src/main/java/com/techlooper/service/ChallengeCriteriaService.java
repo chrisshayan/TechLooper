@@ -8,5 +8,5 @@ import com.techlooper.model.ChallengeCriteriaDto;
  */
 public interface ChallengeCriteriaService {
 
-  ChallengeEntity saveChallengeCriterias(ChallengeCriteriaDto challengeCriteriaDto, String owner);
+  ChallengeCriteriaDto saveChallengeCriteria(ChallengeCriteriaDto challengeCriteriaDto, String owner);
 }

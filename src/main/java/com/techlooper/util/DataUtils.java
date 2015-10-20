@@ -6,10 +6,7 @@ import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by NguyenDangKhoa on 10/9/15.
@@ -45,5 +42,9 @@ public class DataUtils {
     defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
       .withName("Application functionality").withWeight(25L).build());
     return defaultCriterias;
+  }
+
+  public static String generateStringId() {
+    return UUID.randomUUID().toString();
   }
 }

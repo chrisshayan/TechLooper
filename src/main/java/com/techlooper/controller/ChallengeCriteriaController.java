@@ -22,7 +22,7 @@ public class ChallengeCriteriaController {
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "challenge/criteria", method = RequestMethod.POST)
-  public ChallengeEntity save(ChallengeCriteriaDto challengeCriteriaDto, HttpServletRequest request) {
-    return challengeCriteriaService.saveChallengeCriterias(challengeCriteriaDto, request.getRemoteUser());
+  public ChallengeCriteriaDto save(ChallengeCriteriaDto challengeCriteriaDto, HttpServletRequest request) {
+    return challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, request.getRemoteUser());
   }
 }
