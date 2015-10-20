@@ -17,4 +17,6 @@ public interface EmployerService {
     VnwUser findEmployerByUsername(String employerUsername);
 
     EmailSettingDto saveEmployerEmailSetting(EmailSettingDto emailSettingDto);
+
+    EmailSettingDto findEmployerEmailSetting(String employerEmail);
 }

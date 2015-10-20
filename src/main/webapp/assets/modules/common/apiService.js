@@ -262,6 +262,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     saveEmailSetting: function (emailSetting) {
       return $http.post("user/employer/saveEmailSetting", emailSetting);
+    },
+
+    loadEmailSetting: function () {
+      return $http.get("user/employer/emailSetting");
     }
 
   };

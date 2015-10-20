@@ -5,14 +5,17 @@ import com.techlooper.dto.EmailSettingDto;
 import com.techlooper.entity.EmailSettingEntity;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
+import com.techlooper.model.EmployerDto;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.EmailSettingRepository;
 import com.techlooper.repository.vnw.VnwCompanyRepo;
 import com.techlooper.repository.vnw.VnwUserRepo;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.CompanyService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.service.ProjectService;
 import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,7 +45,13 @@ public class EmployerServiceImpl implements EmployerService {
     private EmailSettingRepository emailSettingRepository;
 
     @Resource
+    private CompanyService companyService;
+
+    @Resource
     private Mapper dozerMapper;
+
+    @Value("${mail.techlooper.reply_to}")
+    private String mailTechlooperReplyTo;
 
     public DashBoardInfo getDashboardInfo(String owner) {
         VnwUser user = vnwUserRepo.findByUsernameIgnoreCase(owner);
@@ -68,6 +77,25 @@ public class EmployerServiceImpl implements EmployerService {
     public EmailSettingDto saveEmployerEmailSetting(EmailSettingDto emailSettingDto) {
         EmailSettingEntity emailSettingEntity = dozerMapper.map(emailSettingDto, EmailSettingEntity.class);
         emailSettingRepository.save(emailSettingEntity);
+        return emailSettingDto;
+    }
+
+    @Override
+    public EmailSettingDto findEmployerEmailSetting(String employerEmail) {
+        EmailSettingEntity emailSettingEntity = emailSettingRepository.findOne(employerEmail);
+        EmailSettingDto emailSettingDto = new EmailSettingDto();
+        if (emailSettingEntity != null) {
+            emailSettingDto = dozerMapper.map(emailSettingEntity, EmailSettingDto.class);
+        } else {
+            emailSettingDto.setEmployerEmail(employerEmail);
+            emailSettingDto.setReplyEmail(mailTechlooperReplyTo);
+            EmployerDto employerDto = companyService.findByUserName(employerEmail);
+            if (employerDto != null) {
+                StringBuilder emailSignatureBuilder = new StringBuilder("");
+                emailSignatureBuilder.append(employerDto.getCompanyName()).append("<br/>").append(employerDto.getAddress());
+                emailSettingDto.setEmailSignature(emailSignatureBuilder.toString());
+            }
+        }
         return emailSettingDto;
     }
 }
