@@ -7,7 +7,7 @@
       <form name="emailSetting">
       <div class="form-group">
           <label class="col-sm-2 control-label" translate="replyTo"></label>
-          <input ng-model="emailSetting.names" type="text" class="input-style">
+          <input ng-model="replyEmail" type="text" class="input-style">
         </div>
         <div class="mail-text h-200">
           <label translate="emailSignature"></label>
@@ -17,8 +17,12 @@
           </div>
         </div>
         <div class="mail-body text-right tooltip-demo email-footer">
-          <a class="btn btn-sm btn-primary" title="{{'save' | translate}}" ><i class="fa fa-reply"></i> <span translate="save"></span></a>
-          <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}"><i class="fa fa-times"></i> <span translate="cancel"></span></a>
+          <a class="btn btn-sm btn-primary" title="{{'save' | translate}}" ng-click="saveEmailSetting()">
+              <i class="fa fa-reply"></i> <span translate="save"></span>
+          </a>
+          <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}">
+              <i class="fa fa-times"></i> <span translate="cancel"></span>
+          </a>
         </div>
       </form>
     </div>
