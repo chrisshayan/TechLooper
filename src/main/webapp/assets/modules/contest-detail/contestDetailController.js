@@ -233,14 +233,14 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     format: 'dd/mm/yyyy'
   });
 
-  //TODO check valid before save
   $scope.saveChallengeCriteria = function() {
-    if($scope.contestDetail.totalWeight() > 100){
+    if($scope.contestDetail.totalWeight > 100){
       return false;
     }
-    if($scope.criteriaInvalid == false){
-      return false;
-    }
+
+    //if($scope.criteriaInvalid == false){
+    //  return false;
+    //}
     $scope.contestDetail.saveCriteria();
   }
 });
