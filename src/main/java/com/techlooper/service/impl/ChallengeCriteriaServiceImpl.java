@@ -94,7 +94,10 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
     registrant.getCriteria().forEach(cri -> {
       ChallengeRegistrantCriteria criteriaDto = registrantCriteriaDto.getCriteria().stream()
         .filter(criDto -> criDto.getCriteriaId().equals(cri.getCriteriaId())).findFirst().get();
+
+      // only save score and comment
       cri.setScore(criteriaDto.getScore());
+      cri.setComment(criteriaDto.getComment());
       registrantCriteriaDto.getCriteria().remove(criteriaDto);
     });
 

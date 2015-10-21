@@ -10,14 +10,17 @@ techlooper.filter("challengeRegistrant", function (apiService) {
         criteria: registrant.criteria
       }
       apiService.saveChallengeRegistrantCriteria(criteria)
-        .success(function(criteria) {
-          console.log(criteria);
-          //$.each(criteria, function(i, cri) {
-          //  var registrantCri = _.findWhere(registrant.criteria, {criteriaId: cri.criteriaId});
-          //  if (registrantCri) {
-          //    registrantCri.score = cri.score;
-          //  }
-          //});
+        .success(function(data) {
+          $.each(data.criteria, function(i, cri) {
+            var registrantCri = _.findWhere(registrant.criteria, {criteriaId: cri.criteriaId});
+            if (registrantCri) {
+              registrantCri.score = cri.score;
+              registrantCri.comment = cri.comment;
+            }
+            else {
+              registrant.criteria.push(cri);
+            }
+          });
         });
     }
 

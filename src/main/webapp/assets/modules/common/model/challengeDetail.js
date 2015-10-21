@@ -9,6 +9,7 @@ techlooper.filter("challengeDetail", function (apiService) {
         challengeId: challengeDetail.challengeId,
         challengeCriteria: challengeDetail.criteria
       }
+
       apiService.saveChallengeCriteria(criteria)
         .success(function(data) {
           console.log(data);
