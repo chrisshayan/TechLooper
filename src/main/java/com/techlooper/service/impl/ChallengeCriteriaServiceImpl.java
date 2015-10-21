@@ -76,6 +76,7 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
       Set<ChallengeRegistrantCriteriaDto> registrantCriteria = new HashSet<>();
       challengeRegistrantRepository.save(challengeRegistrantEntities)
         .forEach(registrant -> registrantCriteria.add(toChallengeRegistrantCriteriaDto(registrant)));
+      challengeCriteriaDto.setRegistrantCriteria(registrantCriteria);
     }
 
     challenge = challengeRepository.save(challenge);
