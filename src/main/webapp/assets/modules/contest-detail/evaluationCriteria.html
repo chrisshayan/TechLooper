@@ -1,5 +1,11 @@
 <div class="evaluation-criteria-content">
   <p translate="evaluationCriteriaDes"></p>
+  <div class="alert alert-success" ng-show="contestDetail.$savedCriteria">
+    <p translate="emailSettingSuccessfully"></p>
+  </div>
+  <!--<div class="alert alert-danger" ng-show="!contestDetail.$savedCriteria">-->
+    <!--<p translate="errorSystem"></p>-->
+  <!--</div>-->
   <div class="evaluation-criteria-head">
     <div class="evaluation-criteria-name">
       <p translate="criteriaName"></p>
@@ -9,7 +15,6 @@
     </div>
   </div>
   <div class="evaluation-criteria-body">
-
     <div ng-repeat="cri in contestDetail.criteria" class="evaluation-criteria-item">
       <!--<div class="evaluation-criteria-name">-->
         <!--<input type="text" class="input-style" ng-model="cri.name"/>-->
@@ -27,10 +32,11 @@
       </div>
       <div class="save-evaluation-criteria">
         <div class="total-weight">
-          <span class="successful"><i class="fa fa-check"></i></span>
-          <span>{{contestDetail.totalWeight()}}</span>
-          <p class="note" translate="makeSure100Percent"></p>
-          <span ng-show="!contestDetail.$validTotalWeight">invalid</span>
+          <span class="successful" ng-show="contestDetail.totalWeight() <= 100"><i class="fa fa-check"></i></span>
+          <span class="fail"  ng-show="contestDetail.totalWeight() > 100"><i class="fa fa-times"></i></span>
+          <span class="">{{contestDetail.totalWeight() || 0}}</span>
+          <p class="note" ng-show="contestDetail.totalWeight() <= 100" translate="makeSure100Percent"></p>
+          <p class="error-messages" translate="errorTotalWeight" ng-show="contestDetail.totalWeight() > 100"></p>
         </div>
         <div class="save-evaluation">
           <a class="btn btn-primary btn-flat" translate="save" ng-click="saveChallengeCriteria()"></a><a class="btn btn-primary btn-flat gray" translate="cancel"></a>

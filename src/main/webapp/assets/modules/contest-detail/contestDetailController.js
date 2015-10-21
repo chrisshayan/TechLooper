@@ -235,10 +235,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   //TODO check valid before save
   $scope.saveChallengeCriteria = function() {
-    console.log(123);
-
-    //$scope.contestDetail.totalWeight();
-    //$scope.contestDetail.saveCriteria();
+    if($scope.contestDetail.totalWeight() > 100){
+      return false;
+    }
+    if($scope.criteriaInvalid == false){
+      return false;
+    }
+    $scope.contestDetail.saveCriteria();
   }
 });
 
