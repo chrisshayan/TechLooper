@@ -13,8 +13,15 @@
       <form name="emailSetting">
       <div class="form-group">
           <label class="col-sm-2 control-label" translate="replyTo"></label>
-          <input ng-model="replyEmail" type="email" class="input-style" validate required touchable>
-        <div class="error-messages">{{error.replyEmail}}</div>
+          <input ng-model="replyEmail" type="text" name="email" placeholder="no-reply@techlooper.com"
+                 ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                 class="input-style" validate ng-required="true">
+        <div class="error-messages"
+             ng-show="emailSetting.email.$error.required && (emailSetting.email.$dirty || emailSetting.$submitted)"
+             translate="requiredThisField"></div>
+        <div class="error-messages"
+             ng-show="emailSetting.email.$error.pattern && (emailSetting.email.$dirty || emailSetting.$submitted)"
+             translate="emailInvalid" />
         </div>
         <div class="mail-text h-200">
           <label translate="emailSignature"></label>

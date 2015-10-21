@@ -19,9 +19,8 @@ techlooper.controller("emailSetting", function ($scope, utils, jsonValue, apiSer
   $scope.saveEmailSetting = function () {
     $scope.saved = false;
     $scope.fail = false;
-    var error = validatorService.validate($(".email-setting-form").find('input'));
-    $scope.error = error;
-    if (!$.isEmptyObject(error)) {
+    $scope.emailSetting.$setSubmitted();
+    if($scope.emailSetting.$invalid) {
       return;
     }
     utils.sendNotification(jsonValue.notifications.switchScope);
