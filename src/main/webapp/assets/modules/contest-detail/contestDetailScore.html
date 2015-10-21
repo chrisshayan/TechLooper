@@ -29,7 +29,7 @@
           <div class="points-input">
             <label class="label-col" translate="givenPoints"></label>
             <input ng-model="cri.score" type="text" placeholder="{{'points' | translate}}" class="input-style"
-                   input-number=""/>
+                   ng-class="{'input-error': cri.score > 100}" input-number="" maxlength="3"/>
             <span class="math">=</span>
           </div>
           <div class="all-points">
