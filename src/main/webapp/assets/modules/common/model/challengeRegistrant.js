@@ -1,4 +1,4 @@
-techlooper.filter("challengeRegistrant", function (apiService, $rootScope) {
+techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filter) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -9,11 +9,21 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope) {
       if (!criteria) return [];
       registrant.totalPoint = 0;
       return criteria.map(function (cri) {
-        cri.point = cri.weight * cri.score;
-        registrant.totalPoint += parseInt(cri.point);
+        cri.point = $filter('number')((cri.weight / 100) * cri.score, 1);
+        registrant.totalPoint += parseFloat(cri.point);
+        registrant.totalPoint = $filter('number')(registrant.totalPoint, 1);
         return cri;
       });
     };
+
+    registrant.validate = function () {
+      $.each(registrant.criteria, function(i, cri) {
+        if (parseInt(cri.score) > 100) {
+          registrant.$invalid = true;
+        }
+        return !registrant.$invalid;
+      });
+    }
 
     registrant.saveCriteria = function () {
       var criteria = {

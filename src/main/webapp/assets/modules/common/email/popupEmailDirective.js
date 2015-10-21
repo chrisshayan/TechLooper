@@ -1,4 +1,4 @@
-techlooper.directive("popupEmail", function () {
+techlooper.directive("popupEmail", function (apiService) {
   return {
     restrict: "E",
     replace: true,
@@ -7,6 +7,13 @@ techlooper.directive("popupEmail", function () {
       composeEmail: "="
     },
     link: function (scope, element, attr, ctrl) {
+      scope.loadEmailTemplate = function (templateId) {
+        apiService.getTemplateById(templateId)
+          .success(function (template) {
+            scope.composeEmail.subject = template.subject;
+            scope.feedbackContent = template.body;
+          })
+      }
     }
   }
 }).controller('feedbackCtrl', function($scope) {
