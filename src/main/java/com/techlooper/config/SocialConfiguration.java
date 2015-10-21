@@ -9,7 +9,6 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.github.connect.GitHubConnectionFactory;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
-import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import javax.annotation.Resource;
 

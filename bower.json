@@ -45,7 +45,8 @@
     "moment": "latest",
     "angular-strap": "latest",
     "datetimepicker": "latest",
-    "angular-summernote": "latest"
+    "angular-summernote": "latest",
+    "underscore": "latest"
   },
   "overrides": {
     "jquery": {

@@ -1,0 +1,42 @@
+<div class="evaluation-criteria-content">
+  <p translate="evaluationCriteriaDes"></p>
+
+  <div class="alert alert-success" ng-show="contestDetail.$savedCriteria">
+    <p translate="emailSettingSuccessfully"></p>
+  </div>
+  <!--<div class="alert alert-danger" ng-show="!contestDetail.$savedCriteria">-->
+  <!--<p translate="errorSystem"></p>-->
+  <!--</div>-->
+  <div class="evaluation-criteria-head">
+    <div class="evaluation-criteria-name">
+      <p translate="criteriaName"></p>
+    </div>
+    <div class="evaluation-criteria-weight">
+      <p translate="criteriaWeight"></p>
+    </div>
+  </div>
+  <div class="evaluation-criteria-body">
+    <div ng-repeat="cri in contestDetail.criteriaLoop()" class="evaluation-criteria-item">
+      <challenge-criteria-input cri="cri" contest-detail="contestDetail"></challenge-criteria-input>
+    </div>
+
+    <div class="add-criteria-and-save">
+      <div class="add-criteria">
+        <a class="" translate="addCriteria" ng-click="contestDetail.addCriteria()"></a>
+      </div>
+      <div class="save-evaluation-criteria">
+        <div class="total-weight">
+          <span class="successful" ng-show="contestDetail.totalWeight == 100"><i class="fa fa-check"></i></span>
+          <span class="fail" ng-show="contestDetail.totalWeight != 100"><i class="fa fa-times"></i></span>
+          <span class="total-points" ng-class="{'total-points-fail': contestDetail.totalWeight != 100}">{{contestDetail.totalWeight}}</span>
+
+          <p class="note" translate="makeSure100Percent"></p>
+        </div>
+        <div class="save-evaluation">
+          <a class="btn btn-primary btn-flat" translate="save" ng-click="saveChallengeCriteria()"></a><a
+          class="btn btn-primary btn-flat gray" translate="cancel"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

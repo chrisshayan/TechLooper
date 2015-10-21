@@ -183,7 +183,8 @@ techlooper.factory("jsonValue", function () {
       freelancerPostProject: "/freelancer/post-project",
       freelancerProjectDetail: "/freelancer/project-detail",
       freelancerProjects: "/freelancer/projects",
-      whyFreelancer: "/freelancer/whyFreelancer"
+      whyFreelancer: "/freelancer/whyFreelancer",
+      emailSetting: "/email-setting"
     },
 
     views: {
@@ -225,7 +226,8 @@ techlooper.factory("jsonValue", function () {
       events: "events",
       eventDetails: "eventDetails",
       topics: "topics",
-      notFound: "notFound"
+      notFound: "notFound",
+      emailSetting: "emailSetting"
     },
 
     uiViews: [
@@ -1043,16 +1045,15 @@ techlooper.factory("jsonValue", function () {
     summerNoteConfig: {
       height: 150,
       toolbar: [
-        ['headline', ['style']],
         ['fontface', ['fontname']],
         ['textsize', ['fontsize']],
-        ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+        ['style', ['bold', 'italic', 'underline', 'strikethrough']],
         ['fontclr', ['color']],
         ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
         ['height', ['height']],
         ['table', ['table']],
         ['insert', ['link', 'hr']],
-        ['view', ['fullscreen', 'codeview']]
+        ['view', ['fullscreen']]
       ]
     }
   }

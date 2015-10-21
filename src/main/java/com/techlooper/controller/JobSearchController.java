@@ -1,10 +1,8 @@
 package com.techlooper.controller;
 
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.model.JobSearchResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
-import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.service.JobSearchService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +11,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class JobSearchController {

@@ -1,7 +1,5 @@
 package com.techlooper.model;
 
-import com.techlooper.entity.Company;
-
 /**
  * Created by NguyenDangKhoa on 7/17/15.
  */

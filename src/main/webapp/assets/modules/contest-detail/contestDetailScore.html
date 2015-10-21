@@ -1,0 +1,61 @@
+<div class="registrant-score">
+  <div class="score-form">
+    <ng-form novalidate name="criteriaForm" autocomplete="off" isolate-form>
+      <ul>
+        <li class="header">
+          <div class="points-name">
+            <p translate="criteriaName"></p>
+          </div>
+          <div class="weight-input">
+            <p translate="criteriaWeight"></p>
+          </div>
+          <div class="points-input">
+            <p translate="givenPoints"></p>
+          </div>
+          <div class="all-points">
+            <p translate="totalPoints"></p>
+          </div>
+        </li>
+        <li ng-repeat="cri in registrant.criteriaLoop()">
+          <div class="points-name">
+            <label class="label-col" translate="criteriaName"></label>
+            {{cri.name}}
+          </div>
+          <div class="weight-input">
+            <label class="label-col" translate="criteriaWeight"></label>
+            <span class="points">{{cri.weight}}</span>
+            <span class="math">x</span>
+          </div>
+          <div class="points-input">
+            <label class="label-col" translate="givenPoints"></label>
+            <input ng-model="cri.score" type="text" placeholder="{{'points' | translate}}" class="input-style"
+                   ng-class="{'input-error': cri.score > 100}" input-number="" maxlength="3"/>
+            <span class="math">=</span>
+          </div>
+          <div class="all-points">
+            <label class="label-col" translate="totalPoints"></label>
+            <span class="points">{{ cri.point }}</span>
+          </div>
+          <div class="points-comment">
+            <input ng-model="cri.comment" type="text" maxlength="200" placeholder="{{'comment' | translate}}" class="input-style"/>
+          </div>
+        </li>
+        <li class="total">
+          <div class="points-name"></div>
+          <div class="points-input"></div>
+          <div class="points-comment">
+            <div class="score">
+              <span class="math">||</span>
+              <span class="points">{{registrant.totalPoint}}</span>
+            </div>
+            <p translate="automaticallySumCriteria"></p>
+            <div class="submission-criteria">
+              <a translate="yes" class="btn btn-primary btn-flat" ng-click="saveScore()"></a>
+              <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-form>
+  </div>
+</div>

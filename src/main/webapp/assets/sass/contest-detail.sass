@@ -34,6 +34,24 @@
       font-size: 18px
       font-weight: 400
       text-transform: capitalize
+    .header-page
+      h2
+        span
+          border-radius: 4px
+          padding: 0 4px
+          color: #fff
+          font-size: 14px
+          font-style: italic
+        span.registration
+          background-color: #1ea185
+        span.idea
+          background-color: #9bba5c
+        span.uiux
+          background-color: #f29b27
+        span.prototype
+          background-color: #bd392f
+        span.final
+          background-color: #257abb
     .contest-name
       width: 100%
       display: inline-block
@@ -244,11 +262,14 @@
             width: 100%
             clear: both
             .registrants-query
-              width: 20%
+              width: 40%
               float: left
-              padding-right: 5px
+              .selectize-control
+                width: 48.6%
+                float: left
+                margin-right: 5px
             .registrants-date
-              width: 50%
+              width: 52%
               float: left
               .input-group
                 width: 50%
@@ -273,9 +294,12 @@
         .registrants-paging
           display: inline-block
           clear: both
-          text-align: right
+          text-align: left
           width: 100%
           padding: 0 10px
+          ul.pagination
+            float: right
+
         table.contests-table
           margin: 5px 0 10px 0
           td
@@ -368,6 +392,9 @@
                 text-align: center
                 border-radius: 3px
                 border: 1px solid #d4d7d8
+              a
+                color: #2e6da4
+                font-weight: 500
             .registration-action
               width: 10%
               float: left
@@ -536,8 +563,14 @@
               display: inline-block
               border-radius: 3px
               position: relative
+              .selectize-control
+                text-align: left
               .mail-body
                 border: 0
+                .form-group
+                  input
+                    border-radius: 4px
+                    border: 1px solid #cccccc
               .mail-subject
                 padding: 10px 0
                 .control-label
@@ -549,6 +582,8 @@
                 .form-group
                   margin: 0
                   padding: 0 20px
+                  input
+                    border-radius: 4px
                 .note-editor
                   background-color: #fff
                   min-height: 200px
@@ -575,7 +610,152 @@
                   padding: 6px 20px
                   color: #fff
                   display: inline-block
-
+          .registrant-score
+            width: 100%
+            clear: both
+            display: inline-block
+            padding: 10px 0
+            .score-form
+              background-color: #f6f6f6
+              border: 1px solid white
+              border-radius: 3px
+              clear: both
+              display: inline-block
+              padding: 10px
+              width: 100%
+              ul
+                margin: 0
+                padding: 0
+                li
+                  width: 100%
+                  clear: both
+                  padding: 3px 0 10px 0
+                  border-bottom: 1px solid #fff
+                  text-align: left
+                  display: inline-block
+                  .label-col
+                    display: none
+                  p
+                    margin: 0
+                    padding: 0
+                  .points-name
+                    width: 25%
+                    float: left
+                    display: inline-block
+                  .weight-input
+                    width: 8%
+                    float: left
+                    span
+                      height: 34px
+                      line-height: 34px
+                      text-align: center
+                    span.points
+                      border: 1px solid #d4d7d8
+                      border-radius: 5px
+                      padding: 0 10px
+                      width: 60%
+                      display: inline-block
+                      background-color: #fff
+                    span.math
+                      width: 40px
+                      text-align: center
+                      padding-left: 8px
+                  .points-input
+                    width: 10%
+                    float: left
+                    display: inline-block
+                    padding: 0 5px
+                    input
+                      width: 75%
+                      float: left
+                      text-align: center
+                    span
+                      height: 34px
+                      line-height: 34px
+                      text-align: center
+                      float: right
+                      display: inline-block
+                    span.math
+                      width: 15px
+                  .all-points
+                    width: 5%
+                    float: left
+                    input
+                      width: 75%
+                      float: left
+                      max-width: 45px
+                    span
+                      height: 34px
+                      line-height: 34px
+                      text-align: center
+                    span.points
+                      border: 1px solid #d4d7d8
+                      border-radius: 5px
+                      padding: 0 10px
+                      width: 100%
+                      display: inline-block
+                      background-color: #fff
+                  .points-comment
+                    width: 52%
+                    float: left
+                    display: inline-block
+                    padding-left: 10px
+                li:last-child
+                  padding-bottom: 0
+                  text-align: right
+                  border-bottom: 0
+                  a
+                    margin: auto
+                    display: inline-block
+                    color: #fff
+                    padding: 8px 35px 4px 35px
+                li.header
+                  font-weight: 400
+                  border-bottom: 1px solid #fff
+                  .points-input
+                    width: 10%
+                    padding-right: 15px
+                li.total
+                  text-align: right
+                  .points-comment
+                    width: 57%
+                    float: right
+                    text-align: left
+                    padding-left: 0
+                    .score
+                      width: 10%
+                      float: left
+                      span
+                        clear: both
+                        width: 100%
+                        display: inline-block
+                        text-align: center
+                      span.math
+                        padding-bottom: 10px
+                        max-width: 45px
+                      span.points
+                        border: 1px solid #d4d7d8
+                        border-radius: 5px
+                        padding: 0 10px
+                        width: 100%
+                        display: inline-block
+                        background-color: #fff
+                        height: 34px
+                        line-height: 34px
+                        max-width: 45px
+                    p
+                      width: 90%
+                      float: left
+                      clear: none
+                      padding: 36px 0 0 5px
+                    .submission-criteria
+                      clear: both
+                      width: 100%
+                      display: inline-block
+                      text-align: right
+                      padding-top: 20px
+                      a
+                        margin: auto auto auto 5px
         .submit-phase-contest.show
           height: 280px
           background-color: #f1f2f7
@@ -583,8 +763,6 @@
           padding: 10px 20px
           margin-top: 10px
           float: left
-
-
       .col-md-12
         padding: 0
       .contest-content-item
@@ -797,3 +975,120 @@
         border-top-color: #fff
     .alert
       margin-top: 20px
+    .evaluation-criteria
+      width: 100%
+      clear: both
+      padding: 0 20px
+      .evaluation-criteria-head
+        width: 100%
+        display: inline-block
+        padding: 10px 0 0 0
+        font-weight: 500
+        clear: both
+      .evaluation-criteria-body
+        width: 100%
+        clear: both
+        display: inline-block
+        .evaluation-criteria-item
+          display: inline-block
+          clear: both
+          width: 100%
+          padding: 5px 0
+        .add-criteria-and-save
+          width: 100%
+          clear: both
+          padding-top: 5px
+          display: inline-block
+          .add-criteria
+            float: left
+            width: 30%
+            a
+              font-weight: 500
+          .save-evaluation-criteria
+            width: 70%
+            float: left
+            text-align: right
+            input
+              width: 80px
+              float: right
+              clear: none
+            span
+              width: 53px
+              float: right
+              font-size: 30px
+              line-height: 100%
+              text-align: center
+              padding-left: 15px
+              i
+                margin-top: -5px
+            span.total-points
+              background-color: white
+              border: 1px solid #337ab7
+              border-radius: 5px
+              display: inline-block
+              padding: 10px
+              color: #337ab7
+              width: 78px
+              font-size: 14px
+              font-weight: 500
+            span.total-points-fail
+              border: 1px solid red
+              color: red
+            span.successful
+              color: #337ab7
+            span.fail
+              color: red
+            p
+              width: auto
+              float: right
+              clear: both
+            p.error-messages
+              color: red
+              font-style: italic
+              font-size: 12px
+          .save-evaluation
+            width: 100%
+            clear: both
+            display: inline-block
+            padding: 30px 0 0 0
+            text-align: right
+            a
+              margin: auto auto auto 10px
+              padding: 6px 30px
+              height: 32px
+      .evaluation-criteria-name
+        width: 85%
+        float: left
+        padding-right: 10px
+      .evaluation-criteria-weight
+        width: 15%
+        float: left
+        padding-left: 5px
+        input
+          width: 60%
+          margin-right: 10px
+          text-align: center
+          float: left
+        button
+          padding: 4px 10px
+          width: 30%
+          height: 32px
+          float: right
+        button.remove
+          background-color: #fff
+          color: #333
+        button.add
+          background-color: #337ab7
+          color: #fff
+      .evaluation-criteria-total-weight
+        width: 50%
+        float: left
+        padding-right: 10px
+        input
+          text-align: center
+      .evaluation-criteria-maximum-score
+        width: 50%
+        float: left
+        input
+          text-align: center
+          width: 50%

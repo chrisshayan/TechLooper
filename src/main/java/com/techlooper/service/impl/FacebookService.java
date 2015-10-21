@@ -5,7 +5,6 @@ import com.techlooper.entity.AccessGrant;
 import com.techlooper.entity.UserProfile;
 import com.techlooper.model.SocialConfig;
 import com.techlooper.repository.JsonConfigRepository;
-import org.apache.commons.collections.map.MultiValueMap;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.facebook.api.Facebook;
@@ -15,9 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.techlooper.model.SocialProvider.FACEBOOK;
 

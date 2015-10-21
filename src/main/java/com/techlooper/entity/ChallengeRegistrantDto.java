@@ -5,6 +5,7 @@ import com.techlooper.model.ChallengeSubmissionDto;
 import com.techlooper.model.Language;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 7/6/15.
@@ -34,6 +35,16 @@ public class ChallengeRegistrantDto {
   private List<ChallengeSubmissionDto> submissions;
 
   private ChallengePhaseEnum activePhase;
+
+  private Set<ChallengeRegistrantCriteria> criteria;
+
+  public Set<ChallengeRegistrantCriteria> getCriteria() {
+    return criteria;
+  }
+
+  public void setCriteria(Set<ChallengeRegistrantCriteria> criteria) {
+    this.criteria = criteria;
+  }
 
   public ChallengePhaseEnum getActivePhase() {
     return activePhase;

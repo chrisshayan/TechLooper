@@ -1,6 +1,5 @@
 package com.techlooper.repository.elasticsearch;
 
-import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.WebinarEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;

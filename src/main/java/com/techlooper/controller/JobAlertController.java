@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
-import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
-import static com.techlooper.model.JobAlertEmailResultEnum.SERVER_ERROR;
+import static com.techlooper.model.JobAlertEmailResultEnum.*;
 
 /**
  * Job alert registration controller

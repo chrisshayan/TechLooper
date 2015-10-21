@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import java.util.List;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
-import static org.springframework.data.elasticsearch.annotations.FieldType.Nested;
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 @Document(indexName = "employerInformation", type = "company")

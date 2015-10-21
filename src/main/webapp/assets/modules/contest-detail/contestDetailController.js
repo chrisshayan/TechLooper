@@ -156,6 +156,15 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       registrantFilterCondition.filterType = "registrantId";
     }
 
+    if ($scope.phase) {
+      registrantFilterCondition.phase = $scope.phase;
+    } else if (param.phase) {
+      registrantFilterCondition.phase = param.phase;
+      $scope.phase = param.phase;
+    } else {
+      registrantFilterCondition.phase = "";
+    }
+
     if ($scope.fromDate) {
       registrantFilterCondition.fromDate = $scope.fromDate;
     } else {
@@ -213,21 +222,24 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     });
   }
 
-  //$scope.showSubmitForm = function () {
-  //  var subForm = $('.submit-phase-contest');
-  //  if (subForm.hasClass('show')) {
-  //    subForm.removeClass('show');
-  //  }
-  //  else {
-  //    subForm.addClass('show');
-  //  }
-  //};
   $scope.config = {
-    registrantsFilter: resourcesService.registrantsFilterConfig
+    registrantsFilter: resourcesService.registrantsFilterConfig,
+    registrantsPhase: resourcesService.registrantsPhaseConfig
   };
+  $scope.dateFrom = moment().add(-1, 'day').format('DD/MM/YYYY');
+  $scope.dateTo = moment().format('DD/MM/YYYY');
   $('.registrants-date').find('.date').datepicker({
     autoclose:  true,
     format: 'dd/mm/yyyy'
   });
+
+  $scope.saveChallengeCriteria = function() {
+    $scope.contestDetail.validate();
+    if($scope.contestDetail.totalWeight > 100 || $scope.contestDetail.$invalid){
+      return false;
+    }
+
+    $scope.contestDetail.saveCriteria();
+  }
 });
 

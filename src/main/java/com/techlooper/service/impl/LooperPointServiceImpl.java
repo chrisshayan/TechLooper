@@ -1,29 +1,18 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.userimport.UserImportEntity;
-import com.techlooper.model.HistogramEnum;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.service.JobStatisticService;
 import com.techlooper.service.LooperPointService;
 import com.techlooper.service.UserEvaluationService;
-import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +38,7 @@ public class LooperPointServiceImpl implements LooperPointService {
   @Resource
   private JobStatisticService jobStatisticService;
 
-  final String[] countries = {"japan", "singapore", "myanmar", "cambodia", "thailand", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
+  private final String[] countries = {"japan", "singapore", "myanmar", "cambodia", "thailand", "malaysia", "indonesia", "australia", "china", "india", "korea", "taiwan",
     "spain", "ukraine", "poland", "russia", "bulgaria", "turkey", "greece", "serbia", "romania", "belarus", "lithuania", "estonia",
     "italy", "portugal", "colombia", "brazil", "chile", "argentina", "venezuela", "bolivia", "mexico"};
 //  final String[] countries = {"vietnam"};

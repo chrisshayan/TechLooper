@@ -1,7 +1,5 @@
 package com.techlooper.model;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.List;
 
 /**

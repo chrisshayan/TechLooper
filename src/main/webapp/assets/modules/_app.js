@@ -204,6 +204,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/404", {
         templateUrl: "modules/404/404.html"
       })
+      .when("/email-setting", {
+        templateUrl: "modules/email-setting/email-setting.html",
+        controller: "emailSetting"
+
+      })
       .otherwise({
         redirectTo: function (err, path, params) {
           if (!$.isEmptyObject(params)) {

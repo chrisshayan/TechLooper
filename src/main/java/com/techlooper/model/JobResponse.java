@@ -128,9 +128,7 @@ public class JobResponse {
 
         JobResponse that = (JobResponse) o;
 
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-
-        return true;
+        return url != null ? !url.equals(that.url) : that.url != null;
     }
 
     public int hashCode() {

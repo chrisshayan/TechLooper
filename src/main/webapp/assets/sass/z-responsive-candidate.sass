@@ -1229,7 +1229,11 @@
               clear: both
               .registrants-query
                 width: 100%
-                padding: 0 0 7px 0
+                padding: 0
+                .selectize-control
+                  width: 100%
+                  clear: both
+                  margin: 0 0 5px 0
               .registrants-date
                 width: 100%
                 padding: 0
@@ -1251,6 +1255,7 @@
                 button
                   margin: auto
                   padding: 6px 30px
+
             tr
               background-color: #fff
         .contest-content-item
@@ -1400,9 +1405,62 @@
               label
                 width: 100%
                 text-align: left !important
+            .registrant-score
+              .score-form ul li
+                .label-col
+                  display: inline-block
+                  clear: both
+                  width: 100%
+                  text-align: left
+                  font-weight: 500
+                .points-name
+                  clear: both
+                  display: block
+                  padding-bottom: 5px
+                  width: 100%
+                .weight-input
+                  width: 35%
+                .points-input
+                  width: 35%
+                  padding-left: 0
+                .all-points
+                  width: 30%
+                .points-comment
+                  width: 100%
+                  display: inline-block
+                  clear: both
+                  padding: 10px 0 0 0
+              .score-form ul li:last-child
+                text-align: center
+              .score-form ul li.header
+                display: none
+              .score-form ul li.total
+                .points-comment
+                  width: 100%
+                  display: inline-block
+                  clear: both
+                  padding: 10px 0 0 0
+                  .score
+                    width: 20%
+                    span.math
+                      display: none
+                  p
+                    width: 80%
+                    padding-top: 0
           .contest-detail-action
             p
               text-align: left !important
+      .evaluation-criteria
+        padding: 0 5px
+        .evaluation-criteria-name
+          width: 60%
+        .evaluation-criteria-weight
+          width: 40%
+        .evaluation-criteria-body
+          .add-criteria-and-save
+            .save-evaluation
+              a
+                padding: 6px 15px
   .contestant-page
     table.contests-table
       border: 0
@@ -1832,6 +1890,11 @@
               padding-left: 45px
             a.post-evaluation
               padding-left: 45px
+          li.mobile
+            display: block
+          li.first:hover
+            .sub-menu
+              display: none
   .header-site
     height: auto
     .personal-header-block
@@ -2112,7 +2175,10 @@
               width: 100%
               clear: both
               padding-top: 10px
-
+  .email-setting-page
+    .email-setting-form
+      width: 100%
+      padding: 20px 10px
 @media (max-width: 460px)
   .rwd-table
     margin: auto

@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;

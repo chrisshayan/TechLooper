@@ -1,0 +1,13 @@
+<ng-form novalidate name="criteriaForm" autocomplete="off" isolate-form>
+  <div class="evaluation-criteria-name">
+    <input name="name" type="text" class="input-style" ng-model="cri.name" ng-required="true"/>
+    <div class="error-messages"
+         ng-show="criteriaForm.name.$error.required && criteriaForm.name.$dirty"
+         translate="requiredThisField" />
+  </div>
+  <div class="evaluation-criteria-weight">
+    <input name="weight" type="text" class="input-style" ng-model="cri.weight" ng-required="true" input-number=""/>
+    <button class="btn btn-primary btn-flat gray" ng-click="contestDetail.removeCriteria(cri)"><i
+      class="fa fa-minus"></i></button>
+  </div>
+</ng-form>

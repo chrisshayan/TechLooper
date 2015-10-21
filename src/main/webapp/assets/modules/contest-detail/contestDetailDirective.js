@@ -27,6 +27,10 @@ techlooper
           showView("qualification");
         }
 
+        scope.registrant.showScore = function () {
+          showView("score");
+        }
+
         scope.registrant.showReviewSubmission = function () {
           showView("reviewSubmission");
         }
@@ -54,20 +58,28 @@ techlooper
         scope.registrant.disqualify = function () {
           scope.registrant.disqualified = true;
           apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function(rt) {
+            .success(function (rt) {
               scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
           delete scope.registrant.visible;
         };
 
-        scope.registrant.hide = function() {
+        scope.registrant.score = function () {
+          //apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+          //    .success(function(registrant) {
+          //      scope.registrant.activePhase = registrant.activePhase;
+          //    });
+          delete scope.registrant.visible;
+        };
+
+        scope.registrant.hide = function () {
           if (!scope.registrant.visible) return;
           delete scope.registrant.visible;
         };
 
-        scope.registrant.accept = function() {
+        scope.registrant.accept = function () {
           apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-            .success(function(registrant) {
+            .success(function (registrant) {
               scope.registrant.activePhase = registrant.activePhase;
             });
           delete scope.registrant.visible;
@@ -79,7 +91,7 @@ techlooper
           scope.registrant.hide();
         });
 
-        scope.$on("success-submission-challenge", function(sc, submission) {
+        scope.$on("success-submission-challenge", function (sc, submission) {
           if (scope.registrant.registrantId != submission.registrantId) return;
           scope.registrant.submissions.unshift(submission);
           console.log(scope.registrant.submissions);
@@ -94,9 +106,9 @@ techlooper
       restrict: "E",
       replace: true,
       templateUrl: "modules/contest-detail/contestDetailReviewSubmission.html",
-      link: function (scope, element, attr, ctrl){
-        scope.goToSubmissionLink = function(link){
-          var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://"+link;
+      link: function (scope, element, attr, ctrl) {
+        scope.goToSubmissionLink = function (link) {
+          var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://" + link;
           window.open(url, '_newtab');
         }
       }
@@ -120,12 +132,21 @@ techlooper
       }
     };
   })
- .directive('acceptance', function () {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
-    link: function (scope, element, attr, ctrl) {
-    }
-  };
-});
+  .directive('acceptance', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/contestDetailAcceptance.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('evaluationCriteria', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/evaluationCriteria.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  });

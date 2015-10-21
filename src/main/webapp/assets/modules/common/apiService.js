@@ -34,7 +34,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     getContestDetail: function (id) {
-      return $http.get("challenge/" + id);
+      return $http.get("challenge/" + id)
+        .success(function(data) {
+          $filter("challengeDetail")(data);
+        });
     },
 
     joinContest: function (contestId, firstName, lastName, registrantEmail, lang) {
@@ -199,7 +202,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.ChallengeController.getRegistrantsById
      * */
     getChallengeRegistrants: function (registrantFilterCondition) {
-      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition);
+      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition)
+        .success(function(registrants) {
+          $.each(registrants, function(i, registrant) {
+            $filter("challengeRegistrant")(registrant);
+          });
+        });
     },
 
     /**
@@ -258,6 +266,36 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     getUrlResponseCode: function (url) {
       return $http.post("resource/getUrlResponseCode", {url: url}, {transformResponse: function (d, h) {return d;}});
+    },
+
+    saveEmailSetting: function (emailSetting) {
+      return $http.post("user/employer/saveEmailSetting", emailSetting);
+    },
+
+    loadEmailSetting: function () {
+      return $http.get("user/employer/emailSetting");
+    },
+
+    getAvailableEmailTemplates : function () {
+      return $http.get("emailTemplates");
+    },
+
+    getTemplateById : function (templateId) {
+      return $http.get("emailTemplates/" + templateId);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeCriteriaController.saveChallengeCriteria
+     * */
+    saveChallengeCriteria: function(criteria) {
+      return $http.post("challenge/criteria", criteria);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeCriteriaController.saveChallengeRegistrantCriteria
+     * */
+    saveChallengeRegistrantCriteria: function(criteria) {
+      return $http.post("challengeRegistrant/criteria", criteria);
     }
   };
 

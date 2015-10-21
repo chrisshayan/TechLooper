@@ -1,7 +1,10 @@
 <div class="contestant-page contest-detail-page">
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
-      <h2 class="text-left">{{contestDetail.challengeName}}</h2>
+      <h2 class="text-left">{{contestDetail.challengeName}}
+        <span ng-class="{'registration': contestDetail.currentPhase == 'REGISTRATION','idea': contestDetail.currentPhase == 'IDEA','uiux': contestDetail.currentPhase == 'UIUX','prototype': contestDetail.currentPhase == 'PROTOTYPE','final': contestDetail.currentPhase == 'FINAL'}">
+          {{contestDetail.currentPhase | progress: 'challengePhaseTitle'}}</span>
+      </h2>
     </div>
     <div class="row contest-content-detail">
 
@@ -9,6 +12,9 @@
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
         <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}}
           ({{contestDetail.numberOfRegistrants}})</a></li>
+        <li ng-show="contestDetail.isAuthor">
+          <a  data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>
+        </li>
       </ul>
 
       <div class="tab-content contest-content-tab-detail">
@@ -45,7 +51,12 @@
               <div class="time-block">
                 <h3 translate="currentPhase"/>
 
-                <p translate="{{contestDetail.progress.translate}}"/>
+                <p>
+                  {{contestDetail.progress.translate | translate}}
+                  <span ng-show="contestDetail.currentPhase != 'REGISTRATION'">
+                    ({{contestDetail.currentPhase | progress: 'challengePhaseTitle'}})
+                  </span>
+                </p>
 
                 <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}"
                    translate-value-day-left="{{contestTimeLeft(contestDetail)}}"></p>
@@ -235,18 +246,21 @@
                 <selectize name="registrantsFilter" ng-model="filterType"
                            config="config.registrantsFilter"
                            options="config.registrantsFilter.options"></selectize>
+                <selectize name="registrantsPhase" ng-model="phase"
+                           config="config.registrantsPhase"
+                           options="config.registrantsPhase.options"></selectize>
               </div>
               <div class="registrants-date">
                   <div class="input-group date">
                       <span class="input-group-addon left" translate="from"></span>
-                      <input type="text" class="form-control" placeholder="" ng-model="fromDate">
+                      <input type="text" class="form-control" placeholder={{dateFrom}}  ng-model="fromDate">
                       <span class="input-group-addon none">
                         <i class="fa fa-calendar"></i>
                       </span>
                   </div>
                   <div class="input-group date">
                     <span class="input-group-addon none none-left" translate="to"></span>
-                    <input type="text" class="form-control" placeholder="" ng-model="toDate">
+                    <input type="text" class="form-control" placeholder={{dateTo}} ng-model="toDate">
                     <span class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </span>
@@ -307,9 +321,7 @@
                     </div>
                     <div class="registration-score">
                       <div class="label-col" translate="score"></div>
-                      <input type="text" ng-init="user.score = user.score || 0" ng-model="user.score"
-                             input-number="strict" input-number-fraction="1"/>
-                      <button ng-click="updateScore(user, $event)"><i class="fa fa-check"></i></button>
+                      <a ng-click="user.showScore()">45</a>
                     </div>
                     <div class="registration-action">
                       <div class="label-col" translate="action"></div>
@@ -324,6 +336,8 @@
                             <a ng-click="user.showQualification()" ng-class="{active: user.visible.qualification}">
                               {{'qualify' | translate}} <i class="fa fa-check-circle"></i></a>
                           </li>
+                          <li><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
+                            {{'score' | translate}} <i class="fa fa-star-o"></i></a></li>
                           <li><a ng-click="user.showReviewSubmission()" ng-class="{active: user.visible.reviewSubmission}">
                             {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()" ng-class="{active: user.visible.feedbackForm}">
@@ -346,6 +360,8 @@
                           <li ng-show="user.disqualified == true">
                             <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-check-circle"></i></a>
                           </li>
+                          <li><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
+                            {{'score' | translate}} <i class="fa fa-star-o"></i></a></li>
                           <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-comments"></i></a></li>
                           <li ng-hide="user.disqualified || contestDetail.nextPhase == user.activePhase"><a ng-click="user.showAcceptance()">{{'accept' | translate}} <i class="fa fa-check-square-o"></i></a></li>
@@ -360,12 +376,16 @@
             </table>
           </form>
           <div class="registrants-paging">
+            <span translate="contestantsReturned" translate-value-number="{{registrants.length}}"></span>
             <dir-pagination-controls
               max-size="10"
               direction-links="true"
               boundary-links="true">
             </dir-pagination-controls>
           </div>
+        </div>
+        <div class="evaluation-criteria tab-pane fade" ng-show="contestDetail.isAuthor">
+          <evaluation-criteria></evaluation-criteria>
         </div>
       </div>
     </div>

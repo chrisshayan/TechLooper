@@ -187,6 +187,7 @@ public class UserServiceImpl implements UserService {
                         } else {
                             shouldBeSavedUsers.add(user);
                         }
+                        break;
                     default: //MERGE
                         if (userImportEntity != null) {
                             userImportEntity.mergeProfile(socialProvider, user.getProfiles().get(socialProvider));
@@ -194,6 +195,7 @@ public class UserServiceImpl implements UserService {
                         } else {
                             shouldBeSavedUsers.add(user);
                         }
+                        break;
                 }
             } catch (Exception ex) {
                 LOGGER.error("User Import Fail : " + user.getEmail(), ex);
@@ -248,13 +250,14 @@ public class UserServiceImpl implements UserService {
             TalentSearchDataProcessor talentSearchDataProcessor =
                     applicationContext.getBean(socialProvider + "TalentSearchDataProcessor", TalentSearchDataProcessor.class);
 
+            TalentSearchRequest customizedParam = param;
             if (param != null) {
                 talentSearchDataProcessor.normalizeInputParameter(param);
             } else {
-                param = talentSearchDataProcessor.getSearchAllRequestParameter();
+                customizedParam = talentSearchDataProcessor.getSearchAllRequestParameter();
             }
 
-            FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(param));
+            FacetedPage<UserImportEntity> pageResult = talentSearchRepository.search(talentSearchQuery.getSearchQuery(customizedParam));
             builder.withTotal(pageResult.getTotalElements());
             builder.withResult(talentSearchDataProcessor.process(pageResult.getContent()));
         }

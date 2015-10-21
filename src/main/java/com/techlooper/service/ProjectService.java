@@ -1,9 +1,7 @@
 package com.techlooper.service;
 
-import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ProjectEntity;
 import com.techlooper.entity.ProjectRegistrantEntity;
-import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.model.ProjectDetailDto;
 import com.techlooper.model.ProjectDto;
 import com.techlooper.model.ProjectRegistrantDto;
@@ -13,7 +11,6 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Created by NguyenDangKhoa on 7/10/15.

@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.*;
 import java.util.List;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;

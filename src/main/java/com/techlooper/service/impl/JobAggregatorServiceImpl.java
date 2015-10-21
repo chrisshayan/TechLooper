@@ -315,7 +315,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         filterBuilder.mustNot(termFilter("isActive", 0));
         filterBuilder.must(rangeFilter("createdDateTime").from("now-30d/d"));
         if (criteria.getTopPriority() != null) {
-            if (criteria.getTopPriority() == true) {
+            if (criteria.getTopPriority()) {
                 filterBuilder.must(termFilter("topPriority", true));
             } else {
                 filterBuilder.mustNot(termFilter("topPriority", true));
@@ -356,7 +356,6 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
                 while (tokenizer.hasMoreTokens()) {
                     String sourceName = tokenizer.nextToken();
                     job.setCrawlSource(sourceName.toUpperCase());
-                    break;
                 }
             }
         }
